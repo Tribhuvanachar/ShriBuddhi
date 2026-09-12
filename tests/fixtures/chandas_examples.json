@@ -1,0 +1,797 @@
+{
+ "schema": "dge_chandas_examples_v1",
+ "note": "One engine-verified example verse per vṛtta; tests/test_chandas_examples.py replays every entry.",
+ "examples": [
+  {
+   "vrutta": "अन्यविधोद्गता",
+   "text": "अयमेव गोविषयतोऽपि\nसदसि जनतार्थितो जवात्\nपुष्पमुत फलमो विदधे\nजनसुप्तिदानुपमगानसम्पदा",
+   "source": "Sumadhva Vijaya 10.53",
+   "origin": "dge_corpus",
+   "scan": [
+    "LLGLGLLLGL",
+    "LLLLLGLGLG",
+    "GLLLLLGLLG",
+    "LLGLGLLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "इन्दुवदना",
+   "text": "वारयतवारयत वैरिसुहृदोऽमून्\nमारयतमारयत पार गमनात् प्राक्\nआपतत आलपत इत्यवददुच्चैः\nस त्वरकराजपुरुषानुचितवाचा",
+   "source": "Sumadhva Vijaya 10.10",
+   "origin": "dge_corpus",
+   "scan": [
+    "GLLLGLLLGLLLGG",
+    "GLLLGLLLGLLLGG",
+    "GLLLGLLLGLLLGG",
+    "GLLLGLLLGLLLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "इन्द्रवंशा",
+   "text": "तेजोऽमृतं नन्दनगात्रपात्रगं नेत्राञ्जलिभ्यामपिबत् सदाऽव्ययम्\nविद्यासुधां चास्य वचोमहाघटे पूर्णामसौ कर्णपुटेन पण्डितः",
+   "source": "Sumadhva Vijaya 5.24",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGLG",
+    "GGLGGLLGLGLG",
+    "GGLGGLLGLGLG",
+    "GGLGGLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "इन्द्रवज्रा",
+   "text": "वेदेषु यज्ञेषु तपःसु चैव\nदानेषु यत्पुण्यफलं प्रदिष्टम्\nअत्येति तत्सर्वमिदं विदित्वा\nयोगी परं स्थानमुपैति चाद्यम्",
+   "source": "Bhagavad Gītā 8.28",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGL",
+    "GGLGGLLGLGG",
+    "GGLGGLLGLGG",
+    "GGLGGLLGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (आर्द्रा)",
+   "text": "अदार्य्यसालावलिदारणेन व्यापादितेन्द्रप्रभवेन तेन\nप्राद्योतनिप्रीतिकृता निकामं मधुद्विषा सन्दिदिशे स वीरः",
+   "source": "Sumadhva Vijaya 1.13",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGG",
+    "GGLGGLLGLGL",
+    "GGLGGLLGLGG",
+    "LGLGGLLGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (ऋद्धि)",
+   "text": "तमोनुदाऽऽनन्दमवाप लोक स्तत्वप्रदीपाकृतिगोगणेन\nयदास्यशीतांशुभुवा गुरूंस्तान् त्रिविक्रमार्यान् प्रणमामि वर्यान्",
+   "source": "Sumadhva Vijaya 1.4",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGG",
+    "GGLGGLLGLGL",
+    "LGLGGLLGLGG",
+    "LGLGGLLGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (कीर्ति)",
+   "text": "मया प्रसन्नेन तवार्जुनेदं\nरूपं परं दर्शितमात्मयोगात्\nतेजोमयं विश्वमनन्तमाद्यं\nयन्मे त्वदन्येन न दृष्टपूर्वम्",
+   "source": "Bhagavad Gītā 11.47",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGG",
+    "GGLGGLLGLGG",
+    "GGLGGLLGLGG",
+    "GGLGGLLGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (जाया)",
+   "text": "वासांसि जीर्णानि यथा विहाय\nनवानि गृह्णाति नरोऽपराणि\nतथा शरीराणि विहाय जीर्णा\nन्यन्यानि संयाति नवानि देही",
+   "source": "Bhagavad Gītā 2.22",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGL",
+    "LGLGGLLGLGL",
+    "LGLGGLLGLGG",
+    "GGLGGLLGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (प्रेमा)",
+   "text": "त्वमादिदेवः पुरुषः पुराण\nस्त्वमस्य विश्वस्य परं निधानम्\nवेत्तासि वेद्यं च परं च धाम\nत्वया ततं विश्वमनन्तरूप",
+   "source": "Bhagavad Gītā 11.38",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGL",
+    "LGLGGLLGLGG",
+    "GGLGGLLGLGL",
+    "LGLGGLLGLGL"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (बाला)",
+   "text": "पश्यामि देवांस्तव देव देहे\nसर्वांस्तथा भूतविशेषसङ्घान्\nब्रह्माणमीशं कमलासनस्थ\nमृषींश्च सर्वानुरगांश्च दिव्यान्",
+   "source": "Bhagavad Gītā 11.15",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGG",
+    "GGLGGLLGLGG",
+    "GGLGGLLGLGL",
+    "LGLGGLLGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (भद्रा)",
+   "text": "कर्माणि कुर्वन् परमाद्भुतानि सभासु दैवीषु सभाजितानि\nसुग्रीवमित्रं स जगत्पवित्रं रमापतिं रामतनुं ददर्श",
+   "source": "Sumadhva Vijaya 1.11",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGL",
+    "LGLGGLLGLGL",
+    "GGLGGLLGLGG",
+    "LGLGGLLGLGL"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (माया)",
+   "text": "नमः पुरस्तादथ पृष्ठतस्ते\nनमोऽस्तु ते सर्वत एव सर्व\nअनन्तवीर्यामितविक्रमस्त्वं\nसर्वं समाप्नोषि ततोऽसि सर्वः",
+   "source": "Bhagavad Gītā 11.40",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGG",
+    "LGLGGLLGLGL",
+    "LGLGGLLGLGG",
+    "GGLGGLLGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (माला)",
+   "text": "पितासि लोकस्य चराचरस्य\nत्वमस्य पूज्यश्च गुरुर्गरीयान्\nन त्वत्समोऽस्त्यभ्यधिकः कुतोऽन्यो\nलोकत्रयेऽप्यप्रतिमप्रभाव",
+   "source": "Bhagavad Gītā 11.43",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGL",
+    "LGLGGLLGLGG",
+    "GGLGGLLGLGG",
+    "GGLGGLLGLGL"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (रामा)",
+   "text": "दंष्ट्राकरालानि च ते मुखानि\nदृष्ट्वैव कालानलसन्निभानि\nदिशो न जाने न लभे च शर्म\nप्रसीद देवेश जगन्निवास",
+   "source": "Bhagavad Gītā 11.25",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGL",
+    "GGLGGLLGLGL",
+    "LGLGGLLGLGL",
+    "LGLGGLLGLGL"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (वंशस्थ-इन्द्रवंशा १)",
+   "text": "हेतोरतिव्याप्तिरवादि तैर्य्यदा सकौतुकैस्तूर्णमसावविस्मयः\nन शुक्तिरूप्यादि मतं यदन्यथा मतं तदित्यादि वदन् जिगाय तान्",
+   "source": "Sumadhva Vijaya 5.6",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGLG",
+    "LGLGGLLGLGLG",
+    "LGLGGLLGLGLG",
+    "LGLGGLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (वंशस्थ-इन्द्रवंशा ११)",
+   "text": "व्याख्यान् कदाचिन्मणिमद्विनिर्मितं भाष्यं जनैस्तर्कविशारदैर्वृतः\nउवाच वाचं परिहासहासवान् सम्मोदतीर्थः सुरमोददायिनीम्",
+   "source": "Sumadhva Vijaya 5.17",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGLG",
+    "GGLGGLLGLGLG",
+    "LGLGGLLGLGLG",
+    "GGLGGLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (वंशस्थ-इन्द्रवंशा १२)",
+   "text": "विधानमात्रं तदुपाददे तदा पयो यथाऽच्छं परमः स हंसराट्\nतल्लीनमाक्षेपमुपैक्षताफलं वारीव सन्तो हि गुणांशतोषिणः",
+   "source": "Sumadhva Vijaya 5.26",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGLG",
+    "LGLGGLLGLGLG",
+    "GGLGGLLGLGLG",
+    "GGLGGLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (वंशस्थ-इन्द्रवंशा १३)",
+   "text": "लीलाविवादे गुरुणा जगद्गुरोः प्रसङ्गतस्तत्र च तादृशे सति\nसूत्रार्थविच्चेत् कुरु भाष्यमञ्जसे त्याक्षेपपूर्वं गुरुरभ्यधादिमम्",
+   "source": "Sumadhva Vijaya 5.25",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGLG",
+    "LGLGGLLGLGLL",
+    "GGLGGLLGLGLG",
+    "GGLGGLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (वंशस्थ-इन्द्रवंशा १४)",
+   "text": "इति ब्रुवाणे प्रतिपादयत्यलं भाष्येऽत्र दोषान् प्रबलान् मुहुर्मुहुः\nतस्मिंस्तु विस्मेरधियोऽपि यत्नतो न स्थेयसः पर्य्यहरन्निमानमी",
+   "source": "Sumadhva Vijaya 5.19",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGLG",
+    "GGLGGLLGLGLG",
+    "GGLGGLLGLGLG",
+    "GGLGGLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (वंशस्थ-इन्द्रवंशा २)",
+   "text": "कदाचिदत्रोपययौ यतिः सखा गोविन्दबुद्धेर्बहुशिष्यसंवृतः\nअमुष्य शिष्या अनुमानशिक्षिता स्तदाऽजिगीषन् गुरुबुद्धिमुद्धताः",
+   "source": "Sumadhva Vijaya 5.3",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGLG",
+    "GGLGGLLGLGLG",
+    "LGLGGLLGLGLG",
+    "LGLGGLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (वंशस्थ-इन्द्रवंशा ३)",
+   "text": "वेदान्तविद्यानिजराज्यपालने सङ्कल्प्यमानो गुरुणा गरीयसि\nअदभ्रचेता अभिषिच्यते पुरा स वारिभिर्वारिजपूरितैरथ",
+   "source": "Sumadhva Vijaya 5.1",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGLG",
+    "GGLGGLLGLGLL",
+    "LGLGGLLGLGLG",
+    "LGLGGLLGLGLL"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (वंशस्थ-इन्द्रवंशा ४)",
+   "text": "समस्तवादीन्द्रगजप्रभङ्गद श्वरन्नवन्यां प्रतिपक्षकाङ्क्षया\nवेदद्विषां यः प्रथमः समाययौ स वादिसिंहोऽत्र सबुद्धिसागरः",
+   "source": "Sumadhva Vijaya 5.8",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGLG",
+    "LGLGGLLGLGLG",
+    "GGLGGLLGLGLG",
+    "LGLGGLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (वंशस्थ-इन्द्रवंशा ६)",
+   "text": "आनन्दरूपस्य परस्य पात्रधी रानन्दसन्दायिसुशास्त्रकृत् स यत्\nआनन्दतीर्थेति पदं गुरूदितं बभूव तस्यात्यनुरूपरूपकम्",
+   "source": "Sumadhva Vijaya 5.2",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGLG",
+    "GGLGGLLGLGLG",
+    "GGLGGLLGLGLG",
+    "LGLGGLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (वंशस्थ-इन्द्रवंशा ७)",
+   "text": "श्व एव वादोऽस्त्विति वादिनौ खला वद्योत्तरं भाति यदीर्य्यतामिति\nमध्वे ब्रुवाणेऽमत तौ जितौ जनः स निश्चिकायापि निशापलायनात्",
+   "source": "Sumadhva Vijaya 5.15",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGLG",
+    "GGLGGLLGLGLL",
+    "GGLGGLLGLGLG",
+    "LGLGGLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (वंशस्थ-इन्द्रवंशा ८)",
+   "text": "असावसूयन् द्विनवप्रकारतो व्यचीकृपत् कञ्चिदथार्थमुच्चकैः\nजगद्विजेतुश्च जये ससंशय स्तावज्जनोऽजायत पूर्णचेतसः",
+   "source": "Sumadhva Vijaya 5.12",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGLG",
+    "LGLGGLLGLGLG",
+    "LGLGGLLGLGLG",
+    "GGLGGLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (वंशस्थ-इन्द्रवंशा ९)",
+   "text": "इत्यस्य वाचा शरदेव भासिता यदाऽखिलाशाः शुभपूर्णया बभौ\nप्रमोदतीर्थाननचन्द्रचन्द्रिका व्याख्याभिधा विष्णुपदप्रकाशिनी",
+   "source": "Sumadhva Vijaya 5.29",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGLG",
+    "LGLGGLLGLGLG",
+    "LGLGGLLGLGLG",
+    "GGLGGLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (वाणी)",
+   "text": "स्थाने हृषीकेश तव प्रकीर्त्या\nजगत् प्रहृष्यत्यनुरज्यते च\nरक्षांसि भीतानि दिशो द्रवन्ति\nसर्वे नमस्यन्ति च सिद्धसङ्घाः",
+   "source": "Bhagavad Gītā 11.36",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGG",
+    "LGLGGLLGLGL",
+    "GGLGGLLGLGL",
+    "GGLGGLLGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (शाला)",
+   "text": "द्रोणं च भीष्मं च जयद्रथं च\nकर्णं तथाऽन्यानपि योधवीरान्\nमया हतांस्त्वं जहि मा व्यथिष्ठा\nयुध्यस्व जेतासि रणे सपत्नान्",
+   "source": "Bhagavad Gītā 11.34",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGL",
+    "GGLGGLLGLGG",
+    "LGLGGLLGLGG",
+    "GGLGGLLGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (सिद्धि/बुद्धि)",
+   "text": "वायुर्यमोऽग्निर्वरुणः शशाङ्कः\nप्रजापतिस्त्वं प्रपितामहश्च\nनमो नमस्तेऽस्तु सहस्रकृत्वः\nपुनश्च भूयोऽपि नमो नमस्ते",
+   "source": "Bhagavad Gītā 11.39",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGGLLGLGG",
+    "LGLGGLLGLGL",
+    "LGLGGLLGLGG",
+    "LGLGGLLGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपजाति (हंसी)",
+   "text": "न हि प्रपश्यामि ममापनुद्या\nद्यच्छोकमुच्छोषणमिन्द्रियाणाम्\nअवाप्य भूमावसपत्नमृद्धम्\nराज्यं सुराणामपि चाधिपत्यम्",
+   "source": "Bhagavad Gītā 2.8",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGG",
+    "GGLGGLLGLGG",
+    "LGLGGLLGLGG",
+    "GGLGGLLGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "उपेन्द्रवज्रा",
+   "text": "यथा नदीनां बहवोऽम्बुवेगाः\nसमुद्रमेवाभिमुखाः द्रवन्ति\nतथा तवामी नरलोकवीरा\nविशन्ति वक्त्राण्यभिविज्वलन्ति",
+   "source": "Bhagavad Gītā 11.28",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGG",
+    "LGLGGLLGLGL",
+    "LGLGGLLGLGG",
+    "LGLGGLLGLGL"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "औपच्छन्दसिक, पुष्पिताग्रा",
+   "text": "सुहसितकमलाकरोपगूढं सुजनसुखार्थमनन्तभोगशय्यम्\nविकसितसुमनोघटागमुच्चं मरतकरत्नमयस्थलाग्यशोभम्",
+   "source": "Sumadhva Vijaya 6.56",
+   "origin": "dge_corpus",
+   "scan": [
+    "LLLLLLGLGLGG",
+    "LLLLGLLGLGLGG",
+    "LLLLLLGLGLGG",
+    "LLLLGLLGLGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "क्रौञ्चपदा",
+   "text": "अम्बरगङ्गाचुम्बितपादः पदतलविदलितगुरुतरशकटः\nकालियनागक्ष्वेलनिहन्ता सरसिजनवदलविकसितनयनः",
+   "source": "Kanduka Stuti KNDS_C01_V01",
+   "origin": "dge_corpus",
+   "scan": [
+    "GLLGGGLLGGLLLLLLLLLLLLLLG",
+    "GLLGGGLLGGLLLLLLLLLLLLLLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "चित्रपदा",
+   "text": "वासवदत्तनयेयं\nसा मयि संप्रति रक्ता\nपश्य सखे मम भाग्यं\nयाति दिशं दयिता मे",
+   "source": "Chandomañjarī 2.15",
+   "origin": "gemini",
+   "scan": [
+    "GLLGLLGG",
+    "GLLGLLGG",
+    "GLLGLLGG",
+    "GLLGLLGG"
+   ],
+   "verified": "06 Sep 2026, 03:35 PM IST"
+  },
+  {
+   "vrutta": "जलोद्धतगति",
+   "text": "धराधरनितम्बसङ्गततनुः\nस्फुरद्दशनदीधितिर्हतमदः\nहरिर्मृगयुवा यथा विजयते\nतथा रिपुबलं जलोद्धतगतिः",
+   "source": "Chandomañjarī 2.72",
+   "origin": "gemini",
+   "scan": [
+    "LGLLLGLGLLLG",
+    "LGLLLGLGLLLG",
+    "LGLLLGLGLLLG",
+    "LGLLLGLGLLLG"
+   ],
+   "verified": "06 Sep 2026, 03:34 PM IST"
+  },
+  {
+   "vrutta": "तोटक",
+   "text": "बहुसत्त्वगणं सविकं समहा विषमोक्षमहाहिमवन्तमयम्\nविषमोक्षमहा हिमवन्तमयन् नगमैक्षत फुल्लदृगस्तभयः",
+   "source": "Sumadhva Vijaya 6.55",
+   "origin": "dge_corpus",
+   "scan": [
+    "LLGLLGLLGLLG",
+    "LLGLLGLLGLLG",
+    "LLGLLGLLGLLG",
+    "LLGLLGLLGLLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "दोधक",
+   "text": "अप्लव देव नदीतरणं ते\nहन्त कथं च चिकीर्षसि किं त्वम्\nतं निगदन्तमिति प्रभृतीह\nस्माह महापुरुषोत्तमदासः",
+   "source": "Sumadhva Vijaya 10.16",
+   "origin": "dge_corpus",
+   "scan": [
+    "GLLGLLGLLGG",
+    "GLLGLLGLLGG",
+    "GLLGLLGLLGL",
+    "GLLGLLGLLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "द्रुतविलम्बित",
+   "text": "निगमसन्मणिदीपगणोऽभवत् तदुरुवाग्गणपङ्कनिगूढभाः\nअविदुषामिति सङ्करताकरः स किल सङ्कर इत्यभिशुश्रुवे",
+   "source": "Sumadhva Vijaya 1.54",
+   "origin": "dge_corpus",
+   "scan": [
+    "LLLGLLGLLGLG",
+    "LLLGLLGLLGLG",
+    "LLLGLLGLLGLG",
+    "LLLGLLGLLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "पृथ्वी",
+   "text": "प्रणम्य गुरुमादरादथ नियोगतो योग्यतः\nस तस्य जगतां हितं विदधतो गतः सानुगः\nमहिष्ठहृदयो महामहिमसिन्धुरानन्दतो\nनिजैरभिगतोऽनमद् रजतपीठवासं हरिम्",
+   "source": "Sumadhva Vijaya 9.55",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLLLGLGLLLGLGGLG",
+    "LGLLLGLGLLLGLGGLG",
+    "LGLLLGLGLLLGLGGLG",
+    "LGLLLGLGLLLGLGGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "प्रमाणिका",
+   "text": "न संशयो ममास्ति यत्\nभवन्त्यमी गुणास्तव\nअचिन्तनीयरूपधृग्\nहरे सदा प्रसीद मे",
+   "source": "Chandomañjarī 2.16",
+   "origin": "gemini",
+   "scan": [
+    "LGLGLGLG",
+    "LGLGLGLL",
+    "LGLGLGLG",
+    "LGLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 03:35 PM IST"
+  },
+  {
+   "vrutta": "प्रमिताक्षरा",
+   "text": "मतमित्यवेत्य महितं महतो रभिधाय बाढमिति धीरमतिः\nअनयोर्नियोगमधिरोपितवान् स्वशिरस्यनन्यसुवहं प्रणमन्",
+   "source": "Sumadhva Vijaya 8.53",
+   "origin": "dge_corpus",
+   "scan": [
+    "LLGLGLLLGLLG",
+    "LLGLGLLLGLLG",
+    "LLGLGLLLGLLG",
+    "LLGLGLLLGLLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "प्रहर्षिणी",
+   "text": "आम्नायास्त्रय इव तत्वबोधकास्ते पापघ्नास्त्रय इव पावकाः प्रजानाम्\nलोका वा सकलभृतस्त्रयोऽत्र रेजुः सानन्दा मुनिसुतधर्मसूनुमध्वाः",
+   "source": "Sumadhva Vijaya 8.54",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGGLLLLGLGLGG",
+    "GGGLLLLGLGLGG",
+    "GGGLLLLGLGLGG",
+    "GGGLLLLGLGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "भुजङ्गप्रयात",
+   "text": "महानन्दतीर्थस्य ये भाष्यभावं मनोवाग्भिरावर्तयन्ते स्वशक्त्या\nसुराद्या नरान्ता मुकुन्दप्रसादादिमं मोक्षमेते भजन्ते सदेति",
+   "source": "Sumadhva Vijaya 11.77",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGGLGGLGGLGG",
+    "LGGLGGLGGLGG",
+    "LGGLGGLGGLGG",
+    "LGGLGGLGGLGL"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "मञ्जुभाषिणी",
+   "text": "अवगम्य तं मुनिगणा वरिष्ठतो विधिवद् व्यधुर्विधिविदोऽस्य माननाम्\nअपि सङ्कथाः श्रुतिसुखाः कवीन्द्रयो रनयोर्निशम्य परमां मुदं ययुः",
+   "source": "Sumadhva Vijaya 7.58",
+   "origin": "dge_corpus",
+   "scan": [
+    "LLGLGLLLGLGLG",
+    "LLGLGLLLGLGLG",
+    "LLGLGLLLGLGLG",
+    "LLGLGLLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "मणिमाला",
+   "text": "अन्यत्र च चोरान् धन्यप्रवरोऽसौ\nशूरान् शतसङ्ख्यान् प्राप्तान् स्वजिघांसून्\nएकेन तु शिष्येणाऽकृष्टकुठारान्\nनिस्ताडितयूध्यानद्रावयत द्राक्",
+   "source": "Sumadhva Vijaya 10.21",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLLGGGGLLGG",
+    "GGLLGGGGLLGG",
+    "GGLLGGGGLLGG",
+    "GGLLGGGGLLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "मन्दाक्रान्ता",
+   "text": "विश्वं मिथ्या विभुरगुणवानात्मनां नास्ति भेदो दैत्या इत्थं व्यदधत गिरां दिक्षु भूयः प्रसिद्धिम्\nआनन्दाद्यैर्गुरुगुणगणैः पूरितो वासुदेवो मन्दम्मन्दं मनसि च सतां हन्त नूनं तिरोऽभूत्",
+   "source": "Sumadhva Vijaya 1.55",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGGGLLLLLGGLGGLGG",
+    "GGGGLLLLLGGLGGLGG",
+    "GGGGLLLLLGGLGGLGG",
+    "GGGGLLLLLGGLGGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "मालिनी",
+   "text": "इति विहरति मह्यां विष्णुदासेऽपि गूढे समजनि सुजनानां चित्तमानन्दपूर्णम्\nउदयति घनमालालीनभानौ च भानौ ननु जननयनाब्जैर्लभ्यतेऽलं विकासः",
+   "source": "Sumadhva Vijaya 2.54",
+   "origin": "dge_corpus",
+   "scan": [
+    "LLLLLLGGGLGGLGG",
+    "LLLLLLGGGLGGLGG",
+    "LLLLLLGGGLGGLGG",
+    "LLLLLLGGGLGGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "रथोद्धता",
+   "text": "वासुदेवमिह वाऽसुदेवता सत्कलामभिननन्द तं जनः\nवासुदेवमिति वासुदेवसन् नामकं विविधलीलमर्भकम्",
+   "source": "Sumadhva Vijaya 2.53",
+   "origin": "dge_corpus",
+   "scan": [
+    "GLGLLLGLGLG",
+    "GLGLLLGLGLG",
+    "GLGLLLGLGLG",
+    "GLGLLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "रुचिरा",
+   "text": "अवाप्तवान् पुनरिषुपातमस्मरद्\nरमापतिं स परशुराममादरात्\nसराजकेळ्युरुकदळीसहस्रकं\nतदाऽऽददत्त्यवसितिदत्तमुत्तमम्",
+   "source": "Sumadhva Vijaya 10.51",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGLLLLGLGLG",
+    "LGLGLLLLGLGLG",
+    "LGLGLLLLGLGLG",
+    "LGLGLLLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "वंशस्थ",
+   "text": "अनन्यसङ्गाद् गुणसङ्गिता हरे र्जनस्य मानं तु विशिष्टचेष्टितम्\nअसङ्गमस्मात् प्रकटीकरोम्यहं निजं भजन् पारमहंस्यमाश्रमम्",
+   "source": "Sumadhva Vijaya 4.2",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGLGGLLGLGLG",
+    "LGLGGLLGLGLG",
+    "LGLGGLLGLGLG",
+    "LGLGGLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "वसन्ततिलका",
+   "text": "विज्ञानभानुमति कालबलेन लीने दुर्भाष्यसन्तमससन्ततितो जनेऽन्धे\nमार्गात् सतां स्खलति खिन्नहृदो मुकुन्दं देवाश्चतुर्मुखमुखाः शरणं प्रजग्मुः",
+   "source": "Sumadhva Vijaya 2.1",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGLGLLLGLLGLGG",
+    "GGLGLLLGLLGLGG",
+    "GGLGLLLGLLGLGG",
+    "GGLGLLLGLLGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "वसन्तमालिका",
+   "text": "सहभोगमनन्यलभ्यमस्मै हनुमद्रूपभृते ददौ पुरा हि\nअनवेक्ष्य परं स्वभीष्टकर्त्रे प्रतिदातुं हरिरेधयत् तमेव",
+   "source": "Sumadhva Vijaya 9.54",
+   "origin": "dge_corpus",
+   "scan": [
+    "LLGLLGLGLGG",
+    "LLGGLLGLGLGL",
+    "LLGLLGLGLGG",
+    "LLGGLLGLGLGL"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "वातोर्मी",
+   "text": "पाराशर्य्यः परतत्त्वप्रसिद्ध्यै\nतात्पर्य्यार्थं परमं भारतस्य\nव्यक्तं वक्तुं नियुनक्ति स्म साक्षाद्\nएनं धन्यं भुवने मन्यमानः",
+   "source": "Sumadhva Vijaya 10.25",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGGGLLGGLGG",
+    "GGGGLLGGLGL",
+    "GGGGLLGGLGG",
+    "GGGGLLGGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "वियोगिनी, वैतालीय, सुन्दरी",
+   "text": "अथ हैमवते तटान्तरे बदरीषण्डविशेषमण्डितम्\nपरमाश्रममाश्रयं श्रियः सकलज्ञः स ददर्श विश्रुतम्",
+   "source": "Sumadhva Vijaya 7.1",
+   "origin": "dge_corpus",
+   "scan": [
+    "LLGLLGLGLG",
+    "LLGGLLGLGLG",
+    "LLGLLGLGLG",
+    "LLGGLLGLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "शार्दूलविक्रीडित",
+   "text": "विद्योरुद्युतिधीरतारकतिरस्कारे पतङ्गायितो दुर्वादीभकुतर्ककुम्भदलने सिंहप्रबर्धायितः\nलोलालोककलोकदृक्कुमुदिनीसंह्लादनेऽब्जायितः संसन्मण्डलमण्डनायित उत स्वानन्दतीर्थो बभौ",
+   "source": "Sumadhva Vijaya 5.52",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGGLLGLGLLLGGGLGGLG",
+    "GGGLLGLGLLLGGGLGGLG",
+    "GGGLLGLGLLLGGGLGGLG",
+    "GGGLLGLGLLLGGGLGGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "शालिनी",
+   "text": "सज्ज्ञानायाऽनन्दविज्ञानमूर्ती प्राप्तौ पृथ्वीमाश्रमे तत्र तावत्\nजाज्वल्येते विष्णुवायू स्म देवौ वेदव्यासानन्दतीर्थाभिधानौ",
+   "source": "Sumadhva Vijaya 7.59",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGGGGLGGLGG",
+    "GGGGGLGGLGG",
+    "GGGGGLGGLGG",
+    "GGGGGLGGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "शिखरिणी",
+   "text": "अयि स्वामिन् दुष्टान् दमयदमय स्पष्टमचिराद् गुणान् गूढान् विष्णोः कथयकथय स्वान् प्रमदयन्\nतदाऽऽनन्दं तन्वन्निति सुमनसां सोऽनुसरताम् अनुज्ञामादत्त त्रिभुवनगुरुर्ब्रह्मणगुरोः",
+   "source": "Sumadhva Vijaya 3.56",
+   "origin": "dge_corpus",
+   "scan": [
+    "LGGGGGLLLLLGGLLLG",
+    "LGGGGGLLLLLGGLLLG",
+    "LGGGGGLLLLLGGLLLG",
+    "LGGGGGLLLLLGGLLLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "स्रग्धरा",
+   "text": "विप्रात्मेशः क्षणार्थं कृतनतिरशितिश्रीर्हृषीकेशदेशे\nस्पष्टं दृष्टोऽप्यदृष्टः सपदि विहितवान् विस्मयं देहभाजाम्\nस्वप्ने स्वप्रेरितान्यस्थलगनिजनरोपाहृतैर्भक्ष्यभोज्यैः\nप्राज्यैः प्राभोजयत् स्वं गुरुमखिलगुरुं वेदयन् वेदबन्धुम्",
+   "source": "Sumadhva Vijaya 10.50",
+   "origin": "dge_corpus",
+   "scan": [
+    "GGGGLGGLLLLLLGGLGGLGG",
+    "GGGGLGGLLLLLLGGLGGLGG",
+    "GGGGLGGLLLLLLGGLGGLGG",
+    "GGGGLGGLLLLLLGGLGGLGG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "स्रग्विणी",
+   "text": "सञ्चरन्नञ्चनीयः कदाचिद् विभु\nर्विष्णुपद्यास्तटं वैष्णवाग्रेसरः\nप्रापदाप्तैर्निजैरेष शिष्यैर्वृत\nस्त्यक्तविश्वप्लवं शात्रवातङ्कतः",
+   "source": "Sumadhva Vijaya 10.8",
+   "origin": "dge_corpus",
+   "scan": [
+    "GLGGLGGLGGLL",
+    "GLGGLGGLGGLG",
+    "GLGGLGGLGGLL",
+    "GLGGLGGLGGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "स्वागता",
+   "text": "अत्र जन्मनि न यत् पठितं ते जैत्र भाति कथमित्यमुनोक्ते\nपूर्वजन्मसु हि वेद पुरेदं सर्वमित्यमितबुद्धिरुवाच",
+   "source": "Sumadhva Vijaya 4.53",
+   "origin": "dge_corpus",
+   "scan": [
+    "GLGLLLGLLGG",
+    "GLGLLLGLLGG",
+    "GLGLLLGLLGG",
+    "GLGLLLGLLGL"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  },
+  {
+   "vrutta": "हरिणी",
+   "text": "इति विविधगोधारावारैर्विशारदवारिदो\nहरिपदरतो विद्याविद्युत्प्रदीपितदिङ्मुखः\nभवभयमहाघर्म्मात्तप्तं सदङ्घ्रिपमण्डलं\nसफलसुमनः सान्द्रानन्दं व्यधादविपल्लवम्",
+   "source": "Sumadhva Vijaya 10.56",
+   "origin": "dge_corpus",
+   "scan": [
+    "LLLLLGGGGGLGLLGLG",
+    "LLLLLGGGGGLGLLGLG",
+    "LLLLLGGGGGLGLLGLG",
+    "LLLLLGGGGGLGLLGLG"
+   ],
+   "verified": "06 Sep 2026, 11:11 AM IST"
+  }
+ ]
+}
