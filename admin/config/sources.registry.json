@@ -1,0 +1,442 @@
+{
+ "_readme": [
+  "Every external source this project has taken content from, in one place.",
+  "",
+  "This is an INDEX, not a copy. The detail for each family stays in the",
+  "registry that importer already owns -- importers/sources.json,",
+  "tools/darshanas/darshana_sources.json, tools/DvaitaVedanta/Itara/DasaSahitya/dasa_sources.json,",
+  "tools/dvaitavedanta/dv_sources.json, tools/sayana_smriti/sources.json,",
+  "tools/kavya/config/sources.json, dge/kosha_toolkit/LICENSING.md -- and",
+  "`config` below points at it. Copying those entries here would guarantee the",
+  "two drift, and a source registry that lies is worse than none.",
+  "",
+  "WHAT EACH FIELD IS FOR",
+  "  probe    how to tell, cheaply, whether the source has changed since we",
+  "           last looked. tools/check_sources.py implements each kind.",
+  "  feeds    what in dge/data (or which published branch) came from it.",
+  "  importer the workflow that re-imports it. Blank means no importer exists",
+  "           yet and a change is a note for a human, not a job to run.",
+  "  rights   the licence position in one line. The long form lives in the",
+  "           owning config or in LICENSING.md.",
+  "",
+  "A source with `imported: false` is one we have read, cited or evaluated but",
+  "never ingested. It is here so that the question 'where did this come from,",
+  "and did we check it?' has an answer for every site the project has touched.",
+  "",
+  "`watch_only: true` marks a site we have not imported from but want to hear about (sarvamulavani.com). The admin page's syncer card for it can only Check, never Import."
+ ],
+ "sources": [
+  {
+   "id": "gretil",
+   "title": "GRETIL — Göttingen Register of Electronic Texts in Indian Languages",
+   "base": "https://gretil.sub.uni-goettingen.de/",
+   "imported": true,
+   "probe": {
+    "kind": "html_index",
+    "url": "http://gretil.sub.uni-goettingen.de/gretil.html",
+    "extract": "corpustei/[A-Za-z0-9_.-]+\\.xml"
+   },
+   "feeds": [
+    "kavya_alankara",
+    "darshana",
+    "itihasa",
+    "purana",
+    "vedas"
+   ],
+   "importer": "import-kavya.yml, ingest-gretil-bulk.yml, darshanas.yml",
+   "config": "tools/kavya/config/sources.json, tools/darshanas/darshana_sources.json",
+   "rights": "Per-file, non-commercial.",
+   "cadence": "quarterly is plenty; GRETIL grows slowly"
+  },
+  {
+   "id": "sanskritsahitya",
+   "title": "sanskritsahitya-com/data (the ashtadhyayi.com team)",
+   "base": "https://github.com/sanskritsahitya-com/data",
+   "imported": true,
+   "probe": {
+    "kind": "github_commit",
+    "repo": "sanskritsahitya-com/data",
+    "branch": "master"
+   },
+   "feeds": [
+    "kavya_alankara (tier A: mula, Mallinatha, padaccheda, anvaya, translations)"
+   ],
+   "importer": "import-kavya.yml",
+   "config": "tools/kavya/config/sources.json",
+   "rights": "No LICENSE file. Curator permission for educational/non-commercial use; re-confirm before a public launch.",
+   "cadence": "fortnightly — this is the richest kavya source and it does move"
+  },
+  {
+   "id": "ambuda",
+   "title": "ambuda.org — proofed TEI library",
+   "base": "https://ambuda.org/",
+   "imported": true,
+   "probe": {
+    "kind": "http_headers",
+    "url": "https://ambuda.org/texts/downloads/ambuda-xml.zip"
+   },
+   "feeds": [
+    "kavya_alankara (tier C: Amarusataka, Dutavakya, Urubhanga, Bhartrhari's three satakas)"
+   ],
+   "importer": "import-kavya.yml",
+   "config": "tools/kavya/config/sources.json",
+   "rights": "CC0/CC-BY per text; check each.",
+   "cadence": "fortnightly; the export is dated and one file"
+  },
+  {
+   "id": "sa_wikisource",
+   "title": "sa.wikisource.org",
+   "base": "https://sa.wikisource.org/",
+   "imported": true,
+   "probe": {
+    "kind": "mediawiki_revisions",
+    "api": "https://sa.wikisource.org/w/api.php",
+    "pages_from": "tools/kavya/config/works.json"
+   },
+   "feeds": [
+    "kavya_alankara (tier D: the dramas, Naishadhiya, Kadambari, Harshacarita, Kavyaprakasha)"
+   ],
+   "importer": "import-kavya.yml",
+   "config": "tools/kavya/config/sources.json",
+   "rights": "CC BY-SA 4.0. Attribution required.",
+   "cadence": "fortnightly; a wiki changes under you without telling you"
+  },
+  {
+   "id": "dvaitavedanta",
+   "title": "dvaitavedanta.in (DVSRF)",
+   "base": "https://dvaitavedanta.in/",
+   "imported": true,
+   "probe": {
+    "kind": "crawl_seeds",
+    "seeds_from": "tools/dvaitavedanta/dv_sources.json",
+    "extract": "category-details/\\d+/\\d+",
+    "max_seeds": 8,
+    "note": "No sitemap (theirs is a soft 404) and the front page is a script-driven shell, so the fingerprint is the union of links found at one seed page per section."
+   },
+   "feeds": [
+    "dvaitavedanta (699 granthas, 20,210 units — the largest single import)"
+   ],
+   "importer": "extract-dvaitavedanta.yml",
+   "config": "tools/dvaitavedanta/dv_sources.json",
+   "rights": "No explicit licence. Absence of a licence is not permission — see the config's own header.",
+   "cadence": "fortnightly"
+  },
+  {
+   "id": "madhwafestivals",
+   "title": "madhwafestivals.com",
+   "base": "https://madhwafestivals.com",
+   "imported": true,
+   "probe": {
+    "kind": "feed",
+    "url": "https://madhwafestivals.com/feed/"
+   },
+   "feeds": [
+    "DvaitaVedanta/Itara/DasaSahitya"
+   ],
+   "importer": "import-dasa-sahitya.yml",
+   "config": "tools/DvaitaVedanta/Itara/DasaSahitya/dasa_sources.json",
+   "rights": "Public devotional archive; non-commercial reproduction.",
+   "cadence": "fortnightly — a blog, so new posts are exactly what we want to catch"
+  },
+  {
+   "id": "dasasahitya_net",
+   "title": "dasasahitya.net",
+   "base": "https://dasasahitya.net",
+   "imported": true,
+   "probe": {
+    "kind": "feed",
+    "url": "https://dasasahitya.net/feed/"
+   },
+   "feeds": [
+    "DvaitaVedanta/Itara/DasaSahitya"
+   ],
+   "importer": "import-dasa-sahitya.yml",
+   "config": "tools/DvaitaVedanta/Itara/DasaSahitya/dasa_sources.json",
+   "rights": "Public Haridasa lyrics site; non-commercial.",
+   "cadence": "fortnightly"
+  },
+  {
+   "id": "meerasubbarao",
+   "title": "meerasubbarao.wordpress.com",
+   "base": "https://meerasubbarao.wordpress.com",
+   "imported": true,
+   "probe": {
+    "kind": "feed",
+    "url": "https://meerasubbarao.wordpress.com/feed/"
+   },
+   "feeds": [
+    "DvaitaVedanta/Itara/DasaSahitya"
+   ],
+   "importer": "import-dasa-sahitya.yml",
+   "config": "tools/DvaitaVedanta/Itara/DasaSahitya/dasa_sources.json",
+   "rights": "Public devotional lyrics blog; non-commercial.",
+   "cadence": "fortnightly"
+  },
+  {
+   "id": "sanskritdocuments",
+   "title": "SanskritDocuments.org",
+   "base": "https://sanskritdocuments.org/",
+   "imported": true,
+   "probe": {
+    "kind": "html_index",
+    "url": "https://sanskritdocuments.org/sanskrit/",
+    "extract": "href=\"([^\"]+)\""
+   },
+   "feeds": [
+    "darshana",
+    "stotra"
+   ],
+   "importer": "darshanas.yml",
+   "config": "tools/darshanas/darshana_sources.json",
+   "rights": "Free for personal/educational use; attribution.",
+   "cadence": "quarterly"
+  },
+  {
+   "id": "indowordnet",
+   "title": "IndoWordNet (CFILT, IIT Bombay) via the pyiwn dump",
+   "base": "https://www.dropbox.com/s/t29eqq19nt5eygs/iwn_data.tar.gz",
+   "imported": true,
+   "probe": {
+    "kind": "http_headers",
+    "url": "https://www.dropbox.com/s/t29eqq19nt5eygs/iwn_data.tar.gz?dl=1"
+   },
+   "feeds": [
+    "wordnet-dist branch (37,734 Sanskrit synsets)"
+   ],
+   "importer": "publish-wordnet.yml",
+   "config": "tools/build_wordnet.py",
+   "rights": "CC BY-SA 4.0 per the pyiwn distribution; IndoWordNet's own pages say research use. OPEN QUESTION.",
+   "cadence": "yearly; the dump is from 2019 and has not moved"
+  },
+  {
+   "id": "indic_dict_stardict",
+   "title": "indic-dict StarDict repositories (the kosha corpus)",
+   "base": "https://github.com/indic-dict",
+   "imported": true,
+   "probe": {
+    "kind": "github_commit",
+    "repo": "indic-dict/stardict-sanskrit",
+    "branch": "master"
+   },
+   "feeds": [
+    "bhumandala-kosha-data (95 dictionaries, 2.1M headwords)"
+   ],
+   "importer": "(the Build Kosha corpus Action in bhumandala-kosha-data)",
+   "config": "dge/kosha_toolkit/LICENSING.md",
+   "rights": "Cologne re-distributions CC-BY-SA 4.0; the rest carry no explicit licence and ship with an 'Unclear' badge.",
+   "cadence": "quarterly"
+  },
+  {
+   "id": "archive_org",
+   "title": "archive.org",
+   "base": "https://archive.org/",
+   "imported": true,
+   "probe": {
+    "kind": "manual",
+    "note": "Per-item; probe the item's metadata endpoint when an item id is known."
+   },
+   "feeds": [
+    "audio (bhumandala-audio-data)",
+    "scans"
+   ],
+   "importer": "vedavani-extract.yml",
+   "config": "tools/vedavani/",
+   "rights": "Per item.",
+   "cadence": "on demand"
+  },
+  {
+   "id": "utexas_gdoc_hub",
+   "title": "sites.utexas.edu Sanskrit resources (the Sayana Google-Doc hub)",
+   "base": "https://sites.utexas.edu/sanskrit/",
+   "imported": true,
+   "probe": {
+    "kind": "html_index",
+    "url": "https://sites.utexas.edu/sanskrit/",
+    "extract": "href=\"([^\"]+)\""
+   },
+   "feeds": [
+    "vedas (Sayana), smriti_dharma"
+   ],
+   "importer": "ingest-sayana-smriti.yml",
+   "config": "tools/sayana_smriti/sources.json",
+   "rights": "Per document.",
+   "cadence": "quarterly"
+  },
+  {
+   "id": "openn_upenn",
+   "title": "OPenn — University of Pennsylvania Kislak Center",
+   "base": "https://openn.library.upenn.edu/",
+   "imported": false,
+   "probe": {
+    "kind": "manual"
+   },
+   "feeds": [],
+   "importer": "",
+   "config": "tools/darshanas/darshana_sources.json",
+   "rights": "Public domain images.",
+   "cadence": "on demand — manuscript images, evaluated, not ingested"
+  },
+  {
+   "id": "wisdomlib",
+   "title": "wisdomlib.org",
+   "base": "https://www.wisdomlib.org/",
+   "imported": false,
+   "probe": {
+    "kind": "manual"
+   },
+   "feeds": [],
+   "importer": "",
+   "config": "",
+   "rights": "Site terms restrict reuse; consulted for reference only.",
+   "cadence": "n/a"
+  },
+  {
+   "id": "sacred_texts",
+   "title": "sacred-texts.com",
+   "base": "https://sacred-texts.com/",
+   "imported": true,
+   "probe": {
+    "kind": "manual"
+   },
+   "feeds": [
+    "itihasa/mahabharata/*/translation_ganguli"
+   ],
+   "importer": "ingest-commentaries.yml",
+   "config": "importers/mahabharata_ganguli.py",
+   "rights": "Public-domain Ganguli translation; imported by importers/mahabharata_ganguli.py.",
+   "cadence": "n/a"
+  },
+  {
+   "id": "valmikiramayan",
+   "title": "valmikiramayan.net",
+   "base": "https://www.valmikiramayan.net/",
+   "imported": true,
+   "probe": {
+    "kind": "manual"
+   },
+   "feeds": [
+    "itihasa/ramayana/*/saartha (kāṇḍas 1–6)"
+   ],
+   "importer": "ingest-commentaries.yml",
+   "config": "importers/ramayana_saartha.py",
+   "rights": "No explicit licence; consulted for verification.",
+   "cadence": "n/a"
+  },
+  {
+   "id": "sarvamulavani",
+   "title": "sarvamulavani.com — Sarvamūla reader (SQLite-backed single page)",
+   "base": "https://sarvamulavani.com/",
+   "imported": false,
+   "probe": {
+    "kind": "json_fields",
+    "url": "https://pub-f4f244dc7f1b4ad2ad5c4116104064ed.r2.dev/version.json",
+    "fields": [
+     "db",
+     "audio"
+    ],
+    "note": "The reader loads one sarvamula.db from that host after asking version.json which revision is current (2026-08-18a on 9 Sep 2026). Every route on the site itself returns the same app shell, so the version stamp is the only honest signal."
+   },
+   "feeds": [],
+   "importer": "",
+   "config": "",
+   "rights": "Not yet ingested; no licence statement found on the site. A change here is a note for the lead, not a job.",
+   "cadence": "fortnightly",
+   "watch_only": true
+  },
+  {
+   "id": "setutila",
+   "title": "setutila.in — SetuTila Sarvamūla edition (WordPress)",
+   "base": "https://setutila.in/",
+   "imported": true,
+   "probe": {
+    "kind": "wp_json",
+    "base": "https://setutila.in",
+    "path": "posts",
+    "note": "Total published posts plus the newest modified_gmt, the same field tools/setutila/import_setutila.py's delta sync keys on."
+   },
+   "feeds": [
+    "DvaitaVedanta/SarvaMula (47 granthas, 67 MiB)"
+   ],
+   "importer": "extract-setutila.yml",
+   "config": "tools/setutila/import_setutila.py",
+   "rights": "Case-by-case permission recorded by the lead; all 47 leaves flagged restricted.",
+   "cadence": "fortnightly"
+  },
+  {
+   "id": "anandamakaranda",
+   "title": "anandamakaranda.in — Ānandamakaranda wiki (Sarvamūla source)",
+   "base": "https://anandamakaranda.in/Main_Page",
+   "imported": true,
+   "probe": {
+    "kind": "mediawiki_recentchanges",
+    "api": "https://anandamakaranda.in/api.php",
+    "namespace": "0",
+    "note": "A MediaWiki; the newest main-namespace revision id plus the wiki's page count."
+   },
+   "feeds": [
+    "darshana/vedanta/dvaita/Anandamakaranda (47 works with wiki provenance; merged one-to-one or snapshotted by sync-anandamakaranda.yml)"
+   ],
+   "importer": "sync-anandamakaranda.yml",
+   "config": "dge/convert/urlimport.js",
+   "rights": "No licence statement; used under the lead's case-by-case authorisation. Existing works are synced; new works are reported, never imported blind.",
+   "cadence": "fortnightly"
+  },
+  {
+   "id": "srivaishnavan_meghamala",
+   "title": "srivaishnavan.com — Śrī Rāmānuja Meghamālā (JIR Foundation)",
+   "base": "https://srivaishnavan.com/sri-ramanuja-meghamala/",
+   "imported": true,
+   "probe": {
+    "kind": "wp_json",
+    "base": "https://srivaishnavan.com",
+    "path": "pages?slug=sri-ramanuja-meghamala",
+    "note": "The Meghamālā is one long WordPress page; its modified_gmt moves when the page is edited."
+   },
+   "feeds": [
+    "darshana/vedanta/vishishtadvaita/RamanujaMeghamala"
+   ],
+   "importer": "sync-meghamala.yml",
+   "config": "importers/ramanuja_meghamala.py",
+   "rights": "Public site; case-by-case permission recorded 2 Sep 2026. Synced by grantha when posts change (sync-meghamala.yml).",
+   "cadence": "fortnightly"
+  },
+  {
+   "id": "advaitasharada",
+   "title": "advaitasharada.sringeri.net — Sringeri Advaita Śāradā critical edition",
+   "base": "https://advaitasharada.sringeri.net/",
+   "imported": true,
+   "probe": {
+    "kind": "html_index",
+    "url": "https://advaitasharada.sringeri.net/",
+    "extract": "\"(/read/[a-z0-9-]+/|/_astro/[^\"]+)",
+    "note": "A static (Astro) site with no sitemap: the fingerprint is the set of /read/<work> links on the home page plus the build-hashed asset names, which change on every deploy."
+   },
+   "feeds": [
+    "darshana/vedanta/advaita/{prakarana_granthas,siddhi_granthas,stotrani,*_prasthana_tikas,shankara_bhashya_extra} (51 data.json, 155 MiB)"
+   ],
+   "importer": "sync-advaitasharada.yml",
+   "config": "importers/advaita_sharada.py",
+   "rights": "Case-by-case permission (2 Sep 2026); licensed corpus — must not be indexed publicly (docs/SEO_ARCHITECTURE.md). Refreshed by sync-advaitasharada.yml; never widened.",
+   "cadence": "fortnightly"
+  },
+  {
+   "id": "ashtadhyayi_com",
+   "title": "ashtadhyayi.com — sūtra, vṛtti and commentary data (github ashtadhyayi-com/data)",
+   "base": "https://ashtadhyayi.com/",
+   "imported": true,
+   "probe": {
+    "kind": "github_commit",
+    "repo": "ashtadhyayi-com/data",
+    "branch": "master",
+    "note": "The site is built from this public repository; its latest commit is the change signal."
+   },
+   "feeds": [
+    "vedanga/vyakarana/ashtadhyayi/{sutrapatha,siddhanta_kaumudi,mahabhashya_patanjali,vasu}"
+   ],
+   "importer": "sync-ashtadhyayi.yml",
+   "config": "importers/ashtadhyayi_layers.py",
+   "rights": "Curator's e-mail permission held by the lead; no LICENSE file on the repo. Re-imported by sync-ashtadhyayi.yml when the repository moves.",
+   "cadence": "fortnightly"
+  }
+ ]
+}

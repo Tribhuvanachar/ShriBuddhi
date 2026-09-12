@@ -1,0 +1,55 @@
+# Sarvamoola Digital Library — this site wants to be found by ordinary
+# search engines (so people can actually discover the texts here) while
+# keeping bulk AI-training crawlers out. Screenshots and manual copying
+# cannot be blocked by a robots.txt or by anything else a website can do —
+# this file only asks well-behaved automated crawlers to stay away; it is
+# not a technical barrier.
+
+# Known AI-training crawlers, disallowed outright.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: PerplexityBot
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+# Everyone else (ordinary search engines, browsers, feed readers) is
+# welcome, admin tooling excluded — it isn't secret, but it has no reason
+# to appear in a search result either.
+User-agent: *
+Disallow: /admin/
+Allow: /
+
+Sitemap: https://tribhuvanachar.github.io/bhumandala/sitemap.xml

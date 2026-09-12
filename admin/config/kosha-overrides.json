@@ -1,0 +1,20 @@
+{
+ "_readme": [
+  "Committed, public-facing Kosha visibility & presentation tiers, read by",
+  "dge/kosha2.html (and eventually the classic overlay). Unlike the old",
+  "localStorage-only kosha_hidden_dicts, this file applies to EVERY visitor.",
+  "visibility tiers per dictionary slug:",
+  "  public        - searchable and browsable (default when absent)",
+  "  search_hidden - excluded from search results; still in the Browse list",
+  "  unlisted      - excluded from search AND the Browse list; opens only",
+  "                  via a direct ?browse=<slug> link",
+  "  disabled      - not served at all",
+  "Superadmins see everything, with the tier badged on each card.",
+  "order/pins: the default presentation order for readers who set none."
+ ],
+ "version": 1,
+ "updatedAt": 0,
+ "visibility": {},
+ "pins": ["shabdArtha_kaustubha", "shabdakalpadruma", "vachaspatyam", "mw-cologne"],
+ "order": []
+}

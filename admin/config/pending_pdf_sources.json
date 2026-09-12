@@ -1,0 +1,667 @@
+{
+ "_readme": [
+  "Candidate scanned/e-text sources for taxonomy leaves that are still empty,",
+  "gathered 25 Aug 2026 while investigating the Smriti/Dharmashastra/Shiksha/Purana",
+  "gaps (see dge/PENDING.md's 'part 6'/'part 7'/'part 8' entries for the full story).",
+  "Keys are dotted taxonomy paths (matching taxonomy.json's own nesting). Each entry",
+  "has a status:",
+  "  text_available   -- a real, already-transcribed e-text exists (Google Doc or",
+  "                       similar) and can be imported directly, the same way",
+  "                       tools/gemini_ocr_commentary.py's OCR pipeline is NOT needed",
+  "                       for this one (see Daksha Smriti's import for the method:",
+  "                       fetch <doc_id>/export?format=txt, no auth needed for a",
+  "                       public share link).",
+  "  pdf_ocr_candidate -- only a scanned PDF was found; this is real input for the",
+  "                       server-side OCR pipeline (.github/workflows/",
+  "                       ocr-sanskrit-commentary.yml, dispatched with pdf_url +",
+  "                       a page range). Page ranges are NOT filled in here --",
+  "                       whoever dispatches the workflow needs to open the PDF",
+  "                       and find the actual start/end pages for this specific",
+  "                       leaf's content within the larger scanned volume.",
+  "  not_located       -- investigated, nothing found yet (kept here so a future",
+  "                       pass doesn't repeat the same failed search).",
+  "None of the PDFs listed here have been downloaded, OCR'd, or verified page-by-page",
+  "-- only the existence and rough identity of each source was confirmed (archive.org",
+  "metadata's own 'Text PDF' format tag, or the linking page's own description).",
+  "Treat every candidate as unverified until someone actually opens it."
+ ],
+ "smriti_dharma.smriti.angiras_smriti": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Ashtadasha Smriti Sangraha (compiled, 18 smritis)",
+    "url": "https://archive.org/download/uXRQ_ashtadasha-smriti-sangraha-by-sanskrit-sahitya-mandal-sasta-sanskrit-sahitya-man/Ashtadasha%20Smriti%20Sangraha%20by%20Sanskrit%20Sahitya%20Mandal%20Sasta%20Sanskrit%20Sahitya%20Mandal%201941%20-%20Sanskrit%20Press%20Muzaffarpur.pdf",
+    "format": "archive_org_pdf",
+    "note": "Sanskrit Sahitya Mandal, Muzaffarpur 1941. One compiled volume covering all 18 traditional minor smritis -- page range for Angiras specifically not yet identified within it."
+   }
+  ]
+ },
+ "smriti_dharma.smriti.atri_smriti": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Ashtadasha Smriti Sangraha (compiled, 18 smritis)",
+    "url": "https://archive.org/download/uXRQ_ashtadasha-smriti-sangraha-by-sanskrit-sahitya-mandal-sasta-sanskrit-sahitya-man/Ashtadasha%20Smriti%20Sangraha%20by%20Sanskrit%20Sahitya%20Mandal%20Sasta%20Sanskrit%20Sahitya%20Mandal%201941%20-%20Sanskrit%20Press%20Muzaffarpur.pdf",
+    "format": "archive_org_pdf",
+    "note": "Same compiled volume as Angiras; page range for Atri not yet identified."
+   }
+  ]
+ },
+ "smriti_dharma.smriti.baudhayana_smriti": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Ashtadasha Smriti Sangraha (compiled, 18 smritis)",
+    "url": "https://archive.org/download/uXRQ_ashtadasha-smriti-sangraha-by-sanskrit-sahitya-mandal-sasta-sanskrit-sahitya-man/Ashtadasha%20Smriti%20Sangraha%20by%20Sanskrit%20Sahitya%20Mandal%20Sasta%20Sanskrit%20Sahitya%20Mandal%201941%20-%20Sanskrit%20Press%20Muzaffarpur.pdf",
+    "format": "archive_org_pdf",
+    "note": "This is the independent Baudhayana SMRITI (verse text), distinct from the already-populated Baudhayana Dharmasutra under vedanga.kalpa -- do not conflate the two when OCRing."
+   }
+  ]
+ },
+ "smriti_dharma.smriti.brihaspati_smriti": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Ashtadasha Smriti Sangraha (compiled, 18 smritis)",
+    "url": "https://archive.org/download/uXRQ_ashtadasha-smriti-sangraha-by-sanskrit-sahitya-mandal-sasta-sanskrit-sahitya-man/Ashtadasha%20Smriti%20Sangraha%20by%20Sanskrit%20Sahitya%20Mandal%20Sasta%20Sanskrit%20Sahitya%20Mandal%201941%20-%20Sanskrit%20Press%20Muzaffarpur.pdf",
+    "format": "archive_org_pdf",
+    "note": "Page range not yet identified."
+   }
+  ]
+ },
+ "smriti_dharma.smriti.harita_smriti": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Ashtadasha Smriti Sangraha (compiled, 18 smritis)",
+    "url": "https://archive.org/download/uXRQ_ashtadasha-smriti-sangraha-by-sanskrit-sahitya-mandal-sasta-sanskrit-sahitya-man/Ashtadasha%20Smriti%20Sangraha%20by%20Sanskrit%20Sahitya%20Mandal%20Sasta%20Sanskrit%20Sahitya%20Mandal%201941%20-%20Sanskrit%20Press%20Muzaffarpur.pdf",
+    "format": "archive_org_pdf",
+    "note": "Page range not yet identified."
+   }
+  ]
+ },
+ "smriti_dharma.smriti.likhita_smriti": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Ashtadasha Smriti Sangraha (compiled, 18 smritis)",
+    "url": "https://archive.org/download/uXRQ_ashtadasha-smriti-sangraha-by-sanskrit-sahitya-mandal-sasta-sanskrit-sahitya-man/Ashtadasha%20Smriti%20Sangraha%20by%20Sanskrit%20Sahitya%20Mandal%20Sasta%20Sanskrit%20Sahitya%20Mandal%201941%20-%20Sanskrit%20Press%20Muzaffarpur.pdf",
+    "format": "archive_org_pdf",
+    "note": "Page range not yet identified."
+   }
+  ]
+ },
+ "smriti_dharma.smriti.pracetas_smriti": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Ashtadasha Smriti Sangraha (compiled, 18 smritis)",
+    "url": "https://archive.org/download/uXRQ_ashtadasha-smriti-sangraha-by-sanskrit-sahitya-mandal-sasta-sanskrit-sahitya-man/Ashtadasha%20Smriti%20Sangraha%20by%20Sanskrit%20Sahitya%20Mandal%20Sasta%20Sanskrit%20Sahitya%20Mandal%201941%20-%20Sanskrit%20Press%20Muzaffarpur.pdf",
+    "format": "archive_org_pdf",
+    "note": "Page range not yet identified."
+   }
+  ]
+ },
+ "smriti_dharma.smriti.samvarta_smriti": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Ashtadasha Smriti Sangraha (compiled, 18 smritis)",
+    "url": "https://archive.org/download/uXRQ_ashtadasha-smriti-sangraha-by-sanskrit-sahitya-mandal-sasta-sanskrit-sahitya-man/Ashtadasha%20Smriti%20Sangraha%20by%20Sanskrit%20Sahitya%20Mandal%20Sasta%20Sanskrit%20Sahitya%20Mandal%201941%20-%20Sanskrit%20Press%20Muzaffarpur.pdf",
+    "format": "archive_org_pdf",
+    "note": "Page range not yet identified."
+   }
+  ]
+ },
+ "smriti_dharma.smriti.shankha_smriti": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Ashtadasha Smriti Sangraha (compiled, 18 smritis)",
+    "url": "https://archive.org/download/uXRQ_ashtadasha-smriti-sangraha-by-sanskrit-sahitya-mandal-sasta-sanskrit-sahitya-man/Ashtadasha%20Smriti%20Sangraha%20by%20Sanskrit%20Sahitya%20Mandal%20Sasta%20Sanskrit%20Sahitya%20Mandal%201941%20-%20Sanskrit%20Press%20Muzaffarpur.pdf",
+    "format": "archive_org_pdf",
+    "note": "Traditionally paired with Likhita (Shankha-Likhita); page range not yet identified."
+   }
+  ]
+ },
+ "smriti_dharma.smriti.shatatapa_smriti": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Ashtadasha Smriti Sangraha (compiled, 18 smritis)",
+    "url": "https://archive.org/download/uXRQ_ashtadasha-smriti-sangraha-by-sanskrit-sahitya-mandal-sasta-sanskrit-sahitya-man/Ashtadasha%20Smriti%20Sangraha%20by%20Sanskrit%20Sahitya%20Mandal%20Sasta%20Sanskrit%20Sahitya%20Mandal%201941%20-%20Sanskrit%20Press%20Muzaffarpur.pdf",
+    "format": "archive_org_pdf",
+    "note": "Page range not yet identified."
+   },
+   {
+    "label": "Shatatapasmriti Karmavipaka (standalone)",
+    "url": "https://archive.org/details/shatatapasmriti_karmavipaka_-CGV-PSS-0568-0806",
+    "format": "archive_org_pdf",
+    "note": "A standalone scan of just this text -- check this before the compiled anthology, likely cleaner to OCR alone."
+   }
+  ]
+ },
+ "smriti_dharma.smriti.ushanas_smriti": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Ashtadasha Smriti Sangraha (compiled, 18 smritis)",
+    "url": "https://archive.org/download/uXRQ_ashtadasha-smriti-sangraha-by-sanskrit-sahitya-mandal-sasta-sanskrit-sahitya-man/Ashtadasha%20Smriti%20Sangraha%20by%20Sanskrit%20Sahitya%20Mandal%20Sasta%20Sanskrit%20Sahitya%20Mandal%201941%20-%20Sanskrit%20Press%20Muzaffarpur.pdf",
+    "format": "archive_org_pdf",
+    "note": "Page range not yet identified."
+   }
+  ]
+ },
+ "smriti_dharma.smriti.vasistha_smriti": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Ashtadasha Smriti Sangraha (compiled, 18 smritis)",
+    "url": "https://archive.org/download/uXRQ_ashtadasha-smriti-sangraha-by-sanskrit-sahitya-mandal-sasta-sanskrit-sahitya-man/Ashtadasha%20Smriti%20Sangraha%20by%20Sanskrit%20Sahitya%20Mandal%20Sasta%20Sanskrit%20Sahitya%20Mandal%201941%20-%20Sanskrit%20Press%20Muzaffarpur.pdf",
+    "format": "archive_org_pdf",
+    "note": "This is the independent Vasishtha SMRITI (verse text), distinct from the already-populated Vasishtha Dharmasutra under vedanga.kalpa -- do not conflate."
+   }
+  ]
+ },
+ "smriti_dharma.dharmashastra.chaturvarga_chintamani": {
+  "status": "text_available",
+  "candidates": [
+   {
+    "label": "Danakhanda, vol. 1 (Google Doc)",
+    "url": "https://docs.google.com/document/d/1bbOZp7PjoIFTmbYo142wDqXp4LAlSLxEnXniHzwP4Io/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": "UT Austin OER, CC BY-SA 4.0. 7 parts total across 4 volumes -- this is part 1 of 7."
+   },
+   {
+    "label": "Vratakhanda, vol. 2, part 1 (Google Doc)",
+    "url": "https://docs.google.com/document/d/1Gzy39TfUhVQeATcAK2u_1SRbE5P56GEI3gJGQENOBw4/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": "Part 2 of 7."
+   },
+   {
+    "label": "Vratakhanda, vol. 2, part 2 (Google Doc)",
+    "url": "https://docs.google.com/document/d/1yE7lOthluRgzSMMs0FG8Dl0clw_A38L3QrWFKvnyu4w/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": "Part 3 of 7."
+   },
+   {
+    "label": "Shraddhakalpa, vol. 3, part 1, Parishesakhanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/1RQw-CReS-f_bXxoK-iisKPLRgdXqDNB7Onj1D8eCuXU/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": "Part 4 of 7."
+   },
+   {
+    "label": "Shraddhakalpa, vol. 3, part 2, Parishesakhanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/1qcG6ulzjwGStDZbCIizjOsi7dsf_hlUVV6gSqFc728k/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": "Part 5 of 7."
+   },
+   {
+    "label": "Kalanirnaya, vol. 3, part 3, Parishesakhanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/13a61jeGom2XQ5ARGaASlwIeo4IGu6GUnzSg8caT0pWg/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": "Part 6 of 7."
+   },
+   {
+    "label": "Prayashcitta, vol. 4 (Google Doc)",
+    "url": "https://docs.google.com/document/d/1G2_FKkJo1M_jLddqa3qk0SLvjJz8WBO2ggAGhrrhsK4/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": "Part 7 of 7."
+   }
+  ]
+ },
+ "smriti_dharma.dharmashastra.dayabhaga": {
+  "status": "text_available",
+  "candidates": [
+   {
+    "label": "Dayabhaga of Jimutavahana (Google Doc)",
+    "url": "https://docs.google.com/document/d/1-208O-oJYj6MyyBmsq1TckbJ6PtTUAajY5x5A8muDCY/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": "UT Austin OER, same access method as Daksha Smriti. Fallback scan: https://archive.org/details/jimutavahanadayabhagaludorocheroup_202003_226_t"
+   }
+  ]
+ },
+ "smriti_dharma.dharmashastra.kalpataru": {
+  "status": "text_available",
+  "candidates": [
+   {
+    "label": "Vyavaharakanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/19PYQkxevYBce2s9cnC8BcaCm1feZMp9Gp6cD6anjjtY/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": "11 kandas total; Danakanda's own doc link on the UT page was itself a sub-page link, not a direct Google Doc -- re-check https://sites.utexas.edu/sanskrit/resources/dharmasastra/krtyakalpataru/ for it specifically before assuming it's covered."
+   },
+   {
+    "label": "Rajadharmakanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/1LkBBYC4JBlHma97bHYpPhq-_SDMJ7DlJsRuIVNle_qM/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": ""
+   },
+   {
+    "label": "Mokshakanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/1aSTatFtFg3aqI-7pgfN4RWymC9Ky5LulG6b8KaTPGLc/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": ""
+   },
+   {
+    "label": "Brahmacharikanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/1eekxMHRFBDO7u5lX-4m9TcyEPFFiVo4hPScfSEOpXxI/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": ""
+   },
+   {
+    "label": "Grihasthakanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/1pbDnABNQ-j9aODuNqfYNFYK9jP8VGuUO6aRcT40gTVQ/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": ""
+   },
+   {
+    "label": "Tirthavivecanakanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/1HDifkSf2jWFC6VNFp0UJANNt4ad572FlnEz7Ps4LIAI/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": ""
+   },
+   {
+    "label": "Niyatakalakanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/10pzQhaza5D0XzVLcTVmhyx6gR2Y8T3mhoJIhWnFbb5o/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": ""
+   },
+   {
+    "label": "Shuddhikanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/1Dy-F7QY_gnTMHeqUsGgr75jp7UZOrD6JaDB6kHWcDaY/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": ""
+   },
+   {
+    "label": "Vratakanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/1xlGRoYkWNI7NVRrpiWLz4Zq2XnovpwpohDmwsPbasAY/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": ""
+   },
+   {
+    "label": "Shraddhakanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/1uJHXfNfMEfky06ZBPe1GBVVQKB1RZZeGfoCTc_DeiuQ/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": ""
+   },
+   {
+    "label": "Pratishthakanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/18UY_o0jd25A_GejleX6wF1-riHWjNbd8velN4ht_jqA/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": ""
+   }
+  ]
+ },
+ "smriti_dharma.dharmashastra.smriti_chandrika": {
+  "status": "text_available",
+  "candidates": [
+   {
+    "label": "Vyavaharakanda, parts 1 and 2 (Google Doc)",
+    "url": "https://docs.google.com/document/d/1pm1UjraMz8O4gkP3hmFv9-ltw1Kx2TvCOtkGGAlNa9o/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": "5 kandas total by Devannabhatta."
+   },
+   {
+    "label": "Shraddhakanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/1UTkpLRoHwyYLz8KBh86LaXKNkD_POY1Vgm7DVQK2Exg/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": ""
+   },
+   {
+    "label": "Samskarakanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/1aQO6Qr41FwEKMqJoXsqlnT2oN1rxiYh_MG2A0965dDk/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": ""
+   },
+   {
+    "label": "Ashaucakanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/1O9Yq-mTpXx0rrmFQNELXMOw5HrFauoyQAcxaGa9dE-Q/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": ""
+   },
+   {
+    "label": "Ahnikakanda (Google Doc)",
+    "url": "https://docs.google.com/document/d/1tISoqVRqJu2ourFaHKu_pQztP6aWSJdES1h0kAYs-Zo/export?format=txt",
+    "format": "google_doc_txt_export",
+    "note": ""
+   }
+  ]
+ },
+ "smriti_dharma.dharmashastra.nirnaya_sindhu": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Nirnayasindhu of Kamalakara Bhatta (Fasc. XV-XX)",
+    "url": "https://archive.org/download/ksu.d42.nirnayasindhuofk0000gopa/ksu.d42.nirnayasindhuofk0000gopa.pdf",
+    "format": "archive_org_pdf",
+    "note": "Sanskrit, archive.org 'Text PDF' format (has an embedded text layer already, not a bare image scan)."
+   }
+  ]
+ },
+ "smriti_dharma.dharmashastra.dharma_sindhu": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Dharmasindhu by Kashinath Upadhyay, Bombay 1907",
+    "url": "https://archive.org/download/kict-dharmasindhu-by-kashinath-upadhyay-sanskrit-dharma/Dharmasindhu%20By%20Kashinath%20Upadhyay%20Sanskrit%20Dharmashastra%20Bombay%201907%20-%20Khemraj%20Shrikrishnadas.pdf",
+    "format": "archive_org_pdf",
+    "note": "Matches taxonomy's own _default_author (Kashinatha Upadhyaya) exactly. archive.org 'Text PDF' format."
+   }
+  ]
+ },
+ "vedanga.shiksha.rigveda_shikshas.shaishiriya_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Shaishiriya Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/shaishiriya_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only on Vedic Reserve; text-layer quality NOT verified (this sandbox has no working PDF-text extractor -- pypdf/pdftotext both unavailable)."
+   }
+  ]
+ },
+ "vedanga.shiksha.rigveda_shikshas.apishali_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Apishali Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/apishali_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.shukla_yajurveda_shikshas.yajnavalkya_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Yajnavalkya Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/yagyavalkya_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.shukla_yajurveda_shikshas.vasishthi_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Vasishtha Shiksha, Tirupati ed. (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/vasishtha2_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.shukla_yajurveda_shikshas.katyayani_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Katyayana Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/katyayana_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.shukla_yajurveda_shikshas.parashari_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Parashariya Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/parashari_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.shukla_yajurveda_shikshas.mandavya_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Mandavya Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/mandavya_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.shukla_yajurveda_shikshas.amoghanandini_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Amoghanandini Shiksha, Benares ed. (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/amoghanandini_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.shukla_yajurveda_shikshas.madhyandini_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Laghumadhyandiniya Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/laghumadhyandina_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "Name match is approximate ('laghu-madhyandiniya' vs our 'madhyandini') -- confirm this is the same work, not a different one, before OCRing."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.shukla_yajurveda_shikshas.varnaratnapradipika_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Varnaratnapradipika Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/varnaratnapradipika_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.shukla_yajurveda_shikshas.keshavi_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Keshavi padyatmika Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/padyatmika_keshavi_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.krishna_yajurveda_shikshas.bharadwaja_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Bharadvaja Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/bharadvaja_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.krishna_yajurveda_shikshas.vyasa_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Vyasa Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/vyasa_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.krishna_yajurveda_shikshas.shambhu_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Shambhu Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/shambhu_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.krishna_yajurveda_shikshas.kauhaliya_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Kauhaliya Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/kauhaliya_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.krishna_yajurveda_shikshas.aranya_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Aranya Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/aranya_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.yajurveda_shikshas.krishna_yajurveda_shikshas.siddhanta_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Siddhanta Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/siddhanta_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.samaveda_shikshas.gautami_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Gautamiya Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/gautami_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.samaveda_shikshas.lomashi_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Lomashiya Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/lomashi_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "vedanga.shiksha.atharvaveda_shiksha.manduki_shiksha": {
+  "status": "not_located",
+  "candidates": [
+   {
+    "label": "Mandukhi Shiksha (Vedic Reserve)",
+    "url": "https://vedicreserve.miu.edu/shiksha/manduki_shiksha.pdf",
+    "format": "vedic_reserve_pdf",
+    "note": "PDF-only, unverified text layer."
+   }
+  ]
+ },
+ "purana.maha_purana.bhavishya_purana": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Bhavishya Purana, Anandashram/Venkateshvara-style Sanskrit ed.",
+    "url": "https://archive.org/details/in.ernet.dli.2015.480447",
+    "format": "archive_org_pdf",
+    "note": "Not yet confirmed pure-Sanskrit vs Sanskrit+Hindi -- check before OCR. Other candidates on the same search page (Gita Press, Acharya Sriram Sharma editions) are likely Hindi-heavy, deprioritized."
+   }
+  ]
+ },
+ "purana.maha_purana.brahmavaivarta_purana": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Brahmavaivarta Purana, Jivananda Vidyasagara ed. 1888 (2 vols, pure Sanskrit)",
+    "url": "https://archive.org/details/wovk_brahmavaivarta-purana-volume-1-jivananda-vidyasagara-1888-jivananda-vidyasagar-calcutta",
+    "format": "archive_org_pdf",
+    "note": "Volume 1; volume 2 at https://archive.org/details/gxts_brahmavaivarta-purana-volume-2-jivananda-vidyasagara-1888-jivananda-vidyasagar-calcutta -- both preferred over the translation-heavy alternatives on the same search page."
+   }
+  ]
+ },
+ "purana.maha_purana.padma_purana": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Padma Purana, Anandashram Sanskrit Series 131, VN Mandalik ed. (4 parts, pure Sanskrit)",
+    "url": "https://archive.org/details/Anandashram_Samskrita_Granthavali_Anandashram_Sanskrit_Series/ASS_131_Padma_Puranam_Part_1_-_VN_Mandalik_1893",
+    "format": "archive_org_pdf",
+    "note": "Standard critical Anandashram Sanskrit Series edition, 4 parts (1893-94) -- preferred over the Gita Press/Nag Publishers editions (mostly Sanskrit+Hindi or Sanskrit+English translation) on the same search page."
+   }
+  ]
+ },
+ "purana.maha_purana.vamana_purana.saromahatmya": {
+  "status": "not_located",
+  "candidates": []
+ },
+ "purana.maha_purana.garuda_purana.brahma_khanda": {
+  "status": "not_located",
+  "candidates": []
+ },
+ "purana.maha_purana.garuda_purana.uttara_khanda_pretakalpa": {
+  "status": "not_located",
+  "candidates": []
+ },
+ "purana.maha_purana.skanda_purana.maheshvara_khanda": {
+  "status": "not_located",
+  "candidates": []
+ },
+ "purana.maha_purana.skanda_purana.vaishnava_khanda": {
+  "status": "not_located",
+  "candidates": []
+ },
+ "purana.maha_purana.skanda_purana.brahma_khanda": {
+  "status": "not_located",
+  "candidates": []
+ },
+ "purana.maha_purana.skanda_purana.kashi_khanda": {
+  "status": "not_located",
+  "candidates": []
+ },
+ "purana.maha_purana.skanda_purana.avantya_khanda": {
+  "status": "not_located",
+  "candidates": []
+ },
+ "purana.maha_purana.skanda_purana.nagara_khanda": {
+  "status": "not_located",
+  "candidates": []
+ },
+ "purana.maha_purana.skanda_purana.prabhasa_khanda": {
+  "status": "not_located",
+  "candidates": []
+ },
+ "vedanga.vyakarana.vasu_siddhanta_kaumudi_english": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Vasu, Siddhanta Kaumudi English translation (4 vols, Panini Office 1905-07)",
+    "url": "https://archive.org/details/Siddhanta_Kaumudi_English_Translation-SC_Vasu",
+    "format": "archive_org_pdf",
+    "note": "Public domain. IN PROGRESS 2 Sep 2026 via the SK-mode pipeline (tools/vasu_kaumudi_ocr.py + .github/workflows/ocr-vasu-kaumudi.yml); Vasu's S. numbers verified == kaumudi_order kaumudiIndex. Vol page offsets: PDF page = book page + 8 (vol 1: content PDF 9-1033). Target layer: ashtadhyayi/vasu_kaumudi."
+   }
+  ]
+ },
+ "vedanga.vyakarana.sk_lakshmi_vyakhya": {
+  "status": "pdf_ocr_candidate",
+  "candidates": [
+   {
+    "label": "Siddhanta Kaumudi with Lakshmi Vyakhya, Balkrishna Sharma Pancholi (MLBD 1966, 2 vols)",
+    "url": "https://archive.org/details/Siddhanta_Kaumudi_With_Lakshmi_Vyakhya_Vol_1_and_2_Balkrishna_Panchali",
+    "format": "archive_org_pdf",
+    "note": "APPROVED case-by-case by the project lead, 2 Sep 2026, for non-commercial educational dharma-prachara use (same convention as the site imports; 1966 MLBD edition, so recorded as permission-based, not public-domain). Book structure: 878 PDF pages, 2 vols in one file; continuous Devanagari Lakshmi vyakhya under bold SK pratika openings, prakarana headings, no per-entry serial numbers -- Stage 2 aligns pratikas against the corpus's siddhanta_kaumudi Sanskrit in monotone SK order."
+   }
+  ]
+ }
+}

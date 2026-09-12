@@ -1,0 +1,51 @@
+{
+ "_readme": [
+  "SEO build configuration (tools/seo). siteOrigin + sitePrefix form the absolute URLs written into sitemaps and",
+  "canonical tags; publicRoot is the path under which the generated canonical pages live (independent of where",
+  "dge/data physically is, so the storage can move later without a URL change).",
+  "excludePrefixes: internal taxonomy prefixes never rendered as public pages (licensed corpora per",
+  "dge/GO_LIVE_ARCHITECTURE.md section 2.2, until the lead classifies them per entry); includePrefixes wins over",
+  "excludePrefixes for a sub-tree the lead has cleared. rootMap renames a top-level internal folder for the public",
+  "URL; dropSegments are removed wherever they occur (mula = the default text layer); single-child chains collapse",
+  "automatically. canonicalLive: the reader adds <link rel=canonical> to the generated page only once those pages",
+  "are actually served (flip to true after the Pages source is switched to GitHub Actions, or after the Firebase deploy).",
+  "catalogueUrl: the generated 'All texts' index. It must NOT be <publicRoot>/ — that is the reader app's own",
+  "index.html, which the build never overwrites (build_seo_site.Site.write refuses to replace an unstamped file)."
+ ],
+ "siteOrigin": "https://tribhuvanachar.github.io",
+ "sitePrefix": "/bhumandala",
+ "publicRoot": "/dge",
+ "catalogueUrl": "/dge/texts/",
+ "siteName": "Sarvamūla Digital Library",
+ "canonicalLive": false,
+ "rootMap": {
+  "vedas": "veda",
+  "vedanga": "vedanga",
+  "upaveda": "upaveda",
+  "itihasa": "itihasa",
+  "purana": "purana",
+  "smriti_dharma": "smriti",
+  "darshana": "darshana",
+  "kavya_alankara": "kavya",
+  "stotra": "stotra",
+  "DvaitaVedanta/Itara/DasaSahitya": "dasa",
+  "agama": "agama",
+  "shastra": "shastra",
+  "nitishastra": "niti",
+  "misc": "misc",
+  "DvaitaVedanta": "dvaitavedanta"
+ },
+ "dropSegments": [
+  "mula",
+  "Itara"
+ ],
+ "excludePrefixes": [
+  "darshana/vedanta/dvaita/DvaitaVedantaIn",
+  "darshana/vedanta/advaita",
+  "DvaitaVedanta/SarvaMula",
+  "darshana/vedanta/dvaita/Anandamakaranda"
+ ],
+ "includePrefixes": [],
+ "maxTextBytesPerPage": 90000,
+ "sitemapUrlsPerFile": 20000
+}

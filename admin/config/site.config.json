@@ -1,0 +1,32 @@
+{
+  "_comment": [
+    "Single source of truth for the site's own absolute URL.",
+    "",
+    "Almost nothing needs this: the reader resolves its own links relatively,",
+    "and runtime JavaScript uses location.origin, both of which follow whatever",
+    "domain actually served the page. The exception is Open Graph / link-preview",
+    "metadata (WhatsApp, Telegram, X), which must carry a fully-qualified URL and",
+    "is read by crawlers that never execute JavaScript — so it cannot be set at",
+    "runtime and has to be written into the HTML itself.",
+    "",
+    "Change siteOrigin here, then run:  python3 tools/set_site_url.py",
+    "That rewrites every <!-- site-url: ... --> marked tag in the HTML to match.",
+    "Verify at any time with:           python3 tools/set_site_url.py --check"
+  ],
+  "siteOrigin": "https://tribhuvanachar.github.io/bhumandala",
+  "customDomain": {
+    "origin": "https://www.sarvamula.org",
+    "status": "pending",
+    "expectedGoLive": "2026-08-29, or 2026-09-18 if that slips",
+    "_switchoverChecklist": [
+      "1. Restore the CNAME file at the repo root containing: www.sarvamula.org",
+      "2. Set siteOrigin above to https://www.sarvamula.org",
+      "3. Run: python3 tools/set_site_url.py",
+      "4. Set customDomain.status to 'live'",
+      "5. Firebase console -> Authentication -> Settings -> Authorized domains:",
+      "   add www.sarvamula.org AND sarvamula.org, or Google Sign-In will fail",
+      "   silently on the new domain (it looks like nothing happening at all).",
+      "6. Re-share a link into WhatsApp to confirm the preview image resolves."
+    ]
+  }
+}

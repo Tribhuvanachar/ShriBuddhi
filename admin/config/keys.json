@@ -1,0 +1,50 @@
+{
+  "_comment": [
+    "Every passkey and gate in one place. Previously each was a string literal",
+    "inside the page it guarded, so changing one meant hunting through HTML.",
+    "",
+    "READ THIS BEFORE TRUSTING IT: these are client-side gates in a public",
+    "repository. Anyone can read this file, or the page source, and learn every",
+    "key here. They keep an admin tool from being opened by accident or by a",
+    "casual visitor — they are NOT access control, and nothing genuinely",
+    "sensitive should sit behind them. Real protection needs a server, or the",
+    "Firebase accounts already being wired up in dge/js/user-auth.js.",
+    "",
+    "Keys are compared case-insensitively, trimmed.",
+    "",
+    "Change a key here and it takes effect on next load. Anyone already holding",
+    "a session flag stays in until their tab closes; bump sessionFlag alongside",
+    "the key to evict them immediately."
+  ],
+
+  "gates": {
+    "superadmin": {
+      "label": "Super admin",
+      "key": "SHRI108",
+      "sessionFlag": "dge.admin.ok",
+      "grants": ["kosha", "holy-places", "content-provenance"],
+      "note": "Also satisfied by localStorage is_superadmin === 'true', which the account system sets."
+    },
+    "audioadmin": {
+      "label": "Audio admin",
+      "key": "AUDIOADMIN",
+      "sessionFlag": "dge.audioadmin.ok",
+      "grants": ["audio"],
+      "note": "Separate key so audio work can be delegated without handing over the super-admin key."
+    },
+    "capture": {
+      "label": "Capture and convert",
+      "key": null,
+      "sessionFlag": null,
+      "grants": ["dasa-capture", "convert"],
+      "note": "No passkey by design — these push straight to GitHub, so they require localStorage is_superadmin === 'true', set only by the account system."
+    },
+    "genieasr": {
+      "label": "Genie ASR recorder",
+      "key": "GENIEASR",
+      "sessionFlag": "dge.genieasr.ok",
+      "grants": ["genie-asr-recorder"],
+      "note": "Its own key on purpose, not a reuse of audioadmin or superadmin/capture. audio.html documents its audioadmin token as reaching ONLY the separate bhumandala-audio-data repo, 'never the main content repo' — this tool is different: it writes to Tribhuvanachar/bhumandala itself (the main repo), and only ever to the genie-asr-audio-seed branch, which that branch's own README says to keep out of main. That's a bigger blast radius than audioadmin (a different repo entirely) and a narrower one than superadmin/capture (which reach main), so it gets a gate of its own rather than borrowing either. A fine-grained GitHub token can be scoped to just this one repo, but GitHub has no per-branch token scope — so even a well-scoped token could still write to main if this page had a bug. The branch restriction is enforced only by this page's own code hardcoding genie-asr-audio-seed, not by the token."
+    }
+  }
+}

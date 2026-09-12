@@ -1,0 +1,78 @@
+{
+ "note": "DGE library curation overrides — a NON-DESTRUCTIVE display layer read by dge/js/library.js (v3+). Keys are effective (post-move) display paths; a move's source is an original taxonomy path and its dest is the subtree's FULL new display path. Commit to admin/config/library-overrides.json.",
+ "version": 1,
+ "updatedAt": 1788999600000,
+ "hidden": [],
+ "pinned": [
+  "SarvaMula",
+  "vedas"
+ ],
+ "labels": {
+  "kavya_alankara": "काव्यालङ्कारौ",
+  "darshana/vedanta/dvaita/DvaitaVedantaIn/others": "सर्वमूलेतर-द्वैतसम्बन्धिग्रन्थाः",
+  "darshana/vedanta/dvaita/DvaitaVedantaIn/others/kavyam": "काव्यम्",
+  "darshana/vedanta/dvaita/DvaitaVedantaIn/others/vyakaranam": "व्याकरणम्",
+  "darshana/vedanta/dvaita/DvaitaVedantaIn/others/tarkah": "तर्कः",
+  "darshana/vedanta/dvaita/DvaitaVedantaIn/others/prakananam": "प्रकरणानि",
+  "darshana/vedanta/dvaita/DvaitaVedantaIn/others/stotram": "स्तोत्राणि",
+  "SarvaMula/kavya": "काव्यम्",
+  "SarvaMula/stotra": "स्तोत्राणि",
+  "SarvaMula/stotra/prahlada_kruta_narasimha": "प्रह्लादकृतनृसिंहस्तोत्रम्"
+ },
+ "order": {
+  "darshana/vedanta/dvaita/Anandamakaranda/rig_bhashya": [
+   "tika_jayatirtha",
+   "mula",
+   "tippani"
+  ],
+  "darshana/vedanta/dvaita/DvaitaVedantaIn": [
+   "gita_prasthana",
+   "dasha_prakarana_granthas",
+   "itihasa_prasthana",
+   "later_acharyas",
+   "purana_prasthana",
+   "sruti_prasthana",
+   "upanishad_prasthana",
+   "sutra_prasthana"
+  ],
+  "": [
+   "vedas",
+   "upaveda",
+   "agama",
+   "darshana",
+   "DvaitaVedanta/Itara/DasaSahitya",
+   "itihasa",
+   "kavya_alankara",
+   "misc",
+   "purana",
+   "shastra",
+   "smriti_dharma",
+   "stotra",
+   "vedanga"
+  ]
+ },
+ "moves": {
+  "DvaitaVedanta/Itara/DasaSahitya/vyasakuta/vadiraja_tirtha/yuktimallika": "darshana/vedanta/dvaita/DvaitaVedantaIn/others/prakananam/yuktimallika",
+  "DvaitaVedanta/Itara/DasaSahitya/vyasakuta/vadiraja_tirtha/svapna_vrindavana_akhyana": "darshana/vedanta/dvaita/DvaitaVedantaIn/others/svapna_vrindavana_akhyana"
+ },
+ "adds": [
+  "darshana/vedanta/dvaita/DvaitaVedantaIn/others",
+  "darshana/vedanta/dvaita/DvaitaVedantaIn/others/kavyam",
+  "darshana/vedanta/dvaita/DvaitaVedantaIn/others/prakananam",
+  "darshana/vedanta/dvaita/DvaitaVedantaIn/others/stotram",
+  "darshana/vedanta/dvaita/DvaitaVedantaIn/others/tarkah",
+  "darshana/vedanta/dvaita/DvaitaVedantaIn/others/vyakaranam"
+ ],
+ "shelf": {
+  "_readme": "GO-LIVE SHELF, 17 Sep 2026. An ALLOW-list: a display path that is neither one of these, nor an ancestor of one, nor under one, is hidden from the Library drawer AND from global search for everyone except an admin (and any role named in openToRoles). The opposite direction from `hidden` above, and the right one for a launch -- a grantha nobody remembered to list stays private instead of going live by accident. Paths here are DISPLAY paths (post-`moves`), the same form `hidden` and `labels` use. Set enabled:false to open the whole library again. Matching lives in dgeMatchShelf (dge/js/role-access.js), tested in dge/firebase/tests/role-access.test.js.",
+  "enabled": true,
+  "allow": [
+   "DvaitaVedanta/Itara/Kavya/sumadhva_vijaya",
+   "DvaitaVedanta/Itara/Kavya/mani_manjari",
+   "DvaitaVedanta/Itara/Kavya/raghavendra_vijaya",
+   "DvaitaVedanta/Itara/Kavya/tirtha_prabandha"
+  ],
+  "_notAllowedOnPurpose": "Mani Manjari is listed above before its data exists -- an allow entry for a path with no grantha under it costs nothing and means loading it is a data commit with no config change. The wider SarvaMula shelf, DvaitaVedanta and SetuTila are deliberately NOT here (lead's choice, 10 Sep 2026); adding 'SarvaMula' to `allow` opens the whole Sarvamula section in one edit.",
+  "openToRoles": []
+ }
+}

@@ -1,0 +1,16 @@
+{
+  "note": "Who sees which part of the Chandas report page (dge/vyakarana/chandas.html, js/chandas-page.js). Values: true = every reader, \"admin\" = admin or super-admin, \"super\" = super-admin only, false = nobody. Edited from the page's own Chandas admin panel (super-admin), which can also publish this file to the repo.",
+  "updatedAt": "2026-09-07T08:00:00Z",
+  "features": {
+    "reports": true,
+    "regenerate": "admin",
+    "downloadJson": "admin",
+    "corpusStats": true,
+    "branchScan": "admin",
+    "libraryScan": "super",
+    "vruttaReport": true,
+    "leaderboards": true,
+    "unattested": "admin",
+    "readerLinks": true
+  }
+}
