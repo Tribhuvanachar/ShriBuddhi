@@ -1,0 +1,114 @@
+name: Vedavani HF corpus (Rigveda clips)
+
+# The IIT-Kharagpur "Vedavani" ASR corpus on Hugging Face (sanganaka/Vedavani-Dataset,
+# Apache-2.0; audio = Veda Prasara Samiti recitations from archive.org, Public Domain Mark)
+# holds 20,782 per-pāda Rigveda WAVs. The audio never enters this repository; the committed
+# manifest (kamadhenu_dataset/external/vedavani_hf/manifest.csv.gz) maps each clip to DGE ṛk ids.
+#
+#   verify   – download N random clips, check HTTP/RIFF/size/sha256/duration (no token needed)
+#   fetch    – download a filtered slice to a workflow artifact (14-day expiry)
+#   mirror   – copy the whole upstream dataset + our manifest into an HF dataset repo WE own
+#              (needs the HF_TOKEN secret; ~6.8 GB through the runner, roughly 25–40 minutes)
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "What to do"
+        required: true
+        default: verify
+        type: choice
+        options: [verify, fetch, mirror, rebuild-manifest]
+      sample:
+        description: "verify: how many random clips"
+        required: false
+        default: "10"
+      mandala:
+        description: 'fetch: mandalas, e.g. "1" or "1-3" or "1,5,9" (empty = all mapped Rigveda clips, ~4.5 GB)'
+        required: false
+        default: "1"
+      mirror_repo:
+        description: "mirror: destination dataset repo (must be writable by HF_TOKEN)"
+        required: false
+        default: "SarvamulaOrg/vedavani-dataset-mirror"
+      mirror_private:
+        description: "mirror: create the destination repo private"
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -q "huggingface_hub>=0.25"
+
+      # This job's own checkout (this repo, ShriBuddhi) rebuilds the manifest;
+      # the final publish targets BrahmaBuddhi as a staging repo instead of
+      # committing straight into ShriBuddhi or bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        if: inputs.mode == 'rebuild-manifest'
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Rebuild manifest (HF tree + CSVs + DGE Rigveda corpus)
+        if: inputs.mode == 'rebuild-manifest'
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python tools/vedavani_hf/vedavani_corpus.py build-manifest
+          mkdir -p brahmabuddhi/kamadhenu_dataset/external/vedavani_hf
+          cp -a kamadhenu_dataset/external/vedavani_hf/manifest.csv.gz brahmabuddhi/kamadhenu_dataset/external/vedavani_hf/manifest.csv.gz
+          cp -a kamadhenu_dataset/external/vedavani_hf/summary.json brahmabuddhi/kamadhenu_dataset/external/vedavani_hf/summary.json
+          cd brahmabuddhi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add kamadhenu_dataset/external/vedavani_hf/manifest.csv.gz kamadhenu_dataset/external/vedavani_hf/summary.json
+          git diff --cached --quiet || git commit -m "data: rebuild Vedavani HF manifest"
+          git push origin HEAD:main
+
+      - name: Verify random clips
+        if: inputs.mode == 'verify'
+        run: |
+          python tools/vedavani_hf/vedavani_corpus.py verify --sample "${{ inputs.sample }}" --out vedavani_verify.json
+      - uses: actions/upload-artifact@v4
+        if: inputs.mode == 'verify'
+        with:
+          name: vedavani-verify-${{ github.run_id }}
+          path: vedavani_verify.json
+
+      - name: Fetch clips
+        if: inputs.mode == 'fetch'
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python tools/vedavani_hf/vedavani_corpus.py fetch --dest vedavani_audio_out --mandala "${{ inputs.mandala }}"
+          du -sh vedavani_audio_out; find vedavani_audio_out -name '*.wav' | wc -l
+      - uses: actions/upload-artifact@v4
+        if: inputs.mode == 'fetch'
+        with:
+          name: vedavani-rigveda-${{ inputs.mandala || 'all' }}-${{ github.run_id }}
+          path: vedavani_audio_out
+          retention-days: 14
+
+      - name: Mirror the dataset into our own HF repo
+        if: inputs.mode == 'mirror'
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          test -n "$HF_TOKEN" || { echo "HF_TOKEN secret is not set"; exit 1; }
+          df -h / | tail -1
+          python tools/vedavani_hf/vedavani_corpus.py mirror --repo "${{ inputs.mirror_repo }}" \
+            $( [ "${{ inputs.mirror_private }}" = "true" ] && echo --private ) --workdir "$RUNNER_TEMP/vedavani"

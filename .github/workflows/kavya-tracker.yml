@@ -1,0 +1,88 @@
+name: Kāvya tracker — refresh
+
+# One button. Regenerates KAVYA_TRACKER.md and admin/config/kavya-status.json
+# from what is actually published, what the Kavya corpus holds, and what the
+# wanted-list names -- and commits the result if anything moved.
+#
+# Nothing here fetches from outside the project, so it is safe to run any time
+# and takes a few seconds.
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    # After a Kavya import republishes the corpus, the tracker is stale by
+    # definition. Refresh it without anyone having to remember.
+    workflows: ["Import Kavya corpus"]
+    types: [completed]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kavya-tracker
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Rebuild the tracker
+        run: python3 tools/build_kavya_tracker.py | tee /tmp/summary.json
+
+      - name: Report
+        run: |
+          {
+            echo "## Kāvya tracker"
+            echo ""
+            python3 - <<'PY'
+          import json
+          s = json.load(open("/tmp/summary.json"))
+          print(f"- works tracked: **{s['works_total']}**")
+          print(f"- verses held: **{s['verses_held']:,}**")
+          print(f"- complete (mūla + commentary where expected): **{s['complete']}** ({s['percent_complete']}%)")
+          print(f"- mūla only, commentary pending: **{s['mula_only']}**")
+          print(f"- no usable source: **{s['no_source']}**")
+          print(f"- named, nothing yet: **{s['wanted']}**")
+          PY
+            echo ""
+            echo "Full table: [KAVYA_TRACKER.md](../blob/main/KAVYA_TRACKER.md)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # This job's own checkout (this repo, ShriBuddhi) rebuilds the tracker;
+      # the final publish targets BrahmaBuddhi as a staging repo instead of
+      # committing straight to ShriBuddhi's own main or to bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Commit it if it moved, to BrahmaBuddhi
+        run: |
+          set -euo pipefail
+          if [ -n "$(git status --porcelain KAVYA_TRACKER.md admin/config/kavya-status.json)" ]; then
+            cp -a KAVYA_TRACKER.md brahmabuddhi/KAVYA_TRACKER.md
+            mkdir -p brahmabuddhi/admin/config
+            cp -a admin/config/kavya-status.json brahmabuddhi/admin/config/kavya-status.json
+            cd brahmabuddhi
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add KAVYA_TRACKER.md admin/config/kavya-status.json
+            git commit -q -m "Kāvya tracker: refresh"
+            for attempt in 1 2 3; do
+              git push -q origin HEAD:main && break
+              echo "push rejected, rebasing (attempt $attempt)"
+              git pull -q --rebase origin main || true
+              sleep $((attempt * 3))
+            done
+            echo "tracker updated and committed" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "nothing changed since the last refresh" >> "$GITHUB_STEP_SUMMARY"
+          fi

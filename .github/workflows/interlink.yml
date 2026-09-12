@@ -1,0 +1,125 @@
+name: DGE deep-interlink (auto, on library changes)
+
+# Whenever grantha content lands in data/ -- a new text imported, an
+# existing one edited -- the cross-reference layers that point INTO and OUT
+# of that content go stale. This workflow rebuilds the small, in-repo ones
+# automatically and commits the result, so interlinking keeps itself
+# current without anyone remembering to run anything:
+#
+#   data/.../ashtadhyayi/prayoga_index/**   (build_sutra_prayoga_index.py)
+#       where each Panini sutra is quoted or cited across the corpus,
+#       Madhva-lineage works ranked first -- the sutra page's
+#       साहित्ये प्रयोगाः panel
+#   search_index/backlinks/**               (shard_backlinks.py)
+#       verse -> "who comments on this" pointers
+#   admin/config/library-status.json            (gen_library_status.py)
+#       the Library Manager's per-section status snapshot
+#
+# The big corpus-search index is NOT rebuilt here: it is 330 MB, lives on
+# the search-dist branch behind a CDN pin that needs a manual bump, and
+# has its own manual workflow (reindex.yml). This job's summary says when
+# that run looks warranted.
+#
+# Loop guard, twice over: the trigger paths exclude this workflow's own
+# outputs, and the job skips itself when the pushing actor is the bot.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "!data/vedanga/vyakarana/ashtadhyayi/prayoga_index/**"
+      - "!data/vedanga/vyakarana/ashtadhyayi/_index/**"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dge-interlink
+  cancel-in-progress: true
+
+jobs:
+  interlink:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pyahocorasick
+
+      - name: Rebuild sutra-prayoga index (lineage-first corpus citations)
+        run: python tools/build_sutra_prayoga_index.py
+
+      - name: Rebuild backlink shards (verse -> commentaries)
+        run: python tools/shard_backlinks.py
+
+      - name: Refresh library status snapshot
+        run: python tools/gen_library_status.py
+
+      # 7 Sep 2026: the two corpus indexes the reader and the vyākaraṇa pages
+      # link through. Both rebuild from scratch in about a minute each.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Rebuild dhātu occurrence index (dhatu_prayoga)
+        run: python tools/build_dhatu_prayoga_index.py
+      - name: Rebuild vṛtta reports (chandas reports)
+        run: node tools/chandas/build_chandas_reports.js
+
+      # This job's own checkout (this repo, ShriBuddhi) does the rebuild
+      # above; the final publish targets BrahmaBuddhi as a staging repo
+      # instead of committing straight to ShriBuddhi's own main or to
+      # bhumandala -- see .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed layers into the BrahmaBuddhi checkout
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- \
+              data/vedanga/vyakarana/ashtadhyayi/prayoga_index \
+              data/vedanga/vyakarana/dhatu_prayoga \
+              data/vedanga/chandas/reports \
+              search_index/backlinks \
+              admin/config/library-status.json | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Commit whatever actually changed, to BrahmaBuddhi
+        working-directory: brahmabuddhi
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
+        run: |
+          set -euo pipefail
+          git add -A
+          if git diff --cached --quiet; then
+            echo "interlink layers already current -- nothing to commit"
+          else
+            git commit -m "Interlink rebuild: prayoga index, dhātu occurrences, vṛtta reports, backlinks, library status" \
+                       -m "Automatic (interlink.yml) after library content changed in $GITHUB_SHA."
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Note whether a full search reindex looks warranted
+        run: |
+          {
+            echo "Interlink layers rebuilt for \`$GITHUB_SHA\`."
+            echo ""
+            echo "The 330 MB corpus-search index on search-dist is NOT rebuilt"
+            echo "automatically -- if this push added or reworded verses, run the"
+            echo "manual **DGE re-index** workflow (reindex.yml) and bump the CDN pin"
+            echo "it prints, so global search sees the new content too."
+          } >> "$GITHUB_STEP_SUMMARY"

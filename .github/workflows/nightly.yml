@@ -1,0 +1,154 @@
+name: Nightly — library sync and inventory
+
+# Midnight housekeeping, so the library catalogue, the status snapshot and
+# the repository inventory never drift more than a day from the data.
+#
+#   00:00 IST (18:30 UTC)  this job
+#   00:30 IST (19:00 UTC)  reindex.yml, scheduled — rebuilds and republishes
+#                          the search index only if data changed since the
+#                          last publish, and bumps the CDN pin itself
+#
+# What it commits, and where:
+#   * generated files straight to main — admin/config/library-status.json,
+#     admin/config/repo-map.json (branch snapshots refreshed),
+#     docs/REPO_INVENTORY.md. Nobody hand-edits these; a bot commit is the
+#     right author.
+#   * catalogue repairs (library.json / taxonomy.json from
+#     `audit_library.py --fix`: orphaned folders registered, stale flags,
+#     facets re-derived) to ONE rolling pull request, `nightly/library-sync`,
+#     updated in place each night. Those change what readers can browse, so a
+#     person merges them — but the diff is ready every morning.
+#
+# The names audit runs as a report into the job summary (docs/NAMING_CONVENTIONS.md).
+
+on:
+  schedule:
+    - cron: "30 18 * * *"
+  workflow_dispatch:
+    inputs:
+      open_pr:
+        description: "Open/update the library-sync pull request (off = report only)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: nightly
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -q pyyaml
+
+      - name: Structural check first (a broken data.json stops everything)
+        run: python3 tools/validate_data.py
+
+      - name: Refresh generated files (status, inventory, names report)
+        run: |
+          set -euo pipefail
+          python3 tools/gen_library_status.py
+          python3 tools/build_repo_inventory.py
+          python3 tools/build_sitemap.py
+          python3 tools/audit_names.py | tee /tmp/names.md
+          {
+            echo "## Names audit (report only)"
+            echo ""
+            head -40 /tmp/names.md
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # This job's own checkout (this repo, ShriBuddhi) does the generation
+      # above; the final publish targets BrahmaBuddhi as a staging repo
+      # instead of committing/PR-ing straight into ShriBuddhi or bhumandala --
+      # see .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Commit generated files to BrahmaBuddhi's main
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- admin/config/library-status.json admin/config/repo-map.json docs/REPO_INVENTORY.md sitemap.xml robots.txt | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+          cd brahmabuddhi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add admin/config/library-status.json admin/config/repo-map.json docs/REPO_INVENTORY.md sitemap.xml robots.txt 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "Generated files unchanged." >> "$GITHUB_STEP_SUMMARY"
+          else
+            git commit -q -m "Nightly: refresh library status and repository inventory ($(TZ=Asia/Kolkata date +'%d %b %Y'))"
+            for attempt in 1 2 3; do
+              git push -q origin HEAD:main && break
+              git pull -q --rebase origin main || true
+              sleep $((attempt * 3))
+            done
+            echo "Generated files refreshed and committed." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Catalogue repairs (audit_library.py --fix)
+        id: fix
+        run: |
+          set -euo pipefail
+          python3 tools/audit_library.py > /tmp/audit_before.md || true
+          python3 tools/audit_library.py --fix > /tmp/audit_fix.md || true
+          python3 tools/validate_data.py
+          if git diff --quiet -- data/library.json data/taxonomy.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Catalogue in step with disk — nothing to repair." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            {
+              echo "## Catalogue repairs proposed (pull request nightly/library-sync)"
+              echo ""
+              head -30 /tmp/audit_before.md
+              echo ""
+              git --no-pager diff --stat -- data/library.json data/taxonomy.json
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Mirror catalogue repairs into the BrahmaBuddhi checkout
+        if: steps.fix.outputs.changed == 'true' && (github.event_name == 'schedule' || inputs.open_pr)
+        run: |
+          set -euo pipefail
+          mkdir -p brahmabuddhi/data
+          cp -a data/library.json brahmabuddhi/data/library.json
+          cp -a data/taxonomy.json brahmabuddhi/data/taxonomy.json
+
+      - name: Open or update the library-sync pull request (against BrahmaBuddhi)
+        if: steps.fix.outputs.changed == 'true' && (github.event_name == 'schedule' || inputs.open_pr)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: nightly/library-sync
+          title: "Nightly library sync: catalogue repairs from audit_library.py --fix"
+          commit-message: "Nightly library sync: register orphaned folders, refresh flags and facets"
+          body: |
+            `tools/audit_library.py --fix` found the catalogue out of step with the
+            data on disk and repaired it. This PR is rolled forward every night
+            until merged; nothing here is hand-written.
+
+            Review the diff of `data/library.json` / `data/taxonomy.json`
+            — new entries become visible in the Library once merged.
+          add-paths: |
+            data/library.json
+            data/taxonomy.json
+          delete-branch: true
