@@ -1,0 +1,155 @@
+# TODO(migration): needs manual review before this runs from ShriBuddhi.
+# "Publish to wordnet-dist" force-pushes an orphan branch of "this repo" and
+# prints a jsDelivr CDN URL (cdn.jsdelivr.net/gh/${{ github.repository }}@sha)
+# for js/intellisense.js to pin. jsDelivr's GitHub CDN only serves PUBLIC
+# repositories. bhumandala is public; ShriBuddhi and BrahmaBuddhi (this
+# migration's two candidate destinations) are both PRIVATE, so retargeting
+# the push to either would silently produce a CDN URL that 404s for readers.
+# Same issue as import-kavya.yml and reindex.yml's search-dist step -- needs
+# a project-lead decision (make a repo public, keep this step on bhumandala,
+# or add another distribution mechanism), not a guessed path substitution.
+name: Publish the Sanskrit WordNet
+
+# Rebuilds data/_wordnet/ from IndoWordNet and publishes it to this repo's
+# "wordnet-dist" branch, which jsDelivr serves to js/intellisense.js.
+#
+# The tree is 24 MB and never lands on main: GitHub Pages publishes main and
+# nothing else, and the published site has about 1% of the 1 GB Pages limit
+# left. wordnet-dist is data only, with no history in common with main, and is
+# replaced outright on every run rather than added to — a rebuild is a new
+# corpus, not a patch, so a growing history of superseded 24 MB trees would
+# cost repository size for nothing.
+#
+# Run it when tools/build_wordnet.py changes, or when IndoWordNet publishes a
+# new dump. Nothing here touches the site: the reader picks up the new data as
+# jsDelivr's cache turns over (s-maxage 12h), or immediately at a purge.
+
+on:
+  workflow_dispatch:
+    inputs:
+      languages:
+        description: "Other IndoWordNet languages to carry equivalents from"
+        type: string
+        default: kannada
+      examples:
+        description: "Include the Sanskrit usage sentences (24 MB with, 17 MB without)"
+        type: boolean
+        default: true
+      dry_run:
+        description: "Build and report only — publish nothing"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-wordnet
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build from the IndoWordNet dump
+        env:
+          LANGUAGES: ${{ inputs.languages }}
+          EXAMPLES: ${{ inputs.examples }}
+        run: |
+          set -euo pipefail
+          ARGS=(--download --languages "$LANGUAGES")
+          [ "$EXAMPLES" = "true" ] || ARGS+=(--no-examples)
+          python tools/build_wordnet.py "${ARGS[@]}" | tee build.log
+
+      - name: Report
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, pathlib
+          d = pathlib.Path("data/_wordnet")
+          m = json.loads((d / "manifest.json").read_text(encoding="utf-8"))
+          mb = sum(f.stat().st_size for f in d.glob("*.json")) / 1024 / 1024
+          print("## Sanskrit WordNet\n")
+          print(f"- synsets: **{m['synsets']:,}**")
+          print(f"- indexed words: **{m['words']:,}**")
+          print(f"- with a hypernym: **{m['hypernyms']:,}**")
+          print(f"- buckets: **{len(m['buckets'])}**, {mb:.1f} MB")
+          print(f"- usage sentences: **{'included' if m['examples'] else 'dropped'}**")
+          print(f"- other languages: **{', '.join(m['languages']) or 'none'}**")
+          print(f"\nSource: {m['source']} — {m['licence']}")
+          PY
+
+      # A synset whose words are empty, or a bucket that is not the shape the
+      # client reads, would reach the reader as a silently empty popover. The
+      # build is checked here rather than trusted, because nothing downstream
+      # of this branch looks at it again.
+      - name: Check the tree is readable
+        run: |
+          python - <<'PY'
+          import json, pathlib, sys
+          d = pathlib.Path("data/_wordnet")
+          man = json.loads((d / "manifest.json").read_text(encoding="utf-8"))
+          missing = [b for b in man["buckets"] if not (d / f"{b}.json").exists()]
+          if missing:
+              sys.exit(f"manifest names {len(missing)} buckets that were not written: {missing[:5]}")
+          words = 0
+          for b in man["buckets"]:
+              bucket = json.loads((d / f"{b}.json").read_text(encoding="utf-8"))
+              if set(bucket) != {"s", "w"}:
+                  sys.exit(f"{b}.json is not {{s, w}}")
+              for key, ids in bucket["w"].items():
+                  words += 1
+                  for i in ids:
+                      rec = bucket["s"][i]
+                      if len(rec) < 5 or not rec[1] or not rec[3]:
+                          sys.exit(f"{b}.json: {key} points at an empty synset")
+          if words != man["words"]:
+              sys.exit(f"manifest says {man['words']} words, the buckets hold {words}")
+          print(f"{len(man['buckets'])} buckets, {words} words, all readable")
+          PY
+
+      - name: Publish to wordnet-dist
+        if: ${{ !fromJSON(inputs.dry_run) }}
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
+        run: |
+          set -euo pipefail
+          # Built in a directory of its own with a fresh history, then pushed
+          # over the branch. --force is the point: the branch is a publication,
+          # not a log.
+          rm -rf /tmp/wordnet-dist
+          mkdir -p /tmp/wordnet-dist/_wordnet
+          cp data/_wordnet/*.json /tmp/wordnet-dist/_wordnet/
+          # The branch's own README is versioned here on main, so a rebuild
+          # reproduces the whole branch rather than depending on what happens
+          # to be on it already.
+          cp tools/wordnet_dist_README.md /tmp/wordnet-dist/README.md
+          cd /tmp/wordnet-dist
+          git init -q -b wordnet-dist
+          git add -A
+          git commit -q -m "The built Sanskrit WordNet, rebuilt by publish-wordnet.yml"
+          git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" \
+            wordnet-dist:refs/heads/wordnet-dist
+          SHA=$(git rev-parse HEAD)
+          # The reader pins a COMMIT, not this branch: jsDelivr caches a
+          # @branch URL for 12 hours at the edge, so the first republish left
+          # readers on the superseded build with nothing to say so. A hash is
+          # immutable and served the moment it exists -- at the cost of this
+          # second step.
+          {
+            echo "published to wordnet-dist as \`$SHA\`"
+            echo ""
+            echo "**Now bump the pin** in js/config.js (appConfig.wordnetDataBase) and js/intellisense.js (CDN):"
+            echo ""
+            echo '```'
+            echo "https://cdn.jsdelivr.net/gh/${{ github.repository }}@$SHA"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

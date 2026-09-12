@@ -1,0 +1,233 @@
+# TODO(migration): needs manual review before this runs from ShriBuddhi.
+# "Publish the index to search-dist" force-pushes an orphan branch of "this
+# repo" and reports a jsDelivr CDN URL, same public-repo dependency as
+# import-kavya.yml / publish-wordnet.yml (ShriBuddhi/BrahmaBuddhi are both
+# private, so the CDN URL would 404). Worse here: "Bump the CDN pin and
+# commit to main" hardcodes the regex
+# `cdn\.jsdelivr\.net/gh/Tribhuvanachar/bhumandala@` when rewriting
+# js/config.js / js/global-search.js, and its whole point is to bump the pin
+# that bhumandala's LIVE site reads -- bumping it in ShriBuddhi's or
+# BrahmaBuddhi's own copy of those files has no effect on the deployed site.
+# This is not a path substitution; it needs a project-lead decision on
+# whether/how search publishing continues to target bhumandala directly, or
+# is redesigned as part of a later pass.
+name: DGE re-index (search + library status)
+
+# The "Re-index" job: rebuilds the corpus-wide search index and the Library
+# Manager status snapshot so both reflect the current data.
+#
+# Two ways it runs:
+#   * by hand (Repository & Workflows → Search index, or the Actions tab) —
+#     opens a PR with the status/backlinks and prints the search-dist hash to
+#     pin, exactly as before;
+#   * every night at 00:30 IST (19:00 UTC), after nightly.yml — and then ONLY
+#     if data has changed since the index was last published (the last
+#     data commit is remembered in admin/config/search-index.state.json).
+#     A scheduled run bumps the CDN pin itself (js/config.js and
+#     js/global-search.js) and commits pin + status + backlinks straight to
+#     main, so readers get the new index by morning without a hand on it.
+#
+# It regenerates two build products (generated-from-data artifacts, never
+# hand-edited):
+#   search_index/**               (build_search_index.py)
+#   admin/config/library-status.json  (tools/gen_library_status.py)
+# The index itself (330 MB) is force-pushed to the search-dist branch and read
+# over jsDelivr; only backlinks and status live on main.
+
+on:
+  schedule:
+    - cron: "0 19 * * *"
+  workflow_dispatch:
+    inputs:
+      open_pr:
+        description: "Open a PR with the refreshed index (off = commit straight to a branch you can inspect)"
+        required: true
+        default: true
+        type: boolean
+      include_kavya:
+        description: "Also index the Kavya corpus from the kavya-dist branch"
+        type: boolean
+        default: true
+      commentaries:
+        description: "Index the commentaries themselves (bhashya/artha) as well as the mula -- larger index"
+        type: boolean
+        default: false
+      bump_pin:
+        description: "Bump the CDN pin in js and commit it to main (what the nightly run does)"
+        type: boolean
+        default: false
+      force:
+        description: "Rebuild even if data has not changed since the last publish"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: reindex
+  cancel-in-progress: false
+
+jobs:
+  reindex:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # The nightly run is only worth its 25 minutes when something changed.
+      - name: Has data changed since the last publish?
+        id: gate
+        env:
+          FORCE: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
+        run: |
+          set -euo pipefail
+          DATA_SHA=$(git log -1 --format=%H -- data)
+          LAST=$(python3 -c "import json,os;p='admin/config/search-index.state.json';print(json.load(open(p)).get('data_sha','') if os.path.exists(p) else '')")
+          echo "data_sha=$DATA_SHA" >> "$GITHUB_OUTPUT"
+          if [ "$FORCE" = "true" ] || [ "$DATA_SHA" != "$LAST" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "data unchanged since the last publish ($LAST) — nothing to rebuild." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      # The Kavya corpus is not in data -- it is 50 MB on the kavya-dist
+      # branch, served to the reader over jsDelivr. Checked out here so its
+      # 67,000 verses are searchable; slugs come out relative to the checkout,
+      # so they read kavya_alankara/<work>/<layer> exactly as if the corpus sat
+      # in data, and core.js sends a hit on one of those to the CDN.
+      - name: Fetch the Kavya corpus
+        if: steps.gate.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.include_kavya)
+        run: |
+          git fetch --depth=1 origin kavya-dist
+          rm -rf _kavya && mkdir -p _kavya
+          git --work-tree=_kavya checkout FETCH_HEAD -- kavya_alankara
+          du -sh _kavya
+
+      - name: Rebuild global search index
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          set -euo pipefail
+          ARGS=(--data data --out search_index)
+          [ -d _kavya ] && ARGS+=(--extra-data _kavya)
+          [ "${{ inputs.commentaries }}" = "true" ] && ARGS+=(--commentaries)
+          python build_search_index.py "${ARGS[@]}"
+
+      - name: Put the Kavya checkout back
+        if: ${{ always() }}
+        run: |
+          git reset -q HEAD -- kavya_alankara 2>/dev/null || true
+          rm -rf _kavya kavya_alankara
+
+      - name: Refresh library status snapshot
+        if: steps.gate.outputs.run == 'true'
+        run: python tools/gen_library_status.py
+
+      - name: Show what changed
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          git status --porcelain search_index admin/config/library-status.json || true
+
+      - name: Publish the index to search-dist
+        if: steps.gate.outputs.run == 'true'
+        id: publish
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
+        run: |
+          set -euo pipefail
+          # The index is 330 MB. Committed to main it took the published site
+          # from 966 MB to 1,013 MB against a 1 GB Pages ceiling, so it is
+          # published like the Kavya and WordNet corpora and read over
+          # jsDelivr. backlinks/ stays in the repo -- it is 0.1 MB and
+          # js/backlinks.js reads it from beside the app.
+          rm -rf /tmp/search-dist
+          mkdir -p /tmp/search-dist
+          cp -r search_index/manifest.json search_index/postings \
+                search_index/units search_index/words \
+                search_index/vocab /tmp/search-dist/
+          cp search_index_dist_README.md /tmp/search-dist/README.md
+          cd /tmp/search-dist
+          git init -q -b search-dist
+          git add -A
+          git commit -q -m "The built corpus-search index, rebuilt by reindex.yml"
+          git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" \
+            search-dist:refs/heads/search-dist
+          SHA=$(git rev-parse HEAD)
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          {
+            echo "published to search-dist as \`$SHA\`"
+            echo ""
+            echo "CDN base: https://cdn.jsdelivr.net/gh/${{ github.repository }}@$SHA"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # Nightly (or bump_pin on a manual run): move the pin, remember what was
+      # indexed, and commit everything that belongs on main directly.
+      - name: Bump the CDN pin and commit to main
+        if: steps.gate.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.bump_pin)
+        env:
+          SHA: ${{ steps.publish.outputs.sha }}
+          DATA_SHA: ${{ steps.gate.outputs.data_sha }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os, re, time
+          sha, data_sha = os.environ["SHA"], os.environ["DATA_SHA"]
+          pin = re.compile(r"(cdn\.jsdelivr\.net/gh/Tribhuvanachar/bhumandala@)[0-9a-f]{40}(?=['\"])")
+          for path in ("js/config.js", "js/global-search.js"):
+              src = open(path, encoding="utf-8").read()
+              # Only the search-index pin: the wordnet/kavya pins carry a path suffix (/_wordnet) or sit on other keys.
+              def repl(m, line):
+                  return m.group(1) + sha
+              out = []
+              for line in src.split("\n"):
+                  if ("searchIndexBase" in line or "CDN_INDEX" in line) and "cdn.jsdelivr.net" in line:
+                      line = pin.sub(lambda m: m.group(1) + sha, line)
+                  out.append(line)
+              open(path, "w", encoding="utf-8").write("\n".join(out))
+          json.dump({"_readme": "Written by reindex.yml: which data commit the published search index was built from, and where it went.",
+                     "data_sha": data_sha, "dist_sha": sha,
+                     "published_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},
+                    open("admin/config/search-index.state.json", "w", encoding="utf-8"), indent=1)
+          open("admin/config/search-index.state.json", "a").write("\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add js/config.js js/global-search.js admin/config/search-index.state.json \
+                  admin/config/library-status.json search_index/backlinks search_index/backlinks.json 2>/dev/null || true
+          git commit -q -m "Re-index: publish search index ${SHA:0:12}, bump CDN pin, refresh status and backlinks" || echo "nothing to commit"
+          for attempt in 1 2 3; do
+            git push -q origin HEAD:main && break
+            git pull -q --rebase origin main || true
+            sleep $((attempt * 3))
+          done
+          echo "Pin bumped to \`$SHA\` and committed to main." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Open a PR for what does belong on main
+        if: steps.gate.outputs.run == 'true' && github.event_name == 'workflow_dispatch' && !inputs.bump_pin && fromJSON(inputs.open_pr)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: reindex/status-and-backlinks
+          title: "Re-index: library status and backlinks"
+          commit-message: "Re-index: refresh library status and backlinks"
+          body: |
+            The search index itself is NOT here -- it is 330 MB and was
+            published to the `search-dist` branch by the same run; bump
+            `appConfig.searchIndexBase` to the hash in the job summary, or
+            re-run with "bump_pin" on to have it done for you.
+
+            What this PR carries is the part that belongs on main:
+            `admin/config/library-status.json` and
+            `search_index/backlinks/**`.
+          add-paths: |
+            admin/config/library-status.json
+            search_index/backlinks/**
+            search_index/backlinks.json

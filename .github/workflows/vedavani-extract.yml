@@ -1,0 +1,117 @@
+# TODO(migration): needs manual review before this runs from ShriBuddhi.
+# This workflow's very first step unzips vedavani-assets.zip from the repo
+# root ("Extract vedavani-assets.zip"). That file is explicitly out of
+# scope for this migration (it stays only in bhumandala; the task's step-0
+# sync list did not include copying it into ShriBuddhi), so this workflow
+# will fail immediately once moved -- there is no vedavani-assets.zip beside
+# it here. Copying the zip into ShriBuddhi was not asked for and would be
+# scope creep beyond the 47 workflow files; leaving the workflow broken
+# silently seemed worse than flagging it. Needs a project-lead call on
+# whether to also copy vedavani-assets.zip into ShriBuddhi, or handle this
+# workflow differently. Its eventual PR (vedavani_audio_out/**) would
+# otherwise follow the same real-content-to-BrahmaBuddhi pattern as its
+# siblings once the asset question is resolved.
+name: VedaVaNi audio extract
+
+on:
+  workflow_dispatch:
+    inputs:
+      veda:
+        description: "Which Veda to fetch"
+        required: true
+        default: rigveda
+        type: choice
+        options:
+          - rigveda
+          - yajurveda
+          - both
+      patha:
+        description: "Rigveda only — reciter"
+        required: true
+        default: kanchi
+        type: choice
+        options:
+          - kanchi
+          - sringeri
+          - both
+      mandalas:
+        description: 'Rigveda only, e.g. "1" or "1-3" or "1,5,9" (default: mandala 1 only — keep this small for a test run, the full Rigveda is 1028 suktas x up to 2 pathas)'
+        required: true
+        default: "1"
+      yajurveda_part:
+        description: "Yajurveda only — which section"
+        required: true
+        default: samhita
+        type: choice
+        options:
+          - samhita
+          - brahmanam
+          - aranyaka
+          - all
+      dry_run:
+        description: "Dry run — print the URL/slice plan, download and write nothing"
+        required: true
+        default: true
+        type: boolean
+      open_pr:
+        description: "Open a PR with the downloaded/sliced output (ignored if dry_run is true)"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: Extract vedavani-assets.zip
+        run: |
+          mkdir -p vedavani-assets-extracted
+          unzip -q -o vedavani-assets.zip -d vedavani-assets-extracted
+          ls vedavani-assets-extracted/assets
+      - name: Run extraction (${{ inputs.veda }}, dry_run=${{ inputs.dry_run }})
+        run: |
+          python tools/vedavani/extract_audio.py \
+            --veda "${{ inputs.veda }}" \
+            --patha "${{ inputs.patha }}" \
+            --mandalas "${{ inputs.mandalas }}" \
+            --yajurveda-part "${{ inputs.yajurveda_part }}" \
+            --out-dir vedavani_audio_out \
+            $( [ "${{ inputs.dry_run }}" = "true" ] && echo --dry-run )
+      - name: Report output size
+        if: ${{ !fromJSON(inputs.dry_run) }}
+        run: |
+          du -sh vedavani_audio_out || true
+          find vedavani_audio_out -type f | wc -l
+      - name: Upload output as workflow artifact
+        if: ${{ !fromJSON(inputs.dry_run) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: vedavani-audio-${{ inputs.veda }}-${{ github.run_id }}
+          path: vedavani_audio_out
+          retention-days: 14
+      - name: Open Pull Request
+        if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: ingest/vedavani-${{ inputs.veda }}
+          commit-message: "data: VedaVaNi ${{ inputs.veda }} audio extract"
+          title: "Ingest: VedaVaNi ${{ inputs.veda }} audio"
+          body: |
+            Automated download + slice of VedaVaNi's recitation audio via GitHub Actions.
+
+            - Veda: `${{ inputs.veda }}`, patha: `${{ inputs.patha }}`, mandalas: `${{ inputs.mandalas }}`, yajurveda part: `${{ inputs.yajurveda_part }}`
+            - Script: `tools/vedavani/extract_audio.py` (URL schemes reconstructed by decompiling VedaVaNi_1.3.3.apk — see PROJECT_STATUS.md)
+            - Rigveda output is per-Sukta, not per-Rik (no real per-rik timestamp data exists anywhere in the app — see the script's module docstring). Yajurveda Samhita/Brahmanam output IS per-mantra, sliced from the bundled boundary JSON.
+            - Spot-check a few files play correctly and text/audio counts line up before merging — this is a first pass, not yet cross-checked against the running app.
+          add-paths: |
+            vedavani_audio_out/**

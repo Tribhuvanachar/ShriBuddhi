@@ -1,0 +1,106 @@
+# TODO(migration): needs manual review before this runs from ShriBuddhi.
+# "Publish the pages to ocr-images/<work>" pushes to a branch of "this repo"
+# that admin/ocr-review.html then reads directly via
+# raw.githubusercontent.com/<repo>/ocr-images/<work>/page-<N>.png -- the
+# comment in this file is explicit that this is designed to need "no token".
+# raw.githubusercontent.com does not serve a PRIVATE repository without
+# authentication, and ShriBuddhi (where this file now runs) is private, so
+# the review page's image fetch would break regardless of which repo this
+# step targets (staying self-referential, or redirecting to BrahmaBuddhi --
+# also private). No YAML-only edit fixes this; it needs a decision on
+# whether admin/ocr-review.html should authenticate its fetch, ShriBuddhi
+# should be public, or this step should keep publishing to bhumandala.
+# Left otherwise unedited -- its write is intra-pipeline (self-referential,
+# no cross-repo push needed) the same as the other OCR staging workflows.
+name: DGE OCR page preview (server-side, no OCR/Gemini)
+
+# Renders specific PDF pages to PNGs so an admin can visually confirm a
+# start/end/exclude page selection BEFORE dispatching the real (billed)
+# ocr-sanskrit-commentary.yml run. No Vision or Gemini calls -- just
+# poppler -- so it's fast and free to run as often as needed. Same PDF
+# input options (direct URL, or up to 3 split-7z part URLs) as the main
+# OCR workflow. Uploads the requested pages as PNGs plus a meta.json
+# (total page count, which pages actually rendered, which were out of
+# range) as a single build artifact.
+
+on:
+  workflow_dispatch:
+    inputs:
+      pdf_url:
+        description: "Direct-download URL for the source PDF (leave blank if using the 3 part URLs below)"
+        required: false
+      pdf_url_part1:
+        description: "Split-7z part 1 URL (leave pdf_url blank if using this)"
+        required: false
+      pdf_url_part2:
+        description: "Split-7z part 2 URL"
+        required: false
+      pdf_url_part3:
+        description: "Split-7z part 3 URL"
+        required: false
+      pages:
+        description: "Comma/range list of pages to preview, e.g. '1,12,54-56'"
+        required: true
+      publish_work:
+        description: "Also publish the PNGs to branch ocr-images/<this slug>, so admin/ocr-review.html can show the scan beside the text (blank = artifact only)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install poppler-utils and p7zip
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils p7zip-full
+      - name: Render requested pages
+        run: |
+          set -euo pipefail
+          ARGS=(--pages "${{ inputs.pages }}" --out-dir preview_out)
+          if [ -n "${{ inputs.pdf_url }}" ]; then
+            ARGS+=(--pdf-url "${{ inputs.pdf_url }}")
+          elif [ -n "${{ inputs.pdf_url_part1 }}" ]; then
+            PARTS="${{ inputs.pdf_url_part1 }}"
+            if [ -n "${{ inputs.pdf_url_part2 }}" ]; then PARTS="$PARTS,${{ inputs.pdf_url_part2 }}"; fi
+            if [ -n "${{ inputs.pdf_url_part3 }}" ]; then PARTS="$PARTS,${{ inputs.pdf_url_part3 }}"; fi
+            ARGS+=(--pdf-url-parts "$PARTS")
+          else
+            echo "::error::Give either pdf_url or at least pdf_url_part1."
+            exit 1
+          fi
+          python3 tools/ocr_preview_pages.py "${ARGS[@]}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: page-preview
+          path: preview_out
+
+      # The review page reads page images straight from a branch
+      # (raw.githubusercontent.com/<repo>/ocr-images/<work>/page-<N>.png), so
+      # a scholar sees the scan beside the text with no token and no zip.
+      # Pages are added to the branch, never removed; re-rendering a page
+      # replaces it.
+      - name: Publish the pages to ocr-images/<work>
+        if: ${{ inputs.publish_work != '' }}
+        run: |
+          set -euo pipefail
+          BR="ocr-images/${{ inputs.publish_work }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          rm -rf /tmp/imgs && mkdir -p /tmp/imgs && cd /tmp/imgs
+          git init -q -b "$BR"
+          if git fetch -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" "$BR" 2>/dev/null; then
+            git checkout -q FETCH_HEAD -- . 2>/dev/null || true
+          fi
+          cp "$GITHUB_WORKSPACE"/preview_out/page-*.png . 2>/dev/null || true
+          cp "$GITHUB_WORKSPACE"/preview_out/meta.json "meta-$(date -u +%Y%m%dT%H%M%SZ).json"
+          printf 'Page images for admin/ocr-review.html, rendered by ocr-preview-pages.yml. Read as raw.githubusercontent.com/%s/%s/page-<N>.png\n' "${{ github.repository }}" "$BR" > README.md
+          git add -A
+          git commit -q -m "ocr images: ${{ inputs.publish_work }} pages ${{ inputs.pages }}" || true
+          git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" "HEAD:refs/heads/$BR"
+          echo "Published $(ls page-*.png | wc -l) page image(s) to branch \`$BR\`." >> "$GITHUB_STEP_SUMMARY"
