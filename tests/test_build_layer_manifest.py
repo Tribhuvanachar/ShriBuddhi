@@ -88,6 +88,17 @@ class TestBuild(unittest.TestCase):
         write_layer(g, "tika_dipika", [item("prakarana_1"), item("prakarana_2")])
         self.assertEqual(build(self.root, {}), {})
 
+    def test_renumbered_plain_integer_ids_do_not_count_as_matched(self):
+        # Post-cutover shape (parabuddhi/tools/publish.py): every unit renumbered
+        # sequentially WITHIN ITS OWN FILE. Two independently-published sibling
+        # files both start counting at 1, so their bare-integer ids overlap by
+        # coincidence of position, never by shared identity -- that must NOT be
+        # reported as a real join (see build()'s own comment on mula_bases).
+        g = self.root / "sec" / "renumbered_like"
+        write_layer(g, "mula", [item("1"), item("2"), item("3")])
+        write_layer(g, "tika_x", [item("1"), item("2")])
+        self.assertEqual(build(self.root, {}), {})
+
     def test_mula_only_grantha_gets_no_entry(self):
         g = self.root / "sec" / "solo"
         write_layer(g, "mula", [item("DV_1")])

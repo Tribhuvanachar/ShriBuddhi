@@ -25,7 +25,14 @@
     var ref = '';
     if (sh) {
       var vid = sh.vedicId ? String(sh.vedicId).trim() : '';
-      if (vid && !/^[A-Z]{2,}_/.test(vid)) ref = vid.length > 120 ? vid.slice(0, 117) + '…' : vid;   // data-side codes (DV_2586) are not a reference
+      // Data-side codes are not a reference: the pre-cutover shape (DV_2586,
+      // uppercase-letters-then-underscore) AND the post-cutover shape (publish.py's
+      // per-file sequential renumbering: a bare integer, e.g. "2586") are both raw
+      // ids leaking through vedicId when the item has no real `reference` string --
+      // neither should ever be shown to a reader as if it were the verse's
+      // human-facing address. Before this fix, a renumbered unit's bare "2586"
+      // slipped past the old letters-only check and got displayed as if meaningful.
+      if (vid && !/^[A-Z]{2,}_/.test(vid) && !/^\d+$/.test(vid)) ref = vid.length > 120 ? vid.slice(0, 117) + '…' : vid;
       else if (sh.unitNo) ref = (sh.unitId || '') + ' · ' + sh.unitNo;
     }
     var url;

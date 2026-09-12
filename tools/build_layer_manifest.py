@@ -37,6 +37,7 @@ from collections import Counter
 from pathlib import Path
 
 SUFFIX_RE = re.compile(r"-\d+$")
+NUMERIC_ID_RE = re.compile(r"^\d+$")
 
 
 def base_id(item_id: str) -> str:
@@ -85,7 +86,19 @@ def build(root: Path, lib_titles: dict) -> dict:
         mula_data, mula_items = load_items(mula_json)
         if not mula_items:
             continue
-        mula_bases = {base_id(it.get("id", "")) for it in mula_items} - {""}
+        # Excludes purely-numeric base ids: parabuddhi/tools/publish.py renumbers
+        # every unit sequentially WITHIN ITS OWN FILE (public_id = i + 1), so once a
+        # mula/tika pair has both been through that cutover their ids are no longer a
+        # shared identity -- they're two independent 1..N counters that happen to
+        # overlap by coincidence of position, not because they name the same verse. A
+        # plain-integer overlap counted as `matched` here would make this tool report
+        # a grantha as joinable (and layer-stitch.js would merge commentary onto
+        # verses) purely because both files are short, which is silent data
+        # corruption, not merely a broken join. Real (pre-cutover or not-yet-
+        # published) ids from the importer keep their letters, so this only ever
+        # narrows what counts as a genuine match.
+        mula_bases = {b for b in (base_id(it.get("id", "")) for it in mula_items)
+                      if b and not NUMERIC_ID_RE.match(b)}
 
         layers = []
         any_matched = False
