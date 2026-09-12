@@ -1,0 +1,219 @@
+name: Ingest — Sāyaṇa Bhāṣya & Smṛti commentaries
+
+# Runs the two importers in this package inside Actions (which has open egress;
+# the Cowork sandbox does not) and opens a PR with the result. Never pushes to
+# main directly — every commentary layer lands as a reviewable diff.
+#
+# Copy this file to .github/workflows/ in the bhumandala repo, and the rest of
+# the package to tools/sayana_smriti/.
+
+on:
+  workflow_dispatch:
+    inputs:
+      job:
+        description: "Which importer to run"
+        type: choice
+        default: sayana
+        options: [sayana, smriti, veda-phase2, samaveda-propagate, upanishads, minor-smritis-probe, minor-smritis, both, everything]
+      mandalas:
+        description: "Sāyaṇa: maṇḍalas to fetch, e.g. '1 2 3' (blank = all ten)"
+        default: ""
+      limit:
+        description: "Sāyaṇa: stop after N mantras (0 = no cap). Use 50 for a smoke test."
+        default: "0"
+      only:
+        description: "Smṛti: slug filter, e.g. manu_smriti (blank = all)"
+        default: ""
+      corpora:
+        description: "veda-phase2: which corpora — av, av-whitney, syv, ts (space separated; blank = all)"
+        default: ""
+      include_encumbered:
+        description: "Smṛti: also import layers flagged rights-encumbered"
+        type: boolean
+        default: false
+      dry_run:
+        description: "Produce the dump but do not modify data"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350          # ~10.5k pages at 1.2 s ≈ 3.5 h for a full Sāyaṇa run
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r tools/sayana_smriti/requirements.txt
+
+      - name: Unit tests (parsers)
+        run: |
+          python tools/sayana_smriti/tests/test_parsers.py
+          python tools/sayana_smriti/tests/test_phase2.py
+
+      - name: Unit tests (patched core.js normaliser)
+        run: node tools/sayana_smriti/tests/test_core_patch.js
+
+      # The core.js edits are committed in js/core.js, and the packaged
+      # snapshot and diff are dropped on deployment, so nothing here can apply a
+      # stale copy over a file main has moved on from. test_core_patch.js above
+      # reads the shipping js/core.js directly, so the normaliser is verified
+      # rather than assumed. Only the taxonomy nodes still need adding before an
+      # importer can write into those folders.
+      - name: Add the new taxonomy folders
+        if: inputs.job == 'smriti' || inputs.job == 'both'
+        run: |
+          set -e
+          node --check js/core.js
+          python tools/sayana_smriti/patches/taxonomy_patch.py --dge-root dge
+
+      # A partial run is resumable: the HTTP cache is keyed by URL, so a re-run
+      # after a timeout picks up where it stopped instead of refetching 10k pages.
+      - name: Restore HTTP cache
+        uses: actions/cache@v4
+        with:
+          path: tools/sayana_smriti/.httpcache
+          key: sayana-httpcache-${{ github.run_id }}
+          restore-keys: sayana-httpcache-
+
+      - name: Import Sāyaṇa Bhāṣya (Rigveda)
+        if: inputs.job == 'sayana' || inputs.job == 'both'
+        working-directory: tools/sayana_smriti
+        run: |
+          set -o pipefail
+          ARGS="--dge-root ${{ github.workspace }}/dge --limit ${{ inputs.limit }}"
+          for m in ${{ inputs.mandalas }}; do ARGS="$ARGS --mandala $m"; done
+          if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          python import_sayana_rigveda.py $ARGS 2>&1 | tee sayana.log
+
+      - name: Import Smṛti commentaries
+        if: inputs.job == 'smriti' || inputs.job == 'both'
+        working-directory: tools/sayana_smriti
+        run: |
+          set -o pipefail
+          ARGS="--dge-root ${{ github.workspace }}/dge --discover-gdocs"
+          if [ -n "${{ inputs.only }}" ]; then ARGS="$ARGS --only ${{ inputs.only }}"; fi
+          if [ "${{ inputs.include_encumbered }}" = "true" ]; then ARGS="$ARGS --include-encumbered"; fi
+          if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          python import_smriti.py $ARGS 2>&1 | tee smriti.log
+
+      # The other four Vedas. Griffith (AV, Śukla YV), Whitney & Lanman (AV —
+      # the layer that reports Sāyaṇa's readings), Keith (Taittirīya Saṃhitā).
+      - name: Import phase-2 Veda layers
+        if: inputs.job == 'veda-phase2' || inputs.job == 'everything'
+        working-directory: tools/sayana_smriti
+        run: |
+          set -o pipefail
+          ARGS="--dge-root ${{ github.workspace }}/dge"
+          for c in ${{ inputs.corpora }}; do ARGS="$ARGS --corpus $c"; done
+          if [ -z "${{ inputs.corpora }}" ]; then ARGS="$ARGS --corpus all"; fi
+          if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          python import_veda_phase2.py $ARGS 2>&1 | tee phase2.log
+
+      # No network at all: the Sāmaveda inherits Sāyaṇa and Wilson from the
+      # Ṛgveda parallels its own data already records (94% coverage). Must run
+      # AFTER the Sāyaṇa job, which is why it sits here and not earlier.
+      - name: Propagate Sāyaṇa to the Sāmaveda
+        if: inputs.job == 'samaveda-propagate' || inputs.job == 'everything'
+        working-directory: tools/sayana_smriti
+        run: |
+          set -o pipefail
+          ARGS="--dge-root ${{ github.workspace }}/dge"
+          if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          python propagate_samaveda.py $ARGS 2>&1 | tee samaveda.log
+
+      # Thirteen principal-Upanishad folders, all empty today. GRETIL supplies
+      # the mula (and Shankara's bhashya from the same fetch); Muller's SBE 1
+      # and 15 supply the English.
+      - name: Import the Upaniṣads
+        if: inputs.job == 'upanishads' || inputs.job == 'everything'
+        working-directory: tools/sayana_smriti
+        run: |
+          set -o pipefail
+          ARGS="--dge-root ${{ github.workspace }}/dge"
+          if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          python import_upanishads.py $ARGS 2>&1 | tee upanishads.log
+
+      # sa.wikisource is the last lead for the eleven minor smrtis. Probe first:
+      # it prints a table of what actually exists there and writes nothing, so a
+      # source that turns out to be empty is visible rather than silent.
+      - name: Probe sa.wikisource (minor smṛtis)
+        if: inputs.job == 'minor-smritis-probe' || inputs.job == 'minor-smritis' || inputs.job == 'everything'
+        working-directory: tools/sayana_smriti
+        run: python import_minor_smritis.py --probe-only 2>&1 | tee probe.log
+
+      - name: Import minor smṛtis + nibandhas
+        if: inputs.job == 'minor-smritis' || inputs.job == 'everything'
+        working-directory: tools/sayana_smriti
+        run: |
+          set -o pipefail
+          ARGS="--dge-root ${{ github.workspace }}/dge"
+          if [ "${{ inputs.dry_run }}" = "true" ]; then ARGS="$ARGS --dry-run"; fi
+          python import_minor_smritis.py $ARGS 2>&1 | tee minor.log
+
+      - name: Verify the import
+        if: inputs.dry_run != true
+        working-directory: tools/sayana_smriti
+        run: python verify_import.py --dge-root ${{ github.workspace }}/dge
+
+      - name: Validate DGE data
+        if: inputs.dry_run != true
+        run: python tools/validate_data.py || echo "::warning::validate_data.py reported issues — check before merging"
+
+      - name: Rebuild search index
+        if: inputs.dry_run != true
+        run: python build_search_index.py || echo "::warning::search index rebuild failed"
+
+      - name: Upload dump + counts as an artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sayana-smriti-dump
+          path: |
+            tools/sayana_smriti/dump/**
+            tools/sayana_smriti/*.log
+          retention-days: 30
+
+      # This job's own checkout (this repo, ShriBuddhi) runs the importers;
+      # the final publish targets BrahmaBuddhi as a staging repo instead of
+      # PR-ing straight into ShriBuddhi or bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        if: inputs.dry_run != true
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed content into the BrahmaBuddhi checkout
+        if: inputs.dry_run != true
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- data js/core.js search_index | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Open pull request (against BrahmaBuddhi)
+        if: inputs.dry_run != true
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: ingest/sayana-smriti-${{ github.run_id }}
+          title: "Ingest: Sāyaṇa Bhāṣya / Smṛti commentaries (run ${{ github.run_id }})"
+          body-path: tools/sayana_smriti/dump/COUNTS_sayana.json
+          add-paths: |
+            data/**
+            js/core.js
+            search_index/**
+          commit-message: "data: Sāyaṇa Bhāṣya + Smṛti commentary layers"

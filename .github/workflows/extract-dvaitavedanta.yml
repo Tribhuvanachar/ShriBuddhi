@@ -1,0 +1,487 @@
+# ============================================================================
+# DISABLED 11 Sep 2026 — this import now runs in the PRIVATE repository only.
+#
+# Material from a rights-unresolved source must land in Tribhuvanachar/Parabuddhi
+# first, be transformed there, and reach this public repository only through that
+# repo's tools/publish.py — which strips the origin's URLs and record ids and
+# writes the provenance map that keeps the cut recoverable.
+#
+# Importing straight into data, as the job below used to, puts the origin's
+# own database keys (content_id, work_id, anchor, block_uuid) and its raw
+# source_html into a public repository. That is what this whole change exists to
+# stop, so the guard step below fails the run before anything is fetched.
+#
+# To import: run "Import — private tier" in Parabuddhi.
+# The body is kept rather than deleted so its crawl logic stays readable and its
+# history stays attached; the ported copy lives in Parabuddhi's tools/.
+# ============================================================================
+name: Extract DvaitaVedanta
+
+# Pulls the dvaitavedanta.in corpus into data/darshana/vedanta/dvaita/DvaitaVedantaIn/.
+#
+# Fetching must happen here, not in the Cowork sandbox — that sandbox has no
+# network egress to the source host (see PENDING.md), which is why every DGE
+# import runs on Actions or Colab.
+#
+# Safety rails, in order of importance:
+#   * dry_run defaults to TRUE. Nothing is written until you clear it.
+#   * open_pr defaults to FALSE. Even a write run only produces an artifact
+#     unless you explicitly ask for the PR.
+#   * Never pushes to main. Follows the repo convention: peter-evans PR only.
+#   * Sections fan out as a matrix so one slow grantha (nyaya_sudha) cannot
+#     burn the 6h job limit for everything else.
+#   * The HTTP cache is restored between runs, so a re-run resumes rather than
+#     re-crawling ~15k pages.
+
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "What to extract"
+        type: choice
+        default: dasha_prakarana_granthas
+        options:
+          - dasha_prakarana_granthas
+          - sutra_prasthana
+          - gita_prasthana
+          - sruti_prasthana
+          - itihasa_prasthana
+          - purana_prasthana
+          - upanishad_prasthana
+          - later_acharyas
+          - all
+      granthas:
+        description: "Optional: comma-separated grantha slugs to narrow further (e.g. pramana_lakshana)"
+        type: string
+        default: ""
+      limit_per_grantha:
+        description: "Cap leaves per grantha. 0 = no cap (full corpus), 5 = quick smoke test."
+        type: string
+        default: "5"
+      delay:
+        description: "Seconds between requests (be kind; the backend is slow)"
+        type: string
+        default: "1.0"
+      timeout:
+        description: "Per-request timeout in seconds"
+        type: string
+        default: "120"
+      dry_run:
+        description: "Fetch, parse and report — write nothing"
+        type: boolean
+        default: true
+      open_pr:
+        description: "Open a pull request with the results (requires dry_run = false)"
+        type: boolean
+        default: false
+      discover_only:
+        description: "Count leaves per grantha and stop (one fetch each; sizes the corpus without crawling it)"
+        type: boolean
+        default: false
+      job_timeout:
+        description: "Hard cap in minutes on each crawl job. 240 = a four-hour round; the 6h ceiling is GitHub's."
+        type: string
+        default: "240"
+      refresh_cache:
+        description: "Ignore the HTTP cache and refetch everything"
+        type: boolean
+        default: false
+      refresh_granthas:
+        description: "Comma-separated slugs whose cache to ignore, leaving every other grantha resumable (e.g. rig_bhashya)"
+        type: string
+        default: ""
+      probe:
+        description: "Also upload raw HTML of a few pages, for selector review"
+        type: boolean
+        default: false
+      inspect_urls:
+        description: "STRUCTURAL PROBE. Space-separated page URLs to report the shape of. Set any inspect_* field and the run does nothing else — no crawl, no write, no PR."
+        type: string
+        default: ""
+      inspect_links:
+        description: "STRUCTURAL PROBE. Space-separated URLs to list every content child of (for re-pointing a seed that landed on an index node)"
+        type: string
+        default: ""
+      inspect_load_data:
+        description: "STRUCTURAL PROBE. Space-separated book_id:sutra_id pairs to call /load-data with"
+        type: string
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: extract-dvaitavedanta
+  cancel-in-progress: false
+
+jobs:
+  # A read-only structural probe, carried by this workflow rather than its own
+  # file because workflow_dispatch only reaches workflows that exist on the
+  # DEFAULT branch — a new workflow file on a feature branch cannot be
+  # dispatched at all (404). Setting any inspect_* input turns the whole run
+  # into a probe: nothing is crawled, written, or opened as a PR.
+  inspect:
+    if: ${{ inputs.inspect_urls != '' || inputs.inspect_links != '' || inputs.inspect_load_data != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: This import is disabled here — it runs in Parabuddhi now
+        run: |
+          echo "::error::Imports from a rights-unresolved source no longer run in the public repository."
+          echo "Run 'Import — private tier' in Tribhuvanachar/Parabuddhi instead."
+          echo "See PROVENANCE.md for why, and Parabuddhi's README for the pipeline."
+          exit 1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r tools/dvaitavedanta/requirements.txt
+      - name: Inspect
+        env:
+          URLS: ${{ inputs.inspect_urls }}
+          LINKS: ${{ inputs.inspect_links }}
+          LOAD_DATA: ${{ inputs.inspect_load_data }}
+        run: |
+          set -euo pipefail
+          ARGS=()
+          if [ -n "$URLS" ]; then ARGS+=(--url $URLS); fi
+          if [ -n "$LINKS" ]; then ARGS+=(--links $LINKS); fi
+          if [ -n "$LOAD_DATA" ]; then ARGS+=(--load-data $LOAD_DATA); fi
+          python tools/dvaitavedanta/dv_inspect.py "${ARGS[@]}"
+
+  plan:
+    if: ${{ inputs.inspect_urls == '' && inputs.inspect_links == '' && inputs.inspect_load_data == '' }}
+    runs-on: ubuntu-latest
+    outputs:
+      sections: ${{ steps.build.outputs.sections }}
+    steps:
+      - id: build
+        env:
+          SCOPE: ${{ inputs.scope }}
+        run: |
+          if [ "$SCOPE" = "all" ]; then
+            SECTIONS='["dasha_prakarana_granthas","sutra_prasthana","gita_prasthana","sruti_prasthana","itihasa_prasthana","purana_prasthana","upanishad_prasthana","later_acharyas"]'
+          else
+            SECTIONS=$(printf '["%s"]' "$SCOPE")
+          fi
+          echo "sections=$SECTIONS" >> "$GITHUB_OUTPUT"
+          echo "Matrix: $SECTIONS"
+
+  extract:
+    needs: plan
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ fromJSON(inputs.job_timeout) }}
+    strategy:
+      fail-fast: false
+      max-parallel: 2          # politeness: never more than 2 concurrent crawlers
+      matrix:
+        section: ${{ fromJSON(needs.plan.outputs.sections) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r tools/dvaitavedanta/requirements.txt
+
+      - name: Self-test the parser (no network)
+        run: |
+          python tools/dvaitavedanta/test_dv_parse.py
+          python tools/dvaitavedanta/test_import_offline.py
+
+      - name: Restore HTTP cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .dv_cache
+          key: dv-cache-${{ matrix.section }}-${{ github.run_id }}
+          restore-keys: |
+            dv-cache-${{ matrix.section }}-
+
+      - name: Extract
+        env:
+          SECTION: ${{ matrix.section }}
+          GRANTHAS: ${{ inputs.granthas }}
+          LIMIT: ${{ inputs.limit_per_grantha }}
+          DELAY: ${{ inputs.delay }}
+          TIMEOUT: ${{ inputs.timeout }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          REFRESH: ${{ inputs.refresh_cache }}
+          REFRESH_GRANTHAS: ${{ inputs.refresh_granthas }}
+          PROBE: ${{ inputs.probe }}
+          DISCOVER_ONLY: ${{ inputs.discover_only }}
+        run: |
+          set -euo pipefail
+          # Start from an empty tree. The checkout brings main's whole
+          # dvaitavedanta corpus with it, the importer writes this section into
+          # that same directory, and "Stage shard output" then copies the LOT —
+          # so every shard was carrying main's other sections, stale folder
+          # names included, and putting them straight back on the collect side
+          # however carefully collect removed them first. A shard must contain
+          # only what this job crawled.
+          rm -rf data/darshana/vedanta/dvaita/DvaitaVedantaIn
+          ARGS=(
+            --config tools/dvaitavedanta/dv_sources.json
+            --out data/darshana/vedanta/dvaita/DvaitaVedantaIn
+            --cache .dv_cache
+            --sections "$SECTION"
+            --delay "$DELAY"
+            --timeout "$TIMEOUT"
+            --fetch-date "$(date -u +%F)"
+          )
+          # if/fi, not `[ x ] && ...`. Under `set -e` a bare test-and-append
+          # aborts the step the moment the test is false, and GitHub
+          # substitutes an input's default for an empty string anyway — which
+          # is how run 32039180032 silently crawled 5 leaves per grantha while
+          # asking for the whole corpus. Pass limit 0 to mean "no cap".
+          if [ -n "$GRANTHAS" ]; then ARGS+=(--granthas "$GRANTHAS"); fi
+          if [ -n "$LIMIT" ]; then ARGS+=(--limit-per-grantha "$LIMIT"); fi
+          if [ "$DRY_RUN" = "true" ]; then ARGS+=(--dry-run); else ARGS+=(--write); fi
+          if [ "$REFRESH" = "true" ]; then ARGS+=(--refresh-cache); fi
+          if [ -n "$REFRESH_GRANTHAS" ]; then ARGS+=(--refresh-granthas "$REFRESH_GRANTHAS"); fi
+          if [ "$DISCOVER_ONLY" = "true" ]; then ARGS+=(--discover-only); fi
+          if [ "$PROBE" = "true" ]; then ARGS+=(--probe-dir dv_probe --probe-count 5); fi
+          echo "leaf cap: ${LIMIT:-0} (0 = no cap)"
+          python tools/dvaitavedanta/import_dvaitavedanta.py "${ARGS[@]}"
+
+      - name: Verify emitted data
+        if: ${{ !fromJSON(inputs.dry_run) }}
+        run: |
+          # A section with every grantha disabled writes nothing and exits 0.
+          # That is a legitimate no-op, not a failure — do not treat the
+          # missing directory as one (run 32036326082 failed exactly here).
+          [ -d data/darshana/vedanta/dvaita/DvaitaVedantaIn ] || { echo "no output for ${{ matrix.section }} (all granthas disabled)"; exit 0; }
+          python tools/dvaitavedanta/verify_extract.py --data data/darshana/vedanta/dvaita/DvaitaVedantaIn --strict
+
+      # Runs even if the round is cancelled at the timeout, so a killed job
+      # still hands its crawled pages to the next round instead of losing
+      # hours of fetching. The crawl itself is sized to finish well inside
+      # the cap; this is the belt behind that brace.
+      - name: Save HTTP cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: .dv_cache
+          key: dv-cache-${{ matrix.section }}-${{ github.run_id }}
+
+      - name: Stage shard output
+        if: ${{ !fromJSON(inputs.dry_run) }}
+        run: |
+          [ -d data/darshana/vedanta/dvaita/DvaitaVedantaIn ] || { echo "nothing to stage"; exit 0; }
+          mkdir -p shard
+          cp -r data/darshana/vedanta/dvaita/DvaitaVedantaIn shard/dvaitavedanta
+          mv shard/dvaitavedanta/_extract_status.json \
+             "shard/status-${{ matrix.section }}.json" || true
+
+      - name: Upload shard
+        if: ${{ !fromJSON(inputs.dry_run) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: dv-${{ matrix.section }}
+          path: shard
+          retention-days: 14
+          if-no-files-found: ignore   # a disabled section stages nothing
+
+      - name: Upload raw HTML probes
+        if: ${{ fromJSON(inputs.probe) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: dv-probe-${{ matrix.section }}
+          path: dv_probe
+          retention-days: 14
+          if-no-files-found: ignore
+
+  collect:
+    needs: extract
+    # `always()` on purpose. With `needs: extract` alone, ONE slow section
+    # blocks the whole delivery: run 31989748094 had seven sections finished
+    # and uploaded, but later_acharyas hit the 350-min cap (nyaya_sudha serves
+    # at ~105 s/leaf, 200 of 1,655 leaves in 5h50m), so collect was skipped and
+    # no PR opened at all. Merge whatever shards exist and name the missing
+    # ones, rather than discarding good work because one shard is slow.
+    if: ${{ always() && !fromJSON(inputs.dry_run) && inputs.inspect_urls == '' && inputs.inspect_links == '' && inputs.inspect_load_data == '' }}
+    runs-on: ubuntu-latest
+    steps:
+      # Pinned to main, not the dispatch ref, for two reasons learned the hard
+      # way in run 32071321753. A branch deleted mid-crawl left create-pull-request
+      # with no base and stranded 108 minutes of successful crawling. And collect
+      # runs sync_catalog + gen_library_status against library.json / taxonomy.json,
+      # so it must read the CURRENT catalog: run it against a stale branch copy and
+      # the PR silently reverts whatever restructuring landed on main meanwhile.
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # merge_status.py imports import_dvaitavedanta (for recompute_totals),
+      # which imports requests at module level. collect had never actually run
+      # before — it was skipped on every dry run and on every run where a shard
+      # was cancelled — so this was latent until collect became always().
+      - name: Install dependencies
+        run: pip install -r tools/dvaitavedanta/requirements.txt
+
+      - name: Download shards
+        uses: actions/download-artifact@v4
+        with:
+          pattern: dv-*
+          path: shards
+          merge-multiple: false
+
+      - name: Merge shards into data
+        run: |
+          set -euo pipefail
+          mkdir -p data/darshana/vedanta/dvaita/DvaitaVedantaIn
+          # Replace each arriving section outright instead of copying over it.
+          # A plain copy only ever ADDS: when a commentary is refiled under a
+          # better folder name, the old folder survives in main and the work is
+          # published twice, once under each name. Sections that were not
+          # crawled this run are left alone, so a narrow scope stays narrow.
+          for dir in shards/dv-*/dvaitavedanta; do
+            [ -d "$dir" ] || continue
+            # Replace at GRANTHA level, not section level. A narrow run —
+            # `granthas: nyaya_sudha` — produces a shard holding one grantha,
+            # and wiping its whole section would delete the twenty-three others
+            # that were not crawled this time.
+            for grantha in "$dir"/*/*/; do
+              [ -d "$grantha" ] || continue
+              rel=${grantha#"$dir"/}
+              stale="data/darshana/vedanta/dvaita/DvaitaVedantaIn/${rel%/}"
+              # A grantha whose crawl failed ships only _meta.json — no
+              # data.json anywhere. Replacing with that stub would erase
+              # good data (run 33543273107 deleted both itihasa texts
+              # this way when the site returned textless containers).
+              if [ -z "$(find "$grantha" -name data.json -print -quit)" ]; then
+                echo "keeping $stale — shard for ${rel%/} has no data.json"
+                continue
+              fi
+              # if/fi, not `[ -d x ] && ...`: under set -e a false test ends the step.
+              if [ -d "$stale" ]; then
+                echo "replacing $stale"
+                rm -rf "$stale"
+              fi
+            done
+            cp -r "$dir/." data/darshana/vedanta/dvaita/DvaitaVedantaIn/
+          done
+          python tools/dvaitavedanta/merge_status.py \
+            --inputs "shards/dv-*/status-*.json" \
+            --out data/darshana/vedanta/dvaita/DvaitaVedantaIn/_extract_status.json
+
+      - name: Fold auto-slugged heading layers
+        run: |
+          # Merge numbered chunks of one commentary into a single layer
+          # and fold one-off topic/pratika headings inline — the crawl
+          # otherwise mints a tika_<slug> folder per unmapped heading
+          # (1,255 of them in run 33543273107).
+          python tools/dvaitavedanta/fold_tiny_layers.py \
+            --data data/darshana/vedanta/dvaita/DvaitaVedantaIn
+
+      - name: Name the sections that did NOT arrive
+        run: |
+          # A shard is absent when its job was cancelled at the time cap, so it
+          # never reached "Upload shard". Say so loudly: a partial merge must
+          # never read as a complete corpus.
+          for s in dasha_prakarana_granthas sutra_prasthana gita_prasthana \
+                   sruti_prasthana itihasa_prasthana purana_prasthana \
+                   upanishad_prasthana later_acharyas; do
+            if [ -d "shards/dv-$s" ]; then
+              echo "present: $s"
+            else
+              echo "MISSING: $s  (no shard uploaded — section incomplete)" \
+                | tee -a "$GITHUB_STEP_SUMMARY"
+            fi
+          done
+
+      - name: Register in taxonomy + library catalog
+        run: |
+          python tools/dvaitavedanta/sync_catalog.py --data data
+          python tools/validate_data.py || true
+          python tools/gen_library_status.py
+
+      - name: Verify merged tree
+        run: python tools/dvaitavedanta/verify_extract.py --data data/darshana/vedanta/dvaita/DvaitaVedantaIn --strict
+
+      - name: Report
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, pathlib
+          p = pathlib.Path("data/darshana/vedanta/dvaita/DvaitaVedantaIn/_extract_status.json")
+          s = json.loads(p.read_text(encoding="utf-8"))
+          t = s.get("totals", {})
+          print("## Merged result\n")
+          print(f"- granthas: **{t.get('complete',0)}/{t.get('granthas',0)} complete**")
+          print(f"- items: **{t.get('items',0):,}**")
+          print(f"- leaf pages with text: {t.get('with_text',0):,}")
+          print(f"- containers skipped: {t.get('containers',0):,}")
+          print(f"- failures: {t.get('failed',0)}")
+          print(f"- on disk: {t.get('bytes',0)/1048576:.1f} MB\n")
+          print("| Section | Granthas | Items | Failed |")
+          print("|---|--:|--:|--:|")
+          for name, c in (s.get("sections") or {}).items():
+              print(f"| {name} | {c.get('complete',0)}/{c.get('granthas',0)} | {c.get('items',0):,} | {c.get('failed',0)} |")
+          PY
+          du -sh data/darshana/vedanta/dvaita/DvaitaVedantaIn || true
+
+      # Note: build_search_index.py is deliberately NOT run here. The index
+      # is a regenerable build product and search_index is already 162 MB;
+      # reindex.yml can rebuild it once the corpus has landed and been reviewed.
+
+      # This job's own checkout (this repo, ShriBuddhi, pinned to main above)
+      # does the merge/catalogue work; the final publish targets BrahmaBuddhi
+      # as a staging repo instead of PR-ing straight into ShriBuddhi or
+      # bhumandala -- see .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        if: ${{ fromJSON(inputs.open_pr) }}
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed content into the BrahmaBuddhi checkout
+        if: ${{ fromJSON(inputs.open_pr) }}
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- data/darshana/vedanta/dvaita/DvaitaVedantaIn data/taxonomy.json data/library.json admin/config/library-status.json | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Open Pull Request (against BrahmaBuddhi)
+        if: ${{ fromJSON(inputs.open_pr) }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: ingest/dvaitavedanta-${{ inputs.scope }}
+          delete-branch: true
+          commit-message: "data: extract dvaitavedanta.in (${{ inputs.scope }})"
+          title: "Extract: dvaitavedanta.in — ${{ inputs.scope }}"
+          body: |
+            Automated extraction of **${{ inputs.scope }}** from
+            [dvaitavedanta.in](https://dvaitavedanta.in/) via GitHub Actions.
+
+            Source is used with case-by-case permission granted by the project
+            lead for non-commercial, educational use, per the licensing
+            convention in `PROJECT_STATUS.md`. Every record retains its
+            `source_url`.
+
+            - Landed under `data/darshana/vedanta/dvaita/DvaitaVedantaIn/` (staging tree) — no existing
+              grantha was modified.
+            - Progress tracker: `data/darshana/vedanta/dvaita/DvaitaVedantaIn/_extract_status.json`
+            - Dashboard: `dvaitavedanta-status.html`
+            - Search index intentionally not rebuilt; run `reindex.yml` after review.
+
+            See the run summary for per-grantha counts and any unmapped
+            commentary layers.
+          add-paths: |
+            data/darshana/vedanta/dvaita/DvaitaVedantaIn
+            data/taxonomy.json
+            data/library.json
+            admin/config/library-status.json

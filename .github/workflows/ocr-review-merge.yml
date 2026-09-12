@@ -1,0 +1,138 @@
+name: OCR review — merge approved text into a layer
+
+# The last step of the scholar-review pipeline. admin/ocr-review.html saved
+# the reviewer's accept / edit / reject decisions beside the staged OCR file
+# (on the ocr-staging/<work> branch, or on main). This job fetches both, runs
+# tools/ocr_review_merge.py, validates, and opens a pull request that adds or
+# updates the layer in data — a person merges it, and the nightly job
+# registers the new folder in the library catalogue.
+#
+# Dispatched from the review page's "Finalise" panel (with the browser's
+# GitHub token) or from the Actions tab.
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Branch holding the staged file and its review/ folder (e.g. ocr-staging/isha_upanishad_bhashya_tippani, or main)"
+        required: true
+        type: string
+      staged:
+        description: "Path of the staged OCR file, e.g. data/ocr_staging/isha_upanishad_bhashya_tippani/vision_pages_1-292.json"
+        required: true
+        type: string
+      target:
+        description: "Layer to write (page/block OCR), e.g. data/darshana/.../isha/tippani_x/data.json — blank for a Gemini commentary file"
+        type: string
+        default: ""
+      sarga_dir:
+        description: "For a Gemini commentary staged file: the sarga directory to merge into"
+        type: string
+        default: ""
+      schema:
+        description: "Schema of the layer"
+        type: choice
+        options: [grantha_tippani_text, grantha_tika_text, grantha_mula_text]
+        default: grantha_tippani_text
+      title:
+        description: "Layer title (Devanagari)"
+        type: string
+        default: ""
+      author:
+        description: "Author / commentator (Devanagari)"
+        type: string
+        default: ""
+      mode:
+        description: "append = merge by id into an existing layer; replace = rewrite it"
+        type: choice
+        options: [append, replace]
+        default: append
+      include_undecided:
+        description: "Also take units the reviewer has not decided yet"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch the staged file and its decisions
+        run: |
+          set -euo pipefail
+          BR="${{ inputs.branch }}"
+          STAGED="${{ inputs.staged }}"
+          DIR=$(dirname "$STAGED"); BASE=$(basename "$STAGED" .json)
+          DEC="$DIR/review/$BASE.decisions.json"
+          if [ "$BR" != "main" ]; then
+            git fetch -q --depth=1 origin "$BR"
+            mkdir -p "$DIR/review"
+            git show "FETCH_HEAD:$STAGED" > "$STAGED"
+            git show "FETCH_HEAD:$DEC" > "$DEC"
+          fi
+          test -s "$DEC" || { echo "::error::no decisions file at $DEC"; exit 1; }
+          python3 -c "import json;d=json.load(open('$DEC'))['decisions'];print(len(d),'decisions')"
+
+      - name: Merge
+        run: |
+          set -euo pipefail
+          ARGS=(--staged "${{ inputs.staged }}" --mode "${{ inputs.mode }}" --schema "${{ inputs.schema }}"
+                --title "${{ inputs.title }}" --author "${{ inputs.author }}")
+          [ -n "${{ inputs.target }}" ] && ARGS+=(--target "${{ inputs.target }}")
+          [ -n "${{ inputs.sarga_dir }}" ] && ARGS+=(--sarga-dir "${{ inputs.sarga_dir }}")
+          [ "${{ inputs.include_undecided }}" = "true" ] && ARGS+=(--include-undecided)
+          python3 tools/ocr_review_merge.py "${ARGS[@]}"
+          # The staged copy fetched from the branch must not ride into the PR.
+          if [ "${{ inputs.branch }}" != "main" ]; then git checkout -q -- data/ocr_staging 2>/dev/null || true; git clean -q -fd data/ocr_staging || true; fi
+
+      - name: Validate
+        run: python3 tools/validate_data.py
+
+      # This job's own checkout (this repo, ShriBuddhi) fetches the staged
+      # branch and runs the merge above; the final publish targets
+      # BrahmaBuddhi as a staging repo instead of PR-ing straight into
+      # ShriBuddhi or bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror the merged content into the BrahmaBuddhi checkout
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- data | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Open a pull request (against BrahmaBuddhi)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: ocr-review/${{ github.run_id }}
+          title: "OCR review: ${{ inputs.title || inputs.staged }}"
+          commit-message: "OCR review merge: ${{ inputs.staged }}"
+          body: |
+            Approved text from `${{ inputs.staged }}` (branch `${{ inputs.branch }}`), merged by
+            `tools/ocr_review_merge.py` into `${{ inputs.target || inputs.sarga_dir }}`.
+            Every item carries the reviewer's decision under `verification.human`.
+            After merging, the nightly job registers the folder in the library.
+          add-paths: |
+            data/**
+          delete-branch: true

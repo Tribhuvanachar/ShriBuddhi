@@ -1,0 +1,141 @@
+name: Sync — Aṣṭādhyāyī data (ashtadhyayi.com / github ashtadhyayi-com/data)
+
+# ashtadhyayi.com is built from a public GitHub repository, so "has anything
+# changed" is one commit id: the run stops at once if the repository's HEAD
+# is the commit we last imported (recorded as attribution.source_commit in
+# the corpora we hold from it). When it moved:
+#
+#   * tools/vyakarana/import_ashtadhyayi_corpora.py refreshes the four
+#     ancillary corpora (Phiṭsūtras, Gaṇapāṭha, Liṅgānuśāsana, Uṇādi);
+#   * importers/ashtadhyayi_layers.py refreshes the sūtrapāṭha enrichment
+#     (padaccheda, anvaya, anuvṛtti, adhikāra), the Mahābhāṣya layer and
+#     Vasu's English translation — followed by tools/realign_sutra_enrichment.py,
+#     because the source numbers some sūtras differently and a plain id join
+#     misaligns about a quarter of them, and tools/build_sutra_index.py.
+#     The Siddhānta-Kaumudī is NOT touched: it was re-sourced to Dhaval
+#     Patel's MIT-licensed TEI on 29 Aug 2026. The `english` field is never
+#     imported (licensing, see the importer).
+#
+# tools/sync_guard.py then refuses any lost items or any write outside the
+# vyākaraṇa folder, and the result is a pull request.
+#
+# Rights: curator's e-mail permission held by the lead; the repository has
+# no LICENSE file. Attribution to ashtadhyayi.com is kept in every file.
+
+on:
+  schedule:
+    - cron: "30 0 8,23 * *"        # 06:00 IST on the 8th and 23rd
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Re-import even if the upstream commit is unchanged"
+        type: boolean
+        default: false
+      layers:
+        description: "Also refresh the sūtra enrichment / Mahābhāṣya / Vasu layers (the slower, id-realigned import)"
+        type: boolean
+        default: true
+      open_pr:
+        description: "Open a pull request with the changes (off = report only)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-ashtadhyayi
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch the upstream repository
+        id: up
+        run: |
+          set -euo pipefail
+          git clone -q --depth 1 https://github.com/ashtadhyayi-com/data /tmp/ashtadhyayi-data
+          NOW=$(git -C /tmp/ashtadhyayi-data rev-parse HEAD)
+          WAS=$(python3 -c "import json;print(json.load(open('data/vedanga/vyakarana/unadi/data.json')).get('attribution',{}).get('source_commit',''))")
+          echo "now=$NOW" >> "$GITHUB_OUTPUT"
+          echo "was=$WAS" >> "$GITHUB_OUTPUT"
+          if [ "$NOW" = "$WAS" ] && [ "${{ inputs.force }}" != "true" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "ashtadhyayi-com/data is still at \`$NOW\`, the commit we imported — nothing to do." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            echo "ashtadhyayi-com/data moved: \`${WAS:-none}\` → \`$NOW\`" >> "$GITHUB_STEP_SUMMARY"
+            git -C /tmp/ashtadhyayi-data log -1 --format='%ad %s' --date=short >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Refresh the four ancillary corpora
+        if: steps.up.outputs.run == 'true'
+        run: python3 tools/vyakarana/import_ashtadhyayi_corpora.py --src /tmp/ashtadhyayi-data
+
+      - name: Refresh the sūtra enrichment, Mahābhāṣya and Vasu layers
+        if: steps.up.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.layers)
+        run: |
+          set -euo pipefail
+          python3 importers/ashtadhyayi_layers.py --local /tmp/ashtadhyayi-data
+          python3 tools/realign_sutra_enrichment.py --apply
+          python3 tools/build_sutra_index.py
+          # A drifted delimiter once shipped a literal "$2$3$1" to readers.
+          if grep -l '\$[0-9]\$' data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json; then
+            echo "::error::unparsed '$n$' markers in the sūtrapāṭha — the source micro-format changed"; exit 1
+          fi
+
+      - name: Guard — no lost items, nothing outside the vyākaraṇa folder
+        if: steps.up.outputs.run == 'true'
+        run: python3 tools/sync_guard.py --scope data/vedanga/vyakarana --max-files 40
+
+      - name: Validate
+        if: steps.up.outputs.run == 'true'
+        run: python3 tools/validate_data.py
+
+      # This job's own checkout (this repo, ShriBuddhi) does the sync above;
+      # the final publish targets BrahmaBuddhi as a staging repo instead of
+      # PR-ing straight into ShriBuddhi or bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        if: steps.up.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.open_pr)
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed content into the BrahmaBuddhi checkout
+        if: steps.up.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.open_pr)
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- data/vedanga/vyakarana | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Open a pull request (against BrahmaBuddhi)
+        if: steps.up.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.open_pr)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: sync/ashtadhyayi
+          title: "Sync: Aṣṭādhyāyī data from ashtadhyayi-com/data ${{ steps.up.outputs.now }}"
+          commit-message: "Sync Aṣṭādhyāyī corpora and layers from ashtadhyayi-com/data ${{ steps.up.outputs.now }}"
+          body: |
+            ashtadhyayi-com/data moved from `${{ steps.up.outputs.was }}` to
+            `${{ steps.up.outputs.now }}`. Refreshed by `sync-ashtadhyayi.yml`;
+            the run summary lists items-before/after per file (tools/sync_guard.py).
+            The Siddhānta-Kaumudī layer is deliberately untouched (re-sourced 29 Aug 2026).
+          add-paths: |
+            data/vedanga/vyakarana/**
+          delete-branch: true

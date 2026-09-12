@@ -1,0 +1,134 @@
+# ============================================================================
+# DISABLED 11 Sep 2026 — this import now runs in the PRIVATE repository only.
+#
+# Material from a rights-unresolved source must land in Tribhuvanachar/Parabuddhi
+# first, be transformed there, and reach this public repository only through that
+# repo's tools/publish.py — which strips the origin's URLs and record ids and
+# writes the provenance map that keeps the cut recoverable.
+#
+# Importing straight into data, as the job below used to, puts the origin's
+# own database keys (content_id, work_id, anchor, block_uuid) and its raw
+# source_html into a public repository. That is what this whole change exists to
+# stop, so the guard step below fails the run before anything is fetched.
+#
+# To import: run "Import — private tier" in Parabuddhi.
+# The body is kept rather than deleted so its crawl logic stays readable and its
+# history stays attached; the ported copy lives in Parabuddhi's tools/.
+# ============================================================================
+name: Sync — Advaita Śāradā (advaitasharada.sringeri.net)
+
+# Re-reads every work we hold from the Sringeri Advaita Śāradā site and opens
+# a pull request with whatever changed. The site publishes no per-page
+# change dates, so a sync is a full re-crawl of the 51 works (~980 pages,
+# ~17 minutes at one request a second) — which is why it runs by hand, or
+# once a month, and never nightly.
+#
+# What protects the corpus: the importer writes only the 51 works named in
+# its own table (a new work on the site is reported by the source check, not
+# imported blind); tools/sync_guard.py refuses the run if any file loses
+# items or anything outside the Advaita folder changes; and the result is a
+# pull request, never a push to main.
+#
+# Rights: case-by-case permission (2 Sep 2026); a licensed corpus that must
+# not be indexed publicly (docs/SEO_ARCHITECTURE.md). This job does not
+# widen what we hold — it refreshes it.
+
+on:
+  schedule:
+    - cron: "30 0 3 * *"          # 06:00 IST on the 3rd of every month
+  workflow_dispatch:
+    inputs:
+      works:
+        description: "Only these work slugs, comma-separated (blank = all 51)"
+        type: string
+        default: ""
+      delay:
+        description: "Seconds between requests to the site"
+        type: string
+        default: "1.0"
+      open_pr:
+        description: "Open a pull request with the changes (off = report only)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-advaitasharada
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: This import is disabled here — it runs in Parabuddhi now
+        run: |
+          echo "::error::Imports from a rights-unresolved source no longer run in the public repository."
+          echo "Run 'Import — private tier' in Tribhuvanachar/Parabuddhi instead."
+          echo "See PROVENANCE.md for why, and Parabuddhi's README for the pipeline."
+          exit 1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -q beautifulsoup4
+
+      - name: Re-read the site
+        env:
+          WORKS: ${{ inputs.works }}
+          DELAY: ${{ inputs.delay || '1.0' }}
+        run: |
+          set -euo pipefail
+          ARGS=(--cache .as_cache --refresh --write --delay "$DELAY")
+          [ -n "${WORKS:-}" ] && ARGS+=(--works "$WORKS")
+          python3 importers/advaita_sharada.py "${ARGS[@]}" | tee /tmp/import.log
+          rm -rf .as_cache
+          tail -5 /tmp/import.log >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Guard — no lost items, nothing outside the Advaita folder
+        run: python3 tools/sync_guard.py --scope data/darshana/vedanta/advaita --max-files 120
+
+      - name: Validate
+        run: python3 tools/validate_data.py && python3 tools/audit_library.py
+
+      # This job's own checkout (this repo, ShriBuddhi) does the re-crawl
+      # above; the final publish targets BrahmaBuddhi as a staging repo
+      # instead of PR-ing straight into ShriBuddhi or bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        if: ${{ github.event_name == 'schedule' || inputs.open_pr }}
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed content into the BrahmaBuddhi checkout
+        if: ${{ github.event_name == 'schedule' || inputs.open_pr }}
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- data/darshana/vedanta/advaita | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Open a pull request (against BrahmaBuddhi)
+        if: ${{ github.event_name == 'schedule' || inputs.open_pr }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: sync/advaitasharada
+          title: "Sync: Advaita Śāradā — changes on advaitasharada.sringeri.net"
+          commit-message: "Sync Advaita Śāradā from advaitasharada.sringeri.net"
+          body: |
+            Re-read from advaitasharada.sringeri.net by `sync-advaitasharada.yml`.
+            The run summary lists items-before/after per file (tools/sync_guard.py).
+            Nothing new was added: only works already held are refreshed.
+          add-paths: |
+            data/darshana/vedanta/advaita/**
+          delete-branch: true

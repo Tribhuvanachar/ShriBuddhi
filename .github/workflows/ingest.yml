@@ -1,0 +1,85 @@
+name: DGE ingest
+
+on:
+  workflow_dispatch:
+    inputs:
+      text:
+        description: "Which text to (re)generate"
+        required: true
+        default: bhagavata
+        type: choice
+        options:
+          - bhagavata
+          - ramayana
+          - mahabharata
+          - harivamsha
+          - manu_smriti
+          - yajnavalkya_smriti
+          - parashara_smriti
+          - narada_smriti
+          - vishnu_smriti
+          - raghuvamsha
+          - shishupalavadha
+          - kumarasambhava
+          - kiratarjuniya
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install deps
+        run: pip install -r importers/requirements.txt
+      - name: Run importer (${{ inputs.text }})
+        env:
+          TEXT_ID: ${{ inputs.text }}
+        run: python importers/dispatch.py "$TEXT_ID"
+      - name: Refresh library status snapshot
+        run: python tools/gen_library_status.py
+      - name: Rebuild global search index
+        run: python build_search_index.py --data data --out search_index
+      # This job's own checkout (this repo, ShriBuddhi) runs the importer;
+      # the final publish targets BrahmaBuddhi as a staging repo instead of
+      # PR-ing straight into ShriBuddhi or bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed content into the BrahmaBuddhi checkout
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- data search_index | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Open Pull Request (against BrahmaBuddhi)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: ingest/${{ inputs.text }}
+          commit-message: "data: ingest ${{ inputs.text }}"
+          title: "Ingest: ${{ inputs.text }}"
+          body: |
+            Automated ingest of **${{ inputs.text }}** via GitHub Actions.
+            Parser: `importers/`. Spot-check Devanagari fidelity before merging.
+
+            Also re-indexes `search_index/` in this same PR, so the new
+            content is searchable the moment it merges (no separate
+            re-index run needed).
+          add-paths: |
+            data/**
+            search_index/**

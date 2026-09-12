@@ -1,0 +1,110 @@
+# ============================================================================
+# DISABLED 11 Sep 2026 — this import now runs in the PRIVATE repository only.
+#
+# Material from a rights-unresolved source must land in Tribhuvanachar/Parabuddhi
+# first, be transformed there, and reach this public repository only through that
+# repo's tools/publish.py — which strips the origin's URLs and record ids and
+# writes the provenance map that keeps the cut recoverable.
+#
+# Importing straight into data, as the job below used to, puts the origin's
+# own database keys (content_id, work_id, anchor, block_uuid) and its raw
+# source_html into a public repository. That is what this whole change exists to
+# stop, so the guard step below fails the run before anything is fetched.
+#
+# To import: run "Import — private tier" in Parabuddhi.
+# The body is kept rather than deleted so its crawl logic stays readable and its
+# history stays attached; the ported copy lives in Parabuddhi's tools/.
+# ============================================================================
+name: Extract SetuTila
+
+# Delta-syncs the setutila.in Sarvamula corpus into
+# data/DvaitaVedanta/SarvaMula/.
+#
+# The importer (tools/setutila/import_setutila.py) is sync-by-design:
+#   * every post's modified_gmt is recorded in _sync_state.json, so a run
+#     with no upstream changes fetches only the wp-json post list and
+#     rewrites nothing;
+#   * per-chunk sha hashes and per-post error lists are persisted, so gaps
+#     the source site later fills (e.g. krishnamruta-maharnava chapters its
+#     own manifest lists but its server currently 404s on, or the empty
+#     Mahabharata parva placeholder posts) are picked up automatically the
+#     moment the posts are re-published;
+#   * raw chunk HTML + pathantara JSON land under _raw/ for provenance.
+#
+# Safety rails follow the repo convention (see extract-dvaitavedanta.yml):
+# dry-run-by-default is unnecessary here because a no-change delta run
+# writes nothing, but the PR step still only fires when changes exist and
+# never pushes to main.
+
+on:
+  workflow_dispatch:
+    inputs:
+      slugs:
+        description: "Optional: comma-separated post slugs to (re)import; empty = full delta sync"
+        type: string
+        default: ""
+      force:
+        description: "Re-import even when modified_gmt is unchanged"
+        type: boolean
+        default: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: This import is disabled here — it runs in Parabuddhi now
+        run: |
+          echo "::error::Imports from a rights-unresolved source no longer run in the public repository."
+          echo "Run 'Import — private tier' in Tribhuvanachar/Parabuddhi instead."
+          echo "See PROVENANCE.md for why, and Parabuddhi's README for the pipeline."
+          exit 1
+      - uses: actions/checkout@v4
+
+      - name: Run SetuTila delta sync
+        run: |
+          ARGS=""
+          if [ -n "${{ inputs.slugs }}" ]; then ARGS="$ARGS --slugs ${{ inputs.slugs }}"; fi
+          if [ "${{ inputs.force }}" = "true" ]; then ARGS="$ARGS --force"; fi
+          python3 tools/setutila/import_setutila.py $ARGS
+
+      - name: Validate
+        run: |
+          python3 tools/validate_data.py
+          python3 tools/audit_library.py || true
+
+      # This job's own checkout (this repo, ShriBuddhi) runs the sync; the
+      # final publish targets BrahmaBuddhi as a staging repo instead of
+      # PR-ing straight into ShriBuddhi or bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed content into the BrahmaBuddhi checkout
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- data/DvaitaVedanta/SarvaMula | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Open PR with changes (if any) — against BrahmaBuddhi
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: setutila-sync
+          title: "SetuTila delta sync"
+          commit-message: "SetuTila delta sync (automated)"
+          body: |
+            Automated delta sync from setutila.in via
+            `tools/setutila/import_setutila.py`. See `_sync_state.json`
+            for per-post modified_gmt, chunk hashes and any persisted
+            upstream-404 errors.
+          add-paths: |
+            data/DvaitaVedanta/SarvaMula/**

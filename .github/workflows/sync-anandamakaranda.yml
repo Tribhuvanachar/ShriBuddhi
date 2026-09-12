@@ -1,0 +1,138 @@
+# ============================================================================
+# DISABLED 11 Sep 2026 — this import now runs in the PRIVATE repository only.
+#
+# Material from a rights-unresolved source must land in Tribhuvanachar/Parabuddhi
+# first, be transformed there, and reach this public repository only through that
+# repo's tools/publish.py — which strips the origin's URLs and record ids and
+# writes the provenance map that keeps the cut recoverable.
+#
+# Importing straight into data, as the job below used to, puts the origin's
+# own database keys (content_id, work_id, anchor, block_uuid) and its raw
+# source_html into a public repository. That is what this whole change exists to
+# stop, so the guard step below fails the run before anything is fetched.
+#
+# To import: run "Import — private tier" in Parabuddhi.
+# The body is kept rather than deleted so its crawl logic stays readable and its
+# history stays attached; the ported copy lives in Parabuddhi's tools/.
+# ============================================================================
+name: Sync — Ānandamakaranda (anandamakaranda.in)
+
+# Keeps the SarvaMūla granthas that came from the Ānandamakaranda wiki in
+# step with it. The wiki is a MediaWiki that publishes a block-level JSON
+# export per work, and our items carry the block ids, so the sync is exact:
+#
+#   * one API call per 50 works tells which pages have a new revision;
+#   * a work whose items map one-to-one onto wiki blocks is merged in place
+#     (changed text replaced, old text kept in previous_text, new blocks
+#     appended, everything added locally kept);
+#   * a work whose first import folded bhāṣya blocks into sūtra items
+#     (Brahmasutra and the like) is not rewritten: the wiki's current blocks
+#     are snapshotted to <layer>/_sync/anandamakaranda.json and the report
+#     lists exactly which blocks changed, for a scholar to apply.
+#   * new top-level works on the wiki are listed for the lead, never imported.
+#
+# tools/sync_guard.py refuses lost items or writes outside SarvaMūla; the
+# result is a pull request. State: admin/config/sync/anandamakaranda.state.json
+# (travels in the PR).
+#
+# Rights: the wiki carries no licence statement; used under the lead's
+# case-by-case authorisation, which is why new works are reported, not taken.
+
+on:
+  schedule:
+    - cron: "30 0 4,19 * *"        # 06:00 IST on the 4th and 19th
+  workflow_dispatch:
+    inputs:
+      titles:
+        description: "Only these wiki titles, comma-separated (blank = all 47 works we hold)"
+        type: string
+        default: ""
+      force:
+        description: "Re-sync even if the wiki revision is unchanged"
+        type: boolean
+        default: false
+      open_pr:
+        description: "Open a pull request with the changes (off = report only)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-anandamakaranda
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: This import is disabled here — it runs in Parabuddhi now
+        run: |
+          echo "::error::Imports from a rights-unresolved source no longer run in the public repository."
+          echo "Run 'Import — private tier' in Tribhuvanachar/Parabuddhi instead."
+          echo "See PROVENANCE.md for why, and Parabuddhi's README for the pipeline."
+          exit 1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Sync from the wiki
+        env:
+          TITLES: ${{ inputs.titles }}
+          FORCE: ${{ inputs.force }}
+        run: |
+          set -euo pipefail
+          ARGS=(--write --write-state)
+          [ -n "${TITLES:-}" ] && ARGS+=(--titles "$TITLES")
+          [ "${FORCE:-false}" = "true" ] && ARGS+=(--force)
+          python3 tools/anandamakaranda/sync_anandamakaranda.py "${ARGS[@]}"
+
+      - name: Guard — no lost items, nothing outside SarvaMūla
+        run: python3 tools/sync_guard.py --scope data/darshana/vedanta/dvaita/Anandamakaranda --allow admin/config/sync --max-files 120
+
+      - name: Validate
+        run: python3 tools/validate_data.py && python3 tools/audit_library.py
+
+      # This job's own checkout (this repo, ShriBuddhi) does the re-crawl
+      # above; the final publish targets BrahmaBuddhi as a staging repo
+      # instead of PR-ing straight into ShriBuddhi or bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        if: ${{ github.event_name == 'schedule' || inputs.open_pr }}
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed content into the BrahmaBuddhi checkout
+        if: ${{ github.event_name == 'schedule' || inputs.open_pr }}
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- data/darshana/vedanta/dvaita/Anandamakaranda admin/config/sync/anandamakaranda.state.json | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Open a pull request (against BrahmaBuddhi)
+        if: ${{ github.event_name == 'schedule' || inputs.open_pr }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: sync/anandamakaranda
+          title: "Sync: Ānandamakaranda — changes on anandamakaranda.in"
+          commit-message: "Sync SarvaMūla granthas from anandamakaranda.in"
+          body: |
+            Works whose wiki revision moved were merged (one-to-one layers) or
+            snapshotted to `_sync/anandamakaranda.json` (composite layers) by
+            `sync-anandamakaranda.yml`. The run summary says which, block by block.
+          add-paths: |
+            data/darshana/vedanta/dvaita/Anandamakaranda/**
+            admin/config/sync/anandamakaranda.state.json
+          delete-branch: true

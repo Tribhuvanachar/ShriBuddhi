@@ -1,0 +1,158 @@
+# ============================================================================
+# DISABLED 11 Sep 2026 — this import now runs in the PRIVATE repository only.
+#
+# Material from a rights-unresolved source must land in Tribhuvanachar/Parabuddhi
+# first, be transformed there, and reach this public repository only through that
+# repo's tools/publish.py — which strips the origin's URLs and record ids and
+# writes the provenance map that keeps the cut recoverable.
+#
+# Importing straight into data, as the job below used to, puts the origin's
+# own database keys (content_id, work_id, anchor, block_uuid) and its raw
+# source_html into a public repository. That is what this whole change exists to
+# stop, so the guard step below fails the run before anything is fetched.
+#
+# To import: run "Import — private tier" in Parabuddhi.
+# The body is kept rather than deleted so its crawl logic stays readable and its
+# history stays attached; the ported copy lives in Parabuddhi's tools/.
+# ============================================================================
+name: Sync — Śrī Rāmānuja Meghamālā (srivaishnavan.com)
+
+# Brings in what changed on the JIR Foundation's Meghamālā archive since the
+# last run, as a pull request.
+#
+#   1. tools/meghamala/crawl_meghamala.py reads the archive page (the whole
+#      knowledge tree is server-rendered there), asks the site's WordPress
+#      API for every post's modified date, and works out which GRANTHAS have
+#      a new or modified leaf. Only those are re-fetched — all of a grantha's
+#      leaves, so nothing is ever written short.
+#   2. importers/ramanuja_meghamala.py rebuilds exactly those granthas from
+#      the fetched pages (--strict: a grantha with any missing page is left
+#      untouched).
+#   3. tools/sync_guard.py refuses the run if any file lost items or anything
+#      outside the Meghamālā folder changed; then a pull request.
+#
+# First run after this workflow was written re-fetches everything it has no
+# state for; --max-granthas caps a run so the site is never hammered (a
+# fortnight of runs catches up). State: admin/config/sync/meghamala.state.json.
+#
+# Rights: public site, case-by-case permission recorded 2 Sep 2026; the six
+# works the library already holds in full stay excluded (HELD_NODES).
+
+on:
+  schedule:
+    - cron: "30 0 5,20 * *"        # 06:00 IST on the 5th and 20th
+  workflow_dispatch:
+    inputs:
+      all:
+        description: "Re-fetch every grantha, not only the changed ones"
+        type: boolean
+        default: false
+      max_granthas:
+        description: "Cap on granthas re-fetched in one run"
+        type: string
+        default: "60"
+      delay:
+        description: "Seconds between requests to the site"
+        type: string
+        default: "1.0"
+      open_pr:
+        description: "Open a pull request with the changes (off = report only)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-meghamala
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: This import is disabled here — it runs in Parabuddhi now
+        run: |
+          echo "::error::Imports from a rights-unresolved source no longer run in the public repository."
+          echo "Run 'Import — private tier' in Tribhuvanachar/Parabuddhi instead."
+          echo "See PROVENANCE.md for why, and Parabuddhi's README for the pipeline."
+          exit 1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -q beautifulsoup4 lxml
+
+      - name: Find and fetch what changed
+        id: crawl
+        env:
+          ALL: ${{ inputs.all }}
+          MAXG: ${{ inputs.max_granthas || '60' }}
+          DELAY: ${{ inputs.delay || '1.0' }}
+        run: |
+          set -euo pipefail
+          ARGS=(--work .mm --delay "$DELAY" --max-granthas "$MAXG" --write-state)
+          [ "${ALL:-false}" = "true" ] && ARGS+=(--all)
+          python3 tools/meghamala/crawl_meghamala.py "${ARGS[@]}"
+          CHANGED=$(cat .mm/changed.txt)
+          echo "changed=$CHANGED" >> "$GITHUB_OUTPUT"
+          echo "count=$(echo "$CHANGED" | tr ',' '\n' | grep -c . || true)" >> "$GITHUB_OUTPUT"
+
+      - name: Rebuild the changed granthas
+        if: steps.crawl.outputs.count != '0'
+        run: |
+          set -euo pipefail
+          python3 importers/ramanuja_meghamala.py --tree .mm/tree.tsv --cache .mm/cache \
+            --granthas "${{ steps.crawl.outputs.changed }}" --strict --write | tail -20
+          rm -rf .mm
+
+      - name: Guard — no lost items, nothing outside the Meghamālā folder
+        run: python3 tools/sync_guard.py --scope data/darshana/vedanta/vishishtadvaita/RamanujaMeghamala --allow admin/config/sync --max-files 200
+
+      - name: Validate
+        run: python3 tools/validate_data.py && python3 tools/audit_library.py
+
+      # The state file travels in the same pull request as the data: until the
+      # PR is merged the next run sees the same leaves as changed and simply
+      # re-fetches them, which is the safe direction to err in.
+      # This job's own checkout (this repo, ShriBuddhi) does the crawl above;
+      # the final publish targets BrahmaBuddhi as a staging repo instead of
+      # PR-ing straight into ShriBuddhi or bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        if: ${{ (github.event_name == 'schedule' || inputs.open_pr) && steps.crawl.outputs.count != '0' }}
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed content into the BrahmaBuddhi checkout
+        if: ${{ (github.event_name == 'schedule' || inputs.open_pr) && steps.crawl.outputs.count != '0' }}
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- data/darshana/vedanta/vishishtadvaita/RamanujaMeghamala admin/config/sync/meghamala.state.json | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Open a pull request (against BrahmaBuddhi)
+        if: ${{ (github.event_name == 'schedule' || inputs.open_pr) && steps.crawl.outputs.count != '0' }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: sync/meghamala
+          title: "Sync: Śrī Rāmānuja Meghamālā — changed granthas from srivaishnavan.com"
+          commit-message: "Sync Rāmānuja Meghamālā from srivaishnavan.com"
+          body: |
+            Granthas whose leaves were new or modified on srivaishnavan.com were
+            re-fetched and rebuilt by `sync-meghamala.yml`. The run summary lists
+            which, why, and items-before/after per file (tools/sync_guard.py).
+          add-paths: |
+            data/darshana/vedanta/vishishtadvaita/RamanujaMeghamala/**
+            admin/config/sync/meghamala.state.json
+          delete-branch: true

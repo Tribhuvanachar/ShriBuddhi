@@ -1,0 +1,90 @@
+name: DGE ingest (commentaries & word-meaning)
+
+# Word-to-word meaning + commentary layers for Ramayana / Mahabharata,
+# the new Bhagavad Gita section, and Shankaracharya's bhashya corpus.
+# Runs the Python importers under importers/ and opens a PR with the data.
+
+on:
+  workflow_dispatch:
+    inputs:
+      text:
+        description: "Which layer to (re)generate"
+        required: true
+        default: bhagavad_gita
+        type: choice
+        options:
+          - ramayana_saartha       # Valmiki Ramayana word-meaning + English (valmikiramayan.net)
+          - mahabharata_ganguli    # Mahabharata English prose (Ganguli / sacred-texts)
+          - bhagavad_gita          # NEW Gita section: mula + word-meaning + all commentaries
+          - shankara_bhashya       # Brahmasutra + Upanishad + Gita bhashyas (Shankara)
+      gita_supersite:
+        description: "Also pull GitaSupersite classical Sanskrit bhashyas (Gita only; slow, best-effort)"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install deps
+        run: pip install -r importers/requirements.txt
+      - name: Run importer (${{ inputs.text }})
+        # Run from repo root (like ingest.yml): Python puts importers/ on the
+        # path so `import common` resolves, and write_grantha() finds data.
+        env:
+          GITA_SUPERSITE: ${{ inputs.gita_supersite && '1' || '0' }}
+        run: python importers/dispatch.py "${{ inputs.text }}"
+      - name: Validate written data against schemas
+        run: python tools/validate_data.py
+      - name: Register any new layers in library.json
+        run: python tools/register_layers.py
+      - name: Refresh library status snapshot
+        run: python tools/gen_library_status.py
+      # This job's own checkout (this repo, ShriBuddhi) runs the importer;
+      # the final publish targets BrahmaBuddhi as a staging repo instead of
+      # PR-ing straight into ShriBuddhi or bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed content into the BrahmaBuddhi checkout
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- data | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Open Pull Request (against BrahmaBuddhi)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: ingest/${{ inputs.text }}
+          commit-message: "data: ingest ${{ inputs.text }}"
+          title: "Ingest (commentary): ${{ inputs.text }}"
+          body: |
+            Automated ingest of **${{ inputs.text }}** via GitHub Actions.
+            Importer: `importers/`. GitaSupersite enrichment: ${{ inputs.gita_supersite }}.
+
+            Please spot-check before merging:
+            - Devanagari fidelity of a few verses.
+            - That commentary/author labels are attributed correctly.
+            - `data/taxonomy.json` + `data/library.json` list the new layers
+              (run `python tools/register_layers.py` if a new subtree is missing).
+          add-paths: |
+            data/**

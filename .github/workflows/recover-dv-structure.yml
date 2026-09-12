@@ -1,0 +1,163 @@
+name: Recover DvaitaVedanta structure (and preserve the cache)
+
+# The import kept a breadcrumb of strings and dropped the tree. The tree is
+# still in the fetched pages -- every leaf renders the grantha's whole
+# navigation as nested <ul class="sub-menu"> -- so it can be recovered without
+# touching the network, from the HTTP cache alone.
+#
+# That cache is the raw material for anything else we later realise was
+# flattened away, and GitHub evicts a cache after 7 days idle. So this job's
+# FIRST duty is to get it out of the cache and into something durable: an
+# artifact with 90-day retention, and (optionally) an orphan branch that never
+# expires. Recovery second.
+#
+# Runs on the branch that owns the cache. Actions caches are scoped to the ref
+# that wrote them, so this must be dispatched from the crawl's branch, not main.
+
+on:
+  workflow_dispatch:
+    inputs:
+      cache_prefix:
+        description: "Restore-key prefix of the crawl cache"
+        required: true
+        default: "dv-cache-later_acharyas-"
+        type: string
+      preserve_to_branch:
+        description: "Also push the raw pages to an orphan branch (dv-cache-dist) so they outlive the 7-day cache"
+        type: boolean
+        default: true
+      limit:
+        description: "Read only N cached pages (0 = all). Use a small number for a smoke test."
+        type: string
+        default: "0"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r tools/dvaitavedanta/requirements.txt
+
+      - name: Restore the crawl's HTTP cache
+        id: restore
+        uses: actions/cache/restore@v4
+        with:
+          path: .dv_cache
+          key: ${{ inputs.cache_prefix }}restore-only
+          restore-keys: |
+            ${{ inputs.cache_prefix }}
+
+      - name: Fail loudly if the cache is gone
+        run: |
+          set -euo pipefail
+          # Silence here would be the worst outcome: a green run that recovered
+          # nothing, while the cache it needed quietly expired.
+          test -d .dv_cache || { echo "::error::no .dv_cache restored -- the cache has expired or the branch scope is wrong"; exit 1; }
+          echo "cached pages: $(find .dv_cache -name '*.html' | wc -l)"
+          du -sh .dv_cache
+
+      # ---- preservation, before anything can go wrong in the recovery ----
+
+      - name: Pack the raw pages
+        run: tar --use-compress-program='zstd -19 -T0' -cf dv-cache-raw.tar.zst .dv_cache && ls -lh dv-cache-raw.tar.zst
+
+      - name: Keep them as a 90-day artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dv-cache-raw
+          path: dv-cache-raw.tar.zst
+          retention-days: 90
+
+      - name: Keep them on an orphan branch that never expires
+        if: ${{ inputs.preserve_to_branch }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Orphan, like kavya-dist and search-dist: it carries one file and
+          # shares no history with main, so main's size is untouched.
+          git checkout --orphan dv-cache-dist
+          git rm -rf --cached . >/dev/null 2>&1 || true
+          find . -maxdepth 1 -mindepth 1 ! -name '.git' ! -name 'dv-cache-raw.tar.zst' -exec rm -rf {} +
+          printf '%s\n' \
+            "# dvaitavedanta.in raw pages" "" \
+            "The HTTP cache from the crawl, exactly as fetched, so anything the" \
+            "importer flattened away can still be recovered without re-crawling" \
+            "(~14 hours at the source's ~39 s/leaf) and without asking the site" \
+            "for it a second time." "" \
+            "Restore with: tar --use-compress-program=unzstd -xf dv-cache-raw.tar.zst" > README.md
+          git add dv-cache-raw.tar.zst README.md
+          git commit -qm "The dvaitavedanta.in pages as fetched, kept so the structure stays recoverable"
+          git push -f origin dv-cache-dist
+          echo "pushed to dv-cache-dist"
+
+      # ---- recovery ----
+
+      - name: Recover the navigation tree
+        run: |
+          set -euo pipefail
+          git checkout -- . 2>/dev/null || true
+          git checkout "${GITHUB_REF_NAME}" -- . 2>/dev/null || true
+          ARGS=(--cache .dv_cache --out data/darshana/vedanta/dvaita/DvaitaVedantaIn/_structure.json)
+          [ "${{ inputs.limit }}" != "0" ] && ARGS+=(--limit "${{ inputs.limit }}")
+          python tools/dvaitavedanta/recover_structure.py "${ARGS[@]}"
+
+      - name: Upload the recovered structure
+        uses: actions/upload-artifact@v4
+        with:
+          name: dv-structure
+          path: data/darshana/vedanta/dvaita/DvaitaVedantaIn/_structure.json
+          retention-days: 90
+
+      # This job's own checkout (this repo, ShriBuddhi) does the recovery
+      # above; the final publish targets BrahmaBuddhi as a staging repo
+      # instead of PR-ing straight into ShriBuddhi or bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml. (The dv-cache-dist raw
+      # cache preservation above is unaffected -- it stays on this repo's
+      # own orphan branch, nothing reads it over a CDN.)
+      - name: Checkout BrahmaBuddhi
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror the recovered structure into the BrahmaBuddhi checkout
+        run: |
+          set -euo pipefail
+          mkdir -p brahmabuddhi/data/darshana/vedanta/dvaita/DvaitaVedantaIn
+          cp -a data/darshana/vedanta/dvaita/DvaitaVedantaIn/_structure.json \
+                brahmabuddhi/data/darshana/vedanta/dvaita/DvaitaVedantaIn/_structure.json
+
+      - name: Open a PR with the recovered structure (against BrahmaBuddhi)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: recover/dv-structure
+          title: "Dvaita: recover the navigation tree the import flattened"
+          commit-message: "Recover the dvaitavedanta.in tree from the cached pages"
+          body: |
+            `_structure.json` is the parent/child tree of dvaitavedanta.in,
+            rebuilt from the cached pages by
+            `tools/dvaitavedanta/recover_structure.py`. No network was used and
+            no data file was changed; this only adds the relation the import
+            dropped.
+
+            Parent comes from the nesting of the source's own sub-menus, not
+            from `data-level` — levels repeat across branches, parents do not.
+
+            The raw pages are preserved alongside this run: as the `dv-cache-raw`
+            artifact (90 days) and on the `dv-cache-dist` orphan branch, so the
+            7-day cache expiry can no longer cost us the ability to recover more.
+
+            ---
+            _Generated by [Claude Code](https://claude.ai/code)_

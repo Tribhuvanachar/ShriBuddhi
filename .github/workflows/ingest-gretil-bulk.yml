@@ -1,0 +1,148 @@
+name: Ingest — GRETIL bulk (Purāṇa / Vedāṅga)
+
+# Fills the Purāṇa and Vedāṅga gaps from GRETIL, driven by
+# importers/gretil_bulk.json. Thirteen incompatible marker grammars live in that
+# registry rather than in code, so adding a text is a data edit.
+#
+# dry_run defaults true and open_pr defaults false: a marker regex that has
+# drifted should surface as a failed parse in the log, not as a PR full of
+# mangled text. The importer raises rather than writing when its marker matches
+# nothing.
+#
+# Search index is deliberately not rebuilt here — run reindex.yml after review.
+
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "What to ingest"
+        type: choice
+        default: purana
+        options:
+          - purana
+          - vedanga
+          - all-cc-licensed
+          - single
+      text:
+        description: "Only when scope = single (see importers/gretil_bulk.py --list)"
+        type: string
+        default: vishnu_purana
+      dry_run:
+        description: "Parse and report — write nothing"
+        type: boolean
+        default: true
+      open_pr:
+        description: "Open a pull request (requires dry_run = false)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: ingest-gretil-bulk
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r importers/requirements.txt
+
+      - name: Self-test the marker grammars (no network)
+        run: python importers/test_gretil_bulk.py
+
+      - name: List what the registry covers
+        run: python importers/gretil_bulk.py --list
+
+      - name: Ingest
+        env:
+          SCOPE: ${{ inputs.scope }}
+          TEXT: ${{ inputs.text }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          ARGS=()
+          case "$SCOPE" in
+            purana)          ARGS+=(--group purana/) ;;
+            vedanga)         ARGS+=(--group vedanga/) ;;
+            all-cc-licensed) ARGS+=(--all) ;;
+            single)          ARGS+=(--id "$TEXT") ;;
+          esac
+          [ "$DRY_RUN" = "true" ] && ARGS+=(--dry-run)
+          python importers/gretil_bulk.py "${ARGS[@]}" | tee ingest.log
+
+      - name: Reconcile the catalogs
+        if: ${{ !fromJSON(inputs.dry_run) }}
+        run: |
+          python tools/validate_data.py || true
+          python tools/audit_library.py --data data --fix
+          python tools/gen_library_status.py || true
+
+      - name: Report
+        if: ${{ !fromJSON(inputs.dry_run) }}
+        run: |
+          {
+            echo "## GRETIL bulk ingest — ${{ inputs.scope }}"
+            echo
+            echo '```'
+            cat ingest.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          python tools/audit_library.py --data data >> "$GITHUB_STEP_SUMMARY" || true
+
+      # This job's own checkout (this repo, ShriBuddhi) runs the importer;
+      # the final publish targets BrahmaBuddhi as a staging repo instead of
+      # PR-ing straight into ShriBuddhi or bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed content into the BrahmaBuddhi checkout
+        if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- data | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Open Pull Request (against BrahmaBuddhi)
+        if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: ingest/gretil-bulk-${{ inputs.scope }}
+          delete-branch: true
+          commit-message: "data: GRETIL bulk ingest (${{ inputs.scope }})"
+          title: "Ingest: GRETIL ${{ inputs.scope }}"
+          body: |
+            Automated GRETIL ingest driven by `importers/gretil_bulk.json`.
+
+            Only CC BY-NC-SA 4.0 TEI files are included by default; the legacy
+            `1_sanskr/` files carry no redistribution grant and are marked
+            `reference-only` in the registry.
+
+            Partial texts record their scope in `source_note` — several are
+            genuinely incomplete upstream (Mārkaṇḍeya stops at adhy. 93, Matsya
+            at 176, Śiva has only 2 of 7 saṃhitās).
+
+            Search index not rebuilt; run `reindex.yml` after review.
+          add-paths: |
+            data/**

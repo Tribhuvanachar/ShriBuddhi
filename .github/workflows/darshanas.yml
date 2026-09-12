@@ -1,0 +1,184 @@
+name: Darshanas — scaffold and ingest
+
+# Two jobs, one workflow:
+#   scaffold — regenerate data/darshana/ from tools/darshanas/darshana_works.json
+#   ingest   — pull a GRETIL Nyāya/Mīmāṃsā text into a layer folder the scaffold made
+#
+# The tree is a build product: edit darshana_works.json, run scaffold, review the PR.
+# Existing data.json files are never clobbered, so scaffold is safe to re-run after
+# any number of ingests.
+#
+# build_search_index.py is deliberately not run here — the index is regenerable
+# and search_index is already 162 MB. Run reindex.yml once the texts have landed.
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "What to run"
+        type: choice
+        default: scaffold
+        options:
+          - scaffold
+          - ingest
+          - scaffold-then-ingest
+      text:
+        description: "GRETIL text id to ingest (see tools/darshanas/README.md, or run --list)"
+        type: choice
+        default: tarkasangraha_dipika
+        options:
+          - all
+          - tarkasangraha_dipika
+          - nyayasutra_bhashya
+          - nyayasutra_tatparyatika
+          - tattvacintamani_shabda
+          - nyayakusumanjali
+          - mimamsasutra
+          - shabarabhashya
+          - jaiminiya_nyayamala
+          - shastradipika
+          - shlokavarttika_kashika
+      dry_run:
+        description: "Report only — write nothing"
+        type: boolean
+        default: true
+      open_pr:
+        description: "Open a pull request with the results (requires dry_run = false)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: darshanas
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r importers/requirements.txt
+
+      - name: Self-test (no network)
+        run: python tools/darshanas/test_darshanas.py
+
+      - name: Scaffold the tree
+        if: ${{ inputs.action != 'ingest' }}
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          ARGS=(--config tools/darshanas/darshana_works.json --data data)
+          [ "$DRY_RUN" = "true" ] && ARGS+=(--dry-run)
+          python tools/darshanas/scaffold_darshanas.py "${ARGS[@]}" | tee scaffold.log
+
+      - name: Ingest from GRETIL
+        if: ${{ inputs.action != 'scaffold' && !fromJSON(inputs.dry_run) }}
+        env:
+          TEXT_ID: ${{ inputs.text }}
+        run: |
+          if [ "$TEXT_ID" = "all" ]; then
+            python importers/dispatch.py darshana_all
+          else
+            python importers/dispatch.py "$TEXT_ID"
+          fi
+
+      - name: Ingest — dry run (list targets only)
+        if: ${{ inputs.action != 'scaffold' && fromJSON(inputs.dry_run) }}
+        run: python importers/darshana_gretil.py --list
+
+      - name: Validate and refresh the catalog
+        if: ${{ !fromJSON(inputs.dry_run) }}
+        run: |
+          python tools/validate_data.py || true
+          python tools/darshanas/scaffold_darshanas.py --data data --no-catalog >/dev/null
+          python tools/darshanas/scaffold_darshanas.py --data data
+          python tools/audit_library.py --data data --fix
+          python tools/gen_library_status.py
+
+      - name: Report
+        if: ${{ !fromJSON(inputs.dry_run) }}
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, pathlib, collections
+          idx = json.loads(pathlib.Path("data/darshana/_works_index.json").read_text(encoding="utf-8"))
+          leaves = idx["leaves"]
+          filled = [l for l in leaves if l["items"]]
+          by_school = collections.Counter(l["school"] for l in leaves)
+          done = collections.Counter(l["school"] for l in filled)
+          print("## Darśana tree\n")
+          print(f"- layer files: **{len(filled)}/{len(leaves)} populated**")
+          print(f"- items: **{sum(l['items'] for l in leaves):,}**")
+          print(f"- verification: {idx['verification_counts']}\n")
+          print("| School | Populated | Total |")
+          print("|---|--:|--:|")
+          for school, total in sorted(by_school.items()):
+              print(f"| {school} | {done.get(school, 0)} | {total} |")
+          if filled:
+              print("\n| Populated layer | Items |")
+              print("|---|--:|")
+              for l in sorted(filled, key=lambda x: -x["items"]):
+                  print(f"| `{l['path'].replace('darshana/', '')}` | {l['items']:,} |")
+          PY
+          du -sh data/darshana || true
+
+      # This job's own checkout (this repo, ShriBuddhi) does the scaffold/ingest
+      # work above; the final publish targets BrahmaBuddhi as a staging repo
+      # instead of committing/PR-ing straight into ShriBuddhi or bhumandala --
+      # see .github/workflows/push-to-brahmabuddhi.yml for the pattern this
+      # reuses.
+      - name: Checkout BrahmaBuddhi
+        if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed content into the BrahmaBuddhi checkout
+        if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- data/darshana data/taxonomy.json data/library.json data/library_status.json | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Open Pull Request (against BrahmaBuddhi)
+        if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: darshanas/${{ inputs.action }}-${{ inputs.text }}
+          delete-branch: true
+          commit-message: "data: darshanas ${{ inputs.action }} (${{ inputs.text }})"
+          title: "Darshanas: ${{ inputs.action }} — ${{ inputs.text }}"
+          body: |
+            Automated darśana ${{ inputs.action }} via GitHub Actions.
+
+            The tree under `data/darshana/` is generated from
+            `tools/darshanas/darshana_works.json` — edit that file, not the tree.
+            Existing `data.json` files are never overwritten.
+
+            Text sources and their licences are registered in
+            `tools/darshanas/darshana_sources.json`. GRETIL files carry
+            "COPYRIGHT AND TERMS OF USAGE AS FOR SOURCE FILE", so each import
+            records the per-file attribution block in `source_note`.
+
+            Search index intentionally not rebuilt; run `reindex.yml` after review.
+          add-paths: |
+            data/darshana/**
+            data/taxonomy.json
+            data/library.json
+            data/library_status.json
