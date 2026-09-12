@@ -1,0 +1,125 @@
+name: Probe — verify the alignment by eye, and check wikisource for Sayana
+
+# Diagnostic only. Writes nothing into , opens no PR.
+#
+# TWO QUESTIONS, and the second may make the first moot.
+#
+# 1. sa.wikisource is reported to carry Sayana. If it does, as transcribed wiki
+#    text rather than OCR, it beats the archive.org scan outright -- no scanning
+#    errors at all, and a stated licence (CC BY-SA) instead of the archive item's
+#    silence. Worth settling before investing further in the OCR route.
+#
+# 2. The archive.org alignment reaches 95.5% at median score ~0.93. That is
+#    strong evidence, but it is all of one kind. A systematic off-by-one -- every
+#    bhashya shifted to its neighbouring mantra -- would leave those scores
+#    completely unchanged, because each mantra would still match the text
+#    printed above SOME commentary. Only reading the pairing catches that, so
+#    this prints the mantra beside the opening of the bhashya assigned to it.
+#
+#    Sayana's habit makes this checkable without knowing the text: he opens a
+#    comment by quoting the mantra's own first words (the pratika). So the
+#    bhashya assigned to a mantra should usually begin with that mantra's
+#    opening. Where it begins with the NEXT mantra's opening, the alignment has
+#    slipped by one -- which is exactly the failure the scores cannot see.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/probe-sayana-verify.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Does sa.wikisource carry Sayana's bhashya?
+        run: |
+          python - <<'PY'
+          import json, urllib.parse, urllib.request
+          UA = {"User-Agent": "DGE-import/1.0 (Digital Grantha Engine; non-commercial "
+                              "educational digital library; github.com/Tribhuvanachar/bhumandala)"}
+          def api(host, **params):
+              params.setdefault("format", "json")
+              url = f"https://{host}/w/api.php?" + urllib.parse.urlencode(params)
+              return json.loads(urllib.request.urlopen(
+                  urllib.request.Request(url, headers=dict(UA)), timeout=60).read())
+
+          for host in ("sa.wikisource.org",):
+              for term in ("सायण", "सायणभाष्य", "ऋग्वेदः सायण", "ऋग्वेदभाष्य"):
+                  try:
+                      r = api(host, action="query", list="search", srsearch=term, srlimit=8)
+                      hits = r.get("query", {}).get("search", [])
+                      print(f"\n=== {host}  search {term!r}: {len(hits)} hit(s) ===")
+                      for h in hits:
+                          print(f"   {h['title']}   ({h.get('wordcount','?')} words)")
+                  except Exception as e:
+                      print(f"  !! {term}: {e}")
+
+          # If a promising page exists, pull it and see whether it holds bhashya
+          # prose or only the samhita text DGE already has.
+          print("\n=== sample a candidate page ===")
+          for title in ("ऋग्वेदः सूक्तं १.१", "ऋग्वेदः/सूक्तं १.१", "ऋग्वेदः मण्डल १ सूक्तं १"):
+              try:
+                  r = api("sa.wikisource.org", action="query", prop="extracts",
+                          explaintext=1, titles=title, redirects=1)
+                  pages = r.get("query", {}).get("pages", {})
+                  for pid, page in pages.items():
+                      if pid == "-1":
+                          print(f"   {title}: not found")
+                          continue
+                      txt = page.get("extract", "") or ""
+                      print(f"   {page.get('title')}: {len(txt)} chars")
+                      if txt:
+                          print("   ---")
+                          print("   " + txt[:500].replace("\n", "\n   "))
+              except Exception as e:
+                  print(f"   !! {title}: {e}")
+          PY
+
+      - name: Read the archive.org pairings, do not just score them
+        run: |
+          python - <<'PY'
+          import json, sys
+          sys.path.insert(0, "tools/sayana_smriti")
+          from archive_sayana import align, parse_blocks, skeleton, volume_for
+
+          SAM = "data/vedas/rigveda/shakala_shakha/samhita/mandala_{m:02d}/data.json"
+          slipped = checked = 0
+          for m in (1, 5, 9):
+              items = json.load(open(SAM.format(m=m)))["items"]
+              res = align(items, parse_blocks(volume_for(m)), threshold=0.55)
+              by_id = {it["id"]: it for it in items}
+              print(f"\n################ maṇḍala {m} ################")
+              for k, mid in enumerate(list(res["aligned"])[:4]):
+                  rec = res["aligned"][mid]
+                  mantra = by_id[mid].get("samhita_patha_plain", "")
+                  print(f"\n  {mid}  (score {rec['score']})")
+                  print(f"    mantra : {mantra[:90]}")
+                  print(f"    bhashya: {rec['text'][:150]}")
+
+              # The off-by-one check, over every aligned mantra: does the
+              # commentary open by quoting the mantra it is attached to, or the
+              # one after it?
+              ids = list(res["aligned"])
+              for i, mid in enumerate(ids[:-1]):
+                  head = skeleton(res["aligned"][mid]["text"])[:14]
+                  mine = skeleton(by_id[mid].get("samhita_patha_plain",""))[:14]
+                  nxt  = skeleton(by_id[ids[i+1]].get("samhita_patha_plain",""))[:14]
+                  if not head or not mine:
+                      continue
+                  checked += 1
+                  if head == nxt and head != mine:
+                      slipped += 1
+          print(f"\n=== off-by-one check: {slipped} slipped of {checked} checked ===")
+          print("A commentary opening with the NEXT mantra's words means the cut")
+          print("landed one mantra late. Scores cannot see this; only this can.")
+          PY

@@ -1,0 +1,258 @@
+# TODO(migration): needs manual review before this runs from ShriBuddhi.
+# This workflow is fundamentally bound to bhumandala: it triggers on a push
+# to "this repo"'s main under tasks/inbox/*.json (written directly by the
+# live website's "Ask Claude" tab, which commits to bhumandala, not
+# ShriBuddhi), its prompt to the Claude Code action hardcodes "this
+# repository, Tribhuvanachar/bhumandala", and it reads/writes tasks/ and
+# tasks/WEEKLY_INSTRUCTIONS.md, neither of which is part of the
+# tools/tests/admin-config mirror this migration copied into ShriBuddhi.
+# Simply moving the file (as this migration's blanket rule required, since
+# it matched the tools/ grep) leaves its trigger and checkout pointed at a
+# repo/folder that will never receive the pushes it expects. Making it work
+# would mean either (a) leaving the live tab's write target and this
+# workflow's trigger on bhumandala and having this repo do nothing, which
+# defeats moving it here, or (b) wiring a genuine cross-repo trigger
+# (webhook/repository_dispatch from bhumandala into ShriBuddhi, checking out
+# both repos, writing the reply back to bhumandala with a PAT) -- a real
+# architecture change, not a path substitution, and not something to guess
+# at. Left unedited otherwise pending a decision from the project lead.
+name: Ask Claude — answer inbox requests
+
+# The live half of the website's "Ask Claude" tab (tasks/README.md).
+#
+# The page commits tasks/inbox/<id>.json to main with the lead's own token.
+# That push lands here within a minute, a Claude Code session starts on this
+# runner, reads the request, does it or answers it, and its reply is committed
+# back into the same file — which the page is polling. Round trip is usually
+# two to four minutes: a chat with a pause, not a chat with a Sunday.
+#
+# What makes it safe to leave switched on:
+#   * only files under tasks/inbox/ trigger it, and only ones the lead
+#     committed (the page writes as the lead; anyone else's push to that
+#     folder would need write access to main in the first place);
+#   * the job skips its own reply commits (message prefix), so it never
+#     loops on itself;
+#   * Claude's reply goes to main, but any CHANGE it makes beyond tasks/ goes
+#     to a branch and a pull request — main is never rewritten unreviewed;
+#   * one request at a time (concurrency group), so two replies never race
+#     on the same file;
+#   * it spends the lead's Anthropic credits, never Gemini's, and stops
+#     after --max-turns.
+#
+# Needs ONE repository secret (Settings → Secrets → Actions):
+#   ANTHROPIC_API_KEY          — an API key from console.anthropic.com, or
+#   CLAUDE_CODE_OAUTH_TOKEN    — from `claude setup-token` on a Claude
+#                                subscription (Pro/Max); either works.
+# Without one the job fails fast and writes that fact into the thread, so the
+# page shows why nothing answered.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tasks/inbox/*.json"
+  workflow_dispatch:
+    inputs:
+      id:
+        description: "Inbox id to answer (blank = every request whose status is pending)"
+        type: string
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  id-token: write
+
+concurrency:
+  group: ask-claude
+  cancel-in-progress: false
+
+jobs:
+  answer:
+    # Skip the pushes this job itself makes (its reply commits) and the ones
+    # the Sunday session makes while bookkeeping.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (!startsWith(github.event.head_commit.message, 'Ask Claude reply') &&
+       !startsWith(github.event.head_commit.message, 'Ask Claude: done'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Which requests are waiting
+        id: pending
+        env:
+          ONLY: ${{ inputs.id }}
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import glob, json, os
+          only = os.environ.get("ONLY", "").strip()
+          ids = []
+          for p in sorted(glob.glob("tasks/inbox/*.json")):
+              try:
+                  d = json.load(open(p, encoding="utf-8"))
+              except Exception:
+                  continue
+              if not isinstance(d, dict) or d.get("status") != "pending":
+                  continue
+              last = (d.get("thread") or [{}])[-1]
+              if last.get("who") == "claude":
+                  continue                      # already answered; page has not flipped status
+              if only and d.get("id") != only:
+                  continue
+              ids.append(d["id"])
+          print("ids=" + ",".join(ids))
+          print("count=" + str(len(ids)))
+          PY
+          echo "pending: $(grep ^ids= "$GITHUB_OUTPUT" | tail -1)"
+
+      - name: Nothing pending
+        if: steps.pending.outputs.count == '0'
+        run: echo "No inbox request with status pending — nothing to do." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Say the request was seen
+        if: steps.pending.outputs.count != '0'
+        env:
+          IDS: ${{ steps.pending.outputs.ids }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python3 - <<'PY'
+          import json, os, datetime
+          now = datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
+          for i in os.environ["IDS"].split(","):
+              p = f"tasks/inbox/{i}.json"
+              d = json.load(open(p, encoding="utf-8"))
+              d["working"] = {"since": now, "run": os.environ["RUN_URL"]}
+              json.dump(d, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+              open(p, "a").write("\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tasks/inbox
+          git commit -q -m "Ask Claude reply: working on ${IDS}" || true
+          git push -q origin HEAD:main || (git pull -q --rebase origin main && git push -q origin HEAD:main)
+
+      - name: Claude reads and answers
+        if: steps.pending.outputs.count != '0'
+        id: claude
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          claude_args: >-
+            --max-turns 80
+            --allowedTools "Bash,Read,Write,Edit,MultiEdit,Glob,Grep,WebFetch"
+          prompt: |
+            You are answering requests the project lead sent from the website's
+            "Ask Claude" tab of the Sarvamūla Digital Library (this repository,
+            Tribhuvanachar/bhumandala). Read tasks/README.md first — it is the
+            protocol — then CLAUDE.md and HANDOFF.md §3 for the standing rules.
+
+            Requests to handle now (ids): ${{ steps.pending.outputs.ids }}
+            Each is tasks/inbox/<id>.json: `instruction` is the ask, `sections[]`
+            name the library paths it concerns (data/…/data.json), `thread[]`
+            is the conversation so far.
+
+            For each request:
+            1. If it is a question, answer it from the repository (read the
+               data.json files, taxonomy.json, library.json, docs). Be concrete:
+               counts, paths, what is there and what is not.
+            2. If it asks for a change (delete, pair, categorise, rename, move,
+               fix), MAKE IT — but not on main. Create a branch
+               claude/inbox-<id> from main, commit the change there with a clear
+               message, push it, and open a pull request with `gh pr create`
+               describing exactly what changed and why; put the PR URL in your
+               reply. Run `python3 tools/validate_data.py` and
+               `python3 tools/audit_library.py` before pushing. Then return to
+               main (`git checkout main`) so the reply below lands on main.
+               Anything the standing rules reserve for the lead (money, deleting
+               data, publishing, DNS) → write a proposal instead and set status
+               "needs-answer". Never call the Gemini API.
+            3. Reply: append to the file's `thread` an object
+               {"who": "claude", "at": "<ISO-8601 UTC now>", "text": "<your reply>"},
+               delete the `working` key, and set `status` to "answered" (a
+               question), "done" (a change made and its PR opened) or
+               "needs-answer" (waiting on the lead). Write times in the text in
+               IST. Keep the reply readable on a phone: short paragraphs.
+            4. Do NOT commit or push tasks/inbox yourself — leave those edits in
+               the working tree on main; the workflow commits them after you
+               finish. (Branch/PR pushes for code changes are yours to make.)
+            5. In tasks/WEEKLY_INSTRUCTIONS.md, if a bullet "[inbox <id>]" is
+               under "## Pending" and the status you set is done or answered,
+               move it to "## Done (log)" as "- <YYYY-MM-DD> · [inbox <id>] <task>
+               · answered by ask-claude.yml". Leave it under Pending for
+               needs-answer.
+
+      - name: If Claude could not run, say so in the thread
+        if: steps.pending.outputs.count != '0' && steps.claude.outcome != 'success'
+        env:
+          IDS: ${{ steps.pending.outputs.ids }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          python3 - <<'PY'
+          import json, os, datetime
+          now = datetime.datetime.now(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
+          for i in os.environ["IDS"].split(","):
+              p = f"tasks/inbox/{i}.json"
+              d = json.load(open(p, encoding="utf-8"))
+              last = (d.get("thread") or [{}])[-1]
+              if last.get("who") == "claude" and d.get("status") != "pending":
+                  continue                      # it did reply before failing later
+              d.setdefault("thread", []).append({
+                  "who": "claude", "at": now,
+                  "text": "The Ask Claude workflow could not complete this request. Usually that means the ANTHROPIC_API_KEY / CLAUDE_CODE_OAUTH_TOKEN secret is missing or out of credit. Run log: " + os.environ["RUN_URL"] + " — the Sunday session will still pick this up."})
+              d["status"] = "needs-answer"
+              d.pop("working", None)
+              json.dump(d, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+              open(p, "a").write("\n")
+          PY
+
+      - name: Commit the replies to main
+        if: steps.pending.outputs.count != '0'
+        env:
+          IDS: ${{ steps.pending.outputs.ids }}
+        run: |
+          set -euo pipefail
+          git checkout -q main 2>/dev/null || true
+          # Claude must leave `working` cleared and a status set; if it replied
+          # but forgot, tidy so the page does not spin forever.
+          python3 - <<'PY'
+          import json, os
+          for i in os.environ["IDS"].split(","):
+              p = f"tasks/inbox/{i}.json"
+              d = json.load(open(p, encoding="utf-8"))
+              last = (d.get("thread") or [{}])[-1]
+              if last.get("who") == "claude":
+                  d.pop("working", None)
+                  if d.get("status") == "pending":
+                      d["status"] = "answered"
+              json.dump(d, open(p, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+              open(p, "a").write("\n")
+          PY
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tasks/inbox tasks/WEEKLY_INSTRUCTIONS.md
+          if git diff --cached --quiet; then
+            echo "Nothing to commit (no reply was written)." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git commit -q -m "Ask Claude reply: ${IDS}"
+          for attempt in 1 2 3; do
+            git push -q origin HEAD:main && break
+            git pull -q --rebase origin main || true
+            sleep $((attempt * 3))
+          done
+          {
+            echo "## Ask Claude"
+            echo ""
+            for i in ${IDS//,/ }; do
+              echo "- \`$i\` → status: $(python3 -c "import json;print(json.load(open('tasks/inbox/$i.json'))['status'])")"
+            done
+          } >> "$GITHUB_STEP_SUMMARY"

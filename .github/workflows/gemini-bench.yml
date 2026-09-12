@@ -1,0 +1,92 @@
+name: DGE Gemini batching/concurrency benchmark
+
+# Runs tools/gemini_bench.py -- a diagnostic that compares Gemini models
+# and --batch-size/--concurrency settings on a small, real sample of
+# verses, to find the cheapest model + best batch size and a safe
+# concurrency ceiling BEFORE spending real money running
+# gemini-summarize-kavya.yml across the whole library. See PENDING.md
+# for the run this shipped with and its conclusions.
+#
+# Read-only: this workflow never modifies repository data (gemini_bench.py
+# only reads sample verses; it does not write to any data.json) and never
+# opens a PR or pushes. It only prints a report and uploads it as a build
+# artifact. Requires the same GEMINI_API_KEY secret as the other Gemini
+# workflows -- real, billed API calls, so keep --verses/--sweep-batches
+# modest (defaults are deliberately small).
+
+on:
+  workflow_dispatch:
+    inputs:
+      sarga_path:
+        description: "One sarga's data.json to sample verses from"
+        required: true
+        default: data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_2/data.json
+      verses:
+        description: "Sample size for the model x batch-size grid (phase 1)"
+        required: true
+        default: "12"
+      models:
+        description: "Comma list of models to compare"
+        required: true
+        default: "gemini-flash-latest,gemini-flash-lite-latest"
+      batch_sizes:
+        description: "Comma list of batch sizes to compare"
+        required: true
+        default: "1,4,12"
+      sweep_model:
+        description: "Model to use for the concurrency sweep (phase 2)"
+        required: true
+        default: gemini-flash-latest
+      sweep_batch_size:
+        description: "Batch size to use for the concurrency sweep"
+        required: true
+        default: "10"
+      sweep_batches:
+        description: "How many batches to submit per concurrency level"
+        required: true
+        default: "10"
+      concurrency_levels:
+        description: "Comma list of concurrency levels to try"
+        required: true
+        default: "1,5,10,20"
+
+permissions:
+  contents: read
+
+jobs:
+  bench:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run benchmark
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo "::error::GEMINI_API_KEY repository secret is not set."
+            exit 1
+          fi
+          python3 tools/gemini_bench.py \
+            --sarga-path "${{ inputs.sarga_path }}" \
+            --verses "${{ inputs.verses }}" \
+            --models "${{ inputs.models }}" \
+            --batch-sizes "${{ inputs.batch_sizes }}" \
+            --sweep-model "${{ inputs.sweep_model }}" \
+            --sweep-batch-size "${{ inputs.sweep_batch_size }}" \
+            --sweep-batches "${{ inputs.sweep_batches }}" \
+            --concurrency-levels "${{ inputs.concurrency_levels }}" \
+            --out bench-report.json
+      - name: Confirm no repository data was modified
+        run: |
+          if ! git diff --quiet; then
+            echo "::error::gemini_bench.py should never modify repository files -- it is read-only."
+            git status --porcelain
+            exit 1
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gemini-bench-report
+          path: bench-report.json

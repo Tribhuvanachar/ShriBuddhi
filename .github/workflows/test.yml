@@ -1,0 +1,115 @@
+name: Tests
+
+# The project's only general-purpose CI gate. Every other workflow here is
+# workflow_dispatch (a specific ingestion/import pipeline someone runs by
+# hand) or a narrow auto-trigger scoped to its own output paths -- none of
+# them run the actual test suites on an ordinary push. This one does:
+# the Python suite (tests/), the standalone offline import tests under
+# tools/, the plain-Node JS tests (no framework, no build step -- this
+# project's own convention), tools/validate_data.py's structural corpus
+# check, tools/validate_gold_standard.py's V1-V7 gate over any
+# format:gold_v2_2 commentary already in data/, and the generated-file
+# drift gates (frontend shell, sitemap.xml/robots.txt) that fail if their
+# source changed without regenerating the committed output.
+#
+# tools/darshanas/test_darshanas.py is deliberately NOT run here: it syncs
+# and writes taxonomy.json/library.json as a side effect (a migration
+# script, not a repeatable test), which a CI gate must never do.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # build_sitemap.py's --check gate below derives each URL's
+          # lastmod from real git history; a shallow (depth-1) checkout
+          # has no history to derive it from -- its one boundary commit
+          # looks like it "added" every file, which would make every
+          # lastmod collapse to today's date and never match sitemap.xml
+          # as committed.
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # numpy: tests/test_transcript_crossmatch.py imports the Kamadhenu
+      # exporter; indic-transliteration: tools/seo/taxonomy.py's IAST labels.
+      # Without them pytest stopped at collection and every later step here
+      # (validators, drift gates) never ran — main was red for the wrong reason.
+      - run: pip install pytest beautifulsoup4 requests pyyaml numpy indic-transliteration
+
+      - name: Python test suite (tests/)
+        run: python3 -m pytest tests/ -q
+
+      - name: Dvaita Vedanta parser tests
+        run: python3 tools/dvaitavedanta/test_dv_parse.py
+
+      - name: Dvaita Vedanta offline import tests
+        run: python3 tools/dvaitavedanta/test_import_offline.py
+
+      - name: Dvaita Vedanta pytest suite (fold/stitch tools)
+        run: python3 -m pytest tools/dvaitavedanta/ -q
+
+      - name: Sayana/Smriti/wikisource parser tests
+        run: python3 -m pytest tools/sayana_smriti/tests/ -q
+
+      - name: set_site_url tests
+        run: python3 tools/test_set_site_url.py
+
+      - name: build_sitemap tests
+        run: python3 tools/test_build_sitemap.py
+
+      - name: JS -- search resilience
+        run: node js/test-search-resilience.js
+
+      - name: JS -- JS/Python normalizer parity
+        run: node js/test-parity.js
+
+      - name: JS -- Gold-Standard renderer
+        run: node js/test-gold-render.js
+
+      - name: JS -- audio detection
+        run: node tools/audio_admin/test-audio-detect.js
+
+      - name: Corpus structural check (validate_data.py)
+        run: python3 tools/validate_data.py
+
+      - name: Gold-Standard contract gate (validate_gold_standard.py)
+        run: python3 tools/validate_gold_standard.py --scan-corpus --data data
+
+      - name: Frontend redesign -- shared-chrome regression guard
+        run: python3 tools/redesign/audit_pages.py --check
+
+      - name: Frontend redesign -- baked shell drift gate (build_shell.py)
+        run: python3 tools/redesign/build_shell.py --check
+
+      - name: sitemap.xml / robots.txt drift gate (build_sitemap.py)
+        run: |
+          # On drift, show WHAT drifted — the gate kept failing with no
+          # clue while local --check passed at the same commit.
+          if ! python3 tools/build_sitemap.py --check; then
+            python3 tools/build_sitemap.py
+            git --no-pager diff --stat sitemap.xml
+            git --no-pager diff sitemap.xml | head -80
+            exit 1
+          fi
+
+      - name: Names audit (audit_names.py — report only until the backlog is cleared)
+        # docs/NAMING_CONVENTIONS.md. Writes the counts into the run summary;
+        # switch to --strict once the HARD findings it lists are fixed.
+        run: python3 tools/audit_names.py
+
+      - name: Repo inventory drift gate (build_repo_inventory.py)
+        # Every workflow file must have a classified entry in
+        # admin/config/repo-map.json, and the generated fields (inputs,
+        # triggers, secrets) must match the yml — otherwise the admin page's
+        # Repository & Workflows tab shows a stale form.
+        run: python3 tools/build_repo_inventory.py --check

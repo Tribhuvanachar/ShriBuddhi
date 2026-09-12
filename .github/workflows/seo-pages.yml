@@ -1,0 +1,91 @@
+# DGE — crawlable site build (tools/seo). Generates one static HTML page per section of every public grantha,
+# category index pages, sitemaps and robots.txt into a deploy artifact; validates it; and (when asked) publishes
+# the whole site — repo files + generated pages — with GitHub Pages' Actions deployment.
+#
+# Why an artifact and not a commit: the published tree is already ~2.7 GB against the 1 GB Pages soft limit
+# (GO_LIVE_ARCHITECTURE.md §0.3), and the generated pages are a few hundred MB more. They are derived
+# from data, so they are rebuilt here on every run instead of being stored twice.
+#
+# To publish: Settings → Pages → Source → "GitHub Actions" (a one-time switch by the repository owner), then run
+# this workflow with deploy=true. Until then run it with deploy=false: it still builds, validates and uploads
+# the tree as an artifact you can inspect. The same build feeds the Firebase Hosting deploy when that goes live.
+name: DGE — SEO pages (build, validate, deploy)
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "publish to GitHub Pages (requires Pages source = GitHub Actions)"
+        required: true
+        default: "false"
+      only:
+        description: "build a taxonomy prefix only (empty = everything)"
+        required: false
+        default: ""
+  schedule:
+    - cron: "30 21 * * 0"   # Sundays 3:00 am IST — rebuild after the week's imports (deploy only if Pages is on Actions)
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: seo-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    outputs:
+      pages: ${{ steps.build.outputs.pages }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - run: pip install -q indic-transliteration
+      - name: Assemble the site tree (repo files that the browser needs, nothing else)
+        run: |
+          set -euo pipefail
+          mkdir -p _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' --exclude='tools' --exclude='tests' --exclude='kamadhenu' \
+                --exclude='kamadhenu_dataset' --exclude='docs' --exclude='*.md' --exclude='__pycache__' --exclude='node_modules' \
+                --exclude='firebase' ./ _site/
+          du -sh _site
+      - name: Generate canonical pages, sitemaps, robots.txt
+        id: build
+        run: |
+          set -euo pipefail
+          python3 tools/seo/build_seo_site.py --out _site --quiet ${{ inputs.only && format('--only {0}', inputs.only) || '' }}
+          cp _site/seo-build.json seo-build.json
+          echo "pages=$(python3 -c "import json;print(json.load(open('seo-build.json'))['pages'])")" >> "$GITHUB_OUTPUT"
+          du -sh _site/veda _site/dge 2>/dev/null || true
+      - name: Validate
+        run: python3 tools/seo/validate_seo.py --site _site --report seo-validation.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: seo-reports
+          path: |
+            seo-build.json
+            seo-validation.json
+            data/seo_urls.json
+      - name: Upload the site as the Pages artifact
+        if: ${{ inputs.deploy == 'true' }}
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    if: ${{ inputs.deploy == 'true' }}
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

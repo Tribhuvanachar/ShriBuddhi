@@ -1,0 +1,98 @@
+name: OCR — Sarvam Document AI (layout kept)
+
+# Layout-preserving OCR of a scanned book through Sarvam AI's Document AI,
+# the alternative to the Vision + Gemini flat-text pipeline for pages where
+# headings, paragraphs, verse breaks and footnotes matter (most commentaries).
+#
+# Output is staged, never merged: data/ocr_staging/<work>/sarvam_pages<A>-<B>.json,
+# committed to the ocr-staging/<work> branch like ocr-vision-pages.yml does,
+# and opened for scholar review in admin/ocr-review.html. Approved text
+# becomes a layer through tools/ocr_review_merge.py (ocr-review-merge.yml).
+#
+# COSTS MONEY: Sarvam bills per page from the prepaid balance on
+# dashboard.sarvam.ai (10 pages per request, 10 requests a minute). The run
+# prints the page count it sent; with no SARVAM_API_KEY secret it does a
+# dry run and sends nothing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      pdf_url:
+        description: "Direct URL of the PDF (archive.org download link, Drive direct link, …)"
+        required: true
+        type: string
+      pages:
+        description: "Pages to send, e.g. 11-40 or 1-10,15,20-24 (each 10 pages is one job)"
+        required: true
+        type: string
+      work_slug:
+        description: "Work slug for the staging folder / branch (e.g. isha_upanishad_bhashya_tippani)"
+        required: true
+        type: string
+      language:
+        description: "Sarvam language code"
+        type: choice
+        options: [sa-IN, kn-IN, hi-IN, en-IN, ta-IN, te-IN]
+        default: sa-IN
+      output_format:
+        description: "html keeps the most layout; md is lighter; json is raw blocks"
+        type: choice
+        options: [html, md, json]
+        default: html
+      dry_run:
+        description: "Count pages and jobs only — call nothing, spend nothing"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ocr-sarvam-${{ inputs.work_slug }}
+  cancel-in-progress: false
+
+jobs:
+  digitise:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: sudo apt-get update -q && sudo apt-get install -y -q poppler-utils qpdf
+
+      - name: Digitise
+        env:
+          SARVAM_API_KEY: ${{ inputs.dry_run && '' || secrets.SARVAM_API_KEY }}
+        run: |
+          set -euo pipefail
+          ARGS=(--pdf-url "${{ inputs.pdf_url }}" --pages "${{ inputs.pages }}" --work "${{ inputs.work_slug }}"
+                --language "${{ inputs.language }}" --format "${{ inputs.output_format }}" --out data/ocr_staging)
+          [ "${{ inputs.dry_run }}" = "true" ] && ARGS+=(--dry-run)
+          python3 tools/sarvam_docai.py "${ARGS[@]}"
+
+      - name: Keep the staged file as an artifact too
+        if: ${{ !inputs.dry_run }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: sarvam-${{ inputs.work_slug }}
+          path: data/ocr_staging/${{ inputs.work_slug }}/sarvam_pages*.json
+          retention-days: 30
+
+      # Same home as the Vision pages: one branch per work, so the review page
+      # finds every engine's output for a book in one place.
+      - name: Commit to the ocr-staging/<work> branch
+        if: ${{ !inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          BR="ocr-staging/${{ inputs.work_slug }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git stash -q --include-untracked
+          if git fetch -q origin "$BR"; then git checkout -q -B "$BR" FETCH_HEAD; else git checkout -q -B "$BR"; fi
+          git stash pop -q
+          git add data/ocr_staging/${{ inputs.work_slug }}
+          git commit -q -m "ocr: Sarvam Document AI pages ${{ inputs.pages }} for ${{ inputs.work_slug }}"
+          git push -q origin "HEAD:$BR"
+          echo "Committed to branch \`$BR\` — open it in admin/ocr-review.html." >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,41 @@
+# Deploy the Kamadhenu ZeroGPU Space to Hugging Face from GitHub Actions (no laptop needed).
+#
+# Assembles tools/kamadhenu/space/ + Vāgdhenu src at the pinned commit (build_space.sh) and uploads it to
+# the Space named below. Needs the HF_TOKEN repository secret: a *write* token from the DGE Hugging Face
+# account (SarvamulaOrg → Settings → Access Tokens → New token → Write). Nothing else is required.
+# After the first upload, open the Space on huggingface.co → Settings → Hardware → ZeroGPU (the account is
+# PRO since 6 Sep 2026, so this is available immediately) and set appConfig.kamadhenuSpaceUrl in
+# js/config.js to https://sarvamulaorg-kamadhenu.hf.space . Re-run to redeploy after code changes.
+name: Deploy — Kamadhenu Space (Hugging Face)
+
+on:
+  workflow_dispatch:
+    inputs:
+      space:
+        description: "Hugging Face Space id"
+        required: true
+        default: "SarvamulaOrg/kamadhenu"
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install "huggingface_hub>=0.25"
+      - name: Assemble and upload
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          test -n "$HF_TOKEN" || { echo "HF_TOKEN secret is not set (Settings → Secrets and variables → Actions)"; exit 1; }
+          bash tools/kamadhenu/space/build_space.sh "${{ inputs.space }}"
+      - name: Report
+        run: |
+          echo "Space: https://huggingface.co/spaces/${{ inputs.space }}"
+          echo "API:   https://$(echo '${{ inputs.space }}' | tr '/' '-' | tr 'A-Z' 'a-z').hf.space/gradio_api/call/synthesize"

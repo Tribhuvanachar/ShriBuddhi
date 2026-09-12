@@ -1,0 +1,33 @@
+# Print the complete log and status of one Hugging Face Job (kamadhenu/training/hf_job.py logs). Read-only; costs
+# nothing. Needs the HF_TOKEN secret. workflow_dispatch only.
+name: Kamadhenu — HF Job log
+
+on:
+  workflow_dispatch:
+    inputs:
+      job_id:
+        description: "HF Job id (24 hex chars)"
+        required: true
+      namespace:
+        description: "namespace the job ran under"
+        required: true
+        default: "SarvamulaOrg"
+
+permissions:
+  contents: read
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: kamadhenu/training
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -q "huggingface_hub>=1.0"
+      - env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: python3 kamadhenu/training/hf_job.py logs --job "${{ inputs.job_id }}" --namespace "${{ inputs.namespace }}"

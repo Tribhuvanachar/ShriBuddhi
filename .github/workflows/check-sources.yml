@@ -1,0 +1,113 @@
+name: Check sources for updates
+
+# Every source this project has taken content from, asked once a fortnight
+# whether it has changed. It IMPORTS NOTHING. It takes one small fingerprint
+# per source, compares it with last time, and reports.
+#
+# The split is deliberate. A check is safe to run unattended; an import is not
+# -- it rewrites granthas, and this project already has a case where an
+# unattended one would have appended a second copy of the Raghuvamsa rather
+# than updating it. And a change detected is not a change wanted: a Wikisource
+# edit may be a correction or may be vandalism, and somebody should look before
+# it reaches a reader.
+#
+# WHAT HAPPENS WHEN SOMETHING CHANGED
+#   * the run's summary lists what moved, with the importer that would pull it
+#   * an issue is opened (or updated) saying the same, so it is not lost in a
+#     workflow log nobody visits
+#   * admin/config/sources.state.json is committed with the new fingerprints,
+#     so the next run reports the NEXT change rather than the same one forever
+
+on:
+  schedule:
+    # 06:00 UTC on the 1st and the 16th -- a fortnight, near enough.
+    - cron: "0 6 1,16 * *"
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Check only these source ids (comma-separated; blank = all)"
+        type: string
+        default: ""
+      remember:
+        description: "Record what was seen, so the next run reports only what is new"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: check-sources
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Ask every source whether it has changed
+        id: check
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          ONLY: ${{ inputs.only }}
+          REMEMBER: ${{ inputs.remember }}
+        run: |
+          set -euo pipefail
+          ARGS=()
+          [ -n "${ONLY:-}" ] && ARGS+=(--only "$ONLY")
+          # The scheduled run always remembers; a manual one asks.
+          if [ "${REMEMBER:-true}" = "true" ] || [ "${{ github.event_name }}" = "schedule" ]; then
+            ARGS+=(--write-state)
+          fi
+          python3 tools/check_sources.py "${ARGS[@]}" | tee /tmp/report.md
+          if grep -qE '^\| \*\*' /tmp/report.md; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Remember what was seen
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          if [ -n "$(git status --porcelain admin/config/sources.state.json)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add admin/config/sources.state.json
+            git commit -q -m "Source check: record what each source looked like on $(date -u +%F)"
+            # main moves under these jobs: the tracker refresh and the source
+            # check both push, and the first run of the pair had its state
+            # commit rejected because the other landed first. Rebase and retry
+            # rather than fail a job whose actual work succeeded.
+            for attempt in 1 2 3; do
+              git push -q && break
+              echo "push rejected, rebasing (attempt $attempt)"
+              git pull -q --rebase origin main || true
+              sleep $((attempt * 3))
+            done
+          fi
+
+      - name: Say so where it will be seen
+        if: ${{ steps.check.outputs.changed == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TITLE="Sources changed — $(date -u +%F)"
+          {
+            echo "A fortnightly source check found changes upstream. **Nothing has been imported.**"
+            echo ""
+            cat /tmp/report.md
+            echo ""
+            echo "To pull one in, run the importer named beside it. To silence a source that"
+            echo "changes constantly without being worth re-importing, drop its probe to"
+            echo "\`manual\` in \`admin/config/sources.registry.json\`."
+          } > /tmp/issue.md
+          gh issue create --title "$TITLE" --body-file /tmp/issue.md --repo "${{ github.repository }}" \
+            || gh issue comment "$(gh issue list --repo "${{ github.repository }}" --search "Sources changed" --limit 1 --json number --jq '.[0].number')" \
+                 --body-file /tmp/issue.md --repo "${{ github.repository }}"
