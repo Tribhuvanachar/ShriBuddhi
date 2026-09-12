@@ -1,0 +1,37 @@
+## text: Nibandhasaṃgraha
+## text_id: 6
+## chapter: NiSaṃ zu Su, Sū., 1, 25.1
+## chapter_id: 2544
+# text = tadyuktam na teṣāmityādi
+# sent_id = 16840
+# sent_counter = 1
+# sent_subcounter = 
+1	teṣām	tad	PRON	_	Case=Gen|Gender=Neut|Number=Plur	_	_	_	LemmaId=37875|OccId=777873|Unsandhied=teṣām|UnsandhiedReconstructed=True
+2	na	na	PART	_		_	_	_	LemmaId=43432|OccId=777898|Unsandhied=na|UnsandhiedReconstructed=True
+3	tat	tad	PRON	_	Case=Nom|Gender=Neut|Number=Sing	_	_	_	LemmaId=37875|OccId=2076167|Unsandhied=tat|UnsandhiedReconstructed=True
+
+# text = tadyuktam teṣāmityādi
+# sent_id = 16849
+# sent_counter = 1
+# sent_subcounter = 
+1	ityādi	ityādi	ADJ	_	Case=Nom|Gender=Neut|Number=Sing	_	_	_	LemmaId=63350|OccId=777874|Unsandhied=ityādi|UnsandhiedReconstructed=True
+2	yuktam	yuj	VERB	_	Case=Nom|Gender=Neut|Number=Sing|VerbForm=Part	_	_	_	LemmaId=157298|OccId=2076168|Unsandhied=yuktam|UnsandhiedReconstructed=True
+
+# text = 'pyatyantakledajñāpanāya viṃśatireva doṣotpādanenātmanaḥ tathoktāḥ
+# sent_id = 17013
+# sent_counter = 2
+# sent_subcounter = 
+1	kleda	kleda	NOUN	_	Case=Cpd	_	_	_	LemmaId=134246|OccId=601505|Unsandhied=kleda|UnsandhiedReconstructed=True
+2	jñāpanāya	jñāpana	NOUN	_	Case=Dat|Gender=Neut|Number=Sing	_	_	_	LemmaId=89738|OccId=601506|Unsandhied=jñāpanāya|UnsandhiedReconstructed=True
+3	tathā	tathā	ADV	_		_	_	_	LemmaId=95987|OccId=777888|Unsandhied=tathā|UnsandhiedReconstructed=True
+4	doṣa	doṣa	NOUN	_	Case=Cpd	_	_	_	LemmaId=90071|OccId=778092|Unsandhied=doṣa|UnsandhiedReconstructed=True
+5	viṃśatiḥ	viṃśati	NUM	_	Case=Nom|Gender=Fem|Number=Sing	_	_	_	LemmaId=47721|OccId=811370|Unsandhied=viṃśatiḥ|UnsandhiedReconstructed=True
+
+# text = viṃśatireva doṣotpādanenātmanaḥ tathoktāḥ
+# sent_id = 17016
+# sent_counter = 2
+# sent_subcounter = 
+1	uktāḥ	vac	VERB	_	Case=Nom|Gender=Masc|Number=Plur|VerbForm=Part	_	_	_	LemmaId=157264|OccId=777889|Unsandhied=uktāḥ|UnsandhiedReconstructed=True
+2	utpādanena	utpādana	NOUN	_	Case=Ins|Gender=Neut|Number=Sing	_	_	_	LemmaId=55965|OccId=778093|Unsandhied=utpādanena|UnsandhiedReconstructed=True
+3	eva	eva	PART	_		_	_	_	LemmaId=39754|OccId=811371|Unsandhied=eva|UnsandhiedReconstructed=True
+

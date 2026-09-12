@@ -1,0 +1,187 @@
+{
+ "note": "Additive patch for dge/data/taxonomy.json. Replaces the flat kavya_alankara node with the genre tree, preserving the five work ids that were already there (raghuvamsha, kumarasambhava, kiratarjuniya, shishupalavadha, sumadhva_vijaya) by re-parenting them, not by recreating them.",
+ "rupaka_source": "Dasarupaka 1.8 lists ten rupakas; natika, prakarani and sattaka are the three commonly appended forms. Confirm against your existing menu before merging.",
+ "preserve_ids": [
+  "raghuvamsha",
+  "kumarasambhava",
+  "kiratarjuniya",
+  "shishupalavadha",
+  "sumadhva_vijaya"
+ ],
+ "node": {
+  "id": "kavya_alankara",
+  "name_sa": "काव्यानि",
+  "name_iast": "Kāvyāni",
+  "name_en": "Kavya and Poetics",
+  "children": [
+   {
+    "id": "shravya",
+    "name_sa": "श्रव्यकाव्यानि",
+    "name_iast": "Śravyakāvyāni",
+    "name_en": "Kavya to be heard",
+    "children": [
+     {
+      "id": "mahakavya",
+      "name_sa": "महाकाव्यम्",
+      "name_iast": "Mahākāvya",
+      "name_en": "Great poem",
+      "children": [
+       {
+        "id": "pancha_mahakavya",
+        "name_sa": "पञ्चमहाकाव्यानि",
+        "name_iast": "Pañcamahākāvyāni",
+        "name_en": "The five great poems"
+       },
+       {
+        "id": "aitihasika",
+        "name_sa": "ऐतिहासिकम्",
+        "name_iast": "Aitihāsika",
+        "name_en": "Historical"
+       },
+       {
+        "id": "charita",
+        "name_sa": "चरितम्",
+        "name_iast": "Carita",
+        "name_en": "Life-poem"
+       },
+       {
+        "id": "anya",
+        "name_sa": "अन्यानि",
+        "name_iast": "Anyāni",
+        "name_en": "Other mahakavyas"
+       }
+      ]
+     },
+     {
+      "id": "khanda",
+      "name_sa": "खण्डकाव्यम्",
+      "name_iast": "Khaṇḍakāvya",
+      "name_en": "Short poem"
+     },
+     {
+      "id": "duta",
+      "name_sa": "दूतकाव्यम्",
+      "name_iast": "Dūtakāvya",
+      "name_en": "Messenger poem"
+     },
+     {
+      "id": "shataka",
+      "name_sa": "शतकम्",
+      "name_iast": "Śataka",
+      "name_en": "Century"
+     },
+     {
+      "id": "champu",
+      "name_sa": "चम्पूः",
+      "name_iast": "Campū",
+      "name_en": "Mixed verse and prose"
+     },
+     {
+      "id": "gadya",
+      "name_sa": "गद्यकाव्यम्",
+      "name_iast": "Gadyakāvya",
+      "name_en": "Prose poem"
+     },
+     {
+      "id": "katha",
+      "name_sa": "कथा",
+      "name_iast": "Kathā",
+      "name_en": "Story literature"
+     }
+    ]
+   },
+   {
+    "id": "drishya",
+    "name_sa": "दृश्यकाव्यानि",
+    "name_iast": "Dṛśyakāvyāni",
+    "name_en": "Kavya to be seen",
+    "children": [
+     {
+      "id": "nataka",
+      "name_sa": "नाटकम्",
+      "name_iast": "Nāṭaka",
+      "name_en": "Heroic drama"
+     },
+     {
+      "id": "prakarana",
+      "name_sa": "प्रकरणम्",
+      "name_iast": "Prakaraṇa",
+      "name_en": "Invented plot, bourgeois hero"
+     },
+     {
+      "id": "bhana",
+      "name_sa": "भाणः",
+      "name_iast": "Bhāṇa",
+      "name_en": "One-actor monologue"
+     },
+     {
+      "id": "prahasana",
+      "name_sa": "प्रहसनम्",
+      "name_iast": "Prahasana",
+      "name_en": "Farce"
+     },
+     {
+      "id": "dima",
+      "name_sa": "डिमः",
+      "name_iast": "Ḍima",
+      "name_en": "Four-act supernatural"
+     },
+     {
+      "id": "vyayoga",
+      "name_sa": "व्यायोगः",
+      "name_iast": "Vyāyoga",
+      "name_en": "One-act martial"
+     },
+     {
+      "id": "samavakara",
+      "name_sa": "समवकारः",
+      "name_iast": "Samavakāra",
+      "name_en": "Three-act, gods and asuras"
+     },
+     {
+      "id": "vithi",
+      "name_sa": "वीथी",
+      "name_iast": "Vīthī",
+      "name_en": "One-act, one or two characters"
+     },
+     {
+      "id": "utsrishtikanka",
+      "name_sa": "उत्सृष्टिकाङ्कः",
+      "name_iast": "Utsṛṣṭikāṅka",
+      "name_en": "One-act pathos"
+     },
+     {
+      "id": "ihamriga",
+      "name_sa": "ईहामृगः",
+      "name_iast": "Īhāmṛga",
+      "name_en": "Pursuit of an unattainable heroine"
+     },
+     {
+      "id": "natika",
+      "name_sa": "नाटिका",
+      "name_iast": "Nāṭikā",
+      "name_en": "Light four-act, invented heroine"
+     },
+     {
+      "id": "prakarani",
+      "name_sa": "प्रकरणी",
+      "name_iast": "Prakaraṇī",
+      "name_en": "Prakarana-nataka hybrid"
+     },
+     {
+      "id": "sattaka",
+      "name_sa": "सट्टकम्",
+      "name_iast": "Saṭṭaka",
+      "name_en": "Prakrit natika without interludes"
+     }
+    ]
+   },
+   {
+    "id": "kavyashastra",
+    "name_sa": "काव्यशास्त्रम्",
+    "name_iast": "Kāvyaśāstra",
+    "name_en": "Poetics and dramaturgy"
+   }
+  ]
+ }
+}

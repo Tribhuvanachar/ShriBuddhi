@@ -1,0 +1,173 @@
+{
+  "_comment": "Source map for the DGE Dasa Sahitya importer. All sources are public, used strictly for non-commercial dharma-prachara / educational / research purposes (project-lead sign-off recorded in DGE memory). Each 'index' page is crawled for composition links; each composition page is parsed for title + Kannada lyrics + transliteration. 'form' and 'attribution axis' are inherited from the index a link is discovered under.",
+  "sources": {
+    "madhwafestivals": {
+      "base": "https://madhwafestivals.com",
+      "alt_hosts": ["madhwafestivals.wordpress.com"],
+      "license_note": "Public devotional archive. Reproduced for non-commercial educational/research use with attribution.",
+      "post_url_pattern": "/\\d{4}/\\d{2}/\\d{2}/[a-z0-9-]+/?$",
+      "master_index": "https://madhwafestivals.com/2017/04/15/index-dasara-padagalu-lyrics/",
+      "indexes": [
+        {"axis": "composer", "value": "Sripadarajaru",        "form": "pada", "url": "https://madhwafestivals.com/2016/11/29/dasara-padagalu-composed-by-sripadarajaru/"},
+        {"axis": "composer", "value": "Vyasarayaru",           "form": "pada", "url": "https://madhwafestivals.com/2016/12/07/vyasarayaru-compositions/"},
+        {"axis": "composer", "value": "Vadirajaru",            "form": "pada", "url": "https://madhwafestivals.com/2016/12/02/vadirajaru-compositions/"},
+        {"axis": "composer", "value": "Purandara Dasaru",      "form": "pada", "url": "https://madhwafestivals.com/2016/12/06/purandara-dasaru-compositions/"},
+        {"axis": "composer", "value": "Vijaya Dasaru",         "form": "pada", "url": "https://madhwafestivals.com/2016/12/02/vijaya-dasaru-compositions/"},
+        {"axis": "composer", "value": "Gopala Dasaru",         "form": "pada", "url": "https://madhwafestivals.com/2016/12/04/gopala-dasaru-compositions/"},
+        {"axis": "composer", "value": "Mohana Dasaru",         "form": "pada", "url": "https://madhwafestivals.com/2017/03/29/mohana-dasaru-compositions/"},
+        {"axis": "composer", "value": "Kanaka Dasaru",         "form": "pada", "url": "https://madhwafestivals.com/2016/11/09/dasara-padagalu-composed-by-kanaka-dasaru/"},
+        {"axis": "composer", "value": "Prasanna Venkata Dasaru","form": "pada","url": "https://madhwafestivals.com/2016/11/30/dasara-padagalu-composed-by-sri-prasanna-venkata-dasaru/"},
+        {"axis": "composer", "value": "Jagannatha Dasaru",     "form": "pada", "url": "https://madhwafestivals.com/2016/12/05/jagannatha-dasaru-compositions/"},
+        {"axis": "composer", "value": "Mahipathi Dasaru",      "form": "pada", "url": "https://madhwafestivals.com/2016/11/30/dasara-padagalu-composed-by-mahipathi-dasaru/"},
+        {"axis": "composer", "value": "Pranesha Dasaru",       "form": "pada", "url": "https://madhwafestivals.com/2017/03/29/pranesha-dasaru-compositions/"},
+        {"axis": "composer", "value": "Harapanahalli Bheemavva","form": "pada","url": "https://madhwafestivals.com/2016/12/21/dasara-padagalu-composed-by-harapanahalli-bheemavvanavaru/"},
+        {"axis": "composer", "value": "Helavanakatte Giriyamma","form": "pada","url": "https://madhwafestivals.com/2016/12/20/dasara-padagalu-composed-by-helavanakatte-giriyammanavaru/"},
+        {"axis": "composer", "value": "Shyama Sundara Dasaru", "form": "pada", "url": "https://madhwafestivals.com/2017/05/07/dasara-padagalu-by-shyama-sundara-dasaru/"},
+
+        {"axis": "deity", "value": "Bhootarajaru",  "form": "pada", "url": "https://madhwafestivals.com/2017/01/10/dasara-padagalu-on-bhootarajaru/"},
+        {"axis": "deity", "value": "Bharathi",      "form": "pada", "url": "https://madhwafestivals.com/2016/09/28/dasara-padagalu-on-bharathi/"},
+        {"axis": "deity", "value": "Garuda",        "form": "pada", "url": "https://madhwafestivals.com/2016/12/18/dasara-padagalu-on-garuda-devaru/"},
+        {"axis": "deity", "value": "Sesha",         "form": "pada", "url": "https://madhwafestivals.com/2016/12/18/dasara-padagalu-on-sesha-devaru/"},
+        {"axis": "deity", "value": "Panduranga",    "form": "pada", "url": "https://madhwafestivals.com/2016/09/27/dasara-padagalu-on-panduranga/"},
+        {"axis": "deity", "value": "Dhanvanthri",   "form": "pada", "url": "https://madhwafestivals.com/2016/10/20/dasara-padagalu-on-dhanvanthri/"},
+        {"axis": "deity", "value": "Srinivasa",     "form": "pada", "url": "https://madhwafestivals.com/2016/09/21/dasara-padagalu-on-srinivasa/"},
+        {"axis": "deity", "value": "Hari/Narayana", "form": "pada", "url": "https://madhwafestivals.com/2016/09/02/dasara-padagalu-on-sri-harinarayana/"},
+        {"axis": "deity", "value": "Narasimha",     "form": "pada", "url": "https://madhwafestivals.com/2016/09/01/dasara-padagalu-on-narasimma-devaru/"},
+        {"axis": "deity", "value": "Tulasi",        "form": "pada", "url": "https://madhwafestivals.com/2016/09/01/dasara-padagalu-on-tulasi/"},
+        {"axis": "deity", "value": "Hanuma",        "form": "pada", "url": "https://madhwafestivals.com/2016/08/30/dasara-padagalu-on-hanuma/"},
+        {"axis": "deity", "value": "Saraswathy",    "form": "pada", "url": "https://madhwafestivals.com/2016/09/20/dasara-padagalu-on-saraswathy/"},
+        {"axis": "deity", "value": "Shiva",         "form": "pada", "url": "https://madhwafestivals.com/2016/08/31/dasara-padagalu-on-lord-shiva/"},
+        {"axis": "deity", "value": "Gowri",         "form": "pada", "url": "https://madhwafestivals.com/2016/08/30/dasara-padgalu-on-gowri/"},
+        {"axis": "deity", "value": "Subramanya",    "form": "pada", "url": "https://madhwafestivals.com/2016/12/15/dasara-padagalu-on-subramanya-devaru/"},
+        {"axis": "deity", "value": "Rama",          "form": "pada", "url": "https://madhwafestivals.com/2016/08/29/dasara-padagalu-on-sri-raama/"},
+        {"axis": "deity", "value": "Ganapathi",     "form": "pada", "url": "https://madhwafestivals.com/2016/08/17/dasara-padagalu-on-ganapathi/"},
+        {"axis": "deity", "value": "Krishna",       "form": "pada", "url": "https://madhwafestivals.com/2016/08/16/dasara-padagalu-on-sri-krishna/"},
+        {"axis": "deity", "value": "Ranganatha",    "form": "pada", "url": "https://madhwafestivals.com/2016/11/11/dasara-padagalu-on-ranganatha/"},
+        {"axis": "deity", "value": "Mahalakshmi",   "form": "pada", "url": "https://madhwafestivals.com/2016/08/07/dasara-padagalu-on-mahalakshmi/"},
+
+        {"axis": "yati", "value": "Vedavyasa",       "form": "pada", "url": "https://madhwafestivals.com/2017/03/29/dasara-padagalu-on-vedavyasa-devaru/"},
+        {"axis": "yati", "value": "Madhwa",          "form": "pada", "url": "https://madhwafestivals.com/2016/09/08/dasara-padagalu-on-madhwa/"},
+        {"axis": "yati", "value": "Sripadarajaru",   "form": "pada", "url": "https://madhwafestivals.com/2016/11/29/dasara-padagalu-on-sripadarajaru/"},
+        {"axis": "yati", "value": "Jaya Theertharu", "form": "pada", "url": "https://madhwafestivals.com/2016/09/23/dasara-padagalu-on-sri-jaya-theertharu/"},
+        {"axis": "yati", "value": "Vyasarayaru",     "form": "pada", "url": "https://madhwafestivals.com/2017/02/21/dasara-padagalu-on-vyasarayaru/"},
+        {"axis": "yati", "value": "Vadirajaru",      "form": "pada", "url": "https://madhwafestivals.com/2016/10/19/dasara-padagalu-on-vadirajaru/"},
+        {"axis": "yati", "value": "Madanur Vishnu Theertharu", "form": "pada", "url": "https://madhwafestivals.com/2017/02/21/dasara-padagalu-on-madanur-vishnu-theertharu/"},
+        {"axis": "yati", "value": "Raghavendra Theertharu", "form": "pada", "url": "https://madhwafestivals.com/2016/08/13/dasara-padagalu-on-shri-raghavendra-theertharu/"},
+        {"axis": "yati", "value": "Purandara Dasaru", "form": "pada", "url": "https://madhwafestivals.com/2017/01/19/dasara-padagalu-on-purandara-dasaru/"},
+        {"axis": "yati", "value": "Vijayadasaru",     "form": "pada", "url": "https://madhwafestivals.com/2016/09/27/dasara-padagalu-on-vijayadasaru/"},
+        {"axis": "yati", "value": "Gopala Dasaru",    "form": "pada", "url": "https://madhwafestivals.com/2017/01/19/dasara-padagalu-on-gopala-dasaru/"},
+        {"axis": "yati", "value": "Jagannatha Dasaru","form": "pada", "url": "https://madhwafestivals.com/2016/10/16/dasara-padagalu-on-jagannatha-dasaru/"},
+
+        {"axis": "theme", "value": "Guru Parampara",   "form": "pada",      "url": "https://madhwafestivals.com/2017/02/14/guru-parampara-haadugalu/"},
+        {"axis": "theme", "value": "Bhajana Taratamya","form": "pada",      "url": "https://madhwafestivals.com/2016/12/16/bhajana-mandala-songs/"},
+        {"axis": "theme", "value": "Sampradaaya",      "form": "sampradaya","url": "https://madhwafestivals.com/2017/03/15/sampradaaya-haadugalu/"},
+        {"axis": "theme", "value": "Shobhane",         "form": "shobhane",  "url": "https://madhwafestivals.com/2017/03/27/shobhane-haadugalu/"},
+        {"axis": "theme", "value": "Kolu",             "form": "kolu",      "url": "https://madhwafestivals.com/2017/03/27/kolu-haadugalu/"},
+        {"axis": "theme", "value": "Aarathi",          "form": "aarati",    "url": "https://madhwafestivals.com/2017/01/12/aarathi-songs/"},
+        {"axis": "theme", "value": "Mangala",          "form": "mangala",   "url": "https://madhwafestivals.com/2017/03/15/mangala-haadugalu/"},
+        {"axis": "theme", "value": "Dashavathara",     "form": "dashavatara","url": "https://madhwafestivals.com/2017/04/10/dashavathara-songs-sthothragalu/"},
+        {"axis": "theme", "value": "Jo Jo / Laali",    "form": "laali",     "url": "https://madhwafestivals.com/2017/03/15/jo-jo-laali-haadugalu/"},
+        {"axis": "theme", "value": "Ekadashi",         "form": "pada",      "url": "https://madhwafestivals.com/2016/11/09/dasara-padagalu-on-ekadashi/"},
+
+        {"axis": "suladi_index", "value": "Suladi Index", "form": "suladi", "url": "https://madhwafestivals.com/2017/03/21/index-sulaadhi/"},
+        {"axis": "suladi", "value": "Vijayadasaru Pancha Rathna", "form": "suladi", "url": "https://madhwafestivals.com/2016/10/31/vijayadasarus-pancha-rathna-suladhi/"},
+        {"axis": "suladi", "value": "Sri Narasimha Devara",       "form": "suladi", "url": "https://madhwafestivals.com/2016/09/29/sri-narasimha-devara-suladi/"},
+        {"axis": "suladi", "value": "Durga",                      "form": "suladi", "url": "https://madhwafestivals.com/2016/09/19/durga-suladhi/"},
+        {"axis": "suladi", "value": "Dhanvanthri",                "form": "suladi", "url": "https://madhwafestivals.com/2016/09/02/dhanvanthri-suladhi/"},
+        {"axis": "suladi", "value": "Sri Mukhya Prana Devara Stotra", "form": "suladi", "url": "https://madhwafestivals.com/2016/09/29/sri-mukhya-prana-devara-stotra-suladi/"},
+        {"axis": "suladi", "value": "Sri Kapila Devara Stotra",   "form": "suladi", "url": "https://madhwafestivals.com/2016/09/29/sri-kapila-devara-stotra-suladi/"},
+        {"axis": "suladi", "value": "Kankanaa Kaara",             "form": "suladi", "url": "https://madhwafestivals.com/2016/11/26/kankanaa-kaara-suladhi/"},
+        {"axis": "suladi", "value": "Raghavendra",                "form": "suladi", "url": "https://madhwafestivals.com/2016/09/30/raghavendra-sulaadhi/"},
+        {"axis": "suladi", "value": "Vayudevara Avathara Traya",  "form": "suladi", "url": "https://madhwafestivals.com/2016/10/13/vayudevara-avathara-traya-suladhi-by-sri-raghavendra-theertharu/"},
+        {"axis": "suladi", "value": "Narasimha (Jagannatha Dasaru)", "form": "suladi", "url": "https://madhwafestivals.com/2016/09/02/narasimha-suladhi-by-jagannatha-dasaru/"},
+        {"axis": "suladi", "value": "Tulasi Devi (Purandara Dasaru)", "form": "suladi", "url": "https://madhwafestivals.com/2016/12/15/sulaadhi-on-tulasi-devi-by-purandara-dasaru/"},
+        {"axis": "suladi", "value": "Vivaha",                     "form": "suladi", "url": "https://madhwafestivals.com/2016/11/04/vivaha-suladi/"},
+        {"axis": "suladi", "value": "Sri Parvathi Devi Sthothra", "form": "suladi", "url": "https://madhwafestivals.com/2017/01/10/sri-parvathi-devi-sthothra-sulaadhi/"},
+
+        {"axis": "ugabhoga", "value": "Sripadarajaru",          "form": "ugabhoga", "url": "https://madhwafestivals.com/2016/11/30/ugabhoga-by-sripadarajaru/"},
+        {"axis": "ugabhoga", "value": "Vyasarajaru",            "form": "ugabhoga", "url": "https://madhwafestivals.com/2017/03/15/ugabhoga-by-vyasarajaru/"},
+        {"axis": "ugabhoga", "value": "Purandara Dasaru Part 1","form": "ugabhoga", "url": "https://madhwafestivals.com/2017/01/24/ugabhoga-by-purandara-dasarupart-1/"},
+        {"axis": "ugabhoga", "value": "Purandara Dasaru Part 2","form": "ugabhoga", "url": "https://madhwafestivals.com/2017/01/24/ugabhoga-by-purandara-dasarupart-2/"},
+        {"axis": "ugabhoga", "value": "Vijaya Dasaru",          "form": "ugabhoga", "url": "https://madhwafestivals.com/2016/10/26/ugabhogagalu-by-vijaya-dasaru/"}
+      ]
+    },
+    "meerasubbarao": {
+      "base": "https://meerasubbarao.wordpress.com",
+      "license_note": "Public devotional lyrics blog (Kalpavriksha Kamadhenu). Non-commercial educational/research use with attribution.",
+      "post_url_pattern": "/lyrics/",
+      "indexes": [
+        {"axis": "yati", "value": "Raghavendra Swamy", "form": "mixed", "url": "https://meerasubbarao.wordpress.com/lyrics/sree-raghavendra-swamy/"},
+        {"axis": "composer", "value": "Purandara Dasaru", "form": "pada", "url": "https://meerasubbarao.wordpress.com/lyrics/composers/sri-purandara-dasaru/"}
+      ]
+    },
+    "dasasahitya_net": {
+      "base": "https://dasasahitya.net",
+      "parser": "dasasahitya",
+      "license_note": "Public Haridasa lyrics site (largest online Devaranama collection; 69 composers incl. Purandara 411, Vijaya 136, Sripadaraja 112). Non-commercial educational/research use with attribution.",
+      "post_url_pattern": "/\\d{4}/\\d{2}/\\d{2}/[^/]+/?$",
+      "_note": "Recursive crawler: each /category/<slug>/ page lists songs under section headings ('Miscellenous', 'Suladigalu & Ugabhogagalu', '<Composer> Songs') with a '(Lyrics)' link to the text. Categories (composers + deities) sit in the sidebar on every page, so seeding ONE category auto-discovers the rest via BFS. Form is inferred from the section heading + title; composer/deity from the category slug. Lyrics pages live at /YYYY/MM/DD/slug/.",
+      "_seed_note": "Full sidebar category list seeded so the first run is comprehensive even if a slug is renamed; the BFS also auto-discovers categories from the sidebar, and any 404 slug is skipped harmlessly.",
+      "indexes": [
+        {"axis": "composer", "value": "Gopala Dasa", "url": "https://dasasahitya.net/category/gopala-dasa/"},
+        {"axis": "composer", "value": "Purandara Dasa", "url": "https://dasasahitya.net/category/purandara-dasa/"},
+        {"axis": "composer", "value": "Kanaka Dasa", "url": "https://dasasahitya.net/category/kanaka-dasa/"},
+        {"axis": "composer", "value": "Vijaya Dasa", "url": "https://dasasahitya.net/category/vijaya-dasa/"},
+        {"axis": "composer", "value": "Jagannatha Dasa", "url": "https://dasasahitya.net/category/jagannatha-dasa/"},
+        {"axis": "composer", "value": "Sripadaraja Tirtha", "url": "https://dasasahitya.net/category/sripadaraja-tirtha/"},
+        {"axis": "composer", "value": "Vyasaraja Tirtha", "url": "https://dasasahitya.net/category/vyasaraja-tirtha/"},
+        {"axis": "composer", "value": "Vadiraja Tirtha", "url": "https://dasasahitya.net/category/vadiraja-tirtha/"},
+        {"axis": "composer", "value": "Jayatirtha", "url": "https://dasasahitya.net/category/jayatirtha/"},
+        {"axis": "composer", "value": "Madhwacharya", "url": "https://dasasahitya.net/category/madhwacharya/"},
+        {"axis": "deity", "value": "Krishna", "url": "https://dasasahitya.net/category/krishna/"},
+        {"axis": "deity", "value": "Rama", "url": "https://dasasahitya.net/category/rama/"},
+        {"axis": "deity", "value": "Hanuma", "url": "https://dasasahitya.net/category/hanuma/"},
+        {"axis": "deity", "value": "Narasimha", "url": "https://dasasahitya.net/category/narasimha/"},
+        {"axis": "deity", "value": "Hari-Narayana", "url": "https://dasasahitya.net/category/hari-narayana/"},
+        {"axis": "deity", "value": "Eshwara", "url": "https://dasasahitya.net/category/eshwara/"},
+        {"axis": "deity", "value": "Ganesha", "url": "https://dasasahitya.net/category/ganesha/"},
+        {"axis": "deity", "value": "Lakshmi", "url": "https://dasasahitya.net/category/lakshmi/"},
+        {"axis": "deity", "value": "Tulasi", "url": "https://dasasahitya.net/category/tulasi/"},
+        {"axis": "deity", "value": "Venkateshwara", "url": "https://dasasahitya.net/category/venkateshwara/"},
+        {"axis": "yati", "value": "Raghavendra Swamy", "url": "https://dasasahitya.net/category/raghavendra-swamy/"},
+        {"axis": "deity", "value": "Vyasaraja Pratishte Anjaneya", "url": "https://dasasahitya.net/category/vyasaraja-pratishte-anjaneya/"}
+      ]
+    },
+    "dasasahithyamahithi": {
+      "base": "https://dasasahithyamahithi.com",
+      "license_note": "Haridasa Sahitya Information Center — multi-script lyrics (Kannada/English/Hindi/Tamil/Telugu/Malayalam) + word-meanings + audio. Non-commercial educational/research use with attribution.",
+      "post_url_pattern": "/lyrics_and_audio/detail/\\d+",
+      "_note": "Listing at /lyrics_and_audio (server-rendered table, ~160+ rows) links to detail/<ID> pages. Treated as a listing; each detail page parsed for the Kannada lyric (title/composer may be sparse — dedup + composer back-fill handle it). If the site turns out JS-rendered on run, few detail pages will yield text; fall back to its per-song text download feature.",
+      "indexes": [
+        {"axis": "theme", "value": "Haridasa Sahitya Info Center", "kind": "listing", "form": "pada", "url": "https://dasasahithyamahithi.com/lyrics_and_audio"}
+      ]
+    },
+    "lyricsraaga": {
+      "base": "https://lyricsraaga.com",
+      "enabled": false,
+      "license_note": "Public lyrics site, Dasara Padagalu tag. Non-commercial educational/research use with attribution.",
+      "post_url_pattern": "/(devotional|kannada|bhakti|bhakthi|geethegalu)/[a-z0-9-]+/?$",
+      "_status": "DISABLED — verified 2026-08-12 (real network, WebFetch + Google index). lyricsraaga.com is a fully client-side-rendered SPA: EVERY route (the /tag/dasara-padagalu/ archive, individual song pages, /wp-json/, /sitemap_index.xml) returns only an empty app-shell (meta-viewport, no server-side HTML) to non-browser clients, so the requests-based Fetcher (no JS execution) extracts 0 links and 0 lyrics — this is confirmed, not 'likely'. Real song URLs are /devotional/<slug>/ and /kannada/<slug>/ (e.g. /devotional/purandaradasara-keerthanegalu-purandara-dasa-songs-bhakthi-geethegalu-9/), NOT the old /...-lyrics/ pattern — post_url_pattern above corrected for any future headless-browser run. Left DISABLED because its composers (Purandara/Kanaka/Sripadaraja keerthanegalu) are already fully covered by madhwafestivals + dasasahitya.net, so it is not worth building headless rendering for one heavily-overlapping source. Re-enable only with a JS-capable fetcher (Playwright/Selenium).",
+      "indexes": [
+        {"axis": "theme", "value": "Dasara Padagalu", "kind": "listing", "form": "pada", "url": "https://lyricsraaga.com/tag/dasara-padagalu/"}
+      ]
+    },
+    "kannada_dasasahitya": {
+      "base": "https://kannada.dasasahitya.net",
+      "enabled": false,
+      "_status": "DISABLED — verified 2026-08-12 (real network). (1) INVALID TLS: kannada.dasasahitya.net serves a certificate that is not valid for this hostname (hostname mismatch), so requests/urllib SSL verification fails outright (CERTIFICATE_VERIFY_FAILED) and the page cannot be fetched safely. (2) DEFUNCT: a quoted web search for the subdomain returns zero pages indexed from it. (3) REDUNDANT: the parent site dasasahitya.net (already crawled here via parser:'dasasahitya', 69 composers) ALREADY serves Kannada-script content directly — its live categories are Kannada-suffixed, e.g. /category/krishna-ಕೃಷ್ಣ/ and /category/hanuma-ಹನುಮ/ — so there is no separate 'Kannada version' left to capture. Left DISABLED. Re-enable only if the user confirms unique content at a valid-cert URL and supplies real category/composer index URLs.",
+      "license_note": "Kannada Dasa Sahitya portal. Non-commercial educational/research use with attribution.",
+      "post_url_pattern": "/\\d{4}/\\d{2}/\\d{2}/[^/]+/?$",
+      "indexes": [
+        {"axis": "theme", "value": "Kannada Dasa Sahitya home", "form": "pada", "url": "https://kannada.dasasahitya.net/"}
+      ]
+    },
+    "raghavendra_vijaya": {
+      "base": "https://madhwafestivals.com",
+      "license_note": "Kavya on Sri Raghavendra Theertha in 9 sandhis. Non-commercial educational/research use.",
+      "post_url_pattern": "/\\d{4}/\\d{2}/\\d{2}/[a-z0-9-]+/?$",
+      "indexes": [
+        {"axis": "kavya", "value": "Raghavendra Vijaya", "form": "kavya", "url": "https://madhwafestivals.com/2017/03/22/raghavendra-vijaya/"}
+      ]
+    }
+  }
+}

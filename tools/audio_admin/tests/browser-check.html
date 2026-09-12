@@ -1,0 +1,37 @@
+<!doctype html><meta charset="utf-8"><title>audio-detect browser check</title>
+<script src="../audio-detect.js"></script>
+<pre id="out">running…</pre>
+<script>
+// Same synthetic recording as the Node test: six shlokas over continuous
+// tabla + tanpura. Run in a real browser engine to prove the module uses
+// nothing Node-only and finishes in a reasonable time in a page.
+const SR = 16000;
+function synth(o){
+  o = Object.assign({nShlokas:6, shlokaSec:12, gapSec:2, droneDb:-12, tablaDb:-10, voiceDb:-6}, o||{});
+  const total = o.nShlokas*o.shlokaSec + (o.nShlokas-1)*o.gapSec;
+  const n = Math.round(total*SR), x = new Float32Array(n), amp = db => Math.pow(10, db/20);
+  const dA = amp(o.droneDb), tA = amp(o.tablaDb);
+  for (let i=0;i<n;i++){ const t=i/SR;
+    x[i] += dA*(0.6*Math.sin(2*Math.PI*130.8*t)+0.4*Math.sin(2*Math.PI*196*t)+0.3*Math.sin(2*Math.PI*261.6*t));
+    const ph=t%0.5; if(ph<0.12){ const e=Math.exp(-ph*30); x[i]+=tA*e*(Math.sin(2*Math.PI*90*t)+0.5*Math.sin(2*Math.PI*320*t)); } }
+  const vA = amp(o.voiceDb);
+  for (let s=0;s<o.nShlokas;s++){ const st=s*(o.shlokaSec+o.gapSec);
+    for (let i=Math.round(st*SR);i<Math.round((st+o.shlokaSec)*SR);i++){ const t=i/SR;
+      const syll=0.5+0.5*Math.sin(2*Math.PI*5.5*t), f0=150+12*Math.sin(2*Math.PI*0.7*t); let v=0;
+      for (let h=1;h<=12;h++){ const f=f0*h; if(f<200||f>3500) continue; v+=(1/h)*Math.sin(2*Math.PI*f*t); }
+      x[i]+=vA*syll*v*0.5; } }
+  return x;
+}
+const a = synth();
+const t0 = performance.now();
+const voice = DGEAudioDetect.detect(a, SR, {minLenSec:8, minGapSec:1.5});
+const broad = DGEAudioDetect.detect(a, SR, {minLenSec:8, minGapSec:1.5, method:'broadband'});
+const ms = Math.round(performance.now()-t0);
+const pass = voice.segments.length === 6 && broad.segments.length === 1;
+document.getElementById('out').textContent = JSON.stringify({
+  voiceSegments: voice.segments.length, broadbandSegments: broad.segments.length,
+  thresholdDb: +voice.threshold.toFixed(1), minGap: +voice.minGap.toFixed(2),
+  elapsedMs: ms, pass
+}, null, 1);
+document.title = pass ? 'PASS' : 'FAIL';
+</script>

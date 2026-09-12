@@ -1,0 +1,9 @@
+jobs/
+out/
+.voice_cache/
+__pycache__/
+*.pyc
+params.json
+incoming/*.mp3
+incoming/*.wav
+incoming/*.m4a

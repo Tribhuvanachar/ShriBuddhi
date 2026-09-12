@@ -1,0 +1,208 @@
+{
+  "_readme": [
+    "Curriculum index for the Darśana branch — a CROSS-CUTTING INDEX, never the bibliographic",
+    "hierarchy. A work lives once, under its textual tradition in darshana_works.json; this",
+    "file only says which curriculum touches it, at which level, and for what portion.",
+    "",
+    "PROVENANCE IS THE POINT. Every track carries a 'status':",
+    "  verified   — transcribed from a source that states it is the Tenali syllabus",
+    "  attested   — the item is confirmed to be a Tenali examination paper (it appears in",
+    "               published exam results), but its position in the level sequence is not",
+    "  substitute — a DIFFERENT institution's curriculum, included because it has real portion",
+    "               detail the Tenali material lacks. Never to be presented as Tenali.",
+    "  unknown    — deliberately empty. We do not guess.",
+    "",
+    "The official Tenali Tarka and Mīmāṃsā level tables are NOT publicly indexed. Two PDFs",
+    "('TENALI EXAMS.pdf' and 'समग्रपरीक्षापाठ्यक्रमः.pdf') are attached to a login-gated",
+    "Bhāratīya Vidvat Pariṣat thread — see acquisition.next_actions. Until those are obtained,",
+    "tarka.levels stays empty and the attested ladder is recorded separately."
+  ],
+
+  "organisation": {
+    "name": "Sri Kanchee Veda Vedantha Sastra Sabha",
+    "common_name": "Tenali Parīkṣā",
+    "devanagari": "श्रीकाञ्ची वेदवेदान्तशास्त्रसभा",
+    "parent_body": "Sudharma Rakshana Parishat, Tenali",
+    "founded": "1990s",
+    "address": "6-6-1, Pillalamarrivari Street, Srivari Sannidhi, Tenali 522 201, Guntur Dt., Andhra Pradesh, India",
+    "administrator": "Sri Bhagavatula Anjaneya Sarma",
+    "official_website": null,
+    "web_presence": "announcements and results are published on kamakoti.org",
+    "examination_schedule": "semester examinations in June and December; special examinations and a śāstra sabhā of scholars every March",
+    "examination_centres": ["Tenali", "Goa", "Bangalore", "Hyderabad", "Tirupati", "Chennai"],
+    "format": "written and oral",
+    "evidence": [
+      "https://www.kamakoti.org/kamakoti/details/July%202010%20-Tenali%20Sastra%20Sabha%20Exam%20Results.html",
+      "https://www.indica.today/long-reads/the-tenali-pareeksha-and-the-astika-mahajanas/",
+      "https://www.indica.today/announcements/sastra-sabha-second-convocation-tenali-report/"
+    ]
+  },
+
+  "track_durations": {
+    "_source": "https://www.indica.today/long-reads/the-tenali-pareeksha-and-the-astika-mahajanas/",
+    "_conflict": "Indica gives Tarka as 6 years (~12 semesters at 2/yr) while Medha Gurukulam states the Nyāya syllabus is 14 semesters. Unreconciled — do not treat either as settled.",
+    "tarka": "6 years",
+    "vyakarana": "7 years",
+    "mimamsa": "7 years",
+    "vedanta": "6.5 years",
+    "veda_bhashya_shadanga_sahita": "6.5 years",
+    "advaita_siddhi_brahmanandiya": "2 years",
+    "mahabhashya_pradipodyota_sahita_with_ashtadhyayi": "3 years",
+    "shrauta": "~12 years for all three kāṇḍas"
+  },
+
+  "tracks": [
+    {
+      "slug": "tenali_tarka",
+      "title": "Tenali — Tarka (Nyāya)",
+      "status": "unknown",
+      "level_count": null,
+      "levels": [],
+      "note": "Deliberately empty. No public source gives the level-by-level Tarka portions. Populate ONLY from the official syllabus document.",
+      "attested_ladder": {
+        "status": "attested",
+        "source": "https://www.kamakoti.org/kamakoti/details/July%202010%20-Tenali%20Sastra%20Sabha%20Exam%20Results.html",
+        "note": "Paper names appearing in published exam results, in ascending order of advancement. Positions in the numbered sequence are NOT given by the source. 'Gadadhari' appears as three distinct examination levels.",
+        "papers": [
+          { "order_hint": 1, "paper": "Tarkasangraham Deepika", "work": "nyaya/prakarana/tarkasangraha", "layer": "tika_dipika" },
+          { "order_hint": 2, "paper": "Mukthavali", "work": "nyaya/bhasha_pariccheda/karikavali", "layer": "tika_siddhanta_muktavali" },
+          { "order_hint": 3, "paper": "Siddhanta Lakshani", "work": "nyaya/navya_nyaya/tattvacintamani", "vada": "siddhanta_lakshana" },
+          { "order_hint": 4, "paper": "Gadadhari (three distinct levels)", "work": "nyaya/navya_nyaya/tattvacintamani", "layer": "gadadhari", "levels_at_this_paper": 3 }
+        ]
+      },
+      "additionally_named": {
+        "status": "attested",
+        "source": "https://www.medhagurukulam.org/courses",
+        "quote": "A 14 semester syllabus has been outlined as part of Tenali pareeksha. Syllabus includes - Tarka-Sangraha-Dipika, Muktavali, Dinakari, Pancha Lakshani, Siddhantha-Lakshanam, Nyaya Kusumanjali, Nyaya Bhashyam etc.",
+        "works_named": [
+          "nyaya/prakarana/tarkasangraha#tika_dipika",
+          "nyaya/bhasha_pariccheda/karikavali#tika_siddhanta_muktavali",
+          "nyaya/bhasha_pariccheda/karikavali#tika_dinakari",
+          "nyaya/navya_nyaya/tattvacintamani#vada:panchalakshani",
+          "nyaya/navya_nyaya/tattvacintamani#vada:siddhanta_lakshana",
+          "nyaya/pramukha_prakarana/nyaya_kusumanjali",
+          "nyaya/prachina_nyaya/nyaya_sutra#bhashya_vatsyayana"
+        ],
+        "note": "text→semester mapping is not published; the 'etc.' is the source's own"
+      }
+    },
+
+    {
+      "slug": "tenali_mimamsa",
+      "title": "Tenali — Mīmāṃsā",
+      "status": "unknown",
+      "level_count": null,
+      "levels": [],
+      "note": "No public level-by-level list. Duration is 7 years.",
+      "attested_papers": [
+        { "status": "attested", "paper": "Mimamsa Nyayaprakasa", "work": "mimamsa/prakarana/mimamsa_nyaya_prakasha", "source": "https://www.kamakoti.org/kamakoti/details/July%202010%20-Tenali%20Sastra%20Sabha%20Exam%20Results.html" },
+        { "status": "attested", "paper": "Sastra Deepika", "work": "mimamsa/prakarana/shastra_dipika", "source": "https://indica.events/event/sastra-sabha-at-tenali/", "note": "named at the 2025 Sastra Sabha alongside Veda Bhāṣyam" }
+      ]
+    },
+
+    {
+      "slug": "tenali_vedanta",
+      "title": "Tenali — Vedānta",
+      "status": "verified",
+      "level_count": 14,
+      "source": "https://aupasana.com/blog/2019/10/tenali.html",
+      "source_note": "Transcription by Ajit Krishnan, 1 Oct 2019; pointed to as the reference by the Advaita-L list. Unofficial host, but it states itself to be the Tenali syllabus.",
+      "note": "Included because levels 1–3 are shared with the Tarka track and anchor the sequence's foot. Vedānta works themselves live outside darshanas/ (shankara_bhashya/, sarvamoola_grantha/) — this is index-only.",
+      "levels": [
+        { "level": 1,  "portion": "tarka sangraha dīpikā",                                  "work": "nyaya/prakarana/tarkasangraha", "layer": "tika_dipika" },
+        { "level": 2,  "portion": "muktāvalī",                                              "work": "nyaya/bhasha_pariccheda/karikavali", "layer": "tika_siddhanta_muktavali" },
+        { "level": 3,  "portion": "nyāya prakāśa, vedānta paribhāṣā",                       "work": "mimamsa/prakarana/mimamsa_nyaya_prakasha" },
+        { "level": 4,  "portion": "siddhānta leśa saṅgraha" },
+        { "level": 5,  "portion": "īśādi pañcopaniṣadaḥ sabhāṣya" },
+        { "level": 6,  "portion": "māṇḍūkya, taittirīya, aitareya sabhāṣya" },
+        { "level": 7,  "portion": "chāndogya ch. 6, bṛhadāraṇyaka ch. 3" },
+        { "level": 8,  "portion": "gītā bhāṣya" },
+        { "level": 9,  "portion": "sūtra bhāṣya (tarka pādānta)" },
+        { "level": 10, "portion": "sūtra bhāṣya (viyat pāda prabhṛti)" },
+        { "level": 11, "portion": "advaita siddhi, 1st pariccheda" },
+        { "level": 12, "portion": "laghu candrikā, upādhi vādānta" },
+        { "level": 13, "portion": "bhāmatī — catuḥsūtrī; vivaraṇa prameya saṅgraha" },
+        { "level": 14, "portion": "khaṇḍana khaṇḍa khādya, 1st pariccheda" }
+      ]
+    },
+
+    {
+      "slug": "tenali_vyakarana",
+      "title": "Tenali — Vyākaraṇa",
+      "status": "verified",
+      "level_count": 14,
+      "source": "https://aupasana.com/blog/2019/10/tenali.html",
+      "note": "Same shared foot (levels 1–2) as Vedānta. Vyākaraṇa works live in dge/data/vyakarana/ — index-only here.",
+      "levels": [
+        { "level": 1,     "portion": "tarka sangraha dīpikā", "work": "nyaya/prakarana/tarkasangraha", "layer": "tika_dipika" },
+        { "level": 2,     "portion": "muktāvalī", "work": "nyaya/bhasha_pariccheda/karikavali", "layer": "tika_siddhanta_muktavali" },
+        { "level": "3-6", "portion": "siddhānta kaumudī" },
+        { "level": 7,     "portion": "paribhāṣendu śekhara" },
+        { "level": "8-9", "portion": "prauḍhamanoramā, śabdaratna (avyayībhāvāntam)" },
+        { "level": "10-11","portion": "laghu śabdendu śekhara (avyayībhāvāntam)" },
+        { "level": "12-13","portion": "mahābhāṣya (9 āhnikas)" },
+        { "level": 14,    "portion": "laghu mañjūṣā — subarthavicāra; bhūṣaṇa sāra" }
+      ]
+    },
+
+    {
+      "slug": "ahobila_ba_nyaya",
+      "title": "SUBSTITUTE — Sri Ahobila Math Adarsh Sanskrit Mahavidyalaya, B.A. Nyāya",
+      "status": "substitute",
+      "institution": "Sri Ahobila Math Adarsh Sanskrit Mahavidyalaya (MKM Sanskrit College)",
+      "source": "http://mkmsanskritcollege.org/bachelor-of-arts-in-nyaya/",
+      "why_included": "the only curriculum found with genuine PORTION detail at the Tarkasaṅgraha→Muktāvalī→Pañcalakṣaṇī stage; use to model portion granularity, NOT to claim Tenali sequencing",
+      "levels": [
+        { "level": 1, "portion": "Tarka Saṅgraha with Dīpikā (Annambhaṭṭa); Nyāyabodhinī (Govardhana) — four pramāṇas", "work": "nyaya/prakarana/tarkasangraha", "layers": ["tika_dipika", "tika_nyayabodhini"] },
+        { "level": 2, "portion": "Dinakarī on Bhāṣāpariccheda — Anumāna subsection", "work": "nyaya/bhasha_pariccheda/karikavali", "layer": "tika_dinakari" },
+        { "level": 3, "portion": "Nyāya Siddhānta Muktāvalī — Pratyakṣa pramāṇa kāṇḍa, 68 verses", "work": "nyaya/bhasha_pariccheda/karikavali", "layer": "tika_siddhanta_muktavali" },
+        { "level": 4, "portion": "Muktāvalī — Pratyakṣa, nine dravyas portion", "work": "nyaya/bhasha_pariccheda/karikavali", "layer": "tika_siddhanta_muktavali" },
+        { "level": 5, "portion": "Pañcalakṣaṇī (Tattvacintāmaṇi with Gadādhara's gloss on the Dīdhiti) — five lakṣaṇas; Caturdaśalakṣaṇī — 1st lakṣaṇa; Mīmāṃsā Nyāyaprakāśa", "work": "nyaya/navya_nyaya/tattvacintamani", "vadas": ["panchalakshani", "chaturdashalakshani"] },
+        { "level": 6, "portion": "Pañcalakṣaṇī — five lakṣaṇas; Caturdaśalakṣaṇī — 2nd lakṣaṇa", "work": "nyaya/navya_nyaya/tattvacintamani", "vadas": ["panchalakshani", "chaturdashalakshani"] }
+      ]
+    },
+
+    {
+      "slug": "ahobila_ma_nyaya",
+      "title": "SUBSTITUTE — Sri Ahobila Math, M.A. Nyāya (hetu-grantha stage)",
+      "status": "substitute",
+      "source": "http://mkmsanskritcollege.org/master-of-arts-in-nyaya/",
+      "why_included": "the clearest published mapping of the advanced vāda texts to teaching units — directly informs the topic × layer model",
+      "levels": [
+        { "level": 1, "portion": "Pakṣatā (Tattvacintāmaṇi + Dīdhiti, Gadādhara) — up to śiṣādhayiṣā; Avayava Gādādharī — sat-hetu and avayava-lakṣaṇa; Nyāyasūtra Bhāṣya (538 sūtras); Śaktivāda", "vadas": ["pakshata", "avayava"], "works": ["nyaya/prachina_nyaya/nyaya_sutra", "nyaya/navya_nyaya/shaktivada"] },
+        { "level": 2, "portion": "Pakṣatā-2 — up to pakṣa; Avayava Gādādharī-2 — pratijñā-lakṣaṇa; Nyāyasūtra Bhāṣya-2; Śaktivāda — tat-padārtha to kim-padārtha", "vadas": ["pakshata", "avayava"] },
+        { "level": 3, "portion": "Hetvābhāsa Sāmānya-nirukti-1 (Gadādhara) — 1st hetvābhāsa lakṣaṇa; Nyāya Kusumāñjali — 1st of 5 stabakas; Vyutpattivāda; Praśastapāda Bhāṣya", "vadas": ["samanya_nirukti"], "works": ["nyaya/pramukha_prakarana/nyaya_kusumanjali", "nyaya/navya_nyaya/vyutpattivada", "vaisheshika/sutra_and_bhashya/prashastapada_bhashya"] },
+        { "level": 4, "portion": "Sāmānya-nirukti-2 — 2nd lakṣaṇa; Nyāya Kusumāñjali — 2nd stabaka; Vyutpattivāda-2 — dvitīyā vibhakti; Praśastapāda Bhāṣya cont.", "vadas": ["samanya_nirukti"] }
+      ]
+    },
+
+    {
+      "slug": "ahobila_prak_siromani",
+      "title": "SUBSTITUTE — Sri Ahobila Math, Prāk-Śiromaṇi (foundation)",
+      "status": "substitute",
+      "source": "http://mkmsanskritcollege.org/praksiromani-i-ii/",
+      "levels": [
+        { "level": 3, "portion": "Tarka Saṅgraha with Dīpikā; Laghu Siddhānta Kaumudī", "work": "nyaya/prakarana/tarkasangraha", "layer": "tika_dipika" },
+        { "level": 4, "portion": "Mīmāṃsā Paribhāṣā (Kṛṣṇa Yajvan)", "work": "mimamsa/prakarana/mimamsa_paribhasha" }
+      ]
+    }
+  ],
+
+  "acquisition": {
+    "goal": "obtain the official Tenali Tarka (14-level) and Mīmāṃsā portion tables",
+    "next_actions": [
+      {
+        "priority": 1,
+        "action": "Join the Bhāratīya Vidvat Pariṣat Google Group and download the two syllabus attachments from thread E-6sDghh7XE",
+        "detail": "attachments are named 'TENALI EXAMS.pdf' and 'समग्रपरीक्षापाठ्यक्रमः.pdf' (Complete Examination Curriculum). Login-gated, so not machine-retrievable; a human must fetch them.",
+        "url": "https://groups.google.com/g/bvparishat/c/E-6sDghh7XE",
+        "corroboration": "https://lists.advaita-vedanta.org/archives/advaita-l/2023-June/060355.html"
+      },
+      { "priority": 2, "action": "Write to the Sabhā directly", "detail": "Sri B. Anjaneya Sarma, 6-6-1 Pillalamarrivari Street, Srivari Sannidhi, Tenali 522 201, Guntur Dt., A.P. No phone or email is published." },
+      { "priority": 3, "action": "Contact Medha Gurukulam — they teach to the Tenali syllabus and hold a copy", "detail": "+91-90437-20870, info@medhagurukulam.org", "url": "https://www.medhagurukulam.org/courses" },
+      { "priority": 4, "action": "Contact Indica / Indic Academy, the Sabhā's publishing and funding partner", "detail": "namaste@indica.org.in", "url": "https://indica.events/event/sastra-sabha-at-tenali/" },
+      { "priority": 5, "action": "OCR the Central Sanskrit University Śāstrī/Ācārya Nyāya and Mīmāṃsā syllabus PDFs", "detail": "scanned images with no text layer; e.g. https://sanskrit.ac.in/syllabus/pdf/Shastri_Data/DSCC_6-7_Nyaya.pdf and https://sanskrit.ac.in/syllabus/pdf/Acharya_Data/DSCC_16-19_Nyaya.pdf . Substitute-tier, but full portion detail." },
+      { "priority": 6, "action": "Retry Madras Sanskrit College's Mīmāṃsā B.A. page from a normal browser", "detail": "https://www.madrassanskritcollege.edu.in/BA_mimamsa.php 404s on programmatic fetch" }
+    ]
+  }
+}

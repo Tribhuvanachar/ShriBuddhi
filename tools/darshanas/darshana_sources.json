@@ -1,0 +1,193 @@
+{
+  "_readme": [
+    "Acquisition registry for Darśana texts. Every entry was CHECKED, not assumed — several",
+    "sources that looked promising turned out to be unusable, and those are kept here with the",
+    "reason so nobody re-litigates them.",
+    "",
+    "Tiers:",
+    "  ready   — machine-readable Unicode/IAST text, scriptable, licence workable",
+    "  ocr     — real content but scanned images; needs a Devanagari OCR pass",
+    "  images  — manuscript facsimiles; feeds the HTR/OCR queue, not the text index",
+    "  blocked — robots-disallowed, licence-incompatible, or technically inaccessible",
+    "  dead    — do not attempt",
+    "",
+    "Licensing follows dge/PROJECT_STATUS.md convention #5: absence of a licence is not",
+    "permission, and each unlicensed source needs a specific logged decision from the project",
+    "lead before ingestion."
+  ],
+
+  "sources": [
+    {
+      "slug": "gretil",
+      "tier": "ready",
+      "priority": 1,
+      "name": "GRETIL — Göttingen Register of Electronic Texts in Indian Languages",
+      "base": "https://gretil.sub.uni-goettingen.de/",
+      "format": "UTF-8 romanised IAST (NOT Devanagari) — transliteration is a pipeline step",
+      "why_first": "the only source with substantial machine-readable Nyāya AND Mīmāṃsā text, and this repo already has importers/gretil.py to extend",
+      "index": "https://gretil.sub.uni-goettingen.de/gretil.html",
+      "index_anchors": ["#Nyaya", "#Vaisesika", "#Mimamsa"],
+      "notes": [
+        "Two generations coexist: legacy .../1_sanskr/6_sastra/3_phil/{nyaya,vaisesika,mimamsa}/<code>_u.htm with a parallel <code>_r.txt raw text; and the newer TEI corpus at /gretil/corpustei/sa_<title>.xml.",
+        "Prefer the _r.txt / TEI .xml variants — cleaner than the _u.htm.",
+        "Directory listings return HTTP 403; you must parse gretil.html for hrefs.",
+        "Every file carries: 'THIS GRETIL TEXT FILE IS FOR REFERENCE PURPOSES ONLY! COPYRIGHT AND TERMS OF USAGE AS FOR SOURCE FILE.' Parse and RETAIN the per-file source attribution block."
+      ],
+      "licence": "per-file; GRETIL defers to each e-text's original contributor (SANSKNET, Muktabodha, etc.)",
+      "texts": [
+        { "work": "nyaya/prachina_nyaya/nyaya_sutra", "layer": "bhashya_vatsyayana", "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/3_phil/nyaya/nysvbh1u.htm", "desc": "Nyāyasūtra with Vātsyāyana's Bhāṣya" },
+        { "work": "nyaya/prachina_nyaya/nyaya_sutra", "layer": "tatparya_tika", "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/3_phil/nyaya/nystik_u.htm", "desc": "Nyāyasūtra with Vācaspati's Tātparyaṭīkā" },
+        { "work": "nyaya/prakarana/tarkasangraha", "layer": "tika_dipika", "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/3_phil/nyaya/antsdi_u.htm", "raw": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/3_phil/nyaya/antsdi_r.txt", "desc": "Annambhaṭṭa, Tarkasaṅgraha with Dīpikā" },
+        { "work": "nyaya/navya_nyaya/tattvacintamani", "layer": "mula", "khanda": "shabda_khanda", "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/3_phil/nyaya/gangtciu.htm", "desc": "Gaṅgeśa, Tattvacintāmaṇi, Śabdakhaṇḍa" },
+        { "work": "nyaya/pramukha_prakarana/nyaya_kusumanjali", "layer": "mula", "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/3_phil/nyaya/udnyku1u.htm", "desc": "Udayana, Nyāyakusumāñjali, Stavaka 1", "pattern": "udnyku<N>u.htm for further stavakas" },
+        { "work": "mimamsa/sutra_and_bhashya/mimamsa_sutra", "layer": "mula", "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/3_phil/mimamsa/jaimsutu.htm", "desc": "Jaimini, Mīmāṃsāsūtra" },
+        { "work": "mimamsa/sutra_and_bhashya/mimamsa_sutra", "layer": "shabara_bhashya", "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/3_phil/mimamsa/msbh1-7u.htm", "desc": "Mīmāṃsāsūtra with Śābarabhāṣya, adhyāyas 1–7" },
+        { "work": "mimamsa/prakarana/jaiminiya_nyayamala", "layer": "mula", "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/3_phil/mimamsa/mjnya04u.htm", "desc": "Mādhava, Jaiminīyanyāyamālāvistara book 4", "pattern": "mjnya<NN>u.htm" },
+        { "work": "mimamsa/prakarana/bhatta_dipika", "layer": "mula", "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/3_phil/mimamsa/jsbh3-2u.htm", "desc": "Khaṇḍadeva, Bhāṭṭadīpikā 3,2" },
+        { "work": "mimamsa/prakarana/shastra_dipika", "layer": "mula", "url": "https://gretil.sub.uni-goettingen.de/gretil/gretil/corpustei/transformations/html/sa_pArthasArathimizra-zAstradIpikA.htm", "desc": "Pārthasārathi Miśra, Śāstradīpikā (TEI)" },
+        { "work": "mimamsa/bhatta/shlokavarttika", "layer": "tika_kashika", "url": "https://gretil.sub.uni-goettingen.de/gretil/corpustei/transformations/html/sa_kumArila-mImAMsAzlokavArttika-comm.htm", "desc": "Kumārila's Ślokavārttika with Sucaritamiśra's Kāśikā (TEI)" }
+      ],
+      "scraper_sketch": "GET gretil.html once; regex hrefs matching 3_phil/(nyaya|vaisesika|mimamsa)/ and corpustei/.*\\.xml. Prefer _r.txt / TEI. Strip the header block up to the TEXT marker, capture the source-attribution lines into a provenance field, transliterate IAST→Devanagari. Never request directory listings (403)."
+    },
+
+    {
+      "slug": "sanskritdocuments",
+      "tier": "ready",
+      "priority": 2,
+      "name": "SanskritDocuments.org",
+      "base": "https://sanskritdocuments.org/",
+      "format": "ITRANS .itx source + generated Unicode Devanagari HTML + PDF",
+      "notes": [
+        "Own Nyāya/Mīmāṃsā corpus is thin: Tarkasaṅgraha (with Dīpikā) and a second Tarkasaṅgraha recension. Most value is the links-out page.",
+        "https://sanskritdocuments.org/sanskrit/nyaya/ does NOT exist (404) — there is no dedicated Nyāya category."
+      ],
+      "texts": [
+        { "work": "nyaya/prakarana/tarkasangraha", "url": "https://sanskritdocuments.org/doc_z_misc_major_works/tarkasangraha.html", "itx": "https://sanskritdocuments.org/doc_z_misc_major_works/tarkasangraha.itx", "desc": "तर्कसङ्ग्रहः अध्यायः १–८, दीपिकासहितम्" },
+        { "work": "nyaya/prakarana/tarkasangraha", "url": "https://sanskritdocuments.org/doc_z_misc_major_works/tarka2.html", "desc": "तर्कसङ्ग्रहः २, अन्नम्भट्टलिखितम्" }
+      ],
+      "links_out": "https://sanskritdocuments.org/TextsElsewhere/",
+      "licence": "RESTRICTIVE. Attribution and a backlink to the original are mandatory; must not be used to drive traffic or ad revenue; 'meant to be used for personal study and research'. See https://sanskritdocuments.org/copyingproblem.html — email them before any bulk mirroring.",
+      "scraper_sketch": "GET the category indexes (doc_z_misc_major_works/, TextsElsewhere/), follow .itx links rather than HTML (richest markup), parse the .itx header (\\itxtitle, encoding, proofreader credits) into provenance, convert ITRANS→Devanagari, emit a visible backlink."
+    },
+
+    {
+      "slug": "openn_upenn",
+      "tier": "images",
+      "priority": 3,
+      "name": "OPenn — University of Pennsylvania Kislak Center",
+      "base": "https://openn.library.upenn.edu/",
+      "format": "manuscript facsimile images + TEI metadata (NO transcription)",
+      "licence": "BEST OF ANY SOURCE HERE. Images: Public Domain Mark 1.0 ('free of known copyright restrictions and in the public domain'). Metadata: CC-BY-4.0.",
+      "notes": [
+        "https://openn.library.upenn.edu/Data/0002/ is an OPEN APACHE DIRECTORY INDEX — fully enumerable.",
+        "Ms. Coll. 390 is the Schoenberg Indic collection; item 632 is the Sāmānyanirukti of Gadādharabhaṭṭācārya, 19c, 32 folios."
+      ],
+      "texts": [
+        { "work": "nyaya/navya_nyaya/tattvacintamani", "vada": "samanya_nirukti", "html": "https://openn.library.upenn.edu/Data/0002/html/mscoll390_item632.html", "tei": "https://openn.library.upenn.edu/Data/0002/mscoll390_item632/data/mscoll390_item632_TEI.xml", "images": "https://openn.library.upenn.edu/Data/0002/mscoll390_item632/data/web/", "desc": "Sāmānyanirukti manuscript, 32 surfaces" }
+      ],
+      "scraper_sketch": "Walk the Apache index at /Data/0002/, fetch each <item>/data/<item>_TEI.xml, filter on textLang and subject for Sanskrit + Nyāya/Mīmāṃsā, then pull data/web/*.jpg listed in <facsimile>."
+    },
+
+    {
+      "slug": "ksu_sambhasha",
+      "tier": "ocr",
+      "priority": 4,
+      "name": "Karnataka Sanskrit University — Sambhāṣā Tarkasaṅgraha collection",
+      "index": "https://sambhasha.ksu.ac.in/CompLing/tarkasangraha/books.html",
+      "pdf_dir": "https://sambhasha.ksu.ac.in/CompLing/Tarka%20Sangraha/",
+      "format": "scanned PDFs of printed editions, 1849–1963 prints plus modern reprints",
+      "scale": "45 PDFs, each a full printed book (100–600 pp)",
+      "why_valuable": "the densest Tarkasaṅgraha commentary corpus found anywhere — Dīpikā in many editions, Nyāyabodhinī, Padakṛtya, Nīlakaṇṭhī, Bhāskarodaya, Dīpikāprakāśa, Sarvasva, Phakkikā, Kamalā/Indumatī, Nyāyaśekhara, Sukhapraveśinī, Lakṣaṇaṭippaṇī, plus Ballantyne/Hultzsch/Kuppuswami translations",
+      "notes": [
+        "The listing page and the PDF directory have DIFFERENT names (tarkasangraha/ vs Tarka%20Sangraha/); filenames are full bibliographic strings containing spaces and commas.",
+        "Plain static HTML, GET only. No stated licence anywhere on the page."
+      ],
+      "licence_risk": "pre-1930 prints (Ballantyne 1849/1851, Vidyasagar 1872, BSS 1918, Venkateswara Press) are safely public domain; MLBD/Chowkhamba reprints are likely in copyright — filter by edition date before ingesting",
+      "next_step": "enumerate the 45 PDF URLs from the one static index page, download the pre-1930 subset, run Devanagari OCR (expect poor quality on pothi-format and 19c items)"
+    },
+
+    {
+      "slug": "csu_sanskrit_nic",
+      "tier": "ocr",
+      "priority": 5,
+      "name": "Central Sanskrit University e-books (sanskrit.nic.in)",
+      "index": "https://sanskrit.nic.in/ebooks.php",
+      "pdf_pattern": "https://sanskrit.nic.in/DigitalBook/<InitialLetter>/<Title>.pdf",
+      "examples": [
+        "https://sanskrit.nic.in/DigitalBook/N/Nyayasiddhantamuktavali.pdf",
+        "https://sanskrit.nic.in/DigitalBook/N/Nyayasiddhantamuktavali_2016.pdf"
+      ],
+      "blocker": "the host presents an INCOMPLETE TLS CERTIFICATE CHAIN — every fetch failed with CERTIFICATE_VERIFY_FAILED. Fixable client-side by supplying the correct intermediate/CA bundle.",
+      "promise": "these are freshly typeset Devanagari PDFs produced under a content-generation project, so they very likely carry an extractable text layer — test pdftotext on one before committing effort. If they do, this moves to tier 'ready'.",
+      "titles_confirmed": ["Nyāyakośa", "Nyāyakusumāñjali", "Nyāyasiddhāntamuktāvalī", "Nyāyasiddhāntamuktāvalī-bhāṣā", "Dictionary of Nyāya Terms (V. N. Jha, 2 parts)"],
+      "mirror": "https://www.csu-bhopal.edu.in/library/E-Books.html (Google Drive copies)"
+    },
+
+    {
+      "slug": "archive_org_dli",
+      "tier": "ocr",
+      "priority": 6,
+      "name": "Internet Archive / Digital Library of India",
+      "base": "https://archive.org/",
+      "why": "the actual home of Pañcalakṣaṇī-class scans now that epustakalay is gone; ~422k DLI PDFs, and a real public API",
+      "examples": [
+        { "desc": "Māthurī Pañcalakṣaṇī", "url": "https://archive.org/details/in.ernet.dli.2015.326595" },
+        { "desc": "Vyāptipañcaka with Dīdhiti and Jāgadīśī", "url": "https://archive.org/details/bKua_vyapti-panchakan-singha-vyaghra-lakshana-with-didhiti-and-jagadishi-and-tika-by-" },
+        { "desc": "Nyāyakusumāñjali with four commentaries", "url": "https://archive.org/details/nyayakusumanjali_201404" },
+        { "desc": "Praśastapādabhāṣya with Udayana's Kiraṇāvalī", "url": "https://archive.org/details/xkRX_prashasta-pada-bhashyam-with-the-commentary-kiranavali-of-udayana-acarya-154-bar" },
+        { "desc": "Siddhāntamuktāvalī with Kṛṣṇavallabhācārya's Kiraṇāvalī", "url": "https://archive.org/details/kqPv_nyaya-siddhant-muktavali-of-vishvanath-panchanan-with-kiranavali-commentary-by-k" },
+        { "desc": "Tarkasaṅgraha 1918 ed. with Padakṛtya", "url": "https://archive.org/details/the-tarka-sangraha-of-pandit-annambhat" }
+      ],
+      "note": "use the archive.org metadata API for enumeration; per-item rights vary — check each"
+    },
+
+    {
+      "slug": "tarkasangraha_com",
+      "tier": "blocked",
+      "priority": null,
+      "name": "TarkaSangraha.com",
+      "url": "https://tarkasangraha.com/",
+      "verdict": "NOT USABLE — this was expected to be the flagship source and is not one",
+      "findings": [
+        "Client-rendered app; every content page returns only a shell. No Sanskrit body text in the served HTML.",
+        "The site says of itself: 'Website is under initial stages of development.' Placeholder copy reads 'Here, we will have a word cloud of the topics in several books.'",
+        "The promised per-section reader does not exist — there are no per-chapter URLs. Sitemap lists 17 pages total, mostly essays.",
+        "Sitemap declares host www.tarkasangraha.com, which does not resolve in DNS; only the apex works.",
+        "Footer: '© 2026 Tarka Sangraha. All rights reserved.' No open licence."
+      ],
+      "contact": "yashkhasbage25@gmail.com",
+      "revisit": "worth an email to the maintainer, and worth re-checking in 6–12 months"
+    },
+
+    {
+      "slug": "ebharatisampat",
+      "tier": "blocked",
+      "name": "e-BharatiSampat",
+      "url": "https://www.ebharatisampat.in/",
+      "verdict": "robots.txt disallows crawling — every fetch including /robots.txt itself returns ROBOTS_DISALLOWED",
+      "id_scheme_decoded": "the id/bookid params are plain base64 of a zero-padded numeric string — e.g. MDc4MzkyMDU2NDQxMjkz decodes to 078392056441293. Endpoints: /readSearch.php?id=<b64>, /readbook3.php?bookid=<b64>&pageno=<b64>, raw PDFs at /pdfs/<unix_timestamp>.pdf",
+      "note": "IDs are non-sequential, so enumeration is impossible even if crawling were permitted",
+      "next_step": "request permission from the operators (IGNCA / Bharatiya Sampada project) rather than scraping"
+    },
+
+    {
+      "slug": "bharatavani",
+      "tier": "blocked",
+      "name": "Bharatavani",
+      "url": "https://bharatavani.in/",
+      "verdict": "LICENCE-INCOMPATIBLE, and it has no Nyāya content anyway",
+      "licence_quote": "content must be distributed 'in its \"as is\" form' — 'No person is permitted to adapt, translate, alter, summarize, or make any derivation'",
+      "licence_url": "https://bharatavani.in/home/cop_pol",
+      "note": "that clause forbids the segmentation and normalisation any text pipeline performs. The Sanskrit section is popular/literary (Cāṇakyanīti, Uttararāmacaritam, Gītā ṭīkā) — no Pañcalakṣaṇī, no Nyāya śāstra corpus."
+    },
+
+    {
+      "slug": "epustakalay",
+      "tier": "dead",
+      "name": "ePustakalay",
+      "url": "https://epustakalay.com/",
+      "verdict": "DOMAIN HIJACKED — now serves Indonesian slot-gambling spam. No ebook content remains. DO NOT INGEST.",
+      "replacement": "archive_org_dli"
+    }
+  ]
+}

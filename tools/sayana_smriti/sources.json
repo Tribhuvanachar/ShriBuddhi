@@ -1,0 +1,359 @@
+{
+  "_readme": [
+    "Source registry for import_smriti.py. One block per DGE grantha folder.",
+    "",
+    "Every layer carries an explicit `rights` value:",
+    "  pd            - pre-1930 print edition or an ancient text; safe to redistribute",
+    "  cc-by         - explicit Creative Commons grant by the transcriber",
+    "  encumbered    - derived from a modern critical edition; NOT imported unless",
+    "                  --include-encumbered is passed. Kept in the file on purpose so",
+    "                  the decision is visible rather than lost.",
+    "",
+    "`gdoc` layers use the UT-Austin / Olivelle Dharmasastra transcriptions",
+    "(https://sites.utexas.edu/sanskrit/resources/dharmasastra/). Where a doc id is",
+    "not pinned below, run with --discover-gdocs and the importer will scrape the hub",
+    "page and match by link text rather than guessing an id."
+  ],
+
+  "gdoc_hub": "https://sites.utexas.edu/sanskrit/resources/dharmasastra/",
+
+  "granthas": [
+    {
+      "slug": "smriti_dharma/smriti/manu_smriti",
+      "title": "Manu Smṛti",
+      "default_author": "Manu",
+      "chapters": 12,
+      "layers": [
+        {
+          "key": "mula_sa", "role": "mula", "lang": "sa", "type": "gretil",
+          "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/4_dharma/smrti/manu2p_u.htm",
+          "rights": "pd", "note": "Sanskrit mula, IAST"
+        },
+        {
+          "key": "medhatithi_en", "role": "bhashya", "lang": "en", "type": "wisdomlib",
+          "book": "manusmriti-with-the-commentary-of-medhatithi",
+          "commentator": "Medhātithi (Manubhāṣya), tr. Ganganath Jha",
+          "rights": "pd", "note": "Jha 1920. Also yields mula Devanagari + English translation."
+        },
+        {
+          "key": "buhler_en", "role": "translation", "lang": "en", "type": "sacred_texts",
+          "index": "https://sacred-texts.com/hin/manu.htm",
+          "pattern": "https://sacred-texts.com/hin/manu/manu{n:02d}.htm",
+          "range": [1, 12],
+          "commentator": "G. Bühler (SBE 25)", "rights": "pd"
+        },
+        {
+          "key": "medhatithi_sa", "role": "bhashya", "lang": "sa", "type": "gdoc",
+          "commentator": "Medhātithi (Manubhāṣya), Sanskrit",
+          "doc_ids": { "1": "1Kn8oAXFeOXVPiG660vmrT3ltKamn5FbvEZ7vh7UjdfE" },
+          "discover": "medhatithi", "rights": "cc-by",
+          "note": "CC BY 4.0 per the document header (Olivelle transcription). One doc per adhyaya; ch.8 split in four."
+        },
+        {
+          "key": "kulluka_sa", "role": "bhashya", "lang": "sa", "type": "gdoc",
+          "commentator": "Kullūka (Manvarthamuktāvalī)",
+          "doc_ids": { "all": "1xc63uuBVyutIuB4TZQyQj1-8fXcoaX9o4PNt-ZCJ0Bk" },
+          "discover": "kulluka", "rights": "pd",
+          "note": "Base edition Nirṇaya Sāgar 1946 — ancient text, modern typesetting."
+        },
+        {
+          "key": "govindaraja_sa", "role": "bhashya", "lang": "sa", "type": "gdoc",
+          "commentator": "Govindarāja (Manuṭīkā)",
+          "doc_ids": { "all": "14bUt2Ib6DBGoK1n7uylt4C9p9Z7WZh3yXu_ki0fPOcU" },
+          "discover": "govindaraja", "rights": "pd",
+          "note": "Base: Mandlik 1886."
+        }
+      ],
+      "missing": [
+        "Rāghavānanda, Nandana, Rāmacandra and Sarvajñanārāyaṇa have NO e-text anywhere.",
+        "Only Mandlik 1886 scans: archive.org/details/in.gov.ignca.27212 and …27213 (Devanagari OCR unusable)."
+      ]
+    },
+
+    {
+      "slug": "smriti_dharma/smriti/yajnavalkya_smriti",
+      "title": "Yājñavalkya Smṛti",
+      "default_author": "Yājñavalkya",
+      "chapters": 3,
+      "layers": [
+        {
+          "key": "mula_sa", "role": "mula", "lang": "sa", "type": "gretil",
+          "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/4_dharma/smrti/yajn2_pu.htm",
+          "rights": "pd"
+        },
+        {
+          "key": "mitakshara_viramitrodaya_en", "role": "bhashya", "lang": "en", "type": "wisdomlib",
+          "book": "yajnavalkya-smriti-with-mitakshara-and-viramitrodaya",
+          "commentator": "Mitākṣarā of Vijñāneśvara + Vīramitrodaya of Mitramiśra, tr. Gharpure",
+          "rights": "encumbered",
+          "note": "Gharpure 1936 — post-1930, US copyright likely restored under URAA. Needs the same case-by-case sign-off as the ashtadhyayi.com data."
+        },
+        {
+          "key": "mitakshara_sa", "role": "bhashya", "lang": "sa", "type": "gdoc",
+          "commentator": "Mitākṣarā of Vijñāneśvara",
+          "doc_ids": { "all": "19ny7Y82T16VVIn1pRs2sZPa7Q50LZG0NJw2ISA48ycM" },
+          "discover": "mitaksara", "rights": "pd",
+          "note": "Base: Panśīkar, Nirnaya Sagar 1936."
+        },
+        {
+          "key": "balakrida_sa", "role": "bhashya", "lang": "sa", "type": "gdoc",
+          "commentator": "Viśvarūpa (Bālakrīḍā)",
+          "discover": "balakrida", "rights": "pd",
+          "note": "Base: T. Gaṇapati Śāstrī, Trivandrum 1922–24. Two parts."
+        }
+      ],
+      "missing": ["Bālambhaṭṭī and the full Vīramitrodaya exist only as scans (archive.org/details/viramitrodaya)."]
+    },
+
+    {
+      "slug": "smriti_dharma/smriti/parashara_smriti",
+      "title": "Parāśara Smṛti",
+      "default_author": "Parāśara",
+      "chapters": 12,
+      "layers": [
+        {
+          "key": "mula_sa", "role": "mula", "lang": "sa", "type": "gretil",
+          "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/4_dharma/smrti/pars2_pu.htm",
+          "rights": "pd", "note": "Base = Islāmpurkar 1893–1919, public domain."
+        },
+        {
+          "key": "parashara_madhaviya_sa", "role": "bhashya", "lang": "sa", "type": "gdoc",
+          "commentator": "Sāyaṇa-Mādhava (Parāśara-Mādhavīya)",
+          "discover": "parasara-madhaviya", "rights": "pd",
+          "note": "THE OTHER SAYANA LAYER. Five volumes: Ācāra 1–2, Prāyaścitta 1–2, Vyavahāra. Base: Bombay Sanskrit Series 1893."
+        }
+      ]
+    },
+
+    {
+      "slug": "smriti_dharma/smriti/narada_smriti",
+      "title": "Nārada Smṛti",
+      "default_author": "Nārada",
+      "layers": [
+        {
+          "key": "jolly_en", "role": "translation", "lang": "en", "type": "sacred_texts",
+          "index": "https://sacred-texts.com/hin/sbe33/index.htm",
+          "pattern": "https://sacred-texts.com/hin/sbe33/sbe33{n:02d}.htm",
+          "range": [1, 60],
+          "commentator": "J. Jolly (SBE 33, 1889)", "rights": "pd",
+          "note": "SBE 33 holds Nārada AND Bṛhaspati; the importer routes pages by their own running head."
+        },
+        {
+          "key": "mula_sa", "role": "mula", "lang": "sa", "type": "gretil",
+          "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/4_dharma/smrti/nars2_pu.htm",
+          "rights": "encumbered", "note": "Derived from Lariviere 1989 critical edition."
+        }
+      ]
+    },
+
+    {
+      "slug": "smriti_dharma/smriti/brihaspati_smriti",
+      "title": "Bṛhaspati Smṛti",
+      "default_author": "Bṛhaspati",
+      "layers": [
+        {
+          "key": "jolly_en", "role": "translation", "lang": "en", "type": "sacred_texts",
+          "index": "https://sacred-texts.com/hin/sbe33/index.htm",
+          "pattern": "https://sacred-texts.com/hin/sbe33/sbe33{n:02d}.htm",
+          "range": [1, 60],
+          "commentator": "J. Jolly (SBE 33, 1889)", "rights": "pd"
+        },
+        {
+          "key": "mula_sa", "role": "mula", "lang": "sa", "type": "gretil",
+          "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/4_dharma/smrti/brhasppu.htm",
+          "rights": "encumbered", "note": "Rangaswami Aiyangar, GOS 85, 1941 reconstruction. Vyavahārakāṇḍa only."
+        }
+      ]
+    },
+
+    {
+      "slug": "smriti_dharma/smriti/vishnu_smriti",
+      "title": "Viṣṇu Smṛti",
+      "default_author": "Viṣṇu",
+      "chapters": 100,
+      "layers": [
+        {
+          "key": "jolly_en", "role": "translation", "lang": "en", "type": "sacred_texts",
+          "index": "https://sacred-texts.com/hin/sbe07/index.htm",
+          "pattern": "https://sacred-texts.com/hin/sbe07/sbe07{n:03d}.htm",
+          "range": [1, 102],
+          "commentator": "J. Jolly (SBE 7, 1880)", "rights": "pd",
+          "note": "Three-digit page numbering, unlike the other SBE volumes."
+        },
+        {
+          "key": "mula_sa", "role": "mula", "lang": "sa", "type": "gretil",
+          "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/4_dharma/smrti/visnu_pu.htm",
+          "rights": "pd"
+        }
+      ],
+      "missing": ["Nandapaṇḍita's Vaijayantī: Adyar ed. scans only, Devanagari OCR unusable."]
+    },
+
+    {
+      "slug": "smriti_dharma/smriti/gautama_smriti",
+      "title": "Gautama Dharmasūtra",
+      "default_author": "Gautama",
+      "layers": [
+        {
+          "key": "buhler_en", "role": "translation", "lang": "en", "type": "sacred_texts",
+          "index": "https://sacred-texts.com/hin/sbe02/index.htm",
+          "pattern": "https://sacred-texts.com/hin/sbe02/sbe02{n:02d}.htm",
+          "range": [65, 92],
+          "commentator": "G. Bühler (SBE 2, 1879)", "rights": "pd"
+        },
+        {
+          "key": "mula_sa", "role": "mula", "lang": "sa", "type": "gretil",
+          "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/4_dharma/sutra/gautdh_u.htm",
+          "rights": "pd"
+        },
+        {
+          "key": "haradatta_sa", "role": "bhashya", "lang": "sa", "type": "gdoc",
+          "commentator": "Haradatta (Mitākṣarā on Gautama)",
+          "doc_ids": { "all": "13DvCYLGtO7f-2e6aBF7Nl57SknqC2l6Cww_TbOrqitg" },
+          "discover": "haradatta-gautama", "rights": "pd",
+          "note": "Base: Ānandāśrama Series 61, Poona 1931."
+        }
+      ]
+    },
+
+    {
+      "slug": "smriti_dharma/smriti/apastamba_smriti",
+      "title": "Āpastamba Dharmasūtra",
+      "default_author": "Āpastamba",
+      "layers": [
+        {
+          "key": "buhler_en", "role": "translation", "lang": "en", "type": "sacred_texts",
+          "index": "https://sacred-texts.com/hin/sbe02/index.htm",
+          "pattern": "https://sacred-texts.com/hin/sbe02/sbe02{n:02d}.htm",
+          "range": [4, 64],
+          "commentator": "G. Bühler (SBE 2, 1879)", "rights": "pd"
+        },
+        {
+          "key": "mula_sa", "role": "mula", "lang": "sa", "type": "gretil",
+          "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/4_dharma/sutra/apastd_u.htm",
+          "rights": "pd"
+        },
+        {
+          "key": "haradatta_sa", "role": "bhashya", "lang": "sa", "type": "gdoc",
+          "commentator": "Haradatta (Ujjvalā on Āpastamba)",
+          "discover": "haradatta-apastamba", "rights": "pd",
+          "note": "Base: Mysore 1898."
+        }
+      ]
+    },
+
+    {
+      "slug": "smriti_dharma/smriti/vasistha_smriti",
+      "title": "Vasiṣṭha Dharmasūtra",
+      "default_author": "Vasiṣṭha",
+      "create_if_missing": true,
+      "layers": [
+        {
+          "key": "buhler_en", "role": "translation", "lang": "en", "type": "sacred_texts",
+          "index": "https://sacred-texts.com/hin/sbe14/index.htm",
+          "pattern": "https://sacred-texts.com/hin/sbe14/sbe14{n:02d}.htm",
+          "range": [4, 33],
+          "commentator": "G. Bühler (SBE 14, 1882)", "rights": "pd"
+        },
+        {
+          "key": "mula_sa", "role": "mula", "lang": "sa", "type": "gretil",
+          "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/4_dharma/sutra/vasist_u.htm",
+          "rights": "pd"
+        }
+      ]
+    },
+
+    {
+      "slug": "smriti_dharma/smriti/baudhayana_smriti",
+      "title": "Baudhāyana Dharmasūtra",
+      "default_author": "Baudhāyana",
+      "create_if_missing": true,
+      "layers": [
+        {
+          "key": "buhler_en", "role": "translation", "lang": "en", "type": "sacred_texts",
+          "index": "https://sacred-texts.com/hin/sbe14/index.htm",
+          "pattern": "https://sacred-texts.com/hin/sbe14/sbe14{n:02d}.htm",
+          "range": [34, 91],
+          "commentator": "G. Bühler (SBE 14, 1882)", "rights": "pd"
+        },
+        {
+          "key": "mula_sa", "role": "mula", "lang": "sa", "type": "gretil",
+          "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/4_dharma/sutra/baudhd_u.htm",
+          "rights": "pd"
+        }
+      ]
+    },
+
+    {
+      "slug": "smriti_dharma/dharmashastra/dayabhaga",
+      "title": "Dāyabhāga",
+      "default_author": "Jīmūtavāhana",
+      "schema": "generic",
+      "layers": [
+        {
+          "key": "colebrooke_en", "role": "translation", "lang": "en", "type": "archive_djvu",
+          "identifier": "DayaBhagaAndMitaksharaTwoTreatisesOnTheHinduLawOfInheritanceH.T.Colebrooke",
+          "commentator": "H. T. Colebrooke (1810)", "rights": "pd",
+          "note": "English OCR from archive.org is good quality; Devanagari OCR is not — English only here."
+        }
+      ]
+    },
+
+    {
+      "slug": "smriti_dharma/dharmashastra/smriti_chandrika",
+      "title": "Smṛticandrikā",
+      "default_author": "Devaṇabhaṭṭa",
+      "schema": "generic",
+      "layers": [
+        {
+          "key": "mula_sa", "role": "mula", "lang": "sa", "type": "gdoc",
+          "discover": "smrticandrika", "rights": "pd",
+          "note": "Mysore ed. 1914–21. One doc per kāṇḍa (Vyavahāra 1–2, Śrāddha, Saṃskāra, Āśauca, Āhnika)."
+        }
+      ]
+    },
+
+    {
+      "slug": "smriti_dharma/dharmashastra/chaturvarga_chintamani",
+      "title": "Caturvargacintāmaṇi",
+      "default_author": "Hemādri",
+      "schema": "generic",
+      "layers": [
+        {
+          "key": "mula_sa", "role": "mula", "lang": "sa", "type": "gdoc",
+          "discover": "caturvargacintamani", "rights": "pd",
+          "note": "Bibliotheca Indica 1873. Six docs: Dāna, Vrata 1–2, Śrāddhakalpa 1–2, Kālanirṇaya."
+        }
+      ]
+    },
+
+    {
+      "slug": "smriti_dharma/dharmashastra/kalpataru",
+      "title": "Kṛtyakalpataru",
+      "default_author": "Lakṣmīdhara",
+      "schema": "generic",
+      "layers": [
+        {
+          "key": "mula_sa", "role": "mula", "lang": "sa", "type": "gdoc",
+          "discover": "krtyakalpataru", "rights": "encumbered",
+          "note": "GOS Baroda 1941–53 (Rangaswami Aiyangar, d. 1958). Public domain in India; US status unclear."
+        }
+      ]
+    }
+  ],
+
+  "no_etext_anywhere": {
+    "note": "These have NO machine-readable source. Scans only, and Devanagari OCR from archive.org is not good enough to ingest unreviewed. Listed so the gap is explicit rather than silently absent.",
+    "minor_smritis": [
+      "Aṅgiras", "Atri", "Dakṣa", "Hārīta", "Likhita", "Pracetas",
+      "Saṃvarta", "Śaṅkha", "Śātātapa", "Uśanas", "Yama"
+    ],
+    "best_scans": [
+      "archive.org/details/all-18-smritis-and-18-upsmritis-collections-sanskrit-only-2-upsmritis-missing",
+      "Smṛti Sandarbha (Nag/Mansukhrai Mor, 1952–57) — 66 archive.org items"
+    ],
+    "one_exception": "Dakṣasmṛti has an e-text (Google Doc 1JVu0vygrgn4SrQ3h42U0FdjDVuJ8371H22uGjaLx6PY) but it is Piovano/CESMEO 2002, a modern critical edition.",
+    "untested_lead": "sa.wikisource.org (CC BY-SA, clean api.php) could not be reached from the authoring sandbox. Test it from Actions — it is the one route that could close the minor-smṛti gap.",
+    "nibandhas_scan_only": ["Nirṇaya Sindhu", "Dharma Sindhu", "Vīramitrodaya (full Sanskrit)"]
+  }
+}

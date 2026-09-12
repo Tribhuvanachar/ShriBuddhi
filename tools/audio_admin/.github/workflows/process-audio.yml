@@ -1,0 +1,43 @@
+name: Process chanting audio
+
+# Manual run: Actions tab → "Process chanting audio" → Run workflow.
+# Give it the path to an audio file that is committed in this repo (e.g. incoming/Sarga-9.mp3)
+# and, if you know it, the shloka count. Results are uploaded as an artifact.
+
+on:
+  workflow_dispatch:
+    inputs:
+      audio_path:
+        description: "Path to the audio file, relative to tools/audio_admin/"
+        required: true
+        default: "incoming/Sarga-9.mp3"
+      target:
+        description: "Known number of shlokas (0 = auto)"
+        required: false
+        default: "0"
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tools/audio_admin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Install python deps
+        run: pip install -r requirements.txt
+      - name: Run
+        run: |
+          python autotune.py "${{ github.event.inputs.audio_path }}" \
+            --target "${{ github.event.inputs.target }}" \
+            --export out/ || true
+          ls -la out/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shlokas
+          path: tools/audio_admin/out/

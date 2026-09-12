@@ -1,0 +1,1162 @@
+{
+ "version": 2,
+ "works": [
+  {
+   "id": "raghuvamsha",
+   "name_sa": "रघुवंशम्",
+   "name_iast": "Raghuvaṃśa",
+   "name_en": "The Dynasty of Raghu",
+   "author": "कालिदासः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "pancha_mahakavya"
+   ],
+   "sources": {
+    "sanskritsahitya": {
+     "dir": "raghuvansham",
+     "commentary_keys": {
+      "mn": {
+       "id": "sanjivini",
+       "commentator": "मल्लिनाथः",
+       "name_sa": "सञ्जीविनी",
+       "name_iast": "Sañjīvinī",
+       "kind": "tika"
+      }
+     }
+    },
+    "gretil": {
+     "file": "sa_kAlidAsa-raghuvaMza.xml",
+     "marker": "Ragh"
+    }
+   }
+  },
+  {
+   "id": "kumarasambhava",
+   "name_sa": "कुमारसम्भवम्",
+   "name_iast": "Kumārasambhava",
+   "name_en": "The Birth of Kumara",
+   "author": "कालिदासः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "pancha_mahakavya"
+   ],
+   "sources": {
+    "sanskritsahitya": {
+     "dir": "kumarasambhavam",
+     "commentary_keys": {
+      "mn": {
+       "id": "sanjivini",
+       "commentator": "मल्लिनाथः",
+       "name_sa": "सञ्जीविनी",
+       "name_iast": "Sañjīvinī",
+       "kind": "tika"
+      }
+     }
+    },
+    "gretil": {
+     "file": "sa_kAlidAsa-kumArasaMbhava.xml",
+     "marker": "KumSaM"
+    }
+   }
+  },
+  {
+   "id": "kiratarjuniya",
+   "name_sa": "किरातार्जुनीयम्",
+   "name_iast": "Kirātārjunīya",
+   "name_en": "Arjuna and the Kirata",
+   "author": "भारविः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "pancha_mahakavya"
+   ],
+   "sources": {
+    "sanskritsahitya": {
+     "dir": "kiratarjuniyam",
+     "commentary_keys": {
+      "mn": {
+       "id": "ghantapatha",
+       "commentator": "मल्लिनाथः",
+       "name_sa": "घण्टापथः",
+       "name_iast": "Ghaṇṭāpatha",
+       "kind": "tika"
+      }
+     }
+    },
+    "gretil": {
+     "file": "sa_bhAravi-kirAtArjunIya.xml",
+     "marker": "Kir"
+    }
+   }
+  },
+  {
+   "id": "shishupalavadha",
+   "name_sa": "शिशुपालवधम्",
+   "name_iast": "Śiśupālavadha",
+   "name_en": "The Slaying of Shishupala",
+   "author": "माघः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "pancha_mahakavya"
+   ],
+   "sources": {
+    "sanskritsahitya": {
+     "dir": "shishupalavadham",
+     "commentary_keys": {
+      "mn": {
+       "id": "sarvankasha",
+       "commentator": "मल्लिनाथः",
+       "name_sa": "सर्वङ्कषा",
+       "name_iast": "Sarvāṅkaṣā",
+       "kind": "tika"
+      }
+     }
+    },
+    "gretil": {
+     "file": "sa_mAgha-zizupAlavadha.xml",
+     "marker": "Zisu"
+    }
+   }
+  },
+  {
+   "id": "naishadhiyacharita",
+   "name_sa": "नैषधीयचरितम्",
+   "name_iast": "Naiṣadhīyacarita",
+   "name_en": "The Story of Nala",
+   "author": "श्रीहर्षः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "pancha_mahakavya"
+   ],
+   "sources": {
+    "wikisource": {
+     "pages": [
+      "नैषधीयचरितम् सर्गाः १-५",
+      "नैषधीयचरितम् सर्गाः ६-१०",
+      "नैषधीयचरितम् सर्गाः ११-१५",
+      "नैषधीयचरितम् सर्गाः १६-२०",
+      "नैषधीयचरितम् सर्गाः २०-२२"
+     ]
+    }
+   }
+  },
+  {
+   "id": "bhattikavya",
+   "name_sa": "भट्टिकाव्यम्",
+   "name_iast": "Bhaṭṭikāvya",
+   "name_en": "Ravana-vadha",
+   "author": "भट्टिः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "anya"
+   ],
+   "sources": {
+    "sanskritsahitya": {
+     "dir": "bhattikavyam",
+     "commentary_keys": {
+      "jm": {
+       "id": "jayamangala",
+       "commentator": "जयमङ्गलः",
+       "name_sa": "जयमङ्गला",
+       "name_iast": "Jayamaṅgalā",
+       "kind": "tika"
+      }
+     }
+    },
+    "gretil": {
+     "file": "sa_bhaTTi-rAvaNavadha.xml",
+     "marker": "Bhattik"
+    }
+   }
+  },
+  {
+   "id": "sumadhva_vijaya",
+   "name_sa": "सुमध्वविजयः",
+   "name_iast": "Sumadhvavijaya",
+   "name_en": "Life of Madhvacharya",
+   "author": "नारायणपण्डिताचार्यः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "charita"
+   ],
+   "sources": {
+    "existing": {
+     "note": "already in DGE under kavya_alankara"
+    }
+   }
+  },
+  {
+   "id": "harshacharita",
+   "name_sa": "हर्षचरितम्",
+   "name_iast": "Harṣacarita",
+   "name_en": "Life of Harsha",
+   "author": "बाणभट्टः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "gadya"
+   ],
+   "sources": {
+    "wikisource": {
+     "pages": [
+      "हर्षचरितम्/प्रथमोच्छ्वासः",
+      "हर्षचरितम्/द्वितीयोच्छ्वासः",
+      "हर्षचरितम्/तृतीयोच्छ्वासः",
+      "हर्षचरितम्/चतुर्योच्छ्वासः",
+      "हर्षचरितम्/पञ्चमोच्छ्वासः",
+      "हर्षचरितम्/षष्ठोच्छ्वासः",
+      "हर्षचरितम्/सप्तमोच्छ्वासः",
+      "हर्षचरितम्/अष्टमोच्छ्वासः"
+     ]
+    }
+   }
+  },
+  {
+   "id": "kadambari",
+   "name_sa": "कादम्बरी",
+   "name_iast": "Kādambarī",
+   "name_en": "Kadambari",
+   "author": "बाणभट्टः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "gadya"
+   ],
+   "sources": {
+    "wikisource": {
+     "pages": [
+      "कादम्बरी पूर्वभागः",
+      "कादम्बरी-उत्तरभागः"
+     ]
+    }
+   }
+  },
+  {
+   "id": "dashakumaracharita",
+   "name_sa": "दशकुमारचरितम्",
+   "name_iast": "Daśakumāracarita",
+   "name_en": "Tales of Ten Princes",
+   "author": "दण्डी",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "gadya"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_daNDin-dazakumAracarita.xml",
+     "marker": "DKC"
+    }
+   }
+  },
+  {
+   "id": "kathasaritsagara",
+   "name_sa": "कथासरित्सागरः",
+   "name_iast": "Kathāsaritsāgara",
+   "name_en": "Ocean of Story",
+   "author": "सोमदेवः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "katha"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_somadeva-kathAsaritsAgara.xml",
+     "marker": "KSS"
+    }
+   },
+   "heavy": true
+  },
+  {
+   "id": "panchatantra",
+   "name_sa": "पञ्चतन्त्रम्",
+   "name_iast": "Pañcatantra",
+   "name_en": "Pancatantra",
+   "author": "विष्णुशर्मा",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "katha"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_viSNuzarman-paJcatantra.xml",
+     "marker": "Panc"
+    }
+   }
+  },
+  {
+   "id": "vikramankadevacharita",
+   "name_sa": "विक्रमाङ्कदेवचरितम्",
+   "name_iast": "Vikramāṅkadevacarita",
+   "name_en": "Life of Vikramaditya VI",
+   "author": "बिल्हणः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "aitihasika"
+   ],
+   "sources": {},
+   "register": {
+    "status": "sa.wikisource has it, but as a raw djvu transclusion whose text carries the English introduction, the errata table and page headers inline -- not publishable as it stands (checked 18 Aug 2026)"
+   }
+  },
+  {
+   "id": "haravijaya",
+   "name_sa": "हरविजयः",
+   "name_iast": "Haravijaya",
+   "name_en": "Victory of Shiva",
+   "author": "रत्नाकरः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "anya"
+   ],
+   "sources": {},
+   "register": {
+    "status": "scan only; not on sa.wikisource or in Ambuda's export"
+   }
+  },
+  {
+   "id": "janakiharana",
+   "name_sa": "जानकीहरणम्",
+   "name_iast": "Jānakīharaṇa",
+   "name_en": "Abduction of Janaki",
+   "author": "कुमारदासः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "anya"
+   ],
+   "sources": {
+    "wikisource": {
+     "pages": [
+      "जानकीहरणम्"
+     ]
+    }
+   }
+  },
+  {
+   "id": "yadavabhyudaya",
+   "name_sa": "यादवाभ्युदयः",
+   "name_iast": "Yādavābhyudaya",
+   "name_en": "Rise of the Yadavas",
+   "author": "वेदान्तदेशिकः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "charita"
+   ],
+   "sources": {},
+   "register": {
+    "status": "scan only; Appayya's commentary also scan only"
+   }
+  },
+  {
+   "id": "meghaduta",
+   "name_sa": "मेघदूतम्",
+   "name_iast": "Meghadūta",
+   "name_en": "The Cloud Messenger",
+   "author": "कालिदासः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "duta"
+   ],
+   "sources": {
+    "sanskritsahitya": {
+     "dir": "meghadutam",
+     "commentary_keys": {
+      "vd": {
+       "id": "vallabhadeva",
+       "commentator": "वल्लभदेवः",
+       "name_sa": "वल्लभदेवटीका",
+       "name_iast": "Vallabhadeva",
+       "kind": "tika"
+      }
+     }
+    },
+    "gretil": {
+     "file": "sa_kAlidAsa-meghadUta.xml",
+     "marker": "Megh"
+    }
+   }
+  },
+  {
+   "id": "ritusamhara",
+   "name_sa": "ऋतुसंहारम्",
+   "name_iast": "Ṛtusaṃhāra",
+   "name_en": "The Gathering of Seasons",
+   "author": "कालिदासः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "khanda"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_kAlidAsa-RtusaMhAra.xml",
+     "marker": "RtuS"
+    }
+   }
+  },
+  {
+   "id": "hamsasandesha",
+   "name_sa": "हंससन्देशः",
+   "name_iast": "Haṃsasandeśa",
+   "name_en": "The Swan Messenger",
+   "author": "वेदान्तदेशिकः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "duta"
+   ],
+   "sources": {},
+   "register": {
+    "status": "not on sa.wikisource or in Ambuda's export"
+   }
+  },
+  {
+   "id": "nitishataka",
+   "name_sa": "नीतिशतकम्",
+   "name_iast": "Nītiśataka",
+   "name_en": "Century on Conduct",
+   "author": "भर्तृहरिः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "shataka"
+   ],
+   "sources": {
+    "ambuda": {
+     "file": "shatakatrayam.xml",
+     "section": "1"
+    }
+   }
+  },
+  {
+   "id": "shringarashataka",
+   "name_sa": "शृङ्गारशतकम्",
+   "name_iast": "Śṛṅgāraśataka",
+   "name_en": "Century on Love",
+   "author": "भर्तृहरिः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "shataka"
+   ],
+   "sources": {
+    "ambuda": {
+     "file": "shatakatrayam.xml",
+     "section": "2"
+    }
+   }
+  },
+  {
+   "id": "vairagyashataka",
+   "name_sa": "वैराग्यशतकम्",
+   "name_iast": "Vairāgyaśataka",
+   "name_en": "Century on Renunciation",
+   "author": "भर्तृहरिः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "shataka"
+   ],
+   "sources": {
+    "ambuda": {
+     "file": "shatakatrayam.xml",
+     "section": "3"
+    }
+   }
+  },
+  {
+   "id": "amarushataka",
+   "name_sa": "अमरुशतकम्",
+   "name_iast": "Amaruśataka",
+   "name_en": "Amaru's Century",
+   "author": "अमरुः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "shataka"
+   ],
+   "sources": {
+    "ambuda": {
+     "file": "amarushatakam.xml"
+    }
+   }
+  },
+  {
+   "id": "gitagovinda",
+   "name_sa": "गीतगोविन्दम्",
+   "name_iast": "Gītagovinda",
+   "name_en": "Song of Govinda",
+   "author": "जयदेवः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "khanda"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_jayadeva-gItagovinda.xml",
+     "marker": "GiGo"
+    }
+   }
+  },
+  {
+   "id": "nalachampu",
+   "name_sa": "नलचम्पूः",
+   "name_iast": "Nalacampū",
+   "name_en": "Damayanti-katha",
+   "author": "त्रिविक्रमभट्टः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "champu"
+   ],
+   "sources": {},
+   "register": {
+    "status": "scan only; not on sa.wikisource or in Ambuda's export"
+   }
+  },
+  {
+   "id": "yashastilaka",
+   "name_sa": "यशस्तिलकचम्पूः",
+   "name_iast": "Yaśastilakacampū",
+   "name_en": "Yashastilaka",
+   "author": "सोमदेवसूरिः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "champu"
+   ],
+   "sources": {},
+   "register": {
+    "status": "scan only; not on sa.wikisource or in Ambuda's export"
+   }
+  },
+  {
+   "id": "anandavrindavanachampu",
+   "name_sa": "आनन्दवृन्दावनचम्पूः",
+   "name_iast": "Ānandavṛndāvanacampū",
+   "name_en": "Ananda-vrindavana",
+   "author": "कविकर्णपूरः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "champu"
+   ],
+   "sources": {},
+   "register": {
+    "status": "NO digital text exists anywhere"
+   }
+  },
+  {
+   "id": "abhijnanashakuntala",
+   "name_sa": "अभिज्ञानशाकुन्तलम्",
+   "name_iast": "Abhijñānaśākuntala",
+   "name_en": "Shakuntala",
+   "author": "कालिदासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_kAlidAsa-abhijJAnazakuntala.xml",
+     "marker": "ZakBh"
+    }
+   }
+  },
+  {
+   "id": "vikramorvashiya",
+   "name_sa": "विक्रमोर्वशीयम्",
+   "name_iast": "Vikramorvaśīya",
+   "name_en": "Urvashi Won by Valour",
+   "author": "कालिदासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "sources": {},
+   "register": {
+    "status": "only the first act on sa.wikisource in a usable form; the Kalpalata edition's subpages are titled inconsistently"
+   }
+  },
+  {
+   "id": "malavikagnimitra",
+   "name_sa": "मालविकाग्निमित्रम्",
+   "name_iast": "Mālavikāgnimitra",
+   "name_en": "Malavika and Agnimitra",
+   "author": "कालिदासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "sources": {
+    "wikisource": {
+     "pages": [
+      "मालविकाग्निमित्रम्/प्रथमोऽङ्कः",
+      "मालविकाग्निमित्रम्/द्वितीयोऽङ्कः",
+      "मालविकाग्निमित्रम्/तृतीयोऽङ्कः",
+      "मालविकाग्निमित्रम्/चतुर्थोऽङ्कः",
+      "मालविकाग्निमित्रम्/पञ्चमोऽङ्कः"
+     ]
+    }
+   }
+  },
+  {
+   "id": "svapnavasavadatta",
+   "name_sa": "स्वप्नवासवदत्तम्",
+   "name_iast": "Svapnavāsavadatta",
+   "name_en": "The Dream of Vasavadatta",
+   "author": "भासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_bhAsa-svapnavAsavadatta.xml",
+     "marker": "BhSv"
+    }
+   }
+  },
+  {
+   "id": "pratijnayaugandharayana",
+   "name_sa": "प्रतिज्ञायौगन्धरायणम्",
+   "name_iast": "Pratijñāyaugandharāyaṇa",
+   "name_en": "The Vow of Yaugandharayana",
+   "author": "भासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "sources": {
+    "wikisource": {
+     "pages": [
+      "प्रतिज्ञायौगन्धरायणम्/प्रथमोऽङ्कः",
+      "प्रतिज्ञायौगन्धरायणम्/द्वितीयोऽङ्कः",
+      "प्रतिज्ञायौगन्धरायणम्/तृतीयोऽङ्कः",
+      "प्रतिज्ञायौगन्धरायणम्/चतुर्थोऽङ्कः"
+     ]
+    }
+   }
+  },
+  {
+   "id": "charudatta",
+   "name_sa": "चारुदत्तम्",
+   "name_iast": "Cārudatta",
+   "name_en": "Charudatta",
+   "author": "भासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "prakarana"
+   ],
+   "sources": {
+    "wikisource": {
+     "pages": [
+      "चारुदत्तम्/प्रथमोऽङ्कः",
+      "चारुदत्तम्/द्वितीयोऽङ्कः",
+      "चारुदत्तम्/तृतीयोऽङ्कः",
+      "चारुदत्तम्/चतुर्थोऽङ्कः"
+     ]
+    }
+   }
+  },
+  {
+   "id": "urubhanga",
+   "name_sa": "ऊरुभङ्गम्",
+   "name_iast": "Ūrubhaṅga",
+   "name_en": "The Shattered Thigh",
+   "author": "भासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "utsrishtikanka"
+   ],
+   "sources": {
+    "ambuda": {
+     "file": "urubhangam.xml"
+    }
+   }
+  },
+  {
+   "id": "dutavakya",
+   "name_sa": "दूतवाक्यम्",
+   "name_iast": "Dūtavākya",
+   "name_en": "The Envoy's Message",
+   "author": "भासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "vyayoga"
+   ],
+   "sources": {
+    "ambuda": {
+     "file": "dutavakyam.xml"
+    }
+   }
+  },
+  {
+   "id": "madhyamavyayoga",
+   "name_sa": "मध्यमव्यायोगः",
+   "name_iast": "Madhyamavyāyoga",
+   "name_en": "The Middle One",
+   "author": "भासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "vyayoga"
+   ],
+   "sources": {
+    "wikisource": {
+     "pages": [
+      "मध्यमव्यायोगः"
+     ]
+    }
+   }
+  },
+  {
+   "id": "mrichchhakatika",
+   "name_sa": "मृच्छकटिकम्",
+   "name_iast": "Mṛcchakaṭika",
+   "name_en": "The Little Clay Cart",
+   "author": "शूद्रकः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "prakarana"
+   ],
+   "sources": {
+    "wikisource": {
+     "pages": [
+      "मृच्छकटिकम्/प्रथमोऽङ्कः",
+      "मृच्छकटिकम्/द्वितीयोऽङ्कः",
+      "मृच्छकटिकम्/तृतीयोऽङ्कः",
+      "मृच्छकटिकम्/चतुर्थोऽङ्कः",
+      "मृच्छकटिकम्/पञ्चमोऽङ्कः",
+      "मृच्छकटिकम्/षष्ठोऽङ्कः",
+      "मृच्छकटिकम्/सप्तमोऽङ्कः",
+      "मृच्छकटिकम्/अष्टमोऽङ्कः",
+      "मृच्छकटिकम्/नवमोऽङ्कः",
+      "मृच्छकटिकम्/दशमोऽङ्कः"
+     ]
+    }
+   },
+   "register": {
+    "note": "The sa.wikisource edition prints a tika in the same flow as the mula, so about 1% of units carry commentary mixed into the verse. Separating them needs edition-specific work; recorded rather than silently kept or silently dropped (18 Aug 2026)."
+   }
+  },
+  {
+   "id": "mudrarakshasa",
+   "name_sa": "मुद्राराक्षसम्",
+   "name_iast": "Mudrārākṣasa",
+   "name_en": "The Signet Ring of Rakshasa",
+   "author": "विशाखदत्तः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "sources": {
+    "wikisource": {
+     "pages": [
+      "मुद्राराक्षसम्/प्रथमोऽङ्कः",
+      "मुद्राराक्षसम्/द्वितीयोऽङ्कः",
+      "मुद्राराक्षसम्/तृतीयोऽङ्कः",
+      "मुद्राराक्षसम्/चतुर्थोऽङ्कः",
+      "मुद्राराक्षसम्/पञ्चमोऽङ्कः",
+      "मुद्राराक्षसम्/षष्ठोऽङ्कः",
+      "मुद्राराक्षसम्/सप्तमोऽङ्कः"
+     ]
+    }
+   },
+   "register": {
+    "note": "The sa.wikisource edition prints a tika in the same flow as the mula, so about 4% of units carry commentary mixed into the verse. Separating them needs edition-specific work; recorded rather than silently kept or silently dropped (18 Aug 2026)."
+   }
+  },
+  {
+   "id": "uttararamacharita",
+   "name_sa": "उत्तररामचरितम्",
+   "name_iast": "Uttararāmacarita",
+   "name_en": "The Later Story of Rama",
+   "author": "भवभूतिः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "sources": {
+    "wikisource": {
+     "pages": [
+      "उत्तररामचरितम् /प्रथमोऽङ्कः",
+      "उत्तररामचरितम् /द्वितीयोऽङ्कः",
+      "उत्तररामचरितम् /तृतीयोऽङ्कः",
+      "उत्तररामचरितम् /चतुर्थोऽङ्कः",
+      "उत्तररामचरितम् /पञ्चमोऽङ्कः",
+      "उत्तररामचरितम् /षष्ठोऽङ्कः",
+      "उत्तररामचरितम् /सप्तमोऽङ्कः"
+     ]
+    }
+   }
+  },
+  {
+   "id": "malatimadhava",
+   "name_sa": "मालतीमाधवम्",
+   "name_iast": "Mālatīmādhava",
+   "name_en": "Malati and Madhava",
+   "author": "भवभूतिः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "prakarana"
+   ],
+   "sources": {},
+   "register": {
+    "status": "not on sa.wikisource or in Ambuda's export"
+   }
+  },
+  {
+   "id": "mahaviracharita",
+   "name_sa": "महावीरचरितम्",
+   "name_iast": "Mahāvīracarita",
+   "name_en": "The Story of the Great Hero",
+   "author": "भवभूतिः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "sources": {},
+   "register": {
+    "status": "not on sa.wikisource or in Ambuda's export"
+   }
+  },
+  {
+   "id": "ratnavali",
+   "name_sa": "रत्नावली",
+   "name_iast": "Ratnāvalī",
+   "name_en": "Ratnavali",
+   "author": "श्रीहर्षः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "natika"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_harSadeva-ratnAvalInATikA.xml",
+     "marker": "Ratna"
+    }
+   }
+  },
+  {
+   "id": "nagananda",
+   "name_sa": "नागानन्दम्",
+   "name_iast": "Nāgānanda",
+   "name_en": "Joy of the Serpents",
+   "author": "श्रीहर्षः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_harSadeva-nAgAnanda.xml",
+     "marker": "NagAn"
+    }
+   }
+  },
+  {
+   "id": "priyadarshika",
+   "name_sa": "प्रियदर्शिका",
+   "name_iast": "Priyadarśikā",
+   "name_en": "Priyadarshika",
+   "author": "श्रीहर्षः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "natika"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_harSadeva-priyadarzikA.xml",
+     "marker": "Priya"
+    }
+   }
+  },
+  {
+   "id": "venisamhara",
+   "name_sa": "वेणीसंहारम्",
+   "name_iast": "Veṇīsaṃhāra",
+   "name_en": "The Binding of the Braid",
+   "author": "भट्टनारायणः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_bhaTTanArAyaNa-veNIsaMhAra.xml",
+     "marker": "VenS"
+    }
+   }
+  },
+  {
+   "id": "anargharaghava",
+   "name_sa": "अनर्घराघवम्",
+   "name_iast": "Anargharāghava",
+   "name_en": "The Priceless Raghava",
+   "author": "मुरारिः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "sources": {},
+   "register": {
+    "status": "sa.wikisource page holds 19 verses of a five-act play"
+   }
+  },
+  {
+   "id": "prabodhachandrodaya",
+   "name_sa": "प्रबोधचन्द्रोदयः",
+   "name_iast": "Prabodhacandrodaya",
+   "name_en": "Rise of the Moon of Wisdom",
+   "author": "कृष्णमिश्रः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "sources": {},
+   "register": {
+    "status": "not on sa.wikisource or in Ambuda's export"
+   }
+  },
+  {
+   "id": "natyashastra",
+   "name_sa": "नाट्यशास्त्रम्",
+   "name_iast": "Nāṭyaśāstra",
+   "name_en": "Treatise on Drama",
+   "author": "भरतमुनिः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_bharata-nATyazAstra-1-1618-303335-37.xml",
+     "marker": "NZ"
+    }
+   }
+  },
+  {
+   "id": "kavyadarsha",
+   "name_sa": "काव्यादर्शः",
+   "name_iast": "Kāvyādarśa",
+   "name_en": "Mirror of Poetry",
+   "author": "दण्डी",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_daNDin-kAvyAdarza-1-2.xml",
+     "marker": "KAvyad"
+    }
+   }
+  },
+  {
+   "id": "kavyalankara",
+   "name_sa": "काव्यालङ्कारः",
+   "name_iast": "Kāvyālaṅkāra",
+   "name_en": "Ornaments of Poetry",
+   "author": "भामहः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_bhAmaha-kAvyAlaMkAra.xml",
+     "marker": "KAvyal"
+    }
+   }
+  },
+  {
+   "id": "dhvanyaloka",
+   "name_sa": "ध्वन्यालोकः",
+   "name_iast": "Dhvanyāloka",
+   "name_en": "Light on Suggestion",
+   "author": "आनन्दवर्धनः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_Anandavardhana-dhvanyAloka.xml",
+     "marker": "DhvAl"
+    }
+   }
+  },
+  {
+   "id": "vakroktijivita",
+   "name_sa": "वक्रोक्तिजीवितम्",
+   "name_iast": "Vakroktijīvita",
+   "name_en": "The Life of Oblique Speech",
+   "author": "कुन्तकः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_kuntaka-vakroktijIvita-comm.xml",
+     "marker": "VakrJ"
+    }
+   }
+  },
+  {
+   "id": "kavyaprakasha",
+   "name_sa": "काव्यप्रकाशः",
+   "name_iast": "Kāvyaprakāśa",
+   "name_en": "Light of Poetry",
+   "author": "मम्मटः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "sources": {
+    "wikisource": {
+     "pages": [
+      "काव्यप्रकाशः/प्रथमः उल्लासः",
+      "काव्यप्रकाशः/द्वितीयः उल्लासः",
+      "काव्यप्रकाशः/तृतीय उल्लासः",
+      "काव्यप्रकाशः/चतुर्थः उल्लासः",
+      "काव्यप्रकाशः/पञ्चमः उल्लासः",
+      "काव्यप्रकाशः/षष्ठः उल्लासः",
+      "काव्यप्रकाशः/सप्तमः उल्लासः",
+      "काव्यप्रकाशः/अष्टमः उल्लासः",
+      "काव्यप्रकाशः/नवम उल्लासः",
+      "काव्यप्रकाशः/दशमः उल्लासः"
+     ]
+    }
+   }
+  },
+  {
+   "id": "dasharupaka",
+   "name_sa": "दशरूपकम्",
+   "name_iast": "Daśarūpaka",
+   "name_en": "The Ten Forms",
+   "author": "धनञ्जयः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_dhanaMjaya-dazarUpaka-1-4.xml",
+     "marker": "DazR"
+    }
+   }
+  },
+  {
+   "id": "sahityadarpana",
+   "name_sa": "साहित्यदर्पणः",
+   "name_iast": "Sāhityadarpaṇa",
+   "name_en": "Mirror of Composition",
+   "author": "विश्वनाथः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "sources": {
+    "gretil": {
+     "file": "sa_vizvanAthakavirAja-sAhityadarpaNa.xml",
+     "marker": "SAhD"
+    }
+   }
+  },
+  {
+   "id": "rasagangadhara",
+   "name_sa": "रसगङ्गाधरः",
+   "name_iast": "Rasagaṅgādhara",
+   "name_en": "The Ganga-bearer of Rasa",
+   "author": "जगन्नाथः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "sources": {},
+   "register": {
+    "status": "sa.wikisource has two of its ananas as continuous prose with no verse or section numbering; would import as two enormous units"
+   }
+  },
+  {
+   "id": "shringaraprakasha",
+   "name_sa": "शृङ्गारप्रकाशः",
+   "name_iast": "Śṛṅgāraprakāśa",
+   "name_en": "Light on Shringara",
+   "author": "भोजः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "sources": {},
+   "heavy": true,
+   "register": {
+    "status": "sa.wikisource has nine prakashas, but as unsegmented blocks -- 680,000 characters in 72 units"
+   }
+  },
+  {
+   "id": "chandomanjari",
+   "name_sa": "छन्दोमञ्जरी",
+   "name_iast": "Chandomañjarī",
+   "name_en": "Cluster of Metres",
+   "author": "गङ्गादासः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "sources": {
+    "wikisource": {
+     "pages": [
+      "छन्दोमञ्जरी"
+     ]
+    }
+   }
+  }
+ ]
+}

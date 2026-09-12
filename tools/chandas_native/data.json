@@ -1,0 +1,932 @@
+{
+  "schema": "vedanga_chandas_vrutta_database",
+  "source": "independently compiled from the standard classical gana system (Pingala/Vrittaratnakara/Chandomanjari tradition, public domain); not derived from hrishikeshrt/chanda or any other software project's data. Upajati proper names sourced from https://ancient-buddhist-texts.net/Textual-Studies/Metre-Tables/Tables-14.htm (citing Vrittaratnakara), 4 of 14 individually verified against its raw laghu/guru symbols -- see PENDING.md, 21 Aug entry.",
+  "licence": "Apache-2.0 (matches this repo's default -- no AGPL content)",
+  "note": "Deliberately smaller core than a full classical-metre catalogue: 21 well-attested sama-vrutta, 3 ardhasama-vrutta, a rule-based Anustubh handler, mechanically-generated Indravajra/Upendravajra upajati combinations with sourced traditional names, a small Arya-family matra-vrutta set (4 entries), and akshara-jaati names 1-20. Vishama vrutta, Vaitaliya/Aupacchandasika (need a richer schema than total matra count), and akshara-jaati 21-26 (three independently-found sources disagreed, none adopted) are NOT included -- see README and PENDING.md for why.",
+  "counts": {
+    "sama_vrutta": 21,
+    "ardhasama_vrutta": 3,
+    "upajati_vrutta": 16,
+    "matra_vrutta": 4,
+    "akshara_jaati": 20
+  },
+  "sama_vrutta": [
+    {
+      "vrutta_names": [
+        "इन्द्रवज्रा"
+      ],
+      "gana": "ततजगग",
+      "lakshana": "गगलगगललगलगग",
+      "akshara_sankhya": 11,
+      "matra": 18,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "उपेन्द्रवज्रा"
+      ],
+      "gana": "जतजगग",
+      "lakshana": "लगलगगललगलगग",
+      "akshara_sankhya": 11,
+      "matra": 17,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "शालिनी"
+      ],
+      "gana": "मततगग",
+      "lakshana": "गगगगगलगगलगग",
+      "akshara_sankhya": 11,
+      "matra": 20,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "रथोद्धता"
+      ],
+      "gana": "रनरलग",
+      "lakshana": "गलगलललगलगलग",
+      "akshara_sankhya": 11,
+      "matra": 16,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "स्वागता"
+      ],
+      "gana": "रनभगग",
+      "lakshana": "गलगलललगललगग",
+      "akshara_sankhya": 11,
+      "matra": 16,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "वंशस्थ"
+      ],
+      "gana": "जतजर",
+      "lakshana": "लगलगगललगलगलग",
+      "akshara_sankhya": 12,
+      "matra": 18,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "इन्द्रवंशा"
+      ],
+      "gana": "ततजर",
+      "lakshana": "गगलगगललगलगलग",
+      "akshara_sankhya": 12,
+      "matra": 19,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "द्रुतविलम्बित"
+      ],
+      "gana": "नभभर",
+      "lakshana": "लललगललगललगलग",
+      "akshara_sankhya": 12,
+      "matra": 16,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "तोटक"
+      ],
+      "gana": "सससस",
+      "lakshana": "ललगललगललगललग",
+      "akshara_sankhya": 12,
+      "matra": 16,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "भुजङ्गप्रयात"
+      ],
+      "gana": "यययय",
+      "lakshana": "लगगलगगलगगलगग",
+      "akshara_sankhya": 12,
+      "matra": 20,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "स्रग्विणी"
+      ],
+      "gana": "रररर",
+      "lakshana": "गलगगलगगलगगलग",
+      "akshara_sankhya": 12,
+      "matra": 20,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "प्रहर्षिणी"
+      ],
+      "gana": "मनजरग",
+      "lakshana": "गगगललललगलगलगग",
+      "akshara_sankhya": 13,
+      "matra": 20,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "रुचिरा"
+      ],
+      "gana": "जभसजग",
+      "lakshana": "लगलगललललगलगलग",
+      "akshara_sankhya": 13,
+      "matra": 18,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "वसन्ततिलका"
+      ],
+      "gana": "तभजजगग",
+      "lakshana": "गगलगलललगललगलगग",
+      "akshara_sankhya": 14,
+      "matra": 21,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "मालिनी"
+      ],
+      "gana": "ननमयय",
+      "lakshana": "ललललललगगगलगगलगग",
+      "akshara_sankhya": 15,
+      "matra": 22,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "मन्दाक्रान्ता"
+      ],
+      "gana": "मभनततगग",
+      "lakshana": "गगगगलललललगगलगगलगग",
+      "akshara_sankhya": 17,
+      "matra": 27,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "शिखरिणी"
+      ],
+      "gana": "यमनसभलग",
+      "lakshana": "लगगगगगलललललगगलललग",
+      "akshara_sankhya": 17,
+      "matra": 25,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "पृथ्वी"
+      ],
+      "gana": "जसजसयलग",
+      "lakshana": "लगलललगलगलललगलगगलग",
+      "akshara_sankhya": 17,
+      "matra": 24,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "हरिणी"
+      ],
+      "gana": "नसमरसलग",
+      "lakshana": "लललललगगगगगलगललगलग",
+      "akshara_sankhya": 17,
+      "matra": 25,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "शार्दूलविक्रीडित"
+      ],
+      "gana": "मसजसततग",
+      "lakshana": "गगगललगलगलललगगगलगगलग",
+      "akshara_sankhya": 19,
+      "matra": 30,
+      "examples": []
+    },
+    {
+      "vrutta_names": [
+        "स्रग्धरा"
+      ],
+      "gana": "मरभनययय",
+      "lakshana": "गगगगलगगललललललगगलगगलगग",
+      "akshara_sankhya": 21,
+      "matra": 33,
+      "examples": []
+    }
+  ],
+  "ardhasama_vrutta": [
+    {
+      "vrutta_names": [
+        "पुष्पिताग्रा"
+      ],
+      "odd_pada": {
+        "gana": "ननरय",
+        "lakshana": "ललललललगलगलगग",
+        "akshara_sankhya": 12,
+        "matra": 16
+      },
+      "even_pada": {
+        "gana": "नभजरग",
+        "lakshana": "लललगलललगलगलगग",
+        "akshara_sankhya": 13,
+        "matra": 18
+      }
+    },
+    {
+      "vrutta_names": [
+        "वियोगिनी",
+        "सुन्दरी"
+      ],
+      "odd_pada": {
+        "gana": "ससजग",
+        "lakshana": "ललगललगलगलग",
+        "akshara_sankhya": 10,
+        "matra": 14
+      },
+      "even_pada": {
+        "gana": "सभरलग",
+        "lakshana": "ललगगललगलगलग",
+        "akshara_sankhya": 11,
+        "matra": 16
+      }
+    },
+    {
+      "vrutta_names": [
+        "अपरवक्त्र"
+      ],
+      "odd_pada": {
+        "gana": "ननरलग",
+        "lakshana": "ललललललगलगलग",
+        "akshara_sankhya": 11,
+        "matra": 14
+      },
+      "even_pada": {
+        "gana": "नजजर",
+        "lakshana": "ललललगललगलगलग",
+        "akshara_sankhya": 12,
+        "matra": 16
+      }
+    }
+  ],
+  "upajati_vrutta": [
+    {
+      "vrutta_names": [
+        "इन्द्रवज्रा (शुद्ध)"
+      ],
+      "pada_pattern": "I-I-I-I",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 2,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 3,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 4,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "कीर्ति"
+      ],
+      "pada_pattern": "U-I-I-I",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 2,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 3,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 4,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "वाणी"
+      ],
+      "pada_pattern": "I-U-I-I",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 2,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 3,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 4,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "माला"
+      ],
+      "pada_pattern": "U-U-I-I",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 2,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 3,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 4,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "शाला"
+      ],
+      "pada_pattern": "I-I-U-I",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 2,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 3,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 4,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "हंसी"
+      ],
+      "pada_pattern": "U-I-U-I",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 2,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 3,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 4,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "माया"
+      ],
+      "pada_pattern": "I-U-U-I",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 2,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 3,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 4,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "छाया"
+      ],
+      "pada_pattern": "U-U-U-I",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 2,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 3,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 4,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "बाला"
+      ],
+      "pada_pattern": "I-I-I-U",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 2,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 3,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 4,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "आर्द्रा"
+      ],
+      "pada_pattern": "U-I-I-U",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 2,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 3,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 4,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "भद्रा"
+      ],
+      "pada_pattern": "I-U-I-U",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 2,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 3,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 4,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "प्रेमा"
+      ],
+      "pada_pattern": "U-U-I-U",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 2,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 3,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 4,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "रामा"
+      ],
+      "pada_pattern": "I-I-U-U",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 2,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 3,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 4,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "ऋद्धि"
+      ],
+      "pada_pattern": "U-I-U-U",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 2,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 3,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 4,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "बुद्धि"
+      ],
+      "pada_pattern": "I-U-U-U",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "गगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 18
+        },
+        {
+          "pada": 2,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 3,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 4,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        }
+      ]
+    },
+    {
+      "vrutta_names": [
+        "उपेन्द्रवज्रा (शुद्ध)"
+      ],
+      "pada_pattern": "U-U-U-U",
+      "padas": [
+        {
+          "pada": 1,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 2,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 3,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        },
+        {
+          "pada": 4,
+          "lakshana": "लगलगगललगलगग",
+          "akshara_sankhya": 11,
+          "matra": 17
+        }
+      ]
+    }
+  ],
+  "anushtubh": {
+    "vrutta_names": [
+      "अनुष्टुभ्",
+      "श्लोक"
+    ],
+    "type": "jati_rule",
+    "pada_count": 4,
+    "akshara_per_pada": 8,
+    "rule": "pathya form: positions 5-8 of padas 2 and 4 scan ल-ग-ल-ग; position 5 of every pada is laghu; positions 6-7 are not both laghu",
+    "examples": []
+  },
+  "matra_vrutta": [
+    {
+      "vrutta_names": [
+        "आर्या"
+      ],
+      "matra_per_pada": [
+        12,
+        18,
+        12,
+        15
+      ]
+    },
+    {
+      "vrutta_names": [
+        "गीति"
+      ],
+      "matra_per_pada": [
+        12,
+        18,
+        12,
+        18
+      ]
+    },
+    {
+      "vrutta_names": [
+        "उपगीति"
+      ],
+      "matra_per_pada": [
+        12,
+        15,
+        12,
+        15
+      ]
+    },
+    {
+      "vrutta_names": [
+        "उद्गीति"
+      ],
+      "matra_per_pada": [
+        12,
+        15,
+        12,
+        18
+      ]
+    }
+  ],
+  "akshara_jaati": [
+    {
+      "akshara_sankhya": 1,
+      "jaati": "उक्ता"
+    },
+    {
+      "akshara_sankhya": 2,
+      "jaati": "अत्युक्ता"
+    },
+    {
+      "akshara_sankhya": 3,
+      "jaati": "मध्या"
+    },
+    {
+      "akshara_sankhya": 4,
+      "jaati": "प्रतिष्ठा"
+    },
+    {
+      "akshara_sankhya": 5,
+      "jaati": "सुप्रतिष्ठा"
+    },
+    {
+      "akshara_sankhya": 6,
+      "jaati": "गायत्री"
+    },
+    {
+      "akshara_sankhya": 7,
+      "jaati": "उष्णिक्"
+    },
+    {
+      "akshara_sankhya": 8,
+      "jaati": "अनुष्टुभ्"
+    },
+    {
+      "akshara_sankhya": 9,
+      "jaati": "बृहती"
+    },
+    {
+      "akshara_sankhya": 10,
+      "jaati": "पङ्क्ति"
+    },
+    {
+      "akshara_sankhya": 11,
+      "jaati": "त्रिष्टुभ्"
+    },
+    {
+      "akshara_sankhya": 12,
+      "jaati": "जगती"
+    },
+    {
+      "akshara_sankhya": 13,
+      "jaati": "अतिजगती"
+    },
+    {
+      "akshara_sankhya": 14,
+      "jaati": "शक्वरी"
+    },
+    {
+      "akshara_sankhya": 15,
+      "jaati": "अतिशक्वरी"
+    },
+    {
+      "akshara_sankhya": 16,
+      "jaati": "अष्टि"
+    },
+    {
+      "akshara_sankhya": 17,
+      "jaati": "अत्यष्टि"
+    },
+    {
+      "akshara_sankhya": 18,
+      "jaati": "धृति"
+    },
+    {
+      "akshara_sankhya": 19,
+      "jaati": "अतिधृति"
+    },
+    {
+      "akshara_sankhya": 20,
+      "jaati": "कृति"
+    }
+  ]
+}

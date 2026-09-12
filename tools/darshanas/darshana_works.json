@@ -1,0 +1,429 @@
+{
+  "_readme": [
+    "Bibliographic source of truth for the Darśana branch of DGE (Nyāya, Vaiśeṣika, Mīmāṃsā).",
+    "",
+    "This file is the DUMP that code consumes. tools/darshanas/scaffold_darshanas.py reads it",
+    "and generates: the folder tree under dge/data/darshana/, every _meta.json, empty",
+    "data.json stubs with the right schema and default_author, the taxonomy.json subtree, and",
+    "library.json entries. Nothing in the tree is hand-authored — edit this file and re-run.",
+    "",
+    "EVERY entry carries a 'verification' field. Only 'verified' entries have a URL in",
+    "'evidence'. 'plausible' means structurally consistent with verified siblings but not",
+    "individually catalogued; 'uncertain' means the attribution is actively in doubt. Nothing",
+    "here is asserted without a status — that distinction is the point of the file.",
+    "",
+    "MODELLING DECISION — the vāda texts. Pañcalakṣaṇī, Siddhāntalakṣaṇa, Sāmānyanirukti,",
+    "Avayava, Pakṣatā, Avacchedakatānirukti and the rest are NOT independent works. They are",
+    "named topical sections of Tattvacintāmaṇi's Anumāna-khaṇḍa that circulate as printed",
+    "extracts bundled with Dīdhiti + Jāgadīśī / Gādādharī. 'Pañcalakṣaṇī of Jagadīśa' and",
+    "'Pañcalakṣaṇī of Gadādhara' are the SAME section at two commentary layers, not two works.",
+    "So they are modelled as topic × layer: kind='vada' with a layer folder per commentary.",
+    "Only Vyutpattivāda and Śaktivāda are genuinely standalone Gadādhara treatises, and",
+    "Bādhānta is Rucidatta's at the Āloka layer — all three are filed as ordinary works.",
+    "",
+    "LAYER. 0 = mūla. 1 = commentary on the mūla. 2 = commentary on a layer-1 text. 3 = gloss",
+    "on a layer-2 text. The folder tree is deliberately FLAT (all commentaries sit as sibling",
+    "layer folders under their root work) — the true genealogy lives in 'comments_on' here, so",
+    "a 4th-order gloss does not produce a 4-deep directory. This matches the mula/tika/tippani",
+    "convention already used in dge/data/sarvamoola_grantha/."
+  ],
+
+  "root": "darshanas",
+
+  "authors": {
+    "gautama":            { "devanagari": "अक्षपादगौतमः",           "iast": "Akṣapāda Gautama",        "date": "6c BCE – 2c CE (composite)", "verification": "verified" },
+    "vatsyayana":         { "devanagari": "पक्षिलस्वामिवात्स्यायनः", "iast": "Pakṣilasvāmin Vātsyāyana", "date": "5–6c CE", "verification": "verified" },
+    "uddyotakara":        { "devanagari": "उद्द्योतकरः",             "iast": "Uddyotakara",             "date": "6–7c CE", "verification": "verified" },
+    "vacaspati_mishra":   { "devanagari": "वाचस्पतिमिश्रः",          "iast": "Vācaspati Miśra",         "date": "9c CE", "verification": "verified" },
+    "udayana":            { "devanagari": "उदयनाचार्यः",             "iast": "Udayanācārya",            "date": "c. 984 CE", "verification": "verified" },
+    "bhasarvajna":        { "devanagari": "भासर्वज्ञः",              "iast": "Bhāsarvajña",             "date": "9c CE", "verification": "verified" },
+    "jayanta_bhatta":     { "devanagari": "जयन्तभट्टः",              "iast": "Jayanta Bhaṭṭa",          "date": "10c CE", "verification": "verified" },
+    "keshava_mishra":     { "devanagari": "केशवमिश्रः",              "iast": "Keśava Miśra",            "date": "c. 13c CE", "verification": "verified" },
+    "annambhatta":        { "devanagari": "अन्नम्भट्टः",             "iast": "Annaṃbhaṭṭa",             "date": "2nd half 17c CE", "verification": "verified" },
+    "govardhana_mishra":  { "devanagari": "गोवर्धनमिश्रः",           "iast": "Govardhana Miśra",        "date": "17–18c CE", "verification": "verified" },
+    "candrajasimha":      { "devanagari": "चन्द्रजसिंहः",            "iast": "Candrajasiṃha",           "date": "unknown", "verification": "verified" },
+    "nilakantha_bhatta":  { "devanagari": "नीलकण्ठभट्टः",            "iast": "Nīlakaṇṭha Bhaṭṭa",       "date": "17–18c CE", "verification": "verified" },
+    "lakshminrisimha":    { "devanagari": "लक्ष्मीनृसिंहः",          "iast": "Lakṣmīnṛsiṃha",           "date": "18c CE", "verification": "verified" },
+    "ramabrahma_shastri": { "devanagari": "रामब्रह्मशास्त्री",       "iast": "Rāmabrahma Śāstrī",       "date": "modern", "verification": "verified" },
+    "vishvanatha":        { "devanagari": "विश्वनाथन्यायपञ्चाननः",  "iast": "Viśvanātha Nyāyapañcānana", "date": "17c CE", "verification": "verified", "note": "the frequently cited year 1634 CE is UNCERTAIN; only the century is solid" },
+    "mahadeva_bhatta":    { "devanagari": "महादेवभट्टः",             "iast": "Mahādeva Bhaṭṭa",         "date": "17–18c CE", "verification": "verified" },
+    "dinakara_bhatta":    { "devanagari": "दिनकरभट्टः",              "iast": "Dinakara Bhaṭṭa",         "date": "17–18c CE", "verification": "verified", "note": "son of Mahādeva; completed his father's Muktāvalī-Prakāśa, whence the name Dinakarī" },
+    "ramarudra":          { "devanagari": "रामरुद्रभट्टाचार्यः",     "iast": "Rāmarudra Bhaṭṭācārya",   "date": "18c CE", "verification": "verified" },
+    "krishnavallabhacarya": { "devanagari": "कृष्णवल्लभाचार्यः",     "iast": "Kṛṣṇavallabhācārya",      "date": "modern", "verification": "verified" },
+    "gangesha":           { "devanagari": "गङ्गेशोपाध्यायः",         "iast": "Gaṅgeśa Upādhyāya",       "date": "c. 1200–1325 CE", "verification": "verified" },
+    "pakshadhara_mishra": { "devanagari": "जयदेवपक्षधरमिश्रः",       "iast": "Jayadeva Pakṣadhara Miśra", "date": "c. 1465–75 CE", "verification": "verified" },
+    "raghunatha_shiromani": { "devanagari": "रघुनाथशिरोमणिः",        "iast": "Raghunātha Śiromaṇi",     "date": "c. 1477–1547 CE", "verification": "verified" },
+    "jagadisha":          { "devanagari": "जगदीशतर्कालङ्कारः",       "iast": "Jagadīśa Tarkālaṅkāra",   "date": "17c CE", "verification": "verified" },
+    "gadadhara":          { "devanagari": "गदाधरभट्टाचार्यः",        "iast": "Gadādhara Bhaṭṭācārya",   "date": "fl. c. 1650 CE", "verification": "verified" },
+    "mathuranatha":       { "devanagari": "मथुरानाथतर्कवागीशः",      "iast": "Mathurānātha Tarkavāgīśa", "date": "16–17c CE", "verification": "verified" },
+    "rucidatta":          { "devanagari": "रुचिदत्तः",               "iast": "Rucidatta",               "date": "c. 1275 CE", "verification": "verified" },
+    "vardhamana":         { "devanagari": "वर्धमानोपाध्यायः",        "iast": "Vardhamāna Upādhyāya",    "date": "c. 1225 CE", "verification": "verified" },
+    "varadaraja":         { "devanagari": "वरदराजः",                "iast": "Varadarāja",              "date": "13c CE", "verification": "plausible" },
+    "prashastapada":      { "devanagari": "प्रशस्तपादाचार्यः",       "iast": "Praśastapāda",            "date": "6c CE", "verification": "verified" },
+    "kanada":             { "devanagari": "कणादः",                  "iast": "Kaṇāda",                  "date": "c. 2c BCE – 2c CE", "verification": "verified" },
+    "jaimini":            { "devanagari": "जैमिनिः",                "iast": "Jaimini",                 "date": "c. 200 BCE", "verification": "verified" },
+    "shabara":            { "devanagari": "शबरस्वामी",              "iast": "Śabarasvāmin",            "date": "c. 1c BCE – 5c CE", "verification": "verified" },
+    "kumarila":           { "devanagari": "कुमारिलभट्टः",           "iast": "Kumārila Bhaṭṭa",         "date": "c. 7c CE", "verification": "verified" },
+    "prabhakara":         { "devanagari": "प्रभाकरमिश्रः",          "iast": "Prabhākara Miśra",        "date": "c. 6–7c CE", "verification": "verified" },
+    "shalikanatha":       { "devanagari": "शालिकनाथमिश्रः",         "iast": "Śālikanātha Miśra",       "date": "c. 800 CE", "verification": "verified" },
+    "parthasarathi":      { "devanagari": "पार्थसारथिमिश्रः",       "iast": "Pārthasārathi Miśra",     "date": "c. 9–11c CE", "verification": "verified" },
+    "sucarita_mishra":    { "devanagari": "सुचरितमिश्रः",           "iast": "Sucarita Miśra",          "date": "c. 10c CE", "verification": "verified" },
+    "someshvara_bhatta":  { "devanagari": "सोमेश्वरभट्टः",          "iast": "Someśvara Bhaṭṭa",        "date": "c. 12c CE", "verification": "verified" },
+    "madhava":            { "devanagari": "माधवाचार्यः",            "iast": "Mādhavācārya",            "date": "14c CE", "verification": "verified" },
+    "apadeva":            { "devanagari": "आपदेवः",                 "iast": "Āpadeva",                 "date": "17c CE", "verification": "verified" },
+    "laugakshi_bhaskara": { "devanagari": "लौगाक्षिभास्करः",        "iast": "Laugākṣi Bhāskara",       "date": "17c CE", "verification": "verified" },
+    "khandadeva":         { "devanagari": "खण्डदेवः",               "iast": "Khaṇḍadeva",              "date": "17c CE", "verification": "verified" },
+    "krishna_yajvan":     { "devanagari": "कृष्णयज्वा",             "iast": "Kṛṣṇa Yajvan",            "date": "17c CE", "verification": "plausible" }
+  },
+
+  "corrections": [
+    { "claim": "Tarkasaṅgraha has a commentary named Āloka", "verdict": "FALSE — conflation", "detail": "Āloka is Pakṣadhara Miśra's commentary on Tattvacintāmaṇi. No Tarkasaṅgraha Āloka is catalogued anywhere checked. Removed from the tree." },
+    { "claim": "Nīlakaṇṭhī and Bhāskarodaya comment on Tarkasaṅgraha", "verdict": "WRONG LEVEL", "detail": "Nīlakaṇṭhī comments on the Dīpikā (layer 2); Bhāskarodaya is a gloss on the Nīlakaṇṭhī (layer 3). Encoded at their true levels." },
+    { "claim": "Kiraṇāvalī belongs in the Muktāvalī tree", "verdict": "TWO HOMONYMOUS WORKS", "detail": "Udayana's Kiraṇāvalī is on the Praśastapādabhāṣya (Vaiśeṣika, 10c). A distinct modern Kiraṇāvalī by Kṛṣṇavallabhācārya IS on the Siddhāntamuktāvalī. Both encoded, separately." },
+    { "claim": "Ṛjuvimalā is by Prabhākara", "verdict": "FALSE", "detail": "Bṛhatī is Prabhākara's (on the Śābarabhāṣya); Ṛjuvimalā is Śālikanātha's, on the Bṛhatī." },
+    { "claim": "Nyāyakusumāñjali's Prakāśa is by Varadarāja", "verdict": "CONFLATION", "detail": "Bodhinī is Varadarāja's; Prakāśa is Vardhamāna Upādhyāya's; Makaranda is Rucidatta's. Haridāsa is not attested as a Kusumāñjali commentator — he wrote a Prakāśa on the Tattvacintāmaṇi." },
+    { "claim": "Rāmarudrī is the work's title", "verdict": "REFINEMENT", "detail": "Rāmarudra Bhaṭṭācārya's commentary on the Dinakarī is properly titled Taraṅgiṇī; Rāmarudrī is the patronymic short name. Both recorded." },
+    { "claim": "Pañcalakṣaṇī, Sāmānyanirukti, Avayava etc. are independent works", "verdict": "MOSTLY FALSE", "detail": "They are named sections of Tattvacintāmaṇi's Anumāna-khaṇḍa, cross-cut by commentary layer. Only Vyutpattivāda and Śaktivāda are standalone; Bādhānta is Rucidatta's at the Āloka layer." },
+    { "claim": "Mādhava, Āpadeva and Laugākṣi Bhāskara are Prābhākara", "verdict": "FALSE — scrape artifact", "detail": "Britannica's page layout places them near the Prābhākara heading. All three are Bhāṭṭa. Any importer reading that page must not infer school from proximity." }
+  ],
+
+  "unverified_do_not_encode": [
+    { "item": "Subodhinī, Mañjūṣā, Gaṅgārāmī on the Siddhāntamuktāvalī", "reason": "no author or catalogue entry located; consult New Catalogus Catalogorum before creating folders" },
+    { "item": "Bhāṭṭacintāmaṇi authorship (Gāgā Bhaṭṭa?)", "reason": "unconfirmed" },
+    { "item": "Viśvanātha's precise year 1634 CE", "reason": "century solid, year not" },
+    { "item": "Haridāsa as a Nyāyakusumāñjali commentator", "reason": "likely spurious; probably confused with Haridāsa Nyāyālaṅkāra's Prakāśa on the Tattvacintāmaṇi" }
+  ],
+
+  "sections": [
+    {
+      "slug": "nyaya",
+      "title": { "devanagari": "न्यायदर्शनम्", "iast": "Nyāyadarśana" },
+      "subsections": [
+        {
+          "slug": "prachina_nyaya",
+          "title": { "devanagari": "प्राचीनन्यायः", "iast": "Prācīna-Nyāya" },
+          "works": [
+            {
+              "slug": "nyaya_sutra",
+              "title": { "devanagari": "न्यायसूत्राणि", "iast": "Nyāyasūtra" },
+              "author": "gautama", "kind": "mula", "layer": 0,
+              "structure": ["adhyaya_1", "adhyaya_2", "adhyaya_3", "adhyaya_4", "adhyaya_5"],
+              "verification": "verified",
+              "evidence": ["https://en.wikipedia.org/wiki/Ny%C4%81ya_S%C5%ABtras"],
+              "layers": [
+                { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "gautama", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" },
+                { "slug": "bhashya_vatsyayana", "title": { "devanagari": "न्यायभाष्यम्", "iast": "Nyāyabhāṣya" }, "author": "vatsyayana", "schema": "grantha_tika_text", "layer": 1, "comments_on": "nyaya_sutra/mula", "verification": "verified" },
+                { "slug": "varttika_uddyotakara", "title": { "devanagari": "न्यायवार्त्तिकम्", "iast": "Nyāyavārttika" }, "author": "uddyotakara", "schema": "grantha_tika_text", "layer": 2, "comments_on": "nyaya_sutra/bhashya_vatsyayana", "verification": "verified" },
+                { "slug": "tatparya_tika", "title": { "devanagari": "न्यायवार्त्तिकतात्पर्यटीका", "iast": "Nyāyavārttikatātparyaṭīkā" }, "author": "vacaspati_mishra", "schema": "grantha_tika_text", "layer": 3, "comments_on": "nyaya_sutra/varttika_uddyotakara", "verification": "verified" },
+                { "slug": "tatparya_parishuddhi", "title": { "devanagari": "न्यायवार्त्तिकतात्पर्यपरिशुद्धिः", "iast": "Nyāyavārttikatātparyapariśuddhi" }, "author": "udayana", "schema": "grantha_tika_text", "layer": 4, "comments_on": "nyaya_sutra/tatparya_tika", "verification": "verified" }
+              ]
+            },
+            {
+              "slug": "nyaya_bhushana",
+              "title": { "devanagari": "न्यायभूषणम्", "iast": "Nyāyabhūṣaṇa" },
+              "author": "bhasarvajna", "kind": "commentary", "layer": 1,
+              "comments_on": "nyaya_sutra/mula",
+              "verification": "verified",
+              "note": "an INDEPENDENT Nyāyasūtra commentary — deliberately not nested inside the Bhāṣya→Vārttika→Tātparya vertical chain",
+              "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "bhasarvajna", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ]
+            },
+            {
+              "slug": "nyaya_manjari",
+              "title": { "devanagari": "न्यायमञ्जरी", "iast": "Nyāyamañjarī" },
+              "author": "jayanta_bhatta", "kind": "commentary", "layer": 1,
+              "comments_on": "nyaya_sutra/mula",
+              "verification": "verified",
+              "note": "likewise independent of the vertical chain",
+              "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "jayanta_bhatta", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ]
+            }
+          ]
+        },
+
+        {
+          "slug": "prakarana",
+          "title": { "devanagari": "न्यायवैशेषिकप्रकरणग्रन्थाः", "iast": "Nyāya-Vaiśeṣika Prakaraṇa" },
+          "works": [
+            {
+              "slug": "tarkasangraha",
+              "title": { "devanagari": "तर्कसङ्ग्रहः", "iast": "Tarkasaṅgraha" },
+              "author": "annambhatta", "kind": "mula", "layer": 0,
+              "verification": "verified",
+              "evidence": ["https://en.wikipedia.org/wiki/Tarka-Sangraha"],
+              "note": "roughly 90 commentaries are known; only those with a confirmed author are encoded",
+              "curriculum_entry": true,
+              "layers": [
+                { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "annambhatta", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" },
+                { "slug": "tika_dipika", "title": { "devanagari": "तर्कदीपिका", "iast": "Tarkadīpikā" }, "author": "annambhatta", "schema": "grantha_tika_text", "layer": 1, "comments_on": "tarkasangraha/mula", "relation": "autocommentary", "verification": "verified" },
+                { "slug": "tika_nyayabodhini", "title": { "devanagari": "न्यायबोधिनी", "iast": "Nyāyabodhinī" }, "author": "govardhana_mishra", "schema": "grantha_tika_text", "layer": 1, "comments_on": "tarkasangraha/mula", "verification": "verified" },
+                { "slug": "tika_padakritya", "title": { "devanagari": "पदकृत्यम्", "iast": "Padakṛtya" }, "author": "candrajasimha", "schema": "grantha_tika_text", "layer": 1, "comments_on": "tarkasangraha/mula", "verification": "verified" },
+                { "slug": "tika_sarvasva", "title": { "devanagari": "तर्कसङ्ग्रहसर्वस्वम्", "iast": "Tarkasaṅgrahasarvasva" }, "author": "ramabrahma_shastri", "schema": "grantha_tika_text", "layer": 1, "comments_on": "tarkasangraha/mula", "verification": "verified", "note": "distinct from Kuganti Śrī Rāma Śāstrī's Dīpikāsarvasva — do not merge" },
+                { "slug": "tika_nilakanthi", "title": { "devanagari": "नीलकण्ठी", "iast": "Nīlakaṇṭhī" }, "alt_titles": ["तत्त्वप्रकाशः"], "author": "nilakantha_bhatta", "schema": "grantha_tika_text", "layer": 2, "comments_on": "tarkasangraha/tika_dipika", "verification": "verified", "note": "comments on the DĪPIKĀ, not the mūla" },
+                { "slug": "tika_bhaskarodaya", "title": { "devanagari": "भास्करोदयः", "iast": "Bhāskarodaya" }, "author": "lakshminrisimha", "schema": "grantha_tippani_text", "layer": 3, "comments_on": "tarkasangraha/tika_nilakanthi", "verification": "verified", "note": "third-order: a gloss on the Nīlakaṇṭhī" }
+              ]
+            },
+            {
+              "slug": "tarkabhasha",
+              "title": { "devanagari": "तर्कभाषा", "iast": "Tarkabhāṣā" },
+              "author": "keshava_mishra", "kind": "mula", "layer": 0,
+              "verification": "verified",
+              "note": "independent prakaraṇa, NOT related to the Tarkasaṅgraha",
+              "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "keshava_mishra", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ]
+            }
+          ]
+        },
+
+        {
+          "slug": "bhasha_pariccheda",
+          "title": { "devanagari": "भाषापरिच्छेदः", "iast": "Bhāṣāpariccheda" },
+          "works": [
+            {
+              "slug": "karikavali",
+              "title": { "devanagari": "कारिकावली", "iast": "Kārikāvalī" },
+              "alt_titles": ["भाषापरिच्छेदः"],
+              "author": "vishvanatha", "kind": "mula", "layer": 0,
+              "verification": "verified",
+              "curriculum_entry": true,
+              "layers": [
+                { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "vishvanatha", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" },
+                { "slug": "tika_siddhanta_muktavali", "title": { "devanagari": "सिद्धान्तमुक्तावली", "iast": "Siddhāntamuktāvalī" }, "alt_titles": ["मुक्तावल्युल्लासः"], "author": "vishvanatha", "schema": "grantha_tika_text", "layer": 1, "comments_on": "karikavali/mula", "relation": "autocommentary", "verification": "verified" },
+                { "slug": "tika_dinakari", "title": { "devanagari": "दिनकरी", "iast": "Dinakarī" }, "alt_titles": ["मुक्तावलीप्रकाशः"], "author": "dinakara_bhatta", "co_author": "mahadeva_bhatta", "schema": "grantha_tika_text", "layer": 2, "comments_on": "karikavali/tika_siddhanta_muktavali", "verification": "verified", "note": "begun by Mahādeva Bhaṭṭa as Muktāvalī-Prakāśa, completed by his son Dinakara" },
+                { "slug": "tika_ramarudri", "title": { "devanagari": "तरङ्गिणी", "iast": "Taraṅgiṇī" }, "alt_titles": ["रामरुद्री"], "author": "ramarudra", "schema": "grantha_tippani_text", "layer": 3, "comments_on": "karikavali/tika_dinakari", "verification": "verified" },
+                { "slug": "tika_kiranavali", "title": { "devanagari": "किरणावली", "iast": "Kiraṇāvalī" }, "author": "krishnavallabhacarya", "schema": "grantha_tika_text", "layer": 2, "comments_on": "karikavali/tika_siddhanta_muktavali", "verification": "verified", "note": "NOT Udayana's Kiraṇāvalī — that one is on the Praśastapādabhāṣya and lives under vaisheshika/" }
+              ]
+            }
+          ]
+        },
+
+        {
+          "slug": "navya_nyaya",
+          "title": { "devanagari": "नव्यन्यायः", "iast": "Navya-Nyāya" },
+          "works": [
+            {
+              "slug": "tattvacintamani",
+              "title": { "devanagari": "तत्त्वचिन्तामणिः", "iast": "Tattvacintāmaṇi" },
+              "author": "gangesha", "kind": "mula", "layer": 0,
+              "verification": "verified",
+              "curriculum_entry": true,
+              "khandas": [
+                { "slug": "pratyaksha_khanda", "title": { "devanagari": "प्रत्यक्षखण्डः", "iast": "Pratyakṣakhaṇḍa" } },
+                { "slug": "anumana_khanda",    "title": { "devanagari": "अनुमानखण्डः",   "iast": "Anumānakhaṇḍa" }, "holds_vadas": true },
+                { "slug": "upamana_khanda",    "title": { "devanagari": "उपमानखण्डः",    "iast": "Upamānakhaṇḍa" } },
+                { "slug": "shabda_khanda",     "title": { "devanagari": "शब्दखण्डः",     "iast": "Śabdakhaṇḍa" } }
+              ],
+              "layers": [
+                { "slug": "mula",      "title": { "devanagari": "मूलम्", "iast": "Mūla" },        "author": "gangesha",             "schema": "grantha_mula_text", "layer": 0, "verification": "verified" },
+                { "slug": "aloka",     "title": { "devanagari": "आलोकः", "iast": "Āloka" },       "author": "pakshadhara_mishra",   "schema": "grantha_tika_text", "layer": 1, "comments_on": "tattvacintamani/mula", "verification": "verified" },
+                { "slug": "mathuri",   "title": { "devanagari": "माथुरी", "iast": "Māthurī" },    "author": "mathuranatha",         "schema": "grantha_tika_text", "layer": 2, "comments_on": "tattvacintamani/aloka", "verification": "verified", "note": "the Āloka branch, distinct from the Dīdhiti branch" },
+                { "slug": "didhiti",   "title": { "devanagari": "दीधितिः", "iast": "Dīdhiti" },   "author": "raghunatha_shiromani", "schema": "grantha_tika_text", "layer": 1, "comments_on": "tattvacintamani/mula", "verification": "verified" },
+                { "slug": "jagadishi", "title": { "devanagari": "जागदीशी", "iast": "Jāgadīśī" },  "author": "jagadisha",            "schema": "grantha_tika_text", "layer": 2, "comments_on": "tattvacintamani/didhiti", "verification": "verified", "note": "comments on the DĪDHITI, not on the Maṇi directly" },
+                { "slug": "gadadhari", "title": { "devanagari": "गादाधरी", "iast": "Gādādharī" }, "author": "gadadhara",            "schema": "grantha_tika_text", "layer": 2, "comments_on": "tattvacintamani/didhiti", "verification": "verified", "note": "comments on the DĪDHITI, not on the Maṇi directly" }
+              ],
+              "vadas": [
+                { "slug": "panchalakshani",       "title": { "devanagari": "पञ्चलक्षणी", "iast": "Pañcalakṣaṇī" }, "alt_titles": ["व्याप्तिपञ्चकम्"], "khanda": "anumana_khanda", "topic": "vyapti", "layers": ["mula", "didhiti", "jagadishi", "gadadhari"], "verification": "verified", "evidence": ["https://archive.org/details/bKua_vyapti-panchakan-singha-vyaghra-lakshana-with-didhiti-and-jagadishi-and-tika-by-"], "curriculum_entry": true },
+                { "slug": "chaturdashalakshani",  "title": { "devanagari": "चतुर्दशलक्षणी", "iast": "Caturdaśalakṣaṇī" }, "khanda": "anumana_khanda", "topic": "vyapti", "layers": ["mula", "didhiti", "gadadhari"], "verification": "plausible", "curriculum_entry": true },
+                { "slug": "siddhanta_lakshana",   "title": { "devanagari": "सिद्धान्तलक्षणम्", "iast": "Siddhāntalakṣaṇa" }, "khanda": "anumana_khanda", "topic": "vyapti", "layers": ["mula", "didhiti", "jagadishi", "gadadhari"], "verification": "verified", "curriculum_entry": true },
+                { "slug": "vyaptyanugama",        "title": { "devanagari": "व्याप्त्यनुगमः", "iast": "Vyāptyanugama" }, "khanda": "anumana_khanda", "topic": "vyapti", "layers": ["mula", "didhiti", "jagadishi"], "verification": "plausible" },
+                { "slug": "samanya_nirukti",      "title": { "devanagari": "सामान्यनिरुक्तिः", "iast": "Sāmānyanirukti" }, "khanda": "anumana_khanda", "topic": "hetvabhasa", "layers": ["mula", "didhiti", "gadadhari"], "verification": "verified", "evidence": ["https://www.exoticindiaart.com/book/details/pukstacintamani-and-samanyanirukti-of-gangesa-with-kanadatippani-naj018/"], "curriculum_entry": true },
+                { "slug": "savyabhichara",        "title": { "devanagari": "सव्यभिचारः", "iast": "Savyabhicāra" }, "khanda": "anumana_khanda", "topic": "hetvabhasa", "layers": ["mula", "didhiti", "gadadhari"], "verification": "plausible" },
+                { "slug": "satpratipaksha",       "title": { "devanagari": "सत्प्रतिपक्षः", "iast": "Satpratipakṣa" }, "khanda": "anumana_khanda", "topic": "hetvabhasa", "layers": ["mula", "didhiti", "gadadhari"], "verification": "plausible" },
+                { "slug": "badha",                "title": { "devanagari": "बाधः", "iast": "Bādha" }, "khanda": "anumana_khanda", "topic": "hetvabhasa", "layers": ["mula", "didhiti", "gadadhari"], "verification": "plausible" },
+                { "slug": "badha_vibhajaka",      "title": { "devanagari": "बाधविभाजकः", "iast": "Bādha-Vibhājaka" }, "khanda": "anumana_khanda", "topic": "hetvabhasa", "layers": ["mula", "didhiti"], "verification": "plausible" },
+                { "slug": "avayava",              "title": { "devanagari": "अवयवः", "iast": "Avayava" }, "khanda": "anumana_khanda", "topic": "avayava", "layers": ["mula", "didhiti", "gadadhari"], "verification": "plausible", "curriculum_entry": true },
+                { "slug": "pakshata",             "title": { "devanagari": "पक्षता", "iast": "Pakṣatā" }, "khanda": "anumana_khanda", "topic": "pakshata", "layers": ["mula", "didhiti", "gadadhari"], "verification": "plausible", "curriculum_entry": true },
+                { "slug": "avacchedakata_nirukti","title": { "devanagari": "अवच्छेदकतानिरुक्तिः", "iast": "Avacchedakatānirukti" }, "khanda": "anumana_khanda", "topic": "avacchedakata", "layers": ["mula", "didhiti", "gadadhari"], "verification": "verified", "evidence": ["https://bibliaimpex.com/index.php?Field=bookcode&String=9788184702101&format=fullpage&p=sr"], "curriculum_entry": true },
+                { "slug": "vyadhikarana",         "title": { "devanagari": "व्यधिकरणम्", "iast": "Vyādhikaraṇa" }, "khanda": "anumana_khanda", "topic": "vyapti", "layers": ["mula", "didhiti", "jagadishi"], "verification": "plausible" }
+              ]
+            },
+            {
+              "slug": "vyutpattivada",
+              "title": { "devanagari": "व्युत्पत्तिवादः", "iast": "Vyutpattivāda" },
+              "author": "gadadhara", "kind": "mula", "layer": 0,
+              "verification": "verified",
+              "evidence": ["https://www.motilalbanarsidass.com/en-us/products/vyutpattivada-theory-of-the-analysis-of-sentence-meaning"],
+              "note": "GENUINELY INDEPENDENT treatise, not a Tattvacintāmaṇi section",
+              "curriculum_entry": true,
+              "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "gadadhara", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ]
+            },
+            {
+              "slug": "shaktivada",
+              "title": { "devanagari": "शक्तिवादः", "iast": "Śaktivāda" },
+              "author": "gadadhara", "kind": "mula", "layer": 0,
+              "verification": "verified",
+              "evidence": ["https://en.banglapedia.org/index.php/Bhattacharya,_Gadadhar"],
+              "note": "GENUINELY INDEPENDENT treatise",
+              "curriculum_entry": true,
+              "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "gadadhara", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ]
+            },
+            {
+              "slug": "badhanta",
+              "title": { "devanagari": "बाधान्तः", "iast": "Bādhānta" },
+              "author": "rucidatta", "kind": "mula", "layer": 0,
+              "verification": "verified",
+              "evidence": ["https://www.wisdomlib.org/definition/badhanta"],
+              "note": "Aufrecht's Catalogus Catalogorum: '[nyāya] by Rucidatta'. Rucidatta belongs to the Prakāśa/Āloka layer, NOT the Gādādharī layer — filed as its own work, not as a Tattvacintāmaṇi vāda",
+              "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "rucidatta", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ]
+            }
+          ]
+        },
+
+        {
+          "slug": "pramukha_prakarana",
+          "title": { "devanagari": "प्रमुखप्रकरणग्रन्थाः", "iast": "Pramukha Prakaraṇa Granthas" },
+          "works": [
+            {
+              "slug": "nyaya_kusumanjali",
+              "title": { "devanagari": "न्यायकुसुमाञ्जलिः", "iast": "Nyāyakusumāñjali" },
+              "author": "udayana", "kind": "mula", "layer": 0,
+              "subject": "ईश्वरसिद्धिः / Īśvara-siddhi",
+              "structure": ["stabaka_1", "stabaka_2", "stabaka_3", "stabaka_4", "stabaka_5"],
+              "verification": "verified",
+              "evidence": ["https://en.wikipedia.org/wiki/Nyayakusumanjali"],
+              "note": "5 stabakas of 20/4/23/6/20 verses. Kept OUT of navya_nyaya deliberately — it is an independent major work of Udayana",
+              "curriculum_entry": true,
+              "layers": [
+                { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "udayana", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" },
+                { "slug": "tika_bodhini",  "title": { "devanagari": "बोधिनी", "iast": "Bodhinī" },   "author": "varadaraja",  "schema": "grantha_tika_text", "layer": 1, "comments_on": "nyaya_kusumanjali/mula", "verification": "plausible" },
+                { "slug": "tika_prakasha", "title": { "devanagari": "प्रकाशः", "iast": "Prakāśa" },  "author": "vardhamana",  "schema": "grantha_tika_text", "layer": 1, "comments_on": "nyaya_kusumanjali/mula", "verification": "plausible", "note": "Vardhamāna's, NOT Varadarāja's" },
+                { "slug": "tika_makaranda","title": { "devanagari": "मकरन्दः", "iast": "Makaranda" }, "author": "rucidatta",  "schema": "grantha_tika_text", "layer": 2, "comments_on": "nyaya_kusumanjali/tika_prakasha", "verification": "plausible" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "slug": "vaisheshika",
+      "title": { "devanagari": "वैशेषिकदर्शनम्", "iast": "Vaiśeṣikadarśana" },
+      "subsections": [
+        {
+          "slug": "sutra_and_bhashya",
+          "title": { "devanagari": "सूत्रभाष्यम्", "iast": "Sūtra and Bhāṣya" },
+          "works": [
+            {
+              "slug": "vaisheshika_sutra",
+              "title": { "devanagari": "वैशेषिकसूत्राणि", "iast": "Vaiśeṣikasūtra" },
+              "author": "kanada", "kind": "mula", "layer": 0,
+              "verification": "verified",
+              "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "kanada", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ]
+            },
+            {
+              "slug": "prashastapada_bhashya",
+              "title": { "devanagari": "प्रशस्तपादभाष्यम्", "iast": "Praśastapādabhāṣya" },
+              "alt_titles": ["पदार्थधर्मसंग्रहः"],
+              "author": "prashastapada", "kind": "commentary", "layer": 1,
+              "comments_on": "vaisheshika_sutra/mula",
+              "verification": "verified",
+              "curriculum_entry": true,
+              "layers": [
+                { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "prashastapada", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" },
+                { "slug": "tika_kiranavali", "title": { "devanagari": "किरणावली", "iast": "Kiraṇāvalī" }, "author": "udayana", "schema": "grantha_tika_text", "layer": 1, "comments_on": "prashastapada_bhashya/mula", "verification": "verified", "note": "THIS is Udayana's Kiraṇāvalī — distinct from Kṛṣṇavallabhācārya's on the Siddhāntamuktāvalī" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+
+    {
+      "slug": "mimamsa",
+      "title": { "devanagari": "मीमांसादर्शनम्", "iast": "Mīmāṃsādarśana" },
+      "subsections": [
+        {
+          "slug": "sutra_and_bhashya",
+          "title": { "devanagari": "सूत्रभाष्यम्", "iast": "Sūtra and Bhāṣya" },
+          "works": [
+            {
+              "slug": "mimamsa_sutra",
+              "title": { "devanagari": "मीमांसासूत्राणि", "iast": "Mīmāṃsāsūtra" },
+              "author": "jaimini", "kind": "mula", "layer": 0,
+              "structure": ["adhyaya_01","adhyaya_02","adhyaya_03","adhyaya_04","adhyaya_05","adhyaya_06","adhyaya_07","adhyaya_08","adhyaya_09","adhyaya_10","adhyaya_11","adhyaya_12"],
+              "verification": "verified",
+              "layers": [
+                { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "jaimini", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" },
+                { "slug": "shabara_bhashya", "title": { "devanagari": "शाबरभाष्यम्", "iast": "Śābarabhāṣya" }, "author": "shabara", "schema": "grantha_tika_text", "layer": 1, "comments_on": "mimamsa_sutra/mula", "verification": "verified" }
+              ]
+            }
+          ]
+        },
+        {
+          "slug": "bhatta",
+          "title": { "devanagari": "भाट्टसम्प्रदायः", "iast": "Bhāṭṭa" },
+          "school": "bhatta",
+          "works": [
+            {
+              "slug": "shlokavarttika",
+              "title": { "devanagari": "श्लोकवार्त्तिकम्", "iast": "Ślokavārttika" },
+              "author": "kumarila", "kind": "commentary", "layer": 2,
+              "comments_on": "mimamsa_sutra/shabara_bhashya",
+              "scope": "philosophical portion only (adhyāya 1.1)",
+              "verification": "verified",
+              "layers": [
+                { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "kumarila", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" },
+                { "slug": "tika_kashika",       "title": { "devanagari": "काशिका", "iast": "Kāśikā" },             "author": "sucarita_mishra",   "schema": "grantha_tika_text", "layer": 1, "comments_on": "shlokavarttika/mula", "verification": "verified" },
+                { "slug": "tika_nyayasudha",    "title": { "devanagari": "न्यायसुधा", "iast": "Nyāyasudhā" },      "author": "someshvara_bhatta", "schema": "grantha_tika_text", "layer": 1, "comments_on": "shlokavarttika/mula", "verification": "verified", "note": "NOT Jayatīrtha's Nyāyasudhā — that is the Dvaita Anuvyākhyāna commentary in sarvamoola_grantha/" },
+                { "slug": "tika_nyayaratnakara","title": { "devanagari": "न्यायरत्नाकरः", "iast": "Nyāyaratnākara" }, "author": "parthasarathi",  "schema": "grantha_tika_text", "layer": 1, "comments_on": "shlokavarttika/mula", "verification": "verified" }
+              ]
+            },
+            {
+              "slug": "tantravarttika",
+              "title": { "devanagari": "तन्त्रवार्त्तिकम्", "iast": "Tantravārttika" },
+              "author": "kumarila", "kind": "commentary", "layer": 2,
+              "comments_on": "mimamsa_sutra/shabara_bhashya",
+              "scope": "adhyāyas 1.2–3", "verification": "verified",
+              "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "kumarila", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ]
+            },
+            {
+              "slug": "tuptika",
+              "title": { "devanagari": "टुप्टीका", "iast": "Ṭupṭīkā" },
+              "author": "kumarila", "kind": "commentary", "layer": 2,
+              "comments_on": "mimamsa_sutra/shabara_bhashya",
+              "scope": "adhyāyas 4–12", "verification": "verified",
+              "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "kumarila", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ]
+            }
+          ]
+        },
+        {
+          "slug": "prabhakara",
+          "title": { "devanagari": "प्राभाकरसम्प्रदायः", "iast": "Prābhākara" },
+          "school": "prabhakara",
+          "works": [
+            {
+              "slug": "brihati",
+              "title": { "devanagari": "बृहती", "iast": "Bṛhatī" },
+              "author": "prabhakara", "kind": "commentary", "layer": 2,
+              "comments_on": "mimamsa_sutra/shabara_bhashya",
+              "verification": "verified",
+              "layers": [
+                { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "prabhakara", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" },
+                { "slug": "tika_rijuvimala", "title": { "devanagari": "ऋजुविमला", "iast": "Ṛjuvimalā" }, "author": "shalikanatha", "schema": "grantha_tika_text", "layer": 1, "comments_on": "brihati/mula", "verification": "verified", "note": "Śālikanātha's, NOT Prabhākara's — a common misattribution" },
+                { "slug": "tika_dipashikha", "title": { "devanagari": "दीपशिखा", "iast": "Dīpaśikhā" }, "author": "shalikanatha", "schema": "grantha_tika_text", "layer": 1, "comments_on": "brihati/mula", "verification": "verified" }
+              ]
+            },
+            {
+              "slug": "prakarana_panchika",
+              "title": { "devanagari": "प्रकरणपञ्चिका", "iast": "Prakaraṇapañcikā" },
+              "author": "shalikanatha", "kind": "mula", "layer": 0,
+              "verification": "verified",
+              "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "shalikanatha", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ]
+            }
+          ]
+        },
+        {
+          "slug": "prakarana",
+          "title": { "devanagari": "मीमांसाप्रकरणग्रन्थाः", "iast": "Mīmāṃsā Prakaraṇa Granthas" },
+          "works": [
+            { "slug": "arthasangraha",        "title": { "devanagari": "अर्थसङ्ग्रहः", "iast": "Arthasaṅgraha" },              "author": "laugakshi_bhaskara", "kind": "mula", "layer": 0, "school": "bhatta", "verification": "verified", "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "laugakshi_bhaskara", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ] },
+            { "slug": "mimamsa_nyaya_prakasha","title": { "devanagari": "मीमांसान्यायप्रकाशः", "iast": "Mīmāṃsānyāyaprakāśa" }, "alt_titles": ["आपदेवी"], "author": "apadeva", "kind": "mula", "layer": 0, "school": "bhatta", "verification": "verified", "curriculum_entry": true, "note": "attested by name in the Tenali exam results as the Mīmāṃsā paper 'Mimamsa Nyayaprakasa'", "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "apadeva", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ] },
+            { "slug": "shastra_dipika",       "title": { "devanagari": "शास्त्रदीपिका", "iast": "Śāstradīpikā" },              "author": "parthasarathi", "kind": "mula", "layer": 0, "school": "bhatta", "verification": "verified", "curriculum_entry": true, "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "parthasarathi", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ] },
+            { "slug": "nyaya_ratnamala",      "title": { "devanagari": "न्यायरत्नमाला", "iast": "Nyāyaratnamālā" },            "author": "parthasarathi", "kind": "mula", "layer": 0, "school": "bhatta", "verification": "verified", "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "parthasarathi", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ] },
+            { "slug": "jaiminiya_nyayamala",  "title": { "devanagari": "जैमिनीयन्यायमालाविस्तरः", "iast": "Jaiminīyanyāyamālāvistara" }, "author": "madhava", "kind": "mula", "layer": 0, "school": "bhatta", "verification": "verified", "note": "digest of all 12 adhyāyas", "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "madhava", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ] },
+            { "slug": "bhatta_dipika",        "title": { "devanagari": "भाट्टदीपिका", "iast": "Bhāṭṭadīpikā" },                "author": "khandadeva", "kind": "commentary", "layer": 1, "comments_on": "mimamsa_sutra/mula", "school": "bhatta", "verification": "verified", "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "khandadeva", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ] },
+            { "slug": "bhatta_rahasya",       "title": { "devanagari": "भाट्टरहस्यम्", "iast": "Bhāṭṭarahasya" },              "alt_titles": ["भाट्टतन्त्ररहस्यम्"], "author": "khandadeva", "kind": "mula", "layer": 0, "school": "bhatta", "verification": "verified", "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "khandadeva", "schema": "grantha_mula_text", "layer": 0, "verification": "verified" } ] },
+            { "slug": "mimamsa_paribhasha",   "title": { "devanagari": "मीमांसापरिभाषा", "iast": "Mīmāṃsāparibhāṣā" },        "author": "krishna_yajvan", "kind": "mula", "layer": 0, "school": "bhatta", "verification": "plausible", "curriculum_entry": true, "layers": [ { "slug": "mula", "title": { "devanagari": "मूलम्", "iast": "Mūla" }, "author": "krishna_yajvan", "schema": "grantha_mula_text", "layer": 0, "verification": "plausible" } ] }
+          ]
+        }
+      ]
+    }
+  ]
+}

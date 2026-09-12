@@ -1,0 +1,28 @@
+# DGE Audio Admin — configuration
+# Adjust the two paths marked TODO to match your repo, then commit.
+
+separation:
+  enabled: true
+  model: htdemucs        # htdemucs (best), htdemucs_ft (slower/better), mdx_extra
+
+defaults:
+  min_len: 8.0           # shortest a shloka can be (seconds)
+  min_gap: 1.5           # shortest pause that separates two shlokas (seconds)
+  pad: 0.10              # breathing room kept around each clip (seconds)
+
+output:
+  # Where "Save to DGE folder" writes the clips + chunks_map.json.
+  # Deliberately a STAGING folder, not a live grantha's own assets/ dir --
+  # these are raw, unreviewed cuts (chunk_01.wav, chunk_02.wav, ...); they
+  # still need a human to confirm/rename them against real shloka numbers
+  # (e.g. smv9.1.mp3) before they belong in dge/data/kavya/sumadhva_vijaya/
+  # assets/ or any other grantha's real folder, the same convention every
+  # other audio-bearing grantha in this repo already uses.
+  local_dir: dge/data/_audio_staging
+
+push:
+  # For LATER — pushing results to the separate audio-data repo.
+  enabled: false
+  repo: Tribhuvanachar/bhumandala-audio-data   # confirmed to exist
+  branch: main
+  subdir: chanting        # results land under this folder in that repo

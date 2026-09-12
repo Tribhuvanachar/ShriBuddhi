@@ -1,0 +1,88 @@
+{
+  "_readme": [
+    "Kavyas the project intends to hold that the importer has no source for --",
+    "the Madhva-lineage mahakavyas above all. tools/build_kavya_tracker.py folds",
+    "this together with what is actually on disk and what the Kavya corpus",
+    "carries, and writes admin/config/kavya-status.json and dge/KAVYA_TRACKER.md.",
+    "",
+    "`dictated` is what was said, kept verbatim. `id`/`name_iast` is the reading.",
+    "`confidence` is about the READING, not about whether the work exists: where",
+    "it is not high, the entry says what else it could be and is not to be acted",
+    "on until the project lead confirms. This is the same convention PENDING.md's",
+    "grantha acquisition list uses, and for the same reason -- a garbled title",
+    "sends someone hunting for a text that was never named.",
+    "",
+    "`expected_verses` is null wherever nobody has counted. The dictated estimate",
+    "was 'five hundred, six hundred, two thousand slokas each', which is a range,",
+    "not a figure, and is recorded as `dictated_scale` rather than guessed into a",
+    "number the tracker would then report as fact."
+  ],
+  "works": [
+    { "id": "sumadhva_vijaya", "dictated": "Sumadhva Vijaya", "name_sa": "सुमध्वविजयः",
+      "name_iast": "Sumadhva Vijaya", "author": "Sri Narayana Panditacharya",
+      "confidence": "high", "kind": "vijaya_kavya", "on_disk": true,
+      "commentary_expected": true, "commentary_status": "pending",
+      "note": "16 sargas of mula are published. Its tikas -- Bhavaprakashika and others named in the tradition -- are not in the repo; the exact set is for the project lead to name." },
+
+    { "id": "raghavendra_vijaya", "dictated": "Raghavendra Vijaya", "name_sa": "राघवेन्द्रविजयः",
+      "name_iast": "Raghavendra Vijaya", "author": "Sri Narayanacharya",
+      "confidence": "high", "kind": "vijaya_kavya", "on_disk": true,
+      "commentary_expected": true, "commentary_status": "pending",
+      "note": "10 sargas of mula are published, every shloka carrying an empty commentaries block. This is the case the project lead raised: text yes, commentary not yet." },
+
+    { "id": "rukminisha_vijaya", "dictated": "Rughmini Shavjaya", "name_sa": "रुक्मिणीशविजयः",
+      "name_iast": "Rukminisha Vijaya", "author": "Sri Vadiraja Tirtha",
+      "confidence": "high", "kind": "mahakavya", "on_disk": false,
+      "commentary_expected": true, "commentary_status": "not_started",
+      "dictated_scale": "hundreds to ~2000 shlokas",
+      "note": "Vadiraja's mahakavya on Krishna. Neither mula nor tika in the repo." },
+
+    { "id": "sangraha_ramayana", "dictated": "sangra Ramayana", "name_sa": "संग्रहरामायणम्",
+      "name_iast": "Sangraha Ramayana", "author": "Sri Narayana Panditacharya",
+      "confidence": "high", "kind": "mahakavya", "on_disk": false,
+      "commentary_expected": true, "commentary_status": "not_started" },
+
+    { "id": "jayatirtha_vijaya", "dictated": "Jayateertha Vijaya", "name_sa": "जयतीर्थविजयः",
+      "name_iast": "Jayatirtha Vijaya", "author": "unconfirmed",
+      "confidence": "high", "kind": "vijaya_kavya", "on_disk": false,
+      "commentary_expected": true, "commentary_status": "not_started" },
+
+    { "id": "satyanatha_vijaya", "dictated": "Satya Natha Vijaya", "name_sa": "सत्यनाथविजयः",
+      "name_iast": "Satyanatha Vijaya", "author": "unconfirmed",
+      "confidence": "high", "kind": "vijaya_kavya", "on_disk": false,
+      "commentary_expected": true, "commentary_status": "not_started" },
+
+    { "id": "raghuttama_vijaya", "dictated": "Raghuttama Vijaya", "name_sa": "रघूत्तमविजयः",
+      "name_iast": "Raghuttama Vijaya", "author": "unconfirmed",
+      "confidence": "high", "kind": "vijaya_kavya", "on_disk": false,
+      "commentary_expected": true, "commentary_status": "not_started" },
+
+    { "id": "satyabodha_vijaya", "dictated": "Satyabodha Vijaya", "name_sa": "सत्यबोधविजयः",
+      "name_iast": "Satyabodha Vijaya", "author": "unconfirmed",
+      "confidence": "high", "kind": "vijaya_kavya", "on_disk": false,
+      "commentary_expected": true, "commentary_status": "not_started",
+      "note": "parampara.json already names a 'Satyabodha Vijaya (kavya)' under satyabodha." },
+
+    { "id": "satyasandha_vijaya", "dictated": "Satyasantha Vijaya", "name_sa": "सत्यसन्धविजयः",
+      "name_iast": "Satyasandha Vijaya", "author": "unconfirmed",
+      "confidence": "high", "kind": "vijaya_kavya", "on_disk": false,
+      "commentary_expected": true, "commentary_status": "not_started" },
+
+    { "id": "vijayindra_vijaya", "dictated": "Vijayandra Vijaya", "name_sa": "विजयीन्द्रविजयः",
+      "name_iast": "Vijayindra Vijaya", "author": "unconfirmed",
+      "confidence": "high", "kind": "vijaya_kavya", "on_disk": false,
+      "commentary_expected": true, "commentary_status": "not_started" },
+
+    { "id": "satyadhyana_vijaya", "dictated": "Satyadhyana Vijaya", "name_sa": "सत्यध्यानविजयः",
+      "name_iast": "Satyadhyana Vijaya", "author": "unconfirmed",
+      "confidence": "medium", "kind": "vijaya_kavya", "on_disk": false,
+      "commentary_expected": true, "commentary_status": "not_started",
+      "note": "The person is certain (Satyadhyana Tirtha, Uttaradi Matha, 1872-1942); WHICH of his mahakavyas is meant is not. Satyadhyana Tirtha has no node in parampara.json yet." },
+
+    { "id": "kushaharana", "dictated": "kushaharana", "name_sa": null,
+      "name_iast": null, "author": "unconfirmed",
+      "confidence": "low", "kind": "unknown", "on_disk": false,
+      "commentary_expected": null, "commentary_status": "unknown",
+      "note": "NOT RESOLVED. Heard as 'kushaharana' in a spoken list of Madhva-lineage kavyas. Kusha-harana is not a title this session could confirm against any source. Candidates worth putting to the project lead: a Kusha-lava episode kavya, or a mis-hearing of another Vijaya title in the same breath. Deliberately not guessed into a Devanagari title, because a wrong one sends someone hunting for a text that does not exist." }
+  ]
+}

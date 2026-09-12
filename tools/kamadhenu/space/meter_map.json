@@ -1,0 +1,12 @@
+{
+ "_readme": "DGE chandas engine name (dge/js/chandas.js, normalised: no '(…)' suffix, no '— vipulā' suffix) → Vāgdhenu reference-bank key (src/reference_bank/bank.json). Metres without a bank clip fall back by pāda syllable count, then to vasantatilakā (Vāgdhenu's own fallback). Regenerate the bank side when Kamadhenu's own reference bank exists (kamadhenu_dataset/reference_bank.json).",
+ "by_name": {
+  "अनुष्टुप्": "anuṣṭubh", "प्रमाणिका": "pramāṇikā", "वसन्ततिलका": "vasantatilakā", "उपजाति": "upajāti",
+  "इन्द्रवज्रा": "indravajrā", "उपेन्द्रवज्रा": "upendravajrā", "वंशस्थ": "vaṃśastha", "रथोद्धता": "rathoddhatā",
+  "शालिनी": "śālinī", "इन्द्रवंशा": "indravaṃśā", "द्रुतविलम्बित": "drutavilambita", "भुजङ्गप्रयात": "bhujaṅgaprayāta",
+  "मालिनी": "mālinī", "शार्दूलविक्रीडित": "śārdūlavikrīḍita", "स्रग्धरा": "sragdharā"
+ },
+ "by_syllables": {"8": "anuṣṭubh", "11": "upajāti", "12": "vaṃśastha", "14": "vasantatilakā", "15": "mālinī", "19": "śārdūlavikrīḍita", "21": "sragdharā"},
+ "prose": "gadya",
+ "fallback": "vasantatilakā"
+}

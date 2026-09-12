@@ -1,0 +1,12 @@
+# Core web panel
+Flask>=3.0
+PyYAML>=6.0
+
+# Audio processing / background-music removal.
+# demucs pulls in torch (CPU build is fine; a GPU Codespace is faster).
+demucs>=4.0
+numpy>=1.24
+soundfile>=0.12
+
+# ffmpeg is a SYSTEM package, not pip — installed via the devcontainer
+# (apt-get install ffmpeg) or `sudo apt-get install -y ffmpeg`.

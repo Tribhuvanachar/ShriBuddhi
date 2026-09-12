@@ -1,0 +1,54 @@
+{
+ "tiers": {
+  "A": {
+   "name": "sanskritsahitya-com/data",
+   "url": "https://github.com/sanskritsahitya-com/data",
+   "raw": "https://raw.githubusercontent.com/sanskritsahitya-com/data/master/{dir}/{file}",
+   "gives": [
+    "mula",
+    "tika",
+    "padaccheda",
+    "anvaya",
+    "translation_en",
+    "translation_hi",
+    "chandas"
+   ],
+   "licence": "No LICENSE file. Same team as ashtadhyayi.com, for which the curator has given educational/non-commercial permission. Keep visible attribution; re-confirm before any public launch."
+  },
+  "B": {
+   "name": "GRETIL corpusTEI",
+   "url": "http://gretil.sub.uni-goettingen.de/",
+   "raw": "http://gretil.sub.uni-goettingen.de/gretil/corpustei/{file}",
+   "gives": [
+    "mula",
+    "some tika"
+   ],
+   "licence": "Per-file, non-commercial. Not bulk-cloneable; fetch individually."
+  },
+  "C": {
+   "name": "ambuda.org",
+   "url": "https://ambuda.org/",
+   "gives": [
+    "mula",
+    "proofed tika"
+   ],
+   "licence": "CC0/CC-BY per text; check each.",
+   "raw": "https://ambuda.org/texts/downloads/ambuda-xml.zip",
+   "note": "The whole library as one TEI zip (344 texts, 7.7 MB), fetched once and cached; works name a member with `file`. Proofed text, structurally cleaner than GRETIL's."
+  },
+  "D": {
+   "name": "sa.wikisource.org",
+   "raw": "https://sa.wikisource.org/w/api.php?action=parse&page={page}&prop=text&formatversion=2&format=json",
+   "gives": [
+    "mula"
+   ],
+   "licence": "CC-BY-SA 4.0. Attribute.",
+   "note": "prop=text, not wikitext: half these works are ProofreadPage transclusions whose wikitext is one <pages index=.../> line with the text in the Page: namespace behind it."
+  },
+  "Z": {
+   "name": "scan-only register",
+   "gives": [],
+   "licence": "Recorded so the gap is visible; no text imported."
+  }
+ }
+}

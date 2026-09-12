@@ -1,0 +1,19 @@
+{
+  "_instructions": "Merge the 'DvaitaVedanta/Itara/DasaSahitya' block into DGE's taxonomy.json top-level categories (same style as the existing 'vyakarana' node). Non-destructive: it only ADDS a category. The 'children' are filled at runtime from data/DvaitaVedanta/Itara/DasaSahitya/index.json (composers[]), so this static list is a hint for the Library nav.",
+  "DvaitaVedanta/Itara/DasaSahitya": {
+    "label": {
+      "sa": "दाससाहित्यम्",
+      "kn": "ದಾಸ ಸಾಹಿತ್ಯ",
+      "en": "Dasa Sahitya",
+      "bn": "দাস সাহিত্য"
+    },
+    "description": {
+      "en": "Haridasa devotional compositions — Dasara Padas, Suladis and Ugabhogas (and related song forms) of the Madhva/Dvaita tradition.",
+      "kn": "ಹರಿದಾಸ ಸಾಹಿತ್ಯ — ದಾಸರ ಪದಗಳು, ಸುಳಾದಿಗಳು, ಉಗಾಭೋಗಗಳು"
+    },
+    "data": "data/DvaitaVedanta/Itara/DasaSahitya/index.json",
+    "views": ["by_composer", "by_form", "by_deity"],
+    "forms": ["pada", "suladi", "ugabhoga", "devaranama", "aarati", "mangala", "kolu", "shobhane", "laali", "dashavatara", "sampradaya", "kavya"],
+    "children": []
+  }
+}

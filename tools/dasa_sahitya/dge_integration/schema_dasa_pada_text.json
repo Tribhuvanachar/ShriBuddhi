@@ -1,0 +1,35 @@
+{
+  "_instructions": "Add this 'dasa_pada_text' type to DGE schemas.json. It is self-contained (does not disturb the mula/tika/tippani/itihasa_purana schemas). Each composition record in data/DvaitaVedanta/Itara/DasaSahitya/composers/<slug>.json validates against this shape.",
+  "dasa_pada_text": {
+    "description": "A single Haridasa composition (pada / suladi / ugabhoga / related song form) with Kannada text, auto-generated transliterations, and source attribution.",
+    "fields": {
+      "id": "string — stable id (composer-slug + url-hash)",
+      "form": "enum — pada | suladi | ugabhoga | devaranama | aarati | mangala | kolu | shobhane | laali | dashavatara | sampradaya | kavya",
+      "title": {
+        "kn": "string — Kannada title",
+        "latin": "string — source romanized title (if the source gave one)",
+        "iast": "string — auto IAST from Kannada",
+        "devanagari": "string — auto Devanagari from Kannada"
+      },
+      "composer": "string — dasa / yati (e.g. Purandara Dasaru)",
+      "deity": "string — deity / subject (e.g. Krishna, Raghavendra Theertharu)",
+      "tags": "string[] — axis:value tags (composer:, deity:, on:, theme:)",
+      "raga": "string — raga if known (often blank)",
+      "tala": "string — tala if known (often blank)",
+      "language": "string — 'kn'",
+      "text": {
+        "kannada": "string[][] — stanzas -> lines (primary text)",
+        "iast": "string[][] — auto IAST transliteration",
+        "devanagari": "string[][] — auto Devanagari transliteration",
+        "source_roman": "string[][] — romanization supplied by the source page, if any"
+      },
+      "meaning": "string — word-meaning / artha block if the source provides one",
+      "source": {
+        "site": "string",
+        "url": "string",
+        "attribution": "string — non-commercial educational/research note",
+        "fetched": "string — YYYY-MM-DD"
+      }
+    }
+  }
+}
