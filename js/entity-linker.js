@@ -8,7 +8,7 @@
    click too) opens a small scholarly card: work name, the reference
    location if one was given, and actions to open it or search for it.
 
-   Pipeline (see dge/SEARCH_ARCHITECTURE.md's cross-reference section for the
+   Pipeline (see SEARCH_ARCHITECTURE.md's cross-reference section for the
    full writeup): TEXT -> DETECTION (regex over dge_entities.json's own
    alias list, built once) -> NORMALIZATION (Devanagari digits -> int) ->
    RESOLUTION (alias -> canonical entity id -> route/reference scheme from
@@ -44,12 +44,12 @@
 
   if (isBrowser) {
     window.DGE_VERSIONS = window.DGE_VERSIONS || {};
-    window.DGE_VERSIONS['entity-linker.js'] = 'v1.0 (Level 1+2 cross-reference detection + hover/tap card, see dge/SEARCH_ARCHITECTURE.md)';
+    window.DGE_VERSIONS['entity-linker.js'] = 'v1.0 (Level 1+2 cross-reference detection + hover/tap card, see SEARCH_ARCHITECTURE.md)';
   }
 
   // Pure detection/resolution logic (everything down to findMatches()) has
   // no DOM dependency and is unit-tested directly under Node -- see
-  // entity-linker.test.js (run with `node --test dge/js/entity-linker.test.js`,
+  // entity-linker.test.js (run with `node --test js/entity-linker.test.js`,
   // same convention as dge-search.js/genie_asr_benchmark's resolver.test.js).
   // Only the browser-only half below (scanning real DOM nodes, the popover,
   // fetch()) is skipped when isBrowser is false.

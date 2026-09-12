@@ -3,9 +3,9 @@
  *
  * The guru-data.js / shabda-data.js analogue for the Pāṇinian sūtra reader:
  * ONE module fetched by every selectable view
- * (dge/vyakarana/ashtadhyayi/view1..3.html) so the three layouts render the
+ * (vyakarana/ashtadhyayi/view1..3.html) so the three layouts render the
  * SAME real corpus their own way — never from inline mock data. The data
- * layer is lifted from the canonical dge/js/ashtadhyayi.js (loadSutrapatha /
+ * layer is lifted from the canonical js/ashtadhyayi.js (loadSutrapatha /
  * loadKaumudiOrder / ensureLayer / kaumudiOf / chapterOf / tl / iast), so a
  * view can never drift from the real page.
  *

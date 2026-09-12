@@ -264,7 +264,7 @@
   /* ---- script fold ------------------------------------------------------ */
   // Kannada, Telugu and Malayalam blocks mirror the Devanagari block layout, so a
   // code-point shift is a faithful (letter-for-letter) transliteration for Sanskrit
-  // text in those scripts (the same fold dge/build_search_index.py uses). Vedic
+  // text in those scripts (the same fold build_search_index.py uses). Vedic
   // svara marks (U+0951/0952) and zero-width joiners are dropped.
   function foldScript(t) {
     var out = '';
@@ -393,7 +393,7 @@
   /* ---- shared engine API -------------------------------------------------
      The reader's per-shloka "chandas check" (js/chandas-check.js) runs THIS
      same analyzer — one scansion implementation for the whole site. Pure
-     functions only; loadDB(base) points at dge/ ("" from dge pages, "../"
+     functions only; loadDB(base) points at  ("" from dge pages, "../"
      from vyakarana/). */
   window.DGEChandas = {
     syllabify: syllabify,
@@ -444,8 +444,8 @@
         analyze();
       });
     });
-    // Page-relative to dge/vyakarana/chandas.html (Phase 10: moved one
-    // directory deeper than dge/ -- ../ reaches dge/data/).
+    // Page-relative to vyakarana/chandas.html (Phase 10: moved one
+    // directory deeper than  -- ../ reaches data/).
     fetch('../data/vedanga/chandas/data.json')
       .then(function (r) { return r.json(); })
       .then(function (d) {
@@ -456,7 +456,7 @@
         if (q) { $('#ch-input').value = q; analyze(); }
       })
       .catch(function () {
-        $('#ch-status').textContent = 'वृत्तकोशः न प्राप्तः — serve from the dge/ folder.';
+        $('#ch-status').textContent = 'वृत्तकोशः न प्राप्तः — serve from the  folder.';
       });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

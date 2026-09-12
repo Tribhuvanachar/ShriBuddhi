@@ -60,7 +60,7 @@
     try { return localStorage.getItem('dge_debug_references') === '1'; } catch (e) { return false; }
   }
 
-  /* The page this reference opens. Relative to dge/index.html, which is where
+  /* The page this reference opens. Relative to render.html, which is where
      the reader lives. */
   function hrefFor(ref) {
     if (ref.t === 'dhatu') return 'vyakarana/prakriya.html#' + encodeURIComponent(ref.i);

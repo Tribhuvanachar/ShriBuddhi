@@ -47,43 +47,43 @@ class TestNormalizeOrigin(unittest.TestCase):
 
 class TestBuildUrl(unittest.TestCase):
     def test_joins_origin_and_path(self):
-        self.assertEqual(build_url(CUSTOM, "dge/images/x.jpg"), CUSTOM + "/dge/images/x.jpg")
+        self.assertEqual(build_url(CUSTOM, "images/x.jpg"), CUSTOM + "/images/x.jpg")
 
     def test_does_not_double_the_slash(self):
-        self.assertEqual(build_url(CUSTOM + "/", "/dge/x.jpg"), CUSTOM + "/dge/x.jpg")
+        self.assertEqual(build_url(CUSTOM + "/", "/x.jpg"), CUSTOM + "/x.jpg")
 
     def test_preserves_a_path_prefix_in_the_origin(self):
-        self.assertEqual(build_url(GH, "dge/x.jpg"), GH + "/dge/x.jpg")
+        self.assertEqual(build_url(GH, "x.jpg"), GH + "/x.jpg")
 
 
 class TestRewrite(unittest.TestCase):
     def test_rewrites_a_marked_tag(self):
-        html = ('<!-- site-url: dge/images/g.jpg -->\n'
-                '<meta property="og:image" content="https://old.example/dge/images/g.jpg">\n')
+        html = ('<!-- site-url: images/g.jpg -->\n'
+                '<meta property="og:image" content="https://old.example/images/g.jpg">\n')
         out, changes = rewrite_text(html, CUSTOM)
-        self.assertIn(f'content="{CUSTOM}/dge/images/g.jpg"', out)
+        self.assertIn(f'content="{CUSTOM}/images/g.jpg"', out)
         self.assertEqual(len(changes), 1)
 
     def test_reports_no_change_when_already_correct(self):
-        html = (f'<!-- site-url: dge/x.jpg -->\n'
-                f'<meta property="og:image" content="{CUSTOM}/dge/x.jpg">\n')
+        html = (f'<!-- site-url: x.jpg -->\n'
+                f'<meta property="og:image" content="{CUSTOM}/x.jpg">\n')
         out, changes = rewrite_text(html, CUSTOM)
         self.assertEqual(changes, [])
         self.assertEqual(out, html)
 
     def test_is_idempotent(self):
-        html = ('<!-- site-url: dge/x.jpg -->\n'
-                '<meta property="og:image" content="https://old.example/dge/x.jpg">\n')
+        html = ('<!-- site-url: x.jpg -->\n'
+                '<meta property="og:image" content="https://old.example/x.jpg">\n')
         once, _ = rewrite_text(html, CUSTOM)
         twice, changes = rewrite_text(once, CUSTOM)
         self.assertEqual(once, twice)
         self.assertEqual(changes, [])
 
     def test_round_trips_between_domains(self):
-        html = (f'<!-- site-url: dge/x.jpg -->\n'
-                f'<meta property="og:image" content="{GH}/dge/x.jpg">\n')
+        html = (f'<!-- site-url: x.jpg -->\n'
+                f'<meta property="og:image" content="{GH}/x.jpg">\n')
         to_custom, _ = rewrite_text(html, CUSTOM)
-        self.assertIn(f'content="{CUSTOM}/dge/x.jpg"', to_custom)
+        self.assertIn(f'content="{CUSTOM}/x.jpg"', to_custom)
         back, _ = rewrite_text(to_custom, GH)
         self.assertEqual(back, html)
 
@@ -97,12 +97,12 @@ class TestRewrite(unittest.TestCase):
         self.assertEqual(changes, [])
 
     def test_rewrites_only_the_tag_the_marker_governs(self):
-        html = ('<!-- site-url: dge/a.jpg -->\n'
-                '<meta property="og:image" content="https://old.example/dge/a.jpg">\n'
+        html = ('<!-- site-url: a.jpg -->\n'
+                '<meta property="og:image" content="https://old.example/a.jpg">\n'
                 '<link href="https://fonts.googleapis.com/css2">\n')
         out, _ = rewrite_text(html, CUSTOM)
         self.assertIn("https://fonts.googleapis.com/css2", out)
-        self.assertIn(f'content="{CUSTOM}/dge/a.jpg"', out)
+        self.assertIn(f'content="{CUSTOM}/a.jpg"', out)
 
     def test_handles_several_markers(self):
         html = ('<!-- site-url: a.jpg -->\n<meta content="https://old.example/a.jpg">\n'
@@ -167,7 +167,7 @@ class TestAgainstTheRealRepo(unittest.TestCase):
         self.assertIn("site-url:", html, "index.html has no site-url marker")
         for line in html.splitlines():
             if "og:image" in line and "http" in line:
-                self.assertIn("/dge/images/guru/guruji.jpg", line)
+                self.assertIn("/images/guru/guruji.jpg", line)
 
     def test_the_repo_is_currently_in_sync(self):
         cfg = load_config()

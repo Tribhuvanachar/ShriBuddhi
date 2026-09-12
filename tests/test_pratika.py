@@ -1,4 +1,4 @@
-"""dge/js/pratika.js — which commentary words count as quotations of the verse.
+"""js/pratika.js — which commentary words count as quotations of the verse.
 
 Run under node against the real module, because the thing being asserted is
 behavioural: given this verse and this commentary word, is it a pratīka?
@@ -19,7 +19,7 @@ import subprocess
 import unittest
 
 REPO = os.path.join(os.path.dirname(__file__), "..")
-MODULE = os.path.join(REPO, "dge", "js", "pratika.js")
+MODULE = os.path.join(REPO, "js", "pratika.js")
 
 # The opening verse, tokenised as the reader shows it.
 MULA = ["कान्ताय", "कल्याणगुणैकधाम्ने", "नवद्युनाथप्रतिमप्रभाय", "।",

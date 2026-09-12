@@ -31,7 +31,7 @@ data anywhere in it.
 This is **not** a full replacement for `tools/chandas/`'s AGPL data yet.
 It's a deliberately smaller, honestly-scoped core, extended once (21 Aug)
 after a fact-checking pass against real sources found several corrections
-and additions worth keeping — see `dge/PENDING.md` for the full trail:
+and additions worth keeping — see `PENDING.md` for the full trail:
 
 | category | this directory | AGPL vendor (`tools/chandas/`) |
 |---|---|---|
@@ -74,4 +74,4 @@ which would defeat the point.
 Both directories currently coexist. Retiring the AGPL vendor copy in
 `tools/chandas/` in favour of this one is a coverage/completeness call for
 the project lead to make, not something this tool should do unilaterally
-— see `dge/PENDING.md`.
+— see `PENDING.md`.

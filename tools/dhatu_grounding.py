@@ -2,7 +2,7 @@
 two places, for gemini_dhatu_lexicon.py to ground its generation in instead
 of asking Gemini to invent content from scratch:
 
-  1. This repo's own dge/data/vedanga/vyakarana/vritti/<id>.json (already
+  1. This repo's own data/vedanga/vyakarana/vritti/<id>.json (already
      integrated, GPL-2.0 from samsaadhanii/scl) -- real quoted text from
      Madhaviya Dhatuvritti, Kshiratarangini, Dhatupradipa. Uses the
      "relevant" (root-form-matching) nodes tools/build_vritti_nodes.py

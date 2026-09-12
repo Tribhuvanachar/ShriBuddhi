@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Regenerate admin/config/library-status.json -- the snapshot the Library Manager
-# dashboard reads. Run from the repo root (or dge/) after new data lands, or
+# dashboard reads. Run from the repo root (or ) after new data lands, or
 # wire as a GitHub Action step.
 #
 # Counts are cross-referenced against data/library.json's granthas[] list,
@@ -17,10 +17,10 @@
 import json, os
 from collections import defaultdict
 
-ROOT = 'dge' if os.path.isdir('dge/data') else '.'
+ROOT = 'dge' if os.path.isdir('data') else '.'
 DATA = os.path.join(ROOT, 'data')
 # The snapshot is an admin artefact, so it lands in admin/config/ while the
-# corpus it describes stays under dge/data/.
+# corpus it describes stays under data/.
 OUT_DIR = 'admin/config' if os.path.isdir('admin/config') else DATA
 tax = json.load(open(os.path.join(DATA, 'taxonomy.json'), encoding='utf-8'))
 lib = json.load(open(os.path.join(DATA, 'library.json'), encoding='utf-8'))
@@ -45,17 +45,17 @@ def item_count(data):
 
 def to_slug(catalog_path):
     p = catalog_path
-    if p.startswith('dge/'): p = p[4:]
+    if p.startswith(''): p = p[4:]
     if p.startswith('data/'): p = p[5:]
     if p.endswith('/data.json'): p = p[:-len('/data.json')]
     return p
 
-# library.json's own paths are always "dge/data/...data.json" (repo-root
+# library.json's own paths are always "data/...data.json" (repo-root
 # relative, per its own convention) regardless of where this script is run
 # from -- rebase onto whichever of "dge" / "." this script resolved ROOT to,
 # the same way DATA itself was built above, so both agree on cwd.
 def to_local_path(catalog_path):
-    return os.path.join(ROOT, catalog_path[len('dge/'):]) if catalog_path.startswith('dge/') else catalog_path
+    return os.path.join(ROOT, catalog_path[len(''):]) if catalog_path.startswith('') else catalog_path
 
 # slug ("x/y" or "x/y/mula") -> cwd-relative file path
 SLUG_TO_FILE = {to_slug(g['path']): to_local_path(g['path']) for g in lib.get('granthas', [])}

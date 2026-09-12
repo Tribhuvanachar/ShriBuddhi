@@ -5,9 +5,9 @@ DGE — Dasa Sahitya cross-source composer merge
 ==================================================
 
 Folds the 12 composer identities confirmed as the SAME person across the
-web crawl (dge/data/DvaitaVedanta/Itara/DasaSahitya/) and the local-asset imports
-(dge/data/dasa_sahitya_local/{dasa1,collection_padagalu,raw_dump}) into one
-canonical file each under dge/data/DvaitaVedanta/Itara/DasaSahitya/composers/, using the
+web crawl (data/DvaitaVedanta/Itara/DasaSahitya/) and the local-asset imports
+(data/dasa_sahitya_local/{dasa1,collection_padagalu,raw_dump}) into one
+canonical file each under data/DvaitaVedanta/Itara/DasaSahitya/composers/, using the
 existing cross-source fingerprint dedupe() from import_DvaitaVedanta/Itara/DasaSahitya.py
 (composer + first 80 non-punctuation Kannada chars) so the SAME pada seen
 in two sources collapses to one record with both sources recorded in
@@ -29,11 +29,11 @@ What it does, per confirmed composer:
      one, so dedupe()'s `also_at` provenance list stays meaningful instead
      of collapsing every local duplicate under one blank "" URL.
   4. Run the existing dedupe(), write the merged set to
-     dge/data/DvaitaVedanta/Itara/DasaSahitya/composers/<canonical_slug>.json, replacing the
+     data/DvaitaVedanta/Itara/DasaSahitya/composers/<canonical_slug>.json, replacing the
      web-only file.
   5. Remove the now-merged dasaru file(s) from dasa_sahitya_local and
      rewrite its index.json so nothing is duplicated across both folders.
-  6. Rewrite dge/data/DvaitaVedanta/Itara/DasaSahitya/index.json's composer counts.
+  6. Rewrite data/DvaitaVedanta/Itara/DasaSahitya/index.json's composer counts.
 
 Run once: `python3 merge_confirmed_composers.py`. Not idempotent against a
 second run after dasa_sahitya_local's source files are already removed --
@@ -46,8 +46,8 @@ import os
 import re
 
 ROOT = os.path.join(os.path.dirname(__file__), "..", "..")
-WEB_DIR = os.path.join(ROOT, "dge", "data", "DvaitaVedanta/Itara/DasaSahitya")
-LOCAL_DIR = os.path.join(ROOT, "dge", "data", "dasa_sahitya_local")
+WEB_DIR = os.path.join(ROOT, "data", "DvaitaVedanta/Itara/DasaSahitya")
+LOCAL_DIR = os.path.join(ROOT, "data", "dasa_sahitya_local")
 FETCH_DATE = _dt.date.today().isoformat()
 
 # canonical_english_name -> {
@@ -288,7 +288,7 @@ def main():
                 os.remove(p)
                 print(f"    removed merged local file: {os.path.relpath(p, ROOT)}")
 
-    # Rebuild dge/data/DvaitaVedanta/Itara/DasaSahitya/index.json + counts.json from what's on disk now.
+    # Rebuild data/DvaitaVedanta/Itara/DasaSahitya/index.json + counts.json from what's on disk now.
     rebuild_web_manifest()
     for asset in ("dasa1", "collection_padagalu", "raw_dump"):
         rebuild_local_manifest(asset)
@@ -319,7 +319,7 @@ def rebuild_web_manifest():
     manifest["composers"] = sorted(composers_list, key=lambda c: c["slug"])
     manifest["note_merged_from_local_assets"] = (
         f"12 composers folded in from dasa_sahitya_local via merge_confirmed_composers.py "
-        f"on {FETCH_DATE}; see dge/data/dasa_sahitya_local/ARCHITECTURE.md for the review "
+        f"on {FETCH_DATE}; see data/dasa_sahitya_local/ARCHITECTURE.md for the review "
         "that confirmed these identities before merging."
     )
     dump_json(manifest_path, manifest)
@@ -341,7 +341,7 @@ def rebuild_local_manifest(asset):
     manifest["count_dasaru"] = len(kept)
     manifest["note_confirmed_composers_merged_out"] = (
         f"Composers confirmed as duplicates of the web corpus were merged into "
-        f"dge/data/DvaitaVedanta/Itara/DasaSahitya/composers/ and removed from here by "
+        f"data/DvaitaVedanta/Itara/DasaSahitya/composers/ and removed from here by "
         f"merge_confirmed_composers.py on {FETCH_DATE}; see that folder's file for the "
         "merged record, and ALL_SOURCES_composer_registry.json for which composers those were."
     )

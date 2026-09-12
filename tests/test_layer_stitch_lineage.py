@@ -1,4 +1,4 @@
-"""dge/js/layer-stitch.js: the lineage strip renders for EVERY library path,
+"""js/layer-stitch.js: the lineage strip renders for EVERY library path,
 not only the handful with a hand-written DGE_GRANTHA_LINEAGE entry.
 
 The project lead, 9 Sep 2026: "every item rendered from library should have
@@ -10,7 +10,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-JS = ROOT / "dge/js/layer-stitch.js"
+JS = ROOT / "js/layer-stitch.js"
 
 # A DOM small enough to stand up in node, big enough for dgeRenderStitchChrome:
 # it reads #lineageStrip, writes innerHTML and flips display.

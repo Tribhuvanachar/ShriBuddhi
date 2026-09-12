@@ -14,7 +14,7 @@
  */
 'use strict';
 const assert = require('assert');
-const D = require('../../dge/js/audio-detect.js');
+const D = require('../../js/audio-detect.js');
 
 const SR = 16000;
 

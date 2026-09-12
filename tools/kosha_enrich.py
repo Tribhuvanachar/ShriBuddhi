@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
 kosha_enrich.py — compile the raw Kosha shards into a render-ready
-enriched tree. THE ORIGINALS ARE NEVER TOUCHED: dge/data/kosha/** stays
+enriched tree. THE ORIGINALS ARE NEVER TOUCHED: data/kosha/** stays
 byte-identical as provenance; this writes a parallel tree under
-dge/data/kosha_r/** (same <category>/<dict>/e/<bucket>.json layout) that
+data/kosha_r/** (same <category>/<dict>/e/<bucket>.json layout) that
 the v2 results page renders directly instead of regex-parsing 63MB of
 raw glosses at runtime.
 
@@ -27,7 +27,7 @@ plain "txt" run — the page can always fall back to the original text,
 so enrichment can only add, never lose.
 
 Also emits, per dictionary, an A-Z browse index
-(dge/data/kosha_r/_browse/<dict>/index.json + page-<n>.json) so a kosha
+(data/kosha_r/_browse/<dict>/index.json + page-<n>.json) so a kosha
 can be opened and read alphabetically, not only searched.
 
 Usage:
@@ -48,10 +48,10 @@ from pathlib import Path
 # corpus lives in Tribhuvanachar/bhumandala-kosha-data (dist branch,
 # ~1.8GB) and its build Action runs this same script with --src/--dst
 # pointed at that tree. The enriched tree is served CDN-only; it is NOT
-# committed to this repo (dge/data/kosha_r is gitignored).
-SRC = Path("dge/data/kosha")
-DST = Path("dge/data/kosha_r")
-SUTRA_INDEX = Path("dge/data/vedanga/vyakarana/ashtadhyayi/_index/sutra_index.json")
+# committed to this repo (data/kosha_r is gitignored).
+SRC = Path("data/kosha")
+DST = Path("data/kosha_r")
+SUTRA_INDEX = Path("data/vedanga/vyakarana/ashtadhyayi/_index/sutra_index.json")
 BROWSE_PAGE = 250
 
 DEVA_DIGIT = str.maketrans("०१२३४५६७८९", "0123456789")
@@ -230,7 +230,7 @@ def iter_dict_dirs():
 def build(only: set[str] | None, check: bool) -> int:
     global SUTRA_IDS
     SUTRA_IDS = load_sutra_ids()
-    manifest = {"schema": "kosha_render_v1", "source": "dge/data/kosha",
+    manifest = {"schema": "kosha_render_v1", "source": "data/kosha",
                 "dictionaries": {}}
     stale = []
     for cat, dict_dir in iter_dict_dirs():
@@ -322,8 +322,8 @@ def build(only: set[str] | None, check: bool) -> int:
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--dicts", help="comma-separated dict slugs (default all)")
-    ap.add_argument("--src", help="raw kosha tree (default dge/data/kosha)")
-    ap.add_argument("--dst", help="enriched output tree (default dge/data/kosha_r)")
+    ap.add_argument("--src", help="raw kosha tree (default data/kosha)")
+    ap.add_argument("--dst", help="enriched output tree (default data/kosha_r)")
     ap.add_argument("--check", action="store_true")
     args = ap.parse_args(argv)
     global SRC, DST

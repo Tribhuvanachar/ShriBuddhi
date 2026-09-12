@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""validate_dhatu_lexicon.py -- scans dge/data/vedanga/vyakarana/dhatu_lexicon/
+"""validate_dhatu_lexicon.py -- scans data/vedanga/vyakarana/dhatu_lexicon/
 data.json for corrupted entries (control characters, empty required fields)
 that a live Gemini call occasionally produces (observed once during the
 initial full-corpus run: a French field came back as literal control bytes
@@ -15,7 +15,7 @@ import json
 import sys
 from pathlib import Path
 
-PATH = Path("dge/data/vedanga/vyakarana/dhatu_lexicon/data.json")
+PATH = Path("data/vedanga/vyakarana/dhatu_lexicon/data.json")
 
 
 def has_control_chars(s: str) -> bool:

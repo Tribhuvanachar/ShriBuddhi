@@ -2,7 +2,7 @@
    DGE short URLs and quick-jump grammar — ONE table, three uses (7 Sep 2026).
 
      https://tribhuvanachar.github.io/bhumandala/?rv1.1.3      (the landing page forwards a bare token to the reader)
-     https://tribhuvanachar.github.io/bhumandala/dge/?rv1.1.3  (the reader resolves it itself)
+     https://tribhuvanachar.github.io/bhumandala/?rv1.1.3  (the reader resolves it itself)
      Library › Quick jump box:  rv1.1.3                        (config.js's dgeParseQuickSearchQuery delegates here)
      Share / Copy link:         the reader writes the SHORT form back into the address bar and into every
                                 shared text, so a link people pass around never carries the folder layout

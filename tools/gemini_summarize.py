@@ -3,7 +3,7 @@
 gemini_summarize.py — batch padaccheda/anvaya/summary generation for one
 kavya's per-canto (sarga) data.json files, using Gemini.
 
-Part of the Raghavendra Vijaya ingestion (see dge/PENDING.md). Unlike
+Part of the Raghavendra Vijaya ingestion (see PENDING.md). Unlike
 tools/gemini_enrich.py (which detects citations and cross-validates them
 against the corpus), this script's task has no local-verification step:
 padaccheda (word-split), anvaya (prose word-order) and a plain-language
@@ -14,14 +14,14 @@ DGE already knows about the verse (the Sanskrit text, and the corpus's own
 linked English translation if one exists) rather than asking it to
 translate blind, and label every output as AI-generated and unreviewed
 (see the gemini_padaccheda/gemini_anvaya/gemini_summary entries in
-dge/js/core.js's KNOWN_COMMENTARY_LABELS) so a reader never mistakes a
+js/core.js's KNOWN_COMMENTARY_LABELS) so a reader never mistakes a
 first-pass model output for a vetted commentary.
 
 Mirrors tools/gemini_enrich.py's CLI shape and tools/gemini_client.py for
 the actual HTTP/retry/error-classification mechanics (shared, not
 duplicated -- see that module).
 
-Cost/throughput knobs (see dge/PENDING.md for the benchmark this shipped
+Cost/throughput knobs (see PENDING.md for the benchmark this shipped
 with):
   --batch-size N   groups N verses into one Gemini request. This is the
                    real cost lever -- the fixed system-instruction/schema
@@ -38,7 +38,7 @@ with):
 
 Usage:
   GEMINI_API_KEY=... python3 tools/gemini_summarize.py \
-      --sarga-dir dge/data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya --cantos 1-10 \
+      --sarga-dir data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya --cantos 1-10 \
       --batch-size 10 --concurrency 5
   python3 tools/gemini_summarize.py --sarga-dir ... --cantos 1 --dry-run
 """

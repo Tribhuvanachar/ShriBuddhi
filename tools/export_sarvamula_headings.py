@@ -2,7 +2,7 @@
 """Every heading in DvaitaVedanta/SarvaMula, as a downloadable workbook.
 
 WHAT A "COMMENTARY TITLE" IS HERE. The reader's .commentary-title element is
-fed from two different places (dge/js/render.js): the commentary's display name
+fed from two different places (js/render.js): the commentary's display name
 for a layered grantha, and an analysis field's label for a per-unit block. Under
 SarvaMula each data.json IS one layer, so the title that matters is the
 document's own, and the headings a reader actually sees beneath it are the
@@ -24,7 +24,7 @@ import json
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-ROOT = REPO / "dge" / "data" / "DvaitaVedanta" / "SarvaMula"
+ROOT = REPO / "data" / "DvaitaVedanta" / "SarvaMula"
 
 
 def collect(root: Path):
@@ -121,7 +121,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--root", default=str(ROOT))
-    ap.add_argument("--out", default=str(REPO / "dge" / "data" / "catalogs" / "sarvamula_headings.xlsx"))
+    ap.add_argument("--out", default=str(REPO / "data" / "catalogs" / "sarvamula_headings.xlsx"))
     args = ap.parse_args(argv)
 
     root = Path(args.root)

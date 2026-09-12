@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Shard the Shabdapatha by first akshara, for the reader's instant lookup.
 
-The full shabdapatha (dge/data/vedanga/vyakarana/shabdapatha/data.json,
+The full shabdapatha (data/vedanga/vyakarana/shabdapatha/data.json,
 7.6 MB, 9,007 words) is fine for its own browser page but far too heavy to
 pull into the main reader just to answer "what is this one word". Sanskrit
 declension is suffixal -- a form's first akshara is its stem's first
@@ -11,7 +11,7 @@ first character lets the reader fetch one ~130 KB shard (~25 KB over the
 wire) chosen from the queried form's own first character, and scan only
 that.
 
-Output: dge/data/vedanga/vyakarana/shabdapatha/by_akshara/u0905.json ...
+Output: data/vedanga/vyakarana/shabdapatha/by_akshara/u0905.json ...
 (one per first-codepoint, named by hex), each {"items": [entries...]} with
 entries copied verbatim from data.json, plus an index.json listing the
 shards. Rerun whenever data.json changes.
@@ -22,8 +22,8 @@ import json
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-SRC = REPO / 'dge/data/vedanga/vyakarana/shabdapatha/data.json'
-OUT = REPO / 'dge/data/vedanga/vyakarana/shabdapatha/by_akshara'
+SRC = REPO / 'data/vedanga/vyakarana/shabdapatha/data.json'
+OUT = REPO / 'data/vedanga/vyakarana/shabdapatha/by_akshara'
 
 
 def main():

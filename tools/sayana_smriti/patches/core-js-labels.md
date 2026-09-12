@@ -1,4 +1,4 @@
-# App patches — two small, additive edits to `dge/js/core.js`
+# App patches — two small, additive edits to `js/core.js`
 
 Neither is required for the import to run. The first is cosmetic; the second is
 the difference between the Smṛti commentaries being *in the data* and being

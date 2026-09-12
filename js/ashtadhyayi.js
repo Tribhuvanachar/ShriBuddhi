@@ -4,7 +4,7 @@
  *            visibility gate on commentary layers and enrichment fields
  *            (distinct from each reader's own layer toggle), fetched fresh
  *            on every load. Ships with the ashtadhyayi.com English gloss
- *            field turned off (see dge/PENDING.md, 23 Aug) -- its data was
+ *            field turned off (see PENDING.md, 23 Aug) -- its data was
  *            also stripped from sutrapatha/data.json, not just hidden here.
  *   v1.2.0 — Stream 5: +Siddhānta-Kaumudī, +Mahābhāṣya, +Vasu(Eng) layers;
  *            padaccheda / anvaya / anuvṛtti / adhikāra / sūtra-type analysis panel.
@@ -40,8 +40,8 @@
  * ========================================================================== */
 (function () {
   "use strict";
-  // Page-relative to dge/vyakarana/ashtadhyayi.html (moved one directory
-  // deeper than dge/ in the Phase 10 restructure -- ../ reaches dge/data/).
+  // Page-relative to vyakarana/ashtadhyayi.html (moved one directory
+  // deeper than  in the Phase 10 restructure -- ../ reaches data/).
   var BASE = "../data/vedanga/vyakarana/ashtadhyayi/";
   var META = {
     kashika:      {t:"काशिकावृत्तिः", sub:"Kāśikā-vṛtti", who:"Vāmana–Jayāditya", tag:"var(--k)", role:"tika"},
@@ -515,7 +515,7 @@
     // citations/Ask DGE AI, registered via the taxonomy-override mechanism
     // at boot (see registerContextualOverrides below) rather than
     // duplicating contextual-actions.js's own base 'commentary' actions,
-    // whose handlers assume dge/index.html's shloka-card shape and don't
+    // whose handlers assume render.html's shloka-card shape and don't
     // apply to this page's dge-card layers.
     box.querySelectorAll(".dge-kebab").forEach(function(b){
       b.addEventListener("click",function(e){
@@ -657,7 +657,7 @@
     });
   }
   // Defaults to the language chosen in the main reader's onboarding popup
-  // (dge/js/onboarding.js) so a visitor doesn't have to re-pick it here;
+  // (js/onboarding.js) so a visitor doesn't have to re-pick it here;
   // still freely overridable via the buttons below, which is why this is
   // only an initial value, not re-read on every question.
   var aiLang=(function(){
@@ -916,7 +916,7 @@
   // (dgeRegisterContextualActions), scoped to this page's own taxonomy path
   // so no other reader's commentary/shloka menus are affected. Base
   // 'commentary' actions in admin/config/contextual-actions.json assume
-  // dge/index.html's shloka-card shape (their handlers call
+  // render.html's shloka-card shape (their handlers call
   // openBhashyaPickerForShloka etc., which don't exist here) -- removed for
   // this taxonomy path and replaced with handlers that fit THIS page's own
   // dge-card/META shape, so nothing here duplicates or fights the shared

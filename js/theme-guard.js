@@ -7,7 +7,7 @@
    content has finished fetching. Until then, body's background (main.css)
    resolves against tokens.css's bare :root default with no theme class
    present at all, so a saved theme other than Vandana flashes in visibly
-   once the fetch resolves. Because dge/index.html is the one shell reused
+   once the fetch resolves. Because render.html is the one shell reused
    for every grantha (see dgeGoToGrantha in library.js, which navigates via
    a plain page load, not history.pushState), this flash recurs on every
    grantha/sarga/adhyaya jump, not just first load.

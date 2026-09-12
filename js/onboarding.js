@@ -6,7 +6,7 @@
 //   - ai.js's acharyaSystemPrompt, for the main reader's Ask Acharya replies
 //   - ashtadhyayi.js's aiLang, for that page's own separate Gemini prompt
 // Scope note: this does NOT translate menu/heading UI text or change sort
-// ordering (e.g. Kannada collation) — see dge/PENDING.md for why those are
+// ordering (e.g. Kannada collation) — see PENDING.md for why those are
 // deferred rather than guessed at.
 
 window.DGE_VERSIONS = window.DGE_VERSIONS || {};

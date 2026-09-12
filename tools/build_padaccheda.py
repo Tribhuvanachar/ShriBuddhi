@@ -31,7 +31,7 @@ position, not a claim of accuracy.
     python3 tools/build_padaccheda.py --paths kavya_alankara,stotra
     python3 tools/build_padaccheda.py --evaluate     (re-run the scoring above)
 
-Output: dge/data/_padaccheda/<slug>.json
+Output: data/_padaccheda/<slug>.json
         {unit_id: [[piece, piece, …], …]} — one list per written token that
         was split, in the order the tokens appear; a token with no analysis is
         absent rather than echoed.
@@ -51,7 +51,7 @@ from padaccheda import Segmenter, strip_punct, is_devanagari   # noqa: E402
 from sanskrit_text import protected_spans                     # noqa: E402
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(REPO, 'dge', 'data')
+DATA = os.path.join(REPO, 'data')
 OUT_DIR = os.path.join(DATA, '_padaccheda')
 HIGHLIGHT = os.path.join(DATA, '_highlight')
 MORPH = os.path.join(DATA, '_morph')

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Structural validation of dge/data/**/data.json for the DGE reader.
+"""Structural validation of data/**/data.json for the DGE reader.
 
 The library has TWO on-disk shapes:
   * the catalog shape  {schema, default_author, items:[...]}  (all importers here)
@@ -12,7 +12,7 @@ files unrelated to an import. Uses schemas.json for the schema-name vocabulary.
 """
 import json, os, glob, sys
 
-ROOT = 'dge' if os.path.isdir('dge/data') else '.'
+ROOT = 'dge' if os.path.isdir('data') else '.'
 DATA = os.path.join(ROOT, 'data')
 schemas = json.load(open(os.path.join(DATA, 'schemas.json'), encoding='utf-8'))
 SCHEMA_NAMES = {k for k in schemas if not k.startswith('_')}

@@ -2,14 +2,14 @@
    Guru Vandana guard.
 
    The vandana lives at the site root, so it only ever greeted people who
-   arrived at the front door. A bookmark or a shared deep link into any page
-   under dge/ walked straight past it. This bounces such a visitor back to
+   arrived at the front door. A bookmark or a shared deep link into any other
+   page walked straight past it. This bounces such a visitor back to
    the gate, remembers where they were headed, and the gate delivers them
    there once respects have been paid — so closing the bypass costs nobody
    their link.
 
-   Include it as the FIRST script in the <head> of every page under dge/. It
-   is deliberately synchronous: it has to decide before the page paints, or
+   Include it as the FIRST script in the <head> of every page except the
+   gate itself. It is deliberately synchronous: it has to decide before the page paints, or
    the visitor sees a flash of the library they have not yet been admitted
    to.
 
@@ -61,10 +61,12 @@
 
   var gate;
   try {
-    // This file sits at <site>/dge/js/, so the gate is two levels up. Derived
-    // from the script's own URL rather than written as a path, so the site
-    // behaves the same served from a domain root or from a subpath.
-    gate = new URL('../../index.html', self);
+    // This file sits at <site>/js/, so the gate is one level up (post-flatten,
+    // 12 Sep 2026 -- js/ used to be dge/js/, two levels down, before dge/*
+    // moved to the repo root). Derived from the script's own URL rather than
+    // written as a path, so the site behaves the same served from a domain
+    // root or from a subpath.
+    gate = new URL('../index.html', self);
   } catch (e) {
     return;
   }

@@ -11,7 +11,7 @@ by the project lead, 18 Aug 2026.
   from [`hrishikeshrt/chanda`](https://github.com/hrishikeshrt/chanda)
   ("Chandojnanam"), pinned at a specific commit (see `vendor/NOTICE.md`).
 - `build_vrutta_db.py` — converts the vendor CSVs into
-  `dge/data/vedanga/chandas/data.json`: 190 sama-vrutta, 8 ardhasama-vrutta,
+  `data/vedanga/chandas/data.json`: 190 sama-vrutta, 8 ardhasama-vrutta,
   5 vishama-vrutta, 42 upajati combinations, 10 matra-vrutta and 27
   akshara-count jaati names, 282 entries total. Re-run after refreshing the
   vendor copy.
@@ -23,7 +23,7 @@ by the project lead, 18 Aug 2026.
 
 ## Scope: classical (laukika) vrutta only, not Vedic chandas
 
-This solves a different problem than `dge/veda_toolkit/superseded/
+This solves a different problem than `veda_toolkit/superseded/
 05_chandas_autodetect_FAILED.py`, which tried (and gave up on) automatic
 Vedic-metre detection for the Rigveda's 10,552 mantras using this same
 underlying library -- Vedic chandas is markedly more irregular (syllable
@@ -46,6 +46,6 @@ verse correctly identified as Shardulavikridita.)
 
 Batch-tag the already-ingested Kavya corpus (`kavya-dist` branch, ~67,000
 entries) with detected metre per shloka, the way `chandas` field already
-exists per-mantra in the Vedic schema (`dge/data/schemas.json`, `vedic_text`
+exists per-mantra in the Vedic schema (`data/schemas.json`, `vedic_text`
 -> `chandas`). Not started -- scoped separately since it touches a corpus
 that lives on a different branch/CDN than `main`.

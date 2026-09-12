@@ -1,5 +1,5 @@
 {
- "_readme": "How a commentary NAMES a lexicon when citing it, mapped to the kosha slug under dge/data/kosha/. Data rather than code, so adding a lexicon or a spelling is an edit here and nothing else. A name alone is never a citation -- reference_detect.py's KoshaDetector requires a citation frame (इति, उक्त, कोशे) around a bare name, because अमर on its own means 'deathless' and धनञ्जय is a name people have. Names that already carry their own frame (अमरकोशे, इत्यामरः) are accepted as they stand.",
+ "_readme": "How a commentary NAMES a lexicon when citing it, mapped to the kosha slug under data/kosha/. Data rather than code, so adding a lexicon or a spelling is an edit here and nothing else. A name alone is never a citation -- reference_detect.py's KoshaDetector requires a citation frame (इति, उक्त, कोशे) around a bare name, because अमर on its own means 'deathless' and धनञ्जय is a name people have. Names that already carry their own frame (अमरकोशे, इत्यामरः) are accepted as they stand.",
  "names": {
   "अमर": "amarakosha",
   "अमरः": "amarakosha",

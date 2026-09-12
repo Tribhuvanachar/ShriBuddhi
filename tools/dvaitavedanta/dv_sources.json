@@ -2,7 +2,7 @@
   "_readme": [
     "Source registry for the dvaitavedanta.in extraction.",
     "",
-    "Licensing: DVSRF publishes no explicit licence. Per dge/PROJECT_STATUS.md",
+    "Licensing: DVSRF publishes no explicit licence. Per PROJECT_STATUS.md",
     "convention #5 ('absence of a licence is not permission'), the project lead",
     "authorised this specific source for this specific non-commercial, educational",
     "use on 2026-08-15. That authorisation is recorded here and is written into",
@@ -37,7 +37,7 @@
       "because the full sidebar re-renders on every leaf. Use long timeouts."
     ]
   },
-  "output_root": "dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn",
+  "output_root": "data/darshana/vedanta/dvaita/DvaitaVedantaIn",
   "defaults": {
     "delay": 1.0,
     "timeout": 120,

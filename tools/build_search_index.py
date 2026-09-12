@@ -3,7 +3,7 @@
 build_search_index.py — offline global-search index generator for DGE.
 
 Fits the existing `veda_toolkit` pattern: a standalone Python script run locally
-(or in Colab), NOT part of the live static app. It walks `dge/data/`, reads each
+(or in Colab), NOT part of the live static app. It walks `data/`, reads each
 grantha's `data.json`, and emits a compact STATIC index the browser loads on
 demand. No backend — this is what makes corpus-wide fuzzy search possible on a
 GitHub Pages site.
@@ -38,7 +38,7 @@ Emitted artifacts (all under --out):
                                 see safe_trigram_filename())
   backlinks.json               target#unit_id -> [ {from, note}, ... ]
 
-Usage:  python3 build_search_index.py --data dge/data --out dge/search_index
+Usage:  python3 build_search_index.py --data data --out search_index
 """
 from __future__ import annotations
 import argparse, json, os, re, sys, unicodedata
@@ -341,7 +341,7 @@ _UNSAFE_TG_CHARS = re.compile(r"[^0-9A-Za-z^$]")
 def safe_trigram_filename(tg: str) -> str:
     """The literal on-disk/in-git filename for one trigram's postings file.
     One file per TRIGRAM, not per 2-char prefix -- see the "one file per
-    trigram" note in dge/SEARCH_ARCHITECTURE.md: filing by the first two
+    trigram" note in SEARCH_ARCHITECTURE.md: filing by the first two
     characters put every "ram"/"ran"/"raj"/... trigram in one multi-MB file
     that a query for any of them had to download whole (16 MB for a राम
     search). A query now fetches exactly the trigram files it needs.
@@ -380,7 +380,7 @@ def build(data_dir: str, out_dir: str, extra_dirs=(), commentaries=False) -> dic
 
     # (root, path) pairs: the slug is relative to the root the file came from,
     # so a corpus indexed from elsewhere still slugs as though it sat in
-    # dge/data. That is what lets the Kavya corpus be searchable while its 50 MB
+    # data. That is what lets the Kavya corpus be searchable while its 50 MB
     # stays on the kavya-dist branch: pass the checkout with --extra-data, and
     # core.js resolves a kavya_alankara/ grantha to the CDN when the hit is
     # opened.
@@ -445,7 +445,7 @@ def build(data_dir: str, out_dir: str, extra_dirs=(), commentaries=False) -> dic
             stats["unit_chars"] += len(pk)
             # postings on pkey trigrams (candidate generation), partitioned
             # by section (see the "Partition the postings tree" note in
-            # dge/SEARCH_ARCHITECTURE.md): an unscoped/global query fans out
+            # SEARCH_ARCHITECTURE.md): an unscoped/global query fans out
             # across every section's file for a trigram in parallel, and a
             # section-scoped query reads only its own partition -- neither
             # has to download postings for sections it doesn't care about.
@@ -628,7 +628,7 @@ def build(data_dir: str, out_dir: str, extra_dirs=(), commentaries=False) -> dic
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--data", default="bhumandala/dge/data")
+    ap.add_argument("--data", default="bhumandala/data")
     ap.add_argument("--out", default="search_index_out")
     ap.add_argument("--commentaries", action="store_true",
                     help="also index each shloka's bhashya[] and artha -- the "

@@ -9,7 +9,7 @@ Thin wrapper around the upstream `chanda` library (hrishikeshrt/chanda,
 "Chandojnanam", AGPL-3.0-or-later -- see tools/chandas/vendor/NOTICE.md).
 This is for CLASSICAL (laukika) vrutta identification only -- Vedic chandas
 is a separate, harder, still-unsolved problem for this project (see
-dge/veda_toolkit/superseded/05_chandas_autodetect_FAILED.py and PENDING.md).
+veda_toolkit/superseded/05_chandas_autodetect_FAILED.py and PENDING.md).
 
 Install first:
     pip install -r tools/chandas/requirements.txt

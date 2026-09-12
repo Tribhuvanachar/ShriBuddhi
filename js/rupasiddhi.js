@@ -8,7 +8,7 @@
    step naming the rule that produced it.
 
    All of it is derived ON THIS DEVICE by vidyut-prakriya compiled to
-   WebAssembly (dge/wasm/vidyut/, Apache-2.0, the Ambuda project) — the
+   WebAssembly (wasm/vidyut/, Apache-2.0, the Ambuda project) — the
    same engine that generates this repo's precomputed prakriya/ data — so
    arbitrary combinations need no pregenerated files and nothing ever
    leaves the browser. The precomputed pages (prakriya.html, krdanta.html,
@@ -22,8 +22,8 @@
 (function () {
   'use strict';
 
-  // Page-relative to dge/vyakarana/rupasiddhi.html (Phase 10: moved one
-  // directory deeper than dge/ -- ../ reaches dge/data/).
+  // Page-relative to vyakarana/rupasiddhi.html (Phase 10: moved one
+  // directory deeper than  -- ../ reaches data/).
   var DATA = '../data/vedanga/vyakarana/';
   // Captured now, during evaluation — document.currentScript is null later,
   // and the wasm paths must resolve relative to this file, not the page.
@@ -547,7 +547,7 @@
       applyHash();
       engine(); // warm up in the background
     }).catch(function (e) {
-      $('#root').innerHTML = '<p class="rs-note">could not load data (' + esc(e) + ') — serve from the dge/ folder.</p>';
+      $('#root').innerHTML = '<p class="rs-note">could not load data (' + esc(e) + ') — serve from the  folder.</p>';
     });
     window.addEventListener('hashchange', applyHash);
   }

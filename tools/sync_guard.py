@@ -20,7 +20,7 @@ diff and refuses (exit 1) on the first bad answer:
 It also writes a short markdown summary (item deltas per file) to stdout and
 $GITHUB_STEP_SUMMARY, which becomes the PR body's substance.
 
-    python3 tools/sync_guard.py --scope dge/data/darshana/vedanta/advaita --max-files 60
+    python3 tools/sync_guard.py --scope data/darshana/vedanta/advaita --max-files 60
 """
 from __future__ import annotations
 

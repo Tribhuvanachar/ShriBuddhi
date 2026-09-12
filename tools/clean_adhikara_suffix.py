@@ -15,7 +15,7 @@ digits, dollar signs and "##" markers after every adhikara heading:
 "अनभिहिते$2$3$1". Fixed at the source in importers/ashtadhyayi_layers.py
 (parse_adhikara(), same commit as this script); this is the one-off pass to
 clean what an earlier import already wrote to
-dge/data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json (3,467 sutras
+data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json (3,467 sutras
 carried the suffix on "adhikara", 2,780 of those with more than one
 "##"-joined heading; one, 6.2.142, carried the identical single-segment
 pattern on "anvaya" instead -- a different, much rarer artifact whose root
@@ -42,7 +42,7 @@ import re
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = os.path.join(REPO, 'dge/data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json')
+SRC = os.path.join(REPO, 'data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json')
 
 FIELDS = ('adhikara', 'anvaya')
 # A single "##"-joined segment: its own text, optionally its own

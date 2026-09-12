@@ -14,7 +14,7 @@ and shipped as small sharded JSON the reader fetches one bucket at a time.
     python3 -c "import vidyut; vidyut.download_data('/tmp/vidyut_data')"
     python3 tools/build_morphology.py
 
-Output: dge/data/_morph/<bucket>.json plus manifest.json.
+Output: data/_morph/<bucket>.json plus manifest.json.
 
 WHAT THIS DOES NOT DO, stated plainly because the gap is visible to a reader.
 Vidyut resolves inflected forms, not sandhi-joined ones. Coverage is about
@@ -33,14 +33,14 @@ import re
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(REPO, 'dge', 'data')
+DATA = os.path.join(REPO, 'data')
 OUT = os.path.join(DATA, '_morph')
 
 DEVA_RUN = re.compile(r'[ऀ-ॿ]+')
 PUNCT = re.compile(r'[।॥]')
 TEXT_KEYS = {'sanskrit_text', 'text', 'mula', 'sa', 'line', 'content', 'value'}
 
-# Short codes on the wire, expanded to Sanskrit by dge/js/intellisense.js.
+# Short codes on the wire, expanded to Sanskrit by js/intellisense.js.
 # Keyed on what str() of Vidyut's enums actually yields — the SLP1 Sanskrit
 # term (puM, saptamI, la~w), NOT the Python enum name. repr() shows
 # "Linga.Pum" and str() shows "puM"; keying on the first writes empty codes

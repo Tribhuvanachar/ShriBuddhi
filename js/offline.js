@@ -1,7 +1,7 @@
 // DGE Module: offline.js — registers sw.js (see that file for the actual
 // caching strategy) and exposes a small status/update surface for the
 // Menu drawer's "Offline Mode" row. Scoped to the main reader only
-// (dge/index.html), matching this whole overhaul's scope — not the
+// (render.html), matching this whole overhaul's scope — not the
 // standalone tool pages (ashtadhyayi.html, kavya.html, etc.).
 window.DGE_VERSIONS = window.DGE_VERSIONS || {};
 window.DGE_VERSIONS['offline.js'] = 'v1.0 (registers sw.js for basic offline app-shell support)';

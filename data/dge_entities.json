@@ -1,5 +1,5 @@
 {
-  "_readme": "Canonical registry of citable WORKS (not individual granthas/editions) for DGE's cross-reference/entity-linking system — see dge/SEARCH_ARCHITECTURE.md. This is deliberately separate from taxonomy.json (which describes the FOLDER hierarchy of what's actually digitized) and library.json (which catalogs individual digitized editions/commentaries): an entity here is the abstract WORK a citation names (\"ब्रह्मसूत्रे\", \"अष्टाध्याय्याम्\"), which the resolver maps to one or more concrete corpus locations. Every part of DGE that needs to recognize a citation or display a canonical work name should read from here, not invent its own alias/label map (the exact anti-pattern that produced the taxonomy label drift documented in SEARCH_ARCHITECTURE.md's taxonomy-labels section). Display names for the WORK ITSELF (not its citation aliases) still resolve through library.js's DGE_PATH_LABELS/dgeSegLabel for the corpus category, so this file stores the Sanskrit/IAST facts about the work, not a duplicate general-purpose label map.",
+  "_readme": "Canonical registry of citable WORKS (not individual granthas/editions) for DGE's cross-reference/entity-linking system — see SEARCH_ARCHITECTURE.md. This is deliberately separate from taxonomy.json (which describes the FOLDER hierarchy of what's actually digitized) and library.json (which catalogs individual digitized editions/commentaries): an entity here is the abstract WORK a citation names (\"ब्रह्मसूत्रे\", \"अष्टाध्याय्याम्\"), which the resolver maps to one or more concrete corpus locations. Every part of DGE that needs to recognize a citation or display a canonical work name should read from here, not invent its own alias/label map (the exact anti-pattern that produced the taxonomy label drift documented in SEARCH_ARCHITECTURE.md's taxonomy-labels section). Display names for the WORK ITSELF (not its citation aliases) still resolve through library.js's DGE_PATH_LABELS/dgeSegLabel for the corpus category, so this file stores the Sanskrit/IAST facts about the work, not a duplicate general-purpose label map.",
   "schema_version": 1,
   "entities": {
     "brahmasutra": {
@@ -41,7 +41,7 @@
       "reference_scheme": "adhyaya.pada.sutra",
       "reference_components": ["adhyaya", "pada", "sutra"],
       "jump_target_kind": "custom_page",
-      "notes": "Already has its own dedicated index/page and popover (dge/js/intellisense.js, window.dgeLookupSutra) built earlier in this project — the entity-linker's card reuses that page rather than the generic reader route. This is the SAME sūtra-citation detector's target vocabulary; entity-linker.js generalizes intellisense.js's engine to sources OTHER than the sūtra text itself (e.g. a Nyāya work quoting Pāṇini), rather than replacing it."
+      "notes": "Already has its own dedicated index/page and popover (js/intellisense.js, window.dgeLookupSutra) built earlier in this project — the entity-linker's card reuses that page rather than the generic reader route. This is the SAME sūtra-citation detector's target vocabulary; entity-linker.js generalizes intellisense.js's engine to sources OTHER than the sūtra text itself (e.g. a Nyāya work quoting Pāṇini), rather than replacing it."
     },
     "rigveda": {
       "id": "rigveda",
@@ -61,7 +61,7 @@
       "reference_components": ["mandala", "sukta", "rik"],
       "jump_target_kind": "vedicId",
       "jump_target_template": "{mandala}.{sukta}.{rik}",
-      "notes": "Verified against dge/data/vedas/rigveda/shakala_shakha/samhita/mandala_01/data.json: each unit's own 'id' field IS the dotted mandala.sukta.rik reference (e.g. \"1.1.1\"), which core.js's normalizer carries through as vedicId for non-chapter Vedic schemas — no extra lookup table needed."
+      "notes": "Verified against data/vedas/rigveda/shakala_shakha/samhita/mandala_01/data.json: each unit's own 'id' field IS the dotted mandala.sukta.rik reference (e.g. \"1.1.1\"), which core.js's normalizer carries through as vedicId for non-chapter Vedic schemas — no extra lookup table needed."
     },
     "bhagavata_purana": {
       "id": "bhagavata_purana",
@@ -81,7 +81,7 @@
       "reference_components": ["skandha", "adhyaya", "shloka"],
       "jump_target_kind": "vedicId",
       "jump_target_template": "Skandha {skandha}, Adhyaya {adhyaya} · {shloka}",
-      "notes": "Chapter-grouped schema (itihasa_purana_text): core.js sets vedicId to chapter.reference + ' · ' + shloka-number, e.g. \"Skandha 10, Adhyaya 14 · 8\" — verified against dge/data/purana/maha_purana/bhagavata_purana/skandha_10/data.json's adhyaya_01 chapter, whose 'reference' field is literally \"Skandha 10, Adhyaya 1\". This ONLY resolves correctly after the core.js dgeResolveQuickJumpTarget non-numeric-vedicId fix landed alongside this registry (see SEARCH_ARCHITECTURE.md) — before that fix every chapter-based vedicId collided on the same broken key."
+      "notes": "Chapter-grouped schema (itihasa_purana_text): core.js sets vedicId to chapter.reference + ' · ' + shloka-number, e.g. \"Skandha 10, Adhyaya 14 · 8\" — verified against data/purana/maha_purana/bhagavata_purana/skandha_10/data.json's adhyaya_01 chapter, whose 'reference' field is literally \"Skandha 10, Adhyaya 1\". This ONLY resolves correctly after the core.js dgeResolveQuickJumpTarget non-numeric-vedicId fix landed alongside this registry (see SEARCH_ARCHITECTURE.md) — before that fix every chapter-based vedicId collided on the same broken key."
     },
     "vishnu_purana": {
       "id": "vishnu_purana",

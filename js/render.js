@@ -535,7 +535,7 @@ function renderList() {
     if (shloka.commentaries) {
       Object.entries(shloka.commentaries).forEach(([cKey, cText]) => {
         // Gold-Standard commentary (format:gold_v2_2, see
-        // dge/GOLD_STANDARD_ARCHITECTURE.md) is an object, not a string --
+        // GOLD_STANDARD_ARCHITECTURE.md) is an object, not a string --
         // kept as-is here rather than run through applyTransliteration,
         // which expects a plain string. It displays in its authored
         // Devanagari only for now; transliterating structured
@@ -644,7 +644,7 @@ function renderList() {
           let convertedText = convertedCommentaries[cKey];
           let convertedName = typeof applyTransliteration === 'function' ? applyTransliteration(name, activeScript) : name;
 
-          // Gold-Standard commentary (dge/GOLD_STANDARD_ARCHITECTURE.md
+          // Gold-Standard commentary (GOLD_STANDARD_ARCHITECTURE.md
           // Parts A/B/D) takes a completely separate render path -- the
           // certificate wrapper + badge are the ONLY visible signal a
           // reader has that this commentary carries verified word-mapping/
@@ -816,7 +816,7 @@ function renderList() {
     // or any other text that might use "/" for something else. Applied
     // AFTER highlightText() so a search match spanning a pada boundary
     // still highlights correctly first.
-    // Gemini-enrichment footnotes (see dge/js/footnote-engine.js) are only
+    // Gemini-enrichment footnotes (see js/footnote-engine.js) are only
     // meaningful against the Devanagari the enrichment was computed from —
     // quoted_text/segments are stored verbatim in Devanagari, so on any
     // other display script this falls back to plain highlighted text rather

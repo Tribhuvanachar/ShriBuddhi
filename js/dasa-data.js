@@ -2,10 +2,10 @@
  * DGE · dasa-data.js — shared data adapter for the Dāsa Sāhitya "views".
  *
  * The guru-data.js analogue for the Haridāsa-composition browser: ONE module
- * fetched by every selectable view (dge/dasa-sahitya/views/view1..3.html) so
+ * fetched by every selectable view (dasa-sahitya/views/view1..3.html) so
  * the three layouts render the SAME real corpus (15,863 compositions across
  * 152 composer files) their own way. Lifted from the canonical
- * dge/dasa-sahitya/index.html so a view can never drift from the real page:
+ * dasa-sahitya/index.html so a view can never drift from the real page:
  * manifest + lazy per-composer load, the script/stanza fallbacks
  * (transliteration coverage is only ~8%), word-tap → Kosha, composer → the
  * real guru-paramparā people.json sheet, and the contextual-actions menu.
@@ -18,7 +18,7 @@
   "use strict";
 
   var SELF = (document.currentScript && document.currentScript.src) || "";
-  // .../dge/js/dasa-data.js  ->  .../dge/
+  // .../js/dasa-data.js  ->  .../
   var DGE_ROOT = SELF ? SELF.replace(/js\/dasa-data\.js.*$/, "") : "../";
   var BASE = DGE_ROOT + "data/DvaitaVedanta/Itara/DasaSahitya";
   var PEOPLE_URL = DGE_ROOT + "guru-parampara/data/people.json";

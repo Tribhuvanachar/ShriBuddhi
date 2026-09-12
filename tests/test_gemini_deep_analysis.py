@@ -148,7 +148,7 @@ class TestRun(unittest.TestCase):
 
 class TestSchemaFieldsForReaderUi(unittest.TestCase):
     """23 Aug 2026: vigraha (per-word etymology) and vyakarana_vishesha
-    (verse-level grammar notes) were added so dge/js/render.js's
+    (verse-level grammar notes) were added so js/render.js's
     Shloka Fields toggles (Pratipadartha/Vyakarana) have something real to
     show beyond the case/tense-mood-person column that was already there."""
 

@@ -30,7 +30,7 @@ function updatePlayUI() {
 }
 
 // Gates .bottom-player on reader-state.js's AudioState (dgeAudioState(),
-// see dge/js/reader-state.js) instead of letting it render unconditionally.
+// see js/reader-state.js) instead of letting it render unconditionally.
 // Per the second reviewer's critique (DGE_UI_CONTRACT.md): no audio ->
 // nothing shown; the player only appears once the reader has *explicitly*
 // pressed Play. loadShloka() (mere navigation/selection) puts the engine in
@@ -710,7 +710,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Boot-time sync: CSS already defaults .bottom-player to hidden (see
-  // dge/css/main.css), this just keeps the JS-driven class in agreement
+  // css/main.css), this just keeps the JS-driven class in agreement
   // with whatever AudioState actually is at load (idle, on a fresh visit).
   dgeUpdateBottomPlayerVisibility();
 });

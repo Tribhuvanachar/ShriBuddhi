@@ -59,7 +59,7 @@ from multiprocessing import Pool
 logging.disable(logging.CRITICAL)  # the library logs every attempted split at DEBUG
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(REPO, 'dge', 'data')
+DATA = os.path.join(REPO, 'data')
 OUT_DIR = os.path.join(DATA, '_sandhi_local')
 
 # Which list recognised a half. The reader shows 'v' differently: that half is
@@ -235,7 +235,7 @@ def main(argv=None):
                     if any(s['sa'] == SRC_VERB or s['sb'] == SRC_VERB for s in v))
     manifest = {
         '_readme': (
-            "Sandhi splits for dge/js/ai.js's Sandhi word-tool: word -> "
+            "Sandhi splits for js/ai.js's Sandhi word-tool: word -> "
             '[{"a","b","sa","sb"}], best first. sa/sb say which list recognised '
             'that half — "v" a real verb form (so it links to a dhatu, and the '
             'reader highlights it), "n" a nominal form from _morph, "u" an '

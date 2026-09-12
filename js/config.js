@@ -27,7 +27,7 @@ const appConfig = {
   // audio hosting for the whole site never requires editing a single
   // grantha JSON file — see dgeGetEffectiveAudioBaseUrl.
   audioBaseUrl: "https://archive.org/download/",
-  // Kamadhenu ZeroGPU Space for "Generate this verse" (dge/js/kamadhenu.js). Empty = feature off.
+  // Kamadhenu ZeroGPU Space for "Generate this verse" (js/kamadhenu.js). Empty = feature off.
   // Deploy with tools/kamadhenu/space/build_space.sh, then set "https://sarvamulaorg-kamadhenu.hf.space" (HF user SarvamulaOrg).
   kamadhenuSpaceUrl: "https://sarvamulaorg-kamadhenu.hf.space",   // live since 6 Sep 2026, 7:35 pm IST (ZeroGPU, PRO account)
   // Full ~1.65M-headword, 63-dictionary Kosha corpus, built and published
@@ -45,7 +45,7 @@ const appConfig = {
   // always internally consistent. After each kosha-data build, update
   // this SHA (git ls-remote <data-repo> dist) and bump config.js's ?v=.
   koshaDataBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala-kosha-data@54072a8d40d4907df588d722b3796afe06ec2568/data/koshas",
-  // The enriched render tree (koshas_r) that dge/kosha2.html displays —
+  // The enriched render tree (koshas_r) that kosha2.html displays —
   // built by the same Action from tools/kosha_enrich.py; same SHA.
   koshaRenderBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala-kosha-data@54072a8d40d4907df588d722b3796afe06ec2568/data/koshas_r",
   // The Sanskrit WordNet lookup tree that js/intellisense.js reads for the
@@ -56,7 +56,7 @@ const appConfig = {
   // too large for a published site with about 1% of the GitHub Pages 1 GB
   // limit left. GitHub Pages serves only main, so a branch is enough to keep
   // it off the site while jsDelivr still serves it. Set this to '' to read a
-  // local build from dge/data/_wordnet/ instead.
+  // local build from data/_wordnet/ instead.
   wordnetDataBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@66c7895fa7b1f30150ebbf74ea67abc28909e550/_wordnet",
   // The Kavya corpus js/kavya.js reads -- 24 works, 49 layers, 67,169
   // entries, 50 MB -- on this repo's "kavya-dist" branch for the same
@@ -91,7 +91,7 @@ const appConfig = {
   // check next time this file is touched.
   searchIndexBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@838335f8152654c37ee1c256c36b6ff6aab3927f",
   // THE CORPUS SWITCH. Empty (the default, and what is live today) means
-  // the reader fetches dge/data/<path>/data.json as a public static file,
+  // the reader fetches data/<path>/data.json as a public static file,
   // exactly as it always has. Set it to the corpusFile function's base URL
   //   https://asia-south1-sarvamula-org.cloudfunctions.net/corpusFile
   // and every grantha read instead goes through the authenticated proxy:
@@ -103,7 +103,7 @@ const appConfig = {
   // Flipping this one string is the whole migration, and flipping it back
   // is the whole rollback — but only once the corpus has actually been
   // uploaded (tools/migrate_corpus_to_gcs.py) and CORPUS_BUCKET is set on
-  // the function. See dge/CORPUS_PROXY.md for the order of operations.
+  // the function. See CORPUS_PROXY.md for the order of operations.
   corpusBase: "",
   // ONE-TAP PDF. Empty (the default) means the book builder's only route is
   // Prepare -> the browser's own print dialog -> Save as PDF: free, no
@@ -112,7 +112,7 @@ const appConfig = {
   //   https://asia-south1-sarvamula-org.cloudfunctions.net/renderBook
   // and a second button appears that returns the finished .pdf file instead.
   // That needs the Blaze plan (it runs a real headless browser) and the
-  // `book` capability granted to the reader's role — see dge/CORPUS_PROXY.md.
+  // `book` capability granted to the reader's role — see CORPUS_PROXY.md.
   bookPdfUrl: "",
   version: "v4.25"
 };
@@ -298,7 +298,7 @@ window.dgeGetEffectiveShlokaFields = function() {
 //   - optional fine-tuned overrides (safe zone, baked-branding flag) for
 //     specific templates. Anything discovered that ISN'T listed here
 //     still works, just with a generic centered safe zone by default.
-const GITHUB_REPO_CONFIG = { owner: 'Tribhuvanachar', repo: 'bhumandala', branch: 'main', imagesPath: 'dge/images' };
+const GITHUB_REPO_CONFIG = { owner: 'Tribhuvanachar', repo: 'bhumandala', branch: 'main', imagesPath: 'images' };
 window.GITHUB_REPO_CONFIG = GITHUB_REPO_CONFIG;
 
 // New-file extensions offered in the admin editor's "+ New File" button —
@@ -310,7 +310,7 @@ window.ADMIN_NEW_FILE_EXTENSIONS = ADMIN_NEW_FILE_EXTENSIONS;
 // root path it can NEVER navigate above, even by tapping "Up" repeatedly.
 // An empty rootPath means the actual repository root (bhumandala) — no
 // restriction at all. Requested directly by the project lead, 11 Sep 2026:
-// the admin file manager was defaulting to (and capping "Up" at) dge/,
+// the admin file manager was defaulting to (and capping "Up" at) ,
 // hiding the rest of the repo (tools/, admin/, kamadhenu_dataset/, etc.)
 // from the one account that needs to reach all of it.
 const ADMIN_ACCESS_LEVELS = {
@@ -430,7 +430,7 @@ window.AI_ALLOW_EXTERNAL_LINKS = false;
 // priority. Empty by default — nothing invented; add real entries as
 // features actually ship or get planned.
 /* What's New and Coming Soon now live in admin/content/whats-new.json, read
-   by dge/js/modals.js each time the panel opens. Publishing an update should
+   by js/modals.js each time the panel opens. Publishing an update should
    not need a code change, and a constant here could only be updated by one. */
 
 // Multi-provider AI configuration. Each provider is only used if the person
@@ -496,7 +496,7 @@ window.FEATURE_FLAGS = FEATURE_FLAGS;
 
    `powered` is the load-bearing field:
      own      — this project's own precomputed data (Vidyut-derived, shipped
-                in dge/data). Free to run, works offline, no third party.
+                in data). Free to run, works offline, no third party.
      gemini   — a paid Gemini call on the project lead's prepaid credits.
                 Hidden from ordinary readers; see dgeGetEffectiveWordActions.
      external — a live third-party service (dharmamitra.org). Off by default:
@@ -515,7 +515,7 @@ const WORD_ACTIONS = [
     title: 'Find the root this form comes from and show its derivation' },
   // Sandhi was hidden on 9 Sep 2026 -- "not working properly locally" -- and
   // it genuinely was not: the only split index was CDN-hosted, so a local
-  // checkout had no data to answer with. dge/data/_sandhi_local (built by
+  // checkout had no data to answer with. data/_sandhi_local (built by
   // tools/build_sandhi_split_index.py from sanskrit_parser's Sandhi.split_all,
   // validated against this repo's own word lists) ships in the repo, so it
   // now answers offline. Back on, and still switchable off by an admin or on
@@ -751,7 +751,7 @@ window.dgeParseQuickSearchQuery = function(text) {
 // configuration → Config, in the Firebase console). These values are NOT
 // secret — Firebase's own docs are explicit that this object is safe to
 // ship in client code, since access control is enforced by Firestore
-// security rules (see dge/firebase/firestore.rules), not by hiding this.
+// security rules (see firebase/firestore.rules), not by hiding this.
 // Project "sarvamula-org", created by the lead 6 Sep 2026 (web app config pasted from the Firebase
 // console). The same three identifiers also live in the GitHub secrets FIREBASE_API_KEY /
 // FIREBASE_AUTH_DOMAIN / FIREBASE_PROJECT_ID for the hosting-deploy workflow; they are public
@@ -773,7 +773,7 @@ window.FIREBASE_CONFIG = FIREBASE_CONFIG;
 const AUTH_CONFIG = {
   // Flipped true 6 Sep 2026 (FIREBASE_CONFIG holds the sarvamula-org project). Sign-in works only once
   // the console steps in FIREBASE_SETUP.md §3 are done: Google provider enabled, Firestore created in
-  // production mode with dge/firebase/firestore.rules published.
+  // production mode with firebase/firestore.rules published.
   enabled: true,
 
   // Google Sign-In: free at any volume, no billing plan needed at all.
@@ -795,7 +795,7 @@ const AUTH_CONFIG = {
   //   about 10 SMS per DAY, not the 10,000/month figure that circulates
   //   online — assume you are paying from the first real user.
   // 'whatsapp' — Meta WhatsApp Cloud API through our own Cloud Functions
-  //   (dge/firebase/functions). Authentication templates run about
+  //   (firebase/functions). Authentication templates run about
   //   ₹0.145 per message in India, so roughly 6x cheaper than the line
   //   above, and the code arrives with a one-tap "copy" button. Needs a
   //   Meta Business account and an approved template — see
@@ -810,7 +810,7 @@ const AUTH_CONFIG = {
   phoneOtpProvider: 'firebase',
 
   // Region the Cloud Functions are deployed to. Must match the
-  // setGlobalOptions region in dge/firebase/functions/index.js, or every
+  // setGlobalOptions region in firebase/functions/index.js, or every
   // callable request lands on a URL that does not exist.
   functionsRegion: 'asia-south1',
 

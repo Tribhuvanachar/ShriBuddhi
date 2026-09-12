@@ -1,6 +1,6 @@
 // DGE Module: gold-render.js
 // Renders a commentary object shaped to the Gold-Standard Commentary
-// Contract (v2.2) -- see dge/GOLD_STANDARD_ARCHITECTURE.md for the full
+// Contract (v2.2) -- see GOLD_STANDARD_ARCHITECTURE.md for the full
 // gap analysis and design rationale this file implements. A commentary
 // only takes this path when render.js finds `commentaries[cKey].format ===
 // 'gold_v2_2'`; every other (plain-string) commentary is completely

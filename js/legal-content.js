@@ -52,7 +52,7 @@
     // core.js's dgeContentUrl resolves admin/content/<file> correctly whether
     // the site is served from a domain root or a project sub-path — the same
     // helper the reader uses for whats-new.json. Fall back to a page-relative
-    // path (the reader lives one level deep, at dge/index.html) if it's absent.
+    // path (the reader lives one level deep, at render.html) if it's absent.
     var base = (typeof window.dgeContentUrl === 'function')
       ? window.dgeContentUrl('legal.json')
       : '../admin/content/legal.json';

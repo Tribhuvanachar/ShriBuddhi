@@ -182,7 +182,7 @@ class ReaderContract(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.js = (Path(__file__).resolve().parent.parent
-                  / 'dge/js/commentary-sandhi.js').read_text(encoding='utf-8')
+                  / 'js/commentary-sandhi.js').read_text(encoding='utf-8')
 
     def test_it_matches_by_word_not_by_offset(self):
         # The commentary may be showing in Kannada or IAST by then.

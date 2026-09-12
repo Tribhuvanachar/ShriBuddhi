@@ -13,7 +13,7 @@ and a fourth (`build_batch4_samkhya_yoga.py`, see below) that also added
 new taxonomy nodes rather than only filling existing empty leaves.
 **160 DCS texts in now, across 172 taxonomy leaves, 186,139 items
 total.** Still well short of DCS's full 253-text corpus;
-see the taxonomy-placement proposal (linked from `dge/PENDING.md`'s 24 Aug
+see the taxonomy-placement proposal (linked from `PENDING.md`'s 24 Aug
 entries) for what's left and where it likely goes.
 
 ## Licence — the clean case, unlike chandas/skrutable
@@ -24,7 +24,7 @@ Oliver Hellwig: Digital Corpus of Sanskrit (DCS). 2010-2021. License:
 CC-BY 4.0"*), not just claimed. No isolation needed the way `tools/chandas/`
 (AGPL) is isolated — attribution is stamped per-item (`notes` field) and at
 the top of the output `data.json` (`source`, `source_url`, `licence`),
-matching the pattern in `dge/kosha_toolkit/LICENSING.md`.
+matching the pattern in `kosha_toolkit/LICENSING.md`.
 
 **skrutable is CC BY-SA 4.0** (share-alike) — approved for use as an
 **unmodified pip dependency only** (`pip install skrutable`), not vendored
@@ -51,13 +51,13 @@ way for IAST→Devanagari conversion; no skrutable source lives in this repo.
 `vedanga/jyotisha` was already a taxonomy leaf, just empty (`library.json`
 had `"populated": false`) — a clean landing spot with no open placement
 question. By contrast, DCS's Āyurveda and Tantra texts don't have a settled
-taxonomy home yet — `dge/PENDING.md` already flags "new top-level taxonomy
+taxonomy home yet — `PENDING.md` already flags "new top-level taxonomy
 placement for Ayurveda and Kāmaśāstra" as an open, undecided question. This
 pilot deliberately avoided entangling itself with that separate decision.
 
 ## Result
 
-139 verses, `dge/data/vedanga/jyotisha/data.json`, `library.json`'s
+139 verses, `data/vedanga/jyotisha/data.json`, `library.json`'s
 `populated` flag flipped to `true`. Cross-checked against
 `tools/chandas_native/`: 14/20 of the first 20 verses identify cleanly as
 Anuṣṭubh, the expected metre for a śāstra text — a sanity check that the
@@ -86,7 +86,7 @@ CoNLL-U parsing now factored into `dcs_common.py`.
 A proper normalized match (strip diacritics, lowercase, alnum-only; exact
 match required, no fuzzy matching) between all 253 DCS text names and
 every `populated: false` leaf in `library.json` found 13 clean matches
-— see `build_batch.py` for the list and `dge/PENDING.md`'s 24 Aug entry
+— see `build_batch.py` for the list and `PENDING.md`'s 24 Aug entry
 for the full match table. All 13 imported:
 
 | text | items | landed in |
@@ -130,12 +130,12 @@ guessing they pair up.
 provenance, same reasoning as `tools/chandas/vendor`), generated
 `data.json` output adds a few more MB per large text (Matsyapurāṇa's is
 4.6 MB). Committed directly to `main`, not routed through a CDN branch —
-the project lead lifted the earlier 1 GB caution (`dge/PENDING.md`: "1GB
+the project lead lifted the earlier 1 GB caution (`PENDING.md`: "1GB
 is just a recommendation, 5GB+ is the real ceiling").
 
 ## Third import, batch 3 (`build_batch3_upanishads.py`) — a proposal correction
 
-The taxonomy-placement proposal in `dge/PENDING.md` had listed "Upaniṣad
+The taxonomy-placement proposal in `PENDING.md` had listed "Upaniṣad
 mūla texts" as a Tier B gap needing new taxonomy structure. Checking
 `library.json` directly (not trusting the proposal) found that precise
 empty leaves already exist per Veda/śākhā — no new structure needed, just
@@ -149,7 +149,7 @@ would risk mislabeling a real textual variant.
 
 Unlike every prior batch, this one didn't just fill an existing empty
 leaf — `darshana.sankhya` and `darshana.yoga` didn't exist in
-`taxonomy.json` yet. They were added deliberately narrowly: `dge/js/library.js`'s
+`taxonomy.json` yet. They were added deliberately narrowly: `js/library.js`'s
 `DGE_PATH_LABELS` dict already carries Devanagari labels for `sankhya`
 and `yoga` (note the spelling — `sankhya`, not `samkhya` — matched
 exactly rather than guessed) under a comment naming an external
@@ -157,7 +157,7 @@ exactly rather than guessed) under a comment naming an external
 that does **not** actually exist anywhere in this repo (confirmed by
 search). That's the *only* reason Sāṃkhya/Yoga were added here and
 Āyurveda/Buddhist-literature/Tantra were not — no such label precedent
-exists for those. See `dge/PENDING.md` for this open question, unresolved
+exists for those. See `PENDING.md` for this open question, unresolved
 as of this batch.
 
 New nodes: `darshana.sankhya.sutra_and_karika` (`samkhya_karika` and
@@ -267,7 +267,7 @@ cannot match a name containing `ā`/`ṃ`. The other 5: Sāṃkhyakārikābhā�
 (matched to the existing `tika_gaudapada` stub — DCS's own metadata
 doesn't name an author, so this attribution is inferred from
 "Sāṃkhyakārikābhāṣya" being Gauḍapāda's commentary's standard scholarly
-name, not DCS-confirmed, flagged in `dge/PENDING.md`), Mīmāṃsāsūtrabhāṣya
+name, not DCS-confirmed, flagged in `PENDING.md`), Mīmāṃsāsūtrabhāṣya
 (→ the existing `shabara_bhashya` stub — Śabara's bhāṣya is *the*
 Mīmāṃsāsūtrabhāṣya by convention, high confidence), Tattvavaiśāradī (→
 the existing `tika_tattva_vaisharadi` stub, exact match via its own `zu
@@ -330,7 +330,7 @@ wisdomlib/GRETIL) while leaving plain Skandapurāṇa and Śivapurāṇa
 unmapped, per that same research's own verdict.
 
 38/39 texts across both batches matched and imported (one
-filename-diacritic slip, corrected inline). See `dge/PENDING.md`'s 23
+filename-diacritic slip, corrected inline). See `PENDING.md`'s 23
 Aug entries for the full detail on every placement and correction.
 
 DCS running total: **160 texts, 172 taxonomy leaves, 186,139 items.**
@@ -351,7 +351,7 @@ DCS has 253 texts total; 160 are in now, across 172 taxonomy leaves,
   first — most of DCS's Āyurveda/Tantra/Buddhist texts have no home yet,
   and (as of batch 4) there's a *specific* open question blocking that:
   whether `DGE_Shastra_Taxonomy.md` — referenced by name in
-  `dge/js/library.js` but absent from the repo — actually defines homes
+  `js/library.js` but absent from the repo — actually defines homes
   for them, which this session cannot see to check.
 - An ongoing sync job (checking `OliverHellwig/sanskrit` for upstream
   updates) is worth building now that there's a real imported corpus

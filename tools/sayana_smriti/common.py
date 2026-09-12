@@ -119,7 +119,7 @@ def clean(s: str) -> str:
     return s.strip()
 
 
-# Vedic accent sanitiser — mirrors dgeSanitizeVedicAccents() in dge/js/core.js.
+# Vedic accent sanitiser — mirrors dgeSanitizeVedicAccents() in js/core.js.
 # The Vedic Extensions codepoints render as tofu in most fonts; the core
 # Devanagari block marks (U+0951/U+0952) have existed since Unicode 1.1.
 _VEDIC_FIX = {

@@ -3,7 +3,7 @@
 
 The DvaitaVedanta bhashya layer (grantha.html reader) had plain paragraphs
 and no structural headings. The Setu Tila edition (setutila.in, imported
-under dge/data/.../SetuTila/) carries, per sutra:
+under data/.../SetuTila/) carries, per sutra:
   * the Sarvamula bhashya text,
   * unique descriptive HEADINGS (Heading1 adhyaya · Heading2 upodghata /
     vishaya-vakya sub-sections · Heading3 adhikarana),
@@ -17,8 +17,8 @@ as additive fields the reader renders. Output overwrites bhashya/data.json.
 """
 import json, os, re, html
 
-BSB = 'dge/data/DvaitaVedanta/SarvaMula/sutra_prasthana/brahmasutra_bhashya/data.json'
-FAM = 'dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra'
+BSB = 'data/DvaitaVedanta/SarvaMula/sutra_prasthana/brahmasutra_bhashya/data.json'
+FAM = 'data/darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra'
 OUT = FAM + '/bhashya/data.json'
 SUTRA = FAM + '/sutra/data.json'
 DVMAP = FAM + '/_sources/dv_map.json'

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Idempotently register every dge/data/**/data.json in library.json's granthas[].
+"""Idempotently register every data/**/data.json in library.json's granthas[].
 
 The reader (core.js) only fetches content that has an entry in library.json, and
 gen_library_status.py only counts taxonomy leaves that resolve to such an entry.
@@ -10,7 +10,7 @@ with populated = (it has content). Safe to run repeatedly; run AFTER an importer
 """
 import json, os, glob, datetime
 
-ROOT = 'dge' if os.path.isdir('dge/data') else '.'
+ROOT = 'dge' if os.path.isdir('data') else '.'
 DATA = os.path.join(ROOT, 'data')
 LIB = os.path.join(DATA, 'library.json')
 
@@ -23,7 +23,7 @@ LIB = os.path.join(DATA, 'library.json')
 # 2026) when this tool picked it up unprompted; listed here so it isn't
 # re-flagged as "new" on every future run.
 NOT_A_GRANTHA = {
-    'dge/data/vedanga/vyakarana/ashtadhyayi/kaumudi_order/data.json',
+    'data/vedanga/vyakarana/ashtadhyayi/kaumudi_order/data.json',
 }
 
 
@@ -34,7 +34,7 @@ def item_count(data):
     return len(items)
 
 
-# View-By facet metadata (see dge/PENDING.md's 25 Aug Pancharatra pass) --
+# View-By facet metadata (see PENDING.md's 25 Aug Pancharatra pass) --
 # kept in sync with tools/audit_library.py's own derive_facets(); copied into
 # library.json so the reader can build facet groupings without downloading
 # every leaf's full data.json just to read a handful of classification
@@ -74,9 +74,9 @@ def main():
     # badge rather than a wrong one.
     today = datetime.date.today().isoformat()
     for fp in sorted(glob.glob(os.path.join(DATA, '**', 'data.json'), recursive=True)):
-        # catalog path convention is always "dge/data/.../data.json"
+        # catalog path convention is always "data/.../data.json"
         rel = os.path.relpath(fp, DATA).replace(os.sep, '/')
-        catalog = f"dge/data/{rel}"
+        catalog = f"data/{rel}"
         if catalog in known or catalog in NOT_A_GRANTHA:
             continue
         try:

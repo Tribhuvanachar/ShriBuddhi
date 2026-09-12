@@ -313,7 +313,7 @@ def volume_for(mandala: int, cache: Path | None = None) -> str:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--dge-root", required=True, help="path to the repo's dge/ directory")
+    ap.add_argument("--dge-root", required=True, help="path to the repo's  directory")
     ap.add_argument("--mandala", type=int, action="append",
                     help="restrict to these maṇḍalas (repeatable; default all ten)")
     ap.add_argument("--cache-dir", default=".httpcache")
@@ -328,7 +328,7 @@ def main(argv=None) -> int:
 
     dge = Path(args.dge_root)
     if not (dge / "data" / "schemas.json").exists():
-        print(f"!! {dge} does not look like the dge/ directory", file=sys.stderr)
+        print(f"!! {dge} does not look like the  directory", file=sys.stderr)
         return 2
 
     mandalas = sorted(set(args.mandala)) if args.mandala else list(range(1, 11))

@@ -6,8 +6,8 @@
  * ========================================================================== */
 (function () {
   "use strict";
-  // Page-relative to dge/vyakarana/shabda.html (Phase 10: moved one directory
-  // deeper than dge/ -- ../ reaches dge/data/).
+  // Page-relative to vyakarana/shabda.html (Phase 10: moved one directory
+  // deeper than  -- ../ reaches data/).
   var URL = "../data/vedanga/vyakarana/shabdapatha/data.json";
   var PAGE_SIZE = 20;
   var VIBHAKTI = ["प्रथमा","द्वितीया","तृतीया","चतुर्थी","पञ्चमी","षष्ठी","सप्तमी","सम्बोधनम्"];
@@ -592,7 +592,7 @@
       var h0=hashId();
       if(h0 && state.all.some(function(x){return x.id===h0;})){ openById(h0); }
       else { state.page=0; render(); }
-    }).catch(function(e){ $("#sh-list").innerHTML='<div class="empty">Failed to load shabdapatha data ('+e+'). Serve from the dge/ folder.</div>'; });
+    }).catch(function(e){ $("#sh-list").innerHTML='<div class="empty">Failed to load shabdapatha data ('+e+'). Serve from the  folder.</div>'; });
   }
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot); else boot();
   // 7 Sep 2026: read-only handles for js/shabda-gen.js (nearest listed paradigm, ending class).

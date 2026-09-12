@@ -1,6 +1,6 @@
 # DGE Chandas engine — Gemini task brief
 
-Generated 06 Sep 2026, 11:11 AM IST by `tools/chandas/build_gemini_task.py`. Canonical URL: `https://raw.githubusercontent.com/Tribhuvanachar/bhumandala/main/dge/data/vedanga/chandas/GEMINI_CHANDAS_TASK.md`
+Generated 06 Sep 2026, 11:11 AM IST by `tools/chandas/build_gemini_task.py`. Canonical URL: `https://raw.githubusercontent.com/Tribhuvanachar/bhumandala/main/data/vedanga/chandas/GEMINI_CHANDAS_TASK.md`
 
 You are helping the Sarvamūla Digital Library (a Mādhva Sanskrit corpus) finish its classical-metre
 (vṛtta) identifier. You have no repository access; **this file is your entire brief**. Everything you

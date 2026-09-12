@@ -1,4 +1,4 @@
-"""dge/js/shortcuts.js: every key's example resolves to a grantha that exists and to a verse that is in its data;
+"""js/shortcuts.js: every key's example resolves to a grantha that exists and to a verse that is in its data;
 the reverse (make) reproduces the token; the reader's URL forms round-trip."""
 import json, subprocess
 from pathlib import Path
@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
-JS = ROOT / "dge/js/shortcuts.js"
+JS = ROOT / "js/shortcuts.js"
 
 
 def node(expr):
@@ -16,7 +16,7 @@ def node(expr):
 
 
 def load(slug):
-    return json.load(open(ROOT / "dge/data" / slug / "data.json", encoding="utf-8"))
+    return json.load(open(ROOT / "data" / slug / "data.json", encoding="utf-8"))
 
 
 def item_ids(doc):
@@ -67,5 +67,5 @@ def test_url_forms():
     assert node("S.fromSearch('?rv1.1')")["vedicId"] == "1.1"
     assert node("S.fromSearch('?SMV=1.1')")["shlokaNumber"] == 1          # the legacy ?SMV=1.1 form still works
     assert node("S.fromSearch('?path=x&jumpShloka=1')") is None and node("S.fromSearch('?rv=1.1&x=2')") is None
-    assert node("S.canonical('/bhumandala/dge/index.html','darshana/x/y',{},3)") == "/bhumandala/dge/index.html?path=darshana/x/y&jumpShloka=3"
+    assert node("S.canonical('/bhumandala/render.html','darshana/x/y',{},3)") == "/bhumandala/render.html?path=darshana/x/y&jumpShloka=3"
     assert node("S.canonical('/x','vedas/rigveda/shakala_shakha/samhita/mandala_01',{vedicId:'1.1.3'},3)") == "/x?rv1.1.3"

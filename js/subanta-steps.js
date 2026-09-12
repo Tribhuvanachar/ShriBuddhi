@@ -4,7 +4,7 @@
  * Shared by shabda.html (tap any declension cell) and the reader's word
  * modal (ai.js — the matched form's derivation renders automatically).
  * Uses the same vidyut-prakriya WASM engine rupasiddhi.html ships
- * (dge/wasm/vidyut/, Apache-2.0), loaded lazily on the first derivation
+ * (wasm/vidyut/, Apache-2.0), loaded lazily on the first derivation
  * request only — a reader who never asks for steps never pays the 1.2 MB.
  *
  * Feminine stems: vidyut distinguishes a plain prātipadika from a

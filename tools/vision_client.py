@@ -1,7 +1,7 @@
 """
 vision_client.py — shared Google Cloud Vision OCR client for server-side
 ingestion scripts (tools/gemini_ocr_commentary.py and any future one).
-Ports dge/convert/vision.js's request shape and error handling exactly, so
+Ports convert/vision.js's request shape and error handling exactly, so
 a scanned page OCR'd here reads identically to one OCR'd through the
 browser admin tool -- same DOCUMENT_TEXT_DETECTION feature (tuned for
 dense document/book-page text, unlike TEXT_DETECTION's sparse-scene-text
@@ -42,7 +42,7 @@ def ocr_images_batch(images_base64: list[str], api_key: str, language_hints: lis
     """One HTTP call for the whole batch -- Vision's images:annotate endpoint
     accepts multiple entries in its "requests" array, each returning its own
     independent result, cutting per-request overhead over many individual
-    calls (mirrors dge/convert/vision.js's ocrImagesBatch(), including its
+    calls (mirrors convert/vision.js's ocrImagesBatch(), including its
     deliberate choice to fail the whole batch on one bad/erroring page
     rather than silently reordering around it).
 

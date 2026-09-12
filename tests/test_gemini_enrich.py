@@ -39,7 +39,7 @@ class TestEnrichItem(unittest.TestCase):
         os.makedirs(os.path.join(data_root, "darshana", "sutrapatha"), exist_ok=True)
         with open(os.path.join(data_root, "library.json"), "w", encoding="utf-8") as fh:
             json.dump({"granthas": [
-                {"path": "dge/data/darshana/sutrapatha/data.json",
+                {"path": "data/darshana/sutrapatha/data.json",
                  "populated": True, "title": "Sutrapatha"},
             ]}, fh, ensure_ascii=False)
         with open(os.path.join(data_root, "darshana", "sutrapatha", "data.json"), "w", encoding="utf-8") as fh:

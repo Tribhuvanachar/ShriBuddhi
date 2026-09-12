@@ -103,7 +103,7 @@ window.DGE_VERSIONS['reader-state.js'] = 'v1.0 (canonical state accessor layer o
   };
 
   // SearchState { query, filters, results, selectedResult } — best-effort:
-  // global search owns its own state (dge/js/global-search.js,
+  // global search owns its own state (js/global-search.js,
   // dge-search.js, the parallel session's territory per this redesign's
   // brief); this only reports the in-reader corpus search box, which this
   // file's module already had visibility into.

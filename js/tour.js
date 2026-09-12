@@ -28,7 +28,7 @@
   const self = (document.currentScript && document.currentScript.src) || '';
 
   function contentUrl() {
-    try { return new URL('../../admin/content/tour.json', self).href; }
+    try { return new URL('../admin/content/tour.json', self).href; }
     catch (e) { return '../admin/content/tour.json'; }
   }
 

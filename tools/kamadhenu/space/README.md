@@ -52,4 +52,4 @@ POST https://sarvamulaorg-kamadhenu.hf.space/gradio_api/call/synthesize   {"data
 GET  https://sarvamulaorg-kamadhenu.hf.space/gradio_api/call/synthesize/<event_id>   (SSE; 'complete' carries [audio, meta])
 ```
 
-`dge/js/kamadhenu.js` does exactly this from the reader once `appConfig.kamadhenuSpaceUrl` is set.
+`js/kamadhenu.js` does exactly this from the reader once `appConfig.kamadhenuSpaceUrl` is set.

@@ -3,7 +3,7 @@
 every page, writing one JSON with the full text + words (confidence) per page. No Gemini, no proofread.
 
     VISION_API_KEY=... python3 tools/vision_ocr_pages.py --pdf file.pdf --start 1 --end 459 \
-        --out dge/data/ocr_staging/<slug>/vision_pages_1-459.json [--dpi 200] [--batch 8] [--lang sa,kn]
+        --out data/ocr_staging/<slug>/vision_pages_1-459.json [--dpi 200] [--batch 8] [--lang sa,kn]
 
 Meant to run inside .github/workflows/ocr-vision-pages.yml (the key is a repository secret); the
 local Tesseract pass + the merge/classification happen in the importer for the work concerned."""

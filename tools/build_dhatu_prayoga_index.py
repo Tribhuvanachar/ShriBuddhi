@@ -65,7 +65,7 @@ from collections import defaultdict
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-DATA = REPO / 'dge/data'
+DATA = REPO / 'data'
 VY = DATA / 'vedanga/vyakarana'
 FORMINDEX = VY / 'prakriya/formindex'
 KRTINDEX = VY / 'prakriya/krtindex'

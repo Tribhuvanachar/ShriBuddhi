@@ -18,5 +18,5 @@ time data + an offline CLI tool, nothing here currently triggers that; it
 would if this became a live "identify my verse" server-side endpoint.
 
 `build_vrutta_db.py` in the parent directory reads these files and writes
-`dge/data/vedanga/chandas/data.json`. Re-run it after updating this vendor
+`data/vedanga/chandas/data.json`. Re-run it after updating this vendor
 copy from upstream (pin a new commit hash in this file when you do).

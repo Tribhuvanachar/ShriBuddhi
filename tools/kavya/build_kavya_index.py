@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Builds dge/data/kavya_alankara/_index.json -- the single file kavya.js
+"""Builds data/kavya_alankara/_index.json -- the single file kavya.js
 loads at start-up.  Every layer is listed with its counts and flags so the
 reader can render the work picker and the layer chips without touching the
 layer files; layers are fetched on demand, not sharded.
 
-  python3 -m kavya.build_kavya_index --data-root dge/data
+  python3 -m kavya.build_kavya_index --data-root data
 """
 from __future__ import annotations
 
@@ -112,7 +112,7 @@ def build(data_root):
 
 def main(argv=None):
     p = argparse.ArgumentParser()
-    p.add_argument("--data-root", default="dge/data")
+    p.add_argument("--data-root", default="data")
     p.add_argument("--out")
     args = p.parse_args(argv)
     index = build(args.data_root)

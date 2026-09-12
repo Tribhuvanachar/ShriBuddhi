@@ -17,7 +17,7 @@ pratīka-anchored BLOCK, and alignment to sutra ids happens in Stage 2
 (tools/merge_staged_lakshmi_kaumudi.py) by matching pratīkas against
 the corpus's own siddhanta_kaumudi Sanskrit in reading order.
 
-Staged output: dge/data/ocr_staging/lakshmi_kaumudi/ by default.
+Staged output: data/ocr_staging/lakshmi_kaumudi/ by default.
 """
 from __future__ import annotations
 
@@ -137,7 +137,7 @@ def main(argv=None):
         return 1
 
     out_path = Path(args.out) if args.out else (
-        Path("dge/data/ocr_staging/lakshmi_kaumudi") /
+        Path("data/ocr_staging/lakshmi_kaumudi") /
         f"pages{args.start_page}-{args.end_page}.json")
 
     with tempfile.TemporaryDirectory(prefix="lakshmi_") as td:

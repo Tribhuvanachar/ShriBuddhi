@@ -2,7 +2,7 @@
 // against the REAL dge_entities.json registry (not a mock), same convention
 // as dge-search.js/genie_asr_benchmark/scripts/resolver.test.js (Node-testable
 // pure logic, DOM-only bits skipped outside a browser).
-// Run with: node --test dge/js/entity-linker.test.js
+// Run with: node --test js/entity-linker.test.js
 'use strict';
 const test = require('node:test');
 const assert = require('node:assert/strict');
@@ -133,7 +133,7 @@ test('Rigveda 1.1.1 opens the zero-padded mandala_01 folder at vedicId 1.1.1', (
 test('Bhagavata 10.14.8 builds the exact chapter.reference string the real corpus data uses', () => {
   const url = EL.buildOpenUrl(registry.entities.bhagavata_purana, { skandha: 10, adhyaya: 14, shloka: 8 });
   assert.match(url, /\?path=purana\/maha_purana\/bhagavata_purana\/skandha_10/);
-  // Verified against dge/data/purana/maha_purana/bhagavata_purana/skandha_10/data.json's
+  // Verified against data/purana/maha_purana/bhagavata_purana/skandha_10/data.json's
   // own chapter.reference field ("Skandha 10, Adhyaya 1") -- see dge_entities.json's note.
   assert.match(decodeURIComponent(url), /jumpVedicId=Skandha 10, Adhyaya 14 · 8/);
 });

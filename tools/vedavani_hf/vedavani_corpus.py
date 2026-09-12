@@ -50,7 +50,7 @@ OUT_DIR = REPO / "kamadhenu_dataset" / "external" / "vedavani_hf"
 MANIFEST = OUT_DIR / "manifest.csv.gz"
 SUMMARY = OUT_DIR / "summary.json"
 DEFAULT_DEST = REPO / "kamadhenu_dataset" / "incoming_audio" / "vedavani_hf"
-RIGVEDA_GLOB = "dge/data/vedas/rigveda/shakala_shakha/samhita/mandala_*/data.json"
+RIGVEDA_GLOB = "data/vedas/rigveda/shakala_shakha/samhita/mandala_*/data.json"
 IST = timezone(timedelta(hours=5, minutes=30))
 
 FIELDS = [
@@ -429,13 +429,13 @@ def cmd_mirror(a):
                   commit_message=f"Mirror of {DATASET} ({now_ist()})", ignore_patterns=[".cache/*"])
     for f in (MANIFEST, SUMMARY):
         if f.exists():
-            upload_file(path_or_fileobj=str(f), path_in_repo=f"dge/{f.name}", repo_id=a.repo,
+            upload_file(path_or_fileobj=str(f), path_in_repo=f"{f.name}", repo_id=a.repo,
                         repo_type="dataset", commit_message="DGE manifest with ṛk mapping")
     readme = (f"# Mirror of {DATASET}\n\nMirrored {now_ist()} for the DGE / Kamadhenu project.\n\n"
               "Upstream licence: Apache-2.0 (dataset card). Audio origin: Veda Prasara Samiti recitations "
               "segmented by the Vedavani authors (arXiv:2506.00145) from archive.org items "
               "`RigvedaChanting` and `atharvaveda_202107` (Public Domain Mark 1.0).\n\n"
-              "`dge/manifest.csv` maps every Rigveda clip to DGE ṛk ids (mandala.sukta.rik).\n")
+              "`manifest.csv` maps every Rigveda clip to DGE ṛk ids (mandala.sukta.rik).\n")
     upload_file(path_or_fileobj=readme.encode(), path_in_repo="README_DGE.md", repo_id=a.repo,
                 repo_type="dataset", commit_message="DGE provenance note")
     print("mirrored to", a.repo)

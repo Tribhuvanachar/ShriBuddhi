@@ -5,7 +5,7 @@ surface form, e.g. लभ्यः, back to (root, kṛt-pratyaya), for the read
 word-tool "Shabda" click.
 
 WHY THIS EXISTS. उवाच/परस्य-style deep-linking (tools/build_prakriya_form_index.py,
-dge/data/.../formindex/) already covers finite tiṅanta verb forms and nominal
+data/.../formindex/) already covers finite tiṅanta verb forms and nominal
 declensions. It does NOT cover kṛdantas — words like लभ्यः ("obtainable",
 लभ् + यत्) that are grammatically verb-derived but used AS nominals in a
 sentence. A reader selecting one and tapping "Shabda" got a genuinely wrong
@@ -17,7 +17,7 @@ table (लभ्यः is literally a substring of वलभ्यः, वलभ
 reported with a screenshot, 20 Aug 2026.
 
 WHAT THIS INDEXES. tools/build_prakriya.py already derives each root's
-kṛdanta STEMS (dge/data/vedanga/vyakarana/prakriya/<gana>/<code>.json's
+kṛdanta STEMS (data/vedanga/vyakarana/prakriya/<gana>/<code>.json's
 "krt" array — kta/ktavatu/ktvA/tumun/Satf/SAnac/tavya/anIyar/yat/Rvul/
 tfc/lyuw). A stem is not a complete word a reader would click on in running
 text; it still needs a case ending. This script is NOT a declension engine
@@ -63,7 +63,7 @@ import os
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PRAKRIYA_DIR = os.path.join(REPO, 'dge', 'data', 'vedanga', 'vyakarana', 'prakriya')
+PRAKRIYA_DIR = os.path.join(REPO, 'data', 'vedanga', 'vyakarana', 'prakriya')
 OUT_DIR = os.path.join(PRAKRIYA_DIR, 'krtindex')
 
 # Matches KRTS in tools/build_prakriya.py.
@@ -140,7 +140,7 @@ def main():
     ambiguous = sum(1 for v in flat.values() if len({e['c'] for e in v}) > 1)
     manifest = {
         '_readme': (
-            'Reverse index for dge/js/shabda.js\'s krt-form fallback (a Shabda '
+            'Reverse index for js/shabda.js\'s krt-form fallback (a Shabda '
             'word-tool click that misses the nominal Sabdapatha database but is '
             'actually a krdanta): surface form -> [{"c": Dhatupatha root code, '
             '"k": krt pratyaya name}, ...], one entry per root that produces the '

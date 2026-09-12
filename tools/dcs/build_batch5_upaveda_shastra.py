@@ -4,10 +4,10 @@ NOTE (23 Aug, later same session): "upaveda" was moved from a top-level
 taxonomy.json key to nested under "vedas" (vedas.upaveda) after this
 script ran, per the project lead's explicit structural feedback --
 "under Veda you can have Upaveda... Sastra is a different parent folder
-just like itihasa and Purana". The rel_out paths below (dge/data/upaveda/...)
+just like itihasa and Purana". The rel_out paths below (data/upaveda/...)
 are historical -- what this script actually wrote at the time -- and are
-NOT the current on-disk location (now dge/data/vedas/upaveda/...). Left
-unedited as a record of what ran; see dge/PENDING.md for the move itself.
+NOT the current on-disk location (now data/vedas/upaveda/...). Left
+unedited as a record of what ran; see PENDING.md for the move itself.
 
 build_batch5_upaveda_shastra.py -- Tier B, 23 Aug continued: two brand new
 top-level taxonomy branches, per the project lead's explicit framework
@@ -30,7 +30,7 @@ entirely as out of scope for this batch (Tantra/Shaiva cluster is
 deliberately still deferred). "Nighantushesha" opens with an invocation
 to the Arhat (a Jain text) -- kept under ayurveda.nighantu as a judgment
 call (it's the same synonym-lexicon genre as the other nighantus, not a
-strictly Ayurvedic clinical text), flagged in dge/PENDING.md rather than
+strictly Ayurvedic clinical text), flagged in PENDING.md rather than
 asserted with full confidence.
 
 Checking Carakasamhita's own chapter headers before importing also found
@@ -185,73 +185,73 @@ TAXONOMY_ADDITIONS = OD([
 # --- library.json entries + DCS import targets: (dcs_name_or_None, rel_out_path, slug, title_devanagari) ---
 
 ENTRIES = [
-    ("Carakasaṃhitā", "dge/data/upaveda/ayurveda/samhita/caraka_samhita/mula/data.json", "caraka_samhita_mula", "चरकसंहिता"),
-    ("Carakatattvapradīpikā", "dge/data/upaveda/ayurveda/samhita/caraka_samhita/tika_tattvapradipika/data.json", "caraka_tattvapradipika", "चरकसंहिता (तत्त्वप्रदीपिका)"),
-    ("Āyurvedadīpikā", "dge/data/upaveda/ayurveda/samhita/caraka_samhita/tika_ayurvedadipika/data.json", "caraka_ayurvedadipika", "चरकसंहिता (आयुर्वेददीपिका — चक्रपाणिदत्तः)"),
-    ("Suśrutasaṃhitā", "dge/data/upaveda/ayurveda/samhita/sushruta_samhita/mula/data.json", "sushruta_samhita_mula", "सुश्रुतसंहिता"),
-    ("Aṣṭāṅgahṛdayasaṃhitā", "dge/data/upaveda/ayurveda/samhita/ashtanga_hridaya_samhita/mula/data.json", "ashtanga_hridaya_mula", "अष्टाङ्गहृदयसंहिता"),
-    ("Sarvāṅgasundarā", "dge/data/upaveda/ayurveda/samhita/ashtanga_hridaya_samhita/tika_sarvangasundara/data.json", "ashtanga_hridaya_sarvangasundara", "अष्टाङ्गहृदयसंहिता (सर्वाङ्गसुन्दरा — अरुणदत्तः)"),
-    ("Padārthacandrikā", "dge/data/upaveda/ayurveda/samhita/ashtanga_hridaya_samhita/tika_padarthacandrika/data.json", "ashtanga_hridaya_padarthacandrika", "अष्टाङ्गहृदयसंहिता (पदार्थचन्द्रिका)"),
-    ("Indu (ad AHS)", "dge/data/upaveda/ayurveda/samhita/ashtanga_hridaya_samhita/tika_indu/data.json", "ashtanga_hridaya_indu", "अष्टाङ्गहृदयसंहिता (इन्दुटीका)"),
-    ("Aṣṭāṅgasaṃgraha", "dge/data/upaveda/ayurveda/samhita/ashtanga_sangraha/mula/data.json", "ashtanga_sangraha_mula", "अष्टाङ्गसङ्ग्रहः"),
-    ("Bhāvaprakāśa", "dge/data/upaveda/ayurveda/samhita/bhavaprakasha/mula/data.json", "bhavaprakasha_mula", "भावप्रकाशः"),
-    ("Nāḍīparīkṣā", "dge/data/upaveda/ayurveda/samhita/nadi_pariksha/mula/data.json", "nadi_pariksha_mula", "नाडीपरीक्षा"),
+    ("Carakasaṃhitā", "data/upaveda/ayurveda/samhita/caraka_samhita/mula/data.json", "caraka_samhita_mula", "चरकसंहिता"),
+    ("Carakatattvapradīpikā", "data/upaveda/ayurveda/samhita/caraka_samhita/tika_tattvapradipika/data.json", "caraka_tattvapradipika", "चरकसंहिता (तत्त्वप्रदीपिका)"),
+    ("Āyurvedadīpikā", "data/upaveda/ayurveda/samhita/caraka_samhita/tika_ayurvedadipika/data.json", "caraka_ayurvedadipika", "चरकसंहिता (आयुर्वेददीपिका — चक्रपाणिदत्तः)"),
+    ("Suśrutasaṃhitā", "data/upaveda/ayurveda/samhita/sushruta_samhita/mula/data.json", "sushruta_samhita_mula", "सुश्रुतसंहिता"),
+    ("Aṣṭāṅgahṛdayasaṃhitā", "data/upaveda/ayurveda/samhita/ashtanga_hridaya_samhita/mula/data.json", "ashtanga_hridaya_mula", "अष्टाङ्गहृदयसंहिता"),
+    ("Sarvāṅgasundarā", "data/upaveda/ayurveda/samhita/ashtanga_hridaya_samhita/tika_sarvangasundara/data.json", "ashtanga_hridaya_sarvangasundara", "अष्टाङ्गहृदयसंहिता (सर्वाङ्गसुन्दरा — अरुणदत्तः)"),
+    ("Padārthacandrikā", "data/upaveda/ayurveda/samhita/ashtanga_hridaya_samhita/tika_padarthacandrika/data.json", "ashtanga_hridaya_padarthacandrika", "अष्टाङ्गहृदयसंहिता (पदार्थचन्द्रिका)"),
+    ("Indu (ad AHS)", "data/upaveda/ayurveda/samhita/ashtanga_hridaya_samhita/tika_indu/data.json", "ashtanga_hridaya_indu", "अष्टाङ्गहृदयसंहिता (इन्दुटीका)"),
+    ("Aṣṭāṅgasaṃgraha", "data/upaveda/ayurveda/samhita/ashtanga_sangraha/mula/data.json", "ashtanga_sangraha_mula", "अष्टाङ्गसङ्ग्रहः"),
+    ("Bhāvaprakāśa", "data/upaveda/ayurveda/samhita/bhavaprakasha/mula/data.json", "bhavaprakasha_mula", "भावप्रकाशः"),
+    ("Nāḍīparīkṣā", "data/upaveda/ayurveda/samhita/nadi_pariksha/mula/data.json", "nadi_pariksha_mula", "नाडीपरीक्षा"),
 
-    ("Aṣṭāṅganighaṇṭu", "dge/data/upaveda/ayurveda/nighantu/ashtanga_nighantu/mula/data.json", "ashtanga_nighantu", "अष्टाङ्गनिघण्टुः"),
-    ("Bījanighaṇṭu", "dge/data/upaveda/ayurveda/nighantu/bija_nighantu/mula/data.json", "bija_nighantu", "बीजनिघण्टुः"),
-    ("Dhanvantarinighaṇṭu", "dge/data/upaveda/ayurveda/nighantu/dhanvantari_nighantu/mula/data.json", "dhanvantari_nighantu", "धन्वन्तरिनिघण्टुः"),
-    ("Kaiyadevanighaṇṭu", "dge/data/upaveda/ayurveda/nighantu/kaiyadeva_nighantu/mula/data.json", "kaiyadeva_nighantu", "कैयदेवनिघण्टुः"),
-    ("Madanapālanighaṇṭu", "dge/data/upaveda/ayurveda/nighantu/madanapala_nighantu/mula/data.json", "madanapala_nighantu", "मदनपालनिघण्टुः"),
-    ("Rājanighaṇṭu", "dge/data/upaveda/ayurveda/nighantu/raja_nighantu/mula/data.json", "raja_nighantu", "राजनिघण्टुः"),
-    ("Nighaṇṭuśeṣa", "dge/data/upaveda/ayurveda/nighantu/nighantushesha/mula/data.json", "nighantushesha", "निघण्टुशेषः"),
+    ("Aṣṭāṅganighaṇṭu", "data/upaveda/ayurveda/nighantu/ashtanga_nighantu/mula/data.json", "ashtanga_nighantu", "अष्टाङ्गनिघण्टुः"),
+    ("Bījanighaṇṭu", "data/upaveda/ayurveda/nighantu/bija_nighantu/mula/data.json", "bija_nighantu", "बीजनिघण्टुः"),
+    ("Dhanvantarinighaṇṭu", "data/upaveda/ayurveda/nighantu/dhanvantari_nighantu/mula/data.json", "dhanvantari_nighantu", "धन्वन्तरिनिघण्टुः"),
+    ("Kaiyadevanighaṇṭu", "data/upaveda/ayurveda/nighantu/kaiyadeva_nighantu/mula/data.json", "kaiyadeva_nighantu", "कैयदेवनिघण्टुः"),
+    ("Madanapālanighaṇṭu", "data/upaveda/ayurveda/nighantu/madanapala_nighantu/mula/data.json", "madanapala_nighantu", "मदनपालनिघण्टुः"),
+    ("Rājanighaṇṭu", "data/upaveda/ayurveda/nighantu/raja_nighantu/mula/data.json", "raja_nighantu", "राजनिघण्टुः"),
+    ("Nighaṇṭuśeṣa", "data/upaveda/ayurveda/nighantu/nighantushesha/mula/data.json", "nighantushesha", "निघण्टुशेषः"),
 
-    ("Rasahṛdayatantra", "dge/data/upaveda/ayurveda/rasashastra/rasahridaya_tantra/mula/data.json", "rasahridaya_tantra", "रसहृदयतन्त्रम्"),
-    ("Rasakāmadhenu", "dge/data/upaveda/ayurveda/rasashastra/rasakamadhenu/mula/data.json", "rasakamadhenu", "रसकामधेनुः"),
-    ("Rasamañjarī", "dge/data/upaveda/ayurveda/rasashastra/rasamanjari/mula/data.json", "rasamanjari", "रसमञ्जरी"),
-    ("Rasaprakāśasudhākara", "dge/data/upaveda/ayurveda/rasashastra/rasaprakashasudhakara/mula/data.json", "rasaprakashasudhakara", "रसप्रकाशसुधाकरः"),
-    ("Rasaratnasamuccaya", "dge/data/upaveda/ayurveda/rasashastra/rasaratnasamuccaya/mula/data.json", "rasaratnasamuccaya_mula", "रसरत्नसमुच्चयः"),
-    ("Rasaratnasamuccayabodhinī", "dge/data/upaveda/ayurveda/rasashastra/rasaratnasamuccaya/tika_bodhini/data.json", "rasaratnasamuccaya_bodhini", "रसरत्नसमुच्चयः (बोधिनी)"),
-    ("Rasaratnasamuccayadīpikā", "dge/data/upaveda/ayurveda/rasashastra/rasaratnasamuccaya/tika_dipika/data.json", "rasaratnasamuccaya_dipika", "रसरत्नसमुच्चयः (दीपिका)"),
-    ("Rasaratnasamuccayaṭīkā", "dge/data/upaveda/ayurveda/rasashastra/rasaratnasamuccaya/tika/data.json", "rasaratnasamuccaya_tika", "रसरत्नसमुच्चयः (टीका)"),
-    ("Rasaratnākara", "dge/data/upaveda/ayurveda/rasashastra/rasaratnakara/mula/data.json", "rasaratnakara", "रसरत्नाकरः"),
-    ("Rasasaṃketakalikā", "dge/data/upaveda/ayurveda/rasashastra/rasasanketakalika/mula/data.json", "rasasanketakalika", "रससङ्केतकलिका"),
-    ("Rasataraṅgiṇī", "dge/data/upaveda/ayurveda/rasashastra/rasatarangini/mula/data.json", "rasatarangini", "रसतरङ्गिणी"),
-    ("Rasendracintāmaṇi", "dge/data/upaveda/ayurveda/rasashastra/rasendracintamani/mula/data.json", "rasendracintamani", "रसेन्द्रचिन्तामणिः"),
-    ("Rasendracūḍāmaṇi", "dge/data/upaveda/ayurveda/rasashastra/rasendracudamani/mula/data.json", "rasendracudamani", "रसेन्द्रचूडामणिः"),
-    ("Rasendrasārasaṃgraha", "dge/data/upaveda/ayurveda/rasashastra/rasendrasarasangraha/mula/data.json", "rasendrasarasangraha", "रसेन्द्रसारसङ्ग्रहः"),
-    ("Rasārṇava", "dge/data/upaveda/ayurveda/rasashastra/rasarnava/mula/data.json", "rasarnava", "रसार्णवः"),
-    ("Rasārṇavakalpa", "dge/data/upaveda/ayurveda/rasashastra/rasarnavakalpa/mula/data.json", "rasarnavakalpa", "रसार्णवकल्पः"),
-    ("Rasādhyāya", "dge/data/upaveda/ayurveda/rasashastra/rasadhyaya/mula/data.json", "rasadhyaya_mula", "रसाध्यायः"),
-    ("Rasādhyāyaṭīkā", "dge/data/upaveda/ayurveda/rasashastra/rasadhyaya/tika/data.json", "rasadhyaya_tika", "रसाध्यायः (टीका)"),
+    ("Rasahṛdayatantra", "data/upaveda/ayurveda/rasashastra/rasahridaya_tantra/mula/data.json", "rasahridaya_tantra", "रसहृदयतन्त्रम्"),
+    ("Rasakāmadhenu", "data/upaveda/ayurveda/rasashastra/rasakamadhenu/mula/data.json", "rasakamadhenu", "रसकामधेनुः"),
+    ("Rasamañjarī", "data/upaveda/ayurveda/rasashastra/rasamanjari/mula/data.json", "rasamanjari", "रसमञ्जरी"),
+    ("Rasaprakāśasudhākara", "data/upaveda/ayurveda/rasashastra/rasaprakashasudhakara/mula/data.json", "rasaprakashasudhakara", "रसप्रकाशसुधाकरः"),
+    ("Rasaratnasamuccaya", "data/upaveda/ayurveda/rasashastra/rasaratnasamuccaya/mula/data.json", "rasaratnasamuccaya_mula", "रसरत्नसमुच्चयः"),
+    ("Rasaratnasamuccayabodhinī", "data/upaveda/ayurveda/rasashastra/rasaratnasamuccaya/tika_bodhini/data.json", "rasaratnasamuccaya_bodhini", "रसरत्नसमुच्चयः (बोधिनी)"),
+    ("Rasaratnasamuccayadīpikā", "data/upaveda/ayurveda/rasashastra/rasaratnasamuccaya/tika_dipika/data.json", "rasaratnasamuccaya_dipika", "रसरत्नसमुच्चयः (दीपिका)"),
+    ("Rasaratnasamuccayaṭīkā", "data/upaveda/ayurveda/rasashastra/rasaratnasamuccaya/tika/data.json", "rasaratnasamuccaya_tika", "रसरत्नसमुच्चयः (टीका)"),
+    ("Rasaratnākara", "data/upaveda/ayurveda/rasashastra/rasaratnakara/mula/data.json", "rasaratnakara", "रसरत्नाकरः"),
+    ("Rasasaṃketakalikā", "data/upaveda/ayurveda/rasashastra/rasasanketakalika/mula/data.json", "rasasanketakalika", "रससङ्केतकलिका"),
+    ("Rasataraṅgiṇī", "data/upaveda/ayurveda/rasashastra/rasatarangini/mula/data.json", "rasatarangini", "रसतरङ्गिणी"),
+    ("Rasendracintāmaṇi", "data/upaveda/ayurveda/rasashastra/rasendracintamani/mula/data.json", "rasendracintamani", "रसेन्द्रचिन्तामणिः"),
+    ("Rasendracūḍāmaṇi", "data/upaveda/ayurveda/rasashastra/rasendracudamani/mula/data.json", "rasendracudamani", "रसेन्द्रचूडामणिः"),
+    ("Rasendrasārasaṃgraha", "data/upaveda/ayurveda/rasashastra/rasendrasarasangraha/mula/data.json", "rasendrasarasangraha", "रसेन्द्रसारसङ्ग्रहः"),
+    ("Rasārṇava", "data/upaveda/ayurveda/rasashastra/rasarnava/mula/data.json", "rasarnava", "रसार्णवः"),
+    ("Rasārṇavakalpa", "data/upaveda/ayurveda/rasashastra/rasarnavakalpa/mula/data.json", "rasarnavakalpa", "रसार्णवकल्पः"),
+    ("Rasādhyāya", "data/upaveda/ayurveda/rasashastra/rasadhyaya/mula/data.json", "rasadhyaya_mula", "रसाध्यायः"),
+    ("Rasādhyāyaṭīkā", "data/upaveda/ayurveda/rasashastra/rasadhyaya/tika/data.json", "rasadhyaya_tika", "रसाध्यायः (टीका)"),
 
-    ("Dhanurveda", "dge/data/upaveda/dhanurveda/mula/data.json", "dhanurveda_mula", "धनुर्वेदः"),
+    ("Dhanurveda", "data/upaveda/dhanurveda/mula/data.json", "dhanurveda_mula", "धनुर्वेदः"),
 
-    ("Nāṭyaśāstra", "dge/data/shastra/natya_shastra/mula/data.json", "natya_shastra_mula", "नाट्यशास्त्रम्"),
-    ("Nāṭyaśāstravivṛti", "dge/data/shastra/natya_shastra/tika/data.json", "natya_shastra_tika", "नाट्यशास्त्रम् (विवृतिः)"),
-    ("Kāmasūtra", "dge/data/shastra/kama_shastra/mula/data.json", "kama_sutra_mula", "कामसूत्रम्"),
-    ("Arthaśāstra", "dge/data/shastra/niti_shastra/artha_shastra/mula/data.json", "artha_shastra_mula", "अर्थशास्त्रम्"),
-    ("Hitopadeśa", "dge/data/shastra/niti_shastra/hitopadesha/mula/data.json", "hitopadesha_mula", "हितोपदेशः"),
+    ("Nāṭyaśāstra", "data/shastra/natya_shastra/mula/data.json", "natya_shastra_mula", "नाट्यशास्त्रम्"),
+    ("Nāṭyaśāstravivṛti", "data/shastra/natya_shastra/tika/data.json", "natya_shastra_tika", "नाट्यशास्त्रम् (विवृतिः)"),
+    ("Kāmasūtra", "data/shastra/kama_shastra/mula/data.json", "kama_sutra_mula", "कामसूत्रम्"),
+    ("Arthaśāstra", "data/shastra/niti_shastra/artha_shastra/mula/data.json", "artha_shastra_mula", "अर्थशास्त्रम्"),
+    ("Hitopadeśa", "data/shastra/niti_shastra/hitopadesha/mula/data.json", "hitopadesha_mula", "हितोपदेशः"),
 
-    ("Saddharmapuṇḍarīkasūtra", "dge/data/shastra/bauddha_sahitya/sutra/saddharma_pundarika_sutra/mula/data.json", "saddharma_pundarika_sutra", "सद्धर्मपुण्डरीकसूत्रम्"),
-    ("Laṅkāvatārasūtra", "dge/data/shastra/bauddha_sahitya/sutra/lankavatara_sutra/mula/data.json", "lankavatara_sutra", "लङ्कावतारसूत्रम्"),
-    ("Abhidharmakośa", "dge/data/shastra/bauddha_sahitya/shastra/abhidharma_kosha/mula/data.json", "abhidharma_kosha_mula", "अभिधर्मकोशः"),
-    ("Abhidharmakośabhāṣya", "dge/data/shastra/bauddha_sahitya/shastra/abhidharma_kosha/bhashya/data.json", "abhidharma_kosha_bhashya", "अभिधर्मकोशः (भाष्यम्)"),
-    ("Mūlamadhyamakārikāḥ", "dge/data/shastra/bauddha_sahitya/shastra/mula_madhyamaka_karika/mula/data.json", "mula_madhyamaka_karika", "मूलमध्यमककारिकाः"),
-    ("Prasannapadā", "dge/data/shastra/bauddha_sahitya/shastra/mula_madhyamaka_karika/tika_prasannapada/data.json", "prasannapada", "मूलमध्यमककारिकाः (प्रसन्नपदा)"),
-    ("Viṃśatikākārikā", "dge/data/shastra/bauddha_sahitya/shastra/vimshatika/mula/data.json", "vimshatika_karika", "विंशतिका"),
-    ("Viṃśatikāvṛtti", "dge/data/shastra/bauddha_sahitya/shastra/vimshatika/vritti/data.json", "vimshatika_vritti", "विंशतिका (वृत्तिः)"),
-    ("Bodhicaryāvatāra", "dge/data/shastra/bauddha_sahitya/shastra/bodhicaryavatara/mula/data.json", "bodhicaryavatara", "बोधिचर्यावतारः"),
-    ("Śikṣāsamuccaya", "dge/data/shastra/bauddha_sahitya/shastra/shikshasamuccaya/mula/data.json", "shikshasamuccaya", "शिक्षासमुच्चयः"),
-    ("Aṣṭasāhasrikā", "dge/data/shastra/bauddha_sahitya/shastra/ashtasahasrika_prajnaparamita/mula/data.json", "ashtasahasrika", "अष्टसाहस्रिका प्रज्ञापारमिता"),
-    ("Nyāyabindu", "dge/data/shastra/bauddha_sahitya/pramana/nyayabindu/mula/data.json", "nyayabindu", "न्यायबिन्दुः"),
-    ("Avadānaśataka", "dge/data/shastra/bauddha_sahitya/avadana/avadanashataka/mula/data.json", "avadanashataka", "अवदानशतकम्"),
-    ("Divyāvadāna", "dge/data/shastra/bauddha_sahitya/avadana/divyavadana/mula/data.json", "divyavadana", "दिव्यावदानम्"),
-    ("Saṅghabhedavastu", "dge/data/shastra/bauddha_sahitya/avadana/sanghabhedavastu/mula/data.json", "sanghabhedavastu", "सङ्घभेदवस्तु"),
+    ("Saddharmapuṇḍarīkasūtra", "data/shastra/bauddha_sahitya/sutra/saddharma_pundarika_sutra/mula/data.json", "saddharma_pundarika_sutra", "सद्धर्मपुण्डरीकसूत्रम्"),
+    ("Laṅkāvatārasūtra", "data/shastra/bauddha_sahitya/sutra/lankavatara_sutra/mula/data.json", "lankavatara_sutra", "लङ्कावतारसूत्रम्"),
+    ("Abhidharmakośa", "data/shastra/bauddha_sahitya/shastra/abhidharma_kosha/mula/data.json", "abhidharma_kosha_mula", "अभिधर्मकोशः"),
+    ("Abhidharmakośabhāṣya", "data/shastra/bauddha_sahitya/shastra/abhidharma_kosha/bhashya/data.json", "abhidharma_kosha_bhashya", "अभिधर्मकोशः (भाष्यम्)"),
+    ("Mūlamadhyamakārikāḥ", "data/shastra/bauddha_sahitya/shastra/mula_madhyamaka_karika/mula/data.json", "mula_madhyamaka_karika", "मूलमध्यमककारिकाः"),
+    ("Prasannapadā", "data/shastra/bauddha_sahitya/shastra/mula_madhyamaka_karika/tika_prasannapada/data.json", "prasannapada", "मूलमध्यमककारिकाः (प्रसन्नपदा)"),
+    ("Viṃśatikākārikā", "data/shastra/bauddha_sahitya/shastra/vimshatika/mula/data.json", "vimshatika_karika", "विंशतिका"),
+    ("Viṃśatikāvṛtti", "data/shastra/bauddha_sahitya/shastra/vimshatika/vritti/data.json", "vimshatika_vritti", "विंशतिका (वृत्तिः)"),
+    ("Bodhicaryāvatāra", "data/shastra/bauddha_sahitya/shastra/bodhicaryavatara/mula/data.json", "bodhicaryavatara", "बोधिचर्यावतारः"),
+    ("Śikṣāsamuccaya", "data/shastra/bauddha_sahitya/shastra/shikshasamuccaya/mula/data.json", "shikshasamuccaya", "शिक्षासमुच्चयः"),
+    ("Aṣṭasāhasrikā", "data/shastra/bauddha_sahitya/shastra/ashtasahasrika_prajnaparamita/mula/data.json", "ashtasahasrika", "अष्टसाहस्रिका प्रज्ञापारमिता"),
+    ("Nyāyabindu", "data/shastra/bauddha_sahitya/pramana/nyayabindu/mula/data.json", "nyayabindu", "न्यायबिन्दुः"),
+    ("Avadānaśataka", "data/shastra/bauddha_sahitya/avadana/avadanashataka/mula/data.json", "avadanashataka", "अवदानशतकम्"),
+    ("Divyāvadāna", "data/shastra/bauddha_sahitya/avadana/divyavadana/mula/data.json", "divyavadana", "दिव्यावदानम्"),
+    ("Saṅghabhedavastu", "data/shastra/bauddha_sahitya/avadana/sanghabhedavastu/mula/data.json", "sanghabhedavastu", "सङ्घभेदवस्तु"),
 ]
 
 
 def merge_taxonomy():
-    path = os.path.join(REPO, "dge/data/taxonomy.json")
+    path = os.path.join(REPO, "data/taxonomy.json")
     with open(path, encoding="utf-8") as f:
         d = json.load(f, object_pairs_hook=collections.OrderedDict)
     for key, subtree in TAXONOMY_ADDITIONS.items():
@@ -264,7 +264,7 @@ def merge_taxonomy():
 
 
 def add_library_entries(populated_paths):
-    path = os.path.join(REPO, "dge/data/library.json")
+    path = os.path.join(REPO, "data/library.json")
     with open(path, encoding="utf-8") as f:
         d = json.load(f, object_pairs_hook=collections.OrderedDict)
     existing = {g["path"] for g in d["granthas"]}
@@ -305,7 +305,7 @@ def run_imports():
             source_url=f"https://github.com/OliverHellwig/sanskrit/tree/master/dcs/data/conllu/files/{dcs_name}",
             licence=LICENCE,
             note=(
-                "{count} units across {chapters} -- see dge/PENDING.md, 23 Aug "
+                "{count} units across {chapters} -- see PENDING.md, 23 Aug "
                 "entry (batch 5, Tier B Upaveda/Shastra), for how the new "
                 "upaveda/shastra taxonomy branches were drafted and matched."
             ),

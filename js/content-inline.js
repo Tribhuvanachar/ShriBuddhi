@@ -35,8 +35,8 @@
   const self = (document.currentScript && document.currentScript.src) || '';
 
   function contentUrl() {
-    // FILE is repo-relative; the page may sit at the root or inside dge/.
-    try { return new URL('../../' + FILE, self).href; }
+    // FILE is repo-relative; the page may sit at the root or inside a subfolder.
+    try { return new URL('../' + FILE, self).href; }
     catch (e) { return '/' + FILE; }
   }
 
@@ -248,7 +248,7 @@
   // "Enter" button. A right arrow expands it into the full toolbar.
   let expanded = false;
 
-  // dge/index.html already has a right-edge control rail (#dge-qa-tab /
+  // render.html already has a right-edge control rail (#dge-qa-tab /
   // #quickActionsPopup) -- on that page a "✎ Edit Page Text" row in the
   // popup is the entry point instead of a second always-on floating pill.
   // Pages with no rail (the landing page, home-panel.html) keep the

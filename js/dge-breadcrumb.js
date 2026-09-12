@@ -5,7 +5,7 @@
    "<div class="brand"><a href="index.html">⌂ DGE</a><span>›</span>
    <span>Page Name</span></div>" markup duplicated across the 13 pages that
    share vyakarana-base.css's/kavya's/dasa-sahitya's/tirtha's/guru-
-   parampara's .brand styling (see dge/css/vyakarana-base.css's own .brand
+   parampara's .brand styling (see css/vyakarana-base.css's own .brand
    rules, unchanged by this file). Renders the exact same DOM shape and
    classes those rules already target, so adopting it needs no CSS change.
 
@@ -24,7 +24,7 @@
           (Ashtadhyayi) that render it in Devanagari-specific type.
 
    home-href defaults to "index.html" (correct for every page one directory
-   below dge/); pages one level deeper (dge/tirtha/, dge/guru-parampara/)
+   below ); pages one level deeper (tirtha/, guru-parampara/)
    pass home-href="../index.html".
 
    NOT WIRED INTO ANY PAGE YET as of Phase 2 — this is infrastructure ready

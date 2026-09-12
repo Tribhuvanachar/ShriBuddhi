@@ -1,7 +1,7 @@
 """Reference Resolution Engine tests.
 
 Uses a synthetic corpus under a tempdir (own library.json + data.json files)
-rather than the live dge/data/, so these stay deterministic if the real
+rather than the live data/, so these stay deterministic if the real
 corpus grows or a text gets re-edited. One additional test at the bottom
 checks the proposal's own worked example ("dharma-kshetre kuru-kshetre" ->
 Bhagavad Gita 1.1) against the real corpus, since that is the concrete claim
@@ -34,9 +34,9 @@ class TestSyntheticCorpus(unittest.TestCase):
 
         _write_json(os.path.join(self.data_root, "library.json"), {
             "granthas": [
-                {"path": "dge/data/darshana/sutrapatha/data.json",
+                {"path": "data/darshana/sutrapatha/data.json",
                  "populated": True, "title": "Sutrapatha"},
-                {"path": "dge/data/itihasa/demo_epic/adhyaya_01/data.json",
+                {"path": "data/itihasa/demo_epic/adhyaya_01/data.json",
                  "populated": True, "title": "Demo Epic"},
             ]
         })

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Build the self-contained Gemini task file for closing the Chandas engine gaps.
 
-Writes dge/data/vedanga/chandas/GEMINI_CHANDAS_TASK.md from
-  * dge/data/vedanga/chandas/data.json           (the 245 vṛttas the engine knows)
+Writes data/vedanga/chandas/GEMINI_CHANDAS_TASK.md from
+  * data/vedanga/chandas/data.json           (the 245 vṛttas the engine knows)
   * kamadhenu_dataset/text_index.json            (verses the engine could not name)
   * tests/fixtures/chandas_examples.json         (vṛttas that already have a verified example)
 
@@ -21,11 +21,11 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[2]
-DB = ROOT / "dge" / "data" / "vedanga" / "chandas" / "data.json"
+DB = ROOT / "data" / "vedanga" / "chandas" / "data.json"
 INDEX = ROOT / "kamadhenu_dataset" / "text_index.json"
 FIXTURE = ROOT / "tests" / "fixtures" / "chandas_examples.json"
-OUT = ROOT / "dge" / "data" / "vedanga" / "chandas" / "GEMINI_CHANDAS_TASK.md"
-RAW_URL = "https://raw.githubusercontent.com/Tribhuvanachar/bhumandala/main/dge/data/vedanga/chandas/GEMINI_CHANDAS_TASK.md"
+OUT = ROOT / "data" / "vedanga" / "chandas" / "GEMINI_CHANDAS_TASK.md"
+RAW_URL = "https://raw.githubusercontent.com/Tribhuvanachar/bhumandala/main/data/vedanga/chandas/GEMINI_CHANDAS_TASK.md"
 
 MBTN = "mahabharata_tatparya_nirnaya"   # prose-heavy ṭippaṇī units; excluded from the verse list
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Offline CI gate for the DGE Gold-Standard Commentary Contract v2.2 (V1-V7),
 run against any commentary carrying `"format": "gold_v2_2"` -- see
-dge/GOLD_STANDARD_ARCHITECTURE.md Part C for the design and Part 1 for what
+GOLD_STANDARD_ARCHITECTURE.md Part C for the design and Part 1 for what
 each check enforces. Two input shapes are understood, since they're both
 real:
 
@@ -9,14 +9,14 @@ real:
     matching the reference sample (extracted_gold_v2_2.json) and what a
     future Gemini-assisted import would emit BEFORE merge. Every unit in
     `units[]` is checked directly; its own `mula_sanskrit` is the source text.
-  - An already-merged corpus file under dge/data/**/data.json. Walked
+  - An already-merged corpus file under data/**/data.json. Walked
     generically (no schema assumed -- corpora nest shlokas differently) for
     any dict with `format: gold_v2_2`; its source text is the sibling `sa`
     field one level up, DGE's own convention (see render.js).
 
 Usage:
   python3 tools/validate_gold_standard.py <file.json> [<file.json> ...]
-  python3 tools/validate_gold_standard.py --scan-corpus [--data dge/data]
+  python3 tools/validate_gold_standard.py --scan-corpus [--data data]
   python3 tools/validate_gold_standard.py <file.json> --update-checksums
 
 Exit code is 1 if any check in FAIL_CHECKS below fired, 0 otherwise. Every
@@ -38,7 +38,7 @@ import tempfile
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CHECKSUM_MANIFEST = os.path.join(REPO, "tools", "gold_source_checksums.json")
-GOLD_RENDER_JS = os.path.join(REPO, "dge", "js", "gold-render.js")
+GOLD_RENDER_JS = os.path.join(REPO, "js", "gold-render.js")
 
 PRATIKA_RE = re.compile(r'\*\*"([^"]*)"\*\*')
 # Near-miss quote styles that are legitimate *emphasis* on their own (the
@@ -87,7 +87,7 @@ def find_units_in_batch(data, source_label):
 
 
 def find_units_in_corpus(data, source_label):
-    """Already-merged dge/data/**/data.json -- walked generically since
+    """Already-merged data/**/data.json -- walked generically since
     shloka nesting differs across corpora (flat shlokas{}, items[].shlokas[],
     etc.) rather than assuming one shape, matching the reader's own "100%
     generic" requirement."""
@@ -251,7 +251,7 @@ def check_v7_closed_world_citations(uid, unit):
 
 def check_v6_danda_integrity(units):
     """Zero line-initial daṇḍas (D1/V6), checked by actually running the
-    real renderer (dge/js/gold-render.js) under Node -- not a reimplemented
+    real renderer (js/gold-render.js) under Node -- not a reimplemented
     copy of its binding logic -- and scanning the HTML it produces for any
     daṇḍa not preceded by the non-breaking space bindDandas() inserts. A
     "headless render at mobile widths" per the contract's own wording would
@@ -263,7 +263,7 @@ def check_v6_danda_integrity(units):
     if not units:
         return
     if not os.path.exists(GOLD_RENDER_JS):
-        add("V6", "WARN", "*", "dge/js/gold-render.js not found -- skipped")
+        add("V6", "WARN", "*", "js/gold-render.js not found -- skipped")
         return
     payload = [{"id": uid, "commentary_markdown": u["commentary_markdown"], "word_mappings": u.get("word_mappings", [])}
                for uid, u in units]
@@ -307,7 +307,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("paths", nargs="*", help="gold-standard batch or corpus data.json file(s)")
     ap.add_argument("--scan-corpus", action="store_true", help="walk --data for embedded format:gold_v2_2 commentary")
-    ap.add_argument("--data", default="dge/data")
+    ap.add_argument("--data", default="data")
     ap.add_argument("--update-checksums", action="store_true", help="write the V1 baseline instead of checking it")
     args = ap.parse_args()
 

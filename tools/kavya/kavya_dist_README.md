@@ -4,13 +4,13 @@ Data only. No site, no code, no history in common with `main`. It exists so the
 Kāvya reader can load 50 MB of text without those files counting against the
 published site, which sits about 1% under the GitHub Pages 1 GB limit.
 
-`dge/js/kavya.js` reads it over jsDelivr:
+`js/kavya.js` reads it over jsDelivr:
 
 ```
 https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@kavya-dist
 ```
 
-which is what `appConfig.kavyaDataBase` in `dge/js/config.js` is set to — the
+which is what `appConfig.kavyaDataBase` in `js/config.js` is set to — the
 same arrangement the kośa corpus and the Sanskrit WordNet already use. Pages
 publishes `main` and nothing else, so nothing here is served from the site.
 
@@ -52,4 +52,4 @@ python3 -m kavya.verify_kavya      --data-root <root>
 ```
 
 `.github/workflows/import-kavya.yml` on `main` does that and republishes this
-branch. The corpus is never written into `dge/data/` on `main`.
+branch. The corpus is never written into `data/` on `main`.

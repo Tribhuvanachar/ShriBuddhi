@@ -1919,7 +1919,7 @@ function dgeShabdaKrtHtml(surface, hit, all) {
 
 // Neither the fixed शब्दपाठः nor the kṛdanta index has every word (they are
 // both curated, finite lists) -- Vidyut's own precomputed morphology
-// (dge/data/_morph/, built by tools/build_morphology.py, exposed publicly
+// (data/_morph/, built by tools/build_morphology.py, exposed publicly
 // as window.dgeAnalyseWord by intellisense.js) resolves inflected forms
 // well beyond either list. Not every miss has an entry here either --
 // Vidyut resolves inflected forms, not sandhi-joined ones, which is
@@ -1944,7 +1944,7 @@ function dgeMorphFallbackHtml(word) {
   }).catch(() => null);
 }
 
-// Real, precomputed sandhi-vicheda from Vidyut (dge/data/_sandhi/, built by
+// Real, precomputed sandhi-vicheda from Vidyut (data/_sandhi/, built by
 // tools/build_sandhi_index.py -- see that file's own docstring for exactly
 // what it covers and why). Shared between two callers: this Shabda-modal
 // fallback (word looks like a compound the fixed lists don't carry on its
@@ -1972,7 +1972,7 @@ function dgeFetchSandhiBucket(name) {
   if (DGE_SANDHI_BUCKET_CACHE[name]) return DGE_SANDHI_BUCKET_CACHE[name];
   // window.SANDHI_DATA_BASE overrides the CDN, same convention as
   // WORDNET_DATA_BASE in intellisense.js -- set it to '' to read a local
-  // build from dge/data/_sandhi/ instead (never committed to main, see
+  // build from data/_sandhi/ instead (never committed to main, see
   // tools/build_sandhi_index.py's own manifest note on repo size).
   const set = window.SANDHI_DATA_BASE;
   const cdn = (set === undefined ? DGE_SANDHI_CDN : (set || '')).replace(/\/+$/, '');
@@ -2454,7 +2454,7 @@ function dgeWireDhatuFormsTable(body, d, initialKey) {
 // AI (Gemini) multilingual meanings + pedagogical usage notes, from
 // tools/gemini_dhatu_lexicon.py -- independently composed content, not
 // copied from ashtadhyayi.com or any other source (see that script's own
-// docstring and dge/PENDING.md's 23 Aug entry for why this exists).
+// docstring and PENDING.md's 23 Aug entry for why this exists).
 // Loaded independently of the primary paradigm render and appended if/when
 // ready, same reasoning as dgeKoshaPanelHtml above: this file can grow to
 // several MB across the whole Dhatupatha, so it must never be allowed to
@@ -2528,7 +2528,7 @@ window.dgeOpenDhatuForSelection = function(e) {
       // Nothing matched the written form, so try peeling an upasarga off it.
       // The Dhatupatha stores bare roots -- गम् is indexed, समागच्छति is not
       // -- so a prefixed verb is invisible to a direct lookup no matter how
-      // complete the index is. See dge/js/vyakarana-runtime.js.
+      // complete the index is. See js/vyakarana-runtime.js.
       if (typeof window.dgePeelUpasarga === 'function') {
         window.dgePeelUpasarga(word).then(function (peels) {
           if (myReq !== window.dgeDhatuReqSeq) return;

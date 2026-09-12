@@ -189737,6 +189737,6 @@
    "sutra_type"
   ],
   "alignment": "Enrichment was joined by id, which the source numbers differently; realigned by text with tools/realign_sutra_enrichment.py.",
-  "removed_field_note": "'english' (verbatim ashtadhyayi.com sutrartha_english.txt, all 3,941 sutras that had it) was removed from this published data on 23 Aug 2026 -- it was shown to readers with no attribution at all, held only under an informal curator e-mail permission (no formal licence in the source repo), and as a public static file on GitHub Pages the underlying JSON was exposed regardless of what the UI rendered. See dge/PENDING.md and admin/content/ashtadhyayi-layers.json (the new per-layer visibility config). Re-importable from ashtadhyayi-com/data's sutrartha_english.txt via importers/ashtadhyayi_layers.py once real licensing is resolved -- not before."
+  "removed_field_note": "'english' (verbatim ashtadhyayi.com sutrartha_english.txt, all 3,941 sutras that had it) was removed from this published data on 23 Aug 2026 -- it was shown to readers with no attribution at all, held only under an informal curator e-mail permission (no formal licence in the source repo), and as a public static file on GitHub Pages the underlying JSON was exposed regardless of what the UI rendered. See PENDING.md and admin/content/ashtadhyayi-layers.json (the new per-layer visibility config). Re-importable from ashtadhyayi-com/data's sutrartha_english.txt via importers/ashtadhyayi_layers.py once real licensing is resolved -- not before."
  }
 }

@@ -6,7 +6,7 @@ ocr-staging/bhagavata_saroddhara), Tesseract TSVs (san+kan, 300 dpi, one per pag
 For every page: detect the footnote rule (long horizontal dark run in the lower half), take Tesseract's line
 boxes as the geometry, align each Vision line to its best-matching Tesseract line (Vision is the better reader,
 Tesseract the better segmenter), tag regions (header / body / footnote / verse / ref / heading) and score
-agreement between the two engines (classes A–E as in dge/convert/review-classifier.js).
+agreement between the two engines (classes A–E as in convert/review-classifier.js).
 Output: <out>/pages_merged.json — the single input of build_saroddhara.py."""
 import csv, json, os, re, sys, difflib
 from pathlib import Path

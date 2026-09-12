@@ -2,7 +2,7 @@
 
 The fixture grows as tools/chandas/apply_gemini_chandas.py accepts examples (from our own corpus,
 the Chandojñānam sample file, or Gemini's answers to GEMINI_CHANDAS_TASK.md); each entry must keep
-being identified as its vṛtta by dge/js/chandas.js.
+being identified as its vṛtta by js/chandas.js.
 """
 import json
 import shutil

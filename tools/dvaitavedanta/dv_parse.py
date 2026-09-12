@@ -418,7 +418,7 @@ first <h3> — was originally dropped whenever <h3>s existed, and the no-<h3>
 fallback captured nothing (it walked from the OUTSIDE h2.shloka and broke on
 the first node not inside .details, i.e. immediately). Live-compared one leaf
 per section against dvaitavedanta.in (25 Aug 2026, see
-dge/MULTI_LAYER_READER_ARCHITECTURE.md §1): that preamble is where the site
+MULTI_LAYER_READER_ARCHITECTURE.md §1): that preamble is where the site
 puts the FULL mula verse (the h2.shloka is only the leaf's truncated pratīka)
 and, on bhāṣya-granthas, Madhva's own bhāṣya under an inner <h1>/<h2> heading
 — so gita_bhashya had nine ṭīkā folders and no bhāṣya, and rig_bhashya /
@@ -1005,7 +1005,7 @@ def is_container_page(soup: BeautifulSoup, html: str) -> bool:
 # contributed only its first unit — verified live, 1 Sep 2026, against
 # category-details/977/975 (maṅgalamācaraṇam): total_sutra_count=9, initial
 # HTML holds article978 alone, units 979–986 exist only behind /load-data,
-# and exactly those eight were absent from dge/data (the reported missing
+# and exactly those eight were absent from data (the reported missing
 # "गुरुराजेन" passages among them).
 _QQ = "[\"']"
 _BOOK_ID_RE = re.compile(

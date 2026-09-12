@@ -1,18 +1,18 @@
 """Canonical public URLs and labels for every DGE taxonomy path (tools/seo, 7 Sep 2026).
 
-The internal slug (the folder under dge/data, e.g. vedas/rigveda/shakala_shakha/samhita/mandala_01) is a storage
+The internal slug (the folder under data, e.g. vedas/rigveda/shakala_shakha/samhita/mandala_01) is a storage
 location. The public URL describes the literary entity and never changes when files move:
 
-    vedas/rigveda/shakala_shakha/samhita/mandala_01   →  /dge/veda/rigveda/samhita/mandala-1/
-    DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_1         →  /dge/kavya/raghavendra-vijaya/sarga-1/
-    itihasa/mahabharata/adi_parva/mula                →  /dge/itihasa/mahabharata/adi-parva/
+    vedas/rigveda/shakala_shakha/samhita/mandala_01   →  /veda/rigveda/samhita/mandala-1/
+    DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_1         →  /kavya/raghavendra-vijaya/sarga-1/
+    itihasa/mahabharata/adi_parva/mula                →  /itihasa/mahabharata/adi-parva/
 
 Rules (admin/config/seo.json): the top-level folder is renamed by rootMap; segments in dropSegments (the default
 `mula` layer) vanish; a taxonomy level with exactly one child everywhere in the catalogue collapses (Ṛgveda has only
 the Śākala śākhā, so `shakala_shakha` adds nothing); mandala_01 → mandala-1; underscores → hyphens; lowercase.
 The build refuses to run if two internal paths map to one public URL.
 
-Labels come from the same tables the Library drawer uses (DGE_PATH_LABELS / DGE_NUMBERED_PREFIXES in dge/js/library.js,
+Labels come from the same tables the Library drawer uses (DGE_PATH_LABELS / DGE_NUMBERED_PREFIXES in js/library.js,
 read from the file so there is one source of truth) plus admin/config/library-overrides.json's custom labels.
 """
 import json, re
@@ -20,7 +20,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 CFG = json.load(open(ROOT / "admin/config/seo.json", encoding="utf-8"))
-_LIBJS = (ROOT / "dge/js/library.js").read_text(encoding="utf-8")
+_LIBJS = (ROOT / "js/library.js").read_text(encoding="utf-8")
 
 
 def _js_object(name):
@@ -103,8 +103,8 @@ class Taxonomy:
         self.drop = set(CFG.get("dropSegments", []))
         self.root_map = CFG.get("rootMap", {})
         self.public_root = CFG.get("publicRoot", "/dge").rstrip("/")
-        # URLs the reader app already owns (its own index.html files under dge/): a generated index never
-        # replaces one of them; it moves to <url>texts/ instead (the root catalogue /dge/ -> /dge/texts/).
+        # URLs the reader app already owns (its own index.html files anywhere in the site): a generated index never
+        # replaces one of them; it moves to <url>texts/ instead (the root catalogue / -> /texts/).
         self.reserved = reserved_urls(self.public_root)
         self.catalogue = CFG.get("catalogueUrl") or self._free(self.public_root + "/")
         self._urls = {}
@@ -173,8 +173,8 @@ class Taxonomy:
 
 
 def reserved_urls(public_root, repo=None):
-    """Public URLs of the reader's own hand-written index.html files under dge/ (never dge/data)."""
-    root = (repo or ROOT) / "dge"
+    """Public URLs of the reader's own hand-written index.html files anywhere in the site (never data)."""
+    root = (repo or ROOT)
     out = set()
     for p in root.rglob("index.html"):
         rel = p.relative_to(root).parent.as_posix()
@@ -192,7 +192,7 @@ def public_slugs(library):
     for g in library:
         if not g.get("populated") or g.get("hidden"):
             continue
-        slug = g["path"].replace("dge/data/", "").replace("/data.json", "")
+        slug = g["path"].replace("data/", "").replace("/data.json", "")
         parts = slug.split("/")
         if any("/".join(parts[:i]) in hidden for i in range(1, len(parts) + 1)):
             continue
@@ -203,7 +203,7 @@ def public_slugs(library):
 
 
 if __name__ == "__main__":
-    lib = json.load(open(ROOT / "dge/data/library.json", encoding="utf-8"))["granthas"]
+    lib = json.load(open(ROOT / "data/library.json", encoding="utf-8"))["granthas"]
     slugs = public_slugs(lib)
     t = Taxonomy(slugs)
     print(len(slugs), "public granthas;", len(t.category_prefixes()), "category pages")

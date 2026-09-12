@@ -18,7 +18,7 @@
 
    <dge-header>/utility-rail and a general-purpose <dge-header> wrapping the
    reader's own top-bar are deliberately NOT part of this file. The
-   reader's top-bar/#actionsDrawer/popup system (dge/index.html) is a large,
+   reader's top-bar/#actionsDrawer/popup system (render.html) is a large,
    already-working, already-documented piece of the app with real
    containing-block/positioning constraints tied to its exact DOM position —
    it was never duplicated across pages (the audit that motivated this
@@ -49,7 +49,7 @@
   var LANDING_PAGE_URL = (function () {
     var self = (document.currentScript && document.currentScript.src) ||
                (window.DGE_SCRIPT_BASE || '');
-    try { return new URL('../../index.html', self).href; }
+    try { return new URL('../index.html', self).href; }
     catch (e) { return '../index.html'; } // fail soft, never throw
   })();
 

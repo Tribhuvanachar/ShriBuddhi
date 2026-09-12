@@ -8,7 +8,7 @@
   window.DGE_VERSIONS['grantha-reader.js'] =
     'v1.4 (bhashya layer = Setu Tila edition: structural headings, pathantara footnotes, pramana citations rendered) · v1.3 (mangala folded into the first pada as a collapsible section; 0.0 out of the pada dropdown so jijnasadhikarana is the first left-nav entry) · v1.2 (3 Sep 2026 report: filterable sutra drawer (☰) grouped by adhikarana · per-card "sarvah vyakhyah" expansion loading every commentary for ONE sutra · chip double-click FOCUS shows only the refs a commentary actually glosses, auto-enabling its chain, jumping to its first pada when the current one is empty · ⚙ settings: what a sutra-list tap opens; v1.1: adhikarana select + dividers, wrapped chips; v1.0: chain-depth chips, lazy layers, pada nav, #ref links)';
 
-  // v2 families available to this reader. Paths are relative to dge/.
+  // v2 families available to this reader. Paths are relative to .
   var REGISTRY = {
     brahma_sutra: {
       path: 'data/darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra',

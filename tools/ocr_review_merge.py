@@ -28,11 +28,11 @@ Undecided units are left out unless --include-undecided. Rejected units are
 never written. Every written item records the decision under
 verification.human, so a later run never applies it twice.
 
-    python3 tools/ocr_review_merge.py --staged dge/data/ocr_staging/isha/vision_pages_1-292.json \
-        --target dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/isha/tippani_x/data.json \
+    python3 tools/ocr_review_merge.py --staged data/ocr_staging/isha/vision_pages_1-292.json \
+        --target data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/isha/tippani_x/data.json \
         --schema grantha_tippani_text --title "ईशावास्योपनिषद्भाष्यटिप्पणी" --author "श्री…" --mode append
-    python3 tools/ocr_review_merge.py --staged dge/data/ocr_staging/kumara/mallinatha_canto1_pages1-40.json \
-        --sarga-dir dge/data/kavya_alankara/kumarasambhava
+    python3 tools/ocr_review_merge.py --staged data/ocr_staging/kumara/mallinatha_canto1_pages1-40.json \
+        --sarga-dir data/kavya_alankara/kumarasambhava
 """
 from __future__ import annotations
 

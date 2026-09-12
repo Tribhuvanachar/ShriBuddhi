@@ -11,7 +11,7 @@ enough (via --sarga-dir/--ocr-dir/--commentary-key) to reuse for a similar
 OCR'd-book ingestion later.
 
 Input shape expected per canto, produced by whatever did the OCR/transcribe
-pass (see dge/PENDING.md's Raghavendra Vijaya writeup for how this file's
+pass (see PENDING.md's Raghavendra Vijaya writeup for how this file's
 was produced -- parallel reading agents, not Gemini, since this is plain
 transcription/OCR-cleanup, not the kind of task the corpus needs verifying
 against itself):
@@ -19,14 +19,14 @@ against itself):
    "uncertain_boundaries": ["free-text notes on any verse split that took
    real judgment, e.g. one translated paragraph covering several stanzas"]}
 
-Target shape (the "legacy" DGE stotra format -- see dge/data/schemas.json's
+Target shape (the "legacy" DGE stotra format -- see data/schemas.json's
 _readme -- {metadata, shlokas: {"<n>": {sa, commentaries: {}}}}), one file
 per sarga:
   shlokas["<n>"]["commentaries"][commentary_key] = "<verse's English text>"
   metadata["availableCommentaries"][commentary_key] = "<display label>"
 
 Never invents text for a verse the OCR pass returned null for (leaves it
-unlinked) -- this project's "don't fabricate" rule (dge/PROJECT_BRIEF.md)
+unlinked) -- this project's "don't fabricate" rule (PROJECT_BRIEF.md)
 applies here as much as anywhere: a missing translation is honest; a guessed
 one is not.
 """

@@ -34,7 +34,7 @@ it, "Parasharasmritika zu ParDhSmriti", but the existing parashara_smriti
 leaf is a FLAT single-file leaf with no mula/tika substructure to attach
 a commentary to, and restructuring an already-populated, already-live
 leaf just to fit one commentary is out of scope here -- flagged in
-dge/PENDING.md instead) have a safe match this round.
+PENDING.md instead) have a safe match this round.
 
 Also fixes a real site-catalog gap unrelated to DCS: taxonomy.json has
 had vasistha_smriti and baudhayana_smriti leaves with no library.json
@@ -62,20 +62,20 @@ LICENCE = "CC-BY 4.0"
 OD = collections.OrderedDict
 
 ENTRIES = [
-    ("Vṛddhayamasmṛti", "dge/data/smriti_dharma/smriti/yama_smriti/data.json", "vriddha_yama_smriti", "यमस्मृतिः (वृद्धयमस्मृतिः)", None),
-    ("Kātyāyanasmṛti", "dge/data/smriti_dharma/smriti/katyayana_smriti/data.json", "katyayana_smriti", "कात्यायनस्मृतिः", "new_leaf"),
-    ("Nibandhasaṃgraha", "dge/data/vedas/upaveda/ayurveda/samhita/sushruta_samhita/tika_nibandhasangraha/data.json", "sushruta_nibandhasangraha", "सुश्रुतसंहिता (निबन्धसङ्ग्रहः — डल्हणः)", "new_leaf"),
+    ("Vṛddhayamasmṛti", "data/smriti_dharma/smriti/yama_smriti/data.json", "vriddha_yama_smriti", "यमस्मृतिः (वृद्धयमस्मृतिः)", None),
+    ("Kātyāyanasmṛti", "data/smriti_dharma/smriti/katyayana_smriti/data.json", "katyayana_smriti", "कात्यायनस्मृतिः", "new_leaf"),
+    ("Nibandhasaṃgraha", "data/vedas/upaveda/ayurveda/samhita/sushruta_samhita/tika_nibandhasangraha/data.json", "sushruta_nibandhasangraha", "सुश्रुतसंहिता (निबन्धसङ्ग्रहः — डल्हणः)", "new_leaf"),
 ]
 
 # library.json stubs for pre-existing taxonomy.json nodes with no catalog entry
 CATALOG_GAP_STUBS = [
-    ("dge/data/smriti_dharma/smriti/vasistha_smriti/data.json", "वसिष्ठस्मृतिः"),
-    ("dge/data/smriti_dharma/smriti/baudhayana_smriti/data.json", "बौधायनस्मृतिः"),
+    ("data/smriti_dharma/smriti/vasistha_smriti/data.json", "वसिष्ठस्मृतिः"),
+    ("data/smriti_dharma/smriti/baudhayana_smriti/data.json", "बौधायनस्मृतिः"),
 ]
 
 
 def merge_taxonomy():
-    path = os.path.join(REPO, "dge/data/taxonomy.json")
+    path = os.path.join(REPO, "data/taxonomy.json")
     with open(path, encoding="utf-8") as f:
         d = json.load(f, object_pairs_hook=collections.OrderedDict)
 
@@ -94,7 +94,7 @@ def merge_taxonomy():
 
 
 def update_library(populated_paths):
-    path = os.path.join(REPO, "dge/data/library.json")
+    path = os.path.join(REPO, "data/library.json")
     with open(path, encoding="utf-8") as f:
         d = json.load(f, object_pairs_hook=collections.OrderedDict)
     by_path = {g["path"]: g for g in d["granthas"]}
@@ -143,7 +143,7 @@ def run_imports():
             source_url=f"https://github.com/OliverHellwig/sanskrit/tree/master/dcs/data/conllu/files/{dcs_name}",
             licence=LICENCE,
             note=(
-                "{count} units across {chapters} -- see dge/PENDING.md, 23 Aug "
+                "{count} units across {chapters} -- see PENDING.md, 23 Aug "
                 "entry (batch 7, Smriti/Dharmashastra sweep), for how this was "
                 "matched."
             ),

@@ -1,10 +1,10 @@
 // DGE Module: footnote-engine.js
 // Renders a Gemini-enrichment block (see tools/gemini_enrich.py's
-// `gemini_enrichment: {segments, references}` shape, and dge/PENDING.md's
+// `gemini_enrichment: {segments, references}` shape, and PENDING.md's
 // "Reference Resolution Engine" for why every reference here carries a
 // confidence-tiered status rather than being presented as fact) as inline
 // superscript footnote markers plus a footnote list, matching the visual
-// pattern of dge/js/backlinks.js's citation popovers/links.
+// pattern of js/backlinks.js's citation popovers/links.
 window.DGE_VERSIONS = window.DGE_VERSIONS || {};
 window.DGE_VERSIONS['footnote-engine.js'] = 'v1.1 (footnote list items now show the same dge-ai-badge as commentary blocks, since every reference here started as a Gemini proposal)';
 

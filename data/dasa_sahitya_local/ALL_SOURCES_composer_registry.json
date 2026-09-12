@@ -1,11 +1,11 @@
 {
-  "_purpose": "Composer-level view across ALL FOUR Dasa Sahitya sources now collected: the web crawl (dge/data/DvaitaVedanta/Itara/DasaSahitya), and three local-asset imports (dge/data/dasa_sahitya_local/{dasa1,collection_padagalu,raw_dump}). Supersedes dasa1/cross_source_duplicate_review.json for the 5 composers that now appear in 3+ sources; that file's other findings (needs_human_review, web_side_likely_junk, app_composers_new_to_corpus) still stand and are not repeated here.",
+  "_purpose": "Composer-level view across ALL FOUR Dasa Sahitya sources now collected: the web crawl (data/DvaitaVedanta/Itara/DasaSahitya), and three local-asset imports (data/dasa_sahitya_local/{dasa1,collection_padagalu,raw_dump}). Supersedes dasa1/cross_source_duplicate_review.json for the 5 composers that now appear in 3+ sources; that file's other findings (needs_human_review, web_side_likely_junk, app_composers_new_to_corpus) still stand and are not repeated here.",
   "generated": "2026-08-19",
   "sources": {
-    "web": {"folder": "dge/data/DvaitaVedanta/Itara/DasaSahitya/composers/", "composers": 34, "compositions": 1396, "text_pairing": "Kannada + auto-transliteration only"},
-    "dasa1": {"folder": "dge/data/dasa_sahitya_local/dasa1/dasaru/", "composers": 135, "compositions": 13540, "text_pairing": "Kannada only; category-code form guess"},
-    "collection_padagalu": {"folder": "dge/data/dasa_sahitya_local/collection_padagalu/dasaru/", "composers": 4, "compositions": 145, "text_pairing": "Kannada + a genuine parallel English-transliteration body text (only source with this)"},
-    "raw_dump": {"folder": "dge/data/dasa_sahitya_local/raw_dump/dasaru/", "composers": 3, "plus": "1 unattributed genre-only file (ugabhoga.json)", "compositions": 1043, "text_pairing": "Kannada only, no titles/metadata at all"}
+    "web": {"folder": "data/DvaitaVedanta/Itara/DasaSahitya/composers/", "composers": 34, "compositions": 1396, "text_pairing": "Kannada + auto-transliteration only"},
+    "dasa1": {"folder": "data/dasa_sahitya_local/dasa1/dasaru/", "composers": 135, "compositions": 13540, "text_pairing": "Kannada only; category-code form guess"},
+    "collection_padagalu": {"folder": "data/dasa_sahitya_local/collection_padagalu/dasaru/", "composers": 4, "compositions": 145, "text_pairing": "Kannada + a genuine parallel English-transliteration body text (only source with this)"},
+    "raw_dump": {"folder": "data/dasa_sahitya_local/raw_dump/dasaru/", "composers": 3, "plus": "1 unattributed genre-only file (ugabhoga.json)", "compositions": 1043, "text_pairing": "Kannada only, no titles/metadata at all"}
   },
   "five_composers_in_3_or_4_sources": [
     {"composer": "Purandara Dasaru", "web": 306, "dasa1": 983, "collection_padagalu": 54, "raw_dump": 305, "note": "raw_dump's 305 and web's 306 are close in count but NOT verified as the same 305/306 songs — could be identical, could be a different overlapping-but-distinct subset. Needs a text-fingerprint pass, not just a count comparison, before assuming any two of these four are redundant with each other."},

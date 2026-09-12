@@ -1,4 +1,4 @@
-// dge/js/user-auth.js — Firebase-backed user accounts, roles & consent.
+// js/user-auth.js — Firebase-backed user accounts, roles & consent.
 // See FIREBASE_SETUP.md for the console steps that have to happen outside
 // this codebase first, and config.js's FIREBASE_CONFIG / AUTH_CONFIG for
 // the switches this file reads.
@@ -454,7 +454,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // 8 Sep 2026: a real signed-in admin/superadmin used to see none of the
 // admin tools unless they ALSO knew the separate ?superadmin=CODE passkey
-// (dge/js/admin-editor.js) — two unrelated systems for "is this an admin"
+// (js/admin-editor.js) — two unrelated systems for "is this an admin"
 // that never talked to each other. This bridges the REAL Firestore role
 // (enforced server-side by firestore.rules; see callerRole() there) onto
 // the same localStorage flags the passkey sets, and re-runs
@@ -500,7 +500,7 @@ function dgeVandanaAfterSignIn() {
     try { localStorage.removeItem('dge_vandana_day'); } catch (e) { /* ignore */ }
     try { sessionStorage.removeItem('dge_vandana_passed'); } catch (e) { /* ignore */ }
     var guard = document.querySelector('script[src*="vandana-guard.js"]');
-    var gate = new URL('../../index.html', guard ? guard.src : new URL('js/x.js', location.href).href);
+    var gate = new URL('../index.html', guard ? guard.src : new URL('js/x.js', location.href).href);
     if (gate.pathname === location.pathname) return;
     gate.searchParams.set('next', location.pathname + location.search + location.hash);
     setTimeout(function () { location.href = gate.href; }, 600);

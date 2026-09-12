@@ -1,9 +1,9 @@
 # Dasa Sahitya — two folders, one eventual corpus
 
 Two independent sources of Dasa Sahitya (Dasara Padagalu / Suladi / Ugabhoga
-/ ...) now exist side by side under `dge/data/`:
+/ ...) now exist side by side under `data/`:
 
-| | `dge/data/DvaitaVedanta/Itara/DasaSahitya/` | `dge/data/dasa_sahitya_local/` |
+| | `data/DvaitaVedanta/Itara/DasaSahitya/` | `data/dasa_sahitya_local/` |
 |---|---|---|
 | Source | Web crawl (madhwafestivals, dasasahithyamahithi, dasasahitya.net, ...) | Local Android-app SQLite assets (e.g. `dasa1.db`) |
 | Built by | `tools/DvaitaVedanta/Itara/DasaSahitya/import_DvaitaVedanta/Itara/DasaSahitya.py` | `tools/DvaitaVedanta/Itara/DasaSahitya/import_dasa_sahitya_local_db.py` |
@@ -26,7 +26,7 @@ importer since none share a schema. Every source lands in its own subfolder
 (`dasa_sahitya_local/<asset-name>/...`) so nothing overwrites a sibling:
 
 ```
-dge/data/dasa_sahitya_local/
+data/dasa_sahitya_local/
   dasa1/                       -- Android SQLite asset (dasa1.db): 135 dasaru, 13540 keerthanas
     index.json                          -- manifest: counts, category guess, per-dasaru file list
     cross_source_duplicate_review.json  -- composer-level overlap vs DvaitaVedanta/Itara/DasaSahitya/ (web crawl), tagged pending
@@ -46,15 +46,15 @@ expected next month) lands in its own subfolder the same way:
 ```
 # SQLite asset (Android app DB)
 python3 tools/DvaitaVedanta/Itara/DasaSahitya/import_dasa_sahitya_local_db.py \
-    --db /path/to/dasaN.db --out dge/data/dasa_sahitya_local --asset-name dasaN
+    --db /path/to/dasaN.db --out data/dasa_sahitya_local --asset-name dasaN
 
 # Firestore-style {index.json + one <slug>.json per dasaru} export
 python3 tools/DvaitaVedanta/Itara/DasaSahitya/import_dasa_sahitya_collection_json.py \
-    --src-dir /path/to/export --out dge/data/dasa_sahitya_local --asset-name <name>
+    --src-dir /path/to/export --out data/dasa_sahitya_local --asset-name <name>
 
 # Flat JSON-array-per-file dump, no per-record composer/metadata
 python3 tools/DvaitaVedanta/Itara/DasaSahitya/import_dasa_sahitya_flat_json.py \
-    --src-dir /path/to/files --out dge/data/dasa_sahitya_local --asset-name <name> \
+    --src-dir /path/to/files --out data/dasa_sahitya_local --asset-name <name> \
     --composer-map file.json=ಕನ್ನಡಹೆಸರು ... --no-composer-files genre_dump.json --no-composer-form ugabhoga
 ```
 Raw source files themselves are **not** committed (they're asset dumps, not
@@ -131,7 +131,7 @@ fresher copy of that asset shows up — it's a full regenerate, not additive.
 Decided and implemented (19 Aug 2026): `dasa1/`, `collection_padagalu/` and
 `raw_dump/` are `.gitignore`d from `main` and published instead to this
 repo's own `dasa-sahitya-local-dist` branch — same reasoning and mechanism
-as `dge/data/_wordnet/` → `wordnet-dist`, and the same repo's own
+as `data/_wordnet/` → `wordnet-dist`, and the same repo's own
 `SEARCH_ARCHITECTURE.md` rule ("a data branch of the same repository," not a
 new repo, for something this size class). `.github/workflows/
 publish-dasa-sahitya-local.yml` republishes it; `tools/DvaitaVedanta/Itara/DasaSahitya/
@@ -144,7 +144,7 @@ publish workflow to move it off `main`.
 
 This file (`ARCHITECTURE.md`) and `ALL_SOURCES_composer_registry.json` stay
 on `main` regardless — small, human-authored, and worth reading without a
-checkout of the dist branch, same as `dge/search_index_dist_README.md` stays
+checkout of the dist branch, same as `search_index_dist_README.md` stays
 on `main` while the 330MB it describes doesn't.
 
 ## Path to one folder — done (21 Aug 2026)
@@ -177,7 +177,7 @@ on `main` while the 330MB it describes doesn't.
    `ugabhoga.json` (278 items) into the existing `untitled.json` bucket via
    the same dedupe (3 exact duplicates against the web crawl's own untitled
    pile collapsed). **`dasa_sahitya_local/` is retired** — every composition
-   from every source now lives under `dge/data/DvaitaVedanta/Itara/DasaSahitya/composers/`.
+   from every source now lives under `data/DvaitaVedanta/Itara/DasaSahitya/composers/`.
    Final count: **15,863 compositions, 152 composer files, ~95 MB**.
 5. Repeat this same review (composer-identity check, category confirmation,
    fold-in) for each future asset as it arrives — one at a time, not

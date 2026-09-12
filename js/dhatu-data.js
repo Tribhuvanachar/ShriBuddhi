@@ -3,7 +3,7 @@
  * views (the single-root conjugation explorer / modal).
  *
  * The guru-data.js analogue for verb roots: ONE module fetched by every
- * selectable view (dge/vyakarana/dhatu/{view1..3}.html and the dialogue
+ * selectable view (vyakarana/dhatu/{view1..3}.html and the dialogue
  * chooser) so each layout renders the SAME real, precomputed corpus their own
  * way — never a client-side re-derivation. All data is committed (₹0):
  *   - prakriya/<gaṇa>/<code>.json : {code,dhatu,artha,gana,pada,forms,steps,krt}

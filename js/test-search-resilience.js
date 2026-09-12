@@ -1,6 +1,6 @@
 /*
  * test-search-resilience.js — plain-Node regression test for dge-search.js's
- * fetchJSON error handling. Run with: node dge/js/test-search-resilience.js
+ * fetchJSON error handling. Run with: node js/test-search-resilience.js
  *
  * A real query fans out to dozens of small requests through a third-party
  * CDN (jsDelivr) -- see SEARCH_ARCHITECTURE.md. Before this test existed,

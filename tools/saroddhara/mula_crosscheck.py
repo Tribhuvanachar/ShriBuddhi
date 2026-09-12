@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Cross-check every Bhāgavata Sāroddhāra verse against the DGE Madhva Bhāgavata mūla, word by word.
 
-    python3 tools/saroddhara/mula_crosscheck.py [--out dge/data/ocr_staging/bhagavata_saroddhara/verify_input/mula_crosscheck.json]
+    python3 tools/saroddhara/mula_crosscheck.py [--out data/ocr_staging/bhagavata_saroddhara/verify_input/mula_crosscheck.json]
 
 Policy (one text, not two): the DGE Madhva Bhāgavata is the master copy. A Sāroddhāra verse that the
 build verified against it already carries the DGE text verbatim (the print's OCR stays in `ocr`). This
@@ -14,8 +14,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools" / "saroddhara"))
 from build_saroddhara import load_bhp, ratio  # noqa: E402
-BASE = ROOT / "dge/data/bhagavata_saroddhara"
-OUT = ROOT / "dge/data/ocr_staging/bhagavata_saroddhara/verify_input/mula_crosscheck.json"
+BASE = ROOT / "data/bhagavata_saroddhara"
+OUT = ROOT / "data/ocr_staging/bhagavata_saroddhara/verify_input/mula_crosscheck.json"
 NOISE = str.maketrans("", "", "ऽ")   # avagraha is printed inconsistently
 
 

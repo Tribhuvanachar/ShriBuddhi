@@ -3,11 +3,11 @@
 
 Runs on GitHub Actions (or Colab).  Reads config/works.json, fetches each
 declared source, parses it into itihasa_purana_text layers, and merges them
-non-destructively into dge/data/kavya_alankara/.
+non-destructively into data/kavya_alankara/.
 
   python3 -m kavya.import_kavya --probe-only
   python3 -m kavya.import_kavya --works raghuvamsha,meghaduta
-  python3 -m kavya.import_kavya --all --data-root ../dge/data
+  python3 -m kavya.import_kavya --all --data-root ../data
 
 --probe-only fetches, reports what each source actually contains (including
 any commentary key not yet declared in works.json) and writes NOTHING.  Run it
@@ -315,7 +315,7 @@ def main(argv=None):
     p.add_argument("--works", help="comma-separated work ids")
     p.add_argument("--sources", help="comma-separated source keys")
     p.add_argument("--all", action="store_true", help="every work in works.json")
-    p.add_argument("--data-root", default="dge/data")
+    p.add_argument("--data-root", default="data")
     p.add_argument("--probe-only", action="store_true",
                    help="fetch and report, write nothing")
     p.add_argument("--offline-dir", help="read sources from a local directory "

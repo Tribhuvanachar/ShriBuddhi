@@ -1,4 +1,4 @@
-// dge/js/corpus-fetch.js — the one place a grantha's data.json is fetched.
+// js/corpus-fetch.js — the one place a grantha's data.json is fetched.
 //
 // THE SWITCH. Two ways to read the corpus live behind this file:
 //
@@ -43,8 +43,8 @@ window.DGE_VERSIONS['corpus-fetch.js'] = 'v1.0 (11 Sep 2026: corpusBase switch �
   /**
    * The corpus-relative object path ("x/y/data.json") behind whatever the
    * reader is holding — a fetch-relative "data/x/y/data.json", a repo-rooted
-   * "dge/data/x/y/data.json", or a full CDN URL under kavyaDataBase. The
-   * proxy names files by their on-disk path under dge/data/, so all three
+   * "data/x/y/data.json", or a full CDN URL under kavyaDataBase. The
+   * proxy names files by their on-disk path under data/, so all three
    * have to come back to the same string.
    */
   window.dgeCorpusObjectPath = function (url) {

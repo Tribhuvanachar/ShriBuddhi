@@ -1,4 +1,4 @@
-// dge/js/chandas-report.js — Vṛtta report core, shared by the site and the
+// js/chandas-report.js — Vṛtta report core, shared by the site and the
 // Node precompute pass (tools/chandas/build_chandas_reports.js loads this file
 // unmodified, the way chandas_runner.js loads chandas.js). One implementation,
 // so a report generated in the browser and one shipped in the repo agree.

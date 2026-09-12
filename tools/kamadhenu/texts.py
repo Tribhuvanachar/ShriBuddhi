@@ -100,7 +100,7 @@ def load_work(work, pattern, kind, label):
         if k == "hks":
             # Kannada ṣaṭpadi verses: items {id: hks-<sandhi>-<n>, sa: Kannada text, sandhi_number, sandhi_title}.
             # The Chandas engine and SLP1 path are Devanagari-only, so the text is folded code-point-wise
-            # (same fold as dge/build_search_index.py); the Kannada original is kept as text_kannada.
+            # (same fold as build_search_index.py); the Kannada original is kept as text_kannada.
             for it in d.get("items", []):
                 m = re.match(r"hks-(\d+)-(\d+)$", str(it.get("id", "")))
                 if not m or not it.get("sa"):
@@ -160,7 +160,7 @@ def run():
     by_work = {}
     for u in uniq:
         by_work[u["work"]] = by_work.get(u["work"], 0) + 1
-    out = {"_readme": "Canonical DGE text units for audio mapping. text = cleaned Devanagari (HTML/verse numbers/daṇḍas removed); slp1/phonetic_key use the same folds as dge/search_toolkit_pkg so matching agrees with site search. dge_audio_url = the URL the DGE player itself would use for this verse (null when DGE links no audio).",
+    out = {"_readme": "Canonical DGE text units for audio mapping. text = cleaned Devanagari (HTML/verse numbers/daṇḍas removed); slp1/phonetic_key use the same folds as search_toolkit_pkg so matching agrees with site search. dge_audio_url = the URL the DGE player itself would use for this verse (null when DGE links no audio).",
            "generated_at": now_ist(), "counts": by_work, "units": uniq}
     write_json(DS / "text_index.json", out)
     log(f"texts: {len(uniq)} units across {len(by_work)} works")

@@ -2,7 +2,7 @@
 """validate_grantha.py — integrity checks for grantha_work_v2 trees
 (tools/reports/grantha_data_architecture.md).
 
-For every work.json under dge/data/** with schema grantha_work_v2:
+For every work.json under data/** with schema grantha_work_v2:
   - every declared layer has a data.json whose unit count matches
   - unit ids are well-formed ("<a>.<p>.<s>.p<n>"), unique, and their ref
     prefix matches the unit's own ref field
@@ -91,7 +91,7 @@ def validate_work(work_dir: Path, quiet: bool) -> list[str]:
 
 def main(argv=None) -> int:
     quiet = "--quiet" in (argv or sys.argv[1:])
-    roots = sorted(Path("dge/data").rglob("work.json"))
+    roots = sorted(Path("data").rglob("work.json"))
     all_errs: list[str] = []
     for wj in roots:
         try:

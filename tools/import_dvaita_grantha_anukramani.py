@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Import the द्वैतवेदान्तग्रन्थानुक्रमणी bibliography (a scholar's Excel
 catalogue of every known Dvaita Vedanta work, digitised or not) into the
-committed JSON that dge/dvaita-grantha-anukramani/ reads.
+committed JSON that dvaita-grantha-anukramani/ reads.
 
 This is a BIBLIOGRAPHY, not the corpus itself: most rows have no digitised
-text anywhere in dge/data/ yet (many are marked अनुपलब्ध/manuscript-only).
+text anywhere in data/ yet (many are marked अनुपलब्ध/manuscript-only).
 
 WHAT THE SHEET ACTUALLY IS
 --------------------------
@@ -31,14 +31,14 @@ page's review tabs. None of it silently rewrites the sheet's own data:
   plainly commentaries: 'प्रमाणपद्धतिटीका' ×18 sits at depth 0 while
   'प्रमाणपद्धतिः' is a row of its own. Where a parentless row's title is a
   known title plus a commentary word, that parent is suggested.
-* crossLinks -- candidate joins to dge/data/library.json (what is actually
+* crossLinks -- candidate joins to data/library.json (what is actually
   digitised), guru-parampara's own works lists, dāsa-sāhitya composers, and
-  dge/data/author_aliases.json's canonical person ids.
+  data/author_aliases.json's canonical person ids.
 
 Duplicate detection stays split three ways on purpose (see detect_duplicates).
 
 Run:  python3 tools/import_dvaita_grantha_anukramani.py <source.xlsx> \
-        --out dge/data/catalogs/dvaita_grantha_anukramani.json
+        --out data/catalogs/dvaita_grantha_anukramani.json
 
 Requires openpyxl and indic_transliteration (both local, no network).
 """
@@ -446,7 +446,7 @@ def build_cross_links(rows, masters, data_dir, repo_root):
                                           "personId": pid})
 
     # --- guru-parampara: node names, and the works those nodes list -------
-    para = load_json(os.path.join(repo_root, "dge", "guru-parampara", "data", "parampara.json"), {}) or {}
+    para = load_json(os.path.join(repo_root, "guru-parampara", "data", "parampara.json"), {}) or {}
     nodes = para.get("nodes") or {}
     if isinstance(nodes, dict):
         node_items = list(nodes.items())
@@ -492,8 +492,8 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__,
                                       formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("source", help="path to the .xlsx catalogue")
-    parser.add_argument("--out", default="dge/data/catalogs/dvaita_grantha_anukramani.json")
-    parser.add_argument("--data-dir", default="dge/data")
+    parser.add_argument("--out", default="data/catalogs/dvaita_grantha_anukramani.json")
+    parser.add_argument("--data-dir", default="data")
     parser.add_argument("--repo-root", default=".")
     args = parser.parse_args(argv)
 

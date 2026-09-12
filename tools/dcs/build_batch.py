@@ -5,7 +5,7 @@ previously-empty (populated:false) taxonomy leaf. Found by normalizing DCS's
 texts.csv names and library.json leaf titles/path segments (strip diacritics,
 lowercase, alnum-only) and taking exact matches -- deliberately conservative:
 no fuzzy/partial matching, so a wrong match never lands silently. See
-dge/PENDING.md, 24 Aug entry, for the matching method and its output.
+PENDING.md, 24 Aug entry, for the matching method and its output.
 
 Run from a shell that already has the DCS mirror's conllu files reachable
 at DCS_MIRROR (adjust the path below) and skrutable installed.
@@ -24,19 +24,19 @@ VENDOR_ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vendor")
 
 # (dcs_text_dir_name, taxonomy data.json path relative to repo root, slug for vendor subdir)
 BATCH = [
-    ("Agnipurāṇa", "dge/data/purana/agni_purana/data.json", "agni_purana"),
-    ("Matsyapurāṇa", "dge/data/purana/matsya_purana/data.json", "matsya_purana"),
-    ("Kālikāpurāṇa", "dge/data/purana/upapuranas/kalika_purana/data.json", "kalika_purana"),
-    ("Narasiṃhapurāṇa", "dge/data/purana/upapuranas/narasimha_purana/data.json", "narasimha_purana"),
-    ("Varāhapurāṇa", "dge/data/purana/varaha_purana/data.json", "varaha_purana"),
-    ("Gautamadharmasūtra", "dge/data/vedanga/kalpa/independent_dharmasutras/gautama_dharmasutra/data.json", "gautama_dharmasutra"),
-    ("Nirukta", "dge/data/vedanga/nirukta/data.json", "nirukta"),
-    ("Gopathabrāhmaṇa", "dge/data/vedas/atharvaveda/shaunaka_shakha/brahmana/gopatha_brahmana/data.json", "gopatha_brahmana"),
-    ("Aitareya-Āraṇyaka", "dge/data/vedas/rigveda/shakala_shakha/aranyakas/aitareya_aranyaka/data.json", "aitareya_aranyaka"),
-    ("Aitareyabrāhmaṇa", "dge/data/vedas/rigveda/shakala_shakha/brahmanas/aitareya_brahmana/data.json", "aitareya_brahmana"),
-    ("Jaiminīyabrāhmaṇa", "dge/data/vedas/samaveda/jaiminiya_shakha/brahmanas/jaiminiya_brahmana/data.json", "jaiminiya_brahmana"),
-    ("Sāmavidhānabrāhmaṇa", "dge/data/vedas/samaveda/kauthuma_shakha/brahmanas/samavidhana_brahmana/data.json", "samavidhana_brahmana"),
-    ("Maitrāyaṇīsaṃhitā", "dge/data/vedas/yajurveda/krishna_yajurveda/maitrayani_shakha/samhita/maitrayani_samhita/data.json", "maitrayani_samhita"),
+    ("Agnipurāṇa", "data/purana/agni_purana/data.json", "agni_purana"),
+    ("Matsyapurāṇa", "data/purana/matsya_purana/data.json", "matsya_purana"),
+    ("Kālikāpurāṇa", "data/purana/upapuranas/kalika_purana/data.json", "kalika_purana"),
+    ("Narasiṃhapurāṇa", "data/purana/upapuranas/narasimha_purana/data.json", "narasimha_purana"),
+    ("Varāhapurāṇa", "data/purana/varaha_purana/data.json", "varaha_purana"),
+    ("Gautamadharmasūtra", "data/vedanga/kalpa/independent_dharmasutras/gautama_dharmasutra/data.json", "gautama_dharmasutra"),
+    ("Nirukta", "data/vedanga/nirukta/data.json", "nirukta"),
+    ("Gopathabrāhmaṇa", "data/vedas/atharvaveda/shaunaka_shakha/brahmana/gopatha_brahmana/data.json", "gopatha_brahmana"),
+    ("Aitareya-Āraṇyaka", "data/vedas/rigveda/shakala_shakha/aranyakas/aitareya_aranyaka/data.json", "aitareya_aranyaka"),
+    ("Aitareyabrāhmaṇa", "data/vedas/rigveda/shakala_shakha/brahmanas/aitareya_brahmana/data.json", "aitareya_brahmana"),
+    ("Jaiminīyabrāhmaṇa", "data/vedas/samaveda/jaiminiya_shakha/brahmanas/jaiminiya_brahmana/data.json", "jaiminiya_brahmana"),
+    ("Sāmavidhānabrāhmaṇa", "data/vedas/samaveda/kauthuma_shakha/brahmanas/samavidhana_brahmana/data.json", "samavidhana_brahmana"),
+    ("Maitrāyaṇīsaṃhitā", "data/vedas/yajurveda/krishna_yajurveda/maitrayani_shakha/samhita/maitrayani_samhita/data.json", "maitrayani_samhita"),
 ]
 
 
@@ -68,7 +68,7 @@ def main():
                 "{count} units across {chapters} DCS carries of this text "
                 "(may be an excerpt, not necessarily the complete classical "
                 "work -- not independently checked against a full edition). "
-                "See dge/PENDING.md, 24 Aug entry, for how this was matched."
+                "See PENDING.md, 24 Aug entry, for how this was matched."
             ),
             tag="dcs-import",
         )

@@ -2,7 +2,7 @@
 """Import Śrī Vedavyāsa Gadyam (Yādavārya, a disciple-devotee of Vedeśa Tīrtha) from sanskritdocuments.org into the
 DvaitaVedanta later-ācāryas shelf as a mūla text:
 
-    dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/vedavyasa_gadya/mula/data.json
+    data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/vedavyasa_gadya/mula/data.json
 
 Usage:  python3 tools/vedavyasa_gadya/build_gadya.py [--html cached.html]
 The gadya is prose: a chain of dative epithets of Vedavyāsa, each closed by a daṇḍa. One item per epithet
@@ -14,8 +14,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 URL = "https://sanskritdocuments.org/doc_deities_misc/vedavyAsagadyam.html"
-OUT_DIR = ROOT / "dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/vedavyasa_gadya"
-LIB_PATH = "dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/vedavyasa_gadya/mula/data.json"
+OUT_DIR = ROOT / "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/vedavyasa_gadya"
+LIB_PATH = "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/vedavyasa_gadya/mula/data.json"
 AUTHOR = "Yādavārya (यादवार्यः)"
 
 
@@ -52,7 +52,7 @@ def build(text):
 
 
 def register():
-    lib_p = ROOT / "dge/data/library.json"; tax_p = ROOT / "dge/data/taxonomy.json"
+    lib_p = ROOT / "data/library.json"; tax_p = ROOT / "data/taxonomy.json"
     lib = json.loads(lib_p.read_text(encoding="utf-8")); tax = json.loads(tax_p.read_text(encoding="utf-8"))
     entry = {"path": LIB_PATH, "populated": True, "title": "श्रीवेदव्यासगद्यम् (Vedavyāsa Gadyam, Yādavārya) — मूलम्",
              "addedAt": datetime.date.today().isoformat(),

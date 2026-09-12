@@ -1,5 +1,5 @@
 {
- "note": "DGE library curation overrides — a NON-DESTRUCTIVE display layer read by dge/js/library.js (v3+). Keys are effective (post-move) display paths; a move's source is an original taxonomy path and its dest is the subtree's FULL new display path. Commit to admin/config/library-overrides.json.",
+ "note": "DGE library curation overrides — a NON-DESTRUCTIVE display layer read by js/library.js (v3+). Keys are effective (post-move) display paths; a move's source is an original taxonomy path and its dest is the subtree's FULL new display path. Commit to admin/config/library-overrides.json.",
  "version": 1,
  "updatedAt": 1788999600000,
  "hidden": [],
@@ -64,7 +64,7 @@
   "darshana/vedanta/dvaita/DvaitaVedantaIn/others/vyakaranam"
  ],
  "shelf": {
-  "_readme": "GO-LIVE SHELF, 17 Sep 2026. An ALLOW-list: a display path that is neither one of these, nor an ancestor of one, nor under one, is hidden from the Library drawer AND from global search for everyone except an admin (and any role named in openToRoles). The opposite direction from `hidden` above, and the right one for a launch -- a grantha nobody remembered to list stays private instead of going live by accident. Paths here are DISPLAY paths (post-`moves`), the same form `hidden` and `labels` use. Set enabled:false to open the whole library again. Matching lives in dgeMatchShelf (dge/js/role-access.js), tested in dge/firebase/tests/role-access.test.js.",
+  "_readme": "GO-LIVE SHELF, 17 Sep 2026. An ALLOW-list: a display path that is neither one of these, nor an ancestor of one, nor under one, is hidden from the Library drawer AND from global search for everyone except an admin (and any role named in openToRoles). The opposite direction from `hidden` above, and the right one for a launch -- a grantha nobody remembered to list stays private instead of going live by accident. Paths here are DISPLAY paths (post-`moves`), the same form `hidden` and `labels` use. Set enabled:false to open the whole library again. Matching lives in dgeMatchShelf (js/role-access.js), tested in firebase/tests/role-access.test.js.",
   "enabled": true,
   "allow": [
    "DvaitaVedanta/Itara/Kavya/sumadhva_vijaya",

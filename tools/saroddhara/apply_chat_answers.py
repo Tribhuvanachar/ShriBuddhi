@@ -8,7 +8,7 @@
 
 One text, not two: the DGE Madhva Bhāgavata is the master. decision=dge copies the master into the Sāroddhāra;
 decision=printed (a confirmed variant reading in the printed edition) rewrites the Sāroddhāra and, with
---sync-bhagavata, the matching shloka in dge/data/purana/maha_purana/bhagavata_purana_madhva as well, keeping the
+--sync-bhagavata, the matching shloka in data/purana/maha_purana/bhagavata_purana_madhva as well, keeping the
 old text in the shloka's `previous_text` + `revision` fields so the change is reviewable.
 
 Input is whatever the chat produced: a JSON list of {id, decision, verified_text, bhagavata_ref, pdf_page, note}
@@ -16,7 +16,7 @@ objects (the shape asked for in batch_*.json), optionally wrapped in ``` fences 
 or a dict keyed by id. decision: dge → take the DGE Madhva text listed as dge_mula_candidate in the batch file;
 printed → use verified_text; vision → accept the Vision OCR as is; unsure → recorded, nothing applied.
 Missing verses (ids not yet in the mūla) need verified_text + bhagavata_ref (+ pdf_page).
-Every accepted answer is merged into dge/data/ocr_staging/bhagavata_saroddhara/verify_output/answers.json
+Every accepted answer is merged into data/ocr_staging/bhagavata_saroddhara/verify_output/answers.json
 (the same file verify_queue.html exports) and then tools/saroddhara/apply_verified.py applies it — idempotent."""
 import argparse, json, re, sys, datetime
 from pathlib import Path
@@ -24,10 +24,10 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools" / "saroddhara"))
 import apply_verified  # noqa: E402
 from build_saroddhara import load_bhp, ngram_index, find_in_bhp, ratio  # noqa: E402
-STAGING = ROOT / "dge/data/ocr_staging/bhagavata_saroddhara"
+STAGING = ROOT / "data/ocr_staging/bhagavata_saroddhara"
 ANSWERS = STAGING / "verify_output/answers.json"
-MULA = ROOT / "dge/data/bhagavata_saroddhara/mula/data.json"
-BHP = ROOT / "dge/data/purana/maha_purana/bhagavata_purana_madhva"
+MULA = ROOT / "data/bhagavata_saroddhara/mula/data.json"
+BHP = ROOT / "data/purana/maha_purana/bhagavata_purana_madhva"
 
 
 def sync_bhagavata(ref, text, note, stamp):

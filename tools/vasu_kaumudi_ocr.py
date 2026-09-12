@@ -19,7 +19,7 @@ so Stage 2 keys purely on the SK number and the staged Devanagari is
 kept only as an audit trail, never displayed.
 
 Stage 2 is tools/merge_staged_vasu_kaumudi.py. Staged output goes under
-dge/data/ocr_staging/vasu_siddhanta_kaumudi/ by default.
+data/ocr_staging/vasu_siddhanta_kaumudi/ by default.
 
 Usage (the workflow .github/workflows/ocr-vasu-kaumudi.yml drives this):
   GEMINI_API_KEY=... VISION_API_KEY=... python3 tools/vasu_kaumudi_ocr.py \
@@ -167,7 +167,7 @@ def main(argv=None):
         return 1
 
     out_path = Path(args.out) if args.out else (
-        Path("dge/data/ocr_staging/vasu_siddhanta_kaumudi") /
+        Path("data/ocr_staging/vasu_siddhanta_kaumudi") /
         f"vol{args.volume}_pages{args.start_page}-{args.end_page}.json")
 
     with tempfile.TemporaryDirectory(prefix="vasu_sk_") as td:

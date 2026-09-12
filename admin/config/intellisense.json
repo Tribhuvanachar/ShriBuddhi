@@ -1,6 +1,6 @@
 {
   "_readme": [
-    "Sūtra intellisense — read by dge/js/intellisense.js.",
+    "Sūtra intellisense — read by js/intellisense.js.",
     "",
     "Turns sūtra citations in the running text into something a reader can tap, and",
     "identifies a rule from a half-remembered name. Missing or malformed file = the",
@@ -39,7 +39,7 @@
     "  everywhere else in the library the word occurs.",
     "",
     "  The analysis is Vidyut's, precomputed by tools/build_morphology.py into",
-    "  dge/data/_morph/ because Vidyut is a Rust binary over a 75 MB kośa and cannot",
+    "  data/_morph/ because Vidyut is a Rust binary over a 75 MB kośa and cannot",
     "  run in a browser. Coverage is real but partial: Vidyut resolves inflected",
     "  forms, not sandhi-joined ones, and the manifest records the exact figures.",
     "  A word with no analysis says so rather than pretending.",
@@ -74,7 +74,7 @@
     "  appConfig.wordnetDataBase at it; intellisense.js carries the same URL as",
     "  its default, since the four Vyakarana pages do not load config.js. Set",
     "  window.WORDNET_DATA_BASE to \u0027\u0027 to read a local build from",
-    "  dge/data/_wordnet/ instead; if that is not there either the fetch 404s and",
+    "  data/_wordnet/ instead; if that is not there either the fetch 404s and",
     "  the popover simply has no अर्थः section, everything else unaffected.",
     "  .github/workflows/publish-wordnet.yml rebuilds and republishes the branch.",
     "",
@@ -83,7 +83,7 @@
     "",
     "THE DATA",
     "",
-    "  dge/data/vedanga/vyakarana/ashtadhyayi/_index/, built by",
+    "  data/vedanga/vyakarana/ashtadhyayi/_index/, built by",
     "  tools/build_sutra_index.py. Rebuild it after editing the sūtrapāṭha.",
     "  The index loads only once a page turns out to cite a rule; the per-adhyāya",
     "  detail file loads only when a popover opens."

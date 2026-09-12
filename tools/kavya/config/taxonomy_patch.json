@@ -1,5 +1,5 @@
 {
- "note": "Additive patch for dge/data/taxonomy.json. Replaces the flat kavya_alankara node with the genre tree, preserving the five work ids that were already there (raghuvamsha, kumarasambhava, kiratarjuniya, shishupalavadha, sumadhva_vijaya) by re-parenting them, not by recreating them.",
+ "note": "Additive patch for data/taxonomy.json. Replaces the flat kavya_alankara node with the genre tree, preserving the five work ids that were already there (raghuvamsha, kumarasambhava, kiratarjuniya, shishupalavadha, sumadhva_vijaya) by re-parenting them, not by recreating them.",
  "rupaka_source": "Dasarupaka 1.8 lists ten rupakas; natika, prakarani and sattaka are the three commonly appended forms. Confirm against your existing menu before merging.",
  "preserve_ids": [
   "raghuvamsha",

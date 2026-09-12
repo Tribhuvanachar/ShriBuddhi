@@ -1,9 +1,9 @@
 """
 gemini_client.py — shared Gemini REST client for DGE's batch enrichment
 scripts (tools/gemini_enrich.py, tools/gemini_summarize.py, and any future
-one). Mirrors dge/js/gemini.js's request shape and its deliberately
+one). Mirrors js/gemini.js's request shape and its deliberately
 retry-less, one-fallback-attempt error handling (see
-dge/GEMINI_ERROR_HANDLING.md for why this codebase does not build a
+GEMINI_ERROR_HANDLING.md for why this codebase does not build a
 backoff loop around Gemini's own quota errors). Uses only the standard
 library (urllib) -- no new dependency, and no state of its own: every
 call takes its own api_key/model, so callers control retries/concurrency.
@@ -27,7 +27,7 @@ from datetime import datetime, timezone
 API_URL_TMPL = "https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={key}"
 DEFAULT_MODEL = "gemini-flash-latest"
 FALLBACK_MODEL = "gemini-flash-lite-latest"
-# same three kinds dge/js/gemini.js falls back on -- see shouldFallback() there
+# same three kinds js/gemini.js falls back on -- see shouldFallback() there
 FALLBACK_ELIGIBLE = {"quota", "model_missing", "overloaded"}
 
 
@@ -38,7 +38,7 @@ class GeminiError(Exception):
 
 
 def classify_error(status: int) -> str:
-    # same status -> kind mapping as dge/js/gemini.js's classifyError()
+    # same status -> kind mapping as js/gemini.js's classifyError()
     if status == 400:
         return "bad_request"
     if status in (401, 403):
@@ -142,7 +142,7 @@ def call_gemini(
 ) -> dict:
     """One attempt against `model`; one fallback attempt against
     FALLBACK_MODEL only for quota/model_missing/overloaded -- deliberately no
-    retry/backoff loop beyond that, matching dge/js/gemini.js's generate().
+    retry/backoff loop beyond that, matching js/gemini.js's generate().
     Returns the parsed JSON object Gemini's structured output produced.
 
     Pass a `usage_totals` dict (e.g. {}) to have this call's real token

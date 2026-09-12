@@ -3,19 +3,19 @@
 
     python3 tools/seo/build_seo_site.py --out _site [--only vedas/rigveda] [--no-translit] [--quiet]
 
-Reads dge/data/library.json + each data.json, decides pages (see paginate()), and writes under <out>:
+Reads data/library.json + each data.json, decides pages (see paginate()), and writes under <out>:
     <publicRoot>/<category>/…/index.html         category index pages (children, counts, descriptions)
     <publicRoot>/…/<grantha>/index.html          the grantha: its text when it fits, else a section index
     <publicRoot>/…/<grantha>/<section>/index.html  sūkta / adhyāya / sarga / part pages with the verses inline
     sitemap.xml (+ sitemap-pages-N.xml)          canonical URLs only
     robots.txt                                   the repo's, with the sitemap line
-    dge/data/seo_urls.json                       slug → canonical URL/title, also written into the repo so the
+    data/seo_urls.json                       slug → canonical URL/title, also written into the repo so the
                                                  interactive reader can point its rel=canonical at the page
 
 Every page: unique <title> and description, <link rel=canonical>, <html lang="sa">, visible breadcrumbs and a
 BreadcrumbList, an <h1>, the Sanskrit text as Unicode with IAST beside it, prev/next and parent/child <a href>
 links, a link into the interactive reader (short form ?rv1.1 when a key exists), JSON-LD (WebPage/CollectionPage
-+ the work as a CreativeWork). No JavaScript is needed to read a page. Nothing is written into dge/data except
++ the work as a CreativeWork). No JavaScript is needed to read a page. Nothing is written into data except
 seo_urls.json; the generated tree is a deploy artifact (see .github/workflows/seo-pages.yml), never committed.
 """
 import argparse, html, json, re, subprocess, sys, time
@@ -228,7 +228,7 @@ def paginate(slug, doc, max_bytes):
 def load_shortcut_table():
     try:
         out = subprocess.run(["node", "-e", "global.window={};require(process.argv[1]);console.log(JSON.stringify(window.DGEShortcuts.table.map(e=>({key:e.key,kind:e.kind,path:e.path||null,parts:e.parts||null,unit:e.unit||null,pick:!!e.pick}))))",
-                              str(ROOT / "dge/js/shortcuts.js")], capture_output=True, text=True, check=True).stdout
+                              str(ROOT / "js/shortcuts.js")], capture_output=True, text=True, check=True).stdout
         return json.loads(out)
     except Exception:  # noqa: BLE001
         return []
@@ -294,8 +294,8 @@ class Site:
         self.out = Path(out); self.quiet = quiet; self.translit = translit
         self.origin = CFG["siteOrigin"].rstrip("/") + CFG.get("sitePrefix", "").rstrip("/")
         self.site_name = CFG.get("siteName", "Sarvamūla Digital Library")
-        self.lib = json.load(open(ROOT / "dge/data/library.json", encoding="utf-8"))["granthas"]
-        self.by_slug = {g["path"].replace("dge/data/", "").replace("/data.json", ""): g for g in self.lib}
+        self.lib = json.load(open(ROOT / "data/library.json", encoding="utf-8"))["granthas"]
+        self.by_slug = {g["path"].replace("data/", "").replace("/data.json", ""): g for g in self.lib}
         self.slugs = T.public_slugs(self.lib)
         self.tax = T.Taxonomy(self.slugs)
         self.table = load_shortcut_table()
@@ -309,7 +309,7 @@ class Site:
     # ---- pieces ----
     def abs_url(self, u): return self.origin + u
     def reader_url(self, slug, jump=None):
-        u = f"{CFG.get('sitePrefix', '')}/dge/index.html?path={slug}"
+        u = f"{CFG.get('sitePrefix', '')}/render.html?path={slug}"
         return u + (f"&jumpShloka={jump}" if jump else "")
     def write(self, url, html_text):
         p = self.out / url.strip("/") / "index.html"
@@ -343,7 +343,7 @@ class Site:
 <meta property="og:type" content="article">
 <meta property="og:url" content="{esc(self.abs_url(url))}">
 <meta property="og:site_name" content="{esc(self.site_name)}">
-<link rel="icon" href="{esc(CFG.get('sitePrefix', ''))}/dge/images/genie/favicon-48.png">
+<link rel="icon" href="{esc(CFG.get('sitePrefix', ''))}/images/genie/favicon-48.png">
 {extra_head}<style>{CSS}</style>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 </head>
@@ -354,7 +354,7 @@ class Site:
 <h1>{esc(h1_sa)}</h1>{f'<div class="en" lang="sa-Latn">{esc(h1_en)}</div>' if h1_en and h1_en != h1_sa else ''}
 {body}
 </main>
-<footer>{esc(self.site_name)} · <a href="{esc(CFG.get('sitePrefix', ''))}/dge/index.html">Interactive reader</a> · <a href="{esc(self.tax.catalogue)}">All texts</a></footer>
+<footer>{esc(self.site_name)} · <a href="{esc(CFG.get('sitePrefix', ''))}/render.html">Interactive reader</a> · <a href="{esc(self.tax.catalogue)}">All texts</a></footer>
 </body>
 </html>
 """
@@ -376,7 +376,7 @@ class Site:
     def build_grantha(self, slug):
         g = self.by_slug[slug]
         try:
-            doc = json.load(open(ROOT / "dge/data" / slug / "data.json", encoding="utf-8"))
+            doc = json.load(open(ROOT / "data" / slug / "data.json", encoding="utf-8"))
         except Exception as e:  # noqa: BLE001
             print("  skip", slug, e); return
         crumbs = self.tax.crumbs(slug)
@@ -545,7 +545,7 @@ class Site:
             sys.path.insert(0, str(ROOT / "tools")); import build_sitemap as legacy  # noqa: E402
             statics = [p for p in legacy.STATIC_PAGES]
         except Exception:  # noqa: BLE001
-            statics = ["index.html", "dge/index.html"]
+            statics = ["index.html", "render.html"]
         body = "".join(f"  <url><loc>{esc(self.origin + '/' + p)}</loc><lastmod>{NOW}</lastmod></url>\n" for p in statics)
         (self.out / "sitemap-static.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + body + "</urlset>\n", encoding="utf-8")
         files.append("sitemap-static.xml")
@@ -571,7 +571,7 @@ class Site:
                "sitemapUrls": n, "sitemapFiles": files, "duplicateTitles": dup_titles, "seconds": round(time.time() - t0)}
         (self.out / "seo-build.json").write_text(json.dumps(rep, indent=1), encoding="utf-8")
         if not only:
-            (ROOT / "dge/data/seo_urls.json").write_text(json.dumps({"builtAt": NOW, "publicRoot": CFG.get("publicRoot", "/dge"), "granthas": self.url_map},
+            (ROOT / "data/seo_urls.json").write_text(json.dumps({"builtAt": NOW, "publicRoot": CFG.get("publicRoot", "/dge"), "granthas": self.url_map},
                                                                      ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
         print(json.dumps(rep, indent=1))
         return rep

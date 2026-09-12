@@ -27,7 +27,7 @@ Two phases, both printed as a report and written to --out as JSON:
 Usage (needs GEMINI_API_KEY; this is a real, billed benchmark, not a
 dry-run -- keep --verses small):
   GEMINI_API_KEY=... python3 tools/gemini_bench.py \
-      --sarga-path dge/data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_2/data.json \
+      --sarga-path data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_2/data.json \
       --verses 12 --models gemini-flash-latest,gemini-flash-lite-latest \
       --batch-sizes 1,4,12 \
       --sweep-model gemini-flash-latest --sweep-batch-size 10 \

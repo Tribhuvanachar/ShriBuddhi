@@ -1,7 +1,7 @@
 {
  "_readme": [
   "Committed, public-facing Kosha visibility & presentation tiers, read by",
-  "dge/kosha2.html (and eventually the classic overlay). Unlike the old",
+  "kosha2.html (and eventually the classic overlay). Unlike the old",
   "localStorage-only kosha_hidden_dicts, this file applies to EVERY visitor.",
   "visibility tiers per dictionary slug:",
   "  public        - searchable and browsable (default when absent)",

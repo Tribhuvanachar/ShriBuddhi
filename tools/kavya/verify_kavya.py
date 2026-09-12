@@ -133,7 +133,7 @@ def _iter(layer):
 
 def main(argv=None):
     p = argparse.ArgumentParser()
-    p.add_argument("--data-root", default="dge/data")
+    p.add_argument("--data-root", default="data")
     p.add_argument("--no-index-check", action="store_true")
     args = p.parse_args(argv)
     r = verify(args.data_root, strict_index=not args.no_index_check)

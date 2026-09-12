@@ -42,7 +42,7 @@ first --
   rank 2  DvaitaVedanta/Itara/DasaSahitya (Vyasakuta/Haridasa works)
   rank 3  everything else (itihasa, kavya, purana, smriti, ...)
 
-Output: dge/data/vedanga/vyakarana/ashtadhyayi/prayoga_index/a<N>.json, one
+Output: data/vedanga/vyakarana/ashtadhyayi/prayoga_index/a<N>.json, one
 per adhyaya:  {sutra_id: {"n": total_found, "e": [[slug, unit, kind, rank,
 snippet], ...]}} with at most MAX_PER_SUTRA entries kept per sutra (lowest
 rank first), and manifest.json with counts. The sutra page's
@@ -64,7 +64,7 @@ from pathlib import Path
 import ahocorasick
 
 REPO = Path(__file__).resolve().parent.parent
-DATA = REPO / 'dge/data'
+DATA = REPO / 'data'
 SUTRAPATHA = DATA / 'vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json'
 OUT = DATA / 'vedanga/vyakarana/ashtadhyayi/prayoga_index'
 

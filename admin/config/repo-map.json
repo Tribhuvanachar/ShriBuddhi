@@ -110,7 +110,7 @@
    "category": "review-needed",
    "purpose": "\"Workflow architecture: map the proposed lifecycle onto what exists\" — a planning/analysis commit, 1 ahead of main.",
    "recommendation": "review",
-   "notes": "Likely a design note rather than code; check if superseded by dge/GO_LIVE_ARCHITECTURE.md.",
+   "notes": "Likely a design note rather than code; check if superseded by GO_LIVE_ARCHITECTURE.md.",
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
@@ -326,7 +326,7 @@
     "ahead_of_main": 0,
     "behind_main": 690,
     "last_commit_date": "2026-08-28",
-    "last_commit_subject": "Regenerate sitemap.xml after dge/index.html's admin-menu edit",
+    "last_commit_subject": "Regenerate sitemap.xml after render.html's admin-menu edit",
     "last_author": "Claude",
     "checked_at": "2026-09-12 02:39 IST"
    }
@@ -387,9 +387,9 @@
   },
   "dasa-sahitya-local-dist": {
    "category": "review-needed",
-   "purpose": "An earlier build of the Dāsa Sāhitya corpus from local (non-scraped) assets, before it was merged onto main directly as dge/data/DvaitaVedanta/Itara/DasaSahitya/.",
+   "purpose": "An earlier build of the Dāsa Sāhitya corpus from local (non-scraped) assets, before it was merged onto main directly as data/DvaitaVedanta/Itara/DasaSahitya/.",
    "recommendation": "review",
-   "notes": "Not found referenced in any live dge/js/*.js file — the corpus now lives on main directly. Likely safe to delete once confirmed no page still points at it; kept as review rather than delete because it hasn't been individually diff-checked.",
+   "notes": "Not found referenced in any live js/*.js file — the corpus now lives on main directly. Likely safe to delete once confirmed no page still points at it; kept as review rather than delete because it hasn't been individually diff-checked.",
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 2,
@@ -455,7 +455,7 @@
     "ahead_of_main": 1,
     "behind_main": 1123,
     "last_commit_date": "2026-08-20",
-    "last_commit_subject": "data: gemini-enrich dge/data/dvaitavedanta/dasha_prakarana_granthas/vishnu_tattva_vinirnaya/tika_jayatirtha/data.json",
+    "last_commit_subject": "data: gemini-enrich data/dvaitavedanta/dasha_prakarana_granthas/vishnu_tattva_vinirnaya/tika_jayatirtha/data.json",
     "last_author": "Tribhuvanachar",
     "checked_at": "2026-09-12 02:39 IST"
    }
@@ -470,7 +470,7 @@
     "ahead_of_main": 1,
     "behind_main": 1121,
     "last_commit_date": "2026-08-20",
-    "last_commit_subject": "data: gemini-enrich dge/data/dvaitavedanta/dasha_prakarana_granthas/vishnu_tattva_vinirnaya/tika_jayatirtha/data.json",
+    "last_commit_subject": "data: gemini-enrich data/dvaitavedanta/dasha_prakarana_granthas/vishnu_tattva_vinirnaya/tika_jayatirtha/data.json",
     "last_author": "Tribhuvanachar",
     "checked_at": "2026-09-12 02:39 IST"
    }
@@ -485,7 +485,7 @@
     "ahead_of_main": 1,
     "behind_main": 1060,
     "last_commit_date": "2026-08-21",
-    "last_commit_subject": "data: gemini padaccheda/anvaya/summary for dge/data/kavya_alankara/raghavendra_vijaya (cantos 1)",
+    "last_commit_subject": "data: gemini padaccheda/anvaya/summary for data/kavya_alankara/raghavendra_vijaya (cantos 1)",
     "last_author": "Tribhuvanachar",
     "checked_at": "2026-09-12 02:39 IST"
    }
@@ -719,7 +719,7 @@
    "category": "runtime-dist",
    "purpose": "The built Kāvya corpus (43 works, 68 layers, 94,949 entries) — kept off main to stay under the GitHub Pages size limit, served to the browser via jsDelivr.",
    "recommendation": "keep",
-   "notes": "Referenced live in dge/js/config.js and dge/js/kavya.js. Rebuilt by import-kavya.yml.",
+   "notes": "Referenced live in js/config.js and js/kavya.js. Rebuilt by import-kavya.yml.",
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
@@ -965,7 +965,7 @@
    "category": "runtime-dist",
    "purpose": "The precomputed sandhi-vicheda index, served via jsDelivr.",
    "recommendation": "keep",
-   "notes": "Referenced live in dge/js/ai.js / config.js.",
+   "notes": "Referenced live in js/ai.js / config.js.",
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
@@ -1040,7 +1040,7 @@
    "category": "runtime-dist",
    "purpose": "The built Sanskrit WordNet index, served via jsDelivr for the same size reason.",
    "recommendation": "keep",
-   "notes": "Referenced live in dge/js/config.js. Rebuilt by publish-wordnet.yml.",
+   "notes": "Referenced live in js/config.js. Rebuilt by publish-wordnet.yml.",
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
@@ -1226,7 +1226,7 @@
   "deploy-firebase-functions.yml": {
    "category": "deploy",
    "display_name": "Deploy — Firebase Functions",
-   "purpose": "Deploys dge/firebase/functions (OTP, WhatsApp, donations, and the listWorkflows/runWorkflow pair that makes the Run buttons on this page work without a token in the browser).",
+   "purpose": "Deploys firebase/functions (OTP, WhatsApp, donations, and the listWorkflows/runWorkflow pair that makes the Run buttons on this page work without a token in the browser).",
    "notes": "Blocked until push-firebase-function-secrets has run once — every declared secret needs a version before any function deploys.",
    "recommendation": "keep",
    "reason": "Required for accounts, payments and one-click workflow runs.",
@@ -1349,7 +1349,7 @@
     "name": "Deploy — Firestore rules & indexes",
     "triggers": [
      "manual",
-     "push to main touching dge/firebase/firestore.rules, dge/firebase/firestore.indexes.json"
+     "push to main touching firebase/firestore.rules, firebase/firestore.indexes.json"
     ],
     "schedule": [],
     "inputs": [],
@@ -1627,7 +1627,7 @@
       "name": "sarga_path",
       "label": "One sarga's data.json to sample verses from",
       "type": "string",
-      "default": "dge/data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_2/data.json",
+      "default": "data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_2/data.json",
       "required": true
      },
      {
@@ -1715,7 +1715,7 @@
       "name": "sarga_dir",
       "label": "Directory of sarga_N/data.json subfolders to process",
       "type": "string",
-      "default": "dge/data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya",
+      "default": "data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya",
       "required": true
      },
      {
@@ -1807,7 +1807,7 @@
      },
      {
       "name": "model",
-      "label": "Gemini model to use. Default is gemini-flash-lite-latest -- see dge/PENDING.md's gemini-bench.yml entry for why.",
+      "label": "Gemini model to use. Default is gemini-flash-lite-latest -- see PENDING.md's gemini-bench.yml entry for why.",
       "type": "choice",
       "default": "gemini-flash-lite-latest",
       "required": true,
@@ -1882,7 +1882,7 @@
       "name": "target",
       "label": "Path to the grantha data.json to enrich",
       "type": "string",
-      "default": "dge/data/dvaitavedanta/dasha_prakarana_granthas/vishnu_tattva_vinirnaya/tika_jayatirtha/data.json",
+      "default": "data/dvaitavedanta/dasha_prakarana_granthas/vishnu_tattva_vinirnaya/tika_jayatirtha/data.json",
       "required": true
      },
      {
@@ -1948,7 +1948,7 @@
       "name": "sarga_dir",
       "label": "Directory of sarga_N/data.json subfolders to process",
       "type": "string",
-      "default": "dge/data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya",
+      "default": "data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya",
       "required": true
      },
      {
@@ -1974,7 +1974,7 @@
      },
      {
       "name": "model",
-      "label": "Gemini model to use. Default is gemini-flash-lite-latest: a real gemini-bench.yml run (see dge/PENDING.md) found gemini-flash-latest resolves to a thinking-capable model that spends MORE tokens on invisible internal reasoning than on the visible answer, making it 4-6x costlier for this task with no measured quality gain -- flash-lite does not do this.",
+      "label": "Gemini model to use. Default is gemini-flash-lite-latest: a real gemini-bench.yml run (see PENDING.md) found gemini-flash-latest resolves to a thinking-capable model that spends MORE tokens on invisible internal reasoning than on the visible answer, making it 4-6x costlier for this task with no measured quality gain -- flash-lite does not do this.",
       "type": "choice",
       "default": "gemini-flash-lite-latest",
       "required": true,
@@ -1985,7 +1985,7 @@
      },
      {
       "name": "batch_size",
-      "label": "Verses per Gemini request -- the cost lever (amortizes fixed prompt overhead across more verses). Default 10 per the gemini-bench.yml run in dge/PENDING.md. 1 = old one-verse-per-call behaviour.",
+      "label": "Verses per Gemini request -- the cost lever (amortizes fixed prompt overhead across more verses). Default 10 per the gemini-bench.yml run in PENDING.md. 1 = old one-verse-per-call behaviour.",
       "type": "string",
       "default": "10",
       "required": true
@@ -2316,7 +2316,7 @@
      },
      {
       "name": "dry_run",
-      "label": "Produce the dump but do not modify dge/data",
+      "label": "Produce the dump but do not modify data",
       "type": "boolean",
       "default": false,
       "required": false
@@ -2325,7 +2325,7 @@
     "secrets": [],
     "cost": [],
     "scripts": [
-     "dge/build_search_index.py",
+     "build_search_index.py",
      "tools/sayana_smriti/patches/taxonomy_patch.py",
      "tools/sayana_smriti/tests/test_core_patch.js",
      "tools/sayana_smriti/tests/test_parsers.py",
@@ -2382,7 +2382,7 @@
     "secrets": [],
     "cost": [],
     "scripts": [
-     "dge/build_search_index.py",
+     "build_search_index.py",
      "importers/dispatch.py",
      "tools/gen_library_status.py"
     ],
@@ -2396,16 +2396,16 @@
   "interlink.yml": {
    "category": "index-links",
    "display_name": "Cross-links — auto after any data change",
-   "purpose": "Whenever dge/data changes on main, rebuilds the small derived layers and commits them: sūtra and dhātu occurrence indexes, vṛtta (metre) reports, backlink shards, library status.",
+   "purpose": "Whenever data changes on main, rebuilds the small derived layers and commits them: sūtra and dhātu occurrence indexes, vṛtta (metre) reports, backlink shards, library status.",
    "recommendation": "keep",
    "reason": "Automatic; keeps every cross-reference current without anyone remembering.",
    "keep": true,
-   "trigger": "push to main (dge/data/**) + manual",
+   "trigger": "push to main (data/**) + manual",
    "generated": {
     "name": "DGE deep-interlink (auto, on library changes)",
     "triggers": [
      "manual",
-     "push to main touching dge/data/**, !dge/data/vedanga/vyakarana/ashtadhyayi/prayoga_index/**, !dge/data/vedanga/vyakarana/ashtadhyayi/_index/**"
+     "push to main touching data/**, !data/vedanga/vyakarana/ashtadhyayi/prayoga_index/**, !data/vedanga/vyakarana/ashtadhyayi/_index/**"
     ],
     "schedule": [],
     "inputs": [],
@@ -2698,7 +2698,7 @@
    "category": "index-links",
    "display_name": "Nightly — library sync and inventory (00:00 IST)",
    "purpose": "Every midnight: validates the corpus, refreshes library-status.json and the repository inventory (branch snapshots included) straight to main, runs the names audit as a report, and proposes catalogue repairs from audit_library.py --fix in one rolling pull request (nightly/library-sync) for a person to merge.",
-   "notes": "Followed at 00:30 IST by reindex.yml, which rebuilds the search index only if dge/data changed.",
+   "notes": "Followed at 00:30 IST by reindex.yml, which rebuilds the search index only if data changed.",
    "recommendation": "keep",
    "reason": "Keeps catalogue, status and inventory within a day of the data without anyone remembering.",
    "keep": true,
@@ -2744,7 +2744,7 @@
   "ocr-lakshmi-kaumudi.yml": {
    "category": "ocr",
    "display_name": "OCR — Lakṣmī Vyākhyā (Siddhānta-Kaumudī)",
-   "purpose": "Stage 1 of the Lakṣmī commentary: archive.org pages → Vision → Gemini proofread in pratīka mode → dge/data/ocr_staging/lakshmi_kaumudi. Sūtra alignment is a separate manual stage.",
+   "purpose": "Stage 1 of the Lakṣmī commentary: archive.org pages → Vision → Gemini proofread in pratīka mode → data/ocr_staging/lakshmi_kaumudi. Sūtra alignment is a separate manual stage.",
    "recommendation": "keep",
    "reason": "Book-specific but the book is not finished.",
    "keep": true,
@@ -2917,14 +2917,14 @@
      },
      {
       "name": "staged",
-      "label": "Path of the staged OCR file, e.g. dge/data/ocr_staging/isha_upanishad_bhashya_tippani/vision_pages_1-292.json",
+      "label": "Path of the staged OCR file, e.g. data/ocr_staging/isha_upanishad_bhashya_tippani/vision_pages_1-292.json",
       "type": "string",
       "default": "",
       "required": true
      },
      {
       "name": "target",
-      "label": "Layer to write (page/block OCR), e.g. dge/data/darshana/.../isha/tippani_x/data.json — blank for a Gemini commentary file",
+      "label": "Layer to write (page/block OCR), e.g. data/darshana/.../isha/tippani_x/data.json — blank for a Gemini commentary file",
       "type": "string",
       "default": "",
       "required": false
@@ -3060,7 +3060,7 @@
      },
      {
       "name": "work_slug",
-      "label": "Folder name under dge/data/ocr_staging/ for this work, e.g. raghavendra_vijaya",
+      "label": "Folder name under data/ocr_staging/ for this work, e.g. raghavendra_vijaya",
       "type": "string",
       "default": "",
       "required": true
@@ -3269,7 +3269,7 @@
   "ocr-vasu-kaumudi.yml": {
    "category": "ocr",
    "display_name": "OCR — Vasu's English Siddhānta-Kaumudī",
-   "purpose": "Same pipeline for S.C. Vasu's English translation, by archive.org volume, committed to dge/data/ocr_staging/vasu_siddhanta_kaumudi.",
+   "purpose": "Same pipeline for S.C. Vasu's English translation, by archive.org volume, committed to data/ocr_staging/vasu_siddhanta_kaumudi.",
    "recommendation": "keep",
    "reason": "Book-specific; volumes remain.",
    "keep": true,
@@ -3398,7 +3398,7 @@
      },
      {
       "name": "work_slug",
-      "label": "Folder under dge/data/ocr_staging/ and branch suffix, e.g. bhagavata_saroddhara",
+      "label": "Folder under data/ocr_staging/ and branch suffix, e.g. bhagavata_saroddhara",
       "type": "string",
       "default": "",
       "required": true
@@ -3586,7 +3586,7 @@
    "category": "content-import",
    "display_name": "Dāsa Sāhitya — publish local-asset imports to a dist branch",
    "purpose": "Moves the one-off imports built from local app exports (not scraped) onto the dasa-sahitya-local-dist branch and removes them from main to keep the Pages footprint small.",
-   "notes": "Its own header says nothing reads that branch yet, and dge/data/dasa_sahitya_local is still on main — so the move it exists for has not happened. Either run it once and delete it, or delete it and keep the folder.",
+   "notes": "Its own header says nothing reads that branch yet, and data/dasa_sahitya_local is still on main — so the move it exists for has not happened. Either run it once and delete it, or delete it and keep the folder.",
    "recommendation": "decide",
    "reason": "One-shot housekeeping whose job is undone; the lead decides whether the local dump leaves main.",
    "keep": false,
@@ -3600,7 +3600,7 @@
     "inputs": [
      {
       "name": "confirm_remove_from_source_branch",
-      "label": "After publishing, also remove dge/data/dasa_sahitya_local/ from the branch this ran on and add it to .gitignore (leaves it committed on dasa-sahitya-local-dist regardless)",
+      "label": "After publishing, also remove data/dasa_sahitya_local/ from the branch this ran on and add it to .gitignore (leaves it committed on dasa-sahitya-local-dist regardless)",
       "type": "boolean",
       "default": true,
       "required": false
@@ -3776,7 +3776,7 @@
   "reindex.yml": {
    "category": "index-links",
    "display_name": "Re-index — search index & library status (nightly 00:30 IST, or by hand)",
-   "purpose": "Rebuilds the ~330 MB corpus search index, force-publishes it to the search-dist branch (served by jsDelivr) and refreshes library status and backlinks. Nightly it runs only if dge/data changed since the last publish and bumps the CDN pin in dge/js itself; by hand it opens a PR and prints the hash unless bump_pin is on.",
+   "purpose": "Rebuilds the ~330 MB corpus search index, force-publishes it to the search-dist branch (served by jsDelivr) and refreshes library status and backlinks. Nightly it runs only if data changed since the last publish and bumps the CDN pin in js itself; by hand it opens a PR and prints the hash unless bump_pin is on.",
    "notes": "Remembers what it indexed in admin/config/search-index.state.json.",
    "recommendation": "keep",
    "reason": "The mechanism behind search.",
@@ -3818,14 +3818,14 @@
      },
      {
       "name": "bump_pin",
-      "label": "Bump the CDN pin in dge/js and commit it to main (what the nightly run does)",
+      "label": "Bump the CDN pin in js and commit it to main (what the nightly run does)",
       "type": "boolean",
       "default": false,
       "required": false
      },
      {
       "name": "force",
-      "label": "Rebuild even if dge/data has not changed since the last publish",
+      "label": "Rebuild even if data has not changed since the last publish",
       "type": "boolean",
       "default": true,
       "required": false
@@ -3834,7 +3834,7 @@
     "secrets": [],
     "cost": [],
     "scripts": [
-     "dge/build_search_index.py",
+     "build_search_index.py",
      "tools/gen_library_status.py"
     ],
     "missing_scripts": [],
@@ -4223,9 +4223,9 @@
     "cost": [],
     "scripts": [
      "-m pytest",
-     "dge/js/test-gold-render.js",
-     "dge/js/test-parity.js",
-     "dge/js/test-search-resilience.js",
+     "js/test-gold-render.js",
+     "js/test-parity.js",
+     "js/test-search-resilience.js",
      "tools/audio_admin/test-audio-detect.js",
      "tools/audit_names.py",
      "tools/build_repo_inventory.py",

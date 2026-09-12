@@ -8,7 +8,7 @@
 // IMPORTANT, read before touching this file: this is a LIVE THIRD-PARTY
 // DEPENDENCY, not local computation. Every click sends the selected text
 // to dharmamitra.org over the network. That was a deliberate, informed
-// choice (see dge/PENDING.md, 23 Aug entries) -- not an assumption to
+// choice (see PENDING.md, 23 Aug entries) -- not an assumption to
 // silently extend. In particular: do NOT batch this across the corpus
 // (see tools/dcs/README.md's sandhi section) without separately deciding
 // how to be a considerate caller of someone else's free server; this file

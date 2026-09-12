@@ -2,7 +2,7 @@
 """Stage B — build the Bhāgavata Sāroddhāra grantha from merged OCR pages.
 
 Reads <work>/pages_merged.json (tools/saroddhara/ocr_merge.py) and the Vision page text, and writes:
-  dge/data/bhagavata_saroddhara/
+  data/bhagavata_saroddhara/
       mula/data.json                 366 Bhāgavata verses selected by Viṣṇutīrtha (one item per verse; category = prakaraṇa)
       tika_vishnutirtha/data.json    the svopajña commentary, one item per verse (same ids → layer-stitch)
       tika_tippani/data.json         footnotes, one item per verse that has any (tika_* so layer-stitch joins it)
@@ -19,8 +19,8 @@ from collections import defaultdict, Counter
 
 ROOT = Path(__file__).resolve().parents[2]
 DEV = str.maketrans("०१२३४५६७८९", "0123456789"); KAN = str.maketrans("೦೧೨೩೪೫೬೭೮೯", "0123456789")
-OUT_REL = "dge/data/bhagavata_saroddhara"
-BHP_REL = "dge/data/purana/maha_purana/bhagavata_purana_madhva"
+OUT_REL = "data/bhagavata_saroddhara"
+BHP_REL = "data/purana/maha_purana/bhagavata_purana_madhva"
 RE_VERSE_END = re.compile(r"(?:॥|\|\||।।|\|)\s*([०-९]{1,3})\s*(?:॥|\|\||।।|\|)")
 RE_HEADING = re.compile(r"(\S.{1,60}?प्रकरणम्)\s*[॥|]+\s*([०-९]{1,2})\s*[॥|]")
 RE_FOOT = re.compile(r"^\s*([०-९]{1,2})\s*[\.।]\s+(\S.*)$")
@@ -289,7 +289,7 @@ def write_viewer(vq, queue):
 
 def register(layers):
     """library.json entries, taxonomy node and _meta.json anchor — idempotent."""
-    lib_p = ROOT / "dge/data/library.json"; tax_p = ROOT / "dge/data/taxonomy.json"
+    lib_p = ROOT / "data/library.json"; tax_p = ROOT / "data/taxonomy.json"
     lib = json.loads(lib_p.read_text(encoding="utf-8")); tax = json.loads(tax_p.read_text(encoding="utf-8"))
     src = {"source": "Bhāgavata Sāroddhāra with svopajña ṭīkā, Acharya Vidyadhishthanam (Bengaluru) edition — scanned PDF supplied by the project lead; OCR: Google Vision + Tesseract, verified against the Madhva Bhāgavata in DGE",
            "licence": "Text of Śrī Viṣṇutīrtha (18th c.) is public domain; Kannada summaries/front matter are the edition's — editorial material, credited to the publisher"}
@@ -316,7 +316,7 @@ def register(layers):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--work", required=True, help="scratch dir holding merged/pages_merged.json, vision/pages.json, hi/*.png")
-    ap.add_argument("--write-data", action="store_true", help="write the dge/data layers (otherwise only the report/queue)")
+    ap.add_argument("--write-data", action="store_true", help="write the data layers (otherwise only the report/queue)")
     a = ap.parse_args()
     W = Path(a.work)
     merged = json.load(open(W / "merged/pages_merged.json", encoding="utf-8"))["pages"]

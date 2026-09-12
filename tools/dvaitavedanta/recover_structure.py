@@ -28,7 +28,7 @@ an adhikaraṇa is a derivation to be made and marked as derived, separately,
 and confirmed by someone who knows the text.
 
     python tools/dvaitavedanta/recover_structure.py --cache .dv_cache \\
-        --out dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/_structure.json
+        --out data/darshana/vedanta/dvaita/DvaitaVedantaIn/_structure.json
 """
 
 from __future__ import annotations

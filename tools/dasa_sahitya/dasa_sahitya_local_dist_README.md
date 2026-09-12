@@ -9,11 +9,11 @@ Pages footprint, the same reason `wordnet-dist`, `kavya-dist` and
 ## Why it is not on main
 
 The published site has very little headroom left under GitHub Pages' 1GB
-ceiling (see `dge/search_index_dist_README.md` and
-`dge/data/_wordnet`'s exclusion in `.gitignore` for the same story playing
+ceiling (see `search_index_dist_README.md` and
+`data/_wordnet`'s exclusion in `.gitignore` for the same story playing
 out twice already). This tree grows with every new asset a session imports,
 so it moved off `main` the first time it got large enough to matter — see
-`dge/data/dasa_sahitya_local/ARCHITECTURE.md`'s "Publishing-size flag"
+`data/dasa_sahitya_local/ARCHITECTURE.md`'s "Publishing-size flag"
 section for the reasoning at the time.
 
 ## What is in it
@@ -40,14 +40,14 @@ imported there with `tools/DvaitaVedanta/Itara/DasaSahitya/import_dasa_sahitya_{
 collection_json,flat_json}.py` — there is no live external source this
 branch can be rebuilt from the way `wordnet-dist` re-fetches IndoWordNet.
 A new asset arriving goes: import it locally in a session, commit
-`dge/data/dasa_sahitya_local/<new-asset>/` to a branch, then run
+`data/dasa_sahitya_local/<new-asset>/` to a branch, then run
 `.github/workflows/publish-dasa-sahitya-local.yml` against that branch to
 move it here.
 
 ## Promoting a composer out of here
 
 Once a composer's identity is confirmed as the same person already in
-`dge/data/DvaitaVedanta/Itara/DasaSahitya/composers/` (see `ALL_SOURCES_composer_registry.json`
+`data/DvaitaVedanta/Itara/DasaSahitya/composers/` (see `ALL_SOURCES_composer_registry.json`
 for what's already confirmed vs. still `needs_human_review`), add it to the
 `CONFIRMED` table in `tools/DvaitaVedanta/Itara/DasaSahitya/merge_confirmed_composers.py` and
 run it — it merges the compositions (deduped against what's already there)

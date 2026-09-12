@@ -2,7 +2,7 @@
 """Carry the द्वैतवेदान्तग्रन्थानुक्रमणी catalogue's findings back into the
 rest of the project.
 
-The catalogue (dge/data/catalogs/dvaita_grantha_anukramani.json) knows, for
+The catalogue (data/catalogs/dvaita_grantha_anukramani.json) knows, for
 740 distinct authors, every work the sheet attributes to them and how those
 works nest. Guru Paramparā knows 696 ācāryas but lists works on only 53 of
 them, as free English text. author_aliases.json declares 21 canonical
@@ -10,13 +10,13 @@ people and 11 spellings. This script joins the three.
 
 TWO OUTPUTS, DELIBERATELY DIFFERENT IN KIND
 -------------------------------------------
-1. dge/data/catalogs/author_works_index.json -- GENERATED, always safe to
+1. data/catalogs/author_works_index.json -- GENERATED, always safe to
    rewrite. Keyed by the project's own person id (which is the parampara
    node id, per author_aliases.json's own convention), it lists that
    person's catalogued works so guru-data.js can show them on every Guru
    Paramparā view without either side duplicating the other's data.
 
-2. Proposed additions to dge/data/author_aliases.json -- that file says of
+2. Proposed additions to data/author_aliases.json -- that file says of
    itself "Hand-maintained … leave it unmapped when it is not [certain]",
    so nothing is written without an explicit flag, and the two kinds of
    addition are separated because they are not equally safe:
@@ -47,12 +47,12 @@ import re
 from collections import OrderedDict
 from datetime import datetime, timezone
 
-CATALOGUE = "dge/data/catalogs/dvaita_grantha_anukramani.json"
-OVERRIDES = "dge/data/catalogs/dvaita_grantha_anukramani.overrides.json"
-ALIASES = "dge/data/author_aliases.json"
-PARAMPARA = "dge/guru-parampara/data/parampara.json"
-LIBRARY = "dge/data/library.json"
-WORKS_INDEX = "dge/data/catalogs/author_works_index.json"
+CATALOGUE = "data/catalogs/dvaita_grantha_anukramani.json"
+OVERRIDES = "data/catalogs/dvaita_grantha_anukramani.overrides.json"
+ALIASES = "data/author_aliases.json"
+PARAMPARA = "guru-parampara/data/parampara.json"
+LIBRARY = "data/library.json"
+WORKS_INDEX = "data/catalogs/author_works_index.json"
 
 
 def load(path, default=None):
@@ -166,7 +166,7 @@ def propose_alias_changes(cat, aliases, para, person_of, source):
 # vedanta/dvaita specific granthas. not other ones like vedas or sahitya" --
 # this catalogue is a Dvaita bibliography and has no authority over how the
 # Vedas, kavya or dasa sahitya spell their authors.
-LIBRARY_AUTHOR_SCOPE = ("dge/data/darshana/vedanta/dvaita/",)
+LIBRARY_AUTHOR_SCOPE = ("data/darshana/vedanta/dvaita/",)
 
 
 def canonical_author_map(aliases):
@@ -246,7 +246,7 @@ def sync_library_authors(aliases, apply_it):
     return planned, unmapped, changed_files
 
 
-DASA_INDEX = "dge/data/DvaitaVedanta/Itara/DasaSahitya/index.json"
+DASA_INDEX = "data/DvaitaVedanta/Itara/DasaSahitya/index.json"
 
 
 def dasa_alias_proposals(cat, overrides, aliases, person_of):

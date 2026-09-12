@@ -35,7 +35,7 @@ Per item, one of:
 
 Usage
     python tools/dvaitavedanta/verify_source_content.py \\
-        --data dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas \\
+        --data data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas \\
         --limit 50 --out /tmp/verify_report.json
 
     # Full sweep of everything scraped from dvaitavedanta.in, resumable:
@@ -60,7 +60,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from dv_parse import clean_text, parse_page  # noqa: E402
 from import_dvaitavedanta import Fetcher  # noqa: E402
 
-DEFAULT_DATA = "dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn"
+DEFAULT_DATA = "data/darshana/vedanta/dvaita/DvaitaVedantaIn"
 DEFAULT_CACHE = ".dv_cache"
 DEFAULT_UA = "Mozilla/5.0 (compatible; BhumandalaVerify/1.0; +https://github.com/Tribhuvanachar/bhumandala)"
 PROGRESS_EVERY = 5

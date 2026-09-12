@@ -7,7 +7,7 @@ projects provided that appropriate credits are mentioned" — credits are
 carried per-file in the attribution object below and rendered in each
 corpus page's footer.
 
-Corpora -> dge/data/vedanga/vyakarana/<slug>/data.json:
+Corpora -> data/vedanga/vyakarana/<slug>/data.json:
   fit             -> phitsutra        (Phit-sutras of Shantanava: svara rules)
   ganapath        -> ganapatha        (ganas w/ Ashtadhyayi sutra + members)
   linganushasanam -> linganushasana   (gender rules by adhikara)
@@ -25,7 +25,7 @@ MAP = [
     ("linganushasanam", "linganushasana", "लिङ्गानुशासनम्", "पाणिनिः"),
     ("unaadi", "unadi", "उणादिसूत्राणि", ""),
 ]
-OUT = "dge/data/vedanga/vyakarana"
+OUT = "data/vedanga/vyakarana"
 
 
 def main():

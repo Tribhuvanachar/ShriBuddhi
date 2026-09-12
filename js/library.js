@@ -1,4 +1,4 @@
-// dge/js/library.js — Library browser modal, window.openLibraryModal().
+// js/library.js — Library browser modal, window.openLibraryModal().
 // Renders every POPULATED grantha from data/library.json as a collapsible
 // TREE mirroring the real taxonomy folder structure, rather than one flat
 // list per top-level category. With four Vedas x shakha x samhita x
@@ -72,7 +72,7 @@ const DGE_PATH_LABELS = {
   // 23 Aug: upaveda/shastra, added per the project lead's own framework
   // (not this session's invention) -- Ayurveda and Dhanurveda under the
   // Upavedas, Natya/Kama/Niti-shastra and Buddhist literature under a
-  // Shastra catch-all. See dge/PENDING.md for what's still open (Tantra,
+  // Shastra catch-all. See PENDING.md for what's still open (Tantra,
   // Gandharvaveda/Sthapatyaveda have no sourced content yet).
   upaveda: 'उपवेदाः', ayurveda: 'आयुर्वेदः', dhanurveda: 'धनुर्वेदः',
   gandharvaveda: 'गान्धर्ववेदः', sthapatyaveda: 'स्थापत्यवेदः',
@@ -89,7 +89,7 @@ const DGE_PATH_LABELS = {
   // 23 Aug: Tantra/Saiva-Sakta cluster, deferred every earlier batch
   // until explicitly requested. shaiva_agama/shakta_agama moved here
   // from under agama.pancharatra (a Vaishnava-specific term that never
-  // fit) -- see dge/PENDING.md for that reparenting.
+  // fit) -- see PENDING.md for that reparenting.
   pashupata: 'पाशुपतम्', pratyabhijna: 'प्रत्यभिज्ञा',
   shaiva_siddhanta: 'शैवसिद्धान्तः', shaiva_agama: 'शैवागमः',
   shakta_agama: 'शाक्तागमः', natha_sampradaya: 'नाथसम्प्रदायः',
@@ -235,7 +235,7 @@ const DGE_PATH_LABELS = {
   // Chandas
   vrittaratnakara: 'वृत्तरत्नाकरः',
   // Agama restructure (25 Aug 2026) -- Vaishnava/Shaiva/Shakta/Kashmir Saiva/
-  // Natha-Hathayoga split, see dge/PENDING.md
+  // Natha-Hathayoga split, see PENDING.md
   vaishnava_agama: 'वैष्णवागमः', shakta_tantra: 'शाक्ततन्त्रम्', shakta_shaiva: 'शाक्तशैवम्',
   kashmir_shaivism: 'कश्मीरशैवम्', spanda: 'स्पन्दः', trika: 'त्रिकम्', krama: 'क्रमः',
   shiva_sutra: 'शिवसूत्राणि', shiva_sutra_vartika: 'शिवसूत्रवार्त्तिकम्',
@@ -254,14 +254,14 @@ const DGE_PATH_LABELS = {
   shankara_bhashya: 'शङ्करभाष्यम्', badhanta: 'बाधान्तः', brahmasutranyayasamgraha: 'ब्रह्मसूत्रन्यायसंग्रहः',
   // Dasa Sahitya composers (25 Aug 2026 taxonomy integration) --
   // Devanagari transliteration of each composer's own Kannada name in
-  // dge/data/DvaitaVedanta/Itara/DasaSahitya/index.json (generated with indic_transliteration,
+  // data/DvaitaVedanta/Itara/DasaSahitya/index.json (generated with indic_transliteration,
   // the same library tools/DvaitaVedanta/Itara/DasaSahitya/*.py uses for the compositions
   // themselves), plus hand-attested Devanagari for the major composers
   // whose index.json name is Latin (Purandara/Vijaya/Kanaka Dasaru etc.).
   // A handful of singleton, likely-mis-attributed 'composer' entries
   // (a title filed as a composer name, one URL-garbled slug, the honest
   // 'untitled' bucket) are left out on purpose rather than guessed --
-  // see dge/data/dasa_sahitya_local/ARCHITECTURE.md.
+  // see data/dasa_sahitya_local/ARCHITECTURE.md.
   composers: 'दाससाहित्यरचयितारः',
   acalanamdadasa: 'अचलानंददास', aihole_vemkatesa: 'ऐहॊळॆ वॆंकटेश', ambabayi: 'अंबाबायि', anamtadrisaru: 'अनंताद्रीशरु', anyadasaru: 'अन्यदासरु',
   askihala_govimda: 'अस्किहाळ गोविंद', asuri_ramasvamiayyamgar: 'असूरि रामस्वामिअय्यंगार्', badannayyacaryaru: 'बडण्णय्याचार्यरु', bagepalli_sesadasaru: 'बागेपल्लि शेषदासरु', belle_dasappayya: 'बॆळ्ळॆ दासप्पय्य',
@@ -307,7 +307,7 @@ const DGE_PATH_LABELS = {
   // from its slug. A handful of DvaitaVedanta/Itara/DasaSahitya/composers/* entries are left
   // unlabeled on purpose, same call as the earlier composer batch (a title
   // filed as a composer name, a URL-garbled slug, the honest 'untitled'
-  // bucket) -- see dge/PENDING.md.
+  // bucket) -- see PENDING.md.
   // Agama -- Kashmir Shaivism / Pashupata
   tika_nirnaya: 'निर्णयः',
   bhashya_kaundinya: 'भाष्यम् (कौण्डिन्यः)',
@@ -744,7 +744,7 @@ function dgeIsHiddenPath(path) {
   for (let i = 1; i <= parts.length; i++) {
     if (dgeLibOverrides.hidden.indexOf(parts.slice(0, i).join('/')) >= 0) return true;
   }
-  // Role-based content gates (see dge/js/role-access.js) -- a separate,
+  // Role-based content gates (see js/role-access.js) -- a separate,
   // Firestore-backed layer from the curator's own hidden list above, kept
   // as a second independent check rather than merged into dgeLibOverrides
   // so an admin gating a path by role doesn't have to touch the same
@@ -1061,9 +1061,9 @@ function dgeRenderNode(node, labelPrefix, depth, nodePath, noCollapseAtRoot) {
 // Folds a joinable multi-layer grantha's sibling entries — mula/ plus its
 // tika_*/ folders — into ONE tree leaf pointing at the mula spine, so 44
 // "श्रीमन्न्यायसुधा — tika_..." rows stop masquerading as unrelated works
-// (dge/MULTI_LAYER_READER_ARCHITECTURE.md §4). Strictly manifest-gated:
+// (MULTI_LAYER_READER_ARCHITECTURE.md §4). Strictly manifest-gated:
 // only granthas tools/build_layer_manifest.py measured as id-joinable are
-// in dge/data/layer_manifest.json, and within one, only layers with
+// in data/layer_manifest.json, and within one, only layers with
 // matched > 0 are absorbed — an unjoinable layer (different id scheme, or
 // a mis-split one-item folder from another leaf page) keeps its own row,
 // since the stitched view cannot reach it. Detection runs on realSlug
@@ -1142,7 +1142,7 @@ window.openLibraryModal = async function() {
   // Admin-curated overrides — see admin/library.html. Optional; most
   // repos won't have one until the project lead actually curates something.
   await dgeLoadLibraryOverrides();
-  // Role-based content gates — see dge/js/role-access.js. Must resolve
+  // Role-based content gates — see js/role-access.js. Must resolve
   // before the dgeIsHiddenPath() filters below run since that function
   // reads the cached gate list synchronously; loadRoleAccessConfig caches
   // after its first call so this is free on every subsequent open.
@@ -1358,7 +1358,7 @@ function dgeRenderLibraryGridView() {
 }
 
 /* =========================================================================
-   "View By" facets (25 Aug 2026) -- see dge/PENDING.md's Pancharatra pass.
+   "View By" facets (25 Aug 2026) -- see PENDING.md's Pancharatra pass.
 
    Principle: the taxonomy tree stays the ONE authoritative hierarchy for
    what a text IS (Ratnatraya/Pramukha/Anya, Vaishnava/Shaiva/Shakta, ...).
@@ -1403,7 +1403,7 @@ const DGE_VIEW_BY_FACETS = {
   // Upapurana, or one whose Maha/Upa status the tradition itself disputes
   // (e.g. Devi Bhagavata Purana) -- metadata alongside the physical
   // maha_purana/upa_purana split, not a replacement for it (see
-  // dge/PENDING.md's 25 Aug Purana pass).
+  // PENDING.md's 25 Aug Purana pass).
   purana_class: {
     label: 'पुराणवर्गः', extract: f => f && f.purana_class,
     values: { mahapurana: 'महापुराणम्', upapurana: 'उपपुराणम्', disputed: 'विवादास्पदम्', regional: 'प्रादेशिकम्' }
@@ -1926,7 +1926,7 @@ window.dgeQuickJumpKey = function (ev) {
 // A handful of taxonomy leaves are not shloka-shaped at all (a root/word
 // list, not verses) and have their own dedicated browser/search page
 // instead of being readable through the general reader. Opening one of
-// these via the normal ?path= route fed dge/index.html data it has no
+// these via the normal ?path= route fed render.html data it has no
 // renderer for — the library entry existed and looked clickable, but
 // nothing ever appeared ("Dhatu Patha... is not loading"). Keyed by the
 // realSlug PREFIX so a future sibling under the same folder is covered

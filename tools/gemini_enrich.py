@@ -4,7 +4,7 @@ gemini_enrich.py — batch reference/citation enrichment for one grantha's
 data.json.
 
 This exists because of a reviewed AI-architecture proposal (see
-dge/PENDING.md, "Gemini-enrichment pipeline") whose central point is: Gemini
+PENDING.md, "Gemini-enrichment pipeline") whose central point is: Gemini
 should identify quotations and citations embedded in commentary prose, but
 DGE's own corpus -- not Gemini -- decides whether a proposed source is real.
 So the flow here is:
@@ -14,21 +14,21 @@ So the flow here is:
      not "tell me everything about this text").
   2. Discard any span Gemini returns that is not an exact, verbatim substring
      of the input -- this project's "don't fabricate" rule (see
-     dge/PROJECT_BRIEF.md) applies to Gemini's own claimed quotation, not
+     PROJECT_BRIEF.md) applies to Gemini's own claimed quotation, not
      just to the source it guesses for it.
   3. Run every surviving span through tools/reference_resolution -- the local,
      network-free resolver -- to get a confidence-tiered verdict: verified /
      possible / unresolved, never "Gemini said so".
   4. Write the result back as an additive `gemini_enrichment` block (segments
-     + a references map) that dge/js/footnote-engine.js renders as footnotes.
+     + a references map) that js/footnote-engine.js renders as footnotes.
      Nothing else about the item is touched.
 
 Usage:
-  GEMINI_API_KEY=... python3 tools/gemini_enrich.py --target dge/data/.../data.json
-  python3 tools/gemini_enrich.py --target dge/data/.../data.json --dry-run
+  GEMINI_API_KEY=... python3 tools/gemini_enrich.py --target data/.../data.json
+  python3 tools/gemini_enrich.py --target data/.../data.json --dry-run
 
-Mirrors dge/js/gemini.js's request shape and its (deliberately retry-less)
-one-fallback-attempt error handling -- see dge/GEMINI_ERROR_HANDLING.md for
+Mirrors js/gemini.js's request shape and its (deliberately retry-less)
+one-fallback-attempt error handling -- see GEMINI_ERROR_HANDLING.md for
 why this codebase does not build a backoff loop around Gemini's own quota
 errors. Uses only the standard library (urllib) -- no new dependency.
 """

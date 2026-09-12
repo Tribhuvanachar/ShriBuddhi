@@ -45,9 +45,9 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-VRITTI = REPO / 'dge/data/vedanga/vyakarana/vritti'
-PRAKRIYA = REPO / 'dge/data/vedanga/vyakarana/prakriya'
-DHATUFORMS = REPO / 'dge/data/vedanga/vyakarana/dhatuforms'
+VRITTI = REPO / 'data/vedanga/vyakarana/vritti'
+PRAKRIYA = REPO / 'data/vedanga/vyakarana/prakriya'
+DHATUFORMS = REPO / 'data/vedanga/vyakarana/dhatuforms'
 
 NODE_MIN_TEXT = 600      # vrittis shorter than this stay as-is
 NODE_TARGET = 400        # aim for chunks around this size, on danda bounds

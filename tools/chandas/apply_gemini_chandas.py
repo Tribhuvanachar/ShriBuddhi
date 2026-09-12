@@ -5,10 +5,10 @@
     python3 tools/chandas/apply_gemini_chandas.py --seed-from-corpus
 
 Every example verse (Part A, Part D, and Part C `corrected_text`) is re-scanned with the real engine
-(dge/js/chandas.js via tools/kamadhenu/chandas_runner.js). An example is accepted only when the engine
+(js/chandas.js via tools/kamadhenu/chandas_runner.js). An example is accepted only when the engine
 names the claimed vṛtta; accepted examples go to
   * tests/fixtures/chandas_examples.json   — the regression suite (tests/test_chandas_examples.py), and
-  * dge/data/vedanga/chandas/data.json     — the `verified_examples` field of the matching metre row.
+  * data/vedanga/chandas/data.json     — the `verified_examples` field of the matching metre row.
 Parts B, C and D never change a lakṣaṇa or a grantha text by themselves: they are written to
 kamadhenu_dataset/chandas_gemini_review.md for a person to check against the cited authority.
 Rejected examples are listed in the same report with the engine's actual verdict.
@@ -23,7 +23,7 @@ from pathlib import Path
 from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[2]
-DB = ROOT / "dge" / "data" / "vedanga" / "chandas" / "data.json"
+DB = ROOT / "data" / "vedanga" / "chandas" / "data.json"
 FIXTURE = ROOT / "tests" / "fixtures" / "chandas_examples.json"
 INDEX = ROOT / "kamadhenu_dataset" / "text_index.json"
 REPORT = ROOT / "kamadhenu_dataset" / "chandas_gemini_review.md"

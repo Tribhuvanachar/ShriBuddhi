@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-restructure_taxonomy.py — move dge/data/ onto the recommended DGE taxonomy.
+restructure_taxonomy.py — move data/ onto the recommended DGE taxonomy.
 
 The corpus grew a folder at a time, so its top level is a mix of categories
 (puranas, itihasas), single works (shankara_bhashya), and a drawer called
@@ -28,13 +28,13 @@ import subprocess
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(REPO, 'dge', 'data')
+DATA = os.path.join(REPO, 'data')
 
 # ---------------------------------------------------------------------------
 # The mapping. Ordered longest-source-first when matched, so a mapping of a
 # subfolder is never shadowed by a mapping of its parent.
 #
-# Each entry: (source under dge/data/, destination under dge/data/, why)
+# Each entry: (source under data/, destination under data/, why)
 # ---------------------------------------------------------------------------
 MAPPING = [
     # --- Vedanga -----------------------------------------------------------
@@ -106,10 +106,10 @@ DECISIONS = [
      '  five renames cuts the change substantially and costs nothing structural.'),
 ]
 
-# Where else a path under dge/data/ is written down. Everything here has to be
+# Where else a path under data/ is written down. Everything here has to be
 # rewritten in the same commit as the move, or the site breaks.
 REFERENCE_GLOBS = ['.js', '.html', '.py', '.yml', '.yaml', '.json', '.md']
-SKIP_DIRS = {'.git', 'node_modules', 'dge/data', 'dge/search_index', '.github/workflows/logs'}
+SKIP_DIRS = {'.git', 'node_modules', 'data', 'search_index', '.github/workflows/logs'}
 
 # Files that name these paths but are produced by a script. Regenerate them
 # rather than editing them, or the next run undoes the edit.
@@ -154,15 +154,15 @@ def rewrite_prefix(slug, rules):
 
 
 def scan_references(sources):
-    """Every place outside dge/data/ that names one of the moving folders AS A
+    """Every place outside data/ that names one of the moving folders AS A
     PATH. The folder names are ordinary words — sutras, kavya, koshas — and a
     bare word match buries the real hits under prose and unrelated variables
     (`var sutras =`, "the Sanskrit koshas"). So a hit has to look like a path:
-    under dge/data/, or followed by a path segment, or quoted whole the way a
+    under data/, or followed by a path segment, or quoted whole the way a
     taxonomy key is written in JS."""
     names = '|'.join(re.escape(s) for s in sorted(sources, key=len, reverse=True))
     pattern = re.compile(
-        r'dge/data/(?P<a>' + names + r')(?![\w])'
+        r'data/(?P<a>' + names + r')(?![\w])'
         r'|(?<![\w/.])(?P<b>' + names + r')/[\w*{]'
         r'|[\'"](?P<c>' + names + r')[\'"]'
     )
@@ -205,8 +205,8 @@ def report(args):
         files, size = tree_stats(os.path.join(DATA, src))
         total_files += files
         total_bytes += size
-        print(f'  dge/data/{src}')
-        print(f'    -> dge/data/{dst}')
+        print(f'  data/{src}')
+        print(f'    -> data/{dst}')
         print(f'       {files} files, {human(size)}   ({why})')
     print(f'\n  TOTAL: {len(live)} folders, {total_files} files, {human(total_bytes)}')
 
@@ -219,7 +219,7 @@ def report(args):
     for name, why in sorted(UNTOUCHED.items()):
         if os.path.isdir(os.path.join(DATA, name)):
             files, size = tree_stats(os.path.join(DATA, name))
-            print(f'    dge/data/{name:<22} {files} files, {human(size):>9}   ({why})')
+            print(f'    data/{name:<22} {files} files, {human(size):>9}   ({why})')
 
     unmapped = sorted(
         d for d in os.listdir(DATA)
@@ -230,7 +230,7 @@ def report(args):
     if unmapped:
         print('\n  !! NOT MAPPED — these would be left behind at the old top level:')
         for d in unmapped:
-            print(f'    dge/data/{d}')
+            print(f'    data/{d}')
 
     # ---- 2. merges --------------------------------------------------------
     print('\n2. MERGES AND COLLISIONS\n')
@@ -241,7 +241,7 @@ def report(args):
     if not merged:
         print('  None — every source lands in a destination of its own.')
     for dst, srcs in merged.items():
-        print(f'  dge/data/{dst}  <-  ' + ', '.join(srcs))
+        print(f'  data/{dst}  <-  ' + ', '.join(srcs))
         children = {}
         for s in srcs:
             for entry in os.listdir(os.path.join(DATA, s)):
@@ -266,7 +266,7 @@ def report(args):
             continue
         left = sorted(e for e in os.listdir(p_abs) if e not in moved)
         if left:
-            print(f'\n  dge/data/{parent}/ would be left holding only: ' + ', '.join(left))
+            print(f'\n  data/{parent}/ would be left holding only: ' + ', '.join(left))
             print(f'    Its children have all moved, so the folder no longer describes anything.')
             print(f'    Delete it, or move what is left somewhere it belongs.')
 
@@ -276,32 +276,32 @@ def report(args):
     if existing:
         print('\n  !! DESTINATION ALREADY EXISTS:')
         for d in existing:
-            print(f'     dge/data/{d}')
+            print(f'     data/{d}')
 
     # ---- 3. catalogue files ----------------------------------------------
     print('\n3. CATALOGUE AND INDEX FILES THAT WOULD NEED REWRITING\n')
 
     lib = json.load(open(os.path.join(DATA, 'library.json'), encoding='utf-8'))
     changed = sum(1 for g in lib.get('granthas', [])
-                  if rewrite_prefix(g['path'].replace('dge/data/', ''), live)[1])
-    print(f'  dge/data/library.json          {changed} of {len(lib.get("granthas", []))} grantha paths')
+                  if rewrite_prefix(g['path'].replace('data/', ''), live)[1])
+    print(f'  data/library.json          {changed} of {len(lib.get("granthas", []))} grantha paths')
 
     tax = json.load(open(os.path.join(DATA, 'taxonomy.json'), encoding='utf-8'))
     tax_changed = [k for k in tax if rewrite_prefix(k, live)[1]]
-    print(f'  dge/data/taxonomy.json         {len(tax_changed)} of {len(tax)} top-level keys')
+    print(f'  data/taxonomy.json         {len(tax_changed)} of {len(tax)} top-level keys')
     print(f'                                 ({", ".join(tax_changed)})')
 
-    man_path = os.path.join(REPO, 'dge', 'search_index', 'manifest.json')
+    man_path = os.path.join(REPO, 'search_index', 'manifest.json')
     if os.path.exists(man_path):
         man = json.load(open(man_path, encoding='utf-8'))
         gs = man.get('granthas', [])
         sc = sum(1 for g in gs if rewrite_prefix(g.get('slug', ''), live)[1])
-        _, isize = tree_stats(os.path.join(REPO, 'dge', 'search_index'))
-        print(f'  dge/search_index/manifest.json {sc} of {len(gs)} slugs, and the same number of')
+        _, isize = tree_stats(os.path.join(REPO, 'search_index'))
+        print(f'  search_index/manifest.json {sc} of {len(gs)} slugs, and the same number of')
         print(f'                                 shard FILENAMES under units/ — the slug is baked')
         print(f'                                 into each filename. {human(isize)} of index in total.')
         print(f'                                 Cleanest fix is a full rebuild:')
-        print(f'                                     python3 dge/build_search_index.py')
+        print(f'                                     python3 build_search_index.py')
 
     ov_path = os.path.join(REPO, 'admin', 'config', 'library-overrides.json')
     ov = json.load(open(ov_path, encoding='utf-8'))
@@ -320,7 +320,7 @@ def report(args):
     hits.pop('tools/restructure_taxonomy.py', None)   # this file talks about them by definition
 
     def bucket(path):
-        if path in GENERATED or path.startswith('dge/search_index/'):
+        if path in GENERATED or path.startswith('search_index/'):
             return 'generated'
         return 'docs' if path.endswith('.md') else 'breaking'
 
@@ -342,9 +342,9 @@ def report(args):
     print('  GENERATED — regenerate rather than hand-edit:\n')
     for path in sorted(groups['generated']):
         print(f'    {path}  ({len(groups["generated"][path])} references)')
-    print('    dge/search_index/**   (rebuild)')
+    print('    search_index/**   (rebuild)')
     print('      python3 tools/gen_library_status.py')
-    print('      python3 dge/build_search_index.py\n')
+    print('      python3 build_search_index.py\n')
 
     nd = sum(len(v) for v in groups['docs'].values())
     print(f'  DOCUMENTATION — {nd} references in {len(groups["docs"])} .md files.')
@@ -365,7 +365,7 @@ def report(args):
     print('  Every URL into the library changes. Anyone holding a bookmark or a')
     print('  shared link into a grantha gets a 404, and there is no redirect layer')
     print('  on GitHub Pages to soften it.')
-    print(f'  The search index ({human(tree_stats(os.path.join(REPO, "dge", "search_index"))[1])}) has the old slugs in both the')
+    print(f'  The search index ({human(tree_stats(os.path.join(REPO, "search_index"))[1])}) has the old slugs in both the')
     print('  manifest and every shard filename, so it needs a full rebuild.')
     print(f'  {nb} references in {len(groups["breaking"])} code files have to move with it, plus {nd}')
     print('  more in documentation.')
@@ -374,7 +374,7 @@ def report(args):
 
     # ---- 7. the alternative ----------------------------------------------
     print('\n7. THE SAME TREE WITHOUT MOVING ANYTHING\n')
-    print('  dge/js/library.js already reads a "moves" map from')
+    print('  js/library.js already reads a "moves" map from')
     print('  admin/config/library-overrides.json: it regroups how the library tree')
     print('  DISPLAYS, keyed by the real folder, while every fetch still uses the')
     print('  real path. The reader sees Veda / Vedanga / Darshana / Itihasa; the')
@@ -423,32 +423,32 @@ def apply(args):
         if os.path.exists(d_abs):
             # merging into an existing destination: move the children across
             for child in os.listdir(os.path.join(DATA, src)):
-                r = sh('git', 'mv', f'dge/data/{src}/{child}', f'dge/data/{dst}/{child}')
+                r = sh('git', 'mv', f'data/{src}/{child}', f'data/{dst}/{child}')
                 if r.returncode:
                     print(f'  FAILED {src}/{child}: {r.stderr.strip()}')
                     return 1
             os.rmdir(os.path.join(DATA, src))
         else:
-            r = sh('git', 'mv', f'dge/data/{src}', f'dge/data/{dst}')
+            r = sh('git', 'mv', f'data/{src}', f'data/{dst}')
             if r.returncode:
                 print(f'  FAILED {src}: {r.stderr.strip()}')
                 return 1
         print(f'  {src} -> {dst}')
 
-    print('Rewriting dge/data/library.json ...')
+    print('Rewriting data/library.json ...')
     lp = os.path.join(DATA, 'library.json')
     lib = json.load(open(lp, encoding='utf-8'))
     n = 0
     for g in lib.get('granthas', []):
-        slug = g['path'].replace('dge/data/', '')
+        slug = g['path'].replace('data/', '')
         new, moved = rewrite_prefix(slug, live)
         if moved:
-            g['path'] = 'dge/data/' + new
+            g['path'] = 'data/' + new
             n += 1
     json.dump(lib, open(lp, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
     print(f'  {n} paths')
 
-    print('Rewriting dge/data/taxonomy.json ...')
+    print('Rewriting data/taxonomy.json ...')
     tp = os.path.join(DATA, 'taxonomy.json')
     tax = json.load(open(tp, encoding='utf-8'))
     out = {}
@@ -471,8 +471,8 @@ def apply(args):
 
     print('\nDone. Still to do, by hand:')
     print('  - the code references in section 4 of the dry run')
-    print('  - python3 dge/build_search_index.py     (the index still has old slugs)')
-    print('  - the labels in DGE_PATH_LABELS, dge/js/library.js')
+    print('  - python3 build_search_index.py     (the index still has old slugs)')
+    print('  - the labels in DGE_PATH_LABELS, js/library.js')
     return 0
 
 

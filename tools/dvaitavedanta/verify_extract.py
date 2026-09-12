@@ -11,7 +11,7 @@ Runs after every write. Catches the failure modes that actually bite:
 
 Exit code is 0 unless --strict is passed and errors were found.
 
-Run:  python tools/dvaitavedanta/verify_extract.py --data dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn
+Run:  python tools/dvaitavedanta/verify_extract.py --data data/darshana/vedanta/dvaita/DvaitaVedantaIn
 """
 
 from __future__ import annotations
@@ -71,7 +71,7 @@ def check_layer(path, payload, errors, warnings):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--data", default="dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn")
+    parser.add_argument("--data", default="data/darshana/vedanta/dvaita/DvaitaVedantaIn")
     parser.add_argument("--strict", action="store_true",
                         help="exit non-zero when errors are found")
     args = parser.parse_args(argv)

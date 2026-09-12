@@ -9,7 +9,7 @@
  * non-Devanagari input.
  *
  * The static index is generated offline by build_search_index.py into
- * dge/search_index/. Override the path by setting window.DGE_SEARCH_INDEX.
+ * search_index/. Override the path by setting window.DGE_SEARCH_INDEX.
  */
 (function () {
   'use strict';
@@ -411,7 +411,7 @@
   // of hiding it from the Library tree). ------------------------------------
   var GS_ROOT = (function () {
     var s = (document.currentScript && document.currentScript.src) || '';
-    try { return new URL('../../', s).href; } catch (e) { return '../'; }
+    try { return new URL('../', s).href; } catch (e) { return '../'; }
   })();
   var HIST_KEY = 'dge.gs.history', HIST_MAX = 25;
   function gsHistory() { try { var a = JSON.parse(localStorage.getItem(HIST_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
@@ -591,7 +591,7 @@
         // unrelated error on top of the real one.
         var el = document.getElementById('dge-gs-results');
         if (el) {
-          el.innerHTML = '<div class="dge-gs-hint">Could not load the search index at "' + INDEX_BASE + '". Generate it with build_search_index.py and commit dge/search_index/.</div>';
+          el.innerHTML = '<div class="dge-gs-hint">Could not load the search index at "' + INDEX_BASE + '". Generate it with build_search_index.py and commit search_index/.</div>';
         }
         throw e;
       });
@@ -1685,7 +1685,7 @@
     bar.appendChild(kwRow);
   }
 
-  // 23 Aug 2026: DvaitaVedanta (dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/)
+  // 23 Aug 2026: DvaitaVedanta (data/darshana/vedanta/dvaita/DvaitaVedantaIn/)
   // is admin-only -- not linked in the Library nav, and per the project lead's
   // explicit ask, should not surface in search results for anyone else
   // either. The 330 MB CDN search index (see INDEX_BASE above) is a separate,

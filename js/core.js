@@ -2,10 +2,10 @@
 window.DGE_VERSIONS = window.DGE_VERSIONS || {};
 window.DGE_VERSIONS['core.js'] = 'v3.23 (DGE_LEGACY_SLUGS: redirects for the 28 Aug 2026 Kamashastra/Upaveda consolidation and the Nirukta/Jyotisha leaf-folder fix. On top of v3.22\'s shastra/subhashita redirect)';
 
-// Converts a library.json catalog path ("dge/data/x/y/data.json", always
+// Converts a library.json catalog path ("data/x/y/data.json", always
 // repo-root-relative for GitHub API use) into a slug ("x/y") and a
 // fetch-relative path ("data/x/y/data.json", relative to this index.html
-// which itself lives inside dge/). Shared with library.js (the browser
+// which itself lives inside ). Shared with library.js (the browser
 // modal), so both always agree on the same slug for the same file.
 // AI-generated-content convention, going forward: any commentary/field key
 // an AI pipeline writes (tools/gemini_enrich.py, tools/gemini_summarize.py,
@@ -75,16 +75,16 @@ window.dgeForceRefreshContent = function() {
 // the fields actually changed, and anything absent falls back to the
 // hardcoded default. config.js itself is never modified by the UI.
 /* ---------------------------------------------------------------------- //
-   Admin config lives outside dge/ — see /admin/config/. These files used to
-   sit in dge/data/ and were fetched with a page-relative path, which only
+   Admin config lives outside  — see /admin/config/. These files used to
+   sit in data/ and were fetched with a page-relative path, which only
    worked from pages one level deep. The path is now derived from this
-   script's own URL (always <site>/dge/js/), so it holds at any page depth
+   script's own URL (always <site>/js/), so it holds at any page depth
    and whether the site is served from a domain root or a project subpath.
    ---------------------------------------------------------------------- */
 /* =========================================================================
    Links from before the taxonomy restructure.
 
-   dge/data/ was reorganised onto the taxonomy in DGE_Shastra_Taxonomy.md
+   data/ was reorganised onto the taxonomy in DGE_Shastra_Taxonomy.md
    (see tools/restructure_taxonomy.py): "ancillary" turned out to be the
    Vedangas and became "vedanga", a lone "shankara_bhashya" moved under
    darshana/vedanta/advaita, and so on. Every ?path= link handed out before
@@ -153,7 +153,7 @@ const DGE_LEGACY_SLUGS = {
   // pratyabhijna/natha_sampradaya/shakta_agama were split across several
   // new parents (Kashmir Saivism, Shaiva Tantra, Vaishnava Agama...) --
   // no single target can route every sub-path correctly, so these land on
-  // the closest new home rather than the exact leaf; see dge/PENDING.md.
+  // the closest new home rather than the exact leaf; see PENDING.md.
   'agama/pancharatra':      'agama/vaishnava_agama/pancharatra',
   'agama/pashupata':        'agama/shaiva_agama/pashupata',
   'agama/shaiva_siddhanta': 'agama/shaiva_agama/shaiva_siddhanta',
@@ -273,7 +273,7 @@ const DGE_LEGACY_SLUGS = {
   // 28 Aug 2026: nirukta/ and jyotisha/ each held their one grantha
   // directly in the category folder (vedanga/nirukta/data.json) instead of
   // a named leaf folder the way every other vedanga category does. That
-  // mismatch is what made the library tree (dge/js/library.js's
+  // mismatch is what made the library tree (js/library.js's
   // dgeBuildTree) attach them as bare, unlabelled rows on vedanga/ itself
   // instead of their own labelled, counted category -- a leaf with no leaf
   // folder of its own gets grouped under its PARENT node instead. Given a
@@ -298,7 +298,7 @@ const dgeUpgradeLegacySlug = window.dgeUpgradeLegacySlug;
 window.dgeAdminConfigUrl = window.dgeAdminConfigUrl || function (name) {
   const self = (document.currentScript && document.currentScript.src) ||
                (window.DGE_SCRIPT_BASE || '');
-  try { return new URL('../../admin/config/' + name, self).href; }
+  try { return new URL('../admin/config/' + name, self).href; }
   catch (e) { return '../admin/config/' + name; }   // fail soft, never throw
 };
 
@@ -309,7 +309,7 @@ window.dgeAdminConfigUrl = window.dgeAdminConfigUrl || function (name) {
 window.dgeContentUrl = window.dgeContentUrl || function (name) {
   const self = (document.currentScript && document.currentScript.src) ||
                (window.DGE_SCRIPT_BASE || '');
-  try { return new URL('../../admin/content/' + name, self).href; }
+  try { return new URL('../admin/content/' + name, self).href; }
   catch (e) { return '../admin/content/' + name; }
 };
 
@@ -523,7 +523,7 @@ function dgeSanitizeVedicAccents(text) {
 
 // Copyright gate (Category 4 platform issue): the Mahabharata Kannada
 // translation + Madhvacharya's own Tatparya Nirnaya excerpts interleaved in
-// it (dge/data/itihasa/mahabharata_kannada/, ~98,500 verses) were extracted
+// it (data/itihasa/mahabharata_kannada/, ~98,500 verses) were extracted
 // from a Pejawar Matha Android app's asset bundle -- no license field
 // anywhere, only a foreword/blessing as attribution, not a rights grant.
 // This project's own standing rule (PROJECT_BRIEF.md) is "absence of a
@@ -559,7 +559,7 @@ function dgeVisibleCommentaries(commentaries) {
 
 // The GRETIL smriti imports carry the source edition's own page markers,
 // transliterated wholesale into Devanagari -- "(\u0907,\u0967, \u092A\u094D. \u0969\u096D)" is "(I,1,
-// p. 37)" -- 357 of them, every one confined to dge/data/smriti_dharma
+// p. 37)" -- 357 of them, every one confined to data/smriti_dharma
 // (measured across the whole corpus before writing this, so the pattern
 // can afford to be narrow: a parenthesis containing p+virama+dot and
 // digits, the page abbreviation no verse ever contains). Stripped at
@@ -625,7 +625,7 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
     gemini_summary: 'AI Summary (Gemini, unreviewed)'
   };
 
-  // dasa_pada_text schema (see dge/data/schemas.json): each item is one
+  // dasa_pada_text schema (see data/schemas.json): each item is one
   // Haridasa composition (pada/suladi/ugabhoga/...) with a nested
   // text{kannada, devanagari, iast, source_roman} object of stanzas->lines
   // per script, not a flat sanskrit_text string -- the shape-sniffing
@@ -681,7 +681,7 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
     };
   }
 
-  // itihasa_purana_text schema (see dge/data/schemas.json): each item is a
+  // itihasa_purana_text schema (see data/schemas.json): each item is a
   // whole chapter (sarga/adhyaya/skandha) carrying its OWN nested shlokas[]
   // array, unlike vedic_text's items (each item IS one verse, handled by
   // the branch below). Detected by the first item actually having a
@@ -1134,7 +1134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.stotraData = dgeNormalizeGranthaData(data,
           entry ? String(entry.title || '').replace(/\s*—\s*mula$/, '') : null);
         // Sibling-layer stitching (layer-stitch.js, see
-        // dge/MULTI_LAYER_READER_ARCHITECTURE.md): must run BEFORE
+        // MULTI_LAYER_READER_ARCHITECTURE.md): must run BEFORE
         // initApp() so the commentary picker chrome is built from the
         // already-extended availableCommentaries. Awaited because it may
         // need the layer manifest fetch to resolve; a grantha with no
@@ -1169,7 +1169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // chips linking to prakriya.html; the dhātu pages link back here. One
         // small fetch per grantha; absent = no chips.
         try {
-          const slugForHits = window.dgeGranthaSlug(window.jsonFileName.startsWith('dge/') ? window.jsonFileName : 'dge/' + window.jsonFileName);
+          const slugForHits = window.dgeGranthaSlug(window.jsonFileName.startsWith('') ? window.jsonFileName : '' + window.jsonFileName);
           fetch('data/vedanga/vyakarana/dhatu_prayoga/by_grantha/' + slugForHits.replace(/\//g, '__') + '.json', { cache: 'force-cache' })
             .then(r => (r.ok ? r.json() : null)).then(h => { window.dgeDhatuHits = h || null; if (h && typeof renderList === 'function') renderList(); })
             .catch(() => { window.dgeDhatuHits = null; });
@@ -1179,7 +1179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // joined by sandhi, and what they are. One small fetch per grantha;
         // absent = the verse simply has no पदच्छेदः chip.
         try {
-          const pcSlug = window.dgeGranthaSlug(window.jsonFileName.startsWith('dge/') ? window.jsonFileName : 'dge/' + window.jsonFileName);
+          const pcSlug = window.dgeGranthaSlug(window.jsonFileName.startsWith('') ? window.jsonFileName : '' + window.jsonFileName);
           fetch('data/_padaccheda/' + pcSlug.replace(/\//g, '__') + '.json', { cache: 'force-cache' })
             .then(r => (r.ok ? r.json() : null))
             .then(d => { window.dgePadaccheda = d || null; if (d && typeof renderList === 'function') renderList(); })
@@ -1193,7 +1193,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // what replaced the old generic word marking, which coloured any word
         // present in a database whether or not it was a reference.
         try {
-          const refSlug = window.dgeGranthaSlug(window.jsonFileName.startsWith('dge/') ? window.jsonFileName : 'dge/' + window.jsonFileName);
+          const refSlug = window.dgeGranthaSlug(window.jsonFileName.startsWith('') ? window.jsonFileName : '' + window.jsonFileName);
           fetch('data/_references/' + refSlug.replace(/\//g, '__') + '.json', { cache: 'force-cache' })
             .then(r => (r.ok ? r.json() : null))
             .then(d => { window.dgeReferences = d || null; if (d && typeof renderList === 'function') renderList(); })
@@ -1204,7 +1204,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // commentary tokens are two words joined by sandhi. Built per grantha
         // on request rather than corpus-wide; absent = no marks.
         try {
-          const csSlug = window.dgeGranthaSlug(window.jsonFileName.startsWith('dge/') ? window.jsonFileName : 'dge/' + window.jsonFileName);
+          const csSlug = window.dgeGranthaSlug(window.jsonFileName.startsWith('') ? window.jsonFileName : '' + window.jsonFileName);
           fetch('data/_commentary_sandhi/' + csSlug.replace(/\//g, '__') + '.json', { cache: 'force-cache' })
             .then(r => (r.ok ? r.json() : null))
             .then(d => { window.dgeCommentarySandhi = d || null; if (d && typeof renderList === 'function') renderList(); })
@@ -1327,7 +1327,7 @@ function dgeHighlightQueryOnLoad(query, attempt, hadJumpTarget) {
 window.dgeHighlightQueryOnLoad = dgeHighlightQueryOnLoad;
 
 // SEO canonical (7 Sep 2026, tools/seo): the interactive reader is one URL family (?path=…&jumpShloka=…, ?rv1.1.3)
-// over content that also exists as static pages (/dge/veda/rigveda/samhita/mandala-1/…). Once those pages are
+// over content that also exists as static pages (/veda/rigveda/samhita/mandala-1/…). Once those pages are
 // served (admin/config/seo.json canonicalLive), the reader points <link rel="canonical"> at the grantha's page so
 // search engines index the crawlable copy and treat every reader URL as a view of it.
 window.dgeApplySeoCanonical = async function (slug) {
@@ -1568,8 +1568,8 @@ function restorePrefs() {
   const savedScript = localStorage.getItem('app_script');
   if (savedScript && typeof applyScript === 'function') applyScript(savedScript);
 
-  // 7 Sep 2026: ?layout=app|scholar (the thin entry pages dge/app.html and
-  // dge/reader.html carry it) presets and remembers the layout; otherwise
+  // 7 Sep 2026: ?layout=app|scholar (the thin entry pages app.html and
+  // reader.html carry it) presets and remembers the layout; otherwise
   // the saved preference applies. The layout itself stays one body class.
   const urlLayout = new URLSearchParams(window.location.search).get('layout');
   const savedLayoutMode = (urlLayout === 'app' || urlLayout === 'scholar') ? urlLayout : localStorage.getItem('app_layoutMode');

@@ -19,7 +19,7 @@ For every composition it captures:
     - auto-generated Devanagari + IAST transliterations from the Kannada
     - source url + attribution + fetch date
 
-Outputs (under --out, default ``dge/data/DvaitaVedanta/Itara/DasaSahitya/``):
+Outputs (under --out, default ``data/DvaitaVedanta/Itara/DasaSahitya/``):
     index.json                         -- manifest of every composition
     composers/<slug>/data.json         -- full records grouped by composer
     _dump/dasa_sahitya_full.txt        -- human-readable plain-text dump
@@ -617,7 +617,7 @@ def crawl(config, fetcher, limit_per_index=None, verbose=True):
 def main():
     ap = argparse.ArgumentParser(description="DGE Dasa Sahitya importer")
     ap.add_argument("--config", default=os.path.join(os.path.dirname(__file__), "dasa_sources.json"))
-    ap.add_argument("--out", default="dge/data/DvaitaVedanta/Itara/DasaSahitya")
+    ap.add_argument("--out", default="data/DvaitaVedanta/Itara/DasaSahitya")
     ap.add_argument("--cache", default=".dasa_cache")
     ap.add_argument("--delay", type=float, default=1.0, help="seconds between requests")
     ap.add_argument("--limit-per-index", type=int, default=None,

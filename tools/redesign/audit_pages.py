@@ -9,7 +9,7 @@ Usage:
                                                        # the first <head> script
                                                        # on any gated page
 
-Gated pages are every dge/**/*.html and admin/**/*.html file EXCEPT the
+Gated pages are every **/*.html and admin/**/*.html file EXCEPT the
 landing/vandana-gate page itself (root index.html), which vandana-guard.js
 exists to redirect *to* and therefore never loads.
 """
@@ -36,7 +36,7 @@ WATCHED_SCRIPTS = ("vandana-guard.js", "site-footer.js", "ai.js", "modals.js")
 # first" -- listed explicitly so a real regression elsewhere never hides
 # behind a silently-ignored legacy page. Each entry names why.
 KNOWN_VANDANA_EXCEPTIONS = {
-    "dge/legacy/PrahladaKrutaNarasimhaStotra.html": (
+    "legacy/PrahladaKrutaNarasimhaStotra.html": (
         "Explicitly legacy/archived; predates vandana-guard.js and the "
         "current template system entirely. Out of scope for the redesign."
     ),
@@ -45,21 +45,28 @@ KNOWN_VANDANA_EXCEPTIONS = {
 
 def discover_pages():
     # rglob walks into node_modules too -- harmless for the checked-in tree
-    # (nothing under dge/ or admin/ has one), but dge/firebase/{functions,
+    # (nothing under the site root or admin/ has one), but firebase/{functions,
     # tests}/node_modules/ is real: `npm install` there for the Firebase
     # test suite drops plenty of *.html (docs, fixtures, templates) that
     # were never a DGE page and never will be. Excluded here rather than
-    # narrowing the rglob pattern, so a real future subfolder under dge/ or
+    # narrowing the rglob pattern, so a real future subfolder under the site root or
     # admin/ still gets picked up by default.
-    def real_pages(root):
-        # dge/data/ holds source material, not pages: SetuTila's _raw/
+    def real_pages(root, skip_top=()):
+        # data/ holds source material, not pages: SetuTila's _raw/
         # chapter chunks are the site's own HTML kept verbatim for
         # provenance (317 files) and must never be audited as DGE chrome.
+        # .claude/ can hold a full nested worktree checkout (a background
+        # agent's isolated copy of this repo) once dge/ stops being the
+        # only thing rglob'd here -- excluded the same way node_modules is.
         return sorted(p for p in root.rglob("*.html")
-                      if "node_modules" not in p.parts and not (root.name == "dge" and "data" in p.relative_to(root).parts[:1]))
+                      if "node_modules" not in p.parts and ".claude" not in p.parts
+                      and p.relative_to(root).parts[0] not in skip_top)
 
     pages = [REPO_ROOT / "index.html"]
-    pages.extend(real_pages(REPO_ROOT / "dge"))
+    # dge/ moved to the repo root (12 Sep 2026); admin/ and data/ are walked
+    # separately below (data/ excluded, never audited as DGE chrome), and
+    # root index.html is already in the list above.
+    pages.extend(p for p in real_pages(REPO_ROOT, skip_top={"admin", "data"}) if p != REPO_ROOT / "index.html")
     pages.extend(real_pages(REPO_ROOT / "admin"))
     return pages
 

@@ -1,5 +1,5 @@
 {
- "_readme": "Sandhi splits for dge/js/ai.js's Sandhi word-tool: word -> [{\"a\",\"b\",\"sa\",\"sb\"}], best first. sa/sb say which list recognised that half — \"v\" a real verb form (so it links to a dhatu, and the reader highlights it), \"n\" a nominal form from _morph, \"u\" an upasarga. Built by tools/build_sandhi_split_index.py with sanskrit_parser's Sandhi.split_all, validated against this repo's own word lists; see that script for scope and its limits.",
+ "_readme": "Sandhi splits for js/ai.js's Sandhi word-tool: word -> [{\"a\",\"b\",\"sa\",\"sb\"}], best first. sa/sb say which list recognised that half — \"v\" a real verb form (so it links to a dhatu, and the reader highlights it), \"n\" a nominal form from _morph, \"u\" an upasarga. Built by tools/build_sandhi_split_index.py with sanskrit_parser's Sandhi.split_all, validated against this repo's own word lists; see that script for scope and its limits.",
  "v": 1,
  "minCount": 20,
  "minLen": 7,

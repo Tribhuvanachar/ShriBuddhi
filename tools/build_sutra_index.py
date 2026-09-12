@@ -32,8 +32,8 @@ import sys
 import unicodedata
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = os.path.join(REPO, 'dge/data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json')
-OUT = os.path.join(REPO, 'dge/data/vedanga/vyakarana/ashtadhyayi/_index')
+SRC = os.path.join(REPO, 'data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json')
+OUT = os.path.join(REPO, 'data/vedanga/vyakarana/ashtadhyayi/_index')
 
 # Devanagari -> a rough ASCII skeleton. Not a transliteration scheme: vowel
 # length, aspiration, retroflexion and anusvara are all deliberately collapsed,

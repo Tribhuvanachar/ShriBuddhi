@@ -2,13 +2,13 @@
 """
 gemini_ocr_commentary.py — Stage 1 of the server-side OCR pipeline: PDF
 pages -> Vision OCR -> Gemini proofreading -> a staged JSON file. Exists
-because dge/convert/ (the browser admin tool) has no server-side
+because convert/ (the browser admin tool) has no server-side
 equivalent, times out on a real book in a browser tab, and has no bypass
 for its manual review step.
 
 Two-stage architecture: this script does NOT write into a kavya's
 data.json. It produces one staged JSON file (default under
-dge/data/ocr_staging/<work-slug>/) holding Gemini's proofread output plus
+data/ocr_staging/<work-slug>/) holding Gemini's proofread output plus
 enough metadata to reproduce the run. tools/merge_staged_commentary.py is
 the separate Stage 2 that reads a staged file and actually merges it into
 a canto -- kept separate so a human (or the browser admin tool) can
@@ -60,7 +60,7 @@ def now_iso() -> str:
 
 def default_staged_path(work_slug: str, commentary_key: str, canto: int,
                          start_page: int, end_page: int) -> Path:
-    return Path("dge/data/ocr_staging") / work_slug / \
+    return Path("data/ocr_staging") / work_slug / \
         f"{commentary_key}_canto{canto}_pages{start_page}-{end_page}.json"
 
 
@@ -184,7 +184,7 @@ def main(argv=None) -> int:
     p.add_argument("--end-page", required=True, type=int)
     p.add_argument("--exclude-pages", default="", help="Comma/range list of pages to skip, e.g. '13,40-42'")
     p.add_argument("--work-slug", required=True,
-                    help="Folder name under dge/data/ocr_staging/ for this work, e.g. raghavendra_vijaya")
+                    help="Folder name under data/ocr_staging/ for this work, e.g. raghavendra_vijaya")
     p.add_argument("--canto", required=True, type=int)
     p.add_argument("--commentary-key", required=True,
                     help="Key under shlokas[n].commentaries this will eventually merge into")
@@ -194,7 +194,7 @@ def main(argv=None) -> int:
     p.add_argument("--model", default=DEFAULT_MODEL)
     p.add_argument("--pages-per-batch", type=int, default=6)
     p.add_argument("--out", type=Path, default=None,
-                    help="Staged JSON output path (default: dge/data/ocr_staging/<work-slug>/<key>_canto<N>_pages<a>-<b>.json)")
+                    help="Staged JSON output path (default: data/ocr_staging/<work-slug>/<key>_canto<N>_pages<a>-<b>.json)")
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--no-proofread", action="store_true",
                     help="Vision-only: stage raw Vision OCR per page and skip the Gemini proofread "

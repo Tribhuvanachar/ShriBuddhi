@@ -9,14 +9,14 @@ A  OCR          Vision  : .github/workflows/ocr-vision-pages.yml  → branch ocr
 B  merge        python3 tools/saroddhara/ocr_merge.py --vision vision/pages.json --tess-dir tess --png-dir hi --out merged
                 (Tesseract boxes = geometry; Vision = text; footnote rule; header/heading/verse/ref/footnote regions; agreement A–E)
 C  build        python3 tools/saroddhara/build_saroddhara.py --work <dir> --write-data
-                → dge/data/bhagavata_saroddhara/{mula,tika_vishnutirtha,tippani,sara_sangraha_kannada,parishishta}
+                → data/bhagavata_saroddhara/{mula,tika_vishnutirtha,tippani,sara_sangraha_kannada,parishishta}
                 → <dir>/verify_input/verify_queue.json + verify_queue.html + crops/   (what a human / local Gemini must check)
                 → <dir>/build_report.json
 D  verify       open verify_queue.html (offline), answer, Export answers.json → verify_output/
 E  apply        python3 tools/saroddhara/apply_verified.py verify_output/answers.json   (idempotent; then re-run validators + safe-merge)
 
 D′ chat path   python3 tools/saroddhara/make_chat_batch.py --work <dir> --print 10
-               → dge/data/ocr_staging/bhagavata_saroddhara/verify_input/batch_01_critical.json (+ _chunkN.json)
+               → data/ocr_staging/bhagavata_saroddhara/verify_input/batch_01_critical.json (+ _chunkN.json)
                the critical items only (verses the printed index has but OCR missed, mismatches and near-matches
                against the DGE Madhva mūla) with both OCR readings, the DGE candidate, PDF page and, for missing
                verses, the neighbours + raw OCR lines between them — sized for pasting into a Gemini *chat*

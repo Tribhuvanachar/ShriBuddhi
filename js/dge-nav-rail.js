@@ -2,7 +2,7 @@
  *
  * One persistent way to jump to another corpus/tool without backing out
  * through the header menu (project lead's framing, 28 Aug 2026 — see
- * dge/DGE_UI_CONTRACT.md's "new formalized requirement" section for the
+ * DGE_UI_CONTRACT.md's "new formalized requirement" section for the
  * exact policy this implements).
  *
  * 1 Sep 2026 revision (project lead, from a live desktop screenshot): the
@@ -18,7 +18,7 @@
  * Built as a self-contained custom element, deliberately independent of
  * modals.js/main.css/vyakarana-base.css's own token systems (same reasoning
  * the Ashtadhyayi retrofit used for its scoped CSS — see DGE_UI_CONTRACT.md
- * Part IV §1): it must render identically on dge/index.html
+ * Part IV §1): it must render identically on render.html
  * (tokens.css/main.css), the Vyakarana cluster (vyakarana-base.css) and
  * Guru Parampara (guru-parampara.css) alike, without requiring any of them
  * to load a shared stylesheet first. It reads --accent-red when the host
@@ -43,41 +43,41 @@
     { id: "lab", label: "Experiments" }
   ];
   var ITEMS = [
-    { id: "home", group: "read", label: "DGE Home", glyph: "⌂", href: "dge/index.html" },
-    { id: "kavya", group: "read", label: "Kāvya", glyph: "का", href: "dge/kavya/index.html" },
-    { id: "tirtha", group: "read", label: "Tīrtha", glyph: "ती", href: "dge/tirtha/index.html" },
-    { id: "guru-parampara", group: "read", label: "Guru Paramparā", glyph: "गु", href: "dge/guru-parampara/index.html" },
-    { id: "dasa-sahitya", group: "read", label: "Dāsa Sāhitya", glyph: "दा", href: "dge/dasa-sahitya/views/index.html" },
-    { id: "dvaita-grantha-anukramani", group: "read", label: "Grantha Anukramaṇī", glyph: "द्वै", href: "dge/dvaita-grantha-anukramani/index.html" },
+    { id: "home", group: "read", label: "DGE Home", glyph: "⌂", href: "render.html" },
+    { id: "kavya", group: "read", label: "Kāvya", glyph: "का", href: "kavya/index.html" },
+    { id: "tirtha", group: "read", label: "Tīrtha", glyph: "ती", href: "tirtha/index.html" },
+    { id: "guru-parampara", group: "read", label: "Guru Paramparā", glyph: "गु", href: "guru-parampara/index.html" },
+    { id: "dasa-sahitya", group: "read", label: "Dāsa Sāhitya", glyph: "दा", href: "dasa-sahitya/views/index.html" },
+    { id: "dvaita-grantha-anukramani", group: "read", label: "Grantha Anukramaṇī", glyph: "द्वै", href: "dvaita-grantha-anukramani/index.html" },
     // 10 Sep 2026: these four open their "choose a view" page rather than the
     // one old flat page. Three layouts each were built for all of them and
     // linked from nowhere -- the lead found only Guru Paramparā wired up.
     // Every chooser links back to its own classic page.
-    { id: "ashtadhyayi", group: "tools", label: "Aṣṭādhyāyī", glyph: "अ", href: "dge/vyakarana/ashtadhyayi/index.html" },
-    { id: "dhatu", group: "tools", label: "Dhātu", glyph: "ध", href: "dge/vyakarana/dhatu/index.html" },
-    { id: "shabda", group: "tools", label: "Śabda", glyph: "श", href: "dge/vyakarana/shabda/index.html" },
-    { id: "rupasiddhi", group: "tools", label: "Rūpasiddhi", glyph: "रू", href: "dge/vyakarana/rupasiddhi.html" },
-    { id: "chandas", group: "tools", label: "Chandas", glyph: "छ", href: "dge/vyakarana/chandas.html" },
-    { id: "unadi", group: "tools", label: "Uṇādi-sūtra", glyph: "उ", href: "dge/vyakarana/unadi.html" },
-    { id: "phitsutra", group: "tools", label: "Phiṭ-sūtra", glyph: "फि", href: "dge/vyakarana/phitsutra.html" },
-    { id: "linganushasana", group: "tools", label: "Liṅgānuśāsana", glyph: "लि", href: "dge/vyakarana/linganushasana.html" },
-    { id: "ganapatha", group: "tools", label: "Gaṇapāṭha", glyph: "ग", href: "dge/vyakarana/ganapatha.html" },
-    { id: "kamadhenu", group: "lab", label: "Kamadhenu trials", glyph: "🐄", href: "dge/kamadhenu.html" }
+    { id: "ashtadhyayi", group: "tools", label: "Aṣṭādhyāyī", glyph: "अ", href: "vyakarana/ashtadhyayi/index.html" },
+    { id: "dhatu", group: "tools", label: "Dhātu", glyph: "ध", href: "vyakarana/dhatu/index.html" },
+    { id: "shabda", group: "tools", label: "Śabda", glyph: "श", href: "vyakarana/shabda/index.html" },
+    { id: "rupasiddhi", group: "tools", label: "Rūpasiddhi", glyph: "रू", href: "vyakarana/rupasiddhi.html" },
+    { id: "chandas", group: "tools", label: "Chandas", glyph: "छ", href: "vyakarana/chandas.html" },
+    { id: "unadi", group: "tools", label: "Uṇādi-sūtra", glyph: "उ", href: "vyakarana/unadi.html" },
+    { id: "phitsutra", group: "tools", label: "Phiṭ-sūtra", glyph: "फि", href: "vyakarana/phitsutra.html" },
+    { id: "linganushasana", group: "tools", label: "Liṅgānuśāsana", glyph: "लि", href: "vyakarana/linganushasana.html" },
+    { id: "ganapatha", group: "tools", label: "Gaṇapāṭha", glyph: "ग", href: "vyakarana/ganapatha.html" },
+    { id: "kamadhenu", group: "lab", label: "Kamadhenu trials", glyph: "🐄", href: "kamadhenu.html" }
   ];
 
   // Per-device vertical position of the tab (px from viewport top). Absent
-  // = the default bottom-docked spot (clear of dge/index.html's qa-tab).
+  // = the default bottom-docked spot (clear of render.html's qa-tab).
   var POS_KEY = "dge.nrTabY";
 
   function siteRoot() {
-    // Resolve relative to this script's own known location (dge/js/), not
+    // Resolve relative to this script's own known location (js/), not
     // the including page's location, so the same markup works unmodified
-    // whether the host page is at site root, dge/, dge/vyakarana/, or
-    // dge/guru-parampara/.
+    // whether the host page is at site root, vyakarana/, or
+    // guru-parampara/.
     var cur = document.currentScript;
     var src = cur && cur.getAttribute("src");
     if (!src) return "./";
-    return new URL("../../", new URL(src, document.baseURI)).href;
+    return new URL("../", new URL(src, document.baseURI)).href;
   }
 
   var ROOT = siteRoot();

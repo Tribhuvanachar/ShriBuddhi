@@ -5,8 +5,8 @@
 # matched to the DGE Dhātupāṭha by (gaṇa, normalized form), unambiguous only.
 import re, json, os, glob
 SCL="/tmp/scl/dhaatupaatha/files"
-DHATU="/tmp/bhumandala/dge/data/vedanga/vyakarana/dhatupatha/data.json"
-OUTDIR="/tmp/bhumandala/dge/data/vedanga/vyakarana/vritti"
+DHATU="/tmp/bhumandala/data/vedanga/vyakarana/dhatupatha/data.json"
+OUTDIR="/tmp/bhumandala/data/vedanga/vyakarana/vritti"
 
 VRITTIS=[
  ("madhaviya","माधवीयधातुवृत्तिः","सायणः","madhaviya_XAwuvqwwi_new.xml"),

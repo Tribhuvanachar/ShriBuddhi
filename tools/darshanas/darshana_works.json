@@ -3,7 +3,7 @@
     "Bibliographic source of truth for the Darśana branch of DGE (Nyāya, Vaiśeṣika, Mīmāṃsā).",
     "",
     "This file is the DUMP that code consumes. tools/darshanas/scaffold_darshanas.py reads it",
-    "and generates: the folder tree under dge/data/darshana/, every _meta.json, empty",
+    "and generates: the folder tree under data/darshana/, every _meta.json, empty",
     "data.json stubs with the right schema and default_author, the taxonomy.json subtree, and",
     "library.json entries. Nothing in the tree is hand-authored — edit this file and re-run.",
     "",
@@ -25,7 +25,7 @@
     "on a layer-2 text. The folder tree is deliberately FLAT (all commentaries sit as sibling",
     "layer folders under their root work) — the true genealogy lives in 'comments_on' here, so",
     "a 4th-order gloss does not produce a 4-deep directory. This matches the mula/tika/tippani",
-    "convention already used in dge/data/sarvamoola_grantha/."
+    "convention already used in data/sarvamoola_grantha/."
   ],
 
   "root": "darshanas",

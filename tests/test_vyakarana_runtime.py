@@ -1,4 +1,4 @@
-"""dge/js/vyakarana-runtime.js — peeling an upasarga off a written verb.
+"""js/vyakarana-runtime.js — peeling an upasarga off a written verb.
 
 The Dhatupatha stores bare roots, so a prefixed verb can never be found by a
 direct index lookup however complete the index is: गम् is indexed, समागच्छति
@@ -12,7 +12,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-JS = ROOT / "dge/js/vyakarana-runtime.js"
+JS = ROOT / "js/vyakarana-runtime.js"
 
 # The module fetches on demand; the harness answers those fetches from a small
 # fixed set of verb forms rather than the real 205k-form index.

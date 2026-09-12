@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Reconcile dge/data/library.json AND taxonomy.json against what is on disk.
+"""Reconcile data/library.json AND taxonomy.json against what is on disk.
 
-dge/js/core.js will not fetch a grantha that has no library.json entry, and it
+js/core.js will not fetch a grantha that has no library.json entry, and it
 short-circuits to "Not Yet Available" when `populated` is false. So a data.json
 can be fully ingested and still be invisible. That has bitten this project
 repeatedly; this makes it a check rather than a discovery.
@@ -11,7 +11,7 @@ Three faults are detected and repaired:
   missing  library.json entry whose file does not exist  -> drop it
   stale    populated flag disagreeing with the item count -> correct it
 
-taxonomy.json is the other half of the same problem: dge/js/library.js builds the
+taxonomy.json is the other half of the same problem: js/library.js builds the
 browsable tree from it, so a text absent from the taxonomy is missing from the
 tree even when library.json lists it. Folders holding a real data.json that the
 taxonomy does not name are added, with the schema read from the file itself.
@@ -20,8 +20,8 @@ Titles for new entries come from the file's own title_devanagari / title, then
 its folder's _meta.json description, then a transliterated folder name — never
 null, which is the other half of the same bug.
 
-Run:  python tools/audit_library.py --data dge/data            # report only
-      python tools/audit_library.py --data dge/data --fix
+Run:  python tools/audit_library.py --data data            # report only
+      python tools/audit_library.py --data data --fix
 """
 
 import argparse
@@ -74,7 +74,7 @@ def derive_source(payload):
 
 
 def derive_facets(payload):
-    """View-By facet metadata (see dge/PENDING.md's 25 Aug Pancharatra pass) --
+    """View-By facet metadata (see PENDING.md's 25 Aug Pancharatra pass) --
     copied into library.json so the reader can build facet groupings from the
     already-fetched catalog instead of downloading every leaf's full data.json
     (some Pancharatra samhitas run tens of thousands of lines) just to read a
@@ -143,7 +143,7 @@ def scan(data_root):
         if "data.json" not in filenames:
             continue
         full = os.path.join(dirpath, "data.json")
-        rel = "dge/data/" + os.path.relpath(full, data_root).replace(os.sep, "/")
+        rel = "data/" + os.path.relpath(full, data_root).replace(os.sep, "/")
         payload = load(full, {})
         if isinstance(payload, dict) and payload.get("schema") == "grantha_layer_v2":
             # v2 architecture layers (grantha_data_architecture.md) are
@@ -151,7 +151,7 @@ def scan(data_root):
             # ships — never auto-registered by --fix, never counted orphans
             continue
         if isinstance(payload, dict) and payload.get("schema") == "vyakarana_corpus_v1":
-            # sutra-corpora consumed by their own dge/vyakarana/*.html pages
+            # sutra-corpora consumed by their own vyakarana/*.html pages
             # (phitsutra/ganapatha/linganushasana/unadi), not by the reader —
             # same standing exclusion as grantha_layer_v2
             continue
@@ -162,7 +162,7 @@ def scan(data_root):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--data", default="dge/data")
+    parser.add_argument("--data", default="data")
     parser.add_argument("--fix", action="store_true")
     parser.add_argument("--summary-file", default=os.environ.get("GITHUB_STEP_SUMMARY", ""))
     args = parser.parse_args(argv)
@@ -181,7 +181,7 @@ def main(argv=None):
     taxonomy = load(taxonomy_path, {})
     untracked = []
     for rel_path, record in sorted(on_disk.items()):
-        folder = rel_path[len("dge/data/"):].rsplit("/data.json", 1)[0]
+        folder = rel_path[len("data/"):].rsplit("/data.json", 1)[0]
         if not taxonomy_has(taxonomy, folder):
             untracked.append((folder, record))
 

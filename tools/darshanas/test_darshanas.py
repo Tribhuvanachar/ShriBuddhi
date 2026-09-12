@@ -49,7 +49,7 @@ def test_scaffold(failures):
     tmp = tempfile.mkdtemp(prefix="dscaf_")
     try:
         for name in ("taxonomy.json", "library.json"):
-            src = os.path.join(REPO, "dge", "data", name)
+            src = os.path.join(REPO, "data", name)
             if os.path.exists(src):
                 shutil.copy(src, os.path.join(tmp, name))
 

@@ -21,7 +21,7 @@ Kāśī 20, Uttarādi 16. (Mūla-trunk figures legitimately have no "works".)
 
 ## The machinery is now in place
 
-1. **One central store** — `dge/guru-parampara/data/parampara.json`. All
+1. **One central store** — `guru-parampara/data/parampara.json`. All
    three reader layouts (guru1/2/3) and the tracker feed from it via
    `guru-data.js`; `people/mathas/places.json` are regenerated from it by
    `tools/build_guru_parampara_entities.py`. No page carries its own copy.

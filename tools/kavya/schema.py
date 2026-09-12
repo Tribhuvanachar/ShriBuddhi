@@ -3,7 +3,7 @@
 Every Kavya layer is written as an `itihasa_purana_text` grantha so that
 DGE's existing schemas.json and core.js need no change:
 
-  dge/data/kavya_alankara/<work_id>/<layer_id>/data.json
+  data/kavya_alankara/<work_id>/<layer_id>/data.json
 
   {
     "schema": "itihasa_purana_text",

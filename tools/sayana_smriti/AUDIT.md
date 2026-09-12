@@ -8,7 +8,7 @@ Measured directly against `github.com/Tribhuvanachar/bhumandala` @ main, 17 Aug 
 
 **No. Not one line of it, anywhere in the corpus.**
 
-I searched every `data.json` under `dge/data/vedas/` — 23,479 items across all four
+I searched every `data.json` under `data/vedas/` — 23,479 items across all four
 Vedas — for a Sāyaṇa layer under any spelling (`sayana`, `sāyaṇa`, `सायण`). The only
 hits were incidental: Russian translation text, and one line in `schemas.json` where
 `vedic_text.bhashya[]` is *described* as being for "Sayana, Madhva's Rigbhashya, etc."

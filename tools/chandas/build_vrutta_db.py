@@ -3,7 +3,7 @@
 # This file (unlike the rest of this repo, which is Apache-2.0) is licensed
 # AGPL-3.0-or-later: it exists solely to process the AGPL-licensed vendored
 # data in vendor/, and its output is a derivative compilation of that data.
-"""Build dge/data/vedanga/chandas/data.json from the vendored Chandojnanam CSVs.
+"""Build data/vedanga/chandas/data.json from the vendored Chandojnanam CSVs.
 
 Source: hrishikeshrt/chanda ("Chandojnanam"), AGPL-3.0-or-later.
 See vendor/NOTICE.md for the pinned commit and the licence caveat.
@@ -17,7 +17,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 VENDOR = HERE / "vendor"
-OUT = HERE.parent.parent / "dge" / "data" / "vedanga" / "chandas" / "data.json"
+OUT = HERE.parent.parent / "data" / "vedanga" / "chandas" / "data.json"
 
 SOURCE = "hrishikeshrt/chanda (Chandojnanam) @ 3a9607c6e7a23d60c03d10f839913d01f8bd7ee2"
 LICENCE = "AGPL-3.0-or-later"

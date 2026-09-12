@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Sumadhva Vijaya: pull the three commentaries from dvaitavedanta.in and
-attach them to the mula verses already in dge/data/kavya_alankara.
+attach them to the mula verses already in data/kavya_alankara.
 
 Why this grantha needs its own importer
 ---------------------------------------
@@ -40,7 +40,7 @@ BOOK_ID = "10497"
 SEED = "https://dvaitavedanta.in/category-details/10498/10497/samath/samath/parath"
 CATEGORY_URL = "https://dvaitavedanta.in/category-details/{cid}/" + BOOK_ID + "/x/x/x"
 LOAD_URL = "https://dvaitavedanta.in/load-data?book_id=" + BOOK_ID + "&id={uid}&search="
-DEST = "dge/data/DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_{n}/data.json"
+DEST = "data/DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_{n}/data.json"
 
 SOURCE_NOTE = ("No published licence. Used with case-by-case permission granted by "
                "the project lead on 2026-08-15 for non-commercial, educational "
@@ -203,7 +203,7 @@ def make_fetcher(cache_dir, delay):
             with open(path, encoding="utf-8") as handle:
                 return handle.read()
         response = requests.get(url, timeout=120,
-                                headers={"User-Agent": "bhumandala-dge/1.0"})
+                                headers={"User-Agent": "bhumandala-1.0"})
         response.raise_for_status()
         with open(path, "w", encoding="utf-8") as handle:
             handle.write(response.text)
@@ -277,7 +277,7 @@ def best_match(our_text, site_verses, number):
     return best_n, best_r
 
 
-BANNANJE = "dge/data/DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/bannanje_patha.json"
+BANNANJE = "data/DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/bannanje_patha.json"
 
 # A patha difference IS a textual difference, so the floor for recognising the
 # same verse across the two recensions has to sit well below the one used for
@@ -534,7 +534,7 @@ def main(argv=None):
         print("\nrebuilding the mula from the DvaitaVedanta recension")
         rebuild_mula(collected, args.apply)
 
-    print("\nmerging into dge/data/DvaitaVedanta/Itara/Kavya/sumadhva_vijaya")
+    print("\nmerging into data/DvaitaVedanta/Itara/Kavya/sumadhva_vijaya")
     report = merge_into_repo(collected, args.apply)
     bad = [r for r in report if r.get("error") or r.get("unmatched")]
     if bad:

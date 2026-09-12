@@ -12,7 +12,7 @@ Every applied answer is recorded in the item's `verification.human` field; nothi
 import json, re, sys, datetime
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
-BASE = ROOT / "dge/data/bhagavata_saroddhara"
+BASE = ROOT / "data/bhagavata_saroddhara"
 
 
 def load(sub): return json.load(open(BASE / sub / "data.json", encoding="utf-8"))

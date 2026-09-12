@@ -51,7 +51,7 @@ class ResolvePersonIds(unittest.TestCase):
     def test_non_author_links_in_overrides_are_ignored(self):
         # overrides.links also holds row -> library path confirmations.
         cat = catalogue()
-        person_of, _ = s.resolve_person_ids(cat, {"links": {"r12": "dge/data/x/data.json"}})
+        person_of, _ = s.resolve_person_ids(cat, {"links": {"r12": "data/x/data.json"}})
         self.assertEqual(person_of, {})
 
 
@@ -154,11 +154,11 @@ class LibraryAuthorNormalisation(unittest.TestCase):
 
     def test_scope_covers_the_dvaita_subtree_only(self):
         # The lead's rule: not the Vedas, not kavya, not dasa sahitya.
-        self.assertTrue("dge/data/darshana/vedanta/dvaita/Anandamakaranda/x/data.json"
+        self.assertTrue("data/darshana/vedanta/dvaita/Anandamakaranda/x/data.json"
                         .startswith(s.LIBRARY_AUTHOR_SCOPE))
-        for outside in ("dge/data/veda/rigveda/mula/data.json",
-                        "dge/data/kavya/raghuvamsha/mula/data.json",
-                        "dge/data/darshana/vedanta/advaita/x/data.json"):
+        for outside in ("data/veda/rigveda/mula/data.json",
+                        "data/kavya/raghuvamsha/mula/data.json",
+                        "data/darshana/vedanta/advaita/x/data.json"):
             self.assertFalse(outside.startswith(s.LIBRARY_AUTHOR_SCOPE), outside)
 
 

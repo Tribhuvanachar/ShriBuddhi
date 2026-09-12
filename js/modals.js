@@ -245,7 +245,7 @@ window.openProfilePanel = function(key) {
 
 // About This Project's opening paragraph and "Designed By" line, and Our
 // Story's full bio — admin/content/reader.json's `about`/`ourStory` keys.
-// Rendered into these two functions (not baked into dge/index.html) so a
+// Rendered into these two functions (not baked into render.html) so a
 // super admin's content-inline.js edit here actually has a data-edit path
 // pointing somewhere: what "which file, which field" the edit tool's own
 // ci-path label already shows the moment you click the text to change it.
@@ -335,7 +335,7 @@ window.openOurStoryModal = function() {
 window.dgeOpenOurStory = function() { window.openOurStoryModal(); };
 
 // content-inline.js stages an edit into window.SITE_CONFIG and calls this
-// (see dge/js/content-inline.js) so the change appears in the real layout
+// (see js/content-inline.js) so the change appears in the real layout
 // immediately rather than only after Publish + a refresh. Re-runs whichever
 // of this page's own render functions actually draw from admin/content/
 // reader.json; each one is cheap and safe to call even while its modal is
@@ -485,7 +485,7 @@ function dgeRenderWhatsNew() {
 // strict key:value body instead of free text. The tag is what lets a
 // future scheduled process tell "one of our own auto-generated reports"
 // apart from an ordinary email in the same inbox and safely ignore
-// everything else — see dge/PENDING.md's automated-triage design note for
+// everything else — see PENDING.md's automated-triage design note for
 // the full reasoning (only CONTENT corrections matching this exact shape
 // are ever eligible for unattended handling; anything else, including any
 // request that reads as changing behavior rather than fixing a data gap,

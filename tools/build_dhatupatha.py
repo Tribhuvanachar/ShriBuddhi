@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Builds dge/data/vedanga/vyakarana/dhatupatha/data.json from vidyut's own bundled
-Dhatupatha (MIT), matching the item shape dge/js/dhatu.js (stage-15 zip)
+Builds data/vedanga/vyakarana/dhatupatha/data.json from vidyut's own bundled
+Dhatupatha (MIT), matching the item shape js/dhatu.js (stage-15 zip)
 expects: {id, dhatu, dhatu_slp, artha, gana(1-10), pada, pada_code,
 pada_iast}.
 
@@ -36,7 +36,7 @@ from vidyut.prakriya import Data
 from vidyut import lipi
 
 DATA_DIR = os.path.join(sys.argv[1] if len(sys.argv) > 1 else "/tmp/vidyut_data", "prakriya")
-OUT = sys.argv[2] if len(sys.argv) > 2 else "dge/data/vedanga/vyakarana/dhatupatha/data.json"
+OUT = sys.argv[2] if len(sys.argv) > 2 else "data/vedanga/vyakarana/dhatupatha/data.json"
 
 GANA_NAME_TO_NUM = {
     "BvAdi": 1, "adAdi": 2, "juhotyAdi": 3, "divAdi": 4, "svAdi": 5,

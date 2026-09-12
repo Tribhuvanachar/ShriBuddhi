@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Tag Śabdapāṭha headwords with the kṛt pratyaya they end in.
 
-The Shabdapatha (dge/data/vedanga/vyakarana/shabdapatha/data.json) stores
+The Shabdapatha (data/vedanga/vyakarana/shabdapatha/data.json) stores
 fixed nominal stems with no derivational information. But the repo already
 GENERATES, per verb root, every common kṛdanta stem with its pratyaya
-(tools/build_prakriya.py -> dge/data/vedanga/vyakarana/prakriya/<NN>/*.json,
+(tools/build_prakriya.py -> data/vedanga/vyakarana/prakriya/<NN>/*.json,
 each entry {k: pratyaya key, t: stem surface, s: steps}). Joining the two on
 the exact stem surface tags every Shabdapatha word that IS a generated
 kṛdanta with its pratyaya -- e.g. भूत -> क्त, गमन -> ल्युट् -- real derivation
@@ -25,8 +25,8 @@ import glob
 import json
 import sys
 
-SHABDA = "dge/data/vedanga/vyakarana/shabdapatha/data.json"
-PRAKRIYA_GLOB = "dge/data/vedanga/vyakarana/prakriya/*/*.json"
+SHABDA = "data/vedanga/vyakarana/shabdapatha/data.json"
+PRAKRIYA_GLOB = "data/vedanga/vyakarana/prakriya/*/*.json"
 
 
 def build_stem_map():

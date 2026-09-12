@@ -48,7 +48,7 @@ import unicodedata
 from collections import Counter, defaultdict
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SRC = os.path.join(REPO, 'dge/data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json')
+SRC = os.path.join(REPO, 'data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json')
 
 # The keys that came from the enrichment source and therefore travel together.
 ENRICH_KEYS = ('padaccheda', 'anvaya', 'anuvritti', 'adhikara', 'sutra_type', 'english')

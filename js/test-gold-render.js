@@ -1,4 +1,4 @@
-// Plain-Node regression test for gold-render.js (run: node dge/js/test-gold-render.js),
+// Plain-Node regression test for gold-render.js (run: node js/test-gold-render.js),
 // matching this project's established test-search-resilience.js/test-parity.js
 // pattern -- no framework, no build step.
 //

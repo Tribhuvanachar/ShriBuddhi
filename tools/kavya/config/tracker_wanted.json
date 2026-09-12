@@ -3,7 +3,7 @@
     "Kavyas the project intends to hold that the importer has no source for --",
     "the Madhva-lineage mahakavyas above all. tools/build_kavya_tracker.py folds",
     "this together with what is actually on disk and what the Kavya corpus",
-    "carries, and writes admin/config/kavya-status.json and dge/KAVYA_TRACKER.md.",
+    "carries, and writes admin/config/kavya-status.json and KAVYA_TRACKER.md.",
     "",
     "`dictated` is what was said, kept verbatim. `id`/`name_iast` is the reading.",
     "`confidence` is about the READING, not about whether the work exists: where",

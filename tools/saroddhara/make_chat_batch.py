@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Stage D′ — build a compact verification batch for pasting into a Gemini *chat* (no API, phone-friendly).
 
-    python3 tools/saroddhara/make_chat_batch.py --work <scratch dir> [--out dge/data/ocr_staging/bhagavata_saroddhara/verify_input/batch_01_critical.json] [--print 12]
+    python3 tools/saroddhara/make_chat_batch.py --work <scratch dir> [--out data/ocr_staging/bhagavata_saroddhara/verify_input/batch_01_critical.json] [--print 12]
 
 Picks the critical items out of the staged Bhāgavata Sāroddhāra data — verses OCR never found (printed index
 numbers with no verse), verses whose OCR disagrees with the DGE Madhva Bhāgavata text (mismatch), and verses
@@ -14,8 +14,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "tools" / "saroddhara"))
 from build_saroddhara import load_bhp, INDEX, dev_only   # noqa: E402
-BASE = ROOT / "dge/data/bhagavata_saroddhara"
-DEFAULT_OUT = ROOT / "dge/data/ocr_staging/bhagavata_saroddhara/verify_input/batch_01_critical.json"
+BASE = ROOT / "data/bhagavata_saroddhara"
+DEFAULT_OUT = ROOT / "data/ocr_staging/bhagavata_saroddhara/verify_input/batch_01_critical.json"
 
 ANSWER_FORMAT = {
     "_how_to_answer": "Reply with ONE JSON list, one object per id, nothing else. decision: 'dge' (the DGE Madhva text is what the print shows, modulo OCR noise) | 'printed' (the print genuinely differs — give the exact printed text in verified_text) | 'vision' (Vision OCR is right as it stands) | 'unsure'. For missing_verse give verified_text (full verse, no number), bhagavata_ref 's.a.v' and pdf_page. If a neighbouring verse's current_text is really this verse (the OCR merged two verses), also add an object for that neighbour's id (e.g. BS_V005) with its correct verified_text and bhagavata_ref. Keep note to one line.",

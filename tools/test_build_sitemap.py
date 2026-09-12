@@ -26,14 +26,14 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 class TestGranthaSlug(unittest.TestCase):
     def test_strips_dge_data_prefix_and_data_json_suffix(self):
         self.assertEqual(
-            grantha_slug("dge/data/agama/kashmir_shaivism/krama/shakta_vijnana/mula/data.json"),
+            grantha_slug("data/agama/kashmir_shaivism/krama/shakta_vijnana/mula/data.json"),
             "agama/kashmir_shaivism/krama/shakta_vijnana/mula",
         )
 
     def test_matches_dge_core_js_dgeGranthaSlug_on_a_shallow_path(self):
-        # dge/js/core.js: dgeLibraryPathToFetchPath strips leading 'dge/',
+        # js/core.js: dgeLibraryPathToFetchPath strips leading '',
         # dgeGranthaSlug then strips 'data/' and the '/data.json' suffix.
-        self.assertEqual(grantha_slug("dge/data/gita/data.json"), "gita")
+        self.assertEqual(grantha_slug("data/gita/data.json"), "gita")
 
 
 class TestIsHiddenPath(unittest.TestCase):
@@ -90,7 +90,7 @@ class TestBuildSitemapXml(unittest.TestCase):
         self.assertEqual(len(locs), len(set(locs)), "no duplicate URLs")
         expected_count = len(load_populated_granthas())
         self.assertGreater(len(locs), expected_count, "static pages plus every populated grantha")
-        self.assertTrue(any(loc.endswith("/dge/index.html") for loc in locs))
+        self.assertTrue(any(loc.endswith("/render.html") for loc in locs))
 
     def test_every_loc_is_under_the_given_origin(self):
         xml_text = build_sitemap_xml(self.ORIGIN)

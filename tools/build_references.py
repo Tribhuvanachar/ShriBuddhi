@@ -16,7 +16,7 @@ reference_detect.py finds a citation FRAME around it — a root beside its own
 traditional artha, a lexicon named after इति, a sūtra's own words in quotation
 — and only where the thing cited is then found in the authoritative list.
 
-OUTPUT — dge/data/_references/<slug with __ for />.json
+OUTPUT — data/_references/<slug with __ for />.json
 
     {"slug": ..., "tool": "tools/build_references.py",
      "units": {"<verse id>": {"<commentary key>": [ref, ...]}}}
@@ -55,7 +55,7 @@ from reference_detect import (DhatuDetector, KoshaDetector, SutraDetector,  # no
                               detect_all)
 
 REPO = Path(__file__).resolve().parent.parent
-DATA = REPO / 'dge/data'
+DATA = REPO / 'data'
 DHATUPATHA = DATA / 'vedanga/vyakarana/dhatupatha/data.json'
 SUTRAPATHA = DATA / 'vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json'
 REGISTRY = DATA / 'kosha/_citation_registry.json'

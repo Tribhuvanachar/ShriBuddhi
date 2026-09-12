@@ -9,17 +9,17 @@ import taxonomy as T  # noqa: E402
 
 
 def test_public_urls_unique_and_shaped():
-    lib = json.load(open(ROOT / "dge/data/library.json", encoding="utf-8"))["granthas"]
+    lib = json.load(open(ROOT / "data/library.json", encoding="utf-8"))["granthas"]
     slugs = T.public_slugs(lib)
     assert len(slugs) > 500
     t = T.Taxonomy(slugs)                      # raises on a collision
     for s in slugs:
         u = t.url(s)
-        assert re.match(r"^/dge/[a-z0-9\-/]+/$", u), u
+        assert re.match(r"^/[a-z0-9\-/]+/$", u), u
         assert "_" not in u and "mula" not in u.split("/")[-2:]
-    assert t.url("vedas/rigveda/shakala_shakha/samhita/mandala_01") == "/dge/veda/rigveda/samhita/mandala-1/"
-    assert t.url("DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_1") == "/dge/dvaitavedanta/kavya/raghavendra-vijaya/sarga-1/"
-    assert t.url("itihasa/mahabharata/adi_parva/mula") == "/dge/itihasa/mahabharata/adi-parva/"
+    assert t.url("vedas/rigveda/shakala_shakha/samhita/mandala_01") == "/veda/rigveda/samhita/mandala-1/"
+    assert t.url("DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_1") == "/dvaitavedanta/kavya/raghavendra-vijaya/sarga-1/"
+    assert t.url("itihasa/mahabharata/adi_parva/mula") == "/itihasa/mahabharata/adi-parva/"
     for s in slugs:                            # nothing from the licensed corpora leaks into the public tree
         assert not s.startswith("darshana/vedanta/dvaita/DvaitaVedantaIn") and not s.startswith("darshana/vedanta/advaita")
 
@@ -33,12 +33,12 @@ def test_labels_and_transliteration():
 def test_subset_build_and_validate(tmp_path):
     out = tmp_path / "site"
     subprocess.run([sys.executable, str(ROOT / "tools/seo/build_seo_site.py"), "--out", str(out), "--only", "DvaitaVedanta/Itara/Kavya/raghavendra_vijaya", "--quiet"], check=True, capture_output=True)
-    page = out / "dge/dvaitavedanta/kavya/raghavendra-vijaya/sarga-1/index.html"
+    page = out / "dvaitavedanta/kavya/raghavendra-vijaya/sarga-1/index.html"
     html = page.read_text(encoding="utf-8")
-    assert '<html lang="sa">' in html and '<link rel="canonical" href="https://tribhuvanachar.github.io/bhumandala/dge/dvaitavedanta/kavya/raghavendra-vijaya/sarga-1/">' in html
+    assert '<html lang="sa">' in html and '<link rel="canonical" href="https://tribhuvanachar.github.io/bhumandala/dvaitavedanta/kavya/raghavendra-vijaya/sarga-1/">' in html
     assert "<h1>" in html and 'class="sa" lang="sa"' in html and 'lang="sa-Latn"' in html and "BreadcrumbList" in html
     assert re.search(r"<title>Sarga 1 — [^<]*Rāghavendra[^<]*</title>", html, re.I) or "sargaḥ 1" in html.lower()
-    assert 'href="/bhumandala/dge/index.html?path=DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_1' in html   # link into the reader
+    assert 'href="/bhumandala/render.html?path=DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_1' in html   # link into the reader
     assert "?rgv1" in html                                                                              # the short address
     assert (out / "sitemap.xml").exists() and (out / "robots.txt").read_text().count("Sitemap:") == 1
     # the validator's per-page checks pass on the subset (site-wide link checks are only meaningful on a full build)
@@ -49,15 +49,15 @@ def test_subset_build_and_validate(tmp_path):
 
 
 def test_generated_index_never_lands_on_an_app_page(tmp_path):
-    """The reader owns /dge/ and /dge/kavya/ (its own index.html files); generated category indexes move aside."""
+    """The reader owns / and /kavya/ (its own index.html files); generated category indexes move aside."""
     import sys, json
     sys.path.insert(0, str(ROOT / "tools" / "seo"))
     import taxonomy as T
-    lib = json.load(open(ROOT / "dge/data/library.json", encoding="utf-8"))
+    lib = json.load(open(ROOT / "data/library.json", encoding="utf-8"))
     lib = lib["granthas"] if isinstance(lib, dict) and "granthas" in lib else lib
     t = T.Taxonomy(T.public_slugs(lib))
-    assert "/dge/" in t.reserved and "/dge/kavya/" in t.reserved
-    assert t.catalogue == "/dge/texts/"
-    assert t.prefix_url("kavya_alankara") == "/dge/kavya/texts/"
-    assert t.url("DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_1") == "/dge/dvaitavedanta/kavya/raghavendra-vijaya/sarga-1/"
+    assert "/" in t.reserved and "/kavya/" in t.reserved
+    assert t.catalogue == "/texts/"
+    assert t.prefix_url("kavya_alankara") == "/kavya/texts/"
+    assert t.url("DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_1") == "/dvaitavedanta/kavya/raghavendra-vijaya/sarga-1/"
     assert not (set(t._urls.values()) & t.reserved)

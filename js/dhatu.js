@@ -8,8 +8,8 @@
  * ========================================================================== */
 (function () {
   "use strict";
-  // Page-relative to dge/vyakarana/dhatu.html (Phase 10: moved one directory
-  // deeper than dge/ -- ../ reaches dge/data/).
+  // Page-relative to vyakarana/dhatu.html (Phase 10: moved one directory
+  // deeper than  -- ../ reaches data/).
   var URL = "../data/vedanga/vyakarana/dhatupatha/data.json";
   var GANA = {1:"भ्वादि",2:"अदादि",3:"जुहोत्यादि",4:"दिवादि",5:"स्वादि",6:"तुदादि",7:"रुधादि",8:"तनादि",9:"क्र्यादि",10:"चुरादि"};
   var CHUNK = 250;
@@ -452,7 +452,7 @@
       var h0=hashId();
       if(h0 && state.all.some(function(x){return x.id===h0;})){ openById(h0); }
       else { render(true); }
-    }).catch(function(e){ $("#dh-list").innerHTML='<div class="empty">Failed to load dhātupāṭha data ('+e+'). Serve from the dge/ folder.</div>'; });
+    }).catch(function(e){ $("#dh-list").innerHTML='<div class="empty">Failed to load dhātupāṭha data ('+e+'). Serve from the  folder.</div>'; });
   }
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot); else boot();
 })();

@@ -27,10 +27,10 @@ the docs do not print a rate. Every run records its page count under
 is known once the lead has one bill to divide by. No key → --dry-run only.
 
     python3 tools/sarvam_docai.py --pdf book.pdf --pages 11-40 --work isha_tippani \
-        --language sa-IN --format html --out dge/data/ocr_staging
+        --language sa-IN --format html --out data/ocr_staging
     python3 tools/sarvam_docai.py --pdf-url https://archive.org/download/…/x.pdf --pages 1-10 --work x --dry-run
 
-Writes dge/data/ocr_staging/<work>/sarvam_pages<A>-<B>.json:
+Writes data/ocr_staging/<work>/sarvam_pages<A>-<B>.json:
     {source:{pdf, pages}, engine:"sarvam-docai", language, format, generated_at,
      usage:{pages_total, pages_succeeded, pages_failed, jobs},
      pages:[{page, html|md|json, ok}]}
@@ -190,7 +190,7 @@ def main() -> int:
     ap.add_argument("--work", required=True, help="staging folder under --out (a work slug)")
     ap.add_argument("--language", default="sa-IN", help="sa-IN (Sanskrit), kn-IN, hi-IN, en-IN …")
     ap.add_argument("--format", default="html", choices=["html", "md", "json"])
-    ap.add_argument("--out", default="dge/data/ocr_staging")
+    ap.add_argument("--out", default="data/ocr_staging")
     ap.add_argument("--dry-run", action="store_true", help="slice and count pages, call nothing")
     ap.add_argument("--max-pages", type=int, default=200, help="refuse to send more than this in one run")
     args = ap.parse_args()

@@ -6,12 +6,12 @@ tools/restructure_taxonomy.py --apply moves the folders and fixes the two
 catalogue files. It does not touch the three other places a slug is written
 down, because each needs its own handling:
 
-  dge/data/**/data.json     references[].target — cross-links between texts,
+  data/**/data.json     references[].target — cross-links between texts,
                             e.g. a vritti pointing at the sutra it comments on
-  dge/search_index/         backlinks.json (keys and "from"), manifest.json
+  search_index/         backlinks.json (keys and "from"), manifest.json
                             (slug, category, shard), and every shard FILENAME,
                             which is the slug with / replaced by __
-  dge/data/*/_meta.json     a category's own name, where it records one
+  data/*/_meta.json     a category's own name, where it records one
 
 The postings are keyed by grantha index rather than slug, so they need
 nothing — which is why this is a rewrite and not the 162 MB rebuild the
@@ -32,8 +32,8 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, 'tools'))
 from restructure_taxonomy import MAPPING, rewrite_prefix   # one source of truth
 
-DATA = os.path.join(REPO, 'dge', 'data')
-INDEX = os.path.join(REPO, 'dge', 'search_index')
+DATA = os.path.join(REPO, 'data')
+INDEX = os.path.join(REPO, 'search_index')
 
 
 def upgrade(slug):
@@ -138,8 +138,8 @@ def do_manifest(apply):
             print(f'    !! shard missing, skipped: {old_shard}')
             continue
         os.makedirs(os.path.dirname(dst), exist_ok=True)
-        r = subprocess.run(['git', 'mv', f'dge/search_index/{old_shard}',
-                            f'dge/search_index/{new_shard}'],
+        r = subprocess.run(['git', 'mv', f'search_index/{old_shard}',
+                            f'search_index/{new_shard}'],
                            cwd=REPO, capture_output=True, text=True)
         if r.returncode:
             os.rename(src, dst)   # untracked or already staged; move it anyway

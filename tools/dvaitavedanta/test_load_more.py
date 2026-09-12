@@ -4,7 +4,7 @@ Verified live against category-details/977/975 (maṅgalamācaraṇam of
 Nyāyasudhā): the initial HTML carries one #article block (978) while the
 right-hand nav lists units 979–986, served only by
 GET /load-data?book_id=975&id=<unit>&search= — and exactly those eight were
-absent from dge/data. These tests pin the two new helpers on fixtures shaped
+absent from data. These tests pin the two new helpers on fixtures shaped
 like the real responses captured during that verification.
 
 Run: python tools/dvaitavedanta/test_load_more.py

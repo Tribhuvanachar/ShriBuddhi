@@ -1,4 +1,4 @@
-// dge/js/content-editor.js — admin/superadmin in-place content editor for
+// js/content-editor.js — admin/superadmin in-place content editor for
 // already-published grantha pages. Two edit modes, matching the project
 // lead's explicit ask: quick inline text fixes right on the reading page,
 // and a structural popup editor (move/insert/delete, like Convert's schema
@@ -403,7 +403,7 @@ window.dgeOpenSavePreview = function () {
     modal.className = 'content-editor-modal-overlay';
     document.body.appendChild(modal);
   }
-  const fullPath = 'dge/' + window.jsonFileName;
+  const fullPath = '' + window.jsonFileName;
   modal.innerHTML = `
     <div class="content-editor-modal" style="max-width:600px;">
       <div class="content-editor-modal-header"><b>Save changes to GitHub</b>
@@ -435,7 +435,7 @@ window.dgePushContentEdits = async function () {
   if (btn) { btn.disabled = true; btn.textContent = 'Pushing…'; }
 
   try {
-    const fullPath = 'dge/' + window.jsonFileName;
+    const fullPath = '' + window.jsonFileName;
     // Reconstruct the on-disk shape from the live (edited) stotraData —
     // only safe because dgeContentEditorSupported() already confirmed this
     // grantha's source file uses this exact {metadata, shlokas} shape with

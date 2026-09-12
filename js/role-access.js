@@ -1,4 +1,4 @@
-// dge/js/role-access.js — role-based content gating (8 Sep 2026).
+// js/role-access.js — role-based content gating (8 Sep 2026).
 //
 // UI-level only, by explicit project-lead decision: this hides gated
 // taxonomy paths from the reader's own navigation/search for anyone whose
@@ -69,7 +69,7 @@ window.dgeMatchRoleGate = function(path, gates) {
 
 /**
  * True when `role` is blocked from `path` by `gates`. Pure function, unit
- * tested directly (see dge/firebase/tests/role-access.test.js) without any
+ * tested directly (see firebase/tests/role-access.test.js) without any
  * Firebase or browser globals.
  */
 window.dgeIsRoleGatedPath = function(path, role, gates) {

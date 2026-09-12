@@ -10,7 +10,7 @@ WHAT IT ADDS (per mantra, additive only — nothing existing is overwritten):
     items[i].commentaries.wilson   Wilson's translation of the mantra
 
 Both slot straight into the `commentaries` dict the app already renders
-(see dgeNormalizeGranthaData() in dge/js/core.js) — no schema change, no
+(see dgeNormalizeGranthaData() in js/core.js) — no schema change, no
 UI change required. Optional label polish: patches/core-js-labels.md.
 
 WHY THERE IS NO CRAWLER
@@ -107,7 +107,7 @@ def extract(html: str) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dge-root", required=True,
-                    help="path to the repo's dge/ directory")
+                    help="path to the repo's  directory")
     ap.add_argument("--docmap", default=str(Path(__file__).parent / "rigveda_docmap.json"))
     ap.add_argument("--out-dir", default="dump",
                     help="where the standalone dump is written")
@@ -128,7 +128,7 @@ def main() -> int:
 
     dge = Path(args.dge_root)
     if not (dge / "data" / "schemas.json").exists():
-        print(f"!! {dge} does not look like the dge/ directory", file=sys.stderr)
+        print(f"!! {dge} does not look like the  directory", file=sys.stderr)
         return 2
 
     docmap = load_json(args.docmap)

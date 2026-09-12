@@ -39,7 +39,7 @@ does morphology; that is what tapping the word is for.
 
     python3 tools/build_highlight_index.py
 
-Output: dge/data/_highlight/<bucket>.json  {"k"|"d"|"b": newline-joined words}
+Output: data/_highlight/<bucket>.json  {"k"|"d"|"b": newline-joined words}
         k = कोश headword, d = verb form, b = both; plus manifest.json
 """
 
@@ -50,10 +50,10 @@ import os
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-KOSHA_DIR = os.path.join(REPO, 'dge', 'data', 'kosha')
-FORM_DIR = os.path.join(REPO, 'dge', 'data', 'vedanga', 'vyakarana', 'prakriya', 'formindex')
-KRT_DIR = os.path.join(REPO, 'dge', 'data', 'vedanga', 'vyakarana', 'prakriya', 'krtindex')
-OUT_DIR = os.path.join(REPO, 'dge', 'data', '_highlight')
+KOSHA_DIR = os.path.join(REPO, 'data', 'kosha')
+FORM_DIR = os.path.join(REPO, 'data', 'vedanga', 'vyakarana', 'prakriya', 'formindex')
+KRT_DIR = os.path.join(REPO, 'data', 'vedanga', 'vyakarana', 'prakriya', 'krtindex')
+OUT_DIR = os.path.join(REPO, 'data', '_highlight')
 
 # Sanskrit-headword categories. `reverse/` is MW English-Sanskrit, whose
 # headwords are English words and would mark nothing in a Devanagari text.

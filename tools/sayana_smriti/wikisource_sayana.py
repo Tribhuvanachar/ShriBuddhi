@@ -860,7 +860,7 @@ def main(argv=None) -> int:
 
     dge = Path(args.dge_root)
     if not (dge / "data" / "schemas.json").exists():
-        print(f"!! {dge} does not look like the dge/ directory", file=sys.stderr)
+        print(f"!! {dge} does not look like the  directory", file=sys.stderr)
         return 2
 
     wiki = Wiki(cache_dir=args.cache_dir)

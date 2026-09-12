@@ -7,7 +7,7 @@ DGE — Dasa Sahitya "local assets" importer
 Converts a Dasara-Padagalu SQLite asset shipped inside an Android app
 (schema: dasaru(id,name), Keerthanas(id,title,txt,dasaru_id,category,favorite))
 into the same JSON-per-composer shape the web-crawled corpus already uses
-(dge/data/DvaitaVedanta/Itara/DasaSahitya/), but written to a SEPARATE output folder so the two
+(data/DvaitaVedanta/Itara/DasaSahitya/), but written to a SEPARATE output folder so the two
 sources stay distinguishable until a human has reviewed and merged them.
 
 Why a separate folder instead of merging straight in
@@ -28,7 +28,7 @@ Why a separate folder instead of merging straight in
 Usage
 -----
     python3 import_dasa_sahitya_local_db.py --db /path/to/dasa1.db \
-        --out dge/data/dasa_sahitya_local --asset-name dasa1
+        --out data/dasa_sahitya_local --asset-name dasa1
 
 Re-run once per Android asset file (there are reportedly 4-5); pass a
 different --asset-name each time and outputs land in the same --out tree
@@ -68,7 +68,7 @@ def slugify(text):
 
 def ascii_slug(kn_text):
     """Latin, diacritic-free slug (matches the naming convention already used
-    by dge/data/DvaitaVedanta/Itara/DasaSahitya/composers/*.json), via IAST with combining marks
+    by data/DvaitaVedanta/Itara/DasaSahitya/composers/*.json), via IAST with combining marks
     stripped. Falls back to the raw-Kannada slugify() if transliteration is
     unavailable — Python's \\w does not treat Kannada vowel-sign/virama marks
     as word characters, so that fallback alone is lossy; only used as a last
@@ -272,7 +272,7 @@ def build_record(row, dasaru_name, asset_name, fetch_date):
 def main():
     ap = argparse.ArgumentParser(description="Import a Dasa-Sahitya Android-app SQLite asset")
     ap.add_argument("--db", required=True, help="path to the .db asset (e.g. dasa1.db)")
-    ap.add_argument("--out", default="dge/data/dasa_sahitya_local")
+    ap.add_argument("--out", default="data/dasa_sahitya_local")
     ap.add_argument("--asset-name", required=True, help="short id for this asset, e.g. dasa1")
     ap.add_argument("--fetch-date", default=None)
     args = ap.parse_args()

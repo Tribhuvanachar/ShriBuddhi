@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
 build_batch4_samkhya_yoga.py -- Tier B, 23 Aug: Samkhya and Yoga darshana
-were confirmed as pre-planned taxonomy branches (dge/js/library.js's
+were confirmed as pre-planned taxonomy branches (js/library.js's
 DGE_PATH_LABELS already carries 'sankhya'/'yoga' Devanagari labels under
 a comment naming an external "recommended DGE taxonomy" reference doc),
 unlike Ayurveda/Buddhist-literature/Tantra, which have no such label and
-were therefore NOT drafted here -- see dge/PENDING.md for the open
+were therefore NOT drafted here -- see PENDING.md for the open
 question this leaves.
 
 taxonomy.json gained darshana.sankhya (sutra_and_karika: samkhya_karika,
@@ -37,9 +37,9 @@ SOURCE_NAME = "Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024"
 LICENCE = "CC-BY 4.0"
 
 SINGLE = [
-    ("Sāṃkhyatattvakaumudī", "dge/data/darshana/sankhya/sutra_and_karika/samkhya_karika/tika_tattva_kaumudi/data.json", "samkhya_tattva_kaumudi"),
-    ("Yogasūtra", "dge/data/darshana/yoga/sutra_and_bhashya/yoga_sutra/mula/data.json", "yoga_sutra_mula"),
-    ("Yogasūtrabhāṣya", "dge/data/darshana/yoga/sutra_and_bhashya/yoga_sutra/bhashya_vyasa/data.json", "yoga_sutra_bhashya_vyasa"),
+    ("Sāṃkhyatattvakaumudī", "data/darshana/sankhya/sutra_and_karika/samkhya_karika/tika_tattva_kaumudi/data.json", "samkhya_tattva_kaumudi"),
+    ("Yogasūtra", "data/darshana/yoga/sutra_and_bhashya/yoga_sutra/mula/data.json", "yoga_sutra_mula"),
+    ("Yogasūtrabhāṣya", "data/darshana/yoga/sutra_and_bhashya/yoga_sutra/bhashya_vyasa/data.json", "yoga_sutra_bhashya_vyasa"),
 ]
 
 
@@ -65,7 +65,7 @@ def main():
             source_url=f"https://github.com/OliverHellwig/sanskrit/tree/master/dcs/data/conllu/files/{dcs_name}",
             licence=LICENCE,
             note=(
-                "{count} units across {chapters} -- see dge/PENDING.md, 23 Aug "
+                "{count} units across {chapters} -- see PENDING.md, 23 Aug "
                 "entry (batch 4, Tier B Samkhya/Yoga), for how the darshana.sankhya "
                 "and darshana.yoga taxonomy nodes were drafted and matched."
             ),

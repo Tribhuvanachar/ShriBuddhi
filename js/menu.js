@@ -2,12 +2,12 @@
    Menus, from admin/config/menu.json.
 
    The top-bar buttons, the Explore popup, the Admin popup and the theme list
-   used to be fixed markup in dge/index.html: adding an item meant editing the
+   used to be fixed markup in render.html: adding an item meant editing the
    page, and hiding one meant deleting a line and remembering why. They are
    now described in one config file, which decides what appears and in what
    order.
 
-   The markup in dge/index.html is still the default. Nothing here removes an
+   The markup in render.html is still the default. Nothing here removes an
    item that the config does not mention, and if the config cannot be read at
    all this file does nothing whatsoever — the menus stay as written. A broken
    config file must never be the reason a menu is empty.
@@ -19,7 +19,7 @@
   // at any depth and on a project subpath as well as a domain root.
   const self = (document.currentScript && document.currentScript.src) || '';
   let url;
-  try { url = new URL('../../admin/config/menu.json', self).href; }
+  try { url = new URL('../admin/config/menu.json', self).href; }
   catch (e) { url = '../admin/config/menu.json'; }
 
   const esc = (s) => String(s == null ? '' : s)

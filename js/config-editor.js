@@ -1,4 +1,4 @@
-// dge/js/config-editor.js — form-based editor for the site's editable
+// js/config-editor.js — form-based editor for the site's editable
 // text settings. Super-admin only.
 //
 // DESIGN DECISION: this never touches config.js.

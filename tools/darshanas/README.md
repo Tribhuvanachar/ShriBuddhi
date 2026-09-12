@@ -1,12 +1,12 @@
 # Darśanas — Nyāya, Vaiśeṣika, Mīmāṃsā
 
-The tree under `dge/data/darshana/` is a **build product**. Nothing in it is
+The tree under `data/darshana/` is a **build product**. Nothing in it is
 hand-authored. Edit `darshana_works.json` and re-run the scaffolder.
 
 ```bash
 python tools/darshanas/test_darshanas.py                      # offline, no network
 python tools/darshanas/scaffold_darshanas.py --dry-run        # see what would change
-python tools/darshanas/scaffold_darshanas.py --data dge/data  # write
+python tools/darshanas/scaffold_darshanas.py --data data  # write
 python importers/dispatch.py tarkasangraha_dipika             # ingest one GRETIL text
 ```
 
@@ -31,7 +31,7 @@ Or use the **Darshanas — scaffold and ingest** workflow, which defaults to
 ## Shape of the tree
 
 ```
-dge/data/darshana/
+data/darshana/
   _works_index.json        flat leaf lookup with verification status
   _graph.json              commentary edges — the real genealogy
   nyaya/
@@ -63,7 +63,7 @@ Bhāskarodaya is a gloss on the Nīlakaṇṭhī which comments on the Dīpikā 
 comments on the Tarkasaṅgraha — that's `layer: 3` in the graph, not
 `tarkasangraha/tika_dipika/tika_nilakanthi/tika_bhaskarodaya/` on disk. This
 matches the `mula` / `tika_jayatirtha` / `tippani` convention already in
-`dge/data/sarvamoola_grantha/`.
+`data/sarvamoola_grantha/`.
 
 ---
 
@@ -170,7 +170,7 @@ survived checking:
 | blocked | Bharatavani | Licence forbids adaptation, translation, alteration and summarization — incompatible with any text pipeline. No Nyāya content regardless. |
 | **dead** | epustakalay.com | Domain hijacked; now serves gambling spam. Do not ingest. |
 
-Licensing follows `dge/PROJECT_STATUS.md` convention #5 — absence of a licence
+Licensing follows `PROJECT_STATUS.md` convention #5 — absence of a licence
 is not permission, and each unlicensed source needs a specific logged decision.
 
 ---

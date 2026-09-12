@@ -14,7 +14,7 @@ Sanskrit Wikisource instead. `SOURCES.md` §5–§7 is the current, evidenced re
 | **Sāyaṇa on the Ṛgveda** | **10,388 / 10,552 (98.45%)**, from sa.wikisource, CC BY-SA. `wikisource_sayana.py`, 42 tests. |
 | **Sāyaṇa on the Sāmaveda** | **1,733 / 1,875 (92%)** by propagation, no network. `propagate_samaveda.py`. |
 | `core.js` Gītā `bhashya[]` patch | already in the repo — `core.js:331` iterates `v.bhashya[]`. Do **not** re-apply any patch snapshot. |
-| Audio admin fix | already in the repo — `dge/js/audio-detect.js` + a 10-test Node suite. |
+| Audio admin fix | already in the repo — `js/audio-detect.js` + a 10-test Node suite. |
 
 Both landed in PR #57 on branch `claude/new-session-65y87b`.
 
@@ -40,7 +40,7 @@ Both landed in PR #57 on branch `claude/new-session-65y87b`.
 
 1. **Never apply `patches/core.js` or `core.js.patch`.** Snapshots of main from
    17 Aug; applying one reverts the kosha citations, the tour and the inline
-   editor. The edits live in `dge/js/core.js`. **Four times.**
+   editor. The edits live in `js/core.js`. **Four times.**
 2. **Indent width.** `taxonomy.json` is indent 1; the Ṛgveda and Sāmaveda
    saṃhitā files are indent **2**. Guessing reformats 233,667 lines to make a
    21,949-line change. `common.sniff_indent` now reads it off the file and
@@ -285,7 +285,7 @@ Then the real thing (Actions → *Ingest — Sāyaṇa Bhāṣya & Smṛti comme
 python tools/sayana_smriti/import_sayana_rigveda.py --dge-root dge          # ~3.5 h, 10,552 pages
 python tools/sayana_smriti/import_smriti.py       --dge-root dge --discover-gdocs
 python tools/sayana_smriti/patches/taxonomy_patch.py --dge-root dge
-python dge/build_search_index.py
+python build_search_index.py
 ```
 
 The workflow caches HTTP responses by URL, so a timeout-and-rerun resumes rather than

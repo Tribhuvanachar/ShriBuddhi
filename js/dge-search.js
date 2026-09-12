@@ -168,7 +168,7 @@
   }
 
   // Root/verse schemas vs. commentary schemas vs. genuinely ambiguous
-  // independent-prose schemas (dge/data/schemas.json's own _description for
+  // independent-prose schemas (data/schemas.json's own _description for
   // each name is the source of truth here, not a guess) -- lets the global
   // search UI offer an honest "shlokas only / commentary only" filter
   // without re-deriving schema semantics itself or guessing from a title.

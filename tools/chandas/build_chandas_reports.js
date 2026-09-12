@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 // Corpus-wide vṛtta reports (छन्दःसूची) — precomputed with the site's own engine.
 //
-// Loads dge/js/chandas.js and dge/js/chandas-report.js unmodified (the same
+// Loads js/chandas.js and js/chandas-report.js unmodified (the same
 // stub trick as tools/kamadhenu/chandas_runner.js), walks every data.json
-// under dge/data (ocr_staging excluded) and writes:
+// under data (ocr_staging excluded) and writes:
 //
-//   dge/data/vedanga/chandas/reports/granthas/<slug with / → __>.json   one report per grantha
-//   dge/data/vedanga/chandas/reports/by_vrutta.json                     name → {n, kind, granthas:[[slug,n]…], byBranch:{…}, examples:[[slug,unit]…]}
-//   dge/data/vedanga/chandas/reports/manifest.json                      totals, per-branch uniques, per-grantha rows, DB names with zero use
+//   data/vedanga/chandas/reports/granthas/<slug with / → __>.json   one report per grantha
+//   data/vedanga/chandas/reports/by_vrutta.json                     name → {n, kind, granthas:[[slug,n]…], byBranch:{…}, examples:[[slug,unit]…]}
+//   data/vedanga/chandas/reports/manifest.json                      totals, per-branch uniques, per-grantha rows, DB names with zero use
 //
-// The page (dge/vyakarana/chandas.html → js/chandas-page.js) shows these
+// The page (vyakarana/chandas.html → js/chandas-page.js) shows these
 // instantly and regenerates a single grantha in the browser with the same
 // DGEChandasReport.build(), so the two never disagree.
 //
@@ -20,7 +20,7 @@ const path = require('path');
 const crypto = require('crypto');
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const DATA = path.join(ROOT, 'dge/data');
+const DATA = path.join(ROOT, 'data');
 const OUT = path.join(DATA, 'vedanga/chandas/reports');
 const TOPDIRS = ['darshana', 'DvaitaVedanta/Itara/DasaSahitya', 'itihasa', 'kavya_alankara', 'purana', 'smriti_dharma', 'stotra',
   'nitishastra', 'upaveda', 'agama', 'vedas', 'shastra', 'misc', 'vedanga'];
@@ -30,9 +30,9 @@ global.window = global;
 global.document = { readyState: 'complete', querySelector: () => null, addEventListener: () => {} };
 global.localStorage = { getItem: () => null, setItem: () => {} };
 global.fetch = () => Promise.resolve({ json: () => Promise.resolve(JSON.parse(fs.readFileSync(path.join(DATA, 'vedanga/chandas/data.json'), 'utf8'))) });
-const engineSrc = fs.readFileSync(path.join(ROOT, 'dge/js/chandas.js'), 'utf8');
+const engineSrc = fs.readFileSync(path.join(ROOT, 'js/chandas.js'), 'utf8');
 eval(engineSrc);
-eval(fs.readFileSync(path.join(ROOT, 'dge/js/chandas-report.js'), 'utf8'));
+eval(fs.readFileSync(path.join(ROOT, 'js/chandas-report.js'), 'utf8'));
 const ENGINE = 'chandas.js@' + crypto.createHash('sha1').update(engineSrc).digest('hex').slice(0, 10);
 
 function* walk(dir) {

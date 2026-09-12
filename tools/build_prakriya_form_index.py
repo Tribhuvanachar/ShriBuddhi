@@ -9,14 +9,14 @@ search that lands on a list of roots, not the specific form the reader
 actually tapped. The project lead asked repeatedly for the click to open
 the actual conjugated cell, highlighted (e.g. उवाच → वच् 02.0058, लिट्
 प्रथमपुरुष एकवचनम्). That mapping isn't decidable client-side: it would mean
-fetching all ~2,230 per-root files under dge/data/vedanga/vyakarana/prakriya
+fetching all ~2,230 per-root files under data/vedanga/vyakarana/prakriya
 (262 MB total, one root ~29-120 KB) just to check one word. So it's
 precomputed here, once, from the same data build_prakriya.py already wrote.
 
 SHARDING. A single flat reverse index would be several MB — fine to build,
 wasteful to fetch in full for a one-word lookup. Sharded by the surface
 form's first Devanagari codepoint (as a 4-hex-digit filename, e.g. उ ->
-0909.json) so dge/js/ai.js's click handler fetches one small shard, not
+0909.json) so js/ai.js's click handler fetches one small shard, not
 the whole index. Around 50-60 shards result, one per distinct initial
 consonant/vowel actually in use.
 
@@ -61,7 +61,7 @@ import os
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PRAKRIYA_DIR = os.path.join(REPO, 'dge', 'data', 'vedanga', 'vyakarana', 'prakriya')
+PRAKRIYA_DIR = os.path.join(REPO, 'data', 'vedanga', 'vyakarana', 'prakriya')
 OUT_DIR = os.path.join(PRAKRIYA_DIR, 'formindex')
 
 # Matches ALL_LAKARAS in tools/build_prakriya.py — every root's "forms" dict
@@ -128,7 +128,7 @@ def main():
 
     manifest = {
         '_readme': (
-            'Reverse index for dge/js/ai.js\'s Dhatu word-tool: surface form -> '
+            'Reverse index for js/ai.js\'s Dhatu word-tool: surface form -> '
             '{"c": Dhatupatha root code, "k": "<Lakara>.<purusha><vacana>"}. Built '
             'by tools/build_prakriya_form_index.py from the per-root files this '
             'directory already holds (see build_prakriya.py). Sharded by the '

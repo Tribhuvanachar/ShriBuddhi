@@ -64,16 +64,19 @@ window.dgeShowSuperAdminAccessPrompt = function() {
 };
 
 // The path this device's access code is bound to — navigation can never
-// go above this, regardless of what's clicked or dragged. Defaults to
-// 'dge' (the narrowest, safest scope) if nothing was ever granted.
+// go above this, regardless of what's clicked or dragged. Defaults to the
+// repository root ('' — no restriction) if nothing was ever granted: since
+// dge/ moved to the repo root (12 Sep 2026) it no longer names a distinct
+// content-only subfolder to fall back to, so an ungranted device now gets
+// the same scope as an explicit full-repo grant.
 //
-// Deliberately NOT `localStorage.getItem(...) || 'dge'`: a full-repo grant
-// stores '' (empty string, meaning "no restriction"), and '' is falsy —
-// the || would have silently replaced it with 'dge' again, undoing the
-// grant. Only an actually-absent key (never granted at all) falls back.
+// Deliberately NOT `localStorage.getItem(...) || ''`: that would be a
+// no-op either way now, but the ternary is kept so a real narrower default
+// could be reintroduced later without silently being undone by ||'s
+// falsy-empty-string trap (see js/config.js's rootPath: '' convention).
 function dgeAdminGetRootPath() {
   const stored = localStorage.getItem('admin_root_path');
-  return stored !== null ? stored : 'dge';
+  return stored !== null ? stored : '';
 }
 
 function dgeAdminGetName() {
@@ -864,7 +867,7 @@ async function dgeAdminValidateGranthaFileEntries(fileEntries) {
   try {
     const library = await (window.dgeLibraryCatalogPromise || Promise.resolve(null));
     const known = new Set((library && library.granthas || []).map(g => g.path));
-    const unregistered = parsed.filter(({ path, data, error }) => !error && data && data.metadata && data.shlokas && !known.has('dge/' + path));
+    const unregistered = parsed.filter(({ path, data, error }) => !error && data && data.metadata && data.shlokas && !known.has('' + path));
     if (unregistered.length) {
       warnings.push(`${unregistered.length} file(s) here look like grantha data but have no entry in data/library.json yet — they will NOT appear in the Library browser or be reachable by a reading-page URL until an entry is added for each one.`);
     }
@@ -965,7 +968,7 @@ window.dgeAdminUploadFolder = async function(fileList) {
 // Two things this handles that a naive extract-and-upload wouldn't:
 //  - Redundant leading folder segment (see dgeStripRedundantFolderPrefix)
 //    — matters a lot here since the admin's access is root-locked to
-//    "dge" and every delivery zip is itself wrapped in "dge/".
+//    "dge" and every delivery zip is itself wrapped in "".
 //  - Directories in the zip that end up with no files under them (after
 //    stripping) get a ".gitkeep" placeholder — Git has no concept of an
 //    empty directory at all, so without this an empty folder in the zip
@@ -980,7 +983,7 @@ let dgeAdminPendingZip = null; // { fileEntries, emptyDirCount, sourceName } -- 
 // Two things this handles that a naive extract-and-upload wouldn't:
 //  - Redundant leading folder segment (see dgeStripRedundantFolderPrefix)
 //    — matters a lot here since the admin's access is root-locked to
-//    "dge" and every delivery zip is itself wrapped in "dge/".
+//    "dge" and every delivery zip is itself wrapped in "".
 //  - Directories in the zip that end up with no files under them (after
 //    stripping) get a ".gitkeep" placeholder — Git has no concept of an
 //    empty directory at all, so without this an empty folder in the zip
@@ -1154,9 +1157,9 @@ function dgeUint8ToBase64(bytes) {
 
 // A zip/folder upload's own internal paths often start with a folder name
 // that MATCHES the admin folder you're currently standing in (e.g. every
-// delivery zip for this project is wrapped in a top-level "dge/" folder,
+// delivery zip for this project is wrapped in a top-level "" folder,
 // and the admin's own access is root-locked to "dge" — so uploading from
-// there would otherwise land at "dge/dge/..."). Stripping one redundant
+// there would otherwise land at "..."). Stripping one redundant
 // matching leading segment fixes that automatically, regardless of which
 // folder happens to be current when the upload runs. Returns '' if the
 // entry WAS just the folder name itself with nothing under it.
@@ -1165,8 +1168,8 @@ function dgeUint8ToBase64(bytes) {
 // root-locked folder (usually "dge"), not just the former: every delivery
 // zip is wrapped in the root folder name specifically, not whatever
 // subfolder the admin happens to be standing in when they upload. Syncing
-// a "dge/..." zip while browsing dge/css (currentFolderName === "css")
-// used to skip stripping entirely and land at dge/css/dge/... — a stale
+// a "..." zip while browsing css (currentFolderName === "css")
+// used to skip stripping entirely and land at css/... — a stale
 // duplicate of the whole app that shipped and sat unnoticed for several
 // commits (see PROJECT_STATUS.md history) until it was found and deleted.
 function dgeStripRedundantFolderPrefix(relPath, currentFolderName) {

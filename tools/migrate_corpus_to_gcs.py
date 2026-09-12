@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Move the corpus from public static files into a private GCS bucket.
 
-THE POINT. dge/data/**/data.json is served today as a public static asset on
+THE POINT. data/**/data.json is served today as a public static asset on
 Firebase Hosting, so every gate in the reader is advisory: it stops the SITE
 showing a text, not the file being fetched by anyone who knows the URL. The
-corpusFile Cloud Function (dge/firebase/functions/index.js) closes that by
+corpusFile Cloud Function (firebase/functions/index.js) closes that by
 serving corpus text from a PRIVATE bucket after checking the caller's role.
 This script puts the files there.
 
@@ -13,7 +13,7 @@ It is the slow half of a switch that is otherwise one string:
     1. python3 tools/migrate_corpus_to_gcs.py --bucket sarvamula-corpus --apply
     2. python3 tools/migrate_corpus_to_gcs.py --bucket sarvamula-corpus --verify
     3. set CORPUS_BUCKET on the function, deploy it
-    4. set corpusBase in dge/js/config.js, deploy Hosting
+    4. set corpusBase in js/config.js, deploy Hosting
 
 Nothing is deleted from the repository or from Hosting by any of this. Step 4
 is reversible by blanking one string; the static files stay exactly where they
@@ -48,10 +48,10 @@ import time
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-DATA = REPO / "dge" / "data"
+DATA = REPO / "data"
 DEFAULT_PREFIX = "corpus/"
 
-# Folders under dge/data that are not grantha text and have no business behind
+# Folders under data that are not grantha text and have no business behind
 # an access gate: the search index, the generated sidecars, the manifests. They
 # stay public static files, because the reader loads them on every page view
 # for every visitor and putting them behind a per-request role check would buy
@@ -60,7 +60,7 @@ SKIP_DIRS = {"_references", "_padaccheda", "_commentary_sandhi", "_highlight", "
 
 
 def corpus_files(root: Path):
-    """Every data.json under dge/data, as (relative posix path, absolute path)."""
+    """Every data.json under data, as (relative posix path, absolute path)."""
     out = []
     for path in sorted(root.rglob("data.json")):
         rel = path.relative_to(root)
@@ -163,7 +163,7 @@ def main(argv=None):
     ap.add_argument("--bucket", help="target GCS bucket (required for --apply/--verify)")
     ap.add_argument("--prefix", default=DEFAULT_PREFIX,
                     help=f"object-name prefix; must match the function's CORPUS_PREFIX (default {DEFAULT_PREFIX!r})")
-    ap.add_argument("--data", default=str(DATA), help="corpus root (default dge/data)")
+    ap.add_argument("--data", default=str(DATA), help="corpus root (default data)")
     ap.add_argument("--apply", action="store_true", help="actually upload")
     ap.add_argument("--verify", action="store_true", help="check the bucket matches the tree")
     ap.add_argument("--force", action="store_true", help="re-upload even when the digest matches")

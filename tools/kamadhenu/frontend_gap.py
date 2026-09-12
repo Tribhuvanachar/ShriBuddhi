@@ -50,7 +50,7 @@ def dge_subanta_slp(texts):
     js = """
 const fs=require('fs');global.window=global;global.document={currentScript:{src:'x/js/subanta-steps.js'},readyState:'complete',querySelector:()=>null,createElement:()=>({style:{}}),head:{appendChild(){}}};
 global.localStorage={getItem:()=>null};
-let src=fs.readFileSync('dge/js/subanta-steps.js','utf8');src=src.replace(/import\\(/g,'(function(){return Promise.reject(new Error("no wasm"))})(');
+let src=fs.readFileSync('js/subanta-steps.js','utf8');src=src.replace(/import\\(/g,'(function(){return Promise.reject(new Error("no wasm"))})(');
 try{eval(src)}catch(e){}
 const S=window.DGESubantaSteps;const inp=JSON.parse(fs.readFileSync(0,'utf8'));
 process.stdout.write(JSON.stringify(inp.map(t=>{try{return S.slp(t)}catch(e){return 'ERR '+e}})));
@@ -117,7 +117,7 @@ def run():
         if r["case"].startswith("Vedic svara"):
             if "॒" in r["dge_search_slp1"] or "॑" in r["dge_search_slp1"]:
                 f("low", "DGE search_toolkit.to_slp1", r["case"], "svara marks leak into SLP1", r["dge_search_slp1"], "strip U+0951/U+0952 (build_search_index.clean_devanagari already does)")
-            f("info", "all", r["case"], "no path preserves udātta/anudātta/svarita — Vedic accent is out of scope for every existing frontend", "", "separate Vedic annotation track (dge/tts/ARCHITECTURE.md §Vedic) — Stage 6 only")
+            f("info", "all", r["case"], "no path preserves udātta/anudātta/svarita — Vedic accent is out of scope for every existing frontend", "", "separate Vedic annotation track (tts/ARCHITECTURE.md §Vedic) — Stage 6 only")
         if r["case"] == "nukta consonants" and ("ERR" in str(r["dge_subanta_slp1"]) or len(re.sub(r"[^a-zA-Z]", "", str(r["dge_subanta_slp1"]))) < 7):
             f("low", "DGE subanta-steps.slp", r["case"], "nukta letters are not all converted", str(r["dge_subanta_slp1"]), "NFD-decompose nukta or add explicit mappings; Sanskrit rarely needs them")
         if r["case"] == "ZWJ/ZWNJ inside conjunct" and ("‍" in r["dge_search_slp1"] or "‌" in r["dge_search_slp1"]):

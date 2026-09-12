@@ -3,7 +3,7 @@
     "id": "PrahladaKrutaNarasimha",
     "DisplayName": "Prahlada Kruta Narasimha Stotra",
     "title": "॥ प्रह्लादकृत नृसिंह स्तोत्र ॥",
-    "author": "Bhakta Prahlada (traditional; per dge/data/taxonomy.json stotra.PrahladaKrutaNarasimha._default_author)",
+    "author": "Bhakta Prahlada (traditional; per data/taxonomy.json stotra.PrahladaKrutaNarasimha._default_author)",
     "contributor": "Tribhuvan Achar (source/transcription credit; was previously mislabeled as the stotra's 'author')",
     "stotraCode": "pns",
     "archiveBaseUrl": "https://archive.org/download/svg_3bu1_pns/",
@@ -21,12 +21,12 @@
       "padaratnavali": {
         "commentator": "Vijayadhvaja Tirtha",
         "confidence": "inferred",
-        "note": "A tika also named 'Padaratnavali' in dge/data/taxonomy.json (dvaitavedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_padaratnavali) is attributed to Vijayadhvaja Tirtha. Prahlada's Nrsimha Stotra occurs within the Bhagavata (canto 7), so a Bhagavata-Tatparya-Nirnaya sub-tika family plausibly extends to it -- title match only, not independently confirmed for this specific stotra."
+        "note": "A tika also named 'Padaratnavali' in data/taxonomy.json (dvaitavedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_padaratnavali) is attributed to Vijayadhvaja Tirtha. Prahlada's Nrsimha Stotra occurs within the Bhagavata (canto 7), so a Bhagavata-Tatparya-Nirnaya sub-tika family plausibly extends to it -- title match only, not independently confirmed for this specific stotra."
       },
       "satyadharmiya": {
         "commentator": "Satyadharma Tirtha",
         "confidence": "confirmed",
-        "note": "Matches dge/data/commentators.json 'satyadharma_tirtha', cross-referenced from multiple tika_satyadharma*/tika_shrisatyadharma entries under the same Bhagavata Tatparya Nirnaya branch of taxonomy.json, and directly supported by the title 'Satyadharmiya' (= 'of Satyadharma')."
+        "note": "Matches data/commentators.json 'satyadharma_tirtha', cross-referenced from multiple tika_satyadharma*/tika_shrisatyadharma entries under the same Bhagavata Tatparya Nirnaya branch of taxonomy.json, and directly supported by the title 'Satyadharmiya' (= 'of Satyadharma')."
       },
       "mandanandini": {
         "commentator": "Vyasatattvajna",
@@ -36,7 +36,7 @@
       "tatparyam": {
         "commentator": null,
         "confidence": "unconfirmed",
-        "note": "No matching tika title found anywhere in dge/data/taxonomy.json. Author not established from available project data -- do not guess."
+        "note": "No matching tika title found anywhere in data/taxonomy.json. Author not established from available project data -- do not guess."
       }
     }
   },

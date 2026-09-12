@@ -2,7 +2,7 @@
 with the corpusFile function.
 
 The second half matters more than the first. The proxy's objectNameFor()
-(dge/firebase/functions/lib/corpus-access.js) REFUSES any path with a segment
+(firebase/functions/lib/corpus-access.js) REFUSES any path with a segment
 outside [A-Za-z0-9._-] rather than sanitising it, which is the right call for
 hostile input and a trap for our own corpus: the day someone imports a grantha
 into a folder with a space or a Devanagari name, the reader would 404 on it

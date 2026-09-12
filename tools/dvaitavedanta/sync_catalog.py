@@ -7,12 +7,12 @@ taxonomy nodes cannot be authored ahead of time.
 
 It also closes the two failure modes PROJECT_STATUS.md records as repeat bugs:
   * library.json entries written with "title": null
-  * "populated": false left stale, which makes dge/js/core.js short-circuit to
+  * "populated": false left stale, which makes js/core.js short-circuit to
     "Not Yet Available" even though the data is right there
 
 Both are set explicitly here, from the data on disk.
 
-Run:  python tools/dvaitavedanta/sync_catalog.py --data dge/data
+Run:  python tools/dvaitavedanta/sync_catalog.py --data data
 """
 
 from __future__ import annotations
@@ -72,7 +72,7 @@ def upsert_taxonomy(taxonomy, slug, schema, default_author):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--data", default="dge/data")
+    parser.add_argument("--data", default="data")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
 
@@ -102,7 +102,7 @@ def main(argv=None):
         suffix = layer_title or layer
         title = base_title if layer == "mula" else f"{base_title} — {suffix}"
 
-        repo_path = f"dge/data/{slug}/data.json"
+        repo_path = f"data/{slug}/data.json"
         entry = by_path.get(repo_path)
         if entry is None:
             entry = {"path": repo_path, "populated": count > 0, "title": title}

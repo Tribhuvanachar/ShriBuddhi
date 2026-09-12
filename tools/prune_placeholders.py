@@ -15,8 +15,8 @@ Classification, by taxonomy membership and content:
   canonical + placeholder -> rewritten as a proper empty stub
   canonical + real data -> untouched
 
-Run:  python tools/prune_placeholders.py --data dge/data
-      python tools/prune_placeholders.py --data dge/data --fix
+Run:  python tools/prune_placeholders.py --data data
+      python tools/prune_placeholders.py --data data --fix
 """
 
 import argparse
@@ -104,7 +104,7 @@ def resolved_schema(taxonomy, rel):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--data", default="dge/data")
+    parser.add_argument("--data", default="data")
     parser.add_argument("--fix", action="store_true")
     parser.add_argument("--trash", default="",
                         help="move removals here instead of deleting")
@@ -171,7 +171,7 @@ def main(argv=None):
 
     print(f"\nremoved {len(orphan_placeholder)} orphan placeholder folder(s); "
           f"rewrote {len(canonical_placeholder)} stub(s)")
-    print("now run: python tools/audit_library.py --data dge/data --fix")
+    print("now run: python tools/audit_library.py --data data --fix")
     return 0
 
 

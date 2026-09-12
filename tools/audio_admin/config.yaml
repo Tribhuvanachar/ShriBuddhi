@@ -15,10 +15,10 @@ output:
   # Deliberately a STAGING folder, not a live grantha's own assets/ dir --
   # these are raw, unreviewed cuts (chunk_01.wav, chunk_02.wav, ...); they
   # still need a human to confirm/rename them against real shloka numbers
-  # (e.g. smv9.1.mp3) before they belong in dge/data/kavya/sumadhva_vijaya/
+  # (e.g. smv9.1.mp3) before they belong in data/kavya/sumadhva_vijaya/
   # assets/ or any other grantha's real folder, the same convention every
   # other audio-bearing grantha in this repo already uses.
-  local_dir: dge/data/_audio_staging
+  local_dir: data/_audio_staging
 
 push:
   # For LATER — pushing results to the separate audio-data repo.

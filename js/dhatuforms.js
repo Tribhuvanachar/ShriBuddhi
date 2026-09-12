@@ -9,8 +9,8 @@
  * ========================================================================== */
 (function () {
   "use strict";
-  // Page-relative to dge/vyakarana/dhatuforms.html (Phase 10: moved one
-  // directory deeper than dge/ -- ../ reaches dge/data/).
+  // Page-relative to vyakarana/dhatuforms.html (Phase 10: moved one
+  // directory deeper than  -- ../ reaches data/).
   var DHATU_URL = "../data/vedanga/vyakarana/dhatupatha/data.json";
   var FORMS_URL = "../data/vedanga/vyakarana/dhatuforms/";
   var LEXICON_URL = "../data/vedanga/vyakarana/dhatu_lexicon/data.json";
@@ -155,7 +155,7 @@
       note.textContent="रूपाणि (सन्/णिच्/यङ्/यङ्लुक्, शुद्ध कर्मणि) — शुद्ध कर्तरि के लिए देखें प्रक्रिया (चरणबद्ध व्युत्पत्ति)।";
       root.appendChild(note);
     }).catch(function(e){
-      root.innerHTML='<div class="df-empty">इस धातु के रूप लोड नहीं हो सके ('+e+')। dge/ फ़ोल्डर से सर्व करें।</div>';
+      root.innerHTML='<div class="df-empty">इस धातु के रूप लोड नहीं हो सके ('+e+')।  फ़ोल्डर से सर्व करें।</div>';
     });
   }
 

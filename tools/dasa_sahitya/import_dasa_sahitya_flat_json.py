@@ -21,7 +21,7 @@ file) — tagged form="note" rather than folded in as pada #1.
 
 Usage:
     python3 import_dasa_sahitya_flat_json.py --src-dir /path/to/files \
-        --out dge/data/dasa_sahitya_local --asset-name raw_dump \
+        --out data/dasa_sahitya_local --asset-name raw_dump \
         --composer-map kanakadasa.json=ಕನಕದಾಸರು purandara.json=ಪುರಂದರದಾಸರು \
                        gopaladasa.json=ಗೋಪಾಲದಾಸರು \
         --no-composer-files ugabhoga.json --no-composer-form ugabhoga
@@ -137,7 +137,7 @@ def build_record(composer_kn, form, item, idx, asset_name, fname, fetch_date):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--src-dir", required=True)
-    ap.add_argument("--out", default="dge/data/dasa_sahitya_local")
+    ap.add_argument("--out", default="data/dasa_sahitya_local")
     ap.add_argument("--asset-name", required=True)
     ap.add_argument("--composer-map", nargs="*", default=[],
                      help="filename.json=ಕನ್ನಡ ಹೆಸರು pairs")

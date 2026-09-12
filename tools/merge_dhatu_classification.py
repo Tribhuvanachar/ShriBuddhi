@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Merge seT/aniT (iT-augment) and karma (transitivity) classification into
-dge/data/vedanga/vyakarana/dhatupatha/data.json.
+data/vedanga/vyakarana/dhatupatha/data.json.
 
 vidyut's own dhatupatha (already the source of that file, see its own
 "source" field) does not carry these two fields, and dg/tools/build_dhatupatha.py's
@@ -38,7 +38,7 @@ def main():
         if bi:
             by_index[bi] = row
 
-    dst_path = Path(__file__).resolve().parent.parent / "dge" / "data" / "vedanga" / "vyakarana" / "dhatupatha" / "data.json"
+    dst_path = Path(__file__).resolve().parent.parent / "data" / "vedanga" / "vyakarana" / "dhatupatha" / "data.json"
     dst = json.loads(dst_path.read_text(encoding="utf-8"))
 
     matched = set_matched = karma_matched = artha_matched = 0

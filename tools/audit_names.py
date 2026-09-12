@@ -13,7 +13,7 @@ where they do not:
               consumer sees verbatim), and titles with a garbage tail.
   authors     every distinct spelling of `default_author` / `author` /
               `composer` across the data.json files, which of them map to a
-              person id in dge/data/author_aliases.json, and which do not —
+              person id in data/author_aliases.json, and which do not —
               grouped so the same person's spellings are visible side by side.
   taxonomy    `_default_author` values in taxonomy.json that are not names
               (the karmavijaya corruption: commentary body-text as author).
@@ -50,11 +50,11 @@ import unicodedata
 from collections import Counter, defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(ROOT, "dge", "data")
+DATA = os.path.join(ROOT, "data")
 LIBRARY = os.path.join(DATA, "library.json")
 TAXONOMY = os.path.join(DATA, "taxonomy.json")
 ALIASES = os.path.join(DATA, "author_aliases.json")
-PARAMPARA = os.path.join(ROOT, "dge", "guru-parampara", "data", "parampara.json")
+PARAMPARA = os.path.join(ROOT, "guru-parampara", "data", "parampara.json")
 DASA_INDEX = os.path.join(DATA, "DvaitaVedanta/Itara/DasaSahitya", "index.json")
 ADMIN_ASHTADHYAYI = os.path.join(ROOT, "admin", "ashtadhyayi.html")
 
@@ -100,7 +100,7 @@ def check_titles(lib):
 
 
 def walk_data_json():
-    """Yield (relpath, payload) for every data.json under dge/data."""
+    """Yield (relpath, payload) for every data.json under data."""
     for dp, dns, fns in os.walk(DATA):
         dns[:] = [d for d in dns if not d.startswith(("_", "."))]
         if "data.json" in fns:

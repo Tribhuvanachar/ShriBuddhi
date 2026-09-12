@@ -3,7 +3,7 @@
 *Prepared 3 Sep 2026 (IST). Method: blobless clones of the 13 text-bearing
 repos of [github.com/vishvasa](https://github.com/vishvasa) (30 repos total;
 the rest are tooling, notes, images, website), tree listings of their
-markdown content files, compared against `dge/data/library.json`
+markdown content files, compared against `data/library.json`
 (1,622 grantha files). File counts below are `.md` content files in the
 source and grantha `data.json` files on our side — coarse but honest
 proxies for depth.*

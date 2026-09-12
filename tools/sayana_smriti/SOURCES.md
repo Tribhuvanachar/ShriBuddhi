@@ -117,7 +117,7 @@ Until then `run_on_phone.sh` remains the working route, and it delivers Wilson's
 Sāyaṇa complete for all 10,552 mantras in about 3.5 hours.
 
 The two are not exclusive. `commentaries.sayana` and `commentaries.wilson` are
-separate keys, and `dge/js/core.js` already labels both.
+separate keys, and `js/core.js` already labels both.
 
 ## 4. sanskritebooks.org
 
@@ -252,7 +252,7 @@ a wrong cut impossible to mistake for a right one.
 Each sūkta also opens with a preamble on its viniyoga, ṛṣi and chandas that
 glosses no single mantra. It is kept under its own key, `commentaries.sayana_sukta`,
 on the sūkta's first mantra — 1,018 of them — so that mantra's own commentary
-stays its own. `dge/js/core.js` labels it alongside `sayana`.
+stays its own. `js/core.js` labels it alongside `sayana`.
 
 ### How it was verified, and what the checks caught
 

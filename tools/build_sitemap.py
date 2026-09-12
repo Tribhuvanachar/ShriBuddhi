@@ -9,26 +9,26 @@ own client-side navigation -- which they generally don't execute. A
 sitemap gives them the URL list directly.
 
 The one rule that matters: never list a URL a reader can't actually reach.
-dge/js/core.js will not fetch a grantha that has no library.json entry,
+js/core.js will not fetch a grantha that has no library.json entry,
 and short-circuits to "Not Yet Available" when `populated` is false (see
 tools/audit_library.py's own docstring, which this project has been
-bitten by before). So this walks dge/data/library.json and includes only
+bitten by before). So this walks data/library.json and includes only
 `populated: true` entries, applying the exact same admin-only/hidden
-filters dge/js/library.js itself applies before showing a grantha to an
+filters js/library.js itself applies before showing a grantha to an
 ordinary reader (a per-entry "hidden" flag, plus library-overrides.json's
 admin-curated hidden path-prefix list) -- a URL that's admin-only or
 curated out of the reader nav has no business being offered to search
 engines either.
 
-Grantha URLs are derived the same way dge/js/core.js's
+Grantha URLs are derived the same way js/core.js's
 dgeGranthaSlug()/dgeGoToGrantha() derive them at runtime: strip the
-leading `dge/data/` and trailing `/data.json` from the catalog path to
-get a slug, then point at `dge/index.html?path=<slug>`. Static pages
+leading `data/` and trailing `/data.json` from the catalog path to
+get a slug, then point at `render.html?path=<slug>`. Static pages
 (the landing page, the vyakarana tools, kavya/tirtha/etc. section
 fronts, ...) are a short explicit list below -- deliberately not a glob
-over dge/**/*.html, since that would just as happily pick up
-dge/convert/index.html (an admin import tool) or a data-completeness
-tracker (dge/guru-parampara/tracker.html, marked data-admin-only in its
+over **/*.html, since that would just as happily pick up
+convert/index.html (an admin import tool) or a data-completeness
+tracker (guru-parampara/tracker.html, marked data-admin-only in its
 own nav card) as a real reader page.
 
 lastmod per entry is whichever of (a) library.json's own `addedAt` field
@@ -56,7 +56,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from set_site_url import load_config, build_url, SiteUrlError  # noqa: E402
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-LIBRARY_JSON = REPO_ROOT / "dge" / "data" / "library.json"
+LIBRARY_JSON = REPO_ROOT / "data" / "library.json"
 OVERRIDES_JSON = REPO_ROOT / "admin" / "config" / "library-overrides.json"
 SITEMAP_PATH = REPO_ROOT / "sitemap.xml"
 ROBOTS_PATH = REPO_ROOT / "robots.txt"
@@ -64,42 +64,42 @@ ROBOTS_PATH = REPO_ROOT / "robots.txt"
 # Real top-level reader-facing pages, as of 28 Aug 2026 -- the site's
 # structure changed the same day this was written, so this was checked
 # against the actual file tree rather than copied from an older list.
-# Excluded on purpose: dge/convert/index.html (admin import tool),
-# dge/dvaitavedanta-status.html (admin-gated progress dashboard),
-# dge/guru-parampara/tracker.html (data-admin-only nav card), and
+# Excluded on purpose: convert/index.html (admin import tool),
+# dvaitavedanta-status.html (admin-gated progress dashboard),
+# guru-parampara/tracker.html (data-admin-only nav card), and
 # everything under admin/.
 STATIC_PAGES = [
     "index.html",
     "home-panel.html",
-    "dge/index.html",
-    "dge/audio.html",
-    "dge/gita.html",
-    "dge/kavya/index.html",
-    "dge/dasa-sahitya/index.html",
-    "dge/tirtha/index.html",
-    "dge/guru-parampara/index.html",
-    "dge/guru-parampara/lineage-2d.html",
-    "dge/guru-parampara/lineage-3d.html",
-    "dge/vyakarana/ashtadhyayi.html",
-    "dge/vyakarana/chandas.html",
-    "dge/vyakarana/dhatu.html",
-    "dge/vyakarana/dhatuforms.html",
-    "dge/vyakarana/krdanta.html",
-    "dge/vyakarana/prakriya.html",
-    "dge/vyakarana/rupasiddhi.html",
-    "dge/vyakarana/shabda.html",
+    "render.html",
+    "audio.html",
+    "gita.html",
+    "kavya/index.html",
+    "dasa-sahitya/index.html",
+    "tirtha/index.html",
+    "guru-parampara/index.html",
+    "guru-parampara/lineage-2d.html",
+    "guru-parampara/lineage-3d.html",
+    "vyakarana/ashtadhyayi.html",
+    "vyakarana/chandas.html",
+    "vyakarana/dhatu.html",
+    "vyakarana/dhatuforms.html",
+    "vyakarana/krdanta.html",
+    "vyakarana/prakriya.html",
+    "vyakarana/rupasiddhi.html",
+    "vyakarana/shabda.html",
 ]
 
 SITEMAP_RE = re.compile(r"^Sitemap:\s*(\S+)\s*$", re.MULTILINE)
 
 
 def grantha_slug(catalog_path):
-    """Mirrors dge/js/core.js's dgeLibraryPathToFetchPath()+dgeGranthaSlug():
-    strip a leading 'dge/', then a leading 'data/', then a trailing
+    """Mirrors js/core.js's dgeLibraryPathToFetchPath()+dgeGranthaSlug():
+    strip a leading '', then a leading 'data/', then a trailing
     '/data.json'."""
     p = catalog_path
-    if p.startswith("dge/"):
-        p = p[len("dge/"):]
+    if p.startswith(""):
+        p = p[len(""):]
     if p.startswith("data/"):
         p = p[len("data/"):]
     if p.endswith("/data.json"):
@@ -108,7 +108,7 @@ def grantha_slug(catalog_path):
 
 
 def is_hidden_path(slug, hidden_prefixes):
-    """Mirrors dge/js/library.js's dgeIsHiddenPath(): a slug is hidden if it,
+    """Mirrors js/library.js's dgeIsHiddenPath(): a slug is hidden if it,
     or any ancestor prefix of it, is in library-overrides.json's `hidden`
     list."""
     parts = slug.split("/")
@@ -127,7 +127,7 @@ def load_hidden_prefixes(path=OVERRIDES_JSON):
 
 def load_populated_granthas():
     """Every library.json entry a reader can actually reach: populated,
-    not per-entry `hidden` (dge/js/library.js's dgeIsAdminOnlyGrantha()),
+    not per-entry `hidden` (js/library.js's dgeIsAdminOnlyGrantha()),
     and not curated out via library-overrides.json's hidden prefixes
     (dgeIsHiddenPath())."""
     lib = json.loads(LIBRARY_JSON.read_text(encoding="utf-8"))
@@ -197,7 +197,7 @@ def build_sitemap_xml(origin):
     for rel in STATIC_PAGES:
         urls.append((build_url(origin, rel), static_git_dates.get(rel)))
     for slug, g in sorted(granthas, key=lambda item: item[0]):
-        loc = build_url(origin, "dge/index.html?path=" + quote(slug, safe="/"))
+        loc = build_url(origin, "render.html?path=" + quote(slug, safe="/"))
         lastmod = entry_lastmod(g["path"], g.get("addedAt"), grantha_git_dates)
         urls.append((loc, lastmod))
 

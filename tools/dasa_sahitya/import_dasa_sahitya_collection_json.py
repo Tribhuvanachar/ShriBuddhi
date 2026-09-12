@@ -20,7 +20,7 @@ summary.
 
 Usage:
     python3 import_dasa_sahitya_collection_json.py --src-dir /path/to/export \
-        --out dge/data/dasa_sahitya_local --asset-name collection_padagalu
+        --out data/dasa_sahitya_local --asset-name collection_padagalu
 """
 import argparse
 import datetime as _dt
@@ -141,7 +141,7 @@ def build_record(dasaru_kn_name, dasaru_en_name, collection, item, asset_name, f
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--src-dir", required=True, help="dir with index.json + one <slug>.json per dasaru")
-    ap.add_argument("--out", default="dge/data/dasa_sahitya_local")
+    ap.add_argument("--out", default="data/dasa_sahitya_local")
     ap.add_argument("--asset-name", required=True)
     ap.add_argument("--fetch-date", default=None)
     args = ap.parse_args()

@@ -2,7 +2,7 @@
 """
 build_batch3_upanishads.py -- 5 mula-Upanishad texts, caught late: these
 already had precise empty taxonomy leaves under their Veda/shakha
-(dge/PENDING.md's proposal had wrongly listed Upanishad mula texts as a
+(PENDING.md's proposal had wrongly listed Upanishad mula texts as a
 Tier B gap -- corrected here). Brihadaranyakopanishad deliberately
 excluded: DCS's own chapter headers ("BAU") don't distinguish the Kanva
 vs Madhyandina recension, and the taxonomy has separate empty leaves for
@@ -23,11 +23,11 @@ SOURCE_NAME = "Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024"
 LICENCE = "CC-BY 4.0"
 
 SINGLE = [
-    ("Chāndogyopaniṣad", "dge/data/vedas/samaveda/kauthuma_shakha/upanishad/chandogya_upanishad/data.json", "chandogya_upanishad"),
-    ("Kaṭhopaniṣad", "dge/data/vedas/yajurveda/krishna_yajurveda/katha_shakha/upanishad/katha_upanishad/data.json", "katha_upanishad"),
-    ("Taittirīyopaniṣad", "dge/data/vedas/yajurveda/krishna_yajurveda/taittiriya_shakha/upanishad/taittiriya_upanishad/data.json", "taittiriya_upanishad"),
-    ("Aitareyopaniṣad", "dge/data/vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad/data.json", "aitareya_upanishad"),
-    ("Muṇḍakopaniṣad", "dge/data/vedas/atharvaveda/shaunaka_shakha/upanishads/mundaka_upanishad/data.json", "mundaka_upanishad"),
+    ("Chāndogyopaniṣad", "data/vedas/samaveda/kauthuma_shakha/upanishad/chandogya_upanishad/data.json", "chandogya_upanishad"),
+    ("Kaṭhopaniṣad", "data/vedas/yajurveda/krishna_yajurveda/katha_shakha/upanishad/katha_upanishad/data.json", "katha_upanishad"),
+    ("Taittirīyopaniṣad", "data/vedas/yajurveda/krishna_yajurveda/taittiriya_shakha/upanishad/taittiriya_upanishad/data.json", "taittiriya_upanishad"),
+    ("Aitareyopaniṣad", "data/vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad/data.json", "aitareya_upanishad"),
+    ("Muṇḍakopaniṣad", "data/vedas/atharvaveda/shaunaka_shakha/upanishads/mundaka_upanishad/data.json", "mundaka_upanishad"),
 ]
 
 
@@ -53,7 +53,7 @@ def main():
             note=(
                 "{count} units across {chapters} -- the mula Upanishad text, "
                 "distinct from Madhva's bhashya on it elsewhere in this repo. "
-                "See dge/PENDING.md, 24 Aug entry (batch 3), for the correction "
+                "See PENDING.md, 24 Aug entry (batch 3), for the correction "
                 "this represents to the original taxonomy-placement proposal."
             ),
             tag="dcs-import",

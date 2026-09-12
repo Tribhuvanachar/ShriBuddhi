@@ -16,7 +16,7 @@ from zoneinfo import ZoneInfo
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools" / "chandas"))
 from build_gemini_task import load, vrutta_rows, unresolved  # noqa: E402
-VI = ROOT / "dge/data/ocr_staging/bhagavata_saroddhara/verify_input"
+VI = ROOT / "data/ocr_staging/bhagavata_saroddhara/verify_input"
 
 RULES = """SCAN NOTATION: L = laghu, G = guru, one letter per akṣara, one string per pāda. Guru = long vowel, or a vowel
 followed by anusvāra / visarga / candrabindu / jihvāmūlīya / upadhmānīya, or followed by a conjunct; the last akṣara of

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 build_batch2.py -- second batch, 24 Aug: the Tier A items from the DCS
-taxonomy-placement proposal (see dge/PENDING.md) that a plain exact-name
+taxonomy-placement proposal (see PENDING.md) that a plain exact-name
 match couldn't find, because they land inside existing empty sub-leaves
 one level deeper than library.json's top-level path (vedanga/kalpa's
 per-shakha shrautasutra/grihyasutra/dharmasutra structure), or because a
@@ -49,65 +49,65 @@ def vendor_for(dcs_name, slug):
 
 # --- single-target imports: (dcs_name, out_path relative to repo, slug) ---
 SINGLE = [
-    ("Kauśikasūtra", "dge/data/vedanga/kalpa/atharvaveda/kaushika/grihyasutra/data.json", "kausikasutra"),
-    ("Vaitānasūtra", "dge/data/vedanga/kalpa/atharvaveda/vaitana/shrautasutra/data.json", "vaitanasutra"),
-    ("Vasiṣṭhadharmasūtra", "dge/data/vedanga/kalpa/independent_dharmasutras/vasishtha_dharmasutra/data.json", "vasishtha_dharmasutra"),
-    ("Āpastambadharmasūtra", "dge/data/vedanga/kalpa/krishna_yajurveda/apastamba/dharmasutra/data.json", "apastamba_dharmasutra"),
-    ("Āpastambagṛhyasūtra", "dge/data/vedanga/kalpa/krishna_yajurveda/apastamba/grihyasutra/data.json", "apastamba_grihyasutra"),
-    ("Āpastambaśrautasūtra", "dge/data/vedanga/kalpa/krishna_yajurveda/apastamba/shrautasutra/data.json", "apastamba_shrautasutra"),
-    ("Baudhāyanadharmasūtra", "dge/data/vedanga/kalpa/krishna_yajurveda/baudhayana/dharmasutra/data.json", "baudhayana_dharmasutra"),
-    ("Baudhāyanagṛhyasūtra", "dge/data/vedanga/kalpa/krishna_yajurveda/baudhayana/grihyasutra/data.json", "baudhayana_grihyasutra"),
-    ("Baudhāyanaśrautasūtra", "dge/data/vedanga/kalpa/krishna_yajurveda/baudhayana/shrautasutra/data.json", "baudhayana_shrautasutra"),
-    ("Bhāradvājagṛhyasūtra", "dge/data/vedanga/kalpa/krishna_yajurveda/bharadvaja/grihyasutra/data.json", "bharadvaja_grihyasutra"),
-    ("Bhāradvājaśrautasūtra", "dge/data/vedanga/kalpa/krishna_yajurveda/bharadvaja/shrautasutra/data.json", "bharadvaja_shrautasutra"),
-    ("Hiraṇyakeśigṛhyasūtra", "dge/data/vedanga/kalpa/krishna_yajurveda/hiranyakeshin/grihyasutra/data.json", "hiranyakeshi_grihyasutra"),
-    ("Kāṭhakagṛhyasūtra", "dge/data/vedanga/kalpa/krishna_yajurveda/kathaka/grihyasutra/data.json", "kathaka_grihyasutra"),
-    ("Mānavagṛhyasūtra", "dge/data/vedanga/kalpa/krishna_yajurveda/manava/grihyasutra/data.json", "manava_grihyasutra"),
-    ("Vaikhānasadharmasūtra", "dge/data/vedanga/kalpa/krishna_yajurveda/vaikhanasa/dharmasutra/data.json", "vaikhanasa_dharmasutra"),
-    ("Vaikhānasagṛhyasūtra", "dge/data/vedanga/kalpa/krishna_yajurveda/vaikhanasa/grihyasutra/data.json", "vaikhanasa_grihyasutra"),
-    ("Vaikhānasaśrautasūtra", "dge/data/vedanga/kalpa/krishna_yajurveda/vaikhanasa/shrautasutra/data.json", "vaikhanasa_shrautasutra"),
-    ("Āśvalāyanagṛhyasūtra", "dge/data/vedanga/kalpa/rigveda/ashvalayana/grihyasutra/data.json", "asvalayana_grihyasutra"),
-    ("Āśvālāyanaśrautasūtra", "dge/data/vedanga/kalpa/rigveda/ashvalayana/shrautasutra/data.json", "asvalayana_shrautasutra"),
-    ("Śāṅkhāyanagṛhyasūtra", "dge/data/vedanga/kalpa/rigveda/shankhayana/grihyasutra/data.json", "shankhayana_grihyasutra"),
-    ("Śāṅkhāyanaśrautasūtra", "dge/data/vedanga/kalpa/rigveda/shankhayana/shrautasutra/data.json", "shankhayana_shrautasutra"),
-    ("Drāhyāyaṇaśrautasūtra", "dge/data/vedanga/kalpa/samaveda/drahyayana/shrautasutra/data.json", "drahyayana_shrautasutra"),
-    ("Gobhilagṛhyasūtra", "dge/data/vedanga/kalpa/samaveda/gobhila/grihyasutra/data.json", "gobhila_grihyasutra"),
-    ("Jaiminigṛhyasūtra", "dge/data/vedanga/kalpa/samaveda/jaiminiya/grihyasutra/data.json", "jaiminiya_grihyasutra"),
-    ("Khādiragṛhyasūtra", "dge/data/vedanga/kalpa/samaveda/khadira/grihyasutra/data.json", "khadira_grihyasutra"),
-    ("Kātyāyanaśrautasūtra", "dge/data/vedanga/kalpa/shukla_yajurveda/katyayana/shrautasutra/data.json", "katyayana_shrautasutra"),
-    ("Pāraskaragṛhyasūtra", "dge/data/vedanga/kalpa/shukla_yajurveda/paraskara/grihyasutra/data.json", "paraskara_grihyasutra"),
-    ("Vaiśeṣikasūtra", "dge/data/darshana/vaisheshika/sutra_and_bhashya/vaisheshika_sutra/mula/data.json", "vaisheshika_sutra"),
-    ("Nyāyasūtra", "dge/data/darshana/nyaya/prachina_nyaya/nyaya_sutra/mula/data.json", "nyaya_sutra"),
-    ("Nyāyabhāṣya", "dge/data/darshana/nyaya/prachina_nyaya/nyaya_sutra/bhashya_vatsyayana/data.json", "nyaya_bhashya"),
-    ("Kāṭhakasaṃhitā", "dge/data/vedas/yajurveda/krishna_yajurveda/katha_shakha/samhita/katha_samhita/data.json", "kathaka_samhita"),
-    ("Garuḍapurāṇa", "dge/data/purana/garuda_purana/purva_khanda/data.json", "garuda_purana"),
+    ("Kauśikasūtra", "data/vedanga/kalpa/atharvaveda/kaushika/grihyasutra/data.json", "kausikasutra"),
+    ("Vaitānasūtra", "data/vedanga/kalpa/atharvaveda/vaitana/shrautasutra/data.json", "vaitanasutra"),
+    ("Vasiṣṭhadharmasūtra", "data/vedanga/kalpa/independent_dharmasutras/vasishtha_dharmasutra/data.json", "vasishtha_dharmasutra"),
+    ("Āpastambadharmasūtra", "data/vedanga/kalpa/krishna_yajurveda/apastamba/dharmasutra/data.json", "apastamba_dharmasutra"),
+    ("Āpastambagṛhyasūtra", "data/vedanga/kalpa/krishna_yajurveda/apastamba/grihyasutra/data.json", "apastamba_grihyasutra"),
+    ("Āpastambaśrautasūtra", "data/vedanga/kalpa/krishna_yajurveda/apastamba/shrautasutra/data.json", "apastamba_shrautasutra"),
+    ("Baudhāyanadharmasūtra", "data/vedanga/kalpa/krishna_yajurveda/baudhayana/dharmasutra/data.json", "baudhayana_dharmasutra"),
+    ("Baudhāyanagṛhyasūtra", "data/vedanga/kalpa/krishna_yajurveda/baudhayana/grihyasutra/data.json", "baudhayana_grihyasutra"),
+    ("Baudhāyanaśrautasūtra", "data/vedanga/kalpa/krishna_yajurveda/baudhayana/shrautasutra/data.json", "baudhayana_shrautasutra"),
+    ("Bhāradvājagṛhyasūtra", "data/vedanga/kalpa/krishna_yajurveda/bharadvaja/grihyasutra/data.json", "bharadvaja_grihyasutra"),
+    ("Bhāradvājaśrautasūtra", "data/vedanga/kalpa/krishna_yajurveda/bharadvaja/shrautasutra/data.json", "bharadvaja_shrautasutra"),
+    ("Hiraṇyakeśigṛhyasūtra", "data/vedanga/kalpa/krishna_yajurveda/hiranyakeshin/grihyasutra/data.json", "hiranyakeshi_grihyasutra"),
+    ("Kāṭhakagṛhyasūtra", "data/vedanga/kalpa/krishna_yajurveda/kathaka/grihyasutra/data.json", "kathaka_grihyasutra"),
+    ("Mānavagṛhyasūtra", "data/vedanga/kalpa/krishna_yajurveda/manava/grihyasutra/data.json", "manava_grihyasutra"),
+    ("Vaikhānasadharmasūtra", "data/vedanga/kalpa/krishna_yajurveda/vaikhanasa/dharmasutra/data.json", "vaikhanasa_dharmasutra"),
+    ("Vaikhānasagṛhyasūtra", "data/vedanga/kalpa/krishna_yajurveda/vaikhanasa/grihyasutra/data.json", "vaikhanasa_grihyasutra"),
+    ("Vaikhānasaśrautasūtra", "data/vedanga/kalpa/krishna_yajurveda/vaikhanasa/shrautasutra/data.json", "vaikhanasa_shrautasutra"),
+    ("Āśvalāyanagṛhyasūtra", "data/vedanga/kalpa/rigveda/ashvalayana/grihyasutra/data.json", "asvalayana_grihyasutra"),
+    ("Āśvālāyanaśrautasūtra", "data/vedanga/kalpa/rigveda/ashvalayana/shrautasutra/data.json", "asvalayana_shrautasutra"),
+    ("Śāṅkhāyanagṛhyasūtra", "data/vedanga/kalpa/rigveda/shankhayana/grihyasutra/data.json", "shankhayana_grihyasutra"),
+    ("Śāṅkhāyanaśrautasūtra", "data/vedanga/kalpa/rigveda/shankhayana/shrautasutra/data.json", "shankhayana_shrautasutra"),
+    ("Drāhyāyaṇaśrautasūtra", "data/vedanga/kalpa/samaveda/drahyayana/shrautasutra/data.json", "drahyayana_shrautasutra"),
+    ("Gobhilagṛhyasūtra", "data/vedanga/kalpa/samaveda/gobhila/grihyasutra/data.json", "gobhila_grihyasutra"),
+    ("Jaiminigṛhyasūtra", "data/vedanga/kalpa/samaveda/jaiminiya/grihyasutra/data.json", "jaiminiya_grihyasutra"),
+    ("Khādiragṛhyasūtra", "data/vedanga/kalpa/samaveda/khadira/grihyasutra/data.json", "khadira_grihyasutra"),
+    ("Kātyāyanaśrautasūtra", "data/vedanga/kalpa/shukla_yajurveda/katyayana/shrautasutra/data.json", "katyayana_shrautasutra"),
+    ("Pāraskaragṛhyasūtra", "data/vedanga/kalpa/shukla_yajurveda/paraskara/grihyasutra/data.json", "paraskara_grihyasutra"),
+    ("Vaiśeṣikasūtra", "data/darshana/vaisheshika/sutra_and_bhashya/vaisheshika_sutra/mula/data.json", "vaisheshika_sutra"),
+    ("Nyāyasūtra", "data/darshana/nyaya/prachina_nyaya/nyaya_sutra/mula/data.json", "nyaya_sutra"),
+    ("Nyāyabhāṣya", "data/darshana/nyaya/prachina_nyaya/nyaya_sutra/bhashya_vatsyayana/data.json", "nyaya_bhashya"),
+    ("Kāṭhakasaṃhitā", "data/vedas/yajurveda/krishna_yajurveda/katha_shakha/samhita/katha_samhita/data.json", "kathaka_samhita"),
+    ("Garuḍapurāṇa", "data/purana/garuda_purana/purva_khanda/data.json", "garuda_purana"),
 ]
 
 # --- split imports: one DCS text -> several existing leaves by book number ---
 SPLIT = [
     ("Viṣṇupurāṇa", "vishnu_purana", {
-        1: "dge/data/purana/vishnu_purana/amsha_01/data.json",
-        2: "dge/data/purana/vishnu_purana/amsha_02/data.json",
-        3: "dge/data/purana/vishnu_purana/amsha_03/data.json",
-        4: "dge/data/purana/vishnu_purana/amsha_04/data.json",
-        5: "dge/data/purana/vishnu_purana/amsha_05/data.json",
-        6: "dge/data/purana/vishnu_purana/amsha_06/data.json",
+        1: "data/purana/vishnu_purana/amsha_01/data.json",
+        2: "data/purana/vishnu_purana/amsha_02/data.json",
+        3: "data/purana/vishnu_purana/amsha_03/data.json",
+        4: "data/purana/vishnu_purana/amsha_04/data.json",
+        5: "data/purana/vishnu_purana/amsha_05/data.json",
+        6: "data/purana/vishnu_purana/amsha_06/data.json",
     }),
     ("Liṅgapurāṇa", "linga_purana", {
-        1: "dge/data/purana/linga_purana/purva_bhaga/data.json",
-        2: "dge/data/purana/linga_purana/uttara_bhaga/data.json",
+        1: "data/purana/linga_purana/purva_bhaga/data.json",
+        2: "data/purana/linga_purana/uttara_bhaga/data.json",
     }),
     ("Kūrmapurāṇa", "kurma_purana", {
-        1: "dge/data/purana/kurma_purana/purva_bhaga/data.json",
-        2: "dge/data/purana/kurma_purana/uttara_bhaga/data.json",
+        1: "data/purana/kurma_purana/purva_bhaga/data.json",
+        2: "data/purana/kurma_purana/uttara_bhaga/data.json",
     }),
     ("Atharvaveda (Paippalāda)", "atharvaveda_paippalada", {
-        1: "dge/data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_01/data.json",
-        4: "dge/data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_04/data.json",
-        5: "dge/data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_05/data.json",
-        10: "dge/data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_10/data.json",
-        12: "dge/data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_12/data.json",
-        19: "dge/data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_19/data.json",
+        1: "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_01/data.json",
+        4: "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_04/data.json",
+        5: "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_05/data.json",
+        10: "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_10/data.json",
+        12: "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_12/data.json",
+        19: "data/vedas/atharvaveda/paippalada_shakha/samhita/kanda_19/data.json",
     }),
 ]
 
@@ -127,7 +127,7 @@ def main():
             note=(
                 "{count} units across {chapters} DCS carries of this text "
                 "(may be an excerpt, not the complete classical work). "
-                "See dge/PENDING.md, 24 Aug entry (batch 2), for how this was matched."
+                "See PENDING.md, 24 Aug entry (batch 2), for how this was matched."
             ),
             tag="dcs-import",
         )
@@ -145,7 +145,7 @@ def main():
             source_name=SOURCE_NAME, source_url=source_url(dcs_name), licence=LICENCE,
             note=(
                 "{{count}} units ({{chapters}}) of this book/kanda of " + dcs_name + " from DCS. "
-                "See dge/PENDING.md, 24 Aug entry (batch 2), for the book-number "
+                "See PENDING.md, 24 Aug entry (batch 2), for the book-number "
                 "to taxonomy-leaf mapping used to split this text."
             ).replace("{{count}}", "{count}").replace("{{chapters}}", "{chapters}"),
             tag="dcs-import",

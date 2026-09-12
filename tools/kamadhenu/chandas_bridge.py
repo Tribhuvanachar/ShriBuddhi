@@ -1,7 +1,7 @@
-"""Stage 5 — run the EXISTING DGE Chandas engine (dge/js/chandas.js, unmodified) headlessly over text units.
+"""Stage 5 — run the EXISTING DGE Chandas engine (js/chandas.js, unmodified) headlessly over text units.
 
 The engine is browser JS; chandas_runner.js stubs three globals and loads the same data.json the site
-uses, so results are identical to dge/vyakarana/chandas.html. Results are cached by text hash in
+uses, so results are identical to vyakarana/chandas.html. Results are cached by text hash in
 processed/chandas_cache.json. No competing metre engine is introduced here."""
 import hashlib, json, re, subprocess, sys
 from pathlib import Path
@@ -113,7 +113,7 @@ def analyse_texts(texts, batch=400):
 def run():
     ti = read_json(DS / "text_index.json")
     units = ti["units"]
-    log(f"chandas: analysing {len(units)} text units with dge/js/chandas.js (node)")
+    log(f"chandas: analysing {len(units)} text units with js/chandas.js (node)")
     res = analyse_texts([u.get("metrical_text") or u.get("text") for u in units])
     for u, r in zip(units, res):
         u["chandas_analysis"] = r

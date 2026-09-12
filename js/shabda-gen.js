@@ -1,4 +1,4 @@
-// dge/js/shabda-gen.js — नूतनशब्दरूपाणि: a declension table for ANY prātipadika.
+// js/shabda-gen.js — नूतनशब्दरूपाणि: a declension table for ANY prātipadika.
 //
 // The Śabdapāṭha is a fixed list of 9,007 words. A reader (or the reader's
 // own word-tool) meets a stem that is not on it — a name, a rare noun, a

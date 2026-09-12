@@ -1,7 +1,7 @@
-// dge/js/chandas-page.js — the Vṛtta report section of dge/vyakarana/chandas.html.
+// js/chandas-page.js — the Vṛtta report section of vyakarana/chandas.html.
 //
 // Four reports, all reading the precomputed files in
-// dge/data/vedanga/chandas/reports/ (tools/chandas/build_chandas_reports.js)
+// data/vedanga/chandas/reports/ (tools/chandas/build_chandas_reports.js)
 // and falling back to an in-browser run of the same DGEChandasReport code:
 //
 //   1. ग्रन्थवृत्तसूची  — pick any grantha: its vṛttas, counts, variants, sample

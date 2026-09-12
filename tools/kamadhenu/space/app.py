@@ -6,7 +6,7 @@ is being synthesised. Differences from the demo:
 
   * API-first: /synthesize(text, dge_chandas, seed) → (audio, json) [Vāgdhenu baseline] and
     /synthesize_kamadhenu(text, ref_id, seed) → (audio, json) [IndicF5 zero-shot, 3BHU1 reference]. The metre comes from the caller —
-    DGE's own chandas engine runs in the browser (dge/js/chandas.js) and its verdict is mapped onto the
+    DGE's own chandas engine runs in the browser (js/chandas.js) and its verdict is mapped onto the
     reference bank by meter_map.json. Auto-detection with Vāgdhenu's tts_meter is only the fallback.
   * The voice is configuration: VAGDHENU_HF / VAGDHENU_VOICE / VAGDHENU_VOC env vars (Kamadhenu's own voice
     later replaces the baseline without a code change).

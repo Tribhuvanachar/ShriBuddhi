@@ -12,11 +12,11 @@ Nothing is migrated yet — this document is for the lead's decision.*
 
 ### Where
 
-Every work lives under `dge/data/`, one directory per work, one
+Every work lives under `data/`, one directory per work, one
 subdirectory per layer, each holding a single `data.json`:
 
 ```
-dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/
+data/darshana/vedanta/dvaita/DvaitaVedantaIn/
   sutra_prasthana/
     brahma_sutra_bhashya/
       mula/data.json                    ← 571 units
@@ -31,7 +31,7 @@ dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/
       tika_parimala/ … tika_vakyartharatnamala/ … (upa-ṭīkās)
 ```
 
-`dge/data/library.json` registers each layer directory as a library node;
+`data/library.json` registers each layer directory as a library node;
 the reader stitches sibling `tika_*` layers onto mūla cards on demand
 (`layer-stitch.js`), matching units by shared `id`.
 

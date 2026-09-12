@@ -6,14 +6,14 @@
 Reply kinds (by the `pack` tag inside the JSON): UP-<BOOK>-LABELS → labels.json (abbreviation → commentator /
 layer); UP-<BOOK>-NEW-nn → clean_text on the block (kept only if it resembles the Vision or Tesseract reading,
 ratio ≥ 0.6 — Gemini must not rewrite from memory); UP-<BOOK>-DIFF-nn → decisions.json. Everything lands under
-dge/data/ocr_staging/upanishad_tippani/<book>/answers/ and is idempotent; the importer reads these files."""
+data/ocr_staging/upanishad_tippani/<book>/answers/ and is idempotent; the importer reads these files."""
 import difflib, json, re, sys
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 ROOT = Path(__file__).resolve().parents[2]
-STG = ROOT / "dge/data/ocr_staging/upanishad_tippani"
+STG = ROOT / "data/ocr_staging/upanishad_tippani"
 
 
 def parse(text):

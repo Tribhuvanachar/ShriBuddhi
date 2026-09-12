@@ -28,7 +28,7 @@ Why it is here and not on jsDelivr, where it lived until 10 Sep 2026:
 
 To refresh:
 
-    curl -sSo dge/js/vendor/sanscript-<version>.min.js \
+    curl -sSo js/vendor/sanscript-<version>.min.js \
       https://cdn.jsdelivr.net/npm/@indic-transliteration/sanscript@<version>/sanscript.min.js
     grep -rl 'sanscript-1.3.3.min.js' dge --include='*.html' | \
       xargs sed -i 's/sanscript-1\.3\.3\.min\.js/sanscript-<version>.min.js/g'

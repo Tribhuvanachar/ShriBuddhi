@@ -17,7 +17,7 @@ from link_english_commentary import save_json
 class TestDefaultStagedPath(unittest.TestCase):
     def test_builds_expected_path(self):
         path = goc.default_staged_path("raghavendra_vijaya", "tika_x", 1, 12, 54)
-        self.assertEqual(path, Path("dge/data/ocr_staging/raghavendra_vijaya/tika_x_canto1_pages12-54.json"))
+        self.assertEqual(path, Path("data/ocr_staging/raghavendra_vijaya/tika_x_canto1_pages12-54.json"))
 
 
 class TestRunDryRun(unittest.TestCase):

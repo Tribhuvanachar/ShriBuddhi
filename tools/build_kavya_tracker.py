@@ -7,7 +7,7 @@ all, how many are finished, which are part-done and to what extent, and what is
 still only a name on a list. It answers it from three places that each know
 part of it and none of which agrees with the others on its own:
 
-  dge/data/**                        what is published on the site right now
+  data/**                        what is published on the site right now
   the Kavya corpus (kavya-dist)      what the importer built, off-site
   tools/kavya/config/works.json      what the importer was asked for, and the
                                      recorded reason where it could not
@@ -26,7 +26,7 @@ a reader needs it is half done.
     python3 tools/build_kavya_tracker.py
     python3 tools/build_kavya_tracker.py --corpus <a kavya-dist checkout>
 
-Writes admin/config/kavya-status.json (machine) and dge/KAVYA_TRACKER.md (human).
+Writes admin/config/kavya-status.json (machine) and KAVYA_TRACKER.md (human).
 """
 from __future__ import annotations
 
@@ -48,7 +48,7 @@ AIDS = {"mula", "padaccheda", "anvaya", "chandas", "saaramsha"}
 def count_on_disk(path):
     """Verses and commentary coverage in one grantha, in either shape.
 
-    dge/data holds both: the itihasa_purana_text shape this project writes now
+    data holds both: the itihasa_purana_text shape this project writes now
     ({items: [{shlokas: [...]}]}), and the older stotra shape the Vijaya kavyas
     are in ({shlokas: {"1": {sa, commentaries}}}). Counting only the first would
     report Sumadhva Vijaya and Raghavendra Vijaya as empty, which is how they
@@ -77,7 +77,7 @@ def count_on_disk(path):
 
 
 def on_disk(data_root):
-    """Every kavya-family work published from dge/data, with its layers."""
+    """Every kavya-family work published from data, with its layers."""
     out = {}
     for path in sorted(glob.glob(os.path.join(data_root, "kavya_alankara", "*"))):
         if not os.path.isdir(path):
@@ -135,10 +135,10 @@ def classify(entry):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--data-root", default=os.path.join(REPO, "dge", "data"))
+    ap.add_argument("--data-root", default=os.path.join(REPO, "data"))
     ap.add_argument("--corpus", default="", help="a kavya-dist checkout, or a URL")
     ap.add_argument("--out-json", default=os.path.join(REPO, "admin", "config", "kavya-status.json"))
-    ap.add_argument("--out-md", default=os.path.join(REPO, "dge", "KAVYA_TRACKER.md"))
+    ap.add_argument("--out-md", default=os.path.join(REPO, "KAVYA_TRACKER.md"))
     args = ap.parse_args()
 
     works = {w["id"]: w for w in json.load(

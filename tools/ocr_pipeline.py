@@ -26,7 +26,7 @@ from vision_client import ocr_images_batch  # noqa: E402
 
 LANGUAGE_HINTS = ["sa", "hi", "kn"]
 
-# Ported VERBATIM from dge/convert/gemini.js's PROOFREAD_PROMPT, minus the
+# Ported VERBATIM from convert/gemini.js's PROOFREAD_PROMPT, minus the
 # dual-engine (Vision + Tesseract cross-check) branch -- this pipeline only
 # ever has one OCR reading (Vision), so every page is the "no engine label"
 # case that prompt already describes.
@@ -131,7 +131,7 @@ def prepare_pdf(pdf_url: str | None, part_urls: list[str], workdir: Path) -> Pat
     given.
 
     7z combining mirrors the manual process already used once in this
-    project (see dge/PENDING.md's Raghavendra Vijaya writeup): all parts
+    project (see PENDING.md's Raghavendra Vijaya writeup): all parts
     must sit in the same directory, under their real filenames, before
     `7z x` on the first part will detect the multi-volume set -- so this
     downloads every part first (preserving each server's own filename via
@@ -179,7 +179,7 @@ _PAGE_FILENAME_RE = re.compile(r"page-(\d+)\.png$")
 def render_pages(pdf_path: Path, pages: list[int], out_dir: Path) -> dict[int, Path]:
     """Renders exactly the given (possibly non-contiguous) 1-indexed page
     numbers to PNGs via poppler's pdftoppm, at ~200dpi (matches
-    dge/convert/pdf.js's default render scale -- plenty for Vision OCR on
+    convert/pdf.js's default render scale -- plenty for Vision OCR on
     a normal scanned book page). Returns {page_number: png_path}.
 
     pdftoppm only accepts a contiguous -f/-l range, so an exclude-pages

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build dge/data/vedanga/vyakarana/ashtadhyayi/kaumudi_order/data.json -- the
+"""Build data/vedanga/vyakarana/ashtadhyayi/kaumudi_order/data.json -- the
 correspondence between the standard Ashtadhyayi sutra numbering (1.1.1, ...)
 and the Siddhanta Kaumudi's own reading order, with the Kaumudi's 70
 traditional prakarana divisions.
@@ -54,8 +54,8 @@ SOURCE_NOTE = ("ashtadhyayi-com/data (github.com/ashtadhyayi-com/data, "
                "\"free to use ... provided that appropriate credits are mentioned\".")
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-SUTRAPATHA_PATH = REPO_ROOT / "dge/data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json"
-OUT_PATH = REPO_ROOT / "dge/data/vedanga/vyakarana/ashtadhyayi/kaumudi_order/data.json"
+SUTRAPATHA_PATH = REPO_ROOT / "data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json"
+OUT_PATH = REPO_ROOT / "data/vedanga/vyakarana/ashtadhyayi/kaumudi_order/data.json"
 
 # The Siddhanta Kaumudi's 70 prakaranas, in sk_chapter order.
 CHAPTERS = [

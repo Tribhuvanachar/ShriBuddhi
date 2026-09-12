@@ -5,7 +5,7 @@
     "  enterUrl         where 'Enter the Library' goes.",
     "  requireOffering  false lets visitors straight through, vandana still shown.",
     "  minOfferings     how many offerings unlock the gate.",
-    "  passKey          the sessionStorage key dge/js/vandana-guard.js looks for.",
+    "  passKey          the sessionStorage key js/vandana-guard.js looks for.",
     "                   Change it in both places together, or the guard will bounce",
     "                   everyone back for ever.",
     "",
@@ -14,12 +14,12 @@
     "  flowers          petal colours and sizes, and how many stay settled.",
     "  pranam           how many prostration figures the namaskāra button scatters."
   ],
-  "enterUrl": "dge/index.html",
+  "enterUrl": "render.html",
   "requireOffering": true,
   "minOfferings": 1,
   "passKey": "dge_vandana_passed",
   "photo": {
-    "src": "dge/images/guru/guruji.jpg",
+    "src": "images/guru/guruji.jpg",
     "alt": "Śrī Viśvanandana Tīrtha, seated",
     "frameRatio": "2 / 3",
     "objectPosition": "center 50%",

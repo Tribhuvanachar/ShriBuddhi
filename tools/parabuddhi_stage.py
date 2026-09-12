@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Stage source-derived corpus material into the private Parabuddhi repository.
 
-WHY THIS EXISTS. dge/data is public, and ~833 of its data.json files carry the
+WHY THIS EXISTS. data is public, and ~833 of its data.json files carry the
 fingerprints of the site they were imported from: a top-level `source_url`, a
 per-unit `source` dict holding the ORIGIN'S OWN database keys (content_id,
 work_id, anchor, block_uuid), the origin's raw `source_html`, and its
@@ -13,7 +13,7 @@ own edition, and publish only a cleaned copy. This script does the first step:
 it COPIES (never moves, never deletes) the fingerprinted files into Parabuddhi,
 grouped by origin site, with a manifest recording where each came from.
 
-DELIBERATELY A COPY. Nothing leaves dge/data here. Removing anything from the
+DELIBERATELY A COPY. Nothing leaves data here. Removing anything from the
 public repository is a separate, deliberate act, taken after the private copy
 is verified — a migration whose rollback needs a restore is not a migration.
 
@@ -35,7 +35,7 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-DATA = REPO / "dge" / "data"
+DATA = REPO / "data"
 
 # Generated sidecars, not imported text — never staged.
 SKIP_DIRS = {"_references", "_padaccheda", "_commentary_sandhi", "_highlight", "_search"}
@@ -159,7 +159,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--dest", default="/home/user/parabuddhi", help="the Parabuddhi working copy")
-    ap.add_argument("--data", default=str(DATA), help="corpus root (default dge/data)")
+    ap.add_argument("--data", default=str(DATA), help="corpus root (default data)")
     ap.add_argument("--site", action="append", help="stage only this site (repeatable)")
     ap.add_argument("--apply", action="store_true", help="actually copy (default: report only)")
     ap.add_argument("--manifest", action="store_true", help="write/merge source/_manifest.json")
@@ -209,7 +209,7 @@ def main(argv=None):
         mp.parent.mkdir(parents=True, exist_ok=True)
         mp.write_text(json.dumps({
             "_readme": "Every file staged from the public corpus into this repository, "
-                       "with the origin site it came from, the dge/data path it was copied "
+                       "with the origin site it came from, the data path it was copied "
                        "from, its digest, and the rights position recorded for that site. "
                        "Written by tools/parabuddhi_stage.py in the bhumandala repo.",
             "files": merged,

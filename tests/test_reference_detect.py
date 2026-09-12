@@ -20,9 +20,9 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "tools"))
 import reference_detect as rd  # noqa: E402
 
 REPO = os.path.join(os.path.dirname(__file__), "..")
-DHATUPATHA = os.path.join(REPO, "dge/data/vedanga/vyakarana/dhatupatha/data.json")
-SUTRAPATHA = os.path.join(REPO, "dge/data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json")
-REGISTRY = os.path.join(REPO, "dge/data/kosha/_citation_registry.json")
+DHATUPATHA = os.path.join(REPO, "data/vedanga/vyakarana/dhatupatha/data.json")
+SUTRAPATHA = os.path.join(REPO, "data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json")
+REGISTRY = os.path.join(REPO, "data/kosha/_citation_registry.json")
 
 
 def _load(path, key="items"):

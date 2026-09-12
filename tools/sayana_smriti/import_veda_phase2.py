@@ -285,7 +285,7 @@ def main() -> int:
 
     dge = Path(args.dge_root)
     if not (dge / "data" / "schemas.json").exists():
-        print(f"!! {dge} does not look like the dge/ directory", file=sys.stderr)
+        print(f"!! {dge} does not look like the  directory", file=sys.stderr)
         return 2
 
     wanted = args.corpus or ["all"]

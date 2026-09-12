@@ -1,10 +1,10 @@
 /* =========================================================================
    admin-gate.js — shared "admin-only" visibility for standalone pages.
 
-   dge/index.html (the reader) already knows how to tell an admin from a
+   render.html (the reader) already knows how to tell an admin from a
    visitor (core.js's initAuthAndBranding, reading the same two localStorage
    keys this file reads). The standalone pages — Guru Parampara, Tirtha
-   Prabandha, Dasa Sahitya, and others under dge/ that don't load the reader
+   Prabandha, Dasa Sahitya, and other pages that don't load the reader
    app — had no such check at all, so internal notes (a "Completeness
    Tracker", OCR confidence badges, raw external source links, internal
    reference numbers) rendered to every visitor unconditionally. This gives

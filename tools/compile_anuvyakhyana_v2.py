@@ -35,8 +35,8 @@ from compile_grantha_v2 import (  # noqa: E402  (shared helpers)
     ADHYAYA, PADA, clean, norm_head, para_lines_to_paragraphs, same_sutra,
 )
 
-SRC = Path("dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/nyaya_sudha")
-DST = Path("dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana_sudha")
+SRC = Path("data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/nyaya_sudha")
+DST = Path("data/darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana_sudha")
 
 LAYER_ALIASES = {
     "अनुव्याख्यानम्": "mula",

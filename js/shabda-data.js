@@ -2,18 +2,18 @@
  * DGE · shabda-data.js — shared data adapter for the Śabdapāṭha "views".
  *
  * The guru-data.js analogue for the nominal-declension browser: ONE module
- * fetched by every selectable view (dge/vyakarana/shabda/view1..3.html) so
+ * fetched by every selectable view (vyakarana/shabda/view1..3.html) so
  * the three layouts render the SAME real corpus
- * (dge/data/vedanga/vyakarana/shabdapatha/data.json, 9,007 stems) their own
+ * (data/vedanga/vyakarana/shabdapatha/data.json, 9,007 stems) their own
  * way — never from inline mock data. The correctness-critical logic
  * (transliteration, the 8×3 declension table, exact reverse-form lookup,
  * per-cell रूपसिद्धिः derivation) lives here once, lifted verbatim from the
- * canonical dge/js/shabda.js, so a view can never drift from the real page.
+ * canonical js/shabda.js, so a view can never drift from the real page.
  *
  * Depth-independent: the data URL is resolved relative to THIS script's own
  * location (document.currentScript.src), not the loading page, so the same
- * module works from dge/vyakarana/shabda.html (../data) and from the deeper
- * dge/vyakarana/shabda/view1.html (../../data) with no per-page edits.
+ * module works from vyakarana/shabda.html (../data) and from the deeper
+ * vyakarana/shabda/view1.html (../../data) with no per-page edits.
  *
  * Requires js/subanta-steps.js to be loaded BEFORE load() runs (for the
  * आदिः/उपधा phoneme facets and the रूपसिद्धिः engine); degrades gracefully
@@ -24,7 +24,7 @@
 
   // ----- resolve the corpus URL from this script's own src -----------------
   var SELF = (document.currentScript && document.currentScript.src) || "";
-  // .../dge/js/shabda-data.js  ->  .../dge/data/vedanga/vyakarana/shabdapatha/data.json
+  // .../js/shabda-data.js  ->  .../data/vedanga/vyakarana/shabdapatha/data.json
   var DATA_URL = SELF
     ? SELF.replace(/\/js\/shabda-data\.js.*$/, "/data/vedanga/vyakarana/shabdapatha/data.json")
     : "../data/vedanga/vyakarana/shabdapatha/data.json";

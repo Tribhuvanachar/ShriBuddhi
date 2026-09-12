@@ -1,5 +1,5 @@
 {
- "_readme": "DGE chandas engine name (dge/js/chandas.js, normalised: no '(…)' suffix, no '— vipulā' suffix) → Vāgdhenu reference-bank key (src/reference_bank/bank.json). Metres without a bank clip fall back by pāda syllable count, then to vasantatilakā (Vāgdhenu's own fallback). Regenerate the bank side when Kamadhenu's own reference bank exists (kamadhenu_dataset/reference_bank.json).",
+ "_readme": "DGE chandas engine name (js/chandas.js, normalised: no '(…)' suffix, no '— vipulā' suffix) → Vāgdhenu reference-bank key (src/reference_bank/bank.json). Metres without a bank clip fall back by pāda syllable count, then to vasantatilakā (Vāgdhenu's own fallback). Regenerate the bank side when Kamadhenu's own reference bank exists (kamadhenu_dataset/reference_bank.json).",
  "by_name": {
   "अनुष्टुप्": "anuṣṭubh", "प्रमाणिका": "pramāṇikā", "वसन्ततिलका": "vasantatilakā", "उपजाति": "upajāti",
   "इन्द्रवज्रा": "indravajrā", "उपेन्द्रवज्रा": "upendravajrā", "वंशस्थ": "vaṃśastha", "रथोद्धता": "rathoddhatā",

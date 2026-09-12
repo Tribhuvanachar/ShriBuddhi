@@ -3,7 +3,7 @@
 Two kinds of source:
   * public Google Drive folders listed by sources.py (drive_manifest.json);
   * audio that DGE itself already links per verse (metadata.archiveBaseUrl + filePrefix + n + fileExtension
-    in dge/data/**/data.json) — Sumadhva Vijaya (jsDelivr), Rāghavendra Vijaya + Prahlāda Narasiṃha (archive.org).
+    in data/**/data.json) — Sumadhva Vijaya (jsDelivr), Rāghavendra Vijaya + Prahlāda Narasiṃha (archive.org).
 
 Idempotent: a file that already exists locally with the expected size is never re-downloaded.
 Originals are written once and never modified afterwards. Audio is NOT committed to git (see .gitignore)."""

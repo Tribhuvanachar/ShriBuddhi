@@ -6,7 +6,7 @@ VEDAVANI_ASSETS_DIR below).
 
 URL schemes were reconstructed by decompiling VedaVaNi_1.3.3.apk's classes.dex
 directly (not guessed, not taken on faith from a third-party report) --
-see dge/PROJECT_STATUS.md for the walkthrough. Two independently different
+see PROJECT_STATUS.md for the walkthrough. Two independently different
 schemes, one per Veda:
 
   Rigveda   (classes w3.d, Q3.f0):

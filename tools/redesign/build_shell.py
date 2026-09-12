@@ -5,8 +5,8 @@ custom elements to static markup at build time, closing the
 shell.js's own header comment) instead of standing up a real build
 pipeline for it.
 
-Ports dge/js/dge-shell.js's footerLinks()/renderFooterLinks() and
-dge/js/dge-breadcrumb.js's DgeBreadcrumb.connectedCallback() -- same
+Ports js/dge-shell.js's footerLinks()/renderFooterLinks() and
+js/dge-breadcrumb.js's DgeBreadcrumb.connectedCallback() -- same
 branches, same output -- rather than re-deriving the markup, so this stays
 in lockstep with what the browser would render. Both custom elements
 already guard `if (childElementCount) return`, so baked-in children make
@@ -21,7 +21,7 @@ Usage:
                                                        # the CI drift gate
 
 Deliberately conservative (Phase 9's "written in place, not a dist/
-mirror" scope): this writes fully rendered markup into the SAME dge/**/*.html
+mirror" scope): this writes fully rendered markup into the SAME **/*.html
 files the site already ships, once. It does not introduce a bundler, a
 templating language, or a separate output directory -- every page keeps
 working exactly as it does today (site-footer.js pages, admin pages, and
@@ -86,8 +86,18 @@ def parse_attrs(attrs_str):
 
 
 def discover_pages():
+    # dge/ moved to the repo root (12 Sep 2026). This script's page universe
+    # was, and remains, everything that used to live under dge/ -- not
+    # admin/ (untouched, per the module docstring above) and not data/
+    # (source material, not pages -- see audit_pages.py's discover_pages()
+    # for why that must be excluded from an rglob rooted here).
+    def real_pages(root, skip_top=()):
+        return sorted(p for p in root.rglob("*.html")
+                      if "node_modules" not in p.parts and ".claude" not in p.parts
+                      and p.relative_to(root).parts[0] not in skip_top)
+
     pages = [REPO_ROOT / "index.html"]
-    pages.extend(sorted((REPO_ROOT / "dge").rglob("*.html")))
+    pages.extend(p for p in real_pages(REPO_ROOT, skip_top={"admin", "data"}) if p != REPO_ROOT / "index.html")
     return pages
 
 

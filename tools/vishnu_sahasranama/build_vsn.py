@@ -2,7 +2,7 @@
 """Import Śrī Viṣṇu Sahasranāma Stotram (Mahābhārata, Anuśāsana Parva 149) from sanskritdocuments.org
 into the SarvaMūla library as a mūla grantha:
 
-    dge/data/darshana/vedanta/dvaita/Anandamakaranda/stotra/vishnu_sahasranama/mula/data.json
+    data/darshana/vedanta/dvaita/Anandamakaranda/stotra/vishnu_sahasranama/mula/data.json
 
 Usage:  python3 tools/vishnu_sahasranama/build_vsn.py [--html cached.html]
 Fetches https://sanskritdocuments.org/doc_vishhnu/vsahasranew.html (or reads --html), splits the text into
@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 URL = "https://sanskritdocuments.org/doc_vishhnu/vsahasranew.html"
-OUT_DIR = ROOT / "dge/data/darshana/vedanta/dvaita/Anandamakaranda/stotra/vishnu_sahasranama"
+OUT_DIR = ROOT / "data/darshana/vedanta/dvaita/Anandamakaranda/stotra/vishnu_sahasranama"
 DEV = {ord(c): str(i) for i, c in enumerate("०१२३४५६७८९")}
 
 SECTIONS = [  # (start-line predicate, section id, Devanagari heading, item prefix)
@@ -150,9 +150,9 @@ def build(lines):
 
 
 def register(item_count):
-    lib_p = ROOT / "dge/data/library.json"; tax_p = ROOT / "dge/data/taxonomy.json"
+    lib_p = ROOT / "data/library.json"; tax_p = ROOT / "data/taxonomy.json"
     lib = json.loads(lib_p.read_text(encoding="utf-8")); tax = json.loads(tax_p.read_text(encoding="utf-8"))
-    path = "dge/data/darshana/vedanta/dvaita/Anandamakaranda/stotra/vishnu_sahasranama/mula/data.json"
+    path = "data/darshana/vedanta/dvaita/Anandamakaranda/stotra/vishnu_sahasranama/mula/data.json"
     entry = {"path": path, "populated": True, "title": "श्रीविष्णुसहस्रनामस्तोत्रम् (Viṣṇu Sahasranāma Stotra) — मूलम्",
              "addedAt": datetime.date.today().isoformat(),
              "source": {"source": "Sanskrit Documents (sanskritdocuments.org), Devanāgarī edition 'vsahasranew' with pūrva/uttara-pīṭhikā, nyāsa, dhyāna and phalaśruti",

@@ -2,8 +2,8 @@
  * DGE · वैयाकरणम् — runtime word analysis that the precomputed indexes
  * cannot cover, layered UNDER them rather than replacing them.
  *
- *   Level 0  dge/data/_sandhi_local     one lookup, instant, 19,034 words
- *            dge/data/.../formindex     205k inflected verb forms
+ *   Level 0  data/_sandhi_local     one lookup, instant, 19,034 words
+ *            data/.../formindex     205k inflected verb forms
  *   Level 1  this file                  upasarga peeling + recursive
  *                                       multi-member compound splitting,
  *                                       computed in the browser on a miss

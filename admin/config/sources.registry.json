@@ -6,14 +6,14 @@
   "registry that importer already owns -- importers/sources.json,",
   "tools/darshanas/darshana_sources.json, tools/DvaitaVedanta/Itara/DasaSahitya/dasa_sources.json,",
   "tools/dvaitavedanta/dv_sources.json, tools/sayana_smriti/sources.json,",
-  "tools/kavya/config/sources.json, dge/kosha_toolkit/LICENSING.md -- and",
+  "tools/kavya/config/sources.json, kosha_toolkit/LICENSING.md -- and",
   "`config` below points at it. Copying those entries here would guarantee the",
   "two drift, and a source registry that lies is worse than none.",
   "",
   "WHAT EACH FIELD IS FOR",
   "  probe    how to tell, cheaply, whether the source has changed since we",
   "           last looked. tools/check_sources.py implements each kind.",
-  "  feeds    what in dge/data (or which published branch) came from it.",
+  "  feeds    what in data (or which published branch) came from it.",
   "  importer the workflow that re-imports it. Blank means no importer exists",
   "           yet and a change is a note for a human, not a job to run.",
   "  rights   the licence position in one line. The long form lives in the",
@@ -222,7 +222,7 @@
     "bhumandala-kosha-data (95 dictionaries, 2.1M headwords)"
    ],
    "importer": "(the Build Kosha corpus Action in bhumandala-kosha-data)",
-   "config": "dge/kosha_toolkit/LICENSING.md",
+   "config": "kosha_toolkit/LICENSING.md",
    "rights": "Cologne re-distributions CC-BY-SA 4.0; the rest carry no explicit licence and ship with an 'Unclear' badge.",
    "cadence": "quarterly"
   },
@@ -377,7 +377,7 @@
     "darshana/vedanta/dvaita/Anandamakaranda (47 works with wiki provenance; merged one-to-one or snapshotted by sync-anandamakaranda.yml)"
    ],
    "importer": "sync-anandamakaranda.yml",
-   "config": "dge/convert/urlimport.js",
+   "config": "convert/urlimport.js",
    "rights": "No licence statement; used under the lead's case-by-case authorisation. Existing works are synced; new works are reported, never imported blind.",
    "cadence": "fortnightly"
   },

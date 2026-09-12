@@ -187,7 +187,7 @@ if __name__ == "__main__":
 class TestPrePackageShapeBridge(unittest.TestCase):
     """A layer written before this package existed must UPDATE, not double.
 
-    dge/data's own kavyas carry no grantha block, name a chapter sarga_01 and
+    data's own kavyas carry no grantha block, name a chapter sarga_01 and
     key a verse by number. Merged naively that is 19 sargas becoming 38 in a
     published grantha, which is why this is pinned by name.
     """

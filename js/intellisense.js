@@ -44,12 +44,12 @@
   window.DGE_VERSIONS['intellisense.js'] = 'v1.5 (REF also accepts hyphen/en-dash separators -- Śabdārthakaustubha cites "(३-२-९७)" -- with the 1-8/1-4 bounds and cue-gating unchanged. On top of v1.4\'s opts.always)';
 
   // "Open in Aṣṭādhyāyī" needs a real cross-page URL: this script is loaded
-  // both by dge/index.html (the word-modal path) and by the Vyakarana-
-  // cluster pages themselves (dge/vyakarana/*.html) -- two different depths
-  // relative to dge/vyakarana/ashtadhyayi.html, so no single hardcoded
+  // both by render.html (the word-modal path) and by the Vyakarana-
+  // cluster pages themselves (vyakarana/*.html) -- two different depths
+  // relative to vyakarana/ashtadhyayi.html, so no single hardcoded
   // relative string works for both includers. Same technique as
   // dge-shell.js's LANDING_PAGE_URL: resolved off this script's own src
-  // (fixed at dge/js/intellisense.js) rather than the including page's
+  // (fixed at js/intellisense.js) rather than the including page's
   // location, captured synchronously while still document.currentScript.
   var ASHTADHYAYI_URL = (function () {
     var self = (document.currentScript && document.currentScript.src) ||
@@ -572,7 +572,7 @@
     // config.js sets window.WORDNET_DATA_BASE from appConfig; the constant
     // below is the same value, and is what the four Vyakarana pages use,
     // since none of them load config.js. Set the variable to '' to read a
-    // local build from dge/data/_wordnet/ instead — and if that build is not
+    // local build from data/_wordnet/ instead — and if that build is not
     // there either, the fetch 404s, this resolves to null, and the popover
     // simply has no अर्थः section, with the analysis and the related words
     // unaffected.

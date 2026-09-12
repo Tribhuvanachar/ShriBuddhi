@@ -17,7 +17,7 @@ depth 7, e.g.
     श्रीमन्न्यायसुधा > सुधा > अनुव्याख्यानम् > मूलम् > तृतीयाध्याय: > प्रथमः पादः > <unit>
 
 so the hierarchy was never lost, only stored as a path of titles instead of a
-parent id. This turns those paths back into a tree, from dge/data alone: no
+parent id. This turns those paths back into a tree, from data alone: no
 cache, no network, and nothing that can expire.
 
 WHAT IT GIVES A READER
@@ -29,7 +29,7 @@ same id — the set of layers that speak at that point. That last one answers
 shape makes hard to ask.
 
     python tools/dvaitavedanta/build_structure.py \\
-        --data dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn --out dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/_structure.json
+        --data data/darshana/vedanta/dvaita/DvaitaVedantaIn --out data/darshana/vedanta/dvaita/DvaitaVedantaIn/_structure.json
 """
 
 from __future__ import annotations
@@ -102,7 +102,7 @@ def build(data_root: Path) -> dict:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--data", default="dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn")
+    ap.add_argument("--data", default="data/darshana/vedanta/dvaita/DvaitaVedantaIn")
     ap.add_argument("--out", required=True)
     args = ap.parse_args(argv)
 

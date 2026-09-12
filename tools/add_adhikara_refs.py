@@ -39,7 +39,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "tools"))
 from build_kaumudi_order import align  # same consonant-bag aligner
 
-SUTRAPATHA_PATH = REPO_ROOT / "dge/data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json"
+SUTRAPATHA_PATH = REPO_ROOT / "data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json"
 
 
 def main():

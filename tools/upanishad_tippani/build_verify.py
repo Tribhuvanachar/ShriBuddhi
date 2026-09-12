@@ -17,7 +17,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-DV = ROOT / "dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana"
+DV = ROOT / "data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana"
 BOOKS = {
     "kena":       {"vision": ["kena_upanishad_bhashya_tippani"],       "dge": DV / "kenopanishad_bhashya",           "title": "तलवकार (केन) उपनिषद्भाष्यम् — 8 व्याख्याः"},
     "isha":       {"vision": ["isha_upanishad_bhashya_tippani"],       "dge": DV / "ishavasyopanishad_bhashya",      "title": "ईशावास्योपनिषद्भाष्यम् — 13 व्याख्याः"},
@@ -27,8 +27,8 @@ BOOKS = {
     "prashna":    {"vision": ["prashna_upanishad_bhashya_tippani"],    "dge": DV / "shatprashnopanishadbhashyam",    "title": "षट्प्रश्नोपनिषद्भाष्यम् — 13 व्याख्याः"},
     "taittiriya": {"vision": ["taittiriya_upanishad_bhashya_tippani"], "dge": DV / "taittiriyopanishad_bhashya",     "title": "तैत्तिरीयोपनिषद्भाष्यम् — 6 टिप्पण्यः"},
     "tantrasara": {"vision": ["tantrasara_sangraha_tippani_a", "tantrasara_sangraha_tippani_b"],
-                   "dge": [ROOT / "dge/data/darshana/vedanta/dvaita/Anandamakaranda/achara_and_ancillary_granthas/tantrasara_sangraha",
-                           ROOT / "dge/data/DvaitaVedanta/SarvaMula/achara_granthas/tantrasara"],
+                   "dge": [ROOT / "data/darshana/vedanta/dvaita/Anandamakaranda/achara_and_ancillary_granthas/tantrasara_sangraha",
+                           ROOT / "data/DvaitaVedanta/SarvaMula/achara_granthas/tantrasara"],
                    "title": "तन्त्रसारसङ्ग्रहः (2017, प्रह्लादाचार्य जोशी) — 4 टिप्पण्यः"},
 }
 LABEL = re.compile(r"^\s*((?:[ऀ-ॿ]{1,7}\.){1,3}(?:[ऀ-ॿ]{1,12})?[ः:]?)\s*[-–—:]+\s*")
@@ -221,7 +221,7 @@ def prompts(book, blocks, units, outdir, per_new=8, per_diff=20):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--work", required=True); ap.add_argument("--books", default=",".join(BOOKS))
-    ap.add_argument("--out", default=str(ROOT / "dge/data/ocr_staging/upanishad_tippani")); a = ap.parse_args()
+    ap.add_argument("--out", default=str(ROOT / "data/ocr_staging/upanishad_tippani")); a = ap.parse_args()
     for book in a.books.split(","):
         if not list(Path(a.work).glob(f"{book}/vision/*.json")): print(f"{book}: no Vision pages yet — skipped"); continue
         units = dge_units(book); blocks = match(blocks_of(a.work, book), units)

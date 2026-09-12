@@ -46,7 +46,7 @@ PANCHA MAHAKAVYA: checked library.json first -- Raghuvamsha,
 Kumarasambhava, Kiratarjuniya and Shishupalavadha are ALL already
 populated:true. Only Naishadhiyacarita (Sriharsha) is missing, and DCS
 does not carry it at all (checked by listing) -- flagged in
-dge/PENDING.md as a genuine gap needing a non-DCS source, not filled
+PENDING.md as a genuine gap needing a non-DCS source, not filled
 here.
 
 UNPLACEABLE SINGLES: genre/author research (wisdomlib + secondary
@@ -152,8 +152,8 @@ SHASTRA_MISC_ADDITIONS = OD([
     ("krishi_shastra", OD([("mula", leaf("grantha_mula_text", "attributed to Parashara (pseudepigraphic)"))])),
     ("shainika_shastra", OD([("mula", leaf("grantha_mula_text", "Raja Rudradeva of Kumaon"))])),
     ("ratna_pariksha", OD([
-        ("agastiya", leaf("grantha_mula_text", "attributed to Agastya (pseudepigraphic); Hindu, not Jain -- see dge/PENDING.md")),
-        ("ratnadipika", leaf("grantha_mula_text", "author/sect unconfirmed -- see dge/PENDING.md")),
+        ("agastiya", leaf("grantha_mula_text", "attributed to Agastya (pseudepigraphic); Hindu, not Jain -- see PENDING.md")),
+        ("ratnadipika", leaf("grantha_mula_text", "author/sect unconfirmed -- see PENDING.md")),
     ])),
 ])
 
@@ -161,55 +161,55 @@ SHASTRA_MISC_ADDITIONS = OD([
 # taxonomy_kind: None = fills an existing empty leaf; "new_leaf" = library.json entry needed
 ENTRIES = [
     # Ayurveda corrections/additions
-    ("Yogaratnākara", "dge/data/vedas/upaveda/ayurveda/samhita/yogaratnakara/mula/data.json", "yogaratnakara", "योगरत्नाकरः", "new_leaf"),
-    ("Ayurvedarasāyana", "dge/data/vedas/upaveda/ayurveda/samhita/ashtanga_hridaya_samhita/tika_hemadri/data.json", "ayurveda_rasayana_hemadri", "अष्टाङ्गहृदयसंहिता (आयुर्वेदरसायनम् — हेमाद्रिः)", "new_leaf"),
+    ("Yogaratnākara", "data/vedas/upaveda/ayurveda/samhita/yogaratnakara/mula/data.json", "yogaratnakara", "योगरत्नाकरः", "new_leaf"),
+    ("Ayurvedarasāyana", "data/vedas/upaveda/ayurveda/samhita/ashtanga_hridaya_samhita/tika_hemadri/data.json", "ayurveda_rasayana_hemadri", "अष्टाङ्गहृदयसंहिता (आयुर्वेदरसायनम् — हेमाद्रिः)", "new_leaf"),
     # Buddhist correction
-    ("Sphuṭārthāvyākhyā", "dge/data/shastra/bauddha_sahitya/shastra/abhidharma_kosha/tika_sphutartha/data.json", "abhidharmakosha_sphutartha", "अभिधर्मकोशः (स्फुटार्था — यशोमित्रः)", "new_leaf"),
+    ("Sphuṭārthāvyākhyā", "data/shastra/bauddha_sahitya/shastra/abhidharma_kosha/tika_sphutartha/data.json", "abhidharmakosha_sphutartha", "अभिधर्मकोशः (स्फुटार्था — यशोमित्रः)", "new_leaf"),
     # Vaishnava correction -- fills existing sattvata_samhita stub
-    ("Sātvatatantra", "dge/data/agama/pancharatra/pancharatra_samhitas/sattvata_samhita/data.json", "sattvata_samhita", "सात्वतसंहिता", None),
+    ("Sātvatatantra", "data/agama/pancharatra/pancharatra_samhitas/sattvata_samhita/data.json", "sattvata_samhita", "सात्वतसंहिता", None),
     # Pashupata
-    ("Pāśupatasūtra", "dge/data/agama/pashupata/pashupata_sutra/mula/data.json", "pashupata_sutra_mula", "पाशुपतसूत्रम्", "new_leaf"),
-    ("Pañcārthabhāṣya", "dge/data/agama/pashupata/pashupata_sutra/bhashya_kaundinya/data.json", "pancharthabhashya", "पाशुपतसूत्रम् (पञ्चार्थभाष्यम्)", "new_leaf"),
-    ("Gaṇakārikā", "dge/data/agama/pashupata/ganakarika/mula/data.json", "ganakarika_mula", "गणकारिका", "new_leaf"),
-    ("Ratnaṭīkā", "dge/data/agama/pashupata/ganakarika/tika/data.json", "ganakarika_ratnatika", "गणकारिका (रत्नटीका)", "new_leaf"),
+    ("Pāśupatasūtra", "data/agama/pashupata/pashupata_sutra/mula/data.json", "pashupata_sutra_mula", "पाशुपतसूत्रम्", "new_leaf"),
+    ("Pañcārthabhāṣya", "data/agama/pashupata/pashupata_sutra/bhashya_kaundinya/data.json", "pancharthabhashya", "पाशुपतसूत्रम् (पञ्चार्थभाष्यम्)", "new_leaf"),
+    ("Gaṇakārikā", "data/agama/pashupata/ganakarika/mula/data.json", "ganakarika_mula", "गणकारिका", "new_leaf"),
+    ("Ratnaṭīkā", "data/agama/pashupata/ganakarika/tika/data.json", "ganakarika_ratnatika", "गणकारिका (रत्नटीका)", "new_leaf"),
     # Pratyabhijna
-    ("Spandakārikā", "dge/data/agama/pratyabhijna/spanda_karika/mula/data.json", "spanda_karika_mula", "स्पन्दकारिका", "new_leaf"),
-    ("Spandakārikānirṇaya", "dge/data/agama/pratyabhijna/spanda_karika/tika_nirnaya/data.json", "spanda_karika_nirnaya", "स्पन्दकारिका (निर्णयः — क्षेमराजः)", "new_leaf"),
-    ("Śivasūtravārtika", "dge/data/agama/pratyabhijna/shiva_sutra_vartika/mula/data.json", "shiva_sutra_vartika", "शिवसूत्रवार्त्तिकम् (भास्करः)", "new_leaf"),
-    ("Tantrāloka", "dge/data/agama/pratyabhijna/tantraloka/mula/data.json", "tantraloka", "तन्त्रालोकः", "new_leaf"),
-    ("Tantrasāra", "dge/data/agama/pratyabhijna/tantrasara/mula/data.json", "tantrasara", "तन्त्रसारः", "new_leaf"),
-    ("Saṃvitsiddhi", "dge/data/agama/pratyabhijna/samvitsiddhi/mula/data.json", "samvitsiddhi", "संवित्सिद्धिः", "new_leaf"),
+    ("Spandakārikā", "data/agama/pratyabhijna/spanda_karika/mula/data.json", "spanda_karika_mula", "स्पन्दकारिका", "new_leaf"),
+    ("Spandakārikānirṇaya", "data/agama/pratyabhijna/spanda_karika/tika_nirnaya/data.json", "spanda_karika_nirnaya", "स्पन्दकारिका (निर्णयः — क्षेमराजः)", "new_leaf"),
+    ("Śivasūtravārtika", "data/agama/pratyabhijna/shiva_sutra_vartika/mula/data.json", "shiva_sutra_vartika", "शिवसूत्रवार्त्तिकम् (भास्करः)", "new_leaf"),
+    ("Tantrāloka", "data/agama/pratyabhijna/tantraloka/mula/data.json", "tantraloka", "तन्त्रालोकः", "new_leaf"),
+    ("Tantrasāra", "data/agama/pratyabhijna/tantrasara/mula/data.json", "tantrasara", "तन्त्रसारः", "new_leaf"),
+    ("Saṃvitsiddhi", "data/agama/pratyabhijna/samvitsiddhi/mula/data.json", "samvitsiddhi", "संवित्सिद्धिः", "new_leaf"),
     # Shaiva Siddhanta
-    ("Mṛgendratantra", "dge/data/agama/shaiva_siddhanta/mrigendra_tantra/mula/data.json", "mrigendra_tantra_mula", "मृगेन्द्रतन्त्रम्", "new_leaf"),
-    ("Mṛgendraṭīkā", "dge/data/agama/shaiva_siddhanta/mrigendra_tantra/tika/data.json", "mrigendra_tika", "मृगेन्द्रतन्त्रम् (टीका)", "new_leaf"),
+    ("Mṛgendratantra", "data/agama/shaiva_siddhanta/mrigendra_tantra/mula/data.json", "mrigendra_tantra_mula", "मृगेन्द्रतन्त्रम्", "new_leaf"),
+    ("Mṛgendraṭīkā", "data/agama/shaiva_siddhanta/mrigendra_tantra/tika/data.json", "mrigendra_tika", "मृगेन्द्रतन्त्रम् (टीका)", "new_leaf"),
     # Shakta
-    ("Mahācīnatantra", "dge/data/agama/pancharatra/shakta_agama/mahacina_tantra/mula/data.json", "mahacina_tantra", "महाचीनतन्त्रम्", "new_leaf"),
-    ("Mātṛkābhedatantra", "dge/data/agama/pancharatra/shakta_agama/matrikabheda_tantra/mula/data.json", "matrikabheda_tantra", "मातृकाभेदतन्त्रम्", "new_leaf"),
-    ("Toḍalatantra", "dge/data/agama/pancharatra/shakta_agama/todala_tantra/mula/data.json", "todala_tantra", "तोडलतन्त्रम्", "new_leaf"),
-    ("Uḍḍāmareśvaratantra", "dge/data/agama/pancharatra/shakta_agama/uddamareshvara_tantra/mula/data.json", "uddamareshvara_tantra", "उड्डामरेश्वरतन्त्रम्", "new_leaf"),
-    ("Devīkālottarāgama", "dge/data/agama/pancharatra/shakta_agama/devikalottara_agama/mula/data.json", "devikalottara_agama", "देवीकालोत्तरागमः", "new_leaf"),
-    ("Śāktavijñāna", "dge/data/agama/pancharatra/shakta_agama/shakta_vijnana/mula/data.json", "shakta_vijnana", "शाक्तविज्ञानम्", "new_leaf"),
+    ("Mahācīnatantra", "data/agama/pancharatra/shakta_agama/mahacina_tantra/mula/data.json", "mahacina_tantra", "महाचीनतन्त्रम्", "new_leaf"),
+    ("Mātṛkābhedatantra", "data/agama/pancharatra/shakta_agama/matrikabheda_tantra/mula/data.json", "matrikabheda_tantra", "मातृकाभेदतन्त्रम्", "new_leaf"),
+    ("Toḍalatantra", "data/agama/pancharatra/shakta_agama/todala_tantra/mula/data.json", "todala_tantra", "तोडलतन्त्रम्", "new_leaf"),
+    ("Uḍḍāmareśvaratantra", "data/agama/pancharatra/shakta_agama/uddamareshvara_tantra/mula/data.json", "uddamareshvara_tantra", "उड्डामरेश्वरतन्त्रम्", "new_leaf"),
+    ("Devīkālottarāgama", "data/agama/pancharatra/shakta_agama/devikalottara_agama/mula/data.json", "devikalottara_agama", "देवीकालोत्तरागमः", "new_leaf"),
+    ("Śāktavijñāna", "data/agama/pancharatra/shakta_agama/shakta_vijnana/mula/data.json", "shakta_vijnana", "शाक्तविज्ञानम्", "new_leaf"),
     # Natha sampradaya / Hatha yoga
-    ("Amaraughaśāsana", "dge/data/agama/natha_sampradaya/amaraughashasana/mula/data.json", "amaraughashasana_mula", "अमरौघशासनम्", "new_leaf"),
-    ("Commentary on Amaraughaśāsana", "dge/data/agama/natha_sampradaya/amaraughashasana/tika/data.json", "amaraughashasana_tika", "अमरौघशासनम् (टीका)", "new_leaf"),
-    ("Gorakṣaśataka", "dge/data/agama/natha_sampradaya/gorakshashataka/mula/data.json", "gorakshashataka", "गोरक्षशतकम्", "new_leaf"),
-    ("Gheraṇḍasaṃhitā", "dge/data/agama/natha_sampradaya/gheranda_samhita/mula/data.json", "gheranda_samhita", "घेरण्डसंहिता", "new_leaf"),
-    ("Haṭhayogapradīpikā", "dge/data/agama/natha_sampradaya/hathayogapradipika/mula/data.json", "hathayogapradipika", "हठयोगप्रदीपिका", "new_leaf"),
-    ("Vātūlanāthasūtras", "dge/data/agama/natha_sampradaya/vatulanatha_sutras/mula/data.json", "vatulanatha_sutras_mula", "वातूलनाथसूत्राणि", "new_leaf"),
-    ("Vātūlanāthasūtravṛtti", "dge/data/agama/natha_sampradaya/vatulanatha_sutras/vritti/data.json", "vatulanatha_sutras_vritti", "वातूलनाथसूत्राणि (वृत्तिः)", "new_leaf"),
+    ("Amaraughaśāsana", "data/agama/natha_sampradaya/amaraughashasana/mula/data.json", "amaraughashasana_mula", "अमरौघशासनम्", "new_leaf"),
+    ("Commentary on Amaraughaśāsana", "data/agama/natha_sampradaya/amaraughashasana/tika/data.json", "amaraughashasana_tika", "अमरौघशासनम् (टीका)", "new_leaf"),
+    ("Gorakṣaśataka", "data/agama/natha_sampradaya/gorakshashataka/mula/data.json", "gorakshashataka", "गोरक्षशतकम्", "new_leaf"),
+    ("Gheraṇḍasaṃhitā", "data/agama/natha_sampradaya/gheranda_samhita/mula/data.json", "gheranda_samhita", "घेरण्डसंहिता", "new_leaf"),
+    ("Haṭhayogapradīpikā", "data/agama/natha_sampradaya/hathayogapradipika/mula/data.json", "hathayogapradipika", "हठयोगप्रदीपिका", "new_leaf"),
+    ("Vātūlanāthasūtras", "data/agama/natha_sampradaya/vatulanatha_sutras/mula/data.json", "vatulanatha_sutras_mula", "वातूलनाथसूत्राणि", "new_leaf"),
+    ("Vātūlanāthasūtravṛtti", "data/agama/natha_sampradaya/vatulanatha_sutras/vritti/data.json", "vatulanatha_sutras_vritti", "वातूलनाथसूत्राणि (वृत्तिः)", "new_leaf"),
     # Unplaceable singles, resolved
-    ("Kṛṣiparāśara", "dge/data/shastra/krishi_shastra/mula/data.json", "krishiparashara", "कृषिपराशरः", "new_leaf"),
-    ("Śyainikaśāstra", "dge/data/shastra/shainika_shastra/mula/data.json", "syainikashastra", "श्यैनिकशास्त्रम्", "new_leaf"),
-    ("Agastīyaratnaparīkṣā", "dge/data/shastra/ratna_pariksha/agastiya/data.json", "agastiyaratnapariksha", "अगस्तीयरत्नपरीक्षा", "new_leaf"),
-    ("Ratnadīpikā", "dge/data/shastra/ratna_pariksha/ratnadipika/data.json", "ratnadipika", "रत्नदीपिका", "new_leaf"),
-    ("Gṛhastharatnākara", "dge/data/smriti_dharma/dharmashastra/grihastha_ratnakara/data.json", "grihastharatnakara", "गृहस्थरत्नाकरः (चण्डेश्वरः — स्मृतिरत्नाकरान्तर्गतः)", "new_leaf"),
+    ("Kṛṣiparāśara", "data/shastra/krishi_shastra/mula/data.json", "krishiparashara", "कृषिपराशरः", "new_leaf"),
+    ("Śyainikaśāstra", "data/shastra/shainika_shastra/mula/data.json", "syainikashastra", "श्यैनिकशास्त्रम्", "new_leaf"),
+    ("Agastīyaratnaparīkṣā", "data/shastra/ratna_pariksha/agastiya/data.json", "agastiyaratnapariksha", "अगस्तीयरत्नपरीक्षा", "new_leaf"),
+    ("Ratnadīpikā", "data/shastra/ratna_pariksha/ratnadipika/data.json", "ratnadipika", "रत्नदीपिका", "new_leaf"),
+    ("Gṛhastharatnākara", "data/smriti_dharma/dharmashastra/grihastha_ratnakara/data.json", "grihastharatnakara", "गृहस्थरत्नाकरः (चण्डेश्वरः — स्मृतिरत्नाकरान्तर्गतः)", "new_leaf"),
     # Skandapurana (Revakhanda)
-    ("Skandapurāṇa (Revākhaṇḍa)", "dge/data/purana/skanda_purana/revakhanda/data.json", "skandapurana_revakhanda", "स्कन्दपुराणम् (रेवाखण्डः — GRETIL के अनुसार सम्भवतः वायुपुराणस्य पाठः, मुद्रितसंस्करणे स्कन्दपुराणे अन्तर्भूतः)", "new_leaf"),
+    ("Skandapurāṇa (Revākhaṇḍa)", "data/purana/skanda_purana/revakhanda/data.json", "skandapurana_revakhanda", "स्कन्दपुराणम् (रेवाखण्डः — GRETIL के अनुसार सम्भवतः वायुपुराणस्य पाठः, मुद्रितसंस्करणे स्कन्दपुराणे अन्तर्भूतः)", "new_leaf"),
 ]
 
 
 def merge_taxonomy():
-    path = os.path.join(REPO, "dge/data/taxonomy.json")
+    path = os.path.join(REPO, "data/taxonomy.json")
     with open(path, encoding="utf-8") as f:
         d = json.load(f, object_pairs_hook=collections.OrderedDict)
 
@@ -246,10 +246,10 @@ def merge_taxonomy():
 
 
 def move_shaiva_agama_files():
-    old_dir = os.path.join(REPO, "dge/data/agama/pancharatra/shaiva_agama")
-    new_dir = os.path.join(REPO, "dge/data/agama/shaiva_agama")
-    old_shakta = os.path.join(REPO, "dge/data/agama/pancharatra/shakta_agama")
-    new_shakta = os.path.join(REPO, "dge/data/agama/shakta_agama")
+    old_dir = os.path.join(REPO, "data/agama/pancharatra/shaiva_agama")
+    new_dir = os.path.join(REPO, "data/agama/shaiva_agama")
+    old_shakta = os.path.join(REPO, "data/agama/pancharatra/shakta_agama")
+    new_shakta = os.path.join(REPO, "data/agama/shakta_agama")
     if os.path.isdir(old_dir) and not os.path.isdir(new_dir):
         shutil.move(old_dir, new_dir)
         print(f"moved {old_dir} -> {new_dir}")
@@ -259,7 +259,7 @@ def move_shaiva_agama_files():
 
 
 def update_library(populated_paths):
-    path = os.path.join(REPO, "dge/data/library.json")
+    path = os.path.join(REPO, "data/library.json")
     with open(path, encoding="utf-8") as f:
         d = json.load(f, object_pairs_hook=collections.OrderedDict)
     by_path = {g["path"]: g for g in d["granthas"]}
@@ -267,8 +267,8 @@ def update_library(populated_paths):
 
     # reparent existing catalog rows for shaiva_agama/shakta_agama
     for g in d["granthas"]:
-        if g["path"].startswith("dge/data/agama/pancharatra/shaiva_agama/") or g["path"].startswith("dge/data/agama/pancharatra/shakta_agama/"):
-            g["path"] = g["path"].replace("dge/data/agama/pancharatra/", "dge/data/agama/", 1)
+        if g["path"].startswith("data/agama/pancharatra/shaiva_agama/") or g["path"].startswith("data/agama/pancharatra/shakta_agama/"):
+            g["path"] = g["path"].replace("data/agama/pancharatra/", "data/agama/", 1)
             renamed += 1
     by_path = {g["path"]: g for g in d["granthas"]}
 
@@ -310,7 +310,7 @@ def run_imports():
             source_url=f"https://github.com/OliverHellwig/sanskrit/tree/master/dcs/data/conllu/files/{dcs_name}",
             licence=LICENCE,
             note=(
-                "{count} units across {chapters} -- see dge/PENDING.md, 23 Aug "
+                "{count} units across {chapters} -- see PENDING.md, 23 Aug "
                 "entry (batch 8, Tantra/Saiva-Sakta + misc cleanup), for how "
                 "this was matched."
             ),

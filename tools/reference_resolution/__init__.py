@@ -2,7 +2,7 @@
 reference_resolution — local-first citation/quotation resolver for the DGE corpus.
 
 Context: this exists because of a reviewed AI-architecture proposal (see
-dge/PENDING.md, "Reference Resolution Engine") whose central point is that
+PENDING.md, "Reference Resolution Engine") whose central point is that
 Gemini must not be asked to invent or guess citations the corpus can already
 confirm. This module IS the "search DGE" step that proposal calls for. It
 never calls Gemini and makes no network calls -- callers (e.g.
@@ -13,7 +13,7 @@ Resolution-priority ladder this module implements:
 
   1. Exact DGE canonical match -- an explicit {target_slug, unit_id} hint,
      the same shape the corpus's own `references: [{target, unit_id, note}]`
-     schema field already uses (see dge/data/schemas.json).
+     schema field already uses (see data/schemas.json).
   2. DGE lexical match -- quoted text found near-verbatim (SLP1/phonetic key)
      in a scoped search.
   3. Fuzzy DGE match -- quoted text found via trigram/edit-distance
@@ -28,8 +28,8 @@ Scope: `DEFAULT_SEARCH_SCOPE` is a small, curated set of texts likely to be
 quoted (Bhagavad Gita chapters today), not the full ~1 GB corpus. Building an
 in-memory SanskritIndex over every populated grantha on every run does not
 scale; a corpus-wide version of this should reuse the prebuilt static trigram
-index under dge/search_index/ (today queried only from dge/js/dge-search.js --
-see dge/SEARCH_ARCHITECTURE.md) instead of re-indexing from scratch. That is
+index under search_index/ (today queried only from js/dge-search.js --
+see SEARCH_ARCHITECTURE.md) instead of re-indexing from scratch. That is
 tracked as a follow-up, not solved here.
 """
 from __future__ import annotations
@@ -41,7 +41,7 @@ from pathlib import Path
 from typing import Iterable, Optional
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
-_DGE_DIR = _REPO_ROOT / "dge"
+_DGE_DIR = _REPO_ROOT
 if str(_DGE_DIR) not in sys.path:
     sys.path.insert(0, str(_DGE_DIR))
 
@@ -115,9 +115,9 @@ class GranthaInfo:
 
 
 class GranthaRegistry:
-    """Slug <-> data.json path lookup, built from dge/data/library.json.
+    """Slug <-> data.json path lookup, built from data/library.json.
 
-    `slug` is the grantha's folder path relative to dge/data/ (no trailing
+    `slug` is the grantha's folder path relative to data/ (no trailing
     /data.json) -- the same convention `references[].target` already uses
     elsewhere in the corpus.
     """
@@ -130,7 +130,7 @@ class GranthaRegistry:
 
     def _load(self) -> None:
         lib = _load_json(self.library_path)
-        prefix = "dge/data/"
+        prefix = "data/"
         suffix = "/data.json"
         for g in lib.get("granthas", []):
             raw_path = g.get("path", "")
@@ -142,7 +142,7 @@ class GranthaRegistry:
                 slug = slug[: -len(suffix)]
             # Resolve relative to THIS registry's data_root (so a synthetic
             # library.json under a tempdir resolves within that tempdir, not
-            # against the real repo) rather than assuming dge/data/ always
+            # against the real repo) rather than assuming data/ always
             # means the real corpus on disk.
             resolved_path = self.data_root / slug / "data.json" if has_prefix else _REPO_ROOT / raw_path
             self._by_slug[slug] = GranthaInfo(

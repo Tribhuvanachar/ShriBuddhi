@@ -1,5 +1,5 @@
 {
- "_readme": "Canonical registry of commentators/authors appearing anywhere in dge/data, derived from dge/data/taxonomy.json's _default_author fields plus a small set of authors recovered from tika_ key-naming conventions where the _default_author field itself was corrupted (see dge/PENDING.md for the corruption writeup). 'traditions' are taxonomy top-branch tags (dvaita/advaita/vishishtadvaita/etc), not a claim of exhaustive scholarly classification. 'note' flags an identification that is inferred (e.g. from title-pattern matching) rather than independently confirmed -- treat as a lead, not a citation, until verified against a real source.",
+ "_readme": "Canonical registry of commentators/authors appearing anywhere in data, derived from data/taxonomy.json's _default_author fields plus a small set of authors recovered from tika_ key-naming conventions where the _default_author field itself was corrupted (see PENDING.md for the corruption writeup). 'traditions' are taxonomy top-branch tags (dvaita/advaita/vishishtadvaita/etc), not a claim of exhaustive scholarly classification. 'note' flags an identification that is inferred (e.g. from title-pattern matching) rather than independently confirmed -- treat as a lead, not a citation, until verified against a real source.",
  "commentators": {
   "adi_shankaracharya": {
    "name": "Sri Adi Shankaracharya",

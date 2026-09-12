@@ -1,4 +1,4 @@
-"""Regression suite for the DGE Chandas engine (dge/js/chandas.js).
+"""Regression suite for the DGE Chandas engine (js/chandas.js).
 
 The engine is browser JS; tools/kamadhenu/chandas_runner.js loads it unmodified
 under node with three stubbed globals, so every assertion here is about the
@@ -17,7 +17,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
 RUNNER = ROOT / "tools" / "kamadhenu" / "chandas_runner.js"
-DB_PATH = ROOT / "dge" / "data" / "vedanga" / "chandas" / "data.json"
+DB_PATH = ROOT / "data" / "vedanga" / "chandas" / "data.json"
 
 pytestmark = pytest.mark.skipif(shutil.which("node") is None, reason="node not installed")
 

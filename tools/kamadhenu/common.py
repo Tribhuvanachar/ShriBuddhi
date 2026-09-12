@@ -3,7 +3,7 @@ import csv, json, os, sys, time, hashlib, datetime, html as _html
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-DGE = ROOT / "dge"
+DGE = ROOT
 DS = ROOT / "kamadhenu_dataset"
 INCOMING = DS / "incoming_audio"
 PROCESSED = DS / "processed"

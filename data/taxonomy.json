@@ -4297,7 +4297,7 @@
       }
      },
      "_visibility": "admin_only",
-     "_visibility_note": "Not linked in the Library nav for a normal reader, excluded from global search results, and not rendered without an admin unlock. This is a UI convenience, not real access control -- dge/data/ files are public on GitHub Pages regardless (see admin-gate.js's own documented caveat)."
+     "_visibility_note": "Not linked in the Library nav for a normal reader, excluded from global search results, and not rendered without an admin unlock. This is a UI convenience, not real access control -- data/ files are public on GitHub Pages regardless (see admin-gate.js's own documented caveat)."
     },
     "SetuTila": {
      "_readme": "Setu Tila edition of the Sarvamula (setutila.in), imported by tools/setutila/import_setutila.py with block UUIDs + pathantara variant readings preserved; works registered hidden in library.json pending review.",
@@ -6418,12 +6418,12 @@
   }
  },
  "agama": {
-  "_note": "Restructured 25 Aug 2026 -- was flattening sectarian traditions (Pancharatra/Pashupata/Pratyabhijna/Shaiva Siddhanta/Natha), scriptural corpora (Shakta Agama) and philosophical schools as if they were parallel top-level categories. See dge/PENDING.md for the individual reclassifications and the sourcing behind each one -- Samvitsiddhi moved out entirely to darshana.vedanta.vishishtadvaita.yamunacharya (it's Yamunacharya's Vedantic refutation of Advaita, not a Kashmir Saiva philosophical text).",
+  "_note": "Restructured 25 Aug 2026 -- was flattening sectarian traditions (Pancharatra/Pashupata/Pratyabhijna/Shaiva Siddhanta/Natha), scriptural corpora (Shakta Agama) and philosophical schools as if they were parallel top-level categories. See PENDING.md for the individual reclassifications and the sourcing behind each one -- Samvitsiddhi moved out entirely to darshana.vedanta.vishishtadvaita.yamunacharya (it's Yamunacharya's Vedantic refutation of Advaita, not a Kashmir Saiva philosophical text).",
   "vaishnava_agama": {
    "pancharatra": {
     "_default_author": "Traditionally revealed (Divya Prabandha of Bhagavan Narayana); human compiler varies by samhita and is often unrecorded",
     "pancharatra_samhitas": {
-     "_note": "Regrouped 25 Aug 2026 per the traditional Ratnatraya/Pramukha distinction (Sattvata/Paushkara/Jayakhya as the three Divya 'jewel' samhitas) rather than one flat list of 15 siblings. Guna (Sattvika/Rajasa/Tamasa) and Madhva-relevance are kept as per-text metadata fields, not folders -- see each samhita's data.json and dge/PENDING.md.",
+     "_note": "Regrouped 25 Aug 2026 per the traditional Ratnatraya/Pramukha distinction (Sattvata/Paushkara/Jayakhya as the three Divya 'jewel' samhitas) rather than one flat list of 15 siblings. Guna (Sattvika/Rajasa/Tamasa) and Madhva-relevance are kept as per-text metadata fields, not folders -- see each samhita's data.json and PENDING.md.",
      "ratnatraya": {
       "sattvata_samhita": {},
       "paushkara_samhita": {},
@@ -6731,7 +6731,7 @@
    },
    "shabdapatha": {
     "_schema": "vyakarana_shabdapatha",
-    "_note": "Not shloka-shaped, same as dhatupatha above -- opens dge/shabda.html directly (see DGE_SPECIAL_PAGES in js/library.js), never the general reader. Added to the library tree 20 Aug -- it existed as real, populated data (9007 words) and its own page, but had no taxonomy/library.json entry at all, so it was unreachable by browsing the library, only by a direct URL or the Explore popup."
+    "_note": "Not shloka-shaped, same as dhatupatha above -- opens shabda.html directly (see DGE_SPECIAL_PAGES in js/library.js), never the general reader. Added to the library tree 20 Aug -- it existed as real, populated data (9007 words) and its own page, but had no taxonomy/library.json entry at all, so it was unreachable by browsing the library, only by a direct URL or the Explore popup."
    },
    "dhatu_lexicon": {
     "_schema": "dhatu_lexicon"
@@ -6808,7 +6808,7 @@
  },
  "DvaitaVedanta/Itara/DasaSahitya": {
   "_schema": "dasa_pada_text",
-  "_note": "Haridasa devotional compositions (padas/suladis/ugabhogas/...) from four independently-sourced collections (web crawl, Android app, Firestore export, flat-JSON dump), reviewed and merged into one corpus 21 Aug 2026 -- see dge/data/dasa_sahitya_local/ARCHITECTURE.md for the full review history. Registered here as real leaves under 'composers' (25 Aug 2026); DvaitaVedanta/Itara/DasaSahitya.html still reads the same files directly via data/DvaitaVedanta/Itara/DasaSahitya/index.json for its own bespoke browsing UI. 'dasakuta' above kept only Jagannathadasa's Harikathamritasara -- a distinct kavya, not a pada -- after its empty per-composer pada/suladi/ugabhoga stub (superseded by 'composers') was removed. 'vyasakuta' (Sanskrit prakaranas by Madhva-tradition acharyas) is a separate, unrelated corpus.",
+  "_note": "Haridasa devotional compositions (padas/suladis/ugabhogas/...) from four independently-sourced collections (web crawl, Android app, Firestore export, flat-JSON dump), reviewed and merged into one corpus 21 Aug 2026 -- see data/dasa_sahitya_local/ARCHITECTURE.md for the full review history. Registered here as real leaves under 'composers' (25 Aug 2026); DvaitaVedanta/Itara/DasaSahitya.html still reads the same files directly via data/DvaitaVedanta/Itara/DasaSahitya/index.json for its own bespoke browsing UI. 'dasakuta' above kept only Jagannathadasa's Harikathamritasara -- a distinct kavya, not a pada -- after its empty per-composer pada/suladi/ugabhoga stub (superseded by 'composers') was removed. 'vyasakuta' (Sanskrit prakaranas by Madhva-tradition acharyas) is a separate, unrelated corpus.",
   "label": {
    "sa": "दाससाहित्यम्",
    "kn": "ದಾಸ ಸಾಹಿತ್ಯ",
@@ -7964,11 +7964,11 @@
   "ratna_pariksha": {
    "agastiya": {
     "_schema": "grantha_mula_text",
-    "_default_author": "attributed to Agastya (pseudepigraphic); Hindu, not Jain -- see dge/PENDING.md"
+    "_default_author": "attributed to Agastya (pseudepigraphic); Hindu, not Jain -- see PENDING.md"
    },
    "ratnadipika": {
     "_schema": "grantha_mula_text",
-    "_default_author": "author/sect unconfirmed -- see dge/PENDING.md"
+    "_default_author": "author/sect unconfirmed -- see PENDING.md"
    }
   }
  }

@@ -1,5 +1,5 @@
 {
- "_readme": "Reverse index for dge/js/ai.js's Dhatu word-tool: surface form -> {\"c\": Dhatupatha root code, \"k\": \"<Lakara>.<purusha><vacana>\"}. Built by tools/build_prakriya_form_index.py from the per-root files this directory already holds (see build_prakriya.py). Sharded by the form's first Devanagari codepoint (4 lowercase hex digits, e.g. उ -> 0909.json) so one word-click fetches one small shard, not the whole index. The value is a LIST of every (root, key) the form belongs to, in Dhatupatha code order — see the AMBIGUITY note in the build script's own docstring, not stored here to avoid drifting out of sync with it.",
+ "_readme": "Reverse index for js/ai.js's Dhatu word-tool: surface form -> {\"c\": Dhatupatha root code, \"k\": \"<Lakara>.<purusha><vacana>\"}. Built by tools/build_prakriya_form_index.py from the per-root files this directory already holds (see build_prakriya.py). Sharded by the form's first Devanagari codepoint (4 lowercase hex digits, e.g. उ -> 0909.json) so one word-click fetches one small shard, not the whole index. The value is a LIST of every (root, key) the form belongs to, in Dhatupatha code order — see the AMBIGUITY note in the build script's own docstring, not stored here to avoid drifting out of sync with it.",
  "rootsIndexed": 2229,
  "distinctForms": 204970,
  "formsWithMoreThanOneRoot": 26386,

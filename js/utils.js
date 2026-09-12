@@ -26,7 +26,7 @@ window.applyTheme = function(theme) {
   document.body.classList.toggle('dark-mode', theme === 'vandana');
 
   // Mirrored onto <html> too, alongside body, so tokens.css's html.theme-X
-  // rules (see dge/js/theme-guard.js, which sets this on <html> before
+  // rules (see js/theme-guard.js, which sets this on <html> before
   // first paint) stay in sync on every later theme change, not just the
   // pre-paint one.
   window.DGE_THEMES.forEach(t => document.documentElement.classList.remove('theme-' + t));

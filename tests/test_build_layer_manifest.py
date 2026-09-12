@@ -97,7 +97,7 @@ class TestBuild(unittest.TestCase):
         g = self.root / "sec" / "titled"
         write_layer(g, "mula", [item("DV_1")])
         write_layer(g, "tika_x", [item("DV_1", tika_title="टीका")])
-        titles = {"dge/data/sec/titled/mula/data.json": "श्रीमन्न्यायसुधा — mula"}
+        titles = {"data/sec/titled/mula/data.json": "श्रीमन्न्यायसुधा — mula"}
         out = build(self.root, titles)
         self.assertEqual(out["sec/titled"]["title"], "श्रीमन्न्यायसुधा")
 

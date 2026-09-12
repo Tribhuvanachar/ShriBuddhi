@@ -8,7 +8,7 @@
     "key here. They keep an admin tool from being opened by accident or by a",
     "casual visitor — they are NOT access control, and nothing genuinely",
     "sensitive should sit behind them. Real protection needs a server, or the",
-    "Firebase accounts already being wired up in dge/js/user-auth.js.",
+    "Firebase accounts already being wired up in js/user-auth.js.",
     "",
     "Keys are compared case-insensitively, trimmed.",
     "",

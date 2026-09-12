@@ -10,7 +10,7 @@
    alone, so re-including this file twice is harmless.
 
    Two link sets, chosen automatically:
-   - The full reader app (dge/index.html) already has modals.js's
+   - The full reader app (render.html) already has modals.js's
      openAboutModal()/openModal() and its own About/Contact/License/Terms
      sheets — when those exist, this renders the same five links wired to
      the same handlers, so the reader's footer behaves exactly as it did
@@ -40,9 +40,9 @@
     'Contact us if you have a question in the meantime.';
 
   // Landing-page URL, derived from THIS SCRIPT's own location (always
-  // dge/js/site-footer.js) rather than a hardcoded '../index.html' --
-  // pages include it from different relative depths (dge/*.html says
-  // "js/site-footer.js", dge/tirtha/index.html says
+  // js/site-footer.js) rather than a hardcoded '../index.html' --
+  // pages include it from different relative depths (*.html says
+  // "js/site-footer.js", tirtha/index.html says
   // "../js/site-footer.js"), and a fixed relative string would resolve
   // wrong on anything but the shallowest one. Same technique
   // contact-email.js already uses for admin/config/config-overrides.json.
@@ -53,7 +53,7 @@
   var LANDING_PAGE_URL = (function () {
     var self = (document.currentScript && document.currentScript.src) ||
                (window.DGE_SCRIPT_BASE || '');
-    try { return new URL('../../index.html', self).href; }
+    try { return new URL('../index.html', self).href; }
     catch (e) { return '../index.html'; } // fail soft, never throw
   })();
 

@@ -4,11 +4,11 @@ gemini_dhatu_lexicon.py — AI-generated multilingual meanings + pedagogical
 usage notes for every root (dhātu) in the Dhātupāṭha, via Gemini.
 
 WHY THIS EXISTS. The project lead's own dhātu list
-(dge/data/vedanga/vyakarana/dhatupatha/data.json, 2,229 roots via vidyut)
+(data/vedanga/vyakarana/dhatupatha/data.json, 2,229 roots via vidyut)
 already carries a `artha_extra.{hi,en}` gloss merged in from
 ashtadhyayi-com/data -- a separate, licensed open-data repo (distinct from
 the ashtadhyayi.com WEBSITE commentary removed in the 23 Aug sutrapatha
-pass; see dge/PENDING.md), but it is thin (two languages, mixed together
+pass; see PENDING.md), but it is thin (two languages, mixed together
 in one field) and not this project's own content. This script generates
 genuinely NEW, independently-composed content instead: standard root
 equivalents across 11 languages plus a short usage-nuance note, written
@@ -43,7 +43,7 @@ this was commissioned from:
   - A language equivalent Gemini isn't genuinely confident of comes back
     literally "(uncertain)", never a plausible-sounding guess.
   - Every output field is labeled to readers as AI-generated (Gemini),
-    unreviewed -- see DISPLAY_LABEL below and dge/js/core.js's
+    unreviewed -- see DISPLAY_LABEL below and js/core.js's
     KNOWN_COMMENTARY_LABELS convention used elsewhere in this project.
 
 Mirrors tools/gemini_summarize.py's CLI shape (batch_size/concurrency/
@@ -68,9 +68,9 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gemini_client import DEFAULT_MODEL, GeminiError, call_gemini  # noqa: E402
 from dhatu_grounding import KoshaIndex, build_grounding  # noqa: E402
 
-DHATUPATHA_PATH = Path("dge/data/vedanga/vyakarana/dhatupatha/data.json")
-OUTPUT_PATH = Path("dge/data/vedanga/vyakarana/dhatu_lexicon/data.json")
-VRITTI_DIR = Path("dge/data/vedanga/vyakarana/vritti")
+DHATUPATHA_PATH = Path("data/vedanga/vyakarana/dhatupatha/data.json")
+OUTPUT_PATH = Path("data/vedanga/vyakarana/dhatu_lexicon/data.json")
+VRITTI_DIR = Path("data/vedanga/vyakarana/vritti")
 KOSHA_VRITTI_SLUGS = ["madhaviya-dhatu-vritti", "kshiratarangini", "dhatupradipa"]
 KOSHA_DICT_SLUGS = ["macdonell", "capeller-sanskrit-english", "mw-1872", "apte-1957"]
 

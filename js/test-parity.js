@@ -1,6 +1,6 @@
 /*
  * test-parity.js — cross-language regression test for dge-normalize.js.
- * Run with: node dge/js/test-parity.js
+ * Run with: node js/test-parity.js
  *
  * dge-normalize.js's own docstring states the invariant this test exists to
  * guard: "This is the JS twin of the Python indexer's normalizer. It MUST

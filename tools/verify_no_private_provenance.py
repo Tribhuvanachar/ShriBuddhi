@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail if anything in dge/data carries the fingerprints of a private source.
+"""Fail if anything in data carries the fingerprints of a private source.
 
 WHAT THIS ENFORCES. Material from the rights-unresolved sites now lives in the
 private Parabuddhi repository, is transformed there, and reaches this public
@@ -14,7 +14,7 @@ re-enables an old importer, restores a file from history, or hand-edits a
 data.json with a URL pasted in a note, the pipeline is not involved at all —
 and this still fires.
 
-Run in CI on every change to dge/data. Exit 1 on any hit.
+Run in CI on every change to data. Exit 1 on any hit.
 """
 
 from __future__ import annotations
@@ -26,7 +26,7 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-DATA = REPO / "dge" / "data"
+DATA = REPO / "data"
 
 # Mirrors Parabuddhi's tools/lib/provenance.py PRIVATE_SITES. Kept as a literal
 # here rather than imported: the private repo is not present when this runs.

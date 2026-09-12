@@ -169,7 +169,7 @@
         render();
       })
       .catch(function () {
-        $('#vc-list').innerHTML = '<div class="df-note">Corpus data not reachable — serve from the dge/ folder.</div>';
+        $('#vc-list').innerHTML = '<div class="df-note">Corpus data not reachable — serve from the  folder.</div>';
       });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

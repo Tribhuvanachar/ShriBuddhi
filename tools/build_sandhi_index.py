@@ -2,9 +2,9 @@
 """
 build_sandhi_index.py — precomputed sandhi-vicheda (word splits), from Vidyut.
 
-The Sandhi word-tool (dge/js/ai.js) only ever asked an LLM to guess, because
+The Sandhi word-tool (js/ai.js) only ever asked an LLM to guess, because
 an earlier pass through this project checked and found Vidyut had no
-precomputed sandhi data of its own (dge/PENDING.md's Vidyut/Sandhi/Samasa
+precomputed sandhi data of its own (PENDING.md's Vidyut/Sandhi/Samasa
 audit). Checking the actual Vidyut package again, more closely, turned up
 something that audit missed: Vidyut DOES ship a real rule-based sandhi
 splitter (vidyut.sandhi.Splitter, loaded from sandhi/rules.csv) and a
@@ -19,7 +19,7 @@ dgeOpenSandhiForSelection in ai.js).
     python3 -c "import vidyut; vidyut.download_data('/tmp/vidyut_data')"
     python3 tools/build_sandhi_index.py
 
-Output: dge/data/_sandhi/<bucket>.json plus manifest.json. Same bucket
+Output: data/_sandhi/<bucket>.json plus manifest.json. Same bucket
 convention as _morph/ (first two SLP1 characters of the word, uppercase
 written with a trailing underscore).
 
@@ -63,7 +63,7 @@ import os
 import sys
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA = os.path.join(REPO, 'dge', 'data')
+DATA = os.path.join(REPO, 'data')
 OUT = os.path.join(DATA, '_sandhi')
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -72,7 +72,7 @@ from build_morphology import vocabulary, bucket_of, deva  # noqa: E402
 
 # Ashtadhyayi sutra id -> (short Devanagari name, mula wording) for the six
 # vowel-sandhi categories this tool can recognise with confidence. Ids match
-# dge/data/vedanga/vyakarana/ashtadhyayi/_index/sutra_index.json exactly, so
+# data/vedanga/vyakarana/ashtadhyayi/_index/sutra_index.json exactly, so
 # the reader-facing .dge-sutra-ref popover (intellisense.js) and the
 # "Open in Aṣṭādhyāyī →" link both resolve correctly with no extra mapping.
 SIMILAR_CLASS = {'a': 'a', 'A': 'a', 'i': 'i', 'I': 'i', 'u': 'u', 'U': 'u',
@@ -160,7 +160,7 @@ def main():
                           'exactly the case this exists for, e.g. श्रुतौज, '
                           'the word that started this whole feature, occurs '
                           'once in the entire corpus; this output also does '
-                          'not ship in the Pages-served dge/data tree, see '
+                          'not ship in the Pages-served data tree, see '
                           'this file\'s own README note in its manifest, so '
                           'the size argument for a higher threshold does not '
                           'apply the same way it does to _morph/)')

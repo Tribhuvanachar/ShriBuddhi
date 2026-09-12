@@ -1,10 +1,10 @@
 # DvaitaVedanta extraction
 
 Pulls the [dvaitavedanta.in](https://dvaitavedanta.in/) corpus into
-`dge/data/dvaitavedanta/`.
+`data/dvaitavedanta/`.
 
 **Licensing.** The site publishes no licence. Per the convention in
-`dge/PROJECT_STATUS.md` — *"absence of a licence is not permission"* — the
+`PROJECT_STATUS.md` — *"absence of a licence is not permission"* — the
 project lead authorised this specific source for this specific non-commercial,
 educational use on 2026-08-15. That decision is recorded in `dv_sources.json`
 and written into `source_note` on every emitted `data.json`, and every item
@@ -49,7 +49,7 @@ block (`first_sutra_id`). Every further unit named in the RIGHT-hand nav
 The original import never followed this endpoint, so every page contributed
 exactly its first unit — verified live against
 `category-details/977/975/...` (Nyāyasudhā maṅgalamācaraṇam): 9 units on the
-site, 1 (`DV_978`) in `dge/data`, units 979–986 absent repo-wide (the
+site, 1 (`DV_978`) in `data`, units 979–986 absent repo-wide (the
 reported missing गुरुराजेन passages among them). The importer now exhausts
 `/load-data` per page (see `extract_lazy_units` / `parse_load_fragment` in
 `dv_parse.py` and the leaf loop); a re-run with the cache warm re-fetches
@@ -82,7 +82,7 @@ are slow — `nyaya_sudha` timed out 3/3 during recon. Default timeout is 120s.
 ## Output layout
 
 ```
-dge/data/dvaitavedanta/
+data/dvaitavedanta/
   _extract_status.json                  ← progress tracker
   <section>/
     _meta.json
@@ -95,7 +95,7 @@ dge/data/dvaitavedanta/
 ```
 
 This is a **staging tree**: it mirrors the site 1:1 and touches nothing under
-`dge/data/sarvamoola_grantha/`. That matters because the site routinely carries
+`data/sarvamoola_grantha/`. That matters because the site routinely carries
 3–5 named commentaries per leaf (ब्रह्मसूत्रभाष्यम् 1.1.1 has five) while the
 sarvamoola convention has exactly three layer folders — mapping straight in would
 flatten distinct commentaries into one `tippani` bucket *and* collide with the
@@ -126,7 +126,7 @@ Each `data.json` follows the repo shape (`importers/common.write_grantha`):
 ```
 
 `ensure_ascii=False`, `indent=1`, Devanagari (never IAST) — matching the rest of
-`dge/data`.
+`data`.
 
 **Cross-layer linking.** The item id is `DV_<contentId>` in *every* layer, so a
 tika item's id matches its mula item's id, which is what `grantha_tika_text`
@@ -146,7 +146,7 @@ resumable/spot-checkable the same way:
 ```bash
 # Spot-check a random sample, reproducibly
 python tools/dvaitavedanta/verify_source_content.py \
-    --data dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas \
+    --data data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas \
     --sample 25 --seed 1 --out /tmp/report.json
 
 # Full sweep, CI-friendly (non-zero exit if anything drifted/vanished)
@@ -228,11 +228,11 @@ runs, and `merge_status.py` keeps the newest record per grantha.
 
 Three views of the same data:
 
-1. `dge/data/dvaitavedanta/_extract_status.json` — committed, machine-readable.
+1. `data/dvaitavedanta/_extract_status.json` — committed, machine-readable.
    Per grantha: discovered / fetched / with_text / containers / failed / items /
    bytes / per-layer counts / timings / status.
 2. The **GitHub step summary** on every run — table, unmapped layers, failures.
-3. `dge/dvaitavedanta-status.html` — dashboard with per-section and per-grantha
+3. `dvaitavedanta-status.html` — dashboard with per-section and per-grantha
    progress, filters, unmapped layers and the failure list.
 
 **Unmapped layers** are the thing to watch. A commentary heading with no entry in
@@ -244,7 +244,7 @@ add the mapping and re-run.
 
 ## Deliberately not done here
 
-`dge/build_search_index.py` is **not** run by this workflow. The index is a
-regenerable build product, `dge/search_index` is already 162 MB, and the repo is
+`build_search_index.py` is **not** run by this workflow. The index is a
+regenerable build product, `search_index` is already 162 MB, and the repo is
 near GitHub's practical 1 GB ceiling. Run `reindex.yml` once the corpus has
 landed and been reviewed.

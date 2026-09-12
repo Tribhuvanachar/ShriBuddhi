@@ -141,7 +141,7 @@ class RebuiltData(unittest.TestCase):
     import json as _json
     import os as _os
     BASE = _os.path.join(_os.path.dirname(__file__), "..",
-                         "dge", "data", "DvaitaVedanta", "Itara", "Kavya", "sumadhva_vijaya")
+                         "data", "DvaitaVedanta", "Itara", "Kavya", "sumadhva_vijaya")
 
     def sarga(self, n):
         with open(self._os.path.join(self.BASE, f"sarga_{n}", "data.json"),

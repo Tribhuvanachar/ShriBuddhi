@@ -10,7 +10,7 @@ the ones already touched) found 6 more matches, one of them a real
 correction to batch 4's own claim:
 
 - Samkhyakarika's MULA TEXT ITSELF is in DCS after all ("Samkhyakarika",
-  1 file) -- batch 4's commit message and dge/PENDING.md both said "the
+  1 file) -- batch 4's commit message and PENDING.md both said "the
   Samkhyakarika/Samkhyasutra mula texts are not in DCS at all", checked
   by *listing the mirror directory*, not by grepping the full text-name
   list the way this pass did. That check was real but incomplete: it
@@ -23,7 +23,7 @@ correction to batch 4's own claim:
   tika_gaudapada stub on the strength of "Samkhyakarikabhashya" being
   the standard scholarly name for Gaudapada's commentary specifically --
   a reasonable but NOT DCS-confirmed attribution, flagged as such in
-  dge/PENDING.md rather than asserted as fact.
+  PENDING.md rather than asserted as fact.
 - Mimamsasutrabhashya -- self-titled, standalone (not "zu" some other
   text), matching the existing empty shabara_bhashya leaf (Sabara's
   bhashya is THE Mimamsasutrabhashya by convention -- high confidence).
@@ -62,17 +62,17 @@ NEW_VAISHESHIKA_VRITTI_KEY = "vritti"
 NEW_SARVADARSHANA_NODE = OD([("mula", OD([("_schema", "grantha_mula_text"), ("_default_author", "Madhava Vidyaranya")]))])
 
 ENTRIES = [
-    ("Sāṃkhyakārikā", "dge/data/darshana/sankhya/sutra_and_karika/samkhya_karika/mula/data.json", "samkhya_karika_mula", "साङ्ख्यकारिका", None),
-    ("Sāṃkhyakārikābhāṣya", "dge/data/darshana/sankhya/sutra_and_karika/samkhya_karika/tika_gaudapada/data.json", "samkhya_karika_gaudapada", "साङ्ख्यकारिका (गौडपादभाष्यम् — DCS-असंपुष्टः कर्तृनिर्देशः)", None),
-    ("Mīmāṃsāsūtrabhāṣya", "dge/data/darshana/mimamsa/sutra_and_bhashya/mimamsa_sutra/shabara_bhashya/data.json", "mimamsa_sutra_shabara_bhashya", "मीमांसासूत्रम् (शाबरभाष्यम्)", None),
-    ("Tattvavaiśāradī", "dge/data/darshana/yoga/sutra_and_bhashya/yoga_sutra/tika_tattva_vaisharadi/data.json", "yoga_tattva_vaisharadi", "योगसूत्राणि (तत्त्ववैशारदी)", None),
-    ("Vaiśeṣikasūtravṛtti", "dge/data/darshana/vaisheshika/sutra_and_bhashya/vaisheshika_sutra/vritti/data.json", "vaisheshika_sutra_vritti", "वैशेषिकसूत्राणि (वृत्तिः — DCS-असंपुष्टः कर्तृनिर्देशः)", "new_top_leaf"),
-    ("Sarvadarśanasaṃgraha", "dge/data/darshana/sarvadarshana_sangraha/mula/data.json", "sarvadarshana_sangraha", "सर्वदर्शनसङ्ग्रहः", "new_top_leaf"),
+    ("Sāṃkhyakārikā", "data/darshana/sankhya/sutra_and_karika/samkhya_karika/mula/data.json", "samkhya_karika_mula", "साङ्ख्यकारिका", None),
+    ("Sāṃkhyakārikābhāṣya", "data/darshana/sankhya/sutra_and_karika/samkhya_karika/tika_gaudapada/data.json", "samkhya_karika_gaudapada", "साङ्ख्यकारिका (गौडपादभाष्यम् — DCS-असंपुष्टः कर्तृनिर्देशः)", None),
+    ("Mīmāṃsāsūtrabhāṣya", "data/darshana/mimamsa/sutra_and_bhashya/mimamsa_sutra/shabara_bhashya/data.json", "mimamsa_sutra_shabara_bhashya", "मीमांसासूत्रम् (शाबरभाष्यम्)", None),
+    ("Tattvavaiśāradī", "data/darshana/yoga/sutra_and_bhashya/yoga_sutra/tika_tattva_vaisharadi/data.json", "yoga_tattva_vaisharadi", "योगसूत्राणि (तत्त्ववैशारदी)", None),
+    ("Vaiśeṣikasūtravṛtti", "data/darshana/vaisheshika/sutra_and_bhashya/vaisheshika_sutra/vritti/data.json", "vaisheshika_sutra_vritti", "वैशेषिकसूत्राणि (वृत्तिः — DCS-असंपुष्टः कर्तृनिर्देशः)", "new_top_leaf"),
+    ("Sarvadarśanasaṃgraha", "data/darshana/sarvadarshana_sangraha/mula/data.json", "sarvadarshana_sangraha", "सर्वदर्शनसङ्ग्रहः", "new_top_leaf"),
 ]
 
 
 def merge_taxonomy():
-    path = os.path.join(REPO, "dge/data/taxonomy.json")
+    path = os.path.join(REPO, "data/taxonomy.json")
     with open(path, encoding="utf-8") as f:
         d = json.load(f, object_pairs_hook=collections.OrderedDict)
 
@@ -90,7 +90,7 @@ def merge_taxonomy():
 
 
 def update_library(populated_paths, new_leaf_paths):
-    path = os.path.join(REPO, "dge/data/library.json")
+    path = os.path.join(REPO, "data/library.json")
     with open(path, encoding="utf-8") as f:
         d = json.load(f, object_pairs_hook=collections.OrderedDict)
     by_path = {g["path"]: g for g in d["granthas"]}
@@ -137,7 +137,7 @@ def run_imports():
             source_url=f"https://github.com/OliverHellwig/sanskrit/tree/master/dcs/data/conllu/files/{dcs_name}",
             licence=LICENCE,
             note=(
-                "{count} units across {chapters} -- see dge/PENDING.md, 23 Aug "
+                "{count} units across {chapters} -- see PENDING.md, 23 Aug "
                 "entry (batch 6, darshana gap re-check), for how this was matched "
                 "and, for Samkhyakarika, a correction to batch 4's own claim."
             ),

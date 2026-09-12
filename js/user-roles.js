@@ -1,7 +1,7 @@
-// dge/js/user-roles.js — Superadmin "Manage Users" list (basic version).
+// js/user-roles.js — Superadmin "Manage Users" list (basic version).
 // Client-side gate mirrors the is_superadmin localStorage check used
 // everywhere else in this app; the REAL enforcement is Firestore
-// security rules (dge/firebase/firestore.rules) — this UI physically
+// security rules (firebase/firestore.rules) — this UI physically
 // cannot write a role change the rules reject, regardless of what runs
 // here. No pagination yet (loads up to 200 most-recently-active users) —
 // fine to start with, revisit once real volume makes that a problem.

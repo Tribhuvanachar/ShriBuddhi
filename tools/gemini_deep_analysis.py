@@ -37,12 +37,12 @@ Stored per-verse under `gemini_deep_analysis` (a nested object, NOT
 under `commentaries` -- render.js's commentary blocks expect a plain
 string per key, and this is structured data). Rendered via the existing
 Shloka Fields settings toggles (Pratipadartha/Tatparya/Vyakarana/Vrutta/
-Alankara) -- see SHLOKA_EXTRA_FIELDS in dge/js/config.js, whose dataKeys
+Alankara) -- see SHLOKA_EXTRA_FIELDS in js/config.js, whose dataKeys
 point at this object's own field names (23 Aug 2026).
 
 Usage:
   GEMINI_API_KEY=... python3 tools/gemini_deep_analysis.py \
-      --sarga-dir dge/data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya --cantos 1-10
+      --sarga-dir data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya --cantos 1-10
   python3 tools/gemini_deep_analysis.py --sarga-dir ... --cantos 1 --dry-run
 """
 from __future__ import annotations
@@ -390,7 +390,7 @@ def run(sarga_dir: Path, cantos, model: str, dry_run: bool, force: bool, limit,
             # structured chandas/alankara/samasa data. Adding it there
             # would register a commentary toggle that always renders
             # nothing until a real reader UI for this exists (see
-            # dge/PENDING.md) -- a phantom entry, not a working one.
+            # PENDING.md) -- a phantom entry, not a working one.
             save_json(sarga_path, data)
         total_analyzed += canto_analyzed
         total_no_prereqs += canto_no_prereqs

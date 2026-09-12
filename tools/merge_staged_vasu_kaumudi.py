@@ -3,7 +3,7 @@
 merge_staged_vasu_kaumudi.py — Stage 2 of the Vasu Siddhānta-Kaumudī
 pipeline: reads Stage-1 staged files (tools/vasu_kaumudi_ocr.py) and
 merges their entries into the Ashtadhyayi reader's vasu_kaumudi layer,
-dge/data/vedanga/vyakarana/ashtadhyayi/vasu_kaumudi/data.json.
+data/vedanga/vyakarana/ashtadhyayi/vasu_kaumudi/data.json.
 
 Keying: an entry's "sk" (Vasu's serial number) -> kaumudiIndex ->
 Ashtadhyayi sutra id via kaumudi_order/data.json. The layer's items use
@@ -23,7 +23,7 @@ better-classified copy wins; ties -> the longer english text.
 
 Usage:
   python3 tools/merge_staged_vasu_kaumudi.py --staged a.json b.json ... [--include-review]
-  python3 tools/merge_staged_vasu_kaumudi.py --staged-dir dge/data/ocr_staging/vasu_siddhanta_kaumudi
+  python3 tools/merge_staged_vasu_kaumudi.py --staged-dir data/ocr_staging/vasu_siddhanta_kaumudi
 """
 from __future__ import annotations
 
@@ -32,9 +32,9 @@ import json
 import sys
 from pathlib import Path
 
-LAYER = Path("dge/data/vedanga/vyakarana/ashtadhyayi/vasu_kaumudi/data.json")
-ORDER = Path("dge/data/vedanga/vyakarana/ashtadhyayi/kaumudi_order/data.json")
-SUTRAPATHA = Path("dge/data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json")
+LAYER = Path("data/vedanga/vyakarana/ashtadhyayi/vasu_kaumudi/data.json")
+ORDER = Path("data/vedanga/vyakarana/ashtadhyayi/kaumudi_order/data.json")
+SUTRAPATHA = Path("data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json")
 
 HEADER = {
     "schema": "grantha_tika_text",

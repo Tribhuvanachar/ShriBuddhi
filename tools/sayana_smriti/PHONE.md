@@ -51,7 +51,7 @@ python tools/sayana_smriti/import_sayana_rigveda.py --dge-root dge \
 python tools/sayana_smriti/import_sayana_rigveda.py --dge-root dge
 ```
 
-Then commit `dge/data/vedas/rigveda/` on a branch and open a PR.
+Then commit `data/vedas/rigveda/` on a branch and open a PR.
 
 ## On an Android phone
 
@@ -110,7 +110,7 @@ Per mantra, written into `items[].commentaries` on the ten maṇḍala files:
 - `sayana` — Sāyaṇa's Ṛgveda-bhāṣya as rendered in Wilson's edition (English)
 - `wilson` — Wilson's translation of the mantra itself
 
-`dge/js/core.js` already labels and renders both, and
+`js/core.js` already labels and renders both, and
 `tools/sayana_smriti/verify_import.py` will check coverage before you merge.
 
 ## The other corpora do not need any of this

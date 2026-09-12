@@ -171,12 +171,12 @@ class BuiltOutput(unittest.TestCase):
 
 
 class ReaderContract(unittest.TestCase):
-    """Facts dge/js/reference-links.js depends on, checked in its source."""
+    """Facts js/reference-links.js depends on, checked in its source."""
 
     @classmethod
     def setUpClass(cls):
         cls.js = (Path(__file__).resolve().parent.parent
-                  / 'dge/js/reference-links.js').read_text(encoding='utf-8')
+                  / 'js/reference-links.js').read_text(encoding='utf-8')
 
     def test_it_renders_from_the_token_range_not_char_offsets(self):
         # Char offsets do not survive transliteration; token counts do.

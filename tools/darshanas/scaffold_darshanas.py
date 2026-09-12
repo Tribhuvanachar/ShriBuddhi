@@ -1,30 +1,30 @@
 #!/usr/bin/env python3
-"""Generate the dge/data/darshana/ tree from tools/darshanas/darshana_works.json.
+"""Generate the data/darshana/ tree from tools/darshanas/darshana_works.json.
 
-The tree is a BUILD PRODUCT. Nothing under dge/data/darshana/ is hand-authored:
+The tree is a BUILD PRODUCT. Nothing under data/darshana/ is hand-authored:
 edit darshana_works.json and re-run this. That is what makes the bibliographic
 graph — who commented on whom, at what layer, with what verification status —
 the single source of truth rather than something implied by folder names.
 
 What it emits
-  dge/data/darshana/_meta.json
-  dge/data/darshana/_works_index.json     flat lookup: path -> work/layer metadata
-  dge/data/darshana/_graph.json           commentary edges, for the reader UI
-  dge/data/darshana/<school>/<subsection>/<work>/_meta.json
-  dge/data/darshana/<school>/<subsection>/<work>/<layer>/data.json   (empty stub)
+  data/darshana/_meta.json
+  data/darshana/_works_index.json     flat lookup: path -> work/layer metadata
+  data/darshana/_graph.json           commentary edges, for the reader UI
+  data/darshana/<school>/<subsection>/<work>/_meta.json
+  data/darshana/<school>/<subsection>/<work>/<layer>/data.json   (empty stub)
   ...and for Tattvacintāmaṇi, the topic x layer vāda matrix:
   .../tattvacintamani/<khanda>/<layer>/data.json
   .../tattvacintamani/<khanda>/vadas/<vada>/<layer>/data.json
 
-It also updates dge/data/taxonomy.json (adds the darshanas subtree) and
-dge/data/library.json (one entry per data.json, with populated and title set
+It also updates data/taxonomy.json (adds the darshanas subtree) and
+data/library.json (one entry per data.json, with populated and title set
 explicitly — register_layers.py writes title:null, and a stale populated:false
-makes dge/js/core.js short-circuit to "Not Yet Available" over real data).
+makes js/core.js short-circuit to "Not Yet Available" over real data).
 
 Existing data.json files are NEVER overwritten — a stub is written only where
 none exists, so re-running after an ingest is safe.
 
-Run:  python tools/darshanas/scaffold_darshanas.py --data dge/data
+Run:  python tools/darshanas/scaffold_darshanas.py --data data
       python tools/darshanas/scaffold_darshanas.py --dry-run
 """
 
@@ -285,7 +285,7 @@ class Scaffolder:
         by_path = {e["path"]: e for e in library.get("granthas", [])}
         added = fixed = 0
         for leaf in self.leaves:
-            repo_path = f"dge/data/{leaf['path']}/data.json"
+            repo_path = f"data/{leaf['path']}/data.json"
             title = self.display_title(leaf)
             entry = by_path.get(repo_path)
             if entry is None:
@@ -366,7 +366,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--config", default="tools/darshanas/darshana_works.json")
-    parser.add_argument("--data", default="dge/data")
+    parser.add_argument("--data", default="data")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--no-catalog", action="store_true",
                         help="skip taxonomy.json / library.json updates")

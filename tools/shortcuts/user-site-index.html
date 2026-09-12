@@ -1,7 +1,7 @@
 <!doctype html>
 <!-- For a future github.com/Tribhuvanachar/tribhuvanachar.github.io repository (the user site, which today
      returns 404). Save this file there as index.html and https://tribhuvanachar.github.io/?rv1.1.3 will open
-     Ṛgveda 1.1.3 in the library; any other visit goes to the library's front door. Grammar: dge/js/shortcuts.js
+     Ṛgveda 1.1.3 in the library; any other visit goes to the library's front door. Grammar: js/shortcuts.js
      in the bhumandala repository (docs/SHORT_URLS.md). Nothing else is needed on the user site. -->
 <html lang="en"><head><meta charset="utf-8"><title>Sarvamūla Digital Library</title>
 <meta name="robots" content="noindex">
@@ -9,7 +9,7 @@
 (function () {
   var q = location.search.replace(/^\?/, '');
   var short = q && q.indexOf('&') < 0 && /^[A-Za-z]{1,4}=?\d[\d.]*$/.test(q);
-  location.replace(short ? '/bhumandala/dge/index.html?' + q + location.hash : '/bhumandala/' + location.hash);
+  location.replace(short ? '/bhumandala/render.html?' + q + location.hash : '/bhumandala/' + location.hash);
 })();
 </script>
 </head><body><p>Opening the Sarvamūla Digital Library… <a href="/bhumandala/">Continue</a></p></body></html>

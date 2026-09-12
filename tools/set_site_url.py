@@ -13,8 +13,8 @@ has to be *changed* in the HTML whenever the domain changes.
 Rather than leaving that as "remember to grep for the old domain", every
 such spot is marked in the HTML:
 
-    <!-- site-url: dge/images/guru/guruji.jpg -->
-    <meta property="og:image" content="https://host/dge/images/guru/guruji.jpg">
+    <!-- site-url: images/guru/guruji.jpg -->
+    <meta property="og:image" content="https://host/images/guru/guruji.jpg">
 
 The marker carries the path *within the site*; this script joins it to
 ``siteOrigin`` from admin/config/site.config.json and rewrites the URL in the tag on

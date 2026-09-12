@@ -45,7 +45,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 DATA = REPO / "dge" / "data"
 
-# (source, destination) in dge/data terms. Order matters: the DvaitaVedanta
+# (source, destination) in data terms. Order matters: the DvaitaVedanta
 # rename runs last, so the earlier entries can still name the old path.
 MOVES = [
     ("darshana/vedanta/dvaita/SetuTila",            "DvaitaVedanta/SarvaMula"),

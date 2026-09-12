@@ -1,4 +1,4 @@
-// Headless runner for the DGE Chandas engine (dge/js/chandas.js).
+// Headless runner for the DGE Chandas engine (js/chandas.js).
 // Reads a JSON array of Devanagari verse strings on stdin, writes a JSON array of
 // DGEChandas.analyzeText() results on stdout. Only three browser globals are stubbed;
 // the engine itself is loaded unmodified so results are identical to the website.
@@ -9,9 +9,9 @@ global.window = global;
 global.document = { readyState: "complete", querySelector: () => null };
 global.localStorage = { getItem: () => null };
 global.fetch = () => Promise.resolve({
-  json: () => Promise.resolve(JSON.parse(fs.readFileSync(path.join(ROOT, "dge/data/vedanga/chandas/data.json"), "utf8")))
+  json: () => Promise.resolve(JSON.parse(fs.readFileSync(path.join(ROOT, "data/vedanga/chandas/data.json"), "utf8")))
 });
-eval(fs.readFileSync(path.join(ROOT, "dge/js/chandas.js"), "utf8"));
+eval(fs.readFileSync(path.join(ROOT, "js/chandas.js"), "utf8"));
 window.DGEChandas.loadDB("").then(() => {
   const verses = JSON.parse(fs.readFileSync(0, "utf8"));
   const out = verses.map(v => {

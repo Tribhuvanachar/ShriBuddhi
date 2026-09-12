@@ -36,7 +36,7 @@ import argparse, datetime, hashlib, html, json, os, re, sys, time
 import urllib.parse, urllib.request
 
 BASE = "https://setutila.in"
-OUT = "dge/data/DvaitaVedanta/SarvaMula"
+OUT = "data/DvaitaVedanta/SarvaMula"
 UA = {"User-Agent": "Mozilla/5.0 (DGE importer; bhumandala project; contact via site)"}
 SLEEP = 0.35
 

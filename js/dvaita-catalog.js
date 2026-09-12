@@ -1,13 +1,13 @@
 /* =========================================================================
    dvaita-catalog.js — द्वैतवेदान्तग्रन्थानुक्रमणी.
 
-   Reads the committed bibliography (dge/data/catalogs/
+   Reads the committed bibliography (data/catalogs/
    dvaita_grantha_anukramani.json, built by
    tools/import_dvaita_grantha_anukramani.py) and lays an editable overlay
    over it. The import is never rewritten in place; every correction a
    scholar makes lands in a separate overrides file:
 
-       dge/data/catalogs/dvaita_grantha_anukramani.overrides.json
+       data/catalogs/dvaita_grantha_anukramani.overrides.json
 
    Edits are held in localStorage as a draft the moment they are made and
    go to GitHub only when someone presses Sync — same shape as
@@ -27,7 +27,7 @@
   window.DGE_VERSIONS['dvaita-catalog.js'] = 'v2.0';
 
   var DATA_URL = "../data/catalogs/dvaita_grantha_anukramani.json";
-  var OVERRIDES_PATH = "dge/data/catalogs/dvaita_grantha_anukramani.overrides.json";
+  var OVERRIDES_PATH = "data/catalogs/dvaita_grantha_anukramani.overrides.json";
   var OVERRIDES_URL = "../data/catalogs/dvaita_grantha_anukramani.overrides.json";
   var DRAFT_KEY = "dge.dvc.draft";
   var CHUNK = 250;
@@ -81,8 +81,8 @@
   function emptyOverrides() {
     return {
       _readme: [
-        "Scholar corrections layered over dge/data/catalogs/dvaita_grantha_anukramani.json.",
-        "Written by dge/dvaita-grantha-anukramani/ (Sync to GitHub). The imported",
+        "Scholar corrections layered over data/catalogs/dvaita_grantha_anukramani.json.",
+        "Written by dvaita-grantha-anukramani/ (Sync to GitHub). The imported",
         "catalogue itself is never edited -- re-running the importer keeps every",
         "correction here intact.",
         "canonical: variant spelling -> the spelling to show everywhere, per kind.",
@@ -860,7 +860,7 @@
   }
 
   /* ---------------- CROSS-LINKS tab ---------------- */
-  // 'dge/data/darshana/.../jayanti_nirnaya/mula/data.json' ->
+  // 'data/darshana/.../jayanti_nirnaya/mula/data.json' ->
   // 'darshana › vedanta › dvaita › SarvaMula › ... › jayanti_nirnaya › mula'
   function pathCrumb(p) {
     return String(p || '')

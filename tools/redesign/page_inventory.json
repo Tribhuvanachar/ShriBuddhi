@@ -1,5 +1,5 @@
 {
- "page_count": 66,
+ "page_count": 84,
  "pages": [
   {
    "path": "index.html",
@@ -11,12 +11,12 @@
    "has_modals_js": false,
    "css_links": [
     "css/home.css",
-    "dge/css/content-inline.css"
+    "css/content-inline.css"
    ],
    "title": "Sarvamūla Digital Library"
   },
   {
-   "path": "dge/app.html",
+   "path": "app.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -27,7 +27,7 @@
    "title": "Sarvamoola Digital Library — App layout"
   },
   {
-   "path": "dge/audio.html",
+   "path": "audio.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -38,7 +38,7 @@
    "title": "Harikathamritasara - Mangalacharana Sandhi"
   },
   {
-   "path": "dge/convert/index.html",
+   "path": "convert/index.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -51,7 +51,7 @@
    "title": "DGE Convert v0.35.0"
   },
   {
-   "path": "dge/dasa-sahitya/index.html",
+   "path": "dasa-sahitya/index.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -64,7 +64,7 @@
    "title": "ದಾಸ ಸಾಹಿತ್ಯ · Dāsa Sāhitya — DGE"
   },
   {
-   "path": "dge/dasa-sahitya/views/index.html",
+   "path": "dasa-sahitya/views/index.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -75,7 +75,7 @@
    "title": "ದಾಸ ಸಾಹಿತ್ಯ · choose a view · DGE"
   },
   {
-   "path": "dge/dasa-sahitya/views/view1.html",
+   "path": "dasa-sahitya/views/view1.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -86,7 +86,7 @@
    "title": "ದಾಸ ಸಾಹಿತ್ಯ · Reading · DGE"
   },
   {
-   "path": "dge/dasa-sahitya/views/view2.html",
+   "path": "dasa-sahitya/views/view2.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -97,7 +97,7 @@
    "title": "ದಾಸ ಸಾಹಿತ್ಯ · Browse · DGE"
   },
   {
-   "path": "dge/dasa-sahitya/views/view3.html",
+   "path": "dasa-sahitya/views/view3.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -108,7 +108,21 @@
    "title": "ದಾಸ ಸಾಹಿತ್ಯ · Curated · DGE"
   },
   {
-   "path": "dge/dvaitavedanta-status.html",
+   "path": "dvaita-grantha-anukramani/index.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../css/vyakarana-base.css",
+    "../css/dvaita-catalog.css"
+   ],
+   "title": "द्वैतवेदान्तग्रन्थानुक्रमणी · DGE"
+  },
+  {
+   "path": "dvaitavedanta-status.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -119,7 +133,7 @@
    "title": "DvaitaVedanta Extraction · DGE"
   },
   {
-   "path": "dge/gita.html",
+   "path": "gita.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -130,7 +144,7 @@
    "title": "Gita Viewer"
   },
   {
-   "path": "dge/grantha.html",
+   "path": "grantha.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -144,7 +158,7 @@
    "title": "ग्रन्थः · DGE Reader v2 (preview)"
   },
   {
-   "path": "dge/guru-parampara/guru1.html",
+   "path": "guru-parampara/guru1.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -155,7 +169,7 @@
    "title": "Guru Paramparā · Explorer view · DGE"
   },
   {
-   "path": "dge/guru-parampara/guru2.html",
+   "path": "guru-parampara/guru2.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -166,7 +180,7 @@
    "title": "Guru Paramparā · Metro view · DGE"
   },
   {
-   "path": "dge/guru-parampara/guru3.html",
+   "path": "guru-parampara/guru3.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -177,7 +191,7 @@
    "title": "Guru Paramparā · Trunk & Lines view · DGE"
   },
   {
-   "path": "dge/guru-parampara/index.html",
+   "path": "guru-parampara/index.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -191,7 +205,7 @@
    "title": "Guru Parampara — Madhva (Dvaita) Lineage · DGE"
   },
   {
-   "path": "dge/guru-parampara/lineage-2d.html",
+   "path": "guru-parampara/lineage-2d.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -204,7 +218,7 @@
    "title": "Guru Parampara — Madhva (Dvaita) Lineage Tree"
   },
   {
-   "path": "dge/guru-parampara/tracker.html",
+   "path": "guru-parampara/tracker.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -217,7 +231,138 @@
    "title": "Guru Parampara — Data Completeness Tracker"
   },
   {
-   "path": "dge/index.html",
+   "path": "home-panel.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "css/home.css",
+    "css/content-inline.css"
+   ],
+   "title": "Know More — Sarvamūla Digital Library"
+  },
+  {
+   "path": "kamadhenu.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "css/vyakarana-base.css"
+   ],
+   "title": "Kamadhenu — chant trials · DGE"
+  },
+  {
+   "path": "kamadhenu_dataset/KAMADHENU_STATUS.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "KAMADHENU — DGE × VĀGDHENU"
+  },
+  {
+   "path": "kamadhenu_dataset/audio_text_mapping_review.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Kamadhenu — audio ↔ text mapping review"
+  },
+  {
+   "path": "kamadhenu_dataset/chandas_coverage.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Kamadhenu — Chandas coverage"
+  },
+  {
+   "path": "kamadhenu_dataset/dataset_health_report.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Kamadhenu — dataset health"
+  },
+  {
+   "path": "kamadhenu_dataset/kamadhenu_gap_matrix.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Kamadhenu — component gap matrix"
+  },
+  {
+   "path": "kamadhenu_dataset/reference_bank.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Kamadhenu — Chandas reference bank"
+  },
+  {
+   "path": "kavya/index.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../css/kavya.css"
+   ],
+   "title": "काव्यानि — DGE"
+  },
+  {
+   "path": "kosha2.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "css/tokens.css",
+    "css/kosha2.css"
+   ],
+   "title": "कोश — DGE Dictionary Reader (v2 preview)"
+  },
+  {
+   "path": "reader.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Sarvamoola Digital Library — Scholar layout"
+  },
+  {
+   "path": "render.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -234,69 +379,7 @@
    "title": "Sarvamoola Digital Library"
   },
   {
-   "path": "dge/kamadhenu.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "css/vyakarana-base.css"
-   ],
-   "title": "Kamadhenu — chant trials · DGE"
-  },
-  {
-   "path": "dge/kavya/index.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "../css/kavya.css"
-   ],
-   "title": "काव्यानि — DGE"
-  },
-  {
-   "path": "dge/kosha2.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "css/tokens.css",
-    "css/kosha2.css"
-   ],
-   "title": "कोश — DGE Dictionary Reader (v2 preview)"
-  },
-  {
-   "path": "dge/legacy/PrahladaKrutaNarasimhaStotra.html",
-   "gated": true,
-   "first_head_script": "sanscript.min.js",
-   "vandana_guard_first": false,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "Bhagavata Digital Library"
-  },
-  {
-   "path": "dge/reader.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "Sarvamoola Digital Library — Scholar layout"
-  },
-  {
-   "path": "dge/tirtha/index.html",
+   "path": "tirtha/index.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -310,7 +393,117 @@
    "title": "Tīrtha Prabandha — Holy Places Database"
   },
   {
-   "path": "dge/vyakarana/ashtadhyayi/index.html",
+   "path": "tools/audio_admin/templates/index.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "DGE · Audio Admin"
+  },
+  {
+   "path": "tools/audio_admin/tests/browser-check.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "audio-detect browser check"
+  },
+  {
+   "path": "tools/sayana_smriti/tests/fixtures/st_av.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Atharva Veda: Book 1: Hymn 1"
+  },
+  {
+   "path": "tools/sayana_smriti/tests/fixtures/st_ts.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Yajur Veda Kanda II"
+  },
+  {
+   "path": "tools/sayana_smriti/tests/fixtures/st_vishnu.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": null
+  },
+  {
+   "path": "tools/sayana_smriti/tests/fixtures/st_wyv.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "White Yajur Veda: Book I"
+  },
+  {
+   "path": "tools/sayana_smriti/tests/fixtures/wl_manu.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Verse 1.1"
+  },
+  {
+   "path": "tools/sayana_smriti/tests/fixtures/wl_rigveda.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Rig Veda 1.164.1 [Rig Veda]"
+  },
+  {
+   "path": "tools/sayana_smriti/tests/fixtures/wl_yajnavalkya.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Verse 1.1"
+  },
+  {
+   "path": "tools/shortcuts/user-site-index.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Sarvamūla Digital Library"
+  },
+  {
+   "path": "vyakarana/ashtadhyayi/index.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -321,7 +514,7 @@
    "title": "अष्टाध्यायी · choose a view · DGE"
   },
   {
-   "path": "dge/vyakarana/ashtadhyayi/view1.html",
+   "path": "vyakarana/ashtadhyayi/view1.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -332,7 +525,7 @@
    "title": "अष्टाध्यायी · Reading · DGE"
   },
   {
-   "path": "dge/vyakarana/ashtadhyayi/view2.html",
+   "path": "vyakarana/ashtadhyayi/view2.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -343,7 +536,7 @@
    "title": "अष्टाध्यायी · Workbench · DGE"
   },
   {
-   "path": "dge/vyakarana/ashtadhyayi/view3.html",
+   "path": "vyakarana/ashtadhyayi/view3.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -354,7 +547,7 @@
    "title": "अष्टाध्यायी · Study · DGE"
   },
   {
-   "path": "dge/vyakarana/ashtadhyayi.html",
+   "path": "vyakarana/ashtadhyayi.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -369,7 +562,7 @@
    "title": "अष्टाध्यायी · DGE व्याकरणम्"
   },
   {
-   "path": "dge/vyakarana/chandas.html",
+   "path": "vyakarana/chandas.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -385,7 +578,7 @@
    "title": "छन्दोविश्लेषणम् — DGE"
   },
   {
-   "path": "dge/vyakarana/dhatu/dlg1.html",
+   "path": "vyakarana/dhatu/dlg1.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -396,7 +589,7 @@
    "title": "धातुः · संवादः (Bottom-sheet) · DGE"
   },
   {
-   "path": "dge/vyakarana/dhatu/dlg2.html",
+   "path": "vyakarana/dhatu/dlg2.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -407,7 +600,7 @@
    "title": "धातुः · संवादः (Card) · DGE"
   },
   {
-   "path": "dge/vyakarana/dhatu/dlg3.html",
+   "path": "vyakarana/dhatu/dlg3.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -418,7 +611,7 @@
    "title": "धातुः · संवादः (Compact) · DGE"
   },
   {
-   "path": "dge/vyakarana/dhatu/index.html",
+   "path": "vyakarana/dhatu/index.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -429,7 +622,7 @@
    "title": "धातुः · choose a view · DGE"
   },
   {
-   "path": "dge/vyakarana/dhatu/page1.html",
+   "path": "vyakarana/dhatu/page1.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -440,7 +633,7 @@
    "title": "धातुः · Split-pane · DGE"
   },
   {
-   "path": "dge/vyakarana/dhatu/page2.html",
+   "path": "vyakarana/dhatu/page2.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -451,7 +644,7 @@
    "title": "धातुः · Quick-facts · DGE"
   },
   {
-   "path": "dge/vyakarana/dhatu/page3.html",
+   "path": "vyakarana/dhatu/page3.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -462,7 +655,7 @@
    "title": "धातुः · Tabled · DGE"
   },
   {
-   "path": "dge/vyakarana/dhatu.html",
+   "path": "vyakarana/dhatu.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -477,7 +670,7 @@
    "title": "धातुपाठः · DGE व्याकरणम्"
   },
   {
-   "path": "dge/vyakarana/dhatuforms.html",
+   "path": "vyakarana/dhatuforms.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -492,7 +685,7 @@
    "title": "रूपाणि · लकाराः — DGE व्याकरणम्"
   },
   {
-   "path": "dge/vyakarana/ganapatha.html",
+   "path": "vyakarana/ganapatha.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -508,7 +701,7 @@
    "title": "गणपाठः — DGE"
   },
   {
-   "path": "dge/vyakarana/krdanta.html",
+   "path": "vyakarana/krdanta.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -524,7 +717,7 @@
    "title": "कृदन्त रूपाणि — DGE व्याकरणम्"
   },
   {
-   "path": "dge/vyakarana/linganushasana.html",
+   "path": "vyakarana/linganushasana.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -540,7 +733,7 @@
    "title": "लिङ्गानुशासनम् — DGE"
   },
   {
-   "path": "dge/vyakarana/phitsutra.html",
+   "path": "vyakarana/phitsutra.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -556,7 +749,7 @@
    "title": "फिट्सूत्राणि — DGE"
   },
   {
-   "path": "dge/vyakarana/prakriya.html",
+   "path": "vyakarana/prakriya.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -572,7 +765,7 @@
    "title": "प्रक्रिया · तिङन्त — DGE व्याकरणम्"
   },
   {
-   "path": "dge/vyakarana/rupasiddhi.html",
+   "path": "vyakarana/rupasiddhi.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -590,7 +783,7 @@
    "title": "रूपसिद्धिः — DGE व्याकरणम्"
   },
   {
-   "path": "dge/vyakarana/shabda/index.html",
+   "path": "vyakarana/shabda/index.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -601,7 +794,7 @@
    "title": "शब्दपाठः · choose a view · DGE"
   },
   {
-   "path": "dge/vyakarana/shabda/view1.html",
+   "path": "vyakarana/shabda/view1.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -612,7 +805,7 @@
    "title": "शब्दपाठः · Workbench · DGE"
   },
   {
-   "path": "dge/vyakarana/shabda/view2.html",
+   "path": "vyakarana/shabda/view2.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -623,7 +816,7 @@
    "title": "शब्दपाठः · Reader · DGE"
   },
   {
-   "path": "dge/vyakarana/shabda/view3.html",
+   "path": "vyakarana/shabda/view3.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -634,7 +827,7 @@
    "title": "शब्दपाठः · Codex · DGE"
   },
   {
-   "path": "dge/vyakarana/shabda.html",
+   "path": "vyakarana/shabda.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -650,7 +843,7 @@
    "title": "शब्दपाठः · DGE व्याकरणम्"
   },
   {
-   "path": "dge/vyakarana/unadi.html",
+   "path": "vyakarana/unadi.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -816,6 +1009,17 @@
     "css/ocr-review.css"
    ],
    "title": "OCR Review · DGE (scholar)"
+  },
+  {
+   "path": "admin/ocr-studio.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "OCR Studio · DGE"
   },
   {
    "path": "admin/repo-map.html",

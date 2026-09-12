@@ -22,10 +22,10 @@ recording into the **exact** shloka count.
 
 2. **Discover the paths yourself — don't ask the user.**
    - Find the real DGE audio output folder: inspect the repo tree for where
-     per-shloka audio should live (look under `dge/data/`, existing audio dirs,
+     per-shloka audio should live (look under `data/`, existing audio dirs,
      or how other media is stored). Pick the best match and set
      `output.local_dir` in `config.yaml`. If none exists, create
-     `dge/data/audio/` and note it.
+     `data/audio/` and note it.
    - Confirm the audio-data repo name for later pushing (the user referred to
      `bhumandala-audio-data`). Verify it exists (`gh repo view` or a clone
      attempt); set `push.repo` / `push.branch` / `push.subdir` in `config.yaml`.

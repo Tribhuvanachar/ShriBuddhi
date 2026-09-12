@@ -6,7 +6,7 @@ a data.json matching the existing pancharatra_samhitas on-disk shape
 (schema: generic, items: [{id, reference, shlokas: [{number, sanskrit_text}]}]).
 
 Parsing quirks this handles, found and fixed by testing against real pages
-before trusting it at scale (see dge/PENDING.md, 23 Aug entry):
+before trusting it at scale (see PENDING.md, 23 Aug entry):
 - Critical-apparatus footnote blocks, bounded by dash-lines, removed via a
   line-based state machine (a monolithic regex mis-paired dash-lines on
   real data and silently ate 62 real verses in testing -- caught by

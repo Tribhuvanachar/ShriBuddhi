@@ -26,7 +26,7 @@ class TestClassifyError(unittest.TestCase):
 
 
 class TestCallGeminiFallback(unittest.TestCase):
-    """Mirrors dge/js/gemini.js: one attempt, one fallback attempt only for
+    """Mirrors js/gemini.js: one attempt, one fallback attempt only for
     quota/model_missing/overloaded, no retry loop beyond that."""
 
     def setUp(self):

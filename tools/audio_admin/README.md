@@ -61,7 +61,7 @@ clips + `chunks_map.json` come back as a downloadable artifact.
 ## Sending results onward
 
 - **Save to DGE folder** — writes into `output.local_dir` from `config.yaml`
-  (defaults to `dge/data/audio` — point it at your real folder).
+  (defaults to `data/audio` — point it at your real folder).
 - **Push to the audio-data repo** (later) — from the Codespace terminal:
   ```bash
   ./scripts/push_to_repo.sh out/ chanting/sarga-9

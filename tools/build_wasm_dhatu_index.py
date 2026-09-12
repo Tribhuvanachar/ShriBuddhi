@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """Build the two small data files the in-browser vidyut-prakriya engine needs.
 
-dge/rupasiddhi.html derives arbitrary upasarga + sanadi + lakara paradigms
-on-device via vidyut-prakriya compiled to WebAssembly (dge/wasm/vidyut/).
+rupasiddhi.html derives arbitrary upasarga + sanadi + lakara paradigms
+on-device via vidyut-prakriya compiled to WebAssembly (wasm/vidyut/).
 The wasm takes a root as (aupadeshika, gana, antargana?) -- exact SLP1 with
 accents and anubandhas -- so:
 
-  dge/data/vedanga/vyakarana/dhatu_wasm_index.json
+  data/vedanga/vyakarana/dhatu_wasm_index.json
       {code: [aupadeshika, Gana, Antargana?]} straight from vidyut's own
       dhatupatha (pip install vidyut; the same source build_prakriya.py
       uses), so codes match dhatupatha/data.json by construction.
 
-  dge/data/vedanga/vyakarana/upasarga_artha.json
+  data/vedanga/vyakarana/upasarga_artha.json
       {code: [[upasarga_devanagari, meaning_hindi], ...]} -- the documented
       upasarga+dhatu meanings from ashtadhyayi-com/data's dhatu/data.txt
       `upasargas` field (184 roots, ~674 pairs; meanings are in Hindi, as
@@ -25,8 +25,8 @@ import json
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-OUT_IDX = REPO / 'dge/data/vedanga/vyakarana/dhatu_wasm_index.json'
-OUT_UPA = REPO / 'dge/data/vedanga/vyakarana/upasarga_artha.json'
+OUT_IDX = REPO / 'data/vedanga/vyakarana/dhatu_wasm_index.json'
+OUT_UPA = REPO / 'data/vedanga/vyakarana/upasarga_artha.json'
 
 
 def main():
@@ -46,7 +46,7 @@ def main():
         idx[e.code] = ent
     OUT_IDX.write_text(json.dumps({
         '_readme': ('Per-root arguments for the in-browser vidyut-prakriya engine '
-                    '(dge/wasm/vidyut/): [aupadeshika (SLP1, with accents/anubandhas), '
+                    '(wasm/vidyut/): [aupadeshika (SLP1, with accents/anubandhas), '
                     'gana, antargana?]. Built by tools/build_wasm_dhatu_index.py from '
                     "vidyut's own dhatupatha, so the codes match dhatupatha/data.json "
                     'by construction.'),

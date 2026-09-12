@@ -69,10 +69,10 @@ def run():
     body.append(section(3, "CHANDAS", ch_status,
         f"DGE engine run headlessly over {sum(read_json(DS / 'text_index.json', {}).get('counts', {}).values())} text units; {C.get('metres_in_dge_db', 0)} metres in DGE DB; coverage {C.get('status_counts', {})}; tiers {C.get('tiers_percent', {})}",
         f"text_index.json chandas_analysis, chandas_coverage.json, chandas_comparison.json ({len(cmp.get('disagreements_with_dge', []))} Vāgdhenu patterns disagree with DGE)",
-        ["one authoritative layer = dge/js/chandas.js (unmodified) via tools/kamadhenu/chandas_runner.js", "Vāgdhenu's two metre tables compared; 4 wrong patterns found in tts_meter.py"],
+        ["one authoritative layer = js/chandas.js (unmodified) via tools/kamadhenu/chandas_runner.js", "Vāgdhenu's two metre tables compared; 4 wrong patterns found in tts_meter.py"],
         ["DGE engine gaps: strict anuṣṭubh rule (vipulā → अज्ञातम्), upajāti table lacks U-I-U-U, candrabindu/ᳵ not guru, Devanagari-only", "≈44% of units unresolved (mostly MBTN + text defects)"],
         [],
-        "Extend dge/js/chandas.js (vipulā classes, generic indra/upendra mix, nasal test) — Claude can do this; then re-run the audit",
+        "Extend js/chandas.js (vipulā classes, generic indra/upendra mix, nasal test) — Claude can do this; then re-run the audit",
         ["chandas_coverage.html", "chandas_comparison.md"]))
     body.append(section(4, "DATASET", ds_status,
         f"metadata.jsonl: {ds.get('records', 0)} records; subsets {ds.get('subset_sizes', {})}",
@@ -109,7 +109,7 @@ def run():
     body.append(section(8, "VOICE TRAINING", tr_status, "nothing trained; training readiness Stages 1–6 assessed in KAMADHENU_TODO.md", "dataset subsets; Vāgdhenu training/ scripts", [], ["a decided speaker", "≥30 min grade A/B verified clips", "GPU"], ["speaker undecided", "no TTS-grade audio"], "Do NOT train yet", []))
     body.append(section(9, "PROSODY", pr_status, "reference-driven only (Vāgdhenu finding: text-side conditioner is inert)", "TECH_REPORT.md §14; extract_prosody.py", [], ["prosody bank from the Kamadhenu voice (needs forced alignment)"], ["Stage 2 first"], "Nothing now", []))
     body.append(section(10, "QC", qc_status, f"automatic QC on all {n_files} files: flags {S.get('flags', {})}; {S.get('decode_errors', 0)} decode errors", "audio_inventory.json", ["format/rate/channels/bit-depth", "peak/RMS/level", "silence (lead/trail/internal)", "clipping", "low volume", "noise floor / SNR", "exact + likely duplicates", "extension≠codec"], ["LUFS", "ASR-based text check"], [], "Re-run automatically with every audit; add ASR check as P1", ["audio_inventory.csv"]))
-    body.append(section(11, "PRODUCTION", prod_status, "no rendering pipeline; DGE player + CDN convention exist and work (5 broken verse links found)", "fetch_manifest.json failed entries; dge/js/audio.js", ["DGE audio player + base-URL override chain (reusable as-is)"], ["everything from Stage 1 onward"], [], "Fix the 5 broken audio links on the site (smv5.8/5.14/5.16, rv02.54, rv10.06)", []))
+    body.append(section(11, "PRODUCTION", prod_status, "no rendering pipeline; DGE player + CDN convention exist and work (5 broken verse links found)", "fetch_manifest.json failed entries; js/audio.js", ["DGE audio player + base-URL override chain (reusable as-is)"], ["everything from Stage 1 onward"], [], "Fix the 5 broken audio links on the site (smv5.8/5.14/5.16, rv02.54, rv10.06)", []))
     body.append("<h2>Status vocabulary</h2><div class='note'>🟢 DONE · 🟢 VERIFIED · 🟡 PARTIAL · 🟠 IN PROGRESS · 🔴 NOT STARTED · 🔴 BLOCKED · ⚪ NOT REQUIRED — DONE only where the thing was inspected/tested for the Kamadhenu use.</div>")
     from .common import html_page
     html = html_page("KAMADHENU — DGE × VĀGDHENU", "".join(body), f"master dashboard · {progress}% overall")

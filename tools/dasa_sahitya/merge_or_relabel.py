@@ -11,7 +11,7 @@ to be the same person after all; a song is filed under the wrong form). This
 script is how that change gets applied, WITHOUT hand-editing composer JSON
 files or re-deriving the manifest by hand every time.
 
-Both subcommands rewrite dge/data/DvaitaVedanta/Itara/DasaSahitya/index.json and counts.json
+Both subcommands rewrite data/DvaitaVedanta/Itara/DasaSahitya/index.json and counts.json
 before exiting, so the corpus is never left in a state where the manifest
 disagrees with what's actually on disk.
 
@@ -57,9 +57,9 @@ import os
 import re
 
 ROOT = os.path.join(os.path.dirname(__file__), "..", "..")
-COMP_DIR = os.path.join(ROOT, "dge", "data", "DvaitaVedanta/Itara/DasaSahitya", "composers")
-MANIFEST_PATH = os.path.join(ROOT, "dge", "data", "DvaitaVedanta/Itara/DasaSahitya", "index.json")
-COUNTS_PATH = os.path.join(ROOT, "dge", "data", "DvaitaVedanta/Itara/DasaSahitya", "counts.json")
+COMP_DIR = os.path.join(ROOT, "data", "DvaitaVedanta/Itara/DasaSahitya", "composers")
+MANIFEST_PATH = os.path.join(ROOT, "data", "DvaitaVedanta/Itara/DasaSahitya", "index.json")
+COUNTS_PATH = os.path.join(ROOT, "data", "DvaitaVedanta/Itara/DasaSahitya", "counts.json")
 FETCH_DATE = _dt.date.today().isoformat()
 
 _PUNCT_RE = re.compile(r"[\s।॥.,\-–—’‘'\"()\[\]:;!?|/]+")

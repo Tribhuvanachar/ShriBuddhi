@@ -27,7 +27,7 @@ for exactly that reason.
 WHAT THIS SCRIPT HAS TO GET RIGHT
 
   1. THE HEADWORD ENDINGS. IndoWordNet lists nominal members inflected —
-     खण्डमोदकः, मिष्टान्नम् — while Vidyut's analysis (dge/data/_morph) and the
+     खण्डमोदकः, मिष्टान्नम् — while Vidyut's analysis (data/_morph) and the
      koshas both key on the stem: खण्डमोदक, मिष्टान्न. A reader who taps a word
      arrives with a stem. Indexing only what the file says would mean a lookup
      that almost never fires, so every member is also indexed under its stem
@@ -74,7 +74,7 @@ USAGE
     python3 tools/build_wordnet.py --download        # fetches ~30 MB once
     python3 tools/build_wordnet.py --src ~/iwn_data  # already extracted
 
-Output: dge/data/_wordnet/<bucket>.json plus manifest.json, bucketed by the
+Output: data/_wordnet/<bucket>.json plus manifest.json, bucketed by the
 first two SLP1 characters exactly as _morph and _synonyms are, so the client
 uses one bucketing rule for all three.
 """
@@ -89,7 +89,7 @@ import tarfile
 import urllib.request
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(REPO, 'dge', 'data', '_wordnet')
+OUT = os.path.join(REPO, 'data', '_wordnet')
 
 # From pyiwn/constants.py. Roughly 30 MB, all eighteen languages.
 DATA_URL = 'https://www.dropbox.com/s/t29eqq19nt5eygs/iwn_data.tar.gz?dl=1'
@@ -109,7 +109,7 @@ MAX_FOREIGN = 4      # per synset, per language
 DEVA = re.compile(r'[ऀ-ॿ]')
 
 # ---------------------------------------------------------------- SLP1 ---
-# Ported from dge/js/intellisense.js rather than taken from vidyut, because
+# Ported from js/intellisense.js rather than taken from vidyut, because
 # the bucket a lookup fetches is computed by that JS at runtime. If the two
 # transliterations ever disagreed the client would fetch the wrong file and
 # find nothing, so the rule is copied verbatim instead of reimplemented.

@@ -107,7 +107,7 @@ def rules(rec):
     if "saroddhara" in folder.lower():
         m = re.match(r"SBS(\d+)\.(\w+)(?:\.SBS(\d+))?$", stem)
         # SBS<prakaraṇa>.<n>.SBS<running verse>.mp3 — the running number is the Sāroddhāra verse_no used by the DGE
-        # import (dge/data/.../bhagavata_saroddhara/mula, ids BS_Pxx_Vnnn); SBS<p>.0 / SBS<p>.E are prakaraṇa intro/end
+        # import (data/.../bhagavata_saroddhara/mula, ids BS_Pxx_Vnnn); SBS<p>.0 / SBS<p>.E are prakaraṇa intro/end
         return dict(work="bhagavata_saroddhara", section=None, verse=(str(int(m.group(3))) if m and m.group(3) else None), part="full",
                     signal="filename" if m and m.group(3) else "folder",
                     note="SBS<prakaraṇa>.<n>.SBS<verse> → Sāroddhāra verse (text imported and verified 6 Sep 2026)" if m and m.group(3) else "prakaraṇa intro/summary or end clip — no single verse",

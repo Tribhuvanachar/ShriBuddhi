@@ -1,6 +1,6 @@
 // ============================================================
 // LAYER STITCHING — multi-layer grantha reading
-// See dge/MULTI_LAYER_READER_ARCHITECTURE.md for the full design.
+// See MULTI_LAYER_READER_ARCHITECTURE.md for the full design.
 //
 // The DvaitaVedanta importer (and a few other pipelines) file one grantha
 // as sibling folders — mula/ + tika_*/ — each with its own data.json and
@@ -9,7 +9,7 @@
 // multi-commentary tab UI feeds on, so opening any layer showed ONE layer
 // with no way to its siblings. This module stitches them at load time:
 //
-//   1. dge/data/layer_manifest.json (generated offline by
+//   1. data/layer_manifest.json (generated offline by
 //      tools/build_layer_manifest.py, from the data itself) says which
 //      granthas are actually id-joinable and what each layer is called.
 //      No manifest entry -> this module does nothing for that grantha.

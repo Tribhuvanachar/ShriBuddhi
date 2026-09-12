@@ -20,7 +20,7 @@ CATEGORY = "kavya_alankara"
 
 def main(argv=None):
     p = argparse.ArgumentParser()
-    p.add_argument("--data-root", default="dge/data")
+    p.add_argument("--data-root", default="data")
     args = p.parse_args(argv)
     root = os.path.join(args.data_root, CATEGORY)
     errors, checked = [], 0
