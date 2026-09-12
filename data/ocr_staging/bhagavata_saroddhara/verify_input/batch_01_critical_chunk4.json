@@ -1,0 +1,134 @@
+{
+"_how_to_answer": "Reply with ONE JSON list, one object per id, nothing else. decision: 'dge' (the DGE Madhva text is what the print shows, modulo OCR noise) | 'printed' (the print genuinely differs — give the exact printed text in verified_text) | 'vision' (Vision OCR is right as it stands) | 'unsure'. For missing_verse give verified_text (full verse, no number), bhagavata_ref 's.a.v' and pdf_page. If a neighbouring verse's current_text is really this verse (the OCR merged two verses), also add an object for that neighbour's id (e.g. BS_V005) with its correct verified_text and bhagavata_ref. Keep note to one line.",
+"_answer_shape": {
+"id": "BS_V042",
+"decision": "dge|printed|vision|unsure",
+"verified_text": "… or null",
+"bhagavata_ref": "10.1.14 or null",
+"pdf_page": 128,
+"note": "…"
+},
+"chunk": "4 of 4",
+"items": [
+{
+"id": "BS_V354",
+"type": "mismatch",
+"verse_num": 354,
+"prakarana": "नामप्रशंसाप्रकरणम्",
+"book_ref": "6.3.25",
+"pdf_page": 427,
+"ocr_vision": "त्रय्यां जडीकृतमतिर्मधुपुष्पितायां वैतानिके महति कर्मणि युज्यमानः ॥ ३५४ ॥",
+"ocr_tesseract": "ज्यां जङीकरृतमतिर्मधुपुष्पितायां वैतानिके महति कर्मणि युज्यमानः ॥ ३५४ ॥",
+"dge_mula_candidate": "प्रायेण वेद तदिदं न महाजनोऽयं देव्या विमोहितमतिर्बत माययाऽलम्। त्रय्यां जडीकृतमतिर्मधुपुष्पितायां वैतानिके महति कर्मणि युज्यमानः॥",
+"issue": "OCR and the DGE Madhva text for 6.3.25 differ substantially (similarity 0.689). Is the printed verse really 6.3.25, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V359",
+"type": "mismatch",
+"verse_num": 359,
+"prakarana": "नामप्रशंसाप्रकरणम्",
+"book_ref": "6.3.31",
+"pdf_page": 431,
+"ocr_vision": "स्वानामहो न विदुषां रचिताञ्जलीनां क्षान्तिर्वरीयसि नमः पुरुषाय भूम्रे ॥ १५९ ॥",
+"ocr_tesseract": "स्वानामहो न विदुषां रचिताञ्जलीनां क्षान्तिर्वरीयसि नमः पुरुषाय भूम्रे ॥ १५९ ॥",
+"dge_mula_candidate": "तत् क्षम्यतां स भगवान् पुरुषः पुराणो नारायणः स्वपुरुषैर्यदसत्कृतं नः। स्वानामहो न विदुषां रचिताञ्जलीनां क्षान्तिर्वरीयसि नमः पुरुषाय भूम्ने॥",
+"issue": "OCR and the DGE Madhva text for 6.3.31 differ substantially (similarity 0.663). Is the printed verse really 6.3.31, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V045",
+"type": "near_match",
+"verse_num": 45,
+"prakarana": "संक्षिप्तशास्त्रार्थप्रकरणम्",
+"book_ref": "10.1.4",
+"pdf_page": 130,
+"ocr_vision": "निवृत्ततर्षैरुपगीयमानाद्भवौषधाच्छ्रोतृमनोभिरामात् । क उत्तमश्लोकगुणानुवादात् पुमान् विरज्येत विना पशुघ्नात् ॥ ४५ ॥",
+"ocr_tesseract": "निवृत्ततर्षरुपगीयमानाद्भवौषधाच्छरोतुमनोभिरामात्‌ । क उत्तमरलोकगुणानुवादात्‌ पुमान्‌ विरज्येत विना ಕಗ್ಗ ॥ ४५ ॥",
+"dge_mula_candidate": "निवृत्ततर्षैरुपगीयमानाद् भवौषधाच्छ्रोत्रमनोभिरामात्। क उत्तमश्लोकगुणानुवादात् पुमान् विरज्येत विना विनाऽतिमुग्धान्॥",
+"issue": "Close but not identical to DGE 10.1.4 (similarity 0.909) — OCR noise or a real variant reading (pāṭhabheda)? If a variant, give the exact printed text."
+},
+{
+"id": "BS_V118",
+"type": "near_match",
+"verse_num": 118,
+"prakarana": "महत्सेवाप्रशंसाप्रकरणम्",
+"book_ref": "3.17.6",
+"pdf_page": 181,
+"ocr_vision": "सद्यः पुनाति जगदाश्वपचं विकुण्ठः । सोऽहं भवद्भ्य उपलब्धसुतीर्थकीर्ति श्छिन्द्यां स्वबाहुमपि वः प्रतिकूलवृत्तिम्",
+"ocr_tesseract": "सद्यः पुनाति ಗತರ विकुण्डः । सोऽहं भवदभ्य उपलन्धसुतीर्थकीर्तिं रछिन्यां स्वबाहुमपि वः प्रतिकूलवृत्तिम्‌ ॥ ११८ ॥",
+"dge_mula_candidate": "यस्यामृतामलयशःश्रवणावगाहः सद्यः पुनाति जगदाश्वपचं विकुण्ठः। सोऽहं भवद्भ्य उपलब्धसुतीर्थकीर्तिश्छिन्द्यां स्वबाहुमपि वः प्रतिकूलवृत्तिम्॥",
+"issue": "Close but not identical to DGE 3.17.6 (similarity 0.885) — OCR noise or a real variant reading (pāṭhabheda)? If a variant, give the exact printed text."
+},
+{
+"id": "BS_V138",
+"type": "near_match",
+"verse_num": 138,
+"prakarana": "इन्द्रियजयप्रकरणम्",
+"book_ref": "9.7.52",
+"pdf_page": 203,
+"ocr_vision": "सर्वात्मना न विसृजेत् बहिरिन्द्रियाणि । एकश्वरन् रहसि चित्तमनन्त ईशे युञ्जीत तद्रतिषु साधुषु चेत्प्रसङ्गः ॥ १३८ ॥",
+"ocr_tesseract": "सर्वात्मना न विसृजेत्‌ बहिरिन्द्रियाणि । एकश्चरन्‌ रहसि चित्तमनन्त ईो युञ्जीत तद्रतिषु साधुषु चेत्प्रसङ्गः ॥ १३८ ॥",
+"dge_mula_candidate": "सङ्गं त्यजेत मिथुनव्रजिनान्मुमुक्षुः सर्वात्मना न विसृजेद् बहिरिन्द्रियाणि। एकश्चरन् रहसि चित्तमनन्त ईशे युञ्जीत तद्रतिषु साधुषु चेत् प्रसङ्गः॥",
+"issue": "Close but not identical to DGE 9.7.52 (similarity 0.829) — OCR noise or a real variant reading (pāṭhabheda)? If a variant, give the exact printed text."
+},
+{
+"id": "BS_V206",
+"type": "near_match",
+"verse_num": 206,
+"prakarana": "ध्यानप्रकरणम्",
+"book_ref": "2.2.12",
+"pdf_page": 255,
+"ocr_vision": "विभूषितं मेखलयाङ्गुलीयकै 'र्महाधनैर्नूपुरकङ्कणादिभिः । स्निग्धामलैः ಸದಿ ಯಮನು ಗಾಯನ ॥",
+"ocr_tesseract": "विभूषितं मेखलयाङ्करीयकैःमहाधनैर्नूपुरकङ्कणादिमिः । स्निग्धामलैः ಸದಿ ಯಮನು ಗಾಯನ ॥",
+"dge_mula_candidate": "विभूषितं मेखलयाऽङ्गुलीयकैर्महाधनैर्नूपुरकङ्कणादिभिः। स्निग्धामलैः कुञ्चितनीलकुन्तलैर्विरोचमानाननहासपेशलम्॥",
+"issue": "Close but not identical to DGE 2.2.12 (similarity 0.759) — OCR noise or a real variant reading (pāṭhabheda)? If a variant, give the exact printed text."
+},
+{
+"id": "BS_V259",
+"type": "near_match",
+"verse_num": 259,
+"prakarana": "धर्मोपदेशप्रकरणम्",
+"book_ref": "7.9.50",
+"pdf_page": 333,
+"ocr_vision": "वाक्कर्मणि ह्यपि करौ श्रवणं कथायाम् । संसेवया त्वयि विनेति षडङ्गया किं भक्तिं जनः परमहंसगतौ लभेत ॥ २५८ ॥",
+"ocr_tesseract": "वाक्कर्मणि ह्यपि करौ श्रवणं कथायाम्‌ । संसेवया त्वयि विनेति षडङ्गया किं भक्तिं जनः परमहंसगतौ लभेत ॥ २५८ ॥",
+"dge_mula_candidate": "तत्वे मनो दर्शने दृगपि स्तुतौ च वाक् कर्मणि ह्यपि करौ श्रवणं कथायाम्। संसेवया त्वयि विनेति षडङ्गया किं भक्तिं जनः परमहंसगतौ लभेत॥",
+"issue": "Close but not identical to DGE 7.9.50 (similarity 0.865) — OCR noise or a real variant reading (pāṭhabheda)? If a variant, give the exact printed text."
+},
+{
+"id": "BS_V289",
+"type": "near_match",
+"verse_num": 289,
+"prakarana": "धर्मोपदेशप्रकरणम्",
+"book_ref": "11.6.10",
+"pdf_page": 355,
+"ocr_vision": "स्यान्नस्तवान्घ्रिरशुभाशयधूमकेतुः क्षेमाय यो मुनिभिरार्द्रहृदोह्यमानः । यः सात्विकैः समविभूतिभिरात्मविद्भि- र्व्यूह्यार्चितः सवनशः समविक्रमैर्यः ॥ २८९ ॥",
+"ocr_tesseract": "स्यान्नस्तवान्द्ररङुभाङायधूमकेतुः क्षेमाय यो मुनिभिररद्रहदोह्यमानः । यः सात्विकैः समविभूतिभिरात्मविद्धि- र्व्यूह्यार्चितः सवनशः समविक्रमैर्यः ॥ २८९ ॥",
+"dge_mula_candidate": "स्यान्नस्तवाङ्घ्रिरशुभाशयधूमकेतुः क्षेमाय यो मुनिभिरार्द्रहृदोह्यमानः। यः सात्त्वतैः समविभूतिभिरार्द्रहृद्भिर्व्यूह्यार्चितः सवनशः समविक्रमैश्च॥",
+"issue": "Close but not identical to DGE 11.6.10 (similarity 0.919) — OCR noise or a real variant reading (pāṭhabheda)? If a variant, give the exact printed text."
+},
+{
+"id": "BS_V323",
+"type": "near_match",
+"verse_num": 323,
+"prakarana": "बिम्बोपदेशप्रकरणम्",
+"book_ref": "4.11.60",
+"pdf_page": 389,
+"ocr_vision": "आनन्दमात्र उपपन्नसमस्तशक्तौ । भक्तिं विधाय परमां शनकैरविद्या- ग्रन्थिं विभेत्स्यसि ममाहमिति प्ररूढाम्",
+"ocr_tesseract": "आनन्दमात्र उपपन्नसमस्तराक्तौ । भक्ति विधाय परमां रानकैरविद्या- ग्रन्थिं विभेत्स्यसि ममाहमिति प्ररूढाम्‌ ॥ २२३ ॥",
+"dge_mula_candidate": "त्वं प्रत्यगात्मनि सदा भगवत्यनन्त आनन्दमात्र उपपन्नसमस्तशक्तौ। भक्तिं विधाय परमां शनकैरविद्याग्रन्थिं विभेत्स्यसि ममाहमिति प्ररूढाम्॥",
+"issue": "Close but not identical to DGE 4.11.60 (similarity 0.853) — OCR noise or a real variant reading (pāṭhabheda)? If a variant, give the exact printed text."
+},
+{
+"id": "BS_V361",
+"type": "near_match",
+"verse_num": 361,
+"prakarana": "नामप्रशंसाप्रकरणम्",
+"book_ref": "3.34.7",
+"pdf_page": 433,
+"ocr_vision": "अहो बत श्वपचोऽतो गरीयान् यज्जिह्वाग्रे वर्तते नाम' तेपुस्तंपस्ते जुहुवुः सुराद्यान्ब्रह्मानूचुर्नाम गृणन्ति ये ते",
+"ocr_tesseract": "अहो बत इवपचोऽतो गरीयान्‌ यज्जिह्वाग्रे वर्तते नाम तुभ्यम्‌ । तेपुस्तपस्ते जुहुवुः सुराद्यान्ब्रह्मानूचुनमि गुणन्तिये ते ॥ ३६१ ॥",
+"dge_mula_candidate": "अहो बत श्वपचोऽतो गरीयान् यज्जिह्वाग्रे वर्तते नाम तुभ्यम्। तेपुस्तपस्ते जुहुवुः सस्नुरार्याः ब्रह्मानूचुर्नाम गृणन्ति ये ते॥",
+"issue": "Close but not identical to DGE 3.34.7 (similarity 0.914) — OCR noise or a real variant reading (pāṭhabheda)? If a variant, give the exact printed text."
+}
+]
+}

@@ -1,0 +1,676 @@
+{
+  "schema": "generic",
+  "default_author": "unspecified",
+  "source": "Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024",
+  "source_url": "https://github.com/OliverHellwig/sanskrit/tree/master/dcs/data/conllu/files/Abhidharmakośa",
+  "licence": "CC-BY 4.0",
+  "note": "74 units across ['1', '2'] -- see dge/PENDING.md, 23 Aug entry (batch 5, Tier B Upaveda/Shastra), for how the new upaveda/shastra taxonomy branches were drafted and matched.",
+  "items": [
+    {
+      "id": "1.1",
+      "title": "1.1",
+      "text": "ओम् नमो बुद्धाय",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.2",
+      "title": "1.2",
+      "text": "प्रज्ञामला सानुचराभिधर्मः तत्प्राप्तये यापि च यच्च शास्त्रम् तस्यार्थतोऽस्मिन् समनुप्रवेशात्स चाश्रयो ऽस्येत्यभिधर्मकोशम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.3",
+      "title": "1.3",
+      "text": "धर्माणां प्रविचयमन्तरेण नास्ति क्लेशानां यत उपशान्तयेऽभ्युपायः क्लेशैश्च भ्रमति भवार्णवेऽत्र लोकस्तद्धेतोरत उदितः किलैष शास्त्रा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.4",
+      "title": "1.4",
+      "text": "सास्रवानास्रवा धर्माः संस्कृता मार्गवर्जिताः सास्रवाः आस्रवास्तेषु यस्मात्समनुशेरते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.5",
+      "title": "1.5",
+      "text": "अनास्रवा मार्गसत्यं त्रिविधं चाप्यसंस्कृतमाकाशं द्वौ निरोधौ च तत्राकाशमनावृतिः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.6",
+      "title": "1.6",
+      "text": "प्रतिसंख्यानिरोधो यो विसंयोगः पृथक्पृथक् उत्पादात्यन्तविघ्नोऽन्यो निरोधोऽप्रतिसंख्यया",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.7",
+      "title": "1.7",
+      "text": "ते पुनः संस्कृता धर्मा रूपादिस्कन्धपञ्चकम् त एवाध्वा कथावस्तु सनिःसाराः सवस्तुकाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.8",
+      "title": "1.8",
+      "text": "ये सास्रवा उपादानस्कन्धास्ते सरणा अपि दुःखं समुदयो लोको दृष्टिस्थानं भवश्च ते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.9",
+      "title": "1.9",
+      "text": "रूपं पञ्चेन्द्रियाण्यर्थाः पञ्चाविज्ञप्तिरेव च तद्विज्ञानाश्रया रूपप्रसादाश्चक्षुरादयः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.10",
+      "title": "1.10",
+      "text": "रूपं द्विधा विंशतिधा शब्दस्त्वष्टविधः रसः षोढा चतुर्विधो गन्धः स्पृश्यमेकादशात्मकम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.11",
+      "title": "1.11",
+      "text": "विक्षिप्ताचित्तकस्यापि योऽनुबन्धः शुभाशुभः महाभूतान्युपादाय स ह्यविज्ञप्तिरुच्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.12",
+      "title": "1.12",
+      "text": "भूतानि पृथिविधातुरप्तेजोवायुधातवः धृत्यादिकर्मसंसिद्धाः खरस्नेहोष्णतेरणाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.13",
+      "title": "1.13",
+      "text": "पृथिवी वर्णसंस्थानमुच्यते लोकसंज्ञया आपस्तेजश्च वायुस्तु धातुरेव तथापि च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.14",
+      "title": "1.14",
+      "text": "इन्द्रियार्थास्त एवेष्टा दशायतनधातवः वेदनानुभवः संज्ञा निमित्तोद्ग्रहणात्मिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.15",
+      "title": "1.15",
+      "text": "चतुर्भ्योऽन्ये तु संस्कारस्कन्धः एते पुनस्त्रयः धर्मायतनधात्वाख्याः सहाविज्ञप्त्यसंस्कृतैः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.16",
+      "title": "1.16",
+      "text": "विज्ञानं प्रतिविज्ञप्तिः मन आयतनं च तत् धातवः सप्त च मताः षड्विज्ञानान्यथो मनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.17",
+      "title": "1.17",
+      "text": "षण्णामनन्तरातीतं विज्ञानं यद्धि तन्मनः षष्ठाश्रयप्रसिद्ध्यर्थं धातवो ऽष्टादश स्मृताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.18",
+      "title": "1.18",
+      "text": "सर्वसंग्रह एकेन स्कन्धेनायतनेन च धातुना च स्वभावेन परभाववियोगतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.19",
+      "title": "1.19",
+      "text": "जातिगोचरविज्ञानसामान्यादेकधातुता द्वित्वेऽपि चक्षुरादीनां शोभार्थं तु द्वयोद्भवः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.20",
+      "title": "1.20",
+      "text": "राश्यायद्वारगोत्रार्थाः स्कन्धायतनधातवः मोहेन्द्रियरुचित्रैधात्तिस्रः स्कन्धादिदेशनाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.21",
+      "title": "1.21",
+      "text": "विवादमूलसंसारहेतुत्वात्क्रमकारणात् चैत्तेभ्यो वेदनासंज्ञे पृथक्स्कन्धौ निवेशितौ",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.22",
+      "title": "1.22",
+      "text": "स्कन्धेष्वसंस्कृतं नोक्तमर्थायोगात्क्रमः पुनः यथौदारिकसंक्लेशभाजनाद्यर्थधातुतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.23",
+      "title": "1.23",
+      "text": "प्राक्पञ्च वार्त्तमानार्थ्यात् भौतिकार्थ्याच्चतुष्टयम् दूराशुतरवृत्त्यान्यत् यथास्थानं क्रमोऽथवा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.24",
+      "title": "1.24",
+      "text": "विशेषणार्थं प्राधान्याद्बहुधर्माग्रसंग्रहात् एकमायतनं रूपमेकं धर्माख्यमुच्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.25",
+      "title": "1.25",
+      "text": "धर्मस्कन्धसहस्राणि यान्यशीतिं जगौ मुनिः तानि वाङ्नाम वेत्येषां रूपसंस्कारसंग्रहः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.26",
+      "title": "1.26",
+      "text": "शास्त्रप्रमाणा इत्येके स्कन्धादीनां कथैकशः चरितप्रतिपक्षस्तु धर्मस्कन्धोऽनुवर्णितः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.27",
+      "title": "1.27",
+      "text": "तथान्येऽपि यथायोगं स्कन्धायतनधातवः प्रतिपाद्या यथोक्तेषु सम्प्रधार्य स्वलक्षणम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.28",
+      "title": "1.28",
+      "text": "छिद्रमाकाशधात्वाख्यमालोकतमसी किल विज्ञानधातुर्विज्ञानं सास्रवं जन्मनिश्रयाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.29",
+      "title": "1.29",
+      "text": "सनिदर्शन एकोऽत्र रूपं सप्रतिघा दश रूपिणः अव्याकृता अष्टौ त एवारूपशब्दकाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.30",
+      "title": "1.30",
+      "text": "त्रिधान्ये कामधात्वाप्ताः सर्वे रूपे चतुर्दश विना गन्धरसघ्राणजिह्वाविज्ञानधातुभिः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.31",
+      "title": "1.31",
+      "text": "आरूप्याप्ता मनोधर्ममनोविज्ञानधातवः सास्रवानास्रवा एते त्रयः शेषास्तु सास्रवाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.32",
+      "title": "1.32",
+      "text": "सवितर्कविचारा हि पञ्च विज्ञानधातवः अन्त्यास्त्रयस्त्रिप्रकाराः शेषा उभयवर्जिताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.33",
+      "title": "1.33",
+      "text": "निरूपणानुस्मरणविकल्पेनाविकल्पकाः तौ प्रज्ञा मानसी व्यग्रा स्मृतिः सर्वैव मानसी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.34",
+      "title": "1.34",
+      "text": "सप्त सालम्बनाश्चित्तधातवः अर्धं च धर्मतः नवानुपात्तास्ते चाष्टौ शब्दश्च अन्ये नव द्विधा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.35",
+      "title": "1.35",
+      "text": "स्प्रष्टव्यं द्विविधं शेषा रूपिणो नव भौतिकाः धर्मधात्वेकदेशश्च संचिता दश रूपिणः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.36",
+      "title": "1.36",
+      "text": "छिनत्ति छिद्यते चैव बाह्यं धातुचतुष्टयम् दह्यते तुलयत्येवं विवादो दग्धृतुल्ययोः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.37",
+      "title": "1.37",
+      "text": "विपाकजौपचयिकाः पञ्चाध्यात्मं विपाकजः न शब्दः अप्रतिघा अष्टौ नैःष्यन्दिकविपाकजाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.38",
+      "title": "1.38",
+      "text": "त्रिधान्ये द्रव्यवानेकः क्षणिकाः पश्चिमास्त्रयः चक्षुर्विज्ञानधात्वोः स्यात्पृथक् लाभः सहापि च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.39",
+      "title": "1.39",
+      "text": "द्वादशाध्यात्मिकाः हित्वा रूपादीन्धर्मसंज्ञकः सभागः तत्सभागाश्च शेषाः यो न स्वकर्मकृत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.40",
+      "title": "1.40",
+      "text": "दश भावनया हेयाः पञ्च च अन्त्यास्त्रयस्त्रिधा न दृष्टिहेयमक्लिष्टं न रूपं नाप्यषष्ठजम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.41",
+      "title": "1.41",
+      "text": "चक्षुश्च धर्मधातोश्च प्रदेशो दृष्टिः अष्टधा पञ्चविज्ञानसहजा धीर्न दृष्टिरतीरणात्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.42",
+      "title": "1.42",
+      "text": "चक्षुः पश्यति रूपाणि सभागं न तदाश्रितम् विज्ञानं दृश्यते रूपं न किलान्तरितं यतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.43",
+      "title": "1.43",
+      "text": "उभाभ्यामपि चक्षुर्भ्यां पश्यति व्यक्तदर्शनात् चक्षुःश्रोत्रमनोऽप्राप्तविषयं त्रयमन्यथा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.44",
+      "title": "1.44",
+      "text": "त्रिभिर्घ्राणादिभिस्तुल्यविषयग्रहणं मतम् चरमस्याश्रयोऽतीतः पञ्चानां सहजश्च तैः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.45",
+      "title": "1.45",
+      "text": "तद्विकारविकारित्वादाश्रयाश्चक्षुरादयः अतोऽसाधारणत्वाद्धि विज्ञानं तैर्निरुच्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.46",
+      "title": "1.46",
+      "text": "न कायस्याधरं चक्षुः ऊर्ध्वं रूपं न चक्षुषः विज्ञानं च अस्य रूपं तु कायस्योभे च सर्वतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.47",
+      "title": "1.47",
+      "text": "तथा श्रोत्रं त्रयाणां तु सर्वमेव स्वभूमिकम् कायविज्ञानमधरस्वभूमि अनियतं मनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.48",
+      "title": "1.48",
+      "text": "पञ्च बाह्या द्विविज्ञेयाः नित्या धर्मा असंस्कृताः धर्मार्धमिन्द्रियं ये च द्वादशाध्यात्मिकाः स्मृताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.49",
+      "title": "1.49",
+      "text": "अभिधर्मकोशभाष्ये धातुनिर्देशो नाम प्रथमं कोशस्थानं समाप्तमिति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1",
+      "title": "2.1",
+      "text": "चतुर्ष्वर्थेषु पञ्चानामाधिपत्यं द्वयोः किल चतुर्णां पञ्चकाष्टानां संक्लेशव्यवदानयोः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.2",
+      "title": "2.2",
+      "text": "स्वार्थोपलब्ध्याधिपत्यात्सर्वस्य च षडिन्द्रियम् स्त्रीत्वपुंस्त्वाधिपत्यात्तु कायात्स्त्रीपुरुषेन्द्रिये",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.3",
+      "title": "2.3",
+      "text": "निकायस्थितिसंक्लेशव्यवदानाधिपत्यतः जीवितं वेदनाः पञ्च श्रद्धाद्याश्चेन्द्रियं मताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.4",
+      "title": "2.4",
+      "text": "आज्ञास्याम्याख्यमाज्ञाख्यमाज्ञातावीन्द्रियं तथा उत्तरोत्तरसंप्राप्तिनिर्वाणाद्याधिपत्यतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.5",
+      "title": "2.5",
+      "text": "चित्ताश्रयस्तद्विकल्पः स्थितिः संक्लेश एव च संभारो व्यवदानं च यावता तावदिन्द्रियम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.6",
+      "title": "2.6",
+      "text": "प्रवृत्तेराश्रयोत्पत्तिस्थितिप्रत्युपभोगतः चतुर्दश तथान्यानि निवृत्तेरिन्द्रियाणि वा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.7",
+      "title": "2.7",
+      "text": "दुःखेन्द्रियमशाता या कायिकी वेदना सुखम् शाता ध्याने तृतीये तु चैतसी सा सुखेन्द्रियम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.8",
+      "title": "2.8",
+      "text": "अन्यत्र सा सौमनस्यं अशाता चैतसी पुनः दौर्मनस्यमुपेक्षा तु मध्या उभयी अविकल्पनात्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.9",
+      "title": "2.9",
+      "text": "दृग्भावनाशैक्षपथे नव त्रीणि अमलं त्रयम् रूपीणि जीवितं दुःखे सास्रवाणि द्विधा नव",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.10",
+      "title": "2.10",
+      "text": "विपाको जीवितं द्वेधा द्वादश अन्त्याष्टकादृते दौर्मनस्याच्च तत्त्वेकं सविपाकं दश द्विधा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.11",
+      "title": "2.11",
+      "text": "मनोऽन्यवित्तिश्रद्धादीनि अष्टकं कुशलं द्विधा दौर्मनस्यं मनोऽन्या च वित्तिस्त्रेधा अन्यदेकधा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.12",
+      "title": "2.12",
+      "text": "कामाप्तममलं हित्वा रूपाप्तं स्त्रीपुमिन्द्रिये दुःखे च हित्वा आरूप्याप्तं सुखे चापोह्य रूपि च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.13",
+      "title": "2.13",
+      "text": "मनोवित्तित्रयं त्रेधा द्विहेया दुर्मनस्कता नव भावनया पञ्च त्वहेयान्यपि न त्रयम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.14",
+      "title": "2.14",
+      "text": "कामेष्वादौ विपाको द्वे लभ्यते नोपपादुकैः तैः षड्वा सप्त वा अष्टौ वा षड्रूपेषु एकमुत्तरे",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.15",
+      "title": "2.15",
+      "text": "निरोधयत्युपरमान्नारूप्ये जीवितं मनः उपेक्षां चैव रूपेऽष्टौ कामे दश नवाष्टौ वा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.16",
+      "title": "2.16",
+      "text": "क्रममृत्यौ तु चत्वारि शुभे सर्वत्र पञ्च च नवाप्तिरन्त्यफलयोः सप्ताष्टनवभिर्द्वयोः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.17",
+      "title": "2.17",
+      "text": "एकादशभिरर्हत्त्वमुक्तं त्वेकस्य संभवात् उपेक्षाजीवितमनोयुक्तो ऽवश्यं त्रयान्वितः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.18",
+      "title": "2.18",
+      "text": "चतुर्भिः सुखकायाभ्यां पञ्चभिश्चक्षुरादिमान् सौमनस्यी च दुःखी तु सप्तभिः स्त्रीन्द्रियादिमान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.19",
+      "title": "2.19",
+      "text": "अष्टाभिः एकादशभिस्त्वाज्ञाज्ञातेन्द्रियान्वितः आज्ञास्यामीन्द्रियोपेतस्त्रयोदशभिरन्वितः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.20",
+      "title": "2.20",
+      "text": "सर्वाल्पैर्निःशुभो ऽष्टाभिर्विन्मनःकायजीवितैः युक्तः बालस्तथारूप्ये उपेक्षायुर्मनःशुभैः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.21",
+      "title": "2.21",
+      "text": "बहुभिर्युक्त एकान्नविंशत्यामलवर्जितैः द्विलिङ्गः आर्यो रागी एकलिङ्गद्वयमलवर्जितैः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.22",
+      "title": "2.22",
+      "text": "कामेऽष्टद्रव्यकोऽशब्दः परमाणुरनिन्द्रियः कायेन्द्रियी नवद्रव्यः दशद्रव्योऽपरेन्द्रियः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.23",
+      "title": "2.23",
+      "text": "चित्तं चैत्ताः सहावश्यं सर्वं संस्कृतलक्षणैः प्राप्त्या वा पञ्चधा चैत्ता महाभूम्यादिभेदतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.24",
+      "title": "2.24",
+      "text": "वेदना चेतना संज्ञा छन्दः स्पर्शो मतिः स्मृतिः मनस्कारो ऽधिमोक्षश्च समाधिः सर्वचेतसि",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.25",
+      "title": "2.25",
+      "text": "श्रद्धाप्रमादः प्रश्रब्धिरुपेक्षा ह्रीरपत्रपा मूलद्वयमहिंसा च वीर्यं च कुशले सदा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    }
+  ]
+}

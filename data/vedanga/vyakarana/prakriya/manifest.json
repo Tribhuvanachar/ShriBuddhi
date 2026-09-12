@@ -1,0 +1,39 @@
+{
+ "_readme": "Derivation data for prakriya.html and krdanta.html, built by tools/build_prakriya.py from Vidyut. One file per root, named by its Dhatupatha code and filed under its gana. \"forms\" is the whole tinanta paradigm; \"steps\" carries the full derivation for the lakaras listed below, each step naming the Ashtadhyayi sutra that fired; \"krt\" the common krdanta forms. Keys in forms/steps are Lakara.<purusha index><vacana index>, both 0-based in the order prathama/madhyama/uttama and eka/dvi/bahu.",
+ "v": 1,
+ "roots": 2229,
+ "lakaras": [
+  "Lat",
+  "Lit",
+  "Lut",
+  "Lrt",
+  "Lot",
+  "Lan",
+  "VidhiLin",
+  "Lun"
+ ],
+ "lakarasWithSteps": [
+  "Lat",
+  "Lit",
+  "Lut",
+  "Lrt",
+  "Lot",
+  "Lan",
+  "VidhiLin",
+  "Lun"
+ ],
+ "krt": [
+  "kta",
+  "ktavatu",
+  "ktvA",
+  "tumun",
+  "Satf",
+  "SAnac",
+  "tavya",
+  "anIyar",
+  "yat",
+  "Rvul",
+  "tfc",
+  "lyuw"
+ ]
+}

@@ -1,0 +1,86 @@
+{
+ "schema": "grantha_work_v2",
+ "work": "anuvyakhyana_sudha",
+ "title": "ब्रह्मसूत्रानुव्याख्यानम् (न्यायसुधादिसहितम्)",
+ "ref_scheme": "adhyaya.pada.shloka_seq",
+ "ref_note": "verse numbers are positional (flow order per pada); the source prints none",
+ "related_work": "brahma_sutra",
+ "padas": [
+  "0.0",
+  "1.1",
+  "1.2",
+  "1.3",
+  "1.4",
+  "2.1",
+  "2.2",
+  "2.3",
+  "2.4",
+  "3.1",
+  "3.2",
+  "3.3",
+  "3.4",
+  "4.1",
+  "4.2",
+  "4.3",
+  "4.4"
+ ],
+ "layers": [
+  {
+   "slug": "mula",
+   "title": "अनुव्याख्यानम्",
+   "author": "श्रीमदानन्दतीर्थभगवत्पादाचार्यः",
+   "units": 2524
+  },
+  {
+   "slug": "tika_nyayasudha",
+   "title": "न्यायसुधा",
+   "author": "श्रीजयतीर्थः",
+   "units": 7826,
+   "commentary_on": "mula"
+  },
+  {
+   "slug": "tippani_parimala",
+   "title": "परिमळः",
+   "author": "",
+   "units": 2565,
+   "commentary_on": "tika_nyayasudha"
+  },
+  {
+   "slug": "tippani_vakyartharatnamala",
+   "title": "वाक्यार्थरत्नमाला",
+   "author": "",
+   "units": 5870,
+   "commentary_on": ""
+  },
+  {
+   "slug": "tippani_srinivasatirthiya",
+   "title": "श्रीनिवासतीर्थीया",
+   "author": "श्रीनिवासतीर्थः",
+   "units": 2284,
+   "commentary_on": ""
+  },
+  {
+   "slug": "tippani_yadupatyam",
+   "title": "यादुपत्यम्",
+   "author": "",
+   "units": 2194,
+   "commentary_on": ""
+  },
+  {
+   "slug": "tippani_vakyarthacandrika",
+   "title": "वाक्यार्थचन्द्रिका",
+   "author": "",
+   "units": 2349,
+   "commentary_on": ""
+  },
+  {
+   "slug": "tippani_sheshavakyarthacandrika",
+   "title": "शेषवाक्यार्थचन्द्रिका",
+   "author": "श्रीपाण्डुरङ्गि-केशवाचार्यः",
+   "units": 1801,
+   "commentary_on": ""
+  }
+ ],
+ "licence_note": "No published licence. Used with case-by-case permission granted by the project lead on 2026-08-15 for non-commercial, educational dharma-prachara use. Every record retains its source URL.",
+ "generated_by": "tools/compile_anuvyakhyana_v2.py"
+}

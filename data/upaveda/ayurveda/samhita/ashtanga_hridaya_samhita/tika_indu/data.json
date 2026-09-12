@@ -1,0 +1,37 @@
+{
+  "schema": "generic",
+  "default_author": "unspecified",
+  "source": "Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024",
+  "source_url": "https://github.com/OliverHellwig/sanskrit/tree/master/dcs/data/conllu/files/Indu (ad AHS)",
+  "licence": "CC-BY 4.0",
+  "note": "3 units across ['Utt.13.20.2'] -- see dge/PENDING.md, 23 Aug entry (batch 5, Tier B Upaveda/Shastra), for how the new upaveda/shastra taxonomy branches were drafted and matched.",
+  "items": [
+    {
+      "id": "Utt.13.20.2.1",
+      "title": "Utt.13.20.2.1",
+      "text": "मूषा मृन्मयी सुवर्णादिद्रुतत्वापादनेऽधिकरणम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Utt.13.20.2.2",
+      "title": "Utt.13.20.2.2",
+      "text": "तस्या अन्धत्वं पिधानेनान्तर्धूमदाहाय",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Utt.13.20.2.3",
+      "title": "Utt.13.20.2.3",
+      "text": "समावृत्तं शिलायां चूर्णितम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    }
+  ]
+}

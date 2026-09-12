@@ -1,0 +1,120 @@
+{
+ "buckets": [
+  "ag",
+  "de",
+  "dh",
+  "ga",
+  "ka",
+  "na",
+  "ra",
+  "su",
+  "vi",
+  "ya"
+ ],
+ "shard_len": 2,
+ "entry_shard_len": 3,
+ "dictionaries": {
+  "mw-english-sanskrit": {
+   "name": "MW English-Sanskrit",
+   "category": "reverse",
+   "headword_language": "en",
+   "gloss_language": "sa",
+   "license": "CC-BY-SA 4.0",
+   "attribution": "Cologne Digital Sanskrit Dictionaries",
+   "headwords": 28238,
+   "senses": 32378
+  },
+  "vachaspatyam": {
+   "name": "Vacaspatyam",
+   "category": "sanskrit_sanskrit",
+   "headword_language": "sa",
+   "gloss_language": "sa",
+   "license": "Unclear",
+   "attribution": "indic-dict/stardict-sanskrit",
+   "headwords": 48636,
+   "senses": 50135
+  },
+  "abhidhanachintamani": {
+   "name": "Abhidhanachintamani",
+   "category": "sanskrit_sanskrit",
+   "headword_language": "sa",
+   "gloss_language": "sa",
+   "license": "Unclear",
+   "attribution": "indic-dict/stardict-sanskrit",
+   "headwords": 1919,
+   "senses": 1965
+  },
+  "shabdakalpadruma": {
+   "name": "Shabdakalpadruma",
+   "category": "sanskrit_sanskrit",
+   "headword_language": "sa",
+   "gloss_language": "sa",
+   "license": "Unclear",
+   "attribution": "indic-dict/stardict-sanskrit",
+   "headwords": 40817,
+   "senses": 42533
+  },
+  "amarakosha": {
+   "name": "Amarakosha (ontology)",
+   "category": "sanskrit_sanskrit",
+   "headword_language": "sa",
+   "gloss_language": "sa",
+   "license": "Unclear",
+   "attribution": "indic-dict/stardict-sanskrit",
+   "headwords": 9030,
+   "senses": 11796
+  },
+  "shabdArtha_kaustubha": {
+   "name": "शब्दार्थकौस्तुभः (sa-kn)",
+   "category": "sanskrit_kannada",
+   "headword_language": "sa",
+   "gloss_language": "kn",
+   "license": "Unclear (no LICENSE in repo)",
+   "attribution": "indic-dict/stardict-sanskrit",
+   "headwords": 46816,
+   "senses": 93227
+  },
+  "macdonell": {
+   "name": "Macdonell",
+   "category": "sanskrit_english",
+   "headword_language": "sa",
+   "gloss_language": "en",
+   "license": "CC-BY-SA 4.0",
+   "attribution": "Cologne Digital Sanskrit Dictionaries",
+   "headwords": 20103,
+   "senses": 20749
+  },
+  "mw-cologne": {
+   "name": "Monier-Williams (Cologne)",
+   "category": "sanskrit_english",
+   "headword_language": "sa",
+   "gloss_language": "en",
+   "license": "CC-BY-SA 4.0",
+   "attribution": "Cologne Digital Sanskrit Dictionaries",
+   "headwords": 194083,
+   "senses": 286514
+  },
+  "benfey": {
+   "name": "Benfey Sanskrit-English",
+   "category": "sanskrit_english",
+   "headword_language": "sa",
+   "gloss_language": "en",
+   "license": "CC-BY-SA 4.0",
+   "attribution": "Cologne Digital Sanskrit Dictionaries",
+   "headwords": 24657,
+   "senses": 25062
+  },
+  "apte-1957": {
+   "name": "V. S. Apte (1957)",
+   "category": "sanskrit_english",
+   "headword_language": "sa",
+   "gloss_language": "en",
+   "license": "CC-BY-SA 4.0",
+   "attribution": "Cologne Digital Sanskrit Dictionaries",
+   "headwords": 88872,
+   "senses": 90847
+  }
+ },
+ "schema": "kosha_entry",
+ "index_shard_len": 2
+}

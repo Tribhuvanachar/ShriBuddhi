@@ -1,0 +1,3970 @@
+{
+  "schema": "generic",
+  "default_author": "unspecified",
+  "source": "Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024",
+  "source_url": "https://github.com/OliverHellwig/sanskrit/tree/master/dcs/data/conllu/files/Madanapālanighaṇṭu",
+  "licence": "CC-BY 4.0",
+  "note": "440 units across ['2', '4', 'Abhayādivarga'] -- see dge/PENDING.md, 23 Aug entry (batch 5, Tier B Upaveda/Shastra), for how the new upaveda/shastra taxonomy branches were drafted and matched.",
+  "items": [
+    {
+      "id": "2.1",
+      "title": "2.1",
+      "text": "तत्र विराजितमध्यसदब्जं श्रीरुचिरम् परमक्षरमेकम् श्रीमदनक्षितिपाल सदा ते विष्णुपदं विपदं विनिहन्तु",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.2",
+      "title": "2.2",
+      "text": "शुण्ठी विश्वौषधं विश्वं कटु भद्रं कटूत्कटम् महौषधं शृङ्गवेरं नागरं विश्वभेषजम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.3",
+      "title": "2.3",
+      "text": "शुण्ठी रुच्यामवातघ्नी पाचनी कटुका लघुः स्निग्धोष्णा मधुरा पाके कफवातविबन्धनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.4",
+      "title": "2.4",
+      "text": "वृष्या स्वर्या वमिश्वासकासशूलहृदामयान्हन्ति श्लीपदशोफार्शआनाहोदरमारुतान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.5",
+      "title": "2.5",
+      "text": "आर्द्रकं शृङ्गवेरं तत्कन्दौषधमुदाहृतमार्द्रकं नागरगुणं भेदनं दीपनं गुरु",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.6",
+      "title": "2.6",
+      "text": "मरिचं वल्लिजं तीक्ष्णं मलिनं श्याममूषणम् मरिचं कटुकं तीक्ष्णं दीपनं कफवातनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.8",
+      "title": "2.8",
+      "text": "तदार्द्रं मधुरम् पाके नात्युष्णं कटुकं गुरु किंचित्तीक्ष्णगुणं श्लेष्मप्रसेकि स्यादपित्तलम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.9",
+      "title": "2.9",
+      "text": "पिप्पली चपला कृष्णा मागधी मगधा कणा विश्वोपकुल्या वैदेही शौण्डी स्यात्तीक्ष्णतण्डुला",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.10",
+      "title": "2.10",
+      "text": "पिप्पली दीपनी वृष्या स्वादुपाका रसायनी अत्युष्णा कटुका स्निग्धा कफवातहरा लघुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.11",
+      "title": "2.11",
+      "text": "पित्तला रेचनी हन्ति श्वासकासोदरज्वरान् कुष्ठप्रमेहगुल्मार्शःप्लीहशूलाममारुतान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.12",
+      "title": "2.12",
+      "text": "आर्द्रा कफप्रदा स्निग्धा शीतला मधुरा गुरुः विश्वोपकुल्यामरिचैस्त्र्यूषणं कटुकं कटु व्योषं कटुत्रयं तत्स्यात्सग्रन्थि चतुरूषणम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.13",
+      "title": "2.13",
+      "text": "त्र्यूषणं दीपनं हन्ति श्वासकासत्वगामयान्गुल्ममेहकफस्थौल्यमेदःश्लीपदपीनसान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.14",
+      "title": "2.14",
+      "text": "कणामूलं कटुग्रन्थि पिप्पलीमूलमूषणम् षड्ग्रन्थि ग्रन्थिकं मूलं मगधं चटिकाशिरः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.15",
+      "title": "2.15",
+      "text": "दीपनम् पिप्पलीमूलं कटूष्णं पाचनं लघु रूक्षं पित्तकरम् भेदि कफवातोदरापहम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.16",
+      "title": "2.16",
+      "text": "चव्यं चवनमुद्दिष्टं चविका कोलवल्लिका पिप्पलीमूलवत्तत्स्याद्विशेषाद्गुदजापहम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.17",
+      "title": "2.17",
+      "text": "तत्फलं श्रेयसी हस्तिमगधी गजपिप्पली गजकृष्णा कटुर्वातश्लेष्मनुद्वह्निवर्धिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.19",
+      "title": "2.19",
+      "text": "चित्रको हुतभुग्व्यालो दारुणो दहनो ऽरुणः द्वीपी पाली हविः पाठी वह्निनामा विशेषतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.20",
+      "title": "2.20",
+      "text": "चित्रकः कटुकः पाके वह्निवत्पाचनो लघुः रूक्षोष्णो ग्रहणीकुष्ठशोफार्शःकृमिकासजित् श्लेष्मानिलहरो ग्राही तच्छाकं श्लेष्मपित्तजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.21",
+      "title": "2.21",
+      "text": "पिप्पलीमगधामूलचव्यचित्रकनागरैः पञ्चकोलं कफानाहगुल्मशूलारुचीर्जयेत् मरिचेन युतं तत्तु षडूषणमुदीरितम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.22",
+      "title": "2.22",
+      "text": "शतपुष्पा शिफा शेषा शताह्वा कारवी मिशिः अवाक्पुष्पीत्वतिच्छत्रा श्वेतिका मागधी परा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.23",
+      "title": "2.23",
+      "text": "शतपुष्पा लघुस्तीक्ष्णा पित्तकृद्दीपनी कटुः उष्णा ज्वरानिलश्लेष्मव्रणशूलाक्षिरोगनुत् श्वेतिका तद्गुणा प्रोक्ता विशेषाद्योनिशूलजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.24",
+      "title": "2.24",
+      "text": "मिश्रेया मिशिशालिन्यौ शाली शीतशिवा मता मिश्रेया दीपनी हृद्या बद्धविट्कृमिकुष्ठनुत् रूक्षोष्णा तत्फलं कासवमिश्लेष्मानिलाञ्जयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.25",
+      "title": "2.25",
+      "text": "मेथिका वस्तिका शेलुरहिल्या वनमेथिका अहिल्याल्पगुणा तस्माद्वाजिनां सा तु पूजिता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.26",
+      "title": "2.26",
+      "text": "अजमोदात्युग्रग्रन्था मोदा हस्तिमयूरकः खराह्वा कारवी वल्ली बस्तमोदा च मर्कटः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.27",
+      "title": "2.27",
+      "text": "अजमोदा कटुस्तीक्ष्णा दीपनी कफवातनुत् उष्णा विदाहिनी हृद्या वृष्या बद्धमला लघुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.28",
+      "title": "2.28",
+      "text": "जीरकं दीर्घकं शुक्लमजाजी कणजीरकम् जीरकं जरणं कृष्णं वर्षाकालसुगन्धिकम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.29",
+      "title": "2.29",
+      "text": "कलिका बाष्पिका कुञ्चिः कारवी चोपकुञ्चिका पृथ्वीका सुषवी पृथ्वी स्थूलाजाज्युपकालिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.30",
+      "title": "2.30",
+      "text": "जीरकत्रितयं रूक्षं कटूष्णं दीपनं लघु संग्राहि पित्तलं मेध्यं गर्भाशयविशुद्धिकृत् चक्षुष्यं पवनाध्मानगुल्मच्छर्दिबलासजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.31",
+      "title": "2.31",
+      "text": "यवानी दीप्यको दीप्यो दीपनीया यवानिका यवसाहोग्रगन्धा स्याद्यवाह्वा भूकदम्बकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.32",
+      "title": "2.32",
+      "text": "यवानी पाचनी रुच्या तीक्ष्णोष्णा कटुका लघुः वातश्लेष्मोदरानाहशूलक्रिमीञ्जयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.33",
+      "title": "2.33",
+      "text": "यवानीया यवानी स्याच्चौहारो जन्तुनाशनः चौहारस्तद्गुणः प्रोक्तो विशेषात्कृमिनाशनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.34",
+      "title": "2.34",
+      "text": "अजगन्धा पूतिकीटा बर्बरी पूतिबर्बरः कारवी खरपुष्पा च तुङ्गी पूतिमयूरकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.35",
+      "title": "2.35",
+      "text": "अजगन्धा कटुस्तीक्ष्णा रूक्षा हृद्याग्निवर्धिनी दृष्टिमान्द्यप्रदा लघ्वी शुक्रवातकफापहा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.36",
+      "title": "2.36",
+      "text": "वचोग्रगन्धा गोलोमी षड्ग्रन्था जटिला मता जटिला शतपर्वान्या लोमशा हेमवत्यपि",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.37",
+      "title": "2.37",
+      "text": "वचोष्णा कटुका तिक्ता वामनी स्वरवह्निकृत् अपस्मारकफोन्मादभूतशूलानिलाञ्जयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.38",
+      "title": "2.38",
+      "text": "हपुषा वपुषा विश्वा विगन्धा विश्वगन्धिका हपुषा दीपनी तिक्ता कटूष्णा तुवरा गुरुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.40",
+      "title": "2.40",
+      "text": "विडङ्गं जन्तुहननं कृमिघ्नं क्षुद्रतण्डुला भूतघ्नी तण्डुला घोषा कराला मृगगामिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.41",
+      "title": "2.41",
+      "text": "विडङ्गं कटु तिक्तोष्णं रूक्षं वह्निकरं लघु गुल्माध्मानोदरश्लेष्मकृमिवातविबन्धनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.42",
+      "title": "2.42",
+      "text": "धान्याकं धान्यकं धान्यं धानेयं च वितुन्नकम् कुस्तुम्बुरु तदार्द्रं तु धानीधानेयकालुकाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.43",
+      "title": "2.43",
+      "text": "धान्यकं तुवरं स्निग्धमवृष्यं मूत्रलं लघु हृद्यं रूक्षं बद्धविट्कं स्वादु पाके त्रिदोषनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.44",
+      "title": "2.44",
+      "text": "पाचनं श्वासकासास्रतृष्णामार्शःकृमीञ्जयेत् आह्नीका तद्गुणा स्वादुर्विशेषात्पित्तनाशिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.45",
+      "title": "2.45",
+      "text": "हिङ्गुपत्त्री पृथुस्तन्वी पृथ्वीका चारुपत्त्रिका बाष्पिका कारवी तन्वी बिल्विका दीर्घिका तथा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.46",
+      "title": "2.46",
+      "text": "हिङ्गुपत्त्री परा वेणुपत्त्री हिङ्गुशिवाटिका जन्तुका रामठी नाडी पिण्डा हिङ्गुफला मता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.47",
+      "title": "2.47",
+      "text": "हिङ्गुपत्त्रीद्वयं हृद्यं तीक्ष्णोष्णं पाचनं कटु हृद्वस्तिरुग्विबन्धार्शःश्लेष्मगुल्मानिलापहम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.48",
+      "title": "2.48",
+      "text": "हिङ्गुर्बाह्लीकमत्युग्रं रामठम् भूतनाशनमगूढगन्धं जरणं जन्तुकं शूलनाशनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.49",
+      "title": "2.49",
+      "text": "हिङ्गूष्णम् पाचनं रुच्यं तीक्ष्णोष्णं कफवातजित् शूलगुल्मोदरानाहकृमिजित्पित्तवर्द्धनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.50",
+      "title": "2.50",
+      "text": "वंशजा वैणवी क्षीरी त्वक्क्षीरी वंशरोचना तुगाक्षीरी तुगा वांशी वंशक्षीरी शुभा सिता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.51",
+      "title": "2.51",
+      "text": "बृंहणी वंशजा वृष्या शीतला मधुरा जयेत्तृष्णाज्वरक्षयश्वासकासपित्तास्रकामलाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.52",
+      "title": "2.52",
+      "text": "सैन्धवं सिन्धुजं शुद्धं माणिमन्थम् पटूत्तमम् सैन्धवं मधुरं हृद्यं दीपनं शीतलं लघु",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.53",
+      "title": "2.53",
+      "text": "चक्षुष्यम् पाचनं स्निग्धं वृष्यं दोषत्रयापहम् सौवर्चलं सुगन्धाक्षं रुचकम् पूतिगन्धकम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.54",
+      "title": "2.54",
+      "text": "सौवर्चलं वह्निकरं कटूष्णं विशदं लघु उद्गारशुद्धिदं सूक्ष्मं विबन्धानाहशूलजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.55",
+      "title": "2.55",
+      "text": "विडं कृत्रिमकम् पाक्यं धूर्तं द्राविडमासुरम् विडं लघूष्णं विष्टम्भशूलहृद्गौरवारुचीः हन्त्यानाहकफौ सूक्ष्ममधोवातानुलोमनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.56",
+      "title": "2.56",
+      "text": "सामुद्रं वारिसंभूतमक्षीवं वशिरं तथा सामुद्रं दीपनं स्वादु नात्युष्णम् भेदनं कटु श्लेष्मलं वातनुत्तिक्तमरूक्षं नातिपित्तलम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.57",
+      "title": "2.57",
+      "text": "औद्भिदं भूमिजम् भौमम् पार्थिवम् पृथिवीभवमौद्भिदं रक्तलं सूक्ष्मं लघु वातानुलोमनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.58",
+      "title": "2.58",
+      "text": "गडाख्यं रोमलवणं रोमं शाकम्भरीभवम् गडाख्यं लघु वातघ्नमत्युष्णम् भेदि मूत्रलम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.59",
+      "title": "2.59",
+      "text": "क्षारम् पांसुभवं तौषमौषरम् पांसवं वसु क्षारं गुरु कटु स्निग्धं श्लेष्मलं वातनाशनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.60",
+      "title": "2.60",
+      "text": "काचं त्रिकूटम् पाक्याह्वं लवणं काचसम्भवम् काचं दीपनमत्युष्णं रक्तपित्तविवर्द्धनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.61",
+      "title": "2.61",
+      "text": "यवक्षारः शूकपाक्यो यावशूको यवाग्रजः स्वर्जिका स्वर्जिकापाक्यः सुखवर्चः सुवर्चि",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.62",
+      "title": "2.62",
+      "text": "यवक्षारो ऽग्निकृद्वातश्लेष्मश्वासगलामयानामार्शोग्रहणीगुल्मयकृत्प्लीहरुजो जयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.64",
+      "title": "2.64",
+      "text": "टङ्कणो मालतीजातो द्रावी लोहविशुद्धिकृत् टङ्कणोऽग्निकरो रूक्षः कफघ्नो वातपित्तकृत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.65",
+      "title": "2.65",
+      "text": "सुधामृताह्वयः सौधभूषणं कठशर्करा सुधाक्षारो ऽग्निसङ्काशः पाकी क्लेदी विदारणः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.66",
+      "title": "2.66",
+      "text": "पलाशतिलनालश्वदंष्ट्रजः कदलीभवः अपामार्गार्कसेहुण्डमुष्ककादिसमुद्भवाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.67",
+      "title": "2.67",
+      "text": "क्षारा वह्निसमाः सर्वे पाचना भेदिदारणाः लघवश्छेदिनस्तीक्ष्णाः शुक्रौजोदृष्टिनाशनाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.68",
+      "title": "2.68",
+      "text": "रक्तपित्तकरा घ्नन्ति विबन्धानाहपीनसान्यकृत्प्लीहबलासामगुल्मार्शोग्रहणीकृमीन्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.69",
+      "title": "2.69",
+      "text": "यो राज्ञाम् पूर्णः शुण्ठ्यादिः खलु भिषजां हिताय वर्गः इति श्रीमदनपालविरचिते निघण्टौ शुण्ठ्यादिवर्गो द्वितीयः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.1",
+      "title": "4.1",
+      "text": "यद्वाञ्छया विश्वकृतोऽपि देवा ब्रह्मादयो यान्ति मुहुर्भवन्ति अचिन्त्यकृत्यं पुरुषं पुराणं गोपत्वमाप्तं तमुपाश्रयामि",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.2",
+      "title": "4.2",
+      "text": "सुवर्णं काञ्चनं हेम हाटकं तप्तकाञ्चनम् चामीकरं शातकुम्भं तपनीयं च रुक्मकम् जाम्बूनदं हिरण्यं च स्वरलं जातरूपकम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.4",
+      "title": "4.4",
+      "text": "कान्तिप्रदं विषोन्मादत्रिदोषज्वरशोषजित्कषायं तिक्तमधुरं सुवर्णं गुरु लेखनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.5",
+      "title": "4.5",
+      "text": "रूप्यकं रजतं रूप्यं तारं श्वेतं वसूत्तमम् रूप्यं शीतं सरं वातपित्तहारि रसायनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.6",
+      "title": "4.6",
+      "text": "लेखनं च कषायाम्लं विपाके चापरं सरम् वयसः स्थापनं स्निग्धं धातूनां हितमुच्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.7",
+      "title": "4.7",
+      "text": "ताम्रं म्लेच्छमुखं शुल्वं नैपालं रविनामकमुदुम्बरं सूर्यप्रियं रक्तजं रक्तधातुकम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.8",
+      "title": "4.8",
+      "text": "ताम्रं सरं लघु स्वादु शीतं पित्तकफापहम् रोपणं पाण्डुकुष्ठार्शःश्वयथुश्वासकासजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.9",
+      "title": "4.9",
+      "text": "कांस्यं लोहं निजं घोषं पञ्चलोहं प्रकाशकम् कांस्यं गुरूष्णं चक्षुष्यं कफपित्तहरं सरम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.10",
+      "title": "4.10",
+      "text": "पीतलोहं सिंहलकं कपिलं सौकुमारकम् वर्तलोहं त्रिलोहं च राजरीतिर्महेश्वरी पीतलोहं हिमं रूक्षं कटूष्णं कफपित्तनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.11",
+      "title": "4.11",
+      "text": "रङ्ककं तीरकं वङ्गं त्रपु स्यात्करटी घनम् रङ्गं लघु सरं रूक्षमुष्णं मेहकफक्रिमीन्निहन्ति पांडुं सश्वासं दृश्यमीषत्तु पित्तलम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.12",
+      "title": "4.12",
+      "text": "जसदं रङ्कसदृशं दितिहेतुश्च तन्मतम् जसदं तुवरं तिक्तं शीतलं कफपित्तहृत् चक्षुष्यं परमं मेहान् पाण्डुं श्वासं च नाशयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.13",
+      "title": "4.13",
+      "text": "सीसं धातुमलं नागमुरगं परिपिष्टकम् जवनेष्टं च भुजगं विसृष्टं कृष्णकं विदुः सीसं रङ्गगुणं ज्ञेयं विशेषान्मेहनाशनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.14",
+      "title": "4.14",
+      "text": "लोहं शस्त्रमयः कुष्ठं व्यङ्गं पारावतं घनम् कृष्णायस्तन्मलं किट्टं मण्डूरो लोहजं रजः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.15",
+      "title": "4.15",
+      "text": "लोहं सरं गुरु स्वादु कषायं कफपित्तनुत् शीतं नेत्रहितं रूक्षं बल्यं वातलमुत्तमम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.16",
+      "title": "4.16",
+      "text": "शोफकुष्ठप्रमेहार्शोगरपाण्डुक्रिमीञ्जयेत्तत्किट्टं तद्गुणं ज्ञेयं विशेषात्पाण्डुनाशनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.17",
+      "title": "4.17",
+      "text": "पारदश्चपलो हेमनिधिः सूतो रसोत्तमः त्रिनेत्रो रोषणः स्वामी हरबीजं रसः प्रभुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.18",
+      "title": "4.18",
+      "text": "रसेन्द्रश्चेति विख्यातो रसलोहो महारसः पारदः कृमिकुष्ठघ्नश्चक्षुष्योष्णो रसायनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.19",
+      "title": "4.19",
+      "text": "अभ्रकं स्वच्छमाकाशं पटलं वरपीतकमभ्रं गुरु हिमं बल्यं कुष्ठमेहत्रिदोषनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.20",
+      "title": "4.20",
+      "text": "गगनं कृमिकुष्ठमेहहृद्विशदं शुक्रकरं च दीपनम् कथितं मुनिभिश्च पूर्वजैर्बल्यकृच्छुक्रकरं च सेवितम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.21",
+      "title": "4.21",
+      "text": "गन्धकः सौगन्धको लेखी गन्धाश्मा गन्धपीतकः लेलीतको बलिवसा वेगन्धो गन्धको बलिः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.22",
+      "title": "4.22",
+      "text": "गन्धकः कटुकः पाके वीर्योष्णः पित्तलः सरः हन्ति कुष्ठक्षयप्लीहकफवातरसामयान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.23",
+      "title": "4.23",
+      "text": "माक्षिकं धातुमाक्षीकं ताप्यं तापीजमुच्यते माक्षिकं तुवरं वृष्यं स्वर्यं लघु रसायनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.24",
+      "title": "4.24",
+      "text": "चक्षुष्यं कुष्ठशोफार्शोमेहबस्त्यर्तिपाण्डुताः व्यवायि कटुकं हन्ति कुष्ठोदरविषक्षयान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.25",
+      "title": "4.25",
+      "text": "मनःशिला शिला गोला नैपाली कुनटी कुला दिव्यौषधिर्नागमाता मनोगुप्ता मनोऽम्बिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.26",
+      "title": "4.26",
+      "text": "मनःशिला कृच्छ्रहरा सरोष्णा लेखनी कटुः तिक्ता स्निग्धा विषश्वासकासभूतकफास्रजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.27",
+      "title": "4.27",
+      "text": "हरितालमलं तालं गोदन्तं नटभूषणम् हरितालं कटु स्निग्धं कषायोष्णं विषं जयेत्कण्डूकुष्ठास्यरोगांश्च कफपित्तकचग्रहान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.28",
+      "title": "4.28",
+      "text": "गैरिकं रक्तपाषाणं गिरिमृच्च गवेधुकम् स्वर्णवर्णं परं स्वर्णमण्डलं स्वर्णगैरिकम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.29",
+      "title": "4.29",
+      "text": "गैरिकं दाहपित्तास्रकफहिक्काविषापहम् चक्षुष्यमन्यत्तद्वच्च विशेषाद्वान्तिनाशनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.30",
+      "title": "4.30",
+      "text": "तुत्थं कर्पूरिकातुत्थममृतासङ्गमुच्यते मयूरग्रीवकं चान्यच्छिखिकण्ठं च तुत्थकम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.31",
+      "title": "4.31",
+      "text": "तुत्थकं लेखनं भेदि कण्डूकुष्ठविषापहम् कफक्रिमिहरं तद्वदन्यच्चक्षुष्यमुत्तमम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.32",
+      "title": "4.32",
+      "text": "कासीसं धातुकासीसं खेचरं तप्तलोमशमपरं पुष्पकासीसं तुवरं वस्त्ररागधृक्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.33",
+      "title": "4.33",
+      "text": "कासीसद्वयमम्लोष्णं तिक्तं केश्यं दृशे हितम् हन्ति कण्डूतिविषश्वित्रमूत्रकृच्छ्रकफानिलान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.34",
+      "title": "4.34",
+      "text": "हिंगुलं दरदं म्लेच्छं सैकतं चूर्णपारदम् हिंगुलं पित्तकफनुच्चक्षुष्यं विषकुष्ठहृत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.35",
+      "title": "4.35",
+      "text": "सिन्दूरं नागजं रक्तं श्रीमच्छृङ्गारभूषणम् वसन्तमण्डनं नागरक्तं रक्तरजस्तथा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.36",
+      "title": "4.36",
+      "text": "सिन्दूरमुष्णं वीसर्पकुष्ठकण्डूविषापहम् भग्नसन्धानजननं व्रणशोधनरोपणम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.37",
+      "title": "4.37",
+      "text": "सौवीरमञ्जनं कृष्णं कालनीलं सुवीरजम् स्रोतोञ्जनं तु स्रोतोजं नदीजं यामुनं वरम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.38",
+      "title": "4.38",
+      "text": "सौवीरं ग्राहि मधुरं चक्षुष्यं कफवातजित्सिध्माक्षयास्रनुच्छीतं स्रोतोऽञ्जनमपीदृशम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.39",
+      "title": "4.39",
+      "text": "रसाञ्जनं रसोद्भूतं तार्क्ष्यं शैलं च तार्क्ष्यजम् रसाग्र्यं कृत्रिमं तार्क्ष्यं दार्व्यं दार्वीरसोद्भवम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.40",
+      "title": "4.40",
+      "text": "रसाञ्जनं कटु श्लेष्ममुखनेत्रविकारजित् उष्णं रसायनं तिक्तं छेदनं व्रणदोषजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.41",
+      "title": "4.41",
+      "text": "पुष्पाञ्जनं पुष्पकेतुं रीतिजं कुसुमाञ्जनम् पुष्पाञ्जनं क्षारमुष्णं काचामपटलापहम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.42",
+      "title": "4.42",
+      "text": "शिलाजतूष्णजं शैलनिर्यासो गिरिशाह्वयम् शिलाह्वं गिरिजं शैलं शैलेयं गिरिजत्वपि",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.43",
+      "title": "4.43",
+      "text": "शिलाजतूष्णं कटुकं योगवाहि रसायनम् छर्दिप्रमेहवातार्शःकुष्ठास्योदरपाण्डुताः हन्ति श्वासक्षयोन्मादरक्तशोफकफक्रिमीन्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.44",
+      "title": "4.44",
+      "text": "बोलं गन्धरसं वीरं निर्लोहं बर्बरं चलम् सुगन्धि नालिका पिण्डं रसगन्धं च तद्द्विधा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.45",
+      "title": "4.45",
+      "text": "बोलं रक्तहरं शीतं मेध्यं दीपनपाचनम् ज्वरापस्मारकुष्ठघ्नं गर्भाशयविशोधनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.46",
+      "title": "4.46",
+      "text": "स्फटिकाख्या मृता बाष्पी कक्षी सौराष्ट्रसम्भवा आडकी तुवरा त्वन्या मृत्तिका सुरमृत्तिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.47",
+      "title": "4.47",
+      "text": "स्फटिकाख्या कषायोष्णा कफपित्तविषव्रणान्निहन्ति श्वित्रवीसर्पांस्तुवरी तद्गुणा मता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.48",
+      "title": "4.48",
+      "text": "समुद्रफेनो डिण्डीरः फेनो वारिकफो द्विजः समुद्रफेनश्चक्षुष्यो लेखनः शमनः सरः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.49",
+      "title": "4.49",
+      "text": "प्रवालं विद्रुमं सिन्धुर्लताग्रं रक्तवर्णकम् पुष्टिदं कान्तिदं बल्यं वर्धनं बलशुक्रयोः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.50",
+      "title": "4.50",
+      "text": "मौक्तिकं तौतिला मुक्ताफलं मुक्ता च शुक्तिजम् मौक्तिकं मधुरं शीतं रोगघ्नं विषनाशनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.59",
+      "title": "4.59",
+      "text": "प्रवालमुक्तिमाणिक्यसूर्यशीतकरोपलाः गोमेदवज्रवैडूर्यनीलगारुत्मतादयः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.60",
+      "title": "4.60",
+      "text": "चक्षुष्या लेखनाः शीताः कषाया मधुराः सराः माङ्गल्या धारणाद्दाहदुष्टग्रहविषापहाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.61",
+      "title": "4.61",
+      "text": "शङ्खः कम्बुर्जलधरो वारिजो दीर्घनिःस्वनः शङ्खो हि कटुकः पाके कषायो मधुरो लघुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.62",
+      "title": "4.62",
+      "text": "चक्षुष्यो लेखनः पक्तिशूलपित्तविनाशनः शङ्खो नेत्रहितः शीतो लघुः पित्तकफास्रजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.63",
+      "title": "4.63",
+      "text": "शङ्खो लघुः शङ्खनकः शम्बुको वारिशुक्तयः कपर्दाः क्षुल्लका ज्ञेया वराटाश्च वराटिका लघुशङ्खादयः शीता नेत्ररुक्स्फोटनाशनाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.64",
+      "title": "4.64",
+      "text": "खटी मक्कोल्लखटिनी श्वेता नाडीतरङ्गकः तद्भेदो गौडपाषाणः क्षीरपाक उदाहृतः खटी दाहास्रनुच्छीता गौडग्रावापि तद्गुणः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.65",
+      "title": "4.65",
+      "text": "पङ्कः कर्दमको ज्ञेयो वालुका सिकता तथा पङ्को दाहास्रपित्तार्त्तिशोथघ्नः शीतलः सरः वालुका लेखनी शीता व्रणोरःक्षतनाशिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.66",
+      "title": "4.66",
+      "text": "चुम्बकः कान्तपाषाणोऽयस्कान्तो लोहकर्षकः चुम्बको लेखनः शीतो मेदोविषगरापहः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.67",
+      "title": "4.67",
+      "text": "काचः कृत्रिमरत्नं स्याद् पिङ्गाणः काचभाजनम् काचो विदारणो व्रण्यश्चक्षुष्यो लेखनो लघुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "4.68",
+      "title": "4.68",
+      "text": "यो राज्ञां मुखतिलकः कटारमल्लस्तेन श्रीमदननृपेण निर्मितेऽत्र ग्रन्थेऽभून्मदनविनोदनाम्नि पूर्णश्चित्रो ऽयं ललितपदैः सुवर्णवर्गः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.1",
+      "title": "Abhayādivarga.1",
+      "text": "बीजं श्रुतीनां सुधनम् मुनीनां जीवञ्जडानाम् महदादिकानामाग्नेयमस्त्रम् भवपातकानां किंचिन्महः श्यामलमाश्रयामि",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.2",
+      "title": "Abhayādivarga.2",
+      "text": "लुब्धा कपोलमधुवारिमधुव्रताली कुम्भस्थलीमधुविभूषणलोहिताङ्गी माणिक्यमौलिरिव राजति यस्य मौलौ विघ्नं स धूनयतु विघ्नपतिः सदा वः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.3",
+      "title": "Abhayādivarga.3",
+      "text": "यो ध्वान्तसन्ततिगभीरपयोधिमध्यान्निष्कासयत्यशरणम् भुवनं निमज्जत् दत्त्वा जगत्त्रयहितः स्वकरावलम्बं वाञ्छां स वो दिनकरः सफलीकरोतु",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.4",
+      "title": "Abhayādivarga.4",
+      "text": "मिथ्याशनादि कृतदोषचयाद्रिकोपनद्यम्बुवर्धित उपद्रवनक्रभीमे रोगाम्बुधौ भवजनस्य निमज्जतो यः पोतः प्रयच्छतु शुभानि स काशिराजः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.5",
+      "title": "Abhayādivarga.5",
+      "text": "केचित्सन्ति निघण्टवोऽतिलघवः केचिन्महान्तः परे केचिद्दुर्गमनामकाः कतिपये भावस्वभावोज्झिताः तस्मान्नातिलघुर्न चातिविपुलः ख्यातादिनामा सताम् प्रीत्यै द्रव्यगुणान्वितोऽयमधुना ग्रन्थो मया बध्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.6",
+      "title": "Abhayādivarga.6",
+      "text": "सर्वं कायेन संसाध्यं तस्यायुः स्थितिकारणमायुर्वेदोपदेशस्तु कस्य न स्यात्सुखावहः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.7",
+      "title": "Abhayādivarga.7",
+      "text": "तत्रापि पूर्वं ज्ञातव्या द्रव्यनामगुणागुणाः अतस्त एव वक्ष्यन्ते तज्ज्ञाने हि क्रियाक्रमः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.8",
+      "title": "Abhayādivarga.8",
+      "text": "हरस्य भवने जाता हरिता च स्वभावतः हरते सर्वरोगांश्च तेन प्रोक्ता हरीतकी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.9",
+      "title": "Abhayādivarga.9",
+      "text": "जीवन्ती पूतना पश्चादमृता विजयाभया रोहिणी चेतकी सप्तभेदभिन्ना हरीतकी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.10",
+      "title": "Abhayādivarga.10",
+      "text": "जीवन्ती जीवनोद्योगात्पावनात्पूतना मता सुधावदमृता ज्ञेया विजया विजयप्रदा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.11",
+      "title": "Abhayādivarga.11",
+      "text": "नृणामभयदा यस्मादभया तत्प्रकीर्तिता रोहिणी तु गुणारोहाच्चेतनाच्चेतकी मता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.12",
+      "title": "Abhayādivarga.12",
+      "text": "जीवन्ती स्वर्णवर्णाभा पूतनास्थिमती अमृता त्रिदला प्रोक्ता विजया तुम्बरूपिणी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.13",
+      "title": "Abhayādivarga.13",
+      "text": "पञ्चाङ्गी त्वभया ज्ञेया मता वृत्ता तु रोहिणी त्र्यङ्गी चेतकी ज्ञेया कर्म तासामथोच्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.14",
+      "title": "Abhayādivarga.14",
+      "text": "सर्वरोगेषु जीवन्ती प्रलेपे पूतना हिता शुद्ध्यर्थममृता प्रोक्ता विजया सर्वरोगहृत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.15",
+      "title": "Abhayādivarga.15",
+      "text": "अक्षिरोगे ऽभया शस्ता रोहिणी व्रणरोहिणी चेतकी चूर्णयोगे स्यात्सप्तधैवम् प्रकीर्तिता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.16",
+      "title": "Abhayādivarga.16",
+      "text": "शोणाच्छिन्ना गुडनिभा किंचिदम्ला कषायिणी स्थूलत्वक्सरसा स्वल्पबीजा गुर्वी हरीतकी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.17",
+      "title": "Abhayādivarga.17",
+      "text": "चर्विता वर्धयत्यग्निं पेषिता मलशोधिनी स्विन्ना संग्राहिणी प्रोक्ता भृष्टा पथ्या त्रिदोषनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.18",
+      "title": "Abhayādivarga.18",
+      "text": "ग्रीष्मे तुल्यगुडां सुसैन्धवयुतां मेघावनद्धाम्बरे सार्द्धं शर्करया शरद्यमलया शुण्ठ्या तुषारागमे पिप्पल्या शिशिरे वसन्तसमये क्षौद्रेण संयोजितां राजन्प्राप्य हरीतकीमिव गदा नश्यन्तु ते शत्रवः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.19",
+      "title": "Abhayādivarga.19",
+      "text": "शिवा हरीतकी पथ्या चेतकी विजया जया प्रपथ्या प्रमथामोघा कायस्था प्राणदामृता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.20",
+      "title": "Abhayādivarga.20",
+      "text": "जीवनीया हैमवती पूतना पृतनाभया वयस्था नन्दिनी ज्ञेया श्रेयसी रोहिणी तथा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.21",
+      "title": "Abhayādivarga.21",
+      "text": "हरीतकी पञ्चरसालवणा तुवरोत्कटा रूक्षोष्णा दीपनी मेध्या स्वादुपाका रसायिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.22",
+      "title": "Abhayādivarga.22",
+      "text": "सरा बुद्धिप्रदायुष्या चक्षुष्या बृंहणी लघुः श्वासकासप्रमेहार्शःकुष्ठशोफोदरकृमीन्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.23",
+      "title": "Abhayādivarga.23",
+      "text": "वैस्वर्यग्रहणीदोषविबन्धविषमज्वरान्गुल्माध्मानव्रणच्छर्दिहिक्काकण्डूहृदामयान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.24",
+      "title": "Abhayādivarga.24",
+      "text": "कामलां शूलमानाहं प्लीहानं चापकर्षति मधुराम्लतया वातं कषायस्वादुभावतः पित्तं हन्ति कफं तद्वत्कटुत्वेन हरीतकी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.25",
+      "title": "Abhayādivarga.25",
+      "text": "अध्वातिखिन्नः परिहीनतेजा रूक्षः कृशो लङ्घनकर्शितश्च पित्ताधिको गर्भवती च नारी ज्वर्यल्पवीर्यस्त्वभयां न खादेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.26",
+      "title": "Abhayādivarga.26",
+      "text": "धात्रीफलामृतफलामलकं श्रीफलं शिवम् तद्वद्धात्रीफलं वृष्यं विशेषाद्रक्तपित्तजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.27",
+      "title": "Abhayādivarga.27",
+      "text": "अम्लत्वात्पवनं हन्ति पित्तम् माधुर्यशैत्यतः कफं रूक्षकषायत्वात्तस्मात्किमधिकम् फलम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.28",
+      "title": "Abhayādivarga.28",
+      "text": "कुर्यात्पित्तं तदम्लत्वात्कफम् माधुर्यशैत्यतः वातं रूक्षकषायत्वादेवं किं न विपर्ययः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.29",
+      "title": "Abhayādivarga.29",
+      "text": "धात्र्यास्त्रिदोषहन्तृत्वं शक्त्यैव मुनिभिः स्मृतम् सम्भावनावशादुक्ता रसादेरपि हेतुता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.30",
+      "title": "Abhayādivarga.30",
+      "text": "विभीतकः कर्षफलो भूतावासः कलिद्रुमः वासन्तो ऽक्षो विन्ध्यजातः संवर्तस्तिलपुष्पकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.31",
+      "title": "Abhayādivarga.31",
+      "text": "विभीतकः स्वादुपाकः कषायः कफपित्तनुत् उष्णवीर्यो हिमस्पर्शो भेदनः कासनाशनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.32",
+      "title": "Abhayādivarga.32",
+      "text": "रूक्षो नेत्रहितः केश्यो मज्जातो मदकारकः त्रिफलैतत्त्रयेण स्याद्वरा श्रेष्ठा फलोत्तमा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.33",
+      "title": "Abhayādivarga.33",
+      "text": "त्रिफला कुष्ठमेहास्रकफपित्तविनाशिनी चक्षुष्या रोपणी हृद्या वयसः स्थापनी सरा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.34",
+      "title": "Abhayādivarga.34",
+      "text": "भूधात्री बहुपत्रा स्याज्जटातामलकी शिवा भूधात्री वातकृत्तिक्ता कषाया मधुरा हिमा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.35",
+      "title": "Abhayādivarga.35",
+      "text": "पिपासाकासपित्तास्रकफपाण्डुक्षतापहा प्राचीनामलकम् प्राची नागरं रक्तकम् मतम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.36",
+      "title": "Abhayādivarga.36",
+      "text": "तत्पक्वम् पित्तकफकृच्छुष्कं गुरु समीरजित् वासा वृषः सिंहमुखो भिषङ्माता ऽटरूषकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.37",
+      "title": "Abhayādivarga.37",
+      "text": "शुक्ला हैमवती चैव सिंही स्याद्वाजिदन्तिका वासको वातकृत्स्वर्यः कफपित्तास्रनाशनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.38",
+      "title": "Abhayādivarga.38",
+      "text": "श्वासकासज्वरच्छर्दिमेहकुष्ठक्षयापहः गुडूची कुण्डली छिन्ना वयस्थामृतवल्लरी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.39",
+      "title": "Abhayādivarga.39",
+      "text": "छिन्नोद्भवा छिन्नरुहामृतकन्दा विलासिनी वत्सादनी चन्द्रहासा जीवन्ती चक्रलक्षणा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.40",
+      "title": "Abhayādivarga.40",
+      "text": "गुडूची कटुका लघ्वी स्वादुपाका रसायनी संग्राहिणी कषायोष्णा वृष्या तिक्ताग्निदीपनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.41",
+      "title": "Abhayādivarga.41",
+      "text": "कामलाकुष्ठवातासृग्ज्वरपित्तकृमीन्जयेत् घृतेन वातं सगुडा विबन्धम् पित्तं सिताढ्या मधुना कफं च वातास्रमुग्रं रुबुतैलमिश्रा शुंठ्यामवातं शमयेद्गुडूची",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.42",
+      "title": "Abhayādivarga.42",
+      "text": "बिल्वः शलाटुः शैलूषो मालूरश्च सदाफलः लक्ष्मीफलो गन्धगर्भः शांडिल्यः कण्टकी मतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.43",
+      "title": "Abhayādivarga.43",
+      "text": "बिल्वं ग्राहि कषायोष्णं कटु दीपनपाचनम् हृद्यम् बालं लघु स्निग्धं तिक्तं वातकफापहम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.44",
+      "title": "Abhayādivarga.44",
+      "text": "वृद्धं गुरु त्रिदोषं स्याद्दुर्जरम् पूतिमारुतम् विदाहि विष्टम्भकरं मधुरं वह्निमान्द्यकृत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.45",
+      "title": "Abhayādivarga.45",
+      "text": "ग्रहणीकफवातामशूलघ्नी बिल्वपेशिका अग्निमन्थो जयः केतुररणिर्वैजयन्तिका अग्निमन्थः श्वयथुहृद्वीर्योष्णः कफवातनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.46",
+      "title": "Abhayādivarga.46",
+      "text": "पाटला कामदूती स्यात्कुम्भीका कालवृन्तिका स्थाल्यमोघा मधोदूर्ती ताम्रपुष्पाम्बुवासिनी अन्या फलेरुहा श्वेता कुम्भीका काष्ठपाटला",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.47",
+      "title": "Abhayādivarga.47",
+      "text": "पाटलारुचिशोफार्शःश्वासतृट्छर्दिनाशिनी अनुष्णं तुवरं स्वादु तत्पुष्पं कफरक्तनुत्पित्तातिसारदाहघ्नं फलं हिक्कास्रपित्तजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.48",
+      "title": "Abhayādivarga.48",
+      "text": "काश्मीरी सर्वतोभद्रा श्रीपर्णी कृष्णवृन्तिका गम्भारी काश्मरी हीरा काश्मर्यो भद्रपर्णिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.49",
+      "title": "Abhayādivarga.49",
+      "text": "काश्मरी ज्वरशूलघ्नी वीर्योष्णा मधुरा गुरुः तत्पुष्पं वातलं ग्राहि पित्तासृक्प्रदरापहम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.53",
+      "title": "Abhayādivarga.53",
+      "text": "भूतवृक्षश्चकट्वङ्गष् टुण्टुकः शलकोऽरलुः मयूरजंघो भल्लूकः प्रियञ्जीवः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.54",
+      "title": "Abhayādivarga.54",
+      "text": "कटम्भरः श्योनाको दीपनः पाके कटुस्तुवरको हिमः ग्राही तिक्तोऽनिलश्लेष्मपित्तकासामनाशनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.55",
+      "title": "Abhayādivarga.55",
+      "text": "बिल्वादिभिः पञ्चभिरेभिरेतैः स्यात्पञ्चमूलं महदग्निकारि लघूष्णतिक्तं रसतः कषायम् मेदःकफश्वाससमीरहारि",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.56",
+      "title": "Abhayādivarga.56",
+      "text": "गोक्षुरस्त्रिकटः कण्टफलः स्यात्स्वादुकण्टकः गोकण्टको भक्ष्यकण्टस्त्रिकण्टो व्यालदंष्ट्रकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.57",
+      "title": "Abhayādivarga.57",
+      "text": "श्वदंष्ट्रः स्थलशृङ्गाटः षडङ्गः क्षुरकस्त्रिकः गोक्षुरः शीतलः स्वादुर्बलकृद्वस्तिशोधनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.58",
+      "title": "Abhayādivarga.58",
+      "text": "प्रमेहश्वासकासाश्मकृच्छ्रहृद्रोगवातजित् शालिपर्णी ध्रुवा सौम्या त्रिपर्णी पीतनी स्थिरा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.59",
+      "title": "Abhayādivarga.59",
+      "text": "विदारिगन्धातिगुहा दीर्घमूलांशुमत्यपि शालिपर्णी गुरुश्छर्दिज्वरश्वासातिसारनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.60",
+      "title": "Abhayādivarga.60",
+      "text": "शोषदोषत्रयहरा बृंहण्युष्णा रसायिनी पृष्ठिपर्णी क्रोष्टुपुच्छी धावनी कलशी गुहा शृगालवृन्ताङ्घ्रिबला पृथक्पर्णी च पर्णिका पृश्निपर्णी लघुर्वृष्या मधुरोष्णा विनाशयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.61",
+      "title": "Abhayādivarga.61",
+      "text": "रक्तातिसारतृड्दाहदोषत्रयवमिज्वरान्बृहती स्थूलभण्टाकी विशदा च महोटिका वार्ताकी महती सिंही कण्टकी राष्ट्रिका कुली",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.62",
+      "title": "Abhayādivarga.62",
+      "text": "बृहती ग्राहिणी हृद्या पाचनी कफवातजित् उष्णा कुष्ठज्वरश्वासशूलकासाग्निमान्द्यहृत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.63",
+      "title": "Abhayādivarga.63",
+      "text": "कण्टालिका कण्टकिनी कण्टकारी निदग्धिका दुःस्पर्शा धावनी क्षुद्रा स्याद्व्याघ्री दुःप्रधर्षिणी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.65",
+      "title": "Abhayādivarga.65",
+      "text": "कण्टकारी सरा तिक्ता कटुका दीपनी लघुः रूक्षोष्णा पाचनी कासश्वासज्वरकफानिलान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.66",
+      "title": "Abhayādivarga.66",
+      "text": "निहन्ति पीनसम् पार्श्वपीडाकृच्छ्रहृदामयान् तद्वत्प्रोक्ता सितक्षुद्रा विशेषाद्गर्भकारिणी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.67",
+      "title": "Abhayādivarga.67",
+      "text": "ह्रस्वाख्यम् पञ्चमूलं स्यात्पञ्चभिर्गोक्षुरादिभिः बल्यम् पित्तानिलहरं नात्युष्णं स्वादु बृंहणमेताभ्यां पञ्चमूलाभ्यां दशमूलमुदाहृतम् दोषत्रयश्वासकासशिरःपीडापतन्त्रकान् तन्द्रास्वेदज्वरानाहारुचिपार्श्वरुजो जयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.68",
+      "title": "Abhayādivarga.68",
+      "text": "ऋद्धिः सुखं युगं लक्ष्मीः सिद्धिः सर्वजनप्रिया ऋषिश्रेष्ठा रथाङ्गी स्यान्मङ्गला श्रावणी वसुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.69",
+      "title": "Abhayādivarga.69",
+      "text": "योग्यं युग्या तुष्टिराशिर्वृद्धिरप्येतदाह्वया ऋद्धिर्बल्या त्रिदोषघ्नी शुक्रला मधुरा गुरुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.70",
+      "title": "Abhayādivarga.70",
+      "text": "वृद्धिर्गर्भप्रदा शीता वृष्या कासक्षयामनुत्काकोली मधुरा वीरा कायस्था क्षीरशुक्लिका ध्वांक्षोली वायसोली स्यात्स्वादुमांसी पयस्विनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.71",
+      "title": "Abhayādivarga.71",
+      "text": "द्वितीया क्षीरकाकोली शताह्वा क्षीरिणी मता काकोलीयुगलं शीतं शुक्रलम् मधुरं गुरु",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.72",
+      "title": "Abhayādivarga.72",
+      "text": "जयेत्समीरदाहास्रपित्तशोषतृषाज्वरान्मेदा ज्ञेया शालिपर्णी दिव्या मेदोभवाध्वरा महामेदा वसुच्छिद्रा नृदन्ती देवतामणिः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.73",
+      "title": "Abhayādivarga.73",
+      "text": "मेदायुग्मं गुरु स्वादु वृष्यं स्तन्यकफावहम् बृंहणं शीतलम् पित्तरक्तक्षयसमीरनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.74",
+      "title": "Abhayādivarga.74",
+      "text": "जीवको मधुरः शृङ्गी ह्रस्वाङ्गः कूर्चशीर्षकः ऋषभो धीर इन्द्राक्षो विषाणी दुर्धरो वृषः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.75",
+      "title": "Abhayādivarga.75",
+      "text": "जीवकर्षभकौ बल्यौ शीतौ शुक्रकफप्रदौ हरतः पित्तदाहास्रकार्श्यवातक्षयामयान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.76",
+      "title": "Abhayādivarga.76",
+      "text": "अष्टवर्गो ऽष्टभिर्द्रव्यैरेतैः शीतोऽतिशुक्रलः बृंहणः पित्तदाहास्रशोषघ्नः स्तन्यगर्भकृत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.77",
+      "title": "Abhayādivarga.77",
+      "text": "जीवन्ती जीवनी जीवा जीवनीया यशस्करी शाकश्रेष्ठा जीवभद्रा मङ्गल्या जीववर्धिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.78",
+      "title": "Abhayādivarga.78",
+      "text": "जीवन्ती शीतला स्वादुः स्निग्धा दोषत्रयापहा रसायनी बलकरी चक्षुष्या ग्राहिणी लघुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.79",
+      "title": "Abhayādivarga.79",
+      "text": "मधुयष्टी क्लीतनकं यष्टीमधु मधूलिका यष्ट्याह्वम् मधुकं यष्टीमधुकं जलजा मधु",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.80",
+      "title": "Abhayādivarga.80",
+      "text": "माषपर्णी कृष्णवृन्ता काम्बोजी हयपुच्छिका मांसमाषा सिंहमुखी स्वादुमाषा महासहा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.81",
+      "title": "Abhayādivarga.81",
+      "text": "मुद्गपर्णी क्षुद्रसहा शूर्पपर्णी कुरङ्गिनी वनजा रिङ्गणी शिवी सिंही मार्जारगन्धिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.82",
+      "title": "Abhayādivarga.82",
+      "text": "माषपर्णी हिमा तिक्ता रूक्षा शुक्रबलासकृत् मधुरा ग्राहिणी शोषवातपित्तज्वरास्रनुत्तद्वद्भवेन्मुद्गपर्णी त्रिदोषास्रहरा लघुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.83",
+      "title": "Abhayādivarga.83",
+      "text": "जीवन्ती शूर्पपर्णीयुक्काकोल्यौ जीवकर्षभौ मेदायष्टीति मधुरो जीवनीयो गणः स्मृतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.84",
+      "title": "Abhayādivarga.84",
+      "text": "शुक्रकृद्बृंहणः शीतः स्तन्यगर्भकफप्रदः रक्तपित्ततृषाशोषज्वरदाहक्षतापहः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.85",
+      "title": "Abhayādivarga.85",
+      "text": "एरण्डो दीर्घदण्डः स्यात्तरुणो वर्धमानकः चित्रः पंचाङ्गुलो व्याघ्रपुच्छो गन्धर्वहस्तकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.86",
+      "title": "Abhayādivarga.86",
+      "text": "रक्तैरण्डो हस्तिकर्णो व्याघ्रो व्याघ्रतलोरुवुः उत्तानपत्त्रो दुर्वात आमवैरी च चञ्चुलः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.87",
+      "title": "Abhayādivarga.87",
+      "text": "एरण्डयुग्मम् मधुरमुष्णं गुरु विनाशयेत् शोफकटीवस्तिशिरःपीडोदरज्वरान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.88",
+      "title": "Abhayādivarga.88",
+      "text": "ब्रध्नश्वासकफानाहकासकुष्ठाममारुतान् तत्फलम् भेदनं स्वादु शारमुष्णं समीरजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.89",
+      "title": "Abhayādivarga.89",
+      "text": "सारिवा शारदा स्फोता गोपकन्या प्रतानिका गोपाङ्गना गोपवल्ली लताह्वा काष्ठसारिवा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.90",
+      "title": "Abhayādivarga.90",
+      "text": "सारिवान्या कृष्णमूली भद्रा चन्दनसारिवा सारिवायुगलं स्वादु स्निग्धं शुक्रकरं गुरु दोषत्रयास्रप्रदरज्वरातीसारनाशनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.91",
+      "title": "Abhayādivarga.91",
+      "text": "यासो मरुद्भवो ऽनन्ता दीर्घमूलो यवासकः बालपत्त्रः समुद्रान्तो दूरमूलो ऽतिकण्टकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.92",
+      "title": "Abhayādivarga.92",
+      "text": "धन्वयासस्ताम्रमूली दुःस्पर्शा स्याद्दुरालभा वासकः कच्छुरा ताम्रमूला धन्वयवासकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.93",
+      "title": "Abhayādivarga.93",
+      "text": "यासः स्वादुः सरस्तिक्तो हिमः पित्तहरो लघुः हन्ति रक्तकफभ्रान्तीस्तद्वद्धन्वयवासकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.94",
+      "title": "Abhayādivarga.94",
+      "text": "मुण्डी भिक्षुः परिव्राजी श्रावणी स्यात्तपोधना श्रावणा श्रीमती मुण्डा तिक्ता श्रवणशीर्षका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.95",
+      "title": "Abhayādivarga.95",
+      "text": "मुण्डी तिक्ता कटुः पाके वीर्योष्णा मधुरा लघुः मेध्या गण्डापचीछर्दिकृमियोन्यर्तिपाण्डुजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.96",
+      "title": "Abhayādivarga.96",
+      "text": "महामुण्डी लोभनीया छिन्नग्रन्थिनिका मता भूतवृक्षा कुलहलालम्बुषा भूकदम्बिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.97",
+      "title": "Abhayādivarga.97",
+      "text": "कदम्बपुष्पी मुण्डीवद्गुणैर्भूमिकदम्बकः अपामार्गस्तु शिखरी किणिही खरमञ्जरी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.98",
+      "title": "Abhayādivarga.98",
+      "text": "अधःशल्यः शैखरिकः प्रत्यक्पुष्पी मयूरकः अपामार्गः सरस्तीक्ष्णो दीपनः कफवातनुत् निहन्ति दद्रुसिध्मार्शःकण्डूशूलोदरापचीः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.99",
+      "title": "Abhayādivarga.99",
+      "text": "अन्यो रक्तो वृत्तफलो वशिरः कपिपिप्पली अपामार्गो ऽरुणो वातविष्टम्भी कफनाशनः ऊनः पूर्वगुणै रूक्षस्तत्पत्रं रक्तपित्तजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.100",
+      "title": "Abhayādivarga.100",
+      "text": "कम्पिल्लो रोचनो रक्तचूर्णको व्रणशोधनः लोहितो रक्तशमनो रेची रञ्जनको मतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.101",
+      "title": "Abhayādivarga.101",
+      "text": "कम्पिल्लः कफपित्तास्रक्रिमिगुल्मोदरव्रणान्हन्ति रेची कटूष्णश्च तच्छाकं ग्राहि शीतलम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.102",
+      "title": "Abhayādivarga.102",
+      "text": "दन्ती घुणप्रिया नागदन्ती शीघ्रानुकूलिनी उपचित्रा निकुम्भा स्याद्विशल्योदुम्बरच्छदा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.103",
+      "title": "Abhayādivarga.103",
+      "text": "आखुपर्णी विषैरण्डा द्रवन्ती शम्बरी मता मूसिकाह्वा सुतश्रेणी प्रत्यक्श्रेणी च फञ्जिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.104",
+      "title": "Abhayādivarga.104",
+      "text": "दन्तीद्वयं सरम् पाकरसयोः कटु दीपनम् तीक्ष्णोष्णं हन्ति पित्तास्रकफशोफोदरकृमीन्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.105",
+      "title": "Abhayādivarga.105",
+      "text": "जयपालो दन्तिबीजं ख्यातं तत्तित्तिरीफलम् जयपालो गुरुः स्निग्धो रेची पित्तकफापहः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.106",
+      "title": "Abhayādivarga.106",
+      "text": "मूर्वा मधुरसा देवी पृथक्पर्णी त्रिपर्ण्यपि देवश्रेणी स्वादुरसा स्निग्धपर्णी च मोरटा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.107",
+      "title": "Abhayādivarga.107",
+      "text": "जालिनी दीपनी तिक्तवल्कला च पृथक्त्वचा मधुश्रवा मधुश्रेणी स्रुवा मधुमती च सा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.108",
+      "title": "Abhayādivarga.108",
+      "text": "लघुपर्णी मधूली च पीलुपर्णी च पीलुनी गोपवल्ली तेजनी च मूर्वा वृष्या बलप्रदा श्लेष्मकृत्पित्तवातघ्नी ग्राहिणी गुल्मनाशिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.109",
+      "title": "Abhayādivarga.109",
+      "text": "तृवृत्कुम्भारुणा त्र्यस्रा भण्डी कोटरवासिनी सर्वानुभूतिस्त्रिवृता त्रिपुटा सरला सिता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.110",
+      "title": "Abhayādivarga.110",
+      "text": "तृवृत्तिक्ता सरा रूक्षा स्वादुरुष्णा समीरनुत्कटुः पाके ज्वरश्लेष्मपित्तशोफोदरापहा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.111",
+      "title": "Abhayādivarga.111",
+      "text": "तृवृत्काला कालमेषी कालपर्ण्यर्धचन्द्रिका सुषेणा स्यान्मालविका मसूरविदला मता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.112",
+      "title": "Abhayādivarga.112",
+      "text": "तृवृत्काला हीनगुणा तस्यास्तीव्रविरेचिनी मूर्च्छादाहमदभ्रान्तिकण्ठोत्कर्षणकारिणी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.113",
+      "title": "Abhayādivarga.113",
+      "text": "ऐन्द्रवारुण्यथेन्द्राह्वा वृषभाक्षी गवादिनी इन्द्रवारुः क्षुद्रफला विशालैन्द्री वृषादिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.114",
+      "title": "Abhayādivarga.114",
+      "text": "अन्येन्द्रवारुणी चित्रफला चित्रा महाफला आत्मरक्षा नागदन्ती त्रपुसी गजचिर्भटी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.115",
+      "title": "Abhayādivarga.115",
+      "text": "श्वेतपुष्पामृगाक्षी च तथा यक्षसुरा मता मरुद्भवा कृमीकुम्भा चित्रा देवी च कीर्तिता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.116",
+      "title": "Abhayādivarga.116",
+      "text": "इन्द्रवारुद्वयं तिक्तं कटु पाके सरं लघु वीर्योष्णं कामलापित्तकफप्लीहोदरापहम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.117",
+      "title": "Abhayādivarga.117",
+      "text": "आरग्वधो राजवृक्षः शम्याकः कृतमालकः व्याधिघातः कर्णिकारः प्रग्रहश्चनुरङ्गुलः आरोग्यशिम्बी स्वर्णद्रुः कर्णी दीर्घफलो मतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.118",
+      "title": "Abhayādivarga.118",
+      "text": "आरग्वधो गुरुः स्वादुः शीतलोमृदुरेचनः ज्वरहृद्रोगपित्तास्रवातोदावर्तशूलजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.119",
+      "title": "Abhayādivarga.119",
+      "text": "तत्पुष्पं वातलं ग्राहि तिक्तम् पित्तकफापहम् तन्मज्जा मधुरः पाके स्निग्धः पित्तसमीरजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.120",
+      "title": "Abhayādivarga.120",
+      "text": "नीलिनी नीलिका ग्राम्या श्रीफला भारवाहिनी रञ्जिनी कालिका मेला तूणी तुत्था विशोधिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.121",
+      "title": "Abhayādivarga.121",
+      "text": "नालिनी रेचनी तिक्ता केश्या मोहभ्रमावहा उष्णा हन्त्युदरप्लीहवातरक्तकफानिलान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.122",
+      "title": "Abhayādivarga.122",
+      "text": "कटुका रोहिणी तिक्ता चक्राङ्गा कटुरोहिणी मत्स्यपित्ता काण्डरुहा कृष्णभेदा द्विजाङ्गिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.123",
+      "title": "Abhayādivarga.123",
+      "text": "अशोकरोहिणी मत्स्यशकला शकुलादिनी कटुकी कटुका पाके तिक्ता रूक्षा सरा लघुः हिमा हन्ति कृमिश्वासदाहपित्तकफज्वरान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.124",
+      "title": "Abhayādivarga.124",
+      "text": "अङ्कोल्लकस्ताम्रफलः पीतसारो निकोचकः गुप्तस्नेहो विरेची स्याद्भूसुता दीर्घकीलकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.125",
+      "title": "Abhayādivarga.125",
+      "text": "अङ्कोल्लकः कटुः स्निग्धस्तीक्ष्णोष्णस्तुवरो लघुः रेचनः कृमिशूलामशोषश्लेष्मविषापहः तत्फलं शीतलं स्वादु श्लेष्मलम् बृंहणं गुरु",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.126",
+      "title": "Abhayādivarga.126",
+      "text": "बल्यं विरेचनं वातपित्तदाहक्षयास्रजित्सेहुण्डो वज्रतुण्डस्तु गण्डीरो वज्रदण्डकः स्नुही समन्तदुग्धासिपत्त्रो वज्री महातरुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.127",
+      "title": "Abhayādivarga.127",
+      "text": "सेहुण्डो रेचनस्तीक्ष्णो दीपनः कटुको गुरुः शूलामाष्ठीलिकाध्मानगुल्मशोफोदरानिलान्हन्ति दूषीविषप्लीहकुष्ठोन्मादाश्मपाण्डुताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.128",
+      "title": "Abhayādivarga.128",
+      "text": "निम्बो नियमनो नेतारिष्टः स्यात्पारिभद्रकः सुतिक्तः सर्वतोभद्रः पिचुमन्दः सुभद्रकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.129",
+      "title": "Abhayādivarga.129",
+      "text": "निम्बः शीतो लघुर्ग्राही कटुपाको ऽग्निवातकृत् व्रणपित्तकफच्छर्दिकुष्ठहृल्लासमेहनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.130",
+      "title": "Abhayādivarga.130",
+      "text": "निम्बपत्रं स्मृतं नेत्र्यं कृमिपित्तविषप्रणुत् वातलं कटुपाकं च सर्वारोचककुष्ठनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.131",
+      "title": "Abhayādivarga.131",
+      "text": "अपक्वम् पाचयेन्निम्बं पक्वं च परिशोधयेत्तत्फलम् भेदनं स्निग्धमुष्णं कुष्ठहरं लघु",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.132",
+      "title": "Abhayādivarga.132",
+      "text": "महानिम्बो निम्बवरः कार्मुको विषमुष्टिकः रम्यको गिरिकोद्रेकः क्षीरः स्यात्केशमुष्टिकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.133",
+      "title": "Abhayādivarga.133",
+      "text": "कैवर्तः शाकशालश्च गिरिपत्त्रः सुपार्श्वकः महानिम्बो हिमो रूक्षस्तिक्तो ग्राही कषायकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.134",
+      "title": "Abhayādivarga.134",
+      "text": "कफपित्तकृमिछर्दिकुष्ठहृल्लासरक्तजित्किराततिक्तः कैरातो भूनिम्बो रामसेनकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.135",
+      "title": "Abhayādivarga.135",
+      "text": "किराततिक्तको हैमः काण्डतिक्तः किरातकः नैपालः कथितश्चान्यो जातिभेदो ज्वरान्तकृत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.136",
+      "title": "Abhayādivarga.136",
+      "text": "नाडीतिक्तोऽर्धतिक्तः स्यान्निद्रारिः सन्निपातहा किरातो वातलो रूक्षः शीतस्तिक्तको लघुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.137",
+      "title": "Abhayādivarga.137",
+      "text": "सन्निपातज्वरश्वासकफपित्तास्रदाहनुत्सरो लघुः तिक्तहिमो बलासपित्तास्रशोफज्वरकासतृड्घ्नः भूनिम्बो वातलो रूक्षः कफपित्तज्वरापहः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.138",
+      "title": "Abhayādivarga.138",
+      "text": "कुटजः कूटजः कोटी वत्सको गिरिमल्लिका कलिङ्गो मल्लिकापुष्प इन्द्रवृक्षोऽथ वृक्षकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.139",
+      "title": "Abhayādivarga.139",
+      "text": "तुच्छको वरतिक्तश्च शक्रद्रुः पाण्डुरद्रुमः शतक्रतुद्रुमः कोशी नीलयष्टिश्च मल्लिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.140",
+      "title": "Abhayādivarga.140",
+      "text": "कुटजः कटुको रूक्षो दीपनस्तुवरो हिमः अर्शोऽतिसारपित्तास्रकफतृष्णामकुष्ठनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.141",
+      "title": "Abhayādivarga.141",
+      "text": "फलानि तस्येन्द्रयवाः शक्राह्वं च कलिङ्गकम् तथा वत्सकबीजानि प्रोक्ता भद्रयवास्तथा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.142",
+      "title": "Abhayādivarga.142",
+      "text": "इन्द्रयवस्त्रिदोषघ्नः संग्राही शीतलः कटुः ज्वरातिसाररक्तार्शःकृमिकुष्ठविसर्पनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.143",
+      "title": "Abhayādivarga.143",
+      "text": "मदनश्छर्दनो राठः पिण्डी पिण्डीतकः फलः तगरः करहाटश्च शल्यको विषपुष्पकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.144",
+      "title": "Abhayādivarga.144",
+      "text": "स्नेहपिण्डीतकश्चैव बस्तिशोधन एव च छर्दनो वामनश्चैव स च गालः प्रकीर्तितः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.145",
+      "title": "Abhayādivarga.145",
+      "text": "मदनो वान्तिकृच्छ्रोत्रव्रणस्त्रावविनाशनः रूक्षः कुष्ठकफानाहशोफगुल्मव्रणापहः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.146",
+      "title": "Abhayādivarga.146",
+      "text": "कङ्कुष्ठकं काककुष्ठं रेचनं रङ्गनायकम् वराङ्गपुपुलकं हासं शोधनं किञ्जवालुकम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.147",
+      "title": "Abhayādivarga.147",
+      "text": "कङ्कुष्ठं रेचनं तिक्तं कटूष्णं वर्णकारकम् कृमिशोथोदराध्मानगुल्मानाहकफापहम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.148",
+      "title": "Abhayādivarga.148",
+      "text": "हेमाह्वा कनकक्षीरी हेमक्षीरी च काञ्चनी क्षीरिणी काञ्चनक्षीरी कटुपर्णी च कर्षिणी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.149",
+      "title": "Abhayādivarga.149",
+      "text": "तिक्ता हैमवती दुग्धा हेमदुग्धा हिमावती स्वर्णक्षीरी स्वर्णदुग्धा सुवर्णक्षीरिकापि च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.150",
+      "title": "Abhayādivarga.150",
+      "text": "पीतदुग्धा हैमवती तिक्तदुग्धा हिमाद्रिजा हेमाह्वा रेचनी तिक्ता मादिन्युत्क्लेशकारिणी कृमिपाण्डुकफानाहविषकुष्ठविनाशिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.151",
+      "title": "Abhayādivarga.151",
+      "text": "सातला सप्तला सारा विदुला विमला मता बहुफेना चर्मकसा फेना दीप्ता तु नालिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.152",
+      "title": "Abhayādivarga.152",
+      "text": "सातला कटुका पाके वातला शीतला लघुः तिक्ता शोफकफानाहपित्तोदावर्तरक्तजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.153",
+      "title": "Abhayādivarga.153",
+      "text": "अश्मन्तको युग्मपत्त्रः कुशली पापनाशनः श्लक्ष्मत्वगश्मयोनिः स्यात्पाषाणान्तक एव च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.154",
+      "title": "Abhayādivarga.154",
+      "text": "द्वितीयो ऽश्मन्तकश्चैव गुणतस्तु स्मृतो ऽन्यथा अश्मन्तस्तुवरो ग्राही शीतोष्णः कफवातजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.155",
+      "title": "Abhayādivarga.155",
+      "text": "निहन्ति गलगण्डास्रगण्डमालागलामयान् तत्फलं लेखनं ग्राहि गुरु श्लेष्मानिलापहम् तन्मषी शस्त्रघाते तु श्रेष्ठा च व्रणरोपणे",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.156",
+      "title": "Abhayādivarga.156",
+      "text": "काञ्चनारः काञ्चनकः पाकारी रक्तपुष्पकः कोविदारोऽस्य भेदः स्यात्कुद्दालः कुण्डली कुली",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.157",
+      "title": "Abhayādivarga.157",
+      "text": "ताम्रपुष्पश्चमरिको महायमलपत्त्रकः आस्फोतोद्दालकः स्वल्पकेशरश्च कुलाहलः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.158",
+      "title": "Abhayādivarga.158",
+      "text": "काञ्चनारो हिमो ग्राही तुवरः श्लेष्मपित्तजित्कृमिकुष्ठगुदभ्रंशगण्डमालाव्रणापहः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.159",
+      "title": "Abhayādivarga.159",
+      "text": "कोविदारोऽपि तद्वत्स्यात्पुष्पं शीतं तयोर्लघु रूक्षं संग्राहि पित्तास्रप्रदरक्षतकासनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.160",
+      "title": "Abhayādivarga.160",
+      "text": "निर्गुण्डी श्वेतकुसुमा सिन्दुकः सिन्दुवारकः भूतकेश्यपरो नीलसिन्दुको नीलपुष्पकशेफालिका शीतभीरुर्वर्णको नीलमञ्जरिः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.161",
+      "title": "Abhayādivarga.161",
+      "text": "निर्गुण्डी स्मृतिदा तिक्ता कषाया कटुका लघुः केश्या नेत्रहिता हन्ति शूलशोथाममारुतान् कृमिकुष्ठानिलश्लेष्मव्रणारुचिविषापहा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.162",
+      "title": "Abhayādivarga.162",
+      "text": "अजशृङ्गी मेषशृङ्गी सर्पदंष्ट्रा च कीर्तिता तिक्तदुग्धाक्षिभैषज्यं पुत्रश्रेणी विषाणिका मता सा वृश्चिकालीति त्रपुसीमपरे जगुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.163",
+      "title": "Abhayādivarga.163",
+      "text": "उष्ट्री लोमशपुष्पा च धीवृक्षा घनशृङ्गिका विषघ्ना पादवृक्षश्च काली चक्षुष्य एव च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.164",
+      "title": "Abhayādivarga.164",
+      "text": "वामावर्ता विषहरी कालिका नेत्रभेषजा सक्षीरा कर्कशा युग्मफला चोत्तरवाहिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.165",
+      "title": "Abhayādivarga.165",
+      "text": "माषपर्ण्यल्परोमा च मेषवल्लीति कीर्तिता द्वितीया दक्षिणावर्ता वृश्चिकाली विषाणिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.166",
+      "title": "Abhayādivarga.166",
+      "text": "अपरा वृश्चिका पत्त्री तथा चर्मकवृन्तिका बदरा मेघपुष्पा च तथा भासुरपुष्पिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.168",
+      "title": "Abhayādivarga.168",
+      "text": "पुनर्नवा विशाखश्च रक्तपुष्पा शिवाटिका क्रूरकः क्षुद्रवर्षाभूर्दीर्घपत्त्रश्च क्षुद्रकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.169",
+      "title": "Abhayādivarga.169",
+      "text": "पुनर्नवा सरा तिक्ता रूक्षोष्णा मधुरा कटुः शोफानिलव्रणश्लेष्महरा रुच्या रसायनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.170",
+      "title": "Abhayādivarga.170",
+      "text": "पुनर्नवारुणा तिक्ता रक्तपुष्पा कठिल्लकः क्रूरकः क्षुद्रवर्षाभूर्वर्षकेतुः शिवाटिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.171",
+      "title": "Abhayādivarga.171",
+      "text": "पुनर्नवारुणा तिक्ता कटुपाका हिमा लघुः वातला ग्राहिणी श्लेष्मरक्तविद्रधिनाशिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.172",
+      "title": "Abhayādivarga.172",
+      "text": "रास्ना रक्ता युक्तरसा रसना गन्धनाकुलिः सुगन्धिमूलातिरसा श्रेयसी सुबहा रसा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.173",
+      "title": "Abhayādivarga.173",
+      "text": "रास्नामपाचनी तिक्ता गुरूष्णा श्लेष्मवातजित् शोफश्वाससमीरास्रवातशोथोदरापहा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.174",
+      "title": "Abhayādivarga.174",
+      "text": "अश्वगन्धा तुरङ्गाह्वा गोकर्णाश्वावरोहकः वाराहकर्णी वरदा बल्या वाजीकरी वृषा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.175",
+      "title": "Abhayādivarga.175",
+      "text": "अश्वगन्धानिलश्लेष्मशोफश्वित्रक्षयापहा बल्या रसायनी तिक्ता कषायोष्णातिशुक्रला",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.176",
+      "title": "Abhayādivarga.176",
+      "text": "प्रसारिणी राजबला चारुपर्णी प्रतानिका सरणी सारणी भद्रपर्णी सुप्रसरा सरा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.177",
+      "title": "Abhayādivarga.177",
+      "text": "प्रसारिणी गुरुर्वृष्या वर्त्मसन्धानकृत्सरा वीर्योष्णा वातनुत्तिक्ता वातरक्तकफापहा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.178",
+      "title": "Abhayādivarga.178",
+      "text": "शतावरी द्वीपिशत्रुर्द्वीपिकाधरकण्टका नारायणी शतपदी शताह्वा बहुपत्त्रिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.179",
+      "title": "Abhayādivarga.179",
+      "text": "शतावरी गुरुः शीता स्वादुः स्निग्धा रसायनी शुक्रस्तन्यकरा बल्या वातपित्तास्रशोफजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.180",
+      "title": "Abhayādivarga.180",
+      "text": "शतावर्यूर्ध्वकण्टान्या पीवरीन्दीवरी अभीरुर्बहुपत्त्रा च महापुरुषदन्तिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.181",
+      "title": "Abhayādivarga.181",
+      "text": "सहस्रवीर्या केशी स्यात्तुङ्गिनी सूक्ष्मपत्त्रिका महाशतावरी मेध्या हृद्या रसायनी शीतवीर्या निहन्त्यर्शोग्रहणीनयनामयान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.182",
+      "title": "Abhayādivarga.182",
+      "text": "बला वाट्यालका शीतपाकी वाट्योदनाह्वया भद्रौदनी समङ्गा स्यात्समांशा खरयष्टिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.183",
+      "title": "Abhayādivarga.183",
+      "text": "महाबला वीरपुष्पी सहदेवी बृहद्बला वाट्यायिनी देवसहा वाट्या स्यात्पीतपुष्पिका गन्धवर्णा महागन्धा वर्षापुष्पा प्रसादिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.184",
+      "title": "Abhayādivarga.184",
+      "text": "बालिकातिबला भारद्वाजी स्यादक्षगन्धिनी गाङ्गेरुकी नागबला विश्वेदेवा गवेधुका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.185",
+      "title": "Abhayādivarga.185",
+      "text": "बलाचतुष्टयं शीतं मधुरम् बलकान्तिकृत्स्निग्धं ग्राहि समीरास्रपीनसक्षतनाशनम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.186",
+      "title": "Abhayādivarga.186",
+      "text": "आसाम् बृहद्बला कृच्छ्रं हन्ति वातानुलोमिनी गुर्वी नागबला वृष्या विशेषाद्रक्तपित्तजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.187",
+      "title": "Abhayādivarga.187",
+      "text": "बल्या रसायनी पुंस्त्ववर्धिनी बृंहणी तथा तस्याः फलं हिमं स्वादुस्तम्भनं गुरु लेखनम् निबन्धाध्मानजननं रक्तपित्तनिबर्हणम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.188",
+      "title": "Abhayādivarga.188",
+      "text": "तेजस्विनी तेजवती तेजिन्यलघुवल्कला महौजसी पारिजाता शीता तिक्तातितेजिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.189",
+      "title": "Abhayādivarga.189",
+      "text": "तेजस्विनी कफश्वासकासास्यामयवातजित्पाचन्युष्णा कटुस्तिक्ता रुचिवह्निप्रदीपनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.190",
+      "title": "Abhayādivarga.190",
+      "text": "ज्योतिष्मती वह्निरुचिः कङ्गनी कटभी तथा ज्योतिष्मती कटुस्तिक्ता सरा कफसमीरजित् अत्युष्णा दामनी तीक्ष्णा वह्निबुद्धिस्मृतिप्रदा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.191",
+      "title": "Abhayādivarga.191",
+      "text": "देवदारुः सुराह्वं स्याद्भद्रदारु सुरद्रुमः भद्रकाष्ठं स्नेहवृक्षः किलिमं शक्रदारु च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.192",
+      "title": "Abhayādivarga.192",
+      "text": "देवदारु कटुस्निग्धं तिक्तोष्णं लघु नाशयेत् आध्मानज्वरशोषामहिक्काकण्डूकफानिलान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.193",
+      "title": "Abhayādivarga.193",
+      "text": "सरलो नन्दनश्चीडो नमेरु दर्पिवृक्षकः पीतदारुः पीतवृक्षो महादीर्घः कलिद्रुमः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.194",
+      "title": "Abhayādivarga.194",
+      "text": "सरलः कटुकः पाके रसतो मधुरो लघुः उष्णः स्निग्धः समीराक्षिकण्ठकर्णामयापहः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.195",
+      "title": "Abhayādivarga.195",
+      "text": "पुष्कराह्वम् पद्मपत्त्रं पौष्करम् पुष्कराङ्घ्रिकम् काश्मीरम् पुष्करजटा मूलं वीरं सुगन्धिकम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.196",
+      "title": "Abhayādivarga.196",
+      "text": "पौष्करं कटुकं तिक्तमुष्णं वातकफज्वरान्हन्ति शोफारुचिश्वासान्विशेषात्पार्श्वशूलजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.197",
+      "title": "Abhayādivarga.197",
+      "text": "कुष्ठं रोगाह्वयं वाप्यं कौबेरम् पारिभद्रकम् पारिहार्यम् पारिभाव्यमुत्पलं हरिभद्रकम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.198",
+      "title": "Abhayādivarga.198",
+      "text": "कुष्ठमुष्णं कटु स्वादु शुक्रप्रदं लघु हन्ति वातास्रवीसर्पकासकुष्ठमरुत्कफान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.199",
+      "title": "Abhayādivarga.199",
+      "text": "शृङ्गी कुलीरशृङ्गी स्याद्वक्रा कर्कटशृङ्गिका कर्कटाख्या महाघोषा शृङ्गनाम्नी नताङ्ग्यपि",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.200",
+      "title": "Abhayādivarga.200",
+      "text": "शृङ्गी कषाया तिक्तोष्णा हन्ति हिध्मावमिज्वरान् तृष्णाभ्रमकफश्वासक्षयकासोर्ध्वमारुतान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.201",
+      "title": "Abhayādivarga.201",
+      "text": "रोहिषं कत्तृणम् भूतिर्भूतीकं सरलं तृणम् श्यामलं युग्दलम् पौरं ध्यामकं देवगन्धकम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.202",
+      "title": "Abhayādivarga.202",
+      "text": "रोहिषं कटुकम् पाके तिक्तोष्णं तुवरं जयेत्कण्ठहृद्रोगपित्तास्रशूलकासकफज्वरान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.203",
+      "title": "Abhayādivarga.203",
+      "text": "कट्फलं कुमुदा कुम्भी श्रीपर्णी सोमपादपः सोमवल्को महाकुम्भी भद्रा भद्रवती शिवा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.204",
+      "title": "Abhayādivarga.204",
+      "text": "कट्फलं तुवरं तिक्तं कटु वातकफज्वरान्हन्ति श्वासप्रमेहार्शःकासकण्ठामयारुचीः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.205",
+      "title": "Abhayādivarga.205",
+      "text": "भार्ङ्गी भृगुभवा पद्मा कासघ्नी भार्गवाग्रणीः खरशाकं शुक्रमाता फञ्जी ब्राह्मणयष्टिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.206",
+      "title": "Abhayādivarga.206",
+      "text": "भार्ङ्गी रूक्षा कटुस्तिक्ता रुच्योष्णा पाचनी जयेत् शोफश्वाससमीरास्रपीनसज्वरमारुतान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.207",
+      "title": "Abhayādivarga.207",
+      "text": "पाषाणभेदः पाषाणो ऽश्मरीभेदो ऽश्मभेदकः शिलाभेदो दृषद्भेदो नगभिन्नगभेदनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.208",
+      "title": "Abhayādivarga.208",
+      "text": "पाषाणभेदस्तुवरः शीतलो वस्तिशोधनः सरस्तिक्तः प्रमेहार्शःकृच्छ्राश्मरिरुजो जयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.209",
+      "title": "Abhayādivarga.209",
+      "text": "मुस्तं वारिधरो मुस्ता मेघाख्यः कुरुविन्दकः वराहो ऽब्दो घनो भद्रमुस्तो राजकसेरुकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.210",
+      "title": "Abhayādivarga.210",
+      "text": "पिण्डमुस्तं विषध्वंसी नागरो ऽन्यः प्रकीर्तितः मुस्तं कटु हिमं ग्राहि तिक्तं दीपनपाचनम् कषायं कृमिपित्तास्रकफतृष्णाज्वरापहम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.211",
+      "title": "Abhayādivarga.211",
+      "text": "धातकी कुञ्जरा सिन्धुपुष्पी प्रमदिनी मदा पार्वतीया ताम्रपुष्पी सुभिक्षा मद्यवासिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.212",
+      "title": "Abhayādivarga.212",
+      "text": "धातकी कटुका शीता मदकृत्तुवरा लघुः तृष्णातीसारपित्तास्रविषकृमिविसर्पजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.213",
+      "title": "Abhayādivarga.213",
+      "text": "माचिका बालिकाम्बष्ठा शची दन्तशठाम्बिका आम्बष्ठकी सूचिमुखी कषाया सा कटंमुखी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.214",
+      "title": "Abhayādivarga.214",
+      "text": "माचिकाम्ला रसे पाके कषाया शीतला लघुः पक्वातीसारपित्तास्रकफकण्ठामयापहा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.215",
+      "title": "Abhayādivarga.215",
+      "text": "विदारिका वृष्यवल्ली वृष्यकन्दा विदालिका शृङ्गालिका कन्दवल्ली स्वादुकन्दा पलाशिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.216",
+      "title": "Abhayādivarga.216",
+      "text": "अन्या शुक्ला क्षीरशुक्ला क्षीरवल्ली पयस्विनी इक्षुवल्ली महाश्वेता क्षीरगन्धेक्षुगन्धिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.217",
+      "title": "Abhayādivarga.217",
+      "text": "विदारी मधुरा स्निग्धा बृंहणी स्तन्यशुक्रदा गुरुः पित्तास्रपवनदाहान्हन्ति रसायिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.218",
+      "title": "Abhayādivarga.218",
+      "text": "वाराही माधवी घृष्टिः सौकरी वनमालिका तस्याः कन्दः किटिः क्रोडनामा शम्बरकन्दकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.219",
+      "title": "Abhayādivarga.219",
+      "text": "वाराही मधुरा कन्दे कटुस्तिक्तातिशुक्रला बल्या पित्तकरी वातकफपित्तकृमीन्जयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.220",
+      "title": "Abhayādivarga.220",
+      "text": "पाठाम्बष्ठा बृहत्तिक्ता प्राचीनाम्बष्ठकी रसा वरा तिक्ता पापचेली श्रेयसी विद्धकर्णिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.221",
+      "title": "Abhayādivarga.221",
+      "text": "पाठोष्णा कटुका तीक्ष्णा वातश्लेष्महरा लघुः हन्ति शूलज्वरच्छर्दिकुष्ठातीसारहृद्रुजः दाहकण्डूविषश्वासकृमिगुल्मोदरव्रणान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.222",
+      "title": "Abhayādivarga.222",
+      "text": "मूर्वा देवी मधुरसा देवश्रेणी मधुस्रवा स्निग्धपर्णी पृथक्पर्णी मोरटा पीलुपर्णिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.223",
+      "title": "Abhayādivarga.223",
+      "text": "मूर्वा सरा गुरुः स्वादुस्तिक्ता पित्तास्रमेहनुत्त्रिदोषतृष्णाहृद्रोगकण्डूकुष्ठज्वरापहा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.224",
+      "title": "Abhayādivarga.224",
+      "text": "मञ्जिष्ठा विजया रक्ता रक्ताङ्गी कालमेषिका रक्तयष्टी ताम्रवल्ली समङ्गा वस्त्रभूषणा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.225",
+      "title": "Abhayādivarga.225",
+      "text": "मञ्जुला विकसा भण्डी छद्मिका ज्वरनाशिनी मञ्जिष्ठा मधुरा तिक्ता कषाया स्वरवर्णकृत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.226",
+      "title": "Abhayādivarga.226",
+      "text": "गुरुरुष्णा विषश्लेष्मशोफयोन्यक्षिशूलजित् रक्तातीसारकुष्ठास्रविसर्पव्रणमेहनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.228",
+      "title": "Abhayādivarga.228",
+      "text": "हरिद्रा रजनी गौरी रञ्जिनी वरवर्णिनी पिण्डी पीता वर्णवती निशा हट्टविलासिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.229",
+      "title": "Abhayādivarga.229",
+      "text": "हरिद्रा कटुका तिक्ता रूक्षोष्णा श्लेष्मपित्तनुत् वर्ण्या त्वग्दोषमेहास्रशोफपाण्डुव्रणापहा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.230",
+      "title": "Abhayādivarga.230",
+      "text": "दार्वी दारुहरिद्रान्या पीतदारुः पचम्पचा कटङ्कटेरी पीतद्रुः स्वर्णवर्णा कटंकटी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.232",
+      "title": "Abhayādivarga.232",
+      "text": "प्रपुन्नाटस्त्वेडगजश्चक्रमर्दः प्रपुन्नटः दद्रुघ्नो मर्दको मेषकुसुमः कुष्ठकृन्तनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.233",
+      "title": "Abhayādivarga.233",
+      "text": "प्रपुन्नाटो लघुः स्वादू रूक्षः पित्तानिलापहः हृद्यो हिमः कफश्वासकुष्ठदद्रुकृमीन्जयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.234",
+      "title": "Abhayādivarga.234",
+      "text": "हन्त्युष्णं तत्फलं कुष्ठदद्रुकण्डूविषानिलान्वातरक्तापहं तस्य शाकं कफहरं लघु",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.235",
+      "title": "Abhayādivarga.235",
+      "text": "बाकुची चन्द्रिका सोमवल्ली पूतिफला वरा सोमराजी कृष्णफलावल्गुजा कालमेषिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.236",
+      "title": "Abhayādivarga.236",
+      "text": "वाकुची मधुरा तिक्ता कटुपाका रसायनी विष्टम्भिनी हिमा रुच्या सरा हृद्यास्रपित्तनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.237",
+      "title": "Abhayādivarga.237",
+      "text": "रूक्षा हन्ति कफश्वासकुष्ठमेहज्वरकृमीन् तत्फलम् पित्तकृत् श्वेतकुष्ठवातकफापहम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.238",
+      "title": "Abhayādivarga.238",
+      "text": "भृङ्गराजो भेकराजो मार्कवः केशरञ्जनः अङ्गारको भृङ्गरजो भृङ्गाह्वः सूर्यवल्लभः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.239",
+      "title": "Abhayādivarga.239",
+      "text": "भृङ्गराजः कटुस्तिक्तो रूक्षोष्णः कफवातजित् दन्त्यो रसायनो रुच्यः कुष्ठनेत्रशिरोऽर्तिनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.240",
+      "title": "Abhayādivarga.240",
+      "text": "पर्पटः कवचो रेणुः पित्तहा यवकण्टकः वरस्तिक्तः पर्पटकः पृथ्विकश्चर्मकण्टकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.241",
+      "title": "Abhayādivarga.241",
+      "text": "पर्पटो हन्ति पित्तास्रभ्रमतृष्णाकफज्वरान् संग्राही शीतलस्तिक्तो दाहनुद्वातलो लघुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.242",
+      "title": "Abhayādivarga.242",
+      "text": "शणपुष्पी माल्यपुष्पी धावनी शणघण्टिका बृहत्पुष्पी स्वल्पघण्टा घण्टाशब्दोरुपुष्पिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.243",
+      "title": "Abhayādivarga.243",
+      "text": "शणपुष्पी कटुः पित्तश्लेष्मजिच्छर्दिकारिणी त्रायमाणा सुरत्राणा त्रायन्ती गिरिसानुजा बलभद्रा कृतत्राणा वार्षिकं त्रायमाणकः त्रायमाणा सरा पित्तज्वरश्लेष्मास्रशूलजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.244",
+      "title": "Abhayādivarga.244",
+      "text": "महाजालिनिका चर्मरङ्गा स्यात्पीतकीलिका आवर्तकी बिन्दुकिनी विभाण्डी रक्तपुष्पिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.245",
+      "title": "Abhayādivarga.245",
+      "text": "महाजालिनिका तिक्ता रेचनी कफपित्तजित् हन्ति दाहोदरानाहशोफकुष्ठकृमिज्वरान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.246",
+      "title": "Abhayādivarga.246",
+      "text": "अतिविषा शुक्लकन्दा विषा प्रतिविषा परा श्यामकन्दासिता शृङ्गी भङ्गुरोपविषाणिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.248",
+      "title": "Abhayādivarga.248",
+      "text": "काकमाची ध्वाङ्क्षमाची कामाची जघनेफला रसायनी वरा सर्वतिक्ता स्यात्काकिनी कटुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.249",
+      "title": "Abhayādivarga.249",
+      "text": "काकमाची त्रिदोषघ्नी स्निग्धोष्णा स्वरशुक्रदा हृद्या रसायनी शोफकुष्ठार्शोज्वरमेहजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.250",
+      "title": "Abhayādivarga.250",
+      "text": "काकजङ्घा नदीकान्ता काकतिक्ता सलोमशा पारावतपदी काका मदध्या कर्मणी तथा काकजङ्घा हिमा हन्ति रक्तपित्तकफज्वरान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.251",
+      "title": "Abhayādivarga.251",
+      "text": "लोध्रस्तिरीटः कानीनस्तिल्वकः संततोद्भवः अन्यो घनत्वक्शबरः श्वेतलोध्रो ऽक्षिभेषजम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.252",
+      "title": "Abhayādivarga.252",
+      "text": "लोध्रो विरेचकः शीतश्चक्षुष्यः कफपित्तनुत्कषायो रक्तशोफास्रज्वरातीसारनाशनः तत्पुष्पं मधुरं ग्राहि सतिक्तं श्लेष्मपित्तजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.253",
+      "title": "Abhayādivarga.253",
+      "text": "वृद्धदारुर्महाश्यामो जाङ्गलो वृद्धदारुकः अन्तःकोटरपुष्पी स्यादावेगी छगलान्त्रिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.254",
+      "title": "Abhayādivarga.254",
+      "text": "वृद्धदारुः कषायोष्णः सरस्तिक्तो रसायनम् वृष्यो वातामवातास्रशोफमेहकफान्जयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.255",
+      "title": "Abhayādivarga.255",
+      "text": "देवदाली वृत्तकोशा देवताडो गरागरी जीमूतस्ताडका वेणी जालिन्याखुविषापहा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.256",
+      "title": "Abhayādivarga.256",
+      "text": "देवदाली रसे तिक्ता कफार्शःशोफपाण्डुताः नाशयेद्वामनी तीक्ष्णा क्षयहिक्काकृमिज्वरान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.257",
+      "title": "Abhayādivarga.257",
+      "text": "हंसपादी हंसपदी रक्तपादी नृपादिका प्रह्लादनी कीटमारी कीटमाता मधुस्रवा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.258",
+      "title": "Abhayādivarga.258",
+      "text": "हंसपादी गुरुः शीता हन्ति रक्तविषव्रणान्विसर्पदाहातीसारलूताभूतांश्च रोपणी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.259",
+      "title": "Abhayādivarga.259",
+      "text": "नाकुली सुवहा सर्पगन्धिनी गन्धनाकुली नकुलेष्टा मता सर्पनेत्रा चीरितपत्त्रिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.260",
+      "title": "Abhayādivarga.260",
+      "text": "नाकुली तुवरा तिक्ता कटुकोष्णा विनाशयेत् विषं लूतावृश्चिकाखुसर्पाणां च कृमीन्व्रणान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.261",
+      "title": "Abhayādivarga.261",
+      "text": "वटपत्त्री दीपनी स्यान्मोहनी रेचनी मता वटपत्त्री योनिगदान्कषायोष्णा विनाशयेत्तत्फलं स्तम्भनं शीतं वातलं कफपित्तजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.262",
+      "title": "Abhayādivarga.262",
+      "text": "लज्जालुर्मेदिनी स्पृक्का खादिरी गन्धकारिणी नमकारी शमीपत्त्रा समङ्गा रक्तपादिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.263",
+      "title": "Abhayādivarga.263",
+      "text": "लज्जालुः शीतला तिक्ता कषाया श्लेष्मपित्तजित् रक्तपित्तमतीसारं योनिरोगं विनाशयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.264",
+      "title": "Abhayādivarga.264",
+      "text": "सोमवल्ली यज्ञनेता सोमक्षीरी द्विजप्रिया सोमवल्ली त्रिदोषघ्नी कटुस्तिक्ता रसायनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.265",
+      "title": "Abhayādivarga.265",
+      "text": "मुसली खलिनी तालपत्री काञ्चनपुष्पिका महावृष्या वृष्यकन्दा खर्जूरी तालमूलिका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.266",
+      "title": "Abhayādivarga.266",
+      "text": "मुसली मधुरा वृष्या वीर्योष्णा बृंहणी गुरुः तिक्ता रसायनी हन्ति गुदजाननिलं तथा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.267",
+      "title": "Abhayādivarga.267",
+      "text": "कपिकच्छुः स्वयङ्गुप्ता कण्डूरा दुरभिग्रहा चण्डात्मगुप्ता लाङ्गूली मर्कटी स्यात्तु हर्षिणी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.268",
+      "title": "Abhayādivarga.268",
+      "text": "कपिकच्छुः परं वृष्या मधुरा बृंहणी गुरुः तद्बीजं वातशमनं वाजीकरणमुत्तमम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.269",
+      "title": "Abhayādivarga.269",
+      "text": "पुत्रजीवो गर्भकरो यष्टिपुष्पो ऽर्थसाधनः पुत्रजीवो गुरुर्वृष्यो गर्भदः श्लेष्मवातकृत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.270",
+      "title": "Abhayādivarga.270",
+      "text": "वन्ध्याकर्कोटिका देवी कुमारी विषनाशिनी मनोज्ञा नागदमनी वन्ध्या योगेश्वरी स्मृता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.271",
+      "title": "Abhayādivarga.271",
+      "text": "वन्ध्याकर्कोटिका लघ्वी कफनुद्व्रणशोधिनी सर्पदर्पहरा तीक्ष्णा विसर्पविषवारिणी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.272",
+      "title": "Abhayādivarga.272",
+      "text": "विष्णुक्रान्ता नीलपुष्पी जया वश्यापराजिता विष्णुक्रान्ता कटुर्मेध्या कृमिव्रणकफान्जयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.273",
+      "title": "Abhayādivarga.273",
+      "text": "शङ्खपुष्पी शङ्खनाम्नी किरीटी कम्बुमालिनी कम्बुपुष्पी स्मृतिहिता मेध्या वनविलासिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.274",
+      "title": "Abhayādivarga.274",
+      "text": "शङ्खपुष्पी सरा मेध्या मता चेतोऽविकारिणी रसायनी कषायोष्णास्मृतिमेहविनाशिनी दुग्धिका मधुपर्णी स्यात्क्षीरिणी स्वादुपुष्पिका क्षुद्रपर्णी पयस्या च प्रमेहघ्नी मधुच्छदा नागार्जुनी नागसहा कुमारतिलका परा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.275",
+      "title": "Abhayādivarga.275",
+      "text": "दुग्धिकोष्णा गुरू रूक्षा वातला गर्भकारिणी स्वादुर्विष्टम्भिनी वृष्या कफकुष्ठकृमीञ्जयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.276",
+      "title": "Abhayādivarga.276",
+      "text": "अर्कपुष्पी क्रूरकर्मा जलकामा भिरिण्डिका अर्कपुष्पी कृमिश्लेष्ममेहचित्तविकारहृत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.277",
+      "title": "Abhayādivarga.277",
+      "text": "भल्लातको ऽनलो भल्ली वीरवृक्षो ऽग्निवक्त्रकः अरुष्करस्तथारुष्कस्तपनो ऽग्निमुखी धनुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.278",
+      "title": "Abhayādivarga.278",
+      "text": "भल्लातकः कषायोष्णः शुक्रलो मधुरो लघुः वातश्लेष्मोदरानाहकुष्ठार्शोग्रहणीगदान्हन्ति गुल्मज्वरश्वित्रवह्निमान्द्यकृमिव्रणान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.279",
+      "title": "Abhayādivarga.279",
+      "text": "चिरपोटा दीर्घपत्रा कुन्तलस्तिक्तका मता चिरपोटा हिमा रूक्षा भेदनी श्वासकासजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.280",
+      "title": "Abhayādivarga.280",
+      "text": "द्रोणपुष्पी श्वसनका पालिन्दी कुम्भयोनिका छत्त्रातिछत्त्रिका द्रोणा कौण्डिन्यो वृक्षसारकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.281",
+      "title": "Abhayādivarga.281",
+      "text": "द्रोणपुष्पी गुरू रूक्षा स्वादूष्णा वातपित्तनुत् भेदनी कामलाशोफकफकृमिहरा लघुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.282",
+      "title": "Abhayādivarga.282",
+      "text": "ब्राह्मी सरस्वती सोमा सत्याह्वा ब्रह्मचारिणी मण्डूकपर्णी माण्डूकी त्वाष्ट्री दिव्या महौषधी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.283",
+      "title": "Abhayādivarga.283",
+      "text": "कपोतवङ्का मुनिका लावण्या सोमवल्लरी ब्राह्मी सरा हिमा स्वादुर्लघुर्मेध्या रसायनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.284",
+      "title": "Abhayādivarga.284",
+      "text": "स्वर्या स्मृतिप्रदा कुष्ठपाण्डुमेहास्रकासजित् विषशोफज्वरहरा तद्वन्मण्डूकपर्णिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.285",
+      "title": "Abhayādivarga.285",
+      "text": "सुवर्चलार्ककान्ता स्यात्सूर्यभक्ता सुखोद्भवा सूर्यावर्ता रविप्रीता त्वन्या ब्रह्मसुवर्चला",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.286",
+      "title": "Abhayādivarga.286",
+      "text": "सुवर्चला गुरुः शीता मूत्रला कफवातजित् अन्योष्णा कुष्ठमेहाश्मकृच्छ्रज्वरहरा लघुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.287",
+      "title": "Abhayādivarga.287",
+      "text": "मत्स्याक्षी बाह्लिका मत्स्यगन्धिर्मत्स्यादनी तथा मत्स्याक्षी ग्राहिणी तिक्ता कुष्ठपित्तकफास्रनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.288",
+      "title": "Abhayādivarga.288",
+      "text": "जलपिप्पल्यम्बुवल्ली पत्तूरः कञ्चटं तथा जलपिप्पलिका हृद्या चक्षुष्या शुक्रला लघुः सङ्ग्राहिणी हिमा रूक्षा रक्तदाहव्रणापहा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.289",
+      "title": "Abhayādivarga.289",
+      "text": "गोजिह्वा गोजिका गोभी दीर्घिका खरपर्णिनी गोजिह्वा वातला शीता ग्राहिणी कफपित्तनुत् हृद्या प्रमेहकासास्रव्रणज्वरहरा लघुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.290",
+      "title": "Abhayādivarga.290",
+      "text": "नागाह्वा दमनी नागगन्धा भुजगपर्णिनी स्यान्नागदमनी व्रण्या लूतासर्पविषापहा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.291",
+      "title": "Abhayādivarga.291",
+      "text": "गुञ्जा शिखण्डिका ताम्रा रक्तिका काकणन्तिका श्वेतान्या चक्रिका चूडा दुर्मुखी काकपीलुका",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.292",
+      "title": "Abhayādivarga.292",
+      "text": "गुञ्जा केश्या बलकरी त्वच्या पित्तकफापहा नेत्रामयहरा हन्ति कण्डूग्रहव्रणान् कृमीन्द्रलुप्तकुष्ठानि तद्वच्छ्वेतातिशस्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.293",
+      "title": "Abhayādivarga.293",
+      "text": "वेल्लन्तरो दीर्घपत्रो वीरद्रुर्बहुपत्त्रकः वेल्लन्तरो ऽनुद्ग्राही कफकृच्छ्रानिलार्तिजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.294",
+      "title": "Abhayādivarga.294",
+      "text": "वन्दाकः स्याद्वृक्षरुहा शेखरी कामवृक्षकः वृक्षादनी कामतरुः कामिनी पादरोहिणी वन्दाकः कफवातास्रवक्षोव्रणविषापहः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.295",
+      "title": "Abhayādivarga.295",
+      "text": "पिण्डारः करहाटः स्यात्तीक्ष्णकीलः कुरङ्गकः पिण्डारो मधुरः शीतः शोथपित्तकफापहः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.296",
+      "title": "Abhayādivarga.296",
+      "text": "छिक्किका क्षवकः क्रूरो नासासंवेदनः कटुः छिक्किका पित्तला कुष्ठकृमिवातकफापहा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.297",
+      "title": "Abhayādivarga.297",
+      "text": "रोहितो दाडिमीपुष्पो रोहीतः कूटशाल्मलिः प्लीहा रोहिणी रोही रक्तघ्नः पारिजातकः रोहीतकः सगुल्मयकृत्प्लीहोदरापहः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.298",
+      "title": "Abhayādivarga.298",
+      "text": "मोचकः स्यान्मोचरसः शाल्मलीवेष्टकः स्मृतः मोचनिर्यासकः पिच्छो मोचस्रावी च वेष्टकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.299",
+      "title": "Abhayādivarga.299",
+      "text": "मोचकः शीतलो ग्राही गुरुर्वृष्योऽतिसारजित्प्रवाहिकामवातास्रकफदाहनिबर्हणः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.300",
+      "title": "Abhayādivarga.300",
+      "text": "अजगन्धा बस्तगन्धा कवरी पूतिबर्बरी अजगन्धा लघू रुच्या हृद्यास्रकफवातनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.301",
+      "title": "Abhayādivarga.301",
+      "text": "सैरेयकः सहचरः सैरेयः किङ्किरातकः दासीसहचरो झिण्टी सैर्यको मृदुकण्टकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.302",
+      "title": "Abhayādivarga.302",
+      "text": "रक्तपुष्पः कुरवकः पीतो ज्ञेयः कुरण्टकः नीलश्चार्तगलः प्रोक्तो बाणओदनपाक्यपि",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.303",
+      "title": "Abhayādivarga.303",
+      "text": "सैरेयः कुष्ठवातास्रकफकण्डूविषापहः तिक्तोष्णो मधुरः केश्यः सुस्निग्धः केशरञ्जनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.304",
+      "title": "Abhayādivarga.304",
+      "text": "श्वेतस्पन्दा श्वेतपुष्पा कटभी गिरिकर्णिका सितापराजिता श्वेता विषघ्नी मेहनाशिनी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.305",
+      "title": "Abhayādivarga.305",
+      "text": "नीलस्पन्दा व्यक्तगन्धा नीलपुष्पा गवादिनी श्वेतस्पन्दाद्वयं शीतं ग्रहघ्नं दृष्टिकण्डुहृत्कुष्ठशूलत्रिदोषामशोफव्रणविषापहम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.306",
+      "title": "Abhayādivarga.306",
+      "text": "इक्षुरः क्षुरको ऽव्यण्डः कोकिलाक्षः क्षुरः स्मृतः तैलकण्टस्तिक्षुरिक्षुवालिका चेक्षुगन्धिका क्षुरकः वृष्यो गुरुर्वातकफास्रजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.307",
+      "title": "Abhayādivarga.307",
+      "text": "कार्पासः पटलस्तूलश्छादनो बादरः पिचुः कार्पासको लघुः कोष्णो मधुरो वातनाशनः तद्बीजं वृष्यं स्निग्धं कफकरं गुरु",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.308",
+      "title": "Abhayādivarga.308",
+      "text": "आरामशीतला देवगन्धा कुक्कुरमर्दनः आरामशीतला शीता कटुः पित्तकफास्रजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.309",
+      "title": "Abhayādivarga.309",
+      "text": "कुक्कुरद्रुस्ताम्रचूडः सूक्ष्मपत्त्रो मृदुच्छदः कुक्कुरः कटुस्तिक्तो ज्वररक्तकफापहः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.310",
+      "title": "Abhayādivarga.310",
+      "text": "वामी शङ्खधरा धारी ब्राह्मी च हिलमोचिका शोथहरा कुष्ठपित्तश्लेष्महरा सरा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.311",
+      "title": "Abhayādivarga.311",
+      "text": "बलामोटा जपा सूक्ष्मपत्त्रा ज्ञेयापराजिता बला विषश्लेष्मकृमिनुद्विजयप्रदा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.312",
+      "title": "Abhayādivarga.312",
+      "text": "शरपुङ्खा कालशाकं प्लीहारिः कालिका मता पुङ्खा यकृत्प्लीहदुष्टव्रणविषापहा तिक्ता कषाया कासश्वासज्वरहरा लघुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.313",
+      "title": "Abhayādivarga.313",
+      "text": "मयूराह्वा शिखा ज्ञेया साहस्री मधुकछदा मयूरशिखा लघ्वी पित्तश्लेष्मातिसारजित्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.314",
+      "title": "Abhayādivarga.314",
+      "text": "लक्ष्मणा पुत्रदा रक्तबिन्दुपत्त्रा च नागिनी गोक्षीरसदृशं पुष्पं रोमवल्लिसमन्वितम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.315",
+      "title": "Abhayādivarga.315",
+      "text": "रक्तबिन्दुयुतं पत्रं लक्ष्मणाकार उच्यते लक्ष्मणा गर्भदा शीता सरा वृष्या दोषनुत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.316",
+      "title": "Abhayādivarga.316",
+      "text": "मांसरोहिण्यतिरुहा वृन्ता चर्मकषा कसा स्यान्मांसरोहिणी वृष्या सरा दोषत्रयापहा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.317",
+      "title": "Abhayādivarga.317",
+      "text": "अस्थिसंहारको वज्रवल्लरी क्रोष्टुघण्टिका वज्राङ्गी ग्रन्थिमान्वज्री प्रोक्ता स्यादस्थिशृङ्खला अस्थिसंहारकः शीतो वृष्यो वातहरो ऽस्थियुक्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.318",
+      "title": "Abhayādivarga.318",
+      "text": "अर्कः सूर्याह्वयः क्षीरी सदापुष्पो विकीरणः मन्दारो वसुकोऽलर्को राजार्को दीर्घपुष्पकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.319",
+      "title": "Abhayādivarga.319",
+      "text": "अर्कद्वयं सरं वातकुष्ठकण्डूग्रहव्रणान्निहन्ति प्लीहगुल्मार्शोयकृच्छूलोदरकृमीन्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.320",
+      "title": "Abhayādivarga.320",
+      "text": "करवीरो ऽश्वहा श्वेतपुष्पः स्याच्छ्वेतकुम्भकः यावानी यावनी तीव्रा तुरुष्का मदकारिणी यवानी पाचनी रूक्षा ग्राहिणी मादिनी गुरुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.321",
+      "title": "Abhayādivarga.321",
+      "text": "तिलभेदः खसतिलः शुभ्रपुष्पो लसत्फलः वृष्यो बल्यः खसतिलः श्लेष्मलो वातजित् गुरुः वल्कलस्तत्फलोद्भूतो रूक्षो ग्राही विशोषणः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.322",
+      "title": "Abhayādivarga.322",
+      "text": "अफूकं तद्रसोद्भूतमहिफेनमफेनकमफूकं शोषणं ग्राहि श्लेष्मघ्नं वातपित्तलम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.323",
+      "title": "Abhayādivarga.323",
+      "text": "छिलिहिण्टो महामूलः पातालगरुडाह्वयः छिलिहिण्टः परं वृष्यः श्लेष्मलः पवनापहः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Abhayādivarga.324",
+      "title": "Abhayādivarga.324",
+      "text": "यो राज्ञां मुखतिलकः कटारमलस्तेन श्रीमदननृपेण निर्मितेऽत्र ग्रन्थेऽभून्मदनविनोदनाम्नि पूर्णो वर्गोऽयं ललितपदाङ्कितो ऽभयादिः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    }
+  ]
+}

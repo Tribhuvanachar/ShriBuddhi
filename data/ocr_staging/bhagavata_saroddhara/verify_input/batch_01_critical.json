@@ -1,0 +1,235 @@
+{
+ "_readme": "Bhāgavata Sāroddhāra — critical verification batch for a Gemini chat session. Sāroddhāra verse numbers follow the printed index; book_ref = printed Bhāgavata reference skandha.adhyaya.verse; dge_mula_candidate = Madhva Bhāgavata text already in DGE.",
+ "_how_to_answer": "Reply with ONE JSON list, one object per id, nothing else. decision: 'dge' (the DGE Madhva text is what the print shows, modulo OCR noise) | 'printed' (the print genuinely differs — give the exact printed text in verified_text) | 'vision' (Vision OCR is right as it stands) | 'unsure'. For missing_verse give verified_text (full verse, no number), bhagavata_ref 's.a.v' and pdf_page. If a neighbouring verse's current_text is really this verse (the OCR merged two verses), also add an object for that neighbour's id (e.g. BS_V005) with its correct verified_text and bhagavata_ref. Keep note to one line.",
+ "_answer_shape": {
+  "id": "BS_V042",
+  "decision": "dge|printed|vision|unsure",
+  "verified_text": "… or null",
+  "bhagavata_ref": "10.1.14 or null",
+  "pdf_page": 128,
+  "note": "…"
+ },
+ "counts": {
+  "missing_verse": 2,
+  "mismatch": 0,
+  "near_match": 0
+ },
+ "items": [
+  {
+   "id": "BS_V166",
+   "type": "missing_verse",
+   "verse_num": 166,
+   "prakarana_no": 11,
+   "prakarana": "ब्रह्मोपदेशप्रकरणम्",
+   "neighbours": {
+    "prev": {
+     "verse_num": 165,
+     "pdf_page": 222,
+     "bhagavata_ref": "8.8.22",
+     "current_text": "एवं विमृश्याव्यभिचारिसद्गुणं पदं निजैकाश्रयिसद्गुणाश्रयम्। वव्रे वरं सर्वगुणैरपेक्षितं रमा मुकुन्दं निरपेक्षमीप्सितम्॥"
+    },
+    "next": {
+     "verse_num": 167,
+     "pdf_page": 224,
+     "bhagavata_ref": "4.31.23",
+     "current_text": "श्रियमनुचरतीं तदर्थिनश्च द्विपदपतीन् विबुधांश्च यः स्वपूर्णः। न भजति निजभृत्यवर्गतन्त्रः कथममुमुद्विसृजेत् पुमान् कृतज्ञः॥"
+    }
+   },
+   "pdf_page": [
+    222,
+    224
+   ],
+   "book_ref": null,
+   "ocr_vision": null,
+   "ocr_tesseract": null,
+   "ocr_context": [
+    {
+     "pdf_page": 222,
+     "y": 304,
+     "region": "verse",
+     "vision": "क्वचिच्चिरायुर्न च शीलमङ्गलं क्वचित्तदप्यस्ति न वेद्यमायुषः ।",
+     "tesseract": "क्चिचिरायुर्न च रीरमङ्लं क्चित्तदप्यस्ति न वेद्यमायुषः ।"
+    },
+    {
+     "pdf_page": 222,
+     "y": 390,
+     "region": "verse",
+     "vision": "यत्रोभयं कुत्र च सोऽप्यमङ्गलः सुमङ्गलः कश्चन कांक्षते हि माम् ॥",
+     "tesseract": "यत्रोभयं कु च सोऽप्यमद्लः सुमङ्गलः कदचन काक्षते हि माम्‌॥"
+    },
+    {
+     "pdf_page": 222,
+     "y": 491,
+     "region": "ref",
+     "vision": "१६४ ।। ८ । ८ । २१ । (१८)",
+     "tesseract": "१६६ ॥ ८ । ८ । २१। (१८)",
+     "printed_ref": "8.8.21",
+     "ref_assigned_to_verse": 164
+    },
+    {
+     "pdf_page": 222,
+     "y": 1897,
+     "region": "verse",
+     "vision": "'एवं विमृश्याऽव्यभिचारिसद्गुणं पदं निजैकाश्रयि सद्गुणाश्रयम् ।",
+     "tesseract": "\"एवं विमूरयाऽव्यभिचारिसद्गुणं पदं निजैकाश्रयि सद्गुणाश्यम्‌ |"
+    },
+    {
+     "pdf_page": 222,
+     "y": 1993,
+     "region": "verse",
+     "vision": "वव्रे परं सर्वगुणैरपेक्षितं रमा मुकुन्दं निरपेक्षमीप्सितम् ॥ १६५ ॥",
+     "tesseract": "वव्रे पर सर्वगुणैरपेक्षितं रमा मुकुन्दं निरपेक्षमीप्सितम्‌ ॥ १६५॥"
+    },
+    {
+     "pdf_page": 222,
+     "y": 2100,
+     "region": "ref",
+     "vision": "। ८ । ८ । २२ । (१९)",
+     "tesseract": "। ८ । ८ । २२ । (१९)",
+     "printed_ref": "8.8.22",
+     "ref_assigned_to_verse": 165
+    },
+    {
+     "pdf_page": 222,
+     "region": "vision_orphan",
+     "vision": "१२४"
+    },
+    {
+     "pdf_page": 222,
+     "region": "vision_orphan",
+     "vision": "1"
+    },
+    {
+     "pdf_page": 222,
+     "region": "vision_orphan",
+     "vision": "तात्पर्ये ।"
+    },
+    {
+     "pdf_page": 222,
+     "region": "vision_orphan",
+     "vision": "Rarest Archiver"
+    },
+    {
+     "pdf_page": 223,
+     "region": "vision_orphan",
+     "vision": "१२५"
+    },
+    {
+     "pdf_page": 223,
+     "region": "vision_orphan",
+     "vision": "रपेक्षितमिति ।"
+    },
+    {
+     "pdf_page": 223,
+     "region": "vision_orphan",
+     "vision": "कामुकत्वोपल-"
+    },
+    {
+     "pdf_page": 223,
+     "region": "vision_orphan",
+     "vision": "॥ १६६ ॥"
+    }
+   ],
+   "dge_mula_candidate": null,
+   "issue": "Printed index says prakaraṇa 11 has verse 166, but OCR structure found no verse between 165 (p.222) and 167 (p.224). Find it in ocr_context (a verse line + its ref line '। s । a । v ।'), or say it is absent/misnumbered. Check whether prev/next current_text is actually verse 166."
+  },
+  {
+   "id": "BS_V248",
+   "type": "missing_verse",
+   "verse_num": 248,
+   "prakarana_no": 20,
+   "prakarana": "धर्मोपदेशप्रकरणम्",
+   "neighbours": {
+    "prev": {
+     "verse_num": 247,
+     "pdf_page": 325,
+     "bhagavata_ref": "10.105.40",
+     "current_text": "इत्थं परस्य निजधर्मरिरक्षयाऽत्तलीलातनोस्तदनुरूपविडम्बनानि। कर्माणि कर्मकषणानि यदूत्तमस्य गायेदमुष्य पदयोरनुवृत्तिमिच्छन्॥"
+    },
+    "next": {
+     "verse_num": 249,
+     "pdf_page": 326,
+     "bhagavata_ref": "1.8.39",
+     "current_text": "शृण्वन्ति गायन्ति गृणन्त्यभीक्ष्णशः स्मरन्ति नन्दन्ति तवेहितं जनाः। त एव पश्यन्त्यचिरेण तावकं भवप्रवाहोपरमं पदाम्बुजम्॥"
+    }
+   },
+   "pdf_page": [
+    325,
+    326
+   ],
+   "book_ref": null,
+   "ocr_vision": null,
+   "ocr_tesseract": null,
+   "ocr_context": [
+    {
+     "pdf_page": 325,
+     "region": "vision_orphan",
+     "vision": "२२७"
+    },
+    {
+     "pdf_page": 325,
+     "region": "vision_orphan",
+     "vision": "।"
+    },
+    {
+     "pdf_page": 326,
+     "y": 718,
+     "region": "verse",
+     "vision": "शृण्वन्ति गायन्ति गृणन्त्यभीक्ष्णशः स्मरन्ति नन्दन्ति तवेहितं जनाः ।",
+     "tesseract": "टण्वन्ति गायन्ति गुणन्त्यभीक्ष्णडाः स्मरन्ति नन्वन्ति तवेहितं जनाः ।"
+    },
+    {
+     "pdf_page": 326,
+     "y": 815,
+     "region": "verse",
+     "vision": "त एव पश्यन्त्यचिरेण तावकं भवप्रवाहोपरमं पदाम्बुजम् ॥ २४९ ॥",
+     "tesseract": "त एव पदयन्त्ययिरेण तावकं भवप्रवाहोपरमं पदाम्बुजम्‌ ॥ २४९ ॥"
+    },
+    {
+     "pdf_page": 326,
+     "y": 919,
+     "region": "ref",
+     "vision": "। १ । ८ । ३९ । (१३)",
+     "tesseract": "। १।८ । ३९ । (१२)",
+     "printed_ref": "1.8.39",
+     "ref_assigned_to_verse": 249
+    },
+    {
+     "pdf_page": 326,
+     "y": 1503,
+     "region": "verse",
+     "vision": "सर्वाणि मद्धिष्ण्यतया भवद्भिश्चराणि भूतानि सुता ध्रुवाणि ।",
+     "tesseract": "सर्वाणि ಟ್‌ भवद्धिदचराणि भूतानि सुता धरुवाणि ।"
+    },
+    {
+     "pdf_page": 326,
+     "y": 1614,
+     "region": "verse",
+     "vision": "सम्भावितव्यानि पदे पदे वो विविक्तदृष्टिस्तदुतार्हणं? मे ॥ २५० ॥",
+     "tesseract": "सम्भावितव्यानि पदे पदे बो विविक्तदष्टिस्तदुतार्हणं * मे ॥ २५० ॥"
+    },
+    {
+     "pdf_page": 326,
+     "y": 1729,
+     "region": "ref",
+     "vision": "। ५ । ५ । २६ । (१४)",
+     "tesseract": "। ५ ५। २६ 1 (१४६)",
+     "printed_ref": "5.5.26",
+     "ref_assigned_to_verse": 250
+    },
+    {
+     "pdf_page": 326,
+     "region": "vision_orphan",
+     "vision": "२२८"
+    },
+    {
+     "pdf_page": 326,
+     "region": "vision_orphan",
+     "vision": "Rarest Archiver"
+    }
+   ],
+   "dge_mula_candidate": null,
+   "issue": "Printed index says prakaraṇa 20 has verse 248, but OCR structure found no verse between 247 (p.325) and 249 (p.326). Find it in ocr_context (a verse line + its ref line '। s । a । v ।'), or say it is absent/misnumbered. Check whether prev/next current_text is actually verse 248."
+  }
+ ]
+}

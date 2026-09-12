@@ -1,0 +1,186 @@
+{
+"_how_to_answer": "One JSON list, one object per id: {id, decision: 'dge'|'printed'|'unsure', verified_text (full verse only when printed), note}. 'dge' with a note = keep the master text and record the print's reading as a footnote on the Sāroddhāra verse.",
+"batch": "2 of 3",
+"items": [
+{
+"id": "BS_V189",
+"ref": "5.19.17",
+"pdf_page": 241,
+"dge_word": "दत्तस्य",
+"print_word": "सूक्तस्य",
+"context": "स्वर्गसुखावशेषितं स्विष्टस्य 【दत्तस्य】 कृतस्य शोभनम्",
+"kind": "word"
+},
+{
+"id": "BS_V198",
+"ref": "5.19.25",
+"pdf_page": 247,
+"dge_word": "ते",
+"print_word": null,
+"context": "न चेद्यतेरन्नपुनर्भवाय 【ते】 भूयो वनौका",
+"kind": "word"
+},
+{
+"id": "BS_V200",
+"ref": "5.24.44",
+"pdf_page": 250,
+"dge_word": "वपुः",
+"print_word": null,
+"context": "नृपाद्भुतमीश्वरस्य स्थूलं 【वपुः】 सकलजीवनिकायधाम्नः",
+"kind": "word"
+},
+{
+"id": "BS_V201",
+"ref": "4.12.17",
+"pdf_page": 252,
+"dge_word": "बद्धासनो",
+"print_word": "बवासनं",
+"context": "विशुद्धकरणः शिववार्विगाह्य 【बद्धासनो】 जितमरुन्मनसाहृताक्षः स्थूले",
+"kind": "word"
+},
+{
+"id": "BS_V203",
+"ref": "2.2.9",
+"pdf_page": 254,
+"dge_word": null,
+"print_word": "२२९ ४",
+"context": "धारणया स्मरन्ति 【२२९ ४】",
+"kind": "word"
+},
+{
+"id": "BS_V206",
+"ref": "2.2.12",
+"pdf_page": 255,
+"dge_word": "कुञ्चितनीलकुन्तलैर्विरोचमानाननहासपेशलम्",
+"print_word": null,
+"context": "मेखलयाङ्गुलीयकैर्महाधनैर्नूपुरकङ्कणादिभिः स्निग्धामलैः 【कुञ्चितनीलकुन्तलैर्विरोचमानाननहासपेशलम्】",
+"kind": "word"
+},
+{
+"id": "BS_V208",
+"ref": "2.2.14",
+"pdf_page": 256,
+"dge_word": "परं शुध्यति",
+"print_word": "शुद्धयति",
+"context": "धारयेत् परं 【परं शुध्यति】 धीर्यथा यथा",
+"kind": "word"
+},
+{
+"id": "BS_V209",
+"ref": "11.6.9",
+"pdf_page": 257,
+"dge_word": null,
+"print_word": "११२६/९ १",
+"context": "यथा स्यात् 【११२६/९ १】",
+"kind": "word"
+},
+{
+"id": "BS_V213",
+"ref": "11.2.53",
+"pdf_page": 261,
+"dge_word": "स",
+"print_word": null,
+"context": "भगवत्पदारविन्दाल्लवनिमिषार्धमपि स्म 【स】 वैष्णवाग्र्यः",
+"kind": "word"
+},
+{
+"id": "BS_V222",
+"ref": "1.10.44",
+"pdf_page": 269,
+"dge_word": "नस्त्वं",
+"print_word": "नत्स्वं",
+"context": "भवाय 【नस्त्वं】 भव विश्वभावन",
+"kind": "word"
+},
+{
+"id": "BS_V227",
+"ref": "8.20.16",
+"pdf_page": 273,
+"dge_word": "तदेवाद्य तथैव",
+"print_word": "त्वयैवाद्य तदेव",
+"context": "पदमैन्द्रमूर्जितं हृतं 【तदेवाद्य तथैव】 शोभनम् मन्ये",
+"kind": "word"
+},
+{
+"id": "BS_V229",
+"ref": "8.20.23",
+"pdf_page": 274,
+"dge_word": "सतीं",
+"print_word": "सर्ती",
+"context": "दूर्वाङ्कुरैरपि विधाय 【सतीं】 सपर्याम् अप्युत्तमां",
+"kind": "word"
+},
+{
+"id": "BS_V237",
+"ref": "3.6.24",
+"pdf_page": 283,
+"dge_word": "यथाञ्जसा",
+"print_word": "यथाअसा",
+"context": "प्रतिलभ्य बोधं 【यथाञ्जसा】 त्वापुरकुण्ठधिष्ण्यम्",
+"kind": "word"
+},
+{
+"id": "BS_V240",
+"ref": "6.16.40",
+"pdf_page": 317,
+"dge_word": "यदाह",
+"print_word": "यदा भवान्",
+"context": "तदा भवता 【यदाह】 भागवतं धर्ममनवद्यम्",
+"kind": "word"
+},
+{
+"id": "BS_V252",
+"ref": "5.5.27",
+"pdf_page": 327,
+"dge_word": "हि",
+"print_word": "तत्",
+"context": "मे परिबर्हणं 【हि】 विना पुमान्येन",
+"kind": "word"
+},
+{
+"id": "BS_V257",
+"ref": "7.8.11",
+"pdf_page": 332,
+"dge_word": "कुतः परे",
+"print_word": null,
+"context": "साधोः स्वमोहप्रभवाः 【कुतः परे】",
+"kind": "word"
+},
+{
+"id": "BS_V259",
+"ref": "7.9.50",
+"pdf_page": 333,
+"dge_word": "तत्वे मनो दर्शने दृगपि स्तुतौ च वाक् कर्मणि",
+"print_word": "वाक्कर्मणि",
+"context": "【तत्वे मनो दर्शने दृगपि स्तुतौ च वाक् कर्मणि】 ह्यपि करौ",
+"kind": "word"
+},
+{
+"id": "BS_V263",
+"ref": "9.6.6",
+"pdf_page": 335,
+"dge_word": "करो",
+"print_word": "करौ",
+"context": "कृष्णपदारविन्दयोर्वचांसि वैकुण्ठगुणानुवर्णने 【करो】 हरेर्मन्दिरमार्जनादिषु श्रुतिं",
+"kind": "word"
+},
+{
+"id": "BS_V267",
+"ref": "2.3.20",
+"pdf_page": 337,
+"dge_word": null,
+"print_word": "म",
+"context": "बतोरुक्रमविक्रमान्ये न 【म】 शृण्वतः कर्णपुटे",
+"kind": "word"
+},
+{
+"id": "BS_V275",
+"ref": "4.20.24",
+"pdf_page": 344,
+"dge_word": "चैहिकास्तानीश",
+"print_word": "देहिनां तानीश",
+"context": "नारकाणामपि सन्ति 【चैहिकास्तानीश】 कैवल्यपतेर्वृणीत कः",
+"kind": "word"
+}
+]
+}

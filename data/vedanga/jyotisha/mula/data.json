@@ -1,0 +1,1261 @@
+{
+  "schema": "generic",
+  "default_author": "unspecified",
+  "source": "Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024",
+  "source_url": "https://github.com/OliverHellwig/sanskrit/tree/master/dcs/data/conllu/files/S%C5%ABryasiddh%C4%81nta",
+  "licence": "CC-BY 4.0",
+  "note": "Pilot import: 139 verses across chapters ['1', '2'] of Suryasiddhanta, as excerpted in DCS -- not the full 14-chapter classical text. See dge/PENDING.md for the DCS integration scoping decision this pilot exists to inform, and tools/dcs/README.md for how to extend it.",
+  "items": [
+    {
+      "id": "1.1",
+      "title": "1.1",
+      "text": "अचिन्त्याव्यक्तरूपाय निर्गुणाय गुणात्मने समस्तजगदाधारमूर्तये ब्रह्मणे नमः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.2",
+      "title": "1.2",
+      "text": "अल्पावशिष्टे तु कृते मयो नाम महासुरः रहस्यं परमं पुण्यं जिज्ञासुर्ज्ञानमुत्तमम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.3",
+      "title": "1.3",
+      "text": "वेदाङ्गमग्र्यमखिलं ज्योतिषां गतिकारणमाराधयन्विवस्वन्तं तपस्तेपे सुदुश्चरम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.4",
+      "title": "1.4",
+      "text": "तोषितस्तपसा तेन प्रीतस्तस्मै वरार्थिने ग्रहाणां चरितं प्रादान्मयाय सविता स्वयम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.5",
+      "title": "1.5",
+      "text": "विदितस्ते मया भावस्तोषितस्तपसा ह्यहम् दद्यां कालाश्रयं ज्ञानं ग्रहाणां चरितं महत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.6",
+      "title": "1.6",
+      "text": "न मे तेजःसहः कश्चिदाख्यातुं नास्ति मे क्षणः मदंशः पुरुषो ऽयं ते निःशेषं कथयिष्यति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.7",
+      "title": "1.7",
+      "text": "इत्युक्त्वान्तर्दधे देवः समादिश्यांशमात्मनः स पुमान्मयमाहेदं प्रणतं प्राञ्जलिस्थितम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.8",
+      "title": "1.8",
+      "text": "शृणुष्वैकमनाः पूर्वं यदुक्तं ज्ञानमुत्तमम् युगे युगे महर्षीणां स्वयमेव विवस्वता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.9",
+      "title": "1.9",
+      "text": "शास्त्रमाद्यं तदेवेदं यत्पूर्वं प्राह भास्करः युगानां परिवर्तेन कालभेदो ऽत्र केवलः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.10",
+      "title": "1.10",
+      "text": "लोकानामन्तकृत्कालः कालो ऽन्यः कलनात्मकः स द्विधा स्थूलसूक्ष्मत्वान्मूर्तश्चामूर्त उच्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.11",
+      "title": "1.11",
+      "text": "प्राणादिः कथितो मूर्तस्त्रुट्याद्यो ऽमूर्तसंज्ञकः षड्भिः प्राणैर्विनाडी स्यात्तत्षष्ट्या नाडिका स्मृता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.12",
+      "title": "1.12",
+      "text": "नाडीषष्ट्या तु नाक्षत्रमहोरात्रं प्रकीर्तितम् तत्त्रिंशता भवेन्मासः सावनो ऽर्कोदयैस्तथा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.13",
+      "title": "1.13",
+      "text": "ऐन्दवस्तिथिभिस्तद्वत्संक्रान्त्या सौर उच्यते मासैर्द्वादशभिर्वर्षं दिव्यं तदह उच्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.14",
+      "title": "1.14",
+      "text": "सुरासुराणामन्योन्यमहोरात्रं विपर्ययात्तत्षष्टिः षड्गुणा दिव्यं वर्षमासुरमेव च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.15",
+      "title": "1.15",
+      "text": "तद्द्वादशसहस्राणि चतुर्युगमुदाहृतम् सूर्याब्दसंख्यया द्वित्रिसागरैरयुताहतैः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.16",
+      "title": "1.16",
+      "text": "संध्यासंध्यांशसहितं विज्ञेयं तच्चतुर्युगम् कृतादीनां व्यवस्थेयं धर्मपादव्यवस्थया",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.17",
+      "title": "1.17",
+      "text": "युगस्य दशमो भागश्चतुस्त्रिद्व्येकसंगुणः क्रमात्कृतयुगादीनां षष्ठांशः संध्ययोः स्वकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.18",
+      "title": "1.18",
+      "text": "युगानां सप्ततिः सैका मन्वन्तरमिहोच्यते कृताब्दसंख्यास्तस्यान्ते संधिः प्रोक्तो जलप्लवः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.19",
+      "title": "1.19",
+      "text": "ससंधयस्ते मनवः कल्पे ज्ञेयाश्चतुर्दश कृतप्रमाणः कल्पादौ संधिः पञ्चदशः स्मृतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.20",
+      "title": "1.20",
+      "text": "इत्थम् युगसहस्रेण भूतसंहारकारकः कल्पो ब्राह्ममहः प्रोक्तं शर्वरी तस्य तावती",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.21",
+      "title": "1.21",
+      "text": "परमायुः शतं तस्य तयाहोरात्रसंख्यया आयुषो ऽर्धमितं तस्य शेषकल्पो ऽयमादिमः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.22",
+      "title": "1.22",
+      "text": "कल्पादस्माच्च मनवः षड्व्यतीताः ससंधयः वैवस्वतस्य च मनोर्युगानां त्रिघनो गतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.23",
+      "title": "1.23",
+      "text": "अष्टाविंशाद्युगादस्माद्यातमेतत्कृतं युगमतः कालं प्रसंख्याय संख्यामेकत्र पिण्डयेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.24",
+      "title": "1.24",
+      "text": "ग्रहर्क्षदेवदैत्यादि सृजतो ऽस्य चराचरम् कृताद्रिवेदा दिव्याब्दाः शतघ्ना वेधसो गताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.25",
+      "title": "1.25",
+      "text": "पश्चाद्व्रजन्तो ऽतिजवान्नक्षत्रैः सततं ग्रहाः जीयमानास्तु लम्बन्ते तुल्यमेव स्वमार्गगाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.26",
+      "title": "1.26",
+      "text": "प्राग्गतित्वमतस्तेषां भगणैः प्रत्यहं गतिः परिणाहवशाद्भिन्ना तद्वशाद्भानि भुञ्जते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.27",
+      "title": "1.27",
+      "text": "शीघ्रगस्तान्यथाल्पेन कालेन महताल्पगः तेषां तु परिवर्तेन पौष्णान्ते भगणः स्मृतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.28",
+      "title": "1.28",
+      "text": "विकलानां कला षष्ट्या तत्षष्ट्या भाग उच्यते तत्त्रिंशता भवेद्राशिर्भगणो द्वादशैव ते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.29",
+      "title": "1.29",
+      "text": "युगे सूर्यज्ञशुक्राणाम् खचतुष्करदार्णवाः कुजार्किगुरुशीघ्राणां भगणाः पूर्वयायिनाम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.30",
+      "title": "1.30",
+      "text": "इन्दो रसाग्नित्रित्रीषुसप्तभूधरमार्गणाः दस्रत्र्यष्टरसाङ्काक्षिलोचनानि कुजस्य तु",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.31",
+      "title": "1.31",
+      "text": "बुधशीघ्रस्य शून्यर्तुखाद्रित्र्यङ्कनगेन्दवः बृहस्पतेः खदस्राक्षिवेदषड्वह्नयस्तथा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.32",
+      "title": "1.32",
+      "text": "सितशीघ्रस्य षट्सप्तत्रियमाश्विखभूधराः शनेर्भुजंगषट्पञ्चरसवेदनिशाकराः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.33",
+      "title": "1.33",
+      "text": "चन्द्रोच्चस्याग्निशून्याश्विवसुसर्पार्णवा युगे वामं पातस्य वस्वग्नियमाश्विशिखिदस्रकाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.34",
+      "title": "1.34",
+      "text": "भानामष्टाक्षिवस्वद्रित्रिद्विद्व्यष्टशरेन्दवः भोदया भगणैः स्वैः स्वैरूनाः स्वस्वोदया युगे",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.35",
+      "title": "1.35",
+      "text": "भवन्ति शशिनो मासाः सूर्येन्दुभगणान्तरम् रविमासोनितास्ते तु शेषाः स्युरधिमासकाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.36",
+      "title": "1.36",
+      "text": "सावहाहानि चान्द्रेभ्यो द्युभ्यः प्रोज्झ्य तिथिक्षयाः उदयादुदयं भानोर्भूमिसावनवासरः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.37",
+      "title": "1.37",
+      "text": "वसुद्व्यष्टाद्रिरूपाङ्कसप्ताद्रितिथयो युगे चान्द्राः खाष्टखखव्योमखाग्निखर्तुनिशाकराः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.38",
+      "title": "1.38",
+      "text": "षड्वह्नित्रिहुताशाङ्कतिथयश्चाधिमासकाः तिथिक्षया यमार्थाश्विद्व्यष्टव्योमशराश्विनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.39",
+      "title": "1.39",
+      "text": "खचतुष्कसमुद्राष्टकुपञ्च रविमासकाः भवन्ति भोदया भानुभगणैरूनिताः क्वहाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.40",
+      "title": "1.40",
+      "text": "अधिमासोनरात्र्यार्क्षचान्द्रसावनवासराः एते सहस्रगुणिताः कल्पे स्युर्भगणादयः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.41",
+      "title": "1.41",
+      "text": "प्राग्गतेः सूर्यमन्दस्य कल्पे सप्ताष्टवह्नयः कौजस्य वेदखयमा बौधस्याष्टर्तुवह्नयः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.42",
+      "title": "1.42",
+      "text": "खखरन्ध्राणि जैवस्य शौक्रस्यार्थगुणेषवः गोऽग्नयः शनिमन्दस्य पातानामथ वामतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.43",
+      "title": "1.43",
+      "text": "मनुदस्रास्तु कौजस्य बौधस्याष्टाष्टसागराः कृताद्रिचन्द्रा जैवस्य त्रिखाङ्काश्च तथा भृगोः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.44",
+      "title": "1.44",
+      "text": "शनिपातस्य भगणाः कल्पे यमरसर्तवः भगणाः पूर्वमेवात्र प्रोक्ताश्चन्द्रोच्चपातयोः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.45",
+      "title": "1.45",
+      "text": "षण्मनूनां तु संपीड्य कालं तत्संधिभिः सह कल्पादिसंधिना सार्धं वैवस्वतमनोस्तथा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.46",
+      "title": "1.46",
+      "text": "युगानाम् त्रिघनं यातं तथा कृतयुगं त्विदम् प्रोज्झ्य सृष्टेस्ततः कालं पूर्वोक्तं दिव्यसंख्यया",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.47",
+      "title": "1.47",
+      "text": "सूर्याब्दसंख्यया ज्ञेयाः कृतस्यान्ते गता अमी खचतुष्कयमाद्र्यग्निशररन्ध्रनिशाकराः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.48",
+      "title": "1.48",
+      "text": "अत ऊर्ध्वममी युक्ता गतकालाब्दसंख्यया मासीकृता युता मासैर्मधुशुक्लादिभिर्गतैः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.49",
+      "title": "1.49",
+      "text": "पृथक्स्थास्ते ऽधिमासघ्नाः सूर्यमासविभाजिताः लब्धाधिमासकैर्युक्ता दिनीकृत्य दिनान्विताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.50",
+      "title": "1.50",
+      "text": "द्विष्ठास्तिथिक्षयाभ्यस्ताश्चान्द्रवासरभाजिताः लब्धोनरात्रिरहिता लङ्कायामार्धरात्रिकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.51",
+      "title": "1.51",
+      "text": "सावनो द्युगणः सूर्याद्दिनमासाब्दपास्ततः सप्तभिः क्षयितः शेषः सूर्याद्यो वासरेश्वरः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.52",
+      "title": "1.52",
+      "text": "मासाब्ददिनसंख्याप्तं द्वित्रिघ्नं रूपसंयुतम् सप्तोद्धृतावशेषौ तु विज्ञेयौ मासवर्षौ",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.53",
+      "title": "1.53",
+      "text": "यथा स्वभगणाभ्यस्तो दिनराशिः कुवासरैः विभाजितो मध्यगत्या भगणादिर्ग्रहो भवेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.54",
+      "title": "1.54",
+      "text": "एवं स्वशीघ्रमन्दोच्चा ये प्रोक्ताः पूर्वयायिनः विलोमगतयः पातास्तद्वच्चक्राद्विशोधिताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.55",
+      "title": "1.55",
+      "text": "द्वादशघ्ना गुरोर्याता भगणा वर्तमानकैः राशिभिः सहिताः शुद्धाः षष्ट्या स्युर्विजयादयः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.56",
+      "title": "1.56",
+      "text": "विस्तरेणैतदुदितं संक्षेपाद्व्यावहारिकम् मध्यमानयनं कार्यं ग्रहाणामिष्टतो युगात्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.57",
+      "title": "1.57",
+      "text": "अस्मिन् कृतयुगस्यान्ते सर्वे मध्यगता ग्रहाः विना तु पातमन्दोच्चान्मेषादौ तुल्यतामिताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.58",
+      "title": "1.58",
+      "text": "मकरादौ शशाङ्कोच्चं तत्पातस्तु तुलादिगः निरंशत्वम् गताश्चान्ये नोक्तास्ते मन्दचारिणः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.59",
+      "title": "1.59",
+      "text": "योजनानि शतान्यष्टौ भूकर्णो द्विगुणानि तु तद्वर्गतो दशगुणात्पदं भूपरिधिर्भवेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.60",
+      "title": "1.60",
+      "text": "लम्बज्याघ्नस्त्रिजीवाप्तः स्फुटो भूपरिधिः स्वकः तेन देशान्तराभ्यस्ता ग्रहभुक्तिर्विभाजिता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.61",
+      "title": "1.61",
+      "text": "कलादि तत्फलं प्राच्यां ग्रहेभ्यः परिशोधयेत् रेखा प्रतीची संस्थाने प्रक्षिपेत्स्युः स्वदेशजा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.62",
+      "title": "1.62",
+      "text": "राक्षसालयदेवौकःशैलयोर्मध्यसूत्रगाः रोहीतकमवन्ती च यथा संनिहितं सरः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.63",
+      "title": "1.63",
+      "text": "अतीत्योन्मीलनादिन्दोः पश्चात्तद्गणितागतात् यदा भवेत्तदा प्राच्यां स्वस्थानं मध्यतो भवेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.64",
+      "title": "1.64",
+      "text": "अप्राप्य च भवेत्पश्चादेवं वापि निमीलनात्तयोरन्तरनाडीभिर्हन्याद्भूपरिधिं स्फुटम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.65",
+      "title": "1.65",
+      "text": "षष्ट्या विभज्य लब्धैस्तु योजनैः प्रागथापरैः स्वदेशः परिधौ ज्ञेयः कुर्याद्देशान्तरं हि तैः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.66",
+      "title": "1.66",
+      "text": "वारप्रवृत्तिः प्राग्देशे क्षपार्धे ऽभ्यधिके भवेत्तद्देशान्तरनाडीभिः पश्चादूने विनिर्दिशेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.67",
+      "title": "1.67",
+      "text": "इष्टनाडीगुणा भुक्तिः षष्ट्या भक्ता कलादिकम् गते शोध्यं युतं गम्ये कृत्वा तात्कालिको भवेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.68",
+      "title": "1.68",
+      "text": "भचक्रलिप्ताशीत्यंशं परमं दक्षिणोत्तरम् विक्षिप्यते स्वपातेन स्वक्रान्त्यन्तादनुष्णगुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.69",
+      "title": "1.69",
+      "text": "तन्नवांशं द्विगुणितं जीवस्त्रिगुणितं कुजः बुधशुक्रार्कजाः पातैर्विक्षिप्यन्ते चतुर्गुणम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "1.70",
+      "title": "1.70",
+      "text": "एवम् त्रिघनरन्ध्रार्करसार्कार्का दशाहताः चन्द्रादीनां क्रमादुक्ता मध्यविक्षेपलिप्तकाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.1",
+      "title": "2.1",
+      "text": "अदृश्यरूपाः कालस्य मूर्तयो भगणाश्रिताः शीघ्रमन्दोच्चपाताख्या ग्रहाणां गतिहेतवः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.2",
+      "title": "2.2",
+      "text": "तद्वातरश्मिभिर्बद्धास्तैः सव्येतरपाणिभिः प्राक्पश्चादपकृष्यन्ते यथासन्नं स्वदिङ्मुखम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.3",
+      "title": "2.3",
+      "text": "प्रवहाख्यो मरुत्तांस्तु स्वोच्चाभिमुखमीरयेत्पूर्वापराकृष्टास्ते गतिं यान्ति पृथग्विधाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.4",
+      "title": "2.4",
+      "text": "ग्रहात्प्राग्भगणार्धस्थः प्राङ्मुखं कर्षति ग्रहमुच्चसंज्ञो ऽपरार्धस्थस्तद्वत्पश्चान्मुखं ग्रहम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.5",
+      "title": "2.5",
+      "text": "स्वोच्चापकृष्टा भगणैः प्राङ्मुखं यान्ति यद्ग्रहाः तत्तेषु धनमित्युक्तमृणं पश्चान्मुखेषु च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.6",
+      "title": "2.6",
+      "text": "दक्षिणोत्तरतो ऽप्येवं पातो राहुः स्वरंहसा विक्षिपत्येष विक्षेपं चन्द्रादीनामपक्रमात्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.7",
+      "title": "2.7",
+      "text": "उत्तराभिमुखं पातो विक्षिपत्यपरार्धगः ग्रहं प्राग्भगणार्धस्थो याम्यायामपकर्षति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.8",
+      "title": "2.8",
+      "text": "बुधभार्गवयोः शीघ्रात्तद्वत्पातो यदा स्थितः तच्छीघ्राकर्षणात्तौ तु विक्षिप्येते यथोक्तवत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.9",
+      "title": "2.9",
+      "text": "महत्त्वान्मण्डलस्यार्कः स्वल्पमेवापकृष्यते मण्डलाल्पतया चन्द्रस्ततो बह्वपकृष्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.10",
+      "title": "2.10",
+      "text": "भौमादयो ऽल्पमूर्तित्वाच् छीघ्रमन्दोच्चसंज्ञकैः दैवतैरपकृष्यन्ते सुदूरमतिवेगिताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.11",
+      "title": "2.11",
+      "text": "अतो धनर्णं सुमहत्तेषां गतिवशाद्भवेत् आकृष्यमाणास्तैरेवं व्योम्नि यान्त्यनिलाहताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.12",
+      "title": "2.12",
+      "text": "वक्रातिवक्रा विकला मन्दा मन्दतरा समा तथा शीघ्रतरा शीघ्रा ग्रहाणामष्टधा गतिः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.13",
+      "title": "2.13",
+      "text": "तत्रातिशीघ्रा शीघ्राख्या मन्दा मन्दतरा समा ऋज्वीति पञ्चधा ज्ञेया या वक्रा सातिवक्रगा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.14",
+      "title": "2.14",
+      "text": "तत्तद्गतिवशान्नित्यं यथा दृक्तुल्यतां ग्रहाः प्रयान्ति तत्प्रवक्ष्यामि स्फुटीकरणमादरात्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.15",
+      "title": "2.15",
+      "text": "राशिलिप्ताष्टमो भागः प्रथमं ज्यार्धमुच्यते तत्तद्विभक्तलब्धोनमिश्रितं तद्द्वितीयकम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.16",
+      "title": "2.16",
+      "text": "आद्येनैवं क्रमात्पिण्डान्भक्त्वा लब्धोनसंयुताः खण्डकाः स्युश्चतुर्विंशज्यार्धपिण्डाः क्रमादमी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.17",
+      "title": "2.17",
+      "text": "तत्त्वाश्विनो ऽङ्काब्धिकृता रूपभूमिधरर्तवः खाङ्काष्टौ पञ्चशून्येशा बाणरूपगुणेन्दवः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.18",
+      "title": "2.18",
+      "text": "शून्यलोचनपञ्चैकाश्छिद्ररूपमुनीन्दवः वियच्चन्द्रातिधृतयो गुणरन्ध्राम्बराश्विनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.19",
+      "title": "2.19",
+      "text": "मुनिषड्यमनेत्राणि चन्द्राग्निकृतदस्रकाः पञ्चाष्टविषयाक्षीणि कुञ्जराश्विनगाश्विनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.20",
+      "title": "2.20",
+      "text": "रन्ध्रपञ्चाष्टकयमा वस्वद्र्यङ्कयमास्तथा कृताष्टशून्यज्वलना नगाद्रिशशिवह्नयः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.21",
+      "title": "2.21",
+      "text": "षट्पञ्चलोचनगुणाश्चन्द्रनेत्राग्निवह्नयः यमाद्रिवह्निज्वलना रन्ध्रशून्यार्णवाग्नयः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.22",
+      "title": "2.22",
+      "text": "रूपाग्निसागरगुणा वस्वग्निकृतवह्नयः प्रोज्झ्योत्क्रमेण व्यासार्धादुत्क्रमज्यार्धपिण्डिकाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.23",
+      "title": "2.23",
+      "text": "मुनयो रन्ध्रयमला रसषट्का मुनीश्वराः द्व्यष्टैका रूपषड्दस्राः सागरार्थहुताशनाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.24",
+      "title": "2.24",
+      "text": "खर्तुवेदा नवाद्र्यर्था दिङ्नागास्त्र्यर्थकुञ्जराः नगाम्बरवियच्चन्द्रा रूपभूधरशंकराः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.25",
+      "title": "2.25",
+      "text": "शरार्णवहुताशैका भुजंगाक्षिशरेन्दवः नवरूपमहीध्रैका गजैकाङ्कनिशाकराः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.26",
+      "title": "2.26",
+      "text": "गुणाश्विरूपनेत्राणि पावकाग्निगुणाश्विनः वस्वर्णवार्थयमलास्तुरङ्गर्तुनगाश्विनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.27",
+      "title": "2.27",
+      "text": "नवाष्टनवनेत्राणि पावकैकयमाग्नयः गजाग्निसागरगुणा उत्क्रमज्यार्धपिण्डकाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.28",
+      "title": "2.28",
+      "text": "परमापक्रमज्या तु सप्तरन्ध्रगुणेन्दवः तद्गुणा ज्या त्रिजीवाप्ता तच्चापं क्रान्तिरुच्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.29",
+      "title": "2.29",
+      "text": "ग्रहं संशोध्य मन्दोच्चात्तथा शीघ्राद्विशोध्य च शेषं केन्द्रपदं तस्माद्भुजज्या कोटिरेव च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.30",
+      "title": "2.30",
+      "text": "गताद्भुजज्या विषमे गम्यात्कोटिः पदे भवेत् युग्मे तु गम्याद्बाहुज्या कोटिज्या तु गताद्भवेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.31",
+      "title": "2.31",
+      "text": "लिप्तास्तत्त्वयमैर्भक्ता लब्धं ज्यापिण्डिकं गताम् गतगम्यान्तराभ्यस्तं विभजेत्तत्त्वलोचनैः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.32",
+      "title": "2.32",
+      "text": "तदवाप्तफलं योज्यं ज्यापिण्डे गतसंज्ञके स्यात्क्रमज्याविधिरयमुत्क्रमज्यास्वपि स्मृतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.33",
+      "title": "2.33",
+      "text": "ज्यां प्रोज्झ्य शेषं तत्त्वाश्विहतं तद्विवरोद्धृतम् संख्यातत्त्वाश्विसंवर्गे संयोज्य धनुरुच्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.34",
+      "title": "2.34",
+      "text": "रवेर्मन्दपरिध्यंशा मनवः शीतगो रदाः युग्मान्ते विषमान्ते तु नखलिप्तोनितास्तयोः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.35",
+      "title": "2.35",
+      "text": "युग्मान्ते ऽर्थाद्रयः खाग्निसुराः सूर्या नवार्णवाः ओजे द्व्यगा वसुयमा रदा रुद्रा गजाब्दयः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.36",
+      "title": "2.36",
+      "text": "कुजादीनां अतः शीघ्रा युग्मान्ते ऽर्थाग्निदस्रकाः गुणाग्निचन्द्राः खनगा द्विरसाक्षीणि गोऽग्नयः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.37",
+      "title": "2.37",
+      "text": "ओजान्ते द्वित्रियमला द्विविश्वे यमपर्वताः खर्तुदस्रा वियद्वेदाः शीघ्रकर्मणि कीर्तिताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.38",
+      "title": "2.38",
+      "text": "ओजयुग्मान्तरगुणा भुजज्या त्रिज्ययोद्धृता युग्मे वृत्ते धनर्णं स्यादोजादूनाधिके स्फुटम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.39",
+      "title": "2.39",
+      "text": "तद्गुणे भुजकोटिज्ये भगणांशविभाजिते तद्भुजज्याफलधनुर्मान्दं लिप्तादिकं फलम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.40",
+      "title": "2.40",
+      "text": "शैघ्र्यं कोटिफलं केन्द्रे मकरादौ धनं स्मृतम् संशोध्यं तु त्रिजीवायां कर्क्यादौ कोटिजं फलम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.41",
+      "title": "2.41",
+      "text": "तद्बाहुफलवर्गैक्यान्मूलं कर्णश्चलाभिधः त्रिज्याभ्यस्तं भुजफलं चलकर्णविभाजितम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.42",
+      "title": "2.42",
+      "text": "लब्धस्य चापं लिप्तादिफलं शैघ्र्यमिदं स्मृतमेतदाद्ये कुजादीनां चतुर्थे चैव कर्मणि",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.43",
+      "title": "2.43",
+      "text": "मान्दं कर्मैकमर्केन्दोर्भौमादीनामथोच्यते शैघ्र्यं मान्दं पुनर्मान्दं शैघ्र्यं चत्वार्यनुक्रमात्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.44",
+      "title": "2.44",
+      "text": "मध्ये शीघ्रफलस्यार्धं मान्दमर्धफलं तथा मध्यग्रहे मन्दफलं सकलं शैघ्र्यमेव च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.45",
+      "title": "2.45",
+      "text": "अजादिकेन्द्रे सर्वेषां शैघ्र्ये मान्दे च कर्मणि धनं ग्रहाणां लिप्तादि तुलादावृणमेव च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.46",
+      "title": "2.46",
+      "text": "अर्कबाहुफलाभ्यस्ता ग्रहभुक्तिर्विभाजिता भचक्रकलिकाभिस्तु लिप्ताः कर्या ग्रहे ऽर्कवत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.47",
+      "title": "2.47",
+      "text": "स्वमन्दभुक्तिसंशुद्धा मध्यभुक्तिर्निशापतेः दोर्ज्यान्तरादिकं कृत्वा भुक्तावृणधनं भवेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.48",
+      "title": "2.48",
+      "text": "ग्रहभुक्तेः फलं कार्यं ग्रहवन्मन्दकर्मणि दोर्ज्यान्तरगुणा भुक्तिस्तत्त्वनेत्रोद्धृता पुनः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.49",
+      "title": "2.49",
+      "text": "स्वमन्दपरिधिक्षुण्णा भगणांशोद्धृता कलाः कर्क्यादौ तु धनं तत्र मकरादावृणं स्मृतम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.50",
+      "title": "2.50",
+      "text": "मन्दस्फुटीकृतां भुक्तिं प्रोज्झ्य शीघ्रोच्चभुक्तितः तच्छेषं विवरेणाथ हन्यात्त्रिज्यान्त्यकर्णयोः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.51",
+      "title": "2.51",
+      "text": "चलकर्णहृतं भुक्तौ कर्णे त्रिज्याधिके धनमृणमूने ऽधिके प्रोज्झ्य शेषं वक्रगतिर्भवेत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.52",
+      "title": "2.52",
+      "text": "दूरस्थितः स्वशीघ्रोच्चाद्ग्रहः शिथिलरश्मिभिः सव्येतराकृष्टतनुर्भवेत् वक्रगतिस्तदा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.53",
+      "title": "2.53",
+      "text": "कृतर्तुचन्द्रैर्वेदेन्द्रैः शून्यत्र्येकैर्गुणाष्टभिः शररुद्रैश्चतुर्थेषु केन्द्रांशैर्भूसुतादयः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.54",
+      "title": "2.54",
+      "text": "भवन्ति वक्रिणस्तैस्तु स्वैः स्वैश्चक्राद्विशोधितैः अवशिष्टांशतुल्यैः स्वैः केन्द्रैरुझन्ति वक्रताम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.55",
+      "title": "2.55",
+      "text": "महत्त्वाच् छीघ्रपरिधेः सप्तमे भृगुभूसुतौ अष्टमे जीवशशैजौ नवमे तु शनैश्चरः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.56",
+      "title": "2.56",
+      "text": "कुजार्किगुरुपातानां ग्रहवच् छीघ्रजं फलम् वामं तृतीयकं मान्दं बुधभार्गवयोः फलम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.57",
+      "title": "2.57",
+      "text": "स्वपातोनाद्ग्रहाज्जीवा शीघ्राद्भृगुजसौम्ययोः विक्षेपघ्न्यन्त्यकर्णाप्ता विक्षेपस्त्रिज्यया विधोः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.58",
+      "title": "2.58",
+      "text": "विक्षेपापक्रमैकत्वे क्रान्तिर्विक्षेपसंयुता दिग्भेदे वियुता स्पष्टा भास्करस्य यथागता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.59",
+      "title": "2.59",
+      "text": "ग्रहोदयप्राणहता खखाष्टैकोद्धृता गतिः चक्रासवो लब्धयुता स्वाहोरात्रासवः स्मृताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.60",
+      "title": "2.60",
+      "text": "क्रान्तेः क्रमोत्क्रम्मज्ये द्वे कृत्वा तत्रोत्क्रमज्यया हीना त्रिज्या दिनव्यासदलं तद्दक्षिणोत्तरम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.61",
+      "title": "2.61",
+      "text": "क्रान्तिज्या विषुवद्भाघ्नी क्षितिज्या द्वादशोद्धृता त्रिज्यागुणाहोरात्रार्धकर्णाप्ता चरजासवः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.62",
+      "title": "2.62",
+      "text": "तत्कार्मुकमुदक्क्रान्तौ धनशनी पृथक्स्थिते स्वाहोरात्रचतुर्भागे दिनरात्रिदले स्मृते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.63",
+      "title": "2.63",
+      "text": "याम्यक्रान्तौ विपर्यस्ते द्विगुणे तु दिनक्षपे विक्षेपयुक्तोनितया क्रान्त्या भानामपि स्वके",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.64",
+      "title": "2.64",
+      "text": "भभोगो ऽष्टशतीलिप्ताः खाश्विशैलास्तथा तिथेः ग्रहलिप्ताभभोगाप्ता भानि भुक्त्या दिनादिकम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.65",
+      "title": "2.65",
+      "text": "रवीन्दुयोगलिप्ताभ्यो योगा भभोगभाजिताः गता गम्याश्च षष्टिघ्न्यो भुक्तियोगाप्तनाडिकाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.66",
+      "title": "2.66",
+      "text": "अर्कोनचन्द्रलिप्ताभ्यस्तिथयो भोगभाजिताः गता गम्याश्च षष्टिघ्न्यो नाड्यो भुक्त्यन्तरोद्धृताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.67",
+      "title": "2.67",
+      "text": "ध्रुवाणि शकुनिर्नागं तृतीयं तु चतुष्पदम् किंस्तुघ्नं तु चतुर्दश्याः कृष्णायाश्चापरार्धतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.68",
+      "title": "2.68",
+      "text": "बवादीनि ततः सप्त चराख्यकरणानि च मासे ऽष्टकृत्व एकैकं करणानां प्रवर्तते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    },
+    {
+      "id": "2.69",
+      "title": "2.69",
+      "text": "तिथ्यर्धभोगं सर्वेषां करणानां प्रकल्पयेत् एषा स्फुटगतिः प्रोक्ता सूर्यादीनां खचारिणाम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-pilot"
+      ]
+    }
+  ]
+}

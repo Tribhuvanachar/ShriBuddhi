@@ -1,0 +1,875 @@
+{
+"_how_to_answer": "Reply with ONE JSON list, one object per id, nothing else. decision: 'dge' (the DGE Madhva text is what the print shows, modulo OCR noise) | 'printed' (the print genuinely differs — give the exact printed text in verified_text) | 'vision' (Vision OCR is right as it stands) | 'unsure'. For missing_verse give verified_text (full verse, no number), bhagavata_ref 's.a.v' and pdf_page. If a neighbouring verse's current_text is really this verse (the OCR merged two verses), also add an object for that neighbour's id (e.g. BS_V005) with its correct verified_text and bhagavata_ref. Keep note to one line.",
+"_answer_shape": {
+"id": "BS_V042",
+"decision": "dge|printed|vision|unsure",
+"verified_text": "… or null",
+"bhagavata_ref": "10.1.14 or null",
+"pdf_page": 128,
+"note": "…"
+},
+"chunk": "1 of 4",
+"items": [
+{
+"id": "BS_V006",
+"type": "missing_verse",
+"verse_num": 6,
+"prakarana_no": 1,
+"prakarana": "भागवतागतिप्रकरणम्",
+"neighbours": {
+"prev": {
+"verse_num": 5,
+"pdf_page": 103,
+"bhagavata_ref": "1.5.5",
+"current_text": "अतो महाभाग भवानमोघदृक् शुचिश्रवाः सत्यरतो धृतवतः। उरुक्रमस्याखिलबन्धमुक्तये समाधिनाऽनुस्मर यद्विचेष्टितम्॥"
+},
+"next": {
+"verse_num": 7,
+"pdf_page": 104,
+"bhagavata_ref": "12.12.61",
+"current_text": "स्वसुखनिभृतचेतास्तद्व्युदस्तान्यभावोऽप्यजितरुचिरलीलाकृष्टसारस्तदीयम्। व्यतनुत कृपया यस्तत्वदीपं पुराणं तमखिलवृजिनघ्नं व्याससूनुं नतोऽस्मि॥"
+}
+},
+"pdf_page": [
+103,
+104
+],
+"book_ref": null,
+"ocr_vision": null,
+"ocr_tesseract": null,
+"ocr_context": [
+{
+"pdf_page": 103,
+"vision": "अतो महाभाग भवानमोघदृक् शुचिश्रवाः सत्यरतो धृतव्रतः ।",
+"tesseract": "अतो महामाग भवानमोघटक्‌ शुचिश्रवाः सत्यरतो ಇತ್‌: ।"
+},
+{
+"pdf_page": 103,
+"vision": "उरुक्रमस्याखिलधर्मगुप्तये समाधिनानुस्मर यद्विचेष्टितम्",
+"tesseract": "उर्क्रमस्याखिकधर्मगुप्ये समाधिनानुस्मर यद्विचे्टितम्‌  ॥ ६ ॥"
+},
+{
+"pdf_page": 103,
+"vision": "। १।५।५।",
+"tesseract": "| १। ५। ५]",
+"printed_ref": "1.5.5"
+},
+{
+"pdf_page": 103,
+"vision": "॥६॥"
+},
+{
+"pdf_page": 104,
+"vision": "स्वसुखनिभृतचेतास्तद्व्युदस्तान्यभावो-",
+"tesseract": "स्वसुखनिभृतचेतास्तद्व्युदस्तान्यभावो-"
+},
+{
+"pdf_page": 104,
+"vision": "प्यजितरुचिरलीलाकृष्टसारस्तदीयम् ।",
+"tesseract": "प्यजितरुचिरखीटाक्रष्टसारस्तदीयम्‌ |"
+},
+{
+"pdf_page": 104,
+"vision": "व्यतनुत कृपया यस्तत्त्वदीपं पुराणं",
+"tesseract": "व्यतनुत कृपया यस्तत्त्ववीपं पुराणं"
+},
+{
+"pdf_page": 104,
+"vision": "तमखिलवृजिनघ्नं व्याससूनुं नतोऽस्मि ॥७॥",
+"tesseract": "तमखिलवृजिनघ्नं व्याससूनुं नतोऽस्मि ॥७॥"
+},
+{
+"pdf_page": 104,
+"vision": "१२ । १२ । ६१ ।",
+"tesseract": "१२ । १२ । ६१ ।",
+"printed_ref": "12.12.61",
+"ref_assigned_to_verse": 7
+},
+{
+"pdf_page": 104,
+"vision": "६"
+},
+{
+"pdf_page": 104,
+"vision": "Rarest Archiver"
+}
+],
+"dge_mula_candidate": [
+{
+"ref": "1.5.5",
+"text": "अस्त्येव मे सर्वमिदं त्वयोक्तं तथापि नात्मा परितुष्यते मे। तन्मूलमव्यक्तमगाधबोधं पृच्छामहे त्वाऽऽत्मभवात्मभूतम्॥"
+}
+],
+"issue": "Printed index says prakaraṇa 1 has verse 6, but OCR structure found no verse between 5 (p.103) and 7 (p.104). Find it in ocr_context (a verse line + its ref line '। s । a । v ।'), or say it is absent/misnumbered. Check whether prev/next current_text is actually verse 6."
+},
+{
+"id": "BS_V009",
+"type": "missing_verse",
+"verse_num": 9,
+"prakarana_no": 1,
+"prakarana": "भागवतागतिप्रकरणम्",
+"neighbours": {
+"prev": {
+"verse_num": 8,
+"pdf_page": 105,
+"bhagavata_ref": "3.5.12",
+"current_text": "मुनिर्विवक्षुर्भगवद्गुणानां सखाऽपि ते भारतमाह कृष्णः। यस्मिन् नृणां ग्राम्यसुखानुवादैर्मतिर्गृहीता न हरेः कथायाम्॥"
+},
+"next": {
+"verse_num": 10,
+"pdf_page": 107,
+"bhagavata_ref": "3.5.15",
+"current_text": "तदस्य कौषारव शर्मदातुर्हरेः कथामेव कथासु सारम्। उद्धृत्य पुष्पेभ्य इवार्तबन्धो शिवाय नः कीर्तय तीर्थकीर्तेः॥"
+}
+},
+"pdf_page": [
+105,
+107
+],
+"book_ref": null,
+"ocr_vision": null,
+"ocr_tesseract": null,
+"ocr_context": [
+{
+"pdf_page": 105,
+"vision": "मुनिर्विवक्षुर्भगवद्गुणानां सखापि ते भारतमाह कृष्णः ।",
+"tesseract": "मुनिर्विवक्षुर्भगवद्गुणानां सखापि ते भारतमाह कृष्णः"
+},
+{
+"pdf_page": 105,
+"vision": "यस्मिन्नृणां ग्राम्यसुखानुवादैर्मतिर्गृहीता न हरेः कथायाम्",
+"tesseract": "यस्मिन्चणां ग्राम्यसुखानुवादैर्मतिरगृहीता न हरेः कथायाम्‌ ॥ ९॥"
+},
+{
+"pdf_page": 105,
+"vision": "। ३ । ५ । १२ ।",
+"tesseract": "। ३।५।१२।",
+"printed_ref": "3.5.12"
+},
+{
+"pdf_page": 105,
+"vision": "अध्यगान्महदाख्यानं"
+},
+{
+"pdf_page": 105,
+"vision": "नित्यं"
+},
+{
+"pdf_page": 105,
+"vision": "॥ ८॥"
+},
+{
+"pdf_page": 105,
+"vision": "। २ । ३ । २५ ।"
+},
+{
+"pdf_page": 105,
+"vision": "॥९॥"
+},
+{
+"pdf_page": 106,
+"vision": "।"
+},
+{
+"pdf_page": 106,
+"vision": "Rarest Archiver"
+},
+{
+"pdf_page": 107,
+"vision": "तदस्य कौषारव शर्मदातुर्हरेः कथामेव कथासु सारम् ।",
+"tesseract": "तदस्य कौषारव द्रार्मदातु्हरः कथामेव कथासु सारम्‌ |"
+},
+{
+"pdf_page": 107,
+"vision": "उद्धृत्य पुष्पेभ्य इवार्तबन्धो शिवाय नः कीर्तय तीर्थकीर्तेः ॥ १० ॥",
+"tesseract": "उद्धत्य पुष्पेभ्य इवार्तबन्धो दिवाय नः कीर्तय तीर्थकीर्तेः ॥ १०॥"
+},
+{
+"pdf_page": 107,
+"vision": "३ । ५ । १५ ।",
+"tesseract": "२३।५। १५।",
+"printed_ref": "3.5.15",
+"ref_assigned_to_verse": 10
+},
+{
+"pdf_page": 107,
+"vision": "ब्रह्मादीन्प्रत्युपदेशायोगादिति ॥ १० ॥",
+"tesseract": "बरह्मादीन्प्रत्युपदेरायोगादिति ॥ ₹0 ॥"
+}
+],
+"dge_mula_candidate": [
+{
+"ref": "3.5.12",
+"text": "मुनिर्विवक्षुर्भगवद्गुणानां सखाऽपि ते भारतमाह कृष्णः। यस्मिन् नृणां ग्राम्यसुखानुवादैर्मतिर्गृहीता न हरेः कथायाम्॥"
+}
+],
+"issue": "Printed index says prakaraṇa 1 has verse 9, but OCR structure found no verse between 8 (p.105) and 10 (p.107). Find it in ocr_context (a verse line + its ref line '। s । a । v ।'), or say it is absent/misnumbered. Check whether prev/next current_text is actually verse 9."
+},
+{
+"id": "BS_V035",
+"type": "missing_verse",
+"verse_num": 35,
+"prakarana_no": 3,
+"prakarana": "शुकागमप्रकरणम्",
+"neighbours": {
+"prev": {
+"verse_num": 34,
+"pdf_page": 123,
+"bhagavata_ref": "1.20.2",
+"current_text": "तं द्व्यष्टवर्षं सुकुमारपादकरोरुबाह्वंसकपोलगात्रम्। चार्वारुणाक्षोन्नसतुल्यकर्णं सुभ्व्राननं कम्बुसुजातकण्ठम्॥"
+},
+"next": {
+"verse_num": 36,
+"pdf_page": 123,
+"bhagavata_ref": "1.20.4",
+"current_text": "श्यामं सदाऽऽपीच्यवयोङ्गलक्ष्म्या स्त्रीणां मनोज्ञं रुचिरस्मितेन। प्रत्युत्थिता मुनयश्चासनेभ्यः तल्लक्षणज्ञा अपि गूढवर्चसम्॥"
+}
+},
+"pdf_page": [
+123,
+123
+],
+"book_ref": null,
+"ocr_vision": null,
+"ocr_tesseract": null,
+"ocr_context": [
+{
+"pdf_page": 123,
+"vision": "तं द्व्यष्टवर्षं सुकुमारपादकरोरुबाह्वंसकपोलगात्रम् ।",
+"tesseract": "तं द्वष्टवर्षं सुकुमारपादकरोरुबाहंसकपोलगात्रम्‌ |"
+},
+{
+"pdf_page": 123,
+"vision": "चार्वारुणाक्षोन्नसतुल्यकर्णं शुभ्राननं कम्बुसुजातकण्ठम्",
+"tesseract": "चावरूणाक्षोन्नसतुल्यकर्णं ಕ್ಷಣಗಳ कम्बुसुजातकण्ठम्‌ ॥ ३८ \\"
+},
+{
+"pdf_page": 123,
+"vision": "। १ । २० । २ (४)",
+"tesseract": "| १।२०। २ (८)",
+"printed_ref": "1.20.2"
+},
+{
+"pdf_page": 123,
+"vision": "श्यामं सदापीच्यवयोऽङ्गलक्ष्म्या स्त्रीणां मनोज्ञं रुचिरस्मितेन ।",
+"tesseract": "ಕತ सदापीच्यवयोऽङ्कलक्ष्म्या स्त्रीणां मनोज्ञं रुचिरस्मितेन |"
+},
+{
+"pdf_page": 123,
+"vision": "प्रत्युस्थिता मुनयश्चासनेभ्यस्तल्लक्षणज्ञा अपि गूढवर्चसम् ॥ ३६ ॥",
+"tesseract": "परतयुस्थिता मुनयश्चासनेभ्यस्तद्छक्षणज्ञा अपि गूढवर्चसम्‌ ॥ ३६ |"
+},
+{
+"pdf_page": 123,
+"vision": "। १ । २० । ४ (६)",
+"tesseract": "। १। २०1 ४ (६)",
+"printed_ref": "1.20.4",
+"ref_assigned_to_verse": 36
+},
+{
+"pdf_page": 123,
+"vision": "॥ ३४ ॥"
+},
+{
+"pdf_page": 123,
+"vision": "॥ ३५ ॥"
+},
+{
+"pdf_page": 123,
+"vision": "। १ । २० । ३ (५)"
+}
+],
+"dge_mula_candidate": [
+{
+"ref": "1.20.2",
+"text": "तं द्व्यष्टवर्षं सुकुमारपादकरोरुबाह्वंसकपोलगात्रम्। चार्वारुणाक्षोन्नसतुल्यकर्णं सुभ्व्राननं कम्बुसुजातकण्ठम्॥"
+}
+],
+"issue": "Printed index says prakaraṇa 3 has verse 35, but OCR structure found no verse between 34 (p.123) and 36 (p.123). Find it in ocr_context (a verse line + its ref line '। s । a । v ।'), or say it is absent/misnumbered. Check whether prev/next current_text is actually verse 35."
+},
+{
+"id": "BS_V069",
+"type": "missing_verse",
+"verse_num": 69,
+"prakarana_no": 5,
+"prakarana": "वैराग्यप्रकरणम्",
+"neighbours": {
+"prev": {
+"verse_num": 68,
+"pdf_page": 148,
+"bhagavata_ref": "10.54.53",
+"current_text": "निर्जित्य दिक्चक्रमभूतविग्रहो परासनस्थः समराजवन्दितः। गृहेषु मैथुन्यपरेषु योषितां क्रीडामृगः पूरुष ईश गीयते॥"
+},
+"next": {
+"verse_num": 70,
+"pdf_page": 149,
+"bhagavata_ref": "7.6.22",
+"current_text": "विद्वानपीत्थं दनुजाः कुटुम्बं पुष्णन् स्वलोकाय न कल्पते वै। यः स्वीयपारक्यविभिन्नभावस्तमः प्रपद्येत यथा विमूढः॥"
+}
+},
+"pdf_page": [
+148,
+149
+],
+"book_ref": null,
+"ocr_vision": null,
+"ocr_tesseract": null,
+"ocr_context": [
+{
+"pdf_page": 148,
+"vision": "विमोचितुं वामदृशां विहारक्रीडामृगोऽयं निगडोऽक्षिसर्गः ॥ ६८ ॥",
+"tesseract": "विमोचितुं वामददरां विहारकरीडामगोऽयं निगडोऽक्षिसर्गः ॥ ६८ ॥"
+},
+{
+"pdf_page": 148,
+"vision": "निर्जित्य दिक्चक्रमभूतविग्रहो वरासनस्थः समराजवन्दितः ।",
+"tesseract": "निर्जित्य दिक्चक्रमभूतविग्रहौ बरासनस्थः समराजवन्दितः |"
+},
+{
+"pdf_page": 148,
+"vision": "गृहेषु मैथुन्यपरेषु योषितां क्रीडामृगः पूरुष ईश गीयते",
+"tesseract": "गृहेषु मैथुन्यपरेषु योषितां क्रीडामगः पूरुष ईडा गीयते ॥ ६९ ॥"
+},
+{
+"pdf_page": 148,
+"vision": "। १० । ५४ । ५३ । (१३)",
+"tesseract": "| १० । ५४ । ५२ । (१२)",
+"printed_ref": "10.54.53"
+},
+{
+"pdf_page": 148,
+"vision": "५०"
+},
+{
+"pdf_page": 148,
+"vision": "। ७ । ६ । २३ । (१२)"
+},
+{
+"pdf_page": 148,
+"vision": "॥ ६९ ॥"
+},
+{
+"pdf_page": 149,
+"vision": "येनात्मा योषिता हृतः । क्रीडामृगश्चक्रवर्ती नरदेवशिखामणि’'रिति ॥ ६९ ॥",
+"tesseract": "येनात्मा योषिता हृतः | क्रीडामृगदचक्रवर्तीं नरदेवशिखामणि\" \"रिति ॥ ६९ ॥"
+},
+{
+"pdf_page": 149,
+"vision": "विद्वानपीत्थं दनुजाः कुटुम्बं पुष्णन् स्वलोकाय न कल्पते वै ।",
+"tesseract": "विद्वानपीत्थं दनुजाः कुप पुष्णन्‌ स्वलोकाय न कल्पते वै ।"
+},
+{
+"pdf_page": 149,
+"vision": "यत्स्वीयपारक्यविभिन्नभावस्तमः प्रपद्येत यथा विमूढः ॥ ७० ॥",
+"tesseract": "यत्स्वीयपारक्यविभिन्नभावस्तमः प्रपद्येत यथा विमूढः ॥ ७० ॥"
+},
+{
+"pdf_page": 149,
+"vision": "। ७ । ६ । २२ । (१४)",
+"tesseract": "1 ७।६। २२। (१४)",
+"printed_ref": "7.6.22",
+"ref_assigned_to_verse": 70
+},
+{
+"pdf_page": 149,
+"vision": "५१"
+},
+{
+"pdf_page": 149,
+"vision": "Rarest Archiver"
+}
+],
+"dge_mula_candidate": [
+{
+"ref": "10.54.53",
+"text": "निर्जित्य दिक्चक्रमभूतविग्रहो परासनस्थः समराजवन्दितः। गृहेषु मैथुन्यपरेषु योषितां क्रीडामृगः पूरुष ईश गीयते॥"
+}
+],
+"issue": "Printed index says prakaraṇa 5 has verse 69, but OCR structure found no verse between 68 (p.148) and 70 (p.149). Find it in ocr_context (a verse line + its ref line '। s । a । v ।'), or say it is absent/misnumbered. Check whether prev/next current_text is actually verse 69."
+},
+{
+"id": "BS_V166",
+"type": "missing_verse",
+"verse_num": 166,
+"prakarana_no": 11,
+"prakarana": "ब्रह्मोपदेशप्रकरणम्",
+"neighbours": {
+"prev": {
+"verse_num": 165,
+"pdf_page": 222,
+"bhagavata_ref": "8.8.22",
+"current_text": "एवं विमृश्याव्यभिचारिसद्गुणं पदं निजैकाश्रयिसद्गुणाश्रयम्। वव्रे वरं सर्वगुणैरपेक्षितं रमा मुकुन्दं निरपेक्षमीप्सितम्॥"
+},
+"next": {
+"verse_num": 167,
+"pdf_page": 224,
+"bhagavata_ref": "4.31.23",
+"current_text": "श्रियमनुचरतीं तदर्थिनश्च द्विपदपतीन् विबुधांश्च यः स्वपूर्णः। न भजति निजभृत्यवर्गतन्त्रः कथममुमुद्विसृजेत् पुमान् कृतज्ञः॥"
+}
+},
+"pdf_page": [
+222,
+224
+],
+"book_ref": null,
+"ocr_vision": null,
+"ocr_tesseract": null,
+"ocr_context": [
+{
+"pdf_page": 222,
+"vision": "क्वचिच्चिरायुर्न च शीलमङ्गलं क्वचित्तदप्यस्ति न वेद्यमायुषः ।",
+"tesseract": "क्चिचिरायुर्न च रीरमङ्लं क्चित्तदप्यस्ति न वेद्यमायुषः ।"
+},
+{
+"pdf_page": 222,
+"vision": "यत्रोभयं कुत्र च सोऽप्यमङ्गलः सुमङ्गलः कश्चन कांक्षते हि माम् ॥",
+"tesseract": "यत्रोभयं कु च सोऽप्यमद्लः सुमङ्गलः कदचन काक्षते हि माम्‌॥"
+},
+{
+"pdf_page": 222,
+"vision": "१६४ ।। ८ । ८ । २१ । (१८)",
+"tesseract": "१६६ ॥ ८ । ८ । २१। (१८)",
+"printed_ref": "8.8.21",
+"ref_assigned_to_verse": 164
+},
+{
+"pdf_page": 222,
+"vision": "'एवं विमृश्याऽव्यभिचारिसद्गुणं पदं निजैकाश्रयि सद्गुणाश्रयम् ।",
+"tesseract": "\"एवं विमूरयाऽव्यभिचारिसद्गुणं पदं निजैकाश्रयि सद्गुणाश्यम्‌ |"
+},
+{
+"pdf_page": 222,
+"vision": "वव्रे परं सर्वगुणैरपेक्षितं रमा मुकुन्दं निरपेक्षमीप्सितम् ॥ १६५ ॥",
+"tesseract": "वव्रे पर सर्वगुणैरपेक्षितं रमा मुकुन्दं निरपेक्षमीप्सितम्‌ ॥ १६५॥"
+},
+{
+"pdf_page": 222,
+"vision": "। ८ । ८ । २२ । (१९)",
+"tesseract": "। ८ । ८ । २२ । (१९)",
+"printed_ref": "8.8.22",
+"ref_assigned_to_verse": 165
+},
+{
+"pdf_page": 222,
+"vision": "१२४"
+},
+{
+"pdf_page": 222,
+"vision": "1"
+},
+{
+"pdf_page": 222,
+"vision": "तात्पर्ये ।"
+},
+{
+"pdf_page": 222,
+"vision": "Rarest Archiver"
+},
+{
+"pdf_page": 223,
+"vision": "१२५"
+},
+{
+"pdf_page": 223,
+"vision": "रपेक्षितमिति ।"
+},
+{
+"pdf_page": 223,
+"vision": "कामुकत्वोपल-"
+},
+{
+"pdf_page": 223,
+"vision": "॥ १६६ ॥"
+}
+],
+"dge_mula_candidate": null,
+"issue": "Printed index says prakaraṇa 11 has verse 166, but OCR structure found no verse between 165 (p.222) and 167 (p.224). Find it in ocr_context (a verse line + its ref line '। s । a । v ।'), or say it is absent/misnumbered. Check whether prev/next current_text is actually verse 166."
+},
+{
+"id": "BS_V248",
+"type": "missing_verse",
+"verse_num": 248,
+"prakarana_no": 20,
+"prakarana": "धर्मोपदेशप्रकरणम्",
+"neighbours": {
+"prev": {
+"verse_num": 247,
+"pdf_page": 325,
+"bhagavata_ref": "10.105.40",
+"current_text": "इत्थं परस्य निजधर्मरिरक्षयाऽत्तलीलातनोस्तदनुरूपविडम्बनानि। कर्माणि कर्मकषणानि यदूत्तमस्य गायेदमुष्य पदयोरनुवृत्तिमिच्छन्॥"
+},
+"next": {
+"verse_num": 249,
+"pdf_page": 326,
+"bhagavata_ref": "1.8.39",
+"current_text": "शृण्वन्ति गायन्ति गृणन्त्यभीक्ष्णशः स्मरन्ति नन्दन्ति तवेहितं जनाः। त एव पश्यन्त्यचिरेण तावकं भवप्रवाहोपरमं पदाम्बुजम्॥"
+}
+},
+"pdf_page": [
+325,
+326
+],
+"book_ref": null,
+"ocr_vision": null,
+"ocr_tesseract": null,
+"ocr_context": [
+{
+"pdf_page": 325,
+"vision": "२२७"
+},
+{
+"pdf_page": 325,
+"vision": "।"
+},
+{
+"pdf_page": 326,
+"vision": "शृण्वन्ति गायन्ति गृणन्त्यभीक्ष्णशः स्मरन्ति नन्दन्ति तवेहितं जनाः ।",
+"tesseract": "टण्वन्ति गायन्ति गुणन्त्यभीक्ष्णडाः स्मरन्ति नन्वन्ति तवेहितं जनाः ।"
+},
+{
+"pdf_page": 326,
+"vision": "त एव पश्यन्त्यचिरेण तावकं भवप्रवाहोपरमं पदाम्बुजम् ॥ २४९ ॥",
+"tesseract": "त एव पदयन्त्ययिरेण तावकं भवप्रवाहोपरमं पदाम्बुजम्‌ ॥ २४९ ॥"
+},
+{
+"pdf_page": 326,
+"vision": "। १ । ८ । ३९ । (१३)",
+"tesseract": "। १।८ । ३९ । (१२)",
+"printed_ref": "1.8.39",
+"ref_assigned_to_verse": 249
+},
+{
+"pdf_page": 326,
+"vision": "सर्वाणि मद्धिष्ण्यतया भवद्भिश्चराणि भूतानि सुता ध्रुवाणि ।",
+"tesseract": "सर्वाणि ಟ್‌ भवद्धिदचराणि भूतानि सुता धरुवाणि ।"
+},
+{
+"pdf_page": 326,
+"vision": "सम्भावितव्यानि पदे पदे वो विविक्तदृष्टिस्तदुतार्हणं? मे ॥ २५० ॥",
+"tesseract": "सम्भावितव्यानि पदे पदे बो विविक्तदष्टिस्तदुतार्हणं * मे ॥ २५० ॥"
+},
+{
+"pdf_page": 326,
+"vision": "। ५ । ५ । २६ । (१४)",
+"tesseract": "। ५ ५। २६ 1 (१४६)",
+"printed_ref": "5.5.26",
+"ref_assigned_to_verse": 250
+},
+{
+"pdf_page": 326,
+"vision": "२२८"
+},
+{
+"pdf_page": 326,
+"vision": "Rarest Archiver"
+}
+],
+"dge_mula_candidate": null,
+"issue": "Printed index says prakaraṇa 20 has verse 248, but OCR structure found no verse between 247 (p.325) and 249 (p.326). Find it in ocr_context (a verse line + its ref line '। s । a । v ।'), or say it is absent/misnumbered. Check whether prev/next current_text is actually verse 248."
+},
+{
+"id": "BS_V274",
+"type": "missing_verse",
+"verse_num": 274,
+"prakarana_no": 20,
+"prakarana": "धर्मोपदेशप्रकरणम्",
+"neighbours": {
+"prev": {
+"verse_num": 273,
+"pdf_page": 343,
+"bhagavata_ref": "2.9.6",
+"current_text": "सञ्चिन्तयन् द्व्यक्षरमेकदाऽम्भस्युपाशृृणोद् द्विर्गदितं वचो विभुः। स्पर्शेषु यत् षोडशमेकविंशं निष्किञ्चनानां नृप यद्धनं विदुः॥"
+},
+"next": {
+"verse_num": 275,
+"pdf_page": 344,
+"bhagavata_ref": "4.20.24",
+"current_text": "वरान् विभो त्वद् वरदेश्वराद् बुधः कथं वृणीते गुणविक्रियात्मनाम्। ये नारकाणामपि सन्ति चैहिकास्तानीश कैवल्यपतेर्वृणीत कः॥"
+}
+},
+"pdf_page": [
+343,
+344
+],
+"book_ref": null,
+"ocr_vision": null,
+"ocr_tesseract": null,
+"ocr_context": [
+{
+"pdf_page": 343,
+"vision": "स चिन्तयन् द्वयक्षरमेकदाम्भस्युपाशृणोद्विर्गदितं वचो विभुः ।",
+"tesseract": "स चिन्तयन्‌ द्ववक्षरमेकदाम्भस्युपाश्ुणोदद्धिर्गदितं वचो विभुः ।"
+},
+{
+"pdf_page": 343,
+"vision": "स्पर्शेषु यत्षोडशमेकविंशं निष्किञ्चनानां नृप यद्धनं विदुः ॥ २७३ ॥",
+"tesseract": "स्पर्दोषु यत्पोडकामेकविंहां निष्किश्चनानां नृप यद्धनं विदुः ॥ २७२ ॥"
+},
+{
+"pdf_page": 343,
+"vision": "। २ । ९ । ६ । (३७)",
+"tesseract": "। २।९।६। (२३७)",
+"printed_ref": "2.9.6",
+"ref_assigned_to_verse": 273
+},
+{
+"pdf_page": 343,
+"vision": "सत्यसति वा,"
+},
+{
+"pdf_page": 343,
+"vision": "२४५"
+},
+{
+"pdf_page": 344,
+"vision": "वरान्विभो त्वद्वरदेश्वराद्बुधः कथं वृणीते गुणविक्रियात्मनाम् ।",
+"tesseract": "वरान्विभो त्वद्वरदेक्‌ बराद्बुधः कथं बरृणीते गुणविक्रियात्मनाम्‌ |"
+},
+{
+"pdf_page": 344,
+"vision": "ये नारकाणामपि सन्ति देहिनां तानीश कैवल्यपतेर्वृणीत कः ॥ २७५ ॥",
+"tesseract": "ये नारकाणामपि सन्ति देहिनां तानीदा कैवल्यपतेर्बृणीत कः २९७५"
+},
+{
+"pdf_page": 344,
+"vision": "। ४ । २० । २४ । (३९)",
+"tesseract": "। & । २०। २६ । (३९)",
+"printed_ref": "4.20.24",
+"ref_assigned_to_verse": 275
+},
+{
+"pdf_page": 344,
+"vision": "२४६"
+},
+{
+"pdf_page": 344,
+"vision": "।। २७४ ॥"
+},
+{
+"pdf_page": 344,
+"vision": "। ६ । १६ । ३८ । (३८)"
+}
+],
+"dge_mula_candidate": null,
+"issue": "Printed index says prakaraṇa 20 has verse 274, but OCR structure found no verse between 273 (p.343) and 275 (p.344). Find it in ocr_context (a verse line + its ref line '। s । a । v ।'), or say it is absent/misnumbered. Check whether prev/next current_text is actually verse 274."
+},
+{
+"id": "BS_V317",
+"type": "missing_verse",
+"verse_num": 317,
+"prakarana_no": 21,
+"prakarana": "बिम्बोपदेशप्रकरणम्",
+"neighbours": {
+"prev": {
+"verse_num": 316,
+"pdf_page": 383,
+"bhagavata_ref": "3.10.6",
+"current_text": "तावद् भयं द्रविणगेहसुहृन्निमित्तं शोकः स्पृहा परिभवो विपुलश्च लोभः। तावन्ममेत्यसदवग्रह आर्तिमूलं यावन्न तेऽङ्घ्रिमभयं प्रवृणीत लोकः॥"
+},
+"next": {
+"verse_num": 318,
+"pdf_page": 385,
+"bhagavata_ref": "11.2.43",
+"current_text": "इत्यच्युताङ्घ्रिं भजतोऽनु प्रीत्या भक्तिर्विरक्तिर्भगवत्प्रबोधः। भवन्ति वै भागवतस्य राजन् ततः परां शान्तिमुपैति साक्षात्॥"
+}
+},
+"pdf_page": [
+383,
+385
+],
+"book_ref": null,
+"ocr_vision": null,
+"ocr_tesseract": null,
+"ocr_context": [
+{
+"pdf_page": 383,
+"vision": "विद्यातपः प्राणनिरोधमैत्रीतीर्थाभिषेकव्रतदानजाप्यैः ।",
+"tesseract": "विद्यातपःप्राणनिरोधमैत्रीवीर्थामिषेकव्रतदानजाप्यैः ।"
+},
+{
+"pdf_page": 383,
+"vision": "नात्यन्तशुद्धिं लभतेऽन्तरात्मा यथा हृदिस्थे भगवत्यनन्ते ॥ ३१५ ॥",
+"tesseract": "नात्यन्तशुद्धिं लभवेऽन्तरात्मा यथा हृदिस्थे भगवत्यनन्ते ॥ ३१५ ॥"
+},
+{
+"pdf_page": 383,
+"vision": "। १२ । ३ । ४८ । (२)",
+"tesseract": "। १२३४८ } (२)",
+"printed_ref": "12.3.48",
+"ref_assigned_to_verse": 315
+},
+{
+"pdf_page": 383,
+"vision": "तावद्भयं द्रविणदेहसुहृन्निमित्तं शोकः स्पृहा परिभवो विपुलश्च लोभः ।",
+"tesseract": "तावद्भयं द्रविणदेहसुहन्निमित्तं रोकः स्पृहा परिभवो विपुलश्च खोभः।"
+},
+{
+"pdf_page": 383,
+"vision": "तावन्ममेत्यसदवग्रह आर्तिमूलं यावन्न तेऽङ्घ्रिमभयं प्रवृणीत लोकः ॥",
+"tesseract": "तावन्ममेत्यसदवग्रह आर्तिमूलं यावन्न तेऽङ्मिभयं प्रवृणीत रोकः॥"
+},
+{
+"pdf_page": 383,
+"vision": "३१६ ।। ३ । १० । ६ । (३)",
+"tesseract": "३१६॥ ३।१०।६। (३)",
+"printed_ref": "3.10.6",
+"ref_assigned_to_verse": 316
+},
+{
+"pdf_page": 383,
+"vision": "२८५"
+},
+{
+"pdf_page": 384,
+"vision": "२८६"
+},
+{
+"pdf_page": 384,
+"vision": "३१७ ।। ११ । २ । ४२ । (४)"
+},
+{
+"pdf_page": 385,
+"vision": "इत्यच्युताङ्गिं भजतोऽनुवृत्त्या भक्तिर्विरक्तिर्भगवत्प्रबोधः ।",
+"tesseract": "इत्यच्युताङ्कं भजतोऽनुवृत्त्या भक्तिर्विरिक्तिर्भगवत्प्रबोधः ।"
+},
+{
+"pdf_page": 385,
+"vision": "भवन्ति वै भागवतस्य राजन् ततः परां शान्तिमुपैति साक्षात् ॥३१८॥",
+"tesseract": "भवन्ति वै भागवतस्य राजन्‌ ततः परां द्रान्तिमुपैति साक्षात्‌ ॥३१८॥"
+},
+{
+"pdf_page": 385,
+"vision": "। ११ । २ । ४३ । (५)",
+"tesseract": "। ११।२।४३। (५)",
+"printed_ref": "11.2.43",
+"ref_assigned_to_verse": 318
+},
+{
+"pdf_page": 385,
+"vision": "विचक्षणा यच्चरणोपसादनात्सङ्गं व्युदस्योभयतोऽन्तरात्मनः ।",
+"tesseract": "विचक्षणा यच्चरणोपसावनात्सङ्क व्युदस्योभयतोऽन्तरात्मनः |"
+},
+{
+"pdf_page": 385,
+"vision": "विदन्ति हि ब्रह्मगतिं गतक्लमास्तस्मै सुभद्रश्रवसे नमो नमः ॥ ३१९ ॥",
+"tesseract": "विदन्ति हि ब्रह्मगतिं गतङ्घमास्तस्मै सुभद्रश्रवसे नमो नमः ॥ ३१९ ॥"
+}
+],
+"dge_mula_candidate": null,
+"issue": "Printed index says prakaraṇa 21 has verse 317, but OCR structure found no verse between 316 (p.383) and 318 (p.385). Find it in ocr_context (a verse line + its ref line '। s । a । v ।'), or say it is absent/misnumbered. Check whether prev/next current_text is actually verse 317."
+},
+{
+"id": "BS_V365",
+"type": "missing_verse",
+"verse_num": 365,
+"prakarana_no": 31,
+"prakarana": "उपसंहारः",
+"neighbours": {
+"prev": {
+"verse_num": 364,
+"pdf_page": 436,
+"bhagavata_ref": "5.5.25",
+"current_text": "मत्तोऽप्यनन्तात्परतः परस्मात्स्वर्गापवर्गाधिपतेर्न किञ्चित्। येषां किमु स्यादितरेण तेषामकिञ्चनानां मयि भक्तिभाजाम्॥"
+},
+"next": {
+"verse_num": 366,
+"pdf_page": 438,
+"bhagavata_ref": "12.12.67",
+"current_text": "तमहमजमनन्तमात्मतन्त्रं जगदुदयस्थितिसंयमात्मशक्तिम्। द्युपतिभिरजशक्रशङ्कराद्यैर्दुरवसितस्तवमच्युतं नतोऽस्मि॥"
+}
+},
+"pdf_page": [
+436,
+438
+],
+"book_ref": null,
+"ocr_vision": null,
+"ocr_tesseract": null,
+"ocr_context": [
+{
+"pdf_page": 436,
+"vision": "मत्तोऽप्यनन्तात्परतः परस्मात्स्वर्गापवर्गाधिपतेर्न किञ्चित् ।",
+"tesseract": "मत्तोऽप्यनन्तात्परतः परस्मात्स्वर्गापवर्गाधिपतेर्न किञ्चित्‌ |"
+},
+{
+"pdf_page": 436,
+"vision": "येषां किमु स्यादितरेण तेषामकिञ्चनानामपि भक्तिभाजाम् ॥ ३६४ ॥",
+"tesseract": "येषां किमु स्यादितरेण तेषामकिश्चनानामपि भक्तिभाजाम्‌ ॥ २६४ ॥"
+},
+{
+"pdf_page": 436,
+"vision": "। ५ । ५ । २५ । (३)",
+"tesseract": "। ५। ५ । २५॥। (३)",
+"printed_ref": "5.5.25",
+"ref_assigned_to_verse": 364
+},
+{
+"pdf_page": 436,
+"vision": "३३८"
+},
+{
+"pdf_page": 436,
+"vision": "।"
+},
+{
+"pdf_page": 436,
+"vision": "Rarest Archiver"
+},
+{
+"pdf_page": 437,
+"vision": "॥ इति गुरुदक्षिणाप्रकरणम् ॥ ३० ॥",
+"tesseract": "| इति गुरुदक्षिणाप्रकरणम्‌ ॥ ३० ॥"
+},
+{
+"pdf_page": 437,
+"vision": "गुरुदक्षिणाप्रकरणम् ॥ ३० ॥",
+"tesseract": "गुरुदक्षिणाप्रकरणम्‌ | 30 ॥"
+},
+{
+"pdf_page": 437,
+"vision": "३३९"
+},
+{
+"pdf_page": 437,
+"vision": "॥ ३६५ ॥"
+},
+{
+"pdf_page": 438,
+"vision": "तमहमजमनन्तमात्मतन्त्रं जगदुदयस्थितिसंयमात्मशक्तिम् ।",
+"tesseract": "तमहमजमनन्तमात्मतन्त्रं जगदुदयस्थितिसंयमात्मदराक्तिम्‌ |"
+},
+{
+"pdf_page": 438,
+"vision": "घुपतिभिरजशक्रशङ्कारद्यैर्दुरवसितस्तवमच्युतं नतोऽस्मि ॥ ३६६ ॥",
+"tesseract": "दयुपतिभिरजङराक्राङ्खारययर्दुरबसितस्तवमच्युतं नतोऽस्मि ॥ ३६६ ॥"
+},
+{
+"pdf_page": 438,
+"vision": "। १२ । १२ । ६७ । (२)",
+"tesseract": "। १२। १२। ६७। (२)",
+"printed_ref": "12.12.67",
+"ref_assigned_to_verse": 366
+},
+{
+"pdf_page": 438,
+"vision": "उपचितनवशक्तिभिः स्व आत्मन्युपरचितस्थिरजङ्गमपालनाय ।",
+"tesseract": "उपचितनवङाक्तिभिः स्व आत्मन्युपरचितस्थिरजङ्मपालनाय |"
+}
+],
+"dge_mula_candidate": null,
+"issue": "Printed index says prakaraṇa 31 has verse 365, but OCR structure found no verse between 364 (p.436) and 366 (p.438). Find it in ocr_context (a verse line + its ref line '। s । a । v ।'), or say it is absent/misnumbered. Check whether prev/next current_text is actually verse 365."
+},
+{
+"id": "BS_V042",
+"type": "mismatch",
+"verse_num": 42,
+"prakarana": "शुकागमप्रकरणम्",
+"book_ref": "10.1.14",
+"pdf_page": 128,
+"ocr_vision": "प्रत्यर्च्य कृष्णचरितं कलिकल्मषघ्नं व्याहर्तुमारभत भागवतप्रधानः ॥ ४२ ॥",
+"ocr_tesseract": "प्रत्यर्च्य कुष्णयरितं कलिकल्मषघ्नं व्याहर्तुमारभत भागवतप्रधानः ॥ ४२ ॥",
+"dge_mula_candidate": "एवं निशम्य भृगुनन्दन साधुवादं वैयासकिः स भगवानथ विष्णुरातम्। प्रत्यर्च्य कृष्णचरितं कलिकल्मषघ्नं व्याहर्तुमारभत भागवतप्रधानः॥",
+"issue": "OCR and the DGE Madhva text for 10.1.14 differ substantially (similarity 0.694). Is the printed verse really 10.1.14, a different verse, or a variant reading? Give the exact printed text."
+}
+]
+}

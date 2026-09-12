@@ -1,0 +1,152 @@
+{
+  "_readme": "Canonical registry of citable WORKS (not individual granthas/editions) for DGE's cross-reference/entity-linking system — see dge/SEARCH_ARCHITECTURE.md. This is deliberately separate from taxonomy.json (which describes the FOLDER hierarchy of what's actually digitized) and library.json (which catalogs individual digitized editions/commentaries): an entity here is the abstract WORK a citation names (\"ब्रह्मसूत्रे\", \"अष्टाध्याय्याम्\"), which the resolver maps to one or more concrete corpus locations. Every part of DGE that needs to recognize a citation or display a canonical work name should read from here, not invent its own alias/label map (the exact anti-pattern that produced the taxonomy label drift documented in SEARCH_ARCHITECTURE.md's taxonomy-labels section). Display names for the WORK ITSELF (not its citation aliases) still resolve through library.js's DGE_PATH_LABELS/dgeSegLabel for the corpus category, so this file stores the Sanskrit/IAST facts about the work, not a duplicate general-purpose label map.",
+  "schema_version": 1,
+  "entities": {
+    "brahmasutra": {
+      "id": "brahmasutra",
+      "display_name": "Brahma Sūtra",
+      "sanskrit_name": "ब्रह्मसूत्रम्",
+      "iast_name": "Brahmasūtra",
+      "aliases": [
+        "ब्रह्मसूत्र", "ब्रह्मसूत्रे", "ब्रह्मसूत्रम्", "ब्रह्मसूत्राणि", "ब्रह्मसूत्रस्य",
+        "वेदान्तसूत्र", "वेदान्तसूत्रे", "शारीरकसूत्र", "शारीरकसूत्रे",
+        "brahma sutra", "brahmasutra", "brahmasutram", "vedanta sutra", "shariraka sutra"
+      ],
+      "abbreviations": ["ब्र.सू.", "ब्रा.सू.", "br.su.", "bs"],
+      "category": "darshana",
+      "corpus_id": "darshana/vedanta/dvaita/Anandamakaranda/sutra_prasthana/brahma_sutra_bhashya/mula",
+      "canonical_route": "darshana/vedanta/dvaita/Anandamakaranda/sutra_prasthana/brahma_sutra_bhashya/mula",
+      "route_type": "reader",
+      "reference_scheme": "adhyaya.pada.sutra",
+      "reference_components": ["adhyaya", "pada", "sutra"],
+      "jump_target_kind": "vedicId",
+      "jump_target_template": "BS_C{adhyaya:02d}_S{pada:02d}_V{sutra:02d}",
+      "notes": "Corpus text is Madhva's Brahma Sūtra Bhāṣya (mūla stratum only); this is the only Brahma Sūtra text presently digitized in DGE, so a bare 'ब्रह्मसूत्रे N.N.N' resolves here regardless of school. Verified against the real data.json: unit ids are 'BS_C01_S01_V02'-shaped (Chapter/Section/Verse), NOT a plain dotted number -- an earlier draft of this registry assumed '{adhyaya}.{pada}.{sutra}' directly, which never matched."
+    },
+    "ashtadhyayi": {
+      "id": "ashtadhyayi",
+      "display_name": "Aṣṭādhyāyī",
+      "sanskrit_name": "अष्टाध्यायी",
+      "iast_name": "Aṣṭādhyāyī",
+      "aliases": [
+        "अष्टाध्यायी", "अष्टाध्याय्याम्", "अष्टाध्याय्यां", "अष्टाध्यायीसूत्र", "पाणिनीयसूत्र",
+        "ashtadhyayi", "aṣṭādhyāyī", "panini sutra", "paninisutra"
+      ],
+      "abbreviations": ["पा.", "पा॰", "अ.", "pa."],
+      "category": "vedanga",
+      "corpus_id": "vedanga/vyakarana/ashtadhyayi/sutrapatha",
+      "canonical_route": "vyakarana/ashtadhyayi.html",
+      "route_type": "custom",
+      "route_template": "{base}#{adhyaya}.{pada}.{sutra}",
+      "reference_scheme": "adhyaya.pada.sutra",
+      "reference_components": ["adhyaya", "pada", "sutra"],
+      "jump_target_kind": "custom_page",
+      "notes": "Already has its own dedicated index/page and popover (dge/js/intellisense.js, window.dgeLookupSutra) built earlier in this project — the entity-linker's card reuses that page rather than the generic reader route. This is the SAME sūtra-citation detector's target vocabulary; entity-linker.js generalizes intellisense.js's engine to sources OTHER than the sūtra text itself (e.g. a Nyāya work quoting Pāṇini), rather than replacing it."
+    },
+    "rigveda": {
+      "id": "rigveda",
+      "display_name": "Ṛgveda",
+      "sanskrit_name": "ऋग्वेदः",
+      "iast_name": "Ṛgveda",
+      "aliases": [
+        "ऋग्वेद", "ऋग्वेदे", "ऋग्वेदस्य", "ऋक्संहिता", "ऋक्संहितायाम्",
+        "rigveda", "rgveda", "ṛgveda", "rig veda"
+      ],
+      "abbreviations": ["ऋ.", "ऋ॰", "rv"],
+      "category": "vedas",
+      "corpus_id": "vedas/rigveda/shakala_shakha/samhita",
+      "canonical_route": "vedas/rigveda/shakala_shakha/samhita/mandala_{mandala:02d}",
+      "route_type": "reader_templated",
+      "reference_scheme": "mandala.sukta.rik",
+      "reference_components": ["mandala", "sukta", "rik"],
+      "jump_target_kind": "vedicId",
+      "jump_target_template": "{mandala}.{sukta}.{rik}",
+      "notes": "Verified against dge/data/vedas/rigveda/shakala_shakha/samhita/mandala_01/data.json: each unit's own 'id' field IS the dotted mandala.sukta.rik reference (e.g. \"1.1.1\"), which core.js's normalizer carries through as vedicId for non-chapter Vedic schemas — no extra lookup table needed."
+    },
+    "bhagavata_purana": {
+      "id": "bhagavata_purana",
+      "display_name": "Bhāgavata Purāṇa",
+      "sanskrit_name": "श्रीमद्भागवतम्",
+      "iast_name": "Bhāgavata Purāṇa",
+      "aliases": [
+        "भागवत", "भागवते", "भागवतपुराण", "भागवतपुराणे", "श्रीमद्भागवत", "श्रीमद्भागवते",
+        "bhagavata", "bhagavatam", "srimad bhagavatam", "bhagavata purana"
+      ],
+      "abbreviations": ["भा.", "भाग.", "bhp"],
+      "category": "purana",
+      "corpus_id": "purana/maha_purana/bhagavata_purana",
+      "canonical_route": "purana/maha_purana/bhagavata_purana/skandha_{skandha:02d}",
+      "route_type": "reader_templated",
+      "reference_scheme": "skandha.adhyaya.shloka",
+      "reference_components": ["skandha", "adhyaya", "shloka"],
+      "jump_target_kind": "vedicId",
+      "jump_target_template": "Skandha {skandha}, Adhyaya {adhyaya} · {shloka}",
+      "notes": "Chapter-grouped schema (itihasa_purana_text): core.js sets vedicId to chapter.reference + ' · ' + shloka-number, e.g. \"Skandha 10, Adhyaya 14 · 8\" — verified against dge/data/purana/maha_purana/bhagavata_purana/skandha_10/data.json's adhyaya_01 chapter, whose 'reference' field is literally \"Skandha 10, Adhyaya 1\". This ONLY resolves correctly after the core.js dgeResolveQuickJumpTarget non-numeric-vedicId fix landed alongside this registry (see SEARCH_ARCHITECTURE.md) — before that fix every chapter-based vedicId collided on the same broken key."
+    },
+    "vishnu_purana": {
+      "id": "vishnu_purana",
+      "display_name": "Viṣṇu Purāṇa",
+      "sanskrit_name": "विष्णुपुराणम्",
+      "iast_name": "Viṣṇu Purāṇa",
+      "aliases": ["विष्णुपुराण", "विष्णुपुराणे", "vishnu purana", "viṣṇupurāṇa"],
+      "abbreviations": ["वि.पु.", "vp"],
+      "category": "purana",
+      "corpus_id": "purana/maha_purana/vishnu_purana",
+      "canonical_route": "purana/maha_purana/vishnu_purana/amsha_{amsha:02d}",
+      "route_type": "reader_templated",
+      "reference_scheme": "amsha.adhyaya",
+      "reference_components": ["amsha", "adhyaya"],
+      "jump_target_kind": "unresolved",
+      "notes": "Level 2 (named-work) detection only for tonight's pass — resolves to the work and, when an amsha number is present, to that amsha's grantha. Verse-level (adhyaya/shloka) deep-linking is deferred: this amsha's own chapter-reference string convention hasn't been verified against real data.json yet (see 'Deferred' in SEARCH_ARCHITECTURE.md)."
+    },
+    "mahabharata": {
+      "id": "mahabharata",
+      "display_name": "Mahābhārata",
+      "sanskrit_name": "महाभारतम्",
+      "iast_name": "Mahābhārata",
+      "aliases": ["महाभारत", "महाभारते", "mahabharata", "mahābhārata"],
+      "abbreviations": ["म.भा.", "mbh"],
+      "category": "itihasa",
+      "corpus_id": "itihasa/mahabharata",
+      "canonical_route": "itihasa/mahabharata/adi_parva/mula",
+      "route_type": "reader",
+      "reference_scheme": "parva.adhyaya.shloka",
+      "reference_components": ["parva", "adhyaya", "shloka"],
+      "jump_target_kind": "unresolved",
+      "notes": "Level 2 (named-work) only tonight. 18 parvas each need their own route entry (adi_parva shown as the representative landing route) plus a parva-name lookup for numbered citations (e.g. भारते शान्तिपर्वणि) — deferred, see SEARCH_ARCHITECTURE.md."
+    },
+    "ramayana": {
+      "id": "ramayana",
+      "display_name": "Rāmāyaṇa",
+      "sanskrit_name": "रामायणम्",
+      "iast_name": "Rāmāyaṇa",
+      "aliases": ["रामायण", "रामायणे", "ramayana", "rāmāyaṇa"],
+      "abbreviations": ["रा.", "ram"],
+      "category": "itihasa",
+      "corpus_id": "itihasa/ramayana",
+      "canonical_route": "itihasa/ramayana/bala_kanda/mula",
+      "route_type": "reader",
+      "reference_scheme": "kanda.sarga.shloka",
+      "reference_components": ["kanda", "sarga", "shloka"],
+      "jump_target_kind": "unresolved",
+      "notes": "Level 2 (named-work) only tonight, same reasoning as Mahābhārata — 7 kāṇḍas each need their own route (bāla kāṇḍa shown as representative)."
+    },
+    "sumadhvavijaya": {
+      "id": "sumadhvavijaya",
+      "display_name": "Sumadhvavijaya",
+      "sanskrit_name": "सुमध्वविजयः",
+      "iast_name": "Sumadhvavijaya",
+      "aliases": ["सुमध्वविजय", "सुमध्वविजये", "sumadhvavijaya", "sumadhva vijaya"],
+      "abbreviations": ["सु.वि.", "sv"],
+      "category": "kavya_alankara",
+      "corpus_id": "DvaitaVedanta/Itara/Kavya/sumadhva_vijaya",
+      "canonical_route": "DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_{sarga}",
+      "route_type": "reader_templated",
+      "reference_scheme": "sarga.shloka",
+      "reference_components": ["sarga", "shloka"],
+      "jump_target_kind": "shlokaNumber",
+      "jump_target_template": "{shloka}",
+      "notes": "The exact work the project lead's screenshot searched (कान्ताय → Sumadhvavijaya 1.1, the opening verse of Sarga 1). Included so the same example anchors both the plain-search test case AND the entity-linker's own test data."
+    }
+  }
+}

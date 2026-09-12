@@ -1,0 +1,649 @@
+{
+ "generated_note": "Commentary graph for the darśana tree. 'layer' is depth from the mūla: 0 mūla, 1 commentary, 2 sub-commentary, 3 gloss. The folder tree is flat; this file carries the real genealogy.",
+ "edges": [
+  {
+   "from": "darshanas/nyaya/prachina_nyaya/nyaya_sutra/bhashya_vatsyayana",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/prachina_nyaya/nyaya_sutra/mula"
+  },
+  {
+   "from": "darshanas/nyaya/prachina_nyaya/nyaya_sutra/varttika_uddyotakara",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/prachina_nyaya/nyaya_sutra/bhashya_vatsyayana"
+  },
+  {
+   "from": "darshanas/nyaya/prachina_nyaya/nyaya_sutra/tatparya_tika",
+   "type": "comments_on",
+   "layer": 3,
+   "verification": "verified",
+   "to": "darshanas/nyaya/prachina_nyaya/nyaya_sutra/varttika_uddyotakara"
+  },
+  {
+   "from": "darshanas/nyaya/prachina_nyaya/nyaya_sutra/tatparya_parishuddhi",
+   "type": "comments_on",
+   "layer": 4,
+   "verification": "verified",
+   "to": "darshanas/nyaya/prachina_nyaya/nyaya_sutra/tatparya_tika"
+  },
+  {
+   "from": "darshanas/nyaya/prachina_nyaya/nyaya_bhushana",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/prachina_nyaya/nyaya_sutra/mula"
+  },
+  {
+   "from": "darshanas/nyaya/prachina_nyaya/nyaya_manjari",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/prachina_nyaya/nyaya_sutra/mula"
+  },
+  {
+   "from": "darshanas/nyaya/prakarana/tarkasangraha/tika_dipika",
+   "type": "autocommentary",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/prakarana/tarkasangraha/mula"
+  },
+  {
+   "from": "darshanas/nyaya/prakarana/tarkasangraha/tika_nyayabodhini",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/prakarana/tarkasangraha/mula"
+  },
+  {
+   "from": "darshanas/nyaya/prakarana/tarkasangraha/tika_padakritya",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/prakarana/tarkasangraha/mula"
+  },
+  {
+   "from": "darshanas/nyaya/prakarana/tarkasangraha/tika_sarvasva",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/prakarana/tarkasangraha/mula"
+  },
+  {
+   "from": "darshanas/nyaya/prakarana/tarkasangraha/tika_nilakanthi",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/prakarana/tarkasangraha/tika_dipika"
+  },
+  {
+   "from": "darshanas/nyaya/prakarana/tarkasangraha/tika_bhaskarodaya",
+   "type": "comments_on",
+   "layer": 3,
+   "verification": "verified",
+   "to": "darshanas/nyaya/prakarana/tarkasangraha/tika_nilakanthi"
+  },
+  {
+   "from": "darshanas/nyaya/bhasha_pariccheda/karikavali/tika_siddhanta_muktavali",
+   "type": "autocommentary",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/bhasha_pariccheda/karikavali/mula"
+  },
+  {
+   "from": "darshanas/nyaya/bhasha_pariccheda/karikavali/tika_dinakari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/bhasha_pariccheda/karikavali/tika_siddhanta_muktavali"
+  },
+  {
+   "from": "darshanas/nyaya/bhasha_pariccheda/karikavali/tika_ramarudri",
+   "type": "comments_on",
+   "layer": 3,
+   "verification": "verified",
+   "to": "darshanas/nyaya/bhasha_pariccheda/karikavali/tika_dinakari"
+  },
+  {
+   "from": "darshanas/nyaya/bhasha_pariccheda/karikavali/tika_kiranavali",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/bhasha_pariccheda/karikavali/tika_siddhanta_muktavali"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/pratyaksha_khanda/aloka",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/pratyaksha_khanda/mathuri",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/aloka"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/pratyaksha_khanda/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/pratyaksha_khanda/jagadishi",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/pratyaksha_khanda/gadadhari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/aloka",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/mathuri",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/aloka"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/jagadishi",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/gadadhari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/panchalakshani",
+   "type": "section_of",
+   "topic": "vyapti",
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/panchalakshani/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/panchalakshani/jagadishi",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/panchalakshani/gadadhari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/chaturdashalakshani",
+   "type": "section_of",
+   "topic": "vyapti",
+   "verification": "plausible",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/chaturdashalakshani/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/chaturdashalakshani/gadadhari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/siddhanta_lakshana",
+   "type": "section_of",
+   "topic": "vyapti",
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/siddhanta_lakshana/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/siddhanta_lakshana/jagadishi",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/siddhanta_lakshana/gadadhari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/vyaptyanugama",
+   "type": "section_of",
+   "topic": "vyapti",
+   "verification": "plausible",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/vyaptyanugama/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/vyaptyanugama/jagadishi",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/samanya_nirukti",
+   "type": "section_of",
+   "topic": "hetvabhasa",
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/samanya_nirukti/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/samanya_nirukti/gadadhari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/savyabhichara",
+   "type": "section_of",
+   "topic": "hetvabhasa",
+   "verification": "plausible",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/savyabhichara/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/savyabhichara/gadadhari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/satpratipaksha",
+   "type": "section_of",
+   "topic": "hetvabhasa",
+   "verification": "plausible",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/satpratipaksha/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/satpratipaksha/gadadhari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/badha",
+   "type": "section_of",
+   "topic": "hetvabhasa",
+   "verification": "plausible",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/badha/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/badha/gadadhari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/badha_vibhajaka",
+   "type": "section_of",
+   "topic": "hetvabhasa",
+   "verification": "plausible",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/badha_vibhajaka/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/avayava",
+   "type": "section_of",
+   "topic": "avayava",
+   "verification": "plausible",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/avayava/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/avayava/gadadhari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/pakshata",
+   "type": "section_of",
+   "topic": "pakshata",
+   "verification": "plausible",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/pakshata/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/pakshata/gadadhari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/avacchedakata_nirukti",
+   "type": "section_of",
+   "topic": "avacchedakata",
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/avacchedakata_nirukti/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/avacchedakata_nirukti/gadadhari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/vyadhikarana",
+   "type": "section_of",
+   "topic": "vyapti",
+   "verification": "plausible",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/vyadhikarana/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/anumana_khanda/vadas/vyadhikarana/jagadishi",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/upamana_khanda/aloka",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/upamana_khanda/mathuri",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/aloka"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/upamana_khanda/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/upamana_khanda/jagadishi",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/upamana_khanda/gadadhari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/shabda_khanda/aloka",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/shabda_khanda/mathuri",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/aloka"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/shabda_khanda/didhiti",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/mula"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/shabda_khanda/jagadishi",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/navya_nyaya/tattvacintamani/shabda_khanda/gadadhari",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/nyaya/navya_nyaya/tattvacintamani/didhiti"
+  },
+  {
+   "from": "darshanas/nyaya/pramukha_prakarana/nyaya_kusumanjali/tika_bodhini",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "plausible",
+   "to": "darshanas/nyaya/pramukha_prakarana/nyaya_kusumanjali/mula"
+  },
+  {
+   "from": "darshanas/nyaya/pramukha_prakarana/nyaya_kusumanjali/tika_prakasha",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "plausible",
+   "to": "darshanas/nyaya/pramukha_prakarana/nyaya_kusumanjali/mula"
+  },
+  {
+   "from": "darshanas/nyaya/pramukha_prakarana/nyaya_kusumanjali/tika_makaranda",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "plausible",
+   "to": "darshanas/nyaya/pramukha_prakarana/nyaya_kusumanjali/tika_prakasha"
+  },
+  {
+   "from": "darshanas/vaisheshika/sutra_and_bhashya/prashastapada_bhashya",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/vaisheshika/sutra_and_bhashya/vaisheshika_sutra/mula"
+  },
+  {
+   "from": "darshanas/vaisheshika/sutra_and_bhashya/prashastapada_bhashya/tika_kiranavali",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/vaisheshika/sutra_and_bhashya/prashastapada_bhashya/mula"
+  },
+  {
+   "from": "darshanas/mimamsa/sutra_and_bhashya/mimamsa_sutra/shabara_bhashya",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/mimamsa/sutra_and_bhashya/mimamsa_sutra/mula"
+  },
+  {
+   "from": "darshanas/mimamsa/bhatta/shlokavarttika",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/mimamsa/sutra_and_bhashya/mimamsa_sutra/shabara_bhashya"
+  },
+  {
+   "from": "darshanas/mimamsa/bhatta/shlokavarttika/tika_kashika",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/mimamsa/bhatta/shlokavarttika/mula"
+  },
+  {
+   "from": "darshanas/mimamsa/bhatta/shlokavarttika/tika_nyayasudha",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/mimamsa/bhatta/shlokavarttika/mula"
+  },
+  {
+   "from": "darshanas/mimamsa/bhatta/shlokavarttika/tika_nyayaratnakara",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/mimamsa/bhatta/shlokavarttika/mula"
+  },
+  {
+   "from": "darshanas/mimamsa/bhatta/tantravarttika",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/mimamsa/sutra_and_bhashya/mimamsa_sutra/shabara_bhashya"
+  },
+  {
+   "from": "darshanas/mimamsa/bhatta/tuptika",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/mimamsa/sutra_and_bhashya/mimamsa_sutra/shabara_bhashya"
+  },
+  {
+   "from": "darshanas/mimamsa/prabhakara/brihati",
+   "type": "comments_on",
+   "layer": 2,
+   "verification": "verified",
+   "to": "darshanas/mimamsa/sutra_and_bhashya/mimamsa_sutra/shabara_bhashya"
+  },
+  {
+   "from": "darshanas/mimamsa/prabhakara/brihati/tika_rijuvimala",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/mimamsa/prabhakara/brihati/mula"
+  },
+  {
+   "from": "darshanas/mimamsa/prabhakara/brihati/tika_dipashikha",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/mimamsa/prabhakara/brihati/mula"
+  },
+  {
+   "from": "darshanas/mimamsa/prakarana/bhatta_dipika",
+   "type": "comments_on",
+   "layer": 1,
+   "verification": "verified",
+   "to": "darshanas/mimamsa/sutra_and_bhashya/mimamsa_sutra/mula"
+  }
+ ]
+}

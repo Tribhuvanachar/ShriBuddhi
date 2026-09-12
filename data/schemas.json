@@ -1,0 +1,645 @@
+{
+  "_readme": [
+    "Each key below is a schema name. taxonomy.json assigns a schema to a",
+    "folder subtree using a '_schema' field, and a default author using a",
+    "'_default_author' field. Both cascade: every folder below inherits its",
+    "nearest ancestor's value unless it (or something closer) overrides it.",
+    "",
+    "AUTHOR MODEL: most schemas below carry an optional per-item 'author'",
+    "field. Use it only when a single folder mixes works by different",
+    "authors (rare). Normally you don't need to set it per item - the",
+    "generator already writes the resolved '_default_author' into each",
+    "folder's data.json as 'default_author', so every item in that folder",
+    "is attributed correctly without repeating it. Set the item-level",
+    "'author' only to override that default for one specific item.",
+    "",
+    "The generator does NOT copy these field lists into every data.json -",
+    "each data.json just stores {'schema', 'default_author', 'items': []}.",
+    "This file is the single source of truth for what belongs in 'items'.",
+    "",
+    "'type' values are documentation hints (string / string[] / object[] /",
+    "number / boolean) - JSON itself doesn't enforce them.",
+    "",
+    "CROSS-REFERENCE + SEARCH SPINE (added in the v2 reconciliation pass): every",
+    "schema below now carries two common optional item-level fields regardless",
+    "of its type-specific fields -- 'references' and 'tags' -- so cross-library",
+    "search and citation-linking work uniformly across every content type. Each",
+    "schema also declares 'primaryTextField' (a schema-level property, not an",
+    "item field) so the search-index generator knows which field holds the main",
+    "searchable text for that type without hardcoding per-schema logic -- null",
+    "means the text lives inside a nested array (e.g. itihasa_purana_text's",
+    "'shlokas'), which the generator flattens instead."
+  ],
+  "generic": {
+    "description": "Fallback schema for folders with no specific content model yet (Pancharatra Agama, Dharmashastra digests, Sutras, Ancillary Vedangas).",
+    "item_fields": {
+      "id": {
+        "type": "string",
+        "required": true,
+        "notes": "short unique key within this folder"
+      },
+      "title": {
+        "type": "string",
+        "required": true
+      },
+      "author": {
+        "type": "string",
+        "required": false,
+        "notes": "override this folder's default_author, if different"
+      },
+      "text": {
+        "type": "string",
+        "required": false
+      },
+      "artha": {
+        "type": "string",
+        "required": false,
+        "notes": "meaning / translation, if any"
+      },
+      "bhashya": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{commentator, text, language}]"
+      },
+      "audio": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{title, url_or_path, type}]"
+      },
+      "notes": {
+        "type": "string",
+        "required": false
+      },
+      "references": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{target, unit_id, note}] -- target is another grantha's slug (e.g. 'puranas/bhagavata_purana/skandha_10'), unit_id is that grantha's own item id being pointed at (e.g. '10.29.1'). Used to build the library-wide backlinks index (see ARCHITECTURE_DECISIONS.md) so 'what cites this verse' works without scanning the whole corpus."
+      },
+      "tags": {
+        "type": "string[]",
+        "required": false,
+        "notes": "free-form keywords for cross-library search -- independent of the taxonomy path itself."
+      }
+    },
+    "primaryTextField": "text"
+  },
+  "vedic_text": {
+    "description": "Samhita mantras/riks, Brahmana/Aranyaka passages, and Upanishad sections. Used for every folder under 'vedas'. Fields are mostly optional because presence varies by layer (e.g. svara notation and devata mainly apply to Samhita mantras, not Brahmana prose; padapatha may not exist for every shakha). No 'author' field - Vedas are traditionally apaurusheya; the 'rishi' field below covers the seer associated with a given mantra, which is a different concept from authorship.",
+    "item_fields": {
+      "id": {
+        "type": "string",
+        "required": true,
+        "notes": "e.g. '1.1.1' for Mandala.Sukta.Rik, or 'prapathaka_1.khanda_1' for an Upanishad"
+      },
+      "reference": {
+        "type": "string",
+        "required": true,
+        "notes": "human-readable locator, e.g. 'Mandala 1, Sukta 1, Rik 1' or 'Prashna 3, Anuvaka 2'"
+      },
+      "samhita_patha": {
+        "type": "string",
+        "required": true,
+        "notes": "continuous (sandhi-joined) Sanskrit text, Devanagari"
+      },
+      "pada_patha": {
+        "type": "string",
+        "required": false,
+        "notes": "word-separated form; not always available for every text"
+      },
+      "svara_notation": {
+        "type": "string",
+        "required": false,
+        "notes": "accented text with udatta/anudatta/svarita marks, where available"
+      },
+      "rishi": {
+        "type": "string",
+        "required": false,
+        "notes": "the seer to whom this mantra is traditionally attributed - distinct from 'authorship'"
+      },
+      "devata": {
+        "type": "string",
+        "required": false,
+        "notes": "presiding deity, mainly relevant for Samhita mantras"
+      },
+      "chandas": {
+        "type": "string",
+        "required": false,
+        "notes": "metre name, mainly relevant for Samhita mantras"
+      },
+      "artha": {
+        "type": "string",
+        "required": false,
+        "notes": "plain meaning / translation"
+      },
+      "bhashya": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{commentator, text, language}] - e.g. Sayana, Madhva's Rigbhashya, etc. Multiple commentators can be listed"
+      },
+      "audio": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{title, url_or_path, type: 'recitation'|'explanation', reciter}]"
+      },
+      "notes": {
+        "type": "string",
+        "required": false
+      },
+      "references": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{target, unit_id, note}] -- target is another grantha's slug (e.g. 'puranas/bhagavata_purana/skandha_10'), unit_id is that grantha's own item id being pointed at (e.g. '10.29.1'). Used to build the library-wide backlinks index (see ARCHITECTURE_DECISIONS.md) so 'what cites this verse' works without scanning the whole corpus."
+      },
+      "tags": {
+        "type": "string[]",
+        "required": false,
+        "notes": "free-form keywords for cross-library search -- independent of the taxonomy path itself."
+      }
+    },
+    "primaryTextField": "samhita_patha"
+  },
+  "itihasa_purana_text": {
+    "description": "Shared schema for Ramayana, Mahabharata (+ Harivamsha khila), and the 18 Puranas/Upapuranas - all shloka-based Sanskrit narrative organized into sarga/adhyaya/skandha units. A specific Purana can override _schema at its own node in taxonomy.json if it needs extra fields.",
+    "item_fields": {
+      "id": {
+        "type": "string",
+        "required": true,
+        "notes": "e.g. 'sarga_01' or 'adhyaya_01'"
+      },
+      "reference": {
+        "type": "string",
+        "required": true,
+        "notes": "e.g. 'Bala Kanda, Sarga 1' or 'Skandha 1, Adhyaya 1'"
+      },
+      "author": {
+        "type": "string",
+        "required": false,
+        "notes": "override this folder's default_author (e.g. Vyasa) if a specific khanda/upapurana has a different traditional attribution"
+      },
+      "summary": {
+        "type": "string",
+        "required": false,
+        "notes": "one or two line synopsis of the sarga/adhyaya"
+      },
+      "shlokas": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{number, sanskrit_text, padaccheda, anvaya, artha, bhashya[]}] - padaccheda/anvaya optional, filled in only where available"
+      },
+      "characters_or_topics": {
+        "type": "string[]",
+        "required": false,
+        "notes": "useful for Puranas' encyclopedic/genealogical content"
+      },
+      "audio": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{title, url_or_path, type, reciter}]"
+      },
+      "notes": {
+        "type": "string",
+        "required": false
+      },
+      "references": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{target, unit_id, note}] -- target is another grantha's slug (e.g. 'puranas/bhagavata_purana/skandha_10'), unit_id is that grantha's own item id being pointed at (e.g. '10.29.1'). Used to build the library-wide backlinks index (see ARCHITECTURE_DECISIONS.md) so 'what cites this verse' works without scanning the whole corpus."
+      },
+      "tags": {
+        "type": "string[]",
+        "required": false,
+        "notes": "free-form keywords for cross-library search -- independent of the taxonomy path itself."
+      }
+    },
+    "primaryTextField": null
+  },
+  "smriti_dharmashastra_text": {
+    "description": "The 18 Smritis. Structurally similar to itihasa_purana_text (shloka-based, adhyaya-organized) but with a subject-matter tag since Smritis are organized by legal/ethical topic rather than narrative. Each Smriti's folder carries its own _default_author (its named rishi) in taxonomy.json.",
+    "item_fields": {
+      "id": {
+        "type": "string",
+        "required": true,
+        "notes": "e.g. 'adhyaya_01'"
+      },
+      "reference": {
+        "type": "string",
+        "required": true
+      },
+      "subject_matter": {
+        "type": "string[]",
+        "required": false,
+        "notes": "e.g. ['inheritance', 'varna_dharma', 'penance']"
+      },
+      "shlokas": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{number, sanskrit_text, artha, bhashya[]}]"
+      },
+      "audio": {
+        "type": "object[]",
+        "required": false
+      },
+      "notes": {
+        "type": "string",
+        "required": false
+      },
+      "references": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{target, unit_id, note}] -- target is another grantha's slug (e.g. 'puranas/bhagavata_purana/skandha_10'), unit_id is that grantha's own item id being pointed at (e.g. '10.29.1'). Used to build the library-wide backlinks index (see ARCHITECTURE_DECISIONS.md) so 'what cites this verse' works without scanning the whole corpus."
+      },
+      "tags": {
+        "type": "string[]",
+        "required": false,
+        "notes": "free-form keywords for cross-library search -- independent of the taxonomy path itself."
+      }
+    },
+    "primaryTextField": null
+  },
+  "stotra_text": {
+    "description": "Devotional hymns, e.g. Prahlada Krita Narasimha Stotra (DvaitaVedanta/Itara/Stotra/prahlada_kruta_narasimha, folder renamed from pns 23 Aug 2026; internal stotraCode stayed pns for localStorage continuity). Verse-by-verse, with heavier emphasis on audio (these are typically chanted) and a closing phala-shruti (benefits of recitation) section that most stotras have. Each stotra's folder carries its own _default_author in taxonomy.json (e.g. PrahladaKrutaNarasimha -> 'Bhakta Prahlada').",
+    "item_fields": {
+      "id": {
+        "type": "string",
+        "required": true,
+        "notes": "e.g. 'sloka_01'"
+      },
+      "sanskrit_text": {
+        "type": "string",
+        "required": true
+      },
+      "author": {
+        "type": "string",
+        "required": false,
+        "notes": "who composed this stotra - usually just inherit the folder's default_author; override here only for e.g. an anthology folder mixing several authors' stotras"
+      },
+      "transliteration": {
+        "type": "string",
+        "required": false
+      },
+      "artha": {
+        "type": "string",
+        "required": false,
+        "notes": "meaning of this sloka"
+      },
+      "bhashya": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{commentator, text}] - available commentaries, if any"
+      },
+      "audio": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{title, url_or_path, reciter, raga_tala}]"
+      },
+      "phala_shruti": {
+        "type": "string",
+        "required": false,
+        "notes": "benefit-of-recitation text, usually only present on the closing verse(s)"
+      },
+      "notes": {
+        "type": "string",
+        "required": false
+      },
+      "references": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{target, unit_id, note}] -- target is another grantha's slug (e.g. 'puranas/bhagavata_purana/skandha_10'), unit_id is that grantha's own item id being pointed at (e.g. '10.29.1'). Used to build the library-wide backlinks index (see ARCHITECTURE_DECISIONS.md) so 'what cites this verse' works without scanning the whole corpus."
+      },
+      "tags": {
+        "type": "string[]",
+        "required": false,
+        "notes": "free-form keywords for cross-library search -- independent of the taxonomy path itself."
+      },
+      "gemini_enrichment": {
+        "type": "object",
+        "required": false,
+        "notes": "{generated_at, model, segments: [{text, reference_ids?}], references: {ref_id: {...}}} -- written by tools/gemini_enrich.py; segments/references render as footnotes via dge/js/footnote-engine.js. Every reference's 'status' (verified/possible/unresolved) is decided locally by tools/reference_resolution against this corpus, never taken on Gemini's word alone. See dge/PENDING.md, 'Reference Resolution Engine'."
+      }
+    },
+    "primaryTextField": "sanskrit_text"
+  },
+  "grantha_prakarana_text": {
+    "description": "General-purpose schema for independent Sanskrit prose/shastraic treatises. Used for Vyasakuta granthas (Vyasatirtha, Raghavendra Swami, Vadiraja, etc. - their own independent works, as opposed to Sarvamoola which is Madhva's own corpus and now uses the mula/tika_jayatirtha/tippani split instead - see those three schemas below).",
+    "item_fields": {
+      "id": {
+        "type": "string",
+        "required": true,
+        "notes": "e.g. 'sutra_01' or a running paragraph number"
+      },
+      "reference": {
+        "type": "string",
+        "required": true
+      },
+      "author": {
+        "type": "string",
+        "required": false,
+        "notes": "override the folder's default_author if needed"
+      },
+      "mula_text": {
+        "type": "string",
+        "required": true,
+        "notes": "the original Sanskrit text for this unit"
+      },
+      "tika": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{commentator, text}] - if this particular grantha has its own sub-commentaries"
+      },
+      "artha": {
+        "type": "string",
+        "required": false,
+        "notes": "plain-language paraphrase"
+      },
+      "audio": {
+        "type": "object[]",
+        "required": false,
+        "notes": "e.g. discourse/pravachana recordings"
+      },
+      "notes": {
+        "type": "string",
+        "required": false
+      },
+      "references": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{target, unit_id, note}] -- target is another grantha's slug (e.g. 'puranas/bhagavata_purana/skandha_10'), unit_id is that grantha's own item id being pointed at (e.g. '10.29.1'). Used to build the library-wide backlinks index (see ARCHITECTURE_DECISIONS.md) so 'what cites this verse' works without scanning the whole corpus."
+      },
+      "tags": {
+        "type": "string[]",
+        "required": false,
+        "notes": "free-form keywords for cross-library search -- independent of the taxonomy path itself."
+      }
+    },
+    "primaryTextField": "mula_text"
+  },
+  "grantha_mula_text": {
+    "description": "The 'mula' (root-text) folder that sits inside every Sarvamoola work (e.g. sarvamoola_grantha/gita_prasthana/gita_bhashya/mula). Holds Sri Madhvacharya's own original Sanskrit text, unit by unit.",
+    "item_fields": {
+      "id": {
+        "type": "string",
+        "required": true,
+        "notes": "e.g. 'sutra_01', or a paragraph/verse number as appropriate to this particular work"
+      },
+      "reference": {
+        "type": "string",
+        "required": true
+      },
+      "sanskrit_text": {
+        "type": "string",
+        "required": true,
+        "notes": "Madhvacharya's original text for this unit"
+      },
+      "artha": {
+        "type": "string",
+        "required": false,
+        "notes": "plain-language paraphrase, if you want one independent of any tika"
+      },
+      "audio": {
+        "type": "object[]",
+        "required": false
+      },
+      "notes": {
+        "type": "string",
+        "required": false
+      },
+      "references": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{target, unit_id, note}] -- target is another grantha's slug (e.g. 'puranas/bhagavata_purana/skandha_10'), unit_id is that grantha's own item id being pointed at (e.g. '10.29.1'). Used to build the library-wide backlinks index (see ARCHITECTURE_DECISIONS.md) so 'what cites this verse' works without scanning the whole corpus."
+      },
+      "tags": {
+        "type": "string[]",
+        "required": false,
+        "notes": "free-form keywords for cross-library search -- independent of the taxonomy path itself."
+      },
+      "gemini_enrichment": {
+        "type": "object",
+        "required": false,
+        "notes": "{generated_at, model, segments: [{text, reference_ids?}], references: {ref_id: {...}}} -- written by tools/gemini_enrich.py; segments/references render as footnotes via dge/js/footnote-engine.js. Every reference's 'status' (verified/possible/unresolved) is decided locally by tools/reference_resolution against this corpus, never taken on Gemini's word alone. See dge/PENDING.md, 'Reference Resolution Engine'."
+      }
+    },
+    "primaryTextField": "sanskrit_text"
+  },
+  "grantha_tika_text": {
+    "description": "The 'tika_jayatirtha' folder that sits inside every Sarvamoola work. Holds Sri Jayatirtha's commentary specifically (each of his tikas on different Sarvamoola works has its own traditional title - e.g. Nyayasudha, Tattvaprakashika, Prameyadipika - store that title per-item rather than in the folder name, since one folder covers one tika text throughout).",
+    "item_fields": {
+      "id": {
+        "type": "string",
+        "required": true,
+        "notes": "matches the corresponding 'mula' item's id where possible, for cross-reference"
+      },
+      "reference": {
+        "type": "string",
+        "required": true
+      },
+      "tika_title": {
+        "type": "string",
+        "required": false,
+        "notes": "the traditional name of Jayatirtha's commentary on this specific work, e.g. 'Nyayasudha', 'Tattvaprakashika'"
+      },
+      "sanskrit_text": {
+        "type": "string",
+        "required": true,
+        "notes": "Jayatirtha's commentary text for this unit"
+      },
+      "artha": {
+        "type": "string",
+        "required": false
+      },
+      "audio": {
+        "type": "object[]",
+        "required": false
+      },
+      "notes": {
+        "type": "string",
+        "required": false
+      },
+      "references": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{target, unit_id, note}] -- target is another grantha's slug (e.g. 'puranas/bhagavata_purana/skandha_10'), unit_id is that grantha's own item id being pointed at (e.g. '10.29.1'). Used to build the library-wide backlinks index (see ARCHITECTURE_DECISIONS.md) so 'what cites this verse' works without scanning the whole corpus."
+      },
+      "tags": {
+        "type": "string[]",
+        "required": false,
+        "notes": "free-form keywords for cross-library search -- independent of the taxonomy path itself."
+      },
+      "gemini_enrichment": {
+        "type": "object",
+        "required": false,
+        "notes": "{generated_at, model, segments: [{text, reference_ids?}], references: {ref_id: {...}}} -- written by tools/gemini_enrich.py; segments/references render as footnotes via dge/js/footnote-engine.js. Every reference's 'status' (verified/possible/unresolved) is decided locally by tools/reference_resolution against this corpus, never taken on Gemini's word alone. See dge/PENDING.md, 'Reference Resolution Engine'."
+      }
+    },
+    "primaryTextField": "sanskrit_text"
+  },
+  "grantha_tippani_text": {
+    "description": "The 'tippani' folder that sits inside every Sarvamoola work. Holds independent sub-commentaries by later acharyas (Raghavendra Swami, Vadiraja, Vyasatirtha, Satyanatha Tirtha, etc.) on that specific work or on Jayatirtha's tika. See tippanikaras.json for the registry of known Tippanikara authors this field's 'author' should reference.",
+    "item_fields": {
+      "id": {
+        "type": "string",
+        "required": true
+      },
+      "reference": {
+        "type": "string",
+        "required": true
+      },
+      "author": {
+        "type": "string",
+        "required": true,
+        "notes": "the Tippanikara's name - should match an entry in tippanikaras.json"
+      },
+      "tippani_title": {
+        "type": "string",
+        "required": false,
+        "notes": "the traditional name of this specific tippani, if it has one"
+      },
+      "sanskrit_text": {
+        "type": "string",
+        "required": true
+      },
+      "artha": {
+        "type": "string",
+        "required": false
+      },
+      "audio": {
+        "type": "object[]",
+        "required": false
+      },
+      "notes": {
+        "type": "string",
+        "required": false
+      },
+      "references": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{target, unit_id, note}] -- target is another grantha's slug (e.g. 'puranas/bhagavata_purana/skandha_10'), unit_id is that grantha's own item id being pointed at (e.g. '10.29.1'). Used to build the library-wide backlinks index (see ARCHITECTURE_DECISIONS.md) so 'what cites this verse' works without scanning the whole corpus."
+      },
+      "tags": {
+        "type": "string[]",
+        "required": false,
+        "notes": "free-form keywords for cross-library search -- independent of the taxonomy path itself."
+      },
+      "gemini_enrichment": {
+        "type": "object",
+        "required": false,
+        "notes": "{generated_at, model, segments: [{text, reference_ids?}], references: {ref_id: {...}}} -- written by tools/gemini_enrich.py; segments/references render as footnotes via dge/js/footnote-engine.js. Every reference's 'status' (verified/possible/unresolved) is decided locally by tools/reference_resolution against this corpus, never taken on Gemini's word alone. See dge/PENDING.md, 'Reference Resolution Engine'."
+      }
+    },
+    "primaryTextField": "sanskrit_text"
+  },
+  "dasa_sahitya_composition": {
+    "description": "Kannada devotional compositions by the Haridasas (Dasakuta). Each Dasa's folder carries its own _default_author in taxonomy.json, with sub-folders by composition type (pada_kirtane, suladi, ugabhoga, mundige, dandaka, other_compositions).",
+    "item_fields": {
+      "id": {
+        "type": "string",
+        "required": true
+      },
+      "ankita_nama": {
+        "type": "string",
+        "required": false,
+        "notes": "the composer's signature/pen-name embedded in the composition, e.g. 'Purandara Vittala', 'Vijaya Vittala'"
+      },
+      "kannada_text": {
+        "type": "string",
+        "required": true
+      },
+      "transliteration": {
+        "type": "string",
+        "required": false
+      },
+      "artha": {
+        "type": "string",
+        "required": false,
+        "notes": "meaning/translation"
+      },
+      "raga_tala": {
+        "type": "string",
+        "required": false,
+        "notes": "musical setting, where relevant (especially for pada/kirtane and suladi)"
+      },
+      "audio": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{title, url_or_path, performer}]"
+      },
+      "notes": {
+        "type": "string",
+        "required": false
+      },
+      "references": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{target, unit_id, note}] -- target is another grantha's slug (e.g. 'puranas/bhagavata_purana/skandha_10'), unit_id is that grantha's own item id being pointed at (e.g. '10.29.1'). Used to build the library-wide backlinks index (see ARCHITECTURE_DECISIONS.md) so 'what cites this verse' works without scanning the whole corpus."
+      },
+      "tags": {
+        "type": "string[]",
+        "required": false,
+        "notes": "free-form keywords for cross-library search -- independent of the taxonomy path itself."
+      }
+    },
+    "primaryTextField": "kannada_text"
+  },
+  "dasa_pada_text": {
+    "description": "A single Haridasa devotional composition (pada/suladi/ugabhoga/...) imported from the public Haridasa-sahitya web archives via tools/DvaitaVedanta/Itara/DasaSahitya/. Kannada is the primary text; IAST/Devanagari are auto-transliterated.",
+    "item_fields": {
+      "id": {
+        "type": "string",
+        "required": true,
+        "notes": "composer-slug + url-hash"
+      },
+      "form": {
+        "type": "string",
+        "required": true,
+        "notes": "pada | suladi | ugabhoga | devaranama | aarati | mangala | kolu | shobhane | laali | dashavatara | sampradaya | kavya | mundige | dandaka | other"
+      },
+      "title": {
+        "type": "object",
+        "required": true,
+        "notes": "{kn, latin, iast, devanagari} -- kn is the source title, the rest are auto-transliterated (or source-supplied romanization for 'latin')"
+      },
+      "composer": {
+        "type": "string",
+        "required": true
+      },
+      "deity": {
+        "type": "string",
+        "required": false
+      },
+      "tags": {
+        "type": "string[]",
+        "required": false,
+        "notes": "axis:value tags (composer:, deity:, on:, theme:)"
+      },
+      "raga": {
+        "type": "string",
+        "required": false
+      },
+      "tala": {
+        "type": "string",
+        "required": false
+      },
+      "text": {
+        "type": "object",
+        "required": true,
+        "notes": "{kannada, iast, devanagari, source_roman} -- each a string[][] of stanzas -> lines; kannada is primary, the rest auto-transliterated (source_roman only when the source page supplied its own romanization)"
+      },
+      "meaning": {
+        "type": "string",
+        "required": false,
+        "notes": "word-meaning/artha block, when the source page has one"
+      },
+      "source": {
+        "type": "object",
+        "required": true,
+        "notes": "{site, url, attribution, fetched} -- every record keeps a visible source URL, non-commercial dharma-prachara/education/research use"
+      },
+      "also_at": {
+        "type": "string[]",
+        "required": false,
+        "notes": "other source URLs this same composition (by dedup fingerprint) was also found at"
+      }
+    },
+    "primaryTextField": "text"
+  }
+}

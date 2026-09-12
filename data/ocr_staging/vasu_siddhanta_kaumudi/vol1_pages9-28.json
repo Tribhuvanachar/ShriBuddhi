@@ -1,0 +1,393 @@
+{
+ "_readme": "Stage-1 output of tools/vasu_kaumudi_ocr.py -- inspect, then merge with tools/merge_staged_vasu_kaumudi.py. 'sk' is Vasu's serial number == kaumudi_order kaumudiIndex.",
+ "work": "vasu_siddhanta_kaumudi",
+ "volume": "1",
+ "source_url": "https://archive.org/download/Siddhanta_Kaumudi_English_Translation-SC_Vasu/SiddhantaKaumudiEngTranslationScVasuVolume1-1906.pdf",
+ "pages": [
+  9,
+  28
+ ],
+ "model": "gemini-flash-latest",
+ "generated": "2026-09-02T21:48:40Z",
+ "counts": {
+  "accept": 10,
+  "review": 24,
+  "unresolved": 0
+ },
+ "entries": [
+  {
+   "sk": 1,
+   "english": "1. In the (or of the) sutra हल् (14th sutra in the above) let the final letter (i. e. ल्) be 'इत्' ॥\n\nNote:—The sutra has been explained in two different ways by the author. First: \"In the (or of the) sûtra हल् (14th sûtra of the alphabet), the final consonant (i. e. ल्) is इत् ॥\" The second explanation, and the authoritative one is that which is given later on in the text, i. e. \"In upadesa or technical formulas and terms of grammar, the final consonant is non-efficient.\"",
+   "page": 11,
+   "classification": "review",
+   "chapter": "Chapter I: Definitions",
+   "note": "Embedded Devanagari reconstructed from context.",
+   "panini_ref": "1.3.3",
+   "partial": "",
+   "sutra_ocr": "१ । दान्त्यम् । १ । ३ । ३ ॥"
+  },
+  {
+   "sk": 2,
+   "english": "2. An initial letter, with a final ‹?› letter as a final, is the name of itself and of the intervening letters.\n\nApplying this sûtra to the technical term हल् (i.e. to the word हल् taken as a संज्ञा or technical term denoting all the consonants beginning with ह of sûtra 5, and ending with ल् of the last sûtra, and not as the sutra 14th, of the above alphabets); we come to the second interpretation of the sûtra हल् अन्त्यम् ॥",
+   "page": 11,
+   "classification": "review",
+   "chapter": "Chapter I: Definitions",
+   "note": "Embedded Devanagari reconstructed from clear context.",
+   "panini_ref": "1.1.71",
+   "partial": "",
+   "sutra_ocr": "२ । ब्रादिरन्त्येन सहेता । १ । १ । ७१ ॥"
+  },
+  {
+   "sk": 3,
+   "english": "3. In an Upadesa, let the final hal or consonant be called इत्.\n\nUpadesa means the first enunciation of a term in Grammar. (Really it is the name of those technical terms of grammar which are formed for this purpose of instruction only, but which are not the current words of the language). Thus we get the sanjñās or terms like अण्, and अच् &c.\n\nAll the final consonants of roots, affixes &c. are indicatory. As in the pratyâhâra sûtras; here ‹?› is ‹?›, ‹?› here ‹?› is ‹?› ॥",
+   "page": 11,
+   "classification": "review",
+   "chapter": "Chapter I: Definitions",
+   "note": "Serial number 24 corrected to 3 following sequential order; entry cut off at page end.",
+   "panini_ref": "1.3.3",
+   "partial": "head",
+   "sutra_ocr": "२ | हलन्त्यम् । १ १३ । ३ ॥"
+  },
+  {
+   "sk": 2,
+   "english": "sig; here is There is It is only in upadeśa, that a final consonant is ‹?›. Not therefore, in ‹?› or ‹?› which are complete words.\nNote:— This sutra ‹?› explains the mode of interpreting pratyāhāras. Thus the pratyāhāra ‹?› means those letters whose beginning is ‹?› and whose final is ‹?›.\nWhy do we say with the 'final indicatory letter?' Because a pratyāhāra like ‹?› would be otherwise ambiguous. It might be doubted whether it is formed with the final ‹?› of ‹?› and refers to the first five case-affixes, or whether it is of ‹?› and therefore refers to the first seven case-affixes.\nThe present sutra clears up the doubt. A pratyāhāra is formed with the final ‹?› and not with the initial ‹?› formed with the initial ‹?›.",
+   "page": 12,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "Continuation tail from previous page; embedded Devanagari heavily corrupted in source OCR.",
+   "panini_ref": "",
+   "partial": "tail",
+   "sutra_ocr": ""
+  },
+  {
+   "sk": 3,
+   "english": "3. The nasalized vowels are ‹?› in Upadeśa, or original enunciation.\nThe followers (or knowers of) Panini's Grammar say that the Anunāsika words in the sutra should be inferred by the way in which it is treated by Panini. Thus the ‹?› of the sutra (6th alphabet sutra), is considered as anunāsika, and therefore, it is ‹?›; the result of which is that we can form a Pratyāhāra ‹?› with the ‹?› of the sutra and the ‹?› of the sutra and thus this Pratyāhāra ‹?› Ra denotes the two letters ‹?› and ‹?› (This gives the reason why ‹?› was said to be in the 1st page.)\nIn counting the letters denoted by a Pratyāhāra the ‹?› letters should not be counted. Thus ‹?› denotes all the vowels only; the ‹?› letters, ‹?› and ‹?›, are not included. For letters ‹?› are not vowels, by Panini himself treating them as consonants; as the word ‹?› in this very sutra shows. For had ‹?› been a vowel, then the ‹?› of anunāsika would have been changed to ‹?› before ‹?›. Similarly in other places also Panini has shown that ‹?› is not a vowel.\nThe technical terms formed with the help of the sutra, ‹?› &c. (I. 1. 71 S. 2) are called Pratyāhāra.\nNote:— Anunāsika or nasalized vowels are ‹?› that is indicatory, when occurring in technical words. Thus in ‹?›, ‹?›, ‹?›, the anunāsika is ‹?›. The original sutra contains the word 'upadeśa' which we have translated as technical term. 'Upadeśa' literally means 'instruction' or the first mentioning of a thing either in a sūtrapāṭha, or gaṇapāṭha or dhātupāṭha &c.\nNote:— From this sutra up to sutra 9 of the third Pāda of the 1st Adhyāya of Pāṇini there is a description of servile or indicatory letters called ‹?›. \"In Pāṇini's Grammar there is no visible sign of the nasality of a vowel—hence we can know a vowel to be nasalized only from Pāṇini's explicitly asserting that it is so, or from our finding that he treats it in such a way that we must conclude he regarded it as nasal.\" An upadeśa is defined as signifying an original enunciation, that is to say, an affix (pratyaya), or an augment (āgama), or a verbal root (dhātu), or in short, any form of expression which occurs only in technical treatises of grammar, and which is not a word ready for use, but one of the supposed original elements of a word. Thus in the root एधँ 'to increase,' the final ‹?› is indicatory, the real root is एध् ॥ So also the final ‹?› of ‹?› in ‹?› ॥\nNote:— If the word is not an upadeśa, then the nasal vowel is not ‹?› ॥ A word may be an upadeśa and nasal, but if it is not a vowel, it need not be ‹?› as the affix ‹?› in sutra III. 2. 74 S. 3418 (‹?› &c.). It is only the nasal vowel of an upadeśa that becomes ‹?›, and not all the vowels. The word ‹?› occurs in sutras VII. 2. 16. S. 3036 (‹?› &c.).",
+   "page": 12,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "Entry spans page 12 to 13; reconstructed root एधँ explicitly identified by gloss 'to increase'.",
+   "panini_ref": "1.3.2",
+   "partial": "",
+   "sutra_ocr": "३ । उपदेशेऽजनुनासिक । १ । ३ । २ ॥"
+  },
+  {
+   "sk": 4,
+   "english": "4. A vowel whose time is that of short u, long u and the prolated u, is called respectively hrasva short, dirgha long, and pluta prolated.\n‹?›; that is, the ‹?› is the plural of ‹?›, (as ‹?› is the plural of ‹?›) ॥ (This denotes the three kinds of ‹?›. The genitive plural will be ‹?› meaning \"of u's\"). Let the vowels whose time is like the three u's, get respectively the name of hrasva, dīrgha and pluta. Each one of these again will be of three sorts, according as it is udātta, anudātta or svarita.\nThe vowel having one mātrā or measure is short, having two measures is long, having three measures is pluta. This sūtra defines the three kinds of vowels according to their mātrā. The letter u has been taken to illustrate the rule. The phrase ऊकालो is a Samāhāra Dvandva compound, in the singular, and is exhibited in the masculine gender, contrary to the general rule II. 4. 17 S. 821.\nThe word Kāla means measure of time required for pronouncing a vowel.\nAs दधि 'curd' मधु 'honey' here ‹?› and ‹?› are short. कुमारी, गौरी, here ‹?› is long. ‹?› Devadatta! Here ‹?› is pluta or prolated.\nThese words are used in the following sutras I. 2. 47 S. 318. VII. 4. 25. S. 2298 VIII. 2. 82 S. 93.",
+   "page": 13,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "Fixed OCR line transposition in the examples paragraph spanning pages 13-14.",
+   "panini_ref": "1.2.27",
+   "partial": "",
+   "sutra_ocr": "४ । ऊकालोऽज्झस्वदीर्घप्लुतः । १ । २ । २७ ॥"
+  },
+  {
+   "sk": 5,
+   "english": "5. The vowel that is perceived as having a high tone is called Udātta or acutely accented.\nLet that vowel be called udātta which is pronounced from the higher part of its proper place of pronunciation such as throat &c. as ‹?›. Here ‹?› being an indeclinable is udātta by the rule that declares all Nipātas are acutely accented on the first (निपाता आयुदात्ताः) ॥ ‹?› is the nom. Plural of ‹?› 'who' is acute on the final, being a substantive; for all Prātipadikas are antodātta by the rule 'फिषोऽन्त उदात्तः' (Phiṭ Sūtra II). यत् + जस् Here जस् being a ‹?› termination is anudātta by III. 1. 4 S. 3709. Then ‹?› of ‹?› is replaced by ‹?›; the affix ‹?› is replaced by शी (VII. 1. 17 S. 214.), and we have य् + ई, the ई the single substitute for य् + शी is udātta by VIII. 2. 5. S 3658.\nWith this sutra begins the description of the three sorts of vowel accents.\nThe accent placed on a vowel by raising the voice is called udātta or acute accent. The udātta is not marked in writing in Sanskrit. We have followed the German system, by putting a small ‹?› above the vowel. The word 'vowel' of the previous sūtra is understood in this also. These accents are the qualities of letters, and are well known in the sacred and profane literature. The vowel which is perceived as having a high tone is called udātta. This tone depends upon the organ from which the vowel is pronounced. In the various organs, such as the throat, palate &c. if a vowel is pronounced from a higher part of that organ, it is called udātta. The vowel in the pronouncing of which there is the restraining and checking of the bodily parts, and in which, there is dryness and roughness of tone, as well as a contraction of the larynx, is said to have the acute accent.",
+   "page": 14,
+   "classification": "accept",
+   "chapter": "Definitions",
+   "note": "",
+   "panini_ref": "1.2.26",
+   "partial": "",
+   "sutra_ocr": "५ । उचैरुदात्तः । १ । २ । २६ ॥"
+  },
+  {
+   "sk": 6,
+   "english": "6. The vowel that is perceived as having a low tone is called Anudātta or gravely accented.\nThe word \"vowel\" of s. 28 is understood in this sutra. As अर्वाङ् ॥ This is a compound of the noun अर्वन् with the verb अञ्च् (अर्वन्तमञ्चति) । The word ‹?› is formed from the root ‹?› 'to go' with the affix ‹?›, there is guṇa of ‹?› and we have ‹?› ॥ The affix ‹?› is anudātta, being a ‹?› affix, (III. 1. 4 S. 3709); and ‹?› being a dhātu is udātta (VI. 1. 162 S. 3671.)",
+   "page": 14,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "Devanagari sutra line serial number misread/misprinted as ५ instead of ६; corrected to 6 per English heading and strict numerical sequence.",
+   "panini_ref": "1.2.30",
+   "partial": "",
+   "sutra_ocr": "५ । नीचैरनुदात्तः । १ । २ । ३० ॥"
+  },
+  {
+   "sk": 6,
+   "english": "and so the word ‹?› is also adyudatta. The ar of ‹?› is also udatta, because it is a dhatu (VI. 1. 162 S. 3671). Then by II. 2. 19. S. 782 (उपपदादयः) we compound the upapada sa with ‹?›, and add the affix kvip by III. 2. 59. S. 373 (&c.). Then by samasa accent (VI. 1. 223. and 3734.) or by krit accent (VI. 2. 139 S. 3873) the word retains its accent, while the first member of the compound loses its accent. Then the ‹?› of ‹?› is elided, and we have अर्व् + अञ्च् = अर्वाङ्. The loss of accent takes place by VI. 1. 158 S. 3650.\nThe vowel accent known as grave or anudatta is pronounced by lowering the voice. In writing, the anudatta is marked by a line underneath the vowel.\nThe vowel which is uttered from the lower portions of its special place of pronunciation gets the grave accent.\nIn pronouncing an anudatta vowel, there is slackening of the organs, and mildness, as well as softness and sweetness of tone: while there is expansion and widening of the larynx.",
+   "page": 15,
+   "classification": "review",
+   "chapter": "DEFINITIONS",
+   "note": "Tail continuation of SK 6 from preceding page.",
+   "panini_ref": "",
+   "partial": "tail",
+   "sutra_ocr": ""
+  },
+  {
+   "sk": 7,
+   "english": "7. The vowel that has the combination of Udatta and Anudátta tones is said to be svarita or circumflexly accented.\nThe word \"vowel\" of I. 2. 28 S. 35 is understood here also. The svarita or circumflexed accent is pronounced by the combined raising and falling of the voice. It is marked by a perpendicular line on the top of the letter.\nThe word is used in sutra VI. 1. 185 S. 3729. \"The affixes having an indicatory ‹?› have svarita accent.\" As kanya, शिक्यम् şikyam, क्व kvà.\nThis sutra is not to be understood to mean that a svarita is the resultant of the combination of two vowels, an udatta vowel with an anudatta vowel. It means the accent midway between the two well-known qualities of letters known as acute and grave accents.",
+   "page": 15,
+   "classification": "accept",
+   "chapter": "DEFINITIONS",
+   "note": "",
+   "panini_ref": "1.2.31",
+   "partial": "",
+   "sutra_ocr": "समाहारः स्वरितः । १ । २ । ३१ ॥"
+  },
+  {
+   "sk": 8,
+   "english": "8. Of it (svarita) the first portion is udátta, to the extent of a half measure, or prosodial length.\nThe word hrasva in the Sutra is redundant. In a Svarita accent, the first half portion is to be understood to have the udatta accent. The remaining half, will consequently be anudatta. If an udatta or another svarita follows it then this anudatta portion of the accent is distinctly heard. Otherwise, according to Pratisakhyas, the udatta portion is only heard. In the following, the anudatta is heard : ‹?› ; ‹?› ॥ While in the following the udatta is heard : अग्निमीले पुरोहितं ॥\nThus each vowel has nine forms, as it is hrasva, dirgha or pluta, as it is udatta, anudatta or svarita. Every one of these nine, has two more forms: nasal and not nasal: as is taught in the next sutra.\nNote:—According to Siddhanta, the word is useless. According to Kasika, it is important, as given below.\nIt has been defined that svarita accent is a combination of udatta and anudatta. It remained doubtful what portion was acute and what grave. The present sutra clears up the difficulty, by declaring that in svarita, the first half is acute and the other grave.\nThe phrase ardhahrasva is used to indicate half the measure of a short vowel. Thus if a short vowel is svarita, its matra being one, half will be udatta and the other half anudatta. If a long vowel, whose matras are two, be svarita, then 1/2 will be udatta, 1 1/2 will be anudatta. If a pluta (protracted) vowel be svarita, then first half measure will be udatta, and the remaining 2 1/2 measures will be anudatta. In short, the udatta portion of a svarita must not occupy more time than is taken in pronouncing a half short vowel. Thus in शिक्यम् şikyam the a is svarita, half being acute, the other half, grave or monotony; in kanya, the long a is svarita, its first half measure is acute, the remaining is grave; in ‹?› manavaka, here a prolated ‹?› is svarita, its first 1/2 is acute, the balance 2 1/2 measure is grave.\nIn the above examples, ‹?› &c., the accents are thus formed. The word ‹?› is the Locative form of ‹?›, formed by adding the affix ‹?› (V. 3. 12. S. 1959) and substituting ‹?› (VII. 2. 105. S. 1960). The word is therefore svarita-accented, because formed by the ‹?› affix ‹?› (VI. 1. 185, S. 3729). The word ‹?› becomes anudatta by VIII. 1. 18, S. 408. ‹?› is Adyudatta, because it is derived from the root with the affix; the affix being ‹?› makes the word adyudatta (VI. 2. 197, S. 3686). Now ‹?› = ‹?›, the anudatta combining with udatta becomes udatta (VIII. 2. 5, S. 3658): therefore ‹?› becomes udatta. The svarita being followed by the udatta ‹?›, causes the latter half i. e. the anudatta half of the svarita to be heard. This is indicated by ‹?›, namely svarita above and anudatta below. This is a short svarita.\nIn the example ‹?›, the svarita is a long vowel. The word ‹?› is udatta by Phit accent, as shown above (S. 5). ‹?› is also finally udatta by Phit accent. The udatta of ‹?› combining with the anudatta of ‹?› becomes svarita (VIII. 2. 6. S. 3659), ‹?›; this svarita followed by udatta of ‹?›, is heard in its anudatta portion ‹?› ॥\nIn the third example ‹?›, the svarita is followed by another svarita, and in this case also, the anudatta portion of the svarita is heard. The word ‹?› is antodatta by Phit accent (See S. 5); the visarga is changed to ‹?›, and ‹?› + ‹?› by guna, and this ‹?› becomes udatta, the resultant of udatta plus anudatta is udatta. In ‹?› the final ‹?› is svarita, the first ‹?› is therefore anudatta. The anudatta ‹?› of ‹?› combining with the udatta of ‹?›, becomes all svarita (VIII. 2. 6, S. 3659) i. e. ‹?›; this svarita ‹?› is followed by the svarita ‹?› of ‹?›, and hence the anudatta portion of svarita ‹?› is heard here also. The word ‹?› is svarita ending because it is formed by adding the तित् affix ण्यत् to the root ‹?› (VI. 1. 185, S. 3729). The ‹?› of ‹?› does not take Vriddhi substitution, because of the\nParibhasha II. — संज्ञापूर्वकविधिरनित्यत्वात् ॥\nA rule is not universally valid, when that which is taught in it, is denoted by a technical term.\nIn the last example अग्निमीले पुरोहितं, the ई of ईले is svarita, the ले has eka-sruti accent by the rule प्रचयापपर्याया एकश्रुतिः ॥\nHence here the svarita being followed by anudatta, the udatta half of the svarita is heard.",
+   "page": 15,
+   "classification": "review",
+   "chapter": "DEFINITIONS",
+   "note": "Embedded Devanagari heavily degraded in Vedic accent examples; replaced illegible fragments with placeholder.",
+   "panini_ref": "1.2.32",
+   "partial": "",
+   "sutra_ocr": "तस्यादित उदात्तमर्धहस्वम् | १ । २ । ३२ ॥"
+  },
+  {
+   "sk": 9,
+   "english": "9. That which is pronounced by the nose along with the mouth is called Anunasika or nasal.\nLet a letter which is uttered by the mouth in combination with the nose be called anunasika.\nThe result of the six sutras given above, is this: The vowels अ, इ, उ, and ऋ have each eighteen forms. The vowel ऌ has twelve forms, because it has no long form. The diphthongs ए, ऐ, ओ and औ have also twelve forms, because they have no short forms. Thus there are altogether one hundred and thirty two vowels in Sanskrit.",
+   "page": 17,
+   "classification": "accept",
+   "chapter": "DEFINITIONS",
+   "note": "",
+   "panini_ref": "1.1.8",
+   "partial": "",
+   "sutra_ocr": "मुखनासिकावचनोऽनुनासिकः । १ । १ । ८ ॥"
+  },
+  {
+   "sk": 10,
+   "english": "",
+   "page": 17,
+   "classification": "review",
+   "chapter": "DEFINITIONS",
+   "note": "Head of entry 10; Sanskrit sutra and partial vritti present, cut off before English text.",
+   "panini_ref": "1.1.9",
+   "partial": "head",
+   "sutra_ocr": "तुल्यास्यप्रयत्नं सवर्णम् | १ | १ | ९ ||"
+  },
+  {
+   "sk": 10,
+   "english": "10. Those whose place of utterance and effort are equal are called savarna or homogeneous letters.\nLet those letters be called savarna, which have with each other a common place of utterance, such as throat, palate &c., as well as a common Abhyantara prayatna. That is, when the place and prayatna are the same, then the letters are savarna.\n1. The letters ‹?› have throat as their place and are gutturals or Kantha.\n2. The letters ‹?› have the palate and are palatals or Talavya.\n3. The letters ‹?› have the murdha, and are cerebrals or Murdhanya.\n4. The letters ‹?› have the teeth and are dentals or Dantya.\n5. The letters ‹?› have the lips and are labials or Oshthya.\na. The letters ‹?› have also the nose, and are also nasal.\nb. The letters ‹?› have the throat and palate, and are Kantha-talavya i. e. gutturo-palatals.\nc. The letters ‹?› have the throat and the lips, and are Kantha-oshthya i. e. gutturo-labials.\nd. The letter ‹?› has the teeth and the lips, and is dant-oshthya i. e. dento-labial.\ne. The letter ‹?› is Jihva-muliya or root of the tongue.\nf. The letter m anusvara is pure nasal.\nThe above are the sthana or places of utterance of the letters.\nThe Prayatna is of two sorts, the inner called Abhyantara, and the external called bahya. The first or Abhyantara is of four kinds, namely, sprishta, ishat sprishta, vivrita and samvrita.\nThe Sparsa letters have sprishta prayatna.\n2. The antastha letters have ishat-sprishta prayatna.\n3. The ushma letters and the vowels have vivrita prayatna.\n4. The short अ is samvrita in usage (prayoga) but in Grammar, as a formative element, it is always treated as vivrita. This fact is indicated by Panini himself in the last sutra of his Grammar, i. e. in the sutra अ अ (VIII. 4. 68 S. 11), which means that the letter अ which has been all along treated in Grammar as vivrita, is now made samvrita. (See the following sutra)",
+   "page": 18,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "Embedded Devanagari character lists replaced with placeholders; 'अ' reconstructed from clear context.",
+   "panini_ref": "",
+   "partial": "",
+   "sutra_ocr": "MFÆÆNG ENTER A Qā exrama"
+  },
+  {
+   "sk": 11,
+   "english": "11. The अ which was considered to be open (विवृत) in all the preceding operations of this Grammar, is now made contracted (संवृत) ॥\nThe first अ is here विवृत or open; the second is संवृत or contracted. The open अ is now changed to contracted अ. \"In actual use the organ in the enunciation of the short अ is contracted; but it is considered to be open only, as in the case of the other vowels, when the vowel is in the state of taking part in some operation of Grammar. The reason for this is, that if the short अ were held to differ from the long आ in this respect, the homogeneousness mentioned in I. 1. 9. S. 10. would not be found to exist between them, and the operation of the rules depending upon that homogeneousness would be debarred. In order to restore the short अ to its natural rights, thus infringed throughout the Ashtadhyayi, Panini with oracular brevity in his closing aphorism gives the injunction अ अ; which is interpreted to signify—'Let short अ be held to have its organ of utterance contracted, now that we have reached the end of the work in which it was necessary to regard it as being otherwise.'\" (Dr. Ballantyne).\nThe present sutra occurs in the second division of Ashtadhyayi, i. e. the last three Padas. The whole Ashtadhyayi has 32 padas; they are divided into two parts the first 29 Padas forming one group, the last three, the second group. For the purposes of the application of a rule in the first set (7 1/4 Adhyaya) the rules in the second set are considered as non-existent. Therefore though the अ is made samvrita by this rule, it does not interfere with the अ being considered as vivrita throughout the rest of the Grammar. The sutra which declares the rules in the last 3 padas (Tripadi), as non-existent for the purposes of the rules in the 29 padas (7 1/4 Adhyaya) is the following,",
+   "page": 19,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "Embedded Devanagari vowels and terms reconstructed from clear context.",
+   "panini_ref": "8.4.68",
+   "partial": "",
+   "sutra_ocr": "११ अ अ इति । ८ । ४ । ६८ ॥"
+  },
+  {
+   "sk": 12,
+   "english": "12. Whatever will be taught hereafter, upto the end of the work, is to be considered as not taken effect, in relation to the application of a preceding rule.\nThis is an Adhikara Sutra. Therefore the Tripadi rules are asiddha with regard to the 7 1/4 Adhyayi rules. Even in the Tripadi, a previous rule is asiddha with regard to the subsequent.\nThus the letter अ is samvrita really, though treated as vivrita.\nAs regards the Bahya-prayatna, we have eleven modifications : namely 1 vivara, 2 samvara, 3 svasa, 4 nada, 5 ghosha, 6 a-ghosha 7 alpa-prana, 8 mahaprana, 9 udatta, 10 anudatta, 11 svarita.\nVerse : The double of khay (‹?›) letters, the khay letters themselves, the ‹?› and ‹?›, the visarga, the sar letters (श, ष, स) are svasa, aghosha, and expand the throat, i.e. are of vivara prayatna. The other letters (i. e. the ‹?› letters, the yamas of ‹?› letters and the anusvara) are ghosha, samvara, and nada prayatna. The odd letters of the vargas, the doubles of first and third, and yan letters are alpa-prana.\nExplanation :--The word yama is a Pratisakhya term. It is the name of the letter when doubled, on account of any one of the first four letters of the varga being followed by the fifth i.e. by a nasal. Thus ‹?›, ‹?›, अग्निः, ‹?› here the doubled letters क् ख् ग् and घ् are yama i.e., only those letters which have the same form i.e. the second ‹?›, ‹?›, &c. are called yama. The khay letters are the first and second letters of the varga the ten letters क, ख, च, छ &c. The yamas of these khay letters, so also the Jihvamuliya, Upadhmaniya, the visarga and the sibilants are vivara, svasa and aghosha. The other letters are samvara, nada, and ghosha. The first, third and the fifth letters of a varga, the yamas of first and third, and य, र, ल and व are alpa-prana. The others the second and fourth letters of the varga, and श, ष, स, ह are maha-prana.",
+   "page": 20,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "Devanagari sutra line printed at bottom of page 19, bold English heading on page 20; entry commentary cuts off at end of page 20.",
+   "panini_ref": "6.2.1",
+   "partial": "head",
+   "sutra_ocr": "१२ पूर्वत्रासिम् | ६ |२| १॥"
+  },
+  {
+   "sk": 12,
+   "english": "Though the Bâhya-prayatna is of no use in determining the savarṇa-hood of letters, yet they are of use in finding out the nearest equivalent to letters to be replaced &c.\n\nThe 25 letters ‹?› to ‹?› are sparśa. The four letters ‹?› are antaḥstha. The four letters ‹?› are Ûshma. The vowels are Svara. The ‹?› and ‹?› are called Jihvâmûlîya and Upadhmanîya. (They represent the lost sibilants of ‹?› varga, and ‹?› varga).\n\n‹?› these are anusvâra and visarga. Here ends the determination of sthâna (organ of utterance) and prayatna (effort).\n\n1. Vart:—The letters ‹?› and ‹?› should be stated to be homogeneous with one another.\n\nFrom the explanations in the above two sûtras (10 and 12), the letter ‹?› becomes homogeneous with ‹?›\nस \" \" \" \" ‹?›\n‹?› \" \" \" स\n\nTo prevent this incongruity, we have the following sûtra which declares that there can be no homogeneity between a vowel and a consonant.\n\nNote:—The following lines summarise the above, the vowels are vivâra, śvâsa, and aghosha. The letters ‹?› are samvâra, nâda, and ghosha. The first, third, fifth letters of the varga, and ‹?› letters are alpa-prâṇa. The second and the fourth letters of the varga, and ‹?› letters are mahâ-prâṇa.",
+   "page": 21,
+   "classification": "review",
+   "chapter": "DEFINITIONS",
+   "note": "Continuation tail of SK 12 from preceding page.",
+   "panini_ref": "",
+   "partial": "tail",
+   "sutra_ocr": ""
+  },
+  {
+   "sk": 13,
+   "english": "13. There is however no homogeneity between vowels and consonants, though their place and effort be equal.\n\nThe words of this sûtra are, ‹?›. The word ‹?› is a compound of ‹?› + ‹?›; and means \"a vowel along with ‹?›.\" There is no homogeneity between the letters ‹?› and the consonants. Therefore in ‹?› the ‹?› of ‹?› is not changed to ‹?› before ‹?›, nor in ‹?› the ‹?› is lengthened before ‹?›; nor in ‹?› + ‹?›, and ‹?› + ‹?› any change takes place. But for this sûtra, the letters ‹?› &c. would have been treated as vowels, just as long and pluta letters are also vowels.",
+   "page": 21,
+   "classification": "accept",
+   "chapter": "DEFINITIONS",
+   "note": "",
+   "panini_ref": "1.1.10",
+   "partial": "",
+   "sutra_ocr": "१३ नाऽऽज्झलौ । १ । १ । १० ॥ व्याकारसहितोऽय् आय् स थ इन् बेत्येसो मिथः सव जौ म रसः । सेन वधीत्यस्य हरति श्री त सान्द्रमित्येतेषु परेषु वमादिकं न । भन्वथा दीर्घादीनामिव हका राणीनामपि महणास्त्र चला स्वात् । तथा हि ॥"
+  },
+  {
+   "sk": 14,
+   "english": "14. The letters of the Pratyâhâra ‹?› i. e. the vowels and semi-vowels, and a term having ‹?› for its indicatory letter, refer to their own form as well as to their homogeneous letters, (except when they are used as pratyâyas or affixes or) except when specifically so ordained.\n\nThe pratyâhâra ‹?› in this sûtra includes all the vowels and liquids of ‹?›. This is the only instance where pratyâhâra ‹?› refers to the second ‹?›. The letters included in ‹?›, and the letters having an indicatory ‹?› refer to, and include their homogeneous letters also. Thus ‹?› refers to all the five gutturals ‹?›, ‹?›, ‹?›, ‹?›, ‹?›, similarly ‹?›, ‹?›, ‹?›, and ‹?›, as in sûtra I. 3. 8. S. 195. Similarly ‹?› includes short, long and protracted. The words 'its own form' are understood in this sûtra, being drawn from the previous sûtra. Thus sûtra आद्गुणः (VI. 1. 87 S. 69), when a vowel comes after ‹?›, guṇa is the single substitute for both. Here though the rule mentions only short ‹?›, we take the long ‹?› also. Thus not only नर + ईशः = नरेशः ; but महा + ईशः = महेशः । So also in sûtra ‹?› (VII. 4. 32 S. 2118), 'there is long in the room of ‹?› when the affix 'chvi' (V. 4. 50 S. 2117) follows.' Here long ‹?› is also included; thus ‹?› + ‹?› = ‹?› and खट्वा + करोति = खट्वीकरोति. So also in sûtra अस्य च्वौ (VI. 4. 148 S. 311) 'When long follows, there is elision of the ‹?› or ‹?› of the base,' the rule applies to the bases ending in long ‹?› and ‹?› also.\n\nThis rule of course does not apply to affixes. Thus sûtra III. 2. 168. S. 3148. says, after words ending in the affix san, and the words Âśamsâ and bhikshâ, there is ‹?›. Here ‹?› is an affix and therefore does not include long ‹?›. Thus भिक्षुः 'a beggar.' So also in IV. 3. 9, S. 1379. the short ‹?› only is to be taken and not the long one.\n\nThe word ‹?› in the sûtra means \"that which is not ordained (pratîyate vidhîyate).\" That is unless where a letter is specifically ordained, it always includes its homogeneous letters, in certain cases. The sûtra means \"The letters ‹?› (vowels and semi-vowels) when not specifically so propounded by name, as well as the letters having an indicatory ‹?› denote their savarṇa letters also.\" The ‹?› here is a pratyâhâra formed with the second ण् of लण्. The words कु, चु, टु, तु, पु, are formed by ‹?› and are उदित् ।\n\nThe result of this is, that ‹?› denotes 18 letters; so also ‹?› and ‹?›. The ‹?› denotes 30 letters, and so also ‹?›. The diphthongs ‹?› denote 12 letters.\n\n2. Vart.—The letter ‹?› is not to be considered homogeneous with ‹?› nor ‹?› with ‹?›. For had ‹?› been included in ‹?›, and ‹?› in ‹?›, then where was the necessity of the sûtra ऐ औच् ? These letters need not have been taught separately. Therefore, the diphthongs do not denote 24 letters each, but 12 letters only.\n\nThough the prohibition of the sûtra नाज्झलौ (I. 1. 10 S. 13) applies, according to the literal interpretation of the sûtra, to the letters only, namely, to the nine letters specifically taught in the Mâheśvara sûtras, and not to the letter ‹?› which is not so taught there, yet there is no homogeneity between ‹?› and ‹?›. For according to our interpretation of the sûtra, the letter ‹?› is specifically mentioned in it. For we do not analyse it as ‹?›, but as न आ-अच्, हलौ, and we translate it as \"There is no homogeneity between a hal letter and â and ach letters.\" Therefore in विश्वपाभिः the letter ‹?› is not changed to ‹?› by VIII. 2. 31 S. 3579. (‹?› is substituted for ‹?› before a jhal letter and at the end of a word). The word akshara-samâmnâya means the sûtras teaching the alphabets i. e. the 14 Mâheśvara sûtras.\n\nThe letters य, व, ल are of two kinds, according as they are nasalised or not nasalised. Therefore, a non-nasalised य, व, ल will denote also the nasalised letter: i. e. the simple letters य, व, ल include the nasalised ‹?›.\n\nThe sense of this sûtra &c. therefore is that the letters, namely the fourteen letters taught in the Mâheśvara sûtras, they alone denote their homogeneous letters also. But ‹?› and ‹?› though included in a pratyâhâra, denote their single forms only, for they have no other letter homogeneous to them.",
+   "page": 22,
+   "classification": "accept",
+   "chapter": "DEFINITIONS",
+   "note": "",
+   "panini_ref": "1.1.66",
+   "partial": "",
+   "sutra_ocr": "१४ । अणुदित्सवर्णस्य चाऽप्रत्ययः । १ । १ । ६६ ॥ विधीयत इति प्रत्ययः । अविधीयमानाऽ जाय सवर्णस्य संज्ञा स्वात् । मत्रान् परेण णकारेण ॥ कु चु टु तु पु एत उदितः । तदेवम् अष्टादशानां संज्ञा । नयेकायेकारी । ऋकारचिपातः । एवं लकारोऽपि । एखौ द्वादशानाम् । एवैतावतो न मिथः साश्येम ऐभजिति समारम्भसामर्थ्यात् । सेनेचश्वतुविशनः सज्ञाः स्युरिति नापावनीयम ॥ नाज्जलाविति निषेधा बद्यप्याक्षरसमाम्रा विकानां तथापि हकारस्थाssकारो न सवर्णः । तथाऽऽकारस्यापि प्रभिलष्टत्वान । तेन विश्वपाभिरित्यत्र हो कि बस्न भवति ॥ अनुनासिकाननुनाशिकभेदेन वबला द्विधा । तेनामनुनासिकास्त इयेोः संक्षा ॥"
+  },
+  {
+   "sk": 15,
+   "english": "15. The letter which has ‹?› after or before it, besides referring to its own form, refers to those homogeneous letters which have the same prosodial length or time.\n\nBy the last sûtra it was declared that a vowel standing by itself included all the letters of its class. Thus ‹?› includes ‹?›; and ‹?›, ‹?›; &c. This sûtra lays down the rule by which the very form of the letter is taken and not all the letters of its class. This is done by placing a ‹?› either after or before the",
+   "page": 23,
+   "classification": "review",
+   "chapter": "DEFINITIONS",
+   "note": "Entry cuts off at bottom of page 23.",
+   "panini_ref": "1.1.70",
+   "partial": "head",
+   "sutra_ocr": "१५ । तपरस्तत्कालस्य । १ । १ । ७० ॥ तः परो यस्मात्स च तात्परयोश्चार्यमाणसमकालस्यैव संज्ञा स्यात् । तेन भत् इत् उत् इत्यादयः षण्णां षण्णां संज्ञा । ऋदिति द्वादशानाम् ॥"
+  },
+  {
+   "sk": 15,
+   "english": "letter. Thus means the very letter and not all its homogeneous letters. Similarly means short only and not long or protracted.\nThe sutra consists of two words and Taparaḥ means that which has a after it or that which is after. Tat-kâla means having the same time. According to time the vowels are divided into short, long and protracted. Short vowels have one measure, long vowels two, and protracted vowels three. A consonant lasts half the time of a short vowel. Therefore a letter preceded or followed by refers to its own form as well as to those only of its homogeneous letters which have the same time. Thus the letter will include the udâtta, anudâtta, svarita (both nasalised and non-nasalised) and not the long and protracted form, in all 6 forms.\nThis sutra declares an injunction. The anuvritti of of the previous sutra does not run into this sutra. Any other letter than may be followed by and the rule of this sutra will apply to that also. This rule qualifies the previous sûtra which would therefore mean that an letter which is not followed or preceded by a includes its homogeneous letters also.\nThus in the sûtra VII. 1. 9 S. 203. अतो भिस ऐस्. 'After words ending in (i. e., short), takes the place of ' Thus: But in which ends in long and whose prosodial time is different from, this rule will not apply, and we have ‹?›\nTherefore ‹?› denote six letters each, namely ‹?› denotes twelve letters.",
+   "page": 24,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "Continuation tail from previous page; embedded Devanagari fragmented in OCR.",
+   "panini_ref": "",
+   "partial": "tail",
+   "sutra_ocr": ""
+  },
+  {
+   "sk": 16,
+   "english": "16. आत् and ऐच् are called vriddhi.\nThis defines the word vriddhi. The letters आत् and ऐच् are vriddhi letters. The sûtra consists of three words vriddhi, ât and aich. आत् means the long आ, the final t being indicatory only, and is for the sake of the pratyâhâra aich, and the pratyâhâra aich means the letters ऐ and औ.\nThe indicatory in serves the purpose of showing that the very from having two mâtrâs or prosodial measure, is to be taken. This also joins with the succeeding vowels and by the rule of (I. 1. 70 S. 15) or that \"which precedes or succeeds,\" and indicates that these vowels must be taken as having two mâtrâs only, though they may be the result of the combination of vowels whose aggregate mâtrâs may be more than two. A short vowel has one mâtrâ, a long vowel has two, and a consonant has half a mâtrâ. Thus by a rule of sandhi or euphonic conjunction of letters ‹?› + ‹?› = ‹?›, as महा + आशयः = महाशयः ॥ Here हा has two matras and not four. So also in खट्वैका the vowel the resultant of ‹?› has only two, not four, mâtrâs.",
+   "page": 24,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "Devanagari numeral misread as 18 instead of 16 in sutra line; cross-reference I.1.70 fixed to S. 15.",
+   "panini_ref": "1.1.1",
+   "partial": "",
+   "sutra_ocr": "१८ | बुद्धिरादैच् । १ । १ । १ ॥ भात ऐश्च वृद्धिसंज्ञः स्यात् ॥"
+  },
+  {
+   "sk": 17,
+   "english": "17. ‹?›, ‹?› and ‹?› are called guna.\nEach one of the letters ‹?›, ‹?› and ‹?› whether radical or secondary is called a guna letter; as the initial vowels in the following:—‹?›, \"he moves\"; एति \"he comes\", ‹?› \"he goes\". Here the initial vowels of the roots ‹?›, ‹?›, and ‹?› have been respectively gunated into ‹?›, and ‹?› before the third person singular termination.\nThe term Guna occurs in sutras like ‹?› (VII. ‹?›. 82 S. 2346). \"Let there be guna substitute for the ik of the root ‹?› 'to melt.'\"",
+   "page": 25,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "Several embedded Devanagari root and word forms illegible in scan replaced with placeholder.",
+   "panini_ref": "1.1.2",
+   "partial": "",
+   "sutra_ocr": "१७ | भवेङ् गुणः १ । १ । २ ॥ AL YF V GRÁÐ: FAIT ||"
+  },
+  {
+   "sk": 18,
+   "english": "18. The words beginning with bhû 'to become,' and denoting action, are called dhâtu or verbal roots.\nThis defines the word dhâtu or root. The list of Sanskrit verbs begins with the root bhû 'to be.' Sanskrit Grammarians have divided all verbs into ten classes, according to certain modifications which their roots undergo before certain terminations. The ten classes are as follows:—\n1. Bhû class. 2. Ad. 3. Hu. 4. Div. 5. Su. 6. Tud. 7. Rudh. 8. Tan. 9. Krî. 10. Chur.\nThe v in the sûtra is for the sake of auspiciousness; for the regular sandhi of bhû + âdi is bhvâdi and not bhûvâdi; while Tatvabodhini considers that vâ is a separate root. According to it the sutra should be analysed thus: भू + वा = भूवौ, भूवौ आदी येषां ते भूवादयः \"words Bhû &c. and like vâ denoting action are called Dhâtu.\" vâ \"to blow.\"",
+   "page": 25,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "English heading number OCR misread as '1.' repaired to '18.' per sequence.",
+   "panini_ref": "1.3.1",
+   "partial": "",
+   "sutra_ocr": "१८ | भूवादयो धातव । १ । ३ । १ ॥ कियावाचिनो स्वादयो धातुसंज्ञाः स्युः ॥"
+  },
+  {
+   "sk": 19,
+   "english": "19. From this point forward upto the aphorism Adhiri-svare (I. 4. 97 S. 644), all that we shall say is to be understood to have the name of Nipata or Particles.\nThe word cha of this sutra serves the same purpose as the word cha of I. 4. 55 S. 2575; namely, it makes the words Gati, upasarga and karmapravachaniya take two names, i. e., their own name as well as the name Nipata.\nThe letter r in प्रागीश्वरात् is to remove doubt, i.e., aphorism I. 4. 97 S. 644 should be taken as the limit, and not sutra III. 4. 13 S. 3440, which has the word isvare also.",
+   "page": 25,
+   "classification": "accept",
+   "chapter": "Definitions",
+   "note": "",
+   "panini_ref": "1.4.56",
+   "partial": "",
+   "sutra_ocr": "१९ । प्रामीश्वरानिपाताः | १ १४ । ५६ ॥ Cafuga 11"
+  },
+  {
+   "sk": 20,
+   "english": "20. The words cha 'and,' &c., are called Nipâta or Particles, when they do not signify substances.",
+   "page": 26,
+   "classification": "accept",
+   "chapter": "Definitions",
+   "note": "",
+   "panini_ref": "",
+   "partial": "",
+   "sutra_ocr": "२० | चादयो ऽसत्त्वे ॥ ५७ ॥ भव्यायामादयो निपातसंज्ञाः स्युः ॥"
+  },
+  {
+   "sk": 21,
+   "english": "21. The words pra, &c., are called Nipata when not signifying substances.\nThe following is the list of प्रादयः or prepositions : प्र, परा, अप, सम्, अनु, अव, निस्, दुर्, वि, आङ्, नि, अधि, अपि, सु, उत्, अभि, प्रति, परि, उप ॥\nThe making of this a distinct aphorism, when it could well have been included in the last, is for the sake of giving the pra &c. words two names, namely, those of Nipatas, as well as upasargas under certain circumstances, i. e., when they are in composition with verbs. Not so, however, the cha &c., words. They never get the designation of upasargas.\nWhen these words signify substances they are not Nipâtas. As परा जयति सेना \"the excellent army conquers.\" Here the word परा is not a Nipata.",
+   "page": 26,
+   "classification": "accept",
+   "chapter": "Definitions",
+   "note": "",
+   "panini_ref": "1.4.58",
+   "partial": "",
+   "sutra_ocr": "२९ । प्रादयः । १ । ४ । ५८ ॥ अद्रव्यार्थाः प्रादयस्तथा ॥"
+  },
+  {
+   "sk": 22,
+   "english": "22. The words pra &c., get the designation of upasarga or prepositions, when in composition with a verb.\nAs प्र + नयति = प्रणयति. Here the dental न is changed into cerebral ण because of the प्र getting the designation of upasarga (See sutra VIII. 4. 14 S. 2287). Similarly परिणयति, प्रणायकः, परिणायकः ॥",
+   "page": 26,
+   "classification": "accept",
+   "chapter": "Definitions",
+   "note": "",
+   "panini_ref": "1.4.59",
+   "partial": "",
+   "sutra_ocr": "२२ । उपसर्गाः क्रियायोगे । १ । ४ । ५९ ॥"
+  },
+  {
+   "sk": 23,
+   "english": "23. The words pra &c., are called also Gati (as well as upasarga) when in composition with a verb.",
+   "page": 26,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "Panini reference digits in OCR read '१ । १ ॥ ६० ॥' (1.1.60 instead of 1.4.60).",
+   "panini_ref": "1.1.60",
+   "partial": "",
+   "sutra_ocr": "२३ | गतिश्च । १ । १ ॥ ६० ॥ मादयः क्रियायोगे उपसर्गसंज्ञा गतिसंज्ञाश्च स्युः ॥ म पर अप समू अनुभव मिस निर वर वि भाइ नि भधि अपि प्रति उद भाभ प्रति परि उप । एते प्रादयः ॥"
+  },
+  {
+   "sk": 24,
+   "english": "",
+   "page": 26,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "English translation and commentary cut off at end of page batch.",
+   "panini_ref": "1.1.44",
+   "partial": "head",
+   "sutra_ocr": "२४ । न वेति विभाषा । १ । १ । ४४ ॥ निषेधविकल्प योर्विभाषा संज्ञा स्यात् ॥"
+  },
+  {
+   "sk": 24,
+   "english": "24. \"May or may not\" is called vibhasha or option.\n\nThis sûtra defines the word विभाषा. Where there is a prohibition as well as an alternative course left open, it is called option or vibhasha. The commentators mention three kinds of vibhasha—prâpta-vibhâshâ, aprâpta-vibhâshâ and prâptâprâpta-vibhâshâ. The first occurs where there is a general rule already given; and then follows the optional rule; the second belongs to that class where there is no such general rule, but there is an optional rule; the third is intermediate between the two. This sûtra specially applies to the last class.\n\nThus the root ‹?› 'to swell,' by virtue of the rule ‹?› (VI. 1. 30, S. 1695) forms its perfect tense, either by samprasâraṇa, or in the ordinary way. Thus the third person singular is either ‹?› or ‹?›.",
+   "page": 27,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "Devanagari sutra line not preserved in page OCR; reconstructed विभाषा from explicit English definition.",
+   "panini_ref": "",
+   "partial": "",
+   "sutra_ocr": ""
+  },
+  {
+   "sk": 25,
+   "english": "25. In this Grammar, when an operation is directed with regard to a word, the individual form of the word possessing meaning is to be understood, except with regard to a word which is a definition.\n\nThis is a rule of interpretation. The word ‹?› which means 'one's own' denotes 'the meaning,' and the word ‹?› denotes 'the individual form of a word'. The sense of the sûtra is that a word denotes both things expressed by those two words ‹?› and ‹?›, viz., its meaning, and its form. Thus a rule applicable to अग्नि will be applicable to the word composed of ‹?›, and not to the words synonymous with agni, such as, पावकः, ज्वलनः &c.",
+   "page": 27,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "Reconstructed embedded Devanagari अग्नि based on explicit mention of 'agni'; corrected OCR typo स्वलनः to ज्वलनः.",
+   "panini_ref": "1.1.68",
+   "partial": "",
+   "sutra_ocr": "२५ । स्वं रूपं शब्दस्याशब्दसंज्ञा । १ । १ । ६८ ॥"
+  },
+  {
+   "sk": 26,
+   "english": "26. An injunction which is made with regard to a particular attribute, applies to words having that attribute at their end as well as to that attribute itself.\n\nThis sûtra consists of three words:—येन 'by what (attribute),' विधिः 'rule,' तदन्तस्य 'having that (attribute) at its end.'\n\nThis is a rule of interpretation. When a rule is made with regard to a particular attribute or letter, it means also words having those attributes or letters at their end. Thus there is a rule (III. 1. 97, S. 2842.) declaring \"let there be the affix ‹?› after the vowels.\" Here the phrase \"after the vowels\" means and includes \"after the roots ending in vowels, as well as roots consisting of a single vowel.\" Thus ‹?›. Therefore, this sûtra means that when a rule is laid down in this grammar with regard to a particular attribute, that rule, besides being applicable to that particular attribute, is also applicable to words ending in that particular attribute. Thus a rule laid down generally with regard to vowels, will apply to words ending in vowels; a rule laid down with regard to certain forms, will apply to words ending in those forms.\n\nThus the sûtra (III. 3. 56, S. 3231.) 'after ‹?› there is ‹?›' declares that the affix ach would come not only after ‹?›, but after any expression that ends in ‹?›. Thus इ + अच् = अयः, वि + ‹?› = व्ययः ॥\n\nVart:—The present rule, (called tadanta-vidhi) must not be applied to rules relating to compounds (samâsa), and to pratyayas (affixes). Thus sûtra II. 1. 24, S. 686. declares that a word in the accusative case is compounded with the words srita, atita &c. As कष्टं + श्रितः = कष्टश्रितः 'involved in pain'. The present sûtra must not be applied here, and we cannot say that a word in the accusative case would be compounded with another that ends in srita; for tadanta-vidhi does not apply here. Hence we cannot form a compound of कष्टं + परमश्रितः ॥\n\nSimilarly, in rules of affixes. Thus sûtra IV. 1. 99, S. 1101, declares \"that the words नड &c., take the affix फक्.\" Thus नड + फक् = नाडायनः. But we cannot apply the affix phak to the word ‹?›, the tadanta-vidhi not being applicable here. The descendant of ‹?› will be called ‹?›; and not as above.\n\nThe above vârtika is however qualified by the following:—\n\nVart:—The above vârtika does not apply to words formed by affixes that have an indicatory ‹?› (उ, ऊ, ‹?›), short or long, or where a rule is propounded with regard to letters. Thus the affix ktavatu (I. 1. 26, S. 3012) has an indicatory u, and we have कृतवत्. A rule which will apply to kritavat will apply also to the word which ends in kritavat. Thus the feminine of kritavat is ‹?› (IV. 1. 6, S. 455), the feminine of sukritavat will be sukritavati. Similarly rule IV. 1. 95, S. 1095 says \"after ‹?› there is the affix ‹?›.\" This is a rule relating to pratyayas, but as it is propounded by mere letters, the rule of tadanta-vidhi will apply here. Thus ‹?› 'the son of Daksha.'",
+   "page": 27,
+   "classification": "review",
+   "chapter": "Definitions",
+   "note": "Entry spans pages 27-28; corrected OCR misreads in Sanskrit grammatical terms and vartika headers.",
+   "panini_ref": "1.1.72",
+   "partial": "",
+   "sutra_ocr": "२६ । येन विधिस्तदन्तस्य । १ । १ । ७२ ॥"
+  },
+  {
+   "sk": 27,
+   "english": "27. The cessation or the absence of succeeding letters is called pause or avasana.\n\nThe word avasana occurs in sûtras VIII. 3. 15, S. 76 &c.",
+   "page": 28,
+   "classification": "accept",
+   "chapter": "Definitions",
+   "note": "",
+   "panini_ref": "",
+   "partial": "",
+   "sutra_ocr": "२७ । विरामो ऽवसानम् ॥"
+  }
+ ]
+}

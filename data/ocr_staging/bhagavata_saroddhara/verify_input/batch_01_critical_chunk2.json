@@ -1,0 +1,134 @@
+{
+"_how_to_answer": "Reply with ONE JSON list, one object per id, nothing else. decision: 'dge' (the DGE Madhva text is what the print shows, modulo OCR noise) | 'printed' (the print genuinely differs — give the exact printed text in verified_text) | 'vision' (Vision OCR is right as it stands) | 'unsure'. For missing_verse give verified_text (full verse, no number), bhagavata_ref 's.a.v' and pdf_page. If a neighbouring verse's current_text is really this verse (the OCR merged two verses), also add an object for that neighbour's id (e.g. BS_V005) with its correct verified_text and bhagavata_ref. Keep note to one line.",
+"_answer_shape": {
+"id": "BS_V042",
+"decision": "dge|printed|vision|unsure",
+"verified_text": "… or null",
+"bhagavata_ref": "10.1.14 or null",
+"pdf_page": 128,
+"note": "…"
+},
+"chunk": "2 of 4",
+"items": [
+{
+"id": "BS_V058",
+"type": "mismatch",
+"verse_num": 58,
+"prakarana": "वैराग्यप्रकरणम्",
+"book_ref": "3.32.19",
+"pdf_page": 142,
+"ocr_vision": "इच्छन्नितो विवसितुं गणयन् स्वमासान्निर्वास्यते कृपणधीर्भवता ॥ ५८ ॥",
+"ocr_tesseract": "इच्छन्नितो विवसितुं गणयन्‌ स्वमासान्निवस्यते कृपणधीर्भवता ॥ ५८ ॥",
+"dge_mula_candidate": "देह्यन्यदेहविवरे जठराग्निनासृग्विण्मूत्रकूपपतितो भृशतप्तदेहः। इच्छन्नितो विवसितुं गणयन् स्वमासान् निर्वास्यते कृपणधीर्भवता कदा नु॥",
+"issue": "OCR and the DGE Madhva text for 3.32.19 differ substantially (similarity 0.636). Is the printed verse really 3.32.19, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V079",
+"type": "mismatch",
+"verse_num": 79,
+"prakarana": "वैराग्यप्रकरणम्",
+"book_ref": "5.1.38",
+"pdf_page": 155,
+"ocr_vision": "वैराग्यप्रकरणम् हरिविहारानुभवः भगवतो नारदस्य पदवीं अनुससार ॥ ७९ ॥",
+"ocr_tesseract": "वैराग्यप्रकरणम्‌ ५७ हरिविहारानुभवः भगवतो नारदस्म पदवीं अनुससार ॥ ७९ ॥ ।",
+"dge_mula_candidate": "परदेवताप्रसादाधिगतात्मप्रत्यवमर्शनपरिनिर्वृतः स्वपुत्रेभ्य इमां गां यथादायं विभज्य भुक्तभोगां च महिषीं मृतकमिव स ह महाविभूतिमपहाय स्वयं निहितनिर्वेदो हृदि गृहीतरुचिरहरिविहारानुभावो भगवतो नारदस्य पदवीमनुससार॥",
+"issue": "OCR and the DGE Madhva text for 5.1.38 differ substantially (similarity 0.364). Is the printed verse really 5.1.38, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V080",
+"type": "mismatch",
+"verse_num": 80,
+"prakarana": "वैराग्यप्रकरणम्",
+"book_ref": "7.9.25",
+"pdf_page": 155,
+"ocr_vision": "निर्विद्यते न तु जनो यदपीति विद्वान् कामानलं सुखलवैः शमयन् दुरापैः ॥ ८० ॥",
+"ocr_tesseract": "निर्विद्यते न तु जनो यदपीति विद्धान्‌ कामानलं सुखलवैः शमयन् दुरापैः ॥ ८० ॥",
+"dge_mula_candidate": "कुत्राशिषः श्रुतिसुखा मृगतृष्णरूपाः क्वेदं कलेवरमशेषरुजां विरोहम्। निर्विद्यते न तु जनो यदपीह विद्वान् कामानलं मधुलवैः शमयन् दुरापैः॥",
+"issue": "OCR and the DGE Madhva text for 7.9.25 differ substantially (similarity 0.614). Is the printed verse really 7.9.25, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V082",
+"type": "mismatch",
+"verse_num": 82,
+"prakarana": "वैराग्यप्रकरणम्",
+"book_ref": "8.21.9",
+"pdf_page": 156,
+"ocr_vision": "किमात्मना तेन जहाति यो मुदं किं रिक्थहारैः स्वजनाख्यदस्युभिः । किं जायया संसृतिहेतुभूतया मर्त्यस्य गेहैर्यदिहायुषो व्ययः ॥ ८२ ॥",
+"ocr_tesseract": "किमात्मना तेन जहाति यो मुदं किं रिक्थहारैः स्वजनाख्यदस्युभिः । किं जायया संसृतिहेतुभूतया मर्त्यस्य गेहैर्यदिहायुषो व्ययः ॥ ८२ ॥",
+"dge_mula_candidate": "परिक्रम्यादिपुरुषं सर्वासुरचमूपतिः। प्रणतस्तदनुज्ञातः प्रविवेश महाबिलम्॥",
+"issue": "OCR and the DGE Madhva text for 8.21.9 differ substantially (similarity 0.286). Is the printed verse really 8.21.9, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V086",
+"type": "mismatch",
+"verse_num": 86,
+"prakarana": "वैराग्यप्रकरणम्",
+"book_ref": "10.81.12",
+"pdf_page": 158,
+"ocr_vision": "घ्नन्तः प्रजाः स्वा अपि निर्घृणाः प्रभो मृत्युं परं त्वामगणय्य दुर्मदाः ॥ ८६ ॥",
+"ocr_tesseract": "घ्नन्तः प्रजाः स्वा अपि निर्धृणाः प्रभो मत्युं परं त्वामगणय्य दुर्मदाः ॥ ८६ ॥",
+"dge_mula_candidate": "अथादिशत् प्रयाणाय भगवान् देवकीसुतः। भृत्यान् दारुकजैत्रादीननुज्ञाप्य गुरून् विभुः॥",
+"issue": "OCR and the DGE Madhva text for 10.81.12 differ substantially (similarity 0.377). Is the printed verse really 10.81.12, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V099",
+"type": "mismatch",
+"verse_num": 99,
+"prakarana": "वैराग्यप्रकरणम्",
+"book_ref": "4.29.54",
+"pdf_page": 165,
+"ocr_vision": "पृष्ठतः परोक्षं अनुप्रवृत्तः लुब्धकः कृतान्तः शरेण यं इह पराविध्यति तमिमं आत्मानं अहो राजन् भिन्नहृदयं द्रष्टुमर्हसीति यथा मृगयुहतं मृगमिति ॥",
+"ocr_tesseract": "पृष्टतः परोक्षं अनुप्रवृत्तः लुब्धकः कृतान्तः शरेण यं इह पराविध्यति तमिमं आत्मानं अहो राजन्‌ भिनहदयं द्रष्टुमर्हसीति यथा मृगयुहतं मृगमिति ॥",
+"dge_mula_candidate": "तत्पादमूलं शरणं यतः क्षेमो नृणामिह। स वै प्रियतमो ह्यस्य यतो न भयमण्वपि। इति वेद स वै विद्वान् यो विद्वान् स्वगुरुर्हरिः॥",
+"issue": "OCR and the DGE Madhva text for 4.29.54 differ substantially (similarity 0.258). Is the printed verse really 4.29.54, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V119",
+"type": "mismatch",
+"verse_num": 119,
+"prakarana": "महत्सेवाप्रशंसाप्रकरणम्",
+"book_ref": "3.17.22",
+"pdf_page": 182,
+"ocr_vision": "तुष्यद्धृदः स्मितसुधोक्षितपद्मवक्त्राः । वाण्यानुरागकलयात्मजवद्गृणन्तः सम्बोधयन्त्यहमिवाहमुपाकृतस्तैः ॥ ११९ ॥",
+"ocr_tesseract": "तुष्यद्धृदः स्मितसुधोश्षितपद्मववत्राः । वाण्यानुरागकलयात्मजवदगुणन्तः सम्बोधयन्त्यहमिवाहमुपाकृतस्तैः ॥ ११९ ॥",
+"dge_mula_candidate": "तरन्ति ह्यञ्जसा मृत्युं निवृत्ता यदनुग्रहात्। योगिनः स भवान् किंस्विदनुगृह्येत यत् परैः॥",
+"issue": "OCR and the DGE Madhva text for 3.17.22 differ substantially (similarity 0.318). Is the printed verse really 3.17.22, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V120",
+"type": "mismatch",
+"verse_num": 120,
+"prakarana": "महत्सेवाप्रशंसाप्रकरणम्",
+"book_ref": "10.93.15",
+"pdf_page": 183,
+"ocr_vision": "ब्रह्मवादिनाम् । स्वानुभूतमशेषेण राजन् भृगुरवर्णयत् । तन्निशम्याथ मुनयो विस्मिता मुक्तसंशयाः । भूयः संश्रद्दधुर्विष्णुं यतः शान्तिर्यतोऽभय” मिति ॥",
+"ocr_tesseract": "ब्रह्मवादिनाम्‌ । स्वानुभूतमरेषेण राजन्‌ भृगुरवर्णयत्‌ ॥ तिर्या मुनयो विस्मिता मुक्तसंदायाः । भूयः संश्रद्ुरविष्णुं यतः दान्तिर्यतौऽभयः' मिति ॥",
+"dge_mula_candidate": "दृष्ट्वा तमुत्तमश्लोकं प्रीत्युत्फुल्लामलाशयाः। उद्धृताञ्जलिभिर्नेमुः श्रुतपूर्वं तथा मुनीन्॥",
+"issue": "OCR and the DGE Madhva text for 10.93.15 differ substantially (similarity 0.315). Is the printed verse really 10.93.15, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V139",
+"type": "mismatch",
+"verse_num": 139,
+"prakarana": "इन्द्रियजयप्रकरणम्",
+"book_ref": "10.5.38",
+"pdf_page": 204,
+"ocr_vision": "यथेन्द्रियग्राम उपेक्षितस्तथा रिपुर्महान् लब्धबलो न चाल्यते ॥ १३९ ॥",
+"ocr_tesseract": "यथेन्द्रियग्राम उपेक्षितस्तथा रिपुर्महान् लब्धबलो न चाल्यते ॥ १३९ ॥",
+"dge_mula_candidate": "यथाऽऽमयोऽङ्गे समुपेक्षितो नृभिर्न शक्यते रूढपदश्चिकित्सितुम्। यथेन्द्रियग्राम उपेक्षितस्तथा रिपुर्महान् लब्धबलो न चाल्यते॥",
+"issue": "OCR and the DGE Madhva text for 10.5.38 differ substantially (similarity 0.659). Is the printed verse really 10.5.38, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V172",
+"type": "mismatch",
+"verse_num": 172,
+"prakarana": "प्रवृत्तकर्मत्यागप्रकरणम्",
+"book_ref": "3.10.8",
+"pdf_page": 230,
+"ocr_vision": "कामाग्निनाऽच्युत रुषा च सुदुर्भरण सम्पश्यतो मन उरुक्रम सीदते मे ॥ १७२ ॥",
+"ocr_tesseract": "कामाग्निनाऽच्युत रुषा च सुदुभरेण सम्पश्यतो मन उरुक्रम सीदते मे ॥ १७२ ॥",
+"dge_mula_candidate": "क्षुत्तृट्त्रिधातुभिरिमा मुहुरर्द्यमानाः शीतोष्णवातवर्षैरितरेतराच्च। कामाग्निनाऽच्युत रुषा च सुदुर्भरेण संपश्यतो मन उरुक्रम सीदते मे॥",
+"issue": "OCR and the DGE Madhva text for 3.10.8 differ substantially (similarity 0.607). Is the printed verse really 3.10.8, a different verse, or a variant reading? Give the exact printed text."
+}
+]
+}

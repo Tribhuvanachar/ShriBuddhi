@@ -1,0 +1,30 @@
+{
+  "directory": "bhagavata_saroddhara",
+  "description": "भागवतसारोद्धारः — Bhāgavata Sāroddhāra of Śrī Viṣṇutīrtha (Jayatīrtha, avadhūta) with his own ṭīkā, 30 prakaraṇas, 367 verses",
+  "schema": "grantha_prakarana_text",
+  "layers": [
+    { "id": "mula", "type": "mula",
+      "label": { "sa": "मूलम् (श्लोकाः)", "en": "Root verses" },
+      "author": "महर्षिवेदव्यासः", "path": "mula/data.json", "access": "public" },
+    { "id": "tika_vishnutirtha", "type": "tika",
+      "label": { "sa": "स्वोपज्ञटीका", "en": "Vishnutirtha's own commentary" },
+      "author": "Sri Vishnu Tirtha (Jayatirtha, avadhūta)",
+      "path": "tika_vishnutirtha/data.json", "access": "public" },
+    { "id": "tika_tippani", "type": "tippani",
+      "label": { "sa": "टिप्पणी", "en": "Tippani (editorial notes)" },
+      "author": "Editor (Acharya Vidyadhishthanam edition)",
+      "path": "tika_tippani/data.json", "access": "public" },
+    { "id": "tika_sara_sangraha_kannada", "type": "tika",
+      "label": { "sa": "ಸಾರಸಂಗ್ರಹ (ಕನ್ನಡ)", "en": "Sara Sangraha (Kannada)" },
+      "author": "Editor (Kannada)",
+      "path": "tika_sara_sangraha_kannada/data.json", "access": "public" },
+    { "id": "upodghata", "type": "upodghata",
+      "label": { "sa": "उपोद्घातः", "en": "Introduction (incl. Vishnutirtha's life)" },
+      "author": "Editor / Sri Vishnu Tirtha (caritam)",
+      "path": "upodghata/data.json", "access": "public" },
+    { "id": "parishishta", "type": "parishishta",
+      "label": { "sa": "परिशिष्टम्", "en": "Appendix" },
+      "author": "Sri Vishnu Tirtha",
+      "path": "parishishta/data.json", "access": "public" }
+  ]
+}

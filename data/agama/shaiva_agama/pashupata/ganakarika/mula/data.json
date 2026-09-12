@@ -1,0 +1,64 @@
+{
+  "schema": "generic",
+  "default_author": "unspecified",
+  "source": "Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024",
+  "source_url": "https://github.com/OliverHellwig/sanskrit/tree/master/dcs/data/conllu/files/Gaṇakārikā",
+  "licence": "CC-BY 4.0",
+  "note": "6 units across ['1'] -- see dge/PENDING.md, 23 Aug entry (batch 8, Tantra/Saiva-Sakta + misc cleanup), for how this was matched.",
+  "items": [
+    {
+      "id": "1.1",
+      "title": "1.1",
+      "text": "पञ्चकास्त्वष्ट विज्ञेया गणश्चैकस्त्रिकात्मकः वेत्ता नवगणस्यास्य संस्कर्ता गुरुरुच्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.3",
+      "title": "1.3",
+      "text": "गुरुभक्तिः प्रसादश्च मतेर्द्वंद्वजयस्तथा धर्मश्चैवाप्रमादश्च बलं पञ्चविधं स्मृतम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.5",
+      "title": "1.5",
+      "text": "व्यक्ताव्यक्तं जयच्छेदो निष्ठा चैवेह पञ्चमी द्रव्यं कालः क्रिया मूर्तिर्गुरुश्चैवेह पञ्चमः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.6",
+      "title": "1.6",
+      "text": "ज्ञानं तपो ऽथ नित्यत्वं स्थितिः सिद्धिश्च पञ्चमी गुरुजनगुहादेशः श्मशानं रुद्र एव च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.7",
+      "title": "1.7",
+      "text": "वासश्चर्या जपध्यानं सदारुद्रस्मृतिस्तथा प्रसादश्चैव लाभानामुपायाः पञ्च निश्चिताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.8",
+      "title": "1.8",
+      "text": "मिथ्याज्ञानमधर्मश्च सक्तिहेतुश्च्युतिस्तथा पशुत्वं मूलं पञ्चैते तन्त्रे हेयाधिकारतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    }
+  ]
+}

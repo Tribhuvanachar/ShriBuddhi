@@ -1,0 +1,134 @@
+{
+"_how_to_answer": "Reply with ONE JSON list, one object per id, nothing else. decision: 'dge' (the DGE Madhva text is what the print shows, modulo OCR noise) | 'printed' (the print genuinely differs — give the exact printed text in verified_text) | 'vision' (Vision OCR is right as it stands) | 'unsure'. For missing_verse give verified_text (full verse, no number), bhagavata_ref 's.a.v' and pdf_page. If a neighbouring verse's current_text is really this verse (the OCR merged two verses), also add an object for that neighbour's id (e.g. BS_V005) with its correct verified_text and bhagavata_ref. Keep note to one line.",
+"_answer_shape": {
+"id": "BS_V042",
+"decision": "dge|printed|vision|unsure",
+"verified_text": "… or null",
+"bhagavata_ref": "10.1.14 or null",
+"pdf_page": 128,
+"note": "…"
+},
+"chunk": "3 of 4",
+"items": [
+{
+"id": "BS_V183",
+"type": "mismatch",
+"verse_num": 183,
+"prakarana": "निवृत्तकर्मकरणप्रकरणम्",
+"book_ref": "5.5.14-15",
+"pdf_page": 237,
+"ocr_vision": "पुत्रांश्च शिष्यांश्च पिता गुरुर्वा मल्लोककामो मदनुग्रहार्थः । इत्थं विमन्युरनुशिष्यादतज्ज्ञान् न योजयेत्कर्मसु कर्ममूढान् ॥ १८३ ॥",
+"ocr_tesseract": "ತ್ಮ ಔಗಾರ್ಗಾ पिता ಗತಾ? ಸತಾ मदनुग्रहार्थः । इत्थं विमन्युरनुरिष्यादतज्ज्ञान्‌ न योजयेत्कर्मसु कर्ममूढान्‌ ॥ १८३ ॥",
+"dge_mula_candidate": "इत्थं विमन्युरनुशिष्यादतज्ज्ञान्न योजयेत्कर्मसु कर्ममूढान्। कं योजयन्मनुजोऽर्थं लभेत निपातयन्नष्टदृशं हि गर्ते॥",
+"issue": "OCR and the DGE Madhva text for 5.5.14-15 differ substantially (similarity 0.523). Is the printed verse really 5.5.14-15, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V223",
+"type": "mismatch",
+"verse_num": 223,
+"prakarana": "अध्यात्मप्रकरणम्",
+"book_ref": "10.80.6",
+"pdf_page": 270,
+"ocr_vision": "संसेवया सुरतरोरिव ते प्रसादः सेवानुरूप उदयो न विपर्ययोऽत्र ॥ २२३ ॥",
+"ocr_tesseract": "संसेवया सुरतरोरिव ते प्रसादः सेवानुरूप उदयो न विपर्ययोऽत्र ॥ २२३ ॥",
+"dge_mula_candidate": "उपस्थायार्कमुद्यन्तं तर्पयित्वाऽऽत्मनः कलाः। देवान् ऋषीन् पितॄन्वृद्धान्विप्रानभ्यर्च्य चात्मवान्॥",
+"issue": "OCR and the DGE Madhva text for 10.80.6 differ substantially (similarity 0.389). Is the printed verse really 10.80.6, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V228",
+"type": "mismatch",
+"verse_num": 228,
+"prakarana": "अध्यात्मप्रकरणम्",
+"book_ref": "8.21.27",
+"pdf_page": 274,
+"ocr_vision": "'जन्मादीनां समन्ततः । सर्वश्रेयः प्रतीपानां यो न मुह्येत्स मत्पर\" इति ॥",
+"ocr_tesseract": "जन्मादीनां समन्ततः । सर्वश्रेयश्रतीपानां यो “न मृदयेत्स मत्पर'\" इति ॥",
+"dge_mula_candidate": "ततस्त्विन्द्रः पुरः कृत्वा देवयानेन वामनम्। लोकपालैर्दिवं निन्ये ब्रह्मणा चानुमोदितः॥",
+"issue": "OCR and the DGE Madhva text for 8.21.27 differ substantially (similarity 0.294). Is the printed verse really 8.21.27, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V233",
+"type": "mismatch",
+"verse_num": 233,
+"prakarana": "अध्यात्मप्रकरणम्",
+"book_ref": "10.47.27",
+"pdf_page": 278,
+"ocr_vision": "सर्वान् ददाति सुहृदो भजतोऽपि कामा- नात्मानमप्युपचयापचयौ न यस्य ॥ २३२ ॥",
+"ocr_tesseract": "सर्वान्‌ ददाति सुहदो भजतोऽपि कामा- नात्मानमप्युपचयापचयौ न यस्य ॥ २३२ ॥",
+"dge_mula_candidate": "कः पण्डितस्त्वदपरं शरणं समीयात् भक्तप्रियादृतगिरः सुहृदः कृतज्ञात्। सर्वान् ददाति सुहृदो भजतोऽभिकामानात्मानमप्युपचयापचयौ न यस्य॥",
+"issue": "OCR and the DGE Madhva text for 10.47.27 differ substantially (similarity 0.632). Is the printed verse really 10.47.27, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V251",
+"type": "mismatch",
+"verse_num": 251,
+"prakarana": "धर्मोपदेशप्रकरणम्",
+"book_ref": "6.4.13",
+"pdf_page": 327,
+"ocr_vision": "तदेव । अर्हणं पूजा । मत्पूजया तु अपेक्षितसिद्धिरिति । यथाहुः — “ अन्तर्देहेषु भूतानामात्मास्ते हरिरव्ययः । सर्वं तद्धिष्ण्यमीक्षध्वमेवं वस्तोषितो ह्यसाविति",
+"ocr_tesseract": "तदेव । अर्हणं पूजा । मत्पूजया तु अपेक्षितसिद्धिरिति । यथाहुः-- \"ತಾಗ भूतानामात्मास्ते हरिरव्ययः । सर्वं तद्धिष्णयमीक्षध्वमेवं वस्तोषितो ह्यसावि''ति",
+"dge_mula_candidate": "अन्तर्देहेषु भूतानाम् आत्माऽऽस्ते हरिरीश्वरः। सर्वं तद्धिष्ण्यमीक्षध्वमेवं वस्तोषितो ह्यसौ॥",
+"issue": "OCR and the DGE Madhva text for 6.4.13 differ substantially (similarity 0.679). Is the printed verse really 6.4.13, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V277",
+"type": "mismatch",
+"verse_num": 277,
+"prakarana": "धर्मोपदेशप्रकरणम्",
+"book_ref": "10.75.57",
+"pdf_page": 345,
+"ocr_vision": "स्यु",
+"ocr_tesseract": "स्यु",
+"dge_mula_candidate": "यं यं कामयसे कामं मयि कामय कामिनि। सन्ति ह्येकान्तभक्तायास्तव कल्याणि नित्यदा॥",
+"issue": "OCR and the DGE Madhva text for 10.75.57 differ substantially (similarity 0.083). Is the printed verse really 10.75.57, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V291",
+"type": "mismatch",
+"verse_num": 291,
+"prakarana": "धर्मोपदेशप्रकरणम्",
+"book_ref": "4.10.6",
+"pdf_page": 359,
+"ocr_vision": "अन्यांश्च हस्तचरणश्रवणत्वगादीन् प्राणान्नमो भगवते पुरुषाय तुभ्यम् ॥ २९१ ॥",
+"ocr_tesseract": "अन्यांइच हस्तचरणश्रवणत्वगादीन्‌ प्राणान्नमो भगवते पुरुषाय तुभ्यम् ॥ २९१ ॥",
+"dge_mula_candidate": "योऽन्तः प्रविश्य मम वाचमिमां प्रसुप्तां संजीवयत्यखिलशक्तिधरः स्वधाम्ना। अन्यांश्च हस्तचरणश्रवणत्वगादीन् प्राणान् नमो भगवते पुरुषाय तुभ्यम्॥",
+"issue": "OCR and the DGE Madhva text for 4.10.6 differ substantially (similarity 0.652). Is the printed verse really 4.10.6, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V306",
+"type": "mismatch",
+"verse_num": 306,
+"prakarana": "धर्मोपदेशप्रकरणम्",
+"book_ref": "11.11.18",
+"pdf_page": 372,
+"ocr_vision": "तु नास्त्येवेति प्रागेवोक्तमिति भावः । यथाहु:-- “ शब्दब्रह्मणि निष्णातो न निष्णीयात्परे यदि ॥ श्रमस्तस्य भ्रमफलो ह्यधेनुमिव रक्षत\" इति ॥",
+"ocr_tesseract": "तु नास्त्येवेति प्रागेवोक्तमिति भावः । यथाहु--“शब्दत्रह्मणि निष्णातो न निष्णीयात्परे यदि ॥ श्रमस्तस्य॒भ्रमफलो ह्यधेनुमिव रक्षतः इति ॥",
+"dge_mula_candidate": "शब्दब्रह्मणि निष्णातो न निष्णायात् परे यदि। श्रमस्तत्र भ्रमफलो ह्यधेनुमिव रक्षतः॥",
+"issue": "OCR and the DGE Madhva text for 11.11.18 differ substantially (similarity 0.724). Is the printed verse really 11.11.18, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V327",
+"type": "mismatch",
+"verse_num": 327,
+"prakarana": "बिम्बोपासनापरपर्यायात्मसमर्पणप्रकरणम्",
+"book_ref": "10.99.34",
+"pdf_page": 394,
+"ocr_vision": "किश्चित्करोत्युर्वपि यत्स्वदत्तं सुहृत्कृतं फल्वपि भूरिकारि । मयोपनीतं पृथुकैकमुष्टिं प्रत्यग्रहीत्प्रीतियुतो महात्मा",
+"ocr_tesseract": "किश्रित्करोतयुर्वपि यत्स्वदन्त सुहत्कृतं फल्वपि भूरिकारि । मयोपनीतं प्रथुकैकमुष्टि प्रत्यग्रहीत्प्ीतियुतो महात्मा ॥ ३२७ ॥",
+"dge_mula_candidate": "ईदृग्विधान्यसङ्ख्यानि बलस्य बलशालिनः। अनन्तस्याप्रेमयस्य कर्माण्यद्भुतकर्मणः। शृणवन् गृणंश्च तद्भक्त्या विष्णोः स दयितो भवेत्॥",
+"issue": "OCR and the DGE Madhva text for 10.99.34 differ substantially (similarity 0.126). Is the printed verse really 10.99.34, a different verse, or a variant reading? Give the exact printed text."
+},
+{
+"id": "BS_V350",
+"type": "mismatch",
+"verse_num": 350,
+"prakarana": "गुणनिवृत्तिप्रकरणम्",
+"book_ref": "11.2.38",
+"pdf_page": 418,
+"ocr_vision": "अविद्यमानोऽप्यवभाति हि द्वयो ध्यातुर्धिया स्वप्नमनोरथो यथा । तत्कर्म सङ्कल्पविकल्पकं मनो बुधो निदध्यादभयं ततः स्यात् 11",
+"ocr_tesseract": "अविद्यमानोऽप्यवभाति हि द्वयो ध्यातुर्धिया स्वप्नमनोरथो यथा । तत्कर्म सद्धल्पविकल्पकं मनो बुधो निदध्यादभयं ततः स्यात्‌ ॥",
+"dge_mula_candidate": "तत्कर्म सङ्कल्पविकल्पकं मनो बुधो निदध्यादभयं ततः स्यात्॥",
+"issue": "OCR and the DGE Madhva text for 11.2.38 differ substantially (similarity 0.641). Is the printed verse really 11.2.38, a different verse, or a variant reading? Give the exact printed text."
+}
+]
+}

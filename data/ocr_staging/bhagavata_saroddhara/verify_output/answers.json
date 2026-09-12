@@ -1,0 +1,786 @@
+{
+ "BS_V163": {
+  "accept_vision": false,
+  "note": "OCR confusion न/च; master न kept (na hi dvitīyo guṇa-saṅgha-varjitaḥ). No variant.",
+  "decision": "dge",
+  "bhagavata_ref": "8.8.20",
+  "answered_at": "2026-09-06 06:57",
+  "via": "gemini_chat"
+ },
+ "BS_V165": {
+  "accept_vision": false,
+  "note": "Print reads वरम् (the chosen bridegroom, Lakṣmī-svayaṃvara); DGE master keeps परम्.",
+  "decision": "dge",
+  "bhagavata_ref": "8.8.22",
+  "answered_at": "2026-09-06 06:57",
+  "via": "gemini_chat"
+ },
+ "BS_V105": {
+  "accept_vision": false,
+  "note": "Print reads रतिः (attachment); DGE master keeps मतिः (Balarāma to Rukmiṇī).",
+  "decision": "dge",
+  "bhagavata_ref": "10.54.55",
+  "answered_at": "2026-09-06 06:57",
+  "via": "gemini_chat"
+ },
+ "BS_V280": {
+  "accept_vision": false,
+  "note": "Print भवेम is a भ/व्र ligature slip; classical reading व्रजेम kept. No variant.",
+  "decision": "dge",
+  "bhagavata_ref": "3.16.41",
+  "answered_at": "2026-09-06 06:57",
+  "via": "gemini_chat"
+ },
+ "BS_V360": {
+  "accept_vision": false,
+  "note": "Print reads संस्मृत्य (remembering); DGE master keeps संश्राव्य (Yamarāja's teaching).",
+  "decision": "dge",
+  "bhagavata_ref": "6.3.32",
+  "answered_at": "2026-09-06 06:57",
+  "via": "gemini_chat"
+ },
+ "BS_V212": {
+  "accept_vision": false,
+  "note": "Print word order तत्वसूक्ष्मं (recension variance); DGE master order सूक्ष्मतत्वं kept.",
+  "decision": "dge",
+  "bhagavata_ref": "11.14.26",
+  "answered_at": "2026-09-06 06:57",
+  "via": "gemini_chat"
+ },
+ "BS_V311": {
+  "accept_vision": false,
+  "note": "Print word order लौकिकवैदिकैर्जनैः (recension variance); DGE master order वैदिकलौकिकैर्जनैः kept.",
+  "decision": "dge",
+  "bhagavata_ref": "12.4.31",
+  "answered_at": "2026-09-06 06:57",
+  "via": "gemini_chat"
+ },
+ "BS_V005": {
+  "verified_text": "अस्त्येव मे सर्वमिदं त्वयोक्तं तथापि नात्मा परितुष्यते मे। तन्मूलमव्यक्तमगाधबोधं पृच्छामहे त्वाऽऽत्मभवात्मभूतम्॥",
+  "accept_vision": false,
+  "note": "Restored verse 5 (1.5.5), which was overwritten when OCR assigned verse 6 here.",
+  "decision": "dge",
+  "bhagavata_ref": "1.5.5",
+  "located_by": "ref",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V006": {
+  "verified_text": "अतो महाभाग भवानमोघदृक् शुचिश्रवाः सत्यरतो धृतवतः। उरुक्रमस्याखिलबन्धमुक्तये समाधिनाऽनुस्मर यद्विचेष्टितम्॥",
+  "bhagavata_ref": "1.5.13",
+  "page": 103,
+  "note": "Verse 6 is 1.5.13; printed ref 1.5.5 is a typo; print reads धर्मगुप्तये for बन्धमुक्तये.",
+  "decision": "dge",
+  "located_by": "ref",
+  "located_ratio": 0.99,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V009": {
+  "verified_text": "हरेर्गुणाक्षिप्तमतिर्भगवान् बादरायणिः। अध्यगान्महदाख्यानं नित्यं विष्णुजनप्रियम्॥",
+  "bhagavata_ref": "1.7.11",
+  "page": 105,
+  "note": "Verse 9 is 1.7.11; printed ref 1.7.11 was misread as 2.3.25; OCR dropped first line.",
+  "decision": "dge",
+  "located_by": "ref",
+  "located_ratio": 0.967,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V035": {
+  "verified_text": "निगूढजत्रुं पृथुतुङ्गवक्षसम् आवर्तनाभिं वलिवल्गूदरञ्च। दिगम्बरं वक्रविकीर्णकेशं प्रलम्बबाहुं स्वमरोत्तमाभम्॥",
+  "bhagavata_ref": "1.20.3",
+  "page": 123,
+  "note": "Verse 35 is 1.20.3, between 1.20.2 (v34) and 1.20.4 (v36); omitted in OCR text.",
+  "decision": "dge",
+  "located_by": "ref",
+  "located_ratio": 0.866,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "_held": {},
+ "BS_V069": {
+  "verified_text": "निर्जित्य दिक्चक्रमभूतविग्रहो परासनस्थः समराजवन्दितः। गृहेषु मैथुन्यपरेषु योषितां क्रीडामृगः पूरुष ईश गीयते॥",
+  "bhagavata_ref": "10.54.53",
+  "page": 148,
+  "note": "Verse 69 is 10.54.53 on p.148, previously misplaced into BS_V068.",
+  "decision": "dge",
+  "located_by": "ref",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "_unsure": {
+  "BS_V166": {
+   "note": "Absent/misnumbered in print: p.223 contains only v165 tika ending in typo ॥१६६॥; no verse text exists.",
+   "at": "2026-09-06 09:45"
+  },
+  "BS_V248": {
+   "note": "Absent/misnumbered in print: prakarana serial jumps directly from (12) v247 to (13) v249.",
+   "at": "2026-09-06 09:45"
+  }
+ },
+ "BS_V317": {
+  "verified_text": "भक्तिः परे स्वेऽनुभवो विरक्तिरन्यत्र तत्त्रिकमेककालः। प्रपद्यमानस्य यथाऽश्नतः स्युस्तुष्टिः पुष्टिः क्षुदपायोऽनुघासम्॥",
+  "bhagavata_ref": "11.2.42",
+  "page": 384,
+  "note": "Verse 317 is 11.2.42; printed ref 11.2.42 (4) on p.384.",
+  "decision": "dge",
+  "located_by": "ref",
+  "located_ratio": 0.92,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V365": {
+  "verified_text": "संसारसिन्धुमतिदुस्तरमुत्तितीर्षोर्नान्यः प्लवो भगवतः पुरुषोत्तमस्य। लीलाकथारसनिषेवणमन्तरेण पुंसो भवेद् विविधदुःखदवार्दितस्य॥",
+  "bhagavata_ref": "12.4.40",
+  "page": 437,
+  "note": "Verse 365 is 12.12.66, serial (1) of Upasamhara, preceding 12.12.67 (v366). [DGE numbering 12.4.40; chat said 12.12.66]",
+  "decision": "dge",
+  "located_by": "text_search",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V042": {
+  "verified_text": "एवं निशम्य भृगुनन्दन साधुवादं वैयासकिः स भगवानथ विष्णुरातम्। प्रत्यर्च्य कृष्णचरितं कलिकल्मषघ्नं व्याहर्तुमारभत भागवतप्रधानः॥",
+  "accept_vision": false,
+  "note": "The printed verse is 10.1.14; OCR missed line 1; confirmed identical to DGE text.",
+  "decision": "dge",
+  "bhagavata_ref": "10.1.14",
+  "located_by": "ref",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V058": {
+  "verified_text": "देह्यन्यदेहविवरे जठराग्निनासृग्विण्मूत्रकूपपतितो भृशतप्तदेहः। इच्छन्नितो विवसितुं गणयन् स्वमासान् निर्वास्यते कृपणधीर्भवता कदा नु॥",
+  "accept_vision": false,
+  "note": "The printed verse is 3.32.19; OCR dropped line 1 and concluding words; confirmed identical to DGE text. [DGE numbering 3.32.18; chat said 3.32.19]",
+  "decision": "dge",
+  "bhagavata_ref": "3.32.18",
+  "located_by": "text_search",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V079": {
+  "verified_text": "परदेवताप्रसादाधिगतात्मप्रत्यवमर्शनपरिनिर्वृतः स्वपुत्रेभ्य इमां गां यथादायं विभज्य भुक्तभोगां च महिषीं मृतकमिव स ह महाविभूतिमपहाय स्वयं निहितनिर्वेदो हृदि गृहीतरुचिरहरिविहारानुभावो भगवतो नारदस्य पदवीमनुससार॥",
+  "accept_vision": false,
+  "note": "The printed text is the full prose passage of 5.1.38 across pp. 56-57; OCR captured only the concluding line on p. 57; confirmed dge.",
+  "decision": "dge",
+  "bhagavata_ref": "5.1.38",
+  "located_by": "ref",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V080": {
+  "verified_text": "कुत्राशिषः श्रुतिसुखा मृगतृष्णरूपाः क्वेदं कलेवरमशेषरुजां विरोहम्। निर्विद्यते न तु जनो यदपीह विद्वान् कामानलं मधुलवैः शमयन् दुरापैः॥",
+  "accept_vision": false,
+  "note": "Printed verse is 7.9.25; OCR dropped line 1; confirmed dge (print reads सुखलवैः as a variant for मधुलवैः).",
+  "decision": "dge",
+  "bhagavata_ref": "7.9.25",
+  "located_by": "ref",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V099": {
+  "verified_text": "पृष्ठतः परोक्षमनुप्रवृत्तः लुब्धकः कृतान्तः शरेण यमिह पराविध्यति तमिममात्मानमहो राजन् भिन्नहृदयं द्रष्टुमर्हसीति यथा मृगयुहतं मृगम्॥",
+  "accept_vision": false,
+  "note": "Print carries Narada's prose allegorical resolution of 4.29.54; differs from DGE candidate 4.29.51.",
+  "decision": "printed",
+  "bhagavata_ref": "4.29.54",
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V119": {
+  "verified_text": "ये ब्राह्मणान् मयि धिया क्षिपतोऽर्चयन्ति तुष्यद्धृदः स्मितसुधोक्षितपद्मवक्त्राः। वाण्यानुरागकलयात्मजवद्गृणन्तः सम्बोधयन्त्यहमिवाहमुपाकृतस्तैः॥",
+  "accept_vision": false,
+  "note": "Composite verse from 3.16.13-14 praising Brahmanas; printed ref misread as 3.17.22; confirmed dge. [DGE numbering 3.17.11; chat said 3.16.13]",
+  "decision": "dge",
+  "bhagavata_ref": "3.17.11",
+  "located_by": "text_search",
+  "located_ratio": 0.824,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V139": {
+  "verified_text": "यथाऽऽमयोऽङ्गे समुपेक्षितो नृभिर्न शक्यते रूढपदश्चिकित्सितुम्। यथेन्द्रियग्राम उपेक्षितस्तथा रिपुर्महान् लब्धबलो न चाल्यते॥",
+  "accept_vision": false,
+  "note": "The printed verse is 10.5.38; OCR dropped line 1; confirmed identical to DGE text.",
+  "decision": "dge",
+  "bhagavata_ref": "10.5.38",
+  "located_by": "ref",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V172": {
+  "verified_text": "क्षुत्तृट्त्रिधातुभिरिमा मुहुरर्द्यमानाः शीतोष्णवातवर्षैरितरेतराच्च। कामाग्निनाऽच्युत रुषा च सुदुर्भरेण संपश्यतो मन उरुक्रम सीदते मे॥",
+  "accept_vision": false,
+  "note": "The printed verse is 3.10.8; OCR dropped line 1; confirmed identical to DGE text.",
+  "decision": "dge",
+  "bhagavata_ref": "3.10.8",
+  "located_by": "ref",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V183": {
+  "verified_text": "पुत्रांश्च शिष्यांश्च पिता गुरुर्वा मल्लोककामो मदनुग्रहार्थः। इत्थं विमन्युरनुशिष्यादतज्ज्ञान् न योजयेत्कर्मसु कर्ममूढान्॥",
+  "accept_vision": false,
+  "note": "Print pairs 5.5.14 with 5.5.15ab as a 4-pada verse, omitting 5.5.15cd.",
+  "decision": "printed",
+  "bhagavata_ref": "5.5.14",
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V233": {
+  "verified_text": "कः पण्डितस्त्वदपरं शरणं समीयात् भक्तप्रियादृतगिरः सुहृदः कृतज्ञात्। सर्वान् ददाति सुहृदो भजतोऽभिकामानात्मानमप्युपचयापचयौ न यस्य॥",
+  "accept_vision": false,
+  "note": "The printed verse is 10.48.26 (VJ 10.47.27); OCR dropped line 1; confirmed dge. [DGE numbering 10.47.27; chat said 10.48.26]",
+  "decision": "dge",
+  "bhagavata_ref": "10.47.27",
+  "located_by": "text_search",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V251": {
+  "verified_text": "अन्तर्देहेषु भूतानाम् आत्माऽऽस्ते हरिरीश्वरः। सर्वं तद्धिष्ण्यमीक्षध्वमेवं वस्तोषितो ह्यसौ॥",
+  "accept_vision": false,
+  "note": "Verse 251 is 6.4.13; OCR merged commentary intro; confirmed dge.",
+  "decision": "dge",
+  "bhagavata_ref": "6.4.13",
+  "located_by": "ref",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V277": {
+  "verified_text": "यं यं कामयसे कामं मयि कामय कामिनि। सन्ति ह्येकान्तभक्तायास्तव कल्याणि नित्यदा॥",
+  "accept_vision": false,
+  "note": "The printed verse is 10.75.57; OCR failed completely, capturing only stray 'स्यु'; confirmed dge. [DGE numbering 10.75.54; chat said 10.75.57]",
+  "decision": "dge",
+  "bhagavata_ref": "10.75.54",
+  "located_by": "text_search",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V291": {
+  "verified_text": "योऽन्तः प्रविश्य मम वाचमिमां प्रसुप्तां संजीवयत्यखिलशक्तिधरः स्वधाम्ना। अन्यांश्च हस्तचरणश्रवणत्वगादीन् प्राणान् नमो भगवते पुरुषाय तुभ्यम्॥",
+  "accept_vision": false,
+  "note": "The printed verse is Dhruva's prayer in 4.9.6 (VJ 4.10.6); OCR dropped line 1; confirmed dge. [DGE numbering 4.10.6; chat said 4.9.6]",
+  "decision": "dge",
+  "bhagavata_ref": "4.10.6",
+  "located_by": "text_search",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V306": {
+  "verified_text": "शब्दब्रह्मणि निष्णातो न निष्णायात् परे यदि। श्रमस्तत्र भ्रमफलो ह्यधेनुमिव रक्षतः॥",
+  "accept_vision": false,
+  "note": "The printed verse is 11.11.18; OCR merged commentary intro; confirmed dge.",
+  "decision": "dge",
+  "bhagavata_ref": "11.11.18",
+  "located_by": "ref",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 07:35",
+  "via": "gemini_chat"
+ },
+ "BS_V068": {
+  "verified_text": "यतो न कश्चित्क्वच कुत्र विद्वान् दीनं स्वमात्मानमलं समर्थः। विमोचितुं वामदृशां विहारक्रीडामृगो यन्निगडोऽक्षिसर्गः॥",
+  "accept_vision": false,
+  "note": "Verse 68 = 7.6.23: the ॥६८॥ line on p.148 is its second half (विमोचितुं वामदृशां…) and the ref line । ७ । ६ । २३ । (१२) stands beside it; the 10.54.53 text formerly here is verse 69.",
+  "decision": "dge",
+  "bhagavata_ref": "7.6.23",
+  "answered_at": "2026-09-06 07:39",
+  "via": "gemini_chat"
+ },
+ "BS_V082": {
+  "verified_text": "किमात्मनाऽनेन जहाति यो मुदं किं रिक्थहारैः स्वजनाख्यदस्युभिः। किं जायया संसृतिहेतुभूतया मर्त्यस्य गेहैः किमिहायुषो व्ययः॥",
+  "accept_vision": false,
+  "note": "OCR verse किमात्मना तेन जहाति यो मुदं… is DGE 8.20.42; printed ref 8.21.9 misread.",
+  "decision": "dge",
+  "bhagavata_ref": "8.20.42",
+  "answered_at": "2026-09-06 07:39",
+  "via": "gemini_chat"
+ },
+ "BS_V086": {
+  "verified_text": "वयं पुरा श्रीमदनष्टबुद्धयो जिहीर्षयाऽस्या इतरेतरस्पृधः। घ्नन्तः प्रजाः स्वा अपि निर्घृणाः प्रभो मृत्युं परं त्वामगणय्य दुर्मदाः॥",
+  "accept_vision": false,
+  "note": "OCR line घ्नन्तः प्रजाः स्वा अपि… is the second half of DGE 10.83.12 (printed 10.81.12: the print's skandha-10 adhyāya count runs two behind DGE here); OCR dropped line 1.",
+  "decision": "dge",
+  "bhagavata_ref": "10.83.12",
+  "answered_at": "2026-09-06 07:39",
+  "via": "gemini_chat"
+ },
+ "BS_V120": {
+  "verified_text": "तं निशम्याथ मुनयो विस्मिता मुक्तसंशयाः। भूयांसं श्रद्दधुर्विष्णुं यतः शान्तिर्यतोऽभयम्॥",
+  "accept_vision": false,
+  "note": "Print quotes 10.95.15cd–16 (Bhṛgu at Sarasvatī) as one item; master text of 10.95.16 taken; printed ref 10.93.15 two adhyāyas behind DGE.",
+  "decision": "dge",
+  "bhagavata_ref": "10.95.16",
+  "answered_at": "2026-09-06 07:39",
+  "via": "gemini_chat"
+ },
+ "BS_V223": {
+  "verified_text": "न ब्रह्मणः स्वपरभेदमतिस्तव स्यात् सर्वात्मनः समदृशः स्वसुखानुभूतेः। संसेवया सुरतरोरिव ते प्रसादः सेवानुरूप उदयो न विपर्ययोऽत्र॥",
+  "accept_vision": false,
+  "note": "OCR line संसेवया सुरतरोरिव… is the second half of DGE 10.82.6 (printed 10.80.6, two adhyāyas behind DGE); OCR dropped line 1.",
+  "decision": "dge",
+  "bhagavata_ref": "10.82.6",
+  "answered_at": "2026-09-06 07:39",
+  "via": "gemini_chat"
+ },
+ "BS_V228": {
+  "verified_text": "मानस्तम्भनिमित्तानां जन्मादीनां समन्ततः। सर्वश्रेयःप्रतीपानां हन्त मुह्येन्न मत्परः॥",
+  "accept_vision": false,
+  "note": "OCR जन्मादीनां समन्ततः… is the second half of DGE 8.20.60 (printed 8.21.27 misread); OCR dropped line 1.",
+  "decision": "dge",
+  "bhagavata_ref": "8.20.60",
+  "answered_at": "2026-09-06 07:39",
+  "via": "gemini_chat"
+ },
+ "BS_V274": {
+  "verified_text": "विषयतृषो नरपशवो य उपासते विभूतीर्न परं त्वाम्। तेषामाशिष ईश तदनु विनश्यन्ति यथाऽराजकुलम्॥",
+  "accept_vision": false,
+  "note": "Verse 274 = printed ref । ६ । १६ । ३८ । (३८) on p.344 next to ॥ २७४ ॥; master text of 6.16.38 (विषयतृषो नरपशवो…) supplied; OCR lost the verse lines.",
+  "decision": "dge",
+  "bhagavata_ref": "6.16.38",
+  "answered_at": "2026-09-06 07:39",
+  "via": "gemini_chat"
+ },
+ "BS_V350": {
+  "accept_vision": true,
+  "note": "Print gives अविद्यमानोऽप्यवभाति… + तत्कर्म सङ्कल्प… as one verse; the DGE master holds the first half as an unnumbered stray line in 11.2 and only the second half under 11.2.38 — a DGE data-split defect, so the clean OCR text is kept here.",
+  "decision": "vision",
+  "bhagavata_ref": "11.2.38",
+  "answered_at": "2026-09-06 07:39",
+  "via": "gemini_chat"
+ },
+ "BS_V327": {
+  "accept_vision": true,
+  "note": "Sudāmā's verse किञ्चित्करोत्युर्वपि… is not present in the DGE Madhva Bhāgavata (printed ref 10.99.34 has no text); clean OCR kept; DGE gap to fill.",
+  "decision": "vision",
+  "bhagavata_ref": "10.99.34",
+  "answered_at": "2026-09-06 07:39",
+  "via": "gemini_chat"
+ },
+ "BS_V354": {
+  "verified_text": "प्रायेण वेद तदिदं न महाजनोऽयं देव्या विमोहितमतिर्बत माययाऽलम्। त्रय्यां जडीकृतमतिर्मधुपुष्पितायां वैतानिके महति कर्मणि युज्यमानः॥",
+  "accept_vision": false,
+  "note": "Printed verse is 6.3.25; Vision OCR dropped line 1; matches DGE master.",
+  "decision": "dge",
+  "bhagavata_ref": "6.3.25",
+  "located_by": "ref",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V359": {
+  "verified_text": "तत् क्षम्यतां स भगवान् पुरुषः पुराणो नारायणः स्वपुरुषैर्यदसत्कृतं नः। स्वानामहो न विदुषां रचिताञ्जलीनां क्षान्तिर्वरीयसि नमः पुरुषाय भूम्ने॥",
+  "accept_vision": false,
+  "note": "Printed verse is 6.3.31; Vision OCR dropped line 1; typo १५९ for ३५९ in print.",
+  "decision": "dge",
+  "bhagavata_ref": "6.3.31",
+  "located_by": "ref",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V045": {
+  "verified_text": "निवृत्ततर्षैरुपगीयमानाद् भवौषधाच्छ्रोत्रमनोभिरामात्। क उत्तमश्लोकगुणानुवादात् पुमान् विरज्येत विना विनाऽतिमुग्धान्॥",
+  "accept_vision": false,
+  "note": "Print reads पशुघ्नात्; DGE master retains विनाऽतिमुग्धान्. [DGE numbering 10.1.4; chat said None]",
+  "decision": "dge",
+  "bhagavata_ref": "10.1.4",
+  "located_by": "text_search",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V118": {
+  "verified_text": "यस्यामृतामलयशःश्रवणावगाहः सद्यः पुनाति जगदाश्वपचं विकुण्ठः। सोऽहं भवद्भ्य उपलब्धसुतीर्थकीर्तिश्छिन्द्यां स्वबाहुमपि वः प्रतिकूलवृत्तिम्॥",
+  "accept_vision": false,
+  "note": "Vision OCR dropped line 1a. [DGE numbering 3.17.6; chat said None]",
+  "decision": "dge",
+  "bhagavata_ref": "3.17.6",
+  "located_by": "text_search",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V138": {
+  "verified_text": "सङ्गं त्यजेत मिथुनव्रजिनान्मुमुक्षुः सर्वात्मना न विसृजेद् बहिरिन्द्रियाणि। एकश्चरन् रहसि चित्तमनन्त ईशे युञ्जीत तद्रतिषु साधुषु चेत् प्रसङ्गः॥",
+  "accept_vision": false,
+  "note": "Vision OCR dropped line 1a. [DGE numbering 9.7.51; chat said None]",
+  "decision": "dge",
+  "bhagavata_ref": "9.7.51",
+  "located_by": "text_search",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V206": {
+  "verified_text": "विभूषितं मेखलयाऽङ्गुलीयकैर्महाधनैर्नूपुरकङ्कणादिभिः। स्निग्धामलैः कुञ्चितनीलकुन्तलैर्विरोचमानाननहासपेशलम्॥",
+  "accept_vision": false,
+  "note": "Vision OCR dropped line 2b. [DGE numbering 2.2.12; chat said None]",
+  "decision": "dge",
+  "bhagavata_ref": "2.2.12",
+  "located_by": "text_search",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V259": {
+  "verified_text": "तत्वे मनो दर्शने दृगपि स्तुतौ च वाक् कर्मणि ह्यपि करौ श्रवणं कथायाम्। संसेवया त्वयि विनेति षडङ्गया किं भक्तिं जनः परमहंसगतौ लभेत॥",
+  "accept_vision": false,
+  "note": "Vision OCR dropped line 1a. [DGE numbering 7.9.50; chat said None]",
+  "decision": "dge",
+  "bhagavata_ref": "7.9.50",
+  "located_by": "text_search",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V289": {
+  "verified_text": "स्यान्नस्तवाङ्घ्रिरशुभाशयधूमकेतुः क्षेमाय यो मुनिभिरार्द्रहृदोह्यमानः। यः सात्त्वतैः समविभूतिभिरार्द्रहृद्भिर्व्यूह्यार्चितः सवनशः समविक्रमैश्च॥",
+  "accept_vision": false,
+  "note": "Print reads सात्विकैः... आत्मविद्भिः... यः; DGE master reading retained; variant recorded.",
+  "decision": "dge",
+  "bhagavata_ref": "11.6.10",
+  "located_by": "ref",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V323": {
+  "verified_text": "त्वं प्रत्यगात्मनि सदा भगवत्यनन्त आनन्दमात्र उपपन्नसमस्तशक्तौ। भक्तिं विधाय परमां शनकैरविद्याग्रन्थिं विभेत्स्यसि ममाहमिति प्ररूढाम्॥",
+  "accept_vision": false,
+  "note": "Vision OCR dropped line 1a. [DGE numbering 4.11.60; chat said None]",
+  "decision": "dge",
+  "bhagavata_ref": "4.11.60",
+  "located_by": "text_search",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V361": {
+  "verified_text": "अहो बत श्वपचोऽतो गरीयान् यज्जिह्वाग्रे वर्तते नाम तुभ्यम्। तेपुस्तपस्ते जुहुवुः सस्नुरार्याः ब्रह्मानूचुर्नाम गृणन्ति ये ते॥",
+  "accept_vision": false,
+  "note": "Vision OCR dropped तुभ्यम् and added typo in तेपुस्तपस्ते. [DGE numbering 3.34.7; chat said None]",
+  "decision": "dge",
+  "bhagavata_ref": "3.34.7",
+  "located_by": "text_search",
+  "located_ratio": 1.0,
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V014": {
+  "accept_vision": false,
+  "note": "Print reads यदाह; DGE master reading स चाह retained.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V016": {
+  "accept_vision": false,
+  "note": "OCR swept in trailing verse index इति १५.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V020": {
+  "accept_vision": false,
+  "note": "Orthographic variation (anusvara दंभः vs ligature दम्भः); OCR noise.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V029": {
+  "accept_vision": false,
+  "note": "Print reads देवा; DGE master reading वेदा retained.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V046": {
+  "accept_vision": false,
+  "note": "OCR swept in trailing commentary token इति.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V047": {
+  "accept_vision": false,
+  "note": "Vision OCR clipped आपीय to अपी.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V075": {
+  "accept_vision": false,
+  "note": "Vision OCR dropped word मन्ये.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V081": {
+  "accept_vision": false,
+  "note": "Vision OCR misread ligatures in कर्मशक्तिर्बह्व्यः सपत्न्यः.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V125": {
+  "accept_vision": false,
+  "note": "OCR swept in page number १२४.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V133": {
+  "accept_vision": false,
+  "note": "OCR ligature confusion for मे स्तव.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V137": {
+  "accept_vision": false,
+  "note": "OCR swept in printed reference number ७/१६.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V155": {
+  "accept_vision": false,
+  "note": "Sandhi difference (विदुः न vs विदुर्न); identical in pronunciation.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V156": {
+  "accept_vision": false,
+  "note": "Vision OCR clipped leading padas ते वै विदन्त्यतितरन्ति.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V164": {
+  "accept_vision": false,
+  "note": "Print reads च (क्वचिच्चिरायुर्न च); DGE master retains हि.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V169": {
+  "accept_vision": false,
+  "note": "Vision OCR dropped अपरे and swept in trailing index २ इति.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V170": {
+  "accept_vision": false,
+  "note": "Vision OCR visual misreading of गुणैः as जनैः.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V189": {
+  "accept_vision": false,
+  "note": "Print reads सूक्तस्य; DGE master retains दत्तस्य.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V198": {
+  "accept_vision": false,
+  "note": "Vision OCR dropped word ते.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V200": {
+  "accept_vision": false,
+  "note": "Vision OCR dropped word वपुः.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V201": {
+  "accept_vision": false,
+  "note": "Vision OCR corrupted ligature बद्धासनो into बवासनं.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V203": {
+  "accept_vision": false,
+  "note": "OCR swept in verse reference numbers २२९ ४.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V208": {
+  "accept_vision": false,
+  "note": "Orthographic variation (शुद्धयति vs शुध्यति).",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V209": {
+  "accept_vision": false,
+  "note": "OCR swept in printed reference number ११२६/९ १.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V213": {
+  "accept_vision": false,
+  "note": "Vision OCR dropped pronoun स.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V222": {
+  "accept_vision": false,
+  "note": "Vision OCR typo नत्स्वं for नस्त्वं.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V227": {
+  "accept_vision": false,
+  "note": "Print reads त्वयैवाद्य तदेव; DGE master retains तदेवाद्य तथैव.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V229": {
+  "accept_vision": false,
+  "note": "OCR scan noise adding stray repha (सर्ती for सतीं).",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V237": {
+  "accept_vision": false,
+  "note": "Vision OCR broken conjunct (यथाअसा for यथाञ्जसा).",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V240": {
+  "accept_vision": false,
+  "note": "Print reads यदा भवान्; DGE master retains यदाह.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V252": {
+  "accept_vision": false,
+  "note": "Print reads तत्; DGE master retains हि.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V257": {
+  "accept_vision": false,
+  "note": "Vision OCR dropped ending words कुतः परे.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V263": {
+  "accept_vision": false,
+  "note": "Sandhi variation (करौ हरेर्मन्दिर- vs करो हरेर्मन्दिर-).",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V267": {
+  "accept_vision": false,
+  "note": "Stray OCR noise character म.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V275": {
+  "accept_vision": false,
+  "note": "Print reads देहिनां; DGE master retains चैहिकास्तानीश.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V279": {
+  "accept_vision": false,
+  "note": "OCR anusvara typo for conjunct ङ्ग in येङ्ग.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V281": {
+  "accept_vision": false,
+  "note": "Vision OCR dropped leading particle न.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V296": {
+  "accept_vision": false,
+  "note": "OCR swept in commentary prose and trailing reference numbers.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V298": {
+  "accept_vision": false,
+  "note": "OCR swept in trailing quotation marker and reference इति १० ४६.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V325": {
+  "accept_vision": false,
+  "note": "OCR swept in verse reference numbers ७७६ २.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V331": {
+  "accept_vision": false,
+  "note": "Print reads प्राणोपहाराच्च; DGE master retains प्राणोपहारोऽत्र.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V347": {
+  "accept_vision": false,
+  "note": "Print reads कृतमृद्धमुदः; DGE master retains नतमूर्द्ध सदा.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V358": {
+  "accept_vision": false,
+  "note": "Vision OCR dropped line 1a and swept in commentary markers.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ },
+ "BS_V363": {
+  "accept_vision": false,
+  "note": "OCR swept in printed reference number ४ ४९ २.",
+  "decision": "dge",
+  "answered_at": "2026-09-06 09:45",
+  "via": "gemini_chat"
+ }
+}

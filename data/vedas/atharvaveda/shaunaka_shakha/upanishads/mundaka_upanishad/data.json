@@ -1,0 +1,811 @@
+{
+  "schema": "generic",
+  "default_author": "unspecified",
+  "source": "Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024",
+  "source_url": "https://github.com/OliverHellwig/sanskrit/tree/master/dcs/data/conllu/files/Muṇḍakopaniṣad",
+  "licence": "CC-BY 4.0",
+  "note": "89 units across ['1.1', '1.2', '2.1', '2.2', '3.1', '3.2'] -- the mula Upanishad text, distinct from Madhva's bhashya on it elsewhere in this repo. See dge/PENDING.md, 24 Aug entry (batch 3), for the correction this represents to the original taxonomy-placement proposal.",
+  "items": [
+    {
+      "id": "1.1.1",
+      "title": "1.1.1",
+      "text": "ब्रह्मा देवानाम् प्रथमः संबभूव विश्वस्य कर्ता भुवनस्य गोप्ता",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.1.2",
+      "title": "1.1.2",
+      "text": "स ब्रह्म विद्याम् सर्व विद्या प्रतिष्ठामथर्वाय ज्येष्ठ पुत्राय प्राह",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.1.3",
+      "title": "1.1.3",
+      "text": "स भारद्वाजाय प्राह भारद्वाजः अङ्गिरसे परावराम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.1.4",
+      "title": "1.1.4",
+      "text": "शौनकः ह वै महाशालः अङ्गिरसम् विधिवत् उपसन्नः पप्रच्छ कस्मिन्नु भगवः विज्ञाते सर्वमिदम् विज्ञातम् भवति इति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.1.5",
+      "title": "1.1.5",
+      "text": "तस्मै स ह उवाच",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.1.6",
+      "title": "1.1.6",
+      "text": "द्वे विद्ये वेदितव्ये इति ह स्म यत् ब्रह्म विदः वदन्ति परा च एव अपरा च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.1.7",
+      "title": "1.1.7",
+      "text": "तत्र अपरा ऋग्वेदः यजुर्वेदः सामवेदः अथर्ववेदः शिक्षा कल्पः व्याकरणम् निरुक्तम् छन्दः ज्योतिषमिति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.1.8",
+      "title": "1.1.8",
+      "text": "अथ परा यया तत् अक्षरमधिगम्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.1.9",
+      "title": "1.1.9",
+      "text": "यत्तत् अद्रेश्यम गोत्रम चक्षुः श्रोत्रम् तत् अ पाणि पादम् नित्यम् विभुम् सर्व गतम् सु सूक्ष्मम् तत् अव्ययम् यत् भूत योनिम् परिपश्यन्ति धीराः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.1.10",
+      "title": "1.1.10",
+      "text": "यथा ऊर्णनाभिः सृजते गृह्णते च यथा पृथिव्यामोषधयः सम्भवन्ति यथा सतः पुरुषात्केश लोमानि तथा अक्षरात्सम्भवति इह विश्वम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.1.11",
+      "title": "1.1.11",
+      "text": "तपसा चीयते ब्रह्म",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.1.12",
+      "title": "1.1.12",
+      "text": "ततस् अन्नमभिजायते अन्नात्प्राणः मनः सत्यम् लोकाः कर्मसु च अमृतम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.1.13",
+      "title": "1.1.13",
+      "text": "यः सर्व ज्ञः सर्व विद्यस्य ज्ञान मयम् तपः तस्मात् एतत् ब्रह्म रूपमन्नम् च जायते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "1.2.5",
+      "title": "1.2.5",
+      "text": "एतेषु यश्चरते भ्राजमानेषु यथाकालं चाहुतयो ह्याददायन्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.1",
+      "title": "2.1.1",
+      "text": "तत् एतत्सत्यम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.2",
+      "title": "2.1.2",
+      "text": "यथा सु दीप्तात्पावकात् विस्फुलिङ्गाः सहस्रशस् प्रभवन्ते सरूपाः तथा अक्षरात् विविधाः सोम्य भावाः प्रजायन्ते तत्र च एव अपियन्ति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.3",
+      "title": "2.1.3",
+      "text": "दिव्यः हि अमूर्तः पुरुषः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.4",
+      "title": "2.1.4",
+      "text": "स बाह्य अभ्यन्तरः हि अजः अ प्राणः हि अ मनाः शुभ्रः हि अक्षरात्परतस् परः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.5",
+      "title": "2.1.5",
+      "text": "एतस्मात् जायते प्राणः मनः सर्व इन्द्रियाणि च खम् वायुः ज्योतिः आपः पृथिवी विश्वस्य धारिणी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.6",
+      "title": "2.1.6",
+      "text": "अग्निः मूर्धा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.7",
+      "title": "2.1.7",
+      "text": "चक्षुषी चन्द्र सूर्यौ",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.8",
+      "title": "2.1.8",
+      "text": "दिशः श्रोत्रे",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.9",
+      "title": "2.1.9",
+      "text": "वाच् विवृताः च वेदाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.10",
+      "title": "2.1.10",
+      "text": "वायुः प्राणः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.11",
+      "title": "2.1.11",
+      "text": "हृदयम् विश्वम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.12",
+      "title": "2.1.12",
+      "text": "अस्य पद्भ्याम् पृथिवी हि",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.13",
+      "title": "2.1.13",
+      "text": "एष सर्व भूत अन्तरात्मा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.14",
+      "title": "2.1.14",
+      "text": "तस्मात् अग्निः समिधः यस्य सूर्यः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.15",
+      "title": "2.1.15",
+      "text": "सोमात्पर्जन्यः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.16",
+      "title": "2.1.16",
+      "text": "ओषधयः पृथिव्याम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.17",
+      "title": "2.1.17",
+      "text": "पुमान्रेतः सिञ्चति योषितायाम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.18",
+      "title": "2.1.18",
+      "text": "बह्वीः प्रजाः पुरुषात्सम्प्रसूताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.19",
+      "title": "2.1.19",
+      "text": "तस्मात् ऋचः साम यजूंषि दीक्षाः यज्ञाः च सर्वे क्रतवः दक्षिणाः च संवत्सरः च यजमानः च लोकाः सोमः यत्र पवते यत्र सूर्यः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.20",
+      "title": "2.1.20",
+      "text": "तस्मात् च देवाः बहुधा सम्प्रसूताः साध्याः मनुष्याः पशवः वयांसि प्राण अपानौ व्रीहि यवौ तपः च श्रद्धा सत्यम् ब्रह्मचर्यम् विधिः च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.21",
+      "title": "2.1.21",
+      "text": "सप्त प्राणाः प्रभवन्ति तस्मात्सप्त अर्चिषः समिधः सप्त होमाः सप्त इमे लोकाः येषु चरन्ति प्राणाः गुहा शयाः निहिताः सप्त सप्त",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.22",
+      "title": "2.1.22",
+      "text": "अतस्समुद्राः गिरयः च सर्वे",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.23",
+      "title": "2.1.23",
+      "text": "अस्मात्स्यन्दन्ते सिन्धवः सर्व रूपाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.24",
+      "title": "2.1.24",
+      "text": "अतस् च सर्वाः ओषधयः रसः च येन एष भूतैः तिष्ठते हि अन्तरात्मा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.25",
+      "title": "2.1.25",
+      "text": "पुरुषः एवा इदम् विश्वम् कर्म तपः ब्रह्म पर अमृतम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.1.26",
+      "title": "2.1.26",
+      "text": "एतत् यः वेद निहितम् गुहायाम् सः अविद्या ग्रन्थिम् विकिरति इह सोम्य",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "2.2.1",
+      "title": "2.2.1",
+      "text": "एजत्प्राणन्निमिषच्च यदेतज्जानथ सदसद्वरेण्यम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.1",
+      "title": "3.1.1",
+      "text": "द्वा सुपर्णा सयुजा सखाया समानम् वृक्षम् परिषस्वजाते तयोः अन्यः पिप्पलम् स्वादु अत्ति अनश्ननन्यः अभिचाकशीति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.2",
+      "title": "3.1.2",
+      "text": "समाने वृक्षे पुरुषः निमग्नः अनीशया शोचति मुह्यमानः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.3",
+      "title": "3.1.3",
+      "text": "जुष्टम् यदा पश्यति अन्यमीशमस्य महिमानमिति वीत शोकः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.4",
+      "title": "3.1.4",
+      "text": "यदा पश्यः पश्यते रुक्म वर्णम् कर्तारमीशम् पुरुषम् ब्रह्म योनिम् तदा विद्वान् पुण्य पापे विधूय निरञ्जनः परमम् साम्यमुपैति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.5",
+      "title": "3.1.5",
+      "text": "प्राणः हि एष यः सर्व भूतैः विभाति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.6",
+      "title": "3.1.6",
+      "text": "विजानन्विद्वान्भव तेन अतिवादी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.7",
+      "title": "3.1.7",
+      "text": "आत्म क्रीडः आत्म रतिः क्रियावानेष ब्रह्म विदाम् वरिष्ठः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.8",
+      "title": "3.1.8",
+      "text": "सत्येन लभ्यः तपसा हि एषः आत्मा सम्यक् ज्ञानेन ब्रह्मचर्येण नित्यम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.9",
+      "title": "3.1.9",
+      "text": "अन्तर् शरीरे ज्योतिः मयः हि शुभ्रः यम् पश्यन्ति यतयः क्षीण दोषाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.10",
+      "title": "3.1.10",
+      "text": "सत्यमेव जयति ना अनृतम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.11",
+      "title": "3.1.11",
+      "text": "सत्येन पन्थाः विततः देव यानः येन आक्रमन्ति ऋषयः हि आप्त कामाः यत्र तत्सत्यस्य परमम् निधानम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.12",
+      "title": "3.1.12",
+      "text": "बृहत् च तत् दिव्यमचिन्त्य रूपम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.13",
+      "title": "3.1.13",
+      "text": "सूक्ष्मात् च तत्सूक्ष्मतरम् विभाति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.14",
+      "title": "3.1.14",
+      "text": "दूरात्सु दूरे तत् इह अन्तिके च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.15",
+      "title": "3.1.15",
+      "text": "पश्यत्सु इह एव निहितम् गुहायाम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.16",
+      "title": "3.1.16",
+      "text": "न चक्षुषा गृह्यते ना अपि वाचा ना अन्यैः देवैः तपसा कर्मणा वा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.17",
+      "title": "3.1.17",
+      "text": "ज्ञान प्रसादेन विशुद्ध सत्त्वः ततस्तु तम् पश्यते निष्कलम् ध्यायमानः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.18",
+      "title": "3.1.18",
+      "text": "एषः अणुः आत्मा चेतसा वेदितव्यः यस्मिन् प्राणः पञ्चधा संविवेश",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.19",
+      "title": "3.1.19",
+      "text": "प्राणैः चित्तम् सर्वमोतम् प्रजानाम् यस्मिन्विशुद्धे विभवति एष आत्मा",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.20",
+      "title": "3.1.20",
+      "text": "यम् यम् लोकम् मनसा संविभाति विशुद्ध सत्त्वः कामयते यान् च कामान् तम् तम् लोकम् जयते तान् च कामान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.1.21",
+      "title": "3.1.21",
+      "text": "तस्मात् आत्म ज्ञम् हि अर्चयेत् भूति कामः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.1",
+      "title": "3.2.1",
+      "text": "स वेद एतत्परमम् ब्रह्म धाम यत्र विश्वम् निहितम् भाति शुभ्रम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.2",
+      "title": "3.2.2",
+      "text": "उपासते पुरुषम् ये हि अकामाः ते शुक्रमेतत् अतिवर्तन्ति धीराः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.3",
+      "title": "3.2.3",
+      "text": "कामान्यः कामयते मन्यमानः स कामभिः जायते तत्र तत्र",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.4",
+      "title": "3.2.4",
+      "text": "पर्याप्त कामस्य कृतात्मनः तु इह एव सर्वे प्रविलीयन्ति कामाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.5",
+      "title": "3.2.5",
+      "text": "न अयमात्मा प्रवचनेन लभ्यः न मेधया न बहुना श्रुतेन",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.6",
+      "title": "3.2.6",
+      "text": "यमेवा एष वृणुते तेन लभ्यः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.7",
+      "title": "3.2.7",
+      "text": "तस्य एषः आत्मा विवृणुते तनूम् स्वाम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.8",
+      "title": "3.2.8",
+      "text": "न अयमात्मा बल हीनेन लभ्यः न च प्रमादात्तपसः वा अपि अलिङ्गात्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.9",
+      "title": "3.2.9",
+      "text": "एतैः उपायैः यतते यः तु विद्वान् तस्य एषः आत्मा विशते ब्रह्म धाम",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.10",
+      "title": "3.2.10",
+      "text": "सम्प्राप्य एनमृषयः ज्ञान तृप्ताः कृतात्मानः वीत रागाः प्रशान्ताः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.11",
+      "title": "3.2.11",
+      "text": "ते सर्वगम् सर्वतस् प्राप्य धीराः युक्त आत्मानः सर्वमेव आविशन्ति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.12",
+      "title": "3.2.12",
+      "text": "वेदान्त विज्ञान सु निश्चित अर्थाः संन्यास योगात् यतयः शुद्ध सत्त्वाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.13",
+      "title": "3.2.13",
+      "text": "ब्रह्म लोकेषु पर अन्त काले परामृताः परिमुच्यन्ति सर्वे",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.14",
+      "title": "3.2.14",
+      "text": "गताः कलाः पञ्चदश प्रतिष्ठाः देवाः च सर्वे प्रतिदेवतासु",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.15",
+      "title": "3.2.15",
+      "text": "कर्माणि विज्ञान मयः च आत्मा परे अव्यये सर्वे एकीभवन्ति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.16",
+      "title": "3.2.16",
+      "text": "यथा नद्यः स्यन्दमानाः समुद्रे अस्तम् गच्छन्ति नाम रूपे विहाय तथा विद्वान्नाम रूपात् विमुक्तः परात्परम् पुरुषमुपैति दिव्यम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.17",
+      "title": "3.2.17",
+      "text": "स यः ह वै तत्परमम् ब्रह्म वेद ब्रह्म एव भवति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.18",
+      "title": "3.2.18",
+      "text": "न अस्य अ ब्रह्म विद् कुले भवति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.19",
+      "title": "3.2.19",
+      "text": "तरति शोकम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.20",
+      "title": "3.2.20",
+      "text": "तरति पाप्मानम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.21",
+      "title": "3.2.21",
+      "text": "गुहा ग्रन्थिभ्यः विमुक्तः अमृतः भवति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.22",
+      "title": "3.2.22",
+      "text": "तत् एतत् ऋचा अभ्युक्तम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.23",
+      "title": "3.2.23",
+      "text": "क्रियावन्तः श्रोत्रियाः ब्रह्म निष्ठाः स्वयम् जुह्वतः एक ऋषिम् श्रद्धयन्तः तेषामेव एताम् ब्रह्म विद्याम् वदेत शिरोव्रतम् विधिवत् यैः तु चीर्णम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.24",
+      "title": "3.2.24",
+      "text": "तत् एतत्सत्यमृषिः अङ्गिराः पुरा उवाच",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.25",
+      "title": "3.2.25",
+      "text": "न एतत् अ चीर्ण व्रतः अधीते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.26",
+      "title": "3.2.26",
+      "text": "नमः परम ऋषिभ्यः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "3.2.27",
+      "title": "3.2.27",
+      "text": "नमः परम ऋषिभ्यः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    }
+  ]
+}

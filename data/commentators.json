@@ -1,0 +1,2834 @@
+{
+ "_readme": "Canonical registry of commentators/authors appearing anywhere in dge/data, derived from dge/data/taxonomy.json's _default_author fields plus a small set of authors recovered from tika_ key-naming conventions where the _default_author field itself was corrupted (see dge/PENDING.md for the corruption writeup). 'traditions' are taxonomy top-branch tags (dvaita/advaita/vishishtadvaita/etc), not a claim of exhaustive scholarly classification. 'note' flags an identification that is inferred (e.g. from title-pattern matching) rather than independently confirmed -- treat as a lead, not a citation, until verified against a real source.",
+ "commentators": {
+  "adi_shankaracharya": {
+   "name": "Sri Adi Shankaracharya",
+   "traditions": [
+    "advaita"
+   ],
+   "works": [
+    {
+     "key": "shankara_bhashya",
+     "path": "darshana.vedanta.advaita.shankara_bhashya",
+     "schema": null
+    }
+   ]
+  },
+  "anandatirthacharya": {
+   "name": "Anandatirthacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_1_bhedacintaratnam",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.bhedojjivana.tika_1_bhedacintaratnam",
+     "schema": "grantha_tika_text"
+    }
+   ],
+   "note": "son of Mudgalarya; NOT Madhvacharya, a distinct later acharya sharing the epithet"
+  },
+  "ananta_bhatta": {
+   "name": "Ananta Bhatta",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_anantabhatta",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.shatprashnopanishadbhashyam.tika_anantabhatta",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "angiras": {
+   "name": "Angiras",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "angiras_smriti",
+     "path": "smriti_dharma.smriti.angiras_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "apastamba": {
+   "name": "Apastamba",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "apastamba_smriti",
+     "path": "smriti_dharma.smriti.apastamba_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "apaurusheya": {
+   "name": "Apaurusheya",
+   "traditions": [
+    "vedas"
+   ],
+   "works": [
+    {
+     "key": "vedas",
+     "path": "vedas",
+     "schema": "vedic_text"
+    }
+   ],
+   "note": "traditionally unauthored / eternally revealed; rishi per mantra may be noted in the item's own 'rishi' field"
+  },
+  "atri": {
+   "name": "Atri",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "atri_smriti",
+     "path": "smriti_dharma.smriti.atri_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "balacharya": {
+   "name": "Balacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_nigudharthaprabodhini",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.nyaya_vivarana.tika_nigudharthaprabodhini",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "baudhayana": {
+   "name": "Baudhayana",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "baudhayana_smriti",
+     "path": "smriti_dharma.smriti.baudhayana_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "bhagavan_sri_krishna": {
+   "name": "Bhagavan Sri Krishna",
+   "traditions": [
+    "itihasa"
+   ],
+   "works": [
+    {
+     "key": "bhagavad_gita",
+     "path": "itihasa.bhagavad_gita",
+     "schema": "itihasa_purana_text"
+    }
+   ]
+  },
+  "bhagavantaraya": {
+   "name": "Bhagavantaraya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_1_bhavapradipa",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.bhedojjivana.tika_1_bhavapradipa",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_bhavapradipa",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.aitareyopanishad_bhashya.tika_bhavapradipa",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "bhakta_prahlada": {
+   "name": "Bhakta Prahlada",
+   "traditions": [
+    "stotra"
+   ],
+   "works": [
+    {
+     "key": "pns",
+     "path": "stotra.PrahladaKrutaNarasimha",
+     "schema": null
+    }
+   ]
+  },
+  "bharavi": {
+   "name": "Bharavi",
+   "traditions": [
+    "kavya_alankara"
+   ],
+   "works": [
+    {
+     "key": "mula",
+     "path": "kavya_alankara.kiratarjuniya.mula",
+     "schema": "itihasa_purana_text"
+    }
+   ]
+  },
+  "bidarahalli_srinivasa_tirtha": {
+   "name": "Bidarahalli Srinivasa Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_vivarana",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattva_sankhyana.tika_vivarana",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_vivarana",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattvodyota.tika_vivarana",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "brihaspati": {
+   "name": "Brihaspati",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "brihaspati_smriti",
+     "path": "smriti_dharma.smriti.brihaspati_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "chalari_sheshacharya": {
+   "name": "Chalari Sheshacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_mandopakarini",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.sumadhva_vijaya.tika_mandopakarini",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrichalarisheshacarya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.sumadhva_vijaya.tika_shrichalarisheshacarya",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_chalari",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_chalari",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_iti_shri_chalari_sheshacarya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_iti_shri_chalari_sheshacarya",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_lingheri",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_lingheri",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "daksha": {
+   "name": "Daksha",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "daksha_smriti",
+     "path": "smriti_dharma.smriti.daksha_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "from_mahabharata_anushasana_parva": {
+   "name": "From Mahabharata, Anushasana Parva",
+   "traditions": [
+    "stotra"
+   ],
+   "works": [
+    {
+     "key": "vishnu_sahasranama",
+     "path": "stotra.vishnu_sahasranama",
+     "schema": null
+    }
+   ]
+  },
+  "gautama": {
+   "name": "Gautama",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "gautama_smriti",
+     "path": "smriti_dharma.smriti.gautama_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "gopaladasa": {
+   "name": "Sri Gopaladasa",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "dandaka",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.gopaladasa.dandaka",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "mundige",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.gopaladasa.mundige",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "other_compositions",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.gopaladasa.other_compositions",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "pada_kirtane",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.gopaladasa.pada_kirtane",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "suladi",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.gopaladasa.suladi",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "ugabhoga",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.gopaladasa.ugabhoga",
+     "schema": "dasa_sahitya_composition"
+    }
+   ]
+  },
+  "harita": {
+   "name": "Harita",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "harita_smriti",
+     "path": "smriti_dharma.smriti.harita_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "hemadri": {
+   "name": "Hemadri",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "chaturvarga_chintamani",
+     "path": "smriti_dharma.dharmashastra.chaturvarga_chintamani",
+     "schema": null
+    }
+   ],
+   "note": "Hemadripant"
+  },
+  "hulagi_shrinathacharya": {
+   "name": "Hulagi Shrinathacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_1_bhedasanjivini",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.bhedojjivana.tika_1_bhedasanjivini",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "jagannathadasa": {
+   "name": "Sri Jagannathadasa",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "dandaka",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.jagannathadasa.dandaka",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "mundige",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.jagannathadasa.mundige",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "other_compositions",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.jagannathadasa.other_compositions",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "pada_kirtane",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.jagannathadasa.pada_kirtane",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "suladi",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.jagannathadasa.suladi",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "ugabhoga",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.jagannathadasa.ugabhoga",
+     "schema": "dasa_sahitya_composition"
+    }
+   ]
+  },
+  "jagannathadasaru": {
+   "name": "Sri Jagannathadasaru",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "harikathamrutasara",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.jagannathadasa.harikathamrutasara",
+     "schema": "dasa_sahitya_composition"
+    }
+   ]
+  },
+  "janardana": {
+   "name": "Janardana",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_jayatirthavijaya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.pramana_paddhati.tika_jayatirthavijaya",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "jayatirtha": {
+   "name": "Sri Jayatirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.achara_and_ancillary_granthas.jayanti_nirnaya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.achara_and_ancillary_granthas.kanduka_stuti.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.achara_and_ancillary_granthas.krishnamrita_maharnava.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.achara_and_ancillary_granthas.nakha_stuti.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.achara_and_ancillary_granthas.nyasa_paddhati.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.achara_and_ancillary_granthas.sadachara_smriti.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.achara_and_ancillary_granthas.tantrasara_sangraha.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.achara_and_ancillary_granthas.tithi_nirnaya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.achara_and_ancillary_granthas.yamaka_bharata.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.achara_and_ancillary_granthas.yati_pranava_kalpa.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.dasha_prakarana_granthas.karma_nirnaya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.dasha_prakarana_granthas.katha_lakshana.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.dasha_prakarana_granthas.mayavada_khandana.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.dasha_prakarana_granthas.pramana_lakshana.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.dasha_prakarana_granthas.prapancha_mithyatvanumana_khandana.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.dasha_prakarana_granthas.tattva_sankhyana.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.dasha_prakarana_granthas.tattva_viveka.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.dasha_prakarana_granthas.tattvodyota.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.dasha_prakarana_granthas.upadhi_khandana.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.dasha_prakarana_granthas.vishnu_tattva_vinirnaya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.dvadasha_stotra.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.gita_prasthana.gita_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.gita_prasthana.gita_tatparya_nirnaya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.itihasa_purana_tatparya_nirnaya.bhagavata_tatparya_nirnaya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.itihasa_purana_tatparya_nirnaya.mahabharata_tatparya_nirnaya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.rig_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.sutra_prasthana.anubhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.sutra_prasthana.anuvyakhyana.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.sutra_prasthana.brahma_sutra_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.sutra_prasthana.nyaya_vivarana.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.upanishad_prasthana.aitareyopanishad_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.upanishad_prasthana.brihadaranyakopanishad_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.upanishad_prasthana.chandogyopanishad_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.upanishad_prasthana.ishavasyopanishad_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.upanishad_prasthana.kathopanishad_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.upanishad_prasthana.kenopanishad_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.upanishad_prasthana.mandukyopanishad_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.upanishad_prasthana.mundakopanishad_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.upanishad_prasthana.prashnopanishad_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.SarvaMula.upanishad_prasthana.taittiriyopanishad_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.karma_nirnaya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.katha_lakshana.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.mayavada_khandana.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.pramana_lakshana.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.prapancha_mithyatvanumana_khandana.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattva_viveka.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.upadhi_khandana.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.vishnu_tattva_vinirnaya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_prameyadipika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_bhashya.tika_prameyadipika",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_nyayadeepika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_tatparya_nirnaya.tika_nyayadeepika",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.dvaita_dyumani.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_nyayasudha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyaya_sudha.tika_nyayasudha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.tarka_tandava.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_tattvaprakashika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_tattvaprakashika",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_panchika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.nyaya_vivarana.tika_panchika",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.ishavasyopanishad_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.kenopanishad_bhashya.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.mandukyopanishadbhashyam.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_jayatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.shatprashnopanishadbhashyam.tika_jayatirtha",
+     "schema": "grantha_tika_text"
+    }
+   ],
+   "note": "Tikacharya"
+  },
+  "jimutavahana": {
+   "name": "Jimutavahana",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "dayabhaga",
+     "path": "smriti_dharma.dharmashastra.dayabhaga",
+     "schema": null
+    }
+   ]
+  },
+  "jinendrabuddhi": {
+   "name": "Jinendrabuddhi",
+   "traditions": [
+    "vedanga"
+   ],
+   "works": [
+    {
+     "key": "nyasa",
+     "path": "vedanga.vyakarana.ashtadhyayi.nyasa",
+     "schema": "grantha_tippani_text"
+    }
+   ]
+  },
+  "jnendra_sarasvat": {
+   "name": "Jñānendra Sarasvatī",
+   "traditions": [
+    "vedanga"
+   ],
+   "works": [
+    {
+     "key": "tattvabodhini",
+     "path": "vedanga.vyakarana.ashtadhyayi.tattvabodhini",
+     "schema": "grantha_tippani_text"
+    }
+   ]
+  },
+  "kalidasa": {
+   "name": "Kalidasa",
+   "traditions": [
+    "kavya_alankara"
+   ],
+   "works": [
+    {
+     "key": "mula",
+     "path": "kavya_alankara.kumarasambhava.mula",
+     "schema": "itihasa_purana_text"
+    },
+    {
+     "key": "mula",
+     "path": "kavya_alankara.raghuvamsha.mula",
+     "schema": "itihasa_purana_text"
+    }
+   ]
+  },
+  "kamalakara_bhatta": {
+   "name": "Kamalakara Bhatta",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "nirnaya_sindhu",
+     "path": "smriti_dharma.dharmashastra.nirnaya_sindhu",
+     "schema": null
+    }
+   ]
+  },
+  "kanakadasa": {
+   "name": "Sri Kanakadasa",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "dandaka",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.kanakadasa.dandaka",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "mundige",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.kanakadasa.mundige",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "other_compositions",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.kanakadasa.other_compositions",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "pada_kirtane",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.kanakadasa.pada_kirtane",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "suladi",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.kanakadasa.suladi",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "ugabhoga",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.kanakadasa.ugabhoga",
+     "schema": "dasa_sahitya_composition"
+    }
+   ]
+  },
+  "kashi_timmannacharya": {
+   "name": "Kashi Timmannacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_kashi_tippani",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattva_sankhyana.tika_kashi_tippani",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_kashitippani",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattva_sankhyana.tika_kashitippani",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_1_kashitimmannacarya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.bhedojjivana.tika_1_kashitimmannacarya",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "kashinatha_upadhyaya": {
+   "name": "Kashinatha Upadhyaya",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "dharma_sindhu",
+     "path": "smriti_dharma.dharmashastra.dharma_sindhu",
+     "schema": null
+    }
+   ],
+   "note": "Kashinath Upadhyaya"
+  },
+  "kumbhari_vasudevacharya": {
+   "name": "Kumbhari Vasudevacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_1_bhedacandrika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.bhedojjivana.tika_1_bhedacandrika",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "lakshmidhara": {
+   "name": "Lakshmidhara",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "kalpataru",
+     "path": "smriti_dharma.dharmashastra.kalpataru",
+     "schema": null
+    }
+   ]
+  },
+  "likhita": {
+   "name": "Likhita",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "likhita_smriti",
+     "path": "smriti_dharma.smriti.likhita_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "lingeri_srinivasacharya": {
+   "name": "Lingeri Srinivasacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_lingeri",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_lingeri",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "madhvacharya": {
+   "name": "Sri Madhvacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "sarvamula",
+     "path": "darshana.vedanta.dvaita.SarvaMula",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.karma_nirnaya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.katha_lakshana.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.mayavada_khandana.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.pramana_lakshana.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.prapancha_mithyatvanumana_khandana.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattva_sankhyana.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattva_viveka.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattvodyota.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.upadhi_khandana.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.vishnu_tattva_vinirnaya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_bhashya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_tatparya_nirnaya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.itihasa_prasthana.mahabharata_tatparya_nirnaya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.itihasa_prasthana.yamaka_bharata.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.bhedojjivana.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.dvaita_dyumani.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyaya_sudha.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyayamrita.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.pramana_paddhati.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.purushasuktam.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.sumadhva_vijaya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.tarka_tandava.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.tatparya_chandrika.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.vadavali.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.yukti_mallika.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sruti_prasthana.rig_bhashya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.anubhashya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.anuvyakhyana.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "tika_tattvaprradipika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_tattvaprradipika",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.nyaya_vivarana.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.omkara_vada.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.aitareyopanishad_bhashya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.brihadaranyakopanishadbhashyam.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.chandogyopanishad_bhashya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.ishavasyopanishad_bhashya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.kathopanishad_bhashya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.kenopanishad_bhashya.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "tika_vivarana",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.kenopanishad_bhashya.tika_vivarana",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.mandukyopanishadbhashyam.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.mundakopanishadbhashyam.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.shatprashnopanishadbhashyam.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.taittiriyopanishad_bhashya.mula",
+     "schema": "grantha_mula_text"
+    }
+   ],
+   "note": "Ananda Tirtha"
+  },
+  "magha": {
+   "name": "Magha",
+   "traditions": [
+    "kavya_alankara"
+   ],
+   "works": [
+    {
+     "key": "mula",
+     "path": "kavya_alankara.shishupalavadha.mula",
+     "schema": "itihasa_purana_text"
+    }
+   ]
+  },
+  "maharshi_pini": {
+   "name": "Maharshi Pāṇini",
+   "traditions": [
+    "vedanga"
+   ],
+   "works": [
+    {
+     "key": "vyakarana",
+     "path": "vedanga.vyakarana",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "sutrapatha",
+     "path": "vedanga.vyakarana.ashtadhyayi.sutrapatha",
+     "schema": "grantha_mula_text"
+    }
+   ]
+  },
+  "maharshi_valmiki": {
+   "name": "Maharshi Valmiki",
+   "traditions": [
+    "itihasa"
+   ],
+   "works": [
+    {
+     "key": "adbhuta_ramayana",
+     "path": "itihasa.ramayana.adbhuta_ramayana",
+     "schema": "itihasa_purana_text"
+    },
+    {
+     "key": "ananda_ramayana",
+     "path": "itihasa.ramayana.ananda_ramayana",
+     "schema": "itihasa_purana_text"
+    }
+   ],
+   "note": "traditionally ascribed"
+  },
+  "maharshi_veda_vyasa": {
+   "name": "Maharshi Veda Vyasa",
+   "traditions": [
+    "stotra"
+   ],
+   "works": [
+    {
+     "key": "gajendra_moksha",
+     "path": "stotra.gajendra_moksha",
+     "schema": null
+    }
+   ],
+   "note": "from Bhagavata Purana"
+  },
+  "maharshi_vishnu": {
+   "name": "Maharshi Vishnu",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "vishnu_smriti",
+     "path": "smriti_dharma.smriti.vishnu_smriti",
+     "schema": null
+    }
+   ],
+   "note": "smriti-rishi, distinct from the deity"
+  },
+  "mahipatidasa": {
+   "name": "Sri Mahipatidasa",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "dandaka",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.mahipatidasa.dandaka",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "mundige",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.mahipatidasa.mundige",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "other_compositions",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.mahipatidasa.other_compositions",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "pada_kirtane",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.mahipatidasa.pada_kirtane",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "suladi",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.mahipatidasa.suladi",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "ugabhoga",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.mahipatidasa.ugabhoga",
+     "schema": "dasa_sahitya_composition"
+    }
+   ]
+  },
+  "mankali_dharmarajacharya": {
+   "name": "Mankali Dharmarajacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_mankalidharmarajacarya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.shatprashnopanishadbhashyam.tika_mankalidharmarajacarya",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "mannari_krishnacharya": {
+   "name": "Mannari Krishnacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_nyayamritamadhuri",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyayamrita.tika_nyayamritamadhuri",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "manu": {
+   "name": "Manu",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "manu_smriti",
+     "path": "smriti_dharma.smriti.manu_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "narahari_tirtha": {
+   "name": "Narahari Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_prakashika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_bhashya.tika_prakashika",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "narayana_panditacharya": {
+   "name": "Narayana Panditacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_iti_shrinarayanapanditacarya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.sumadhva_vijaya.tika_iti_shrinarayanapanditacarya",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_prakashika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.sumadhva_vijaya.tika_prakashika",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "narayana_panditacharya_2": {
+   "name": "Sri Narayana Panditacharya",
+   "traditions": [
+    "kavya_alankara"
+   ],
+   "works": [
+    {
+     "key": "sumadhva_vijaya",
+     "path": "kavya_alankara.sumadhva_vijaya",
+     "schema": null
+    }
+   ]
+  },
+  "padmanabha_tirtha": {
+   "name": "Padmanabha Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_bhavapradipika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_bhashya.tika_bhavapradipika",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_prakashika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_tatparya_nirnaya.tika_prakashika",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "pandurangi_anandabhattaraka": {
+   "name": "Pandurangi Anandabhattaraka",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_nyayamritakantakoddhara",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyayamrita.tika_nyayamritakantakoddhara",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "pandurangi_keshavacharya": {
+   "name": "Pandurangi Keshavacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_vivarana",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.pramana_lakshana.tika_vivarana",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_gururajiyatippani",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.prapancha_mithyatvanumana_khandana.tika_gururajiyatippani",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrigururajiyatippani",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.prapancha_mithyatvanumana_khandana.tika_shrigururajiyatippani",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_bhavacandrika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattva_sankhyana.tika_bhavacandrika",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_gururajiya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattva_viveka.tika_gururajiya",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_vakyarthapradipa",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_bhashya.tika_vakyarthapradipa",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_sheshavakyarthacandrika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyaya_sudha.tika_sheshavakyarthacandrika",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_pandurangi",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.tatparya_chandrika.tika_pandurangi",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_tattvaprakashikavivriti",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_tattvaprakashikavivriti",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "pandurangi_srinivasacharya": {
+   "name": "Pandurangi Srinivasacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_pandurangi_shrinivasacarya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_pandurangi_shrinivasacarya",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "panghari_srinivasacharya": {
+   "name": "Panghari Srinivasacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_virodhoddhara",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_virodhoddhara",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_virododdhara",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_virododdhara",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "parashara": {
+   "name": "Parashara",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "parashara_smriti",
+     "path": "smriti_dharma.smriti.parashara_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "pracetas": {
+   "name": "Pracetas",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "pracetas_smriti",
+     "path": "smriti_dharma.smriti.pracetas_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "prasanna_venkatadasa": {
+   "name": "Sri Prasanna Venkatadasa",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "dandaka",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.prasannavenkatadasa.dandaka",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "mundige",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.prasannavenkatadasa.mundige",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "other_compositions",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.prasannavenkatadasa.other_compositions",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "pada_kirtane",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.prasannavenkatadasa.pada_kirtane",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "suladi",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.prasannavenkatadasa.suladi",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "ugabhoga",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.prasannavenkatadasa.ugabhoga",
+     "schema": "dasa_sahitya_composition"
+    }
+   ]
+  },
+  "purandaradasa": {
+   "name": "Sri Purandaradasa",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "dandaka",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.purandaradasa.dandaka",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "mundige",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.purandaradasa.mundige",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "other_compositions",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.purandaradasa.other_compositions",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "pada_kirtane",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.purandaradasa.pada_kirtane",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "suladi",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.purandaradasa.suladi",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "ugabhoga",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.purandaradasa.ugabhoga",
+     "schema": "dasa_sahitya_composition"
+    }
+   ]
+  },
+  "ra_chandra_vasu": {
+   "name": "Śrīśa Chandra Vasu",
+   "traditions": [
+    "vedanga"
+   ],
+   "works": [
+    {
+     "key": "vasu",
+     "path": "vedanga.vyakarana.ashtadhyayi.vasu",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "raghavendra_swami": {
+   "name": "Sri Raghavendra Swami",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "bhattasangraha",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.raghavendra_tirtha.bhattasangraha",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "bhavabodha",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.raghavendra_tirtha.bhavabodha",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "gurvarthadipika",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.raghavendra_tirtha.gurvarthadipika",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "nyayamuktavali",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.raghavendra_tirtha.nyayamuktavali",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "parimala",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.raghavendra_tirtha.parimala",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "tantradipika",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.raghavendra_tirtha.tantradipika",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "tika_bhavadipa",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.karma_nirnaya.tika_bhavadipa",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_bhavadipa",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.katha_lakshana.tika_bhavadipa",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_bhavadipa",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.pramana_lakshana.tika_bhavadipa",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_bhavadipa",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattva_sankhyana.tika_bhavadipa",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_bhavadipa",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.vishnu_tattva_vinirnaya.tika_bhavadipa",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_bhavadipa",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_bhashya.tika_bhavadipa",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_bhavadipa",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_tatparya_nirnaya.tika_bhavadipa",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_nyayasudhaparima_a",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyaya_sudha.tika_nyayasudhaparima_a",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_nyayasudhaparimala",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyaya_sudha.tika_nyayasudhaparimala",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_bhavadipa",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.pramana_paddhati.tika_bhavadipa",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_nyayadipa",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.tarka_tandava.tika_nyayadipa",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_prakashika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.tatparya_chandrika.tika_prakashika",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_vadavalibhavadipika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.vadavali.tika_vadavalibhavadipika",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_bhavadipa",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_bhavadipa",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_gurvarthadipika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_gurvarthadipika",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shriraghavendrayati",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.kenopanishad_bhashya.tika_shriraghavendrayati",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shriraghavendrayati",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.shatprashnopanishadbhashyam.tika_shriraghavendrayati",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_khandartha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.taittiriyopanishad_bhashya.tika_khandartha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.tantradipika.mula",
+     "schema": "grantha_mula_text"
+    }
+   ]
+  },
+  "raghuttama_tirtha": {
+   "name": "Raghuttama Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_bhavabodha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_bhashya.tika_bhavabodha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shriraghuttamatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_shriraghuttamatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_tattvaprakashikabhavabodha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_tattvaprakashikabhavabodha",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "samvarta": {
+   "name": "Samvarta",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "samvarta_smriti",
+     "path": "smriti_dharma.smriti.samvarta_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "satyabhinava_tirtha": {
+   "name": "Satyabhinava Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_durghatabhavadipika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_durghatabhavadipika",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "satyadharma_tirtha": {
+   "name": "Satyadharma Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_tatvasankhyanatippanam",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattva_sankhyana.tika_tatvasankhyanatippanam",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_satyadharma",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_satyadharma",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_satyadharmiya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_satyadharmiya",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrisatyadharma",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_shrisatyadharma",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "satyadhyana_tirtha": {
+   "name": "Satyadhyana Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.bhedaparanyeva_khalu_brahmasutrani.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.candrikamandanam.mula",
+     "schema": "grantha_mula_text"
+    }
+   ]
+  },
+  "satyananda_tirtha": {
+   "name": "Satyananda Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_candrikavivriti",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.tatparya_chandrika.tika_candrikavivriti",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "satyanatha_tirtha": {
+   "name": "Satyanatha Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_mayavadaparashu",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.mayavada_khandana.tika_mayavadaparashu",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_mithyatvanumanakhandanaparashu",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.prapancha_mithyatvanumana_khandana.tika_mithyatvanumanakhandanaparashu",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_parashunamnitippani",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.upadhi_khandana.tika_parashunamnitippani",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_vakyaviveka",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_tatparya_nirnaya.tika_vakyaviveka",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_abhinavamritam",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.pramana_paddhati.tika_abhinavamritam",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_a_bhinavacandrika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_a_bhinavacandrika",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_tamraparni_shrinivasacaryaviracita_vakyarthamuktavali",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_tamraparni_shrinivasacaryaviracita_vakyarthamuktavali",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "satyaprajna_tirtha": {
+   "name": "Satyaprajna Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_bhavaprakasha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_tatparya_nirnaya.tika_bhavaprakasha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_nyayadipikabhavaprakasha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_tatparya_nirnaya.tika_nyayadipikabhavaprakasha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrisatyaprajnatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.shatprashnopanishadbhashyam.tika_shrisatyaprajnatirtha",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "satyapramoda_tirtha": {
+   "name": "Satyapramoda Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_satyapramoda",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.purushasuktam.tika_satyapramoda",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_satyapramoda",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.yukti_mallika.tika_satyapramoda",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.shrimannyayasudhamandanam.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.bhagavato_nirdoshatvalakshanam.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.shrivijayindravijayavaibhavam.mula",
+     "schema": "grantha_mula_text"
+    }
+   ]
+  },
+  "satyapriya_tirtha": {
+   "name": "Satyapriya Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_candrikabindu",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.tatparya_chandrika.tika_candrikabindu",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrisatyapriyatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.kenopanishad_bhashya.tika_shrisatyapriyatirtha",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "satyatma_tirtha": {
+   "name": "Satyatma Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.karmavijaya.mula",
+     "schema": "grantha_mula_text"
+    }
+   ]
+  },
+  "shankha": {
+   "name": "Shankha",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "shankha_smriti",
+     "path": "smriti_dharma.smriti.shankha_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "sharkara_srinivasacharya": {
+   "name": "Sharkara Srinivasacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_1_sharkarashrinivasacarya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.bhedojjivana.tika_1_sharkarashrinivasacarya",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_sharkara_shrinivasacarya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_sharkara_shrinivasacarya",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_vakyarthamancari",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_vakyarthamancari",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "shatatapa": {
+   "name": "Shatatapa",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "shatatapa_smriti",
+     "path": "smriti_dharma.smriti.shatatapa_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "shrinatha": {
+   "name": "Shrinatha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_36_kashitimmannacarya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.bhedojjivana.tika_36_kashitimmannacarya",
+     "schema": "grantha_tika_text"
+    }
+   ],
+   "note": "epithet: Vyaghrapuri"
+  },
+  "srinivasa_tirtha": {
+   "name": "Srinivasa Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_vakyarthakaumudi",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.pramana_lakshana.tika_vakyarthakaumudi",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_nivasatirthiyatippani",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.prapancha_mithyatvanumana_khandana.tika_nivasatirthiyatippani",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrinivasatirthiyatippani",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.prapancha_mithyatvanumana_khandana.tika_shrinivasatirthiyatippani",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_bhavadipika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_bhashya.tika_bhavadipika",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_vivarana",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyaya_sudha.tika_vivarana",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_nyayamritaprakasha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyayamrita.tika_nyayamritaprakasha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_vakyarthamanjari",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.pramana_paddhati.tika_vakyarthamanjari",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_vadavaliprakasha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.vadavali.tika_vadavaliprakasha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrinivasatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.mandukyopanishadbhashyam.tika_shrinivasatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrinivasatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.mundakopanishadbhashyam.tika_shrinivasatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrinivasatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.shatprashnopanishadbhashyam.tika_shrinivasatirtha",
+     "schema": "grantha_tika_text"
+    }
+   ],
+   "note": "place/lineage prefix not recorded"
+  },
+  "sripadaraja": {
+   "name": "Sri Sripadaraja",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "sripadaraja",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.sripadaraja",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.vagvajra.mula",
+     "schema": "grantha_mula_text"
+    }
+   ],
+   "note": "vāgvajraḥ's author is recorded as \"श्रीपादराजगुरुसार्वभौमः\" (Sripadaraja Guru Sarvabhauma) -- the honorific by which Sripadaraja is traditionally known; identified with this entry on that basis, not an independently confirmed source"
+  },
+  "surottama_tirtha": {
+   "name": "Surottama Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_surottama",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.purushasuktam.tika_surottama",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_surottama",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.yukti_mallika.tika_surottama",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "tamraparni_srinivasacharya": {
+   "name": "Tamraparni Srinivasacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_mannyayadipakiranavali",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_tatparya_nirnaya.tika_mannyayadipakiranavali",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrimannyayadipakiranavali",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_tatparya_nirnaya.tika_shrimannyayadipakiranavali",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_tamraparni_shrinivasacarya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_tamraparni_shrinivasacarya",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_tamraparnishrinivasacarya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.shatprashnopanishadbhashyam.tika_tamraparnishrinivasacarya",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "traditionally_revealed_divya_prabandha_of_bhagavan_narayana_human_compiler_varies_by_samhita_and_is_often_unrecorded": {
+   "name": "Traditionally revealed (Divya Prabandha of Bhagavan Narayana); human compiler varies by samhita and is often unrecorded",
+   "traditions": [
+    "agama"
+   ],
+   "works": [
+    {
+     "key": "pancharatra",
+     "path": "agama.pancharatra",
+     "schema": null
+    }
+   ]
+  },
+  "trivikrama_panditacharya": {
+   "name": "Trivikrama Panditacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_tattvapradipika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_tattvapradipika",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "umarji_krishnacharya": {
+   "name": "Umarji Krishnacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_bhavaprakasha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.gita_prasthana.gita_bhashya.tika_bhavaprakasha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_vivarana",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.vadavali.tika_vivarana",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "unidentified_001": {
+   "name": "आत्मभेदस्य सत्यमिथ्योपाधिकृतत्वमेव",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_nivasatirthiyatippani",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.upadhi_khandana.tika_nivasatirthiyatippani",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrinivasatirthiyatippani",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.upadhi_khandana.tika_shrinivasatirthiyatippani",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "ushanas": {
+   "name": "Ushanas",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "ushanas_smriti",
+     "path": "smriti_dharma.smriti.ushanas_smriti",
+     "schema": null
+    }
+   ],
+   "note": "Shukracharya"
+  },
+  "vadiraja_tirtha": {
+   "name": "Sri Vadiraja Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "rukminisha_vijaya",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.vadiraja_tirtha.rukminisha_vijaya",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "svapna_vrindavana_akhyana",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.vadiraja_tirtha.svapna_vrindavana_akhyana",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "yuktimallika",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.vadiraja_tirtha.yuktimallika",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "tika_shrivadirajatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_shrivadirajatirtha",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "vamana_panditacharya": {
+   "name": "Vamana Panditacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_vamanapanditacarya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.kathopanishad_bhashya.tika_vamanapanditacarya",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrivamanapandita",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.kenopanishad_bhashya.tika_shrivamanapandita",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrivamanapanditacarya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.shatprashnopanishadbhashyam.tika_shrivamanapanditacarya",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "vamshapalli_srinivasa_tirtha": {
+   "name": "Vamshapalli Srinivasa Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_nivasatirthiya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_nivasatirthiya",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrinivasatirthiya",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_shrinivasatirthiya",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "vanamali_dasa": {
+   "name": "Vanamali Dasa",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.madhvamukhalankara.mula",
+     "schema": "grantha_mula_text"
+    }
+   ]
+  },
+  "vanamali_mishra": {
+   "name": "Vanamali Mishra",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_nyayamritasaugandhyam",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyayamrita.tika_nyayamritasaugandhyam",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "varada_tirtha": {
+   "name": "Varada Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_shrivaradatirthabhikshu",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.kenopanishad_bhashya.tika_shrivaradatirthabhikshu",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "vasishtha": {
+   "name": "Vasishtha",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "vasistha_smriti",
+     "path": "smriti_dharma.smriti.vasistha_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "vedagarbha_padmanabha_suri": {
+   "name": "Vedagarbha Padmanabha Suri",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.padarthasangraha.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.madhvasiddhantasara.mula",
+     "schema": "grantha_mula_text"
+    }
+   ]
+  },
+  "vedanga_muni": {
+   "name": "Vedanga Muni",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_iti_shrimadvedangamuni",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.sumadhva_vijaya.tika_iti_shrimadvedangamuni",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "vedesha_tirtha": {
+   "name": "Vedesha Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_shrivedeshabhikshu",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.pramana_paddhati.tika_shrivedeshabhikshu",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_vedeshabhikshu",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.pramana_paddhati.tika_vedeshabhikshu",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_padarthakaumudi",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.chandogyopanishad_bhashya.tika_padarthakaumudi",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrivedeshatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.kenopanishad_bhashya.tika_shrivedeshatirtha",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "venupalli_srinivasa_tirtha": {
+   "name": "Venupalli Srinivasa Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_nivasatirthatippani",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.mayavada_khandana.tika_nivasatirthatippani",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrinivasatirthatippani",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.mayavada_khandana.tika_shrinivasatirthatippani",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "vijayadasa": {
+   "name": "Sri Vijayadasa",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "dandaka",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.vijayadasa.dandaka",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "mundige",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.vijayadasa.mundige",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "other_compositions",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.vijayadasa.other_compositions",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "pada_kirtane",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.vijayadasa.pada_kirtane",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "suladi",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.vijayadasa.suladi",
+     "schema": "dasa_sahitya_composition"
+    },
+    {
+     "key": "ugabhoga",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.dasakuta.vijayadasa.ugabhoga",
+     "schema": "dasa_sahitya_composition"
+    }
+   ]
+  },
+  "vijayadhvaja_tirtha": {
+   "name": "Vijayadhvaja Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_padaratnavali",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_padaratnavali",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_prakashika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_prakashika",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "vijayendra_tirtha": {
+   "name": "Sri Vijayendra Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "vijayendra_tirtha",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.vijayendra_tirtha",
+     "schema": "grantha_prakarana_text"
+    }
+   ]
+  },
+  "vijayindra_tirtha": {
+   "name": "Vijayindra Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_bhavavarnanam",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattva_sankhyana.tika_bhavavarnanam",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrivijayindratirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.pramana_paddhati.tika_shrivijayindratirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_vijayindratirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.pramana_paddhati.tika_vijayindratirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.shrimanmadhvasiddhantasaroddhara.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.sarvasiddhantasarasaravivecanam.mula",
+     "schema": "grantha_mula_text"
+    },
+    {
+     "key": "mula",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.brahmasutranyayasamgraha.mula",
+     "schema": "grantha_mula_text"
+    }
+   ]
+  },
+  "vijnaneshwara": {
+   "name": "Vijnaneshwara",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "mitakshara",
+     "path": "smriti_dharma.dharmashastra.mitakshara",
+     "schema": null
+    }
+   ]
+  },
+  "vishnu_tirtha": {
+   "name": "Sri Vishnu Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "vishnu_tirtha",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.vishnu_tirtha",
+     "schema": "grantha_prakarana_text"
+    }
+   ]
+  },
+  "vishvapati_tirtha": {
+   "name": "Vishvapati Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_padarthadipikodbodhika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.sumadhva_vijaya.tika_padarthadipikodbodhika",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "vittala_bhatta": {
+   "name": "Vittala Bhatta",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_shrivittalabhatta",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.pramana_paddhati.tika_shrivittalabhatta",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_vittalabhatta",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.pramana_paddhati.tika_vittalabhatta",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "vmanajayditya": {
+   "name": "Vāmana–Jayāditya",
+   "traditions": [
+    "vedanga"
+   ],
+   "works": [
+    {
+     "key": "kashika",
+     "path": "vedanga.vyakarana.ashtadhyayi.kashika",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "vsudeva_dkita": {
+   "name": "Vāsudeva Dīkṣita",
+   "traditions": [
+    "vedanga"
+   ],
+   "works": [
+    {
+     "key": "balamanorama",
+     "path": "vedanga.vyakarana.ashtadhyayi.balamanorama",
+     "schema": "grantha_tippani_text"
+    }
+   ]
+  },
+  "vyasapuri_narasimha": {
+   "name": "Vyasapuri Narasimha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_adarsha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.pramana_paddhati.tika_adarsha",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "vyasaramacharya": {
+   "name": "Vyasaramacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_nyayamritatarangini",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyayamrita.tika_nyayamritatarangini",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "vyasatatvajna_tirtha": {
+   "name": "Sri Vyasatatvajna Tirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "vyasatatvajna_tirtha",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.vyasatatvajna_tirtha",
+     "schema": "grantha_prakarana_text"
+    }
+   ]
+  },
+  "vyasatirtha": {
+   "name": "Sri Vyasatirtha",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "bhedojjivana",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.vyasatirtha.bhedojjivana",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "chandrika",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.vyasatirtha.chandrika",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "mandaramanjari",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.vyasatirtha.mandaramanjari",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "nyayamrita",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.vyasatirtha.nyayamrita",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "tarkatandava",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.vyasatirtha.tarkatandava",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "tatparyachandrika",
+     "path": "DvaitaVedanta/Itara/DasaSahitya.vyasakuta.vyasatirtha.tatparyachandrika",
+     "schema": "grantha_prakarana_text"
+    },
+    {
+     "key": "tika_mandaramanjari",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.mayavada_khandana.tika_mandaramanjari",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_mandaramanjari",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattvodyota.tika_mandaramanjari",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_mandaramanjari",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.upadhi_khandana.tika_mandaramanjari",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_sattarkadipavali",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.sutra_prasthana.brahma_sutra_bhashya.tika_sattarkadipavali",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrivyasatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.kathopanishad_bhashya.tika_shrivyasatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_vyasatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.kathopanishad_bhashya.tika_vyasatirtha",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_shrivyasatirtha",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.upanishad_prasthana.mandukyopanishadbhashyam.tika_shrivyasatirtha",
+     "schema": "grantha_tika_text"
+    }
+   ],
+   "note": "Vyasaraja"
+  },
+  "yadavarya": {
+   "name": "Yadavarya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_bhagavataprakashika",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_bhagavataprakashika",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "yadupatyacharya": {
+   "name": "Yadupatyacharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_tatvasankhyanatikatippani",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.dasha_prakarana_granthas.tattva_sankhyana.tika_tatvasankhyanatikatippani",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_sudhavivriti",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyaya_sudha.tika_sudhavivriti",
+     "schema": "grantha_tika_text"
+    },
+    {
+     "key": "tika_vivriti",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyaya_sudha.tika_vivriti",
+     "schema": "grantha_tika_text"
+    }
+   ]
+  },
+  "yajnavalkya": {
+   "name": "Yajnavalkya",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "yajnavalkya_smriti",
+     "path": "smriti_dharma.smriti.yajnavalkya_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "yama": {
+   "name": "Yama",
+   "traditions": [
+    "smriti_dharma"
+   ],
+   "works": [
+    {
+     "key": "yama_smriti",
+     "path": "smriti_dharma.smriti.yama_smriti",
+     "schema": null
+    }
+   ]
+  },
+  "chatti": {
+   "name": "Sri Chatti",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_catti",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_catti",
+     "schema": "grantha_tika_text"
+    }
+   ],
+   "note": "name uncertain, flagged for verification"
+  },
+  "kurmanarahari_acharya": {
+   "name": "Kurmanarahari Acharya",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_nyayakalpalata",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.later_acharyas.nyayamrita.tika_nyayakalpalata",
+     "schema": "grantha_tika_text"
+    }
+   ],
+   "note": "reading uncertain, flagged for verification"
+  },
+  "vyasatattvajna": {
+   "name": "Vyasatattvajna",
+   "traditions": [
+    "dvaita"
+   ],
+   "works": [
+    {
+     "key": "tika_mandanandini",
+     "path": "darshana.vedanta.dvaita.DvaitaVedanta.purana_prasthana.bhagavata_tatparya_nirnaya.tika_mandanandini",
+     "schema": "grantha_tika_text"
+    }
+   ],
+   "note": "identity uncertain -- possibly an epithet for Sri Vyasatirtha; flagged for verification"
+  }
+ }
+}

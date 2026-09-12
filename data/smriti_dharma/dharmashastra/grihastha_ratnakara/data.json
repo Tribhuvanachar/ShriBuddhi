@@ -1,0 +1,550 @@
+{
+  "schema": "generic",
+  "default_author": "unspecified",
+  "source": "Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024",
+  "source_url": "https://github.com/OliverHellwig/sanskrit/tree/master/dcs/data/conllu/files/Gṛhastharatnākara",
+  "licence": "CC-BY 4.0",
+  "note": "60 units across ['Brāhmalakṣaṇa', 'Gāndharvalakṣaṇa', 'Rākṣasalakṣaṇa', 'Vivāhabhedāḥ', 'Vivāhyāvivāhyakanyānirūpaṇa', 'Āsuralakṣaṇa'] -- see dge/PENDING.md, 23 Aug entry (batch 8, Tantra/Saiva-Sakta + misc cleanup), for how this was matched.",
+  "items": [
+    {
+      "id": "Brāhmalakṣaṇa.1",
+      "title": "Brāhmalakṣaṇa.1",
+      "text": "ब्राह्मप्राजापत्यार्षदैवाः ब्राह्मणस्य गान्धर्व्व आसुरो राज तत्र मनुः आच्छाद्य चार्चयित्वा च श्रुतशीलवते स्वयमाहूय दानं कन्याया ब्राह्मो धर्म्मः प्रकीर्तितः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Brāhmalakṣaṇa.2",
+      "title": "Brāhmalakṣaṇa.2",
+      "text": "आच्छाद्य वस्त्रयुगं परिधाप्य अर्चयित्वा अर्च्चनां कृत्वा देवलः ततो विनीतां कल्याणीं कुलरूपवयोऽन्वितामलंकृत्यार्हते दद्याद्विवाहो ब्राह्म उच्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Brāhmalakṣaṇa.3",
+      "title": "Brāhmalakṣaṇa.3",
+      "text": "कल्याणीं पूर्वोक्तदोषशून्यामर्हते पूर्वोक्तगुणयुक्ताय",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Brāhmalakṣaṇa.4",
+      "title": "Brāhmalakṣaṇa.4",
+      "text": "व्यासः आच्छाद्यालंकृतां कृत्वा त्रिः परिक्रम्य पावकम् नामगोत्रे समुद्दिश्य दद्याद्ब्राह्मो विधिस्त्वयम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Brāhmalakṣaṇa.6",
+      "title": "Brāhmalakṣaṇa.6",
+      "text": "संवर्तः अलंकृत्य त्वलङ्कारैर्वराय सदृशाय वै ब्राह्मेण तु विवाहेन दद्यात्कन्यां सुपूजिताम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Brāhmalakṣaṇa.8",
+      "title": "Brāhmalakṣaṇa.8",
+      "text": "यमः अद्भिर्या दीयते कन्या ब्रह्मदेयेति तां विदुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Brāhmalakṣaṇa.10",
+      "title": "Brāhmalakṣaṇa.10",
+      "text": "हारीतः अनिन्दन्नन्यैरवितर्कयन्विधिवद्वस्त्रयुगं दत्त्वा सह धर्म्मं चर्यतामिति ब्राह्मः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Brāhmalakṣaṇa.13",
+      "title": "Brāhmalakṣaṇa.13",
+      "text": "आपस्तम्बः ब्राह्मे विवाहे बन्धुशीलश्रुतारोग्याणि बुद्ध्वा प्रजां सहत्वकर्म्मभ्यः प्रतिपादयेद्भुक्तिविषयेनालंकृत्य",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Brāhmalakṣaṇa.16",
+      "title": "Brāhmalakṣaṇa.16",
+      "text": "बौधायनः श्रुतशीले विज्ञाय ब्रह्मचारिणे अर्थिने दीयत इति स ब्राह्मः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Brāhmalakṣaṇa.22",
+      "title": "Brāhmalakṣaṇa.22",
+      "text": "शङ्खलिखितौ तत्र सवर्णः सवर्णाय विदितो विदिताय यो नग्निकां दद्यात्स ब्राह्मः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Gāndharvalakṣaṇa.1",
+      "title": "Gāndharvalakṣaṇa.1",
+      "text": "तत्र मनुः इच्छयान्योन्यसंयोगः कन्यायाश्च वरस्य च गान्धर्वः स तु विज्ञेयो मैथुन्यः कामसम्भवः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Gāndharvalakṣaṇa.4",
+      "title": "Gāndharvalakṣaṇa.4",
+      "text": "अत्रैवाश्वलायनः मिथः समयं कृत्वोपगच्छेत्स गान्धर्व्वः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Gāndharvalakṣaṇa.5",
+      "title": "Gāndharvalakṣaṇa.5",
+      "text": "देवलः विविक्ते स्वयमन्योन्यं स्त्रीपुंसयोर्यः समागमः प्रीतिहेतुः स गान्धर्वो विवाहः पञ्चमो मतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Gāndharvalakṣaṇa.6",
+      "title": "Gāndharvalakṣaṇa.6",
+      "text": "गोतमः अलंकृत्येच्छया स्वयं संयोगो गान्धर्वः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Gāndharvalakṣaṇa.8",
+      "title": "Gāndharvalakṣaṇa.8",
+      "text": "विष्णुः द्वयोः सकामयोर्मातृपितृदानरहितो योगो गान्धर्व्वः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Gāndharvalakṣaṇa.10",
+      "title": "Gāndharvalakṣaṇa.10",
+      "text": "अत्रैव हारीतः स्वयं कन्या वरयते स गान्धर्व्वः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Gāndharvalakṣaṇa.11",
+      "title": "Gāndharvalakṣaṇa.11",
+      "text": "वसिष्ठः सकामां कामयमानः सदृशीं यो निरुन्ध्यात्स गान्धर्वः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Rākṣasalakṣaṇa.1",
+      "title": "Rākṣasalakṣaṇa.1",
+      "text": "तत्र मनुः हत्वा छित्त्वा च भित्त्वा च क्रोशन्तीं रुदतीं गृहात्प्रसह्य कन्यां हरतो राक्षसो विधिरुच्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Rākṣasalakṣaṇa.5",
+      "title": "Rākṣasalakṣaṇa.5",
+      "text": "देवलः विक्रमेण प्रसह्य स्यात्कुमारीहरणं पुनः वीर्य्यहेतुर्विवाहः सः राक्षसः सप्तमो मतः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Rākṣasalakṣaṇa.7",
+      "title": "Rākṣasalakṣaṇa.7",
+      "text": "आश्वलायनः हत्वा छित्त्वा च शीर्षाणि रुदन्तीं रुदद्भ्यो हरेत्स राक्षसः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Rākṣasalakṣaṇa.9",
+      "title": "Rākṣasalakṣaṇa.9",
+      "text": "हारीतः राजाश्रयेण वधदण्डाभिघातभयविशेषाद्राक्षसः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Rākṣasalakṣaṇa.11",
+      "title": "Rākṣasalakṣaṇa.11",
+      "text": "वसिष्ठः यस्मिन्बलेन प्रमथ्य हरेत्स क्षात्रः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.1",
+      "title": "Vivāhabhedāḥ.1",
+      "text": "तत्र मनुः चतुर्णामपि वर्णानां प्रत्येकं च हिताहितानष्टाविमान् समासेन स्त्रीविवाहान्निबोधत",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.2",
+      "title": "Vivāhabhedāḥ.2",
+      "text": "स्त्रीपदं स्त्रीत्वेन प्रसक्ता संस्कार्यत्वनिवारणार्थं संस्कार्यत्वार्थमिति कल्पतरुकारः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.3",
+      "title": "Vivāhabhedāḥ.3",
+      "text": "नारदः अष्टौ विवाहा वर्णानां संस्कारार्थं प्रकीर्तिताः ब्राह्मस्तु प्रथमस्तेषां प्राजापत्यस्तथैव च",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.4",
+      "title": "Vivāhabhedāḥ.4",
+      "text": "आर्षस्तथैव दैवश्च गान्धर्वश्चासुरस्तथा राक्षसोऽनन्तरस्तस्मात्पैशाचश्चाष्टमोऽधमः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.5",
+      "title": "Vivāhabhedāḥ.5",
+      "text": "एषां तु धर्म्याश्चत्वारो ब्राह्माद्याः समुदाहृताः साधारणः स्याद्गान्धर्वस्त्रयोऽधर्म्यास्तथापरे",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.6",
+      "title": "Vivāhabhedāḥ.6",
+      "text": "साधारणो न धर्मो नाधर्म इत्यर्थः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.7",
+      "title": "Vivāhabhedāḥ.7",
+      "text": "नारदक्रमेण विवाहानन्तरं गोतमः चत्वारो धर्म्म्याः प्रथमाः षडित्येके",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.8",
+      "title": "Vivāhabhedāḥ.8",
+      "text": "हारीतः अथाष्टौ विवाहाः सम्भवन्ति ब्राह्मो दैवो गान्धर्व्व आसुरो राक्षसः पैशाचो मानुषः क्षात्रश्चेति तेषां पूर्वे सप्तोभयतस्तेषां विन्देतालाभे मानुषम् तेषां पूर्वे इति तेषां विवाहानां मध्ये पूर्वे आद्यास्त्रयो विवाहा उभयतो मातृपितृवंशजान् सप्त सप्त तारयन्ति इति शेषः तेषां विवाहानामलाभे मानुषं विन्देत लभेत",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.11",
+      "title": "Vivāhabhedāḥ.11",
+      "text": "पुनर्हारीतः एतेषामेकतमेनोढां धर्म्मपत्नीं प्राहुः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.13",
+      "title": "Vivāhabhedāḥ.13",
+      "text": "वसिष्ठः षड्विवाहा ब्राह्मो दैवश्चार्षो गान्धर्व्वः क्षात्रो मानुषश्चेति इयं गणना नेतरव्यवच्छेदाय यद्वा पैशाचासुरविवाहादुत्कृष्टविभागोऽयं षट्प्रतिपादकपदेन एव केनचिल्लक्षणया साक्षादनुक्तयोरपि प्रतिपादनमिति वा एवमन्येऽपि विभागा मन्वाद्युक्ताष्टधानुरोधेन नेयाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.14",
+      "title": "Vivāhabhedāḥ.14",
+      "text": "ब्राह्मदैवार्षगान्धर्वासुरराक्षसानुक्त्वा आपस्तम्बः तेषां त्रय आद्याः प्रशस्ताः पूर्वः पूर्वः श्रेयान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.15",
+      "title": "Vivāhabhedāḥ.15",
+      "text": "मनुर्यमश्च ब्राह्मो दैवस्तथा चार्षः प्राजापत्यस्तथासुरः गान्धर्व्वो राक्षसश्चैव पैशाचश्चाष्टमोऽधमः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.16",
+      "title": "Vivāhabhedāḥ.16",
+      "text": "यो यस्य धर्मो वर्णस्य गुणदोषौ तु यस्य यौ तद्वः सर्वं प्रवक्ष्यामि प्रसवे च गुणागुणान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.17",
+      "title": "Vivāhabhedāḥ.17",
+      "text": "षडानुपूर्व्व्या विप्रस्य क्षत्रस्य चतुरो ऽवरान्विट्शूद्रयोश्च तानेव विद्याद्धर्म्मान्न राक्षसान्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.18",
+      "title": "Vivāhabhedāḥ.18",
+      "text": "चतुरो ब्राह्मणस्याद्यान् प्रशस्तान् कवयो विदुः राक्षसं क्षत्रियस्यैकं मानुषं वैश्यशूद्रयोः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.19",
+      "title": "Vivāhabhedāḥ.19",
+      "text": "पञ्चानां तु त्रयो धर्म्म्या द्वावधर्म्म्यौ स्मृताविह पैशाचश्चासुरश्चैव न कर्तव्यौ कदाचन",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.20",
+      "title": "Vivāhabhedāḥ.20",
+      "text": "पृथक्पृथक् वा मिश्रौ वा विवाहौ पूर्वदेशितौ गान्धर्व्वो राक्षसश्चैव धर्म्मौ क्षत्रस्य तौ स्मृतौ",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhabhedāḥ.23",
+      "title": "Vivāhabhedāḥ.23",
+      "text": "पृथक्पृथक् एकैकशः मिश्र उभयलक्षणसंकीर्णो यथा कन्यावरयोः परस्परानुरागे सत्येव कन्याया अदीयमानाया झटिति हरणेन विवाहे गान्धर्व्वराक्षसौ पैठीनसिः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhyāvivāhyakanyānirūpaṇa.1",
+      "title": "Vivāhyāvivāhyakanyānirūpaṇa.1",
+      "text": "तत्र मनुशातातपौ असपिण्डा तु या मातुरसगोत्रा च या पितुः सा प्रशस्ता द्विजातीनां दारकर्मणि मैथुने",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Vivāhyāvivāhyakanyānirūpaṇa.3",
+      "title": "Vivāhyāvivāhyakanyānirūpaṇa.3",
+      "text": "तथाहि पुत्रस्य पितृशरीरावयवान्वयेन पित्रा सह",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.1",
+      "title": "Āsuralakṣaṇa.1",
+      "text": "तत्र मनुः ज्ञातिभ्यो द्रविणं दत्त्वा कन्यायाश्चैव शक्तितः कन्याप्रदानं स्वाच्छन्द्यादासुरो धर्म्म उच्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.5",
+      "title": "Āsuralakṣaṇa.5",
+      "text": "देवलः शुल्कं प्रदाय कन्यायाः प्रत्यादानं विधानतः वित्तहेतुर्विवाहोऽयमासुरः षष्ठ उच्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.7",
+      "title": "Āsuralakṣaṇa.7",
+      "text": "पैठीनसिः शुल्केन परिणीत्वा ददतो राक्षसः परिणीत्वा विक्रीय राक्षसशब्दः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.8",
+      "title": "Āsuralakṣaṇa.8",
+      "text": "हारीतः दम्भछद्मभ्यां परैस्तर्किताय दीयते प्रतिपद्य वा स आसुरः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.10",
+      "title": "Āsuralakṣaṇa.10",
+      "text": "पुनर्हारीतः शुल्के शु [... औ३ षेइछेन्झ्] र्य्येण मानुषः मानुषशब्द आसुरपरः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.11",
+      "title": "Āsuralakṣaṇa.11",
+      "text": "वसिष्ठः पठित्वा धनक्रीती स मानुषस्तस्माद्दुहितृमते शतमधिरथमिति ह क्रये विज्ञायते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.16",
+      "title": "Āsuralakṣaṇa.16",
+      "text": "कश्यपः क्रीता द्रव्येण या नारी न सा पत्नी विधीयते न सा दैवे न वा पैत्रे दासीं तां कश्यपो ऽब्रवीत्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.17",
+      "title": "Āsuralakṣaṇa.17",
+      "text": "आपस्तम्बः दानविक्रयधर्म्मश्च अपत्यस्य न विद्यते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.18",
+      "title": "Āsuralakṣaṇa.18",
+      "text": "मनुः न कन्यायाः पिता विद्वान्गृह्णीयाच्छुल्कमण्वपि गृह्णन् शुल्कं च लोभेन स्यान्नरोऽपत्यविक्रयी",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.19",
+      "title": "Āsuralakṣaṇa.19",
+      "text": "आददीत न शूद्रोऽपि शुल्कं दुहितरं ददत् शुल्कं गृह्णन् च कुरुते छन्नं दुहितृविक्रयम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.20",
+      "title": "Āsuralakṣaṇa.20",
+      "text": "नानुशुश्रुम जात्वेतत्पूर्वेष्वपि च जन्मसु शुल्कसंज्ञेन मूल्येन पापं दुहितृविक्रयम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.21",
+      "title": "Āsuralakṣaṇa.21",
+      "text": "आर्षे गोमिथुनं शुल्कं केचिदाहुर्मृषैव तत्स्वल्पो ऽप्ययं महान्वापि तावानेव स विक्रयः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.22",
+      "title": "Āsuralakṣaṇa.22",
+      "text": "स्त्रीधनानि तु ये मोहादुपजीवन्ति बान्धवाः नारीयानानि वस्त्रं वा ते पापा यान्त्यधोगतिम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.23",
+      "title": "Āsuralakṣaṇa.23",
+      "text": "आर्षासुरयोर्विवाहयोर्धनग्रहणमुक्तं न च तद्विना तदसंभवः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.28",
+      "title": "Āsuralakṣaṇa.28",
+      "text": "कश्यपः शुल्केन ये प्रयच्छन्ति स्वसुतां लोभमोहिताः स्वात्मविक्रयिणः पापा महाकिल्बिषकारकाः",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.29",
+      "title": "Āsuralakṣaṇa.29",
+      "text": "पतन्ति निरये घोरे घ्नन्ति च आ सप्तमं कुलम् गमनागमने चैव सर्वं शुल्को विधीयते",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.31",
+      "title": "Āsuralakṣaṇa.31",
+      "text": "मनुः यासां नाददते शुल्कं ज्ञातयो न स विक्रयः अर्हणं तु कुमारीणामानृशंस्यं च केवलम्",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    },
+    {
+      "id": "Āsuralakṣaṇa.33",
+      "title": "Āsuralakṣaṇa.33",
+      "text": "आपस्तम्बः विवाहे दुहितृमते दानं काम्यं धर्म्मार्थं श्रूयते तस्माद्दुहितृमते अधिरथं शतं देयं तस्मिन्मिथुनाया कुर्यादिति",
+      "notes": "Source: Digital Corpus of Sanskrit (DCS), Oliver Hellwig, 2010-2024, CC-BY 4.0. Devanagari produced from the DCS IAST transcription via skrutable's transliterator (pip dependency, no vendored code).",
+      "tags": [
+        "dcs-import"
+      ]
+    }
+  ]
+}
