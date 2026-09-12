@@ -1,0 +1,42 @@
+{
+ "_readme": "Reference prompts for the IndicF5 zero-shot engine on the Kamadhenu Space: the project lead's (3BHU1) own grade-A recordings, 24 kHz mono, with the verified DGE text they recite. Consent to use his voice was recorded 6 Sep 2026 (kamadhenu_dataset/speakers.json).",
+ "speaker": "3BHU1",
+ "refs": {
+  "tp_anushtubh_19": {
+   "wav": "tp_anushtubh_19.wav",
+   "text": "रामांघ्रिरेणुप्रेम्णेव सेतोरुभयतोंऽबुधिः\nअभ्येति पौनःपुन्येन वर्धमानः पदेपदे",
+   "text_id": "tirtha_prabandha:TP_DAK_019",
+   "chandas": "अनुष्टुप्",
+   "work": "Tīrthaprabandha, Dakṣiṇa 19",
+   "seconds": 11.15,
+   "source_file": "tp1.19.tp19.mp3"
+  },
+  "sbs_upajati_329": {
+   "wav": "sbs_upajati_329.wav",
+   "text": "नैष्कर्म्यमप्यच्युतभाववर्जितं न शोभते ज्ञानमलं निरञ्जनम्\nकुतः पुनः शश्वदभद्रमीश्वरे न चार्पितं कर्म यदप्यकारणम्",
+   "text_id": "bhagavata_saroddhara:BS_P22_V329",
+   "chandas": "उपजाति",
+   "work": "Bhāgavata Sāroddhāra 22.6 (Bhā. 1.5.12)",
+   "seconds": 14.2,
+   "source_file": "SBS22.6.SBS329.mp3"
+  },
+  "sbs_indravajra_356": {
+   "wav": "sbs_indravajra_356.wav",
+   "text": "भूतानि विष्णोः सुरपूजितानि दुर्दर्शलिङ्गानि महाद्भुतानि\nरक्षन्ति तद्भक्तिमतः परेभ्यो मत्तश्च मर्त्यानथ सर्वतश्च",
+   "text_id": "bhagavata_saroddhara:BS_P29_V356",
+   "chandas": "इन्द्रवज्रा",
+   "work": "Bhāgavata Sāroddhāra 29.6",
+   "seconds": 14.51,
+   "source_file": "SBS29.6.SBS356.mp3"
+  },
+  "tp_shardula_1": {
+   "wav": "tp_shardula_1.wav",
+   "text": "क्वावेरीहृदये वसन् कमलभूतातः कृपावीक्षणै\nर्जीवांहः शमयन् श्रिया च धरया सेव्योऽतिभव्यो विभुः\nदेवैरावरणस्थितैः कृतनतिः शेषांगशायी सदा\nभावे मे विधुपुष्करिण्यधिपतिः श्रीरंगनाथोऽस्त्वयम्",
+   "text_id": "tirtha_prabandha:TP_DAK_001",
+   "chandas": "शार्दूलविक्रीडित",
+   "work": "Tīrthaprabandha, Dakṣiṇa 1",
+   "seconds": 11.85,
+   "source_file": "tp1.1.tp1.mp3"
+  }
+ }
+}

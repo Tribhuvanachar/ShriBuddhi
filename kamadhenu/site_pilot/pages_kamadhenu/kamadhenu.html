@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>/* DGE theme sync: follow the site-wide theme choice (app_theme) */
+(function(){try{var M={minimal:'traditional',vibrant:'traditional',darkglass:'vandana'},A=['traditional','vandana'],t=localStorage.getItem('app_theme');t=M[t]||t;if(A.indexOf(t)<0)t='traditional';var c=document.documentElement;c.classList.add('theme-'+t);if(t==='vandana')c.classList.add('dark-mode');}catch(e){document.documentElement.classList.add('theme-traditional');}})();</script>
+<meta charset="utf-8"/>
+<!-- Guru Vandana guard: must stay the first script here. -->
+<script src="../../js/vandana-guard.js?v=2"></script>
+<script src="../../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kamadhenu — chant trials · DGE</title>
+<link rel="stylesheet" href="../../css/vyakarana-base.css?v=1">
+<link rel="icon" type="image/png" sizes="48x48" href="../../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../../images/genie/apple-touch-icon.png">
+<style>
+  .wrap{max-width:960px;margin:0 auto;padding:18px 16px 60px}
+  h1{font-size:1.5rem;margin:.2em 0 .4em}
+  .lead{color:var(--muted);margin:0 0 18px;line-height:1.5}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media (max-width:760px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .card h2{font-size:1.05rem;margin:0 0 8px}
+  .card .tag{display:inline-block;font-size:.72rem;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-left:6px;vertical-align:middle}
+  textarea{width:100%;min-height:120px;font-family:var(--font-sanskrit,inherit);font-size:1.15rem;line-height:1.7;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);box-sizing:border-box}
+  select,input[type=number]{padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font-size:.95rem;max-width:100%}
+  label.f{display:block;font-size:.85rem;color:var(--muted);margin:10px 0 4px}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  button.go{padding:9px 16px;border-radius:10px;border:1px solid var(--accent);background:var(--accent);color:#fff;font-weight:700;cursor:pointer}
+  button.go[disabled]{opacity:.55;cursor:wait}
+  button.go.alt{background:transparent;color:var(--accent)}
+  .status{font-size:.85rem;color:var(--muted);min-height:1.2em;margin-top:8px}
+  .status.err{color:var(--accent);font-weight:600}
+  audio{width:100%;margin-top:10px}
+  pre.meta{font-size:.78rem;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;overflow:auto;max-height:220px;margin:8px 0 0}
+  .metre{font-size:.9rem;margin-top:8px}
+  .metre b{font-family:var(--font-sanskrit,inherit)}
+  .samples button{font-size:.8rem;padding:3px 9px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;margin:2px 4px 2px 0}
+  .note{font-size:.82rem;color:var(--muted);line-height:1.5;margin-top:14px}
+  .note code{font-size:.8rem}
+  table.cmp{width:100%;border-collapse:collapse;font-size:.85rem;margin-top:8px}
+  table.cmp td,table.cmp th{border-bottom:1px solid var(--line);padding:5px 6px;text-align:left;vertical-align:top}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <dge-breadcrumb home-href="index.html" label="Kamadhenu trials" class="brand"><a href="index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span>Kamadhenu trials</span></dge-breadcrumb>
+    <div class="spacer"></div>
+  </div>
+</header>
+<div class="wrap">
+  <h1>Kamadhenu · <span class="accent">chant trials</span></h1>
+  <p class="lead">Type or pick a verse, let the DGE chandas engine name its metre, then hear it from the two engines on the
+  Kamadhenu Space (Hugging Face ZeroGPU). Every call spends free GPU quota (about 4 GPU-seconds a verse; the first call after
+  an idle spell takes up to a minute while a model loads). Ten verses per network per day.</p>
+
+  <div class="card">
+    <h2>Verse</h2>
+    <textarea id="km-text" spellcheck="false">धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः ।
+मामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय ॥</textarea>
+    <div class="samples" id="km-samples">
+      <button type="button" data-s="धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः ।&#10;मामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय ॥">Gītā 1.1 (anuṣṭubh)</button>
+      <button type="button" data-s="नैष्कर्म्यमप्यच्युतभाववर्जितं न शोभते ज्ञानमलं निरञ्जनम् ।&#10;कुतः पुनः शश्वदभद्रमीश्वरे न चार्पितं कर्म यदप्यकारणम् ॥">Bhāgavata 1.5.12 (upajāti)</button>
+      <button type="button" data-s="क्वावेरीहृदये वसन् कमलभूतातः कृपावीक्षणैर्जीवांहः शमयन् श्रिया च धरया सेव्योऽतिपुण्यैर्जनैः ।&#10;रङ्गे रङ्गति यो रमाधिपतिरप्युद्दामकामार्दितो ज्ञानानन्दघनं वपुर्दधदसौ पायादपायात्प्रभुः ॥">Tīrthaprabandha 1 (śārdūlavikrīḍita)</button>
+    </div>
+    <div class="metre" id="km-metre">metre: <b>…</b></div>
+  </div>
+
+  <div class="grid" style="margin-top:18px">
+    <div class="card">
+      <h2>Kamadhenu trial <span class="tag">IndicF5 · MIT · zero-shot</span></h2>
+      <p class="note" style="margin-top:0">The licensed base model (ai4bharat/IndicF5) imitating one of <em>your own</em> recordings. Nothing has been trained yet:
+      this shows what the base model does with your voice before any fine-tuning is approved.</p>
+      <label class="f" for="km-ref">Reference voice clip (3BHU1)</label>
+      <select id="km-ref"></select>
+      <label class="f" for="km-seed2">Seed</label>
+      <input id="km-seed2" type="number" value="60" min="0" max="1000">
+      <div class="row" style="margin-top:12px"><button class="go" id="km-go2" type="button">🐄 Chant — Kamadhenu trial</button></div>
+      <div class="status" id="km-status2"></div>
+      <audio id="km-audio2" controls hidden></audio>
+      <pre class="meta" id="km-meta2" hidden></pre>
+    </div>
+    <div class="card">
+      <h2>Vāgdhenu baseline <span class="tag">Apache-2.0 · Prof. Prathosh's voice</span></h2>
+      <p class="note" style="margin-top:0">The metre-aware reference engine from IISc, unchanged. The DGE chandas verdict above is passed to it so it never re-detects the metre.</p>
+      <label class="f" for="km-seed1">Seed</label>
+      <input id="km-seed1" type="number" value="60" min="0" max="1000">
+      <div class="row" style="margin-top:12px"><button class="go alt" id="km-go1" type="button">Chant — Vāgdhenu baseline</button></div>
+      <div class="status" id="km-status1"></div>
+      <audio id="km-audio1" controls hidden></audio>
+      <pre class="meta" id="km-meta1" hidden></pre>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <h2>What you are comparing</h2>
+    <table class="cmp">
+      <tr><th></th><th>Kamadhenu trial</th><th>Vāgdhenu baseline</th></tr>
+      <tr><td>Model</td><td>IndicF5 base weights (AI4Bharat, MIT), untrained for Sanskrit or chant</td><td>Vāgdhenu = IndicF5 fine-tuned by Prof. Prathosh on his own chant + BigVGAN vocoder</td></tr>
+      <tr><td>Voice</td><td>Yours, imitated from a 11–15 s reference clip (zero-shot)</td><td>Prof. Prathosh's</td></tr>
+      <tr><td>Metre</td><td>Not modelled; pace follows the reference clip</td><td>Reference bank per metre (16 metres), DGE verdict mapped onto it</td></tr>
+      <tr><td>Role in the plan</td><td>Starting point for Kamadhenu's own fine-tune (Phase 8)</td><td>Benchmark only; never the production voice</td></tr>
+    </table>
+    <p class="note">Space: <code id="km-space"></code> · reference clips and their verified texts: <code>data/kamadhenu/refs.json</code> · plan: <code>kamadhenu/KAMADHENU_STATUS.md</code>.</p>
+  </div>
+</div>
+
+<dge-footer class="site-footer-links"><a class="footer-link" href="../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/bhumandala/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+<script src="../../js/dge-shell.js?v=1"></script>
+<script src="../../js/dge-breadcrumb.js?v=1"></script>
+<script src="../../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="kamadhenu"></dge-nav-rail>
+<script src="../../js/config.js?v=4.75.10"></script>
+<script src="../../js/chandas.js?v=4"></script>
+<script src="../../js/kamadhenu.js?v=1.2"></script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (s) { return document.querySelector(s); };
+  var text = $('#km-text'), metre = $('#km-metre');
+  $('#km-space').textContent = (window.appConfig && window.appConfig.kamadhenuSpaceUrl) || '(not configured)';
+  var refs = {};
+  fetch('data/kamadhenu/refs.json').then(function (r) { return r.json(); }).then(function (d) {
+    refs = d.refs || {};
+    var sel = $('#km-ref');
+    Object.keys(refs).forEach(function (k) {
+      var o = document.createElement('option'); o.value = k;
+      o.textContent = refs[k].chandas + ' — ' + refs[k].work + ' (' + refs[k].seconds + ' s)';
+      sel.appendChild(o);
+    });
+  }).catch(function () { $('#km-status2').textContent = 'reference list not found'; });
+  function showMetre() {
+    if (!(window.DGEChandas && window.DGEChandas.ready())) { metre.innerHTML = 'metre: <b>…</b>'; return ''; }
+    var a = window.DGEChandas.analyzeText(text.value), m = a.match;
+    var name = m && m.names ? m.names.join(', ') : 'अज्ञातम्';
+    var aks = a.padas.map(function (p) { return p.aksharas; }).join('·');
+    metre.innerHTML = 'metre: <b>' + name + '</b> <span style="color:var(--muted)">(' + a.padas.length + ' pādas, ' + aks + ' akṣaras)</span>';
+    return m && m.names ? m.names[0] : '';
+  }
+  if (window.DGEChandas) window.DGEChandas.loadDB('').then(showMetre).catch(function () { metre.innerHTML = 'metre: <b>engine data not reachable</b>'; });
+  text.addEventListener('input', showMetre);
+  document.querySelectorAll('#km-samples button').forEach(function (b) {
+    b.addEventListener('click', function () { text.value = b.getAttribute('data-s'); showMetre(); });
+  });
+  function run(engine) {
+    var n = engine === 'kamadhenu' ? '2' : '1';
+    var btn = $('#km-go' + n), st = $('#km-status' + n), au = $('#km-audio' + n), me = $('#km-meta' + n);
+    if (!(window.DGEKamadhenu && window.DGEKamadhenu.available())) { st.className = 'status err'; st.textContent = 'Kamadhenu Space not configured.'; return; }
+    btn.disabled = true; st.className = 'status'; au.hidden = true; me.hidden = true;
+    var t0 = Date.now();
+    window.DGEKamadhenu.generate(text.value, {
+      engine: engine, ref: $('#km-ref').value, chandas: showMetre(),
+      seed: parseInt($('#km-seed' + n).value, 10) || 60,
+      onStatus: function (s) { st.textContent = s + ' …'; }
+    }).then(function (r) {
+      au.src = r.url; au.hidden = false; au.play().catch(function () {});
+      var m = r.meta || {};
+      st.textContent = 'done in ' + Math.round((Date.now() - t0) / 100) / 10 + ' s (GPU ' + (m.gpu_seconds != null ? m.gpu_seconds : '?') + ' s, audio ' + (m.audio_seconds != null ? m.audio_seconds : '?') + ' s)';
+      me.textContent = JSON.stringify(m, null, 1); me.hidden = false;
+    }).catch(function (e) {
+      st.className = 'status err'; st.textContent = 'failed: ' + (e && e.message || e);
+    }).then(function () { btn.disabled = false; });
+  }
+  $('#km-go1').addEventListener('click', function () { run('vagdhenu'); });
+  $('#km-go2').addEventListener('click', function () { run('kamadhenu'); });
+})();
+</script>
+</body>
+</html>
