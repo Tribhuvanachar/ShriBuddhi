@@ -1,13 +1,8 @@
-# TODO(migration): needs manual review before this runs from ShriBuddhi.
-# "Publish to wordnet-dist" force-pushes an orphan branch of "this repo" and
-# prints a jsDelivr CDN URL (cdn.jsdelivr.net/gh/${{ github.repository }}@sha)
-# for js/intellisense.js to pin. jsDelivr's GitHub CDN only serves PUBLIC
-# repositories. bhumandala is public; ShriBuddhi and BrahmaBuddhi (this
-# migration's two candidate destinations) are both PRIVATE, so retargeting
-# the push to either would silently produce a CDN URL that 404s for readers.
-# Same issue as import-kavya.yml and reindex.yml's search-dist step -- needs
-# a project-lead decision (make a repo public, keep this step on bhumandala,
-# or add another distribution mechanism), not a guessed path substitution.
+# wordnet-dist publishes to bhumandala (Buddhi) directly, not BrahmaBuddhi --
+# jsDelivr's GitHub CDN only serves PUBLIC repositories, and a dist branch
+# has to live on bhumandala regardless of where the build runs. Same
+# "bypasses review by design, no history in common with main" exemption the
+# dist branches already had. See BUDDHI_TOKEN below.
 name: Publish the Sanskrit WordNet
 
 # Rebuilds data/_wordnet/ from IndoWordNet and publishes it to this repo's
@@ -136,7 +131,7 @@ jobs:
           git init -q -b wordnet-dist
           git add -A
           git commit -q -m "The built Sanskrit WordNet, rebuilt by publish-wordnet.yml"
-          git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" \
+          git push -q --force "https://x-access-token:${{ secrets.BUDDHI_TOKEN }}@github.com/Tribhuvanachar/bhumandala" \
             wordnet-dist:refs/heads/wordnet-dist
           SHA=$(git rev-parse HEAD)
           # The reader pins a COMMIT, not this branch: jsDelivr caches a
@@ -150,6 +145,6 @@ jobs:
             echo "**Now bump the pin** in js/config.js (appConfig.wordnetDataBase) and js/intellisense.js (CDN):"
             echo ""
             echo '```'
-            echo "https://cdn.jsdelivr.net/gh/${{ github.repository }}@$SHA"
+            echo "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@$SHA"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"

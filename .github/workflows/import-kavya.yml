@@ -1,15 +1,10 @@
-# TODO(migration): needs manual review before this runs from ShriBuddhi.
-# "Publish to kavya-dist" force-pushes an orphan branch of "this repo" and
-# prints a jsDelivr CDN URL (cdn.jsdelivr.net/gh/${{ github.repository }}@sha)
-# for readers' js/config.js / js/kavya.js to pin. jsDelivr's GitHub CDN only
-# serves PUBLIC repositories. bhumandala is public, but ShriBuddhi and
-# BrahmaBuddhi (this migration's two candidate destinations) are both
-# PRIVATE, so redirecting the push to either one would silently produce a
-# CDN URL that 404s for readers -- not a fix this migration's usual
-# "redirect the final push to BrahmaBuddhi" rule can make correct. Needs a
-# decision from the project lead (make one of these repos public, keep this
-# specific publish step pointed at bhumandala, or add another distribution
-# mechanism) before the branch target is changed.
+# kavya-dist publishes to bhumandala (Buddhi) directly, not BrahmaBuddhi --
+# jsDelivr's GitHub CDN only serves PUBLIC repositories, and ShriBuddhi/
+# BrahmaBuddhi are both private, so a dist branch has to live on bhumandala
+# regardless of where the build itself runs. This is the same "no history in
+# common with main, replaced wholesale, bypasses review by design" exemption
+# the dist branches already had before this migration -- see BUDDHI_TOKEN
+# (Contents:Read-write, scoped to bhumandala only) below.
 name: Import Kavya corpus
 
 # Manual only, like the Kosha and re-index workflows: fetching from GRETIL and
@@ -153,7 +148,7 @@ jobs:
           git init -q -b kavya-dist
           git add -A
           git commit -q -m "The built Kavya corpus, rebuilt by import-kavya.yml"
-          git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" \
+          git push -q --force "https://x-access-token:${{ secrets.BUDDHI_TOKEN }}@github.com/Tribhuvanachar/bhumandala" \
             kavya-dist:refs/heads/kavya-dist
           SHA=$(git rev-parse HEAD)
           # The reader pins a COMMIT, not this branch: jsDelivr caches a
@@ -167,7 +162,7 @@ jobs:
             echo "**Now bump the pin** in js/config.js (appConfig.kavyaDataBase) and js/kavya.js (CDN):"
             echo ""
             echo '```'
-            echo "https://cdn.jsdelivr.net/gh/${{ github.repository }}@$SHA"
+            echo "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@$SHA"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 

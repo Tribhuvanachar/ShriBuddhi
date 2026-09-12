@@ -1,17 +1,9 @@
-# TODO(migration): needs manual review before this runs from ShriBuddhi.
-# "Publish the pages to ocr-images/<work>" pushes to a branch of "this repo"
-# that admin/ocr-review.html then reads directly via
-# raw.githubusercontent.com/<repo>/ocr-images/<work>/page-<N>.png -- the
-# comment in this file is explicit that this is designed to need "no token".
-# raw.githubusercontent.com does not serve a PRIVATE repository without
-# authentication, and ShriBuddhi (where this file now runs) is private, so
-# the review page's image fetch would break regardless of which repo this
-# step targets (staying self-referential, or redirecting to BrahmaBuddhi --
-# also private). No YAML-only edit fixes this; it needs a decision on
-# whether admin/ocr-review.html should authenticate its fetch, ShriBuddhi
-# should be public, or this step should keep publishing to bhumandala.
-# Left otherwise unedited -- its write is intra-pipeline (self-referential,
-# no cross-repo push needed) the same as the other OCR staging workflows.
+# ocr-images/<work> publishes to bhumandala (Buddhi) directly, not
+# BrahmaBuddhi or this repo's own branch: admin/ocr-review.html (which lives
+# in and is served from bhumandala) reads these images unauthenticated via
+# raw.githubusercontent.com, which only serves PUBLIC repositories. Same
+# "has to live on the public repo regardless of where the build runs"
+# exemption as the *-dist branches.
 name: DGE OCR page preview (server-side, no OCR/Gemini)
 
 # Renders specific PDF pages to PNGs so an admin can visually confirm a
@@ -94,13 +86,13 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           rm -rf /tmp/imgs && mkdir -p /tmp/imgs && cd /tmp/imgs
           git init -q -b "$BR"
-          if git fetch -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" "$BR" 2>/dev/null; then
+          if git fetch -q "https://x-access-token:${{ secrets.BUDDHI_TOKEN }}@github.com/Tribhuvanachar/bhumandala" "$BR" 2>/dev/null; then
             git checkout -q FETCH_HEAD -- . 2>/dev/null || true
           fi
           cp "$GITHUB_WORKSPACE"/preview_out/page-*.png . 2>/dev/null || true
           cp "$GITHUB_WORKSPACE"/preview_out/meta.json "meta-$(date -u +%Y%m%dT%H%M%SZ).json"
-          printf 'Page images for admin/ocr-review.html, rendered by ocr-preview-pages.yml. Read as raw.githubusercontent.com/%s/%s/page-<N>.png\n' "${{ github.repository }}" "$BR" > README.md
+          printf 'Page images for admin/ocr-review.html, rendered by ocr-preview-pages.yml. Read as raw.githubusercontent.com/Tribhuvanachar/bhumandala/%s/page-<N>.png\n' "$BR" > README.md
           git add -A
           git commit -q -m "ocr images: ${{ inputs.publish_work }} pages ${{ inputs.pages }}" || true
-          git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" "HEAD:refs/heads/$BR"
+          git push -q --force "https://x-access-token:${{ secrets.BUDDHI_TOKEN }}@github.com/Tribhuvanachar/bhumandala" "HEAD:refs/heads/$BR"
           echo "Published $(ls page-*.png | wc -l) page image(s) to branch \`$BR\`." >> "$GITHUB_STEP_SUMMARY"

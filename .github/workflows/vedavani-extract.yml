@@ -1,16 +1,3 @@
-# TODO(migration): needs manual review before this runs from ShriBuddhi.
-# This workflow's very first step unzips vedavani-assets.zip from the repo
-# root ("Extract vedavani-assets.zip"). That file is explicitly out of
-# scope for this migration (it stays only in bhumandala; the task's step-0
-# sync list did not include copying it into ShriBuddhi), so this workflow
-# will fail immediately once moved -- there is no vedavani-assets.zip beside
-# it here. Copying the zip into ShriBuddhi was not asked for and would be
-# scope creep beyond the 47 workflow files; leaving the workflow broken
-# silently seemed worse than flagging it. Needs a project-lead call on
-# whether to also copy vedavani-assets.zip into ShriBuddhi, or handle this
-# workflow differently. Its eventual PR (vedavani_audio_out/**) would
-# otherwise follow the same real-content-to-BrahmaBuddhi pattern as its
-# siblings once the asset question is resolved.
 name: VedaVaNi audio extract
 
 on:
@@ -99,10 +86,31 @@ jobs:
           name: vedavani-audio-${{ inputs.veda }}-${{ github.run_id }}
           path: vedavani_audio_out
           retention-days: 14
-      - name: Open Pull Request
+      # This job's own checkout (ShriBuddhi) does the extraction above; the PR
+      # targets BrahmaBuddhi as a staging repo instead of committing/PR-ing
+      # straight into ShriBuddhi or bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml for the pattern this reuses.
+      - name: Checkout BrahmaBuddhi
+        if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror extracted audio into the BrahmaBuddhi checkout
+        if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
+        run: |
+          set -euo pipefail
+          mkdir -p brahmabuddhi/vedavani_audio_out
+          cp -a vedavani_audio_out/. brahmabuddhi/vedavani_audio_out/
+
+      - name: Open Pull Request (against BrahmaBuddhi)
         if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
         uses: peter-evans/create-pull-request@v6
         with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
           branch: ingest/vedavani-${{ inputs.veda }}
           commit-message: "data: VedaVaNi ${{ inputs.veda }} audio extract"
           title: "Ingest: VedaVaNi ${{ inputs.veda }} audio"
@@ -113,5 +121,3 @@ jobs:
             - Script: `tools/vedavani/extract_audio.py` (URL schemes reconstructed by decompiling VedaVaNi_1.3.3.apk — see PROJECT_STATUS.md)
             - Rigveda output is per-Sukta, not per-Rik (no real per-rik timestamp data exists anywhere in the app — see the script's module docstring). Yajurveda Samhita/Brahmanam output IS per-mantra, sliced from the bundled boundary JSON.
             - Spot-check a few files play correctly and text/audio counts line up before merging — this is a first pass, not yet cross-checked against the running app.
-          add-paths: |
-            vedavani_audio_out/**

@@ -1,16 +1,11 @@
-# TODO(migration): needs manual review before this runs from ShriBuddhi.
-# "Publish the index to search-dist" force-pushes an orphan branch of "this
-# repo" and reports a jsDelivr CDN URL, same public-repo dependency as
-# import-kavya.yml / publish-wordnet.yml (ShriBuddhi/BrahmaBuddhi are both
-# private, so the CDN URL would 404). Worse here: "Bump the CDN pin and
-# commit to main" hardcodes the regex
-# `cdn\.jsdelivr\.net/gh/Tribhuvanachar/bhumandala@` when rewriting
-# js/config.js / js/global-search.js, and its whole point is to bump the pin
-# that bhumandala's LIVE site reads -- bumping it in ShriBuddhi's or
-# BrahmaBuddhi's own copy of those files has no effect on the deployed site.
-# This is not a path substitution; it needs a project-lead decision on
-# whether/how search publishing continues to target bhumandala directly, or
-# is redesigned as part of a later pass.
+# search-dist publishes to bhumandala (Buddhi) directly, same jsDelivr-needs-
+# a-public-repo exemption as import-kavya.yml/publish-wordnet.yml. The CDN
+# pin bump goes straight to bhumandala too -- it is the thing that makes the
+# already-published (and already immutable, hash-pinned) index live for
+# readers, not new unreviewed content, so it skips BrahmaBuddhi staging the
+# same way the dist branches themselves do. What DOES carry real, reviewable
+# content (library-status.json, backlinks) goes to BrahmaBuddhi as a PR,
+# same as every other relocated content workflow.
 name: DGE re-index (search + library status)
 
 # The "Re-index" job: rebuilds the corpus-wide search index and the Library
@@ -105,7 +100,9 @@ jobs:
       - name: Fetch the Kavya corpus
         if: steps.gate.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.include_kavya)
         run: |
-          git fetch --depth=1 origin kavya-dist
+          # kavya-dist only exists on bhumandala (Buddhi), not this repo --
+          # public repo, so a plain unauthenticated fetch works.
+          git fetch --depth=1 https://github.com/Tribhuvanachar/bhumandala.git kavya-dist
           rm -rf _kavya && mkdir -p _kavya
           git --work-tree=_kavya checkout FETCH_HEAD -- kavya_alankara
           du -sh _kavya
@@ -159,23 +156,46 @@ jobs:
           git init -q -b search-dist
           git add -A
           git commit -q -m "The built corpus-search index, rebuilt by reindex.yml"
-          git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" \
+          git push -q --force "https://x-access-token:${{ secrets.BUDDHI_TOKEN }}@github.com/Tribhuvanachar/bhumandala" \
             search-dist:refs/heads/search-dist
           SHA=$(git rev-parse HEAD)
           echo "sha=$SHA" >> "$GITHUB_OUTPUT"
           {
             echo "published to search-dist as \`$SHA\`"
             echo ""
-            echo "CDN base: https://cdn.jsdelivr.net/gh/${{ github.repository }}@$SHA"
+            echo "CDN base: https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@$SHA"
           } >> "$GITHUB_STEP_SUMMARY"
 
       # Nightly (or bump_pin on a manual run): move the pin, remember what was
-      # indexed, and commit everything that belongs on main directly.
+      # indexed, and commit everything that belongs on main directly. This
+      # lands on bhumandala's own main (not ShriBuddhi's) -- it is the step
+      # that makes the already-published, already-immutable search-dist
+      # commit live for readers, so it checks out bhumandala separately with
+      # BUDDHI_TOKEN rather than pushing to "origin" (which after this
+      # migration is ShriBuddhi).
+      - name: Checkout bhumandala for the pin bump
+        if: steps.gate.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.bump_pin)
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/bhumandala
+          token: ${{ secrets.BUDDHI_TOKEN }}
+          path: buddhi-pin
+
+      - name: Copy freshly rebuilt status/backlinks into the bhumandala checkout
+        if: steps.gate.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.bump_pin)
+        run: |
+          set -euo pipefail
+          cp admin/config/library-status.json buddhi-pin/admin/config/library-status.json
+          rm -rf buddhi-pin/search_index/backlinks
+          cp -r search_index/backlinks buddhi-pin/search_index/backlinks
+          cp search_index/backlinks.json buddhi-pin/search_index/backlinks.json 2>/dev/null || true
+
       - name: Bump the CDN pin and commit to main
         if: steps.gate.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.bump_pin)
         env:
           SHA: ${{ steps.publish.outputs.sha }}
           DATA_SHA: ${{ steps.gate.outputs.data_sha }}
+        working-directory: buddhi-pin
         run: |
           set -euo pipefail
           python3 - <<'PY'
@@ -211,23 +231,43 @@ jobs:
           done
           echo "Pin bumped to \`$SHA\` and committed to main." >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Open a PR for what does belong on main
+      # This job's own checkout (ShriBuddhi) does the rebuild above; the PR
+      # targets BrahmaBuddhi as a staging repo instead of committing/PR-ing
+      # straight into ShriBuddhi or bhumandala -- see
+      # .github/workflows/push-to-brahmabuddhi.yml for the pattern this reuses.
+      - name: Checkout BrahmaBuddhi
+        if: steps.gate.outputs.run == 'true' && github.event_name == 'workflow_dispatch' && !inputs.bump_pin && fromJSON(inputs.open_pr)
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed content into the BrahmaBuddhi checkout
+        if: steps.gate.outputs.run == 'true' && github.event_name == 'workflow_dispatch' && !inputs.bump_pin && fromJSON(inputs.open_pr)
+        run: |
+          set -euo pipefail
+          mkdir -p brahmabuddhi/admin/config brahmabuddhi/search_index
+          cp admin/config/library-status.json brahmabuddhi/admin/config/library-status.json
+          rm -rf brahmabuddhi/search_index/backlinks
+          cp -r search_index/backlinks brahmabuddhi/search_index/backlinks
+          cp search_index/backlinks.json brahmabuddhi/search_index/backlinks.json 2>/dev/null || true
+
+      - name: Open a PR for what does belong on main (against BrahmaBuddhi)
         if: steps.gate.outputs.run == 'true' && github.event_name == 'workflow_dispatch' && !inputs.bump_pin && fromJSON(inputs.open_pr)
         uses: peter-evans/create-pull-request@v6
         with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
           branch: reindex/status-and-backlinks
           title: "Re-index: library status and backlinks"
           commit-message: "Re-index: refresh library status and backlinks"
           body: |
             The search index itself is NOT here -- it is 330 MB and was
-            published to the `search-dist` branch by the same run; bump
-            `appConfig.searchIndexBase` to the hash in the job summary, or
-            re-run with "bump_pin" on to have it done for you.
+            published to bhumandala's `search-dist` branch by the same run;
+            bump `appConfig.searchIndexBase` to the hash in the job summary,
+            or re-run with "bump_pin" on to have it done for you.
 
             What this PR carries is the part that belongs on main:
             `admin/config/library-status.json` and
             `search_index/backlinks/**`.
-          add-paths: |
-            admin/config/library-status.json
-            search_index/backlinks/**
-            search_index/backlinks.json
