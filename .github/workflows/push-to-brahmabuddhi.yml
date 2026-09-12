@@ -1,0 +1,63 @@
+# Proof-of-concept for the private build chain: Parabuddhi -> ShriBuddhi ->
+# BrahmaBuddhi -> Buddhi. ShriBuddhi is the "active" repo in this chain --
+# per the project lead, all automation runs here, not in BrahmaBuddhi -- so
+# this step fires automatically whenever something lands on ShriBuddhi's
+# main (today: Parabuddhi's marker; later: real build output), relaying it
+# into BrahmaBuddhi. BrahmaBuddhi itself runs nothing in response.
+
+name: Push to BrahmaBuddhi (proof of concept)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout this repo's content
+        uses: actions/checkout@v4
+        with:
+          path: shribuddhi
+
+      - name: Checkout BrahmaBuddhi
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Relay marker file
+        run: |
+          mkdir -p brahmabuddhi/_pipeline_test
+          if [ -f shribuddhi/_pipeline_test/from_parabuddhi.md ]; then
+            cp shribuddhi/_pipeline_test/from_parabuddhi.md brahmabuddhi/_pipeline_test/from_parabuddhi.md
+          fi
+          cat > brahmabuddhi/_pipeline_test/from_shribuddhi.md <<EOF
+          # Pipeline test marker
+
+          Written by ShriBuddhi's \`push-to-brahmabuddhi.yml\`, relaying
+          whatever ShriBuddhi had on main at the time.
+
+          - Run: ${{ github.run_id }}
+          - Triggering commit: ${{ github.sha }}
+          - Time (UTC): $(date -u +"%Y-%m-%d %H:%M:%S")
+          EOF
+
+      - name: Commit and push to BrahmaBuddhi
+        working-directory: brahmabuddhi
+        run: |
+          git config user.name "shribuddhi-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add _pipeline_test/
+          if git diff --cached --quiet; then
+            echo "No change to push."
+            exit 0
+          fi
+          git commit -m "Pipeline test: marker relayed from ShriBuddhi (run ${{ github.run_id }})"
+          git push origin HEAD:main
