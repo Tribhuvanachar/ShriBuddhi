@@ -16,248 +16,6 @@
    "title": "Sarvamūla Digital Library"
   },
   {
-   "path": "app.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "Sarvamoola Digital Library — App layout"
-  },
-  {
-   "path": "audio.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "Harikathamritasara - Mangalacharana Sandhi"
-  },
-  {
-   "path": "convert/index.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "style.css"
-   ],
-   "title": "DGE Convert v0.35.0"
-  },
-  {
-   "path": "dasa-sahitya/index.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": true,
-   "css_links": [
-    "../css/dasa-sahitya.css"
-   ],
-   "title": "ದಾಸ ಸಾಹಿತ್ಯ · Dāsa Sāhitya — DGE"
-  },
-  {
-   "path": "dasa-sahitya/views/index.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "ದಾಸ ಸಾಹಿತ್ಯ · choose a view · DGE"
-  },
-  {
-   "path": "dasa-sahitya/views/view1.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": true,
-   "css_links": [],
-   "title": "ದಾಸ ಸಾಹಿತ್ಯ · Reading · DGE"
-  },
-  {
-   "path": "dasa-sahitya/views/view2.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": true,
-   "css_links": [],
-   "title": "ದಾಸ ಸಾಹಿತ್ಯ · Browse · DGE"
-  },
-  {
-   "path": "dasa-sahitya/views/view3.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": true,
-   "css_links": [],
-   "title": "ದಾಸ ಸಾಹಿತ್ಯ · Curated · DGE"
-  },
-  {
-   "path": "dvaita-grantha-anukramani/index.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/dvaita-catalog.css"
-   ],
-   "title": "द्वैतवेदान्तग्रन्थानुक्रमणी · DGE"
-  },
-  {
-   "path": "dvaitavedanta-status.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "DvaitaVedanta Extraction · DGE"
-  },
-  {
-   "path": "gita.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "Gita Viewer"
-  },
-  {
-   "path": "grantha.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "css/tokens.css",
-    "css/grantha-reader.css"
-   ],
-   "title": "ग्रन्थः · DGE Reader v2 (preview)"
-  },
-  {
-   "path": "guru-parampara/guru1.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "Guru Paramparā · Explorer view · DGE"
-  },
-  {
-   "path": "guru-parampara/guru2.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "Guru Paramparā · Metro view · DGE"
-  },
-  {
-   "path": "guru-parampara/guru3.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "Guru Paramparā · Trunk & Lines view · DGE"
-  },
-  {
-   "path": "guru-parampara/index.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/guru-parampara.css"
-   ],
-   "title": "Guru Parampara — Madhva (Dvaita) Lineage · DGE"
-  },
-  {
-   "path": "guru-parampara/lineage-2d.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "../css/vyakarana-base.css"
-   ],
-   "title": "Guru Parampara — Madhva (Dvaita) Lineage Tree"
-  },
-  {
-   "path": "guru-parampara/tracker.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "../css/vyakarana-base.css"
-   ],
-   "title": "Guru Parampara — Data Completeness Tracker"
-  },
-  {
-   "path": "home-panel.html",
-   "gated": true,
-   "first_head_script": null,
-   "vandana_guard_first": false,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "css/home.css",
-    "css/content-inline.css"
-   ],
-   "title": "Know More — Sarvamūla Digital Library"
-  },
-  {
-   "path": "kamadhenu.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "css/vyakarana-base.css"
-   ],
-   "title": "Kamadhenu — chant trials · DGE"
-  },
-  {
    "path": "kamadhenu_dataset/KAMADHENU_STATUS.html",
    "gated": true,
    "first_head_script": null,
@@ -324,7 +82,18 @@
    "title": "Kamadhenu — Chandas reference bank"
   },
   {
-   "path": "kavya/index.html",
+   "path": "pages/audio/audio.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Harikathamritasara - Mangalacharana Sandhi"
+  },
+  {
+   "path": "pages/convert/index.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -332,12 +101,232 @@
    "has_ai_js": false,
    "has_modals_js": false,
    "css_links": [
-    "../css/kavya.css"
+    "style.css"
+   ],
+   "title": "DGE Convert v0.35.0"
+  },
+  {
+   "path": "pages/dasa-sahitya/index.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": true,
+   "css_links": [
+    "../../css/dasa-sahitya.css"
+   ],
+   "title": "ದಾಸ ಸಾಹಿತ್ಯ · Dāsa Sāhitya — DGE"
+  },
+  {
+   "path": "pages/dasa-sahitya/views/index.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "ದಾಸ ಸಾಹಿತ್ಯ · choose a view · DGE"
+  },
+  {
+   "path": "pages/dasa-sahitya/views/view1.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": true,
+   "css_links": [],
+   "title": "ದಾಸ ಸಾಹಿತ್ಯ · Reading · DGE"
+  },
+  {
+   "path": "pages/dasa-sahitya/views/view2.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": true,
+   "css_links": [],
+   "title": "ದಾಸ ಸಾಹಿತ್ಯ · Browse · DGE"
+  },
+  {
+   "path": "pages/dasa-sahitya/views/view3.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": true,
+   "css_links": [],
+   "title": "ದಾಸ ಸಾಹಿತ್ಯ · Curated · DGE"
+  },
+  {
+   "path": "pages/dvaita-grantha-anukramani/index.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/vyakarana-base.css",
+    "../../css/dvaita-catalog.css"
+   ],
+   "title": "द्वैतवेदान्तग्रन्थानुक्रमणी · DGE"
+  },
+  {
+   "path": "pages/dvaitavedanta-status/dvaitavedanta-status.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "DvaitaVedanta Extraction · DGE"
+  },
+  {
+   "path": "pages/gita/gita.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Gita Viewer"
+  },
+  {
+   "path": "pages/grantha/grantha.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/tokens.css",
+    "../../css/grantha-reader.css"
+   ],
+   "title": "ग्रन्थः · DGE Reader v2 (preview)"
+  },
+  {
+   "path": "pages/guru-parampara/guru1.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Guru Paramparā · Explorer view · DGE"
+  },
+  {
+   "path": "pages/guru-parampara/guru2.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Guru Paramparā · Metro view · DGE"
+  },
+  {
+   "path": "pages/guru-parampara/guru3.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Guru Paramparā · Trunk & Lines view · DGE"
+  },
+  {
+   "path": "pages/guru-parampara/index.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/vyakarana-base.css",
+    "../../css/guru-parampara.css"
+   ],
+   "title": "Guru Parampara — Madhva (Dvaita) Lineage · DGE"
+  },
+  {
+   "path": "pages/guru-parampara/lineage-2d.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/vyakarana-base.css"
+   ],
+   "title": "Guru Parampara — Madhva (Dvaita) Lineage Tree"
+  },
+  {
+   "path": "pages/guru-parampara/tracker.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/vyakarana-base.css"
+   ],
+   "title": "Guru Parampara — Data Completeness Tracker"
+  },
+  {
+   "path": "pages/home-panel/home-panel.html",
+   "gated": true,
+   "first_head_script": null,
+   "vandana_guard_first": false,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/home.css",
+    "../../css/content-inline.css"
+   ],
+   "title": "Know More — Sarvamūla Digital Library"
+  },
+  {
+   "path": "pages/kamadhenu/kamadhenu.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/vyakarana-base.css"
+   ],
+   "title": "Kamadhenu — chant trials · DGE"
+  },
+  {
+   "path": "pages/kavya/index.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/kavya.css"
    ],
    "title": "काव्यानि — DGE"
   },
   {
-   "path": "kosha2.html",
+   "path": "pages/kosha/kosha2.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -345,13 +334,24 @@
    "has_ai_js": false,
    "has_modals_js": false,
    "css_links": [
-    "css/tokens.css",
-    "css/kosha2.css"
+    "../../css/tokens.css",
+    "../../css/kosha2.css"
    ],
    "title": "कोश — DGE Dictionary Reader (v2 preview)"
   },
   {
-   "path": "reader.html",
+   "path": "pages/reader/app.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Sarvamoola Digital Library — App layout"
+  },
+  {
+   "path": "pages/reader/reader.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -362,7 +362,7 @@
    "title": "Sarvamoola Digital Library — Scholar layout"
   },
   {
-   "path": "render.html",
+   "path": "pages/reader/render.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -370,16 +370,16 @@
    "has_ai_js": true,
    "has_modals_js": true,
    "css_links": [
-    "css/main.css",
-    "css/intellisense.css",
-    "css/footnotes.css",
-    "css/content-inline.css",
-    "css/tour.css"
+    "../../css/main.css",
+    "../../css/intellisense.css",
+    "../../css/footnotes.css",
+    "../../css/content-inline.css",
+    "../../css/tour.css"
    ],
    "title": "Sarvamoola Digital Library"
   },
   {
-   "path": "tirtha/index.html",
+   "path": "pages/tirtha/index.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
    "vandana_guard_first": true,
@@ -387,10 +387,366 @@
    "has_ai_js": false,
    "has_modals_js": false,
    "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/tirtha.css"
+    "../../css/vyakarana-base.css",
+    "../../css/tirtha.css"
    ],
    "title": "Tīrtha Prabandha — Holy Places Database"
+  },
+  {
+   "path": "pages/vyakarana/ashtadhyayi/index.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "अष्टाध्यायी · choose a view · DGE"
+  },
+  {
+   "path": "pages/vyakarana/ashtadhyayi/view1.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": true,
+   "css_links": [],
+   "title": "अष्टाध्यायी · Reading · DGE"
+  },
+  {
+   "path": "pages/vyakarana/ashtadhyayi/view2.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": true,
+   "css_links": [],
+   "title": "अष्टाध्यायी · Workbench · DGE"
+  },
+  {
+   "path": "pages/vyakarana/ashtadhyayi/view3.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": true,
+   "css_links": [],
+   "title": "अष्टाध्यायी · Study · DGE"
+  },
+  {
+   "path": "pages/vyakarana/ashtadhyayi.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": true,
+   "css_links": [
+    "../../css/vyakarana-base.css",
+    "../../css/ashtadhyayi.css",
+    "../../css/intellisense.css"
+   ],
+   "title": "अष्टाध्यायी · DGE व्याकरणम्"
+  },
+  {
+   "path": "pages/vyakarana/chandas.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/vyakarana-base.css",
+    "../../css/vyakarana.css",
+    "../../css/rupasiddhi.css",
+    "../../css/chandas.css"
+   ],
+   "title": "छन्दोविश्लेषणम् — DGE"
+  },
+  {
+   "path": "pages/vyakarana/dhatu/dlg1.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "धातुः · संवादः (Bottom-sheet) · DGE"
+  },
+  {
+   "path": "pages/vyakarana/dhatu/dlg2.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "धातुः · संवादः (Card) · DGE"
+  },
+  {
+   "path": "pages/vyakarana/dhatu/dlg3.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "धातुः · संवादः (Compact) · DGE"
+  },
+  {
+   "path": "pages/vyakarana/dhatu/index.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "धातुः · choose a view · DGE"
+  },
+  {
+   "path": "pages/vyakarana/dhatu/page1.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "धातुः · Split-pane · DGE"
+  },
+  {
+   "path": "pages/vyakarana/dhatu/page2.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "धातुः · Quick-facts · DGE"
+  },
+  {
+   "path": "pages/vyakarana/dhatu/page3.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "धातुः · Tabled · DGE"
+  },
+  {
+   "path": "pages/vyakarana/dhatu.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": true,
+   "css_links": [
+    "../../css/vyakarana-base.css",
+    "../../css/vyakarana.css",
+    "../../css/intellisense.css"
+   ],
+   "title": "धातुपाठः · DGE व्याकरणम्"
+  },
+  {
+   "path": "pages/vyakarana/dhatuforms.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/vyakarana-base.css",
+    "../../css/vyakarana.css",
+    "../../css/dhatuforms.css"
+   ],
+   "title": "रूपाणि · लकाराः — DGE व्याकरणम्"
+  },
+  {
+   "path": "pages/vyakarana/ganapatha.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/vyakarana-base.css",
+    "../../css/vyakarana.css",
+    "../../css/rupasiddhi.css",
+    "../../css/vyakarana-corpus.css"
+   ],
+   "title": "गणपाठः — DGE"
+  },
+  {
+   "path": "pages/vyakarana/krdanta.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/vyakarana-base.css",
+    "../../css/vyakarana.css",
+    "../../css/prakriya.css",
+    "../../css/intellisense.css"
+   ],
+   "title": "कृदन्त रूपाणि — DGE व्याकरणम्"
+  },
+  {
+   "path": "pages/vyakarana/linganushasana.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/vyakarana-base.css",
+    "../../css/vyakarana.css",
+    "../../css/rupasiddhi.css",
+    "../../css/vyakarana-corpus.css"
+   ],
+   "title": "लिङ्गानुशासनम् — DGE"
+  },
+  {
+   "path": "pages/vyakarana/phitsutra.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/vyakarana-base.css",
+    "../../css/vyakarana.css",
+    "../../css/rupasiddhi.css",
+    "../../css/vyakarana-corpus.css"
+   ],
+   "title": "फिट्सूत्राणि — DGE"
+  },
+  {
+   "path": "pages/vyakarana/prakriya.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/vyakarana-base.css",
+    "../../css/vyakarana.css",
+    "../../css/prakriya.css",
+    "../../css/intellisense.css"
+   ],
+   "title": "प्रक्रिया · तिङन्त — DGE व्याकरणम्"
+  },
+  {
+   "path": "pages/vyakarana/rupasiddhi.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/vyakarana-base.css",
+    "../../css/vyakarana.css",
+    "../../css/prakriya.css",
+    "../../css/dhatuforms.css",
+    "../../css/rupasiddhi.css",
+    "../../css/intellisense.css"
+   ],
+   "title": "रूपसिद्धिः — DGE व्याकरणम्"
+  },
+  {
+   "path": "pages/vyakarana/shabda/index.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "शब्दपाठः · choose a view · DGE"
+  },
+  {
+   "path": "pages/vyakarana/shabda/view1.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": true,
+   "css_links": [],
+   "title": "शब्दपाठः · Workbench · DGE"
+  },
+  {
+   "path": "pages/vyakarana/shabda/view2.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": true,
+   "css_links": [],
+   "title": "शब्दपाठः · Reader · DGE"
+  },
+  {
+   "path": "pages/vyakarana/shabda/view3.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": true,
+   "css_links": [],
+   "title": "शब्दपाठः · Codex · DGE"
+  },
+  {
+   "path": "pages/vyakarana/shabda.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": true,
+   "css_links": [
+    "../../css/vyakarana-base.css",
+    "../../css/vyakarana.css",
+    "../../css/dhatuforms.css",
+    "../../css/intellisense.css"
+   ],
+   "title": "शब्दपाठः · DGE व्याकरणम्"
+  },
+  {
+   "path": "pages/vyakarana/unadi.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "../../css/vyakarana-base.css",
+    "../../css/vyakarana.css",
+    "../../css/rupasiddhi.css",
+    "../../css/vyakarana-corpus.css"
+   ],
+   "title": "उणादिसूत्राणि — DGE"
   },
   {
    "path": "tools/audio_admin/templates/index.html",
@@ -501,362 +857,6 @@
    "has_modals_js": false,
    "css_links": [],
    "title": "Sarvamūla Digital Library"
-  },
-  {
-   "path": "vyakarana/ashtadhyayi/index.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "अष्टाध्यायी · choose a view · DGE"
-  },
-  {
-   "path": "vyakarana/ashtadhyayi/view1.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": true,
-   "css_links": [],
-   "title": "अष्टाध्यायी · Reading · DGE"
-  },
-  {
-   "path": "vyakarana/ashtadhyayi/view2.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": true,
-   "css_links": [],
-   "title": "अष्टाध्यायी · Workbench · DGE"
-  },
-  {
-   "path": "vyakarana/ashtadhyayi/view3.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": true,
-   "css_links": [],
-   "title": "अष्टाध्यायी · Study · DGE"
-  },
-  {
-   "path": "vyakarana/ashtadhyayi.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": true,
-   "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/ashtadhyayi.css",
-    "../css/intellisense.css"
-   ],
-   "title": "अष्टाध्यायी · DGE व्याकरणम्"
-  },
-  {
-   "path": "vyakarana/chandas.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/vyakarana.css",
-    "../css/rupasiddhi.css",
-    "../css/chandas.css"
-   ],
-   "title": "छन्दोविश्लेषणम् — DGE"
-  },
-  {
-   "path": "vyakarana/dhatu/dlg1.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "धातुः · संवादः (Bottom-sheet) · DGE"
-  },
-  {
-   "path": "vyakarana/dhatu/dlg2.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "धातुः · संवादः (Card) · DGE"
-  },
-  {
-   "path": "vyakarana/dhatu/dlg3.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "धातुः · संवादः (Compact) · DGE"
-  },
-  {
-   "path": "vyakarana/dhatu/index.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "धातुः · choose a view · DGE"
-  },
-  {
-   "path": "vyakarana/dhatu/page1.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "धातुः · Split-pane · DGE"
-  },
-  {
-   "path": "vyakarana/dhatu/page2.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "धातुः · Quick-facts · DGE"
-  },
-  {
-   "path": "vyakarana/dhatu/page3.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "धातुः · Tabled · DGE"
-  },
-  {
-   "path": "vyakarana/dhatu.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": true,
-   "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/vyakarana.css",
-    "../css/intellisense.css"
-   ],
-   "title": "धातुपाठः · DGE व्याकरणम्"
-  },
-  {
-   "path": "vyakarana/dhatuforms.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/vyakarana.css",
-    "../css/dhatuforms.css"
-   ],
-   "title": "रूपाणि · लकाराः — DGE व्याकरणम्"
-  },
-  {
-   "path": "vyakarana/ganapatha.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/vyakarana.css",
-    "../css/rupasiddhi.css",
-    "../css/vyakarana-corpus.css"
-   ],
-   "title": "गणपाठः — DGE"
-  },
-  {
-   "path": "vyakarana/krdanta.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/vyakarana.css",
-    "../css/prakriya.css",
-    "../css/intellisense.css"
-   ],
-   "title": "कृदन्त रूपाणि — DGE व्याकरणम्"
-  },
-  {
-   "path": "vyakarana/linganushasana.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/vyakarana.css",
-    "../css/rupasiddhi.css",
-    "../css/vyakarana-corpus.css"
-   ],
-   "title": "लिङ्गानुशासनम् — DGE"
-  },
-  {
-   "path": "vyakarana/phitsutra.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/vyakarana.css",
-    "../css/rupasiddhi.css",
-    "../css/vyakarana-corpus.css"
-   ],
-   "title": "फिट्सूत्राणि — DGE"
-  },
-  {
-   "path": "vyakarana/prakriya.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/vyakarana.css",
-    "../css/prakriya.css",
-    "../css/intellisense.css"
-   ],
-   "title": "प्रक्रिया · तिङन्त — DGE व्याकरणम्"
-  },
-  {
-   "path": "vyakarana/rupasiddhi.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/vyakarana.css",
-    "../css/prakriya.css",
-    "../css/dhatuforms.css",
-    "../css/rupasiddhi.css",
-    "../css/intellisense.css"
-   ],
-   "title": "रूपसिद्धिः — DGE व्याकरणम्"
-  },
-  {
-   "path": "vyakarana/shabda/index.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [],
-   "title": "शब्दपाठः · choose a view · DGE"
-  },
-  {
-   "path": "vyakarana/shabda/view1.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": true,
-   "css_links": [],
-   "title": "शब्दपाठः · Workbench · DGE"
-  },
-  {
-   "path": "vyakarana/shabda/view2.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": true,
-   "css_links": [],
-   "title": "शब्दपाठः · Reader · DGE"
-  },
-  {
-   "path": "vyakarana/shabda/view3.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": true,
-   "css_links": [],
-   "title": "शब्दपाठः · Codex · DGE"
-  },
-  {
-   "path": "vyakarana/shabda.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": true,
-   "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/vyakarana.css",
-    "../css/dhatuforms.css",
-    "../css/intellisense.css"
-   ],
-   "title": "शब्दपाठः · DGE व्याकरणम्"
-  },
-  {
-   "path": "vyakarana/unadi.html",
-   "gated": true,
-   "first_head_script": "vandana-guard.js",
-   "vandana_guard_first": true,
-   "has_site_footer_js": false,
-   "has_ai_js": false,
-   "has_modals_js": false,
-   "css_links": [
-    "../css/vyakarana-base.css",
-    "../css/vyakarana.css",
-    "../css/rupasiddhi.css",
-    "../css/vyakarana-corpus.css"
-   ],
-   "title": "उणादिसूत्राणि — DGE"
   },
   {
    "path": "admin/access-control.html",

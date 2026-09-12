@@ -50,7 +50,7 @@ from datetime import datetime, timezone
 CATALOGUE = "data/catalogs/dvaita_grantha_anukramani.json"
 OVERRIDES = "data/catalogs/dvaita_grantha_anukramani.overrides.json"
 ALIASES = "data/author_aliases.json"
-PARAMPARA = "guru-parampara/data/parampara.json"
+PARAMPARA = "pages/guru-parampara/data/parampara.json"
 LIBRARY = "data/library.json"
 WORKS_INDEX = "data/catalogs/author_works_index.json"
 

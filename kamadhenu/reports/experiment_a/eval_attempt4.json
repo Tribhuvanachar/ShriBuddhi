@@ -1,0 +1,317 @@
+{
+ "reference": "tp_anushtubh_19",
+ "ref_text": "रामांघ्रिरेणुप्रेम्णेव सेतोरुभयतोंऽबुधिः अभ्येति पौनःपुन्येन वर्धमानः पदेपदे. ",
+ "seed": 60,
+ "nfe": 32,
+ "cfg": 2.0,
+ "models": {
+  "base": "/work/base/model.safetensors",
+  "finetuned": "/work/export/kamadhenu_voice_a/model.safetensors",
+  "finetuned_online": "/work/export/kamadhenu_voice_a/model_online.safetensors"
+ },
+ "summary": {
+  "base": {
+   "n": 13,
+   "median_duration_ratio": 0.859,
+   "on_tempo": 11
+  },
+  "finetuned": {
+   "n": 13,
+   "median_duration_ratio": 0.859,
+   "on_tempo": 11
+  },
+  "finetuned_online": {
+   "n": 13,
+   "median_duration_ratio": 0.859,
+   "on_tempo": 11
+  }
+ },
+ "verses": {
+  "km_0cce12abd22c": {
+   "text_id": "tirtha_prabandha:TP_DAK_013",
+   "meter": "अनुष्टुप्",
+   "recorded_seconds": 17.136,
+   "renders": {
+    "base": {
+     "seconds": 9.18,
+     "duration_ratio": 0.536,
+     "render_seconds": 10.9
+    },
+    "finetuned": {
+     "seconds": 9.18,
+     "duration_ratio": 0.536,
+     "render_seconds": 11.1
+    },
+    "finetuned_online": {
+     "seconds": 9.18,
+     "duration_ratio": 0.536,
+     "render_seconds": 11.1
+    }
+   }
+  },
+  "km_1cf06fe28c1d": {
+   "text_id": "bhagavata_saroddhara:BS_P20_V263",
+   "meter": "वंशस्थ",
+   "recorded_seconds": 18.416,
+   "renders": {
+    "base": {
+     "seconds": 15.55,
+     "duration_ratio": 0.844,
+     "render_seconds": 15.0
+    },
+    "finetuned": {
+     "seconds": 15.55,
+     "duration_ratio": 0.844,
+     "render_seconds": 16.1
+    },
+    "finetuned_online": {
+     "seconds": 15.55,
+     "duration_ratio": 0.844,
+     "render_seconds": 16.1
+    }
+   }
+  },
+  "km_34bbef2940ca": {
+   "text_id": "bhagavata_saroddhara:BS_P08_V126",
+   "meter": "वसन्ततिलका",
+   "recorded_seconds": 19.566,
+   "renders": {
+    "base": {
+     "seconds": 19.59,
+     "duration_ratio": 1.001,
+     "render_seconds": 18.1
+    },
+    "finetuned": {
+     "seconds": 19.59,
+     "duration_ratio": 1.001,
+     "render_seconds": 18.8
+    },
+    "finetuned_online": {
+     "seconds": 19.59,
+     "duration_ratio": 1.001,
+     "render_seconds": 18.8
+    }
+   }
+  },
+  "km_4273f570d634": {
+   "text_id": "tirtha_prabandha:TP_DAK_004",
+   "meter": "उपेन्द्रवज्रा",
+   "recorded_seconds": 18.26,
+   "renders": {
+    "base": {
+     "seconds": 15.35,
+     "duration_ratio": 0.841,
+     "render_seconds": 14.7
+    },
+    "finetuned": {
+     "seconds": 15.35,
+     "duration_ratio": 0.841,
+     "render_seconds": 14.8
+    },
+    "finetuned_online": {
+     "seconds": 15.35,
+     "duration_ratio": 0.841,
+     "render_seconds": 14.8
+    }
+   }
+  },
+  "km_60f5ebe064ed": {
+   "text_id": "bhagavata_saroddhara:BS_P14_V188",
+   "meter": "वंशस्थ",
+   "recorded_seconds": 16.013,
+   "renders": {
+    "base": {
+     "seconds": 15.04,
+     "duration_ratio": 0.939,
+     "render_seconds": 14.7
+    },
+    "finetuned": {
+     "seconds": 15.04,
+     "duration_ratio": 0.939,
+     "render_seconds": 14.7
+    },
+    "finetuned_online": {
+     "seconds": 15.04,
+     "duration_ratio": 0.939,
+     "render_seconds": 14.7
+    }
+   }
+  },
+  "km_6dbd9b847ee3": {
+   "text_id": "bhagavata_saroddhara:BS_P20_V298",
+   "meter": "अनुष्टुप्",
+   "recorded_seconds": 18.26,
+   "renders": {
+    "base": {
+     "seconds": 13.83,
+     "duration_ratio": 0.758,
+     "render_seconds": 14.6
+    },
+    "finetuned": {
+     "seconds": 13.83,
+     "duration_ratio": 0.758,
+     "render_seconds": 14.7
+    },
+    "finetuned_online": {
+     "seconds": 13.83,
+     "duration_ratio": 0.758,
+     "render_seconds": 14.7
+    }
+   }
+  },
+  "km_7d50630dee76": {
+   "text_id": "bhagavata_saroddhara:BS_P07_V120",
+   "meter": "अनुष्टुप्",
+   "recorded_seconds": 17.293,
+   "renders": {
+    "base": {
+     "seconds": 12.06,
+     "duration_ratio": 0.698,
+     "render_seconds": 13.1
+    },
+    "finetuned": {
+     "seconds": 12.06,
+     "duration_ratio": 0.698,
+     "render_seconds": 13.1
+    },
+    "finetuned_online": {
+     "seconds": 12.06,
+     "duration_ratio": 0.698,
+     "render_seconds": 13.1
+    }
+   }
+  },
+  "km_8ba5a0e50eb4": {
+   "text_id": "bhagavata_saroddhara:BS_P05_V081",
+   "meter": "वसन्ततिलका",
+   "recorded_seconds": 20.036,
+   "renders": {
+    "base": {
+     "seconds": 20.96,
+     "duration_ratio": 1.046,
+     "render_seconds": 21.0
+    },
+    "finetuned": {
+     "seconds": 20.96,
+     "duration_ratio": 1.046,
+     "render_seconds": 20.6
+    },
+    "finetuned_online": {
+     "seconds": 20.96,
+     "duration_ratio": 1.046,
+     "render_seconds": 20.6
+    }
+   }
+  },
+  "km_a102cc6eb9f8": {
+   "text_id": "bhagavata_saroddhara:BS_P02_V023",
+   "meter": "उपजाति",
+   "recorded_seconds": 17.45,
+   "renders": {
+    "base": {
+     "seconds": 15.0,
+     "duration_ratio": 0.859,
+     "render_seconds": 14.8
+    },
+    "finetuned": {
+     "seconds": 15.0,
+     "duration_ratio": 0.859,
+     "render_seconds": 14.7
+    },
+    "finetuned_online": {
+     "seconds": 15.0,
+     "duration_ratio": 0.859,
+     "render_seconds": 14.7
+    }
+   }
+  },
+  "km_afa3faf19bc7": {
+   "text_id": "bhagavata_saroddhara:BS_P20_V304",
+   "meter": "इन्द्रवज्रा",
+   "recorded_seconds": 16.327,
+   "renders": {
+    "base": {
+     "seconds": 15.59,
+     "duration_ratio": 0.955,
+     "render_seconds": 16.4
+    },
+    "finetuned": {
+     "seconds": 15.59,
+     "duration_ratio": 0.955,
+     "render_seconds": 16.0
+    },
+    "finetuned_online": {
+     "seconds": 15.59,
+     "duration_ratio": 0.955,
+     "render_seconds": 16.0
+    }
+   }
+  },
+  "km_c5a4cc58e00c": {
+   "text_id": "bhagavata_saroddhara:BS_P05_V059",
+   "meter": "उपजाति",
+   "recorded_seconds": 17.789,
+   "renders": {
+    "base": {
+     "seconds": 16.35,
+     "duration_ratio": 0.919,
+     "render_seconds": 16.9
+    },
+    "finetuned": {
+     "seconds": 16.35,
+     "duration_ratio": 0.919,
+     "render_seconds": 16.7
+    },
+    "finetuned_online": {
+     "seconds": 16.35,
+     "duration_ratio": 0.919,
+     "render_seconds": 16.7
+    }
+   }
+  },
+  "km_dc4b0af35577": {
+   "text_id": "bhagavata_saroddhara:BS_P20_V303",
+   "meter": "उपजाति",
+   "recorded_seconds": 16.98,
+   "renders": {
+    "base": {
+     "seconds": 14.49,
+     "duration_ratio": 0.853,
+     "render_seconds": 14.8
+    },
+    "finetuned": {
+     "seconds": 14.49,
+     "duration_ratio": 0.853,
+     "render_seconds": 14.8
+    },
+    "finetuned_online": {
+     "seconds": 14.49,
+     "duration_ratio": 0.853,
+     "render_seconds": 14.8
+    }
+   }
+  },
+  "km_ed799bb1205b": {
+   "text_id": "bhagavata_saroddhara:BS_P02_V017",
+   "meter": "उपजाति",
+   "recorded_seconds": 16.98,
+   "renders": {
+    "base": {
+     "seconds": 15.09,
+     "duration_ratio": 0.889,
+     "render_seconds": 14.8
+    },
+    "finetuned": {
+     "seconds": 15.09,
+     "duration_ratio": 0.889,
+     "render_seconds": 14.7
+    },
+    "finetuned_online": {
+     "seconds": 15.09,
+     "duration_ratio": 0.889,
+     "render_seconds": 14.7
+    }
+   }
+  }
+ }
+}

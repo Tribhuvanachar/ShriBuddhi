@@ -1,0 +1,42 @@
+{
+ "finished_at_utc": "2026-09-07T16:24:06Z",
+ "vram": "24GB",
+ "batch_frames": 3200,
+ "epochs": 34,
+ "train_cap_minutes": 25,
+ "train_exit_code": 0,
+ "last_step": "3060",
+ "minutes": {
+  "setup": 1.8,
+  "train": 20.5,
+  "export_eval": 10.3,
+  "total": 32.5
+ },
+ "gpu": "Model: \t\t NVIDIA L4",
+ "loss": {
+  "updates_seen": 3060,
+  "nan_updates": 0,
+  "numeric_updates": 3060,
+  "first_loss": [
+   1,
+   0.731
+  ],
+  "last_numeric": [
+   [
+    3058,
+    0.722
+   ],
+   [
+    3059,
+    0.481
+   ],
+   [
+    3060,
+    0.45
+   ]
+  ],
+  "last_reported": "0.45",
+  "healthy": true
+ },
+ "mixed_precision": "bf16"
+}

@@ -1,0 +1,236 @@
+{
+ "_note": "Verified source registry for DGE ingestion. status: ready = clean machine-readable text (an importer can run today); ocr = page-scan, needs Devanagari OCR + proofread before ingest. Add new 'ready' texts by cloning an importer and pointing it at the url. Target paths reviewed against the live catalog on 9 Aug 2026 -- several needed a \"/mula\" layer segment to match data/library.json (see PROJECT_STATUS.md).",
+ "ready": [
+  {
+   "id": "bhagavata",
+   "title": "Srimad Bhagavata Purana",
+   "target": "purana/bhagavata_purana/skandha_NN",
+   "url": "http://gretil.sub.uni-goettingen.de/gretil/1_sanskr/3_purana/bhagp/bhp_01u.htm .. bhp_12u.htm",
+   "format": "GRETIL IAST, coded BhP_SS.AA.VVV/pada",
+   "importer": "bhagavata.py",
+   "validate_against": "sanskritdocuments bhagpur-NN.itx"
+  },
+  {
+   "id": "ramayana",
+   "title": "Valmiki Ramayana",
+   "target": "itihasa/ramayana/<kanda>/mula",
+   "url": "https://bombay.indology.info/ramayana/text/UD/Ram01.txt .. Ram07.txt",
+   "format": "BORI critical, native Devanagari, coded KSSSVVVpada",
+   "importer": "ramayana.py"
+  },
+  {
+   "id": "mahabharata",
+   "title": "Mahabharata",
+   "target": "itihasa/mahabharata/<parva>_parva/mula",
+   "url": "https://bombay.indology.info/mahabharata/text/UD/MBh01.txt .. MBh18.txt",
+   "format": "BORI critical, native Devanagari, coded BBAAAVVVpada",
+   "importer": "mahabharata.py",
+   "note": "parva 3 is \"vana_parva\" (traditional alt. name for aranyaka) -- taxonomy nodes already exist for all 18 parvas + this one"
+  },
+  {
+   "id": "harivamsha",
+   "title": "Harivamsha",
+   "target": "itihasa/harivamsha/mula",
+   "url": "https://gretil.sub.uni-goettingen.de/gretil/corpustei/transformations/html/sa_harivaMza.htm",
+   "format": "GRETIL TEI/HTML, IAST, HV_chapter.verse",
+   "importer": "gretil.py"
+  },
+  {
+   "id": "adhyatma_ramayana",
+   "title": "Adhyatma Ramayana",
+   "target": "itihasa/adhyatma_ramayana",
+   "url": "https://sanskritdocuments.org/sanskrit/adhyatmaramayana/",
+   "format": "ITX (ITRANS->dev)",
+   "importer": "TODO (ITX per-kanda)"
+  },
+  {
+   "id": "smriti_dharma/smriti",
+   "title": "Smritis (Manu/Yajnavalkya/Parashara/Narada/Vishnu/Gautama)",
+   "target": "smriti_dharma/smriti/<name>",
+   "url": "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/4_dharma/smrti/",
+   "format": "GRETIL IAST, verse-numbered",
+   "importer": "gretil.py (manu/yajnavalkya/parashara/narada/vishnu)"
+  },
+  {
+   "id": "raghuvamsha",
+   "title": "Raghuvamsha (mula)",
+   "target": "kavya_alankara/raghuvamsha/mula",
+   "url": "https://ambuda.org/texts/raghuvamsham | GRETIL kragh_pu",
+   "format": "Devanagari/IAST, Ragh_S.V",
+   "importer": "gretil.py",
+   "commentary": "Sanjivini = OCR"
+  },
+  {
+   "id": "kumarasambhava",
+   "title": "Kumarasambhava (mula)",
+   "target": "kavya_alankara/kumarasambhava/mula",
+   "url": "https://sanskritdocuments.org/doc_z_misc_major_works/kumArasambhavam.itx",
+   "format": "ITX",
+   "importer": "itx.py"
+  },
+  {
+   "id": "kiratarjuniya",
+   "title": "Kiratarjuniya (mula)",
+   "target": "kavya_alankara/kiratarjuniya/mula",
+   "url": "https://sanskritdocuments.org/doc_z_misc_major_works/kirAtArjunIyam.itx",
+   "format": "ITX",
+   "importer": "itx.py",
+   "commentary": "Ghantapatha = OCR"
+  },
+  {
+   "id": "shishupalavadha",
+   "title": "Shishupalavadha (mula)",
+   "target": "kavya_alankara/shishupalavadha/mula",
+   "url": "https://ambuda.org/texts/shishupalavadham",
+   "format": "Devanagari",
+   "importer": "gretil.py"
+  },
+  {
+   "id": "meghaduta",
+   "title": "Meghaduta + Mallinatha (bundled)",
+   "target": "kavya_alankara/meghaduta",
+   "url": "https://sanskritdocuments.org/doc_z_misc_major_works/meghadUtamsavyAkhyA.itx",
+   "format": "ITX, mula+commentary",
+   "importer": "special (mula+commentary split)"
+  },
+  {
+   "id": "bhatti_kavya",
+   "title": "Bhatti Kavya + Jayamangala",
+   "target": "kavya_alankara/bhatti_kavya",
+   "url": "https://ambuda.org/proofing/bhtttikaavyn-jymngglyaa-smetm/",
+   "format": "Ambuda proofing XML (Devanagari, mula+commentary)",
+   "importer": "special (Ambuda XML)"
+  },
+  {
+   "id": "shakuntala",
+   "title": "Abhijnana Shakuntala",
+   "target": "kavya_alankara/shakuntala",
+   "url": "https://sanskritdocuments.org/doc_z_misc_major_works/shaakuntala.itx",
+   "format": "ITX drama (act/prose/verse)",
+   "importer": "special (drama)"
+  },
+  {
+   "id": "sumadhva_vijaya",
+   "title": "Sumadhva Vijaya (mula)",
+   "target": "DvaitaVedanta/Itara/Kavya/sumadhva_vijaya",
+   "url": "https://www.dvaita.net/pdf/smvijaya/smv.pdf",
+   "format": "typeset PDF (pdftotext)",
+   "importer": "special (PDF pdftotext)"
+  },
+  {
+   "id": "other_mahapuranas",
+   "title": "14 Mahapuranas (Agni,Brahma,Garuda,Kurma,Linga,Markandeya,Matsya,Narada,Siva,Skanda,Vamana,Vishnu, ...)",
+   "target": "purana/<name>",
+   "url": "GRETIL + Zenodo mirror .txt",
+   "format": "IAST->dev",
+   "importer": "TODO (clone bhagavata.py)"
+  },
+  {
+   "id": "ramayana_saartha",
+   "title": "Valmiki Ramayana - word-meaning + English",
+   "target": "itihasa/ramayana/<kanda>/saartha",
+   "url": "https://www.valmikiramayan.net/utf8/<kanda>/sarga<N>/<prefix>roman<N>.htm",
+   "format": "HTML (IAST + *word*=meaning gloss + English), transliterated to Devanagari",
+   "importer": "ramayana_saartha.py",
+   "note": "Kandas 1-6 only; Uttara Kanda absent on this site (pull from valmiki.iitk.ac.in). Separate layer alongside /mula (different edition/numbering)."
+  },
+  {
+   "id": "mahabharata_ganguli",
+   "title": "Mahabharata - English (Ganguli, PD)",
+   "target": "itihasa/mahabharata/<parva>_parva/translation_ganguli",
+   "url": "https://sacred-texts.com/hin/m<BB>/m<BB><SSS>.htm",
+   "format": "HTML prose, section-level (generic schema, text field)",
+   "importer": "mahabharata_ganguli.py",
+   "note": "No free per-shloka word-to-word MBh exists; Ganguli prose aligned at section/adhyaya level. Devanagari mula already in /mula."
+  },
+  {
+   "id": "bhagavad_gita",
+   "title": "Srimad Bhagavad Gita - new Itihasa section (mula + word-meaning + all commentaries)",
+   "target": "itihasa/bhagavad_gita/adhyaya_NN",
+   "url": "https://raw.githubusercontent.com/gita/gita/main/data/{verse,translation,commentary}.json",
+   "format": "JSON (BhagavadGita.io open dataset); bhashya[] per shloka",
+   "importer": "bhagavadgita.py",
+   "note": "Reliable base (~20 translations/commentaries). Optional GITA_SUPERSITE=1 appends classical Sanskrit bhashyas via gitasupersite.py (Wayback)."
+  },
+  {
+   "id": "darshana/vedanta/advaita/shankara_bhashya",
+   "title": "Adi Shankaracharya Prasthanatrayi Bhashya (Brahmasutra + Upanishads + Gita)",
+   "target": "darshana/vedanta/advaita/shankara_bhashya/<work>/bhashya",
+   "url": "Zenodo GRETIL dump 6466333 (CC-BY) + GRETIL classic + sanskritdocuments",
+   "format": "IAST plaintext with reference markers, transliterated to Devanagari",
+   "importer": "shankara_bhashya.py",
+   "note": "Chunked on source reference markers; verify marker regex per work on first run. English (Thibaut/Sitarama Sastri/Mahadeva Sastri, PD) = follow-up."
+  },
+  {
+   "id": "darshana/nyaya/prakarana/tarkasangraha",
+   "title": "Annambhatta, Tarkasangraha (mula + Dipika, all 8 adhyayas)",
+   "target": "darshana/nyaya/prakarana/tarkasangraha/{mula,tika_dipika}",
+   "url": "GRETIL corpustei TEI transformation (mula, padartha-nirupana only) + antsdi_u.htm (Dipika/Prakasika/Balapriya, padartha-nirupana) + sanskritdocuments.org tarkasangraha.itx (Dipika only, all 8 adhyayas)",
+   "format": "GRETIL UTF-8 IAST (AnTs_N markers) + sanskritdocuments ITRANS (\\section{} adhyaya headers, || N || verse markers)",
+   "importer": "darshana_gretil.py (tarkasangraha_mula, tarkasangraha_dipika)",
+   "note": "tarkasangraha.com is a JS-rendered SPA with no static/API text endpoint found -- not usable for bulk import. mula covers the 81 padartha-nirupana sutras cleanly (AnTs_1..81) from GRETIL's TEI transformation; no clean mula-only source was found for the remaining pratyaksa/anumana/upamana/sabda adhyayas (sanskritdocuments' bare tarka2.itx stops at the same padartha-nirupana boundary under a different, coarser 70-sutra numbering). tika_dipika combines both GRETIL (81 items, richer Dipika+Prakasika+Balapriya, padartha-nirupana) and sanskritdocuments (44 items across adhyayas 4-8, Dipika only) -- chapters 1-3 of the sanskritdocuments source are skipped as duplicates of the richer GRETIL coverage. Neither source types its markers cleanly relative to running commentary (the marker always sits at one end of the verse, so about half of each chapter's items open or close with a stray tail of the neighbouring sutra's commentary) -- acceptable for a running mula+tika layer, not for a pure-mula extraction. The GRETIL _r.txt 'raw' variant looked cleaner but is actually 8-bit REE-encoded, not IAST -- use antsdi_u.htm, not antsdi_r.txt."
+  }
+ ],
+ "ocr": [
+  {
+   "id": "darshana/nyaya/prakarana/tarkasangraha/tika_nilakanthi",
+   "title": "Tarkasangraha Dipika with Nilakanthi (Nilakantha Bhatta)",
+   "url": "archive.org tarkasangrahadipikanilakanthinilakanthabhattapanditsivadattavenkateswarasteampress_202003_640_O"
+  },
+  {
+   "id": "darshana/nyaya/prakarana/tarkasangraha/tika_bhaskarodaya",
+   "title": "Bhaskarodaya commentary on Tarkasangraha Dipika Prakasha (Lakshmi Nrisimha Shastri, 1926 Nirnaya Sagar Press)",
+   "url": "archive.org yFpU_bhaskarodaya-commentary-on-tarka-sangrah-dipika-prakash-by-lakshmi-nrisimha-shas"
+  },
+  {
+   "id": "darshana/nyaya/prakarana/tarkasangraha/tika_padakritya",
+   "title": "Tarkasangraha with Nyayabodhini, Padakritya and Bala Manorama tika (Sitarama Shastri, 1950)",
+   "url": "archive.org qmDV_tarka-sangraha-with-nyayabodhini-padakritya-and-bala-manorama-tika-by-acharya-sh"
+  },
+  {
+   "id": "darshana/nyaya/prakarana/tarkasangraha/tika_nyayabodhini",
+   "title": "Tarkasangraha with Nyayabodhini (Govardhana) and Padakriya (Chandrasimha), Khemraj edition",
+   "url": "archive.org TarkasangrahaKhemrajEd"
+  },
+  {
+   "id": "darshana/nyaya/prakarana/tarkasangraha/tika_sarvasva",
+   "title": "Tarkasangraha Dipika Sarvasva (Kuganti Sri Rama Shastri)",
+   "url": "archive.org tarkasangrahadipikasarvasvakugantisriramashastrikugantisriramashastri_202003_668_n"
+  },
+  {
+   "id": "mani_manjari",
+   "title": "Mani Manjari",
+   "url": "archive.org ManimanjariOfNArAyaNaPaNDitAcharya"
+  },
+  {
+   "id": "tirtha_prabandha",
+   "title": "Tirtha Prabandha (Vadiraja)",
+   "url": "archive.org theertha-prabandha-...Prabhanjanachar"
+  },
+  {
+   "id": "rukminisha_vijaya",
+   "title": "Rukminisha Vijaya (Vadiraja)",
+   "url": "archive.org rukminisha-vijaya-1..4"
+  },
+  {
+   "id": "sangraha_ramayana",
+   "title": "Sangraha Ramayana",
+   "url": "srimadhvyasa.wordpress.com 03-Sanskrit-SangrahaRamayan.pdf"
+  },
+  {
+   "id": "ananda_ramayana",
+   "title": "Ananda Ramayana",
+   "url": "archive.org srimad-ananda-ramayana"
+  },
+  {
+   "id": "mallinatha_commentaries",
+   "title": "Mallinatha (Sanjivini/Ghantapatha/Sarvankasha)",
+   "url": "archive.org Kale/Nirnaya-Sagar/eGangotri scans"
+  },
+  {
+   "id": "naishadha",
+   "title": "Naishadha-charita + Jivatu",
+   "url": "archive.org OCR full-text (noisy)"
+  }
+ ]
+}

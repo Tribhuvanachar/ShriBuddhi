@@ -1,0 +1,84 @@
+{
+ "generated_at": "06 Sep 2026, 8:35 PM IST",
+ "external_sources": {
+  "sources": 20,
+  "accessible": 14,
+  "blocked": 6,
+  "listable_files": 1209,
+  "listable_audio_files": 1181
+ },
+ "total_audio_files": 3892,
+ "total_duration": "37h 49m 42s",
+ "total_duration_seconds": 136182.4,
+ "mapped_recordings": 3487,
+ "unmatched_recordings": 405,
+ "unmatched_corpus_texts": 2658,
+ "high_confidence_mappings(>=0.90)": 2530,
+ "needing_review": 957,
+ "usable_training_examples": 1350,
+ "usable_validation_examples": 149,
+ "usable_reference_examples": 37,
+ "unique_works": 10,
+ "unique_metres": 39,
+ "unique_syllable_patterns": 1098,
+ "speaker_count": "unknown — no speaker metadata in any source (folders used as proxy: 33)",
+ "sample_rate_distribution": {
+  "44100": 576,
+  "48000": 2326,
+  "11025": 989,
+  "null": 1
+ },
+ "channel_distribution": {
+  "2": 2896,
+  "1": 995,
+  "null": 1
+ },
+ "codec_distribution": {
+  "mp3": 2190,
+  "aac": 1701,
+  "?": 1
+ },
+ "duration_distribution_seconds": {
+  "20–40": 192,
+  "10–20": 1773,
+  "40–60": 114,
+  "5–10": 785,
+  "0–5": 519,
+  "120–300": 152,
+  "≥300": 40,
+  "60–120": 316
+ },
+ "audio_quality_failures": {
+  "likely_duplicate": 20,
+  "hot_peaks": 1039,
+  "clipping": 1073,
+  "noisy_low_snr": 56,
+  "broadband_noise_floor": 5,
+  "long_internal_silence": 21,
+  "long_leading_silence": 12,
+  "exact_duplicate": 46,
+  "low_volume": 2,
+  "long_trailing_silence": 29,
+  "extension_mismatch": 3,
+  "decode_error": 1,
+  "mostly_silence": 1
+ },
+ "quality_grades": {
+  "A": 757,
+  "B": 2045,
+  "D": 1074,
+  "C": 15,
+  "F": 1
+ },
+ "clipping": 1073,
+ "excessive_silence": 56,
+ "exact_duplicates": 46,
+ "likely_duplicates": 20,
+ "decode_errors": 1,
+ "measurement_notes": [
+  "loudness is RMS-based dBFS, not LUFS (no K-weighting implemented)",
+  "SNR is a percentile estimate (90th − 10th percentile frame energy), not a speech/noise separation",
+  "duplicates: exact = identical bytes; likely = identical coarse energy-envelope fingerprint",
+  "no ASR/forced alignment was run"
+ ]
+}

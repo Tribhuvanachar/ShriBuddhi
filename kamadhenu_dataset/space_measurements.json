@@ -1,0 +1,83 @@
+{
+ "measured_at": "06 Sep 2026, 07:36 PM IST",
+ "space": "https://sarvamulaorg-kamadhenu.hf.space",
+ "hardware": "zero-a10g (ZeroGPU, SarvamulaOrg PRO)",
+ "how": "two /synthesize calls from a GitHub Actions runner (workflow kamadhenu-space-logs.yml, run 34038096835): Gītā 1.1, dge_chandas अनुष्टुप्, seed 60. The Claude sandbox's egress gets `event: error / data: null` from ZeroGPU, so measure.py must be run from elsewhere (a browser, or that workflow).",
+ "calls": 2,
+ "rows": [
+  {
+   "chandas": "अनुष्टुप्",
+   "bank_meter": "anuṣṭubh",
+   "meter_resolved_by": "dge_name",
+   "audio_seconds": 9.63,
+   "gpu_seconds": 23.22,
+   "cold": true,
+   "note": "first call after deploy: weight download + load included"
+  },
+  {
+   "chandas": "अनुष्टुप्",
+   "bank_meter": "anuṣṭubh",
+   "meter_resolved_by": "dge_name",
+   "audio_seconds": 9.63,
+   "gpu_seconds": 4.3,
+   "cold": false
+  },
+  {
+   "engine": "indicf5-zero-shot",
+   "chandas": "अनुष्टुप्",
+   "reference": "tp_anushtubh_19 (3BHU1, 11.15 s)",
+   "audio_seconds": 11.51,
+   "gpu_seconds": 13.94,
+   "cold": true,
+   "note": "first call: gated IndicF5 weights downloaded + loaded inside the GPU window; probe run 34041879895, 8:49 pm IST"
+  },
+  {
+   "chandas": "अनुष्टुप्",
+   "bank_meter": "anuṣṭubh",
+   "meter_resolved_by": "dge_name",
+   "audio_seconds": 9.63,
+   "gpu_seconds": 21.65,
+   "cold": true,
+   "note": "7 Sep 2026 build (GPU request 60 s): first call after the rebuild, weights downloaded inside the window; probe run 34049597050, 11:16 pm IST"
+  },
+  {
+   "engine": "indicf5-zero-shot",
+   "chandas": "अनुष्टुप्",
+   "reference": "tp_anushtubh_19 (3BHU1, 11.15 s)",
+   "audio_seconds": 11.51,
+   "gpu_seconds": 13.66,
+   "cold": true,
+   "note": "same run; IndicF5 weights downloaded inside the window"
+  },
+  {
+   "chandas": "अनुष्टुप्",
+   "bank_meter": "anuṣṭubh",
+   "meter_resolved_by": "dge_name",
+   "audio_seconds": 9.63,
+   "gpu_seconds": 15.46,
+   "cold": false,
+   "note": "probe run 34049820868, 11:20 pm IST: each call still starts a fresh ZeroGPU worker (12–15 GPU s); the anonymous call in the same run took 14.0 GPU s"
+  },
+  {
+   "engine": "indicf5-zero-shot",
+   "chandas": "अनुष्टुप्",
+   "reference": "tp_anushtubh_19 (3BHU1, 11.15 s)",
+   "audio_seconds": 11.51,
+   "gpu_seconds": 12.12,
+   "cold": false,
+   "note": "same run"
+  }
+ ],
+ "rtf_warm": 0.447,
+ "gpu_seconds_per_verse_warm": 4.3,
+ "cold_start_gpu_seconds": 23.22,
+ "quota_note": "PRO account: 40 ZeroGPU-minutes/day for the owner's own calls; anonymous visitors draw on the free per-IP quota (~5 min/day) — at 4.3 GPU s per anuṣṭubh verse that is ~70 verses per visitor per day; the Space's own KAMADHENU_DAILY_LIMIT (10/IP) is the tighter cap.",
+ "todo": "per-metre table (14 bank metres) via measure.py from a browser-side run or an extended workflow",
+ "trial_engine": "IndicF5 (ai4bharat/IndicF5, MIT) zero-shot with the lead's reference clips: first (cold) anuṣṭubh verse 11.5 s audio in 13.9 GPU s; warm figure not yet measured",
+ "gpu_request": {
+  "app_duration_seconds": 60,
+  "billed_request_seconds": 90,
+  "why": "spaces 0.51.3 multiplies @spaces.GPU(duration) by the hardware duration_factor (1.5 on the sm_120 cards this Space gets) before the quota check; duration=120 reached visitors as '180s requested vs. 166s left' (lead's phone, 6 Sep 9:55 pm IST). Set 7 Sep 2026; env KAMADHENU_GPU_SECONDS overrides.",
+  "caveat": "one anonymous call in probe run 34049597050 (the first run after the rebuild) ended with 'GPU task aborted' after ~100 s; it did not recur in run 34049820868. Worst measured cold render is 23 GPU s, so 60 s keeps a 2.5x margin; raise KAMADHENU_GPU_SECONDS if aborts reappear."
+ }
+}

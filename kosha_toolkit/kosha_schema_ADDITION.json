@@ -1,0 +1,81 @@
+{
+  "_HOW_TO_APPLY": [
+    "NON-DESTRUCTIVE. Do not overwrite data/schemas.json. Merge the single key",
+    "'kosha_entry' below into the existing top-level object in data/schemas.json,",
+    "and merge the 'kosha' block from kosha_taxonomy_ADDITION.json into",
+    "data/taxonomy.json (and its mirror data/_taxonomy.json). Everything the",
+    "importer writes lives under data/kosha/** only."
+  ],
+
+  "kosha_entry": {
+    "description": "One dictionary headword (kosha entry) from a lexicon such as Monier-Williams, Apte, Amarakosha, Shabdakalpadruma, Vacaspatyam, or a bilingual dict (sa-kn, sa-en, sa-bn, ...). Headwords are stored in Devanagari; headword_slp1 + fold power fuzzy cross-script lookup consistent with the app's SLP1 search spine. A headword may carry several senses, each glossed in its own language, so the same entry can serve cross-language pivot. Used for every folder under 'kosha'.",
+    "item_fields": {
+      "id": {
+        "type": "string",
+        "required": true,
+        "notes": "SLP1 of the headword, made unique within the folder by suffixing a homonym index when needed (e.g. 'aMSu', 'aMSu~2')."
+      },
+      "headword": {
+        "type": "string",
+        "required": true,
+        "notes": "The headword in Devanagari (the primary searchable text)."
+      },
+      "headword_slp1": {
+        "type": "string",
+        "required": true,
+        "notes": "SLP1 canonicalization of the headword (exact, case-sensitive). Enables transliteration-agnostic lookup."
+      },
+      "fold": {
+        "type": "string",
+        "required": true,
+        "notes": "Phonetic fold of headword_slp1 (anusvara/nasal, s/sh/ss, vowel length, avagraha, gemination collapsed) -- the fuzzy match key, identical in spirit to the global search fold."
+      },
+      "homonym": {
+        "type": "number",
+        "required": false,
+        "notes": "1-based homonym number when several distinct entries share one headword; omit if the only one."
+      },
+      "headword_language": {
+        "type": "string",
+        "required": false,
+        "notes": "ISO code of the headword's language; defaults to 'sa'. For a reverse dict (e.g. en-head) this is 'en', 'kn', etc."
+      },
+      "source": {
+        "type": "string",
+        "required": false,
+        "notes": "Slug of the source dictionary (matches the folder), e.g. 'mw-cologne', 'apte-1957', 'shabdArtha_kaustubha'. Redundant with the path but handy once entries are merged into the cross-dict index."
+      },
+      "synonyms": {
+        "type": "string[]",
+        "required": false,
+        "notes": "Alternate/inflected headword forms (Devanagari) from the StarDict .syn file or '|'-separated headword line."
+      },
+      "synonyms_slp1": {
+        "type": "string[]",
+        "required": false,
+        "notes": "SLP1 of each synonym, so they are all reachable by fuzzy lookup."
+      },
+      "senses": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{gloss, gloss_language, pos, etymology, note, citations}] -- gloss is the meaning text; gloss_language is its ISO code (e.g. 'kn','en','sa'); pos is part of speech / gender; etymology holds vyutpatti/nishpatti; note holds vistara/elaboration; citations is [{text, source}] of prayoga/ullekha quotations. The multi-language glosses across an aggregated headword are what the cross-language pivot renders."
+      },
+      "author": {
+        "type": "string",
+        "required": false,
+        "notes": "Override this folder's default_author for one entry, if ever needed."
+      },
+      "references": {
+        "type": "object[]",
+        "required": false,
+        "notes": "[{target, unit_id, note, type}] -- SAME shape as every other schema, plus an optional 'type' ('synonym_of' | 'see_also' | 'comments_on'). target is another folder slug (e.g. 'kosha/amarakosha'), unit_id the pointed-at item id. Powers the library-wide backlinks index."
+      },
+      "tags": {
+        "type": "string[]",
+        "required": false,
+        "notes": "free-form keywords for cross-library search -- independent of the taxonomy path."
+      }
+    },
+    "primaryTextField": "headword"
+  }
+}

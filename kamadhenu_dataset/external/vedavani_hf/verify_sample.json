@@ -1,0 +1,58 @@
+{
+ "checked_at": "7 Sep 2026, 11:15 PM IST",
+ "ok": 3,
+ "total": 3,
+ "files": [
+  {
+   "audio_file": "Rigveda_30_0308.wav",
+   "url": "https://huggingface.co/datasets/sanganaka/Vedavani-Dataset/resolve/main/AudioFiles/batch_2/Rigveda_30_0308.wav",
+   "bytes": 241260,
+   "bytes_match": true,
+   "sha256_match": true,
+   "riff": true,
+   "channels": 1,
+   "rate": 16000,
+   "bits": 16,
+   "duration_s": 7.538,
+   "duration_match": true,
+   "rik_ids": "7.65.5",
+   "match": "resolved",
+   "text": "अविष्टं धियो जिगृतं पुरंधीर्यूयं पात स्वस्तिभिः सदा नः",
+   "secs": 0.8
+  },
+  {
+   "audio_file": "RigVeda_Part_018_0008.wav",
+   "url": "https://huggingface.co/datasets/sanganaka/Vedavani-Dataset/resolve/main/AudioFiles/batch_3/RigVeda_Part_018_0008.wav",
+   "bytes": 233260,
+   "bytes_match": true,
+   "sha256_match": true,
+   "riff": true,
+   "channels": 1,
+   "rate": 16000,
+   "bits": 16,
+   "duration_s": 7.288,
+   "duration_match": true,
+   "rik_ids": "4.18.4",
+   "match": "exact",
+   "text": "किं स ऋधक्कृणवद्यं सहस्रं मासो जभार शरदश्च पूर्वीः",
+   "secs": 0.1
+  },
+  {
+   "audio_file": "Rigveda_36_0100.wav",
+   "url": "https://huggingface.co/datasets/sanganaka/Vedavani-Dataset/resolve/main/AudioFiles/batch_2/Rigveda_36_0100.wav",
+   "bytes": 331340,
+   "bytes_match": true,
+   "sha256_match": true,
+   "riff": true,
+   "channels": 1,
+   "rate": 16000,
+   "bits": 16,
+   "duration_s": 10.353,
+   "duration_match": true,
+   "rik_ids": "8.44.1;8.44.2",
+   "match": "exact_span",
+   "text": "आस्मिन्हव्या जुहोतन अग्ने स्तोमं जुषस्व मे वर्धस्वानेन मन्मना",
+   "secs": 0.2
+  }
+ ]
+}

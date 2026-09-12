@@ -1,0 +1,20 @@
+{
+ "generated_at": "06 Sep 2026, 8:35 PM IST",
+ "records": 3892,
+ "subset_sizes": {
+  "dataset_all": 3892,
+  "dataset_verified": 2530,
+  "dataset_high_quality": 1499,
+  "dataset_reference_bank": 201,
+  "dataset_training": 1350,
+  "dataset_validation": 149,
+  "dataset_review": 957,
+  "dataset_unmatched_audio": 373,
+  "dataset_unmatched_text": 2658
+ },
+ "notes": {
+  "dataset_training/validation": "deterministic 90/10 split of dataset_high_quality (validation = every 10th by sorted id). Training has NOT been run.",
+  "speaker": "speaker identity is not recorded anywhere in the sources; the folder is used as a proxy and marked 'unattributed'",
+  "sample_rate": "reported at the source's native rate; nothing is resampled here"
+ }
+}

@@ -1,0 +1,16 @@
+{
+ "finished_at_utc": "2026-09-07T15:34:11Z",
+ "vram": "24GB",
+ "batch_frames": 3200,
+ "epochs": 34,
+ "train_cap_minutes": 90,
+ "train_exit_code": 0,
+ "last_step": "3060",
+ "minutes": {
+  "setup": 2.0,
+  "train": 15.5,
+  "export_eval": 8.8,
+  "total": 26.2
+ },
+ "gpu": "Model: \t\t NVIDIA L4"
+}

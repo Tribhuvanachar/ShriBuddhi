@@ -1,0 +1,32 @@
+{
+  "_HOW_TO_APPLY": [
+    "Merge the 'kosha' key below into data/taxonomy.json AND data/_taxonomy.json.",
+    "'_schema':'kosha_entry' cascades to every dictionary folder underneath, so",
+    "per-folder entries need no _schema of their own. The importer regenerates the",
+    "full folder list into data/kosha/_taxonomy_koshas.json each run -- paste that",
+    "generated list in place of the illustrative folders shown here."
+  ],
+  "kosha": {
+    "_schema": "kosha_entry",
+    "_default_author": "Cologne Digital Sanskrit Dictionaries / indic-dict (see per-folder source_meta)",
+    "sanskrit_english": {
+      "mw-cologne": {},
+      "apte-1957": {},
+      "benfey": {},
+      "macdonell": {}
+    },
+    "sanskrit_kannada": {
+      "shabdArtha_kaustubha": {}
+    },
+    "sanskrit_sanskrit": {
+      "amarakosha": {},
+      "shabdakalpadruma": {},
+      "vachaspatyam": {},
+      "abhidhanachintamani": {}
+    },
+    "reverse": {
+      "mw-english-sanskrit": {},
+      "apte-english-sanskrit": {}
+    }
+  }
+}

@@ -1,0 +1,204 @@
+{
+ "generated_at": "7 Sep 2026, 5:58 PM IST",
+ "tool": "kamadhenu/training/dry_run.py",
+ "config": "kamadhenu/training/experiment_a.yaml",
+ "export_dir": "kamadhenu_dataset/processed/audio/f5/kamadhenu_pilot_char",
+ "vocab": {
+  "file": "vocab.txt",
+  "size": 2545,
+  "sha1": "b46bed8e96ab36df291f8668d64460fd74a398c3"
+ },
+ "train": {
+  "n": 123,
+  "minutes": 35.1,
+  "hours": 0.586,
+  "frames": 197691,
+  "chars": 14213,
+  "meters": 15,
+  "meter_names": [
+   "अनुष्टुप्",
+   "इन्द्रवंशा",
+   "इन्द्रवज्रा",
+   "उपजाति",
+   "उपेन्द्रवज्रा",
+   "औपच्छन्दसिक, पुष्पिताग्रा",
+   "द्रुतविलम्बित",
+   "भुजङ्गप्रयात",
+   "मालिनी",
+   "मृगेन्द्रमुख",
+   "रुचिरा",
+   "वंशस्थ",
+   "वसन्ततिलका",
+   "शार्दूलविक्रीडित",
+   "शालिनी"
+  ],
+  "duration_min": 12.617,
+  "duration_max": 24.215,
+  "duration_mean": 17.14
+ },
+ "eval": {
+  "n": 13,
+  "minutes": 3.8
+ },
+ "checks": {
+  "metadata.csv": "123 rows, F5 reader rules (utf-8-sig, `|`, header) — ok",
+  "duration.json": "aligned with metadata.csv",
+  "vocab.txt": "2545 entries, space at index 0, sha1 b46bed8e96… (IndicF5's, verified against the Hub at launch)",
+  "vocab coverage": "every character of every text is in the vocab",
+  "audio": "all 24000 Hz mono, 4.0–45.0 s, peaks at -3.0 dBFS, 0 files with clipping",
+  "raw.arrow": "123 rows, columns ['audio_path', 'text', 'duration'] — loads with `datasets`",
+  "batch sampler": "simulated with the trainer's DynamicBatchSampler rules for 16/24/40 GB",
+  "torch / GPU": "not installed here — model construction, the checkpoint conversion and the training step are exercised only by the launcher's --dry-run on the GPU box"
+ },
+ "plans": {
+  "16GB": {
+   "vram": "16GB",
+   "frames_per_batch": 2000,
+   "batches_per_epoch": 121,
+   "epochs": 25,
+   "updates": 3025,
+   "warmup_updates": 300,
+   "largest_batch": 1,
+   "smallest_batch": 1,
+   "padding_efficiency": 1.0,
+   "too_long_for_batch": 2
+  },
+  "24GB": {
+   "vram": "24GB",
+   "frames_per_batch": 3200,
+   "batches_per_epoch": 90,
+   "epochs": 34,
+   "updates": 3060,
+   "warmup_updates": 300,
+   "largest_batch": 2,
+   "smallest_batch": 1,
+   "padding_efficiency": 0.999,
+   "too_long_for_batch": 0
+  },
+  "40GB": {
+   "vram": "40GB",
+   "frames_per_batch": 6400,
+   "batches_per_epoch": 36,
+   "epochs": 84,
+   "updates": 3024,
+   "warmup_updates": 300,
+   "largest_batch": 5,
+   "smallest_batch": 1,
+   "padding_efficiency": 0.992,
+   "too_long_for_batch": 0
+  }
+ },
+ "costs": {
+  "16GB": [
+   {
+    "gpu": "T4 16 GB",
+    "s_per_update_assumed": 2.5,
+    "train_minutes": 126,
+    "total_hours": 2.57,
+    "usd_low": 0.51,
+    "usd_high": 1.03,
+    "inr_low": 45,
+    "inr_high": 90,
+    "inr_cap": 181
+   }
+  ],
+  "24GB": [
+   {
+    "gpu": "L4 24 GB",
+    "s_per_update_assumed": 1.4,
+    "train_minutes": 71,
+    "total_hours": 1.66,
+    "usd_low": 0.66,
+    "usd_high": 0.99,
+    "inr_low": 58,
+    "inr_high": 87,
+    "inr_cap": 175
+   },
+   {
+    "gpu": "A10G 24 GB",
+    "s_per_update_assumed": 1.1,
+    "train_minutes": 56,
+    "total_hours": 1.4,
+    "usd_low": 0.7,
+    "usd_high": 1.05,
+    "inr_low": 62,
+    "inr_high": 93,
+    "inr_cap": 185
+   },
+   {
+    "gpu": "RTX 4090 24 GB",
+    "s_per_update_assumed": 0.6,
+    "train_minutes": 31,
+    "total_hours": 0.98,
+    "usd_low": 0.34,
+    "usd_high": 0.68,
+    "inr_low": 30,
+    "inr_high": 60,
+    "inr_cap": 120
+   }
+  ],
+  "40GB": [
+   {
+    "gpu": "A100 40 GB",
+    "s_per_update_assumed": 0.7,
+    "train_minutes": 35,
+    "total_hours": 1.05,
+    "usd_low": 1.05,
+    "usd_high": 1.58,
+    "inr_low": 93,
+    "inr_high": 139,
+    "inr_cap": 278
+   }
+  ]
+ },
+ "assumptions": {
+  "gpus": [
+   [
+    "T4 16 GB",
+    "16GB",
+    2.5,
+    0.2,
+    0.4
+   ],
+   [
+    "L4 24 GB",
+    "24GB",
+    1.4,
+    0.4,
+    0.6
+   ],
+   [
+    "A10G 24 GB",
+    "24GB",
+    1.1,
+    0.5,
+    0.75
+   ],
+   [
+    "RTX 4090 24 GB",
+    "24GB",
+    0.6,
+    0.35,
+    0.7
+   ],
+   [
+    "A100 40 GB",
+    "40GB",
+    0.7,
+    1.0,
+    1.5
+   ]
+  ],
+  "inr_per_usd": 88.0,
+  "setup_min": 20,
+  "eval_min": 8,
+  "uncertainty_factor": 2.0
+ },
+ "blocking": [],
+ "warnings": [
+  "km_40b0294e290e: edge silence 1.302/0.099 s",
+  "km_8c8d3b869852: edge silence 1.003/0.034 s",
+  "16GB: 2 sample(s) longer than one batch (21.3 s) would be dropped by the sampler"
+ ],
+ "export_problems": []
+}

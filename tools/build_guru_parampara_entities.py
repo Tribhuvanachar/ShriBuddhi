@@ -29,7 +29,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / "guru-parampara" / "data" / "parampara.json"
+SRC = ROOT / "pages" / "guru-parampara" / "data" / "parampara.json"
 OUT_DIR = SRC.parent
 
 

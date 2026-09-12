@@ -446,7 +446,7 @@ def build_cross_links(rows, masters, data_dir, repo_root):
                                           "personId": pid})
 
     # --- guru-parampara: node names, and the works those nodes list -------
-    para = load_json(os.path.join(repo_root, "guru-parampara", "data", "parampara.json"), {}) or {}
+    para = load_json(os.path.join(repo_root, "pages", "guru-parampara", "data", "parampara.json"), {}) or {}
     nodes = para.get("nodes") or {}
     if isinstance(nodes, dict):
         node_items = list(nodes.items())

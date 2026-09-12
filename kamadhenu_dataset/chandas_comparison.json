@@ -1,0 +1,459 @@
+{
+ "generated_at": "06 Sep 2026, 8:35 PM IST",
+ "dge_sama_vrutta": 190,
+ "dge_total_vrutta": 245,
+ "vagdhenu_tts_meter_entries": 13,
+ "vagdhenu_labeler_signatures": 10,
+ "vagdhenu_bank_metres": [
+  "anuṣṭubh",
+  "pramāṇikā",
+  "vasantatilakā",
+  "upajāti",
+  "indravajrā",
+  "upendravajrā",
+  "vaṃśastha",
+  "rathoddhatā",
+  "śālinī",
+  "indravaṃśā",
+  "drutavilambita",
+  "bhujaṅgaprayāta",
+  "mālinī",
+  "śārdūlavikrīḍita",
+  "sragdharā",
+  "vrutta-1",
+  "repeat_primes",
+  "gadya",
+  "gadya_mbtn"
+ ],
+ "bank_metre_in_dge_db": {
+  "anuṣṭubh": true,
+  "pramāṇikā": true,
+  "vasantatilakā": true,
+  "upajāti": true,
+  "indravajrā": true,
+  "upendravajrā": true,
+  "vaṃśastha": true,
+  "rathoddhatā": true,
+  "śālinī": true,
+  "indravaṃśā": true,
+  "drutavilambita": true,
+  "bhujaṅgaprayāta": true,
+  "mālinī": true,
+  "śārdūlavikrīḍita": true,
+  "sragdharā": true,
+  "vrutta-1": false,
+  "repeat_primes": false,
+  "gadya": false,
+  "gadya_mbtn": false
+ },
+ "pattern_checks": [
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "indravajra",
+   "vagdhenu_pattern": "GGLGGLLGLGG",
+   "dge_name": "इन्द्रवज्रा",
+   "dge_pattern": "GGLGGLLGLGG",
+   "agrees": true,
+   "dge_yati": [
+    5,
+    6
+   ]
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "upendravajra",
+   "vagdhenu_pattern": "LGLGGLLGLGG",
+   "dge_name": "उपेन्द्रवज्रा",
+   "dge_pattern": "LGLGGLLGLGG",
+   "agrees": true,
+   "dge_yati": [
+    5,
+    6
+   ]
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "upajati",
+   "vagdhenu_pattern": "GGLGGLLGLGG",
+   "dge_name": "उपजाति",
+   "dge_pattern": null,
+   "agrees": false,
+   "dge_yati": null
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "upajati",
+   "vagdhenu_pattern": "LGLGGLLGLGG",
+   "dge_name": "उपजाति",
+   "dge_pattern": null,
+   "agrees": false,
+   "dge_yati": null
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "vamshastha",
+   "vagdhenu_pattern": "LGLGGLLGLGLG",
+   "dge_name": "वंशस्थ",
+   "dge_pattern": "LGLGGLLGLGLG",
+   "agrees": true,
+   "dge_yati": [
+    5,
+    7
+   ]
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "indravamsha",
+   "vagdhenu_pattern": "GGLGGLLGLGLG",
+   "dge_name": "इन्द्रवंशा",
+   "dge_pattern": "GGLGGLLGLGLG",
+   "agrees": true,
+   "dge_yati": [
+    5,
+    7
+   ]
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "vasantatilaka",
+   "vagdhenu_pattern": "GGLGLLLGLLGLGG",
+   "dge_name": "वसन्ततिलका",
+   "dge_pattern": "GGLGLLLGLLGLGG",
+   "agrees": true,
+   "dge_yati": [
+    8,
+    6
+   ]
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "malini",
+   "vagdhenu_pattern": "LLLLLLGGLGGLGGG",
+   "dge_name": "मालिनी",
+   "dge_pattern": "LLLLLLGGGLGGLGG",
+   "agrees": false,
+   "dge_yati": [
+    8,
+    7
+   ]
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "shikharini",
+   "vagdhenu_pattern": "LGGGGGLLLLLGGGGLG",
+   "dge_name": "शिखरिणी",
+   "dge_pattern": "LGGGGGLLLLLGGLLLG",
+   "agrees": false,
+   "dge_yati": [
+    6,
+    11
+   ]
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "mandakranta",
+   "vagdhenu_pattern": "GGGGLLLLLGGLGGLGG",
+   "dge_name": "मन्दाक्रान्ता",
+   "dge_pattern": "GGGGLLLLLGGLGGLGG",
+   "agrees": true,
+   "dge_yati": [
+    4,
+    6,
+    7
+   ]
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "harini",
+   "vagdhenu_pattern": "LLLLLGGGGGLGLLGLG",
+   "dge_name": "हरिणी",
+   "dge_pattern": "LLLLLGGGGGLGLLGLG",
+   "agrees": true,
+   "dge_yati": [
+    6,
+    4,
+    7
+   ]
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "prithvi",
+   "vagdhenu_pattern": "LGLLLGLGLLLGGLGGL",
+   "dge_name": "पृथ्वी",
+   "dge_pattern": "LGLLLGLGLLLGLGGLG",
+   "agrees": false,
+   "dge_yati": [
+    8,
+    9
+   ]
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "shardulavikridita",
+   "vagdhenu_pattern": "GGGLLGLGLLLGGGLGGLG",
+   "dge_name": "शार्दूलविक्रीडित",
+   "dge_pattern": "GGGLLGLGLLLGGGLGGLG",
+   "agrees": true,
+   "dge_yati": [
+    12,
+    7
+   ]
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "sragdhara",
+   "vagdhenu_pattern": "GGGGLGGGLLLLLLGGLGGLG",
+   "dge_name": "स्रग्धरा",
+   "dge_pattern": "GGGGLGGLLLLLLGGLGGLGG",
+   "agrees": false,
+   "dge_yati": [
+    7,
+    7,
+    7
+   ]
+  },
+  {
+   "source": "chandas_labeler.SIGNATURES",
+   "vagdhenu_name": "indravajrā(11)",
+   "vagdhenu_pattern": "GGLGGLLGLGG",
+   "dge_name": "इन्द्रवज्रा",
+   "dge_pattern": "GGLGGLLGLGG",
+   "agrees": true,
+   "dge_yati": [
+    5,
+    6
+   ],
+   "vagdhenu_yati": null
+  },
+  {
+   "source": "chandas_labeler.SIGNATURES",
+   "vagdhenu_name": "upendravajrā(11)",
+   "vagdhenu_pattern": "LGLGGLLGLGG",
+   "dge_name": "उपेन्द्रवज्रा",
+   "dge_pattern": "LGLGGLLGLGG",
+   "agrees": true,
+   "dge_yati": [
+    5,
+    6
+   ],
+   "vagdhenu_yati": null
+  },
+  {
+   "source": "chandas_labeler.SIGNATURES",
+   "vagdhenu_name": "vaṃśastha(12)",
+   "vagdhenu_pattern": "LGLGGLLGLGLG",
+   "dge_name": "वंशस्थ",
+   "dge_pattern": "LGLGGLLGLGLG",
+   "agrees": true,
+   "dge_yati": [
+    5,
+    7
+   ],
+   "vagdhenu_yati": null
+  },
+  {
+   "source": "chandas_labeler.SIGNATURES",
+   "vagdhenu_name": "vasantatilakā(14)",
+   "vagdhenu_pattern": "GGLGLLLGLLGLGG",
+   "dge_name": "वसन्ततिलका",
+   "dge_pattern": "GGLGLLLGLLGLGG",
+   "agrees": true,
+   "dge_yati": [
+    8,
+    6
+   ],
+   "vagdhenu_yati": null
+  },
+  {
+   "source": "chandas_labeler.SIGNATURES",
+   "vagdhenu_name": "mālinī(15)",
+   "vagdhenu_pattern": "LLLLLLGGGLGGLGG",
+   "dge_name": "मालिनी",
+   "dge_pattern": "LLLLLLGGGLGGLGG",
+   "agrees": true,
+   "dge_yati": [
+    8,
+    7
+   ],
+   "vagdhenu_yati": [
+    8
+   ]
+  },
+  {
+   "source": "chandas_labeler.SIGNATURES",
+   "vagdhenu_name": "mandākrāntā(17)",
+   "vagdhenu_pattern": "GGGGLLLLLGGLGGLGG",
+   "dge_name": "मन्दाक्रान्ता",
+   "dge_pattern": "GGGGLLLLLGGLGGLGG",
+   "agrees": true,
+   "dge_yati": [
+    4,
+    6,
+    7
+   ],
+   "vagdhenu_yati": [
+    4,
+    10
+   ]
+  },
+  {
+   "source": "chandas_labeler.SIGNATURES",
+   "vagdhenu_name": "śikhariṇī(17)",
+   "vagdhenu_pattern": "LGGGGGLLLLLGGLLLG",
+   "dge_name": "शिखरिणी",
+   "dge_pattern": "LGGGGGLLLLLGGLLLG",
+   "agrees": true,
+   "dge_yati": [
+    6,
+    11
+   ],
+   "vagdhenu_yati": [
+    6
+   ]
+  },
+  {
+   "source": "chandas_labeler.SIGNATURES",
+   "vagdhenu_name": "pṛthvī(17)",
+   "vagdhenu_pattern": "LGLLLGLGLLLGLGGLG",
+   "dge_name": "पृथ्वी",
+   "dge_pattern": "LGLLLGLGLLLGLGGLG",
+   "agrees": true,
+   "dge_yati": [
+    8,
+    9
+   ],
+   "vagdhenu_yati": null
+  },
+  {
+   "source": "chandas_labeler.SIGNATURES",
+   "vagdhenu_name": "śārdūlavikrīḍita(19)",
+   "vagdhenu_pattern": "GGGLLGLGLLLGGGLGGLG",
+   "dge_name": "शार्दूलविक्रीडित",
+   "dge_pattern": "GGGLLGLGLLLGGGLGGLG",
+   "agrees": true,
+   "dge_yati": [
+    12,
+    7
+   ],
+   "vagdhenu_yati": [
+    12
+   ]
+  },
+  {
+   "source": "chandas_labeler.SIGNATURES",
+   "vagdhenu_name": "sragdharā(21)",
+   "vagdhenu_pattern": "GGGGLGGLLLLLLGGLGGLGG",
+   "dge_name": "स्रग्धरा",
+   "dge_pattern": "GGGGLGGLLLLLLGGLGGLGG",
+   "agrees": true,
+   "dge_yati": [
+    7,
+    7,
+    7
+   ],
+   "vagdhenu_yati": [
+    7,
+    14
+   ]
+  }
+ ],
+ "vagdhenu_internal_disagreements": [
+  {
+   "metre": "मालिनी",
+   "tts_meter": [
+    "LLLLLLGGLGGLGGG"
+   ],
+   "chandas_labeler": "LLLLLLGGGLGGLGG"
+  },
+  {
+   "metre": "शिखरिणी",
+   "tts_meter": [
+    "LGGGGGLLLLLGGGGLG"
+   ],
+   "chandas_labeler": "LGGGGGLLLLLGGLLLG"
+  },
+  {
+   "metre": "पृथ्वी",
+   "tts_meter": [
+    "LGLLLGLGLLLGGLGGL"
+   ],
+   "chandas_labeler": "LGLLLGLGLLLGLGGLG"
+  },
+  {
+   "metre": "स्रग्धरा",
+   "tts_meter": [
+    "GGGGLGGGLLLLLLGGLGGLG"
+   ],
+   "chandas_labeler": "GGGGLGGLLLLLLGGLGGLGG"
+  }
+ ],
+ "disagreements_with_dge": [
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "upajati",
+   "vagdhenu_pattern": "GGLGGLLGLGG",
+   "dge_name": "उपजाति",
+   "dge_pattern": null,
+   "agrees": false,
+   "dge_yati": null
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "upajati",
+   "vagdhenu_pattern": "LGLGGLLGLGG",
+   "dge_name": "उपजाति",
+   "dge_pattern": null,
+   "agrees": false,
+   "dge_yati": null
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "malini",
+   "vagdhenu_pattern": "LLLLLLGGLGGLGGG",
+   "dge_name": "मालिनी",
+   "dge_pattern": "LLLLLLGGGLGGLGG",
+   "agrees": false,
+   "dge_yati": [
+    8,
+    7
+   ]
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "shikharini",
+   "vagdhenu_pattern": "LGGGGGLLLLLGGGGLG",
+   "dge_name": "शिखरिणी",
+   "dge_pattern": "LGGGGGLLLLLGGLLLG",
+   "agrees": false,
+   "dge_yati": [
+    6,
+    11
+   ]
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "prithvi",
+   "vagdhenu_pattern": "LGLLLGLGLLLGGLGGL",
+   "dge_name": "पृथ्वी",
+   "dge_pattern": "LGLLLGLGLLLGLGGLG",
+   "agrees": false,
+   "dge_yati": [
+    8,
+    9
+   ]
+  },
+  {
+   "source": "tts_meter.METERS",
+   "vagdhenu_name": "sragdhara",
+   "vagdhenu_pattern": "GGGGLGGGLLLLLLGGLGGLG",
+   "dge_name": "स्रग्धरा",
+   "dge_pattern": "GGGGLGGLLLLLLGGLGGLGG",
+   "agrees": false,
+   "dge_yati": [
+    7,
+    7,
+    7
+   ]
+  }
+ ]
+}

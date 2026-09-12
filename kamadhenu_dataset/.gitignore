@@ -1,0 +1,8 @@
+# Original recordings and decoded/derived audio are never committed (repo is already 2.7 GB).
+# The manifests (drive_manifest.json, fetch_manifest.json, audio_inventory.json) ARE committed,
+# so anyone can re-download with:  python3 tools/kamadhenu_audit.py --fetch
+incoming_audio/**
+!incoming_audio/README.md
+processed/audio/**
+processed/*.part
+*.part

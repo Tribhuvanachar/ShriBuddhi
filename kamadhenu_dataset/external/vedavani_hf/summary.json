@@ -1,0 +1,33 @@
+{
+ "dataset": "sanganaka/Vedavani-Dataset",
+ "resolve_base": "https://huggingface.co/datasets/sanganaka/Vedavani-Dataset/resolve/main/",
+ "built_at": "7 Sep 2026, 11:14 PM IST",
+ "rows": 30779,
+ "rigveda_rows": 20782,
+ "atharvaveda_rows": 9997,
+ "rigveda_hours": 36.61,
+ "atharvaveda_hours": 17.77,
+ "bytes_total": 6798956550,
+ "missing_in_tree": [],
+ "match": {
+  "atharvaveda": 9997,
+  "exact": 18293,
+  "exact_span": 437,
+  "unmatched": 197,
+  "fuzzy": 643,
+  "too_short": 101,
+  "resolved": 1110,
+  "ambiguous": 1
+ },
+ "rigveda_mapped_rows": 20483,
+ "rigveda_mapped_hours": 36.08,
+ "dge_riks_total": 10552,
+ "dge_riks_covered": 10440,
+ "groups": 54,
+ "elapsed_s": 17.0,
+ "provenance": {
+  "licence_dataset": "Apache-2.0 (dataset card)",
+  "audio_origin": "Veda Prasara Samiti, via archive.org RigvedaChanting / atharvaveda_202107 (Public Domain Mark 1.0)",
+  "paper": "https://arxiv.org/abs/2506.00145"
+ }
+}

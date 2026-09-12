@@ -1,0 +1,22 @@
+{
+ "job_id": "6a9edbc4259f8e97255eb6af",
+ "url": "https://huggingface.co/jobs/SarvamulaOrg/6a9edbc4259f8e97255eb6af",
+ "namespace": "SarvamulaOrg",
+ "flavor": "l4x1",
+ "image": "pytorch/pytorch:2.8.0-cuda12.8-cudnn9-devel",
+ "commit": "a0ae60633f56f4fe0a999969e6eb8927aa129d60",
+ "timeout_minutes": 55,
+ "train_cap_minutes": 25,
+ "results_repo": "SarvamulaOrg/kamadhenu-voice-a",
+ "worst_case_usd": 0.73,
+ "worst_case_inr": 65,
+ "cap_inr": 185,
+ "rate_usd_per_hour": 0.8,
+ "submitted_at_utc": "2026-09-07T15:44:04Z",
+ "final_status": "COMPLETED",
+ "message": null,
+ "minutes_since_submit": 40.8,
+ "note": "HF bills RUNNING time only; the queue wait is free \u2014 see the status timestamps above",
+ "usd_upper_bound": 0.54,
+ "inr_upper_bound": 48
+}
