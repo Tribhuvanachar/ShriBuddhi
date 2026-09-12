@@ -23,7 +23,8 @@
   "never ingested. It is here so that the question 'where did this come from,",
   "and did we check it?' has an answer for every site the project has touched.",
   "",
-  "`watch_only: true` marks a site we have not imported from but want to hear about (sarvamulavani.com). The admin page's syncer card for it can only Check, never Import."
+  "`watch_only: true` marks a site we have not imported from but want to hear about (sarvamulavani.com). The admin page's syncer card for it can only Check, never Import.",
+  "The 13 text-bearing repos of github.com/vishvAsa (vishvasa_* ids) are one family, tracked together: check-vishvasa.yml / tools/check_vishvasa.py checks them on their own schedule against admin/config/vishvasa.state.json (mirrors this file's state sibling) rather than through tools/check_sources.py, so their `probe.kind` here is `manual` (the existing value for 'no generic probe') -- see tools/reports/vishvasa_gap_report.md for what each holds."
  ],
  "sources": [
   {
@@ -437,6 +438,269 @@
    "config": "importers/ashtadhyayi_layers.py",
    "rights": "Curator's e-mail permission held by the lead; no LICENSE file on the repo. Re-imported by sync-ashtadhyayi.yml when the repository moves.",
    "cadence": "fortnightly"
+  },
+  {
+   "id": "vishvasa_madhvam",
+   "title": "github.com/vishvAsa/mAdhvam -- Madhva sastra corpus (tattvam/) -- mostly already held via dvaitavedanta.in; small genuine gaps (Sutra-dipika, Nyaya-muktavali, vada-varta records)",
+   "base": "https://github.com/vishvAsa/mAdhvam",
+   "imported": false,
+   "probe": {
+    "kind": "manual",
+    "note": "One of the 13 text-bearing repos of the vishvAsa family (30 repos total there; see the gap report). Checked as a family, with a richer per-repo commit-count/file-diff summary than the generic github_commit probe gives, by check-vishvasa.yml / tools/check_vishvasa.py on its own fortnightly schedule -- NOT by tools/check_sources.py."
+   },
+   "github": {
+    "repo": "vishvAsa/mAdhvam",
+    "branch": "content"
+   },
+   "checked_by": "check-vishvasa.yml",
+   "feeds": [],
+   "importer": "",
+   "config": "tools/reports/vishvasa_gap_report.md",
+   "rights": "Vishwas Vasuki's personal, non-commercial 'take what you like' permission covers what is genuinely his own composition/compilation, not the separate, still-live copyright on modern works merely hosted alongside it in sibling vishvAsa repos (e.g. K.E. Devanathan's 2006 Sribhashyaprakashah under shrI-bhAShyam in vishvAsa/rAmAnujIyam) -- see the ParaBuddhi repo's docs/PENDING.md (25 Aug 2026 entries) for that finding. Nothing here is cleared for import; each work needs its own rights check first, per the gap report's own suggested order.",
+   "cadence": "fortnightly (see check-vishvasa.yml)"
+  },
+  {
+   "id": "vishvasa_vedah",
+   "title": "github.com/vishvAsa/vedAH -- Veda corpus, general/index repo",
+   "base": "https://github.com/vishvAsa/vedAH",
+   "imported": false,
+   "probe": {
+    "kind": "manual",
+    "note": "One of the 13 text-bearing repos of the vishvAsa family (30 repos total there; see the gap report). Checked as a family, with a richer per-repo commit-count/file-diff summary than the generic github_commit probe gives, by check-vishvasa.yml / tools/check_vishvasa.py on its own fortnightly schedule -- NOT by tools/check_sources.py."
+   },
+   "github": {
+    "repo": "vishvAsa/vedAH",
+    "branch": "content"
+   },
+   "checked_by": "check-vishvasa.yml",
+   "feeds": [],
+   "importer": "",
+   "config": "tools/reports/vishvasa_gap_report.md",
+   "rights": "Vishwas Vasuki's personal, non-commercial 'take what you like' permission covers what is genuinely his own composition/compilation, not the separate, still-live copyright on modern works merely hosted alongside it in sibling vishvAsa repos (e.g. K.E. Devanathan's 2006 Sribhashyaprakashah under shrI-bhAShyam in vishvAsa/rAmAnujIyam) -- see the ParaBuddhi repo's docs/PENDING.md (25 Aug 2026 entries) for that finding. Nothing here is cleared for import; each work needs its own rights check first, per the gap report's own suggested order.",
+   "cadence": "fortnightly (see check-vishvasa.yml)"
+  },
+  {
+   "id": "vishvasa_vedah_rk",
+   "title": "github.com/vishvAsa/vedAH_Rk -- Rgveda Sakala samhita (per-sukta), Aitareya brahmana, Sankhayana/Kausitaka -- the largest documented gap alongside the other 3 Veda repos",
+   "base": "https://github.com/vishvAsa/vedAH_Rk",
+   "imported": false,
+   "probe": {
+    "kind": "manual",
+    "note": "One of the 13 text-bearing repos of the vishvAsa family (30 repos total there; see the gap report). Checked as a family, with a richer per-repo commit-count/file-diff summary than the generic github_commit probe gives, by check-vishvasa.yml / tools/check_vishvasa.py on its own fortnightly schedule -- NOT by tools/check_sources.py."
+   },
+   "github": {
+    "repo": "vishvAsa/vedAH_Rk",
+    "branch": "content"
+   },
+   "checked_by": "check-vishvasa.yml",
+   "feeds": [],
+   "importer": "",
+   "config": "tools/reports/vishvasa_gap_report.md",
+   "rights": "Vishwas Vasuki's personal, non-commercial 'take what you like' permission covers what is genuinely his own composition/compilation, not the separate, still-live copyright on modern works merely hosted alongside it in sibling vishvAsa repos (e.g. K.E. Devanathan's 2006 Sribhashyaprakashah under shrI-bhAShyam in vishvAsa/rAmAnujIyam) -- see the ParaBuddhi repo's docs/PENDING.md (25 Aug 2026 entries) for that finding. Nothing here is cleared for import; each work needs its own rights check first, per the gap report's own suggested order.",
+   "cadence": "fortnightly (see check-vishvasa.yml)"
+  },
+  {
+   "id": "vishvasa_vedah_yajuh",
+   "title": "github.com/vishvAsa/vedAH_yajuH -- Yajurveda: Taittiriya samhita/brahmana/aranyaka/sutram, Maitrayani, Vajasaneyi Kanva+Madhyandina, Isavasya, Satapatha-brahmana (already imported from here)",
+   "base": "https://github.com/vishvAsa/vedAH_yajuH",
+   "imported": false,
+   "probe": {
+    "kind": "manual",
+    "note": "One of the 13 text-bearing repos of the vishvAsa family (30 repos total there; see the gap report). Checked as a family, with a richer per-repo commit-count/file-diff summary than the generic github_commit probe gives, by check-vishvasa.yml / tools/check_vishvasa.py on its own fortnightly schedule -- NOT by tools/check_sources.py."
+   },
+   "github": {
+    "repo": "vishvAsa/vedAH_yajuH",
+    "branch": "content"
+   },
+   "checked_by": "check-vishvasa.yml",
+   "feeds": [],
+   "importer": "",
+   "config": "tools/reports/vishvasa_gap_report.md",
+   "rights": "Vishwas Vasuki's personal, non-commercial 'take what you like' permission covers what is genuinely his own composition/compilation, not the separate, still-live copyright on modern works merely hosted alongside it in sibling vishvAsa repos (e.g. K.E. Devanathan's 2006 Sribhashyaprakashah under shrI-bhAShyam in vishvAsa/rAmAnujIyam) -- see the ParaBuddhi repo's docs/PENDING.md (25 Aug 2026 entries) for that finding. Nothing here is cleared for import; each work needs its own rights check first, per the gap report's own suggested order.",
+   "cadence": "fortnightly (see check-vishvasa.yml)"
+  },
+  {
+   "id": "vishvasa_vedah_sama",
+   "title": "github.com/vishvAsa/vedAH_sAma -- Samaveda: Jaiminiya brahmana, Kauthuma samhita/gana/padapatha/sutram, Tandya (Pancavimsa) + Chandogya corpus",
+   "base": "https://github.com/vishvAsa/vedAH_sAma",
+   "imported": false,
+   "probe": {
+    "kind": "manual",
+    "note": "One of the 13 text-bearing repos of the vishvAsa family (30 repos total there; see the gap report). Checked as a family, with a richer per-repo commit-count/file-diff summary than the generic github_commit probe gives, by check-vishvasa.yml / tools/check_vishvasa.py on its own fortnightly schedule -- NOT by tools/check_sources.py."
+   },
+   "github": {
+    "repo": "vishvAsa/vedAH_sAma",
+    "branch": "content"
+   },
+   "checked_by": "check-vishvasa.yml",
+   "feeds": [],
+   "importer": "",
+   "config": "tools/reports/vishvasa_gap_report.md",
+   "rights": "Vishwas Vasuki's personal, non-commercial 'take what you like' permission covers what is genuinely his own composition/compilation, not the separate, still-live copyright on modern works merely hosted alongside it in sibling vishvAsa repos (e.g. K.E. Devanathan's 2006 Sribhashyaprakashah under shrI-bhAShyam in vishvAsa/rAmAnujIyam) -- see the ParaBuddhi repo's docs/PENDING.md (25 Aug 2026 entries) for that finding. Nothing here is cleared for import; each work needs its own rights check first, per the gap report's own suggested order.",
+   "cadence": "fortnightly (see check-vishvasa.yml)"
+  },
+  {
+   "id": "vishvasa_mahabharatam",
+   "title": "github.com/vishvAsa/mahAbhAratam -- Mahabharata: Kumbhakonam recension (southern, Madhva-tradition text), Nilakantha's Bharata-bhava-dipa, BORI critical text",
+   "base": "https://github.com/vishvAsa/mahAbhAratam",
+   "imported": false,
+   "probe": {
+    "kind": "manual",
+    "note": "One of the 13 text-bearing repos of the vishvAsa family (30 repos total there; see the gap report). Checked as a family, with a richer per-repo commit-count/file-diff summary than the generic github_commit probe gives, by check-vishvasa.yml / tools/check_vishvasa.py on its own fortnightly schedule -- NOT by tools/check_sources.py."
+   },
+   "github": {
+    "repo": "vishvAsa/mahAbhAratam",
+    "branch": "content"
+   },
+   "checked_by": "check-vishvasa.yml",
+   "feeds": [],
+   "importer": "",
+   "config": "tools/reports/vishvasa_gap_report.md",
+   "rights": "Vishwas Vasuki's personal, non-commercial 'take what you like' permission covers what is genuinely his own composition/compilation, not the separate, still-live copyright on modern works merely hosted alongside it in sibling vishvAsa repos (e.g. K.E. Devanathan's 2006 Sribhashyaprakashah under shrI-bhAShyam in vishvAsa/rAmAnujIyam) -- see the ParaBuddhi repo's docs/PENDING.md (25 Aug 2026 entries) for that finding. Nothing here is cleared for import; each work needs its own rights check first, per the gap report's own suggested order.",
+   "cadence": "fortnightly (see check-vishvasa.yml)"
+  },
+  {
+   "id": "vishvasa_ramayanam",
+   "title": "github.com/vishvAsa/rAmAyaNam -- Ramayana: Govindaraja's Bhusana, audicya tika corpus, Tryambaka's Dharmakuta",
+   "base": "https://github.com/vishvAsa/rAmAyaNam",
+   "imported": false,
+   "probe": {
+    "kind": "manual",
+    "note": "One of the 13 text-bearing repos of the vishvAsa family (30 repos total there; see the gap report). Checked as a family, with a richer per-repo commit-count/file-diff summary than the generic github_commit probe gives, by check-vishvasa.yml / tools/check_vishvasa.py on its own fortnightly schedule -- NOT by tools/check_sources.py."
+   },
+   "github": {
+    "repo": "vishvAsa/rAmAyaNam",
+    "branch": "content"
+   },
+   "checked_by": "check-vishvasa.yml",
+   "feeds": [],
+   "importer": "",
+   "config": "tools/reports/vishvasa_gap_report.md",
+   "rights": "Vishwas Vasuki's personal, non-commercial 'take what you like' permission covers what is genuinely his own composition/compilation, not the separate, still-live copyright on modern works merely hosted alongside it in sibling vishvAsa repos (e.g. K.E. Devanathan's 2006 Sribhashyaprakashah under shrI-bhAShyam in vishvAsa/rAmAnujIyam) -- see the ParaBuddhi repo's docs/PENDING.md (25 Aug 2026 entries) for that finding. Nothing here is cleared for import; each work needs its own rights check first, per the gap report's own suggested order.",
+   "cadence": "fortnightly (see check-vishvasa.yml)"
+  },
+  {
+   "id": "vishvasa_puranam_vaishnavam",
+   "title": "github.com/vishvAsa/purANam_vaiShNavam -- Vaishnava puranas incl. Bhagavata with madhva-tatparya-nirnayah interleaved -- diff against our bhagavata_purana_madhva before importing",
+   "base": "https://github.com/vishvAsa/purANam_vaiShNavam",
+   "imported": false,
+   "probe": {
+    "kind": "manual",
+    "note": "One of the 13 text-bearing repos of the vishvAsa family (30 repos total there; see the gap report). Checked as a family, with a richer per-repo commit-count/file-diff summary than the generic github_commit probe gives, by check-vishvasa.yml / tools/check_vishvasa.py on its own fortnightly schedule -- NOT by tools/check_sources.py."
+   },
+   "github": {
+    "repo": "vishvAsa/purANam_vaiShNavam",
+    "branch": "content"
+   },
+   "checked_by": "check-vishvasa.yml",
+   "feeds": [],
+   "importer": "",
+   "config": "tools/reports/vishvasa_gap_report.md",
+   "rights": "Vishwas Vasuki's personal, non-commercial 'take what you like' permission covers what is genuinely his own composition/compilation, not the separate, still-live copyright on modern works merely hosted alongside it in sibling vishvAsa repos (e.g. K.E. Devanathan's 2006 Sribhashyaprakashah under shrI-bhAShyam in vishvAsa/rAmAnujIyam) -- see the ParaBuddhi repo's docs/PENDING.md (25 Aug 2026 entries) for that finding. Nothing here is cleared for import; each work needs its own rights check first, per the gap report's own suggested order.",
+   "cadence": "fortnightly (see check-vishvasa.yml)"
+  },
+  {
+   "id": "vishvasa_mimamsa",
+   "title": "github.com/vishvAsa/mImAMsA -- Mimamsa 12-adhyaya corpus (sutra + bhasya/adhikarana apparatus) + sankarsa-kanda -- our whole Mimamsa section is 20 files by comparison",
+   "base": "https://github.com/vishvAsa/mImAMsA",
+   "imported": false,
+   "probe": {
+    "kind": "manual",
+    "note": "One of the 13 text-bearing repos of the vishvAsa family (30 repos total there; see the gap report). Checked as a family, with a richer per-repo commit-count/file-diff summary than the generic github_commit probe gives, by check-vishvasa.yml / tools/check_vishvasa.py on its own fortnightly schedule -- NOT by tools/check_sources.py."
+   },
+   "github": {
+    "repo": "vishvAsa/mImAMsA",
+    "branch": "content"
+   },
+   "checked_by": "check-vishvasa.yml",
+   "feeds": [],
+   "importer": "",
+   "config": "tools/reports/vishvasa_gap_report.md",
+   "rights": "Vishwas Vasuki's personal, non-commercial 'take what you like' permission covers what is genuinely his own composition/compilation, not the separate, still-live copyright on modern works merely hosted alongside it in sibling vishvAsa repos (e.g. K.E. Devanathan's 2006 Sribhashyaprakashah under shrI-bhAShyam in vishvAsa/rAmAnujIyam) -- see the ParaBuddhi repo's docs/PENDING.md (25 Aug 2026 entries) for that finding. Nothing here is cleared for import; each work needs its own rights check first, per the gap report's own suggested order.",
+   "cadence": "fortnightly (see check-vishvasa.yml)"
+  },
+  {
+   "id": "vishvasa_kalpantaram",
+   "title": "github.com/vishvAsa/kalpAntaram -- Smrti/dharma corpus (dharmaH/): Manu, Yajnavalkya, Vishnu-smrti, Smrti-candrika, Dharma-sindhu-sara, Krtya-kalpataru",
+   "base": "https://github.com/vishvAsa/kalpAntaram",
+   "imported": false,
+   "probe": {
+    "kind": "manual",
+    "note": "One of the 13 text-bearing repos of the vishvAsa family (30 repos total there; see the gap report). Checked as a family, with a richer per-repo commit-count/file-diff summary than the generic github_commit probe gives, by check-vishvasa.yml / tools/check_vishvasa.py on its own fortnightly schedule -- NOT by tools/check_sources.py."
+   },
+   "github": {
+    "repo": "vishvAsa/kalpAntaram",
+    "branch": "content"
+   },
+   "checked_by": "check-vishvasa.yml",
+   "feeds": [],
+   "importer": "",
+   "config": "tools/reports/vishvasa_gap_report.md",
+   "rights": "Vishwas Vasuki's personal, non-commercial 'take what you like' permission covers what is genuinely his own composition/compilation, not the separate, still-live copyright on modern works merely hosted alongside it in sibling vishvAsa repos (e.g. K.E. Devanathan's 2006 Sribhashyaprakashah under shrI-bhAShyam in vishvAsa/rAmAnujIyam) -- see the ParaBuddhi repo's docs/PENDING.md (25 Aug 2026 entries) for that finding. Nothing here is cleared for import; each work needs its own rights check first, per the gap report's own suggested order.",
+   "cadence": "fortnightly (see check-vishvasa.yml)"
+  },
+  {
+   "id": "vishvasa_agamah_vaishnavah",
+   "title": "github.com/vishvAsa/AgamaH_vaiShNavaH -- Vaishnava agama corpus (pAncharAtrAgamaH/): Bharadvaja-samhita, Hayasirsa Adi-kanda, Prakasa-samhita, Kriya-sagara",
+   "base": "https://github.com/vishvAsa/AgamaH_vaiShNavaH",
+   "imported": false,
+   "probe": {
+    "kind": "manual",
+    "note": "One of the 13 text-bearing repos of the vishvAsa family (30 repos total there; see the gap report). Checked as a family, with a richer per-repo commit-count/file-diff summary than the generic github_commit probe gives, by check-vishvasa.yml / tools/check_vishvasa.py on its own fortnightly schedule -- NOT by tools/check_sources.py."
+   },
+   "github": {
+    "repo": "vishvAsa/AgamaH_vaiShNavaH",
+    "branch": "content"
+   },
+   "checked_by": "check-vishvasa.yml",
+   "feeds": [],
+   "importer": "",
+   "config": "tools/reports/vishvasa_gap_report.md",
+   "rights": "Vishwas Vasuki's personal, non-commercial 'take what you like' permission covers what is genuinely his own composition/compilation, not the separate, still-live copyright on modern works merely hosted alongside it in sibling vishvAsa repos (e.g. K.E. Devanathan's 2006 Sribhashyaprakashah under shrI-bhAShyam in vishvAsa/rAmAnujIyam) -- see the ParaBuddhi repo's docs/PENDING.md (25 Aug 2026 entries) for that finding. Nothing here is cleared for import; each work needs its own rights check first, per the gap report's own suggested order.",
+   "cadence": "fortnightly (see check-vishvasa.yml)"
+  },
+  {
+   "id": "vishvasa_puranam",
+   "title": "github.com/vishvAsa/purANam -- General purana corpus -- mostly thin per-purana trees like ours; Suta-samhita and Harivamsa material are the notable extras",
+   "base": "https://github.com/vishvAsa/purANam",
+   "imported": false,
+   "probe": {
+    "kind": "manual",
+    "note": "One of the 13 text-bearing repos of the vishvAsa family (30 repos total there; see the gap report). Checked as a family, with a richer per-repo commit-count/file-diff summary than the generic github_commit probe gives, by check-vishvasa.yml / tools/check_vishvasa.py on its own fortnightly schedule -- NOT by tools/check_sources.py."
+   },
+   "github": {
+    "repo": "vishvAsa/purANam",
+    "branch": "content"
+   },
+   "checked_by": "check-vishvasa.yml",
+   "feeds": [],
+   "importer": "",
+   "config": "tools/reports/vishvasa_gap_report.md",
+   "rights": "Vishwas Vasuki's personal, non-commercial 'take what you like' permission covers what is genuinely his own composition/compilation, not the separate, still-live copyright on modern works merely hosted alongside it in sibling vishvAsa repos (e.g. K.E. Devanathan's 2006 Sribhashyaprakashah under shrI-bhAShyam in vishvAsa/rAmAnujIyam) -- see the ParaBuddhi repo's docs/PENDING.md (25 Aug 2026 entries) for that finding. Nothing here is cleared for import; each work needs its own rights check first, per the gap report's own suggested order.",
+   "cadence": "fortnightly (see check-vishvasa.yml)"
+  },
+  {
+   "id": "vishvasa_ramanujiyam",
+   "title": "github.com/vishvAsa/rAmAnujIyam -- Ramanuja's own works + researched sub-commentaries -- already imported as darshana/vedanta/vishishtadvaita/ramanuja_bhashya and ramanuja_subcommentaries/ramanuja_extended",
+   "base": "https://github.com/vishvAsa/rAmAnujIyam",
+   "imported": true,
+   "probe": {
+    "kind": "manual",
+    "note": "One of the 13 text-bearing repos of the vishvAsa family (30 repos total there; see the gap report). Checked as a family, with a richer per-repo commit-count/file-diff summary than the generic github_commit probe gives, by check-vishvasa.yml / tools/check_vishvasa.py on its own fortnightly schedule -- NOT by tools/check_sources.py."
+   },
+   "github": {
+    "repo": "vishvAsa/rAmAnujIyam",
+    "branch": "content"
+   },
+   "checked_by": "check-vishvasa.yml",
+   "feeds": [
+    "darshana/vedanta/vishishtadvaita/ramanuja_bhashya (711 units)",
+    "darshana/vedanta/vishishtadvaita/ramanuja_subcommentaries + ramanuja_extended (1,813 units across 3 import phases)"
+   ],
+   "importer": "importers/ramanuja_mula.py, ramanuja_subcommentaries.py, ramanuja_extended.py",
+   "config": "tools/reports/vishvasa_gap_report.md",
+   "rights": "Vishwas Vasuki's personal, non-commercial permission, taken up in three phases (24 Aug 2026). Phases 1-2 cleared each sub-commentator individually by death date/publication year; Phase 3 the project lead explicitly chose to stop gating on that and take remaining per-author copyright risk on himself (personal emails, later) rather than block import further -- see the ParaBuddhi repo's docs/PENDING.md. A precedent for this family, not a blanket clearance for the other 12 repos below.",
+   "cadence": "fortnightly (see check-vishvasa.yml)"
   }
  ]
 }

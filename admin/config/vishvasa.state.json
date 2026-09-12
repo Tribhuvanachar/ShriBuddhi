@@ -1,0 +1,132 @@
+{
+ "_readme": [
+  "Written by tools/check_vishvasa.py (run by check-vishvasa.yml). Fingerprints",
+  "only -- no content. Mirrors the shape of admin/config/sources.state.json but",
+  "tracks the 13 text-bearing repos of github.com/vishvAsa as one family, since",
+  "they move together and get one issue per run rather than thirteen. See",
+  "tools/reports/vishvasa_gap_report.md for what each repo actually holds, and",
+  "admin/config/sources.registry.json's vishvasa_* entries for the per-repo",
+  "rights position. Delete an entry to force a first-look report for it."
+ ],
+ "checked_at_utc": "2026-09-12T20:24:58Z",
+ "baseline_note": "Initial baseline seeded manually from `git ls-remote` HEAD commits on the `content` branch of each repo, 12 Sep 2026, as part of setting up check-vishvasa.yml -- not a run of the checker script itself. The next scheduled or manual run compares against this and will report real changes from here on.",
+ "sources": {
+  "vishvasa_madhvam": {
+   "fingerprint": "45967ee58014ac46",
+   "detail": {
+    "repo": "vishvAsa/mAdhvam",
+    "branch": "content",
+    "commit": "45967ee58014",
+    "date": "2026-08-22T16:09:41Z"
+   }
+  },
+  "vishvasa_vedah": {
+   "fingerprint": "3fb5abc7eb85750a",
+   "detail": {
+    "repo": "vishvAsa/vedAH",
+    "branch": "content",
+    "commit": "3fb5abc7eb85",
+    "date": "2026-09-03T04:48:06Z"
+   }
+  },
+  "vishvasa_vedah_rk": {
+   "fingerprint": "7bd8dde3c6e123c7",
+   "detail": {
+    "repo": "vishvAsa/vedAH_Rk",
+    "branch": "content",
+    "commit": "7bd8dde3c6e1",
+    "date": "2026-08-28T09:10:00Z"
+   }
+  },
+  "vishvasa_vedah_yajuh": {
+   "fingerprint": "104e234f1e6fc734",
+   "detail": {
+    "repo": "vishvAsa/vedAH_yajuH",
+    "branch": "content",
+    "commit": "104e234f1e6f",
+    "date": "2026-09-10T06:08:31Z"
+   }
+  },
+  "vishvasa_vedah_sama": {
+   "fingerprint": "18ee6af532005859",
+   "detail": {
+    "repo": "vishvAsa/vedAH_sAma",
+    "branch": "content",
+    "commit": "18ee6af53200",
+    "date": "2026-09-11T05:16:16Z"
+   }
+  },
+  "vishvasa_mahabharatam": {
+   "fingerprint": "3405cca553363ae7",
+   "detail": {
+    "repo": "vishvAsa/mahAbhAratam",
+    "branch": "content",
+    "commit": "3405cca55336",
+    "date": "2026-09-09T01:27:08Z"
+   }
+  },
+  "vishvasa_ramayanam": {
+   "fingerprint": "33876b79c79030e2",
+   "detail": {
+    "repo": "vishvAsa/rAmAyaNam",
+    "branch": "content",
+    "commit": "33876b79c790",
+    "date": "2026-08-13T13:06:32Z"
+   }
+  },
+  "vishvasa_puranam_vaishnavam": {
+   "fingerprint": "fc117aa4514dfd4e",
+   "detail": {
+    "repo": "vishvAsa/purANam_vaiShNavam",
+    "branch": "content",
+    "commit": "fc117aa4514d",
+    "date": "2026-09-10T07:36:22Z"
+   }
+  },
+  "vishvasa_mimamsa": {
+   "fingerprint": "756ffc3c60ebd839",
+   "detail": {
+    "repo": "vishvAsa/mImAMsA",
+    "branch": "content",
+    "commit": "756ffc3c60eb",
+    "date": "2026-08-19T10:38:21Z"
+   }
+  },
+  "vishvasa_kalpantaram": {
+   "fingerprint": "dd28d92759903b90",
+   "detail": {
+    "repo": "vishvAsa/kalpAntaram",
+    "branch": "content",
+    "commit": "dd28d9275990",
+    "date": "2026-09-07T08:51:08Z"
+   }
+  },
+  "vishvasa_agamah_vaishnavah": {
+   "fingerprint": "e4e62d90afcb0108",
+   "detail": {
+    "repo": "vishvAsa/AgamaH_vaiShNavaH",
+    "branch": "content",
+    "commit": "e4e62d90afcb",
+    "date": "2026-09-08T11:05:32Z"
+   }
+  },
+  "vishvasa_puranam": {
+   "fingerprint": "0b8ea4520a713011",
+   "detail": {
+    "repo": "vishvAsa/purANam",
+    "branch": "content",
+    "commit": "0b8ea4520a71",
+    "date": "2026-09-02T12:47:49Z"
+   }
+  },
+  "vishvasa_ramanujiyam": {
+   "fingerprint": "2d9289d9b064c226",
+   "detail": {
+    "repo": "vishvAsa/rAmAnujIyam",
+    "branch": "content",
+    "commit": "2d9289d9b064",
+    "date": "2026-09-11T06:35:08Z"
+   }
+  }
+ }
+}

@@ -1,0 +1,137 @@
+name: Check vishvAsa sources for updates
+
+# The 13 text-bearing repos of github.com/vishvAsa (Vishwas Vasuki's personal
+# Sanskrit corpus), asked once a fortnight whether any of them moved. It
+# IMPORTS NOTHING -- same split, and the same reason, as check-sources.yml:
+# a check is safe to run unattended, an import is not.
+#
+# It matters MORE here than for any other source in the registry. Per
+# docs/PENDING.md's own explicit finding (in the ParaBuddhi repo), several
+# works hosted across these repos are NOT cleared by Vishwas Vasuki's personal
+# "take what you like" permission on their own -- e.g. K.E. Devanathan's 2006
+# Sribhashyaprakashah, a modern, still-in-copyright book merely hosted under
+# vishvAsa/rAmAnujIyam's shrI-bhAShyam tree. An auto-import job against this
+# family would be a real legal mistake, not just an engineering shortcut. This
+# job only ever raises a flag for a human to act on -- see
+# tools/reports/vishvasa_gap_report.md for the standing gap analysis and
+# admin/config/sources.registry.json's vishvasa_* entries for the rights
+# position on each repo.
+#
+# WHY ITS OWN WORKFLOW rather than folding these 13 into check-sources.yml's
+# generic github_commit probe: that probe only reports "the sha changed"; this
+# family is worth a richer "how much" (commits ahead, files touched) so a
+# human can judge urgency without opening 13 tabs, and it is one repo family
+# with one issue per run rather than 13 rows buried in the general report. The
+# registry still lists all 13 (probe.kind: "manual", the existing value for
+# "no generic probe") so they show up in the one place every source is meant
+# to be answerable from.
+#
+# WHY FORTNIGHTLY, SAME AS check-sources.yml, DESPITE THIS FAMILY MOVING
+# FASTER: measured over the 9 days since the 3 Sep 2026 gap report, 7 of the
+# 13 repos already had new commits -- genuinely more active than most of this
+# project's other sources. But checking more often would not shorten
+# anything that matters: every change here still needs the same per-work
+# rights check before import (see above), so faster detection buys awareness,
+# not faster imports, and a tighter schedule would just mean more state
+# churn and more "nothing to act on differently" issues. Kept at the
+# established fortnightly rhythm; offset 30 minutes after check-sources.yml's
+# own 06:00 UTC slot purely so the two jobs' state-file commits don't race to
+# push to main in the same minute.
+on:
+  schedule:
+    - cron: "30 6 1,16 * *"
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Check only these vishvasa_* source ids (comma-separated; blank = all 13)"
+        type: string
+        default: ""
+      remember:
+        description: "Record what was seen, so the next run reports only what is new"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: check-vishvasa
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Ask each vishvAsa repo whether it moved
+        id: check
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          ONLY: ${{ inputs.only }}
+          REMEMBER: ${{ inputs.remember }}
+        run: |
+          set -euo pipefail
+          ARGS=()
+          [ -n "${ONLY:-}" ] && ARGS+=(--only "$ONLY")
+          if [ "${REMEMBER:-true}" = "true" ] || [ "${{ github.event_name }}" = "schedule" ]; then
+            ARGS+=(--write-state)
+          fi
+          python3 tools/check_vishvasa.py "${ARGS[@]}" | tee /tmp/report.md
+          if grep -qE '^\| `' /tmp/report.md; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Remember what was seen
+        if: ${{ always() }}
+        run: |
+          set -euo pipefail
+          if [ -n "$(git status --porcelain admin/config/vishvasa.state.json)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add admin/config/vishvasa.state.json
+            git commit -q -m "vishvAsa source check: record what each repo looked like on $(date -u +%F)"
+            # main moves under other jobs too (check-sources.yml chief among
+            # them); rebase and retry rather than fail a job whose actual work
+            # succeeded, same as check-sources.yml does for its own state file.
+            for attempt in 1 2 3; do
+              git push -q && break
+              echo "push rejected, rebasing (attempt $attempt)"
+              git pull -q --rebase origin main || true
+              sleep $((attempt * 3))
+            done
+          fi
+
+      - name: Say so where it will be seen
+        if: ${{ steps.check.outputs.changed == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          TITLE="vishvAsa sources changed — $(date -u +%F)"
+          {
+            echo "A fortnightly check of the 13 text-bearing github.com/vishvAsa repos"
+            echo "found upstream changes. **Nothing has been imported.**"
+            echo ""
+            cat /tmp/report.md
+            echo ""
+            echo "Before importing anything from a changed repo: check its rights line in"
+            echo "\`admin/config/sources.registry.json\` (vishvasa_* entries) and"
+            echo "\`tools/reports/vishvasa_gap_report.md\`, then do a per-work copyright/date"
+            echo "check per docs/PENDING.md's own rule for this family (K.E. Devanathan's"
+            echo "2006 Sribhashyaprakashah is the recorded example of why -- a modern book"
+            echo "merely hosted there, not covered by Vishwas Vasuki's own permission)."
+            echo ""
+            echo "To silence a repo that changes constantly without being worth re-checking,"
+            echo "drop its entry from \`checked_by: \"check-vishvasa.yml\"\` in"
+            echo "\`admin/config/sources.registry.json\`."
+          } > /tmp/issue.md
+          gh issue create --title "$TITLE" --body-file /tmp/issue.md --repo "${{ github.repository }}" \
+            || gh issue comment "$(gh issue list --repo "${{ github.repository }}" --search "vishvAsa sources changed" --limit 1 --json number --jq '.[0].number')" \
+                 --body-file /tmp/issue.md --repo "${{ github.repository }}"
