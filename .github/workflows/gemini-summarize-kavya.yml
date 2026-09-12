@@ -1,0 +1,161 @@
+name: DGE Gemini padaccheda/anvaya/summary (kavya)
+
+# Batch-generates padaccheda/anvaya/summary for a kavya's shlokas using
+# Gemini (see tools/gemini_summarize.py and PENDING.md's Raghavendra
+# Vijaya writeup). Every output is Gemini's own linguistic analysis, not a
+# claim tools/reference_resolution can verify against the corpus -- so
+# unlike gemini-enrich.yml there is no local-verification step here. What
+# keeps this honest instead: (1) Gemini is given the verse's Sanskrit text
+# and this corpus's own linked English translation as context, rather than
+# translating blind; (2) every output lands under a clearly-labeled
+# gemini_padaccheda/gemini_anvaya/gemini_summary key -- "AI ..., unreviewed"
+# -- never presented as a vetted commentary (js/core.js's
+# KNOWN_COMMENTARY_LABELS); (3) review before merge is the default (see
+# direct_push below).
+#
+# Requires a GEMINI_API_KEY repository secret. Same deliberate, scoped
+# exception to this project's BYOK-only convention as gemini-enrich.yml --
+# see that workflow's header comment.
+
+on:
+  workflow_dispatch:
+    inputs:
+      sarga_dir:
+        description: "Directory of sarga_N/data.json subfolders to process"
+        required: true
+        default: data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya
+      cantos:
+        description: "Canto range or comma list, e.g. '1-10' or '1,3,5'"
+        required: true
+        default: "1-10"
+      fields:
+        description: "Comma list of padaccheda/anvaya/summary to generate"
+        required: true
+        default: "padaccheda,anvaya,summary"
+      limit:
+        description: "Analyze at most N verses total (blank = all) -- use this for a first smoke-test run"
+        required: false
+        default: ""
+      model:
+        description: "Gemini model to use. Default is gemini-flash-lite-latest: a real gemini-bench.yml run (see PENDING.md) found gemini-flash-latest resolves to a thinking-capable model that spends MORE tokens on invisible internal reasoning than on the visible answer, making it 4-6x costlier for this task with no measured quality gain -- flash-lite does not do this."
+        required: true
+        default: gemini-flash-lite-latest
+        type: choice
+        options:
+          - gemini-flash-lite-latest
+          - gemini-flash-latest
+      batch_size:
+        description: "Verses per Gemini request -- the cost lever (amortizes fixed prompt overhead across more verses). Default 10 per the gemini-bench.yml run in PENDING.md. 1 = old one-verse-per-call behaviour."
+        required: true
+        default: "10"
+      concurrency:
+        description: "Parallel in-flight requests -- the time lever (does not change total tokens billed). 1 = sequential. Stay at/below whatever tools/gemini_bench.py's concurrency sweep found safe for your Gemini tier."
+        required: true
+        default: "1"
+      direct_push:
+        description: "Skip the review PR and push straight to main (bypasses human review -- use deliberately, e.g. once you've already spot-checked a smaller run's output)"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      # No pip install step: tools/gemini_summarize.py and
+      # tools/gemini_client.py use only the standard library.
+      - name: Run Gemini padaccheda/anvaya/summary (${{ inputs.sarga_dir }}, cantos ${{ inputs.cantos }})
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          SARGA_DIR: ${{ inputs.sarga_dir }}
+          CANTOS: ${{ inputs.cantos }}
+          FIELDS: ${{ inputs.fields }}
+          LIMIT: ${{ inputs.limit }}
+          MODEL: ${{ inputs.model }}
+          BATCH_SIZE: ${{ inputs.batch_size }}
+          CONCURRENCY: ${{ inputs.concurrency }}
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo "::error::GEMINI_API_KEY repository secret is not set. Add it under" \
+                 "Settings -> Secrets and variables -> Actions before running this workflow."
+            exit 1
+          fi
+          ARGS=(--sarga-dir "$SARGA_DIR" --cantos "$CANTOS" --fields "$FIELDS" --model "$MODEL"
+                --batch-size "$BATCH_SIZE" --concurrency "$CONCURRENCY")
+          if [ -n "$LIMIT" ]; then ARGS+=(--limit "$LIMIT"); fi
+          python3 tools/gemini_summarize.py "${ARGS[@]}"
+      - name: Validate corpus data
+        run: python3 tools/validate_data.py
+      - name: Show what changed
+        run: git status --porcelain "${{ inputs.sarga_dir }}"
+
+      # This job's own checkout (this repo, ShriBuddhi) does the generation
+      # above; the final publish targets BrahmaBuddhi as a staging repo
+      # instead of committing/PR-ing straight into ShriBuddhi or bhumandala --
+      # see .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed output into the BrahmaBuddhi checkout
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- "${{ inputs.sarga_dir }}" | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Push directly to BrahmaBuddhi's main
+        if: ${{ fromJSON(inputs.direct_push) }}
+        working-directory: brahmabuddhi
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo "No changes to push."
+            exit 0
+          fi
+          git add -A
+          git commit -m "data: gemini padaccheda/anvaya/summary for ${{ inputs.sarga_dir }} (cantos ${{ inputs.cantos }}) [direct-push]"
+          git push origin HEAD:main
+
+      - name: Open a review PR (against BrahmaBuddhi)
+        if: ${{ !fromJSON(inputs.direct_push) }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: gemini-summarize/${{ github.run_id }}
+          commit-message: "data: gemini padaccheda/anvaya/summary for ${{ inputs.sarga_dir }} (cantos ${{ inputs.cantos }})"
+          title: "Gemini padaccheda/anvaya/summary: ${{ inputs.sarga_dir }} (cantos ${{ inputs.cantos }})"
+          body: |
+            Automated padaccheda/anvaya/summary generation via
+            `tools/gemini_summarize.py` (model: `${{ inputs.model }}`,
+            fields: `${{ inputs.fields }}`, batch_size: `${{ inputs.batch_size }}`,
+            concurrency: `${{ inputs.concurrency }}`).
+
+            Every output landed under a `gemini_padaccheda`/`gemini_anvaya`/
+            `gemini_summary` key and is labeled "AI ..., unreviewed" in the
+            reader (see `js/core.js`'s `KNOWN_COMMENTARY_LABELS`) --
+            this is a first pass, not a scholarly-verified one. Spot-check
+            a sample before merging, especially the padaccheda/anvaya
+            (there is no automatic local verification for these, unlike
+            the citation-enrichment pipeline).
+          add-paths: |
+            ${{ inputs.sarga_dir }}/**

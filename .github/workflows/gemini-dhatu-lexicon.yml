@@ -1,0 +1,150 @@
+name: DGE Gemini dhātu lexicon (multilingual meanings)
+
+# Generates AI (Gemini) multilingual meanings + pedagogical usage notes for
+# roots in the Panini Dhatupatha -- see tools/gemini_dhatu_lexicon.py's own
+# docstring for the full anti-hallucination design (no attribution to any
+# specific traditional commentary, no fake citations, honest "(uncertain)"
+# per language rather than a guess). Content is independently composed by
+# Gemini, not derived from ashtadhyayi.com or any other existing source --
+# the project lead's own framing of the ask, after the 23 Aug removal of
+# the unattributed ashtadhyayi.com English gloss elsewhere in this project
+# (see PENDING.md). Every output is labeled "AI-generated (Gemini),
+# unreviewed" in the reader (js/ai.js's Dhatu modal).
+#
+# Checkpointed and resumable: re-running with the same --dhatus selector
+# only fills in roots that don't already have an entry (pass force to
+# regenerate). Default concurrency is 5, per the project lead's own ask.
+#
+# Requires a GEMINI_API_KEY repository secret. Same deliberate, scoped
+# exception to this project's BYOK-only convention as the other Gemini
+# workflows -- see gemini-enrich.yml's header comment.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dhatus:
+        description: "'all', a comma list of dhatu ids, or an id range 'lo-hi' (e.g. '01.0001-01.0100')"
+        required: true
+        default: "all"
+      model:
+        description: "Gemini model to use. Default is gemini-flash-lite-latest -- see PENDING.md's gemini-bench.yml entry for why."
+        required: true
+        default: gemini-flash-lite-latest
+        type: choice
+        options:
+          - gemini-flash-lite-latest
+          - gemini-flash-latest
+      concurrency:
+        description: "Parallel in-flight requests -- the project lead asked for a batch of 5 at a time. Does not change total tokens billed, only wall-clock."
+        required: true
+        default: "5"
+      limit:
+        description: "Generate at most N roots this run (blank = no limit) -- use this for a first smoke-test run"
+        required: false
+        default: "50"
+      force:
+        description: "Re-generate roots that already have an entry (normally skipped)"
+        required: true
+        default: false
+        type: boolean
+      direct_push:
+        description: "Skip the review PR and push straight to main (bypasses human review -- use deliberately, e.g. once you've already spot-checked a smaller run's output)"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      # No pip install step: tools/gemini_dhatu_lexicon.py and
+      # tools/gemini_client.py use only the standard library.
+      - name: Run Gemini dhātu lexicon (${{ inputs.dhatus }})
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          DHATUS: ${{ inputs.dhatus }}
+          MODEL: ${{ inputs.model }}
+          CONCURRENCY: ${{ inputs.concurrency }}
+          LIMIT: ${{ inputs.limit }}
+        run: |
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo "::error::GEMINI_API_KEY repository secret is not set. Add it under" \
+                 "Settings -> Secrets and variables -> Actions before running this workflow."
+            exit 1
+          fi
+          ARGS=(--dhatus "$DHATUS" --model "$MODEL" --concurrency "$CONCURRENCY")
+          if [ -n "$LIMIT" ]; then ARGS+=(--limit "$LIMIT"); fi
+          if [ "${{ inputs.force }}" = "true" ]; then ARGS+=(--force); fi
+          python3 tools/gemini_dhatu_lexicon.py "${ARGS[@]}"
+      - name: Validate corpus data
+        run: python3 tools/validate_data.py
+      - name: Show what changed
+        run: git status --porcelain data/vedanga/vyakarana/dhatu_lexicon
+
+      # This job's own checkout (this repo, ShriBuddhi) does the generation
+      # above; the final publish targets BrahmaBuddhi as a staging repo
+      # instead of committing/PR-ing straight into ShriBuddhi or bhumandala --
+      # see .github/workflows/push-to-brahmabuddhi.yml.
+      - name: Checkout BrahmaBuddhi
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/BrahmaBuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          path: brahmabuddhi
+
+      - name: Mirror changed output into the BrahmaBuddhi checkout
+        run: |
+          set -euo pipefail
+          CHANGED=$(git status --porcelain -- data/vedanga/vyakarana/dhatu_lexicon | awk '{print $2}')
+          for f in $CHANGED; do
+            mkdir -p "brahmabuddhi/$(dirname "$f")"
+            cp -a "$f" "brahmabuddhi/$f"
+          done
+
+      - name: Push directly to BrahmaBuddhi's main
+        if: ${{ fromJSON(inputs.direct_push) }}
+        working-directory: brahmabuddhi
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo "No changes to push."
+            exit 0
+          fi
+          git add -A
+          git commit -m "data: gemini dhatu lexicon (${{ inputs.dhatus }}) [direct-push]"
+          git push origin HEAD:main
+
+      - name: Open a review PR (against BrahmaBuddhi)
+        if: ${{ !fromJSON(inputs.direct_push) }}
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: brahmabuddhi
+          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
+          branch: gemini-dhatu-lexicon/${{ github.run_id }}
+          commit-message: "data: gemini dhatu lexicon (${{ inputs.dhatus }})"
+          title: "Gemini dhātu lexicon: ${{ inputs.dhatus }}"
+          body: |
+            Automated multilingual dhātu meanings + pedagogical usage notes
+            via `tools/gemini_dhatu_lexicon.py` (model: `${{ inputs.model }}`,
+            concurrency: `${{ inputs.concurrency }}`).
+
+            Independently composed by Gemini -- not derived from
+            ashtadhyayi.com or any other existing source. Labeled "AI
+            Multilingual Meanings (Gemini, unreviewed)" in the reader
+            (`js/ai.js`'s Dhātu modal) -- this is a first pass, not a
+            scholarly-verified one. Spot-check a sample before merging.
+          add-paths: |
+            data/vedanga/vyakarana/dhatu_lexicon/**
