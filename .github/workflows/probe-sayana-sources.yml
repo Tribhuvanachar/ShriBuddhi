@@ -1,0 +1,108 @@
+name: Probe — sanskritebooks.org, and how bad the Devanagari OCR really is
+
+# Diagnostic only. Fetches nothing into , opens no PR.
+#
+# Two open questions about Sayana, now that wisdomlib is known to refuse every
+# datacenter IP range (250/250 x 403, /robots.txt included):
+#
+#   1. sanskritebooks.org -- suggested as a source. Is it reachable from a
+#      runner, and does it host text or only links to scans?
+#
+#   2. AUDIT.md ruled the archive.org scans out because "Devanagari OCR is not
+#      good enough to ingest unreviewed". The earlier probe only sampled the
+#      English preface of one item, which proves nothing either way about the
+#      bhashya body. This samples the actual Devanagari and counts what came
+#      back, so the judgement rests on the text rather than on reputation.
+#
+# The measurement that matters for (2) is not "does it look messy" but whether
+# a mantra's pratika can be located in the OCR at all. If the anchor cannot be
+# found, alignment is impossible and the quality question is moot.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/probe-sayana-sources.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Is sanskritebooks.org reachable, and what does it serve?
+        run: |
+          BOT_UA="DGE-import/1.0 (Digital Grantha Engine; non-commercial educational digital library; github.com/Tribhuvanachar/bhumandala)"
+          for u in "https://www.sanskritebooks.org/" \
+                   "https://www.sanskritebooks.org/robots.txt" \
+                   "https://www.sanskritebooks.org/2010/02/rigveda-sayana-bhashya-sanskrit/" \
+                   "https://www.sanskritebooks.org/?s=sayana"; do
+            code=$(curl -s -o /tmp/page.html -w '%{http_code}' -m 30 -A "$BOT_UA" -L "$u" || echo ERR)
+            size=$(wc -c < /tmp/page.html 2>/dev/null || echo 0)
+            printf '%-6s %-8s %s\n' "$code" "${size}B" "$u"
+          done
+          echo
+          echo "--- where do its download links point? ---"
+          curl -s -m 30 -A "$BOT_UA" -L "https://www.sanskritebooks.org/?s=rigveda+sayana" \
+            | grep -oE 'https?://[a-zA-Z0-9./_-]+\.(pdf|zip|djvu|txt)' | sort -u | head -20
+          echo "(if these are archive.org or Google Drive links, sanskritebooks is an"
+          echo " index over the same scans, not a separate text source)"
+
+      - name: Sample the actual Devanagari, not the preface
+        run: |
+          python - <<'PY'
+          import json, re, urllib.parse, urllib.request
+
+          UA = {"User-Agent": "DGE-import/1.0 (Digital Grantha Engine; non-commercial "
+                              "educational digital library; github.com/Tribhuvanachar/bhumandala)"}
+          def get(url, rng=None):
+              req = urllib.request.Request(url, headers=dict(UA))
+              if rng: req.add_header("Range", f"bytes={rng[0]}-{rng[1]}")
+              return urllib.request.urlopen(req, timeout=120).read()
+
+          ident = "rgveda-with-sayanabhasya"
+          meta = json.loads(get(f"https://archive.org/metadata/{ident}"))
+          txt = [f for f in meta.get("files", []) if f.get("name","").endswith("_djvu.txt")]
+          if not txt:
+              print("no OCR layer"); raise SystemExit(0)
+          name = txt[0]["name"]
+          size = int(txt[0].get("size", 0))
+          url = f"https://archive.org/download/{ident}/{urllib.parse.quote(name)}"
+          print(f"file: {name}  ({size/1048576:.1f} MB)")
+
+          # Pull a slab from ~40% in -- past all front matter, squarely in the body.
+          start = int(size * 0.40)
+          raw = get(url, (start, start + 400_000)).decode("utf-8", "replace")
+
+          deva = sum(1 for c in raw if "ऀ" <= c <= "ॿ")
+          latin = sum(1 for c in raw if c.isascii() and c.isalpha())
+          print(f"slab: {len(raw)} chars — {deva} Devanagari, {latin} Latin\n")
+          print("=== 1200 chars of the body ===")
+          print(raw[20000:21200])
+
+          # The real test: can a known mantra's opening words be found?
+          # RV 1.1.1 -- if the anchor is not locatable, alignment is impossible
+          # regardless of how the rest of the OCR reads.
+          print("\n=== anchor search: can RV 1.1.1's pratika be located? ===")
+          for probe in ["अग्निमीळे", "अग्निमीडे", "पुरोहितं", "अग्निमी"]:
+              hits = raw.count(probe)
+              print(f"  {probe!r:<16} {hits} hit(s) in this slab")
+          # Reference markers the docmap could align to
+          refs = re.findall(r"[०-९\d]+\s*[।\.]\s*[०-९\d]+\s*[।\.]\s*[०-९\d]+", raw)
+          print(f"\n  numeric x.y.z reference markers in slab: {len(refs)}")
+          print(f"  sample: {refs[:12]}")
+          PY
+
+      - name: Verdict
+        run: |
+          echo "Alignment needs two things from any candidate source: locatable"
+          echo "per-mantra anchors, and OCR clean enough that attaching the wrong"
+          echo "commentary is detectable. If the anchor search above found nothing,"
+          echo "this source cannot be aligned and the OCR quality does not matter."

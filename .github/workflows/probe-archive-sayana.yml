@@ -1,0 +1,118 @@
+name: Probe — is Sayana obtainable from archive.org
+
+# Diagnostic only. Writes nothing into , opens no PR.
+#
+# probe-sources.yml established that a runner reaches archive.org (200 on the
+# details, metadata and search APIs) while wisdomlib and sacred-texts refuse it
+# outright. archive.org is therefore the only live route to Sayana left, so the
+# question is no longer "can we reach it" but "is what is there ingestible".
+#
+# AUDIT.md ruled the scans out on the grounds that Devanagari OCR is not good
+# enough to ingest unreviewed. That judgement is almost certainly right for the
+# Sanskrit bhashya -- but Wilson's edition, which is what the wisdomlib import
+# was pulling anyway, renders Sayana in ENGLISH, and English OCR from archive.org
+# is a different proposition entirely. This job looks at both and prints raw
+# samples so the call can be made on evidence rather than on assumption.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/probe-archive-sayana.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Search archive.org for Sayana and Wilson Rigveda items
+        run: |
+          python - <<'PY'
+          import json, urllib.parse, urllib.request
+
+          UA = {"User-Agent": "DGE-import/1.0 (Digital Grantha Engine; non-commercial "
+                              "educational digital library; github.com/Tribhuvanachar/bhumandala)"}
+
+          def get(url):
+              return urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=45).read()
+
+          def search(q, rows=12):
+              url = ("https://archive.org/advancedsearch.php?q=" + urllib.parse.quote(q) +
+                     "&fl[]=identifier&fl[]=title&fl[]=language&fl[]=year"
+                     f"&rows={rows}&page=1&output=json")
+              return json.loads(get(url))["response"]["docs"]
+
+          for label, q in [
+              ("Wilson's English Rigveda (renders Sayana)",
+               'title:(rig veda) AND title:(wilson)'),
+              ("Sanskrit Rigveda with Sayanabhasya",
+               'title:(rigveda OR "rig veda") AND title:(sayana OR sayanabhasya OR bhashya)'),
+          ]:
+              print(f"\n=== {label} ===")
+              try:
+                  for d in search(q):
+                      print(f"  {d.get('identifier','?'):<45} {str(d.get('language','?'))[:12]:<13} "
+                            f"{str(d.get('year','?')):<6} {str(d.get('title',''))[:70]}")
+              except Exception as e:
+                  print(f"  !! search failed: {e}")
+          PY
+
+      - name: Inspect the known Sayanabhasya item and sample its OCR
+        run: |
+          python - <<'PY'
+          import json, urllib.parse, urllib.request
+
+          UA = {"User-Agent": "DGE-import/1.0 (Digital Grantha Engine; non-commercial "
+                              "educational digital library; github.com/Tribhuvanachar/bhumandala)"}
+
+          def get(url):
+              return urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=90).read()
+
+          for ident in ["rgveda-with-sayanabhasya"]:
+              print(f"\n=== metadata: {ident} ===")
+              try:
+                  meta = json.loads(get(f"https://archive.org/metadata/{ident}"))
+              except Exception as e:
+                  print(f"  !! {e}")
+                  continue
+              m = meta.get("metadata", {})
+              print(f"  title    : {m.get('title')}")
+              print(f"  creator  : {m.get('creator')}")
+              print(f"  language : {m.get('language')}")
+              print(f"  licence  : {m.get('licenseurl') or m.get('rights') or '(none stated)'}")
+              files = meta.get("files", [])
+              print(f"  files    : {len(files)}")
+              txt = [f for f in files if f.get("name", "").endswith((".txt", "_djvu.txt"))]
+              for f in txt[:6]:
+                  size = int(f.get("size", 0)) / 1048576
+                  print(f"    TEXT  {f['name']}  ({size:.1f} MB)")
+              if not txt:
+                  print("    (no OCR text layer -- images only, not ingestible)")
+                  continue
+
+              name = txt[0]["name"]
+              print(f"\n=== OCR sample from {name} (first 1500 chars) ===")
+              try:
+                  raw = get(f"https://archive.org/download/{ident}/{urllib.parse.quote(name)}")
+                  s = raw.decode("utf-8", "replace")
+                  body = s[2000:3500]
+                  print(body)
+                  deva = sum(1 for c in body if "ऀ" <= c <= "ॿ")
+                  latin = sum(1 for c in body if c.isascii() and c.isalpha())
+                  print(f"\n  --- character mix in sample: {deva} Devanagari, {latin} Latin ---")
+              except Exception as e:
+                  print(f"  !! could not fetch text: {e}")
+          PY
+
+      - name: Verdict
+        run: |
+          echo "Read the samples above. The question is whether the OCR is clean"
+          echo "enough to attach to a mantra without human review -- and whether"
+          echo "any of it carries a per-mantra reference the docmap could align to."

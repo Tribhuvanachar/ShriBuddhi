@@ -1,0 +1,72 @@
+name: Probe — which import sources can Actions reach
+
+# Diagnostic only. Fetches nothing, writes nothing, opens no PR.
+#
+# The Sayana smoke test (run 32104407939) came back with 50/50 pages failed and
+# 250 consecutive HTTP 403s from wisdomlib.org, which falsifies the assumption
+# the importer was built on: that GitHub Actions has open egress where the
+# authoring sandbox did not. Before rebuilding the importer around a different
+# source, we need to know which sources a runner can actually reach -- guessing
+# costs another 30-minute round trip each time.
+#
+# Two user agents are sent to each host: the importer's own declared bot UA and
+# curl's default. Neither impersonates a browser. If both are refused the block
+# is by IP (datacenter range), and no amount of header work from Actions will
+# change it; if only the declared bot UA is refused, the site is declining
+# crawlers by name and the answer is to ask them, not to disguise the request.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/probe-sources.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Probe each candidate source
+        run: |
+          BOT_UA="DGE-import/1.0 (Digital Grantha Engine; non-commercial educational digital library; github.com/Tribhuvanachar/bhumandala)"
+
+          probe () {
+            label="$1"; url="$2"
+            bot=$(curl -s -o /dev/null -w '%{http_code}' -m 25 -A "$BOT_UA" -L "$url" || echo "ERR")
+            def=$(curl -s -o /dev/null -w '%{http_code}' -m 25 -L "$url" || echo "ERR")
+            printf '%-34s bot=%-5s default=%-5s  %s\n' "$label" "$bot" "$def" "$url"
+          }
+
+          echo "=== the source the importer was built on ==="
+          probe "wisdomlib mantra page"  "https://www.wisdomlib.org/hinduism/book/rig-veda-english-translation/d/doc828866.html"
+          probe "wisdomlib robots.txt"   "https://www.wisdomlib.org/robots.txt"
+
+          echo
+          echo "=== Sayana alternatives (scans / OCR) ==="
+          probe "archive.org details"    "https://archive.org/details/rgveda-with-sayanabhasya"
+          probe "archive.org metadata"   "https://archive.org/metadata/rgveda-with-sayanabhasya"
+          probe "archive.org search API" "https://archive.org/advancedsearch.php?q=sayana+rigveda&output=json&rows=1"
+
+          echo
+          echo "=== the Smriti importer's own sources (never tested from Actions) ==="
+          probe "sacred-texts SBE 7"     "https://sacred-texts.com/hin/sbe07/index.htm"
+          probe "GRETIL Manu"            "https://gretil.sub.uni-goettingen.de/gretil/1_sanskr/6_sastra/4_dharma/smrti/manu2p.htm"
+          probe "sanskritdocuments veda" "https://sanskritdocuments.org/sanskrit/veda/"
+          probe "docs.google export"     "https://docs.google.com/document/d/1nUAf0Kg-Xy0Xz9BvJPBpXvVvVBqjMBLQ/export?format=txt"
+
+          echo
+          echo "=== the one lead AUDIT.md flagged as untested ==="
+          probe "sa.wikisource API"      "https://sa.wikisource.org/w/api.php?action=query&meta=siteinfo&format=json"
+          probe "en.wikisource API"      "https://en.wikisource.org/w/api.php?action=query&meta=siteinfo&format=json"
+
+          echo
+          echo "=== other Vedic corpora ==="
+          probe "VedaWeb (Cologne)"      "https://vedaweb.uni-koeln.de/rigveda/api/document/id/0100101"
+          probe "TITUS Frankfurt"        "https://titus.uni-frankfurt.de/indexe.htm"
+
+          echo
+          echo "200 = reachable. 403 = refused. 000/ERR = blocked or timed out."
+          echo "This job never fails on a bad code -- read the table."

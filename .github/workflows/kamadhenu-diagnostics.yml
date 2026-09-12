@@ -1,0 +1,77 @@
+# Kamadhenu Space — the 2×2 zero-shot diagnostics (7 Sep 2026).
+#
+# Renders four clips on the Space's IndicF5 zero-shot engine and stores them as a workflow artifact for the
+# project lead to listen to:
+#   A  IndicF5's own prompt clip  + the model card's Hindi sentence   (is the deployment itself sound?)
+#   B  the lead's chanted clip     + the same Hindi sentence          (does the chant reference alone garble speech?)
+#   C  IndicF5's own prompt clip  + Gītā 1.1 (Sanskrit śloka)        (does Sanskrit text alone garble it?)
+#   D  the lead's chanted clip     + Gītā 1.1                          (the trial as the lead heard it)
+# Reading the four together: A clear and D garbled is expected; B tells whether the chant tempo/style of the
+# reference is the gap, C whether Sanskrit is. Uses the PRO account's ZeroGPU quota (~4 × 14 GPU s).
+name: Kamadhenu Space — zero-shot diagnostics
+
+on:
+  workflow_dispatch:
+    inputs:
+      space:
+        description: "Hugging Face Space id"
+        required: true
+        default: "SarvamulaOrg/kamadhenu"
+      seed:
+        description: "seed"
+        required: false
+        default: "60"
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Render the four clips
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$HF_TOKEN" || { echo "HF_TOKEN secret is not set"; exit 1; }
+          HOST="https://$(echo '${{ inputs.space }}' | tr '/' '-' | tr 'A-Z' 'a-z').hf.space"
+          SEED='${{ inputs.seed }}'
+          HINDI='नमस्ते! संगीत की तरह जीवन भी खूबसूरत होता है, बस इसे सही ताल में जीना आना चाहिए.'
+          GITA='धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः ।\nमामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय ॥'
+          mkdir -p out
+          render () {   # $1 label  $2 text  $3 ref
+            BODY=$(python3 -c 'import json,sys; print(json.dumps({"data":[sys.argv[1].replace("\\n","\n"),sys.argv[2],int(sys.argv[3])]}, ensure_ascii=False))' "$2" "$3" "$SEED")
+            EV=$(curl -sS -H "Authorization: Bearer $HF_TOKEN" -H "Content-Type: application/json" -d "$BODY" "$HOST/gradio_api/call/diagnose")
+            ID=$(echo "$EV" | python3 -c 'import sys,json; print(json.load(sys.stdin)["event_id"])')
+            timeout 600 curl -sS -N -H "Authorization: Bearer $HF_TOKEN" "$HOST/gradio_api/call/diagnose/$ID" > "out/$1.sse"
+            python3 - "$1" "$HOST" <<'PY'
+          import json, sys, re, urllib.request, os
+          label, host = sys.argv[1], sys.argv[2]
+          data = None
+          for line in open(f"out/{label}.sse", encoding="utf-8"):
+              if line.startswith("data:"):
+                  try:
+                      d = json.loads(line[5:])
+                      if isinstance(d, list) and len(d) == 2: data = d
+                  except Exception: pass
+          if not data or data[0] is None:
+              print(f"{label}: FAILED {data}"); open(f"out/{label}.FAILED.json","w").write(json.dumps(data, ensure_ascii=False, indent=1)); sys.exit(0)
+          url = data[0].get("url") or (host + "/gradio_api/file=" + data[0]["path"])
+          req = urllib.request.Request(url, headers={"Authorization": "Bearer " + os.environ["HF_TOKEN"]})
+          open(f"out/{label}.wav","wb").write(urllib.request.urlopen(req, timeout=120).read())
+          open(f"out/{label}.json","w",encoding="utf-8").write(json.dumps(data[1], ensure_ascii=False, indent=1))
+          m = data[1]; print(f"{label}: {m.get('audio_seconds')} s audio, {m.get('gpu_seconds')} GPU s, ref {m.get('reference',{}).get('id')}")
+          PY
+          }
+          render A_indicf5prompt_hindi "$HINDI" indicf5_pan_f_happy
+          render B_leadchant_hindi     "$HINDI" tp_anushtubh_19
+          render C_indicf5prompt_gita  "$GITA"  indicf5_pan_f_happy
+          render D_leadchant_gita      "$GITA"  tp_anushtubh_19
+          ls -la out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kamadhenu-diagnostics
+          path: out/
+          if-no-files-found: error

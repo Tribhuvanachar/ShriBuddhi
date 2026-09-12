@@ -1,0 +1,121 @@
+# Deploy the static site to Firebase Hosting (project from the FIREBASE_PROJECT_ID secret).
+#
+# Context: GO_LIVE_ARCHITECTURE.md §3 and the lead's "GitHub Pages → Firebase Migration Guide"
+# (6 Sep 2026). GitHub Pages stays the live origin until the DNS cutover in that guide's Part 3; this
+# workflow publishes the same commit to https://<project>.web.app so it can be checked first.
+#
+# 8 Sep 2026: uses FIREBASE_SETUP.md §0.1's now-resolved service account (secret + IAM roles +
+# correct FIREBASE_PROJECT_ID). One Hosting-specific issue on top of that: the CLI rejected
+# firebase/firebase.json's hosting.public ("../..", reaching the repo root) with
+# "Error: ../.. is outside of project directory" -- firebase-tools requires hosting.public to resolve
+# within the directory containing the config file it's reading. Fixed by giving Hosting its own config
+# at the repo root, ../firebase-hosting.json (public: "."), used here via --config instead of
+# firebase/firebase.json (which still owns firestore/functions/emulators, unchanged).
+#
+# Secrets used (Settings → Secrets and variables → Actions):
+#   FIREBASE_PROJECT_ID        e.g. sarvamula-org                       (added by the lead 6 Sep 2026)
+#   FIREBASE_SERVICE_ACCOUNT   the JSON key of the firebase-adminsdk service account (whole file) — OR the
+#                              fields as separate secrets: FIREBASE_PRIVATE_KEY, FIREBASE_PRIVATE_KEY_ID,
+#                              FIREBASE_CLIENT_EMAIL, FIREBASE_CLIENT_ID (the lead stored them this way, 6 Sep 2026).
+# FIREBASE_API_KEY / FIREBASE_AUTH_DOMAIN are not needed here: the web config is public and lives in
+# js/config.js (FIREBASE_SETUP.md §4).
+name: Deploy — Firebase Hosting
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: "Hosting channel: 'live' publishes to <project>.web.app; any other name makes a temporary preview URL"
+        required: true
+        default: "preview"
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      # 12 Sep 2026: this workflow moved here from bhumandala (Buddhi), which
+      # is what's actually served -- the site content to deploy has to come
+      # from THERE, not from this repo's own (possibly stale) copy.
+      - name: Checkout bhumandala (the site actually being deployed)
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/bhumandala
+          token: ${{ secrets.BUDDHI_TOKEN }}
+          path: bhumandala
+      - name: Assemble the service-account key from the repository secrets
+        # Accepts either the whole JSON in FIREBASE_SERVICE_ACCOUNT (or one of the common alternative names)
+        # or the individual fields the lead stored one secret each (FIREBASE_PRIVATE_KEY, FIREBASE_PRIVATE_KEY_ID,
+        # FIREBASE_CLIENT_EMAIL, FIREBASE_CLIENT_ID; the remaining fields are constants). Prints only which
+        # secret NAMES were found — never a value. The assembled key is written to a file the deploy step reads.
+        env:
+          PID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          SA_JSON_1: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          SA_JSON_2: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+          SA_JSON_3: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SARVAMULA_ORG }}
+          SA_JSON_4: ${{ secrets.FIREBASE_ADMIN_SDK }}
+          SA_JSON_5: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
+          F_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+          F_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
+          F_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          F_CLIENT_ID: ${{ secrets.FIREBASE_CLIENT_ID }}
+        run: |
+          test -n "$PID" || { echo "FIREBASE_PROJECT_ID secret is not set"; exit 1; }
+          python3 - <<'PY'
+          import json, os, sys
+          found = []
+          sa = None
+          for name in ("SA_JSON_1", "SA_JSON_2", "SA_JSON_3", "SA_JSON_4", "SA_JSON_5"):
+              v = os.environ.get(name, "").strip()
+              if v:
+                  try:
+                      sa = json.loads(v); found.append(name); break
+                  except Exception:
+                      print(f"{name} is set but is not valid JSON")
+          if sa is None:
+              f = {k: os.environ.get(k, "") for k in ("F_PRIVATE_KEY", "F_PRIVATE_KEY_ID", "F_CLIENT_EMAIL", "F_CLIENT_ID")}
+              present = [k for k, v in f.items() if v.strip()]
+              print("per-field secrets present:", ", ".join(present) or "none")
+              if f["F_PRIVATE_KEY"].strip() and f["F_CLIENT_EMAIL"].strip():
+                  key = f["F_PRIVATE_KEY"].replace("\\n", "\n")
+                  email = f["F_CLIENT_EMAIL"].strip()
+                  sa = {"type": "service_account", "project_id": os.environ["PID"], "private_key_id": f["F_PRIVATE_KEY_ID"].strip(),
+                        "private_key": key, "client_email": email, "client_id": f["F_CLIENT_ID"].strip(),
+                        "auth_uri": "https://accounts.google.com/o/oauth2/auth", "token_uri": "https://oauth2.googleapis.com/token",
+                        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+                        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/" + email.replace("@", "%40"),
+                        "universe_domain": "googleapis.com"}
+                  found.append("assembled from FIREBASE_PRIVATE_KEY + FIREBASE_CLIENT_EMAIL (+ id fields)")
+          if sa is None:
+              print("No service-account key found. Add ONE secret FIREBASE_SERVICE_ACCOUNT holding the whole JSON key file, "
+                    "or the fields FIREBASE_PRIVATE_KEY, FIREBASE_PRIVATE_KEY_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_CLIENT_ID.")
+              sys.exit(1)
+          if not str(sa.get("private_key", "")).startswith("-----BEGIN"):
+              print("private_key does not look like a PEM key (should start with -----BEGIN PRIVATE KEY-----)"); sys.exit(1)
+          os.makedirs(os.path.expanduser("~/.sa"), exist_ok=True)
+          with open(os.path.expanduser("~/.sa/key.json"), "w") as fh:
+              json.dump(sa, fh)
+          print("service account:", sa.get("client_email"), "| source:", ", ".join(found))
+          PY
+      - name: Deploy with the Firebase CLI
+        # Run from the bhumandala checkout's root with --config firebase-hosting.json
+        # (not firebase/firebase.json) so hosting.public: "." stays within the CLI's
+        # "project directory" -- see the header note above. --project is passed
+        # explicitly on every command, so no .firebaserc is needed.
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /home/runner/.sa/key.json
+          PID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          CHANNEL: ${{ inputs.channel }}
+        working-directory: bhumandala
+        run: |
+          npm install -g firebase-tools@15 >/dev/null 2>&1
+          if [ "$CHANNEL" = "live" ]; then
+            firebase deploy --only hosting --project "$PID" --non-interactive --config firebase-hosting.json
+            echo "live: https://$PID.web.app"
+          else
+            firebase hosting:channel:deploy "$CHANNEL" --project "$PID" --expires 7d --non-interactive --config firebase-hosting.json
+          fi
