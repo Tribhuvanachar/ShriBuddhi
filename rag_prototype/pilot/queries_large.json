@@ -1,0 +1,58 @@
+[
+  {"id": "sa1", "category": "sa_to_sa", "script": "deva", "query": "आत्मा एव अग्रे एकः आसीत् अन्यत् किमपि नासीत्", "target_parent": "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.1"},
+  {"id": "sa2", "category": "sa_to_sa", "script": "deva", "query": "स मनसा विचारयामास लोकान् सृजामि इति", "target_parent": "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.2"},
+  {"id": "sa3", "category": "sa_to_sa", "script": "deva", "query": "मुखात् उत्पन्ना वाक्", "target_parent": "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.13"},
+  {"id": "sa4", "category": "sa_to_sa", "script": "deva", "query": "कर्णाभ्यां श्रवणेन्द्रियम् उत्पन्नम्", "target_parent": "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.22"},
+  {"id": "sa5", "category": "sa_to_sa", "script": "deva", "query": "अक्षिभ्यां चक्षुरिन्द्रियम् जातम्, चक्षुषश्च सूर्यः", "target_parent": "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.19"},
+
+  {"id": "com1", "category": "sa_to_commentary", "script": "deva", "query": "ब्रह्मा आदिर्येषां देवानां ते ब्रह्मादयः इत्यर्थः", "target_parent": "stotra/PrahladaKrutaNarasimha::1"},
+  {"id": "com2", "category": "sa_to_commentary", "script": "deva", "query": "जात्यादिकं न भगवत्प्रीणने कारणम्, भक्तिरेव तत्र कारणम्", "target_parent": "stotra/PrahladaKrutaNarasimha::2"},
+  {"id": "com3", "category": "sa_to_commentary", "script": "deva", "query": "ब्रह्मादयो देवाः तव आज्ञाकारिणः, न भीताः, यतो न प्रलयकालोऽयम्", "target_parent": "stotra/PrahladaKrutaNarasimha::6"},
+  {"id": "com4", "category": "sa_to_commentary", "script": "deva", "query": "सत्त्वगुणे एव एकाग्रा बुद्धिर्येषां ते सत्त्वैकतानमतयः इति व्याख्या", "target_parent": "stotra/PrahladaKrutaNarasimha::1"},
+
+  {"id": "ens1", "category": "en_to_sa", "script": "latin", "query": "In the beginning, the Self alone existed; nothing else stirred.", "target_parent": "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.1"},
+  {"id": "ens2", "category": "en_to_sa", "script": "latin", "query": "He thought to himself: let me create the worlds.", "target_parent": "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.2"},
+  {"id": "ens3", "category": "en_to_sa", "script": "latin", "query": "From his mouth came forth speech.", "target_parent": "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.13"},
+  {"id": "ens4", "category": "en_to_sa", "script": "latin", "query": "From the ears, the sense of hearing was born.", "target_parent": "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.22"},
+  {"id": "ens5", "category": "en_to_sa", "script": "latin", "query": "Prahlada says he does not fear the Lord's terrifying form, with its crooked, fiery eyes and furrowed brow.", "target_parent": "stotra/PrahladaKrutaNarasimha::8"},
+  {"id": "ens6", "category": "en_to_sa", "script": "latin", "query": "I am terrified by this unbearable and cruel cycle of worldly existence, O compassionate one.", "target_parent": "stotra/PrahladaKrutaNarasimha::9"},
+
+  {"id": "entp1", "category": "en_to_entrans_to_sa_parent", "script": "latin", "query": "A prayer to Narasimha's claw, who took ten incarnations, to grant prosperity to devotees", "target_parent": "kavya_alankara/raghavendra_vijaya/sarga_1::1"},
+  {"id": "entp2", "category": "en_to_entrans_to_sa_parent", "script": "latin", "query": "Praise of Krishna who held butter in his hand and is glorified by the Vedas and Brahma-mimamsa", "target_parent": "kavya_alankara/raghavendra_vijaya/sarga_1::2"},
+  {"id": "entp3", "category": "en_to_entrans_to_sa_parent", "script": "latin", "query": "A wish that Madhwacharya's brilliant wisdom shine in the poet's mind like moonlight swelling the ocean", "target_parent": "kavya_alankara/raghavendra_vijaya/sarga_1::3"},
+  {"id": "entp4", "category": "en_to_entrans_to_sa_parent", "script": "latin", "query": "Goddess Sharada dances on Raghavendra's tongue, illuminating his eloquence like autumn moonlight", "target_parent": "kavya_alankara/raghavendra_vijaya/sarga_1::4"},
+  {"id": "entp5", "category": "en_to_entrans_to_sa_parent", "script": "latin", "query": "Just as a hard diamond is valued only when appraised by experts, a difficult composition is praised by the learned", "target_parent": "kavya_alankara/raghavendra_vijaya/sarga_1::5"},
+  {"id": "entp6", "category": "en_to_entrans_to_sa_parent", "script": "latin", "query": "Even a mute person becomes eloquent and a poor person becomes wealthy by Raghavendra's grace", "target_parent": "kavya_alankara/raghavendra_vijaya/sarga_1::13"},
+  {"id": "entp7", "category": "en_to_entrans_to_sa_parent", "script": "latin", "query": "The poet bows to his own father, who gained great scholarship by worshipping Lord Narasimha", "target_parent": "kavya_alankara/raghavendra_vijaya/sarga_1::14"},
+
+  {"id": "knkn1", "category": "kn_to_kn", "script": "kannada", "query": "ಹಲವು ದೇಶಗಳ ರಾಜರೂ ವೀರರೂ ಕುರುಪಾಂಡವರೂ ಹೇಗೆ ಯುದ್ಧ ಮಾಡಿದರು ಎಂದು ಜನಮೇಜಯ ಕೇಳಿದನು", "target_parent": "itihasa/mahabharata_kannada/bhishma_parva::0601001-1"},
+  {"id": "knkn2", "category": "kn_to_kn", "script": "kannada", "query": "ಭೀಷ್ಮನನ್ನು ಮುಂದಿಟ್ಟುಕೊಂಡು ಕೌರವರು ಭೀಮಸೇನನ ಎದುರು ಪ್ರತಿಯಾಗಿ ಯುದ್ಧ ಮಾಡಿದರು", "target_parent": "itihasa/mahabharata_kannada/bhishma_parva::0601001-2"},
+  {"id": "knkn3", "category": "kn_to_kn", "script": "kannada", "query": "ಯುಧಿಷ್ಠಿರನು ತನ್ನ ಸೈನಿಕರಿಗಾಗಿ ಸಾವಿರಾರು ಶಿಬಿರಗಳನ್ನು ನಿರ್ಮಿಸಿದನು", "target_parent": "itihasa/mahabharata_kannada/bhishma_parva::0601001-8"},
+  {"id": "knkn4", "category": "kn_to_kn", "script": "kannada", "query": "ಸೂರ್ಯನು ಎಷ್ಟು ಪ್ರದೇಶದಲ್ಲಿ ಬೆಳಗುತ್ತಾನೋ ಅಷ್ಟು ದೂರದಿಂದ ಸೈನ್ಯಗಳು ಬಂದು ಸೇರಿದವು", "target_parent": "itihasa/mahabharata_kannada/bhishma_parva::0601001-10"},
+
+  {"id": "enkn1", "category": "en_to_kn", "script": "latin", "query": "How did the great kings and warriors of the Kuru-Pandava-Somaka side fight at Kurukshetra?", "target_parent": "itihasa/mahabharata_kannada/bhishma_parva::0601001-1"},
+  {"id": "enkn2", "category": "en_to_kn", "script": "latin", "query": "Bhishma led the Kaurava forces against Bhimasena, the Pandava commander", "target_parent": "itihasa/mahabharata_kannada/bhishma_parva::0601001-2"},
+  {"id": "enkn3", "category": "en_to_kn", "script": "latin", "query": "Yudhishthira ordered thousands of camps to be built around Samantapanchaka", "target_parent": "itihasa/mahabharata_kannada/bhishma_parva::0601001-8"},
+  {"id": "enkn4", "category": "en_to_kn", "script": "latin", "query": "The remaining land looked empty, left only with the old and the young, without soldiers or war-elephants", "target_parent": "itihasa/mahabharata_kannada/bhishma_parva::0601001-9"},
+  {"id": "enkn5", "category": "en_to_kn", "script": "latin", "query": "Yudhishthira gave his soldiers secret code-words like 'Jaya Rama, Jaya Krishna' to identify each other", "target_parent": "itihasa/mahabharata_kannada/bhishma_parva::0601001-13"},
+
+  {"id": "cc1", "category": "conceptual", "script": "latin", "query": "Which verse argues that wealth, noble birth, beauty and austerity alone cannot please God without devotion?", "target_parent": "stotra/PrahladaKrutaNarasimha::2"},
+  {"id": "cc2", "category": "conceptual", "script": "latin", "query": "Which verse says that even a person of low birth who has surrendered mind, speech, body and life to the Lord purifies the whole world?", "target_parent": "stotra/PrahladaKrutaNarasimha::3"},
+  {"id": "cc3", "category": "conceptual", "script": "deva", "query": "भगवतो गुणान् वर्णयितुं देवा मुनयश्च असमर्थाः, तेषामपि अन्तं गन्तुम् अशक्यम्", "target_parent": "stotra/PrahladaKrutaNarasimha::1"},
+  {"id": "cc4", "category": "conceptual", "script": "latin", "query": "The idea that each sense faculty, together with the deity presiding over it, emerged from a different part of the primordial being's body", "target_parent": "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.13"},
+
+  {"id": "ex1", "category": "exact_textual", "script": "deva", "query": "सः इमान् लोकान् असृजत", "target_parent": "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.3"},
+  {"id": "ex2", "category": "exact_textual", "script": "deva", "query": "सोऽहं प्रियस्य सुहृदः परदेवताया", "target_parent": "stotra/PrahladaKrutaNarasimha::11"},
+  {"id": "ex3", "category": "exact_textual", "script": "latin", "query": "let the final letter (i. e. l) be it", "target_parent": "ocr_staging/vasu_siddhanta_kaumudi/vol1_pages9-28.json::sk1"},
+  {"id": "ex4", "category": "exact_textual", "script": "latin", "query": "That which is pronounced by the nose along with the mouth is called Anunasika", "target_parent": "ocr_staging/vasu_siddhanta_kaumudi/vol1_pages9-28.json::sk9"},
+  {"id": "ex5", "category": "exact_textual", "script": "kannada", "query": "ಪಾಂಡವರ ಸೇನಾನಾಯಕನಾಗಿರಲು", "target_parent": "itihasa/mahabharata_kannada/bhishma_parva::0601001-2"},
+  {"id": "ex6", "category": "exact_textual", "script": "deva", "query": "श्रीराघवेन्द्ररत्नानां रसनारङ्गनर्तकी", "target_parent": "kavya_alankara/raghavendra_vijaya/sarga_1::4"},
+
+  {"id": "sc1", "category": "sandhi_compound", "script": "deva", "query": "शब्द अम्बुधि शरत् ज्योत्स्ना", "target_parent": "kavya_alankara/raghavendra_vijaya/sarga_1::4"},
+  {"id": "sc2", "category": "sandhi_compound", "script": "deva", "query": "रसना रङ्गे नर्तकी", "target_parent": "kavya_alankara/raghavendra_vijaya/sarga_1::4"},
+  {"id": "sc3", "category": "sandhi_compound", "script": "deva", "query": "चतुःषष्टि कला विद्या जुषे", "target_parent": "kavya_alankara/raghavendra_vijaya/sarga_1::9"},
+  {"id": "sc4", "category": "sandhi_compound", "script": "deva", "query": "सत्त्वे एकतानाः मतयः येषाम्", "target_parent": "stotra/PrahladaKrutaNarasimha::1"},
+  {"id": "sc5", "category": "sandhi_compound", "script": "deva", "query": "पादारविन्दे विमुखः श्वपचः", "target_parent": "stotra/PrahladaKrutaNarasimha::3"},
+  {"id": "sc6", "category": "sandhi_compound", "script": "deva", "query": "दश आकृतयः उपात्ताः येन", "target_parent": "kavya_alankara/raghavendra_vijaya/sarga_1::1"},
+  {"id": "sc7", "category": "sandhi_compound", "script": "deva", "query": "श्रुतेः मस्तके विश्रुतम्", "target_parent": "kavya_alankara/raghavendra_vijaya/sarga_1::2"}
+]

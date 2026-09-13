@@ -1,0 +1,369 @@
+{
+ "meta": {
+  "model_key": "qwen",
+  "family": "Qwen2.5-7B-Instruct",
+  "gguf_size_gb": 4.68,
+  "load_seconds": 620.4,
+  "peak_rss_mb": 9872.1,
+  "n_questions": 18,
+  "avg_gen_seconds": 84.49,
+  "avg_tokens_per_sec": 1.3
+ },
+ "results": [
+  {
+   "id": "q1",
+   "category": "factual",
+   "question": "What does Prahlada say about the Lord's terrifying Narasimha form in the Prahlada Nrsimha Stotra -- what specifically does he say he is not afraid of?",
+   "answerable": true,
+   "gold_targets": [
+    "stotra/PrahladaKrutaNarasimha::8"
+   ],
+   "retrieved_parent_ids": [
+    "kavya_alankara/raghavendra_vijaya/sarga_1::1",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::14",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::17",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::2",
+    "stotra/PrahladaKrutaNarasimha::4"
+   ],
+   "answer": "This is not established by the supplied sources.",
+   "gen_seconds": 87.54,
+   "completion_tokens": 9,
+   "tokens_per_sec": 0.1
+  },
+  {
+   "id": "q2",
+   "category": "factual",
+   "question": "According to Raghavendra Vijaya, whose exposition of the Brahma Sutras is praised in verse 8, and what does the verse say happens to a scholar who hears it?",
+   "answerable": true,
+   "gold_targets": [
+    "kavya_alankara/raghavendra_vijaya/sarga_1::8"
+   ],
+   "retrieved_parent_ids": [
+    "kavya_alankara/raghavendra_vijaya/sarga_1::8",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::42",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::41",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::27",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::17"
+   ],
+   "answer": "According to verse 8 of Raghavendra Vijaya [source: kavya_alankara/raghavendra_vijaya/sarga_1::8], the exposition of the Brahma Sutras by Sri Vyasaraja is praised. The verse states that any scholar, despite their pride and egoism, would become the devoted disciple of Sri Vyasaraja upon hearing his exposition [source: kavya_alankara/raghavendra_vijaya/sarga_1::8].",
+   "gen_seconds": 54.63,
+   "completion_tokens": 105,
+   "tokens_per_sec": 1.92
+  },
+  {
+   "id": "q3",
+   "category": "conceptual",
+   "question": "Does the Prahlada Nrsimha Stotra teach that wealth, noble birth, beauty and austerity alone are enough to please God?",
+   "answerable": true,
+   "gold_targets": [
+    "stotra/PrahladaKrutaNarasimha::2"
+   ],
+   "retrieved_parent_ids": [
+    "kavya_alankara/raghavendra_vijaya/sarga_1::1",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::11",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::18",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::40",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::24"
+   ],
+   "answer": "This is not established by the supplied sources. The provided verses do not mention the Prahlada Nrsimha Stotra or discuss whether wealth, noble birth, beauty, and austerity are sufficient to please God. Instead, they discuss the blessings and qualities of Sri Narasimha, Sri Raghavendra, and the importance of a guru's blessings for spiritual and material prosperity.",
+   "gen_seconds": 49.26,
+   "completion_tokens": 79,
+   "tokens_per_sec": 1.6
+  },
+  {
+   "id": "q4",
+   "category": "conceptual",
+   "question": "What does the Prahlada Nrsimha Stotra suggest happens to a person of low birth who has completely surrendered mind, speech, body and life to the Lord?",
+   "answerable": true,
+   "gold_targets": [
+    "stotra/PrahladaKrutaNarasimha::3"
+   ],
+   "retrieved_parent_ids": [
+    "kavya_alankara/raghavendra_vijaya/sarga_1::11",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::1",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::13",
+    "stotra/PrahladaKrutaNarasimha::3",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::18"
+   ],
+   "answer": "This is not established by the supplied sources.",
+   "gen_seconds": 85.51,
+   "completion_tokens": 9,
+   "tokens_per_sec": 0.11
+  },
+  {
+   "id": "q5",
+   "category": "sanskrit",
+   "question": "भगवतो गुणान् वर्णयितुं के के असमर्था इति प्रह्लादस्तोत्रे उक्तम्? कृपया संस्कृतेन उत्तरं ददातु।",
+   "answerable": true,
+   "gold_targets": [
+    "stotra/PrahladaKrutaNarasimha::1"
+   ],
+   "retrieved_parent_ids": [
+    "stotra/PrahladaKrutaNarasimha::3",
+    "stotra/PrahladaKrutaNarasimha::5",
+    "stotra/PrahladaKrutaNarasimha::1"
+   ],
+   "answer": "भगवतो गुणान् वर्णयितुं के के असमर्था इति प्रह्लादस्तोत्रे उक्तम्?\n\n[stotra/PrahladaKrutaNarasimha::5 | mula_sa | lang=sa]\nतस्मादहं विगतविक्लव ईश्वरस्य सर्वात्मना न हि गृणामि यथामनीषम् । नीचोऽजया गुणविसर्गमनुप्रविष्टः पूयेत येन हि पुमाननुवर्णितेन ॥ १२ ॥\n\n[stotra/PrahladaKrutaNarasimha::5 | commentary_sa__satyadharmiya | lang=sa]\nतस्मादिति । तस्माद्भक्तिपूर्वकेणाल्पेनापि स्तवनादिना नारायणः प्रीणाति तस्मादहं ईश्वरस्य सर्वात्मना सामस्त्येन न हि शक्तस्स्तवने सन्नपि यथामनीषं मत्यानुकूल्येन ग",
+   "gen_seconds": 243.83,
+   "completion_tokens": 401,
+   "tokens_per_sec": 1.64
+  },
+  {
+   "id": "q6",
+   "category": "en_to_sanskrit",
+   "question": "In the Aitareya Upanishad passage, what came forth from the primordial being's mouth, and what element or deity is associated with it?",
+   "answerable": true,
+   "gold_targets": [
+    "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.13",
+    "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.14"
+   ],
+   "retrieved_parent_ids": [
+    "kavya_alankara/raghavendra_vijaya/sarga_1::27",
+    "ocr_staging/vasu_siddhanta_kaumudi/vol1_pages9-28.json::sk3",
+    "ocr_staging/vasu_siddhanta_kaumudi/vol1_pages9-28.json::sk8",
+    "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.2.12",
+    "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.2.13"
+   ],
+   "answer": "In the Aitareya Upanishad passage, what came forth from the primordial being's mouth is अग्निः (agni), the fire element or deity [source: aitareya_upanishad::1.2.12].\n\nThe next part of the verse states that वायुः प्राणः (vāyuḥ prāṇaḥ) came forth from the nostrils, which is the wind or breath element/deity [source: aitareya_upanishad::1.2.13].",
+   "gen_seconds": 52.19,
+   "completion_tokens": 125,
+   "tokens_per_sec": 2.4
+  },
+  {
+   "id": "q7",
+   "category": "en_to_sanskrit",
+   "question": "According to the Aitareya Upanishad, what existed in the very beginning, before creation?",
+   "answerable": true,
+   "gold_targets": [
+    "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.1"
+   ],
+   "retrieved_parent_ids": [
+    "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.2.1",
+    "itihasa/mahabharata_kannada/bhishma_parva::0601002-3",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::27",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::2",
+    "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.3"
+   ],
+   "answer": "According to the Aitareya Upanishad [source: aitareya_upanishad::1.1.3], in the very beginning, before creation, there existed \"Ambhaḥ Marīciḥ Marapah\" (अम्भः मरीचीः मरमपः). This can be translated as \"water, luminous essence, and fluid essence.\"",
+   "gen_seconds": 43.15,
+   "completion_tokens": 88,
+   "tokens_per_sec": 2.04
+  },
+  {
+   "id": "q8",
+   "category": "kannada",
+   "question": "ಕುರುಕ್ಷೇತ್ರ ಯುದ್ಧಕ್ಕೆ ಮೊದಲು ಯುಧಿಷ್ಠಿರನು ತನ್ನ ಸೈನ್ಯವನ್ನು ಹೇಗೆ ಸಿದ್ಧಪಡಿಸಿದನು?",
+   "answerable": true,
+   "gold_targets": [
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-8",
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-13"
+   ],
+   "retrieved_parent_ids": [
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-8",
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-12",
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-14",
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-1",
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-13"
+   ],
+   "answer": "ಕುರುಕ್ಷೇತ್ರ ಯುದ್ಧಕ್ಕೆ ಮೊದಲು ಯುಧಿಷ್ಠಿರನು ತನ್ನ ಸೈನ್ಯವನ್ನು ಹೇಗೆ ಸಿದ್ಧಪಡಿಸಿದನು ಎಂದು ಈ ಪ್ರಶ್ನೆಯ ಜೋಡಿಸಿದ ತಿಳಿಳಿದ ವಿಷಯವು ಈ ಉದ್ದೇಶದಲ್ಲಿ ಸ್ಥಾನವಾಗಿಲ್ಲ. ಇದರಲ್ಲಿ ಯುಧಿಷ್ಠಿರನು ತನ್ನ ಸೈನ್ಯವನ್ನು ಸಿದ್ಧಪಡಿಸಿದ ವಿಷಯವು ನಿಂದಾಯಿಸಲಾಗಿಲ್ಲ. [source: itihasa/mahabharata_kannada/bhishma_parva::0601001-8, source: itihasa/mahabharata_kannada/bhishma_parva::0601001-12, source: itihasa/mahabharata_kannada/bhishma_parva::0601001-14]",
+   "gen_seconds": 113.22,
+   "completion_tokens": 396,
+   "tokens_per_sec": 3.5
+  },
+  {
+   "id": "q9",
+   "category": "kannada",
+   "question": "What does the Kannada Mahabharata say about the size and state of the remaining land after the armies departed for war?",
+   "answerable": true,
+   "gold_targets": [
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-9"
+   ],
+   "retrieved_parent_ids": [
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-29",
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-1",
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-30",
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-25",
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-5"
+   ],
+   "answer": "This is not established by the supplied sources.",
+   "gen_seconds": 36.59,
+   "completion_tokens": 9,
+   "tokens_per_sec": 0.25
+  },
+  {
+   "id": "q10",
+   "category": "multi_passage_synthesis",
+   "question": "Compare what Prahlada Nrsimha Stotra verse 1 itself says with what its Satyadharmiya commentary explains about the phrase 'brahmadayah suraganah' (Brahma and the gods).",
+   "answerable": true,
+   "gold_targets": [
+    "stotra/PrahladaKrutaNarasimha::1"
+   ],
+   "retrieved_parent_ids": [
+    "stotra/PrahladaKrutaNarasimha::1",
+    "stotra/PrahladaKrutaNarasimha::3",
+    "stotra/PrahladaKrutaNarasimha::6"
+   ],
+   "answer": "The Prahlada Nrsimha Stotra verse 1 itself states:\nब्रह्मादयः सुरगणाः मुनयोऽथ सिद्धाः सत्वैकतानमतयो वचसां प्रवाहैः ।\n\n[stotra/PrahladaKrutaNarasimha::1 | mula_sa | lang=sa]\n\nThis verse mentions Brahma and the gods (Brahmādayaḥ suragāṇaḥ) along with sages (munayo) and Siddhas (siddhāḥ). The phrase 'Brahmādayaḥ suragāṇaḥ' refers to Brahma and the gods.\n\nThe Satyadharmiya commentary explains:\nसत्यधर्मीया - मुनयो मन्यन्त इति मुनयो विशिष्टमतयो वशिष्ठाद्याः । ब्रह्मादयः सुरगणा ब्रह्मा विधिरादिर्येषां ते तथा । सुरगणा देवसङ्घा अथानन्तरं सिद्धा अणिमादिसिद्धिमन्तः ।\n\n[stotra/PrahladaKrutaNarasimha::1 | commentary_sa__satyadharmiya | lang=sa]\n\nThis commentary elaborates that 'Brahmādayaḥ suragāṇaḥ' includes Brahma and the",
+   "gen_seconds": 243.37,
+   "completion_tokens": 400,
+   "tokens_per_sec": 1.64
+  },
+  {
+   "id": "q11",
+   "category": "multi_passage_synthesis",
+   "question": "Using the Mahabharata Kannada Bhishma Parva passages, describe both how Yudhishthira fed and camped his army, and how he identified his own soldiers on the battlefield.",
+   "answerable": true,
+   "gold_targets": [
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-8",
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-13"
+   ],
+   "retrieved_parent_ids": [
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-14",
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-12",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::13",
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-8",
+    "itihasa/mahabharata_kannada/bhishma_parva::0601001-17"
+   ],
+   "answer": "According to the Mahabharata Kannada Bhishma Parva passages:\n\n1. Yudhishthira, being a great king and the foremost of men, arranged food and the best provisions for his army. He also provided excellent vehicles for them [source: itihasa/mahabharata_kannada/bhishma_parva::0601001-12].\n\n2. During the war, Yudhishthira, the son of Kunti, made camps in the five elements, and in the half of the earth, he established a thousand shelters for his army [source: itihasa/mahabharata_kannada/bhishma_parva::0601001-8].\n\n3. On the battlefield, when the thousands of elephants were standing in the middle, all the Pandava warriors, seeing Duryodhana, were delighted. They all waved their large conches and beat their kettledrums a thousand times [source: itihasa/mahabharata_kannada/bhishma_parva::0601001-17].",
+   "gen_seconds": 88.02,
+   "completion_tokens": 243,
+   "tokens_per_sec": 2.76
+  },
+  {
+   "id": "q12",
+   "category": "multi_passage_synthesis",
+   "question": "In Raghavendra Vijaya verse 5, what is being compared to a diamond, and why?",
+   "answerable": true,
+   "gold_targets": [
+    "kavya_alankara/raghavendra_vijaya/sarga_1::5"
+   ],
+   "retrieved_parent_ids": [
+    "kavya_alankara/raghavendra_vijaya/sarga_1::40",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::27",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::5",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::42",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::35"
+   ],
+   "answer": "In Raghavendra Vijaya verse 5, the points of view of Trivikramapanditacharya in his literary masterpieces are being compared to a diamond [source: kavya_alankara/raghavendra_vijaya/sarga_1::5]. Just as a diamond, though very hard, gets appreciation from the experts when they scrutinise the gold ornaments studded with diamonds, the complex viewpoints of Trivikramapanditacharya receive adoration from scholarly poets as they are composed with rhetoric and rhyming words [source: kavya_alankara/raghavendra_vijaya/sarga_1::5 | translation_en_human].",
+   "gen_seconds": 65.94,
+   "completion_tokens": 144,
+   "tokens_per_sec": 2.18
+  },
+  {
+   "id": "q13",
+   "category": "unanswerable",
+   "question": "According to the supplied passages, what year was the Prahlada Nrsimha Stotra composed?",
+   "answerable": false,
+   "gold_targets": [],
+   "retrieved_parent_ids": [
+    "ocr_staging/vasu_siddhanta_kaumudi/vol1_pages9-28.json::sk8",
+    "ocr_staging/vasu_siddhanta_kaumudi/vol1_pages9-28.json::sk12",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::42",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::1",
+    "ocr_staging/vasu_siddhanta_kaumudi/vol1_pages9-28.json::sk2"
+   ],
+   "answer": "This is not established by the supplied sources.",
+   "gen_seconds": 48.88,
+   "completion_tokens": 9,
+   "tokens_per_sec": 0.18
+  },
+  {
+   "id": "q14",
+   "category": "unanswerable",
+   "question": "Based on the supplied passages, what does the Bhagavad Gita say about the nature of karma?",
+   "answerable": false,
+   "gold_targets": [],
+   "retrieved_parent_ids": [
+    "ocr_staging/vasu_siddhanta_kaumudi/vol1_pages9-28.json::sk12",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::1",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::28",
+    "ocr_staging/vasu_siddhanta_kaumudi/vol1_pages9-28.json::sk19",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::31"
+   ],
+   "answer": "This is not established by the supplied sources.",
+   "gen_seconds": 39.77,
+   "completion_tokens": 9,
+   "tokens_per_sec": 0.23
+  },
+  {
+   "id": "q15",
+   "category": "unanswerable",
+   "question": "What specific raga (musical mode) is prescribed for chanting the Prahlada Nrsimha Stotra, according to the supplied passages?",
+   "answerable": false,
+   "gold_targets": [],
+   "retrieved_parent_ids": [
+    "ocr_staging/vasu_siddhanta_kaumudi/vol1_pages9-28.json::sk8",
+    "ocr_staging/vasu_siddhanta_kaumudi/vol1_pages158-307.json::sk287",
+    "ocr_staging/vasu_siddhanta_kaumudi/vol1_pages9-28.json::sk12",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::1",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::4"
+   ],
+   "answer": "This is not established by the supplied sources.",
+   "gen_seconds": 56.4,
+   "completion_tokens": 9,
+   "tokens_per_sec": 0.16
+  },
+  {
+   "id": "q16",
+   "category": "factual",
+   "question": "Quote the exact Sanskrit line in Raghavendra Vijaya sarga 1 that describes Goddess Sarasvati (Sharada) dancing on Raghavendra's tongue.",
+   "answerable": true,
+   "gold_targets": [
+    "kavya_alankara/raghavendra_vijaya/sarga_1::4"
+   ],
+   "retrieved_parent_ids": [
+    "kavya_alankara/raghavendra_vijaya/sarga_1::4",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::6",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::29",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::42",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::11"
+   ],
+   "answer": "This is not established by the supplied sources.",
+   "gen_seconds": 36.01,
+   "completion_tokens": 9,
+   "tokens_per_sec": 0.25
+  },
+  {
+   "id": "q17",
+   "category": "conceptual",
+   "question": "What broader lesson about devotion versus material qualifications does the Prahlada Nrsimha Stotra convey in its early verses?",
+   "answerable": true,
+   "gold_targets": [
+    "stotra/PrahladaKrutaNarasimha::1",
+    "stotra/PrahladaKrutaNarasimha::2",
+    "stotra/PrahladaKrutaNarasimha::3"
+   ],
+   "retrieved_parent_ids": [
+    "kavya_alankara/raghavendra_vijaya/sarga_1::11",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::17",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::40",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::1",
+    "stotra/PrahladaKrutaNarasimha::3"
+   ],
+   "answer": "The Prahlada Nrsimha Stotra conveys a broader lesson that devotion (bhakti) surpasses material qualifications and virtues. This is evident from the early verses which describe the twelve divine qualities (dviṣaḍguṇā) such as knowledge (jñāna), truth (satya), control (dama), tranquility (śama), modesty (hrī), generosity (dāna), sacrifice (yajña), austerities (tapas), and scriptural knowledge (śruti), but ultimately asserts that devotion (bhakti) is the primary means to achieve divine blessings. \n\nThis is highlighted in the commentary [stotra/PrahladaKrutaNarasimha::3 | commentary_sa__tatparyam | lang=sa] and [stotra/PrahladaKrutaNarasimha::3 | commentary_sa__satyadharmiya | lang=sa], which explain that although the twelve divine qualities are important, devotion (bhakti) is the most effective means to attain divine grace. The text emphasizes that even if one possesses all these qualities, without devotion, one cannot fully attain the divine's blessings. \n\n[stotra/PrahladaKrutaNarasimha::3 | commentary_sa__tatparyam | lang=sa] [stotra/PrahladaKrutaNarasimha::3 | commentary_sa__satyadharmiya | lang=sa]",
+   "gen_seconds": 148.64,
+   "completion_tokens": 309,
+   "tokens_per_sec": 2.08
+  },
+  {
+   "id": "q18",
+   "category": "factual",
+   "question": "What does Raghavendra Vijaya verse 1 ask Narasimha's claw to grant, and to whom?",
+   "answerable": true,
+   "gold_targets": [
+    "kavya_alankara/raghavendra_vijaya/sarga_1::1"
+   ],
+   "retrieved_parent_ids": [
+    "kavya_alankara/raghavendra_vijaya/sarga_1::11",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::1",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::42",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::31",
+    "kavya_alankara/raghavendra_vijaya/sarga_1::14"
+   ],
+   "answer": "This is not established by the supplied sources.",
+   "gen_seconds": 27.81,
+   "completion_tokens": 9,
+   "tokens_per_sec": 0.32
+  }
+ ]
+}
