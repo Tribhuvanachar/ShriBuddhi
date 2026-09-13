@@ -1,0 +1,564 @@
+{
+  "format": "DGE Genie ASR benchmark",
+  "count": 62,
+  "items": [
+    {
+      "tier": "Tier 1",
+      "section": "02 · kannada",
+      "id": "02_kannada_001",
+      "language": "kn-IN",
+      "phrase": "ಸುಮಧು ವಿಜಯ ೧.೧ ತೆರೆಯಿರಿ",
+      "note": "“Open Sumadhva Vijaya 1.1” in Kannada script",
+      "path": "genie_asr_benchmark/audio/02_kannada/02_kannada_001.wav"
+    },
+    {
+      "tier": "Tier 1",
+      "section": "02 · kannada",
+      "id": "02_kannada_002",
+      "language": "kn-IN",
+      "phrase": "ಮಧ್ವರ ಬಗ್ಗೆ ಹುಡುಕಿ",
+      "note": "“Search about Madhva” in Kannada script",
+      "path": "genie_asr_benchmark/audio/02_kannada/02_kannada_002.wav"
+    },
+    {
+      "tier": "Tier 1",
+      "section": "02 · kannada",
+      "id": "02_kannada_003",
+      "language": "kn-IN",
+      "phrase": "Sumadhva Vijaya ondu point ondu terayiri",
+      "note": "Same command, Latin-transliterated Kannada-English (“ondu” = one)",
+      "path": "genie_asr_benchmark/audio/02_kannada/02_kannada_003.wav"
+    },
+    {
+      "tier": "Tier 1",
+      "section": "02 · kannada",
+      "id": "02_kannada_004",
+      "language": "kn-IN",
+      "phrase": "Purandara Dasa avara kritigalu tholi",
+      "note": "“Open Purandara Dasa's compositions”, Kannada-English code-switch",
+      "path": "genie_asr_benchmark/audio/02_kannada/02_kannada_004.wav"
+    },
+    {
+      "tier": "Tier 1",
+      "section": "03 · sanskrit",
+      "id": "03_sanskrit_001",
+      "language": "sa-IN",
+      "phrase": "ऋग्वेदस्य प्रथमं सूक्तं उद्घाटयतु",
+      "note": "“Open Rigveda's first sukta” in Devanagari",
+      "path": "genie_asr_benchmark/audio/03_sanskrit/03_sanskrit_001.wav"
+    },
+    {
+      "tier": "Tier 1",
+      "section": "03 · sanskrit",
+      "id": "03_sanskrit_002",
+      "language": "sa-IN",
+      "phrase": "sumadhva vijayam pathatu",
+      "note": "“May the Sumadhva Vijaya be read”, IAST/Latin Sanskrit",
+      "path": "genie_asr_benchmark/audio/03_sanskrit/03_sanskrit_002.wav"
+    },
+    {
+      "tier": "Tier 1",
+      "section": "03 · sanskrit",
+      "id": "03_sanskrit_003",
+      "language": "sa-IN",
+      "phrase": "raghuvamsham darshaya",
+      "note": "“Show the Raghuvamsha”",
+      "path": "genie_asr_benchmark/audio/03_sanskrit/03_sanskrit_003.wav"
+    },
+    {
+      "tier": "Tier 1",
+      "section": "03 · sanskrit",
+      "id": "03_sanskrit_004",
+      "language": "sa-IN",
+      "phrase": "explain jayatirtha commentary",
+      "note": "English, tests recognition of the Sanskrit name",
+      "path": "genie_asr_benchmark/audio/03_sanskrit/03_sanskrit_004.wav"
+    },
+    {
+      "tier": "Tier 2",
+      "section": "04 · hindi",
+      "id": "04_hindi_001",
+      "language": "hi-IN",
+      "phrase": "Rigveda kholo",
+      "note": "“Open the Rigveda”",
+      "path": "genie_asr_benchmark/audio/04_hindi/04_hindi_001.wav"
+    },
+    {
+      "tier": "Tier 2",
+      "section": "04 · hindi",
+      "id": "04_hindi_002",
+      "language": "hi-IN",
+      "phrase": "Sumadhva Vijaya padhiye ek point ek",
+      "note": "“Read Sumadhva Vijaya 1.1”",
+      "path": "genie_asr_benchmark/audio/04_hindi/04_hindi_002.wav"
+    },
+    {
+      "tier": "Tier 2",
+      "section": "04 · hindi",
+      "id": "04_hindi_003",
+      "language": "hi-IN",
+      "phrase": "isska matlab batao",
+      "note": "“Tell me its meaning”",
+      "path": "genie_asr_benchmark/audio/04_hindi/04_hindi_003.wav"
+    },
+    {
+      "tier": "Tier 2",
+      "section": "04 · hindi",
+      "id": "04_hindi_004",
+      "language": "hi-IN",
+      "phrase": "andhera theme laga do",
+      "note": "“Switch to dark theme”",
+      "path": "genie_asr_benchmark/audio/04_hindi/04_hindi_004.wav"
+    },
+    {
+      "tier": "Tier 2",
+      "section": "05 · mixed code-switch",
+      "id": "05_mixed_001",
+      "language": "mixed",
+      "phrase": "Search kijiye for Vyasatirtha in the corpus",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/05_mixed_code_switch/05_mixed_001.wav"
+    },
+    {
+      "tier": "Tier 2",
+      "section": "05 · mixed code-switch",
+      "id": "05_mixed_002",
+      "language": "mixed",
+      "phrase": "Jayatirtha ki commentary select karo",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/05_mixed_code_switch/05_mixed_002.wav"
+    },
+    {
+      "tier": "Tier 2",
+      "section": "05 · mixed code-switch",
+      "id": "05_mixed_003",
+      "language": "mixed",
+      "phrase": "Open kijiye Rigveda mandala 2",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/05_mixed_code_switch/05_mixed_003.wav"
+    },
+    {
+      "tier": "Tier 2",
+      "section": "05 · mixed code-switch",
+      "id": "05_mixed_004",
+      "language": "mixed",
+      "phrase": "padaccheda dikhao please",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/05_mixed_code_switch/05_mixed_004.wav"
+    },
+    {
+      "tier": "Tier 2",
+      "section": "05 · mixed code-switch",
+      "id": "05_mixed_005",
+      "language": "mixed",
+      "phrase": "Kanakadasa ke bare mein search corpus",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/05_mixed_code_switch/05_mixed_005.wav"
+    },
+    {
+      "tier": "Tier 3",
+      "section": "06 · proper names",
+      "id": "06_proper_names_001",
+      "language": "en-IN",
+      "phrase": "Open Sumadhva Vijaya",
+      "note": "Deliberately ambiguous — no reference number, 22 candidates share the title",
+      "path": "genie_asr_benchmark/audio/06_proper_names/06_proper_names_001.wav"
+    },
+    {
+      "tier": "Tier 3",
+      "section": "06 · proper names",
+      "id": "06_proper_names_002",
+      "language": "en-IN",
+      "phrase": "Select Jayatirtha commentary",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/06_proper_names/06_proper_names_002.wav"
+    },
+    {
+      "tier": "Tier 3",
+      "section": "06 · proper names",
+      "id": "06_proper_names_003",
+      "language": "en-IN",
+      "phrase": "Select Vyasatirtha commentary",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/06_proper_names/06_proper_names_003.wav"
+    },
+    {
+      "tier": "Tier 3",
+      "section": "06 · proper names",
+      "id": "06_proper_names_004",
+      "language": "en-IN",
+      "phrase": "Open Raghavendra Vijaya 1.1",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/06_proper_names/06_proper_names_004.wav"
+    },
+    {
+      "tier": "Tier 3",
+      "section": "06 · proper names",
+      "id": "06_proper_names_005",
+      "language": "en-IN",
+      "phrase": "Open Harikathamrutasara",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/06_proper_names/06_proper_names_005.wav"
+    },
+    {
+      "tier": "Tier 3",
+      "section": "06 · proper names",
+      "id": "06_proper_names_006",
+      "language": "en-IN",
+      "phrase": "Open Harikathamritasara",
+      "note": "Deliberate short-‘i’ mis-pronunciation of 005",
+      "path": "genie_asr_benchmark/audio/06_proper_names/06_proper_names_006.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "01 · english (remaining)",
+      "id": "01_english_001",
+      "language": "en-IN",
+      "phrase": "Open Rigveda 1.1",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/01_english/01_english_001.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "01 · english (remaining)",
+      "id": "01_english_004",
+      "language": "en-IN",
+      "phrase": "Search for Madhva in the corpus",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/01_english/01_english_004.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "01 · english (remaining)",
+      "id": "01_english_005",
+      "language": "en-IN",
+      "phrase": "Open Purandara Dasa's collections",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/01_english/01_english_005.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "01 · english (remaining)",
+      "id": "01_english_006",
+      "language": "en-IN",
+      "phrase": "Play the audio",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/01_english/01_english_006.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "01 · english (remaining)",
+      "id": "01_english_007",
+      "language": "en-IN",
+      "phrase": "Change the theme to dark",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/01_english/01_english_007.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "01 · english (remaining)",
+      "id": "01_english_008",
+      "language": "en-IN",
+      "phrase": "Show one shloka at a time",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/01_english/01_english_008.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "07 · open text",
+      "id": "07_open_text_001",
+      "language": "en-IN",
+      "phrase": "Open the Siddhanta Kaumudi",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/07_open_text/07_open_text_001.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "07 · open text",
+      "id": "07_open_text_002",
+      "language": "en-IN",
+      "phrase": "Open Kiratarjuniya",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/07_open_text/07_open_text_002.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "07 · open text",
+      "id": "07_open_text_003",
+      "language": "en-IN",
+      "phrase": "Open Kumarasambhava",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/07_open_text/07_open_text_003.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "07 · open text",
+      "id": "07_open_text_004",
+      "language": "en-IN",
+      "phrase": "Open Shishupalavadha",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/07_open_text/07_open_text_004.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "07 · open text",
+      "id": "07_open_text_005",
+      "language": "en-IN",
+      "phrase": "Take me to Rigveda chapter 2",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/07_open_text/07_open_text_005.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "07 · open text",
+      "id": "07_open_text_006",
+      "language": "en-IN",
+      "phrase": "Rigveda 2.5.1",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/07_open_text/07_open_text_006.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "08 · open section",
+      "id": "08_open_section_001",
+      "language": "en-IN",
+      "phrase": "Go to section Ashtadhyayi",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/08_open_section/08_open_section_001.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "08 · open section",
+      "id": "08_open_section_002",
+      "language": "en-IN",
+      "phrase": "Jump to Dhatupatha",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/08_open_section/08_open_section_002.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "08 · open section",
+      "id": "08_open_section_003",
+      "language": "en-IN",
+      "phrase": "Jump to Shabdapatha",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/08_open_section/08_open_section_003.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "08 · open section",
+      "id": "08_open_section_004",
+      "language": "en-IN",
+      "phrase": "Open section Kaumudi Order",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/08_open_section/08_open_section_004.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "09 · search",
+      "id": "09_search_001",
+      "language": "en-IN",
+      "phrase": "Find this dhatu",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/09_search/09_search_001.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "09 · search",
+      "id": "09_search_002",
+      "language": "en-IN",
+      "phrase": "Look up dharma in the kosha",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/09_search/09_search_002.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "09 · search",
+      "id": "09_search_003",
+      "language": "en-IN",
+      "phrase": "What does moksha mean",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/09_search/09_search_003.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "09 · search",
+      "id": "09_search_004",
+      "language": "en-IN",
+      "phrase": "Search the corpus for Vyasatirtha",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/09_search/09_search_004.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "09 · search",
+      "id": "09_search_005",
+      "language": "en-IN",
+      "phrase": "Search dhatu paatha for bhu",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/09_search/09_search_005.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "10 · commentary & renderer",
+      "id": "10_commentary_001",
+      "language": "en-IN",
+      "phrase": "Show commentary",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/10_commentary_renderer/10_commentary_001.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "10 · commentary & renderer",
+      "id": "10_commentary_002",
+      "language": "en-IN",
+      "phrase": "Switch to Raghavendra Tirtha's commentary",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/10_commentary_renderer/10_commentary_002.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "10 · commentary & renderer",
+      "id": "10_commentary_003",
+      "language": "en-IN",
+      "phrase": "Single view",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/10_commentary_renderer/10_commentary_003.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "10 · commentary & renderer",
+      "id": "10_commentary_004",
+      "language": "en-IN",
+      "phrase": "Expand all",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/10_commentary_renderer/10_commentary_004.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "10 · commentary & renderer",
+      "id": "10_commentary_005",
+      "language": "en-IN",
+      "phrase": "Grid view",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/10_commentary_renderer/10_commentary_005.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "11 · audio & settings",
+      "id": "11_audio_settings_001",
+      "language": "en-IN",
+      "phrase": "Pause the audio",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/11_audio_settings/11_audio_settings_001.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "11 · audio & settings",
+      "id": "11_audio_settings_002",
+      "language": "en-IN",
+      "phrase": "Stop audio",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/11_audio_settings/11_audio_settings_002.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "11 · audio & settings",
+      "id": "11_audio_settings_003",
+      "language": "en-IN",
+      "phrase": "Switch to light mode",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/11_audio_settings/11_audio_settings_003.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "11 · audio & settings",
+      "id": "11_audio_settings_004",
+      "language": "en-IN",
+      "phrase": "Increase the font size",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/11_audio_settings/11_audio_settings_004.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "11 · audio & settings",
+      "id": "11_audio_settings_005",
+      "language": "en-IN",
+      "phrase": "Change script to Devanagari",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/11_audio_settings/11_audio_settings_005.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "12 · explain, padaccheda, compare",
+      "id": "12_explain_001",
+      "language": "en-IN",
+      "phrase": "Explain this shloka",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/12_explain_padaccheda_compare/12_explain_001.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "12 · explain, padaccheda, compare",
+      "id": "12_explain_002",
+      "language": "en-IN",
+      "phrase": "Ask Acharya about this verse",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/12_explain_padaccheda_compare/12_explain_002.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "12 · explain, padaccheda, compare",
+      "id": "12_explain_003",
+      "language": "en-IN",
+      "phrase": "Give me the padaccheda",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/12_explain_padaccheda_compare/12_explain_003.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "12 · explain, padaccheda, compare",
+      "id": "12_explain_004",
+      "language": "en-IN",
+      "phrase": "Compare this with the other commentary",
+      "note": "",
+      "path": "genie_asr_benchmark/audio/12_explain_padaccheda_compare/12_explain_004.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "13 · ambiguous commands",
+      "id": "13_ambiguous_001",
+      "language": "en-IN",
+      "phrase": "Open Vijaya",
+      "note": "Deliberately underspecified",
+      "path": "genie_asr_benchmark/audio/13_ambiguous_commands/13_ambiguous_001.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "13 · ambiguous commands",
+      "id": "13_ambiguous_002",
+      "language": "en-IN",
+      "phrase": "Show the commentary by that person",
+      "note": "No name given, on purpose",
+      "path": "genie_asr_benchmark/audio/13_ambiguous_commands/13_ambiguous_002.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "13 · ambiguous commands",
+      "id": "13_ambiguous_003",
+      "language": "en-IN",
+      "phrase": "Open the flibbertigibbet manuscript",
+      "note": "No real match exists, on purpose",
+      "path": "genie_asr_benchmark/audio/13_ambiguous_commands/13_ambiguous_003.wav"
+    },
+    {
+      "tier": "Tier 4",
+      "section": "13 · ambiguous commands",
+      "id": "13_ambiguous_004",
+      "language": "en-IN",
+      "phrase": "tell me a joke about elephants",
+      "note": "Not a DGE command at all, on purpose",
+      "path": "genie_asr_benchmark/audio/13_ambiguous_commands/13_ambiguous_004.wav"
+    }
+  ]
+}
