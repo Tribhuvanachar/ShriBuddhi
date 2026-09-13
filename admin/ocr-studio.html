@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Passkeys come from admin/config/keys.json, not from this page. -->
+<script src="js/keys.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCR Studio · DGE</title>
+<style>
+:root{
+  --bg:#faf9f7; --panel:#fff; --line:#e3ded6; --text:#1d1a16; --muted:#6f665c;
+  --accent:#c2542f; --accent-soft:#fdf1ec; --sel:#fff3cd; --shadow:0 1px 3px rgba(0,0,0,.07);
+}
+:root[data-theme="dark"]{
+  --bg:#141210; --panel:#1c1917; --line:#2e2926; --text:#ece7e0; --muted:#9a9086;
+  --accent:#e2764a; --accent-soft:#2a1f19; --sel:#3a3020; --shadow:0 1px 3px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);
+  font:14px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+.gate{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:24px}
+.gate input{padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);min-width:220px}
+.muted{color:var(--muted);font-size:12px}
+header{border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:20}
+.bar{display:flex;gap:10px;align-items:center;padding:9px 14px;flex-wrap:wrap}
+.brand{font-weight:700}
+.brand a{color:var(--accent);text-decoration:none}
+.spacer{flex:1}
+.btn{padding:6px 12px;border:1px solid var(--line);border-radius:7px;background:var(--panel);
+  color:var(--text);cursor:pointer;font:inherit;font-size:13px}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+select,input[type=text],input[type=number],input[type=color]{padding:6px 9px;border:1px solid var(--line);
+  border-radius:7px;background:var(--panel);color:var(--text);font:inherit;font-size:13px}
+
+/* Three panes side by side: the scan, the document, the styles. On a phone
+   they stack — the whole point is comparison, and comparison at 400px means
+   scrolling between two full-width panes rather than squinting at three. */
+.wrap{display:grid;grid-template-columns:1fr 1fr 260px;gap:12px;padding:12px;
+  height:calc(100vh - 52px);min-height:0}
+@media (max-width:1100px){ .wrap{grid-template-columns:1fr 1fr;} .styles{grid-column:1/-1} }
+@media (max-width:760px){ .wrap{grid-template-columns:1fr;height:auto} }
+/* min-width:0 matters as much as min-height:0 here. A grid item defaults to
+   min-width:auto — it refuses to shrink below its longest unbreakable word —
+   and Sanskrit compounds are very long words. At 400px, with the body type
+   turned up, one compound pushed the column to 480px and carried the style
+   panel's "all N" button off the right edge, where it could not be pressed. */
+.pane{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  display:flex;flex-direction:column;min-height:0;min-width:0;box-shadow:var(--shadow)}
+.pane > h2{margin:0;padding:9px 12px;border-bottom:1px solid var(--line);
+  font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:8px}
+.pane .body{overflow:auto;padding:12px;flex:1;min-height:0}
+@media (max-width:760px){ .pane .body{max-height:70vh} }
+
+.scan img,.scan canvas{width:100%;border:1px solid var(--line);border-radius:6px;margin-bottom:10px;background:#fff}
+.scan .pg{font-size:11px;color:var(--muted);margin:0 0 4px}
+
+/* The document. Every block is a button for selection purposes, but must
+   still read as prose — so the affordance is a hairline that only appears
+   on hover, not a box around every paragraph. */
+.doc{font-family:"Noto Serif Devanagari","Nirmala UI",serif;line-height:1.75;overflow-wrap:anywhere}
+.doc [data-cls]{cursor:pointer;border-left:3px solid transparent;padding-left:7px;
+  margin-left:-10px;border-radius:0 4px 4px 0}
+.doc [data-cls]:hover{border-left-color:var(--line);background:var(--accent-soft)}
+.doc [data-cls].sel{border-left-color:var(--accent);background:var(--sel)}
+.doc [data-cls].kin{border-left-color:var(--accent);border-left-style:dotted}
+
+.styles .row{display:flex;align-items:center;gap:7px;padding:5px 0;border-bottom:1px solid var(--line)}
+.styles .row:last-child{border-bottom:0}
+.styles .nm{flex:1;font-weight:600;font-size:13px}
+.styles .ct{font-size:11px;color:var(--muted);min-width:22px;text-align:right}
+.styles .row button{padding:3px 8px;font-size:11px}
+.fields{display:grid;grid-template-columns:auto 1fr;gap:6px 8px;align-items:center;margin-top:8px}
+.fields label{font-size:11px;color:var(--muted)}
+.fields input,.fields select{width:100%;font-size:12px;padding:4px 6px}
+.hint{font-size:11px;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line)}
+.empty{color:var(--muted);text-align:center;padding:40px 16px;font-size:13px}
+
+/* ---- the engine comparison -------------------------------------------
+   Three engines, one beneath the other, each with its reading of the page
+   right next to the scan it read. Rows keep their order and their place
+   whether or not an engine has anything loaded: a row that vanishes when
+   empty makes the reader wonder what happened to it. */
+.cmp{padding:12px;display:flex;flex-direction:column;gap:12px}
+.cmpbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+  background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 12px;
+  position:sticky;top:52px;z-index:10;box-shadow:var(--shadow)}
+.cmpbar .pg{font-weight:700;min-width:96px;text-align:center}
+.erow{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  overflow:hidden;box-shadow:var(--shadow)}
+.erow.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),var(--shadow)}
+.erow.off{opacity:.72}
+.ehd{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 12px;
+  border-bottom:1px solid var(--line);background:var(--accent-soft)}
+.erow.off .ehd{background:transparent}
+.ehd .en{font-weight:700;font-size:14px}
+.tag{font-size:10px;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--line);
+  border-radius:999px;padding:1px 7px;color:var(--muted);white-space:nowrap}
+.tag.good{border-color:var(--accent);color:var(--accent)}
+.ehd .st{font-size:11px;color:var(--muted)}
+/* Scan left, that engine's reading right. One column on a phone, scan first,
+   because at 400px "adjacent" can only mean "directly above". */
+.ebd{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0}
+@media (max-width:760px){ .ebd{grid-template-columns:1fr} }
+/* Row height is the whole argument for this view: at 52vh a single engine
+   filled the screen and you could never see two readings at once, which is
+   the only thing a comparison is for. So each pane is capped at a third of
+   the viewport and scrolls inside itself, and the scan is fitted to its pane
+   rather than blown to full width — the whole page small enough to judge its
+   layout, with a click through to full size when a word is in doubt. */
+.ebd > div{padding:10px 12px;min-width:0;max-height:32vh;overflow:auto}
+.ebd .left{border-right:1px solid var(--line);background:var(--bg)}
+@media (max-width:760px){ .ebd .left{border-right:0;border-bottom:1px solid var(--line);max-height:26vh} }
+/* Full column width, and the pane scrolls: shrinking the scan to fit made a
+   thumbnail whose glyphs could not be read, which is the one thing the scan
+   is there for. You read the top of the page at size, scroll for the rest,
+   and click through for the whole page when a single akṣara is in doubt. */
+.ebd .left a{display:block}
+.ebd .left img{display:block;width:100%;border:1px solid var(--line);border-radius:6px;background:#fff}
+.out{font-family:"Noto Serif Devanagari","Nirmala UI",serif;line-height:1.75;font-size:14px}
+.out h1,.out h2,.out h3,.out h4{font-size:16px;margin:.6em 0 .3em}
+.out p,.out blockquote{margin:.35em 0}
+.out blockquote{padding-left:10px;border-left:2px solid var(--line);color:var(--text)}
+.none{color:var(--muted);font-size:12px;padding:14px 2px}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div style="font-size:22px;font-weight:700">🎨 OCR Studio</div>
+  <div class="muted">Enter the admin passkey to style digitised documents.</div>
+  <input id="gk" type="password" placeholder="passkey" autocomplete="off">
+  <button class="btn pri" id="gbtn">Enter</button>
+  <div class="muted" style="max-width:440px">A client-side latch, not security — this page is public in the repo.</div>
+</div>
+
+<header style="display:none" id="hdr">
+  <div class="bar">
+    <div class="brand"><a href="../" title="DGE Home">⌂ DGE</a>
+      <span style="color:var(--muted)">›</span> 🎨 OCR Studio</div>
+    <select id="file"><option value="">— staged OCR file —</option></select>
+    <select id="asEngine" title="Which engine produced that file. Auto reads the file\'s own engine/model field.">
+      <option value="">engine: auto</option>
+      <option value="sarvam">as Sarvam</option>
+      <option value="vision">as Vision</option>
+      <option value="tesseract">as Tesseract</option>
+    </select>
+    <button class="btn" id="loadBtn">Load</button>
+    <label class="btn" style="cursor:pointer">📄 Scan…
+      <input type="file" id="scanFiles" accept="image/*" multiple hidden></label>
+    <span class="spacer"></span>
+    <button class="btn" id="cmpMode" title="Vision, Sarvam and Tesseract one beneath the other, each beside the scan it read">⚖ Compare engines</button>
+    <button class="btn" id="styleMode" title="Style the reading you chose">🎨 Style</button>
+    <button class="btn" id="exportBtn" title="Download the styled document as standalone HTML">⬇ Export HTML</button>
+    <button class="btn" id="theme" title="Light / dark">◐</button>
+  </div>
+</header>
+
+<main id="app" style="display:none">
+  <div class="wrap" id="styleView">
+    <section class="pane scan">
+      <h2>Original <span class="muted" id="scanCount"></span></h2>
+      <div class="body" id="scanBody">
+        <div class="empty">Add the page scans with <b>📄 Scan…</b> to compare them
+          against the digitised text beside this.</div>
+      </div>
+    </section>
+
+    <section class="pane">
+      <h2>Digitised <span class="muted" id="docCount"></span></h2>
+      <div class="body doc" id="docBody">
+        <div class="empty">Pick a staged OCR file and press <b>Load</b>.</div>
+      </div>
+    </section>
+
+    <section class="pane styles">
+      <h2>Styles</h2>
+      <div class="body" id="styleBody"></div>
+      <div class="hint" id="selHint">Tap a block to select it.</div>
+    </section>
+  </div>
+
+  <!-- The comparison. Three engines, stacked, each row scan-beside-reading. -->
+  <div class="cmp" id="cmpView" style="display:none">
+    <div class="cmpbar">
+      <button class="btn" id="pgPrev" title="Previous page">◀</button>
+      <span class="pg" id="pgLabel">no pages</span>
+      <button class="btn" id="pgNext" title="Next page">▶</button>
+      <span class="muted" id="cmpNote"></span>
+      <span class="spacer"></span>
+      <span class="muted" id="cmpChosen"></span>
+    </div>
+    <div id="cmpRows"></div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
+<script src="js/ocr-studio-core.js?v=2"></script>
+<script>
+(function(){
+  "use strict";
+  var S = window.dgeOcrStudio;
+  var doc = null, selId = null;
+  // One reading per engine, the comparison built over them, and the page
+  // scans the comparison shows beside each reading.
+  var sources = {};      // engineId -> {pages, label}
+  var cmp = S.buildComparison([]);
+  var scans = [];        // [{name, url}] in page order
+  var page = null;       // which page the comparison is showing
+  var $ = function(s){ return document.querySelector(s); };
+  var esc = S.escapeHtml;
+
+  // ---- gate -------------------------------------------------------------
+  function openApp(){
+    $("#gate").style.display = "none";
+    $("#hdr").style.display = "";
+    $("#app").style.display = "block";
+    listFiles();
+    renderStyles();
+    setMode("compare");
+  }
+  // The same gate and the same session flag ocr-review.html uses, so unlocking
+  // one admin page unlocks the other rather than asking twice for one key.
+  var GATE = "superadmin";
+  var unlocked = false;
+  try {
+    unlocked = sessionStorage.getItem("dge.admin.ok") === "1" ||
+               localStorage.getItem("is_superadmin") === "true" ||
+               localStorage.getItem("acharyaAuthorized") === "true";
+  } catch (e) {}
+
+  function tryKey(){
+    window.dgeCheckKey(GATE, $("#gk").value).then(function(ok){
+      if (ok) { sessionStorage.setItem("dge.admin.ok", "1"); openApp(); }
+      else window.dgeCheckKey("admin", $("#gk").value).then(function(ok2){
+        if (ok2) { sessionStorage.setItem("dge.admin.ok", "1"); openApp(); }
+        else { $("#gk").value = ""; $("#gk").placeholder = "wrong \u2014 try again"; }
+      });
+    });
+  }
+  $("#gbtn").onclick = tryKey;
+  $("#gk").addEventListener("keydown", function(e){ if (e.key === "Enter") tryKey(); });
+  if (unlocked) openApp();
+
+  $("#theme").onclick = function(){
+    var d = document.documentElement;
+    d.setAttribute("data-theme", d.getAttribute("data-theme") === "dark" ? "light" : "dark");
+  };
+
+  // ---- staged files -----------------------------------------------------
+  // Same location ocr-review.html reads from, so the two pages see the same
+  // work and a file reviewed in one can be styled in the other.
+  function listFiles(){
+    fetch("../data/ocr_staging/index.json").then(function(r){
+      return r.ok ? r.json() : null;
+    }).catch(function(){ return null; }).then(function(idx){
+      var files = (idx && idx.files) || [];
+      var sel = $("#file");
+      if (!files.length){
+        sel.innerHTML = '<option value="">— no index; use ?file=… —</option>';
+        return;
+      }
+      sel.innerHTML = '<option value="">— staged OCR file —</option>' +
+        files.map(function(f){ return '<option value="'+esc(f)+'">'+esc(f)+'</option>'; }).join("");
+    });
+    var q = new URLSearchParams(location.search);
+    if (q.get("file")) loadFile(q.get("file"), $("#asEngine").value || null);
+    S.ENGINE_IDS.forEach(function(id){ if (q.get(id)) loadFile(q.get(id), id); });
+  }
+
+  $("#loadBtn").onclick = function(){
+    if ($("#file").value) loadFile($("#file").value, $("#asEngine").value || null);
+  };
+
+  // A staged file goes into the slot for the engine that PRODUCED it, which
+  // the file itself says (sarvam_docai.py writes engine:"sarvam-docai"; the
+  // older stagers wrote only the Gemini model that proofread Vision's text).
+  // The "as …" dropdown is the override for a file that says nothing.
+  function loadFile(path, forceId){
+    var url = path.indexOf("/") === 0 || /^https?:/.test(path)
+      ? path : "../data/ocr_staging/" + path;
+    $("#docBody").innerHTML = '<div class="empty">Loading…</div>';
+    fetch(url).then(function(r){
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      return r.json();
+    }).then(function(d){
+      var id = forceId || S.stagedEngine(d) || "sarvam";
+      setSource(id, pagesOf(d), path.split("/").pop());
+    }).catch(function(e){
+        $("#docBody").innerHTML = '<div class="empty">Could not load that file — ' + esc(e.message) + '</div>';
+      });
+  }
+
+  /** Pull pages of HTML out of whichever staged shape this file uses. */
+  function pagesOf(d){
+    if (Array.isArray(d.pages) && d.pages.length && typeof d.pages[0] === "object") return d.pages;
+    if (Array.isArray(d.units)) return d.units.map(function(u,i){
+      return { page: u.page || i+1, html: u.sanskrit_html || u.html || u.sanskrit_text || u.text || "" };
+    });
+    if (Array.isArray(d.entries)) return d.entries.map(function(e,i){
+      return { page: e.page || i+1, html: e.html || e.english || "" };
+    });
+    return [];
+  }
+
+  // for tests: the old one-document entry point still means "style this",
+  // and lands in the Sarvam slot because layout-preserving HTML is what it is.
+  window.dgeOcrStudioSetDoc = function(pages){ setSource("sarvam", pages, "test"); };
+  window.dgeOcrStudioSetEngine = function(id, pages, label){ setSource(id, pages, label || id); };
+
+  function setSource(id, pages, label){
+    sources[id] = { id: id, pages: pages || [], label: label || "" };
+    rebuild();
+  }
+
+  /** Rebuild the comparison from whatever is loaded, keeping the choice. */
+  function rebuild(keepChoice){
+    var was = keepChoice === false ? "" : cmp.chosen;
+    cmp = S.buildComparison(Object.keys(sources).map(function(k){ return sources[k]; }));
+    if (was && S.chooseEngine(cmp, was)) { /* the person's choice survives a reload */ }
+    doc = S.chosenDoc(cmp);
+    selId = null;
+    if (cmp.pages.indexOf(page) < 0) page = cmp.pages.length ? cmp.pages[0] : null;
+    renderDoc();
+    renderStyles();
+    renderCompare();
+  }
+
+  // ---- the document -----------------------------------------------------
+  function renderDoc(){
+    var el = $("#docBody");
+    if (!doc || !doc.blocks.length){
+      el.innerHTML = '<div class="empty">Nothing in that file to style.</div>';
+      $("#docCount").textContent = "";
+      return;
+    }
+    var kin = selId ? S.blocksLike(doc, selId).map(function(b){ return b.id; }) : [];
+    el.innerHTML = doc.blocks.map(function(b){
+      var st = doc.styles[b.cls] || doc.styles.body;
+      var cl = (b.id === selId ? " sel" : (kin.indexOf(b.id) >= 0 ? " kin" : ""));
+      return '<' + st.tag + ' data-cls="' + esc(b.cls) + '" data-id="' + esc(b.id) + '"' +
+             ' class="' + cl.trim() + '">' + b.html + '</' + st.tag + '>';
+    }).join("");
+    applyCss();
+    $("#docCount").textContent = doc.blocks.length + " blocks";
+  }
+
+  function applyCss(){
+    var tag = document.getElementById("dgeStudioCss");
+    if (!tag){
+      tag = document.createElement("style");
+      tag.id = "dgeStudioCss";
+      document.head.appendChild(tag);
+    }
+    tag.textContent = S.styleCss(doc.styles, ".doc");
+  }
+
+  $("#docBody").addEventListener("click", function(e){
+    var el = e.target.closest("[data-id]");
+    if (!el) return;
+    selId = el.getAttribute("data-id");
+    renderDoc();
+    renderStyles();
+  });
+
+  // ---- the style panel --------------------------------------------------
+  function renderStyles(){
+    var el = $("#styleBody");
+    if (!doc){ el.innerHTML = '<div class="muted">Load a file to see its styles.</div>'; return; }
+    var ct = S.counts(doc);
+    var sel = selId ? doc.blocks.find(function(b){ return b.id === selId; }) : null;
+    var kinN = selId ? S.blocksLike(doc, selId).length : 0;
+
+    el.innerHTML = Object.keys(doc.styles).map(function(k){
+      var s = doc.styles[k];
+      var isSel = sel && sel.cls === k;
+      return '<div class="row">' +
+        '<span class="nm"' + (isSel ? ' style="color:var(--accent)"' : '') + '>' + esc(s.label) + '</span>' +
+        '<span class="ct">' + (ct[k] || 0) + '</span>' +
+        (sel ? '<button class="btn" data-set="' + esc(k) + '" data-scope="one" title="Just this block">this</button>' +
+               '<button class="btn" data-set="' + esc(k) + '" data-scope="like" title="Every block the OCR tagged the same way (' + kinN + ')">all ' + kinN + '</button>'
+             : '') +
+        '</div>';
+    }).join("") + (sel ? fieldsFor(sel.cls) : "");
+
+    $("#selHint").innerHTML = sel
+      ? 'Selected a <b>' + esc(doc.styles[sel.cls].label) + '</b> block the OCR read as &lt;' +
+        esc(sel.srcTag) + '&gt;. <b>all ' + kinN + '</b> moves every block it tagged the same way.'
+      : "Tap a block to select it.";
+  }
+
+  function fieldsFor(cls){
+    var s = doc.styles[cls];
+    return '<div style="margin-top:12px;font-weight:700;font-size:12px">' + esc(s.label) + ' — appearance</div>' +
+      '<div class="muted" style="margin:2px 0 6px">Changing these restyles all ' +
+        (S.counts(doc)[cls] || 0) + ' block(s) in this style.</div>' +
+      '<div class="fields">' +
+      '<label>Size</label><input type="number" data-f="size" value="' + s.size + '" min="8" max="72">' +
+      '<label>Weight</label><select data-f="weight">' +
+        [400,600,700].map(function(w){ return '<option value="'+w+'"'+(s.weight==w?' selected':'')+'>'+w+'</option>'; }).join("") +
+      '</select>' +
+      '<label>Align</label><select data-f="align">' +
+        ["left","center","right"].map(function(a){ return '<option value="'+a+'"'+(s.align===a?' selected':'')+'>'+a+'</option>'; }).join("") +
+      '</select>' +
+      '<label>Italic</label><select data-f="italic">' +
+        '<option value="0"' + (s.italic?'':' selected') + '>no</option>' +
+        '<option value="1"' + (s.italic?' selected':'') + '>yes</option></select>' +
+      '<label>Space above</label><input type="number" data-f="before" value="' + s.before + '" min="0" max="80">' +
+      '<label>Space below</label><input type="number" data-f="after" value="' + s.after + '" min="0" max="80">' +
+      '<label>Indent</label><input type="number" data-f="indent" value="' + s.indent + '" min="0" max="120">' +
+      '</div>';
+  }
+
+  $("#styleBody").addEventListener("click", function(e){
+    var b = e.target.closest("[data-set]");
+    if (!b || !selId) return;
+    S.applyClass(doc, selId, b.getAttribute("data-set"), b.getAttribute("data-scope"));
+    renderDoc();
+    renderStyles();
+  });
+
+  // Editing a field restyles every block in that class at once — that is what
+  // makes this a style and not formatting.
+  $("#styleBody").addEventListener("input", function(e){
+    var f = e.target.getAttribute && e.target.getAttribute("data-f");
+    if (!f || !selId) return;
+    var sel = doc.blocks.find(function(b){ return b.id === selId; });
+    if (!sel) return;
+    var s = doc.styles[sel.cls];
+    s[f] = (f === "align") ? e.target.value
+         : (f === "italic") ? e.target.value === "1"
+         : Number(e.target.value);
+    applyCss();
+    renderDoc();
+  });
+
+  // ---- the scans --------------------------------------------------------
+  $("#scanFiles").addEventListener("change", function(e){
+    var files = [].slice.call(e.target.files || []);
+    if (!files.length) return;
+    files.sort(function(a,b){ return a.name.localeCompare(b.name, undefined, {numeric:true}); });
+    $("#scanBody").innerHTML = "";
+    // The URLs outlive this handler now — the comparison view shows the same
+    // images beside every engine's reading, so revoking on first load would
+    // blank three rows out of four.
+    scans = files.map(function(f, i){
+      var url = URL.createObjectURL(f);
+      var wrap = document.createElement("div");
+      wrap.innerHTML = '<p class="pg">' + esc(f.name) + '</p>';
+      var img = document.createElement("img");
+      img.src = url;
+      img.alt = "Page " + (i+1);
+      wrap.appendChild(img);
+      $("#scanBody").appendChild(wrap);
+      return { name: f.name, url: url };
+    });
+    $("#scanCount").textContent = files.length + " page(s)";
+    renderCompare();
+  });
+
+
+  // ---- the comparison ---------------------------------------------------
+  // Which engines a person can even run from here, and which have to arrive
+  // as staged files, is not a detail to hide: Vision and Sarvam are billed
+  // per page against keys that live as repository secrets, so only a workflow
+  // ever holds them. Tesseract is WASM in this tab and costs nothing, so the
+  // studio runs it here, on the scans already loaded.
+  function scanFor(pg){
+    if (!scans.length) return null;
+    var i = cmp.pages.indexOf(pg);
+    return scans[i >= 0 ? i : 0] || null;
+  }
+
+  function pct(v){ return v == null ? "" : Math.round(v * 100) + "%"; }
+
+  function renderCompare(){
+    var rows = $("#cmpRows");
+    // The page NUMBER and the position in the set are two different things.
+    // Reading a staged range that starts at PDF page 44 used to say
+    // "page 44 of 10"; the number a scholar cites is 44, so keep it and put
+    // the position beside it rather than pretending the set starts at one.
+    var pgAt = cmp.pages.indexOf(page);
+    $("#pgLabel").textContent = page == null ? "no pages"
+      : "page " + page + " (" + (pgAt + 1) + " of " + cmp.pages.length + ")";
+    var chosen = cmp.engines.find(function(e){ return e.id === cmp.chosen; });
+    $("#cmpChosen").textContent = chosen ? "styling: " + chosen.label : "nothing chosen yet";
+    $("#cmpNote").textContent = scans.length ? scans.length + " scan(s) loaded"
+      : "add the page images with 📄 Scan… to see them beside each reading";
+
+    var per = page == null ? [] : S.comparePage(cmp, page);
+    var byId = {};
+    per.forEach(function(r){ byId[r.id] = r; });
+
+    rows.innerHTML = cmp.engines.map(function(e){
+      var r = byId[e.id] || { loaded:false, blocks:[], chars:0, agreement:null, chosen:false };
+      var sc = scanFor(page);
+      var tags = '<span class="tag' + (e.meta.layout ? ' good' : '') + '">' +
+            (e.meta.layout ? "layout kept" : "flat text") + '</span>' +
+          '<span class="tag' + (e.meta.key ? '' : ' good') + '">' +
+            (e.meta.key ? "paid · " + esc(e.meta.key) : "free") + '</span>' +
+          '<span class="tag">' + (e.meta.runsIn === "browser" ? "runs here" : "runs in a workflow") + '</span>';
+      var stat = e.loaded
+        ? e.stats.blocks + " blocks · " + e.stats.chars + " chars · " + e.stats.pages + " page(s)" +
+          (e.source ? " · " + esc(e.source) : "") +
+          (r.agreement == null || r.chosen ? "" : " · agrees " + pct(r.agreement) + " with the chosen reading")
+        : e.meta.runsIn === "browser"
+          ? "not run yet — free, runs in this tab on the loaded scans"
+          : "nothing loaded — run " + esc(e.meta.where.split(" ")[0]) + " and load its staged file above";
+      var act = e.loaded
+        ? '<button class="btn' + (r.chosen ? " pri" : "") + '" data-use="' + esc(e.id) + '">' +
+            (r.chosen ? "✓ in use" : "Use this") + '</button>'
+        : (e.id === "tesseract"
+            ? '<button class="btn" id="runTess" title="Free — reads the loaded scans in this tab">▶ Run Tesseract</button>'
+            : '');
+      var body = r.blocks.length
+        ? r.blocks.map(function(b){ return "<" + b.srcTag + ">" + b.html + "</" + b.srcTag + ">"; }).join("")
+        : '<div class="none">' + (e.loaded ? "this engine read nothing on page " + page
+                                           : "no reading from this engine yet") + '</div>';
+      return '<div class="erow ' + (r.chosen ? "on" : (e.loaded ? "" : "off")) + '" data-engine="' + esc(e.id) + '">' +
+        '<div class="ehd"><span class="en">' + esc(e.label) + '</span>' + tags +
+          '<span class="st">' + stat + '</span><span class="spacer"></span>' + act + '</div>' +
+        '<div class="ebd"><div class="left">' +
+          (sc ? '<a href="' + esc(sc.url) + '" target="_blank" rel="noopener" title="' +
+                  esc(sc.name) + ' — open full size"><img src="' + esc(sc.url) +
+                  '" alt="' + esc(sc.name) + '"></a>'
+              : '<div class="none">no scan for this page</div>') +
+        '</div><div class="out">' + body + '</div></div></div>';
+    }).join("");
+  }
+
+  $("#cmpRows").addEventListener("click", function(e){
+    var use = e.target.closest("[data-use]");
+    if (use){
+      if (S.chooseEngine(cmp, use.getAttribute("data-use"))){
+        doc = S.chosenDoc(cmp);
+        selId = null;
+        renderDoc(); renderStyles(); renderCompare();
+      }
+      return;
+    }
+    if (e.target.id === "runTess") runTesseract(e.target);
+  });
+
+  function step(d){
+    if (!cmp.pages.length) return;
+    var i = cmp.pages.indexOf(page);
+    page = cmp.pages[Math.max(0, Math.min(cmp.pages.length - 1, (i < 0 ? 0 : i) + d))];
+    renderCompare();
+  }
+  $("#pgPrev").onclick = function(){ step(-1); };
+  $("#pgNext").onclick = function(){ step(1); };
+
+  // Tesseract needs a language hint — it cannot detect script the way Vision
+  // can — so this asks rather than quietly reading Devanagari as English.
+  function runTesseract(btn){
+    if (!scans.length){ alert("Load the page scans first with 📄 Scan…"); return; }
+    if (typeof Tesseract === "undefined" || !window.DGE || !window.DGE.TesseractCheck){
+      alert("Tesseract.js did not load (it comes from a CDN). Vision and Sarvam readings still load from staged files.");
+      return;
+    }
+    var hint = prompt("Language hint for Tesseract (sa = Sanskrit, kn = Kannada, hi, en):", "sa");
+    if (!hint) return;
+    var lang = window.DGE.TesseractCheck.mapLanguageHints([hint.trim()]);
+    btn.disabled = true;
+    var done = [];
+    var next = function(i){
+      if (i >= scans.length){
+        btn.disabled = false;
+        // Tesseract returns plain text, so each line becomes its own block —
+        // which is exactly the "flat text" the row badge warns about.
+        setSource("tesseract", done, "Tesseract · " + lang);
+        return;
+      }
+      btn.textContent = "reading page " + (i + 1) + "/" + scans.length + "…";
+      Tesseract.recognize(scans[i].url, lang).then(function(res){
+        var txt = (res && res.data && res.data.text) || "";
+        done.push({ page: cmp.pages[i] || (i + 1),
+                    html: txt.split(/\n{1,}/).map(function(l){ return l.trim(); })
+                             .filter(Boolean).map(function(l){ return "<p>" + S.escapeHtml(l) + "</p>"; }).join("") });
+        next(i + 1);
+      }).catch(function(err){
+        btn.disabled = false;
+        btn.textContent = "▶ Run Tesseract";
+        alert("Tesseract failed on page " + (i + 1) + ": " + err.message);
+      });
+    };
+    next(0);
+  }
+
+  // ---- which half of the studio is showing ------------------------------
+  function setMode(m){
+    var compare = m === "compare";
+    $("#styleView").style.display = compare ? "none" : "";
+    $("#cmpView").style.display = compare ? "" : "none";
+    $("#cmpMode").classList.toggle("pri", compare);
+    $("#styleMode").classList.toggle("pri", !compare);
+    if (compare) renderCompare();
+  }
+  $("#cmpMode").onclick = function(){ setMode("compare"); };
+  $("#styleMode").onclick = function(){ setMode("style"); };
+
+  // ---- export -----------------------------------------------------------
+  $("#exportBtn").onclick = function(){
+    if (!doc) return;
+    var html = S.exportHtml(doc, ($("#file").value || "document").replace(/\.json$/, ""));
+    var blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = ($("#file").value || "document").replace(/[^\w.-]+/g, "-").replace(/\.json$/, "") + ".html";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 8000);
+  };
+
+  // Self-test hook: reveals the app without the passkey so Playwright can
+  // drive it. Same pattern ocr-review.html uses.
+  if (new URLSearchParams(location.search).get("selftest") === "1"){
+    window.dgeOcrStudioSelfTest = { open: openApp, get doc(){ return doc; },
+      get cmp(){ return cmp; }, get page(){ return page; },
+      select: function(id){ selId = id; renderDoc(); renderStyles(); },
+      mode: setMode, step: step,
+      setScans: function(list){ scans = list.slice(); renderCompare(); },
+      core: S };
+    openApp();
+  }
+})();
+</script>
+</body>
+</html>

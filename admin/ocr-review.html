@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Passkeys come from admin/config/keys.json, not from this page. -->
+<script src="js/keys.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCR Review · DGE (scholar)</title>
+<link rel="stylesheet" href="css/ocr-review.css?v=2">
+</head>
+<body>
+<div class="gate" id="gate">
+  <div style="font-size:22px;font-weight:700">🔍 OCR Review</div>
+  <div class="muted">Enter the admin passkey to review OCR text beside the scan.</div>
+  <input id="gk" type="password" placeholder="passkey" autocomplete="off">
+  <button class="btn pri" id="gbtn">Enter</button>
+  <div class="muted" style="max-width:420px;font-size:12px">A client-side latch, not security. Saving decisions needs a GitHub token in this browser.</div>
+</div>
+
+<header style="display:none" id="hdr">
+  <div class="bar">
+    <div class="brand"><a href="../" title="DGE Home" style="color:var(--accent);text-decoration:none">⌂ DGE</a> <span style="color:var(--muted)">›</span> 🔍 OCR Review</div>
+    <span class="spacer"></span>
+    <input type="text" id="reviewer" placeholder="Your name (goes on every decision)" style="min-width:200px">
+    <button class="icon" id="theme" title="Light / dark">◐</button>
+    <button class="btn" id="tokbtn" title="GitHub token for saving">🔑 Token</button>
+  </div>
+</header>
+
+<main id="app" style="display:none">
+  <div class="modebar" id="modebar"></div>
+
+  <div class="picker">
+    <select id="branch"><option value="">Loading branches…</option></select>
+    <select id="file"><option value="">— pick a branch first —</option></select>
+    <button class="btn pri" id="loadBtn">Open</button>
+    <span class="say" id="pickSay"></span>
+  </div>
+
+  <div class="work" id="work" style="display:none">
+    <div class="scan">
+      <div class="ctl">
+        <button class="btn" id="prevPage">‹</button>
+        <b id="pageLabel">page –</b>
+        <button class="btn" id="nextPage">›</button>
+        <select id="pageJump" style="max-width:110px"></select>
+        <span class="spacer"></span>
+        <button class="btn" id="zoomOut">−</button><button class="btn" id="zoomIn">+</button>
+      </div>
+      <div class="img" id="imgWrap"><div class="none">Scan not rendered yet for this page.</div></div>
+      <div class="ctl" style="margin-top:6px">
+        <button class="btn gh" id="renderBtn" title="Render this file's pages from the source PDF and publish them to the ocr-images branch">🖼 Render pages</button>
+        <span class="say" id="renderSay"></span>
+      </div>
+    </div>
+
+    <div>
+      <div class="progress" id="progress"></div>
+      <div class="toolbar">
+        <span class="chip on" data-f="page">This page</span>
+        <span class="chip" data-f="all">All</span>
+        <span class="chip" data-f="undecided">Undecided</span>
+        <span class="chip" data-f="review">Flagged for review</span>
+        <span class="chip" data-f="accept">Accepted</span>
+        <span class="chip" data-f="edit">Edited</span>
+        <span class="chip" data-f="reject">Rejected</span>
+        <span class="spacer"></span>
+        <button class="btn" id="acceptPage" title="Accept every undecided unit on this page">✅ Accept page</button>
+        <button class="btn pri" id="saveBtn">💾 Save decisions</button>
+        <span class="say" id="saveSay"></span>
+      </div>
+      <div class="units" id="units"></div>
+    </div>
+  </div>
+
+  <div class="panel" id="finalise" style="display:none">
+    <h2>Finalise — merge approved text into the library</h2>
+    <p class="muted" style="margin:0 0 8px">Runs <code>ocr-review-merge.yml</code> on GitHub: it reads the saved decisions, builds the layer, validates, and opens a pull request for you to merge. Nothing reaches readers until that PR is merged; the nightly job then registers the folder in the library.</p>
+    <div class="grid2" id="finForm">
+      <label>Target layer data.json<input type="text" id="finTarget" placeholder="dge/data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/isha/tippani_x/data.json"></label>
+      <label>Schema<select id="finSchema"><option>grantha_tippani_text</option><option>grantha_tika_text</option><option>grantha_mula_text</option></select></label>
+      <label>Title (Devanagari)<input type="text" id="finTitle" placeholder="ईशावास्योपनिषद्भाष्यटिप्पणी"></label>
+      <label>Author (Devanagari)<input type="text" id="finAuthor" placeholder="श्री…"></label>
+      <label>Mode<select id="finMode"><option value="append">append — merge by id into an existing layer</option><option value="replace">replace — rewrite the layer</option></select></label>
+      <label>Sarga directory (Gemini commentary files only)<input type="text" id="finSarga" placeholder="dge/data/kavya_alankara/kumarasambhava"></label>
+    </div>
+    <div class="toolbar" style="margin-top:10px">
+      <label class="say"><input type="checkbox" id="finUndecided"> include undecided units too</label>
+      <span class="spacer"></span>
+      <button class="btn gh" id="finBtn">▶ Merge into the library (opens a PR)</button>
+      <span class="say" id="finSay"></span>
+    </div>
+  </div>
+</main>
+
+<footer id="foot" style="display:none">
+  Decisions are saved beside the staged file as <code>review/&lt;name&gt;.decisions.json</code> on the same branch, one commit per save, and can be resumed by anyone with the passkey. Page images come from the <code>ocr-images/&lt;work&gt;</code> branch (rendered free by <code>ocr-preview-pages.yml</code>). The merge tool is <code>tools/ocr_review_merge.py</code>. Staging formats and the whole pipeline: <a href="../docs/OCR_REVIEW.md">docs/OCR_REVIEW.md</a>.
+</footer>
+
+<dialog id="tokenDlg">
+  <div class="dhead">GitHub token</div>
+  <div class="dbody"><p>A personal access token for this repository with <b>Contents</b> and <b>Actions</b> read-and-write. Stored in this browser only, shared with the other admin pages.</p>
+    <input type="password" id="tokInput" placeholder="github_pat_… or ghp_…" style="width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--ink);font:inherit"></div>
+  <div class="dfoot"><button class="btn" id="tokClear">Clear</button><button class="btn pri" id="tokSave">Save</button></div>
+</dialog>
+
+<script>
+(function(){
+  'use strict';
+  var OWNER = "Tribhuvanachar", REPO = "bhumandala";
+  var API = "https://api.github.com/repos/" + OWNER + "/" + REPO;
+  var RAW = "https://raw.githubusercontent.com/" + OWNER + "/" + REPO + "/";
+  var TOK_KEY = "github_admin_pat";
+  var GATE = "superadmin";
+  var $ = function(s, r){ return (r || document).querySelector(s); };
+  var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  function esc(s){ var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+
+  // ---- gate ---------------------------------------------------------
+  var unlocked = sessionStorage.getItem("dge.admin.ok") === "1" || localStorage.getItem("is_superadmin") === "true" || localStorage.getItem("acharyaAuthorized") === "true";
+  if (unlocked) start();
+  else {
+    $("#gate").style.display = "flex";
+    var tryK = function(){
+      window.dgeCheckKey(GATE, $("#gk").value).then(function(ok){
+        if (ok) { sessionStorage.setItem("dge.admin.ok", "1"); location.reload(); }
+        else window.dgeCheckKey("admin", $("#gk").value).then(function(ok2){
+          if (ok2) { sessionStorage.setItem("dge.admin.ok", "1"); location.reload(); }
+          else { $("#gk").value = ""; $("#gk").placeholder = "wrong — try again"; }
+        });
+      });
+    };
+    $("#gbtn").onclick = tryK;
+    $("#gk").addEventListener("keydown", function(e){ if (e.key === "Enter") tryK(); });
+    $("#gk").focus();
+  }
+
+  // ---- state --------------------------------------------------------
+  var BRANCH = "", FILE = "", WORK = "", STAGED = null, UNITS = [], PAGES = [], PAGE_IDX = 0;
+  var DEC = {}, DEC_SHA = null, DIRTY = false, FILTER = "page", ZOOM = 1, IMG_OK = {};
+
+  function token(){ return localStorage.getItem(TOK_KEY) || ""; }
+  function ghHeaders(){ var h = { "Accept": "application/vnd.github+json" }; if (token()) h["Authorization"] = "token " + token(); return h; }
+  async function gh(path, opts){ opts = opts || {}; opts.headers = Object.assign({}, ghHeaders(), opts.headers || {}); return fetch(API + path, opts); }
+  function b64utf8(str){ return btoa(unescape(encodeURIComponent(str))); }
+  function utf8b64(b64){ return decodeURIComponent(escape(atob(b64.replace(/\n/g, "")))); }
+  function nowIso(){ return new Date().toISOString(); }
+  function reviewer(){ return ($("#reviewer").value || "").trim() || "reviewer"; }
+
+  async function start(){
+    $("#gate").style.display = "none"; $("#hdr").style.display = ""; $("#app").style.display = ""; $("#foot").style.display = "";
+    if (localStorage.getItem("dge.ocrreview.dark") === "1") document.body.classList.add("dark");
+    $("#theme").onclick = function(){ document.body.classList.toggle("dark"); localStorage.setItem("dge.ocrreview.dark", document.body.classList.contains("dark") ? "1" : "0"); };
+    $("#reviewer").value = localStorage.getItem("dge.reviewer") || "";
+    $("#reviewer").oninput = function(){ localStorage.setItem("dge.reviewer", $("#reviewer").value); };
+    $("#tokbtn").onclick = function(){ $("#tokInput").value = token(); $("#tokenDlg").showModal(); };
+    $("#tokSave").onclick = function(){ localStorage.setItem(TOK_KEY, $("#tokInput").value.trim()); $("#tokenDlg").close(); modebar(); loadBranches(); };
+    $("#tokClear").onclick = function(){ localStorage.removeItem(TOK_KEY); $("#tokenDlg").close(); modebar(); };
+    $("#branch").onchange = loadFiles;
+    $("#loadBtn").onclick = openFile;
+    $("#prevPage").onclick = function(){ gotoPage(PAGE_IDX - 1); };
+    $("#nextPage").onclick = function(){ gotoPage(PAGE_IDX + 1); };
+    $("#pageJump").onchange = function(){ gotoPage(parseInt($("#pageJump").value, 10)); };
+    $("#zoomIn").onclick = function(){ ZOOM = Math.min(3, ZOOM + 0.25); showImage(); };
+    $("#zoomOut").onclick = function(){ ZOOM = Math.max(0.5, ZOOM - 0.25); showImage(); };
+    $("#renderBtn").onclick = renderPages;
+    $("#saveBtn").onclick = saveDecisions;
+    $("#acceptPage").onclick = acceptPage;
+    $("#finBtn").onclick = finalise;
+    $$("[data-f]").forEach(function(c){ c.onclick = function(){ $$("[data-f]").forEach(function(x){ x.classList.remove("on"); }); c.classList.add("on"); FILTER = c.dataset.f; renderUnits(); }; });
+    window.addEventListener("beforeunload", function(e){ if (DIRTY) { e.preventDefault(); e.returnValue = ""; } });
+    modebar();
+    await loadBranches();
+    var q = new URLSearchParams(location.search);
+    if (q.get("branch") && q.get("file")) { $("#branch").value = q.get("branch"); await loadFiles(); $("#file").value = q.get("file"); openFile(); }
+  }
+
+  function modebar(){
+    var mb = $("#modebar");
+    mb.innerHTML = token()
+      ? '<b>🟢 Token set.</b> Decisions save to the branch as you; Render and Merge start jobs from here.'
+      : '<b>⚪ No GitHub token.</b> You can read and review, and decisions are kept in this browser until you set a 🔑 Token to save them to the branch.';
+  }
+
+  // ---- pick a file --------------------------------------------------------
+  async function loadBranches(){
+    var sel = $("#branch");
+    try {
+      var r = await gh("/branches?per_page=100");
+      var arr = r.ok ? await r.json() : [];
+      var names = arr.map(function(b){ return b.name; }).filter(function(n){ return n === "main" || n.indexOf("ocr-staging/") === 0; }).sort();
+      if (names.indexOf("main") < 0) names.unshift("main");
+      sel.innerHTML = '<option value="">— branch —</option>' + names.map(function(n){ return '<option>' + esc(n) + '</option>'; }).join("");
+    } catch (e) { sel.innerHTML = '<option value="main">main</option>'; }
+  }
+  async function loadFiles(){
+    BRANCH = $("#branch").value;
+    var sel = $("#file");
+    sel.innerHTML = '<option value="">Loading…</option>';
+    if (!BRANCH) { sel.innerHTML = '<option value="">— pick a branch first —</option>'; return; }
+    var files = [];
+    try {
+      var r = await gh("/contents/dge/data/ocr_staging?ref=" + encodeURIComponent(BRANCH));
+      var dirs = r.ok ? (await r.json()).filter(function(x){ return x.type === "dir"; }) : [];
+      for (var i = 0; i < dirs.length; i++) {
+        var rr = await gh("/contents/" + dirs[i].path + "?ref=" + encodeURIComponent(BRANCH));
+        if (!rr.ok) continue;
+        (await rr.json()).forEach(function(f){ if (f.type === "file" && /\.json$/.test(f.name) && !/\.decisions\.json$|\.approved\.json$|summary\.json|report|_readme/.test(f.name)) files.push(f.path); });
+      }
+    } catch (e) {}
+    sel.innerHTML = files.length ? '<option value="">— file —</option>' + files.map(function(p){ return '<option value="' + esc(p) + '">' + esc(p.replace(/^dge\/data\/ocr_staging\//, "")) + '</option>'; }).join("") : '<option value="">No staged OCR files on this branch</option>';
+  }
+
+  async function getRepoFile(path, ref){
+    var r = await gh("/contents/" + path + "?ref=" + encodeURIComponent(ref) + "&_=" + Date.now());
+    if (!r.ok) throw new Error("GitHub said " + r.status + " for " + path);
+    var d = await r.json();
+    if (d.content) return { sha: d.sha, text: utf8b64(d.content) };
+    var rr = await fetch(d.download_url);      // >1 MB: contents API omits the body
+    return { sha: d.sha, text: await rr.text() };
+  }
+
+  // ---- unit model (mirrors tools/ocr_review_merge.py units_of) -------------------
+  function htmlToText(html){
+    html = html.replace(/<(br|\/p|\/div|\/h[1-6]|\/li|\/tr)[^>]*>/gi, "\n").replace(/<[^>]+>/g, "");
+    html = html.replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+    return html.replace(/\n{3,}/g, "\n\n").trim();
+  }
+  function splitBlocks(text){ return (text || "").split(/\n\s*\n/).map(function(s){ return s.trim(); }).filter(Boolean); }
+  function buildUnits(d){
+    var units = [];
+    // Same order and guards as tools/ocr_review_merge.py units_of(): the
+    // Vasu/Lakṣmī files carry pages:[start,end] beside entries[].
+    var pageObjs = Array.isArray(d.pages) && d.pages.length && typeof d.pages[0] === "object";
+    if (Array.isArray(d.entries)) {
+      d.entries.forEach(function(e){ units.push({ id: "sk" + e.sk, page: e.page, text: (e.english || "").trim(), kind: "entry", cls: e.classification || "", note: e.note || "", alt: e.sutra_ocr || "" }); });
+      return { kind: "layer", units: units };
+    }
+    if (Array.isArray(d.shlokas)) {
+      d.shlokas.forEach(function(s){ units.push({ id: "v" + s.number, page: s.page, text: (s.commentary || "").trim(), sa: (s.sa || "").trim(), kind: "shloka", cls: s.classification || "", note: s.note || "", two: true }); });
+      return { kind: "commentary", units: units };
+    }
+    if (pageObjs) {
+      d.pages.forEach(function(pg){
+        if (pg.ok === false) return;
+        var isSarvam = d.engine === "sarvam-docai";
+        var body = isSarvam ? (pg.html || pg.md || (pg.json ? JSON.stringify(pg.json) : "")) : (pg.text || "");
+        var text = (isSarvam && pg.html) ? htmlToText(body) : body;
+        splitBlocks(text).forEach(function(chunk, i){ units.push({ id: "p" + pg.page + "_b" + (i + 1), page: pg.page, text: chunk, kind: "block", html: (isSarvam && pg.html && i === 0) ? pg.html : null, cls: "" }); });
+      });
+      return { kind: "layer", units: units };
+    }
+    if (Array.isArray(d.blocks)) {
+      d.blocks.forEach(function(b){ units.push({ id: b.id, page: b.page, text: (b.vision_text || b.text || "").trim(), alt: b.tess_text || "", kind: b.type || b.label || "block", cls: (b.match && b.match["class"]) || "" }); });
+      return { kind: "layer", units: units };
+    }
+    throw new Error("staged file shape not recognised (expected pages[], blocks[], entries[] or shlokas[])");
+  }
+
+  async function openFile(){
+    FILE = $("#file").value; BRANCH = $("#branch").value;
+    var say = $("#pickSay");
+    if (!FILE) { say.textContent = "Pick a file."; return; }
+    say.textContent = "Loading…";
+    try {
+      var f = await getRepoFile(FILE, BRANCH);
+      STAGED = JSON.parse(f.text);
+      var m = buildUnits(STAGED);
+      UNITS = m.units;
+      WORK = FILE.split("/")[3] || "";
+      PAGES = []; UNITS.forEach(function(u){ if (u.page != null && PAGES.indexOf(u.page) < 0) PAGES.push(u.page); }); PAGES.sort(function(a, b){ return a - b; });
+      DEC = {}; DEC_SHA = null;
+      try { var df = await getRepoFile(decisionsPath(), BRANCH); DEC = (JSON.parse(df.text).decisions) || {}; DEC_SHA = df.sha; } catch (e) {}
+      try { var draft = localStorage.getItem("dge.ocrreview." + BRANCH + ":" + FILE); if (draft) { var dd = JSON.parse(draft); Object.keys(dd).forEach(function(k){ if (!DEC[k] || (dd[k].at || "") > (DEC[k].at || "")) DEC[k] = dd[k]; }); } } catch (e) {}
+      DIRTY = false;
+      $("#work").style.display = ""; $("#finalise").style.display = "";
+      $("#finSarga").parentElement.style.display = m.kind === "commentary" ? "" : "none";
+      $("#finTarget").parentElement.style.display = m.kind === "commentary" ? "none" : "";
+      IMG_OK = {};
+      $("#pageJump").innerHTML = PAGES.map(function(p){ return '<option value="' + PAGES.indexOf(p) + '">p.' + p + '</option>'; }).join("");
+      gotoPage(0);
+      say.textContent = UNITS.length + " units on " + PAGES.length + " page(s)" + (m.kind === "commentary" ? " — Gemini commentary file" : "");
+      history.replaceState(null, "", "?branch=" + encodeURIComponent(BRANCH) + "&file=" + encodeURIComponent(FILE));
+    } catch (e) { say.textContent = "Could not open: " + e.message; }
+  }
+  function decisionsPath(){ var parts = FILE.split("/"); var name = parts.pop().replace(/\.json$/, ""); return parts.join("/") + "/review/" + name + ".decisions.json"; }
+
+  // ---- pages & images -----------------------------------------------------------
+  function gotoPage(i){
+    if (!PAGES.length) { $("#pageLabel").textContent = "no pages"; renderUnits(); return; }
+    PAGE_IDX = Math.max(0, Math.min(PAGES.length - 1, i));
+    $("#pageLabel").textContent = "page " + PAGES[PAGE_IDX] + " (" + (PAGE_IDX + 1) + "/" + PAGES.length + ")";
+    $("#pageJump").value = String(PAGE_IDX);
+    showImage(); renderUnits();
+  }
+  function imageUrl(page){ return RAW + "ocr-images/" + WORK + "/page-" + page + ".png"; }
+  function showImage(){
+    var wrap = $("#imgWrap"); var page = PAGES[PAGE_IDX];
+    if (page == null) { wrap.innerHTML = '<div class="none">This file has no page numbers.</div>'; return; }
+    var url = imageUrl(page);
+    if (IMG_OK[page] === false) { wrap.innerHTML = '<div class="none">Scan not rendered yet for page ' + page + '. Press <b>Render pages</b> (free, ~2 min).</div>'; return; }
+    wrap.innerHTML = '<img src="' + esc(url) + '" style="width:' + Math.round(ZOOM * 100) + '%;max-width:none" alt="page ' + page + '">';
+    var img = $("img", wrap);
+    img.onerror = function(){ IMG_OK[page] = false; showImage(); };
+    img.onload = function(){ IMG_OK[page] = true; };
+  }
+  async function renderPages(){
+    var say = $("#renderSay");
+    var src = (STAGED && (STAGED.source_url || (STAGED.source && (STAGED.source.pdf_url || STAGED.source.pdf)) || STAGED.pdf)) || "";
+    if (!/^https?:/.test(src)) { say.textContent = "This staged file names no PDF URL — dispatch ocr-preview-pages.yml on GitHub with the PDF and publish_work=" + WORK + "."; return; }
+    var pages = PAGES.length ? (PAGES[0] + "-" + PAGES[PAGES.length - 1]) : "1-10";
+    if (!token()) { window.open("https://github.com/" + OWNER + "/" + REPO + "/actions/workflows/ocr-preview-pages.yml", "_blank"); say.textContent = "Opened on GitHub: pdf_url=" + src + ", pages=" + pages + ", publish_work=" + WORK; return; }
+    say.textContent = "Starting…";
+    var r = await gh("/actions/workflows/ocr-preview-pages.yml/dispatches", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ref: "main", inputs: { pdf_url: src, pages: pages, publish_work: WORK } }) });
+    say.textContent = r.ok ? "Rendering pages " + pages + " — they appear here in a couple of minutes (reload the page)." : "GitHub said " + r.status;
+  }
+
+  // ---- units ---------------------------------------------------------------------
+  function decided(u){ return DEC[u.id] ? DEC[u.id].decision : ""; }
+  function visible(u){
+    if (FILTER === "page") return u.page === PAGES[PAGE_IDX] || PAGES.length === 0;
+    if (FILTER === "all") return true;
+    if (FILTER === "undecided") return !decided(u);
+    if (FILTER === "review") return /review|unresolved|partial|new/.test(u.cls) && !decided(u);
+    return decided(u) === FILTER;
+  }
+  function progress(){
+    var n = UNITS.length, a = 0, e = 0, r = 0;
+    UNITS.forEach(function(u){ var d = decided(u); if (d === "accept") a++; else if (d === "edit") e++; else if (d === "reject") r++; });
+    $("#progress").innerHTML = '<b>' + (a + e + r) + '</b> of <b>' + n + '</b> decided — ' + a + ' accepted, ' + e + ' edited, ' + r + ' rejected' + (DIRTY ? ' · <span style="color:var(--warn)">unsaved changes</span>' : '');
+  }
+  function renderUnits(){
+    var host = $("#units"); host.innerHTML = "";
+    var shown = UNITS.filter(visible);
+    if (!shown.length) { host.innerHTML = '<div class="empty">Nothing to show for this filter.</div>'; progress(); return; }
+    shown.slice(0, 300).forEach(function(u){ host.appendChild(unitCard(u)); });
+    if (shown.length > 300) host.insertAdjacentHTML("beforeend", '<div class="empty">' + (shown.length - 300) + ' more — narrow the filter.</div>');
+    progress();
+  }
+  function unitCard(u){
+    var d = DEC[u.id] || null;
+    var el = document.createElement("div");
+    el.className = "unit " + (d ? d.decision : (/review|unresolved|partial|new/.test(u.cls) ? "review" : ""));
+    var clsBadge = u.cls ? '<span class="badge ' + (/accept|matched/.test(u.cls) ? 'ok' : /review|partial|new/.test(u.cls) ? 'warn' : 'bad') + '">' + esc(u.cls) + '</span>' : '';
+    var decBadge = d ? '<span class="badge ' + (d.decision === 'reject' ? 'bad' : 'ok') + '">' + esc(d.decision) + (d.by ? ' · ' + esc(d.by) : '') + '</span>' : '<span class="badge plain">undecided</span>';
+    el.innerHTML = '<div class="top"><b>' + esc(u.id) + '</b>' + (u.page != null ? '<span>p.' + esc(u.page) + '</span>' : '') + '<span class="badge plain">' + esc(u.kind) + '</span>' + clsBadge + decBadge + '</div>' +
+      (u.html ? '<div class="rendertools">' +
+        '<button class="tbtn" data-cmd="bold" title="Bold the selection — this is how a प्रतीक is marked">B</button>' +
+        '<button class="tbtn" data-cmd="italic" title="Italic"><i>I</i></button>' +
+        '<button class="tbtn" data-blk="h2" title="Make this line a heading">H2</button>' +
+        '<button class="tbtn" data-blk="h3" title="Sub-heading">H3</button>' +
+        '<button class="tbtn" data-blk="p" title="Ordinary paragraph">¶</button>' +
+        '<button class="tbtn" data-blk="blockquote" title="Indent as a quotation">❝</button>' +
+        '<button class="tbtn" data-cmd="removeFormat" title="Strip formatting from the selection">✗</button>' +
+        '<span class="tsep"></span>' +
+        '<button class="tbtn" data-revert="1" title="Throw away edits and go back to what the OCR produced">↺ revert</button>' +
+        '<span class="thint">Edit here — headings, paragraphs and indentation are kept.</span></div>' +
+        '<div class="render" contenteditable="true" spellcheck="false"></div>' : '') +
+      (u.two ? '<label class="f">Verse (sa)</label><textarea data-field="sa">' + esc(d && d.fields && d.fields.sa != null ? d.fields.sa : u.sa) + '</textarea><label class="f">Commentary</label>' : '') +
+      '<textarea data-field="text">' + esc(d && d.decision === "edit" && d.text != null ? d.text : u.text) + '</textarea>' +
+      (u.alt ? '<details class="alt"><summary>Other OCR reading</summary><pre>' + esc(u.alt) + '</pre></details>' : '') +
+      (u.note ? '<div class="alt">Pipeline note: ' + esc(u.note) + '</div>' : '') +
+      '<div class="actions"><button class="btn ok" data-a="accept">✅ Accept</button><button class="btn gh" data-a="edit">✏️ Save edit</button><button class="btn danger" data-a="reject">❌ Reject</button>' +
+      '<input type="text" data-field="note" placeholder="note (optional)" value="' + esc(d ? d.note || "" : "") + '"></div>';
+    if (u.html) { var r = $(".render", el); var doc = new DOMParser().parseFromString((d && d.html != null ? d.html : u.html), "text/html"); $$("script,style,iframe,object", doc).forEach(function(x){ x.remove(); }); $$("*", doc).forEach(function(x){ Array.prototype.slice.call(x.attributes).forEach(function(a){ if (/^on/i.test(a.name) || a.name === "href" || a.name === "src") x.removeAttribute(a.name); }); }); r.innerHTML = doc.body.innerHTML; }
+    $$("textarea", el).forEach(function(t){ t.oninput = function(){ t.classList.add("dirty"); }; });
+    // Structured editing. Until 11 Sep 2026 the rendered layout was shown and
+    // the EDIT was a flat textarea beneath it -- so a reviewer could see that
+    // Sarvam had kept the headings and paragraphs, and then lost every one of
+    // them the moment they corrected a letter. The whole point of running a
+    // layout-preserving engine was being thrown away at the last step.
+    var rend = $(".render", el);
+    if (rend) {
+      rend.oninput = function(){ rend.classList.add("dirty"); };
+      // Keep the plain-text box in step, so the merge tool and every
+      // downstream consumer that only understands text stay correct.
+      var syncText = function(){
+        var ta = $("textarea[data-field=text]", el);
+        if (ta) { ta.value = (rend.innerText || "").replace(/\n{3,}/g, "\n\n").trim(); ta.classList.add("dirty"); }
+      };
+      rend.addEventListener("blur", syncText);
+      $$(".rendertools .tbtn", el).forEach(function(b){
+        // mousedown, not click: the button must not take focus away from the
+        // editable region or the selection is gone before the command runs.
+        b.onmousedown = function(ev){
+          ev.preventDefault();
+          if (b.dataset.revert) {
+            var doc2 = new DOMParser().parseFromString(u.html, "text/html");
+            $$("script,style,iframe,object", doc2).forEach(function(x){ x.remove(); });
+            rend.innerHTML = doc2.body.innerHTML;
+            rend.classList.add("dirty"); syncText(); return;
+          }
+          rend.focus();
+          if (b.dataset.cmd) document.execCommand(b.dataset.cmd, false, null);
+          else if (b.dataset.blk) document.execCommand("formatBlock", false, b.dataset.blk);
+          rend.classList.add("dirty"); syncText();
+        };
+      });
+    }
+    $$("[data-a]", el).forEach(function(b){
+      b.onclick = function(){
+        var a = b.dataset.a;
+        var text = $("textarea[data-field=text]", el).value;
+        var editedHtml = rend ? rend.innerHTML : null;
+        var htmlChanged = !!(rend && editedHtml !== u.html);
+        var rec = { decision: a, by: reviewer(), at: nowIso(), note: $("input[data-field=note]", el).value.trim() };
+        if (a === "edit") { rec.text = text; if (u.two) rec.fields = { sa: $("textarea[data-field=sa]", el).value, commentary: text }; }
+        // "Accept" on a unit whose text OR structure was touched is really an
+        // edit -- recorded as one so the provenance is honest.
+        if (a === "accept" && (text.trim() !== (u.text || "").trim() || htmlChanged)) {
+          rec.decision = "edit"; rec.text = text;
+          if (u.two) rec.fields = { sa: $("textarea[data-field=sa]", el).value, commentary: text };
+        }
+        // The structured form rides along with every non-reject decision, so
+        // the layer keeps its headings and paragraphs, not just a flat string.
+        if (rec.decision !== "reject" && rend) rec.html = editedHtml;
+        DEC[u.id] = rec; DIRTY = true; draft();
+        var next = el.nextElementSibling;
+        renderUnits();
+        if (next && FILTER === "undecided") { /* list shrinks; nothing to scroll */ }
+      };
+    });
+    return el;
+  }
+  function draft(){ try { localStorage.setItem("dge.ocrreview." + BRANCH + ":" + FILE, JSON.stringify(DEC)); } catch (e) {} }
+  function acceptPage(){
+    var n = 0;
+    UNITS.forEach(function(u){ if (u.page === PAGES[PAGE_IDX] && !DEC[u.id]) { DEC[u.id] = { decision: "accept", by: reviewer(), at: nowIso(), note: "" }; n++; } });
+    if (n) { DIRTY = true; draft(); renderUnits(); }
+  }
+
+  async function saveDecisions(){
+    var say = $("#saveSay");
+    if (!token()) { say.className = "say bad"; say.textContent = "Set a 🔑 Token to save to the branch (your decisions are kept in this browser meanwhile)."; return; }
+    say.className = "say"; say.textContent = "Saving…";
+    var doc = { _readme: "Scholar decisions for the staged OCR file named in `staged`, written by admin/ocr-review.html. decision: accept | edit (text holds the corrected text) | reject. tools/ocr_review_merge.py turns these into a layer.",
+                staged: FILE, updated_at: nowIso(), decisions: DEC };
+    try {
+      var path = decisionsPath();
+      try { var cur = await getRepoFile(path, BRANCH); DEC_SHA = cur.sha; } catch (e) { DEC_SHA = null; }
+      var body = { message: "OCR review: " + Object.keys(DEC).length + " decisions on " + FILE.split("/").pop() + " by " + reviewer(), content: b64utf8(JSON.stringify(doc, null, 1) + "\n"), branch: BRANCH };
+      if (DEC_SHA) body.sha = DEC_SHA;
+      var r = await gh("/contents/" + path, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+      if (!r.ok) throw new Error("GitHub said " + r.status);
+      var d = await r.json(); DEC_SHA = d.content && d.content.sha;
+      DIRTY = false; progress();
+      say.className = "say ok"; say.textContent = "Saved to " + BRANCH + " at " + new Date().toLocaleTimeString("en-IN", { timeZone: "Asia/Kolkata", hour: "numeric", minute: "2-digit" }) + " IST.";
+    } catch (e) { say.className = "say bad"; say.textContent = "Could not save: " + e.message; }
+  }
+
+  async function finalise(){
+    var say = $("#finSay");
+    if (DIRTY) { say.className = "say bad"; say.textContent = "Save the decisions first."; return; }
+    var inputs = { branch: BRANCH, staged: FILE, target: $("#finTarget").value.trim(), sarga_dir: $("#finSarga").value.trim(), schema: $("#finSchema").value,
+                   title: $("#finTitle").value.trim(), author: $("#finAuthor").value.trim(), mode: $("#finMode").value, include_undecided: $("#finUndecided").checked ? "true" : "false" };
+    if (!inputs.target && !inputs.sarga_dir) { say.className = "say bad"; say.textContent = "Give the target layer path (or the sarga directory for a commentary file)."; return; }
+    if (inputs.target && !inputs.title) { say.className = "say bad"; say.textContent = "Give the layer a title."; return; }
+    if (!token()) { window.open("https://github.com/" + OWNER + "/" + REPO + "/actions/workflows/ocr-review-merge.yml", "_blank"); say.textContent = "Opened on GitHub — fill the same fields there."; return; }
+    say.className = "say"; say.textContent = "Starting…";
+    var r = await gh("/actions/workflows/ocr-review-merge.yml/dispatches", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ref: "main", inputs: inputs }) });
+    say.className = r.ok ? "say ok" : "say bad";
+    say.textContent = r.ok ? "Merge started — a pull request appears in a few minutes (Actions → OCR review — merge)." : "GitHub said " + r.status;
+  }
+
+  // --- Self-test hook -----------------------------------------------------
+  // Opening this page with ?selftest=1 exposes the unit renderer so a browser
+  // test can exercise the structured editor without a GitHub token or a real
+  // staged file. Guarded by the query parameter and it only ever EXPOSES what
+  // is already here -- it grants no access, reads no repository, and is inert
+  // on a normal load. Added 11 Sep 2026 alongside the editor, because the
+  // alternative was shipping an editing surface nothing had ever driven.
+  try {
+    if (/[?&]selftest=1\b/.test(location.search)) {
+      window.dgeOcrReviewSelfTest = {
+        load: function (units) {
+          UNITS = units; DEC = {};
+          var g = document.querySelector(".gate"); if (g) g.style.display = "none";
+          // #app ships display:none and is revealed by start(); the hook has
+          // to do the same or every control is present but unclickable.
+          var m = document.getElementById("app"); if (m) m.style.display = "block";
+          // #work is revealed only once a staged file is chosen from GitHub;
+          // the hook supplies the units directly, so it reveals it too.
+          var w = document.getElementById("work"); if (w) w.style.display = "grid";
+          renderUnits();
+          return UNITS.length;
+        },
+        decisions: function () { return DEC; }
+      };
+    }
+  } catch (e) { /* never let a test hook break the page */ }
+})();
+</script>
+</body>
+</html>

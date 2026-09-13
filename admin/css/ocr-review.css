@@ -1,0 +1,100 @@
+/* =========================================================================
+   Styles for admin/ocr-review.html — scholar review of OCR output.
+   Same tokens as the rest of the admin suite. The one layout idea: on a wide
+   screen the scan sits on the left and stays put while the text scrolls; on
+   a phone the scan collapses to a strip above the text.
+   ========================================================================= */
+:root{--bg:#f5efe4;--panel:#fffdf8;--panel2:#fbf4e7;--ink:#2b2117;--muted:#8b7c66;--line:#e6dac6;
+  --accent:#9a3b1b;--accent2:#1f6f5c;--gold:#b6862c;--ok:#2f9e6f;--warn:#c98a2b;--bad:#b23b3b;
+  --shadow:0 2px 16px rgba(90,60,20,.10)}
+body.dark{--bg:#14161c;--panel:#1b1f27;--panel2:#20242f;--ink:#e9e3d5;--muted:#98a0b2;--line:#2b3140;
+  --accent:#e0794b;--accent2:#5bb894;--gold:#e0b25a;--ok:#5bb894;--warn:#e0b25a;--bad:#e07070;--shadow:0 6px 26px rgba(0,0,0,.4)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.5;font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;transition:.3s}
+.gate{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px;text-align:center}
+.gate input{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:10px 14px;font:inherit;color:var(--ink);width:220px;text-align:center}
+.muted{color:var(--muted);font-size:13px}
+header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(9px);border-bottom:1px solid var(--line)}
+.bar{max-width:1400px;margin:0 auto;padding:8px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.brand{font-weight:700}.spacer{flex:1}
+.icon,.btn{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:7px 12px;cursor:pointer;color:var(--ink);font:inherit;font-size:13px}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.gh{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+.btn.ok{background:var(--ok);color:#fff;border-color:var(--ok)}
+.btn.danger{background:var(--bad);color:#fff;border-color:var(--bad)}
+.btn.warn{background:var(--warn);color:#fff;border-color:var(--warn)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+select,input[type=text],input[type=search]{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:7px 10px;font:inherit;font-size:13px;color:var(--ink);max-width:100%}
+main{max-width:1400px;margin:0 auto;padding:12px 14px 80px}
+.modebar{font-size:12.5px;color:var(--muted);background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:12px}
+.modebar b{color:var(--ink)}
+.picker{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.picker select{min-width:180px}
+.work{display:grid;grid-template-columns:minmax(280px,42%) 1fr;gap:14px;align-items:start}
+@media (max-width:900px){.work{grid-template-columns:1fr}}
+.scan{position:sticky;top:64px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;box-shadow:var(--shadow)}
+@media (max-width:900px){.scan{position:static}}
+.scan .ctl{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:6px;font-size:12.5px}
+.scan .img{overflow:auto;max-height:78vh;background:#fff;border:1px solid var(--line);border-radius:8px;text-align:center}
+@media (max-width:900px){.scan .img{max-height:40vh}}
+.scan img{max-width:100%;display:block;margin:0 auto}
+.scan .none{padding:30px 12px;color:var(--muted);font-size:13px;text-align:center}
+.units{display:flex;flex-direction:column;gap:8px}
+.toolbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.chip{border:1px solid var(--line);background:var(--panel2);border-radius:999px;padding:5px 10px;cursor:pointer;font-size:12px;color:var(--muted);white-space:nowrap}
+.chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.progress{font-size:12.5px;color:var(--muted);margin:0 0 8px}
+.progress b{color:var(--ink)}
+.unit{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--line);border-radius:12px;padding:10px 12px;box-shadow:var(--shadow)}
+.unit.accept{border-left-color:var(--ok)}.unit.edit{border-left-color:var(--accent2)}.unit.reject{border-left-color:var(--bad);opacity:.8}
+.unit.review{border-left-color:var(--warn)}
+.unit .top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.unit .top b{color:var(--ink);font-family:ui-monospace,Menlo,monospace;font-size:12px}
+.badge{font-size:11px;padding:1px 8px;border-radius:999px;font-weight:600;white-space:nowrap}
+.badge.ok{background:color-mix(in srgb,var(--ok) 20%,transparent);color:var(--ok)}
+.badge.warn{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn)}
+.badge.bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.badge.plain{background:var(--panel2);color:var(--muted);border:1px solid var(--line);font-weight:500}
+.unit .render{margin:8px 0 4px;padding:8px 10px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;font-size:15px;line-height:1.7;max-height:260px;overflow:auto}
+.unit .render h1,.unit .render h2,.unit .render h3{font-size:1.05em;margin:.4em 0}
+.unit .render table{border-collapse:collapse}.unit .render td,.unit .render th{border:1px solid var(--line);padding:2px 6px}
+/* The structured editor (11 Sep 2026). The rendered layout IS the edit
+   surface now -- headings stay headings while they are corrected, and bold
+   is how a प्रतीक gets marked. It is given a visible focus ring because a
+   contenteditable region with no chrome looks like static text, and a
+   reviewer needs to know their keystrokes are going somewhere. */
+.unit .render[contenteditable="true"]{outline:none;cursor:text;min-height:2.4em}
+.unit .render[contenteditable="true"]:focus{border-color:var(--accent,#e2664a);box-shadow:0 0 0 2px rgba(226,102,74,.18)}
+.unit .render.dirty{border-left:3px solid var(--warn,#c8912a)}
+.unit .render blockquote{margin:.4em 0 .4em 1.4em;padding-left:.8em;border-left:2px solid var(--line);color:var(--muted)}
+.unit .render b,.unit .render strong{color:var(--accent,#e2664a)}
+.unit .rendertools{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-top:8px}
+.unit .rendertools .tbtn{min-width:28px;padding:3px 7px;font:600 12px/1.2 inherit;color:var(--ink);background:var(--panel2);border:1px solid var(--line);border-radius:6px;cursor:pointer}
+.unit .rendertools .tbtn:hover{border-color:var(--accent,#e2664a)}
+.unit .rendertools .tsep{width:1px;height:16px;background:var(--line);margin:0 4px}
+.unit .rendertools .thint{flex:1 1 100%;font-size:11px;color:var(--muted);margin-top:2px}
+.unit textarea{width:100%;min-height:90px;border:1px solid var(--line);background:var(--panel2);border-radius:8px;padding:8px 10px;font:inherit;font-size:15px;line-height:1.7;color:var(--ink);resize:vertical;margin-top:6px}
+.unit textarea.dirty{border-color:var(--accent2)}
+.unit label.f{display:block;font-size:11.5px;color:var(--muted);margin-top:6px}
+.unit .alt{font-size:12px;color:var(--muted);margin-top:6px}
+.unit .alt summary{cursor:pointer;color:var(--accent2)}
+.unit .alt pre{white-space:pre-wrap;font:inherit;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 8px;margin:4px 0 0}
+.unit .actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.unit .actions .btn{font-size:12px;padding:5px 10px}
+.unit .actions input[type=text]{flex:1;min-width:140px;font-size:12px;padding:5px 9px}
+.say{font-size:12.5px;color:var(--muted)}.say.ok{color:var(--ok)}.say.bad{color:var(--bad)}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:var(--shadow);margin-top:14px}
+.panel h2{font-size:15px;margin:0 0 6px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.grid2 label{font-size:12px;color:var(--muted);display:block}
+.grid2 input,.grid2 select{width:100%}
+.empty{color:var(--muted);font-size:13px;padding:16px;text-align:center}
+code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:1px 5px}
+footer{max-width:1400px;margin:0 auto;padding:20px 14px;color:var(--muted);font-size:12px}
+footer a{color:var(--accent2)}
+dialog{border:none;border-radius:14px;padding:0;max-width:560px;width:92vw;background:var(--panel);color:var(--ink);box-shadow:var(--shadow)}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+dialog .dhead{padding:14px 16px;border-bottom:1px solid var(--line);font-weight:700}
+dialog .dbody{padding:14px 16px;font-size:13.5px}
+dialog .dfoot{padding:12px 16px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}
