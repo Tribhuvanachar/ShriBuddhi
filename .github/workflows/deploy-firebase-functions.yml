@@ -57,6 +57,16 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+      # 13 Sep 2026: this repo has no firebase/ folder of its own (Buddhi keeps the site's
+      # runtime code, this repo lost its last GitHub Actions-adjacent site folders when it
+      # became tools/admin-only) -- same reason push-firebase-function-secrets.yml already
+      # checks out bhumandala separately. Every `firebase/...` path below is `bhumandala/firebase/...`.
+      - name: Checkout bhumandala (the site actually being deployed)
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/bhumandala
+          token: ${{ secrets.BUDDHI_TOKEN }}
+          path: bhumandala
       - name: Assemble the service-account key from the repository secrets
         # Same resolution as deploy-firebase-hosting.yml — see that file's header for the accepted
         # secret names. Prints only which secret NAMES were found, never a value.
@@ -111,7 +121,7 @@ jobs:
           PY
       - name: Write .firebaserc (gitignored on purpose — the repo never carries a project id)
         run: |
-          printf '{ "projects": { "default": "%s" } }\n' "${{ secrets.FIREBASE_PROJECT_ID }}" > firebase/.firebaserc
+          printf '{ "projects": { "default": "%s" } }\n' "${{ secrets.FIREBASE_PROJECT_ID }}" > bhumandala/firebase/.firebaserc
       - name: Bundle the shelf snapshot the corpus proxy falls back to
         # corpusFile reads the LIVE shelf over HTTPS so widening it is a commit
         # plus a Hosting deploy, not a function redeploy. This copy is the floor
@@ -122,13 +132,22 @@ jobs:
         # is only wrong in the widening direction, since the deploy that narrows
         # it carries the new snapshot along.
         run: |
-          cp admin/config/library-overrides.json firebase/functions/library-overrides.json
-          python3 -c "import json;d=json.load(open('firebase/functions/library-overrides.json'));print('bundled shelf:', 'enabled' if (d.get('shelf') or {}).get('enabled') else 'disabled', '|', len((d.get('shelf') or {}).get('allow') or []), 'allow entries')"
-      - name: Write the non-secret params corpusFile reads
+          cp admin/config/library-overrides.json bhumandala/firebase/functions/library-overrides.json
+          python3 -c "import json;d=json.load(open('bhumandala/firebase/functions/library-overrides.json'));print('bundled shelf:', 'enabled' if (d.get('shelf') or {}).get('enabled') else 'disabled', '|', len((d.get('shelf') or {}).get('allow') or []), 'allow entries')"
+      - name: Write the non-secret params Cloud Functions params need
         # defineString() params come from this .env at deploy time. It holds no
-        # credentials — a bucket name and two URLs — and is written fresh on
-        # every run so a blank input genuinely means "off" rather than "keep
-        # whatever the last deploy set".
+        # credentials — a bucket name, two URLs, and a handful of plain config
+        # strings — and is written fresh on every run so a blank input
+        # genuinely means "off" rather than "keep whatever the last deploy set".
+        #
+        # 13 Sep 2026: firebase-tools refuses to fall back to a defineString()'s
+        # own code-level `default` in --non-interactive mode -- it wants an
+        # explicit value here for EVERY declared param or the deploy fails
+        # outright listing all of them with no value, `--only` or not (same
+        # class of problem as the Secret Manager one push-firebase-function-secrets.yml
+        # already documents). The twelve below are every non-secret param
+        # index.js declares beyond the three corpus ones already handled here;
+        # values are each param's own already-declared default.
         env:
           CORPUS_BUCKET: ${{ inputs.corpus_bucket }}
           CORPUS_PREFIX: ${{ inputs.corpus_prefix }}
@@ -138,8 +157,20 @@ jobs:
             echo "CORPUS_BUCKET=${CORPUS_BUCKET}"
             echo "CORPUS_PREFIX=${CORPUS_PREFIX:-corpus/}"
             echo "CORPUS_CONFIG_URL=${CORPUS_CONFIG_URL}"
-          } > firebase/functions/.env
-          cat firebase/functions/.env
+            echo "OTP_PROVIDER=whatsapp"
+            echo "OTP_TEMPLATE_NAME=dge_otp"
+            echo "OTP_TEMPLATE_LANG=en"
+            echo "OTP_DEFAULT_COUNTRY=91"
+            echo "MSG91_TEMPLATE_ID="
+            echo "GITHUB_REPO=Tribhuvanachar/bhumandala"
+            echo "PAYMENT_GATEWAY=mock"
+            echo "PAYMENT_GATEWAYS_ENABLED=mock"
+            echo "CASHFREE_ENV=sandbox"
+            echo "CASHFREE_API_VERSION=2023-08-01"
+            echo "RAZORPAY_KEY_ID="
+            echo "EMAIL_PROVIDER=console"
+          } > bhumandala/firebase/functions/.env
+          cat bhumandala/firebase/functions/.env
           if [ -z "$CORPUS_BUCKET" ]; then
             echo "::notice::corpusFile will answer 503 (no CORPUS_BUCKET). The reader keeps reading static files."
           fi
@@ -147,7 +178,7 @@ jobs:
         env:
           WANT_PDF: ${{ inputs.install_pdf_renderer }}
         run: |
-          cd firebase/functions
+          cd bhumandala/firebase/functions
           if [ "$WANT_PDF" = "true" ]; then
             npm install
             # Prove the browser is actually inside the directory that gets
@@ -165,11 +196,15 @@ jobs:
           ONLY: ${{ inputs.only }}
         run: |
           npm install -g firebase-tools@15 >/dev/null 2>&1
-          cd firebase
+          cd bhumandala/firebase
           if [ -n "$ONLY" ]; then
             TARGET="$(echo "$ONLY" | sed 's/^/functions:/; s/,/,functions:/g')"
           else
             TARGET="functions"
           fi
-          firebase deploy --only "$TARGET" --project "$PID" --non-interactive
+          # --force also auto-sets an Artifact Registry cleanup policy for build images on
+          # first deploy -- without it, firebase-tools exits 1 AFTER a fully successful
+          # function deploy just because that one-time policy step was skipped, which looks
+          # like a failure even when every function deployed fine. Discovered 10 Sep 2026.
+          firebase deploy --only "$TARGET" --project "$PID" --non-interactive --force
           echo "Functions deployed to project $PID (region asia-south1, per functions/index.js setGlobalOptions)"
