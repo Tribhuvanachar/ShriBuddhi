@@ -315,8 +315,17 @@ select,input[type=text],input[type=number],input[type=color]{padding:6px 9px;bor
   }
 
   /** Rebuild the comparison from whatever is loaded, keeping the choice. */
+  // Only a person pressing "Use this" counts as a choice. The engines arrive
+  // as separate fetches, so without this flag the FIRST file to come back set
+  // cmp.chosen and every later rebuild preserved it — meaning the engine in
+  // use was decided by which file happened to download fastest, and the same
+  // page could open on Vision one day and Tesseract the next. It also defeated
+  // buildComparison's own default, which prefers an engine that kept the
+  // layout. Now an unchosen comparison re-derives that default every time.
+  var chosenByPerson = false;
+
   function rebuild(keepChoice){
-    var was = keepChoice === false ? "" : cmp.chosen;
+    var was = (keepChoice === false || !chosenByPerson) ? "" : cmp.chosen;
     cmp = S.buildComparison(Object.keys(sources).map(function(k){ return sources[k]; }));
     if (was && S.chooseEngine(cmp, was)) { /* the person's choice survives a reload */ }
     doc = S.chosenDoc(cmp);
@@ -533,6 +542,7 @@ select,input[type=text],input[type=number],input[type=color]{padding:6px 9px;bor
     var use = e.target.closest("[data-use]");
     if (use){
       if (S.chooseEngine(cmp, use.getAttribute("data-use"))){
+        chosenByPerson = true;
         doc = S.chosenDoc(cmp);
         selId = null;
         renderDoc(); renderStyles(); renderCompare();

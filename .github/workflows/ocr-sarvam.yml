@@ -18,8 +18,12 @@ on:
   workflow_dispatch:
     inputs:
       pdf_url:
-        description: "Direct URL of the PDF (archive.org download link, Drive direct link, …)"
-        required: true
+        description: "Direct URL of the PDF (archive.org download link, Drive direct link, …). Leave empty if using pdf_path."
+        required: false
+        type: string
+      pdf_path:
+        description: "Path to a PDF inside THIS repository, e.g. source/pdf/raghavendra_vijaya.pdf. Use instead of pdf_url for a scan that is not public."
+        required: false
         type: string
       pages:
         description: "Pages to send, e.g. 11-40 or 1-10,15,20-24 (each 10 pages is one job)"
@@ -67,7 +71,24 @@ jobs:
           SARVAM_API_KEY: ${{ inputs.dry_run && '' || secrets.SARVAM_API_KEY }}
         run: |
           set -euo pipefail
-          ARGS=(--pdf-url "${{ inputs.pdf_url }}" --pages "${{ inputs.pages }}" --work "${{ inputs.work_slug }}"
+          URL="${{ inputs.pdf_url }}"
+          PATH_IN_REPO="${{ inputs.pdf_path }}"
+          # Exactly one source. A scan whose rights are unresolved has no
+          # business being fetched over a public URL, so pdf_path reads it
+          # straight out of the checkout instead.
+          if [ -n "$URL" ] && [ -n "$PATH_IN_REPO" ]; then
+            echo "::error::Give pdf_url or pdf_path, not both."; exit 1
+          fi
+          if [ -z "$URL" ] && [ -z "$PATH_IN_REPO" ]; then
+            echo "::error::Give one of pdf_url or pdf_path."; exit 1
+          fi
+          if [ -n "$PATH_IN_REPO" ]; then
+            [ -f "$PATH_IN_REPO" ] || { echo "::error::$PATH_IN_REPO is not in this repository."; exit 1; }
+            SRC=(--pdf "$PATH_IN_REPO")
+          else
+            SRC=(--pdf-url "$URL")
+          fi
+          ARGS=("${SRC[@]}" --pages "${{ inputs.pages }}" --work "${{ inputs.work_slug }}"
                 --language "${{ inputs.language }}" --format "${{ inputs.output_format }}" --out data/ocr_staging)
           [ "${{ inputs.dry_run }}" = "true" ] && ARGS+=(--dry-run)
           python3 tools/sarvam_docai.py "${ARGS[@]}"
@@ -92,7 +113,10 @@ jobs:
           git stash -q --include-untracked
           if git fetch -q origin "$BR"; then git checkout -q -B "$BR" FETCH_HEAD; else git checkout -q -B "$BR"; fi
           git stash pop -q
-          git add data/ocr_staging/${{ inputs.work_slug }}
+          # Refresh the index the admin pages read, so a newly staged file is
+          # in the dropdown without anyone remembering to regenerate it.
+          python3 tools/build_ocr_staging_index.py
+          git add data/ocr_staging/${{ inputs.work_slug }} data/ocr_staging/index.json
           git commit -q -m "ocr: Sarvam Document AI pages ${{ inputs.pages }} for ${{ inputs.work_slug }}"
           git push -q origin "HEAD:$BR"
           echo "Committed to branch \`$BR\` — open it in admin/ocr-review.html." >> "$GITHUB_STEP_SUMMARY"

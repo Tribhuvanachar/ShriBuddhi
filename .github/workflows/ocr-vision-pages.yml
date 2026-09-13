@@ -70,6 +70,9 @@ jobs:
           set -euo pipefail
           BR="ocr-staging/${{ inputs.work_slug }}"
           git fetch origin "$BR" && git checkout -B "$BR" "origin/$BR" || git checkout -B "$BR"
-          git add "data/ocr_staging/${{ inputs.work_slug }}"
+          # Refresh the index the admin pages read, so a newly staged file is
+          # in the dropdown without anyone remembering to regenerate it.
+          python3 tools/build_ocr_staging_index.py
+          git add "data/ocr_staging/${{ inputs.work_slug }}" data/ocr_staging/index.json
           git commit -m "ocr: Vision pages ${{ inputs.start_page }}-${{ inputs.end_page }} for ${{ inputs.work_slug }}" || { echo "nothing to commit"; exit 0; }
           git push "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" "HEAD:$BR"
