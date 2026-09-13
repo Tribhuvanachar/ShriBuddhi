@@ -1,0 +1,2481 @@
+From 95ec37feb2e575f90456e642a30e8f582820bbcf Mon Sep 17 00:00:00 2001
+From: Tribhuvanachar <119830645+Tribhuvanachar@users.noreply.github.com>
+Date: Thu, 20 Aug 2026 16:52:25 +0000
+Subject: [PATCH] data: gemini-enrich
+ dge/data/dvaitavedanta/dasha_prakarana_granthas/vishnu_tattva_vinirnaya/tika_jayatirtha/data.json
+
+---
+ .../tika_jayatirtha/data.json                 | 2324 ++++++++++++++++-
+ 1 file changed, 2304 insertions(+), 20 deletions(-)
+
+diff --git a/dge/data/dvaitavedanta/dasha_prakarana_granthas/vishnu_tattva_vinirnaya/tika_jayatirtha/data.json b/dge/data/dvaitavedanta/dasha_prakarana_granthas/vishnu_tattva_vinirnaya/tika_jayatirtha/data.json
+index 993c218e9..1f9fbabb1 100644
+--- a/dge/data/dvaitavedanta/dasha_prakarana_granthas/vishnu_tattva_vinirnaya/tika_jayatirtha/data.json
++++ b/dge/data/dvaitavedanta/dasha_prakarana_granthas/vishnu_tattva_vinirnaya/tika_jayatirtha/data.json
+@@ -31,7 +31,61 @@
+     "anchor": "article5631",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:51:20Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nश्रीजयतीर्थविरचिता टीका\nविश्वस्योदयमातनोति तदनु त्राणं विधत्ते पुनः\nसौख्याप्तीतरहानिसाधनमलं वक्ति श्रुतीर्व्यञ्जयन् ।\nस्वापं प्रापयति श्रमापहृतये कल्पावसाने च यः\nतं देवं पितरं पतिं गुरुतमं वन्दे रमावल्लभम् ।। १ ।।\nलसतु श्रीमदानन्दतीर्थेन्दुर्नो हृदम्बरे ।\nयद्वचश्चन्द्रिका स्वान्तसन्तापं विनिकृन्तति ।। २ ।।\nपदवाक्यप्रमाणज्ञान् प्रणम्य शिरसा गुरून् ।\nव्याकरिष्ये यथाबोधं "
++     },
++     {
++      "text": "विष्णुतत्त्वविनिर्णयम्",
++      "reference_ids": [
++       "ref-000001"
++      ]
++     },
++     {
++      "text": " ।। ३ ।।"
++     }
++    ],
++    "references": {
++     "ref-000001": {
++      "quoted_text": "विष्णुतत्त्वविनिर्णयम्",
++      "type": "citation",
++      "source_guess": "Vishnutattvavinirnaya of Madhvacharya",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5632",
+@@ -60,7 +114,403 @@
+     "anchor": "article5632",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:51:24Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nविघ्नविघातादिसाधनतयाऽविगीतशिश्वचारपरम्पराद्यवगतं नारायणवन्दनं स्वयमन्तराय-विधुरोऽपि भगवानानन्दतीर्थमुनिः शिष्यान् ग्राहयितुं प्रकरणादौ निबध्नाति- "
++     },
++     {
++      "text": "सदागमैकविज्ञेय-मिति",
++      "reference_ids": [
++       "ref-000002"
++      ]
++     },
++     {
++      "text": " ।। "
++     },
++     {
++      "text": "सदा वन्दे",
++      "reference_ids": [
++       "ref-000003"
++      ]
++     },
++     {
++      "text": " इत्यनेन मम नारायणवन्दनं न प्रत्यूहविरहादिप्रयोजनोद्देशेनेति सूचयति । न अनिर्धारितस्वरूपस्य वन्दनं युक्तं, न च लक्षणेन विना निर्धारणमित्यतो नारायणस्य लक्षणान्याह- "
++     },
++     {
++      "text": "निर्दोषेति",
++      "reference_ids": [
++       "ref-000004"
++      ]
++     },
++     {
++      "text": " ।। निर्दोषश्चासावशेषसद्गुणश्चेति विग्रहः । अत्र निर्दोषग्रहणेन पारतन्त्र्यराहित्यादीनि, अशेषसद्गुणमित्यनेन परिपूर्णानन्दत्वादीनि च अनन्तानि लक्षणानि सूचितानि । तदर्थमेव अशेषेत्युक्तम् । दुःखादीनामपि गुणत्वेन व्यवहारात् "
++     },
++     {
++      "text": "सदिति",
++      "reference_ids": [
++       "ref-000005"
++      ]
++     },
++     {
++      "text": " । अथवा उत्पत्त्यादिराहित्यं गुणानां सच्छब्देनाऽचश्व्े । एतल्लक्षणसम्भावनार्थमुक्तम्- "
++     },
++     {
++      "text": "समतीतेति",
++      "reference_ids": [
++       "ref-000006"
++      ]
++     },
++     {
++      "text": " ।। क्षराक्षरपदाभ्यां जडमप्युप-लक्ष्यते । सम्यगतीते अतिक्रान्ते क्षराक्षरे येन असौ तथोक्तः । जडजीवप्रकृतिभ्योऽत्यन्तविलक्ष-णम् । एतैर्लक्षणैः अनया च सम्भावनयाऽन्वितो नारायणः कुतः प्रतिपत्तव्य इत्यत उक्तम्- "
++     },
++     {
++      "text": "आगमविज्ञेयमिति",
++      "reference_ids": [
++       "ref-000007"
++      ]
++     },
++     {
++      "text": " ।। आगमैः विशिष्टतया विलक्षणतया च ज्ञेयम् । प्रत्यक्षानुमानाभ्याम् अन्यथापि ज्ञायत इत्यत उक्तम्- "
++     },
++     {
++      "text": "एकेति",
++      "reference_ids": [
++       "ref-000008"
++      ]
++     },
++     {
++      "text": " ।। आगमानपेक्षस्य प्रत्यक्षादेः नारायणस्य सदोषत्वादौ प्रवृत्त्यनुपपत्तेः तदपेक्षायां च उपजीव्यविरोधेन न तस्य तत्र प्रामाण्यमिति भावः । तथाऽपि पाशुपताद्यागमैः अन्यथाऽपि ज्ञायत इत्यत उक्तम्- सदिति ।। अयोग्यजनव्यामोहनाय प्रणीतानां तेषां दुरागमत्वात् न तदुक्तप्रकारेण ज्ञेयः । ‘"
++     },
++     {
++      "text": "दोषैकदृक् पुरोभागी",
++      "reference_ids": [
++       "ref-000009"
++      ]
++     },
++     {
++      "text": ", "
++     },
++     {
++      "text": "ह्लादैकमयीम्",
++      "reference_ids": [
++       "ref-000010"
++      ]
++     },
++     {
++      "text": "’ इत्यादिप्रयोगदर्शनात् सङ्ख्यार्थस्यैव एकशब्दस्य पूर्वकालैकेति पूर्वनिपातो न केवलार्थस्य ।"
++     }
++    ],
++    "references": {
++     "ref-000002": {
++      "quoted_text": "सदागमैकविज्ञेय-मिति",
++      "type": "quotation",
++      "source_guess": "Tattvodyota (Madhvacharya)",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000003": {
++      "quoted_text": "सदा वन्दे",
++      "type": "quotation",
++      "source_guess": "Tattvodyota (Madhvacharya)",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000004": {
++      "quoted_text": "निर्दोषेति",
++      "type": "quotation",
++      "source_guess": "Tattvodyota (Madhvacharya)",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000005": {
++      "quoted_text": "सदिति",
++      "type": "quotation",
++      "source_guess": "Tattvodyota (Madhvacharya)",
++      "status": "verified",
++      "confidence": 0.856,
++      "resolution_method": "lexical_search",
++      "target_slug": "itihasa/bhagavad_gita/adhyaya_17",
++      "target_title": "Adhyaya 17",
++      "target_unit_id": "adhyaya_17:27",
++      "matched_text": "यज्ञे तपसि दाने च स्थितिः सदिति चोच्यते।कर्म चैव तदर्थीयं सदित्येवाभिधीयते।।17.27।।",
++      "score": 0.8559405940594059,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17"
++      ]
++     },
++     "ref-000006": {
++      "quoted_text": "समतीतेति",
++      "type": "quotation",
++      "source_guess": "Tattvodyota (Madhvacharya)",
++      "status": "possible",
++      "confidence": 0.44,
++      "resolution_method": "lexical_search",
++      "target_slug": "itihasa/bhagavad_gita/adhyaya_07",
++      "target_title": "Adhyaya 07",
++      "target_unit_id": "adhyaya_07:26",
++      "matched_text": "वेदाहं समतीतानि वर्तमानानि चार्जुन।\n\nभविष्याणि च भूतानि मां तु वेद न कश्चन।।7.26।।",
++      "score": 0.44000000000000006,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000007": {
++      "quoted_text": "आगमविज्ञेयमिति",
++      "type": "quotation",
++      "source_guess": "Tattvodyota (Madhvacharya)",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000008": {
++      "quoted_text": "एकेति",
++      "type": "quotation",
++      "source_guess": "Tattvodyota (Madhvacharya)",
++      "status": "possible",
++      "confidence": 0.62,
++      "resolution_method": "lexical_search",
++      "target_slug": "itihasa/bhagavad_gita/adhyaya_07",
++      "target_title": "Adhyaya 07",
++      "target_unit_id": "adhyaya_07:12",
++      "matched_text": "ये चैव सात्त्विका भावा राजसास्तामसाश्च ये।\n\nमत्त एवेति तान्विद्धि नत्वहं तेषु ते मयि।।7.12।।",
++      "score": 0.6200000000000001,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000009": {
++      "quoted_text": "दोषैकदृक् पुरोभागी",
++      "type": "quotation",
++      "source_guess": null,
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000010": {
++      "quoted_text": "ह्लादैकमयीम्",
++      "type": "quotation",
++      "source_guess": "Kavyaprakasha (Mammata)",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5637",
+@@ -89,7 +539,17 @@
+     "anchor": "article5637",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:51:28Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nशृङ्गे कर्णे वा गृहीत्वा गामिव न आगमो नारायणं गमयति, किन्तु लक्षणमुखेनैव । लक्षणमपि नाप्रमितं लक्ष्यनिर्धारणस्येष्टे । सन्ति हि तेऽप्यर्थाः, ये प्रमाणप्रतीता अपि असम्भावनया अपोद्यन्ते । यथा देवगवानामुत्तानानां वहनम् । अत्र च युगपदणुत्वमहत्त्वादीनामसम्भावनया अपवादो मा शङ्कीति लक्षणसम्भावनाप्रमाणानां त्रयाणामपि कथनं युक्तम्, प्रामाणिकत्वा-च्चास्यार्थस्य ।\nकृतदेवतावन्दनानामपि या चिकीर्षितापरिसमाप्तिः सा भक्त्यादिवैगुण्यनिमित्ता । या तु अकृतदेवतावन्दनानामपि समाप्तिः सा अदृष्टान्तरायत्तेति कल्प्यते । श्रेयांसि बहुविघ्नानीति विघ्नानां सम्भावितत्वात् पाक्षिकस्यापि दोषस्य परिहार्यत्वात् तन्निरासार्थः प्रयत्नो युक्त एवेति ।"
++     }
++    ],
++    "references": {}
++   }
+   },
+   {
+    "id": "DV_5638",
+@@ -118,7 +578,276 @@
+     "anchor": "article5638",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:51:33Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nस्यादेतत् । प्रकरणमेवेदं नाऽरम्भणीयं विषयप्रयोजनसम्बन्धशून्यत्वात् । प्रतीतघट-स्वरूपप्रतिपादकवाक्यवत् काकदन्तपरीक्षाग्रन्थवच्च । स हि शास्त्रस्य विषयो भवति, योऽज्ञातः सन्दिग्धो विपर्यस्तो वा । अस्य च विषयत्वेन अभिमतो नारायणः सर्वसम्मत एव । नहि नारायणपदमनर्थकं कोऽप्यङ्गीकरोति । नाप्यस्य प्रकरणस्य प्रयोजनमस्ति, ऐहिकपारत्रिकयोः कृष्यादियागादिसाधनान्तरसाध्यत्वात्, एतेन सम्बन्धाभावाच्च । मोक्षस्यापि कर्मसाध्यत्वात्, एतत्सम्बन्धाभावाच्च, सकलैहिकपारत्रिकभोगपरित्यागात्मकस्य तस्य अपुरुषार्थत्वेन निरधि-कारिकत्वापत्तेश्चेत्यत आह- "
++     },
++     {
++      "text": "विशेषणानीति",
++      "reference_ids": [
++       "ref-000011"
++      ]
++     },
++     {
++      "text": " ।। लक्षणत्वेन निर्दोषत्वम्, अशेषसद्गुणत्वम्, यथा कामधेनुप्रभृतीनां लोकविलक्षणत्वात् प्रासादोद्गिरणादिकं नासम्भवि, तथा भगवतोऽपीति दर्शनार्थं सर्वतोऽत्यन्तविलक्षणत्वम्, तत्र प्रमाणाकाङ्क्षायां वेदादिवेद्यत्वं, तस्य विरोधपरिहाराय दुरागमाद्यवेद्यत्वमिति यानि इह आद्यपद्ये नारायणस्य विशेषणानि कथितानि तान्येव इह ग्रन्थे साधयिष्यामि, तत्प्रसक्तं चान्यत् । न तु स्वरूपमात्रम् । एतद्विशेषणवति च नारायणे सन्त्येव अज्ञानसन्देहविप्रतिपत्तय इत्यनेन विषयो दर्शितः । प्रकरणस्य विषयेण सह प्रतिपाद्यप्रति-पादकत्वलक्षणः सम्बन्धश्चोक्तः । स तु न युक्तः । साधकप्रमाणाभावात् । न तावदनुमानादिना सदागमैकविज्ञेयत्वादिविशिष्टतया नारायणः साधयितुं शक्यते स्ववचनविरोधात् । नापि वेदादिभिः सदागमैः, तत्प्रामाण्यमनभ्युपगच्छतः सौगतार्हतादीन् प्रति तदुपन्यासायोगाद् इत्यत आह- "
++     },
++     {
++      "text": "सदुक्तिभिरिति",
++      "reference_ids": [
++       "ref-000012"
++      ]
++     },
++     {
++      "text": " ।। सदागमैः । तत्प्रामाण्यं च साधयिष्यामीति भावः ।\nअथवा सत्यो वेदाद्या उक्तयः अनुग्राहिका येषामनुमानादीनां तानि सदुक्तीनि तैरपि । "
++     },
++     {
++      "text": "सदागमैकविज्ञेयमिति",
++      "reference_ids": [
++       "ref-000013"
++      ]
++     },
++     {
++      "text": " च वेदादिविरुद्धानुमानाद्यवेद्यत्वमेवोक्तमिति हृदयम् । "
++     },
++     {
++      "text": "क्रमादिति",
++      "reference_ids": [
++       "ref-000014"
++      ]
++     },
++     {
++      "text": " मन्दानां मनस्समाधानायोक्तम् । अन्यथा कुत्र किं साधितमिति मन्दा व्याकुलाः स्युः । निर्देशक्रम एवात्र विवक्षितो न त्वाकाङ्क्षाक्रमः । "
++     },
++     {
++      "text": "संविदे इति",
++      "reference_ids": [
++       "ref-000015"
++      ]
++     },
++     {
++      "text": " प्रयोजनाभिधानम् । ननु न व्युत्पाद्यार्थसंविन्मात्रं प्रयोजनं सुखदुःखावाप्तिहान्योरन्यतरत्वाभावात्, काकदन्तपरीक्षाग्रन्थसाधारण्याच्चेत्यत उक्तम्- "
++     },
++     {
++      "text": "सज्ज-नेति",
++      "reference_ids": [
++       "ref-000016"
++      ]
++     },
++     {
++      "text": " ।। सन्ति हि तथाविधाः पुरुषाः, येषां सुखावाप्त्यादिकमपि न प्रार्थ्यं, किन्तु परमेष्टस्य नारायणस्य संविदेव । तान् प्रति इदं साधनमुपपद्यते । नहि सर्वाधिकारिकं किमपि शास्त्रमस्ति । अथवा संविच्छब्देन तत्साध्यो मोक्ष उपलक्ष्यते । मोक्षस्य कर्मसाध्यत्वं निराकर्तुं, प्रकरणस्य प्रयोजनेन सम्बन्धमुपपादयितुं च लाक्षणिकप्रयोगः । एवं तर्हि निरधिकारिकत्वमित्यत उक्तम्- सज्ज-नेति ।। ये खलु सात्त्विकप्रकृतयोऽधीतसाङ्गाम्नायाः, शमदमादिसम्पन्नाः, नित्यानित्यवस्तुविवेक-वन्तोऽखिलसांसारिकभोगेभ्यो विरक्ता मुमुक्षवो, भगवत्संविदेकसाध्यत्वात् मोक्षस्य, तामेवार्थ-यन्ते तेषां संविदे । तस्मात् विषयप्रयोजनसम्बन्धाधिकारिसम्पन्नत्वादारम्भणीयं प्रकरणमिति स्थितम् ।"
++     }
++    ],
++    "references": {
++     "ref-000011": {
++      "quoted_text": "विशेषणानीति",
++      "type": "citation",
++      "source_guess": "Mūlarūpa Pratīka",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000012": {
++      "quoted_text": "सदुक्तिभिरिति",
++      "type": "citation",
++      "source_guess": "Mūlarūpa Pratīka",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000013": {
++      "quoted_text": "सदागमैकविज्ञेयमिति",
++      "type": "citation",
++      "source_guess": "Mūlarūpa Pratīka",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000014": {
++      "quoted_text": "क्रमादिति",
++      "type": "citation",
++      "source_guess": "Mūlarūpa Pratīka",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000015": {
++      "quoted_text": "संविदे इति",
++      "type": "citation",
++      "source_guess": "Mūlarūpa Pratīka",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000016": {
++      "quoted_text": "सज्ज-नेति",
++      "type": "citation",
++      "source_guess": "Mūlarūpa Pratīka",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5639",
+@@ -147,7 +876,61 @@
+     "anchor": "article5639",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:51:35Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nक्रमादिति सदागमैकविज्ञेयत्वस्य प्रथमप्रतिपाद्यत्वं प्रतिज्ञातम् । सदुक्तिभिरिति चो-क्तम् । तत्र कास्ता नारायणस्य सदागमैकवेद्यत्वं प्रतिपादयन्त्यः सदुक्तय इत्यत आह- ऋगाद्या इति ।। ऋग्यजुस्सामाथर्वसञ्ज्ञका वेदाः । चाथशब्दाः परस्परसमुच्चये । एवशब्दयोस्तु त एव सदागमाः, तदन्ये ये ते सर्वे दुरागमा एवेति वा, तैर्नैव ज्ञेय एतैरेव ज्ञेय इति वा सम्बन्धः । पञ्चरात्रगतानां जीवजननादिवाचिनां केषाञ्चिद्वाक्यानामप्रामाण्यं केचिदाचक्षते, तन्निरासार्थ-मखिलमित्युक्तम् । एतदात्मकम् ऋगाद्यनुकूलम् । एषाम् ऋगादीनामनुयायिनोऽनुकूलग्रन्था मानवाद्याः । तुशब्दो विशेषणार्थः । तदन्ये तद्विरुद्धास्तदुदासीनाश्च । कथं तर्हि वैशेषिकादिभिः, उक्तविशेषणो नारायणो न ज्ञायत इत्यत आह- सदा युक्तैरिति ।। वेदाद्यर्थविचारे सदाभियोग-युक्तैः । वाक्यार्थो हि विचाराभियोग एव स्फुरति । नच वैशेषिकादयो वेदाद्यर्थविचारेऽभियोग-युक्ताः । तर्हि मीमांसकैः किं न ज्ञायत इत्यत उक्तम्- भक्तिमद्भिरिति ।। यो हि यत्राऽदरवान् तस्यैव तद्वस्तु विद्यमानमपि स्फुरति, न त्वनादरवतोऽन्यत्राऽदरवतश्चेत्यनुभवसिद्धम् । न च तथा मीमांसकाः । भक्तिरपि न कादाचित्की वेदाद्यर्थभगवज्ज्ञानोपयोगिनीत्युक्तम्- सुनिष्ठितै-रिति ।। एतैरेवेत्यस्य दुरागमा इव व्यावर्त्यान्तरमप्यस्तीत्याह- नचेति ।। केवलो वेदाद्यानुकूल्य-रहितः । तर्कशब्देन दूषणानुमानं व्यावर्तितम् । तदितरानुमानव्यावृत्त्यर्थमाह- न केनचिदिति ।। अथ वा तर्कशब्देन अनुमानमेवोक्तम् । कुरुपाण्डववत् सामान्यविशेषभावमाश्रित्य अर्थापत्त्यादि-व्यावृत्त्यर्थम् एतदुक्तम् । यद्वा केनचित् सदायुक्तत्वादिरहितेन पुरुषेण । केवलेति सर्वस्योप-संहारः । केवलग्रहणेन दुरागमादिनिरासः । आगमेति सदागमग्रहणम् । भक्तैः सदायुक्तैः सुनिष्ठितैश्च । ब्रह्माण्डे पुराणे कथितमिति शेषः ।\n"
++     },
++     {
++      "text": "‘नावेदवित्’",
++      "reference_ids": [
++       "ref-000017"
++      ]
++     },
++     {
++      "text": " इत्यादौ सर्वेऽपि सदागमा गृह्यन्ते । सर्वमनुभवतीति सर्वानुभूः । आत्मानं परमात्मानम् । साम्परायो मोक्षः, तदर्थं श्रुतिर्वक्तीति शेषः । आ अपेति विरुद्धार्थयोरुपसर्गयोः क्रमेण सम्बन्धः । एषा परमात्मविषया मतिः शुष्केण तर्केण आनेया उत्पाद्या, अपनेया निराकार्या च न भवति । किन्तु अन्येन जीवेश्वरादिभेदज्ञानिना, भगवद्भक्त्यादिमतेति यावत्, आचार्येण प्रोक्ता वेदप्रवचनेन उत्पादितैव सुज्ञानाय साक्षात्काराय भवति । प्रेष्ठेति नचिकेतसं प्रति यमस्य सम्बुद्धिः । एनं परमात्मानम् । तस्माद् वेदनकरणत्वे समानेऽपि असाधारण्येन व्यपदेशा भवन्तीति न्यायाद् विशिष्टवस्तुवेदनकरणत्वादेव हि एतान् वेदा इत्याहुः । विवक्षितस्य सर्वस्यापि अर्थस्य प्रतिपादनात् पुराणवाक्यम् आदौ पठितम् । श्रुतयस्तु एकदेशप्रतिपादनात् पश्चादिति ।।"
++     }
++    ],
++    "references": {
++     "ref-000017": {
++      "quoted_text": "‘नावेदवित्’",
++      "type": "quotation",
++      "source_guess": "Taittirīya Brāhmaṇa 3.12.9.7",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5640",
+@@ -176,7 +959,278 @@
+     "anchor": "article5640",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:51:40Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nअत्राऽहुः । यदनृतं तदप्रमाणं दृश्व्ं यथोन्मत्तवाक्यम् । अनृतं च ‘"
++     },
++     {
++      "text": "पुत्रकामः पुत्रेष्ट्या यजेत",
++      "reference_ids": [
++       "ref-000018"
++      ]
++     },
++     {
++      "text": "’ इत्यादिवेदवाक्यम् । कृतायामपि इष्टौ पुत्रजन्मानुपलम्भात् । एवं ‘"
++     },
++     {
++      "text": "मृदब्रवीत्",
++      "reference_ids": [
++       "ref-000019"
++      ]
++     },
++     {
++      "text": "’ इत्यादि, अनुमान-विरुद्धत्वात् । स्वव्याहतं चाप्रमाणं दृष्टम् । स्वव्याहतं च ‘"
++     },
++     {
++      "text": "उदिते होतव्यम् अनुदिते होतव्यम्",
++      "reference_ids": [
++       "ref-000020"
++      ]
++     },
++     {
++      "text": "’ इत्यादि । पुनरुक्तं चाप्रमाणम् । पुनरुक्तं च वेदवाक्यं, शाखान्तरोक्तस्य शाखान्तरेऽभिधानात् । एकस्यामपि शाखायां वाक्यावृत्तिदर्शनात् । ‘"
++     },
++     {
++      "text": "त्रिः प्रथमामन्वाह त्रिरुत्तमाम्",
++      "reference_ids": [
++       "ref-000021"
++      ]
++     },
++     {
++      "text": "’ इति स्वयमेव विधा-नाच्च । निरर्थकं चाप्रमाणम् । निरर्थकं च ‘"
++     },
++     {
++      "text": "सृण्येव",
++      "reference_ids": [
++       "ref-000022"
++      ]
++     },
++     {
++      "text": "’ इत्यादि । प्रमाणान्तरसिद्धार्थं च न प्रमाणम् । तथाविधं च ‘"
++     },
++     {
++      "text": "अग्निर्हिमस्य भेषजम्",
++      "reference_ids": [
++       "ref-000023"
++      ]
++     },
++     {
++      "text": "’ इत्यादि वेदवाक्यम् । एवं पुराणेऽपि अनृतत्वादीनि ज्ञातव्यानि (द्रष्टव्यानि) । तद्दृष्टान्तेन अशेषस्यापि वेदादिभागस्याप्रामाण्यमनुमातव्यम् । किञ्च संवादरहितं विप्रलम्भकादिवाक्यमप्रमाणम् । तथाविधं च वेदादिकम् । एवञ्च वेदपुराणयोरप्रामाण्यात् तदन्तर्गतानामुदाहृतवाक्यानाम् अप्रामाण्यमेव । एतेषां वचनानामेव अप्रामाण्ये सति कथमेतद्बलात् विष्णोस्सदागमैकविज्ञेयत्वसिद्धिः । एवमेव वेदादिभिः निर्दोषत्वादिसिद्धिरपि परास्तेत्यत आह- न चैतेषामिति ।। चशब्दस्समुच्चये । एतच्छङ्कापरिहारसमुच्चितस्यैव उदाहृतप्रमाणस्य विवक्षित-साधकत्वात् । एवमुत्तरत्रापि बोद्धव्यम् ।\nअयमभिप्रायः । किमिदमनृतत्वम् । अर्थशून्यत्वमिति चेत् । ननु एतदेवाप्रामाण्यमिति साध्याविशिष्टता स्यात् । प्रमाणान्तरविसंवादोऽनृतत्वमिति चेत् स किमापाततः सर्वथा वा । नाऽद्यः । तस्य सर्वत्र सम्भवेन अनैकान्त्यात् । द्वितीये सन्दिग्धासिद्धिः, किमत्र सर्वथा प्रमाणविसंवाद एव उत वैगुण्यादिनिमित्तं फलादर्शनादिकमिति सन्देहापरिहारात् । व्याघातेनापि किं द्वयोरप्रामाण्यं साध्यमुतान्यतरस्य । नाऽद्यः । अन्यतरप्रामाण्येऽपि व्याघातसम्भवेन सन्दिग्धकालातीतत्वस्य अनैकान्तिकत्वस्य च आपातात् । द्वितीये पक्षीकृतस्यैव प्रामाण्यसम्भवेन सन्दिग्धबाधानिस्तारात् । किञ्च व्याघातोऽपि आपाततः सर्वथा वा । नाऽद्यः । अनैकान्त्यात् । द्वितीये सन्दिग्धासिद्धिः, किमत्र सर्वथा व्याघात एव उताधिकार्यादिभेदेन व्यवस्थेति सन्देहानिस्तारात् । पौनरुक्त्यं तु प्रमाणसम्प्लवे व्यभिचाराद् अप्रामाण्यसाधकं न भवति । वैयर्थ्यं कथञ्चित् साधयेत्, तदपि नास्ति, किमिदं पुनरुक्तमेव उताधिकविवक्षादिनाऽनुवादादिरूपमिति सन्दिग्धत्वात् । एतेन प्रमाणान्तरसिद्धार्थत्वमपि निरस्तम् । नैरर्थक्यमप्यापाततश्चेद् अनैकान्ति-कम् । सर्वथा तु सन्दिग्धम्, किमत्र शक्तितात्पर्यापरिज्ञानादर्थाप्रतिपत्तिः, उत सर्वथा नैरर्थक्यादिति सन्देहात् । संवादराहित्यं च भागासिद्धम्, ‘अग्निर्हिमस्य’ इत्यादेस्संवाददर्शनात् । किमयथार्थ-त्वादेवात्र संवादो नास्ति उत तस्यार्थस्य तदेकप्रमाणकत्वादित्यन्यथासिद्धिसन्देहाच्च न प्रमाण(नाप्रामाण्य)मिति ।"
++     }
++    ],
++    "references": {
++     "ref-000018": {
++      "quoted_text": "पुत्रकामः पुत्रेष्ट्या यजेत",
++      "type": "quotation",
++      "source_guess": "Veda",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "vedanga/shiksha/pratishakhya/rigveda_pratishakhya",
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000019": {
++      "quoted_text": "मृदब्रवीत्",
++      "type": "quotation",
++      "source_guess": "Taittirīya Saṃhitā",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000020": {
++      "quoted_text": "उदिते होतव्यम् अनुदिते होतव्यम्",
++      "type": "quotation",
++      "source_guess": "Veda",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "vedanga/shiksha/pratishakhya/rigveda_pratishakhya",
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000021": {
++      "quoted_text": "त्रिः प्रथमामन्वाह त्रिरुत्तमाम्",
++      "type": "quotation",
++      "source_guess": "Taittirīya Saṃhitā",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000022": {
++      "quoted_text": "सृण्येव",
++      "type": "quotation",
++      "source_guess": "Ṛgveda 10.106.6",
++      "status": "possible",
++      "confidence": 0.44,
++      "resolution_method": "lexical_search",
++      "target_slug": "itihasa/bhagavad_gita/adhyaya_06",
++      "target_title": "Adhyaya 06",
++      "target_unit_id": "adhyaya_06:33",
++      "matched_text": "अर्जुन उवाच\n\nयोऽयं योगस्त्वया प्रोक्तः साम्येन मधुसूदन।\n\nएतस्याहं न पश्यामि चञ्चलत्वात् स्थितिं स्थिराम्।।6.33।।",
++      "score": 0.44000000000000006,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000023": {
++      "quoted_text": "अग्निर्हिमस्य भेषजम्",
++      "type": "quotation",
++      "source_guess": "Taittirīya Saṃhitā",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5641",
+@@ -205,7 +1259,17 @@
+     "anchor": "article5641",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:51:42Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nअस्त्वेवं तर्हि हेतूनां सन्दिग्धासिद्धत्वादिना वेदाप्रामाण्यानिश्चयः । तथाऽपि तत्सन्देहोऽ-स्त्येव, वैगुण्यादिनिमित्तत्वादेरनिश्चितत्वात् । तथाच भवतोऽभिमतसिद्धये वेदपुराण-वचनोदाहरणमयुक्तमित्यत आह- अपौरुषेयत्वादिति ।। वचनानामिति प्रकृतत्वेऽपि वेदस्येति पुनर्वचनम्, पुराणवचनस्यापि प्रकृतत्वात् तस्यापि पक्षीकारे भागासिद्धिप्रसङ्गात् तत्परित्यागेन तावदत्र वेदस्यैव पक्षीकरणज्ञापनार्थम् ।\nइदमुक्तं भवति । करणानामप्रामाण्यं खल्वबोधकत्वं विपरीतबोधकत्वं वा । तत्र शब्दस्या-बोधकत्वं द्वेधा सम्भवति, पदाभिमतानां निरभिधेयत्वेन साभिधेयत्वेऽप्यन्वयाभावेन चेति । विपरीतबोधकत्वं तु विपरीतान्वयेन । तदिदं स्वतन्त्रवक्तृपुरुषदोषाधीनं नतु स्वभाव इति अप्रामाण्यस्य परतस्त्वं व्युत्पादयन्तो वक्ष्यामः । पुरुषो ह्यज्ञानाद् विपरीतज्ञानात् प्रमादाद् अपटुकरणत्वाद्वा निरभिधेयान् निरन्वयान् वा शब्दान् प्रयुङ्क्ते । प्रमादात् करणापटुत्वाद् विपरीतज्ञानाद् विप्रलम्भकत्वाद्वा विपरीतान्वयान् । तदभावश्च द्वेधा सम्भवति, अपौरुषेयत्वेन वा वक्तुराप्तत्वेन वा, विवक्षितार्थतत्त्वज्ञानादेराप्तिशब्दार्थत्वात् । तत्र वेदस्यापौरुषेयत्वेन पुरुषदोषनिबन्धनदोषाभावात्, कारणाभावे च कार्यस्य शङ्कितुमशक्यत्वाद् अप्रामाण्याभावो निश्चीयते ।\nवेदो नाप्रमाणम्, अप्रामाण्यकारणदोषशून्यत्वात् प्रत्यक्षादिवत् । शब्ददोषाश्च पुरुषदोषाधीनाः तदन्वयव्यतिरेकानुविधायित्वात् । यद् यदन्वयव्यतिरेकानुविधायि, तत् तदधीनम् । यथा पटस्तन्त्वधीनः । वेदो न पुरुषदोषनिबन्धनदोषवान्, पुरुषाप्रणीतत्वात् । यद् येनाप्रणीतं वाक्यम्, न तत् तद्दोषप्रयुक्तदोषवत् । यथा यज्ञदत्ताप्रणीतं वाक्यं न यज्ञदत्तदोषप्रयुक्तदोषवद् इति । विपक्षे त्वकारणकार्योत्पत्तिप्रसङ्गः ।\nतथाचानृतत्वादयः प्रागप्रामाण्याभावानिश्चयात् सन्दिग्धासिद्धाः । निश्चिते त्वप्रामाण्याभावे निश्चितासिद्धा एव भवन्ति । एवमप्रामाण्याभावे निश्चितेऽपि प्रामाण्यनिश्चयः कुत इति चेत् । अपौरुषेयत्वेन तन्निबन्धनाबोधकत्वविपरीतबोधकत्वशून्यत्वादिति ब्रूमः । वेदोऽप्रमाणम् आप्ताप्रणीतवाक्यत्वात्, उन्मत्तवाक्यवत् इति चेन्न । वाक्यत्वावच्छिन्ने साध्येऽनाप्तप्रणीतत्वस्य, केवले वा अप्रामाण्यकारणदोषवत्त्वस्योपाधित्वात् । वेदे चोपाधिद्वयाभावस्योक्तत्वात् । वाक्यप्रामाण्यस्य वक्तुराप्तिमूलत्वेन तदभावेऽकारणकार्योत्पत्तिः स्याद् इति तु प्रामाण्यस्य स्वतस्त्वप्रतिपादनेन निराकरिष्यते । आप्तोक्तत्वेन अप्रामाण्याभावप्रामाण्ययोर्निश्चयः किं न क्रियत इति चेत् । यथा न शक्यते तथा वक्ष्यते । महाजनपरिगृहीतत्वात् प्रामाण्यादिनिश्चयोऽस्तु किमनेनापौरुषेयत्वक्लेशेनेति चेत् । किं महच्छब्देन सङ्ख्याप्रकर्षोऽभिधीयते पूज्यता वा । नाऽद्यः । जनानामियत्तापरिज्ञानस्याशक्यत्वेन सन्दिग्धासिद्धत्वात् । देशादिविशेषे बौद्धादीनां महाजनपरिगृहीतत्वेनानैकान्त्याच्च । न द्वितीयः । वेदपरिग्रहवतां पूज्यत्वस्य परैरनङ्गीकृतत्वात् । स्वशास्त्रपरिगृहीतॄणां तस्याङ्गीकृतत्वाच्चेति ।।"
++     }
++    ],
++    "references": {}
++   }
+   },
+   {
+    "id": "DV_5642",
+@@ -234,7 +1298,147 @@
+     "anchor": "article5642",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:51:47Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nअस्त्वेवं "
++     },
++     {
++      "text": "वेदस्य",
++      "reference_ids": [
++       "ref-000024"
++      ]
++     },
++     {
++      "text": "ापौरुषेयत्वेनाप्रामाण्यकारणदोषाभावादप्रामाण्याभावनिश्चयः प्रामाण्य-निश्चयश्च । तत एव फलविसंवादादेरवश्यं वैगुण्यादिनिमित्तत्वस्य कल्पनीयत्वेन परोक्तहेतूना-मसिद्धत्वनिश्चयोऽपि । पुराणवाक्यस्य तु कथम्? नहि तदप्यपौरुषेयतयाऽङ्गीक्रियते । तथात्वे पूर्ववाक्ये वेदस्येति नोच्येतेत्यत आह- "
++     },
++     {
++      "text": "इतिहास",
++      "reference_ids": [
++       "ref-000025"
++      ]
++     },
++     {
++      "text": "ेति ।। इतिहासश्च पुराणं चेति द्वन्द्वैकवद्भावः । नपुंसकत्वं तु नाऽश्रितम् । पुराणशब्दस्य विशेष्यलिङ्गत्वाद्ग्रन्थविशेषणत्वेन पुंलिङ्गत्वमेवाऽश्रि-तम् । "
++     },
++     {
++      "text": "इतिहासपुराणो वेदो, वेदानाम् ऋगादीनां, पञ्चमः पञ्चत्वसङ्ख्यापूर(को)णो वेद",
++      "reference_ids": [
++       "ref-000026"
++      ]
++     },
++     {
++      "text": " इति । तेन अप्रामाण्यशङ्काशून्येन प्रमाणतया निश्चितेन वेदेन वेदसमानतया गृहीतत्वात् पुराणवचनस्या-प्यप्रामाण्याभावादिनिश्चयाद् युक्तं तदुदाहरणमिति । अत्र यद्यपि सामान्येनोक्तम्, तथाऽपि प्रमाणान्तरबलाद् वेदानुकूलयोरेवेतिहासपुराणयोर्ग्रहणमिति ज्ञातव्यम् । ननु आप्तोक्तत्वेनैव पुराणस्याप्रामाण्याभावादिनिश्चयः किं न क्रियत इति चेन्न । आप्तिनिश्चयस्याप्यन्ततो वेदानुसरण-मन्तरेणाशक्यत्वात् । एतेन वेदादिभिर्विष्णोर्निर्दोषत्वादिसिद्धिरपि समाहिता ।\nइति वेदादेः प्रामाण्यसमर्थनम् ।"
++     }
++    ],
++    "references": {
++     "ref-000024": {
++      "quoted_text": "वेदस्य",
++      "type": "citation",
++      "source_guess": null,
++      "status": "possible",
++      "confidence": 0.62,
++      "resolution_method": "lexical_search",
++      "target_slug": "itihasa/bhagavad_gita/adhyaya_17",
++      "target_title": "Adhyaya 17",
++      "target_unit_id": "adhyaya_17:23",
++      "matched_text": "तत्सदिति निर्देशो ब्रह्मणस्त्रिविधः स्मृतः।ब्राह्मणास्तेन वेदाश्च यज्ञाश्च विहिताः पुरा।।17.23।।",
++      "score": 0.6200000000000001,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000025": {
++      "quoted_text": "इतिहास",
++      "type": "citation",
++      "source_guess": null,
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000026": {
++      "quoted_text": "इतिहासपुराणो वेदो, वेदानाम् ऋगादीनां, पञ्चमः पञ्चत्वसङ्ख्यापूर(को)णो वेद",
++      "type": "allusion",
++      "source_guess": "Chāndogya Upaniṣad 7.1.2",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5643",
+@@ -263,7 +1467,147 @@
+     "anchor": "article5643",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:51:50Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nअत्राऽहुर्वेद प्रामाण्यवादिनो बाह्याश्च । वेदस्यापौरुषेयत्वं न युक्तम् । घटत्वनीरूपत्वयोरिव वाक्यत्वापौरुषेयत्वयोः परस्परपरिहारेणैव वृत्त्युपलब्धेर्द्वयोरेकत्रासम्भावितत्वात् । नच तत्साधनमपि युक्तम् । सम्भावितस्यैव साधनार्हत्वात् । यथोक्तम्- ‘"
++     },
++     {
++      "text": "सम्भावितः प्रतिज्ञाया अर्थः साध्येत हेतुना । न तस्य हेतुभिस्त्राणमुत्पतन्नेव यो मृतः",
++      "reference_ids": [
++       "ref-000027"
++      ]
++     },
++     {
++      "text": "’ इति । नहि मम कर्णं प्रविश्य गजो गर्जतीत्येतत् साधनार्हं, किन्त्वनादरणीयमेवेत्यत आह- नचेति ।। अपौरुषेयं वाक्यमेव नास्तीत्यनेन वाक्यत्वापौरुषेयत्वयोः परस्परपरिहारेणैव वृत्तिरित्याचष्टे । अतो वेदोऽपौरुषेय इत्येतदसम्भावित-मेवेति वाक्यशेषः । इतः परः ‘"
++     },
++     {
++      "text": "अपौरुषेयत्वं च स्वत एव",
++      "reference_ids": [
++       "ref-000028"
++      ]
++     },
++     {
++      "text": "’ इत्यतः प्राक्तनो ग्रन्थः सम्भाव-नार्थः । कुतो न वाच्यमित्यत आह- तदभाव इति ।। धर्मादिकं तावदतीन्द्रियं वस्तु सर्व-समयानामभिमतम् । ततस्तत्तत्समयिभिः प्रामाणिकत्वेन तदङ्गीकरणीयम् । प्रामाणिकतयाऽ-भ्युपगतस्यैवार्थस्य शास्त्रसिद्धान्तत्वात् । नचापौरुषेयं वाक्यं विना धर्मादिसाधकं प्रमाणमस्ति । अतोऽपौरुषेयवाक्याभावे धर्माद्यसिद्धिप्रसङ्गाद् अप्रामाणिकस्य च सर्वशास्त्राभिमतत्वायोगात् सर्वैस्समयिभिर्धर्मादिनिश्चयार्थं किमप्यपौरुषेयं वाक्यमङ्गीकार्यम् । ततश्च वाक्यत्वापौरुषेयत्वयोः क्वचित् समावेशे सर्वैरङ्गीकर्तव्ये कुतो ‘"
++     },
++     {
++      "text": "वेदोऽपौरुषेयः",
++      "reference_ids": [
++       "ref-000029"
++      ]
++     },
++     {
++      "text": "’ इत्येतदसम्भावितम् इति ।।"
++     }
++    ],
++    "references": {
++     "ref-000027": {
++      "quoted_text": "सम्भावितः प्रतिज्ञाया अर्थः साध्येत हेतुना । न तस्य हेतुभिस्त्राणमुत्पतन्नेव यो मृतः",
++      "type": "quotation",
++      "source_guess": "Nyāyamañjarī",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000028": {
++      "quoted_text": "अपौरुषेयत्वं च स्वत एव",
++      "type": "citation",
++      "source_guess": null,
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000029": {
++      "quoted_text": "वेदोऽपौरुषेयः",
++      "type": "citation",
++      "source_guess": null,
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5644",
+@@ -292,7 +1636,233 @@
+     "anchor": "article5644",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:51:52Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nयेषां वैशेषिकादीनां बौद्धादीनां चातीन्द्रियं धर्मादिकं वस्त्वभिमतं तान् प्रत्यापाद्यताम-पौरुषेयवाक्याभ्युपगमः । यस्य तु लोकायतस्य धर्माद्यभिमानो नास्ति न तं प्रत्यापादनं युक्तम् । तस्य स्वाभिमतप्रमेयस्य प्रत्यक्षेणैव सिद्धेरतीन्द्रियस्यानङ्गीकृतत्वेनाऽपादकाभावात् । तथाच लोकायतं प्रति नासम्भावनापरिहारोऽस्तीत्याशङ्क्य, तेनापि धर्माद्यभ्युपगमं कारयित्वा तत्साधकापौरुषेयवाक्यमङ्गीकारयिष्यामीत्याशयवानाह - यस्येति ।।\nननु "
++     },
++     {
++      "text": "‘कर्तृकरणयोस्तृतीया’",
++      "reference_ids": [
++       "ref-000030"
++      ]
++     },
++     {
++      "text": " इति प्राप्तां तृतीयां बाधित्वा "
++     },
++     {
++      "text": "‘कर्तृकर्मणोः कृति’",
++      "reference_ids": [
++       "ref-000031"
++      ]
++     },
++     {
++      "text": " इति प्राप्तायाः षष्ठ्याः "
++     },
++     {
++      "text": "‘न लोकाव्ययनिष्ठा’",
++      "reference_ids": [
++       "ref-000032"
++      ]
++     },
++     {
++      "text": " इति पुनः प्रतिषेधे तृतीयया भवितव्यं देवदत्तेन भुक्तमिति यथा, यस्येति तु कथम् ? उच्यते । अभिमताविति "
++     },
++     {
++      "text": "‘मतिबुद्धिपूजार्थेभ्यश्च’",
++      "reference_ids": [
++       "ref-000033"
++      ]
++     },
++     {
++      "text": " इति वर्तमाने क्तः । "
++     },
++     {
++      "text": "‘क्तस्य च वर्तमाने’",
++      "reference_ids": [
++       "ref-000034"
++      ]
++     },
++     {
++      "text": " इति प्रतिषेधबाधकत्वेन षष्ठीविधानात् सैवात्र युक्ता देवदत्तस्येष्टमिति यथा इति ।\nतौ धर्माधर्मौ । अतीन्द्रियोपलक्षणं चैतत् । नासौ समयी स्यादिति शेषः ।\nधर्मादिकमनङ्गीकारिणोऽशास्त्रित्वापत्तिः कुत इत्यत आह- समयेति ।। प्रयुज्यते प्रेर्यते प्रणेता प्रणयने, श्रोता च श्रवणे येन तत् प्रयोजनं, विषयः साध्यं च । समयस्य लोकायतशास्त्रस्य विषयाद्यभावप्रसङ्गादित्यर्थः ।\nएतदुक्तं भवति । न तावल्लोकायतशास्त्रस्य ऐन्द्रियको विषयः, प्रत्यक्षत एव तत्सिद्धौ शास्त्रानपेक्षणात् । फलमपि न दृष्टमर्थादिकं तस्यान्यतो लभ्यत्वाद्, अनेन सम्बन्धाभावाच्च । ततो धर्मादिकमतीन्द्रियं विषयत्वेन, स्वर्गादिकं फलत्वेनाङ्गीकार्यम् । तदपि चेन्नाङ्गीक्रियते तदा शास्त्रस्य निर्विषयत्वेन निष्फलत्वेन च काकदन्तपरीक्षाग्रन्थवद् अशास्त्रत्वमापद्येत । वक्तृश्रोत्रोरभिमत-मनन्यसाध्यं फलमधिकृत्य तद्धेतुभूतं प्रमाणान्तराप्राप्तमर्थं प्रतिपादयतां वाक्यानां समूहो हि शास्त्रमित्युच्यते यथा चरकादि । एवं चाशास्त्रत्वापत्तौ तस्याशास्त्रित्वं प्रसज्येत । नच तस्य तदिष्टमिति सर्वथा तेन विषयादिसिद्ध्यर्थं धर्मादिकमङ्गीकार्यमिति ।।"
++     }
++    ],
++    "references": {
++     "ref-000030": {
++      "quoted_text": "‘कर्तृकरणयोस्तृतीया’",
++      "type": "quotation",
++      "source_guess": "Aṣṭādhyāyī 2.3.18",
++      "status": "possible",
++      "confidence": 0.517,
++      "resolution_method": "fuzzy_search",
++      "target_slug": "vedanga/vyakarana/ashtadhyayi/sutrapatha",
++      "target_title": "Sutrapatha",
++      "target_unit_id": "2.3.18",
++      "matched_text": "कर्तृकरणयोस्तृतीया",
++      "score": 0.517391304347826,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000031": {
++      "quoted_text": "‘कर्तृकर्मणोः कृति’",
++      "type": "quotation",
++      "source_guess": "Aṣṭādhyāyī 2.3.65",
++      "status": "possible",
++      "confidence": 0.479,
++      "resolution_method": "fuzzy_search",
++      "target_slug": "vedanga/vyakarana/ashtadhyayi/sutrapatha",
++      "target_title": "Sutrapatha",
++      "target_unit_id": "2.3.65",
++      "matched_text": "कर्तृकर्मणोः कृति",
++      "score": 0.4789473684210526,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000032": {
++      "quoted_text": "‘न लोकाव्ययनिष्ठा’",
++      "type": "quotation",
++      "source_guess": "Aṣṭādhyāyī 2.3.69",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000033": {
++      "quoted_text": "‘मतिबुद्धिपूजार्थेभ्यश्च’",
++      "type": "quotation",
++      "source_guess": "Aṣṭādhyāyī 3.2.188",
++      "status": "possible",
++      "confidence": 0.538,
++      "resolution_method": "fuzzy_search",
++      "target_slug": "vedanga/vyakarana/ashtadhyayi/sutrapatha",
++      "target_title": "Sutrapatha",
++      "target_unit_id": "3.2.188",
++      "matched_text": "मतिबुद्धिपूजार्थेभ्यश्च",
++      "score": 0.5384615384615384,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000034": {
++      "quoted_text": "‘क्तस्य च वर्तमाने’",
++      "type": "quotation",
++      "source_guess": "Aṣṭādhyāyī 2.3.67",
++      "status": "possible",
++      "confidence": 0.5,
++      "resolution_method": "fuzzy_search",
++      "target_slug": "vedanga/vyakarana/ashtadhyayi/sutrapatha",
++      "target_title": "Sutrapatha",
++      "target_unit_id": "2.3.67",
++      "matched_text": "क्तस्य च वर्तमाने",
++      "score": 0.5,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5645",
+@@ -321,7 +1891,190 @@
+     "anchor": "article5645",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:51:55Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nननु धर्माद्यनङ्गीकारेऽपि न शास्त्रस्य विषयादिशून्यत्वमापद्यते । धर्माद्यभावस्यैव विषय-त्वात् । नच धर्मादिकं पश्वादिभिरिव स्वभावत एवाप्रतिपन्नमिति किं तदभावप्रतिपादनेनेति वाच्यम् । वेदादिजनितया भ्रान्त्या धर्मादिसद्भावस्य प्रसक्तत्वेन "
++     },
++     {
++      "text": "‘नायं सर्पः’",
++      "reference_ids": [
++       "ref-000035"
++      ]
++     },
++     {
++      "text": " इतिवत् तदभाव-प्रतिपादनस्योपपन्नत्वात् । फल च लोकस्य निरङ्कुशः कामोपभोगो दुःखनिवृत्तिश्च । यद्यपि शास्त्रं न कामान् ददाति । तेषामर्थादिनैव लभ्यत्वात् । नापि भोजयति । रागत एव तत्सम्भवात् । नाप्यौषधादिवद् दुःखं शमयति । तथाऽपि धर्मादिसद्भावभ्रान्त्या केचित् कामोपभोगोपरुद्धाः । कृच्छ्रचान्द्रायणाद्यनुष्ठाननिमित्तं दुःखं च प्रसक्तम् । धर्माद्यभावप्रतिपादनेन तु भ्रान्तौ निवृत्तायां यथेष्टकामोपभोगो दुःखाद्यनुदयश्च स्यात् । शास्त्रप्रणेतुस्तु लोकोपकारः फलम् । उपकृताश्च लोका अस्माकमयं कामोपभोगोपरोधं धर्माद्यनुष्ठानादिक्लेशं च निवारितवानित्यनुरागिणो भवन्ति । "
++     },
++     {
++      "text": "‘जनानुरागप्रभवाश्च सम्पदः’",
++      "reference_ids": [
++       "ref-000036"
++      ]
++     },
++     {
++      "text": " इति । तत्राऽह- "
++     },
++     {
++      "text": "नच तेनेति",
++      "reference_ids": [
++       "ref-000037"
++      ]
++     },
++     {
++      "text": " ।। तेन शास्त्रप्रणेत्रा, तेन शास्त्रेण प्रणीतेन लोकोपकारः कृतो भवतीति न च वाच्यमित्यर्थः । लोकप्रयोजनादिप्रतिषेधस्याप्युप-लक्षणमेतत् । कुतो नेत्यत आह- "
++     },
++     {
++      "text": "धर्मेति",
++      "reference_ids": [
++       "ref-000038"
++      ]
++     },
++     {
++      "text": " ।। ज्ञाने लोकस्य लोकायतशास्त्रेणोत्पादिते सति, हिंसादिना प्राप्तेन ।\nएतदुक्तं भवति । यदि धर्मादिज्ञानं प्रमा यदि वा भ्रान्तिः सर्वथा सर्वमर्यादास्थितिहेतुत्वेन महान्तमनर्थं पर्यहार्षीत् । इदानी तु धर्माद्यभावज्ञाने सति सर्वमर्यादाभङ्गेन धनवनिताद्यपहारार्थिनो लोकस्य परस्परहिंसादिकं प्राप्नोत्येव । तथा चापकार एव लोकस्यानेन कृतो भवति । नहि कपर्दिकालाभार्थं लक्षलाभं नाशयन्नुपकारी भवति । ततश्च श्रोतॄणामिदमफलमेव । फलसम्बन्धिन एव विषयत्वेन निर्विषयत्वं च । शास्त्रप्रणेतरि च लोकस्यापकारित्वबुद्ध्या द्वेष एव भवति कुतोऽनुराग इति । नन्वविवेकिनां भवतु केषाञ्चिद् द्वेषः । विवेकिनस्तु अस्मत्सुखाद्यर्थमनेनोद्यमः कृतः । यत्तु हिंसादिकं प्राप्तं तदस्मत्सामर्थ्याभावनिबन्धनम् । तत्रायं किं करोत्विति मन्वाना अनुरज्यन्त एव । यथा आरोग्यार्थं भिषजौषधे दत्ते स्वापराधेन चानिश्वेत्पादे जाते न आमयावी तस्मै द्रुह्यति, किन्तु प्रत्युपकरोत्येवेति चेन्न । तथाऽपि समव्ययफलत्वेन शास्त्रकरणस्य निष्प्रयोजनत्वात् । अङ्गीकृत्य चेदमुक्तम् । विषमश्चायमुपन्यासः । नहि रोगिणोऽप्यथ्याचरणं वैद्यनिमित्तं येन तस्मै द्रुह्येत् । हिंसादिप्राप्तिस्तु शास्त्रनिमित्तैवेति सर्वेषां द्वेष एव स्यात् । ये तु हिंसया धनवनितादिकं लभन्ते तेऽपि बलवत्तरैरन्यैर्हिंस्यन्त एव । नैवं दृश्यत इति चेत् । सत्यम् । तदास्तिकदर्शनानाम् अनुन्मूलितत्वात् । तदुन्मूलनार्थश्च परस्य प्रयत्नः ।"
++     }
++    ],
++    "references": {
++     "ref-000035": {
++      "quoted_text": "‘नायं सर्पः’",
++      "type": "allusion",
++      "source_guess": null,
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000036": {
++      "quoted_text": "‘जनानुरागप्रभवाश्च सम्पदः’",
++      "type": "quotation",
++      "source_guess": null,
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000037": {
++      "quoted_text": "नच तेनेति",
++      "type": "citation",
++      "source_guess": null,
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000038": {
++      "quoted_text": "धर्मेति",
++      "type": "citation",
++      "source_guess": null,
++      "status": "possible",
++      "confidence": 0.44,
++      "resolution_method": "lexical_search",
++      "target_slug": "itihasa/bhagavad_gita/adhyaya_01",
++      "target_title": "Adhyaya 01",
++      "target_unit_id": "adhyaya_01:40",
++      "matched_text": "कुलक्षये प्रणश्यन्ति कुलधर्माः सनातनाः।\n\nधर्मे नष्टे कुलं कृत्स्नमधर्मोऽभिभवत्युत।।1.40।।",
++      "score": 0.44000000000000006,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5647",
+@@ -350,7 +2103,108 @@
+     "anchor": "article5647",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:52:00Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nनन्वपकुर्वन्तु सर्वे; तथाऽपि हितबुद्ध्या शास्त्रं प्रणीतवतोऽस्योपकारित्वमस्त्येव । नहि पङ्कमग्नां गामुद्दिधीर्षुर्यदि गवा शृङ्गेण हन्यते तर्हि गोरपकारी भवतीति चेत् । तदा वक्तव्यम् । स तादृगुपकारः किं शास्त्रं प्रणयतः स्वयमेव प्रयोजनरूप उत तेनान्यत् प्रयोजनं भवति । नाऽद्यः । सुखप्राप्त्यादीतरत्वात् । द्वितीयेऽपि किं दृश्व्ं प्रयोजनमदृश्व्ं वा । आद्यं दूषयति- "
++     },
++     {
++      "text": "नच",
++      "reference_ids": [
++       "ref-000039"
++      ]
++     },
++     {
++      "text": "ेति ।। तस्य शास्त्रप्रणेतुः । उक्तप्रकारेण सर्वविद्वेषविषयत्वात् प्रणाडिकान्तराभावादिति भावः । द्वितीयाभावे हेतुमाह- "
++     },
++     {
++      "text": "अदृष्ट",
++      "reference_ids": [
++       "ref-000040"
++      ]
++     },
++     {
++      "text": "ेति ।। न केवलं शास्त्रप्रणेतुः प्रयोजनाभावः किन्तु तस्यापि हिंसादिप्राप्तिरवर्जनीया, अदृश्वभावादेवेति । सङ्क्षेपकरणे कारणं सूचयन् चार्वाकस्यासमयित्वापादनमुपसंहरति- "
++     },
++     {
++      "text": "अत",
++      "reference_ids": [
++       "ref-000041"
++      ]
++     },
++     {
++      "text": " इति ।। अविद्यमानोऽर्थो विषयः प्रयोजनं च यस्य तदनर्थकं तस्य भाव आनर्थक्यम् । अङ्गीकृतमेव अङ्गीकृतप्रायमेव । अदृश्व्विषयाद्यभावस्य स्वयमेवाङ्गीकृतत्वेनार्धं तावदवसितं भारस्य । दृष्टविषयादिनिरासश्चायत्नसाध्य इति प्रतिवादिनो नात्रात्यन्तं कृत्यमित्युपसंह्रियत इति भावः । असौ धर्माद्यभावमभ्युपगच्छन्न समयी स्यात् । अतः समयित्वलोभात् तेनापि विषयत्वेन धर्मादिकमङ्गीकार्यम् । तत्सिद्धेरन्यथाऽनुपपत्त्याऽपौरुषेयं वाक्यमपीति वाक्यशेषः ।"
++     }
++    ],
++    "references": {
++     "ref-000039": {
++      "quoted_text": "नच",
++      "type": "citation",
++      "source_guess": null,
++      "status": "verified",
++      "confidence": 0.854,
++      "resolution_method": "lexical_search",
++      "target_slug": "itihasa/bhagavad_gita/adhyaya_06",
++      "target_title": "Adhyaya 06",
++      "target_unit_id": "adhyaya_06:13",
++      "matched_text": "समं कायशिरोग्रीवं धारयन्नचलं स्थिरः।\n\nसंप्रेक्ष्य नासिकाग्रं स्वं दिशश्चानवलोकयन्।।6.13।।",
++      "score": 0.8537037037037036,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06"
++      ]
++     },
++     "ref-000040": {
++      "quoted_text": "अदृष्ट",
++      "type": "citation",
++      "source_guess": null,
++      "status": "verified",
++      "confidence": 0.856,
++      "resolution_method": "lexical_search",
++      "target_slug": "itihasa/bhagavad_gita/adhyaya_11",
++      "target_title": "Adhyaya 11",
++      "target_unit_id": "adhyaya_11:6",
++      "matched_text": "पश्यादित्यान्वसून्रुद्रानश्िवनौ मरुतस्तथा।\n\nबहून्यदृष्टपूर्वाणि पश्याऽश्चर्याणि भारत।।11.6।।",
++      "score": 0.8558252427184466,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11"
++      ]
++     },
++     "ref-000041": {
++      "quoted_text": "अत",
++      "type": "citation",
++      "source_guess": null,
++      "status": "verified",
++      "confidence": 0.853,
++      "resolution_method": "lexical_search",
++      "target_slug": "itihasa/bhagavad_gita/adhyaya_01",
++      "target_title": "Adhyaya 01",
++      "target_unit_id": "adhyaya_01:44",
++      "matched_text": "उत्सन्नकुलधर्माणां मनुष्याणां जनार्दन।\n\nनरकेऽनियतं वासो भवतीत्यनुशुश्रुम।।1.44।।",
++      "score": 0.853030303030303,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5648",
+@@ -379,7 +2233,61 @@
+     "anchor": "article5648",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:52:03Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nननु न प्रयोजनाधीना प्रमेयव्यवस्थितिः किन्तु प्रमाणाधीना । नहि देवदत्तः पिपासित इत्येतावता मरौ वारि सिद्ध्यति । नच धर्मादौ प्रमाणमस्ति । प्रत्यक्षेण तदनवगमात् । अनुमानादीनां च प्रामाण्याभावात् ।\nअत्राऽहोदयनः । "
++     },
++     {
++      "text": "यद्यदृश्व्ं न स्यात् न परलोकार्थी कश्चिदिष्टापूर्तयोः प्रवर्तेत । नहि निष्फले दुःखैकफले वा कदाचित् कश्चिदेकोऽपि प्रेक्षापूर्वकारी घटते प्रागेव जगदिति",
++      "reference_ids": [
++       "ref-000042"
++      ]
++     },
++     {
++      "text": " । अत्र प्रश्व्व्यं किमनेन प्रमाणमुक्तमिति । अनुमानमर्थापत्तिर्वेति चेन्न । प्रत्यक्षैकप्रमाणवादिनं प्रति तदुपन्यासस्या-नुचितत्वात् । किञ्चैवं चैत्यवन्दनादिकमपि धर्मादिसाधनं स्यात् । तत्रापि हि शक्यते वक्तुम्- अन्यथा न कश्चिच्चैत्यवन्दनादौ घटेतेति । नैतदेवम् । यतो हेतुदर्शनादर्शनाभ्यां विशेषोऽस्ति । जीविकादिकं तत्र हेतुरस्ति नचात्र कश्चिदिति चेन्न । सर्वेषां चैत्यवन्दनादेर्जीविकादिमूलकत्व-कल्पनेऽनुभवविरोधात् । केषाञ्चित् तथात्वस्येष्टापूर्तयोरपि समत्वात् । तस्माच्चैत्यवन्दनादिकमिव इष्टापूर्तमप्यन्धपरम्परया विप्रलम्भेन वा प्राप्तमिति । प्रयोजनाभावान्नैवंविधं विप्रलम्भनं सम्भवतीति चेन्न । परचित्तवृत्तिगुरुतरप्रयोजनस्य इदानीन्तनैरस्माभिरपाकर्तुमशक्यत्वात् । त्वयाऽपि कथमिदं निश्चितमिति चेत्, न मयाऽपि निश्चितं किन्तु शङ्क्यत एव । तावताऽप्यनुमानादेरन्यथासिद्धि-शङ्काकलङ्कितस्य न प्रवृत्तिरिति ।"
++     }
++    ],
++    "references": {
++     "ref-000042": {
++      "quoted_text": "यद्यदृश्व्ं न स्यात् न परलोकार्थी कश्चिदिष्टापूर्तयोः प्रवर्तेत । नहि निष्फले दुःखैकफले वा कदाचित् कश्चिदेकोऽपि प्रेक्षापूर्वकारी घटते प्रागेव जगदिति",
++      "type": "quotation",
++      "source_guess": "Udayana, Nyāyakusumāñjali (Stavaka 1)",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5649",
+@@ -408,7 +2316,17 @@
+     "anchor": "article5649",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:52:06Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nउच्यते । किमेवं वदतो धर्मादौ सन्देह उताऽभावनिश्चयः । आद्ये न तत्र प्रवर्तेत नापि निवर्तेत । द्वितीये कुतोऽसाविति वाच्यम् । घटाद्यभावनिश्चय इव प्रत्यक्षेणैव धर्माद्यभावनिश्चय इति चेन्न । अयोग्यतया चक्षुषा रसस्येव प्रत्यक्षेण सतोऽप्यग्रहणोपपत्तेः । ननु किं योग्यताविशेषणेन यन्नोपलभ्यते तन्नास्त्येवेति चेत् । स्यादेतदेवं यद्यत्र वादिनो न विप्रतिपद्येरन्, यदि च चक्षुरादिना रसादिकमयोग्यतया न गृह्यत इति न स्यात् । सत्यां तु वादिविप्रतिपत्तौ सति चायोग्यतया क्वचिदनुपलम्भे प्रत्यक्षानुपलब्धिः संशयमेव सम्पादयति । किमनुपलम्भान्नास्त्येव धर्मादिकमुत वाद्यन्तरोक्तरीत्या चक्षुषाऽनुपलभ्यमानोऽपि रसो रसनेनेवायोग्यतया प्रत्यक्षेणानुपलभ्यमानमपि प्रमाणान्तरादस्तीति । नहि न्यायमतिक्रम्य स्वसमयमात्रेण संशयोत्तारो युज्यते । तथाचैतत्संशय-निरासार्थमप्यागमादिकं प्रमाणमङ्गीकार्यम् । तथा सति तेनैव सुकरं धर्मादिसाधनम् ।\nकिञ्चाऽगमादिप्रामाण्याभावे लोकव्यवहारोच्छेदः प्रसज्येत । ननु सम्भावनामात्रेण तत्सिद्धिः। संवादेन च प्रामाण्याभिमान इति चेत् । एवं तर्ह्यागमादिकं ज्ञानमुत्पादयति तच्च संवादीत्यङ्गी-कृतम् । किमतोऽधिकं प्रामाण्यं नाम यन्नाङ्गीक्रियते । तदेवं चार्वाकेणापि धर्मादिकमङ्गीकार्यमिति स्थितम् ।\n। इति चार्वाकनिरासः ।"
++     }
++    ],
++    "references": {}
++   }
+   },
+   {
+    "id": "DV_5650",
+@@ -437,7 +2355,61 @@
+     "anchor": "article5650",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:52:08Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nनन्वस्त्वेवं धर्मादिकम् । तच्च बुद्धर्षभेश्वरकपिलादिपुरुषवचसैव सेत्स्यति । तत्किमपौरुषेय-वाक्याङ्गीकारेणेत्यत आह- नच पौरुषेयेणेति ।। तत्सिद्धिः धर्मादिनिश्चयः । तत्र हेतुमाह- अज्ञानेति ।। विवक्षितार्थतत्त्वज्ञानाभावोऽज्ञानम् । ज्ञात्वाऽपि परप्रतारणं विप्रलम्भः । मिथ्या-ज्ञानप्रमादापटुकरणत्वानामप्युपलक्षणमेतत् । प्राप्तेः पुरुषेषु सम्भवात् । पुरुषाणां बहुलमज्ञान-विप्रलम्भाद्युपलम्भेन बुद्धर्षभादिष्वपि तत्सम्भावनयाऽऽश्वासानुपपत्तेर्न तद्वाक्येन धर्मादि-निश्चयस्सम्भवति ।\nननु धर्मादेरुपदेष्टा बुद्धः सर्वज्ञोऽङ्गीक्रियते । धर्मादिसाक्षात्कारवतश्च न तस्य रागद्वेषादि-दोषास्सम्भवन्ति । अज्ञानमूलत्वात् तेषाम् । यथाऽह पतञ्चलिः ‘"
++     },
++     {
++      "text": "अविद्याक्षेत्रत्वमुत्तरेषाम्",
++      "reference_ids": [
++       "ref-000043"
++      ]
++     },
++     {
++      "text": "’ इति । रागादिरहितस्य च न विप्रलम्भः सम्भवति । तस्य तत्कार्यत्वात् । नह्येवमेव कश्चित् कञ्चिद्विप्र-लब्धुमिच्छति । नचैवम्भूतस्य महानुभावस्य करणपाटवाद्यभावसम्भावनाऽ-स्ति । अतस्तस्मिन्नना-श्वासकारणाभावादुपपन्नस्तद्वाक्येन धर्मादिनिश्चय इति बौद्धाः । एवमार्हतादयोऽपि स्वस्वाचार्य-सार्वज्ञमङ्गीकुर्वाणाः । तान् प्रत्याह- नचेति ।। पौरुषेयेण वाक्येन धर्मादिसिद्धिस्तदिति परामृ-श्यते । सोऽर्थः प्रयोजनं यस्य सर्वज्ञकल्पनस्य तत्तथोक्तम् । तस्य भावस्तत्त्वम् । तृतीया हेतौ । सर्वज्ञकल्पनायाः पौरुषेयवाक्येन धर्मादिनिश्चयः प्रयोजनं यत इति । अर्थशब्दो निवृत्तिवचन इति केचित् । तत्राज्ञानादिप्राप्तिस्तच्छब्देन परामृश्यते । अर्थशब्दश्च आवर्तनीयः । तस्या अर्थो निवृत्तिस्तदर्थः । सोऽर्थः प्रयोजनं यस्य सर्वज्ञकल्पनस्येति । उक्तन्यायेन सर्व(ज्ञत्वे)ज्ञे कल्पिते विप्रलम्भाद्यभावस्तत एव सेत्स्यतीति पूर्वपक्षिणामभिप्रेतत्वात् सर्वज्ञ इत्येवोक्तम् ।\nकुतो नेत्यत आह- अन्यत्रेति ।। एवं वदता तावत् कस्मिंश्चित्पुरुषे प्रमाणेन विना सर्वज्ञत्वस्य कल्पनं कार्यम् । तथाहि । न तावत्तदीये सार्वज्ञेऽस्माकं प्रत्यक्षमस्ति । अस्माकमपि तत्प्रसङ्गात् । सर्वं हि ज्ञात्वा तदीयज्ञानस्य तद्विषयत्वं प्रत्यक्षेणावगन्तव्यम् । नचास्माकं सार्वज्ञमस्ति । तथात्वे बुद्धादिकल्पनावैयर्थ्यात् । तदिदमुक्तम् अन्यत्र अस्मासु अदृष्टस्य इति । अनुभवविरुद्धं चास्माकं परचित्तवृत्तिप्रत्यक्षीकरणम् । नाप्यनुमानम् । यद्धि येन धर्मेण व्याप्तमन्यत्रोपलब्धं तत्तस्यैव गमकं भवति । नच सर्वज्ञत्वमन्यत्र दृष्टम् । येनाऽनुमानस्य व्याप्तिर्गृह्येत । एतदप्युक्तम्- अन्यत्रादृष्ट-स्येति ।। आगमोऽपि न तावदपौरुषेयः परेणाङ्गीक्रियते । पौरुषेयोऽपि किं सर्वज्ञप्रणीतोऽथान्य-प्रणीतः । नान्त्योऽनाश्वासात् । आद्येऽपि किं तत्सर्वज्ञप्रणीत उत सर्वज्ञान्तरप्रणीतः । नाऽद्यः । इतरेतराश्रयप्रसङ्गात् । तस्य सार्वज्ञसिद्धौ तत्प्रणीतागमप्रामाण्यसिद्धिः । तेन च तस्य सार्वज्ञसिद्धि-रिति । अन्यथाऽस्मद्वाक्येनैवास्माकमपि तत् सिद्ध्येत् । न च तदस्ति । तदप्याह- अन्यत्रादृश्व्-स्येति ।। अन्यत्र स्ववाक्येन सिद्धतयाऽदृष्टस्येत्यर्थः । न द्वितीयः । पुरुषान्तरे सार्वज्ञस्यादृश्व्-त्वात् । सर्वज्ञान्तरवाक्येन तत्कल्पनेऽनवस्थितेः । पूर्वसर्वज्ञवाक्याश्रयणे च इतरेतराश्रयणात् । इदमप्युक्तम्- अन्यत्रादृष्टस्येति ।। नाप्युपमानम् । तद्धि स इवायमिति, एतत्सदृशोऽसाविति वोत्पद्यते । न चान्यत्र सार्वज्ञं प्रमितम् । येनोपमानोदयः स्यात् । एतदप्युदितम्- अन्यत्रादृष्ट-स्येति ।। नाप्यर्थापत्तिः । अनुपपत्त्यभावात् । बुद्धस्य धर्मातिदेशनं महाजनपरिगृहीतत्वं वाऽनुपपद्यमानं सार्वज्ञं गमयतीति चेत् । तर्हि जिनस्यापि तत्स्यात् । नचास्त्विति वाच्यम् । विप्रतिपत्त्यभावप्रसङ्गात् । इदमप्याह- अन्यत्रादृष्टस्येति ।। नाप्यभावः । तस्य भावविषयतायाः क्वाप्यदृष्टत्वात् । एतच्चोवाच- अन्यत्रादृष्टस्येति ।। अन्यत्राभावप्रमाणविषयतयाऽदृष्टस्य भावरूपस्येति ।"
++     }
++    ],
++    "references": {
++     "ref-000043": {
++      "quoted_text": "अविद्याक्षेत्रत्वमुत्तरेषाम्",
++      "type": "quotation",
++      "source_guess": "Yogasūtra 2.4",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5651",
+@@ -466,7 +2438,104 @@
+     "anchor": "article5651",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:52:11Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nआर्हतास्त्वाहुः । "
++     },
++     {
++      "text": "कश्चिदात्मा सकलपदार्थसाक्षात्कारी तद्ग्रहणस्वभावत्वे सति प्रक्षीण-प्रतिबन्धकत्वात् । यदेवं तदेवं यथाऽपगततिमिरादिप्रतिबन्धं लोचनविज्ञानं रूपसाक्षात्कारी",
++      "reference_ids": [
++       "ref-000044"
++      ]
++     },
++     {
++      "text": "ति । तदसत् । सकलपदार्थसाक्षात्कारित्वस्यान्यत्रादृष्टत्वेनाप्रसिद्धविशेषणत्वात् । तद्ग्रहणस्वभावत्वं च किं विवक्षितस्यैवाऽत्मनोऽङ्गीक्रियते सर्वेषां वा । नाऽद्यः । अन्यत्रादृष्टत्वेन आत्मत्वात्तत्रापि तदभावसाधनसौलभ्यात् । न द्वितीयः । अस्मदादौ तत्स्वभावत्वस्य प्रमाणादृष्टत्वात् । व्याप्तिज्ञानं सर्वविषयं सर्वात्मनां स्वभावो दृश्यत इति चेन्न । परोक्षसामान्यज्ञानस्वभावत्वेनाऽपरोक्ष-विशेषज्ञानसाधनस्याऽतिप्रसङ्गित्वात्, अन्यत्र रूपसाक्षात्कारस्वभावेऽपि लोचनविज्ञाने रस-साक्षात्कारित्वस्याऽदृष्टत्वात्, तत्स्वभावत्वस्याऽसिद्धत्वादेव प्रतिबन्धककल्पनानुपपत्तेस्तत्प्रक्षय-स्याप्यनुपपत्तिरेव । नहि तेजसोऽन्यत्र दाहप्रतिबन्धकत्वं दृष्टम् ।\nकिञ्च अन्यत्रादृष्टस्याऽऽवरणप्रक्षयस्य विवक्षितेऽप्यात्मनि कुतस्सिद्धिः । आवरणत्वादेवेति चेन्न । कस्यचित्तिमिरादेर्यावदाव्रियमाणभावित्वात् । कमनीयकान्तास्पर्शादावपि रागाद्यनुदयात् प्रक्षीणप्रतिबन्धकत्वसिद्धिरिति चेन्न । रागाद्यभावस्याप्यन्यत्राऽदृष्टस्य कल्पकाभावात् । बाह्यविक्रियाऽभावेन तदभावानुमानमिति चेन्न । जगद्वशीकरणार्थं धैर्येण स्थगनसम्भवात् । अन्यत्र दृश्वन्ते च सकलपदार्थसाक्षात्कारित्वं तत्स्वभावत्वं चादृष्टमेव । "
++     },
++     {
++      "text": "यद् यद्ग्रहणस्वभावत्वे सति प्रक्षीणप्रतिबन्धकं तत्तत्साक्षात्कारी",
++      "reference_ids": [
++       "ref-000045"
++      ]
++     },
++     {
++      "text": "ति व्याप्तिरिति चेन्न । तथाऽपि विज्ञानस्य साक्षात्कारत्वेन साक्षात्कारित्वाभावात् । किञ्च सकलपदार्थसाक्षात्कारित्वस्य अन्यत्रादृष्टस्यात्रापि आत्म-त्वादेवाभावः किं न साध्यत इति ।"
++     }
++    ],
++    "references": {
++     "ref-000044": {
++      "quoted_text": "कश्चिदात्मा सकलपदार्थसाक्षात्कारी तद्ग्रहणस्वभावत्वे सति प्रक्षीण-प्रतिबन्धकत्वात् । यदेवं तदेवं यथाऽपगततिमिरादिप्रतिबन्धं लोचनविज्ञानं रूपसाक्षात्कारी",
++      "type": "quotation",
++      "source_guess": "Jaina inference on omniscience (Sarvajña-sādhana)",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000045": {
++      "quoted_text": "यद् यद्ग्रहणस्वभावत्वे सति प्रक्षीणप्रतिबन्धकं तत्तत्साक्षात्कारी",
++      "type": "allusion",
++      "source_guess": "Jaina anumāna vyāpti",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5652",
+@@ -495,7 +2564,61 @@
+     "anchor": "article5652",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:52:15Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nननु धर्मादिकं कस्यचित् प्रत्यक्षं वस्तुत्वाद् घटवदिति सामान्यतः सार्वज्ञादिसिद्धिरिति । मैवम् । अत्र किं धर्मादेः प्रत्यक्षत्वमात्रं साध्यते उतैकपुरुषप्रत्यक्षत्वम् । आद्येऽर्थान्तरत्वम् । कस्यचित् केनचित्प्रत्यक्षीकृतत्वेनापि प्रतिज्ञातार्थस्य सिद्धेः । न द्वितीयः । दृष्टान्तेऽदृष्टत्वात् । नहि (नच) पक्षातिरिक्तस्य सर्वस्यैकपुरुषप्रत्यक्षत्वं सम्मतम् । एको घट एकस्य प्रत्यक्ष इति चेत् । तर्ह्येको धर्म एकस्य प्रत्यक्षोऽपरस्याधर्म इत्येवं प्रतिज्ञातार्थस्योपपत्तेरर्थान्तरतातादवस्थ्यात् । धर्मं पश्यन्नधर्मं कथं न पश्यतीति चेत् । किमियं सम्भावना अथानुमानम् । नाऽद्यः । असाधकत्वात् । न द्वितीयः। व्याप्त्यभावात् । योऽशक्यमेकं करोति सोऽपरमपीति व्याप्तिरिति चेन्न । वराहगृध्रादिषु दूरस्थ-शब्दरूपग्रहणसमर्थेष्वपि तथाविधरसादिग्रहणसामर्थ्यस्यादृष्टत्वात् । अस्तु वा विप्रतिपन्नमेकस्यैव प्रत्यक्षम् । तथाऽपि कुतः सार्वज्ञसिद्धिः । नहि स एव सम्प्रतिपन्नं पश्यतीत्यत्र प्रमाणमस्ति । कैमुत्यन्यायसिद्धं तदिति चेन्न । तद्बीजाभावात् । यो ह्यशक्यं करोति स सुकरं करोत्येवेति चेन्न । कण्टकान् भक्षयितरि उश्व््रे कदलीफलभक्षणस्यादृश्व्त्वात् । धर्मादिज्ञानेनैव प्रकृतोपयोगात् "
++     },
++     {
++      "text": "किं कीटकसङ्ख्यापरिज्ञानेन",
++      "reference_ids": [
++       "ref-000046"
++      ]
++     },
++     {
++      "text": "ेति चेन्न । धर्मादिसाध्यसाधनाद्यपरिज्ञाने धर्मादिज्ञानस्यानुपयुक्त-त्वादिति ।"
++     }
++    ],
++    "references": {
++     "ref-000046": {
++      "quoted_text": "किं कीटकसङ्ख्यापरिज्ञानेन",
++      "type": "allusion",
++      "source_guess": "Mīmāṃsā critique of omniscience (cf. Kumārila Bhaṭṭa, Ślokavārttika)",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5653",
+@@ -524,7 +2647,17 @@
+     "anchor": "article5653",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:52:17Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nननु क्षित्यादिकं सकर्तृकं कार्यत्वाद् घटवदिति क्षित्यादेः कर्तरि सिद्धे तस्य सार्वज्ञमपि सिद्धमेव । उपादानादिसाक्षात्कारवत एव कर्तृत्वात् । सर्वस्यापि क्षित्याद्युपादानादौ प्रविष्टत्वादिति चेन्न । घटादीनां कर्तरि कुलालादौ तदुपादानादिविषयसाक्षात्कारस्यादृष्टत्वात् । नहि कुलालो घटं पलपरिमाणेयत्ताविशेषवन्तं तन्निमित्तं वा कालं देशमदृश्व्ं तदाश्रयं वा पुरुषं तत्प्रयोजनविशेषं वा साक्षात्करोति । किञ्च घटादौ सपक्षेऽदृष्टस्यैककर्तृकत्वस्य क्षित्यादौ कुतस्सिद्धिः? यतस्तस्य सार्वज्ञं स्यात् । कल्पनालाघवादिति चेन्न । अतिबहुतरकार्यजातस्यानेककर्तृताया एवोचितत्वादित्यलं प्रपञ्चेन ।"
++     }
++    ],
++    "references": {}
++   }
+   },
+   {
+    "id": "DV_5654",
+@@ -553,7 +2686,61 @@
+     "anchor": "article5654",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:52:19Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nएवं सार्वज्ञासिद्धौ तस्याविप्रलम्भकत्वमप्यप्रामाणिकं कल्प्यमेव । सार्वज्ञेऽपि कुतो विप्रलम्भाभावः । रागाद्यभावादिति चेन्न । तद्रहितेष्वपि बुद्धादिष्वीश्वरावतारेषु दर्शनात् । वीत-रागाणामपि ज्ञानाङ्कुरसंरक्षणार्थं छलादिना प्रतिवादिप्रतारणस्य सर्वैरङ्गीकृतत्वाच्च । एवं पटुकरणत्वादिकं कल्प्यमेव ; नतु प्रामाणिकम् । किञ्चास्तु कश्चित्सर्वज्ञोऽविप्रलम्भकश्च । तथाऽपि धर्मादिप्रतिपादकवाक्यविशेषस्य तत्कृतत्वं कुतस्सिद्धम् । नन्वेवम्भूतः स्वीयहिताहितप्राप्ति-परिहारसाधनमविदुषो नानाविधव्यसनसागरनिमग्नान् जन्तूनवलोकयन् नानुपदिश्य स्थातुमर्हतीति चेन्न । एवम्भूतानामपि सिद्धानामुदासीनानामङ्गीकृतत्वात् । उपदिशतु वाऽसौ ; सोऽयमुपदेश इति तु कल्प्यमेव ।\nतदेवं कल्पनागौरवप्रसङ्गेन न पौरुषेयेण वाक्येन धर्मादिनिश्चयः शक्यः । नहि लोके विना प्रमाणेन कस्यचित् पुरुषस्याऽऽप्तत्वं प्रकल्प्य तत्प्रणीततां च कस्यचिद्वाक्यस्य कल्पयित्वा प्रेक्षावन्तस्तदर्थनिश्चयं कुर्वन्ति । कुर्वाणा वा किं स्वात्मन्येव तत्सर्वं न कल्पयेयुः । तस्मात् पौरुषेय-वाक्येन धर्माद्यसिद्धेस्तत्प्रतिपादकं किमप्यपौरुषेयं वाक्यमङ्गीकृत्य बुद्धर्षभादयस्तदर्थस्यानुवादका इति तैस्तैर्वादिभिर्धर्मादिनिश्चयमभिलषद्भिरभ्युपेयम् । यथाऽऽहुः- ‘"
++     },
++     {
++      "text": "शौद्धोदनिप्रभृतयः सम्प्रदाय-प्रवर्तकाः",
++      "reference_ids": [
++       "ref-000047"
++      ]
++     },
++     {
++      "text": "’ इति ।"
++     }
++    ],
++    "references": {
++     "ref-000047": {
++      "quoted_text": "शौद्धोदनिप्रभृतयः सम्प्रदाय-प्रवर्तकाः",
++      "type": "quotation",
++      "source_guess": "Mīmāṃsāślokavārttika / Tantravārttika (Kumārila Bhaṭṭa)",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5655",
+@@ -582,7 +2769,104 @@
+     "anchor": "article5655",
+     "fetched": "2026-08-18"
+    },
+-   "tika_title": "टीका"
++   "tika_title": "टीका",
++   "gemini_enrichment": {
++    "generated_at": "2026-08-20T16:52:23Z",
++    "model": "gemini-flash-latest",
++    "segments": [
++     {
++      "text": "टीका\nननु प्रसिद्धानि बौद्धादिवाक्यानि परित्यज्य धर्मादिप्रतिपादकं किञ्चिद् बपौरुषेयं वाक्यं कल्प्यमिति साम्यमेवेत्यत आह- अपौरुषेयेति ।। पौरुषेयवाक्येन धर्मादिनिश्चयमिच्छता यथा बहुतरं सार्वज्ञादि कल्प्यं तथाऽपौरुषेयवाक्याङ्गीकारे न किञ्चिद् बहुतरं कल्प्यम् । किन्त्वपौरु-षेयवाक्यमेकमेव । तथाच धर्मादिनिश्चयस्यावश्यमङ्गीकार्यत्वे बहुकल्पनापक्षपरित्यागेनाल्प-कल्पनापक्षाऽश्रयणमेव ज्यायः । यथाऽहुः- ‘"
++     },
++     {
++      "text": "यत्राल्पीयांसो दोषाः स पक्षः",
++      "reference_ids": [
++       "ref-000048"
++      ]
++     },
++     {
++      "text": "’ इति । तथाऽपि दुष्टस्य कथमङ्गीकार इति चेत् किं कार्यं गत्यन्तराभावात् । अयं च परेषामेव । यथा नास्माकं दोषस्तथाऽ-नुपदमेव वक्ष्यते । एवं सर्वसमयिभिरपौरुषेयवाक्यस्यावश्यमङ्गीकार्यत्वाद् ‘"
++     },
++     {
++      "text": "वेदोऽपौरुषेयः",
++      "reference_ids": [
++       "ref-000049"
++      ]
++     },
++     {
++      "text": "’ इति वाक्यं नासम्भावितार्थमिति सिद्धम् ।"
++     }
++    ],
++    "references": {
++     "ref-000048": {
++      "quoted_text": "यत्राल्पीयांसो दोषाः स पक्षः",
++      "type": "quotation",
++      "source_guess": "Nyāyasūtra commentary / Mīmāṁsā maxim",
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     },
++     "ref-000049": {
++      "quoted_text": "वेदोऽपौरुषेयः",
++      "type": "citation",
++      "source_guess": null,
++      "status": "unresolved",
++      "confidence": 0.0,
++      "resolution_method": "unresolved",
++      "target_slug": null,
++      "target_title": null,
++      "target_unit_id": null,
++      "matched_text": null,
++      "score": 0.0,
++      "scope_searched": [
++       "itihasa/bhagavad_gita/adhyaya_01",
++       "itihasa/bhagavad_gita/adhyaya_02",
++       "itihasa/bhagavad_gita/adhyaya_03",
++       "itihasa/bhagavad_gita/adhyaya_04",
++       "itihasa/bhagavad_gita/adhyaya_05",
++       "itihasa/bhagavad_gita/adhyaya_06",
++       "itihasa/bhagavad_gita/adhyaya_07",
++       "itihasa/bhagavad_gita/adhyaya_08",
++       "itihasa/bhagavad_gita/adhyaya_09",
++       "itihasa/bhagavad_gita/adhyaya_10",
++       "itihasa/bhagavad_gita/adhyaya_11",
++       "itihasa/bhagavad_gita/adhyaya_12",
++       "itihasa/bhagavad_gita/adhyaya_13",
++       "itihasa/bhagavad_gita/adhyaya_14",
++       "itihasa/bhagavad_gita/adhyaya_15",
++       "itihasa/bhagavad_gita/adhyaya_16",
++       "itihasa/bhagavad_gita/adhyaya_17",
++       "itihasa/bhagavad_gita/adhyaya_18",
++       "vedanga/vyakarana/ashtadhyayi/sutrapatha"
++      ]
++     }
++    }
++   }
+   },
+   {
+    "id": "DV_5657",
+-- 
+2.43.0
+
