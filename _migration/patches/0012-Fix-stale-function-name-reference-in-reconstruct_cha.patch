@@ -1,0 +1,28 @@
+From 2e97745c63d6ae788cadf8acd2350e6d2047bfa4 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 11 Sep 2026 08:13:11 +0000
+Subject: [PATCH 12/25] Fix stale function-name reference in
+ reconstruct_chain's docstring
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GB2qZqW1sQcLi536ZSxGV6
+---
+ tools/pratishakhya/sanskrit_phonology.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/tools/pratishakhya/sanskrit_phonology.py b/tools/pratishakhya/sanskrit_phonology.py
+index dc7f69c84..2ef9faf77 100644
+--- a/tools/pratishakhya/sanskrit_phonology.py
++++ b/tools/pratishakhya/sanskrit_phonology.py
+@@ -213,7 +213,7 @@ def reconstruct_chain(words_deva):
+     attested samhita_patha is a real, mechanically-checkable test of
+     whether this module's phonology, applied the way continuous text is
+     actually built, reproduces it -- see
+-    tools/pratishakhya/regenerate_krama_rv_1_1.py's attest_units(). It is
++    tools/pratishakhya/regenerate_krama_rv_1_1.py's attest_ardharcas(). It is
+     NOT a claim that reproducing DGE's Samhita proves philological
+     correctness against a traditional Krama-patha edition (a separate,
+     still-open question -- architecture doc sec.10).
+-- 
+2.43.0
+

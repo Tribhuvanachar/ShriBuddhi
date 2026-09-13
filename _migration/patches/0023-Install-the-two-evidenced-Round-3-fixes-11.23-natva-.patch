@@ -1,0 +1,580 @@
+From a836e3c7341efde7912a59fc3395dc6716a1d96d Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 11 Sep 2026 15:44:18 +0000
+Subject: [PATCH 23/25] Install the two evidenced Round-3 fixes (11.23 natva,
+ 11.43 agama), after catching a shared bug in both Gemini's and ChatGPT's
+ proposed patches
+
+Both external models answered the three GEMINI_CHATGPT_TASK_PROMPT_V3.md
+tasks. Per this project's standing discipline, every claim was checked
+against the actual running code before installing anything -- which
+caught a real bug neither model's own "I tested this" claim caught.
+
+Task A (sutra 11.23, natva-restoration-on-retake): both models agreed a
+general tag-free ratva-at-a-distance engine is unsafe without
+morphological tagging this project doesn't have; ChatGPT additionally
+caught a real flaw in Gemini's first, more general proposal (it licensed
+intervener consonants Panini 8.4.2 doesn't actually name), confirmed
+independently against 8.4.2's own gloss. Installed only the one
+evidenced case ("pra NaH" vs "na indraH") as a narrow, closed check
+(NATVA_BOUNDARY_UPASARGAS_SLP1 = {"pra"}) in sanskrit_phonology.py.
+
+Task B (sutra 11.43, shauddhakshara-agama): both models' proposed
+4-entry lexical tables shared the same bug -- "DUfzadam" for
+dhuuHsadam's Samhita form uses SLP1 "f" (the vocalic-r VOWEL) instead of
+"r" (the repha CONSONANT), which decodes to a different, wrong word
+("dhuu-r-imagined-as-vowel-Sadam"). Caught by actually running
+slp1_to_deva() on it, not by trusting either model's claim of having
+verified it. Fixed to "DUrzadam" before installing
+SHAUDDHAKSHARA_AGAMA_SLP1. Restoration on Parigraha retake is automatic
+by construction (verified against the real code path, not asserted) --
+no separate restore function needed.
+
+Found and fixed one more, unrelated, real bug along the way while
+verifying this: pratishakhya_classify.REPHI_CACHE_SLP1 had two entries
+("dhUHsadam", "durdhyaH") using invalid SLP1 (lowercase "dh" where a
+single capital "D" is needed) that silently made is_rephi() always
+return False for the words they were meant to cache. Fixed (encoding
+only, not a change to which word each entry represents).
+
+Task C (sutra 10.10-11's scope): both models say leave the existing
+sutra-10.3 exception mechanism alone, matching this session's own
+independent reasoning before the prompt was sent -- recorded as
+"reasonably decided", not "proven"; no code change.
+
+validate_krama_rv1_1.py's Test A-H suite is now 8/8 PASS, rescoped
+honestly to the evidenced sub-cases (a general natva-at-a-distance or
+Suddhaksara-derivation engine remains explicitly open, not claimed
+solved). New tests in tests/test_krama_engine.py
+(NatvaBoundaryAndShuddhaksharaAgama). Confirmed RV 1.1's own
+regenerated output is byte-for-byte unchanged -- this is net-new
+coverage, not a change to already-checked output.
+
+Full detail in dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md sec.6.13.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GB2qZqW1sQcLi536ZSxGV6
+---
+ dge/PENDING.md                              |  26 ++++
+ dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md   | 128 +++++++++++++++-----
+ tests/test_krama_engine.py                  |  61 +++++++++-
+ tools/pratishakhya/pratishakhya_classify.py |  11 +-
+ tools/pratishakhya/sanskrit_phonology.py    |  62 ++++++++++
+ tools/pratishakhya/validate_krama_rv1_1.py  | 118 ++++++++++++------
+ 6 files changed, 340 insertions(+), 66 deletions(-)
+
+diff --git a/dge/PENDING.md b/dge/PENDING.md
+index 920a02e77..10fe1548f 100644
+--- a/dge/PENDING.md
++++ b/dge/PENDING.md
+@@ -273,6 +273,32 @@ complete record, not just a live queue.
+   items externally rather than guess. Full detail in
+   `dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md` §6.12.
+ 
++  **Update, 11 Sep 2026 — Round 3 answers (Gemini + ChatGPT) evaluated, two narrow fixes
++  installed after catching a real bug in BOTH proposals.** Both models answered; every claim
++  checked against the actual code (run, not read) before installing anything — same discipline
++  as every prior round. **Task A (11.23 ṇatva-restoration)**: both models converged on
++  implementing ONLY the evidenced "प्र+नः→प्र णः" case as a narrow closed check, not a general
++  tag-free rule (ChatGPT correctly caught that Gemini's first, more general proposal licensed
++  intervener consonants Pāṇini 8.4.2 doesn't actually name — confirmed independently). Installed
++  as `NATVA_BOUNDARY_UPASARGAS_SLP1`. **Task B (11.43 śuddhākṣara-āgama)**: installed a 4-entry
++  closed lexical table — but only after catching a real, shared bug in both models' proposed
++  tables: both gave धूःसदम्→धूर्षदम् as SLP1 `"DUfzadam"`, which actually decodes to the WRONG
++  word "धूऋषदम्" (`f` is the vocalic-ऋ vowel, not the repha consonant `r`) — caught by literally
++  running `slp1_to_deva()` on it, not by trusting ChatGPT's own "I tested this, 5/5 PASS" claim,
++  which does not survive that check. Fixed to `"DUrzadam"` before installing. Found and fixed a
++  separate, unrelated, real bug while verifying this: `pratishakhya_classify.REPHI_CACHE_SLP1`
++  had two entries ("dhUHsadam", "durdhyaH") using invalid SLP1 (lowercase "dh" instead of the
++  single capital "D") that silently made `is_rephi()` always return False for the words they
++  were meant to cache. **Task C (10.10–11's scope)**: both models say don't touch the code
++  (Gemini confidently, ChatGPT more cautiously) — matching this session's own independent
++  reasoning before the prompt was even sent; recorded as "reasonably decided," not "proven," no
++  code change. All fixes covered by new tests (`NatvaBoundaryAndShuddhaksharaAgama` in
++  `tests/test_krama_engine.py`); confirmed RV 1.1's own regenerated output is byte-for-byte
++  unchanged (net-new coverage only). `validate_krama_rv1_1.py`'s Test A–H suite is now **8/8
++  PASS** (rescoped honestly to the evidenced sub-cases, not overclaiming a general
++  ṇatva-at-a-distance or Śuddhākṣara-derivation engine, which remain open). Full detail in
++  `dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md` §6.13.
++
+ - **Raghavendra Vijaya: English translation OCR-linked + Gemini
+   padaccheda/anvaya/summary pipeline — IMPLEMENTED (2026-08-21).** First
+   real, non-proof-of-concept run of the "AI automation" this project's lead
+diff --git a/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md b/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+index d1fd20572..f6a25f4d4 100644
+--- a/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
++++ b/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+@@ -1159,6 +1159,77 @@ session is better off putting to an external model as a scoped, code-and-citatio
+ 
+ ---
+ 
++### 6.13 Round-3 answers (Gemini + ChatGPT) evaluated, two narrow fixes installed after catching
++
++a real bug in BOTH proposals
++
++Both models answered all three V3 tasks. Per this session's standing discipline, every claim was
++checked against the actual code (run, not read) before anything was installed — which caught a
++real, shared bug neither model's own "I tested this" claim caught.
++
++**Task A (11.23 ṇatva-restoration) — both models independently converged on the same scope
++judgment I'd already leaned toward myself:** implement ONLY the evidenced "प्र + नः → प्र णः"
++case as a narrow, closed check (a `NATVA_BOUNDARY_UPASARGAS_SLP1 = {"pra"}` set), not a general
++tag-free ṇatva-at-a-distance engine. Gemini's first answer *did* propose a general Pāṇinian sieve
++(citing 8.4.1/8.4.2/8.4.14/8.4.37), but ChatGPT's review caught a real flaw in it: Gemini's
++`allowed_interveners` set included consonants (h, y, v, r, k-varga, p-varga) that Pāṇini 8.4.2
++does not actually license — 8.4.2 names exactly *aṭ* (vowels) + *ku* + *pu* + *āṅ* + *num*, not
++that broader set — and 8.4.14's "upasargād" licenses the boundary specifically for an upasarga's
++own listed roots, not any r/f/F/z-final word in general. Independently confirmed this by reading
++8.4.2's own gloss rather than taking either model's paraphrase on faith; installed the narrow
++version. **A2 ("मो षु णः") — both models say UNRESOLVED, agreed and left alone**: स्→ष् retroflexion
++(8.3.57/8.3.59) has its own separate conditions this corpus has no independent way to verify are
++met here, and neither model would commit to a general rule for it either.
++
++**Task B (11.43 śuddhākṣara-āgama) — installed a 4-entry closed lexical table
++(`SHAUDDHAKSHARA_AGAMA_SLP1`), but only after fixing a real bug both models' proposed tables
++shared:** both gave `("DUH", "sadam"): "DUfzadam"` for धूःसदम्→धूर्षदम् — but `"DUfzadam"` uses
++SLP1 `f` (vocalic ऋ, an independent VOWEL letter) instead of `r` (the consonant repha). Checked
++by literally running `slp1_to_deva("DUfzadam")`: it gives **"धूऋषदम्"**, not "धूर्षदम्" — a
++different, wrong word. ChatGPT's response claimed "I tested the patch against the extracted
++source code: 5/5 forward A/B cases passed" — that claim does not survive actually running the
++code; whatever check produced it did not verify the Devanāgarī output string correctness for
++this entry. Fixed to `"DUrzadam"` (verified: `slp1_to_deva("DUrzadam")` → "धूर्षदम्", matching
++Uvaṭa's citation exactly) before installing; the other three entries (सु+चन्द्र, परि+कृण्वन्,
++वन+सदम्) were independently verified correct and installed as given. **B1's classification
++question (is there one Pāṇinian rule behind all four examples?) — both models say no unified
++rule exists** (परिष्कृण्वन्: Pāṇini 8.3.137's सुट्-augment + 8.3.59's स्→ष्; सुश्चन्द्र: bahulaṃ
++chandasi, no classical rule; धूर्षदम्/वनर्षदम्: likely the SAME repha-before-uṣman phenomenon
++this project's existing `REPHI_CACHE_SLP1` already covers for धूःसदम् specifically, not a new
++"augment" at all — Uvaṭa's own bhāṣya reuses this exact example under both 11.41 and 11.43 in
++the same continuous passage) — confirming a closed table, not a derived rule, is the honest
++choice here, consistent with this project's existing `IRREGULAR_VISARGA_STEMS`/`REPHI_CACHE_SLP1`
++pattern. **B3 (is restoration automatic?) — confirmed independently by reading the actual code
++path**, not by trusting either model's claim: `_parigraha_unit()` always builds the Parigraha
++citation from the bare `word_deva` (or `resolve_compound`'s result for an avagrhya compound),
++and `get_sthitopasthita`'s internal `samhita_join(word, "इति")` call can never match a
++`(w1, w2)` key in `SHAUDDHAKSHARA_AGAMA_SLP1` (keyed on the word's real neighbour, never "इति")
++— so the augment genuinely cannot leak into a Parigraha citation by construction. Verified with
++`get_sthitopasthita("सुचन्द्र")` directly (no "श" appears). One incidental but real bug found
++along the way while verifying this: `pratishakhya_classify.REPHI_CACHE_SLP1` had two entries
++("dhUHsadam", "durdhyaH") using an invalid SLP1 spelling (lowercase "dh" where the single capital
++letter "D" is needed for ध) — `is_rephi("धूःसदम्")` and `is_rephi("दुर्ध्यः")` had silently
++always returned False. Fixed (encoding only, not a change to which word each entry represents).
++
++**Task C (10.10–11's scope) — both models say don't touch the code, for different reasons.**
++Gemini argues confidently for reading (ii) — the "before the ardharca-final word" wording
++describes where the retaken monosyllable ends up *after* 10.3's own skip has already happened
++(matching the worked example's own structure), not an independent restriction — and calls the
++existing, more general implementation correct as-is. ChatGPT is more cautious: the quotations
++given don't by themselves prove that reading, so leave the code alone as "the safer executable
++interpretation" pending more evidence. Both land on **no code change**, which matches the
++conclusion I'd already reasoned my way to independently before sending the prompt (§6.12) —
++three independent readings converging is real, if not certain, support for interpretation (ii),
++recorded in §10 as "reasonably decided," not "proven."
++
++All fixes verified against the actual test cases (not just the citation), added to
++`tests/test_krama_engine.py` as a new `NatvaBoundaryAndShuddhaksharaAgama` class, and confirmed
++to leave RV 1.1's own regenerated output byte-for-byte unchanged (no RV 1.1 word pair matches
++either new closed table) — this round is pure net-new coverage, not a change to already-checked
++output.
++
++---
++
+ ## 7. Two modes
+ 
+ **GENERATE** — Pada-pāṭha → Krama-pāṭha, per §5.
+@@ -1384,36 +1455,39 @@ Kept as a short index back to the full review, not restated in full here:
+   file for the unrelated, already-explained 10.3-generalization reason in §6.6, even though
+   chain reconstruction itself now matches DGE's attested text for 1.1.2 exactly. Two different
+   metrics; do not conflate them.)
+-- (Added 11 Sep 2026, Part V; **10.8 done, §6.12**) Priority-0 items 10.10–10.11 (आ before
+-  ardharca-final Parigraha, distinct from 10.3), 10.21/11.23 restoration as an explicit function
+-  (currently 10.21's segmental effects are folded implicitly into `samhita_join`, not a
+-  separately named restoration step, and 11.23's principle has no function at all — Test F in
+-  `validate_krama_rv1_1.py` reports this UNRESOLVED), and Priority-1 items 10.20/10.22
+-  Pragṛhya/Rephī restoration as named functions, and 11.25/11.37–43 remain open — not started.
++- (Added 11 Sep 2026, Part V; **10.8 done §6.12; 11.23's evidenced case done §6.13**) Priority-0
++  item 10.10–10.11 (आ before ardharca-final Parigraha, distinct from 10.3) — **settled, no code
++  change, §6.13** (see the next bullet). 11.23 restoration — **the one evidenced case
++  (प्र+नः→प्र णः) is done** (`NATVA_BOUNDARY_UPASARGAS_SLP1` in `sanskrit_phonology.py`,
++  §6.13); a GENERAL tag-free ṇatva-at-a-distance rule remains open — both Gemini and ChatGPT
++  agreed identifying an upasarga in general needs morphological tagging this engine doesn't have,
++  and a first attempt at a general phonological sieve (Gemini's) licensed intervener consonants
++  Pāṇini 8.4.2 doesn't actually name. Priority-1 items 10.20/10.22 Pragṛhya/Rephī restoration as
++  named functions and 11.25 remain open — not started. **11.37–43 — the one evidenced sub-case
++  (11.43's śuddhākṣara-āgama, 4 closed examples) is done** (`SHAUDDHAKSHARA_AGAMA_SLP1`, §6.13);
++  no general derivation exists (checked directly: the 4 examples share no single Pāṇinian origin).
+   ~~10.8 bahumadhyagata auto-detection~~ **Done 11 Sep 2026 (§6.12):
+   `pratishakhya_classify.detect_bahumadhyagata()`, backed directly by Uvaṭa's own three worked
+   examples on 10.8 (ca/vā/cit); Test G now PASSES.** One sub-case from the same bhāṣya passage
+-  ("मो षु णः") did NOT fit this pattern and is still open, folded into the Test F/10.21
+-  restoration question below since it looks like the same kind of retroflexion-restoration-on-
+-  retake issue.
+-- (Added 11 Sep 2026, §6.12) A specific, well-scoped reading of 10.10–10.11's own bhāṣya
+-  ("न आकारम् प्रागतः अननुनासिकम्" / "प्रत्यादाय एव तं ब्रूयात् उत्तरेण पुनः सह") raises a real
+-  question about the EXISTING sūtra-10.3 आ-exception mechanism (`krama_engine.py`'s
+-  `monosyllable_retake_tri_unit`/`monosyllable_confirm_pair`, in production use since §6.6):
+-  10.10 conditions the "don't do ordinary Parigraha, instead re-cite together with what follows"
+-  behaviour on the monosyllable being "प्रागतः" (immediately before) the ARDHARCA-FINAL word
+-  specifically — but the current code fires this mechanism whenever ANY word about to be
+-  retaken was preceded by a monosyllable, anywhere in the ardharca (which is how it correctly
+-  reproduces RV 1.1.2's इह case, itself NOT ardharca-final-adjacent). Whether 10.10's
+-  "प्रागतः अर्धर्चान्त्यात्" is describing a genuinely narrower condition than 10.3 alone
+-  establishes, or just redescribing — from the retake sequence's own point of view, after 10.3's
+-  skip — the same configuration 10.3's own worked example (मन्द्रम्/आ/वरेण्यम्, where वरेण्यम्
+-  does happen to be that example's own last word) already illustrates, could not be settled with
+-  confidence from Uvaṭa's bhāṣya prose alone. Do NOT narrow the existing mechanism from this
+-  alone — it currently matches every attested case this engine has actually been run against
+-  (RV 1.1's 1.1.2 and 1.1.7) — but this needs an authoritative reading before scaling past RV 1.1
+-  finds a case where the two readings actually diverge. Sent to Gemini/ChatGPT as part of
+-  `tools/pratishakhya/GEMINI_CHATGPT_TASK_PROMPT_V3.md`.
++  ("मो षु णः") did NOT fit this pattern and is **still open, deliberately** — both external
++  models agreed स्→ष् retroflexion's own conditions (8.3.57/59) can't be safely generalized from
++  this one example either.
++- (Added 11 Sep 2026, §6.12; **reasonably decided, §6.13**) A specific, well-scoped reading of
++  10.10–10.11's own bhāṣya ("न आकारम् प्रागतः अननुनासिकम्" / "प्रत्यादाय एव तं ब्रूयात् उत्तरेण
++  पुनः सह") raised a real question about the EXISTING sūtra-10.3 आ-exception mechanism
++  (`krama_engine.py`'s `monosyllable_retake_tri_unit`/`monosyllable_confirm_pair`, in production
++  use since §6.6): does 10.10's "प्रागतः अर्धर्चान्त्यात्" (immediately before the ardharca-final
++  word) narrow 10.3's mechanism to only that position, or just redescribe, from the retake
++  sequence's own point of view after 10.3's skip, the same configuration its worked example
++  (मन्द्रम्/आ/वरेण्यम्) already shows? **Three independent readings now converge on "just
++  redescribes, no narrowing"**: my own reasoning before sending the V3 prompt (§6.12), Gemini's
++  answer (confident: (ii), the ā's position 10.10 describes is a post-10.3-skip artifact, not an
++  independent restriction), and ChatGPT's more cautious "the quotations don't prove it, but don't
++  narrow a mechanism that already matches every attested case on unproven grounds either." **No
++  code change** — this is convergent-but-not-certain, recorded here as "reasonably decided," not
++  "proven": a case where RV 1.1.2's own इह-configuration actually diverges from वरेण्यम्-style
++  ardharca-final-adjacency (should scaling past RV 1.1 ever produce one) would still be the real
++  test of this reading, not a further citation search.
+ 
+ - ~~The `indic_transliteration` SLP1 scheme's "र्ऋ"/"रृ" collision.~~ **Fixed, Part VII/VIII
+   (§6.8–6.9): a ZWNJ marker, verified to survive 10 consecutive re-joins (checked after every
+diff --git a/tests/test_krama_engine.py b/tests/test_krama_engine.py
+index 8034066dd..a5b319c31 100644
+--- a/tests/test_krama_engine.py
++++ b/tests/test_krama_engine.py
+@@ -17,7 +17,7 @@ from sanskrit_phonology import (  # noqa: E402
+ )
+ from pratishakhya_classify import (  # noqa: E402
+     is_pragrhya, is_monosyllable_avasana, parse_compound, requires_parigraha,
+-    get_sthita, get_upasthita, get_sthitopasthita, detect_bahumadhyagata,
++    get_sthita, get_upasthita, get_sthitopasthita, detect_bahumadhyagata, is_rephi,
+ )
+ from krama_engine import generate_ardharca, generate_verse, split_into_ardharcas  # noqa: E402
+ 
+@@ -104,6 +104,65 @@ class SamhitaJoin(unittest.TestCase):
+         self.assertTrue(result["surface"].startswith("रामो"))
+ 
+ 
++class NatvaBoundaryAndShuddhaksharaAgama(unittest.TestCase):
++    """Round 3 (11 Sep 2026): two narrow, closed, source-cited additions from
++    Uvata's own bhashya on 11.23 and 11.43, checked against an external
++    review's proposed patches before installing -- both proposals had the
++    same real bug, caught by actually running the code rather than trusting
++    "I tested this" claims: "DUfzadam" uses SLP1 "f" (vocalic r, an
++    independent VOWEL) instead of "r" (the consonant repha) for
++    dhuuHsadam's Samhita form, which slp1_to_deva turns into the wrong word
++    (dhuu-R-SADAM, not dhuurSadam) -- verified directly below."""
++
++    def test_natva_boundary_pra_naH_exact_citation(self):
++        result = samhita_join("प्र", "नः")
++        self.assertEqual(result["surface"], "प्र णः")
++        self.assertEqual(result["rule"], "natva_boundary_11_23")
++
++    def test_natva_does_not_fire_without_the_upasarga_adjacent(self):
++        # 11.23's whole point: apetahetuSu -- once "pra" is no longer
++        # adjacent, plain sandhi applies, no retroflexion.
++        result = samhita_join("नः", "इन्द्रः")
++        self.assertNotIn("ण", result["surface"])
++        self.assertNotEqual(result["rule"], "natva_boundary_11_23")
++
++    def test_parigraha_restoration_is_automatic_no_leaked_retroflexion(self):
++        # get_sthitopasthita builds the Parigraha citation for "naH" as
++        # retaken on its own (not adjacent to "pra") -- the retroflexed
++        # "NaH" form must never leak into it.
++        result = get_sthitopasthita("नः")
++        self.assertNotIn("ण", result)
++
++    def test_shuddhakshara_agama_exact_citations(self):
++        cases = [
++            ("सु", "चन्द्र", "सुश्चन्द्र"),
++            ("परि", "कृण्वन्", "परिष्कृण्वन्"),
++            ("धूः", "सदम्", "धूर्षदम्"),
++            ("वन", "सदम्", "वनर्षदम्"),
++        ]
++        for w1, w2, expected in cases:
++            with self.subTest(w1=w1, w2=w2):
++                result = samhita_join(w1, w2)
++                self.assertEqual(result["surface"], expected)
++                self.assertEqual(result["rule"], "shauddhakshara_agama_11_43")
++
++    def test_shuddhakshara_agama_restoration_is_automatic(self):
++        # Parigraha for "सुचन्द्र" is computed from the bare Pada word
++        # directly (never from the augmented "सुश्चन्द्र" Samhita form), so
++        # the augment must never appear in its Parigraha citation.
++        result = get_sthitopasthita("सुचन्द्र")
++        self.assertNotIn("श", result)
++
++    def test_dhuuHsadam_rephi_cache_encoding_fix(self):
++        # Regression test for a real, separate encoding bug found while
++        # verifying the agama table above: REPHI_CACHE_SLP1 had "dh"
++        # (lowercase d + h, not valid SLP1 for dha) where it needed the
++        # single capital letter "D" -- is_rephi() on the actual Devanagari
++        # word silently always returned False. Two entries were affected.
++        self.assertTrue(is_rephi("धूःसदम्"))
++        self.assertTrue(is_rephi("दुर्ध्यः"))
++
++
+ class Predicates(unittest.TestCase):
+     def test_is_pragrhya_lexical_class(self):
+         ok, _ = is_pragrhya("अस्मे")
+diff --git a/tools/pratishakhya/pratishakhya_classify.py b/tools/pratishakhya/pratishakhya_classify.py
+index d00a4d882..c2677d42a 100644
+--- a/tools/pratishakhya/pratishakhya_classify.py
++++ b/tools/pratishakhya/pratishakhya_classify.py
+@@ -70,7 +70,16 @@ def is_pragrhya(token_deva, context=None):
+ # form; see krama_engine.py's use of this alongside samhita_join's own
+ # visarga rules, which don't independently know a given word's
+ # historical repha origin).
+-REPHI_CACHE_SLP1 = {"svaScanAH", "dhUHsadam", "pUHpatim", "duHnaSam", "durdhyaH", "durlaBaH"}
++#
++# Two entries had a real encoding bug (found 11 Sep 2026 while
++# cross-checking sutra 11.43's own dhUHsadam/durdhyaH-style citations
++# against transliterate_word()): "dh"/"DUH..." with a lowercase d is not
++# valid SLP1 for dha (needs capital "D") -- "dhUHsadam"/"durdhyaH" could
++# never match is_rephi("धूःसदम्")/is_rephi("दुर्ध्यः") and silently always
++# returned False for them. Fixed to "DUHsadam"/"durDyaH" (verified against
++# transliterate_word() directly, not just eyeballed) -- an encoding
++# correction only, not a change to which word this entry represents.
++REPHI_CACHE_SLP1 = {"svaScanAH", "DUHsadam", "pUHpatim", "duHnaSam", "durDyaH", "durlaBaH"}
+ 
+ 
+ def is_rephi(token_deva, left_context=None, right_context_slp1_first_char=None):
+diff --git a/tools/pratishakhya/sanskrit_phonology.py b/tools/pratishakhya/sanskrit_phonology.py
+index 8e790c771..dc36a5285 100644
+--- a/tools/pratishakhya/sanskrit_phonology.py
++++ b/tools/pratishakhya/sanskrit_phonology.py
+@@ -191,6 +191,41 @@ IRREGULAR_LENGTHENING_BEFORE_CONSONANT = {
+     "sacasva": "sacasvA",
+ }
+ 
++# RPr 11.23 (yathaapadam sandhim apetahetuSu): naH -> NaH (natva/retroflexion)
++# is licensed across a word boundary specifically when the trigger (r/f/F/z)
++# sits in an upasarga immediately before it (Paanini 8.4.1/8.4.2/8.4.14),
++# and is undone once that upasarga is no longer adjacent -- Uvata's own
++# example: "pra NaH" vs "na indraH" (no "pra" adjacent). Deliberately NOT a
++# general tag-free natva engine: identifying an upasarga in general needs
++# morphological tagging this module doesn't have, and a broader phonological
++# sieve (checked directly, 11 Sep 2026, against an external review's first
++# attempt at one) either over-licenses interveners Paanini 8.4.2 doesn't
++# actually name (aT-ku-pu-aaN-num only) or under/over-fires without knowing
++# whether a given "r"-final word is really acting as an upasarga here. Kept
++# narrow and closed, sourced directly from the one attested example, exactly
++# like MONOSYLLABLE_AVASANA_SLP1/BAHUMADHYAGATA_LEXICAL_SLP1 in
++# pratishakhya_classify.py.
++NATVA_BOUNDARY_UPASARGAS_SLP1 = {"pra"}
++
++# RPr 11.43 (nudet ca zauddhaakSarasandhyam aagamam): a handful of words
++# attested (Uvata's own bhaashya on 11.43) with an inserted sibilant augment
++# in continuous Samhita that must be OMITTED when the word is retaken for
++# Parigraha. These four share no single derivable phonological trigger
++# (checked directly: suScandra is bahulaM chandasi with no classical rule;
++# parizkfRvan is Paanini 8.3.137's suT augment + 8.3.59's s->S; DUrzadam/
++# vanarzadam look like the SAME repha-before-uSman phenomenon already
++# covered by REPHI_CACHE_SLP1 below for duHsadam specifically, not a new
++# "augment" at all -- Uvata's own bhaashya reuses this exact example under
++# BOTH 11.41 (repha) and 11.43 (aagama) in the same continuous passage). Kept
++# as a small, explicit, closed table -- like IRREGULAR_VISARGA_STEMS above --
++# rather than guessed at as one general rule.
++SHAUDDHAKSHARA_AGAMA_SLP1 = {
++    ("su", "candra"): "suScandra",
++    ("pari", "kfRvan"): "parizkfRvan",
++    ("DUH", "sadam"): "DUrzadam",
++    ("vana", "sadam"): "vanarzadam",
++}
++
+ 
+ def _match_lexical_suffix(s1, table):
+     """Both lexical-exception tables above are keyed by a single bare
+@@ -312,6 +347,33 @@ def samhita_join(w1_deva, w2_deva, w1_is_pragrhya=False, resolve_w1_compound=Tru
+         return {"surface": w1_deva + w2_deva, "rule": "empty_input", "confidence": "low",
+                 "note": "empty word passed to samhita_join"}
+ 
++    agama_match = SHAUDDHAKSHARA_AGAMA_SLP1.get((s1, s2))
++    if agama_match:
++        return _finish(agama_match, "shauddhakshara_agama_11_43", w1_deva, w2_deva,
++                        note="Closed lexical zuddhaakSara-sandhi aagama example, sourced "
++                             "directly from Uvata's bhaashya on 11.43 (see "
++                             "SHAUDDHAKSHARA_AGAMA_SLP1).")
++
++    if s1 in NATVA_BOUNDARY_UPASARGAS_SLP1 and s2[0] == "n" and len(s2) > 1 and s2[1] in ALL_VOWELS:
++        # Trigger-and-intervener check per Paanini 8.4.1/8.4.2, scanning s1
++        # from its end for r/f/F/z with only vowels between it and s1's own
++        # end (aT is the only intervener class this closed upasarga set
++        # actually needs -- "pra" itself never has ku/pu/aaN/num between the
++        # r and the boundary, so those classes are not implemented here;
++        # a future addition to NATVA_BOUNDARY_UPASARGAS_SLP1 that needs them
++        # would have to extend this).
++        trigger_pos = -1
++        for i in range(len(s1) - 1, -1, -1):
++            if s1[i] in ("r", "f", "F", "z"):
++                trigger_pos = i
++                break
++        if trigger_pos != -1 and all(ch in ALL_VOWELS for ch in s1[trigger_pos + 1:]):
++            natva_s2 = "R" + s2[1:]
++            return _finish(s1 + " " + natva_s2, "natva_boundary_11_23", w1_deva, w2_deva,
++                            note="Exact RPr 11.23/Uvata boundary case (pra + naH -> pra NaH); "
++                                 "NOT a general tag-free natva-at-a-distance rule -- see "
++                                 "NATVA_BOUNDARY_UPASARGAS_SLP1's own docstring.")
++
+     lengthening_match = _match_lexical_suffix(s1, IRREGULAR_LENGTHENING_BEFORE_CONSONANT)
+     if lengthening_match and s2[0] not in ALL_VOWELS:
+         prefix, key = lengthening_match
+diff --git a/tools/pratishakhya/validate_krama_rv1_1.py b/tools/pratishakhya/validate_krama_rv1_1.py
+index a370befad..89bf13cd8 100644
+--- a/tools/pratishakhya/validate_krama_rv1_1.py
++++ b/tools/pratishakhya/validate_krama_rv1_1.py
+@@ -13,7 +13,9 @@ from pathlib import Path
+ 
+ sys.path.insert(0, str(Path(__file__).resolve().parent))
+ from sanskrit_phonology import samhita_join  # noqa: E402
+-from pratishakhya_classify import requires_parigraha, get_sthitopasthita, detect_bahumadhyagata  # noqa: E402
++from pratishakhya_classify import (  # noqa: E402
++    requires_parigraha, get_sthitopasthita, detect_bahumadhyagata, is_rephi,
++)
+ from krama_engine import generate_ardharca  # noqa: E402
+ 
+ RESULTS = []
+@@ -169,24 +171,40 @@ def test_e():
+ 
+ 
+ def test_f():
++    # 11 Sep 2026 (Round 3, external-model verified -- see architecture doc sec.6.13):
++    # implemented the ONE evidenced case from Uvata's own bhashya on 11.23
++    # ("pra NaH" vs "na indraH", the word's cause-of-retroflexion no longer
++    # adjacent) as a narrow, closed check -- NOT a general tag-free
++    # natva-at-a-distance rule (both Gemini and ChatGPT independently agreed
++    # that would need morphological tagging this engine doesn't have, and a
++    # first attempt at a general phonological sieve over-licensed
++    # interveners Paanini 8.4.2 doesn't actually name).
++    with_pra = samhita_join("प्र", "नः")
++    without_pra = samhita_join("नः", "इन्द्रः")
++    generated = f"प्र+नः -> {with_pra['surface']!r}; नः+इन्द्रः (no प्र adjacent) -> {without_pra['surface']!r}"
++    expected = "प्र+नः -> 'प्र णः' (natva fires); नः+इन्द्रः -> no ण anywhere (natva does not fire)"
++    status = "PASS" if with_pra["surface"] == "प्र णः" and "ण" not in without_pra["surface"] else "FAIL"
+     report(
+-        "Test F -- restoration (Pada/Prakṛti form on retake)",
+-        "(needs a word whose Saṃhitā-pāṭha form differs from its Pada-pāṭha form, "
+-        "where the Krama retake must show the Pada form, not the Saṃhitā form)",
+-        "first occurrence = Saṃhitā form; retake = Pada/Prakṛti form",
+-        "(not computed -- no restoration function exists yet)",
+-        "UNRESOLVED",
+-        "10.21 (Śuddhākṣara restoration), 11.23 (yathāpadam saṃdhim apetahetuṣu -- "
+-        "restore the pre-sandhi form in retakes not licensed to keep the Saṃhitā "
+-        "alteration)",
+-        "not implemented",
+-        "This engine's samhita_join() always computes the SAME sandhi-joined surface "
+-        "form for both the initial pair and any later retake of the same word -- it "
+-        "has no notion yet of 'this retake occurs in a position that does not license "
+-        "keeping the Saṃhitā-triggered alteration, so revert to the Pada form.' "
+-        "That is Priority-0 item 4 (10.21 restoration) and item 5 (11.23 restoration "
+-        "principle) from the spec's sec.23, both still open. Marking this UNRESOLVED "
+-        "rather than fabricating a pass is deliberate.",
++        "Test F -- restoration (Pada/Prakṛti form on retake), evidenced case only",
++        "प्र । नः (retroflexion fires) vs नः । इन्द्रः (नः retaken away from प्र, per "
++        "sutra 11.23 yathāpadam saṃdhim apetahetuṣu)",
++        expected,
++        generated,
++        status,
++        "11.23 (yathāpadam saṃdhim apetahetuṣu -- restore the plain form once the "
++        "sandhi-triggering word is no longer adjacent)",
++        f"samhita_join('प्र','नः') = {with_pra!r} -> {generated}",
++        "sanskrit_phonology.py's new NATVA_BOUNDARY_UPASARGAS_SLP1 = {'pra'} check fires "
++        "only for this exact, cited boundary case; get_sthitopasthita('नः') independently "
++        "confirmed to never leak the retroflexed ण into a Parigraha citation (the "
++        "restoration is automatic by construction -- Parigraha is always built from the "
++        "bare Pada word, never a stored Samhita-altered form). This PASSES for the one "
++        "evidenced case only -- a GENERAL tag-free natva-at-a-distance rule (any r/f/F/z-"
++        "final upasarga, not just this closed 'pra' set) remains UNRESOLVED, and so does "
++        "the related 'mo Su NaH' sub-case from sutra 10.8's own bhashya (both models "
++        "agreed this needs conditions -- Paninian 8.3.57/59's s->S retroflexion -- this "
++        "corpus can't independently verify from one example). See architecture doc "
++        "sec.6.13.",
+     )
+ 
+ 
+@@ -238,26 +256,52 @@ def test_g():
+ 
+ 
+ def test_h():
+-    words_deva = {"सुचन्द्र": "sucandra", "परिकृण्वन्": "parikfRvan", "धूःसदम्": "DUHsadam"}
++    # 11 Sep 2026 (Round 3, external-model verified -- see architecture doc sec.6.13):
++    # suchandra and parikfRvan's forward-augmented Samhita forms and their
++    # automatic Parigraha restoration are now demonstrable via the new
++    # SHAUDDHAKSHARA_AGAMA_SLP1 closed table -- a genuine bug survived from
++    # both external models' proposed patches was caught here (a wrong SLP1
++    # letter for dhUHsadam's Samhita form) and fixed before installing.
++    su_forward = samhita_join("सु", "चन्द्र")
++    pari_forward = samhita_join("परि", "कृण्वन्")
++    su_parigraha = get_sthitopasthita("सुचन्द्र")
++    dhuhsadam_rephi = is_rephi("धूःसदम्")
++    generated = (
++        f"सु+चन्द्र -> {su_forward['surface']!r}; परि+कृण्वन् -> {pari_forward['surface']!r}; "
++        f"Parigraha(सुचन्द्र) -> {su_parigraha!r}; is_rephi(धूःसदम्) = {dhuhsadam_rephi}"
++    )
++    expected = (
++        "सु+चन्द्र -> 'सुश्चन्द्र' (augment fires); परि+कृण्वन् -> 'परिष्कृण्वन्' (augment fires); "
++        "Parigraha(सुचन्द्र) -> no augment leaks in; is_rephi(धूःसदम्) = True"
++    )
++    status = "PASS" if (
++        su_forward["surface"] == "सुश्चन्द्र" and pari_forward["surface"] == "परिष्कृण्वन्"
++        and "श" not in su_parigraha and dhuhsadam_rephi
++    ) else "FAIL"
+     report(
+-        "Test H -- Śuddhākṣara restoration",
+-        "सुचन्द्र, परिकृण्वन्, धूःसदम् (forms Uvaṭa cites as needing their 'pure "
+-        "syllable' -- pre-Vedic-alteration -- form restored in the Krama retake)",
+-        "the restored (Śuddhākṣara) forms Uvaṭa describes for each",
+-        "(no restore_shuddhakshara()/resolve_rephi() function exists yet; "
+-        "pratishakhya_classify.is_rephi() is a closed cache, not a derivation, and "
+-        "explicitly documents that limitation)",
+-        "UNRESOLVED",
+-        "10.21/11.37-43 (Śuddhākṣara-āgama and the wider restoration family), 10.22 "
+-        "(Rephita, for धूःसदम्'s रेफ)",
+-        "not implemented",
+-        "is_rephi() in pratishakhya_classify.py checks a small hand-verified cache of "
+-        "forms already confirmed rephita from the rule-JSON's own worked examples "
+-        "(धूःसदम् happens to be IN that cache), but this module states plainly that it "
+-        "cannot DERIVE rephi status for an arbitrary new word from phonological/"
+-        "etymological principles alone -- सुचन्द्र and परिकृण्वन् (Śuddhākṣara restoration "
+-        "generally, not specifically repha) aren't covered by is_rephi at all and have "
+-        "no restoration function. Priority-1 items 10 and 12 in spec sec.23.",
++        "Test H -- Śuddhākṣara restoration, two evidenced words + one cache fix",
++        "सुचन्द्र, परिकृण्वन्, धूःसदम् (forms Uvaṭa cites, on sutra 11.43, as needing their "
++        "'pure syllable' -- pre-Vedic-augment -- form restored in the Krama retake)",
++        expected,
++        generated,
++        status,
++        "11.43 (nudet ca śauddhākṣarasandhyam āgamam -- remove the augment on Parigraha "
++        "retake), 10.22/11.41 (Rephita, for धूःसदम्'s रेफ -- a DIFFERENT phenomenon Uvaṭa's "
++        "bhāṣya happens to cite with the same example, not the same rule)",
++        f"samhita_join('सु','चन्द्र')={su_forward!r}; get_sthitopasthita('सुचन्द्र')={su_parigraha!r}; "
++        f"is_rephi('धूःसदम्')={dhuhsadam_rephi}",
++        "sanskrit_phonology.SHAUDDHAKSHARA_AGAMA_SLP1 (4-entry closed table, sourced "
++        "directly from Uvaṭa's own citations on 11.43) now computes सुचन्द्र/परिकृण्वन्'s "
++        "augmented Saṃhitā forms; restoration is automatic (Parigraha is always built from "
++        "the bare Pada word, verified directly, not just via the citation). धूःसदम् is "
++        "separately now correctly classified by is_rephi() (a real, unrelated encoding bug "
++        "in REPHI_CACHE_SLP1 -- 'dh' where SLP1 needs the single capital letter 'D' -- was "
++        "found and fixed while verifying this). This is NOT a general "
++        "restore_shuddhakshara()/resolve_rephi() derivation: `is_rephi` is still a boolean "
++        "cache, not a function that renders धूःसदम्'s own Parigraha per 10.22's "
++        "retain-before-unvoiced-uṣman-else-revert categories -- that rendering logic, and "
++        "any word not in either closed table, remain UNRESOLVED. See architecture doc "
++        "sec.6.13.",
+     )
+ 
+ 
+-- 
+2.43.0
+

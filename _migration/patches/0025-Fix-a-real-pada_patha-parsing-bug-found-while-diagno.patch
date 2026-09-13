@@ -1,0 +1,304 @@
+From 49a1b5279c4f88c483bf087cd043d0eccd446e6a Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Sun, 13 Sep 2026 03:51:00 +0000
+Subject: [PATCH 25/25] Fix a real pada_patha parsing bug found while
+ diagnosing beyond RV 1.1
+
+While waiting on the Round-4 external answer, ran the existing
+reconstruct_chain() checker against RV 1.1-1.10 as a pure diagnostic --
+not an attempt to scale the committed Krama generator's output, which
+stays gated on the lead's own "only after" decision.
+
+Found DGE's own pada_patha uses "iti" as an editorial disambiguation
+gloss on the word immediately before it (541+76+1 times in Mandala 1),
+completely separate from a real, independent "iti" word (a quotative
+particle) that also occurs 12 times in the same corpus -- confirming
+the same distinction the Q2 investigation two days ago reasoned out
+from the sutra text alone. regenerate_krama_rv_1_1.py's word-splitter
+was treating the whole gloss token as one literal (wrong) word (e.g.
+feeding samhita_join the string "vaayo iti" as a single Pada word).
+
+Fixed with _strip_pada_iti_gloss(), derived from all 3 shapes actually
+observed in the corpus, including one genuine data quirk (a missing
+danda merging two independent words into one token). RV 1.1 has zero
+instances of this pattern -- confirmed the fix is a strict no-op there
+(krama_regenerated_output.json byte-for-byte unchanged) and a real
+improvement elsewhere (the diagnostic's own match rate against RV
+1.1-1.10 went from 77/204 to 96/204 ardharcas from this one fix alone).
+
+The actual scaling blocker was identified but deliberately not
+attempted: split_into_ardharcas()'s automatic ardharca-boundary
+detector has a much higher failure rate outside RV 1.1 (most of the
+remaining 108 mismatches trace to the wrong split point, not a
+phonology bug) -- a structural question for the scaling gate itself,
+recorded in sec.10 with real numbers rather than worked around
+mid-diagnostic.
+
+New tests/test_pada_iti_gloss.py (7 tests). Full detail in
+dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md sec.6.15.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GB2qZqW1sQcLi536ZSxGV6
+---
+ dge/PENDING.md                                | 16 ++++
+ dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md     | 54 +++++++++++++
+ tests/test_pada_iti_gloss.py                  | 81 +++++++++++++++++++
+ tools/pratishakhya/regenerate_krama_rv_1_1.py | 52 +++++++++++-
+ 4 files changed, 200 insertions(+), 3 deletions(-)
+ create mode 100644 tests/test_pada_iti_gloss.py
+
+diff --git a/dge/PENDING.md b/dge/PENDING.md
+index 7b0426be8..f328142d1 100644
+--- a/dge/PENDING.md
++++ b/dge/PENDING.md
+@@ -314,6 +314,22 @@ complete record, not just a live queue.
+   software/data decision, not something stuck on grammar expertise — not re-sent. Full detail in
+   `dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md` §6.14.
+ 
++  **Update, 13 Sep 2026 — diagnostic scan beyond RV 1.1 while waiting on the Round-4 answer; one
++  real bug fixed, the actual scaling blocker identified (not attempted).** Ran the existing
++  `reconstruct_chain()` checker (not the committed generator) against RV 1.1–1.10 as a pure
++  diagnostic — not an attempt to scale the shipped output, still gated on the lead's own decision.
++  Found and fixed a real, isolated parsing bug: DGE's own `pada_patha` uses "iti" as an editorial
++  disambiguation gloss on the word before it (541+76+1 times in Mandala 1 — RV 1.1 itself has
++  zero instances, confirmed directly), a different thing from a real, independent "iti" *word*
++  that also occurs 12 times in the same corpus (this actually confirms the very Q2 distinction
++  reasoned out two days ago). `regenerate_krama_rv_1_1.py`'s word-splitter was treating the whole
++  gloss as one wrong word; fixed, covered by 7 new tests, confirmed a strict no-op for RV 1.1
++  (committed output byte-for-byte unchanged) and a real improvement elsewhere (77→96 of 204
++  ardharcas now match exactly). The actual scaling blocker — the automatic ardharca-boundary
++  detector's failure rate is much higher outside RV 1.1 — was identified with real numbers but
++  deliberately NOT touched: that's a structural question for the scaling gate itself, not a
++  diagnostic-session fix. Full detail in `dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md` §6.15.
++
+ - **Raghavendra Vijaya: English translation OCR-linked + Gemini
+   padaccheda/anvaya/summary pipeline — IMPLEMENTED (2026-08-21).** First
+   real, non-proof-of-concept run of the "AI automation" this project's lead
+diff --git a/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md b/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+index 1b8747956..7b322ae09 100644
+--- a/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
++++ b/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+@@ -1277,6 +1277,50 @@ on grammar expertise — not re-sent, to avoid diluting this round's one real qu
+ 
+ ---
+ 
++### 6.15 Diagnostic scan beyond RV 1.1 (13 Sep 2026) — one real, fixed parsing bug; the actual
++
++scaling blocker identified but NOT attempted
++
++While waiting on the Round-4 answer, continued "solid coding+testing" with something that
++doesn't depend on it: ran the already-built `reconstruct_chain()` checker (not the committed
++generator itself) against RV 1.1–1.10 (204 ardharcas) purely as a diagnostic — **not** an attempt
++to scale the shipped Krama-pāṭha output past RV 1.1, which stays on the spec's own explicit
++"only after [the lead decides]" gate (§6.6/§10). Two things came out of it, kept clearly separate:
++
++**A real, fixed, isolated bug: DGE's own `pada_patha` carries an "iti"-gloss convention RV 1.1
++never happens to exercise.** A pada_patha token can gloss the word immediately before it with
++"iti" — either bare disambiguation ("वायो इति", 541 times in Mandala 1) or giving both a fused
++citation form AND the true avagraha-split compound ("वाजिनीवसू इति वाजिनीऽवसू", 76 times) — a
++DIFFERENT thing entirely from a real, independent "iti" *word* (a quotative particle) that also
++appears as its own pada elsewhere in this exact corpus (12 times in Mandala 1 — directly confirms
++the Q2/§6.14 finding that ordinary Saṃhitā-pāṭha "iti" occurrences are a real, separate
++phenomenon from Krama's own Parigraha convention). `regenerate_krama_rv_1_1.py`'s
++`split_pada_words()` was treating the whole gloss token as one literal (wrong) word, e.g. feeding
++`samhita_join` the string "वायो इति" as if it were a single Pada word. Fixed with
++`_strip_pada_iti_gloss()`, derived from all 3 shapes actually observed (not guessed), including
++one genuine one-off data quirk (a missing danda merging two independent words into one token,
++"उपऽआसते उतो इति"). **RV 1.1 has zero instances of this pattern (checked directly)** — the fix
++is confirmed a strict no-op there (`krama_regenerated_output.json` byte-for-byte unchanged after
++re-running the generator) and a real, measurable improvement elsewhere: the diagnostic's own
++match rate against RV 1.1–1.10 went from 77/204 to 96/204 ardharcas purely from this one fix.
++Covered by a new `tests/test_pada_iti_gloss.py` (7 tests, all 3 real shapes plus the standalone-
++iti-is-a-real-word negative case).
++
++**The actual scaling blocker, identified but explicitly NOT attempted this round: the
++`split_into_ardharcas()` automatic length-alignment heuristic's failure rate is much higher
++outside RV 1.1.** Of the 108 remaining mismatches after the iti-gloss fix, inspecting a sample
++shows most are NOT phonology bugs at all — the automatic ardharca-boundary detector (which
++already needed 2 manual overrides even within RV 1.1's own 9 verses — §6.6) picks the wrong
++split point often enough outside RV 1.1 that whole trailing words end up missing from one
++ardharca and never reach the other. This is a real, structural problem with the "closest
++cumulative length to the first daṇḍa" heuristic itself, not a small fix — and is exactly the kind
++of thing the spec's own scaling gate exists to make the lead's decision on (accept a much lower
++automatic-split success rate and rely on a growing manual-override table, or design a better
++heuristic, or require independent ardharca-boundary data) rather than something to quietly work
++around mid-diagnostic. **Not attempted.** Flagged here with real numbers instead.
++
++---
++
+ ## 7. Two modes
+ 
+ **GENERATE** — Pada-pāṭha → Krama-pāṭha, per §5.
+@@ -1450,6 +1494,16 @@ Kept as a short index back to the full review, not restated in full here:
+ - Confirm an independently attested Krama-pāṭha source to use as the VALIDATE-mode ground
+   truth for RV 1.1.1 and subsequent sūktas — `github.com/vishvasa`'s Rigveda repo was
+   checked (10 Sep 2026) and does not appear to carry one, so this is still open.
++- (Added 13 Sep 2026, §6.15) **When ready to decide on scaling past RV 1.1, the actual blocker
++  is now quantified, not just gated in principle**: `split_into_ardharcas()`'s automatic
++  length-alignment heuristic gets 7/9 right unaided on RV 1.1 (2 manual overrides already
++  needed there); a diagnostic pass against RV 1.1–1.10 (204 ardharcas, not committed as scaled
++  output) found its failure rate is much higher outside RV 1.1 — most of the 108 remaining
++  chain-reconstruction mismatches there (after a real, separate parsing bug was fixed — see
++  §6.15) trace back to the wrong ardharca split point, not a phonology error. Options for
++  whoever picks this up: accept a lower automatic success rate plus a growing manual-override
++  table (works, doesn't scale cleanly), design a better split heuristic, or find/require
++  independent ardharca-boundary data. Not attempted without the lead's steer on which.
+ - Decide whether `github.com/vishvasa`'s per-sūkta Śākala Saṃhitā (2,226 files) is worth a
+   word-level cross-check against DGE's own Pada/Saṃhitā data before the Krama work leans on
+   it, or whether the existing 96.61%-validated VedaWeb cross-check is sufficient.
+diff --git a/tests/test_pada_iti_gloss.py b/tests/test_pada_iti_gloss.py
+new file mode 100644
+index 000000000..d7a9d1bef
+--- /dev/null
++++ b/tests/test_pada_iti_gloss.py
+@@ -0,0 +1,81 @@
++"""tools/pratishakhya/regenerate_krama_rv_1_1.py's pada_patha "iti"-gloss
++handling.
++
++Found 11-13 Sep 2026 while running the already-built reconstruct_chain()
++checker against more of Mandala 1 as a diagnostic (not a scaling of the
++committed Krama generator's output, which stays gated on the lead's own
++"only after" decision -- see RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md sec.6.6
++and PENDING.md): DGE's own pada_patha uses "iti" as an editorial
++disambiguation gloss on the word immediately before it (541+76+1 times in
++Mandala 1 alone) -- a completely different thing from a real, independent
++"iti" WORD (a quotative particle) that appears as its own pada elsewhere in
++the very same corpus (12 times in Mandala 1). RV 1.1 itself has zero
++instances of either, so this is pure net-new coverage, not a change to
++already-shipped output -- confirmed by diffing the committed
++krama_regenerated_output.json before and after (no diff).
++"""
++import os
++import sys
++import unittest
++
++sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "tools", "pratishakhya"))
++
++from regenerate_krama_rv_1_1 import _strip_pada_iti_gloss, split_pada_words  # noqa: E402
++
++
++class StripPadaItiGloss(unittest.TestCase):
++    def test_plain_word_gloss_keeps_only_the_glossed_word(self):
++        # RV 1.2.1's own pada_patha token, verbatim.
++        self.assertEqual(_strip_pada_iti_gloss("वायो इति"), ["वायो"])
++
++    def test_compound_gloss_keeps_the_avagraha_split_form(self):
++        # RV 1.2.5's own pada_patha token, verbatim: gives the fused
++        # citation form, "iti", then the true split compound -- the split
++        # form is what this project's own compound convention needs
++        # (matches "पुरःऽहितम्"-style tokens elsewhere in this corpus).
++        self.assertEqual(
++            _strip_pada_iti_gloss("वाजिनीवसू इति वाजिनीऽवसू"), ["वाजिनीऽवसू"]
++        )
++
++    def test_standalone_iti_token_is_a_real_word_not_a_gloss(self):
++        # RV 1.109.3 etc.: "iti" as its OWN danda-delimited token is a
++        # genuine quotative particle (a real Pada word), not a gloss on
++        # anything -- must survive unchanged, not be dropped.
++        self.assertEqual(_strip_pada_iti_gloss("इति"), ["इति"])
++
++    def test_ordinary_word_with_no_iti_is_unaffected(self):
++        self.assertEqual(_strip_pada_iti_gloss("अग्निम्"), ["अग्निम्"])
++
++    def test_two_words_sharing_one_token_with_no_intervening_danda(self):
++        # RV 1.162.12's own pada_patha, verbatim -- an isolated data quirk
++        # (a missing danda between two otherwise-independent Pada words,
++        # the second of which happens to carry its own gloss): must yield
++        # BOTH real words, not merge or drop either.
++        self.assertEqual(
++            _strip_pada_iti_gloss("उपऽआसते उतो इति"), ["उपऽआसते", "उतो"]
++        )
++
++    def test_split_pada_words_applies_the_gloss_fix_across_a_whole_verse(self):
++        # RV 1.2.1's actual pada_patha (accents already stripped, as
++        # split_pada_words expects).
++        pada = "वायो इति । आ । याहि । दर्शत । इमे । सोमाः । अरंऽकृताः । तेषाम् । पाहि । श्रुधि । हवम् ॥"
++        self.assertEqual(
++            split_pada_words(pada),
++            ["वायो", "आ", "याहि", "दर्शत", "इमे", "सोमाः", "अरंऽकृताः", "तेषाम्",
++             "पाहि", "श्रुधि", "हवम्"],
++        )
++
++    def test_split_pada_words_unaffected_for_rv_1_1_shape_input(self):
++        # RV 1.1.1's own pada_patha (no iti anywhere) -- confirms this fix
++        # is a strict no-op for input shapes like RV 1.1's own, which is
++        # why the committed krama_regenerated_output.json doesn't change.
++        pada = "अग्निम् । ईळे । पुरःऽहितम् । यज्ञस्य । देवम् । ऋत्विजम् । होतारम् । रत्नऽधातमम् ॥"
++        self.assertEqual(
++            split_pada_words(pada),
++            ["अग्निम्", "ईळे", "पुरःऽहितम्", "यज्ञस्य", "देवम्", "ऋत्विजम्",
++             "होतारम्", "रत्नऽधातमम्"],
++        )
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/tools/pratishakhya/regenerate_krama_rv_1_1.py b/tools/pratishakhya/regenerate_krama_rv_1_1.py
+index ee191e971..ac46ea0f1 100644
+--- a/tools/pratishakhya/regenerate_krama_rv_1_1.py
++++ b/tools/pratishakhya/regenerate_krama_rv_1_1.py
+@@ -69,12 +69,58 @@ def strip_accents(s):
+     return "".join(ch for ch in s if ch not in ACCENT_MARKS)
+ 
+ 
++def _strip_pada_iti_gloss(token):
++    """DGE's own pada_patha carries a real, common editorial convention this
++    script did not need to handle for RV 1.1 (checked directly: RV 1.1 has
++    zero instances) but that appears immediately in RV 1.2 onward (541+76+1
++    times across Mandala 1, found while scanning beyond RV 1.1's own scope
++    11-13 Sep 2026): a danda-delimited token can carry an "iti" GLOSS for
++    the word immediately before it, disambiguating an otherwise-ambiguous
++    Pada spelling -- e.g. "vaayo iti" (is "vaayo" complete, or truncated?)
++    or, for a compound, giving BOTH the fused citation form and the true
++    avagraha-split form: "vaajiiniivasuu iti vaajiiniiऽvasuu". This is a
++    DIFFERENT phenomenon from a real, independent "iti" WORD (a quotative
++    particle -- "thus [he/she said]") that stands as its OWN danda-
++    delimited token elsewhere in this same corpus (confirmed: 12 such
++    standalone tokens exist in Mandala 1) -- that one must NOT be touched
++    here, and isn't (a standalone "iti" token has no other word in it to
++    gloss).
++
++    Rule, derived directly from all 3 shapes actually observed in Mandala 1
++    (not guessed): within a token containing "iti" as one of several
++    space-separated words, the word immediately before "iti" is the one
++    being glossed; anything AFTER "iti" (if present) is its disambiguated
++    real form and replaces it; anything else BEFORE the glossed word is a
++    separate, unrelated real word in its own right (needed for exactly one
++    observed case, "upaऽaasate uto iti", where "upaऽaasate" and "uto" are
++    two distinct Pada words that happen to share one danda-token with no
++    danda between them -- an isolated data quirk, not a new convention).
++
++    Returns a list of 0+ real words (usually exactly 1)."""
++    words = token.split()
++    if words == ["इति"]:
++        return ["इति"]  # a genuine standalone iti word, never a gloss target
++    if "इति" not in words:
++        return [token]
++    idx = words.index("इति")
++    before, after = words[:idx], words[idx + 1:]
++    real_form = " ".join(after) if after else (before[-1] if before else "")
++    leading_extra = before[:-1] if before else []
++    return leading_extra + ([real_form] if real_form else [])
++
++
+ def split_pada_words(pada_patha_stripped):
+     """pada_patha uses '।' between words within a pada and '॥' verse-final.
+-    Both are word separators here; strip whitespace per token."""
++    Both are word separators here; strip whitespace per token, then strip
++    any pada_patha-internal "iti" disambiguation gloss (see
++    _strip_pada_iti_gloss) -- a no-op for RV 1.1, which has none."""
+     text = pada_patha_stripped.replace("॥", "।")
+-    words = [w.strip() for w in text.split("।")]
+-    return [w for w in words if w]
++    tokens = [w.strip() for w in text.split("।")]
++    words = []
++    for t in tokens:
++        if t:
++            words.extend(_strip_pada_iti_gloss(t))
++    return words
+ 
+ 
+ def load_verses():
+-- 
+2.43.0
+

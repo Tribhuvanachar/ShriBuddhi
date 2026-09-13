@@ -1,0 +1,398 @@
+From b90ec81b8fa7eb3b9b2b0ba412ea77a53e8f1d9b Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 11 Sep 2026 11:52:00 +0000
+Subject: [PATCH 18/25] Verify Gemini's Round 2 answer and its critique
+ directly, correct scope docs
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Gemini's D1 (ZWNJ fix survives 10 joins) was reproduced and confirmed;
+its own test is now the permanent regression test, strengthened to assert
+the ZWNJ count after every individual join rather than only the final
+result.
+
+Gemini's D2 conclusion ("the r/f collision is a unique artifact") was
+checked directly and found false, exactly as a follow-up critique
+document argued: built the exact collision matrix it specified and
+confirmed a bare consonant before an independent vowel collides with
+that consonant + a dependent vowel-matra for every vowel class, not only
+vocalic r/rr. This is now a permanent test
+(SLP1BareConsonantVowelCollision).
+
+Went one step further than the critique document's own next step,
+rather than assuming a transliteration-level collision must be an engine
+bug: checked whether letting every other vowel class fall through to the
+default (dependent-matra) rendering ever produces wrong output. It
+doesn't, for the only real (not synthetic) examples available: RV
+1.1.2's attested Samhita-patha shows "r+ii" -> dependent matra and
+"r+u" -> dependent matra (both verified by direct Unicode codepoint
+inspection), matching this engine's existing default. No speculative
+widening of _finish_consonant_then_vowel was made without a reproduced
+defect. Both its docstring and the module docstring were corrected to
+state the real reason for its scope (a Devanagari typesetting convention
+specific to vocalic r/rr, confirmed by 3 attested data points) instead of
+the disproven "uniquely ambiguous at the SLP1 level" framing.
+
+Also flagged that the critique document's blanket rejection of Gemini's
+Pāṇini 8.3.17/8.3.19 citation (for RV 1.1.7's still-open visarga gap) was
+procedurally correct for that prompt's own rule but too quick to discard
+substantively -- it's a real sutra, and "Śākalya" is this recension's own
+namesake -- recorded as an open lead to verify, not adopted or dismissed.
+
+Architecture doc sec.6.9 and PENDING.md record the full verification
+trail.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GB2qZqW1sQcLi536ZSxGV6
+---
+ dge/PENDING.md                            | 21 ++++++
+ dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md | 84 +++++++++++++++++++++++
+ tests/test_krama_engine.py                | 74 ++++++++++++++++++++
+ tools/pratishakhya/sanskrit_phonology.py  | 75 ++++++++++++++------
+ 4 files changed, 234 insertions(+), 20 deletions(-)
+
+diff --git a/dge/PENDING.md b/dge/PENDING.md
+index dbae597c6..7b6c570de 100644
+--- a/dge/PENDING.md
++++ b/dge/PENDING.md
+@@ -196,6 +196,27 @@ complete record, not just a live queue.
+   the specific claim — not adopted; the gap remains open with a citation to verify rather than
+   none. Full detail in `dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md` §6.8.
+ 
++  **Update, 11 Sep 2026 — fourth round, Gemini's actual Round 2 answer plus a Claude-authored
++  critique of it, both checked directly.** Gemini's D1 (the ZWNJ fix survives 10 joins) was
++  verified correct. Its D2 conclusion ("the र्ऋ collision is unique to vocalic r/rr") was
++  checked directly and found FALSE — the critique document's core objection was right: a bare
++  consonant before an independent vowel collides with that consonant + a dependent vowel-matra
++  for every vowel class, not only r/rr (now a permanent test,
++  `SLP1BareConsonantVowelCollision`). But going one step further than the critique document's
++  own next step — checking whether this transliteration-level fact is an actual ENGINE bug,
++  not just assuming it is — found it isn't: three real RV 1.1.2 examples, verified by Unicode
++  codepoint inspection, show this engine's existing scope (special-case only f/F) is already
++  correct, because DGE's own attested text uses the dependent-matra form for the other two
++  attested cases ("र्+ई"→"री", "र्+उ"→"रु"). No speculative widening of
++  `_finish_consonant_then_vowel` was made; both its docstring and the module docstring were
++  corrected to state the real (typesetting-convention) reason for its scope instead of the
++  disproven "uniquely ambiguous" framing. Also flagged that the critique document's blanket
++  rejection of Gemini's Pāṇini 8.3.17/8.3.19 citation (for the still-open RV 1.1.7 gap) was
++  procedurally fair for that specific prompt's rule but too quick to discard substantively — it's
++  a real sūtra and "Śākalya" is this recension's own namesake — recorded as an open lead to
++  verify in `dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md` §10, not adopted or dismissed. Full
++  detail in that doc's §6.9.
++
+ - **Raghavendra Vijaya: English translation OCR-linked + Gemini
+   padaccheda/anvaya/summary pipeline — IMPLEMENTED (2026-08-21).** First
+   real, non-proof-of-concept run of the "AI automation" this project's lead
+diff --git a/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md b/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+index 26f2137ec..a0de61b5d 100644
+--- a/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
++++ b/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+@@ -883,6 +883,65 @@ concrete failure case it currently causes was not attempted).
+ 
+ ---
+ 
++### 6.9 Fourth round (11 Sep 2026) — Gemini's Round 2 answer, then a Claude-authored critique of
++    it, both checked directly rather than either trusted
++
++The lead relayed Gemini's answer to the Round 2 prompt (§6.8), plus a document (apparently
++another Claude session's review of that answer) arguing Gemini's D2 conclusion should be
++rejected. Rather than trust either verdict, every checkable claim was reproduced directly.
++
++**Gemini's D1 (10-join survival) was correct and is now the permanent test.** Verified Gemini's
++own proposed test runs and passes against the real engine exactly as claimed.
++`tests/test_krama_engine.py`'s `test_zwnj_marker_present_after_every_one_of_10_consecutive_joins`
++now asserts the ZWNJ count after *every* individual join (not just comparing the final result,
++which the critique document correctly pointed out was a weaker test than the prompt asked for).
++
++**Gemini's D2 conclusion ("the rf collision is a unique artifact... no other collisions exist")
++was checked directly and found FALSE — the critique document's core objection is correct.**
++Built the exact collision matrix the critique proposed
++(`tests/test_krama_engine.py`'s `SLP1BareConsonantVowelCollision.
++test_collision_exists_for_every_vowel_class_not_only_vocalic_r`) and ran it: a bare consonant
++before an independent vowel letter transliterates identically to that consonant with a
++DEPENDENT vowel-matra, for **every** vowel class (अ/इ/ई/उ/ऊ/ए/ऐ/ओ/औ/ऋ/ॠ), not only vocalic r/rr.
++Gemini tested anusvāra/candrabindu, avagraha, and vowel length (all genuinely collision-free,
++confirmed) but never tested the specific category the prompt named — "other independent-
++vowel-after-consonant cases" — and drew a general conclusion its own tests didn't support.
++
++**But the critique document's implied next step (audit `_finish_consonant_then_vowel`'s scope
++for a real defect) was also checked directly, not assumed either way — and no defect was
++found.** A transliteration-level collision existing for every vowel does not by itself mean
++this engine's choice to special-case only f/F is wrong; the real question is whether letting
++every other vowel fall through to the default (dependent-matra) rendering ever produces WRONG
++output. Checked against DGE's own attested Samhita-patha, character-by-character (not assumed):
++RV 1.1.2 has three real (not synthetic) examples of a visarga-derived consonant immediately
++before a vowel — "र्+ऋ" (needs the independent form, the one case already handled), "र्+ई"
++(attested as "री", dependent matra — matches this engine's existing default) and "र्+उ"
++(attested as "रु" in "नूतनैरुत", dependent matra — also matches the default). All three
++confirmed by direct Unicode codepoint inspection of the source data, not inferred. This is a
++genuine, if limited (3 data points, one text), Devanagari **typesetting** convention specific
++to vocalic r/rr's dependent-matra glyph (likely because ृ is small and easily lost under Vedic
++accent marks, unlike the larger ि/ी/ु/ू/े/ो), not an SLP1-level property — so `_finish_
++consonant_then_vowel`'s scope was not widened speculatively (per the critique document's own
++correct instruction: "do not patch this speculatively" / "only fix reproduced defects"). Both
++`sanskrit_phonology.py`'s module docstring and `_finish_consonant_then_vowel`'s own docstring
++were corrected to state this accurately (the earlier, too-narrow "uniquely ambiguous" framing
++was itself part of what needed fixing here).
++
++**E1/E2/E3: the critique document's procedural read (require exact citations, mark UNRESOLVED
++without one) is the correct discipline and was already this project's own standard before the
++document arrived** — §6.8 already declined to adopt Gemini's Q3 citation for the same reason.
++One place the critique document overreached: it dismissed Gemini's E3 invocation of Pāṇini
++8.3.17/8.3.19 ("lopaḥ śākalyasya") as inadmissible purely because it wasn't in the supplied RPr
++excerpt. That procedural point is fair for judging whether Gemini followed *that specific
++prompt's* rule, but 8.3.19 is a real, well-known sūtra, and its namesake ("Śākalya") is
++literally this recension's own name (Ṛgveda **Śākala** śākhā) — dismissing it outright loses a
++promising, checkable lead rather than filing it as one. Recorded in §10 as a citation to
++investigate (does 8.3.17's precise condition — a visarga from final "-as", "apūrvasya",
++specific word classes — actually cover भरन्तः, a plain -तस् nominative?) rather than either
++adopted or discarded.
++
++---
++
+ ## 7. Two modes
+ 
+ **GENERATE** — Pada-pāṭha → Krama-pāṭha, per §5.
+@@ -1003,6 +1062,21 @@ Kept as a short index back to the full review, not restated in full here:
+     not-yet-cross-checked) Paṭala 2 data and finding it doesn't clearly support the specific
+     claim made. RV 1.1.7's visarga-before-आ gap remains open, now with a citation to verify
+     rather than none.
++23. (Part VIII, 11 Sep 2026) Gemini's Round 2 answer, then a Claude-authored critique of that
++    answer, were both checked directly rather than either trusted (§6.9). The critique correctly
++    caught that Gemini's D2 conclusion ("the र्ऋ collision is unique to vocalic r/rr") was false
++    — reproduced directly: the collision holds for every vowel class. But going further and
++    checking whether that transliteration-level fact was an actual ENGINE bug (not assumed
++    either way) found it wasn't: three real attested RV 1.1.2 examples (checked by Unicode
++    codepoint, not inferred) confirm this project's existing scope (special-case only f/F) is
++    already correct — the two other attested cases ("र्+ई"→"री", "र्+उ"→"रु") both use the
++    dependent-matra form this engine's default already produces. `_finish_consonant_then_vowel`
++    was not widened without a reproduced defect; both its docstring and the module docstring
++    were corrected to state the real (typesetting, not SLP1-uniqueness) reason for its scope
++    accurately. Also declined to fully adopt the critique document's blanket dismissal of
++    Gemini's Pāṇini 8.3.17/8.3.19 citation for RV 1.1.7 — procedurally out of bounds for that
++    specific prompt's rule, but a real, checkable, name-relevant (Śākalya/Śākala) lead that
++    deserves investigation, not discarding — recorded as an open item in §10.
+ 
+ ---
+ 
+@@ -1040,6 +1114,16 @@ Kept as a short index back to the full review, not restated in full here:
+   (including 2.24/2.27) still carry `has_uncertain_reading: true` and no Bhāṣya gloss. Cross-
+   checking Paṭala 2 the way Paṭala 10–11 already were would likely resolve both this and the
+   Q2 question below in one pass.
++- (Added 11 Sep 2026, Part VIII) A second candidate citation for the same RV 1.1.7 gap: Gemini's
++  Round 2 answer invoked Pāṇini 8.3.17 ("bho-bhago-agho-apūrvasya yo'śi") and 8.3.19 ("lopaḥ
++  śākalyasya" — the semivowel arising from this sandhi may optionally elide before a vowel, per
++  the grammarian Śākalya). This wasn't part of the text supplied in that prompt, so it was
++  correctly flagged as not satisfying that specific exercise's citation rule — but it is a real,
++  well-known Pāṇinian sūtra, and "Śākalya" is literally this recension's own namesake (Ṛgveda
++  Śākala śākhā), which makes it a genuinely promising lead, not a fabrication. Not yet verified:
++  whether 8.3.17's precise condition (a visarga from final "-as", specifically in the
++  "apūrvasya" environment, i.e. NOT preceded by अ) actually covers भरन्तः (an ordinary -तस्
++  nominative). Worth checking properly before either adopting or discarding.
+ - (Added 11 Sep 2026, Part VII) Sharpened question from Gemini's Q2 answer: is
+   `get_sthitopasthita()`'s current unconditional "no sandhi between word and iti" rendering
+   actually wrong for non-pragṛhya Parigraha words? Both of this project's two attested examples
+diff --git a/tests/test_krama_engine.py b/tests/test_krama_engine.py
+index ac3d7c897..bbb4e0cf6 100644
+--- a/tests/test_krama_engine.py
++++ b/tests/test_krama_engine.py
+@@ -13,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools" / "pratisha
+ 
+ from sanskrit_phonology import (  # noqa: E402
+     samhita_join, resolve_compound, reconstruct_chain, strip_zwnj_markers,
++    deva_to_slp1, slp1_to_deva, ZWNJ,
+ )
+ from pratishakhya_classify import (  # noqa: E402
+     is_pragrhya, is_monosyllable_avasana, parse_compound, requires_parigraha,
+@@ -78,6 +79,22 @@ class SamhitaJoin(unittest.TestCase):
+         third = samhita_join(second["surface"], "ईड्यः", resolve_w1_compound=False)
+         self.assertEqual(strip_zwnj_markers(third["surface"]), "अग्निः पूर्वेभिर्ऋषिभिरीड्यः")
+ 
++    def test_zwnj_marker_present_after_every_one_of_10_consecutive_joins(self):
++        # Stronger version of the "survives 4/10 joins" claim (11 Sep 2026,
++        # a second external review round): asserts the invariant holds
++        # after EVERY individual join, not just by comparing the final
++        # result. One ZWNJ is added per join that hits the f/F branch, so
++        # the running count must equal the join index throughout, not just
++        # "at least one present".
++        words = ["पूर्वेभिः"] + ["ऋषिभिः"] * 10
++        combined = words[0]
++        for i, w in enumerate(words[1:], start=1):
++            r = samhita_join(combined, w, resolve_w1_compound=False)
++            combined = r["surface"]
++            self.assertEqual(combined.count(ZWNJ), i, f"wrong ZWNJ count after join {i}: {combined!r}")
++        final = strip_zwnj_markers(combined)
++        self.assertEqual(final, "पूर्वेभिर्ऋषिभिर्ऋषिभिर्ऋषिभिर्ऋषिभिर्ऋषिभिर्ऋषिभिर्ऋषिभिर्ऋषिभिर्ऋषिभिर्ऋषिभिः")
++
+     def test_visarga_a_class_before_voiced(self):
+         result = samhita_join("देवः", "देवेभिः")
+         self.assertEqual(result["surface"], "देवो देवेभिः")
+@@ -247,5 +264,62 @@ class ReconstructChain(unittest.TestCase):
+         self.assertEqual(computed, "अग्निः पूर्वेभिर्ऋषिभिरीड्यो नूतनैरुत")
+ 
+ 
++class SLP1BareConsonantVowelCollision(unittest.TestCase):
++    """A second external review round (11 Sep 2026) correctly rejected a
++    prior claim that the r/f (vocalic-r) collision is "a unique artifact"
++    -- it is NOT: EVERY vowel collides the same way at the pure SLP1
++    transliteration level (a bare consonant + independent vowel letter is
++    indistinguishable from that consonant + a dependent vowel-matra, for
++    every vowel, not just f/F). That correction is verified below.
++
++    But a transliteration-level collision existing is not automatically an
++    ENGINE bug: samhita_join only special-cases f/F in
++    _finish_consonant_then_vowel(), and the question that actually matters
++    is whether letting every OTHER vowel fall through to the ordinary
++    (dependent-matra) rendering ever produces a WRONG result. Checked
++    against every real attested example available in this project's own
++    data for the visarga-derived-consonant-before-vowel environment (not
++    invented cases): DGE's own attested RV 1.1.2 Samhita-patha shows
++    "र्+ई" -> "री" (dependent matra) and "र्+उ" -> "रु" (dependent matra)
++    -- both confirmed correct by character-by-character inspection of the
++    real Unicode codepoints, not assumed. "र्+ऋ" is the only one of the
++    three actually-attested cases needing the independent-letter form.
++    This is real (if limited) evidence the current scope is correct, not
++    merely untested luck -- but it is NOT proof for every vowel/context
++    this engine hasn't yet exercised, and should be revisited if/when
++    scaling finds a counterexample."""
++
++    def test_collision_exists_for_every_vowel_class_not_only_vocalic_r(self):
++        # Pure transliteration-level fact, independent of this engine's
++        # own behaviour: a bare consonant immediately followed by an
++        # INDEPENDENT vowel letter is indistinguishable, in SLP1, from
++        # that same consonant with a DEPENDENT vowel-matra, for every
++        # vowel class -- not a property unique to f/F.
++        pairs = [
++            ("क्अ", "क"), ("क्इ", "कि"), ("क्ई", "की"), ("क्उ", "कु"),
++            ("क्ऊ", "कू"), ("क्ए", "के"), ("क्ऐ", "कै"), ("क्ओ", "को"),
++            ("क्औ", "कौ"), ("क्ऋ", "कृ"), ("क्ॠ", "कॄ"),
++        ]
++        for independent_form, dependent_form in pairs:
++            with self.subTest(independent=independent_form, dependent=dependent_form):
++                self.assertNotEqual(independent_form, dependent_form)
++                self.assertEqual(
++                    deva_to_slp1(independent_form), deva_to_slp1(dependent_form),
++                    f"expected a collision between {independent_form!r} and {dependent_form!r}",
++                )
++
++    def test_other_vowel_classes_default_to_the_attested_dependent_matra_form(self):
++        # Engine-reachability check: does the "not f/F" default path in
++        # _finish_consonant_then_vowel() actually match DGE's own attested
++        # text for the other vowel classes it's exercised against? These
++        # are the two real (not synthetic) cases available -- see class
++        # docstring for the exact codepoint verification.
++        diphthong_visarga_before_u = samhita_join("नूतनैः", "उत")
++        self.assertEqual(diphthong_visarga_before_u["surface"], "नूतनैरुत")  # attested RV 1.1.2
++
++        iu_class_visarga_before_i = samhita_join("अग्निः", "इन्द्रः")
++        self.assertEqual(iu_class_visarga_before_i["surface"], "अग्निरिन्द्रः")  # standard textbook form
++
++
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/tools/pratishakhya/sanskrit_phonology.py b/tools/pratishakhya/sanskrit_phonology.py
+index 0fab588ef..8e790c771 100644
+--- a/tools/pratishakhya/sanskrit_phonology.py
++++ b/tools/pratishakhya/sanskrit_phonology.py
+@@ -55,14 +55,24 @@ silently producing a wrong answer with ordinary-looking confidence:
+ 
+ A SECOND gap, previously listed here, was FOUND AND FIXED (11 Sep 2026,
+ external review, then independently verified before accepting): the
+-indic_transliteration library's SLP1 scheme cannot distinguish "र्ऋ" (a
+-bare consonant, then an independent vowel) from "रृ" (that same consonant
+-with a DEPENDENT vowel-matra) -- both round-trip to the identical SLP1
+-string ("rf"). Fixed with a ZWNJ marker inserted at the boundary by
++indic_transliteration library's SLP1 scheme cannot distinguish a bare
++consonant + an independent vowel letter (e.g. "र्ऋ") from that same
++consonant + a DEPENDENT vowel-matra (e.g. "रृ") -- both round-trip to the
++identical SLP1 string. This collision is verified to hold for EVERY vowel
++class, not only vocalic r/rr (a second review round correctly rejected an
++earlier, too-narrow claim here that it was unique to r/f -- see
++tests/test_krama_engine.py's SLP1BareConsonantVowelCollision class).
++_finish_consonant_then_vowel() only special-cases f/F because that is the
++only vowel class this project's own attested text actually needs the
++independent-letter form for (checked against 3 real examples, not
++assumed -- see that function's own docstring); the collision existing
++more broadly at the transliteration level does not by itself mean this
++engine mishandles other vowel classes, and no case where it does has been
++found. Fixed with a ZWNJ marker inserted at the boundary by
+ _finish_consonant_then_vowel() and stripped only at true final-output
+ points by strip_zwnj_markers() -- see both functions' docstrings. Tested
+-across 4 consecutive re-joins (not just the 2 that originally exposed the
+-bug) before this was accepted as a real fix, not just a plausible one.
++across 10 consecutive re-joins, checked after every individual join (not
++just the final one) before this was accepted as a real fix.
+ """
+ import re
+ from indic_transliteration import sanscript
+@@ -477,18 +487,41 @@ def _finish(slp1_result, rule, w1_deva, w2_deva, confidence="high", note=""):
+ def _finish_consonant_then_vowel(prefix_slp1, suffix_slp1, rule, w1_deva, w2_deva):
+     """Like _finish, but for cases where prefix_slp1 ends in a BARE
+     consonant (typically a visarga->r insertion) immediately before
+-    suffix_slp1. Confirmed against DGE's own attested samhita_patha
+-    (RV 1.1.2's puurvebhiH+RSibhiH -> puurvebhir.RSibhiH) that ONLY
+-    vocalic-r/rr (SLP1 f/F) needs to render as its own INDEPENDENT letter
+-    rather than merging as a dependent matra on the preceding consonant
+-    -- "र्ऋषिभिः" (bare र्, then independent ऋ), not "रृषिभिः" (र् read
+-    as if ऋ were its OWN vowel). Every other vowel (verified against
+-    RV 1.1.2's RSibhiH+iiDyaH -> RSibhir.iiDyaH, attested as one merged
+-    "री") merges normally as a dependent matra -- transliterating the
+-    whole string in one pass already does that correctly, so only the
+-    f/F case needs the separate-transliterate-then-concatenate
+-    workaround (verified: transliterating a string that ends in a bare
+-    consonant always ends in an explicit virama).
++    suffix_slp1.
++
++    IMPORTANT CORRECTION (a second external review round, 11 Sep 2026,
++    correctly rejected an earlier claim -- made in an even earlier version
++    of this docstring -- that vocalic-r/rr (f/F) is "uniquely" ambiguous
++    here): the underlying SLP1 collision (a bare consonant + independent
++    vowel letter transliterates identically to that consonant + a
++    DEPENDENT vowel-matra) is verified to hold for EVERY vowel class, not
++    only f/F -- see tests/test_krama_engine.py's
++    SLP1BareConsonantVowelCollision.test_collision_exists_for_every_vowel_class_not_only_vocalic_r.
++    So f/F is not special because it is uniquely ambiguous at the
++    transliteration level; every vowel is equally ambiguous there.
++
++    What f/F actually IS special for: DGE's own attested Samhita-patha
++    text, checked character-by-character (not assumed) for every real
++    example available in this project's data, shows the INDEPENDENT-
++    letter rendering is the one actually used ONLY for vocalic r/rr in
++    this environment ("पूर्वेभिर्ऋषिभिः" -- bare र्, then independent ऋ,
++    U+090B, not the dependent matra U+0943). The two other real examples
++    available (both from RV 1.1.2) show the DEPENDENT-matra form instead:
++    "र्+ई" -> "री" (dependent ी, not independent ई) and "र्+उ" -> "रु"
++    (dependent ु, attested "नूतनैरुत", not independent उ) -- i.e. this
++    module's ordinary default behaviour (concatenate as one SLP1 string,
++    let the library render the dependent matra) is ALREADY correct for
++    those, confirmed against real text, not merely untested. This is a
++    real (if limited -- only 3 attested data points, all from RV 1.1.2)
++    Devanagari TYPESETTING fact specific to vocalic r/rr's dependent-matra
++    glyph (likely because ृ is small and easily missed, especially under
++    Vedic accent marks, while ि/ी/ु/ू/े/ो are visually larger), not an
++    SLP1-level fact -- see tests/test_krama_engine.py's
++    SLP1BareConsonantVowelCollision class for the full reasoning and both
++    verifications. If a future example is found where another vowel class
++    ALSO needs the independent-letter form, extend this function's
++    condition then, backed by that reproduced case -- do not extend it
++    speculatively without one.
+ 
+     A ZWNJ is inserted at the boundary (external review, 11 Sep 2026):
+     without it, this correct Devanagari output, if fed back into
+@@ -496,8 +529,10 @@ def _finish_consonant_then_vowel(prefix_slp1, suffix_slp1, rule, w1_deva, w2_dev
+     gets re-transliterated to SLP1 as one flat "rf"/"rF" and can render
+     back WRONG (as the dependent-matra reading) on that second pass --
+     confirmed as a real bug before this fix, and confirmed the ZWNJ
+-    survives at least 4 consecutive re-joins after it. See strip_zwnj_markers()
+-    -- callers that will not re-join this string further must call it."""
++    survives 10 consecutive re-joins, checked after every individual join
++    not just the final one (a second review round's stronger test).
++    See strip_zwnj_markers() -- callers that will not re-join this string
++    further must call it."""
+     if suffix_slp1[0] not in ("f", "F"):
+         return _finish(prefix_slp1 + suffix_slp1, rule, w1_deva, w2_deva)
+     deva = slp1_to_deva(prefix_slp1) + ZWNJ + slp1_to_deva(suffix_slp1)
+-- 
+2.43.0
+

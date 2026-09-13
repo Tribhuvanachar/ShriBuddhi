@@ -1,0 +1,2622 @@
+From 97ad47062dc358bc9c799b52f6de3318e19665b5 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 11 Sep 2026 08:12:23 +0000
+Subject: [PATCH 11/25] Make the Krama engine's output epistemically auditable,
+ fix two real bugs
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Responds to a second independent review of the first regenerated-output
+run, which argued the deeper problem was not individual wrong strings but
+that the JSON gave no way to tell canonical output from a guess, or a
+checked fact from an unchecked one.
+
+Checked the review's specific count-bug claim directly against the data:
+both pada_count and pair_count were already internally consistent (a 10.3
+tri-unit legitimately replaces one ordinary pair at its boundary). The
+underlying complaint was fair though -- the arithmetic tying them together
+was nowhere visible. build_counts() now asserts this invariant and ships
+the formula in an "invariant_check" object instead of bare numbers.
+
+Every unit now carries independent status ("canonical" vs
+"candidate_reconstruction", so a single cited worked-example
+generalization like sutra 10.3's can never be mistaken for verified
+output) alongside confidence (unchanged: classifier certainty, not
+correctness). Parigraha units state their retake_state (STHITOPASTHITA)
+and named trigger_reasons instead of a bare sutra-number list.
+compare_against_old() keys by (ardharca_index, unit_index_within_ardharca)
+so one real difference no longer cascades into spurious downstream ones.
+
+Replaced a first, flawed attempt at attestation (comparing isolated
+2-word Krama pairs against continuous samhita text via substring match --
+wrong, because a word's pair reflects only its immediate partner while
+its continuous-text form is often governed by a different, later
+neighbour) with sanskrit_phonology.reconstruct_chain(): folds the sandhi
+engine across a WHOLE ardharca to simulate how continuous text is built,
+then diffs against DGE's attested samhita_patha per ardharca.
+
+Building that check properly caught two real, now-fixed phonology bugs:
+- resolve_compound() misfiring on a chained string's own elision-avagraha
+  (ordinary Sanskrit orthography, not a Pada-patha compound marker),
+  collapsing every space built up so far. Fixed via samhita_join's new
+  resolve_w1_compound parameter.
+- The lexical-exception tables only matched a bare word, silently never
+  firing for that word occurring anywhere but the start of a chain.
+  Fixed via _match_lexical_suffix().
+
+And precisely diagnosed, rather than patched, one further real bug: the
+indic_transliteration library's SLP1 scheme cannot distinguish "र्ऋ"
+(bare consonant, independent vowel) from "रृ" (dependent vowel-matra) --
+both collapse to the same SLP1 string, so a fix that survives one join
+loses the distinction on a second. Chain reconstruction now matches DGE's
+attested text on 16 of 18 RV 1.1 ardharcas (up from an unverified 69/70
+claim made in an earlier, uncommitted ad hoc check).
+
+Architecture doc sec.6.7 and PENDING.md record what the review correctly
+flagged as still missing (a real Patala-11 Kramahetu evaluation layer,
+a restore_* family, structured Svara, full per-unit transformation
+history) and explicitly not attempted this pass, plus the review's
+standing acceptance criterion recorded verbatim in sec.10.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GB2qZqW1sQcLi536ZSxGV6
+---
+ dge/PENDING.md                                |  26 +
+ dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md     | 154 +++-
+ .../krama_regenerated_output.json             | 738 +++++++++++++++---
+ tests/test_krama_engine.py                    |  47 +-
+ tests/test_krama_regenerated_output.py        |  49 +-
+ tools/pratishakhya/krama_engine.py            |  71 ++
+ tools/pratishakhya/regenerate_krama_rv_1_1.py | 199 ++++-
+ tools/pratishakhya/sanskrit_phonology.py      | 131 +++-
+ 8 files changed, 1249 insertions(+), 166 deletions(-)
+
+diff --git a/dge/PENDING.md b/dge/PENDING.md
+index 5ec2d833b..4c17ed1d6 100644
+--- a/dge/PENDING.md
++++ b/dge/PENDING.md
+@@ -151,6 +151,32 @@ complete record, not just a live queue.
+   restoration, and Priority-1 items 10.8/10.20/10.22/11.25/11.37–43, are not yet implemented
+   (§6.6, §10). Full-Rigveda scaling has not started, per the spec's own explicit gate.
+ 
++  **Update, 11 Sep 2026 — second review pass ("chatgpt review"), epistemic auditability.**
++  A second, independent review of the first regenerated-output run argued the deeper problem
++  wasn't the individual wrong strings but that the JSON gave no way to tell canonical output
++  from a guess, or a checked fact from an unchecked one (16 numbered points). Checking each
++  one against the actual code and data (not taking the review on trust either): its specific
++  count-bug claim was wrong (both `pada_count` and `pair_count` were already internally
++  consistent), but the complaint underneath was fair — the arithmetic tying them together was
++  nowhere visible. Fixed that (`build_counts()` now asserts and ships its own invariant) plus
++  several real gaps: every unit now carries `"status"` (`"canonical"` vs
++  `"candidate_reconstruction"`) alongside `"confidence"`, so "the classifier is sure" can never
++  again be read as "this is verified correct"; Parigraha units now state their `"retake_state"`
++  (`STHITOPASTHITA`, 10.14) and named `"trigger_reasons"` instead of a bare sūtra-number list;
++  and a real VALIDATE-mode check (`sanskrit_phonology.reconstruct_chain()`, folding the sandhi
++  engine across a WHOLE ardharca and diffing against DGE's attested `samhita_patha`) replaced a
++  first, flawed attempt at per-unit substring matching. Building that check properly caught two
++  real, now-fixed phonology bugs (a chained string's own elision-avagraha misread as a
++  Pada-pāṭha compound; lexical exceptions only matching a bare word, never mid-chain) and
++  precisely diagnosed — rather than patched — one further real, still-open bug (an SLP1
++  round-trip collision between "र्ऋ" and "रृ" in the `indic_transliteration` library, two joins
++  deep). Chain reconstruction now matches DGE's attested text on 16 of 18 RV 1.1 ardharcas.
++  Full detail in `dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md` §6.7, including the explicit list
++  of what the review correctly flagged as still missing (a real Paṭala-11 Kramahetu evaluation
++  layer, the `restore_*` family, a structured Svara object, full per-unit transformation
++  history) and was NOT attempted this pass, plus the standing acceptance criterion §10 now
++  records verbatim from that review.
++
+ - **Raghavendra Vijaya: English translation OCR-linked + Gemini
+   padaccheda/anvaya/summary pipeline — IMPLEMENTED (2026-08-21).** First
+   real, non-proof-of-concept run of the "AI automation" this project's lead
+diff --git a/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md b/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+index 4093cbb16..567591140 100644
+--- a/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
++++ b/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+@@ -679,6 +679,113 @@ superseded, but it is being left in place one more round in case the lead wants
+ 
+ ---
+ 
++### 6.7 Second review pass (11 Sep 2026, "chatgpt review") — epistemic auditability
++
++The lead forwarded a second, independent review (ChatGPT) of §6.6's first regenerated-output
++run, arguing the deeper problem was not the individual wrong strings but that the JSON gave no
++way to tell canonical output from a guess, or a checked fact from an unchecked one — 16 numbered
++points. Two things came out of actually checking each one against the code and data, not just
++the review's prose:
++
++**The review's count claim was itself wrong, but the underlying worry was right.** It stated
++`pada_count` should be 89, not 88, and that `pair_count`(69) vs. `ardharca_count`-implied 70
++pairs was a bug. Recomputing directly from the shipped JSON: `pada_count` (88) is exactly the
++sum of every ardharca's word list — correct. The `pair_count`/boundary gap is not a bug either:
++one ardharca's 10.3 tri-unit legitimately *replaces* an ordinary pair at that boundary (69
++pairs + 1 tri-unit = 70 boundaries, exactly). Both counts were right, but *neither was provable
++from the JSON itself* — there was no visible arithmetic tying them together, so a careful
++reader reasonably suspected a bug that wasn't there. **Fixed**: `regenerate_krama_rv_1_1.py`'s
++`build_counts()` now asserts this invariant explicitly (raises if it ever stops holding) and
++ships the formula and both operands as an `invariant_check` object in the output, rather than
++presenting bare numbers on trust.
++
++**Genuinely new, addressed this pass:**
++- **"confidence" was being read as "verified correct"; it never meant that.** Every unit now
++  carries three independent fields, documented in `krama_engine.py`'s own module docstring so
++  the distinction can't be lost again: `"status"` (`"canonical"` — the general rule engine
++  applied uniformly — vs. `"candidate_reconstruction"` — this session's own generalization of
++  a single cited example, currently only the 10.3 units), `"confidence"` (unchanged: how sure
++  the phonology classifier is it picked the right branch — a claim about the classifier, not
++  the Vedic form), and, per-ARDHARCA (not per-unit — see below), a `"chain_reconstruction"`
++  field from a real VALIDATE-mode check.
++- **Parigraha's rendering was undifferentiated.** Every Parigraha unit now states
++  `"retake_state": "STHITOPASTHITA"` explicitly (10.14 — combined+iti+split together) instead
++  of leaving which sūtra-named state fired implicit in which function happened to be called.
++  `get_sthita`/`get_upasthita` (10.12/10.13) as *distinct* renderings, rather than components
++  of sthitopasthita, remain unexercised by any case found so far — stated as an open scoping
++  question, not silently assumed unnecessary.
++- **Reasons were flattened into an undifferentiated sūtra-number list.** Parigraha units now
++  also carry `"trigger_reasons"`: `["avagrhya_compound"]`/`["bahumadhyagata"]`/
++  `["ardharca_final"]`, human-readable, alongside (not replacing) the sūtra citations.
++- **The comparison report cascaded one real difference into many spurious-looking ones.**
++  `compare_against_old()` now keys by `(ardharca_index, unit_index_within_ardharca)` instead of
++  one flat per-verse index, so a difference in ardharca 2 no longer makes every later unit in a
++  different ardharca look wrong.
++- **A real, working VALIDATE-mode check was built, and building it caught two real bugs.** The
++  review's point that "reproducing DGE Saṃhitā ≠ philologically correct" was already understood
++  (§6.6, §7), but no actual per-unit check had been implemented yet. A first attempt — comparing
++  each isolated 2-word Krama pair against the continuous samhita text via substring match — was
++  itself wrong and is NOT what shipped: a word's Krama pair reflects only its immediate partner,
++  but its form in the continuous text is often governed by a *different, later* neighbour, so
++  most "mismatches" that check produced were expected divergences, not bugs. The correct check —
++  `sanskrit_phonology.reconstruct_chain()`, folding `samhita_join` across a WHOLE ardharca to
++  simulate how continuous text is actually built, then diffing against DGE's attested
++  `samhita_patha` — is what `regenerate_krama_rv_1_1.py`'s `attest_ardharcas()` now runs, and it
++  found:
++  1. **A real bug**: `resolve_compound()` was misfiring on a chained string's own
++     elision-avagraha (e.g. "sūnave'gne", ordinary Sanskrit orthography for an elided medial
++     vowel — not a Pada-pāṭha compound marker), collapsing every space built up in the chain so
++     far. Fixed via `samhita_join`'s new `resolve_w1_compound` parameter (`generate_ardharca`'s
++     own per-pair calls are unaffected — they always pass a fresh bare pada word as w1, where
++     the old default behaviour is correct).
++  2. **A second real bug**: the lexical-exception tables (`IRREGULAR_VISARGA_STEMS`,
++     `IRREGULAR_LENGTHENING_BEFORE_CONSONANT`) matched only a bare word, silently failing to
++     fire for that same word occurring anywhere but the very start of a chain. Fixed via
++     `_match_lexical_suffix()`.
++  3. **A confirmed, still-open bug**, precisely diagnosed rather than patched: the
++     `indic_transliteration` SLP1 scheme cannot distinguish "र्ऋ" (bare consonant, then an
++     independent vowel) from "रृ" (that consonant with a dependent vowel-matra) — both collapse
++     to the identical SLP1 "rf". `_finish_consonant_then_vowel()`'s existing workaround survives
++     exactly one join; a second hop through this module loses it (RV 1.1.2's chain: "...bhi-r-
++     R.si..." → "पूर्वेभिरृषिभिः", missing its virama, instead of "पूर्वेभिर्ऋषिभिः"). Left
++     unresolved rather than rushed — see `sanskrit_phonology.py`'s module docstring for the
++     exact repro.
++  4. **One already-known, still-open gap**, now independently reconfirmed by the SAME
++     mechanism: RV 1.1.7's visarga-before-आ (§6.6's original finding). After the two fixes
++     above, chain reconstruction now matches DGE's attested text on **16 of 18 ardharcas**
++     (the remaining 2 are exactly bugs 3 and 4 above — nothing else).
++
++**Explicitly NOT attempted this pass** — real, substantial, correctly-identified gaps that need
++dedicated engineering, not a rushed patch layered onto already-uncertain philology:
++- A real Kramahetu (Paṭala 11) *evaluation* engine that decides between ordinary/dvikrama/
++  trikrama/pañcakrama, rather than only ever emitting `"10.2"` for ordinary pairs. `krama_engine.py`
++  already states in its own docstring that only a slice of Paṭala 10 plus the 10.3 exception is
++  implemented; the review's ask for an explicit `"krama_decision"` object naming which Paṭala-11
++  sūtras were checked and why none fired is directionally right but has not been built.
++- A `restore_*` family (Prakṛti restoration on retake, Śuddhākṣara, Rephī/Uṣman derivation) as
++  genuine state transitions — Test F/G/H in `validate_krama_rv1_1.py` already report these
++  UNRESOLVED (§6.6); this pass didn't change that.
++- A structured, syllable-level Svara object with transformation provenance — explicitly out of
++  scope per §6.4/architecture Priority 3; accents are stripped, not modelled, at this stage.
++- A full transformation-history object per unit (`{"input": {...}, "phonology": [...], "krama":
++  {...}, "output": ...}`) for every nontrivial unit — a real, worthwhile idea; a lighter version
++  exists already (`phonology_rule` cites the fired rule, `w1`/`w2` are on the raw `samhita_join`
++  return dict though not yet threaded into the shipped JSON's units) but the full structured
++  object was not built.
++- Deriving ardharca boundaries from authoritative structure instead of the length-alignment
++  heuristic. Checked directly against DGE's own data during this pass: `pada_patha` uses the
++  SAME `।` separator between every word AND at the ardharca boundary — it does not mark the
++  boundary distinctly from an ordinary inter-word split — so there is no more authoritative
++  signal already sitting in this repo's data to switch to; a real fix needs either deriving
++  pada-counts from the `chandas` field per meter (itself unverified against real editions) or
++  an external attested source. The two manual overrides stay logged as exactly that, not solved.
++- Auditing every lexical exception's citation as the review's point 16 asks (`basis`, sūtra,
++  commentary, generalizes-or-not) — the code comments already state provenance reasonably well
++  (e.g. `IRREGULAR_VISARGA_STEMS`'s comment cites the exact attested form and verse it came
++  from) but this is not yet surfaced as a structured field in the output JSON itself.
++
++---
++
+ ## 7. Two modes
+ 
+ **GENERATE** — Pada-pāṭha → Krama-pāṭha, per §5.
+@@ -771,6 +878,20 @@ Kept as a short index back to the full review, not restated in full here:
+     before आ in 1.1.7, documented rather than patched blindly). Explicitly did NOT import any
+     rule or form from the KYVeda/Taittirīya corpus into this engine, per the lead's strict
+     instruction — that corpus was consulted only as a methodological precedent (§10).
++21. (Part VI, 11 Sep 2026) A second independent review (ChatGPT, relayed by the lead) argued the
++    first regenerated-output run gave no way to tell canonical output from a guess, or a checked
++    fact from an unchecked one (§6.7). Its specific count-bug claim was checked directly and
++    found wrong (both counts were already correct) — but the underlying complaint was fair: the
++    arithmetic tying them together was nowhere visible, so it reasonably looked broken. Fixed
++    that plus several real gaps: unit-level `status`/`retake_state`/`trigger_reasons` fields;
++    a per-ardharca `chain_reconstruction` VALIDATE check (§6.7) built to replace a first,
++    flawed per-unit substring-match attempt; and, in building that check properly, two real
++    phonology bugs it caught (a chained string's own elision-avagraha being misread as a
++    Pada-pāṭha compound; lexical exceptions only matching a bare word, never mid-chain) plus one
++    real, still-open bug precisely diagnosed rather than patched (an SLP1 round-trip collision
++    between "र्ऋ" and "रृ" that only manifests two joins deep). Chain reconstruction now matches
++    DGE's attested text on 16 of 18 RV 1.1 ardharcas, up from an unverified claim of 69/70 made
++    in an earlier, uncommitted ad hoc check.
+ 
+ ---
+ 
+@@ -815,6 +936,33 @@ Kept as a short index back to the full review, not restated in full here:
+   auto-detection, 10.20/10.22 Pragṛhya/Rephī restoration as named functions, and 11.25/11.37–43
+   remain open — not started.
+ 
+-(Note on the sentence above: it described the state as of Part II/III. As of Part IV/V, actual
+-ingestion, rule-logic, and now the real generator engine code have all landed — see §4b, §6.5,
+-§6.6 for what's shipped, and the items just above for what's still open.)
++- (Added 11 Sep 2026, Part VI, from the second review — §6.7) The one still-open real bug: the
++  `indic_transliteration` SLP1 scheme's "र्ऋ"/"रृ" collision. A proper fix needs either a
++  private marker that survives round-tripping through that scheme, or bypassing it for this one
++  character class — not attempted yet; flagged precisely rather than papered over.
++- (Added 11 Sep 2026, Part VI) A real Kramahetu (Paṭala 11) evaluation layer — an explicit
++  `krama_decision` object per ardharca naming which Paṭala-11 sūtras were checked and why
++  ordinary two-step Krama (vs. dvikrama/trikrama/pañcakrama) was selected — does not exist yet;
++  every ordinary pair currently just cites `"10.2"` with no record that Paṭala 11 was consulted
++  at all. This is a bigger, separate engineering task, not a field to bolt on.
++- (Added 11 Sep 2026, Part VI) A full per-unit transformation-history object (`{"input":...,
++  "phonology":[...], "krama":{...}, "output":...}`), a structured `restore_*` family (Prakṛti
++  restoration on retake, Śuddhākṣara, Rephī/Uṣman), and a syllable-level structured Svara object
++  remain unbuilt — all correctly identified by the second review as real gaps, all explicitly
++  deferred rather than rushed (§6.7 lists exactly what exists in their place today).
++
++**Standing acceptance criterion (added 11 Sep 2026, from the second review, adopted verbatim
++because it is the right bar and should stay written down rather than re-litigated per review):**
++A generated form must never be considered "correct" merely because it reproduces DGE Saṃhitā or
++because a classifier selected it with high confidence. Every nontrivial Krama transformation
++must be justified by an explicit Prātiśākhya rule/state transition, and every unresolved
++interpretation must remain unresolved rather than being emitted as canonical output. This repo's
++`"status"`/`"confidence"`/`"chain_reconstruction"` three-field split (§6.7) is this pass's
++concrete attempt to satisfy that criterion mechanically, not just rhetorically — but the fields
++are only as honest as what populates them, so any new rule or exception added later must keep
++setting them correctly, not just adding a plausible-looking value.
++
++(Note on the sentence above §10's first bullet: it described the state as of Part II/III. As of
++Part IV/V/VI, actual ingestion, rule-logic, and now the real generator engine code (twice
++reviewed and corrected) have all landed — see §4b, §6.5, §6.6, §6.7 for what's shipped, and the
++items just above for what's still open.)
+diff --git a/dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/krama_regenerated_output.json b/dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/krama_regenerated_output.json
+index b14a049be..66294ac05 100644
+--- a/dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/krama_regenerated_output.json
++++ b/dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/krama_regenerated_output.json
+@@ -1,6 +1,6 @@
+ {
+   "schema": "generic",
+-  "note": "Krama-patha for RV 1.1 (all 9 verses) computed by tools/pratishakhya/krama_engine.py (real sandhi engine + predicate classifiers) directly from DGE's Pada-patha/Samhita-patha, per the reviewed spec's success criterion. No per-verse pair or Parigraha strings are hardcoded anywhere in this pipeline; the only per-verse manual input is the two ardharca-split overrides in krama_engine.py's ARDHARCA_SPLIT_OVERRIDES, logged there with the reason each was needed.",
++  "note": "Krama-patha for RV 1.1 (all 9 verses) computed by tools/pratishakhya/krama_engine.py (real sandhi engine + predicate classifiers) directly from DGE's Pada-patha/Samhita-patha, per the reviewed spec's success criterion. No per-verse pair or Parigraha strings are hardcoded anywhere in this pipeline; the only per-verse manual input is the two ardharca-split overrides in krama_engine.py's ARDHARCA_SPLIT_OVERRIDES, logged there with the reason each was needed. Every unit carries independent status/confidence fields, and every ardharca carries a chain_reconstruction field -- see krama_engine.py's and regenerate_krama_rv_1_1.py's module docstrings for what each one does and does NOT establish. Reproducing DGE's own attested samhita_patha (chain_reconstruction) is a real, checkable fact but is NOT the same claim as philological correctness against a traditional Krama-patha edition, which remains open (architecture doc sec.10).",
+   "engine_source": "tools/pratishakhya/krama_engine.py",
+   "pada_samhita_source": "dge/data/vedas/rigveda/shakala_shakha/samhita/mandala_01/data.json",
+   "counts": {
+@@ -9,160 +9,214 @@
+     "parigraha_count": 26,
+     "ardharca_count": 18,
+     "special_exception_count": 2,
+-    "unresolved_count": 4
++    "unresolved_count": 4,
++    "candidate_reconstruction_count": 2,
++    "chain_reconstruction_mismatch_count": 2,
++    "invariant_check": {
++      "formula": "pair_count + monosyllable_retake_tri_unit_count == sum(len(ardharca.pada_words) - 1)",
++      "pair_count": 69,
++      "monosyllable_retake_tri_unit_count": 1,
++      "total_word_boundaries": 70,
++      "holds": true
++    }
+   },
+   "comparison_against_hand_aligned_output": [
+     {
+       "id": "1.1.1",
+-      "old_unit_count": 9,
+-      "new_unit_count": 9,
+-      "matching_units": 9,
+       "status": "EXACT_MATCH",
+-      "diffs": []
++      "ardharcas": [
++        {
++          "ardharca_index": 0,
++          "status": "EXACT_MATCH",
++          "diffs": []
++        },
++        {
++          "ardharca_index": 1,
++          "status": "EXACT_MATCH",
++          "diffs": []
++        }
++      ]
+     },
+     {
+       "id": "1.1.2",
+-      "old_unit_count": 12,
+-      "new_unit_count": 13,
+-      "matching_units": 10,
+       "status": "DIFFERS",
+-      "diffs": [
+-        {
+-          "index": 10,
+-          "old": "इह वक्षति",
+-          "new": "इहा वक्षति",
+-          "match": false
+-        },
++      "ardharcas": [
+         {
+-          "index": 11,
+-          "old": "वक्षति इति वक्षति",
+-          "new": "आ वक्षति",
+-          "match": false
++          "ardharca_index": 0,
++          "status": "EXACT_MATCH",
++          "diffs": []
+         },
+         {
+-          "index": 12,
+-          "old": null,
+-          "new": "वक्षति इति वक्षति",
+-          "match": false
++          "ardharca_index": 1,
++          "status": "DIFFERS",
++          "diffs": [
++            {
++              "unit_index_within_ardharca": 3,
++              "old": "इह वक्षति",
++              "new": "इहा वक्षति"
++            },
++            {
++              "unit_index_within_ardharca": 4,
++              "old": "वक्षति इति वक्षति",
++              "new": "आ वक्षति"
++            },
++            {
++              "unit_index_within_ardharca": 5,
++              "old": null,
++              "new": "वक्षति इति वक्षति"
++            }
++          ]
+         }
+       ]
+     },
+     {
+       "id": "1.1.3",
+-      "old_unit_count": 8,
+-      "new_unit_count": 8,
+-      "matching_units": 8,
+       "status": "EXACT_MATCH",
+-      "diffs": []
++      "ardharcas": [
++        {
++          "ardharca_index": 0,
++          "status": "EXACT_MATCH",
++          "diffs": []
++        },
++        {
++          "ardharca_index": 1,
++          "status": "EXACT_MATCH",
++          "diffs": []
++        }
++      ]
+     },
+     {
+       "id": "1.1.4",
+-      "old_unit_count": 12,
+-      "new_unit_count": 12,
+-      "matching_units": 12,
+       "status": "EXACT_MATCH",
+-      "diffs": []
++      "ardharcas": [
++        {
++          "ardharca_index": 0,
++          "status": "EXACT_MATCH",
++          "diffs": []
++        },
++        {
++          "ardharca_index": 1,
++          "status": "EXACT_MATCH",
++          "diffs": []
++        }
++      ]
+     },
+     {
+       "id": "1.1.5",
+-      "old_unit_count": 10,
+-      "new_unit_count": 10,
+-      "matching_units": 10,
+       "status": "EXACT_MATCH",
+-      "diffs": []
++      "ardharcas": [
++        {
++          "ardharca_index": 0,
++          "status": "EXACT_MATCH",
++          "diffs": []
++        },
++        {
++          "ardharca_index": 1,
++          "status": "EXACT_MATCH",
++          "diffs": []
++        }
++      ]
+     },
+     {
+       "id": "1.1.6",
+-      "old_unit_count": 12,
+-      "new_unit_count": 12,
+-      "matching_units": 12,
+       "status": "EXACT_MATCH",
+-      "diffs": []
++      "ardharcas": [
++        {
++          "ardharca_index": 0,
++          "status": "EXACT_MATCH",
++          "diffs": []
++        },
++        {
++          "ardharca_index": 1,
++          "status": "EXACT_MATCH",
++          "diffs": []
++        }
++      ]
+     },
+     {
+       "id": "1.1.7",
+-      "old_unit_count": 12,
+-      "new_unit_count": 13,
+-      "matching_units": 3,
+       "status": "DIFFERS",
+-      "diffs": [
+-        {
+-          "index": 3,
+-          "old": "दिवेदिवे दोषावस्तः",
+-          "new": "दिवेदिवे इति दिवेऽदिवे",
+-          "match": false
+-        },
+-        {
+-          "index": 4,
+-          "old": "दोषावस्तः इति दोषाऽवस्तः",
+-          "new": "दिवेदिवे दोषावस्तः",
+-          "match": false
+-        },
+-        {
+-          "index": 5,
+-          "old": "दोषावस्तर्धिया",
+-          "new": "दोषावस्तः इति दोषाऽवस्तः",
+-          "match": false
+-        },
+-        {
+-          "index": 6,
+-          "old": "धिया वयम्",
+-          "new": "दोषावस्तर्धिया",
+-          "match": false
+-        },
+-        {
+-          "index": 7,
+-          "old": "वयम् इति वयम्",
+-          "new": "धिया वयम्",
+-          "match": false
+-        },
+-        {
+-          "index": 8,
+-          "old": "नमो भरन्तः",
+-          "new": "वयम् इति वयम्",
+-          "match": false
+-        },
+-        {
+-          "index": 9,
+-          "old": "भरन्तो",
+-          "new": "नमो भरन्तः",
+-          "match": false
+-        },
+-        {
+-          "index": 10,
+-          "old": "एमसि",
+-          "new": "भरन्तो आ",
+-          "match": false
+-        },
++      "ardharcas": [
+         {
+-          "index": 11,
+-          "old": "इमसि इति इमसि",
+-          "new": "एमसि",
+-          "match": false
++          "ardharca_index": 0,
++          "status": "DIFFERS",
++          "diffs": [
++            {
++              "unit_index_within_ardharca": 3,
++              "old": "दिवेदिवे दोषावस्तः",
++              "new": "दिवेदिवे इति दिवेऽदिवे"
++            },
++            {
++              "unit_index_within_ardharca": 4,
++              "old": "दोषावस्तः इति दोषाऽवस्तः",
++              "new": "दिवेदिवे दोषावस्तः"
++            },
++            {
++              "unit_index_within_ardharca": 5,
++              "old": "दोषावस्तर्धिया",
++              "new": "दोषावस्तः इति दोषाऽवस्तः"
++            },
++            {
++              "unit_index_within_ardharca": 6,
++              "old": "धिया वयम्",
++              "new": "दोषावस्तर्धिया"
++            },
++            {
++              "unit_index_within_ardharca": 7,
++              "old": "वयम् इति वयम्",
++              "new": "धिया वयम्"
++            },
++            {
++              "unit_index_within_ardharca": 8,
++              "old": null,
++              "new": "वयम् इति वयम्"
++            }
++          ]
+         },
+         {
+-          "index": 12,
+-          "old": null,
+-          "new": "इमसि इति इमसि",
+-          "match": false
++          "ardharca_index": 1,
++          "status": "DIFFERS",
++          "diffs": [
++            {
++              "unit_index_within_ardharca": 1,
++              "old": "भरन्तो",
++              "new": "भरन्तो आ"
++            }
++          ]
+         }
+       ]
+     },
+     {
+       "id": "1.1.8",
+-      "old_unit_count": 8,
+-      "new_unit_count": 8,
+-      "matching_units": 8,
+       "status": "EXACT_MATCH",
+-      "diffs": []
++      "ardharcas": [
++        {
++          "ardharca_index": 0,
++          "status": "EXACT_MATCH",
++          "diffs": []
++        },
++        {
++          "ardharca_index": 1,
++          "status": "EXACT_MATCH",
++          "diffs": []
++        }
++      ]
+     },
+     {
+       "id": "1.1.9",
+-      "old_unit_count": 12,
+-      "new_unit_count": 12,
+-      "matching_units": 12,
+       "status": "EXACT_MATCH",
+-      "diffs": []
++      "ardharcas": [
++        {
++          "ardharca_index": 0,
++          "status": "EXACT_MATCH",
++          "diffs": []
++        },
++        {
++          "ardharca_index": 1,
++          "status": "EXACT_MATCH",
++          "diffs": []
++        }
++      ]
+     }
+   ],
+   "items": [
+@@ -178,6 +232,7 @@
+         "होतारम्",
+         "रत्नऽधातमम्"
+       ],
++      "samhita_patha_stripped": "अग्निमीळे पुरोहितं यज्ञस्य देवमृत्विजम् । होतारं रत्नधातमम् ॥",
+       "ardharca_split_method": "automatic_length_alignment",
+       "ardharcas": [
+         {
+@@ -195,6 +250,7 @@
+               "text": "अग्निमीळे",
+               "rule": "10.2",
+               "phonology_rule": "m_before_vowel_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -203,6 +259,7 @@
+               "text": "ईळे पुरोहितम्",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -214,6 +271,11 @@
+                 "10.7",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "avagrhya_compound"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             },
+@@ -222,6 +284,7 @@
+               "text": "पुरोहितं यज्ञस्य",
+               "rule": "10.2",
+               "phonology_rule": "m_before_consonant_anusvara",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -230,6 +293,7 @@
+               "text": "यज्ञस्य देवम्",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -238,6 +302,7 @@
+               "text": "देवमृत्विजम्",
+               "rule": "10.2",
+               "phonology_rule": "m_before_vowel_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -249,10 +314,28 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "अग्निमीळे पुरोहितं यज्ञस्य देवमृत्विजम्",
++            "attested": "अग्निमीळे पुरोहितं यज्ञस्य देवमृत्विजम्",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "m_before_vowel_unchanged",
++              "vowel_before_consonant_unchanged",
++              "m_before_consonant_anusvara",
++              "vowel_before_consonant_unchanged",
++              "m_before_vowel_unchanged"
++            ],
++            "note": ""
++          }
+         },
+         {
+           "pada_words": [
+@@ -265,6 +348,7 @@
+               "text": "होतारं रत्नधातमम्",
+               "rule": "10.2",
+               "phonology_rule": "m_before_consonant_anusvara",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -277,10 +361,25 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "avagrhya_compound",
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "होतारं रत्नधातमम्",
++            "attested": "होतारं रत्नधातमम्",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "m_before_consonant_anusvara"
++            ],
++            "note": ""
++          }
+         }
+       ]
+     },
+@@ -299,6 +398,7 @@
+         "इह",
+         "वक्षति"
+       ],
++      "samhita_patha_stripped": "अग्निः पूर्वेभिर्ऋषिभिरीड्यो नूतनैरुत । स देवाँ एह वक्षति ॥",
+       "ardharca_split_method": "automatic_length_alignment",
+       "ardharcas": [
+         {
+@@ -316,6 +416,7 @@
+               "text": "अग्निः पूर्वेभिः",
+               "rule": "10.2",
+               "phonology_rule": "visarga_iu_class_before_unvoiced_consonant",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -324,6 +425,7 @@
+               "text": "पूर्वेभिर्ऋषिभिः",
+               "rule": "10.2",
+               "phonology_rule": "visarga_iu_class_before_vowel",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -335,6 +437,11 @@
+                 "10.7",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "avagrhya_compound"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             },
+@@ -343,6 +450,7 @@
+               "text": "ऋषिभिरीड्यः",
+               "rule": "10.2",
+               "phonology_rule": "visarga_iu_class_before_vowel",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -351,6 +459,7 @@
+               "text": "ईड्यो नूतनैः",
+               "rule": "10.2",
+               "phonology_rule": "visarga_a_class_before_voiced",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -359,6 +468,7 @@
+               "text": "नूतनैरुत",
+               "rule": "10.2",
+               "phonology_rule": "visarga_diphthong_class_before_vowel",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -370,10 +480,28 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "अग्निः पूर्वेभिरृषिभिरीड्यो नूतनैरुत",
++            "attested": "अग्निः पूर्वेभिर्ऋषिभिरीड्यो नूतनैरुत",
++            "status": "DIFFERS",
++            "rules_used": [
++              "visarga_iu_class_before_unvoiced_consonant",
++              "visarga_iu_class_before_vowel",
++              "visarga_iu_class_before_vowel",
++              "visarga_a_class_before_voiced",
++              "visarga_diphthong_class_before_vowel"
++            ],
++            "note": "The phonology engine's own chained reconstruction of this ardharca's continuous text does not match DGE's attested samhita_patha -- a real, checkable phonology discrepancy (see dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md sec.6.6 for which specific ones are already understood and why)."
++          }
+         },
+         {
+           "pada_words": [
+@@ -389,6 +517,7 @@
+               "text": "स देवान्",
+               "rule": "10.2",
+               "phonology_rule": "visarga_sa_esa_elision_blocks_further_sandhi",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -397,6 +526,7 @@
+               "text": "देवाँ आ",
+               "rule": "10.2",
+               "phonology_rule": "n_before_vowel_vedic_nasalization_approximated",
++              "status": "canonical",
+               "confidence": "low",
+               "note": "Approximates the Vedic n-before-vowel nasalization convention (e.g. devān + aa -> devaam-with-candrabindu) without deriving it from Paatala 5/6, which are out of scope for this pass."
+             },
+@@ -405,6 +535,7 @@
+               "text": "एह",
+               "rule": "10.2",
+               "phonology_rule": "guna",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -416,6 +547,7 @@
+                 "savarna_dirgha"
+               ],
+               "confidence": "low",
++              "status": "candidate_reconstruction",
+               "note": "Reconstructed pattern for sutra 10.3's monosyllable exception (this session's own reading of Uvata's example, not an attested source for THIS verse) -- see KRAMA_VERIFICATION_PACKET.md."
+             },
+             {
+@@ -426,6 +558,7 @@
+                 "vowel_before_consonant_unchanged"
+               ],
+               "confidence": "low",
++              "status": "candidate_reconstruction",
+               "note": "Reconstructed pattern for sutra 10.3 -- see KRAMA_VERIFICATION_PACKET.md."
+             },
+             {
+@@ -436,10 +569,27 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "स देवाँ एह वक्षति",
++            "attested": "स देवाँ एह वक्षति",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "visarga_sa_esa_elision_blocks_further_sandhi",
++              "n_before_vowel_vedic_nasalization_approximated",
++              "guna",
++              "vowel_before_consonant_unchanged"
++            ],
++            "note": ""
++          }
+         }
+       ]
+     },
+@@ -455,6 +605,7 @@
+         "यशसम्",
+         "वीरवत्ऽतमम्"
+       ],
++      "samhita_patha_stripped": "अग्निना रयिमश्नवत्पोषमेव दिवेदिवे । यशसं वीरवत्तमम् ॥",
+       "ardharca_split_method": "automatic_length_alignment",
+       "ardharcas": [
+         {
+@@ -472,6 +623,7 @@
+               "text": "अग्निना रयिम्",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -480,6 +632,7 @@
+               "text": "रयिमश्नवत्",
+               "rule": "10.2",
+               "phonology_rule": "m_before_vowel_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -488,6 +641,7 @@
+               "text": "अश्नवत्पोषम्",
+               "rule": "10.2",
+               "phonology_rule": "t_before_unvoiced_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -496,6 +650,7 @@
+               "text": "पोषमेव",
+               "rule": "10.2",
+               "phonology_rule": "m_before_vowel_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -504,6 +659,7 @@
+               "text": "एव दिवेदिवे",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -516,10 +672,29 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "avagrhya_compound",
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "अग्निना रयिमश्नवत्पोषमेव दिवेदिवे",
++            "attested": "अग्निना रयिमश्नवत्पोषमेव दिवेदिवे",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "vowel_before_consonant_unchanged",
++              "m_before_vowel_unchanged",
++              "t_before_unvoiced_unchanged",
++              "m_before_vowel_unchanged",
++              "vowel_before_consonant_unchanged"
++            ],
++            "note": ""
++          }
+         },
+         {
+           "pada_words": [
+@@ -532,6 +707,7 @@
+               "text": "यशसं वीरवत्तमम्",
+               "rule": "10.2",
+               "phonology_rule": "m_before_consonant_anusvara",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -544,10 +720,25 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "avagrhya_compound",
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "यशसं वीरवत्तमम्",
++            "attested": "यशसं वीरवत्तमम्",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "m_before_consonant_anusvara"
++            ],
++            "note": ""
++          }
+         }
+       ]
+     },
+@@ -566,6 +757,7 @@
+         "देवेषु",
+         "गच्छति"
+       ],
++      "samhita_patha_stripped": "अग्ने यं यज्ञमध्वरं विश्वतः परिभूरसि । स इद्देवेषु गच्छति ॥",
+       "ardharca_split_method": "automatic_length_alignment",
+       "ardharcas": [
+         {
+@@ -584,6 +776,7 @@
+               "text": "अग्ने यम्",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -592,6 +785,7 @@
+               "text": "यं यज्ञम्",
+               "rule": "10.2",
+               "phonology_rule": "m_before_consonant_anusvara",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -600,6 +794,7 @@
+               "text": "यज्ञमध्वरम्",
+               "rule": "10.2",
+               "phonology_rule": "m_before_vowel_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -608,6 +803,7 @@
+               "text": "अध्वरं विश्वतः",
+               "rule": "10.2",
+               "phonology_rule": "m_before_consonant_anusvara",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -616,6 +812,7 @@
+               "text": "विश्वतः परिभूः",
+               "rule": "10.2",
+               "phonology_rule": "visarga_a_class_before_unvoiced_velar_labial",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -627,6 +824,11 @@
+                 "10.7",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "avagrhya_compound"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             },
+@@ -635,6 +837,7 @@
+               "text": "परिभूरसि",
+               "rule": "10.2",
+               "phonology_rule": "visarga_iu_class_before_vowel",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -646,10 +849,29 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "अग्ने यं यज्ञमध्वरं विश्वतः परिभूरसि",
++            "attested": "अग्ने यं यज्ञमध्वरं विश्वतः परिभूरसि",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "vowel_before_consonant_unchanged",
++              "m_before_consonant_anusvara",
++              "m_before_vowel_unchanged",
++              "m_before_consonant_anusvara",
++              "visarga_a_class_before_unvoiced_velar_labial",
++              "visarga_iu_class_before_vowel"
++            ],
++            "note": ""
++          }
+         },
+         {
+           "pada_words": [
+@@ -664,6 +886,7 @@
+               "text": "स इत्",
+               "rule": "10.2",
+               "phonology_rule": "visarga_sa_esa_elision_blocks_further_sandhi",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -672,6 +895,7 @@
+               "text": "इद्देवेषु",
+               "rule": "10.2",
+               "phonology_rule": "t_assimilates_to_following_voiced",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -680,6 +904,7 @@
+               "text": "देवेषु गच्छति",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -691,10 +916,26 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "स इद्देवेषु गच्छति",
++            "attested": "स इद्देवेषु गच्छति",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "visarga_sa_esa_elision_blocks_further_sandhi",
++              "t_assimilates_to_following_voiced",
++              "vowel_before_consonant_unchanged"
++            ],
++            "note": ""
++          }
+         }
+       ]
+     },
+@@ -711,6 +952,7 @@
+         "आ",
+         "गमत्"
+       ],
++      "samhita_patha_stripped": "अग्निर्होता कविक्रतुः सत्यश्चित्रश्रवस्तमः । देवो देवेभिरा गमत् ॥",
+       "ardharca_split_method": "automatic_length_alignment",
+       "ardharcas": [
+         {
+@@ -727,6 +969,7 @@
+               "text": "अग्निर्होता",
+               "rule": "10.2",
+               "phonology_rule": "visarga_iu_class_before_voiced_consonant",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -735,6 +978,7 @@
+               "text": "होता कविक्रतुः",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -746,6 +990,11 @@
+                 "10.7",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "avagrhya_compound"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             },
+@@ -754,6 +1003,7 @@
+               "text": "कविक्रतुः सत्यः",
+               "rule": "10.2",
+               "phonology_rule": "visarga_iu_class_before_sibilant_unresolved",
++              "status": "canonical",
+               "confidence": "low",
+               "note": "i/u-class visarga before an unvoiced sibilant can assimilate to the sibilant itself in some environments; this engine keeps the visarga rather than guess the assimilated form."
+             },
+@@ -762,6 +1012,7 @@
+               "text": "सत्यश्चित्रश्रवस्तमः",
+               "rule": "10.2",
+               "phonology_rule": "visarga_a_class_sibilant_assimilation_palatal",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -774,10 +1025,28 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "avagrhya_compound",
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "अग्निर्होता कविक्रतुः सत्यश्चित्रश्रवस्तमः",
++            "attested": "अग्निर्होता कविक्रतुः सत्यश्चित्रश्रवस्तमः",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "visarga_iu_class_before_voiced_consonant",
++              "vowel_before_consonant_unchanged",
++              "visarga_iu_class_before_sibilant_unresolved",
++              "visarga_a_class_sibilant_assimilation_palatal"
++            ],
++            "note": ""
++          }
+         },
+         {
+           "pada_words": [
+@@ -792,6 +1061,7 @@
+               "text": "देवो देवेभिः",
+               "rule": "10.2",
+               "phonology_rule": "visarga_a_class_before_voiced",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -800,6 +1070,7 @@
+               "text": "देवेभिरा",
+               "rule": "10.2",
+               "phonology_rule": "visarga_iu_class_before_vowel",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -808,6 +1079,7 @@
+               "text": "आ गमत्",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -819,10 +1091,26 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "देवो देवेभिरा गमत्",
++            "attested": "देवो देवेभिरा गमत्",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "visarga_a_class_before_voiced",
++              "visarga_iu_class_before_vowel",
++              "vowel_before_consonant_unchanged"
++            ],
++            "note": ""
++          }
+         }
+       ]
+     },
+@@ -842,6 +1130,7 @@
+         "सत्यम्",
+         "अङ्गिरः"
+       ],
++      "samhita_patha_stripped": "यदङ्ग दाशुषे त्वमग्ने भद्रं करिष्यसि । तवेत्तत्सत्यमङ्गिरः ॥",
+       "ardharca_split_method": "automatic_length_alignment",
+       "ardharcas": [
+         {
+@@ -860,6 +1149,7 @@
+               "text": "यदङ्ग",
+               "rule": "10.2",
+               "phonology_rule": "t_before_vowel_voiced",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -868,6 +1158,7 @@
+               "text": "अङ्ग दाशुषे",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -876,6 +1167,7 @@
+               "text": "दाशुषे त्वम्",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -884,6 +1176,7 @@
+               "text": "त्वमग्ने",
+               "rule": "10.2",
+               "phonology_rule": "m_before_vowel_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -892,6 +1185,7 @@
+               "text": "अग्ने भद्रम्",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -900,6 +1194,7 @@
+               "text": "भद्रं करिष्यसि",
+               "rule": "10.2",
+               "phonology_rule": "m_before_consonant_anusvara",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -911,10 +1206,29 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "यदङ्ग दाशुषे त्वमग्ने भद्रं करिष्यसि",
++            "attested": "यदङ्ग दाशुषे त्वमग्ने भद्रं करिष्यसि",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "t_before_vowel_voiced",
++              "vowel_before_consonant_unchanged",
++              "vowel_before_consonant_unchanged",
++              "m_before_vowel_unchanged",
++              "vowel_before_consonant_unchanged",
++              "m_before_consonant_anusvara"
++            ],
++            "note": ""
++          }
+         },
+         {
+           "pada_words": [
+@@ -930,6 +1244,7 @@
+               "text": "तवेत्",
+               "rule": "10.2",
+               "phonology_rule": "guna",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -938,6 +1253,7 @@
+               "text": "इत्तत्",
+               "rule": "10.2",
+               "phonology_rule": "t_before_unvoiced_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -946,6 +1262,7 @@
+               "text": "तत्सत्यम्",
+               "rule": "10.2",
+               "phonology_rule": "t_before_unvoiced_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -954,6 +1271,7 @@
+               "text": "सत्यमङ्गिरः",
+               "rule": "10.2",
+               "phonology_rule": "m_before_vowel_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -965,10 +1283,27 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "तवेत्तत्सत्यमङ्गिरः",
++            "attested": "तवेत्तत्सत्यमङ्गिरः",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "guna",
++              "t_before_unvoiced_unchanged",
++              "t_before_unvoiced_unchanged",
++              "m_before_vowel_unchanged"
++            ],
++            "note": ""
++          }
+         }
+       ]
+     },
+@@ -987,6 +1322,7 @@
+         "आ",
+         "इमसि"
+       ],
++      "samhita_patha_stripped": "उप त्वाग्ने दिवेदिवे दोषावस्तर्धिया वयम् । नमो भरन्त एमसि ॥",
+       "ardharca_split_method": "manual_override",
+       "ardharcas": [
+         {
+@@ -1005,6 +1341,7 @@
+               "text": "उप त्वा",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1013,6 +1350,7 @@
+               "text": "त्वाग्ने",
+               "rule": "10.2",
+               "phonology_rule": "savarna_dirgha",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1021,6 +1359,7 @@
+               "text": "अग्ने दिवेदिवे",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1032,6 +1371,11 @@
+                 "10.7",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "avagrhya_compound"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             },
+@@ -1040,6 +1384,7 @@
+               "text": "दिवेदिवे दोषावस्तः",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1051,6 +1396,11 @@
+                 "10.7",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "avagrhya_compound"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             },
+@@ -1059,14 +1409,16 @@
+               "text": "दोषावस्तर्धिया",
+               "rule": "10.2",
+               "phonology_rule": "irregular_visarga_lexical_exception",
++              "status": "canonical",
+               "confidence": "high",
+-              "note": "दोषावस्तः is a known lexical exception to the regular a-class visarga-before-voiced rule (see IRREGULAR_VISARGA_STEMS)."
++              "note": "dozAvastaH is a known lexical exception to the regular a-class visarga-before-voiced rule (see IRREGULAR_VISARGA_STEMS)."
+             },
+             {
+               "type": "pair",
+               "text": "धिया वयम्",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1078,10 +1430,29 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "उप त्वाग्ने दिवेदिवे दोषावस्तर्धिया वयम्",
++            "attested": "उप त्वाग्ने दिवेदिवे दोषावस्तर्धिया वयम्",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "vowel_before_consonant_unchanged",
++              "savarna_dirgha",
++              "vowel_before_consonant_unchanged",
++              "vowel_before_consonant_unchanged",
++              "irregular_visarga_lexical_exception",
++              "vowel_before_consonant_unchanged"
++            ],
++            "note": ""
++          }
+         },
+         {
+           "pada_words": [
+@@ -1096,6 +1467,7 @@
+               "text": "नमो भरन्तः",
+               "rule": "10.2",
+               "phonology_rule": "visarga_a_class_before_voiced",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1104,6 +1476,7 @@
+               "text": "भरन्तो आ",
+               "rule": "10.2",
+               "phonology_rule": "visarga_a_class_before_voiced",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1112,6 +1485,7 @@
+               "text": "एमसि",
+               "rule": "10.2",
+               "phonology_rule": "guna",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1123,10 +1497,26 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "नमो भरन्तो एमसि",
++            "attested": "नमो भरन्त एमसि",
++            "status": "DIFFERS",
++            "rules_used": [
++              "visarga_a_class_before_voiced",
++              "visarga_a_class_before_voiced",
++              "guna"
++            ],
++            "note": "The phonology engine's own chained reconstruction of this ardharca's continuous text does not match DGE's attested samhita_patha -- a real, checkable phonology discrepancy (see dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md sec.6.6 for which specific ones are already understood and why)."
++          }
+         }
+       ]
+     },
+@@ -1142,6 +1532,7 @@
+         "स्वे",
+         "दमे"
+       ],
++      "samhita_patha_stripped": "राजन्तमध्वराणां गोपामृतस्य दीदिविम् । वर्धमानं स्वे दमे ॥",
+       "ardharca_split_method": "automatic_length_alignment",
+       "ardharcas": [
+         {
+@@ -1158,6 +1549,7 @@
+               "text": "राजन्तमध्वराणाम्",
+               "rule": "10.2",
+               "phonology_rule": "m_before_vowel_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1166,6 +1558,7 @@
+               "text": "अध्वराणां गोपाम्",
+               "rule": "10.2",
+               "phonology_rule": "m_before_consonant_anusvara",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1174,6 +1567,7 @@
+               "text": "गोपामृतस्य",
+               "rule": "10.2",
+               "phonology_rule": "m_before_vowel_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1182,6 +1576,7 @@
+               "text": "ऋतस्य दीदिविम्",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1193,10 +1588,27 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "राजन्तमध्वराणां गोपामृतस्य दीदिविम्",
++            "attested": "राजन्तमध्वराणां गोपामृतस्य दीदिविम्",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "m_before_vowel_unchanged",
++              "m_before_consonant_anusvara",
++              "m_before_vowel_unchanged",
++              "vowel_before_consonant_unchanged"
++            ],
++            "note": ""
++          }
+         },
+         {
+           "pada_words": [
+@@ -1210,6 +1622,7 @@
+               "text": "वर्धमानं स्वे",
+               "rule": "10.2",
+               "phonology_rule": "m_before_consonant_anusvara",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1218,6 +1631,7 @@
+               "text": "स्वे दमे",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1229,10 +1643,25 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "वर्धमानं स्वे दमे",
++            "attested": "वर्धमानं स्वे दमे",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "m_before_consonant_anusvara",
++              "vowel_before_consonant_unchanged"
++            ],
++            "note": ""
++          }
+         }
+       ]
+     },
+@@ -1250,6 +1679,7 @@
+         "नः",
+         "स्वस्तये"
+       ],
++      "samhita_patha_stripped": "स नः पितेव सूनवेऽग्ने सूपायनो भव । सचस्वा नः स्वस्तये ॥",
+       "ardharca_split_method": "manual_override",
+       "ardharcas": [
+         {
+@@ -1268,6 +1698,7 @@
+               "text": "स नः",
+               "rule": "10.2",
+               "phonology_rule": "visarga_sa_esa_elision_blocks_further_sandhi",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1276,6 +1707,7 @@
+               "text": "नः पितेव",
+               "rule": "10.2",
+               "phonology_rule": "visarga_a_class_before_unvoiced_velar_labial",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1287,6 +1719,11 @@
+                 "10.7",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "avagrhya_compound"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             },
+@@ -1295,6 +1732,7 @@
+               "text": "पितेव सूनवे",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1303,6 +1741,7 @@
+               "text": "सूनवेऽग्ने",
+               "rule": "10.2",
+               "phonology_rule": "eng_a_class_before_a_elided",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1311,6 +1750,7 @@
+               "text": "अग्ने सूपायनः",
+               "rule": "10.2",
+               "phonology_rule": "vowel_before_consonant_unchanged",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1322,6 +1762,11 @@
+                 "10.7",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "avagrhya_compound"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             },
+@@ -1330,6 +1775,7 @@
+               "text": "सूपायनो भव",
+               "rule": "10.2",
+               "phonology_rule": "visarga_a_class_before_voiced",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1341,10 +1787,29 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "स नः पितेव सूनवेऽग्ने सूपायनो भव",
++            "attested": "स नः पितेव सूनवेऽग्ने सूपायनो भव",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "visarga_sa_esa_elision_blocks_further_sandhi",
++              "visarga_a_class_before_unvoiced_velar_labial",
++              "vowel_before_consonant_unchanged",
++              "eng_a_class_before_a_elided",
++              "vowel_before_consonant_unchanged",
++              "visarga_a_class_before_voiced"
++            ],
++            "note": ""
++          }
+         },
+         {
+           "pada_words": [
+@@ -1358,14 +1823,16 @@
+               "text": "सचस्वा नः",
+               "rule": "10.2",
+               "phonology_rule": "irregular_lengthening_lexical_exception",
++              "status": "canonical",
+               "confidence": "high",
+-              "note": "सचस्व is a known lexical exception with an attested lengthened vowel before this word (see IRREGULAR_LENGTHENING_BEFORE_CONSONANT)."
++              "note": "sacasva is a known lexical exception with an attested lengthened vowel before this word (see IRREGULAR_LENGTHENING_BEFORE_CONSONANT)."
+             },
+             {
+               "type": "pair",
+               "text": "नः स्वस्तये",
+               "rule": "10.2",
+               "phonology_rule": "visarga_a_class_before_unvoiced_velar_labial",
++              "status": "canonical",
+               "confidence": "high",
+               "note": ""
+             },
+@@ -1377,10 +1844,25 @@
+                 "10.9",
+                 "10.14"
+               ],
++              "status": "canonical",
++              "trigger_reasons": [
++                "ardharca_final"
++              ],
++              "retake_state": "STHITOPASTHITA",
+               "confidence": "medium",
+               "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
+             }
+-          ]
++          ],
++          "chain_reconstruction": {
++            "computed": "सचस्वा नः स्वस्तये",
++            "attested": "सचस्वा नः स्वस्तये",
++            "status": "EXACT_MATCH",
++            "rules_used": [
++              "irregular_lengthening_lexical_exception",
++              "visarga_a_class_before_unvoiced_velar_labial"
++            ],
++            "note": ""
++          }
+         }
+       ]
+     }
+diff --git a/tests/test_krama_engine.py b/tests/test_krama_engine.py
+index 4065135af..f41ad6954 100644
+--- a/tests/test_krama_engine.py
++++ b/tests/test_krama_engine.py
+@@ -11,7 +11,7 @@ from pathlib import Path
+ 
+ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools" / "pratishakhya"))
+ 
+-from sanskrit_phonology import samhita_join, resolve_compound  # noqa: E402
++from sanskrit_phonology import samhita_join, resolve_compound, reconstruct_chain  # noqa: E402
+ from pratishakhya_classify import (  # noqa: E402
+     is_pragrhya, is_monosyllable_avasana, parse_compound, requires_parigraha,
+     get_sthita, get_upasthita, get_sthitopasthita,
+@@ -24,6 +24,25 @@ class SamhitaJoin(unittest.TestCase):
+         result = samhita_join("अग्निम्", "ईळे")
+         self.assertEqual(result["surface"], "अग्निमीळे")
+ 
++    def test_resolve_w1_compound_false_does_not_misread_a_chain_avagraha(self):
++        # Regression test for a real bug found 11 Sep 2026 while building
++        # chain-reconstruction validation: "सूनवेऽग्ने" here is NOT a
++        # Pada-patha compound -- it's running chained text that already
++        # picked up an avagraha from an earlier elision join (ordinary
++        # Sanskrit orthography). With resolve_w1_compound defaulting True,
++        # samhita_join used to call resolve_compound() on it, which
++        # collapsed every space built up so far. resolve_w1_compound=False
++        # must prevent that.
++        result = samhita_join("स नः पितेव सूनवेऽग्ने", "सूपायनः", resolve_w1_compound=False)
++        self.assertEqual(result["surface"], "स नः पितेव सूनवेऽग्ने सूपायनः")
++
++    def test_resolve_w1_compound_true_still_resolves_a_real_pada_compound(self):
++        # The default (True) must still work for krama_engine.py's ordinary
++        # per-pair use, where w1 legitimately IS a single Pada-patha
++        # compound word.
++        result = samhita_join("पुरःऽहितम्", "यज्ञस्य")
++        self.assertEqual(result["surface"], "पुरोहितं यज्ञस्य")
++
+     def test_visarga_a_class_before_voiced(self):
+         result = samhita_join("देवः", "देवेभिः")
+         self.assertEqual(result["surface"], "देवो देवेभिः")
+@@ -142,5 +161,31 @@ class SplitIntoArdharcas(unittest.TestCase):
+         self.assertEqual(sum(len(a) for a in ardharcas), 8)
+ 
+ 
++class ReconstructChain(unittest.TestCase):
++    """reconstruct_chain() is the VALIDATE-mode helper (used by
++    regenerate_krama_rv_1_1.py's attest_ardharcas(), not by the Krama
++    generator itself) that folds samhita_join across a whole word sequence
++    to simulate how continuous samhita_patha text is actually built."""
++
++    def test_reproduces_rv_1_1_1_ardharca_1_exactly(self):
++        computed, _rules = reconstruct_chain(
++            ["अग्निम्", "ईळे", "पुरःऽहितम्", "यज्ञस्य", "देवम्", "ऋत्विजम्"]
++        )
++        self.assertEqual(computed, "अग्निमीळे पुरोहितं यज्ञस्य देवमृत्विजम्")
++
++    def test_does_not_misread_its_own_elision_avagraha_as_a_compound(self):
++        # Regression test for the same bug as
++        # SamhitaJoin.test_resolve_w1_compound_false_does_not_misread_a_chain_avagraha,
++        # exercised through the actual chain-building function rather than
++        # a single hand-constructed call.
++        computed, _rules = reconstruct_chain(
++            ["सः", "नः", "पिताऽइव", "सूनवे", "अग्ने", "सुऽउपायनः", "भव"]
++        )
++        self.assertEqual(computed, "स नः पितेव सूनवेऽग्ने सूपायनो भव")
++
++    def test_empty_input(self):
++        self.assertEqual(reconstruct_chain([]), ("", []))
++
++
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/tests/test_krama_regenerated_output.py b/tests/test_krama_regenerated_output.py
+index f40b824e9..86387b40a 100644
+--- a/tests/test_krama_regenerated_output.py
++++ b/tests/test_krama_regenerated_output.py
+@@ -76,11 +76,17 @@ class KramaRegeneratedOutput(unittest.TestCase):
+     def test_counts_are_internally_consistent(self):
+         counts = self.data["counts"]
+         recomputed = {"pada_count": 0, "pair_count": 0, "parigraha_count": 0,
+-                      "ardharca_count": 0, "special_exception_count": 0, "unresolved_count": 0}
++                      "ardharca_count": 0, "special_exception_count": 0, "unresolved_count": 0,
++                      "candidate_reconstruction_count": 0, "chain_reconstruction_mismatch_count": 0}
++        tri_unit_count = 0
++        total_word_boundaries = 0
+         for verse in self.data["items"]:
+             for ardharca in verse["ardharcas"]:
+                 recomputed["ardharca_count"] += 1
+                 recomputed["pada_count"] += len(ardharca["pada_words"])
++                total_word_boundaries += max(len(ardharca["pada_words"]) - 1, 0)
++                if ardharca["chain_reconstruction"]["status"] == "DIFFERS":
++                    recomputed["chain_reconstruction_mismatch_count"] += 1
+                 for u in ardharca["units"]:
+                     if u["type"] == "pair":
+                         recomputed["pair_count"] += 1
+@@ -88,9 +94,48 @@ class KramaRegeneratedOutput(unittest.TestCase):
+                         recomputed["parigraha_count"] += 1
+                     elif u["type"] in ("monosyllable_retake_tri_unit", "monosyllable_confirm_pair"):
+                         recomputed["special_exception_count"] += 1
++                        if u["type"] == "monosyllable_retake_tri_unit":
++                            tri_unit_count += 1
+                     if u.get("confidence") == "low":
+                         recomputed["unresolved_count"] += 1
+-        self.assertEqual(counts, recomputed)
++                    if u.get("status") == "candidate_reconstruction":
++                        recomputed["candidate_reconstruction_count"] += 1
++        # invariant_check is a derived/reported sub-object, not an independent
++        # count -- compared separately so this test still pins its own formula.
++        invariant_check = counts["invariant_check"]
++        counts_without_invariant = {k: v for k, v in counts.items() if k != "invariant_check"}
++        self.assertEqual(counts_without_invariant, recomputed)
++        self.assertTrue(invariant_check["holds"])
++        self.assertEqual(invariant_check["pair_count"] + invariant_check["monosyllable_retake_tri_unit_count"],
++                          invariant_check["total_word_boundaries"])
++        self.assertEqual(invariant_check["total_word_boundaries"], total_word_boundaries)
++
++    def test_status_field_present_on_every_unit(self):
++        # every unit must declare canonical vs candidate_reconstruction --
++        # a consumer must never have to infer this from "type" or "confidence"
++        # (11 Sep 2026 review point 5).
++        for verse in self.data["items"]:
++            for ardharca in verse["ardharcas"]:
++                for u in ardharca["units"]:
++                    with self.subTest(verse=verse["id"], text=u["text"]):
++                        self.assertIn(u.get("status"), ("canonical", "candidate_reconstruction"))
++
++    def test_parigraha_units_declare_retake_state(self):
++        for verse in self.data["items"]:
++            for ardharca in verse["ardharcas"]:
++                for u in ardharca["units"]:
++                    if u["type"] == "parigraha":
++                        with self.subTest(verse=verse["id"], text=u["text"]):
++                            self.assertEqual(u["retake_state"], "STHITOPASTHITA")
++                            self.assertTrue(u["trigger_reasons"])
++
++    def test_every_ardharca_has_chain_reconstruction(self):
++        for verse in self.data["items"]:
++            for ardharca in verse["ardharcas"]:
++                cr = ardharca["chain_reconstruction"]
++                with self.subTest(verse=verse["id"]):
++                    self.assertIn(cr["status"], ("EXACT_MATCH", "DIFFERS"))
++                    self.assertIsInstance(cr["computed"], str)
+ 
+     def test_comparison_against_hand_aligned_output_present(self):
+         comparison = self.data["comparison_against_hand_aligned_output"]
+diff --git a/tools/pratishakhya/krama_engine.py b/tools/pratishakhya/krama_engine.py
+index 7ecd56b72..04db30c31 100644
+--- a/tools/pratishakhya/krama_engine.py
++++ b/tools/pratishakhya/krama_engine.py
+@@ -19,6 +19,38 @@ assumed done):
+         -> sutra 10.7-10.9 Parigraha trigger detection (requires_parigraha)
+         -> sutra 10.12-10.16 sthita/upasthita/sthitopasthita rendering
+         -> Krama output, every unit citing which rule(s) fired
++
++Every unit dict carries THREE independent, non-substitutable signals (per
++the 11 Sep 2026 review of the first regenerated-output run, which found
++"confidence" alone was being read as if it meant "verified correct" --
++it never did, and conflating them is exactly the failure mode flagged):
++
++  "status": "canonical" (produced by applying the general rule engine
++      uniformly to this word sequence) vs "candidate_reconstruction"
++      (this session's own generalization of a SINGLE cited worked example
++      -- currently only sutra 10.3's units -- never independently
++      confirmed against a second source). A consumer that wants only
++      source-confirmed output filters on this field.
++  "confidence" ("high"/"low", set by sanskrit_phonology.samhita_join):
++      how sure the PHONOLOGICAL RULE CLASSIFIER is that it picked the
++      right branch for this segmental context. This says nothing about
++      whether the resulting Vedic form is independently attested.
++  "chain_reconstruction" (added per-ARDHARCA, not per-unit, by
++      tools/pratishakhya/regenerate_krama_rv_1_1.py as a VALIDATE-mode
++      pass, not by this module): whether folding samhita_join across the
++      WHOLE ardharca reproduces DGE's own attested continuous
++      samhita_patha for it. This is a real, checkable fact about the
++      phonology engine, but it is NOT proof of philological correctness
++      either -- reproducing DGE's own Samhita only shows internal
++      self-consistency with this repo's other data, not agreement with an
++      attested Krama-patha edition (still an open question -- see the
++      architecture doc sec.10). It is deliberately per-ardharca rather
++      than per-unit: an individual Krama pair is computed against only
++      its immediate neighbour, but that word's form in the continuous
++      chain often depends on a LATER neighbour too, so per-unit
++      substring-matching against continuous text produces false
++      mismatches (a real mistake made and then fixed in this session --
++      see regenerate_krama_rv_1_1.py's own module docstring).
+ """
+ import sys
+ from pathlib import Path
+@@ -72,6 +104,22 @@ def split_into_ardharcas(verse_id, pada_words, samhita_patha_stripped):
+     return [pada_words[:n1], pada_words[n1:]], "automatic_length_alignment"
+ 
+ 
++# Named trigger reasons for 10.9's own citation list, so a consumer can
++# ask "why did this word get Parigraha" without parsing the "rule" list's
++# sutra-number strings -- a real gap the 11 Sep 2026 review pointed out
++# (point 15: reasons were flattened into an undifferentiated rule-number
++# list). One-to-one with pratishakhya_classify.requires_parigraha's own
++# reasons vocabulary ("10.7"/"10.8"/"10.9"); kept as a separate mapping
++# here rather than changing that module's return shape, since its reasons
++# ARE the sutra citations and are correct as such -- this is presentation,
++# not a second source of truth.
++_TRIGGER_REASON_LABELS = {
++    "10.7": "avagrhya_compound",
++    "10.8": "bahumadhyagata",
++    "10.9": "ardharca_final",
++}
++
++
+ def _parigraha_unit(word_deva, reasons):
+     compound = parse_compound(word_deva)
+     combined_form = resolve_compound(word_deva)[0] if compound["is_compound"] else word_deva
+@@ -81,6 +129,18 @@ def _parigraha_unit(word_deva, reasons):
+         "text": text,
+         "for_word": word_deva,
+         "rule": reasons + ["10.14"],
++        "status": "canonical",
++        "trigger_reasons": [_TRIGGER_REASON_LABELS.get(r, r) for r in reasons],
++        # Every Parigraha unit this engine currently produces renders as
++        # sthitopasthita (10.14: combined/sthita form + iti + split/upasthita
++        # form together) -- Uvata's own worked example on 10.14. sthita
++        # (10.12) and upasthita (10.13) alone, as DISTINCT renderings rather
++        # than components of sthitopasthita, are not yet exercised by any
++        # case this engine has actually needed -- get_sthita/get_upasthita
++        # exist in pratishakhya_classify.py but nothing here calls them
++        # standalone. Stated explicitly rather than left implicit in which
++        # function happened to be called (11 Sep 2026 review point 3).
++        "retake_state": "STHITOPASTHITA",
+         "confidence": "medium",
+         "note": "Word+iti+word given with no sandhi between the components, per Uvata's "
+                 "own worked example on 10.14 ('vibhaavaso iti vibhaavaso').",
+@@ -125,6 +185,15 @@ def generate_ardharca(words, bahumadhyagata_positions=None):
+                 "text": f"{tri_join['surface']} {w2}",
+                 "rule": ["10.3", tri_join["rule"]],
+                 "confidence": "low",
++                # Not canonical output: this is this session's own generalization
++                # of a single worked example to whatever position it structurally
++                # matches, never independently confirmed against an attested
++                # Krama edition or a second commentarial source. A consumer that
++                # wants only source-confirmed output must filter this status out
++                # rather than treat "type" or "confidence" alone as the gate
++                # (11 Sep 2026 review point 5: an unresolved philological question
++                # must not silently become executable, unflagged behaviour).
++                "status": "candidate_reconstruction",
+                 "note": "Reconstructed pattern for sutra 10.3's monosyllable exception "
+                         "(this session's own reading of Uvata's example, not an attested "
+                         "source for THIS verse) -- see KRAMA_VERIFICATION_PACKET.md.",
+@@ -134,6 +203,7 @@ def generate_ardharca(words, bahumadhyagata_positions=None):
+                 "text": second_join["surface"],
+                 "rule": ["10.3", second_join["rule"]],
+                 "confidence": "low",
++                "status": "candidate_reconstruction",
+                 "note": "Reconstructed pattern for sutra 10.3 -- see KRAMA_VERIFICATION_PACKET.md.",
+             })
+             # 10.3 replaces the ordinary retake-PAIR, but 10.9 (ardharca-final
+@@ -155,6 +225,7 @@ def generate_ardharca(words, bahumadhyagata_positions=None):
+             "text": pair["surface"],
+             "rule": "10.2",
+             "phonology_rule": pair["rule"],
++            "status": "canonical",
+             "confidence": pair["confidence"],
+             "note": pair["note"],
+         })
+diff --git a/tools/pratishakhya/regenerate_krama_rv_1_1.py b/tools/pratishakhya/regenerate_krama_rv_1_1.py
+index e9e3f5219..f3e69036a 100644
+--- a/tools/pratishakhya/regenerate_krama_rv_1_1.py
++++ b/tools/pratishakhya/regenerate_krama_rv_1_1.py
+@@ -10,6 +10,44 @@ transformation traceable to an actual sutra."
+ Input: dge/data/vedas/rigveda/shakala_shakha/samhita/mandala_01/data.json,
+ items 1.1.1-1.1.9 ONLY (pada_patha, samhita_patha fields). Nothing else from
+ that file, and no per-verse word lists typed by hand anywhere in this script.
++
++Second review pass (11 Sep 2026, "chatgpt review"): the first run of this
++script was correctly flagged for (1) presenting unaudited top-level counts
++with no visible invariant proving them consistent, (2) letting "confidence"
++double as if it meant "verified correct" when it only ever meant "the
++phonology classifier picked a branch it's sure of", and (3) a comparison
++report that keys by flat global index, so one inserted/removed unit
++cascades into many spurious-looking downstream mismatches. This version
++fixes all three: build_counts() now asserts its own invariant rather than
++just reporting numbers; attest_ardharcas() checks each ardharca's FULL
++chained reconstruction (sanskrit_phonology.reconstruct_chain) against DGE's
++own attested samhita_patha, layering this repo's long-planned VALIDATE mode
++(architecture doc sec.7) on top of GENERATE; and compare_against_old() keys
++by (ardharca_index, unit_index_within_ardharca).
++
++A first attempt at attestation compared each ISOLATED 2-word Krama pair
++against the continuous samhita text with a plain substring check -- that
++was itself wrong and is not used here: a word's OWN Krama pair is computed
++against just its one neighbour, but its form in the CONTINUOUS text is
++often governed by a DIFFERENT (later) neighbour, so most "mismatches" that
++check produced were expected divergences, not bugs (e.g. "purohitam" the
++Krama pair vs. "purohitaM" -- anusvara -- in the continuous chain, because
++the continuous text also has yajJasya right after it). Building the
++CORRECT check (chain reconstruction, i.e. actually simulating how the
++continuous text is built by folding samhita_join across a whole ardharca)
++surfaced two real, narrow, now-fixed phonology bugs along the way: (a)
++resolve_compound() misfiring on a chained string's own elision-avagraha,
++collapsing every space built up so far (fixed via samhita_join's new
++resolve_w1_compound=False parameter); (b) the lexical-exception tables
++(IRREGULAR_VISARGA_STEMS etc.) only matching a bare word, never that word
++occurring at the end of a longer chain (fixed via _match_lexical_suffix()).
++One further, real, NOT-yet-fixed bug remains and is documented where it's
++found: the indic_transliteration SLP1 scheme cannot distinguish "र्ऋ"
++(bare consonant, then an independent vowel) from "रृ" (consonant + a
++dependent vowel-matra) -- both round-trip to the identical SLP1 "rf" --
++so a chain that passes back through this module a second time after a
++_finish_consonant_then_vowel() fix can lose that distinction. See
++sanskrit_phonology.py's module docstring for the exact repro.
+ """
+ import json
+ import sys
+@@ -17,13 +55,14 @@ from pathlib import Path
+ 
+ sys.path.insert(0, str(Path(__file__).resolve().parent))
+ from krama_engine import split_into_ardharcas, generate_verse  # noqa: E402
++from sanskrit_phonology import reconstruct_chain  # noqa: E402
+ 
+ ROOT = Path(__file__).resolve().parents[2]
+ SAMHITA_PATH = ROOT / "dge/data/vedas/rigveda/shakala_shakha/samhita/mandala_01/data.json"
+ OLD_OUTPUT_PATH = ROOT / "dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/krama_generated_output.json"
+ OUT_PATH = ROOT / "dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/krama_regenerated_output.json"
+ 
+-ACCENT_MARKS = "॒॑"
++ACCENT_MARKS = "॒॑"
+ 
+ 
+ def strip_accents(s):
+@@ -61,6 +100,7 @@ def regenerate_all():
+         out_items.append({
+             "id": v["id"],
+             "pada_words": v["pada_words"],
++            "samhita_patha_stripped": v["samhita_patha_stripped"],
+             "ardharca_split_method": split_method,
+             "ardharcas": [
+                 {"pada_words": words, "units": units}
+@@ -70,6 +110,51 @@ def regenerate_all():
+     return out_items
+ 
+ 
++def attest_ardharcas(new_items):
++    """VALIDATE-mode pass (architecture doc sec.7), layered on top of
++    GENERATE: for each ardharca, fold sanskrit_phonology.samhita_join
++    across ALL of its words (reconstruct_chain) to build the one
++    continuous string this engine's phonology predicts, and compare it
++    against DGE's own attested samhita_patha for that ardharca. This is a
++    real, mechanically-checkable fact about the PHONOLOGY -- and explicitly
++    NOT the same claim as "this Krama output is philologically correct"
++    (matching DGE's own Samhita only shows internal self-consistency with
++    this repo's other data; agreement with a traditional Krama-patha
++    edition remains the open question in architecture doc sec.10).
++
++    Deliberately NOT checked per-unit against the continuous text: an
++    individual Krama retake pair is computed against only its own
++    neighbour, but that same word's form in the continuous chain is often
++    governed by a DIFFERENT (later) neighbour -- e.g. "purohitam" (the
++    Krama pair, computed against "iiLe" before it) vs. "purohitaM" (the
++    anusvara form the continuous text shows, because "yajJasya" follows
++    it there). Comparing pairs one at a time against continuous text
++    produced many false "mismatches" for exactly this reason before this
++    function existed; the chain reconstruction below avoids that by
++    building the SAME kind of chained text DGE's own data is, so the
++    comparison is apples to apples.
++
++    Mutates each ardharca dict in place, adding a "chain_reconstruction"
++    field."""
++    for item in new_items:
++        parts = [p.strip() for p in item["samhita_patha_stripped"].replace("॥", "।").split("।") if p.strip()]
++        for a_idx, ardharca in enumerate(item["ardharcas"]):
++            computed, rules = reconstruct_chain(ardharca["pada_words"])
++            expected = parts[a_idx] if a_idx < len(parts) else None
++            matched = expected is not None and computed == expected
++            ardharca["chain_reconstruction"] = {
++                "computed": computed,
++                "attested": expected,
++                "status": "EXACT_MATCH" if matched else "DIFFERS",
++                "rules_used": rules,
++                "note": "" if matched else "The phonology engine's own chained reconstruction of this "
++                                            "ardharca's continuous text does not match DGE's attested "
++                                            "samhita_patha -- a real, checkable phonology discrepancy "
++                                            "(see dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md sec.6.6 for "
++                                            "which specific ones are already understood and why).",
++            }
++
++
+ def flatten_pair_and_parigraha_texts(item):
+     """For comparison against the old hand-aligned output: returns the
+     sequence of unit "text" strings in recitation order across all
+@@ -82,6 +167,12 @@ def flatten_pair_and_parigraha_texts(item):
+ 
+ 
+ def compare_against_old(new_items):
++    """Keyed by (ardharca_index, unit_index_within_ardharca), not a single
++    flattened per-verse index -- a fix for the 11 Sep 2026 review's point 9:
++    with a flat global index, one inserted/removed unit in ardharca 2 makes
++    every later unit look mismatched even when ardharca 1 is identical and
++    only one real thing changed. Keying per-ardharca contains the blast
++    radius of a genuine difference to the ardharca it actually occurred in."""
+     if not OLD_OUTPUT_PATH.exists():
+         return None
+     old_data = json.loads(OLD_OUTPUT_PATH.read_text(encoding="utf-8"))
+@@ -93,33 +184,54 @@ def compare_against_old(new_items):
+         if old_item is None:
+             report.append({"id": vid, "status": "NO_OLD_VERSION"})
+             continue
+-        new_texts = flatten_pair_and_parigraha_texts(new_item)
+-        old_texts = flatten_pair_and_parigraha_texts(old_item)
+-        matches = []
+-        max_len = max(len(new_texts), len(old_texts))
+-        for i in range(max_len):
+-            nt = new_texts[i] if i < len(new_texts) else None
+-            ot = old_texts[i] if i < len(old_texts) else None
+-            matches.append({"index": i, "old": ot, "new": nt, "match": nt == ot})
+-        n_match = sum(1 for m in matches if m["match"])
++        ardharca_reports = []
++        verse_all_match = True
++        for a_idx, (old_ardharca, new_ardharca) in enumerate(zip(old_item["ardharcas"], new_item["ardharcas"])):
++            old_texts = [u["text"] for u in old_ardharca["units"]]
++            new_texts = [u["text"] for u in new_ardharca["units"]]
++            max_len = max(len(old_texts), len(new_texts))
++            diffs = []
++            for i in range(max_len):
++                ot = old_texts[i] if i < len(old_texts) else None
++                nt = new_texts[i] if i < len(new_texts) else None
++                if ot != nt:
++                    diffs.append({"unit_index_within_ardharca": i, "old": ot, "new": nt})
++            if diffs:
++                verse_all_match = False
++            ardharca_reports.append({
++                "ardharca_index": a_idx,
++                "status": "EXACT_MATCH" if not diffs else "DIFFERS",
++                "diffs": diffs,
++            })
++        if len(old_item["ardharcas"]) != len(new_item["ardharcas"]):
++            verse_all_match = False
+         report.append({
+             "id": vid,
+-            "old_unit_count": len(old_texts),
+-            "new_unit_count": len(new_texts),
+-            "matching_units": n_match,
+-            "status": "EXACT_MATCH" if (n_match == max_len and len(old_texts) == len(new_texts)) else "DIFFERS",
+-            "diffs": [m for m in matches if not m["match"]],
++            "status": "EXACT_MATCH" if verse_all_match else "DIFFERS",
++            "ardharcas": ardharca_reports,
+         })
+     return report
+ 
+ 
+ def build_counts(new_items):
++    """Every count here is cross-checked by an explicit invariant assertion
++    before being returned, per the 11 Sep 2026 review's point 1: a count
++    that merely LOOKS plausible is not the same as one proven consistent
++    with the data it was computed from. If an assertion fails, this
++    function raises rather than silently shipping a wrong number."""
+     counts = {"pada_count": 0, "pair_count": 0, "parigraha_count": 0,
+-              "ardharca_count": 0, "special_exception_count": 0, "unresolved_count": 0}
++              "ardharca_count": 0, "special_exception_count": 0, "unresolved_count": 0,
++              "candidate_reconstruction_count": 0, "chain_reconstruction_mismatch_count": 0}
++    total_word_boundaries = 0
++    tri_unit_count = 0
+     for item in new_items:
+         for ardharca in item["ardharcas"]:
+             counts["ardharca_count"] += 1
+-            counts["pada_count"] += len(ardharca["pada_words"])
++            n_words = len(ardharca["pada_words"])
++            counts["pada_count"] += n_words
++            total_word_boundaries += max(n_words - 1, 0)
++            if ardharca.get("chain_reconstruction", {}).get("status") == "DIFFERS":
++                counts["chain_reconstruction_mismatch_count"] += 1
+             for u in ardharca["units"]:
+                 if u["type"] == "pair":
+                     counts["pair_count"] += 1
+@@ -127,13 +239,38 @@ def build_counts(new_items):
+                     counts["parigraha_count"] += 1
+                 elif u["type"] in ("monosyllable_retake_tri_unit", "monosyllable_confirm_pair"):
+                     counts["special_exception_count"] += 1
++                    if u["type"] == "monosyllable_retake_tri_unit":
++                        tri_unit_count += 1
+                 if u.get("confidence") == "low":
+                     counts["unresolved_count"] += 1
++                if u.get("status") == "candidate_reconstruction":
++                    counts["candidate_reconstruction_count"] += 1
++
++    # INVARIANT: every word-boundary (n-1 per ardharca) is filled by exactly
++    # one of {an ordinary "pair" unit, a "monosyllable_retake_tri_unit"} --
++    # the tri-unit REPLACES the ordinary pair at that boundary (sutra 10.3),
++    # it does not sit alongside it. The tri-unit's own confirming
++    # "monosyllable_confirm_pair" is a deliberate EXTRA unit beyond the
++    # boundary count (Uvata's own example: 2 boundaries -> 3 output units),
++    # so it is intentionally excluded from this sum, not an oversight.
++    assert counts["pair_count"] + tri_unit_count == total_word_boundaries, (
++        f"invariant violated: pair_count ({counts['pair_count']}) + "
++        f"monosyllable_retake_tri_unit count ({tri_unit_count}) != "
++        f"total word-boundaries ({total_word_boundaries})"
++    )
++    counts["invariant_check"] = {
++        "formula": "pair_count + monosyllable_retake_tri_unit_count == sum(len(ardharca.pada_words) - 1)",
++        "pair_count": counts["pair_count"],
++        "monosyllable_retake_tri_unit_count": tri_unit_count,
++        "total_word_boundaries": total_word_boundaries,
++        "holds": True,
++    }
+     return counts
+ 
+ 
+ def main():
+     new_items = regenerate_all()
++    attest_ardharcas(new_items)
+     comparison = compare_against_old(new_items)
+     counts = build_counts(new_items)
+ 
+@@ -145,7 +282,14 @@ def main():
+                 "reviewed spec's success criterion. No per-verse pair or Parigraha "
+                 "strings are hardcoded anywhere in this pipeline; the only per-verse "
+                 "manual input is the two ardharca-split overrides in krama_engine.py's "
+-                "ARDHARCA_SPLIT_OVERRIDES, logged there with the reason each was needed.",
++                "ARDHARCA_SPLIT_OVERRIDES, logged there with the reason each was needed. "
++                "Every unit carries independent status/confidence fields, and every "
++                "ardharca carries a chain_reconstruction field -- see krama_engine.py's "
++                "and regenerate_krama_rv_1_1.py's module docstrings for what each one "
++                "does and does NOT establish. Reproducing DGE's own attested "
++                "samhita_patha (chain_reconstruction) is a real, checkable fact but is "
++                "NOT the same claim as philological correctness against a traditional "
++                "Krama-patha edition, which remains open (architecture doc sec.10).",
+         "engine_source": "tools/pratishakhya/krama_engine.py",
+         "pada_samhita_source": "dge/data/vedas/rigveda/shakala_shakha/samhita/mandala_01/data.json",
+         "counts": counts,
+@@ -157,14 +301,25 @@ def main():
+     print("\n=== Counts ===")
+     for k, v in counts.items():
+         print(f"  {k}: {v}")
+-    print("\n=== Comparison against hand-aligned krama_generated_output.json ===")
++    print("\n=== Comparison against hand-aligned krama_generated_output.json (per-ardharca) ===")
+     if comparison is None:
+         print("  (old output file not found)")
+     else:
+         for r in comparison:
+-            print(f"  {r['id']}: {r['status']} ({r.get('matching_units')}/{r.get('old_unit_count')} units match)")
+-            for d in r.get("diffs", []):
+-                print(f"      unit {d['index']}: OLD={d['old']!r}  NEW={d['new']!r}")
++            print(f"  {r['id']}: {r['status']}")
++            for ar in r.get("ardharcas", []):
++                if ar["status"] != "EXACT_MATCH":
++                    print(f"    ardharca {ar['ardharca_index']}: DIFFERS")
++                    for d in ar["diffs"]:
++                        print(f"      unit {d['unit_index_within_ardharca']}: OLD={d['old']!r}  NEW={d['new']!r}")
++    print("\n=== Chain reconstruction vs DGE's attested samhita_patha (per-ardharca) ===")
++    for item in new_items:
++        for a_idx, ardharca in enumerate(item["ardharcas"]):
++            cr = ardharca["chain_reconstruction"]
++            if cr["status"] != "EXACT_MATCH":
++                print(f"  {item['id']} ardharca {a_idx}: DIFFERS")
++                print(f"    computed: {cr['computed']!r}")
++                print(f"    attested: {cr['attested']!r}")
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/tools/pratishakhya/sanskrit_phonology.py b/tools/pratishakhya/sanskrit_phonology.py
+index d14f7b12d..dc7f69c84 100644
+--- a/tools/pratishakhya/sanskrit_phonology.py
++++ b/tools/pratishakhya/sanskrit_phonology.py
+@@ -32,6 +32,37 @@ see krama_engine.py for the Krama-Paṭala rule citations layered on top of
+ this module's output) plus, where accuracy is uncertain, an explicit
+ low-confidence flag -- never a silent guess presented as equal-confidence
+ to an attested case.
++
++TWO KNOWN, UNRESOLVED GAPS surfaced by chain-reconstruction validation
++(reconstruct_chain(), checked against DGE's own attested samhita_patha by
++tools/pratishakhya/regenerate_krama_rv_1_1.py) -- named here rather than
++silently producing a wrong answer with ordinary-looking confidence:
++
++1. RV 1.1.7's "bharantaH"+"aa" -> attested "bharanta emasi" shows the
++   visarga dropping ENTIRELY before this aa, not converting to "o" as the
++   general a-class-visarga-before-voiced rule (this module's own
++   "visarga_a_class_before_voiced") gives ("bharanto aa"). Neither this
++   engine's classical answer nor a-guess is confirmed correct -- this
++   looks like a Vedic-specific visarga-lopa variant (the Prati'saakhya's
++   own "bahulam chandasi" latitude) not yet backed by a specific sutra in
++   krama_kramahetu_rules.json. Do not add an ad hoc special case for this
++   without first finding which sutra (if any) actually licenses it.
++2. The indic_transliteration library's SLP1 scheme cannot distinguish
++   "र्ऋ" (a bare consonant, then an independent vowel -- e.g. from a
++   visarga-to-r insertion before a vocalic-r/rr word) from "रृ" (that same
++   consonant with a DEPENDENT vowel-matra) -- both round-trip to the
++   identical SLP1 string ("rf"). _finish_consonant_then_vowel() works
++   around this for a SINGLE join by keeping the two chunks as separate
++   Devanagari strings, but once that correct output is fed back into
++   samhita_join a second time (as reconstruct_chain() does, building up a
++   whole ardharca), it gets re-transliterated to SLP1 as one piece,
++   collapsing the distinction -- confirmed via RV 1.1.2's chain
++   ("puurvebhi-r-Rzibhi..." loses its virama on the second hop, rendering
++   "पूर्वेभिरृषिभिः" instead of "पूर्वेभिर्ऋषिभिः"). A real fix needs
++   either a private marker that survives round-tripping through this
++   scheme, or bypassing indic_transliteration's SLP1 for this one
++   character class -- not attempted here; flagging it precisely was
++   judged more valuable than a rushed patch.
+ """
+ import re
+ from indic_transliteration import sanscript
+@@ -125,6 +156,24 @@ IRREGULAR_LENGTHENING_BEFORE_CONSONANT = {
+ }
+ 
+ 
++def _match_lexical_suffix(s1, table):
++    """Both lexical-exception tables above are keyed by a single bare
++    pada word's SLP1 form -- but s1 may be a longer chained string (see
++    reconstruct_chain()) ending in that word, not the word alone. Checking
++    equality only (s1 == key) silently fails to fire the exception for
++    every position except the very start of a chain -- a real bug found
++    11 Sep 2026. Returns (prefix, matched_key) if s1 is exactly key or
++    ends in " "+key, else None; prefix is whatever text (possibly empty)
++    precedes the matched word and must be preserved in the result."""
++    if s1 in table:
++        return "", s1
++    for key in table:
++        suffix = " " + key
++        if s1.endswith(suffix):
++            return s1[: -len(key)], key
++    return None
++
++
+ def resolve_compound(word_deva):
+     """If word_deva is a Pada-patha avagrhya compound (contains the
+     avagraha 'ऽ'), compute its own internally-combined (samhita) surface
+@@ -140,13 +189,55 @@ def resolve_compound(word_deva):
+     combined = segments[0]
+     rules = []
+     for seg in segments[1:]:
+-        r = samhita_join(combined, seg)
++        # resolve_w1_compound=False: `combined` is running compound-internal
++        # text, not a fresh Pada-patha word -- for a 3+-segment compound it
++        # could itself pick up an elision-avagraha from an earlier segment
++        # join, which must not be re-read as a second compound to resolve
++        # (see samhita_join's own docstring on this exact failure mode).
++        r = samhita_join(combined, seg, resolve_w1_compound=False)
+         combined = r["surface"].replace(" ", "")  # compound-internal join never leaves a gap
+         rules.append(r["rule"])
+     return combined, segments, rules
+ 
+ 
+-def samhita_join(w1_deva, w2_deva, w1_is_pragrhya=False):
++def reconstruct_chain(words_deva):
++    """Builds ONE continuous samhita-patha string by folding samhita_join
++    across a whole sequence of bare Pada-patha words -- simulating how
++    DGE's own continuous samhita_patha text is actually built (each word's
++    ending sandhi's against the word immediately following it, and only
++    that). This is NOT part of the Krama generator (krama_engine.py
++    computes each retake pair independently and deliberately never chains
++    across a whole ardharca -- Krama pairs are self-contained units, and
++    10.18 forbids sandhi across an ardharca boundary regardless). This
++    function exists for VALIDATION: comparing its output against DGE's own
++    attested samhita_patha is a real, mechanically-checkable test of
++    whether this module's phonology, applied the way continuous text is
++    actually built, reproduces it -- see
++    tools/pratishakhya/regenerate_krama_rv_1_1.py's attest_units(). It is
++    NOT a claim that reproducing DGE's Samhita proves philological
++    correctness against a traditional Krama-patha edition (a separate,
++    still-open question -- architecture doc sec.10).
++
++    Returns (final_surface_deva, rules_used_list)."""
++    if not words_deva:
++        return "", []
++    first = words_deva[0]
++    combined = resolve_compound(first)[0] if "ऽ" in first else first
++    rules = []
++    for w in words_deva[1:]:
++        # resolve_w1_compound=False: `combined` is running chained text, not
++        # a fresh Pada-patha word -- it can legitimately contain an
++        # elision-avagraha from an EARLIER join in this same chain (ordinary
++        # Sanskrit orthography, e.g. "suunave"+"agne" -> "suunave'gne"),
++        # which must not be misread as a Pada-patha compound to resolve
++        # (a real bug found 11 Sep 2026 -- see samhita_join's docstring).
++        r = samhita_join(combined, w, resolve_w1_compound=False)
++        combined = r["surface"]
++        rules.append(r["rule"])
++    return combined, rules
++
++
++def samhita_join(w1_deva, w2_deva, w1_is_pragrhya=False, resolve_w1_compound=True):
+     """Compute the samhita-patha rendering of the pair (w1, w2), both given
+     as bare (unaccented is fine, accented is stripped) Devanagari pada
+     words. Returns dict: surface (Devanagari), rule (short id),
+@@ -155,8 +246,24 @@ def samhita_join(w1_deva, w2_deva, w1_is_pragrhya=False):
+     w1_is_pragrhya: if true (per pratishakhya_classify.is_pragrhya), vowel
+     sandhi is suppressed for w1's final vowel (10.20/Paatala-1's pragrhya
+     definition -- a pragrhya word's vowel does not combine with what
+-    follows)."""
+-    if "ऽ" in w1_deva:
++    follows).
++
++    resolve_w1_compound: True (default) is correct for w1 = a single bare
++    Pada-patha word that may itself be an avagrhya compound (e.g.
++    "puraH-hitam") -- this is what krama_engine.py's ordinary per-pair use
++    needs. Pass False when w1 is NOT a single pada word but an
++    already-sandhi'd, possibly multi-word chain (e.g. building up a whole
++    ardharca's continuous text by repeated joining): a real bug, found
++    11 Sep 2026 while adding chain-reconstruction validation, is that such
++    a chain can legitimately contain an avagraha of its OWN -- inserted by
++    THIS module's own a-class/eng-class vowel-elision rules to mark an
++    elided word-medial 'a' (ordinary Sanskrit orthography, e.g.
++    "suunave"+"agne" -> "suunave'gne") -- which resolve_compound() then
++    misreads as a Pada-patha compound-split marker, incorrectly collapsing
++    every space in the ENTIRE chain built so far. resolve_compound() is
++    only valid on a genuine single Pada-patha word; running it on running
++    prose text is a category error, not a second legitimate use."""
++    if resolve_w1_compound and "ऽ" in w1_deva:
+         w1_deva = resolve_compound(w1_deva)[0]
+     if "ऽ" in w2_deva:
+         w2_deva = resolve_compound(w2_deva)[0]
+@@ -166,16 +273,20 @@ def samhita_join(w1_deva, w2_deva, w1_is_pragrhya=False):
+         return {"surface": w1_deva + w2_deva, "rule": "empty_input", "confidence": "low",
+                 "note": "empty word passed to samhita_join"}
+ 
+-    if s1 in IRREGULAR_LENGTHENING_BEFORE_CONSONANT and s2[0] not in ALL_VOWELS:
+-        lengthened = IRREGULAR_LENGTHENING_BEFORE_CONSONANT[s1]
++    lengthening_match = _match_lexical_suffix(s1, IRREGULAR_LENGTHENING_BEFORE_CONSONANT)
++    if lengthening_match and s2[0] not in ALL_VOWELS:
++        prefix, key = lengthening_match
++        lengthened = prefix + IRREGULAR_LENGTHENING_BEFORE_CONSONANT[key]
+         return _finish(lengthened + " " + s2, "irregular_lengthening_lexical_exception", w1_deva, w2_deva,
+-                        note=f"{w1_deva} is a known lexical exception with an attested lengthened "
++                        note=f"{key} is a known lexical exception with an attested lengthened "
+                              "vowel before this word (see IRREGULAR_LENGTHENING_BEFORE_CONSONANT).")
+ 
+-    if s1 in IRREGULAR_VISARGA_STEMS and s2[0] in VOICED_CONSONANTS:
+-        base = IRREGULAR_VISARGA_STEMS[s1]  # already ends in "r", attaches directly
++    visarga_match = _match_lexical_suffix(s1, IRREGULAR_VISARGA_STEMS)
++    if visarga_match and s2[0] in VOICED_CONSONANTS:
++        prefix, key = visarga_match
++        base = prefix + IRREGULAR_VISARGA_STEMS[key]  # already ends in "r", attaches directly
+         return _finish(base + s2, "irregular_visarga_lexical_exception", w1_deva, w2_deva,
+-                        note=f"{w1_deva} is a known lexical exception to the regular a-class "
++                        note=f"{key} is a known lexical exception to the regular a-class "
+                              "visarga-before-voiced rule (see IRREGULAR_VISARGA_STEMS).")
+ 
+     last1 = s1[-1]
+-- 
+2.43.0
+

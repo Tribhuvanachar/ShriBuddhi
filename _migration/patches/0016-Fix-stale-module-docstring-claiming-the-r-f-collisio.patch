@@ -1,0 +1,71 @@
+From 3705d67f20fd5db918dd8d62aa9c98ffc596f0f0 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 11 Sep 2026 11:22:13 +0000
+Subject: [PATCH 16/25] Fix stale module docstring claiming the r/f collision
+ is still unresolved
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GB2qZqW1sQcLi536ZSxGV6
+---
+ tools/pratishakhya/sanskrit_phonology.py | 38 ++++++++++++------------
+ 1 file changed, 19 insertions(+), 19 deletions(-)
+
+diff --git a/tools/pratishakhya/sanskrit_phonology.py b/tools/pratishakhya/sanskrit_phonology.py
+index fa6e3e5be..0fab588ef 100644
+--- a/tools/pratishakhya/sanskrit_phonology.py
++++ b/tools/pratishakhya/sanskrit_phonology.py
+@@ -33,7 +33,7 @@ this module's output) plus, where accuracy is uncertain, an explicit
+ low-confidence flag -- never a silent guess presented as equal-confidence
+ to an attested case.
+ 
+-TWO KNOWN, UNRESOLVED GAPS surfaced by chain-reconstruction validation
++ONE KNOWN, UNRESOLVED GAP surfaced by chain-reconstruction validation
+ (reconstruct_chain(), checked against DGE's own attested samhita_patha by
+ tools/pratishakhya/regenerate_krama_rv_1_1.py) -- named here rather than
+ silently producing a wrong answer with ordinary-looking confidence:
+@@ -45,24 +45,24 @@ silently producing a wrong answer with ordinary-looking confidence:
+    engine's classical answer nor a-guess is confirmed correct -- this
+    looks like a Vedic-specific visarga-lopa variant (the Prati'saakhya's
+    own "bahulam chandasi" latitude) not yet backed by a specific sutra in
+-   krama_kramahetu_rules.json. Do not add an ad hoc special case for this
+-   without first finding which sutra (if any) actually licenses it.
+-2. The indic_transliteration library's SLP1 scheme cannot distinguish
+-   "र्ऋ" (a bare consonant, then an independent vowel -- e.g. from a
+-   visarga-to-r insertion before a vocalic-r/rr word) from "रृ" (that same
+-   consonant with a DEPENDENT vowel-matra) -- both round-trip to the
+-   identical SLP1 string ("rf"). _finish_consonant_then_vowel() works
+-   around this for a SINGLE join by keeping the two chunks as separate
+-   Devanagari strings, but once that correct output is fed back into
+-   samhita_join a second time (as reconstruct_chain() does, building up a
+-   whole ardharca), it gets re-transliterated to SLP1 as one piece,
+-   collapsing the distinction -- confirmed via RV 1.1.2's chain
+-   ("puurvebhi-r-Rzibhi..." loses its virama on the second hop, rendering
+-   "पूर्वेभिरृषिभिः" instead of "पूर्वेभिर्ऋषिभिः"). A real fix needs
+-   either a private marker that survives round-tripping through this
+-   scheme, or bypassing indic_transliteration's SLP1 for this one
+-   character class -- not attempted here; flagging it precisely was
+-   judged more valuable than a rushed patch.
++   krama_kramahetu_rules.json. A citation was PROPOSED for this (RPr
++   2.27, from an 11 Sep 2026 external review) but checked against this
++   project's own ingested Patala 2 text and found NOT to clearly support
++   the specific claim (see the architecture doc sec.6.8) -- still open,
++   now with a citation to verify rather than none. Do not add an ad hoc
++   special case for this without first finding which sutra (if any)
++   actually licenses it.
++
++A SECOND gap, previously listed here, was FOUND AND FIXED (11 Sep 2026,
++external review, then independently verified before accepting): the
++indic_transliteration library's SLP1 scheme cannot distinguish "र्ऋ" (a
++bare consonant, then an independent vowel) from "रृ" (that same consonant
++with a DEPENDENT vowel-matra) -- both round-trip to the identical SLP1
++string ("rf"). Fixed with a ZWNJ marker inserted at the boundary by
++_finish_consonant_then_vowel() and stripped only at true final-output
++points by strip_zwnj_markers() -- see both functions' docstrings. Tested
++across 4 consecutive re-joins (not just the 2 that originally exposed the
++bug) before this was accepted as a real fix, not just a plausible one.
+ """
+ import re
+ from indic_transliteration import sanscript
+-- 
+2.43.0
+

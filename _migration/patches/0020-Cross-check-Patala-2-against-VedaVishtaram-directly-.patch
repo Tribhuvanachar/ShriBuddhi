@@ -1,0 +1,875 @@
+From 8d465ba76c56682b1331a41a3b54f9db1d9859d0 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 11 Sep 2026 12:22:38 +0000
+Subject: [PATCH 20/25] Cross-check Patala 2 against VedaVishtaram directly (no
+ external prompt)
+
+Done by hand the same way Patala 10-11 were previously, at the lead's
+request. Two real findings:
+
+1. The "82 vs 41/42 sutra" count gap noted at ingestion time is a chapter-
+   scope difference, not a numbering bug: VedaVishtaram's own Patala 2
+   page content stops at sutra 42; its Patala 3 is the accent chapter,
+   confirmed by its own opening sutras, not a continuation of Layer A's
+   43-82. Those 40 sutras have no VedaVishtaram counterpart at all and
+   remain uncross-checked by this source.
+
+2. Within 1-42, resolved 5 previously-uncertain sutras with real evidence,
+   via a new P2_RESOLUTIONS table (kept separate from P10_11_RESOLUTIONS
+   so its scope stays honest): 2.8/2.27 via the recurring "purva" pattern
+   (2.27 by a direct VedaVishtaram match the automated same-index matcher
+   had missed, because VedaVishtaram's sandhi-joined rendering doesn't
+   have the word-boundary space the matcher's anchor assumed); 2.33 via
+   one direct match plus the standard technical term "purva-rupa"; 2.36
+   via a genuinely new resolution kind -- VedaVishtaram's own page
+   corrupts an avagraha into a literal zero-width-non-joiner character,
+   confirmed at two separate sutras (2.24 and 2.36), not a missing letter.
+   2.40 was checked and left honestly unresolved: VedaVishtaram's own
+   excerpt for that sutra doesn't reach the position in question.
+
+Also found and fixed a real, pre-existing bug: crosscheck_vedavishtaram.py
+unconditionally appended to the corpus's "note" field, so a second run
+duplicated the whole cross-check sentence. Now dedupes on re-run.
+
+The RV 1.1.7 visarga-before-aa gap this was meant to help resolve remains
+open -- VedaVishtaram carries no Bhasya at all for sutras 2.24/2.27's
+region, so the text is now confirmed clean but the interpretive question
+isn't settled. A promising new lead surfaced instead for the separate Q2
+(word+iti sandhi) question: sutra 2.51, sitting in the uncovered 43-82
+block, which cannot be confidently parsed without a commentary this
+corpus doesn't have -- flagged, not acted on.
+
+Four new tests in tests/test_rv_pratishakhya_import.py cover the new
+resolutions and the verified-range boundary. Architecture doc sec.6.10
+and PENDING.md record the full trail.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GB2qZqW1sQcLi536ZSxGV6
+---
+ dge/PENDING.md                                |  18 +++
+ dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md     | 136 ++++++++++++++++--
+ .../rigveda_pratishakhya/data.json            | 120 ++++++++--------
+ tests/test_rv_pratishakhya_import.py          |  43 ++++++
+ .../pratishakhya/crosscheck_vedavishtaram.py  |  63 +++++++-
+ 5 files changed, 305 insertions(+), 75 deletions(-)
+
+diff --git a/dge/PENDING.md b/dge/PENDING.md
+index 7b6c570de..539d14fae 100644
+--- a/dge/PENDING.md
++++ b/dge/PENDING.md
+@@ -217,6 +217,24 @@ complete record, not just a live queue.
+   verify in `dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md` §10, not adopted or dismissed. Full
+   detail in that doc's §6.9.
+ 
++  **Update, 11 Sep 2026 — Paṭala 2 cross-checked against VedaViṣṭāram directly, no external
++  prompt.** Done by hand the same way Paṭala 10–11 were, at the lead's request. Found the "82
++  vs 41/42 sūtra" count gap noted back at ingestion time (§4a.1) is a chapter-scope difference,
++  not a numbering bug: VedaViṣṭāram's own Paṭala 2 content stops at sūtra 42; its Paṭala 3 is a
++  different chapter (accent), not a continuation of Layer A's 43–82, which have no
++  VedaViṣṭāram counterpart at all. Within 1–42, resolved 5 previously-uncertain sūtras with real
++  evidence (`crosscheck_vedavishtaram.py`'s new `P2_RESOLUTIONS` table) — including a genuinely
++  new resolution *kind*: VedaViṣṭāram's own page corrupts an avagraha into a literal zero-width-
++  non-joiner character, confirmed independently at two sūtras — and left one honestly unresolved
++  where VedaViṣṭāram's own excerpt doesn't reach the relevant position. Also found and fixed a
++  real pre-existing bug: re-running the crosscheck script duplicated the corpus's `note` field.
++  The RV 1.1.7 visarga gap this was meant to help resolve is **still open** — VedaViṣṭāram
++  carries no Bhāṣya at all for that region — but a promising new lead turned up for the separate
++  Q2 (word+iti sandhi) question instead: sūtra 2.51, in the 40-sūtra block VedaViṣṭāram doesn't
++  cover, which cannot be confidently parsed without a commentary this corpus doesn't have for
++  that range. Not acted on without one. Full detail in
++  `dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md` §6.10.
++
+ - **Raghavendra Vijaya: English translation OCR-linked + Gemini
+   padaccheda/anvaya/summary pipeline — IMPLEMENTED (2026-08-21).** First
+   real, non-proof-of-concept run of the "AI automation" this project's lead
+diff --git a/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md b/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+index 3a18c9445..1aee383da 100644
+--- a/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
++++ b/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+@@ -942,6 +942,98 @@ adopted or discarded.
+ 
+ ---
+ 
++### 6.10 Paṭala 2 cross-check against VedaViṣṭāram (11 Sep 2026) — done directly, no external
++     prompt
++
++The lead asked for the Paṭala 2 cross-check (flagged as a likely one-pass fix for both the
++RV 1.1.7 visarga gap and the word+iti sandhi question — §6.8/§10) to be run directly rather than
++via another external prompt. Done by hand, the same way Paṭala 10–11 were (§4c), not by
++re-running the existing script unchanged — the existing `algorithmic_resolve()` path had already
++tried and failed on several of these, and a proper cross-check meant finding out *why* and
++fixing what could be fixed with real evidence.
++
++**The headline finding: the "82 vs 41/42 sutra count" gap noted back in §4a.1 is not a numbering
++bug — it's a chapter-scope difference.** VedaViṣṭāram's own Paṭala 2 page content stops dead at
++sutra 42; its Paṭala 3 is the *accent* chapter (confirmed: its opening sūtras are about
++āyāma/viśrambha/ākṣepa and udātta/anudātta/svarita), not a continuation of Layer A's Paṭala-2
++sūtras 43–82. Those 40 sūtras (worked Vedic-verse citations illustrating sandhi patterns, then a
++distinct block of Pragṛhya rules at 2.51 onward, then a closing note attributing a reading to
++"Śākalya the elder") have **no VedaViṣṭāram counterpart at all** under this URL and remain
++entirely uncross-checked by this source — a real, separate gap from what could be closed today.
++
++**Within sūtras 1–42, the correspondence is genuinely reliable**, more so than the module's
++earlier "not verified outside paṭala 10–11" caution implied. Checked systematically (not
++spot-checked): comparing Layer A's own independent transcription against VedaViṣṭāram's,
++character for character, across the full range. The overwhelming majority of what looks like a
++divergence is not a content disagreement at all — **Layer A presents each sūtra's words
++un-sandhi'd (pada boundaries kept separate); VedaViṣṭāram presents the same sūtra continuously
++sandhi-joined** (e.g. Layer A's "ataḥ anyāḥ" = VedaViṣṭāram's "ato'nyāḥ" — the identical words,
++ordinary a-class-visarga-before-a sandhi applied). A few positions where VedaViṣṭāram's own page
++independently drops a trailing visarga (2.20, 2.29, 2.30) look like small scan/rendering slips on
++its side, not something to import into Layer A, which already has the visarga present correctly.
++
++**Five previously-uncertain sūtras in this range were resolved with real evidence, extending
++`crosscheck_vedavishtaram.py`'s hand-verified-table pattern to a new `P2_RESOLUTIONS` table
++(mirroring `P10_11_RESOLUTIONS`, kept separate rather than merged so its scope stays honest):**
++- **2.8, 2.27**: the recurring "pūrva" pattern — 2.27 by a *direct* VedaViṣṭāram match (sandhi-
++  joined as "pūrvastu", which is exactly why the automated `algorithmic_resolve()` missed it
++  before: its word-boundary anchor assumed a space that VedaViṣṭāram's sandhi'd rendering
++  doesn't have), 2.8 by the pattern now independently confirmed 4 times within this same paṭala.
++- **2.33**: three `[?]` resolved — one by direct VedaViṣṭāram match, two by the standard,
++  independently well-attested Sanskrit phonetics term "pūrva-rūpa" (a recognized sandhi-outcome
++  category alongside guṇa/vṛddhi/para-rūpa), not sourced from VedaViṣṭāram for those two.
++- **2.36**: a different KIND of resolution, not "pūrva" — VedaViṣṭāram's own page renders this
++  exact position as a literal ZERO WIDTH NON-JOINER character (U+200C), not text. This is
++  VedaViṣṭāram's own site-side corruption of an avagraha, the identical artifact independently
++  found at the corresponding position in its own sūtra 2.24 (both are ordinary
++  a-class-visarga-before-a elisions). Resolved as an avagraha, not a missing letter — and this
++  reading is independently grammatically sensible on its own terms, not merely inferred from the
++  artifact matching.
++- **2.40**: checked and left genuinely unresolved — VedaViṣṭāram's own numbered div for this
++  sūtra is a much shorter tail excerpt that doesn't reach the position of the uncertain
++  character at all. No independent confirmation exists; not guessed.
++
++Also fixed a real, pre-existing bug in `crosscheck_vedavishtaram.py` found while re-running it
++for real: `data["note"] += (...)` was unconditional, so a second run duplicated the whole
++cross-check sentence verbatim. Now dedupes by splitting on a marker before appending.
++`vedavishtaram_index_verified` is now `true` for Paṭala 2 sūtras 1–42 too (checked by hand, not
++assumed), still `false`/absent for 43–82 (no VedaViṣṭāram data exists to check them against).
++
++**The original question this was meant to help answer — RV 1.1.7's visarga-before-आ gap
++(sūtras 2.24/2.27) — is NOT resolved by this pass, and that's a real, honest result, not a
++failure of the method.** VedaViṣṭāram carries **no Bhāṣya at all** for this region (checked
++2.23–2.28 explicitly: every `bhashya` field is empty). The sūtra *text* itself is now fully
++confirmed clean (matches VedaViṣṭāram exactly, no OCR uncertainty), but the *interpretive*
++question — does 2.24/2.27 describe a general visarga→o/ā derivation step, or something closer
++to Gemini's claimed full-elision-before-ā reading — still has no commentary to settle it via
++this source. Needs either the Sanskrit Library's own critical apparatus (if it has translation
++notes not yet pulled into this corpus) or a genuinely different secondary source.
++
++**A second, more promising, and completely unexpected lead surfaced instead**, sitting in the
++40-sūtra block VedaViṣṭāram doesn't cover at all: **sūtra 2.51, "prakṛtyā itikaraṇādau
++pragṛhyāḥ"** ("[words] before iti-karaṇa [remain in their original form], being pragṛhya") —
++this reads as if it could be directly, generally answering the still-open Q2 question (does
++ordinary sandhi apply to word+iti, except for pragṛhya words?) by making words-before-iti
++pragṛhya *by virtue of* preceding iti, not merely coincidentally pragṛhya for an unrelated
++reason. **This is not being acted on.** The immediately following sūtras qualify it in ways this
++session cannot confidently parse without a commentary: 2.52 ("svareṣu ca ārṣyām" — "and in
++vowels, in the Ārṣī/Ārṣa [tradition/reading]?") may restrict 2.51 to vowel-final words under a
++specific named tradition rather than stating a universal rule; 2.54's "sahodayāḥ ... sarvatra
++eva" and 2.55's "tryakṣarāntāḥ tu na ive" add further conditions and an exception whose precise
++scope is genuinely unclear without expert grammatical parsing or a gloss (this corpus has none
++for this region — checked, `apparatus.comments` is empty for all of 2.51–2.59). Treating this as
++settling Q2 without that parsing would repeat exactly the mistake this whole project has been
++correcting other reviewers for. Flagged in §10 as a real, specific, well-scoped next question —
++NOT implemented as a change to `get_sthitopasthita()`.
++
++No code in the Krama generator itself changed as a result of this pass — only
++`crosscheck_vedavishtaram.py` (the new table, the note-duplication fix) and the underlying
++`rigveda_pratishakhya/data.json` (5 sūtras' text filled in, `vedavishtaram_index_verified`
++extended). Four new tests in `tests/test_rv_pratishakhya_import.py` cover the new resolutions
++and the verified-range boundary.
++
++---
++
+ ## 7. Two modes
+ 
+ **GENERATE** — Pada-pāṭha → Krama-pāṭha, per §5.
+@@ -1077,6 +1169,21 @@ Kept as a short index back to the full review, not restated in full here:
+     Gemini's Pāṇini 8.3.17/8.3.19 citation for RV 1.1.7 — procedurally out of bounds for that
+     specific prompt's rule, but a real, checkable, name-relevant (Śākalya/Śākala) lead that
+     deserves investigation, not discarding — recorded as an open item in §10.
++24. (Part IX, 11 Sep 2026) Cross-checked Paṭala 2 against VedaViṣṭāram directly, no external
++    prompt, at the lead's explicit request (§6.10). Found the "82 vs 41/42 sūtra" count gap
++    (§4a.1) is a chapter-scope difference, not a numbering bug: VedaViṣṭāram's own Paṭala 2 stops
++    at sūtra 42; its Paṭala 3 is the accent chapter, not a continuation of Layer A's 43–82.
++    Within 1–42, resolved 5 previously-uncertain sūtras with real evidence (a new
++    `P2_RESOLUTIONS` table) — including a genuinely new kind of resolution (VedaViṣṭāram's own
++    page corrupts an avagraha into a literal zero-width-non-joiner character, confirmed at two
++    separate sūtras) — and left one honestly unresolved where VedaViṣṭāram's excerpt doesn't
++    reach the relevant position. Also caught and fixed a real pre-existing bug in
++    `crosscheck_vedavishtaram.py`: re-running it duplicated the corpus `note` field. The
++    RV 1.1.7 visarga gap this was meant to help resolve remains open — VedaViṣṭāram has no
++    Bhāṣya at all for that region — but a promising new lead for the separate Q2 word+iti
++    question turned up instead (sūtra 2.51), in the 40-sūtra block VedaViṣṭāram doesn't cover,
++    genuinely unparseable with confidence without a commentary this corpus doesn't have. Not
++    acted on without one.
+ 
+ ---
+ 
+@@ -1104,16 +1211,25 @@ Kept as a short index back to the full review, not restated in full here:
+   word-level cross-check against DGE's own Pada/Saṃhitā data before the Krama work leans on
+   it, or whether the existing 96.61%-validated VedaWeb cross-check is sufficient.
+ 
+-- (Added 11 Sep 2026, Part V; updated Part VII) The visarga-before-आ gap found in RV 1.1.7
+-  (§6.6) needs either a Prātiśākhya sūtra that specifically licenses Vedic visarga-lopa in this
+-  environment or confirmation this is genuinely `bahulaṃ chandasi` free variation with no
+-  single derivable rule. Gemini's Part VII answer proposed RPr 2.27, but checking that sūtra's
+-  own text (and 2.24's) in this project's already-ingested corpus did not clearly support the
+-  specific claim (full elision before ā specifically) — Paṭala 2 overall is one of the paṭalas
+-  this project's VedaViṣṭāram cross-check pass (§4c) never reached, so most of its sūtras
+-  (including 2.24/2.27) still carry `has_uncertain_reading: true` and no Bhāṣya gloss. Cross-
+-  checking Paṭala 2 the way Paṭala 10–11 already were would likely resolve both this and the
+-  Q2 question below in one pass.
++- (Added 11 Sep 2026, Part V; updated Part VII; updated §6.10) The visarga-before-आ gap found in
++  RV 1.1.7 (§6.6) needs either a Prātiśākhya sūtra that specifically licenses Vedic visarga-lopa
++  in this environment or confirmation this is genuinely `bahulaṃ chandasi` free variation with
++  no single derivable rule. **Still open after the §6.10 Paṭala 2 cross-check**: 2.24/2.27's
++  text is now fully confirmed accurate (no OCR uncertainty), but VedaViṣṭāram carries no Bhāṣya
++  at all for this region, so the interpretive question (general derivation step vs. Gemini's
++  claimed full-elision-before-ā) still has no commentary to settle it. Needs the Sanskrit
++  Library's own critical apparatus (if any translation notes exist there, not yet pulled into
++  this corpus) or a different secondary source.
++- (Added 11 Sep 2026, §6.10) A genuinely new, well-scoped lead for the Q2 question below, found
++  while cross-checking Paṭala 2: sūtra 2.51, "prakṛtyā itikaraṇādau pragṛhyāḥ" ("[words] before
++  iti-karaṇa are pragṛhya"), sitting in the 40-sūtra block (2.43–82) VedaViṣṭāram doesn't cover
++  at all. Reads as though it could directly answer Q2 (word-before-iti is pragṛhya BECAUSE it
++  precedes iti, not only when independently pragṛhya for an unrelated reason) — but 2.52's
++  "svareṣu ca ārṣyām" and 2.54–55's further conditions/exception genuinely cannot be parsed
++  confidently without a commentary this corpus doesn't have for this range. Do not implement a
++  change to `get_sthitopasthita()` from this alone — get an authoritative reading of 2.51–2.58
++  first (a well-scoped citation-verification task, the same shape as the Paṭala-2 work just
++  done, or worth putting to an external source with the literal text quoted).
+ - (Added 11 Sep 2026, Part VIII) A second candidate citation for the same RV 1.1.7 gap: Gemini's
+   Round 2 answer invoked Pāṇini 8.3.17 ("bho-bhago-agho-apūrvasya yo'śi") and 8.3.19 ("lopaḥ
+   śākalyasya" — the semivowel arising from this sandhi may optionally elide before a vowel, per
+diff --git a/dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/data.json b/dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/data.json
+index affd12bed..93d5bdaeb 100644
+--- a/dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/data.json
++++ b/dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/data.json
+@@ -4,7 +4,7 @@
+  "source": "The Sanskrit Library, \"Rgveda-Pratisakhya: First XML Edition\", ed. Peter M. Scharf, 2010, Version 0.1; source text per George Cardona's \"First digital edition\" (Philadelphia, 1993-94)",
+  "source_url": "https://sanskritlibrary.org/catalogsText/fgveda_prAtiSAKya.html",
+  "licence": "Creative Commons Attribution Non-Commercial Share Alike 3.0 (CC BY-NC-SA 3.0) -- https://creativecommons.org/licenses/by-nc-sa/3.0/",
+- "note": "Fetched via the reader page's own (undocumented) LoadText endpoint -- see tools/pratishakhya/import_rv_pratishakhya.py and SOURCES.md for the endpoint, methodology, and why it's used instead of a static download. 'Version 0.1' per the source's own catalog card: this is a draft edition. text_devanagari/text_iast are left empty and has_uncertain_reading is set wherever the source itself marks an OCR-uncertain character ('[?]') -- cross-check those against VedaVishtaram (vedavishtaram.in) or the RV-Pratishakhya project (sites.google.com/view/rv-pratishakhya) before filling them in; do not guess. The 'crosscheck' field on each item is deliberately empty for the same reason -- populate it once actually checked, not preemptively. patala_name is from those secondary sources, not from this source itself. Distinct from the sibling shaunakiya_chaturadhyayika/data.json, which is the Atharvaveda-Pratishakhya (a different work, not touched by this import). Cross-checked against VedaVishtaram (Layer B, vedavishtaram.in/lakshanam/rp.html -- Saunaka's text with Uvata's Bhasya and Vishnumitra's Vrtti) on 11 Sep 2026 via tools/pratishakhya/crosscheck_vedavishtaram.py; see that script's docstring for what was and wasn't verified. vedavishtaram_sutra_text/vedavishtaram_bhashya are attached wherever a same-index VedaVishtaram entry exists; vedavishtaram_index_verified is only true for patalas 10-11, where that correspondence was checked by hand against actual content, not assumed from matching indices.",
++ "note": "Fetched via the reader page's own (undocumented) LoadText endpoint -- see tools/pratishakhya/import_rv_pratishakhya.py and SOURCES.md for the endpoint, methodology, and why it's used instead of a static download. 'Version 0.1' per the source's own catalog card: this is a draft edition. text_devanagari/text_iast are left empty and has_uncertain_reading is set wherever the source itself marks an OCR-uncertain character ('[?]') -- cross-check those against VedaVishtaram (vedavishtaram.in) or the RV-Pratishakhya project (sites.google.com/view/rv-pratishakhya) before filling them in; do not guess. The 'crosscheck' field on each item is deliberately empty for the same reason -- populate it once actually checked, not preemptively. patala_name is from those secondary sources, not from this source itself. Distinct from the sibling shaunakiya_chaturadhyayika/data.json, which is the Atharvaveda-Pratishakhya (a different work, not touched by this import). Cross-checked against VedaVishtaram (Layer B, vedavishtaram.in/lakshanam/rp.html -- Saunaka's text with Uvata's Bhasya and Vishnumitra's Vrtti) on 11 Sep 2026 via tools/pratishakhya/crosscheck_vedavishtaram.py; see that script's docstring for what was and wasn't verified. vedavishtaram_sutra_text/vedavishtaram_bhashya are attached wherever a same-index VedaVishtaram entry exists; vedavishtaram_index_verified is true for patalas 10-11 and for patala 2's sutras 1-42 (VedaVishtaram's own patala-2 page content stops at 42; sutras 43-82 have no VedaVishtaram counterpart at all and stay unverified), where correspondence was checked by hand against actual content, not assumed from matching indices.",
+  "items": [
+   {
+    "id": "1.1",
+@@ -2393,7 +2393,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "संहिता पदप्रकृतिः",
+    "vedavishtaram_bhashya": "उवट-भाष्यम् संहिता पदप्रकृतिः इत्येतदधिकृतं वेदितव्यम् आ सीमपटलात्। पदानि प्रकृतिभूतानि यस्याः संहितायाः सा पदप्रकृतिः। (पदानि प्रकृतिः, संहिता‌त्र विकारः।) तथा हि षत्वणत्वादयो विकाराः संहिताया एव भवन्ति। प्रकृतिभूतत्वाच्च पदानां सिद्धत्वम्।",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.2",
+@@ -2416,7 +2416,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "पदान्तात् पदादिभिः सन्दधदेति यत्सा कालाव्यवायेन",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.3",
+@@ -2439,7 +2439,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "स्वरान्तरं तु विवृत्तिः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.4",
+@@ -2462,7 +2462,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "सा वा स्वरभक्तिकाला",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.5",
+@@ -2485,7 +2485,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "पदान्तादिष्वेव विकारशास्त्रं - पदे दृष्टेषु वचनात् प्रतीयात्",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.6",
+@@ -2508,7 +2508,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "पदं पदान्तादिव.देकवर्णं प्रश्लिष्टमपि",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.7",
+@@ -2531,17 +2531,17 @@
+    "crosscheck": "VedaVishtaram (vedavishtaram.in), 11 Sep 2026 -- unambiguous same-index substring match; NOT individually hand-verified for sutra-boundary drift (see module docstring sec.3).",
+    "vedavishtaram_sutra_text": "आनुपूर्व्येण सन्धीन्",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.8",
+    "patala": 2,
+    "patala_name": "Samhita",
+    "sutra": 8,
+-   "text_devanagari": "",
+-   "text_iast": "",
++   "text_devanagari": "एषः स्यः सः च स्वराः च पूर्वे भवन्ति व्यञ्जनम् उत्तरम् यदा एभ्यः, ते अन्वक्षरसन्धयः अनुलोमाः।",
++   "text_iast": "eṣaḥ syaḥ saḥ ca svarāḥ ca pūrve bhavanti vyañjanam uttaram yadā ebhyaḥ, te anvakṣarasandhayaḥ anulomāḥ|",
+    "text_slp1": "ezaH syaH saH ca svarAH ca p[?]rve Bavanti vyaYjanam uttaram yadA eByaH [,] te anvakzarasanDayaH anulomAH .",
+-   "has_uncertain_reading": true,
++   "has_uncertain_reading": false,
+    "apparatus": {
+     "cross_ref": "",
+     "allusions_in": "[?]Pr.",
+@@ -2551,10 +2551,10 @@
+    },
+    "has_cross_reference_content": false,
+    "domain": "",
+-   "crosscheck": "",
++   "crosscheck": "VedaVishtaram (vedavishtaram.in), 11 Sep 2026 -- Not in VedaVishtaram's own numbered div (tail-only match -- VedaVishtaram 2.8 covers only 'te 'nvakSarasandhayo 'nulomAH', the sutra's second clause). Resolved by the 'pUrva' pattern, now independently confirmed 4 times within this same patala via direct VedaVishtaram matches (2.24, 2.27, 2.28, 2.33).",
+    "vedavishtaram_sutra_text": "ते‌न्वक्षरसन्धयो‌नुलोमाः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.9",
+@@ -2577,7 +2577,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "प्रतिलोमास्तु विपर्यये त एव",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.10",
+@@ -2600,7 +2600,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "तत्र प्रथमा.स्तृतीयभावं प्रतिलोमेषु नियन्ति",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.11",
+@@ -2623,7 +2623,7 @@
+    "crosscheck": "VedaVishtaram (vedavishtaram.in), 11 Sep 2026 -- unambiguous same-index substring match; NOT individually hand-verified for sutra-boundary drift (see module docstring sec.3).",
+    "vedavishtaram_sutra_text": "अथेतरेषु। ऊष्मा परिलुप्यते त्रयाणां स्वरवर्जम्",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.12",
+@@ -2646,7 +2646,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "न तु यत्र तानि पद्याः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.13",
+@@ -2669,7 +2669,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "पुरएता तितउना प्रउगं नमउक्तिभिः। अन्तःपदं विवृत्तयः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.14",
+@@ -2692,7 +2692,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "अतो‌न्याः पदसन्धिषु",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.15",
+@@ -2715,7 +2715,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "समानाक्षरे सस्थाने दीर्घमेकमुभे स्वरम्",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.16",
+@@ -2738,7 +2738,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "इकारोदय एकार.मकार.स्सोदयः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.17",
+@@ -2761,7 +2761,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "तथा। उकारोदय ओकारम्",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.18",
+@@ -2784,7 +2784,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "परेष्वैकारमोजयोः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.19",
+@@ -2807,7 +2807,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "औकारं युग्मयोः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.20",
+@@ -2830,7 +2830,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "एते प्रश्लिष्टा नाम सन्धयः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.21",
+@@ -2853,7 +2853,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "समानाक्षरमन्तस्स्थां स्वामकण्ठ्यं स्वरोदयम्",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.22",
+@@ -2876,7 +2876,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "न समानाक्षरे स्वे स्वे",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.23",
+@@ -2899,7 +2899,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "ते क्षैप्राः प्राकृतोदयाः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.24",
+@@ -2922,7 +2922,7 @@
+    "crosscheck": "VedaVishtaram (vedavishtaram.in), 11 Sep 2026 -- unambiguous same-index substring match; NOT individually hand-verified for sutra-boundary drift (see module docstring sec.3).",
+    "vedavishtaram_sutra_text": "विसर्जनीयो‌रिफितो दीर्घपूर्वः स्वरोदयः। आकारम्",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.25",
+@@ -2945,7 +2945,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "उत्तमौ च द्वौ स्वरौ",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.26",
+@@ -2968,17 +2968,17 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "ताः पदवृत्तयः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.27",
+    "patala": 2,
+    "patala_name": "Samhita",
+    "sutra": 27,
+-   "text_devanagari": "",
+-   "text_iast": "",
++   "text_devanagari": "ह्रस्वपूर्वः तु सः अकारम्।",
++   "text_iast": "hrasvapūrvaḥ tu saḥ akāram|",
+    "text_slp1": "hrasvap[?]rvaH tu saH akAram .",
+-   "has_uncertain_reading": true,
++   "has_uncertain_reading": false,
+    "apparatus": {
+     "cross_ref": "",
+     "allusions_in": "[?]Pr.",
+@@ -2988,10 +2988,10 @@
+    },
+    "has_cross_reference_content": false,
+    "domain": "",
+-   "crosscheck": "",
++   "crosscheck": "VedaVishtaram (vedavishtaram.in), 11 Sep 2026 -- Direct match (sandhi-joined in VedaVishtaram): VedaVishtaram 2.27 = 'hrasvapUrvastu so'kAram' (pUrvaH + tu sandhi-joined into pUrvastu) -- confirms pUrva.",
+    "vedavishtaram_sutra_text": "ह्रस्वपूर्वस्तु सो‌कारम्",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.28",
+@@ -3014,7 +3014,7 @@
+    "crosscheck": "VedaVishtaram (vedavishtaram.in), 11 Sep 2026 -- unambiguous same-index substring match; NOT individually hand-verified for sutra-boundary drift (see module docstring sec.3).",
+    "vedavishtaram_sutra_text": "पूर्वौ चोपोत्तमात्स्वरौ",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.29",
+@@ -3037,7 +3037,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "त उद्ग्राहाः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.30",
+@@ -3060,7 +3060,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "दीर्घपरा उद्ग्राहपदवृत्तयः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.31",
+@@ -3083,7 +3083,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "ओष्ठ्ययोन्यो.र्भुग्नमनोष्ठ्ये वकारो‌त्रा‌न्तरागमः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.32",
+@@ -3106,17 +3106,17 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "ऋकार उदये कण्ठ्यावकारं तदुद्ग्राहवत्",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.33",
+    "patala": 2,
+    "patala_name": "Samhita",
+    "sutra": 33,
+-   "text_devanagari": "",
+-   "text_iast": "",
++   "text_devanagari": "उद्ग्राहाणाम् पूर्वरूपाणि अकारे प्रकृत्या द्वे ओ भवति एकम् आद्यम्, प्राच्यपञ्चालपदवृत्तयः ताः पञ्चालानाम् ओष्ठ्यपूर्वाः भवन्ति।",
++   "text_iast": "udgrāhāṇām pūrvarūpāṇi akāre prakṛtyā dve o bhavati ekam ādyam, prācyapañcālapadavṛttayaḥ tāḥ pañcālānām oṣṭhyapūrvāḥ bhavanti|",
+    "text_slp1": "udgrAhARAm p[?]rvar[?]pARi akAre prakftyA dve o Bavati ekam Adyam [,] prAcyapaYcAlapadavfttayaH tAH paYcAlAnAm ozWyap[?]rvAH Bavanti .",
+-   "has_uncertain_reading": true,
++   "has_uncertain_reading": false,
+    "apparatus": {
+     "cross_ref": "",
+     "allusions_in": "[?]Pr.",
+@@ -3126,10 +3126,10 @@
+    },
+    "has_cross_reference_content": false,
+    "domain": "",
+-   "crosscheck": "",
++   "crosscheck": "VedaVishtaram (vedavishtaram.in), 11 Sep 2026 -- Third [?] ('ozWyap[?]rvAH'): direct match, VedaVishtaram 2.33 = '...paYcAlAnAm ozWyapUrvA Bavanti'. First two [?] ('p[?]rvar[?]pARi', in the sutra's opening clause -- not present in VedaVishtaram's own numbered div, tail-only source): resolved as 'pUrvarUpa' (retention-of-the-former-sound), a standard, independently well-attested Sanskrit phonetics technical term (a recognized sandhi-outcome category alongside guna/vrddhi/pararUpa) -- not sourced from VedaVishtaram for these two, unlike the third.",
+    "vedavishtaram_sutra_text": "प्राच्यपञ्चालपदवृत्तयस्ताः पञ्चलाना.मोष्ठ्यपूर्वा भवन्ति",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.34",
+@@ -3152,7 +3152,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "एकीभवति पादादि-रकारस्ते‌त्र सन्धिजाः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.35",
+@@ -3175,17 +3175,17 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "यकाराद्यक्षरं परं वकाराद्यपि वा भवेत्",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.36",
+    "patala": 2,
+    "patala_name": "Samhita",
+    "sutra": 36,
+-   "text_devanagari": "",
+-   "text_iast": "",
++   "text_devanagari": "अन्यादि अपि तथा युक्तम् आवोऽन्तोपहितात् सतः।",
++   "text_iast": "anyādi api tathā yuktam āvo'ntopahitāt sataḥ|",
+    "text_slp1": "anyAdi api taTA yuktam Avo[?]ntopahitAt sataH .",
+-   "has_uncertain_reading": true,
++   "has_uncertain_reading": false,
+    "apparatus": {
+     "cross_ref": "",
+     "allusions_in": "[?]Pr.",
+@@ -3195,10 +3195,10 @@
+    },
+    "has_cross_reference_content": false,
+    "domain": "",
+-   "crosscheck": "",
++   "crosscheck": "VedaVishtaram (vedavishtaram.in), 11 Sep 2026 -- NOT a missing letter, resolved as an avagraha: VedaVishtaram's own page renders this exact position as a literal ZERO WIDTH NON-JOINER (U+200C) character, not text -- the same site-side corruption-of-an-avagraha artifact independently confirmed at the corresponding position in VedaVishtaram's own 2.24 ('viSarjanIyaH'+'ariPitaH' -> 'viSarjanIyo'riPitaH', an ordinary a-class-visarga-before-a elision). Read the same way here ('...Avo'+'antopahitAt' -> 'Avo'ntopahitAt', the identical rule), which is also grammatically sensible on its own terms, not merely inferred from the artifact.",
+    "vedavishtaram_sutra_text": "अन्याद्यपि तथायुक्त-मावो‌न्तोपहितात् सतः",
+    "vedavishtaram_bhashya": "",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.37",
+@@ -3221,7 +3221,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "अये‌यो‌वे‌व इत्यन्तै-रकारः.स्सर्वथा भवन्",
+    "vedavishtaram_bhashya": "उवट-भाष्यम् अये अयः अवे अवः, (इत्यन्तैः) एवमन्तैः पदैः, उपहितः अकारः, सर्वथा – सर्वप्रकारो‌पि, भवन् अभिनिधीयते। सर्वथाग्रहणं गुरुलघ्वर्थम्। अये – अजीत́ये‌हतये पवस्व (ऋसं 9.96.4)। अयः – ता अ́ञ्जयो‌रु́णयो́ न सस्रुः (ऋसं 10.95.6)। अवे– यु́वं श्वे́तं पे́दवे‌श्वि́ना‌श्वम् (ऋसं 10.39.10)। अवः– पुरूर́वो‌नु ते́ केतमायम् (ऋसं 10.95.5)।",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.38",
+@@ -3244,7 +3244,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "व इत्येतेन चा न प्र क्व चित्रः सवितैव कः। पदैरुपहितेनैतैः",
+    "vedavishtaram_bhashya": "उवट-भाष्यम् आ, न, प्र, क्व, चित्रः, सविता, एव, कः – एतैः पदैरुपहितेन, वः इत्येतेन पदेन उपहितो‌कारः अभिनिधीयते। आ – आ वो́‌हं समितिं ददे (ऋसं 10.166.4)। न – न वो‌श्वाः* श्रथय́न्ताह́ सिस्रतः (ऋसं 5.54.10)। प्र – प्र वो‌च्छा रिरिचे देव́युष्प́दम् (ऋसं 10.32.5)। क्व – क्व1(अ́) वो‌श्वा́ क्वा1(अ́)‌भीशवः (ऋसं 5.61.2)। चित्रः – चि́त्रो वो‌स्तु́ यामः (ऋसं 1.172.1)। सविता– तत्सवि́ता वो‌मृत́त्वमा‌सुवत् (ऋसं 1.110.3)। एव – अत्रै́व वो‌पि नह्यामि (ऋसं 10.166.3)। कः -  को वो́‌न्तर्मरुत ऋष्टिविद्युतः (ऋसं 1.168.5)। एतैः पदैः इति किम् ? अच्छा वो अ́ग्निमवसे*। (ऋसं 5.25.1)",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.39",
+@@ -3267,7 +3267,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "सर्वैरेवोदयाः परे",
+    "vedavishtaram_bhashya": "उवट-भाष्यम् सर्वैरेव- प्राकृतवैकृतैः एकार-ओकारैः, (उदयाः) उपहिताः सन्तः, परे पदादिभूता अभिनिधीयते। न ज्ञायते कतमे त इत्यत आह –",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.40",
+@@ -3287,10 +3287,10 @@
+    },
+    "has_cross_reference_content": false,
+    "domain": "",
+-   "crosscheck": "",
++   "crosscheck": "VedaVishtaram (vedavishtaram.in) checked, 11 Sep 2026 -- 'ayo[?]pAzwiH' sits in a portion of this long citation-heavy sutra that VedaVishtaram's own numbered div does not cover at all (VedaVishtaram 2.40 is a much shorter tail excerpt starting later, at 'amum uktam...'). No independent confirmation found; left unresolved rather than guessed.",
+    "vedavishtaram_sutra_text": "अमुमुक्तममतये‌नशामहा अव त्वचो‌वीरते‌वांस्यवो‌रथाः",
+    "vedavishtaram_bhashya": "उवट-भाष्यम् अदात्, अवर्त्रः, अजनयन्त, अव्यत्यै, अभेत्, अयो‌पाष्टिः, अवन्तु, अवीरता, अमुमुक्तम्, अमतये, अनशामहे, अव त्वचः, अवीरते, अवांसि, अवः, अरथाः। (एतेषु अकारः अभिनिधीयते लुप्यते)",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.41",
+@@ -3313,7 +3313,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "उत्सादत ऋतावः सगर्भ्यो  हिरण्यशृङ्ग इति चोपधाभिः",
+    "vedavishtaram_bhashya": "उवट-भाष्यम् वासोवायः, अभुभुवे, कवष्यः, संक्रन्दनः, धीजवनः, स्वधावः, उत्सादतः, ऋतावः, सगर्भ्यः, हिरण्यशृङ्गः इति एवंरूपाभिः चोपधाभिः उपहितो‌कारो‌भिनिधीयते।",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.42",
+@@ -3336,7 +3336,7 @@
+    "crosscheck": "",
+    "vedavishtaram_sutra_text": "जायमानो‌भवो‌ग्ने‌यं नृतो‌पों‌हो‌तिपिप्रति",
+    "vedavishtaram_bhashya": "उवट-भाष्यम् ये‌राः, रायो‌ध, मे‌धायि, नो‌हिः, अग्ने‌भिदासति, जायमानो‌भवः, अग्ने",
+-   "vedavishtaram_index_verified": false
++   "vedavishtaram_index_verified": true
+   },
+   {
+    "id": "2.43",
+diff --git a/tests/test_rv_pratishakhya_import.py b/tests/test_rv_pratishakhya_import.py
+index 65e5351ea..35109cdce 100644
+--- a/tests/test_rv_pratishakhya_import.py
++++ b/tests/test_rv_pratishakhya_import.py
+@@ -102,6 +102,49 @@ class RigvedaPratishakhyaData(unittest.TestCase):
+             if item["patala"] in (10, 11) and item["has_uncertain_reading"]:
+                 self.assertTrue(item["crosscheck"], item["id"])
+ 
++    def test_hand_verified_uncertain_resolutions_cover_patala_2_up_to_42(self):
++        # 11 Sep 2026: patala 2 sutras 1-42 were hand cross-checked against
++        # VedaVishtaram the same way patala 10-11 were (see
++        # crosscheck_vedavishtaram.py's P2_RESOLUTIONS and
++        # dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md sec.6.10). Every
++        # has_uncertain_reading sutra in that range must have gone through
++        # that table, not be silently untouched.
++        for item in self.data["items"]:
++            if item["patala"] == 2 and item["sutra"] <= 42 and item["has_uncertain_reading"]:
++                self.assertTrue(item["crosscheck"], item["id"])
++
++    def test_patala_2_up_to_42_marked_index_verified(self):
++        # VedaVishtaram's own patala-2 page content stops at sutra 42 --
++        # confirmed directly, not assumed -- so only 1-42 can honestly be
++        # marked as having their VedaVishtaram correspondence checked by
++        # hand; 43-82 have no VedaVishtaram counterpart at all.
++        for item in self.data["items"]:
++            if item["patala"] == 2 and item.get("vedavishtaram_sutra_text"):
++                with self.subTest(sutra=item["id"]):
++                    self.assertEqual(item["vedavishtaram_index_verified"], item["sutra"] <= 42)
++        for n in range(43, 83):
++            with self.subTest(sutra=f"2.{n}"):
++                self.assertNotIn("vedavishtaram_sutra_text", self.by_id[f"2.{n}"])
++
++    def test_2_36_resolved_as_avagraha_not_missing_letter(self):
++        # A real, distinct kind of resolution found 11 Sep 2026: VedaVishtaram's
++        # own page renders an avagraha as a literal ZERO WIDTH NON-JOINER
++        # character at this position (a site-side rendering artifact, not
++        # a missing letter) -- confirmed against the same artifact at the
++        # corresponding position in VedaVishtaram's own 2.24.
++        self.assertEqual(self.by_id["2.36"]["text_devanagari"], "अन्यादि अपि तथा युक्तम् आवोऽन्तोपहितात् सतः।")
++
++    def test_2_40_left_genuinely_unresolved(self):
++        # VedaVishtaram's own numbered div for 2.40 is a much shorter tail
++        # excerpt that doesn't reach the position of this sutra's
++        # uncertain character -- no independent confirmation exists, so
++        # this must stay unresolved rather than guessed.
++        item = self.by_id["2.40"]
++        self.assertTrue(item["has_uncertain_reading"])
++        self.assertEqual(item["text_devanagari"], "")
++        self.assertIn("[?]", item["text_slp1"])
++        self.assertTrue(item["crosscheck"])
++
+     def test_vedic_retroflex_la_transliterated_correctly(self):
+         # Sanskrit Library's SLP1 uses "x" for the Vedic retroflex la
+         # (Xa), not standard SLP1's vocalic X -- see
+diff --git a/tools/pratishakhya/crosscheck_vedavishtaram.py b/tools/pratishakhya/crosscheck_vedavishtaram.py
+index fa13b09cb..a4ab093d6 100644
+--- a/tools/pratishakhya/crosscheck_vedavishtaram.py
++++ b/tools/pratishakhya/crosscheck_vedavishtaram.py
+@@ -108,6 +108,31 @@ P10_11_RESOLUTIONS = {
+     "11.66": (["U"], "Not in VedaVishtaram's numbered div (tail-only). Resolved by the 'pUrva' pattern."),
+ }
+ 
++# Hand-verified for patala 2 (Samhita/sandhi definitions), sutras 1-42 only
++# (11 Sep 2026) -- see dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md sec.6.10 for
++# the full cross-check. VedaVishtaram's OWN "patala 2" page content stops at
++# sutra 42 (confirmed: (2,43) has no entry at all, and VedaVishtaram's
++# "patala 3" is a DIFFERENT topic -- accent -- not a continuation of Layer
++# A's patala-2 sutras 43-82, which remain entirely unchecked against this
++# source). Within 1-42, the great majority of what LOOKS like a text
++# divergence between Layer A and VedaVishtaram is NOT an error in either
++# source: Layer A presents each sutra's words UN-SANDHI'd (pada-boundaries
++# kept separate), VedaVishtaram presents the CONTINUOUSLY sandhi-joined
++# recitation form of the identical sutra (e.g. Layer A "ataH anyAH" =
++# VedaVishtaram "atonyAH", the same words with ordinary a-class-visarga
++# sandhi applied) -- a real, useful thing to know before assuming any
++# character-level difference is a content error. A few positions where
++# VedaVishtaram's OWN page independently drops a trailing visarga (2.20,
++# 2.29, 2.30) look like small VedaVishtaram-side scan/rendering slips, not
++# something to import into Layer A.
++P2_RESOLUTIONS = {
++    "2.8":  (["U"], "Not in VedaVishtaram's own numbered div (tail-only match -- VedaVishtaram 2.8 covers only 'te 'nvakSarasandhayo 'nulomAH', the sutra's second clause). Resolved by the 'pUrva' pattern, now independently confirmed 4 times within this same patala via direct VedaVishtaram matches (2.24, 2.27, 2.28, 2.33)."),
++    "2.27": (["U"], "Direct match (sandhi-joined in VedaVishtaram): VedaVishtaram 2.27 = 'hrasvapUrvastu so'kAram' (pUrvaH + tu sandhi-joined into pUrvastu) -- confirms pUrva."),
++    "2.33": (["U", "U", "U"], "Third [?] ('ozWyap[?]rvAH'): direct match, VedaVishtaram 2.33 = '...paYcAlAnAm ozWyapUrvA Bavanti'. First two [?] ('p[?]rvar[?]pARi', in the sutra's opening clause -- not present in VedaVishtaram's own numbered div, tail-only source): resolved as 'pUrvarUpa' (retention-of-the-former-sound), a standard, independently well-attested Sanskrit phonetics technical term (a recognized sandhi-outcome category alongside guna/vrddhi/pararUpa) -- not sourced from VedaVishtaram for these two, unlike the third."),
++    "2.36": (["'"], "NOT a missing letter, resolved as an avagraha: VedaVishtaram's own page renders this exact position as a literal ZERO WIDTH NON-JOINER (U+200C) character, not text -- the same site-side corruption-of-an-avagraha artifact independently confirmed at the corresponding position in VedaVishtaram's own 2.24 ('viSarjanIyaH'+'ariPitaH' -> 'viSarjanIyo'riPitaH', an ordinary a-class-visarga-before-a elision). Read the same way here ('...Avo'+'antopahitAt' -> 'Avo'ntopahitAt', the identical rule), which is also grammatically sensible on its own terms, not merely inferred from the artifact."),
++    "2.40": (["SKIP"], "'ayo[?]pAzwiH' sits in a portion of this long citation-heavy sutra that VedaVishtaram's own numbered div does not cover at all (VedaVishtaram 2.40 is a much shorter tail excerpt starting later, at 'amum uktam...'). No independent confirmation found; left unresolved rather than guessed."),
++}
++
+ 
+ def fetch_vv_html():
+     resp = requests.get(VV_URL, timeout=60)
+@@ -214,13 +239,20 @@ def main():
+         data = json.load(f)
+ 
+     n_resolved_1011 = n_skipped_1011 = n_algo_resolved = n_attached = 0
++    n_resolved_p2 = n_skipped_p2 = 0
+     for item in data["items"]:
+         key = (item["patala"], item["sutra"])
+         vv_text = vv_deva.get(key)
+         if vv_text is not None:
+             item["vedavishtaram_sutra_text"] = vv_text
+             item["vedavishtaram_bhashya"] = vv_bhashya.get(key, "")
+-            item["vedavishtaram_index_verified"] = item["patala"] in (10, 11)
++            # patala 2 sutras 1-42: hand cross-checked 11 Sep 2026, sec.6.10 --
++            # VedaVishtaram's own patala-2 page content stops at 42, so 43+
++            # has no VV counterpart at all and stays unverified regardless.
++            item["vedavishtaram_index_verified"] = (
++                item["patala"] in (10, 11)
++                or (item["patala"] == 2 and item["sutra"] <= 42)
++            )
+             n_attached += 1
+ 
+         if not item["has_uncertain_reading"]:
+@@ -242,6 +274,22 @@ def main():
+                 "VedaVishtaram (vedavishtaram.in), 11 Sep 2026 -- " + note
+             )
+             n_resolved_1011 += 1
++        elif item["id"] in P2_RESOLUTIONS:
++            chars, note = P2_RESOLUTIONS[item["id"]]
++            if "SKIP" in chars:
++                item["crosscheck"] = (
++                    "VedaVishtaram (vedavishtaram.in) checked, 11 Sep 2026 -- " + note
++                )
++                n_skipped_p2 += 1
++                continue
++            deva, iast = apply_resolution(item, chars)
++            item["text_devanagari"] = deva
++            item["text_iast"] = iast
++            item["has_uncertain_reading"] = False
++            item["crosscheck"] = (
++                "VedaVishtaram (vedavishtaram.in), 11 Sep 2026 -- " + note
++            )
++            n_resolved_p2 += 1
+         elif item["patala"] not in (10, 11) and vv_text is not None:
+             resolved = algorithmic_resolve(item["text_slp1"], vv_slp1[key])
+             if resolved:
+@@ -259,19 +307,24 @@ def main():
+     still_uncertain = sum(1 for it in data["items"] if it["has_uncertain_reading"])
+     print(f"patala 10-11: {n_resolved_1011} resolved by hand-verified table, "
+           f"{n_skipped_1011} deliberately left unresolved", file=sys.stderr)
++    print(f"patala 2 (sutras 1-42): {n_resolved_p2} resolved by hand-verified table, "
++          f"{n_skipped_p2} deliberately left unresolved", file=sys.stderr)
+     print(f"other patalas: {n_algo_resolved} resolved by unambiguous same-index match", file=sys.stderr)
+     print(f"{n_attached} items got VedaVishtaram text/bhashya attached", file=sys.stderr)
+     print(f"{still_uncertain} sutras remain has_uncertain_reading=true", file=sys.stderr)
+ 
+-    data["note"] += (
++    CROSSCHECK_NOTE_MARKER = " Cross-checked against VedaVishtaram"
++    base_note = data["note"].split(CROSSCHECK_NOTE_MARKER)[0].rstrip()
++    data["note"] = base_note + (
+         " Cross-checked against VedaVishtaram (Layer B, vedavishtaram.in/lakshanam/rp.html "
+         "-- Saunaka's text with Uvata's Bhasya and Vishnumitra's Vrtti) on 11 Sep 2026 via "
+         "tools/pratishakhya/crosscheck_vedavishtaram.py; see that script's docstring for "
+         "what was and wasn't verified. vedavishtaram_sutra_text/vedavishtaram_bhashya are "
+         "attached wherever a same-index VedaVishtaram entry exists; "
+-        "vedavishtaram_index_verified is only true for patalas 10-11, where that "
+-        "correspondence was checked by hand against actual content, not assumed from "
+-        "matching indices."
++        "vedavishtaram_index_verified is true for patalas 10-11 and for patala 2's sutras "
++        "1-42 (VedaVishtaram's own patala-2 page content stops at 42; sutras 43-82 have no "
++        "VedaVishtaram counterpart at all and stay unverified), where correspondence was "
++        "checked by hand against actual content, not assumed from matching indices."
+     )
+ 
+     with open(DATA_PATH, "w", encoding="utf-8") as f:
+-- 
+2.43.0
+

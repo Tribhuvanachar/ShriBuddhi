@@ -1,0 +1,409 @@
+From 6bda18376463f0a08d40c0a5c2738cc00806c1db Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Thu, 10 Sep 2026 17:07:11 +0000
+Subject: [PATCH 01/25] =?UTF-8?q?Add=20corrected=20spec=20for=20the=20RV?=
+ =?UTF-8?q?=20=C5=9A=C4=81kala=20Krama-p=C4=81=E1=B9=ADha=20generator?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Reviews a first-draft Gemini prompt against the actual Ṛgveda-Prātiśākhya
+structure and replaces it with a rule-driven architecture: the Kramahetu-
+Paṭala (ch. 11) as a first-class phase alongside Krama-Paṭala (ch. 10),
+predicate-based Pragṛhya/Rephi/Parigraha instead of static word lists or a
+universal iti formula, a script-independent accent model with room for
+dīrgha-svarita/pracaya/kampa, mandatory sūtra-citing provenance, and a
+required GENERATE/VALIDATE mode pair. Logs the two blocking prerequisites
+(no Pada-pāṭha dataset yet; Prātiśākhya sūtra text still an empty stub) in
+PENDING.md so implementation doesn't start before they're resolved.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GB2qZqW1sQcLi536ZSxGV6
+---
+ dge/PENDING.md                            |  23 ++
+ dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md | 339 ++++++++++++++++++++++
+ 2 files changed, 362 insertions(+)
+ create mode 100644 dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+
+diff --git a/dge/PENDING.md b/dge/PENDING.md
+index 9029cd63d..170f5e0f3 100644
+--- a/dge/PENDING.md
++++ b/dge/PENDING.md
+@@ -17,6 +17,29 @@ complete record, not just a live queue.
+ 
+ ## Future feature ideas — designed but not yet greenlit
+ 
++- **Rigveda Śākala Krama-pāṭha generator — spec corrected, blocked on data (10 Sep 2026).**
++  A first-draft prompt (from Gemini) for generating Krama-pāṭha from Pada-pāṭha was reviewed
++  against the actual structure of Śaunaka's Ṛgveda-Prātiśākhya and found to skip most of the
++  tradition-specific machinery (treated Krama as naive adjacent-word pairing, hard-coded
++  Parigraha as a universal `word + iti` formula, would have used generic Pāṇinian sandhi as
++  authoritative, flattened the accent system to udātta/anudātta/svarita, mixed colour and
++  audio-timestamp concerns into the generator itself). The corrected specification —
++  authoritative rule hierarchy, the Krama-Paṭala (ch. 10, 22 sūtras) + Kramahetu-Paṭala
++  (ch. 11, 71 sūtras, incl. the explicit Śākala catuḥkrama practice) as first-class phases,
++  a rule-driven predicate model instead of static word lists, a script-independent accent
++  enum with room for dīrgha-svarita/pracaya/kampa, mandatory per-unit provenance citing
++  sūtra numbers, and a required GENERATE-vs-VALIDATE mode pair — is written up in full at
++  `dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md`. **Blocked on two prerequisites, not yet
++  done:** (1) a Rigveda Śākala Pada-pāṭha dataset (doesn't exist — `shakala_shakha/` has
++  `samhita/` only); (2) the Ṛgveda-Prātiśākhya's own sūtra text, at minimum the Krama-Paṭala
++  and Kramahetu-Paṭala (`vedanga/shiksha/pratishakhya/rigveda_pratishakhya/data.json` and
++  `shaunakiya_chaturadhyayika/data.json` are both empty stubs; the digitization source is
++  already logged above under "Śikṣā + Prātiśākhya" — `archive.org/details/pratisakhyarigv00sarmgoog`,
++  Śaunaka's text w/ Uvaṭa's commentary, public domain — OCR of it needs a Gemini cost
++  estimate + the lead's go-ahead per the standing rule before it's run). No code or corpus
++  data written yet; do not start implementation before both prerequisites and the open
++  questions in that document's §10 are resolved.
++
+ - **Raghavendra Vijaya: English translation OCR-linked + Gemini
+   padaccheda/anvaya/summary pipeline — IMPLEMENTED (2026-08-21).** First
+   real, non-proof-of-concept run of the "AI automation" this project's lead
+diff --git a/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md b/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+new file mode 100644
+index 000000000..75ef8fec0
+--- /dev/null
++++ b/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+@@ -0,0 +1,339 @@
++# Ṛgveda-Prātiśākhya Krama-pāṭha generator — corrected specification
++
++_Written 10 Sep 2026, ~10:40 pm IST. Status: **specification only — no data digitized, no
++code written yet.** This document exists because a first-draft Gemini prompt for "generate
++Krama-pāṭha from Pada-pāṭha" was reviewed against the actual structure of Śaunaka's
++Ṛgveda-Prātiśākhya and found to skip most of the tradition-specific machinery. This is the
++corrected spec a future session should build against — not the naive prompt._
++
++---
++
++## 0. What this replaces, and why
++
++The rejected approach treated Krama generation as: take adjacent Pada words, apply a short
++exception list, run generic Sanskrit sandhi, propagate a hard-coded accent-combination
++matrix, emit `iti`-based Parigraha universally, and mix in audio timestamps and colour
++markup at generation time. Each of those is a real simplification of a tradition
++(Śākala Krama-pāṭha per Śaunaka's Prātiśākhya) that has its own dedicated chapters for
++exactly these questions, plus a whole second chapter (Kramahetu) explaining *why* the
++exceptions exist. Treating Pāṇinian/Classical Sanskrit sandhi as authoritative, or Parigraha
++as `word + iti + iti + word`, will produce fluent-looking Sanskrit that is not the attested
++Śākala Krama text. Section 2 below is the corrected rule hierarchy; section 9 has the full
++list of what the naive version got wrong, kept for traceability back to the review that
++produced this document.
++
++---
++
++## 1. Scope
++
++This generator is specifically for the **Rigveda Śākala tradition** as carried by DGE's own
++Saṃhitā data (`dge/data/vedas/rigveda/shakala_shakha/samhita/`). It is not a general Vedic
++sandhi/accent engine, and it must not silently fall back to one.
++
++---
++
++## 2. Authoritative rule hierarchy
++
++In order, highest first. A lower source may only be consulted where a higher one is silent:
++
++1. DGE's own Rigveda Śākala Saṃhitā dataset (exists: `mandala_01`–`mandala_10`).
++2. DGE's own Rigveda Śākala Pada-pāṭha dataset (**does not exist yet** — see §4).
++3. Śaunaka's Ṛgveda-Prātiśākhya, **Krama-Paṭala** (traditionally numbered Chapter 10, 22
++   sūtras).
++4. The same work's **Kramahetu-Paṭala** (Chapter 11, 71 sūtras) — the rationale-and-exception
++   chapter; it is not optional colour, it carries load-bearing rules including the explicit
++   Śākala catuḥkrama (four-fold Krama) practice.
++5. The same work's Saṃhitā-Paṭala (ch. 2), Svara-Paṭala (ch. 3) and Sandhi-Paṭala (ch. 4),
++   and the Nati/Dhvanyāgama/Pluti chapters (ch. 5–9) where a Krama/Kramahetu rule invokes
++   them.
++6. General Pāṇinian/Classical Sanskrit phonology — **only** where none of the above governs.
++
++A generic Sanskrit sandhi library (if used at all) is a helper suggestion, never the final
++answer: its output must pass through the Prātiśākhya-rule layer, which can override it.
++Every non-trivial transformation the generator makes must be able to cite the sūtra(s) that
++justify it (see §6.3, `provenance`).
++
++### 2.1 Chapter map of the Ṛgveda-Prātiśākhya
++
++Confirmed from two independent secondary sources (`vedavishtaram.in/lakshanam/rp.html` and
++`sites.google.com/view/rv-pratishakhya`, both consulted 10 Sep 2026) — **not yet cross-checked
++against the primary scan**, see §4:
++
++| # | Paṭala | Topic | Sūtras |
++|---|---|---|---|
++| 1 | Saṃjñā-Paribhāṣā | definitions, conventions | 102 |
++| 2 | Saṃhitā | continuous-recitation / vowel sandhi | 41 |
++| 3 | Svara | accent | 26 |
++| 4 | Sandhi | consonant sandhi | 94 |
++| 5 | Nati | dental→cerebral etc. | 59 |
++| 6 | Dhvanyāgama | inserted sounds | 56 |
++| 7–9 | Pluti (I–III) | vowel protraction | 55 + 47 + 49 |
++| **10** | **Krama** | **sequential (Krama) recitation method** | **22** |
++| **11** | **Kramahetu** | **rationale + exceptions for Krama, incl. Śākala catuḥkrama** | **71** |
++| 12 | Sīmā | boundary rules | 25 |
++| 13 | Śikṣā | articulation | 48 |
++| 14 | Ucchāraṇa-Doṣa | pronunciation errors | 68 |
++| 15 | Oṃkāra | Om chanting | 33 |
++| 16–18 | Chandaḥ (I–III) | metre | 88 + 48 + 58 |
++
++Treat this table as **provisional** until the primary source is digitized (§4) — sūtra
++counts and any specific sūtra text quoted anywhere in project notes must be verified against
++it before being encoded as a rule, not taken on the secondary sites' word alone.
++
++---
++
++## 3. What "Krama is not simple adjacent pairing" means concretely
++
++`W1 W2 | W2 W3 | W3 W4 …` is the structural skeleton only. A production generator needs,
++at minimum, rule coverage for:
++
++- Śākala-specific catuḥkrama behaviour (ch. 11).
++- Avasāna/avasyā and ardharca-boundary handling — sandhi must **not** cross an ardharca
++  boundary; this is a prohibition, not an omission to patch later.
++- Parigraha — a multi-part rule set (bahumadhyagata, ardharcāntya, iti/setikaraṇa, compound
++  puna-vacana, Pragṛhya-in-Parigraha, Śuddhākṣara-āgama, Rephita/ūṣman exceptions), not a
++  single `word + iti` formula.
++- Pluta exceptions.
++- Nati and Dhvanyāgama transformations where a Krama-Paṭala or Kramahetu-Paṭala rule invokes
++  them.
++
++Do not implement Parigraha, Pragṛhya, or Rephi handling as a single universal formula or a
++flat word list stands in for the phenomenon. A dictionary may **cache** known cases; it must
++not **define** them.
++
++---
++
++## 4. Prerequisite data gap — checked against the repo, 10 Sep 2026
++
++This generator cannot be built yet. Two prerequisites are missing:
++
++| Needed | Current state |
++|---|---|
++| Rigveda Śākala **Pada-pāṭha** dataset | Does not exist. `dge/data/vedas/rigveda/shakala_shakha/` has `samhita/` only (mandala_01–10); no `pada/` sibling. |
++| Ṛgveda-Prātiśākhya **sūtra text** (Krama-Paṭala + Kramahetu-Paṭala at minimum) | `dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/data.json` and the sibling `shaunakiya_chaturadhyayika/data.json` are both empty stubs (`"items": []`) — category placeholders only, no sūtra text digitized. |
++| Digitization source | Already identified and logged, not yet fetched/OCR'd: `archive.org/details/pratisakhyarigv00sarmgoog` — Ṛgveda-Prātiśākhya of Śaunaka with Uvaṭa's commentary (Benares, 1894), searchable PDF, public domain ("not in copyright"). See `dge/PENDING.md` §"Śikṣā + Prātiśākhya" (line ~378) for the full source table, including that GRETIL has nothing in this area. |
++
++**Sequencing implication:** the Pada-pāṭha dataset and the digitized Krama-Paṭala +
++Kramahetu-Paṭala sūtra text (at minimum) are both blocking prerequisites for any code in
++this spec. Building the rule engine against paraphrases or a secondary site's summary risks
++baking in exactly the kind of un-sourced simplification this document exists to avoid.
++
++**Gemini-cost note (CLAUDE.md standing rule):** OCR/extraction of the 1894 archive.org scan
++into structured sūtra text is a Gemini-calling task. Before running it, give the project
++lead a cost estimate (page count × chars/page → tokens, ₹ at current Flash-class pricing)
++and wait for go-ahead, exactly as for any other OCR staging job in this repo — do not run it
++speculatively while drafting this spec.
++
++---
++
++## 5. Corrected pipeline
++
++```
++DGE Pada-pāṭha (once it exists)
++        │
++        ▼
++┌─────────────────────┐
++│ STRUCTURAL LAYER     │  ardharca + pada boundaries, word indices
++└──────────┬───────────┘
++           ▼
++┌─────────────────────┐
++│ KRAMA RULE ENGINE     │  RV-Prātiśākhya ch.10 (Krama) + ch.11 (Kramahetu)
++└──────────┬───────────┘
++           │
++    ┌──────┴───────┐
++    ▼              ▼
++ordinary pair   special case (catuḥkrama, parigraha, pragṛhya-in-parigraha, …)
++    │              │
++    └──────┬───────┘
++           ▼
++┌─────────────────────┐
++│ RV PHONOLOGY LAYER    │  Sandhi (ch.4) · Nati (ch.5) · Dhvanyāgama (ch.6) ·
++│                       │  Rephita · Pragṛhya · Pluti (ch.7–9)
++│                       │  — a generic sandhi library, if used, is a helper here,
++│                       │    subordinate to this layer, never authoritative (§2)
++└──────────┬───────────┘
++           ▼
++┌─────────────────────┐
++│ SVARA ENGINE          │  source svara (from Saṃhitā) + derived svara
++│                       │  (ch.3 Svara-Paṭala rules) — pracaya, kampa, svarita
++│                       │  propagation. Treat any accent-combination matrix as a
++│                       │  hypothesis to validate, never as ground truth (§6.2).
++└──────────┬───────────┘
++           ▼
++┌─────────────────────┐
++│ VALIDATOR             │  generated vs. an independently attested Krama text
++│                       │  (§7) — required before trusting output on new sūktas
++└──────────┬───────────┘
++           ▼
++┌─────────────────────┐
++│ RENDERER              │  IAST / Devanagari, colour-by-svara, audio alignment —
++│                       │  all downstream presentation, none of it inside the
++│                       │  generator itself (§6.4)
++└─────────────────────┘
++```
++
++---
++
++## 6. Data model
++
++### 6.1 Rule-driven predicates, not static lists
++
++Encode context-sensitive phenomena as predicates over `(word, context)`, backed by named,
++citable rules — a static dictionary may accelerate a predicate but must never stand in for
++it:
++
++```
++isPragrhya(word, context)
++isRephi(word, context)
++isPluta(word, context)
++requiresParigraha(word, context)
++requiresCaturkrama(context)
++requiresNati(word, context)
++requiresDhvanyagama(word, context)
++```
++
++Where a dictionary is used as a cache, structure it by the kind of evidence backing each
++entry rather than as one flat list, e.g. for Pragṛhya:
++
++```json
++{
++  "pragrhya": {
++    "lexical": [],
++    "morphological": [],
++    "phonological": [],
++    "contextual": [],
++    "shakala_specific": []
++  }
++}
++```
++
++### 6.2 Internal accent model — script-independent
++
++Never use a Unicode glyph (Devanagari combining marks, IAST diacritics, or the wrong-block
++`॑`/`॒` accent characters) as the semantic representation of svara. Represent
++accent as a closed, named enum internal to the data model:
++
++```
++udatta | anudatta | svarita | dirgha_svarita | pracaya | kampa
++```
++
++(plus any further state the Śākala tradition is found to require once ch. 3 is digitized —
++do not assume the list above is complete). Devanagari, IAST, and any pedagogical romanization
++are rendering targets computed from this enum at the presentation layer only (§6.4), not
++alternate sources of truth. Note for rendering once it is built: Unicode's Vedic Extensions
++block (e.g. `U+1CDA VEDIC TONE DOUBLE SVARITA`) is the correct target for dīrgha-svarita in
++Devanagari output — do not conflate it with the old two-character Devanagari tone marks.
++
++Each generated token should retain, at minimum:
++
++```
++lexicalText, padaText, samhitaText, syllables[], svara[],
++sourceSvara[], generatedSvara[], transformationHistory[]
++```
++
++### 6.3 Provenance on every generated unit
++
++```json
++{
++  "source": {
++    "samhita": "DGE-RV-SHAKALA",
++    "pada": "DGE-RV-PADA",
++    "pratishakhya": "Shaunaka",
++    "tradition": "Shakala"
++  },
++  "generated": true,
++  "generatorVersion": "krama-0.1.0",
++  "rules": ["RVPr_10.1", "RVPr_11.4"]
++}
++```
++
++`rules` cites Paṭala.sūtra identifiers so a "why was this generated this way" question has a
++traceable answer once the sūtra text is digitized (§4) — do not invent sūtra numbers before
++that; leave `rules` empty rather than guess.
++
++### 6.4 Strictly out of the generator
++
++- **Colour** is a renderer concern: the generator emits `{"svara": "anudatta"}`; a
++  `[data-svara="anudatta"]` CSS rule (or equivalent) does the rest. This lets the colour
++  scheme change without touching corpus data, and lets DGE offer normal / svara-marked /
++  colour-coded / traditional-notation as display modes on one dataset.
++- **Audio timestamps** are a separate alignment system's job, added after the fact against
++  `{"pairIndex", "wordIndices", "text", "syllables"}` — not `data-start`/`data-end` baked in
++  at generation time. Mixing text generation + phonology + svara + audio alignment + UI into
++  one function is exactly the kind of premature coupling to avoid.
++
++---
++
++## 7. Two modes
++
++**GENERATE** — Pada-pāṭha → Krama-pāṭha, per §5.
++
++**VALIDATE** — authoritative (independently attested) Krama text → run the same input through
++GENERATE → diff. On mismatch, report the pair index, expected vs. generated text, a
++best-effort classification of what kind of rule the difference implicates (e.g. "rephi
++handling"), and rule candidates from the digitized Kramahetu-Paṭala once it exists. This mode
++is not optional polish — see §8, it gates every corpus-wide run.
++
++---
++
++## 8. Validation-first development plan
++
++Do not run the generator over the whole Rigveda before this sequence, in order:
++
++1. Digitize the Pada-pāṭha and at minimum the Krama-Paṭala + Kramahetu-Paṭala sūtra text
++   (§4) — with a Gemini cost estimate and go-ahead if OCR is involved.
++2. Implement RV 1.1.1 only.
++3. Generate its Krama-pāṭha; compare against an independently attested Krama text for RV
++   1.1.1 (VALIDATE mode, §7).
++4. Write automated tests (`tests/test_krama_engine.py`, matching this repo's existing
++   `tests/test_*.py` convention) for every Prātiśākhya exception RV 1.1.1 actually exercises,
++   plus deliberately chosen cases for: Pragṛhya, Rephita, Pragṛhya-inside-Parigraha,
++   compound-inside-Parigraha, pluta, svarita, kampa, a hard vowel-sandhi combination,
++   consonant sandhi, an ardharca boundary, and Śākala catuḥkrama.
++5. Only after those pass, extend sūkta by sūkta — not maṇḍala by maṇḍala — re-running
++   VALIDATE at each step where an independently attested Krama text is available.
++
++---
++
++## 9. Corrections this spec makes to the rejected draft (for traceability)
++
++Kept as a short index back to the full review, not restated in full here:
++
++1. Add the Kramahetu-Paṭala (ch. 11) as a first-class phase, not an afterthought.
++2. Replace the universal `word + iti + iti + word` Parigraha formula with a rule-driven
++   subsystem over Krama-Paṭala 10.7–10.22 and the relevant Kramahetu-Paṭala rules.
++3. Demote any generic Pāṇinian/Classical Sanskrit sandhi API to an optional helper,
++   subordinate to the Prātiśākhya-specific rule layer (§2).
++4. Replace the flat Pragṛhya word list with the categorized structure in §6.1.
++5. Replace the static Rephi word list with an `isRephi(word, context)` predicate, list as
++   cache only.
++6. Treat any accent-combination ("Udātta + Anudātta = …") matrix as an unvalidated
++   hypothesis, not ground truth, until checked against attested Śākala forms (§6.2).
++7. Represent an Akṣara as a structured object (text/vowel/onset/coda/svara/…), not a regex
++   match — the regex is a tokenizer only, never the phonological model.
++8. Fix the transliteration/accent-encoding confusion: internal accent state is a
++   script-independent enum (§6.2); rendering to Devanagari/IAST/Vedic-Unicode happens only
++   at the presentation layer.
++9. Add `dirgha_svarita`, `pracaya`, `kampa` (and room for more, pending ch. 3 digitization)
++   to the accent model instead of collapsing to udātta/anudātta/svarita.
++10. Move colour entirely to the renderer (§6.4).
++11. Remove audio-timestamp fields from the generator's output (§6.4).
++12. Require `provenance`/`rules` citations on every generated unit (§6.3).
++13. Require a VALIDATE mode (§7), not GENERATE-only.
++14. Require the Prātiśākhya text itself as the rule source, not paraphrase — which is exactly
++    what §4 blocks on today.
++
++---
++
++## 10. Open questions for the project lead
++
++- Confirm the archive.org scan (`pratisakhyarigv00sarmgoog`) as the digitization source, and
++  approve the Gemini OCR cost estimate when one is produced (per CLAUDE.md).
++- Confirm whether the Rigveda Śākala Pada-pāṭha should be sourced independently (e.g. from an
++  existing digital edition) or derived from the Saṃhitā via a separate, also-validated,
++  Pada-pāṭha generation project — that is out of scope for this document either way.
++- Confirm an independently attested Krama-pāṭha source to use as the VALIDATE-mode ground
++  truth for RV 1.1.1 and subsequent sūktas.
++
++No code or data changes beyond this document are part of this commit; §4 and §10 are the
++gating items before implementation can start.
+-- 
+2.43.0
+

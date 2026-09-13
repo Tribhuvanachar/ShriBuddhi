@@ -1,0 +1,329 @@
+From 85261404645a6c0498639e622b15d4178dc941a3 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Thu, 10 Sep 2026 18:13:36 +0000
+Subject: [PATCH 02/25] =?UTF-8?q?Correct=20Krama=20spec:=20Pada-p=C4=81?=
+ =?UTF-8?q?=E1=B9=ADha=20already=20exists,=20add=203-layer=20Pr=C4=81ti?=
+ =?UTF-8?q?=C5=9B=C4=81khya=20sourcing?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The first version of the spec wrongly claimed the Rigveda Śākala Pada-pāṭha
+didn't exist — it does, as the accented pada_patha field already on all
+10,552 mantras (checked directly, confirmed against dge/veda_toolkit/README.md).
+Also replaces the single unverified archive.org PDF citation for the
+Prātiśākhya sūtra text with a three-layer sourcing plan verified live:
+Sanskrit Library's TEI/XML edition (Scharf 2010, CC BY-NC-SA 3.0) as the
+canonical machine-readable base, VedaViṣṭāram (Uvaṭa Bhāṣya + Viṣṇumitra
+Vṛtti) and the RV-Prātiśākhya project as cross-checks, plus a concrete
+per-paṭala rule-database file layout and schema. Also corrects the earlier
+draft's suggestion to use a Vedic Extensions codepoint for dīrgha-svarita
+without checking it against the font-support trap this repo already hit
+and fixed for svarita/anudātta. PENDING.md updated to match.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GB2qZqW1sQcLi536ZSxGV6
+---
+ dge/PENDING.md                            |  52 ++++---
+ dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md | 169 ++++++++++++++++++----
+ 2 files changed, 168 insertions(+), 53 deletions(-)
+
+diff --git a/dge/PENDING.md b/dge/PENDING.md
+index 170f5e0f3..d98cfb73d 100644
+--- a/dge/PENDING.md
++++ b/dge/PENDING.md
+@@ -17,28 +17,36 @@ complete record, not just a live queue.
+ 
+ ## Future feature ideas — designed but not yet greenlit
+ 
+-- **Rigveda Śākala Krama-pāṭha generator — spec corrected, blocked on data (10 Sep 2026).**
+-  A first-draft prompt (from Gemini) for generating Krama-pāṭha from Pada-pāṭha was reviewed
+-  against the actual structure of Śaunaka's Ṛgveda-Prātiśākhya and found to skip most of the
+-  tradition-specific machinery (treated Krama as naive adjacent-word pairing, hard-coded
+-  Parigraha as a universal `word + iti` formula, would have used generic Pāṇinian sandhi as
+-  authoritative, flattened the accent system to udātta/anudātta/svarita, mixed colour and
+-  audio-timestamp concerns into the generator itself). The corrected specification —
+-  authoritative rule hierarchy, the Krama-Paṭala (ch. 10, 22 sūtras) + Kramahetu-Paṭala
+-  (ch. 11, 71 sūtras, incl. the explicit Śākala catuḥkrama practice) as first-class phases,
+-  a rule-driven predicate model instead of static word lists, a script-independent accent
+-  enum with room for dīrgha-svarita/pracaya/kampa, mandatory per-unit provenance citing
+-  sūtra numbers, and a required GENERATE-vs-VALIDATE mode pair — is written up in full at
+-  `dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md`. **Blocked on two prerequisites, not yet
+-  done:** (1) a Rigveda Śākala Pada-pāṭha dataset (doesn't exist — `shakala_shakha/` has
+-  `samhita/` only); (2) the Ṛgveda-Prātiśākhya's own sūtra text, at minimum the Krama-Paṭala
+-  and Kramahetu-Paṭala (`vedanga/shiksha/pratishakhya/rigveda_pratishakhya/data.json` and
+-  `shaunakiya_chaturadhyayika/data.json` are both empty stubs; the digitization source is
+-  already logged above under "Śikṣā + Prātiśākhya" — `archive.org/details/pratisakhyarigv00sarmgoog`,
+-  Śaunaka's text w/ Uvaṭa's commentary, public domain — OCR of it needs a Gemini cost
+-  estimate + the lead's go-ahead per the standing rule before it's run). No code or corpus
+-  data written yet; do not start implementation before both prerequisites and the open
+-  questions in that document's §10 are resolved.
++- **Rigveda Śākala Krama-pāṭha generator — spec corrected twice, blocked on one prerequisite
++  (10 Sep 2026).** A first-draft prompt (from Gemini) for generating Krama-pāṭha from
++  Pada-pāṭha was reviewed against the actual structure of Śaunaka's Ṛgveda-Prātiśākhya and
++  found to skip most of the tradition-specific machinery (treated Krama as naive
++  adjacent-word pairing, hard-coded Parigraha as a universal `word + iti` formula, would have
++  used generic Pāṇinian sandhi as authoritative, flattened the accent system to
++  udātta/anudātta/svarita, mixed colour and audio-timestamp concerns into the generator
++  itself). The corrected specification — authoritative rule hierarchy, the Krama-Paṭala
++  (ch. 10, 22 sūtras) + Kramahetu-Paṭala (ch. 11, 71 sūtras, incl. the explicit Śākala
++  catuḥkrama practice) as first-class phases, a rule-driven predicate model instead of static
++  word lists, a script-independent accent enum with room for dīrgha-svarita/pracaya/kampa,
++  mandatory per-unit provenance citing sūtra numbers, and a required GENERATE-vs-VALIDATE
++  mode pair — is written up in full at `dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md`. **A
++  second pass corrected the spec's own first-draft error**: it had wrongly claimed the
++  Rigveda Śākala Pada-pāṭha doesn't exist — it does (accented `pada_patha` field on all
++  10,552 mantras already in `samhita/mandala_01..10/data.json`, cross-validated 96.61%
++  against VedaWeb; see `dge/veda_toolkit/README.md`) — and replaced a single unverified
++  archive.org-PDF citation with a three-layer, live-checked Prātiśākhya sourcing plan
++  (Sanskrit Library TEI/XML as the canonical machine-readable base — Peter M. Scharf, 2010,
++  CC BY-NC-SA 3.0 — cross-checked against VedaViṣṭāram's Uvaṭa Bhāṣya/Viṣṇumitra Vṛtti
++  edition and the RV-Prātiśākhya project's independent rendering) plus a concrete per-paṭala
++  rule-database file/schema layout, in the document's §4a. **Genuinely blocked on one
++  remaining prerequisite:** the Ṛgveda-Prātiśākhya's own sūtra text — at minimum the
++  Krama-Paṭala and Kramahetu-Paṭala — is still not digitized
++  (`vedanga/shiksha/pratishakhya/rigveda_pratishakhya/data.json` and
++  `shaunakiya_chaturadhyayika/data.json` are both empty stubs). Ingesting the Sanskrit
++  Library XML is a parsing task, not OCR, so no Gemini cost gate applies to that step itself;
++  one would apply only if a scanned-image fallback is later needed for Layers B/C. No code
++  or corpus data written yet; do not start implementation before that prerequisite and the
++  open questions in the document's §10 are resolved.
+ 
+ - **Raghavendra Vijaya: English translation OCR-linked + Gemini
+   padaccheda/anvaya/summary pipeline — IMPLEMENTED (2026-08-21).** First
+diff --git a/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md b/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+index 75ef8fec0..0cefbdb12 100644
+--- a/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
++++ b/dge/RV_PRATISHAKHYA_KRAMA_ARCHITECTURE.md
+@@ -1,11 +1,20 @@
+ # Ṛgveda-Prātiśākhya Krama-pāṭha generator — corrected specification
+ 
+-_Written 10 Sep 2026, ~10:40 pm IST. Status: **specification only — no data digitized, no
+-code written yet.** This document exists because a first-draft Gemini prompt for "generate
++_Written 10 Sep 2026, ~10:40 pm IST. Status: **specification only — no rule-engine code
++written yet.** This document exists because a first-draft Gemini prompt for "generate
+ Krama-pāṭha from Pada-pāṭha" was reviewed against the actual structure of Śaunaka's
+ Ṛgveda-Prātiśākhya and found to skip most of the tradition-specific machinery. This is the
+ corrected spec a future session should build against — not the naive prompt._
+ 
++> **⚠️ Correction, 10 Sep 2026, ~11:50 pm IST (Part II).** The first version of this
++> document wrongly claimed the Rigveda Śākala **Pada-pāṭha does not exist** in this repo. It
++> does — checked directly and corrected in §2 and §4 below. It also named a single,
++> unverified Prātiśākhya digitization source; §4a below replaces that with a three-layer
++> sourcing plan (Sanskrit Library TEI/XML as the canonical base, VedaViṣṭāram for
++> commentary cross-check, the RV-Prātiśākhya project for independent validation), each
++> checked live on 10 Sep 2026. §6.1 also gets a concrete rule-database file layout and
++> schema. Everything else from the first version stands.
++
+ ---
+ 
+ ## 0. What this replaces, and why
+@@ -37,7 +46,8 @@ sandhi/accent engine, and it must not silently fall back to one.
+ In order, highest first. A lower source may only be consulted where a higher one is silent:
+ 
+ 1. DGE's own Rigveda Śākala Saṃhitā dataset (exists: `mandala_01`–`mandala_10`).
+-2. DGE's own Rigveda Śākala Pada-pāṭha dataset (**does not exist yet** — see §4).
++2. DGE's own Rigveda Śākala Pada-pāṭha dataset (**exists** — accented `pada_patha` field on
++   all 10,552 mantras, cross-validated 96.61% against VedaWeb TEI; see §4).
+ 3. Śaunaka's Ṛgveda-Prātiśākhya, **Krama-Paṭala** (traditionally numbered Chapter 10, 22
+    sūtras).
+ 4. The same work's **Kramahetu-Paṭala** (Chapter 11, 71 sūtras) — the rationale-and-exception
+@@ -105,24 +115,94 @@ not **define** them.
+ 
+ ## 4. Prerequisite data gap — checked against the repo, 10 Sep 2026
+ 
+-This generator cannot be built yet. Two prerequisites are missing:
++Corrected from the first version of this document, which wrongly claimed the Pada-pāṭha was
++missing entirely — it checked only for a sibling `pada/` directory next to `samhita/` and
++missed the per-mantra field actually holding the text.
+ 
+ | Needed | Current state |
+ |---|---|
+-| Rigveda Śākala **Pada-pāṭha** dataset | Does not exist. `dge/data/vedas/rigveda/shakala_shakha/` has `samhita/` only (mandala_01–10); no `pada/` sibling. |
+-| Ṛgveda-Prātiśākhya **sūtra text** (Krama-Paṭala + Kramahetu-Paṭala at minimum) | `dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/data.json` and the sibling `shaunakiya_chaturadhyayika/data.json` are both empty stubs (`"items": []`) — category placeholders only, no sūtra text digitized. |
+-| Digitization source | Already identified and logged, not yet fetched/OCR'd: `archive.org/details/pratisakhyarigv00sarmgoog` — Ṛgveda-Prātiśākhya of Śaunaka with Uvaṭa's commentary (Benares, 1894), searchable PDF, public domain ("not in copyright"). See `dge/PENDING.md` §"Śikṣā + Prātiśākhya" (line ~378) for the full source table, including that GRETIL has nothing in this area. |
++| Rigveda Śākala **Pada-pāṭha** dataset | **Done.** Accented `pada_patha` field (alongside `samhita_patha`) on all 10,552 mantras in `dge/data/vedas/rigveda/shakala_shakha/samhita/mandala_01..10/data.json`. Sourced from the `FourVedas.xlsx` spreadsheet (Virendra Agarwal's "Digitisation of Vedas" / VedaKosh, via sanskritdocuments.org, used with explicit permission) and cross-validated at 96.61% exact match against the independent VedaWeb TEI dataset (`diagnostics/validate_fourvedas.py`, every sampled mismatch a known edition variant). Full provenance and the accent-codepoint convention (core Devanagari block `U+0951`/`U+0952`, not the Vedic Extensions block — see §6.2) are in `dge/veda_toolkit/README.md` §1–3. Independently cross-checkable: `github.com/vishvasa`'s Rigveda repo carries a per-sūkta Śākala Saṃhitā (2,226 files vs our 10 mandala-level files per `tools/reports/vishvasa_gap_report.md`) — not yet inspected for word-level agreement, and its org page (checked 10 Sep 2026) shows no dedicated Krama-pāṭha or Prātiśākhya repo, so it is a Pada/Saṃhitā cross-check candidate only, not a source for §4a below. |
++| Ṛgveda-Prātiśākhya **sūtra text** (Krama-Paṭala + Kramahetu-Paṭala at minimum) | Still not digitized. `dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/data.json` and the sibling `shaunakiya_chaturadhyayika/data.json` are both empty stubs (`"items": []`) — category placeholders only. §4a replaces the first version's single archive.org citation with a three-layer sourcing plan. |
++
++**Sequencing implication:** the Pada-pāṭha prerequisite is satisfied. The remaining blocker
++is the Prātiśākhya sūtra text itself (§4a) — building the rule engine against paraphrase or
++a secondary site's summary alone risks baking in exactly the kind of un-sourced
++simplification this document exists to avoid.
++
++**Gemini-cost note (CLAUDE.md standing rule) still applies conditionally:** the Sanskrit
++Library XML edition (§4a Layer A) is already machine-readable TEI, so ingesting it is a
++parsing task, not an OCR task, and needs no Gemini call. If VedaViṣṭāram's or the RV-
++Prātiśākhya project's material (Layers B/C) is only reachable as scanned images at some
++point, or if any future archive.org PDF is used as a supplementary check, that step is a
++Gemini-calling task and needs a cost estimate + the lead's go-ahead first, exactly as for any
++other OCR staging job in this repo.
++
++---
++
++## 4a. Prātiśākhya sourcing — three layers, not one PDF
++
++The first version of this document named a single source (a 1894 archive.org scan) as "the"
++digitization source. That was the only one on hand at the time, sourced as a PDF scan
++requiring OCR. A better, machine-readable primary source has since been identified and
++checked live (10 Sep 2026); use three layers, cross-checked against each other, rather than
++trusting any one of them alone:
+ 
+-**Sequencing implication:** the Pada-pāṭha dataset and the digitized Krama-Paṭala +
+-Kramahetu-Paṭala sūtra text (at minimum) are both blocking prerequisites for any code in
+-this spec. Building the rule engine against paraphrases or a secondary site's summary risks
+-baking in exactly the kind of un-sourced simplification this document exists to avoid.
++| Layer | Source | Role | Checked live 10 Sep 2026 |
++|---|---|---|---|
++| **A — canonical base** | Sanskrit Library, *Ṛgveda-Prātiśākhya: First XML Edition*, ed. Peter M. Scharf, 2010 (`sanskritlibrary.org/catalogsText/fgveda_prAtiSAKya.html`) | Primary machine-readable text — TEI XML, so ingestion is a parsing task, not OCR | **Confirmed live.** Page states the 2010 edition and "Creative Commons Attribution Non-Commercial Share Alike license" — reuse requires attribution and that any derivative carry the same license (see licensing note below). The page's fetched excerpt did not show a direct download link or confirm the Śaunaka attribution by name; both need checking once the actual XML is obtained, not assumed from this citation. |
++| **B — commentary cross-check** | VedaViṣṭāram, `vedavishtaram.in/lakshanam/rp.html` — Śaunaka's text with Uvaṭa's Bhāṣya and Viṣṇumitra's Vṛtti, searchable, sūtra-addressable | Cross-checks Layer A's sūtra text and supplies commentary the XML edition may not carry | Confirmed live 10 Sep 2026 (already used for the chapter map in §2.1) |
++| **C — independent validation** | The RV-Prātiśākhya project, `sites.google.com/view/rv-pratishakhya` — Devanagari/Unicode, transliteration, German and English translation, organized by all 18 paṭalas | Third, independently-maintained rendering to catch errors that survive A+B agreeing with each other | Confirmed live 10 Sep 2026 (already used for the chapter map in §2.1) |
++
++**Licensing implication of Layer A:** CC BY-NC-SA is non-commercial and share-alike. That is
++compatible with DGE's own stated non-commercial preservation/study mission
++(`dge/PROJECT_BRIEF.md` §1), but — following the exact discipline `dge/veda_toolkit/README.md`
++§3 already applies to every other Veda source in this repo ("absence of a licence is not
++permission"; GRETIL's per-file terms were checked and rejected for exactly this reason) —
++record Layer A's licence and attribution on the ingested rule data itself (see the `source`/
++`crosscheck` fields in the schema below), not just in this document, and do not assume a
++different licence for Layers B or C without checking each site's own terms first.
++
++**What to actually ingest, once approved:** do not dump any layer's raw text into a prompt
++context. Extract into one structured rule database, one file per paṭala, so every rule is
++individually addressable and citable from the generator's `provenance.rules` (§6.3):
++
++```
++dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/
++├── metadata.json
++├── patala-01-samjna-paribhasha.json
++├── patala-02-samhita.json
++├── patala-03-svara.json
++├── patala-04-sandhi.json
++├── patala-05-nati.json
++├── patala-06-dhvanyagama.json
++├── patala-07-pluti.json
++├── patala-08-pluti.json
++├── patala-09-pluti.json
++├── patala-10-krama.json
++├── patala-11-kramahetu.json
++└── ... (12–18 as later needed; not blocking for Krama work)
++```
+ 
+-**Gemini-cost note (CLAUDE.md standing rule):** OCR/extraction of the 1894 archive.org scan
+-into structured sūtra text is a Gemini-calling task. Before running it, give the project
+-lead a cost estimate (page count × chars/page → tokens, ₹ at current Flash-class pricing)
+-and wait for go-ahead, exactly as for any other OCR staging job in this repo — do not run it
+-speculatively while drafting this spec.
++Each rule, at minimum:
++
++```json
++{
++  "id": "RVPr_10.20",
++  "patala": 10,
++  "sutra": 20,
++  "text": "",
++  "domain": "krama",
++  "conditions": [],
++  "action": [],
++  "exceptions": [],
++  "source": "sanskritlibrary.org (Scharf 2010, CC BY-NC-SA 3.0)",
++  "crosscheck": "vedavishtaram.in (Uvaṭa Bhāṣya + Viṣṇumitra Vṛtti)"
++}
++```
++
++Leave `text`/`conditions`/`action`/`exceptions` empty rather than paraphrased or guessed
++until the actual sūtra is transcribed from Layer A and checked against Layer B — an empty
++field is an honest gap; a plausible-sounding paraphrase is not.
+ 
+ ---
+ 
+@@ -192,6 +272,11 @@ requiresNati(word, context)
+ requiresDhvanyagama(word, context)
+ ```
+ 
++Each predicate's non-trivial branches should cite a rule `id` from the paṭala-keyed rule
++database in §4a (e.g. `RVPr_10.20`) — that database is the source of truth for rule text and
++conditions; predicates are code that *applies* those rules, not a second place to restate
++them.
++
+ Where a dictionary is used as a cache, structure it by the kind of evidence backing each
+ entry rather than as one flat list, e.g. for Pragṛhya:
+ 
+@@ -220,9 +305,19 @@ udatta | anudatta | svarita | dirgha_svarita | pracaya | kampa
+ (plus any further state the Śākala tradition is found to require once ch. 3 is digitized —
+ do not assume the list above is complete). Devanagari, IAST, and any pedagogical romanization
+ are rendering targets computed from this enum at the presentation layer only (§6.4), not
+-alternate sources of truth. Note for rendering once it is built: Unicode's Vedic Extensions
+-block (e.g. `U+1CDA VEDIC TONE DOUBLE SVARITA`) is the correct target for dīrgha-svarita in
+-Devanagari output — do not conflate it with the old two-character Devanagari tone marks.
++alternate sources of truth.
++
++**Codepoint choice for rendering is a separate, already-burned decision — don't relitigate it
++blind.** This repo already hit exactly this problem for udātta/anudātta/svarita:
++`dge/veda_toolkit/README.md` §5 records that `indic_transliteration` emits Vedic Extensions
++codepoints (`U+1CD3`/`U+1CD9`), which "almost no font supports," and that the working fix was
++remapping to the core Devanagari block (`U+0951` svarita, `U+0952` anudātta) via
++`dgeSanitizeVedicAccents()`. Unicode's dedicated dīrgha-svarita mark (`U+1CDA`, Vedic
++Extensions block) is very likely the same trap — before wiring it into any renderer, test it
++against the same fonts `dgeSanitizeVedicAccents()` targets, and if it fails, document
++whatever fallback (a doubled `U+0951`, a superscript notation, etc.) is chosen, the same way
++the existing svarita/anudātta fix is documented. This is a rendering-layer decision, not an
++internal-model one — the `dirgha_svarita` enum value above is unaffected either way.
+ 
+ Each generated token should retain, at minimum:
+ 
+@@ -280,8 +375,9 @@ is not optional polish — see §8, it gates every corpus-wide run.
+ 
+ Do not run the generator over the whole Rigveda before this sequence, in order:
+ 
+-1. Digitize the Pada-pāṭha and at minimum the Krama-Paṭala + Kramahetu-Paṭala sūtra text
+-   (§4) — with a Gemini cost estimate and go-ahead if OCR is involved.
++1. Ingest at minimum the Krama-Paṭala + Kramahetu-Paṭala sūtra text into the rule database
++   (§4a) from Layer A (Sanskrit Library XML), cross-checked against Layers B and C — the
++   Pada-pāṭha prerequisite is already satisfied (§4).
+ 2. Implement RV 1.1.1 only.
+ 3. Generate its Krama-pāṭha; compare against an independently attested Krama text for RV
+    1.1.1 (VALIDATE mode, §7).
+@@ -321,19 +417,30 @@ Kept as a short index back to the full review, not restated in full here:
+ 12. Require `provenance`/`rules` citations on every generated unit (§6.3).
+ 13. Require a VALIDATE mode (§7), not GENERATE-only.
+ 14. Require the Prātiśākhya text itself as the rule source, not paraphrase — which is exactly
+-    what §4 blocks on today.
++    what §4a blocks on today.
++15. (Part II, 10 Sep 2026) Correct this document's own first-draft error: the Rigveda Śākala
++    Pada-pāṭha already exists in this repo (§4) — it was missed by checking only for a
++    sibling directory, not the per-mantra field actually holding it.
++16. (Part II) Replace the single unverified archive.org PDF citation with a three-layer,
++    live-checked sourcing plan for the Prātiśākhya sūtra text itself, plus a concrete
++    per-paṭala rule-database schema (§4a).
++17. (Part II) Correct the accent-rendering guidance: do not recommend a Vedic Extensions
++    codepoint for dīrgha-svarita without testing it against the font-support trap this repo
++    already documented and fixed for svarita/anudātta (§6.2).
+ 
+ ---
+ 
+ ## 10. Open questions for the project lead
+ 
+-- Confirm the archive.org scan (`pratisakhyarigv00sarmgoog`) as the digitization source, and
+-  approve the Gemini OCR cost estimate when one is produced (per CLAUDE.md).
+-- Confirm whether the Rigveda Śākala Pada-pāṭha should be sourced independently (e.g. from an
+-  existing digital edition) or derived from the Saṃhitā via a separate, also-validated,
+-  Pada-pāṭha generation project — that is out of scope for this document either way.
++- Approve the three-layer Prātiśākhya sourcing plan in §4a (Sanskrit Library XML as
++  canonical base, VedaViṣṭāram + the RV-Prātiśākhya project as cross-checks), including the
++  CC BY-NC-SA 3.0 attribution/share-alike obligation that comes with Layer A.
+ - Confirm an independently attested Krama-pāṭha source to use as the VALIDATE-mode ground
+-  truth for RV 1.1.1 and subsequent sūktas.
+-
+-No code or data changes beyond this document are part of this commit; §4 and §10 are the
+-gating items before implementation can start.
++  truth for RV 1.1.1 and subsequent sūktas — `github.com/vishvasa`'s Rigveda repo was
++  checked (10 Sep 2026) and does not appear to carry one, so this is still open.
++- Decide whether `github.com/vishvasa`'s per-sūkta Śākala Saṃhitā (2,226 files) is worth a
++  word-level cross-check against DGE's own Pada/Saṃhitā data before the Krama work leans on
++  it, or whether the existing 96.61%-validated VedaWeb cross-check is sufficient.
++
++No code or corpus data changes beyond this document (and the linked `PENDING.md` entry) are
++part of this commit; §4a and §10 are the gating items before implementation can start.
+-- 
+2.43.0
+

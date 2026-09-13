@@ -1,0 +1,1378 @@
+From 743878bef455aa4f55fa0ad577f44c29cd047ce4 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 11 Sep 2026 02:55:20 +0000
+Subject: [PATCH 08/25] Generate actual Krama-patha output for RV 1.1 (all 9
+ verses)
+
+The first real output of krama_kramahetu_rules.json, not just rule
+data: tools/pratishakhya/generate_krama_rv_1_1.py applies the patala-10
+rules (base pairing 10.2, avagrhya/ardharca-final Parigraha 10.7-10.9,
+the sthitopasthita word+iti+word mechanism 10.14, the avagraha split in
+the repeat 10.16) to all nine verses of RV 1.1, hand-aligned against
+DGE's own attested samhita-patha for each pair's sandhi (this project
+has no independent sandhi engine -- sandhi is a strictly local
+phenomenon, so reading it off the already-correct samhita text is
+exact, not approximate).
+
+An earlier version of the generator tried to auto-derive each
+Parigraha unit's "combined form" by splitting the pair text on
+whitespace -- caught failing whenever sandhi fuses two words with no
+visible space, and replaced with an explicit hand-verified
+PARIGRAHA_FORMS table instead. Six pairs are explicitly flagged
+confidence:"low" where the monosyllable "aa" appears, since sutra 10.3
+calls out such monosyllables as behaving specially rather than pairing
+forward in the ordinary way -- flagged rather than silently guessed at.
+
+This output is NOT validated against a published Krama-patha edition;
+that is the deliberate next step (see the forthcoming verification
+packet).
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01GB2qZqW1sQcLi536ZSxGV6
+---
+ .../krama_generated_output.json               | 973 ++++++++++++++++++
+ tests/test_krama_generated_output.py          |  63 ++
+ tools/pratishakhya/generate_krama_rv_1_1.py   | 281 +++++
+ 3 files changed, 1317 insertions(+)
+ create mode 100644 dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/krama_generated_output.json
+ create mode 100644 tests/test_krama_generated_output.py
+ create mode 100644 tools/pratishakhya/generate_krama_rv_1_1.py
+
+diff --git a/dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/krama_generated_output.json b/dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/krama_generated_output.json
+new file mode 100644
+index 000000000..181c7cca3
+--- /dev/null
++++ b/dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/krama_generated_output.json
+@@ -0,0 +1,973 @@
++{
++ "schema": "generic",
++ "note": "Generated Krama-patha output for RV 1.1 (all 9 verses), produced by tools/pratishakhya/generate_krama_rv_1_1.py applying the rule logic in krama_kramahetu_rules.json. NOT validated against a published Krama-patha edition -- see tools/pratishakhya/KRAMA_VERIFICATION_PACKET.md for what to check and how. Each pair's sandhi is taken verbatim from DGE's own attested samhita_patha (dge/data/vedas/rigveda/shakala_shakha/samhita/mandala_01/data.json, items 1.1.1-1.1.9), not independently computed; Parigraha insertions are this session's own construction from the sutra text, cited per unit. Units marked confidence:'low' involve the monosyllable 'aa' (sutra 10.3's avasana exception zone) and are the ordinary rendering, not a reconstruction of that special mechanic -- flagged rather than guessed.",
++ "rule_source": "dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/krama_kramahetu_rules.json",
++ "pada_samhita_source": "dge/data/vedas/rigveda/shakala_shakha/samhita/mandala_01/data.json",
++ "verification_packet": "tools/pratishakhya/KRAMA_VERIFICATION_PACKET.md",
++ "items": [
++  {
++   "id": "1.1.1",
++   "meter": "gayatri",
++   "ardharcas": [
++    {
++     "pada_words": [
++      "अग्निम्",
++      "ईळे",
++      "पुरःऽहितम्",
++      "यज्ञस्य",
++      "देवम्",
++      "ऋत्विजम्"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "अग्निमीळे",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "ईळे पुरोहितम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "पुरोहितम् इति पुरःऽहितम्",
++       "for_word": "पुरःऽहितम्",
++       "rule": [
++        "10.7",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      },
++      {
++       "type": "pair",
++       "text": "पुरोहितं यज्ञस्य",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "यज्ञस्य देवम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "देवमृत्विजम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "ऋत्विजम् इति ऋत्विजम्",
++       "for_word": "ऋत्विजम्",
++       "rule": [
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    },
++    {
++     "pada_words": [
++      "होतारम्",
++      "रत्नऽधातमम्"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "होतारं रत्नधातमम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "रत्नधातमम् इति रत्नऽधातमम्",
++       "for_word": "रत्नऽधातमम्",
++       "rule": [
++        "10.7",
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    }
++   ],
++   "krama_patha_devanagari": "अग्निमीळे । ईळे पुरोहितम् । पुरोहितम् इति पुरःऽहितम् । पुरोहितं यज्ञस्य । यज्ञस्य देवम् । देवमृत्विजम् । ऋत्विजम् इति ऋत्विजम् । होतारं रत्नधातमम् । रत्नधातमम् इति रत्नऽधातमम्"
++  },
++  {
++   "id": "1.1.2",
++   "meter": "gayatri",
++   "ardharcas": [
++    {
++     "pada_words": [
++      "अग्निः",
++      "पूर्वेभिः",
++      "ऋषिऽभिः",
++      "ईड्यः",
++      "नूतनैः",
++      "उत"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "अग्निः पूर्वेभिः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "पूर्वेभिर्ऋषिभिः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "ऋषिभिः इति ऋषिऽभिः",
++       "for_word": "ऋषिऽभिः",
++       "rule": [
++        "10.7",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      },
++      {
++       "type": "pair",
++       "text": "ऋषिभिरीड्यः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "ईड्यो नूतनैः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "नूतनैरुत",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "उत इति उत",
++       "for_word": "उत",
++       "rule": [
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    },
++    {
++     "pada_words": [
++      "सः",
++      "देवान्",
++      "आ",
++      "इह",
++      "वक्षति"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "स देवान्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "देवाँ आ",
++       "rule": "10.2",
++       "confidence": "low",
++       "note": "Contains the monosyllable 'aa' -- sutra 10.3 flags such monosyllables as stopping the pairing chain rather than continuing forward in the ordinary way; this pair is the ordinary rendering, not a reconstruction of that special mechanic. See KRAMA_VERIFICATION_PACKET.md."
++      },
++      {
++       "type": "pair",
++       "text": "एह",
++       "rule": "10.2",
++       "confidence": "low",
++       "note": "Contains the monosyllable 'aa' -- sutra 10.3 flags such monosyllables as stopping the pairing chain rather than continuing forward in the ordinary way; this pair is the ordinary rendering, not a reconstruction of that special mechanic. See KRAMA_VERIFICATION_PACKET.md."
++      },
++      {
++       "type": "pair",
++       "text": "इह वक्षति",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "वक्षति इति वक्षति",
++       "for_word": "वक्षति",
++       "rule": [
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    }
++   ],
++   "krama_patha_devanagari": "अग्निः पूर्वेभिः । पूर्वेभिर्ऋषिभिः । ऋषिभिः इति ऋषिऽभिः । ऋषिभिरीड्यः । ईड्यो नूतनैः । नूतनैरुत । उत इति उत । स देवान् । देवाँ आ । एह । इह वक्षति । वक्षति इति वक्षति"
++  },
++  {
++   "id": "1.1.3",
++   "meter": "gayatri",
++   "ardharcas": [
++    {
++     "pada_words": [
++      "अग्निना",
++      "रयिम्",
++      "अश्नवत्",
++      "पोषम्",
++      "एव",
++      "दिवेऽदिवे"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "अग्निना रयिम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "रयिमश्नवत्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "अश्नवत्पोषम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "पोषमेव",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "एव दिवेदिवे",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "दिवेदिवे इति दिवेऽदिवे",
++       "for_word": "दिवेऽदिवे",
++       "rule": [
++        "10.7",
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    },
++    {
++     "pada_words": [
++      "यशसम्",
++      "वीरवत्ऽतमम्"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "यशसं वीरवत्तमम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "वीरवत्तमम् इति वीरवत्ऽतमम्",
++       "for_word": "वीरवत्ऽतमम्",
++       "rule": [
++        "10.7",
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    }
++   ],
++   "krama_patha_devanagari": "अग्निना रयिम् । रयिमश्नवत् । अश्नवत्पोषम् । पोषमेव । एव दिवेदिवे । दिवेदिवे इति दिवेऽदिवे । यशसं वीरवत्तमम् । वीरवत्तमम् इति वीरवत्ऽतमम्"
++  },
++  {
++   "id": "1.1.4",
++   "meter": "gayatri",
++   "ardharcas": [
++    {
++     "pada_words": [
++      "अग्ने",
++      "यम्",
++      "यज्ञम्",
++      "अध्वरम्",
++      "विश्वतः",
++      "परिऽभूः",
++      "असि"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "अग्ने यम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "यं यज्ञम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "यज्ञमध्वरम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "अध्वरं विश्वतः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "विश्वतः परिभूः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "परिभूः इति परिऽभूः",
++       "for_word": "परिऽभूः",
++       "rule": [
++        "10.7",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      },
++      {
++       "type": "pair",
++       "text": "परिभूरसि",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "असि इति असि",
++       "for_word": "असि",
++       "rule": [
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    },
++    {
++     "pada_words": [
++      "सः",
++      "इत्",
++      "देवेषु",
++      "गच्छति"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "स इत्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "इद्देवेषु",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "देवेषु गच्छति",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "गच्छति इति गच्छति",
++       "for_word": "गच्छति",
++       "rule": [
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    }
++   ],
++   "krama_patha_devanagari": "अग्ने यम् । यं यज्ञम् । यज्ञमध्वरम् । अध्वरं विश्वतः । विश्वतः परिभूः । परिभूः इति परिऽभूः । परिभूरसि । असि इति असि । स इत् । इद्देवेषु । देवेषु गच्छति । गच्छति इति गच्छति"
++  },
++  {
++   "id": "1.1.5",
++   "meter": "gayatri",
++   "ardharcas": [
++    {
++     "pada_words": [
++      "अग्निः",
++      "होता",
++      "कविऽक्रतुः",
++      "सत्यः",
++      "चित्रश्रवःऽतमः"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "अग्निर्होता",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "होता कविक्रतुः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "कविक्रतुः इति कविऽक्रतुः",
++       "for_word": "कविऽक्रतुः",
++       "rule": [
++        "10.7",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      },
++      {
++       "type": "pair",
++       "text": "कविक्रतुः सत्यः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "सत्यश्चित्रश्रवस्तमः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "चित्रश्रवस्तमः इति चित्रश्रवःऽतमः",
++       "for_word": "चित्रश्रवःऽतमः",
++       "rule": [
++        "10.7",
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    },
++    {
++     "pada_words": [
++      "देवः",
++      "देवेभिः",
++      "आ",
++      "गमत्"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "देवो देवेभिः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "देवेभिरा",
++       "rule": "10.2",
++       "confidence": "low",
++       "note": "Contains the monosyllable 'aa' -- sutra 10.3 flags such monosyllables as stopping the pairing chain rather than continuing forward in the ordinary way; this pair is the ordinary rendering, not a reconstruction of that special mechanic. See KRAMA_VERIFICATION_PACKET.md."
++      },
++      {
++       "type": "pair",
++       "text": "आ गमत्",
++       "rule": "10.2",
++       "confidence": "low",
++       "note": "Contains the monosyllable 'aa' -- sutra 10.3 flags such monosyllables as stopping the pairing chain rather than continuing forward in the ordinary way; this pair is the ordinary rendering, not a reconstruction of that special mechanic. See KRAMA_VERIFICATION_PACKET.md."
++      },
++      {
++       "type": "parigraha",
++       "text": "गमत् इति गमत्",
++       "for_word": "गमत्",
++       "rule": [
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    }
++   ],
++   "krama_patha_devanagari": "अग्निर्होता । होता कविक्रतुः । कविक्रतुः इति कविऽक्रतुः । कविक्रतुः सत्यः । सत्यश्चित्रश्रवस्तमः । चित्रश्रवस्तमः इति चित्रश्रवःऽतमः । देवो देवेभिः । देवेभिरा । आ गमत् । गमत् इति गमत्"
++  },
++  {
++   "id": "1.1.6",
++   "meter": "gayatri",
++   "ardharcas": [
++    {
++     "pada_words": [
++      "यत्",
++      "अङ्ग",
++      "दाशुषे",
++      "त्वम्",
++      "अग्ने",
++      "भद्रम्",
++      "करिष्यसि"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "यदङ्ग",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "अङ्ग दाशुषे",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "दाशुषे त्वम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "त्वमग्ने",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "अग्ने भद्रम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "भद्रं करिष्यसि",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "करिष्यसि इति करिष्यसि",
++       "for_word": "करिष्यसि",
++       "rule": [
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    },
++    {
++     "pada_words": [
++      "तव",
++      "इत्",
++      "तत्",
++      "सत्यम्",
++      "अङ्गिरः"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "तवेत्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "इत्तत्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "तत्सत्यम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "सत्यमङ्गिरः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "अङ्गिरः इति अङ्गिरः",
++       "for_word": "अङ्गिरः",
++       "rule": [
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    }
++   ],
++   "krama_patha_devanagari": "यदङ्ग । अङ्ग दाशुषे । दाशुषे त्वम् । त्वमग्ने । अग्ने भद्रम् । भद्रं करिष्यसि । करिष्यसि इति करिष्यसि । तवेत् । इत्तत् । तत्सत्यम् । सत्यमङ्गिरः । अङ्गिरः इति अङ्गिरः"
++  },
++  {
++   "id": "1.1.7",
++   "meter": "gayatri",
++   "ardharcas": [
++    {
++     "pada_words": [
++      "उप",
++      "त्वा",
++      "अग्ने",
++      "दिवेऽदिवे",
++      "दोषाऽवस्तः",
++      "धिया",
++      "वयम्"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "उप त्वा",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "त्वाग्ने",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "अग्ने दिवेदिवे",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "दिवेदिवे दोषावस्तः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "दोषावस्तः इति दोषाऽवस्तः",
++       "for_word": "दोषाऽवस्तः",
++       "rule": [
++        "10.7",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      },
++      {
++       "type": "pair",
++       "text": "दोषावस्तर्धिया",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "धिया वयम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "वयम् इति वयम्",
++       "for_word": "वयम्",
++       "rule": [
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    },
++    {
++     "pada_words": [
++      "नमः",
++      "भरन्तः",
++      "आ",
++      "इमसि"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "नमो भरन्तः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "भरन्तो",
++       "rule": "10.2",
++       "confidence": "low",
++       "note": "Contains the monosyllable 'aa' -- sutra 10.3 flags such monosyllables as stopping the pairing chain rather than continuing forward in the ordinary way; this pair is the ordinary rendering, not a reconstruction of that special mechanic. See KRAMA_VERIFICATION_PACKET.md."
++      },
++      {
++       "type": "pair",
++       "text": "एमसि",
++       "rule": "10.2",
++       "confidence": "low",
++       "note": "Contains the monosyllable 'aa' -- sutra 10.3 flags such monosyllables as stopping the pairing chain rather than continuing forward in the ordinary way; this pair is the ordinary rendering, not a reconstruction of that special mechanic. See KRAMA_VERIFICATION_PACKET.md."
++      },
++      {
++       "type": "parigraha",
++       "text": "इमसि इति इमसि",
++       "for_word": "इमसि",
++       "rule": [
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    }
++   ],
++   "krama_patha_devanagari": "उप त्वा । त्वाग्ने । अग्ने दिवेदिवे । दिवेदिवे दोषावस्तः । दोषावस्तः इति दोषाऽवस्तः । दोषावस्तर्धिया । धिया वयम् । वयम् इति वयम् । नमो भरन्तः । भरन्तो । एमसि । इमसि इति इमसि"
++  },
++  {
++   "id": "1.1.8",
++   "meter": "gayatri",
++   "ardharcas": [
++    {
++     "pada_words": [
++      "राजन्तम्",
++      "अध्वराणाम्",
++      "गोपाम्",
++      "ऋतस्य",
++      "दीदिविम्"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "राजन्तमध्वराणाम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "अध्वराणां गोपाम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "गोपामृतस्य",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "ऋतस्य दीदिविम्",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "दीदिविम् इति दीदिविम्",
++       "for_word": "दीदिविम्",
++       "rule": [
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    },
++    {
++     "pada_words": [
++      "वर्धमानम्",
++      "स्वे",
++      "दमे"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "वर्धमानं स्वे",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "स्वे दमे",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "दमे इति दमे",
++       "for_word": "दमे",
++       "rule": [
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    }
++   ],
++   "krama_patha_devanagari": "राजन्तमध्वराणाम् । अध्वराणां गोपाम् । गोपामृतस्य । ऋतस्य दीदिविम् । दीदिविम् इति दीदिविम् । वर्धमानं स्वे । स्वे दमे । दमे इति दमे"
++  },
++  {
++   "id": "1.1.9",
++   "meter": "gayatri",
++   "ardharcas": [
++    {
++     "pada_words": [
++      "सः",
++      "नः",
++      "पिताऽइव",
++      "सूनवे",
++      "अग्ने",
++      "सुऽउपायनः",
++      "भव"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "स नः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "नः पितेव",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "पितेव इति पिताऽइव",
++       "for_word": "पिताऽइव",
++       "rule": [
++        "10.7",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      },
++      {
++       "type": "pair",
++       "text": "पितेव सूनवे",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "सूनवेऽग्ने",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "अग्ने सूपायनः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "सूपायनः इति सुऽउपायनः",
++       "for_word": "सुऽउपायनः",
++       "rule": [
++        "10.7",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      },
++      {
++       "type": "pair",
++       "text": "सूपायनो भव",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "भव इति भव",
++       "for_word": "भव",
++       "rule": [
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    },
++    {
++     "pada_words": [
++      "सचस्व",
++      "नः",
++      "स्वस्तये"
++     ],
++     "units": [
++      {
++       "type": "pair",
++       "text": "सचस्वा नः",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "pair",
++       "text": "नः स्वस्तये",
++       "rule": "10.2",
++       "confidence": "high"
++      },
++      {
++       "type": "parigraha",
++       "text": "स्वस्तये इति स्वस्तये",
++       "for_word": "स्वस्तये",
++       "rule": [
++        "10.9",
++        "10.14"
++       ],
++       "confidence": "medium",
++       "note": "Word+iti+word given with no sandhi between the components, per Uvata's own worked example on 10.14 ('vibhaavaso iti vibhaavaso')."
++      }
++     ]
++    }
++   ],
++   "krama_patha_devanagari": "स नः । नः पितेव । पितेव इति पिताऽइव । पितेव सूनवे । सूनवेऽग्ने । अग्ने सूपायनः । सूपायनः इति सुऽउपायनः । सूपायनो भव । भव इति भव । सचस्वा नः । नः स्वस्तये । स्वस्तये इति स्वस्तये"
++  }
++ ]
++}
+diff --git a/tests/test_krama_generated_output.py b/tests/test_krama_generated_output.py
+new file mode 100644
+index 000000000..c505d9da0
+--- /dev/null
++++ b/tests/test_krama_generated_output.py
+@@ -0,0 +1,63 @@
++"""dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/krama_generated_output.json
++
++Structural checks only -- this is generated, unvalidated output (see the
++file's own "note" field and tools/pratishakhya/KRAMA_VERIFICATION_PACKET.md),
++so these tests guard internal consistency (every pada word appears, pairs
++are correctly overlapping, low-confidence units stay flagged), not
++linguistic correctness -- that's exactly what external verification is for.
++"""
++
++import json
++import os
++import unittest
++
++REPO = os.path.join(os.path.dirname(__file__), "..")
++DATA_PATH = os.path.join(
++    REPO, "dge", "data", "vedanga", "shiksha", "pratishakhya",
++    "rigveda_pratishakhya", "krama_generated_output.json",
++)
++
++
++class KramaGeneratedOutput(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        with open(DATA_PATH, encoding="utf-8") as f:
++            cls.data = json.load(f)
++
++    def test_nine_verses_present(self):
++        ids = [v["id"] for v in self.data["items"]]
++        self.assertEqual(ids, [f"1.1.{n}" for n in range(1, 10)])
++
++    def test_every_ardharca_has_one_fewer_pair_than_words(self):
++        for verse in self.data["items"]:
++            for ardharca in verse["ardharcas"]:
++                n_words = len(ardharca["pada_words"])
++                n_pairs = sum(1 for u in ardharca["units"] if u["type"] == "pair")
++                with self.subTest(verse=verse["id"]):
++                    self.assertEqual(n_pairs, n_words - 1)
++
++    def test_last_word_of_every_ardharca_gets_parigraha(self):
++        # sutra 10.9: ardharca-final words always route to Parigraha
++        for verse in self.data["items"]:
++            for ardharca in verse["ardharcas"]:
++                units = ardharca["units"]
++                self.assertEqual(units[-1]["type"], "parigraha", verse["id"])
++                self.assertIn("10.9", units[-1]["rule"])
++
++    def test_low_confidence_units_are_flagged_and_explained(self):
++        for verse in self.data["items"]:
++            for ardharca in verse["ardharcas"]:
++                for unit in ardharca["units"]:
++                    if unit.get("confidence") == "low":
++                        with self.subTest(verse=verse["id"], text=unit["text"]):
++                            self.assertIn("note", unit)
++                            self.assertIn("10.3", unit["note"])
++
++    def test_provenance_fields_present(self):
++        for key in ("rule_source", "pada_samhita_source", "verification_packet", "note"):
++            self.assertIn(key, self.data)
++        self.assertIn("NOT validated", self.data["note"])
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/tools/pratishakhya/generate_krama_rv_1_1.py b/tools/pratishakhya/generate_krama_rv_1_1.py
+new file mode 100644
+index 000000000..562e55205
+--- /dev/null
++++ b/tools/pratishakhya/generate_krama_rv_1_1.py
+@@ -0,0 +1,281 @@
++#!/usr/bin/env python3
++"""Generate Krama-patha for RV 1.1 (all 9 verses) -- a real, checkable
++first output of the rule logic in krama_kramahetu_rules.json, not just
++rule data.
++
++WHAT THIS IS: a hand-aligned application of patala 10's rules to RV 1.1,
++using DGE's own attested samhita-patha as ground truth for each word-pair's
++sandhi (rather than an independent sandhi engine this project does not
++have), with Parigraha/ardharca-final insertions applied per the rules this
++session built. This is NOT validated against a published Krama-patha
++edition -- see KRAMA_VERIFICATION_PACKET.md for exactly what still needs an
++independent check (by Gemini, ChatGPT, a human Sanskritist, or a fresh
++Claude session) and why.
++
++WHY HAND-ALIGNED RATHER THAN CODE-COMPUTED SANDHI: this project has no
++validated Sanskrit sandhi engine (dge/veda_toolkit's own notes flag deriving
++one as a real, unsolved problem -- see dge/VEDAWEB_IMPORT_STATUS.md sec.5).
++Each adjacent pair's sandhi is a substring of DGE's own already-correct,
++accented samhita_patha for that verse (sandhi is a strictly local, adjacent-
++word phenomenon, so this is exact, not approximate) -- verified by hand
++against dge/data/vedas/rigveda/shakala_shakha/samhita/mandala_01/data.json's
++items 1.1.1-1.1.9 during this session.
++
++Two things are NOT simply "read off" the samhita text, and are handled by
++explicit per-word data below rather than derived automatically (an earlier
++version of this script tried to auto-derive the Parigraha "combined form"
++by splitting the pair text on whitespace -- that silently breaks whenever
++sandhi fuses two words with no visible space, e.g. "puurvebhir.rSibhiH",
++and was caught and replaced with the explicit PARIGRAHA_FORMS table below):
++
++1. Parigraha insertions (word + iti + word, applying rules 10.7-10.9,
++   10.12-10.14, 10.16) -- these do not appear in the samhita-patha at all;
++   PARIGRAHA_FORMS gives each flagged word's (first, repeat) rendering by
++   hand, following Uvata's own worked example for 10.14 ("vibhaavaso iti
++   vibhaavaso" -- given WITHOUT sandhi between the components, which is why
++   no sandhi is applied within these inserted units either), and 10.16
++   (the repeat of a compound shows the avagraha split).
++2. A handful of individual pairs marked "confidence": "low" in the output,
++   where the standalone monosyllable "aa" (the preverb, not just any short
++   a) appears -- sutra 10.3 explicitly calls out single-syllable words
++   like "aa" as stopping the pairing chain early (avasyanti) rather than
++   continuing to pair forward in the ordinary way, per Uvata's own example
++   ("aa mandram | mandram-aa vareNyam"). Reconstructing that exact
++   mechanic for these specific verses (which don't share Uvata's cited
++   wording) was judged too uncertain to guess at silently -- the ordinary
++   pairwise rendering is given instead, flagged low-confidence, rather than
++   a confident-looking but unverified special-case reconstruction.
++
++Not a re-runnable pipeline in the usual "fetch and rebuild" sense (there is
++no second source to fetch -- the alignment is this session's own reading) --
++run to regenerate the JSON deterministically from the data below, not to
++redo the alignment.
++"""
++import json
++from pathlib import Path
++
++REPO_ROOT = Path(__file__).resolve().parents[2]
++OUT_PATH = (
++    REPO_ROOT
++    / "dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/krama_generated_output.json"
++)
++
++RULE_REFS = {
++    "base_pairing": "10.2",
++    "avagrhya_parigraha": "10.7",
++    "ardharca_final_parigraha": "10.9",
++    "sthitopasthita": "10.14",
++    "avagraha_split_in_repeat": "10.16",
++    "ardharca_no_sandhi": "10.18",
++    "monosyllable_avasana": "10.3",
++}
++
++# marker suffixes on words in VERSES: * = avagrhya (10.7), # = ardharca-final (10.9),
++# ~ = the monosyllable "aa" (10.3 avasana zone, low-confidence flag on its pairs)
++
++VERSES = [
++    dict(id="1.1.1", meter="gayatri",
++         ardharcas=[
++             dict(words=["अग्निम्", "ईळे", "पुरःऽहितम्*", "यज्ञस्य", "देवम्", "ऋत्विजम्#"],
++                  pairs=["अग्निमीळे", "ईळे पुरोहितम्", "पुरोहितं यज्ञस्य", "यज्ञस्य देवम्", "देवमृत्विजम्"]),
++             dict(words=["होतारम्", "रत्नऽधातमम्*#"],
++                  pairs=["होतारं रत्नधातमम्"]),
++         ]),
++    dict(id="1.1.2", meter="gayatri",
++         ardharcas=[
++             dict(words=["अग्निः", "पूर्वेभिः", "ऋषिऽभिः*", "ईड्यः", "नूतनैः", "उत#"],
++                  pairs=["अग्निः पूर्वेभिः", "पूर्वेभिर्ऋषिभिः", "ऋषिभिरीड्यः", "ईड्यो नूतनैः", "नूतनैरुत"]),
++             dict(words=["सः", "देवान्", "आ~", "इह", "वक्षति#"],
++                  pairs=["स देवान्", "देवाँ आ", "एह", "इह वक्षति"]),
++         ]),
++    dict(id="1.1.3", meter="gayatri",
++         ardharcas=[
++             dict(words=["अग्निना", "रयिम्", "अश्नवत्", "पोषम्", "एव", "दिवेऽदिवे*#"],
++                  pairs=["अग्निना रयिम्", "रयिमश्नवत्", "अश्नवत्पोषम्", "पोषमेव", "एव दिवेदिवे"]),
++             dict(words=["यशसम्", "वीरवत्ऽतमम्*#"],
++                  pairs=["यशसं वीरवत्तमम्"]),
++         ]),
++    dict(id="1.1.4", meter="gayatri",
++         ardharcas=[
++             dict(words=["अग्ने", "यम्", "यज्ञम्", "अध्वरम्", "विश्वतः", "परिऽभूः*", "असि#"],
++                  pairs=["अग्ने यम्", "यं यज्ञम्", "यज्ञमध्वरम्", "अध्वरं विश्वतः", "विश्वतः परिभूः", "परिभूरसि"]),
++             dict(words=["सः", "इत्", "देवेषु", "गच्छति#"],
++                  pairs=["स इत्", "इद्देवेषु", "देवेषु गच्छति"]),
++         ]),
++    dict(id="1.1.5", meter="gayatri",
++         ardharcas=[
++             dict(words=["अग्निः", "होता", "कविऽक्रतुः*", "सत्यः", "चित्रश्रवःऽतमः*#"],
++                  pairs=["अग्निर्होता", "होता कविक्रतुः", "कविक्रतुः सत्यः", "सत्यश्चित्रश्रवस्तमः"]),
++             dict(words=["देवः", "देवेभिः", "आ~", "गमत्#"],
++                  pairs=["देवो देवेभिः", "देवेभिरा", "आ गमत्"]),
++         ]),
++    dict(id="1.1.6", meter="gayatri",
++         ardharcas=[
++             dict(words=["यत्", "अङ्ग", "दाशुषे", "त्वम्", "अग्ने", "भद्रम्", "करिष्यसि#"],
++                  pairs=["यदङ्ग", "अङ्ग दाशुषे", "दाशुषे त्वम्", "त्वमग्ने", "अग्ने भद्रम्", "भद्रं करिष्यसि"]),
++             dict(words=["तव", "इत्", "तत्", "सत्यम्", "अङ्गिरः#"],
++                  pairs=["तवेत्", "इत्तत्", "तत्सत्यम्", "सत्यमङ्गिरः"]),
++         ]),
++    dict(id="1.1.7", meter="gayatri",
++         ardharcas=[
++             dict(words=["उप", "त्वा", "अग्ने", "दिवेऽदिवे", "दोषाऽवस्तः*", "धिया", "वयम्#"],
++                  pairs=["उप त्वा", "त्वाग्ने", "अग्ने दिवेदिवे", "दिवेदिवे दोषावस्तः", "दोषावस्तर्धिया", "धिया वयम्"]),
++             dict(words=["नमः", "भरन्तः", "आ~", "इमसि#"],
++                  pairs=["नमो भरन्तः", "भरन्तो", "एमसि"]),
++         ]),
++    dict(id="1.1.8", meter="gayatri",
++         ardharcas=[
++             dict(words=["राजन्तम्", "अध्वराणाम्", "गोपाम्", "ऋतस्य", "दीदिविम्#"],
++                  pairs=["राजन्तमध्वराणाम्", "अध्वराणां गोपाम्", "गोपामृतस्य", "ऋतस्य दीदिविम्"]),
++             dict(words=["वर्धमानम्", "स्वे", "दमे#"],
++                  pairs=["वर्धमानं स्वे", "स्वे दमे"]),
++         ]),
++    dict(id="1.1.9", meter="gayatri",
++         ardharcas=[
++             dict(words=["सः", "नः", "पिताऽइव*", "सूनवे", "अग्ने", "सुऽउपायनः*", "भव#"],
++                  pairs=["स नः", "नः पितेव", "पितेव सूनवे", "सूनवेऽग्ने", "अग्ने सूपायनः", "सूपायनो भव"]),
++             dict(words=["सचस्व", "नः", "स्वस्तये#"],
++                  pairs=["सचस्वा नः", "नः स्वस्तये"]),
++         ]),
++]
++
++# Hand-determined (first_form, repeat_form) for every word flagged * or #.
++# first_form = the sandhi-combined depiction (10.6-style, or plain if the
++# word is bare); repeat_form = the avagraha-split depiction for an avagrhya
++# word (10.16) or the same bare form again for an ardharca-final-only word
++# (10.9, no compound to split -- 10.12-14's sthita/upasthita just confirms
++# the plain form). Keyed by bare word (marker suffixes stripped).
++PARIGRAHA_FORMS = {
++    "पुरःऽहितम्": ("पुरोहितम्", "पुरःऽहितम्"),
++    "ऋत्विजम्": ("ऋत्विजम्", "ऋत्विजम्"),
++    "रत्नऽधातमम्": ("रत्नधातमम्", "रत्नऽधातमम्"),
++    "ऋषिऽभिः": ("ऋषिभिः", "ऋषिऽभिः"),
++    "उत": ("उत", "उत"),
++    "वक्षति": ("वक्षति", "वक्षति"),
++    "दिवेऽदिवे": ("दिवेदिवे", "दिवेऽदिवे"),
++    "वीरवत्ऽतमम्": ("वीरवत्तमम्", "वीरवत्ऽतमम्"),
++    "परिऽभूः": ("परिभूः", "परिऽभूः"),
++    "असि": ("असि", "असि"),
++    "गच्छति": ("गच्छति", "गच्छति"),
++    "कविऽक्रतुः": ("कविक्रतुः", "कविऽक्रतुः"),
++    "चित्रश्रवःऽतमः": ("चित्रश्रवस्तमः", "चित्रश्रवःऽतमः"),
++    "गमत्": ("गमत्", "गमत्"),
++    "करिष्यसि": ("करिष्यसि", "करिष्यसि"),
++    "अङ्गिरः": ("अङ्गिरः", "अङ्गिरः"),
++    "दोषाऽवस्तः": ("दोषावस्तः", "दोषाऽवस्तः"),
++    "वयम्": ("वयम्", "वयम्"),
++    "इमसि": ("इमसि", "इमसि"),
++    "दीदिविम्": ("दीदिविम्", "दीदिविम्"),
++    "दमे": ("दमे", "दमे"),
++    "पिताऽइव": ("पितेव", "पिताऽइव"),
++    "सुऽउपायनः": ("सूपायनः", "सुऽउपायनः"),
++    "भव": ("भव", "भव"),
++    "स्वस्तये": ("स्वस्तये", "स्वस्तये"),
++}
++
++
++def strip_word(w):
++    return w.rstrip("*#~")
++
++
++def build_units(ardharca):
++    words = ardharca["words"]
++    pairs = ardharca["pairs"]
++    units = []
++    for i, pair_text in enumerate(pairs):
++        w1, w2 = words[i], words[i + 1]
++        low_conf = "~" in w1 or "~" in w2
++        unit = {
++            "type": "pair",
++            "text": pair_text,
++            "rule": RULE_REFS["base_pairing"],
++            "confidence": "low" if low_conf else "high",
++        }
++        if low_conf:
++            unit["note"] = (
++                "Contains the monosyllable 'aa' -- sutra 10.3 flags such "
++                "monosyllables as stopping the pairing chain rather than "
++                "continuing forward in the ordinary way; this pair is the "
++                "ordinary rendering, not a reconstruction of that special "
++                "mechanic. See KRAMA_VERIFICATION_PACKET.md."
++            )
++        units.append(unit)
++
++        is_avagrhya = "*" in w2
++        is_ardharca_final = "#" in w2
++        if is_avagrhya or is_ardharca_final:
++            bare = strip_word(w2)
++            first_form, repeat_form = PARIGRAHA_FORMS[bare]
++            rules = []
++            if is_avagrhya:
++                rules.append(RULE_REFS["avagrhya_parigraha"])
++            if is_ardharca_final:
++                rules.append(RULE_REFS["ardharca_final_parigraha"])
++            rules.append(RULE_REFS["sthitopasthita"])
++            units.append({
++                "type": "parigraha",
++                "text": f"{first_form} इति {repeat_form}",
++                "for_word": bare,
++                "rule": rules,
++                "confidence": "medium",
++                "note": ("Word+iti+word given with no sandhi between the components, "
++                         "per Uvata's own worked example on 10.14 "
++                         "('vibhaavaso iti vibhaavaso')."),
++            })
++    return units
++
++
++def main():
++    output_verses = []
++    for verse in VERSES:
++        ardharca_outputs = []
++        for ardharca in verse["ardharcas"]:
++            units = build_units(ardharca)
++            ardharca_outputs.append({
++                "pada_words": [strip_word(w) for w in ardharca["words"]],
++                "units": units,
++            })
++        krama_text = " । ".join(
++            u["text"] for ardharca in ardharca_outputs for u in ardharca["units"]
++        )
++        output_verses.append({
++            "id": verse["id"],
++            "meter": verse["meter"],
++            "ardharcas": ardharca_outputs,
++            "krama_patha_devanagari": krama_text,
++        })
++
++    data = {
++        "schema": "generic",
++        "note": (
++            "Generated Krama-patha output for RV 1.1 (all 9 verses), produced by "
++            "tools/pratishakhya/generate_krama_rv_1_1.py applying the rule logic in "
++            "krama_kramahetu_rules.json. NOT validated against a published Krama-patha "
++            "edition -- see tools/pratishakhya/KRAMA_VERIFICATION_PACKET.md for what to "
++            "check and how. Each pair's sandhi is taken verbatim from DGE's own attested "
++            "samhita_patha (dge/data/vedas/rigveda/shakala_shakha/samhita/mandala_01/"
++            "data.json, items 1.1.1-1.1.9), not independently computed; Parigraha "
++            "insertions are this session's own construction from the sutra text, cited "
++            "per unit. Units marked confidence:'low' involve the monosyllable 'aa' "
++            "(sutra 10.3's avasana exception zone) and are the ordinary rendering, not a "
++            "reconstruction of that special mechanic -- flagged rather than guessed."
++        ),
++        "rule_source": "dge/data/vedanga/shiksha/pratishakhya/rigveda_pratishakhya/krama_kramahetu_rules.json",
++        "pada_samhita_source": "dge/data/vedas/rigveda/shakala_shakha/samhita/mandala_01/data.json",
++        "verification_packet": "tools/pratishakhya/KRAMA_VERIFICATION_PACKET.md",
++        "items": output_verses,
++    }
++
++    OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
++    with open(OUT_PATH, "w", encoding="utf-8") as f:
++        json.dump(data, f, ensure_ascii=False, indent=1)
++        f.write("\n")
++    n_low = sum(
++        1 for v in output_verses for a in v["ardharcas"] for u in a["units"]
++        if u.get("confidence") == "low"
++    )
++    print(f"Wrote {len(output_verses)} verses to {OUT_PATH} ({n_low} low-confidence units)")
++
++
++if __name__ == "__main__":
++    main()
+-- 
+2.43.0
+
