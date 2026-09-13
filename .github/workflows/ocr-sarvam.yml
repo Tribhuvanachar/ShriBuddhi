@@ -43,10 +43,11 @@ on:
         type: choice
         options: [html, md, json]
         default: html
-      dry_run:
-        description: "Count pages and jobs only — call nothing, spend nothing"
-        type: boolean
-        default: true
+      mode:
+        description: "dry-run counts the pages and spends nothing. real-run sends them to Sarvam and bills the prepaid balance."
+        type: choice
+        options: [dry-run, real-run]
+        default: dry-run
 
 permissions:
   contents: write
@@ -68,7 +69,7 @@ jobs:
 
       - name: Digitise
         env:
-          SARVAM_API_KEY: ${{ inputs.dry_run && '' || secrets.SARVAM_API_KEY }}
+          SARVAM_API_KEY: ${{ inputs.mode == 'dry-run' && '' || secrets.SARVAM_API_KEY }}
         run: |
           set -euo pipefail
           URL="${{ inputs.pdf_url }}"
@@ -90,11 +91,11 @@ jobs:
           fi
           ARGS=("${SRC[@]}" --pages "${{ inputs.pages }}" --work "${{ inputs.work_slug }}"
                 --language "${{ inputs.language }}" --format "${{ inputs.output_format }}" --out data/ocr_staging)
-          [ "${{ inputs.dry_run }}" = "true" ] && ARGS+=(--dry-run)
+          [ "${{ inputs.mode }}" = "dry-run" ] && ARGS+=(--dry-run)
           python3 tools/sarvam_docai.py "${ARGS[@]}"
 
       - name: Keep the staged file as an artifact too
-        if: ${{ !inputs.dry_run }}
+        if: ${{ inputs.mode == 'real-run' }}
         uses: actions/upload-artifact@v4
         with:
           name: sarvam-${{ inputs.work_slug }}
@@ -104,7 +105,7 @@ jobs:
       # Same home as the Vision pages: one branch per work, so the review page
       # finds every engine's output for a book in one place.
       - name: Commit to the ocr-staging/<work> branch
-        if: ${{ !inputs.dry_run }}
+        if: ${{ inputs.mode == 'real-run' }}
         run: |
           set -euo pipefail
           BR="ocr-staging/${{ inputs.work_slug }}"
