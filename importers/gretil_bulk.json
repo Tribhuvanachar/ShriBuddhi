@@ -290,14 +290,28 @@
    "tei": "sa_vAmanapurANa1-69",
    "marker": "slash_chapter_verse",
    "sig": "VamP",
-   "legacy_extra": [
-    "1_sanskr/3_purana/vampsm_u.htm"
-   ],
    "complete": false,
    "scope": "adhyāyas 1-69 of 95",
    "quality": "unproofed",
    "licence": "cc-by-nc-sa-4.0",
-   "note": "The Saromāhātmya (inserted after adhy. 23) is a SEPARATE legacy file with its own siglum sequence — import it as a sub-target or it is silently lost."
+   "note": "The Saromāhātmya (inserted after adhy. 23) is imported separately as the 'vamana_purana_saromahatmya' id below -- it is a SEPARATE legacy file with its own siglum (VamPSm) and its own 1..N chapter numbering, which would silently merge into this text's own adhyaya 1..69 buckets (group_items() only keys on the numeric ref, not the siglum) if fetched via this entry's own run."
+  },
+  {
+   "id": "vamana_purana_saromahatmya",
+   "name": "Vāmanapurāṇa Saromāhātmya",
+   "target": "purana/maha_purana/vamana_purana/saromahatmya",
+   "unit": "adhyaya",
+   "schema": "itihasa_purana_text",
+   "author": "महर्षिवेदव्यासः",
+   "legacy": [
+    "1_sanskr/3_purana/vampsm_u.htm"
+   ],
+   "marker": "slash_chapter_verse",
+   "sig": "VamPSm",
+   "complete": true,
+   "scope": "Inserted into the main text after adhy. 23; a self-contained 2-adhyaya unit in this GRETIL edition",
+   "quality": "unproofed (GRETIL's own header: 'THE TEXT NEEDS OF FURTHER PROOF READING! ... many word boundaries are not marked by spaces')",
+   "note": "GRETIL legacy file, not the CC-BY-NC-SA-4.0 main-text licence -- marked 'FOR REFERENCE PURPOSES ONLY' by GRETIL itself (source: A.S. Gupta ed., All India Kashiraj Trust 1967); imported per the project lead's explicit case-by-case approval (11 Sep 2026)."
   },
   {
    "id": "shiva_purana",

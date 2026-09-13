@@ -66,12 +66,30 @@ def load_registry(path=REGISTRY):
         return json.load(handle)
 
 
+HR_TAG = re.compile(r"<hr\s*/?>", re.I)
+
+
 def split_header(raw):
     match = None
     for match in TEXT_MARKER.finditer(raw):
         pass  # take the LAST "# Text" heading, in case an earlier one is quoted inside the header itself
     if match is None:
         match = HEADER_END.search(raw)
+    if match is None:
+        # A handful of legacy GRETIL "1_sanskr" exports are styled HTML
+        # pages (not the plaintext TEI transformation the markers above
+        # were written for) that divide credits/legend from real text with
+        # a bare <hr> instead -- confirmed live on vampsm_u.htm (Vamana
+        # Purana's Saromahatmya), which has two: one after the credits
+        # paragraph, one right before the actual verse text. Taking the
+        # LAST one (same "last occurrence wins" rule as TEXT_MARKER above)
+        # avoids cutting too early on a file whose credits section itself
+        # contains an earlier <hr>. Only engages when neither marker above
+        # matched, so every already-working plaintext registry entry is
+        # untouched.
+        hr_matches = list(HR_TAG.finditer(raw))
+        if hr_matches:
+            match = hr_matches[-1]
     head, body = (raw[:match.start()], raw[match.end():]) if match else (raw[:3000], raw)
     if not body.strip():
         head, body = "", raw
