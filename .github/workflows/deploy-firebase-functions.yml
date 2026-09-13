@@ -1,0 +1,143 @@
+# Deploy the Cloud Functions (project from FIREBASE_PROJECT_ID). Needed for phoneOtpProvider
+# 'whatsapp'/'msg91', WhatsApp broadcasts, and the admin workflow-dispatch panel — see
+# dge/FIREBASE_SETUP.md §6, §7, §12. Requires the Blaze plan (already active as of 8 Sep 2026) and,
+# for the whatsapp/msg91/broadcast functions to actually work once deployed, the secrets pushed by
+# push-firebase-function-secrets.yml — deploying this workflow first is fine, the functions that read
+# a missing secret simply error at call time until it's pushed, they don't block the deploy itself.
+#
+# dge/firebase/functions uses the v2 Cloud Functions SDK (functions run on Cloud Run under the hood),
+# which is more permission-hungry to deploy than Hosting or Firestore rules. If this fails with a 403
+# naming a different API (cloudfunctions.googleapis.com, run.googleapis.com, artifactregistry.googleapis.com,
+# eventarc.googleapis.com, cloudscheduler.googleapis.com, or "iam.serviceaccounts.actAs"), that is the
+# same class of problem deploy-firestore.yml hit and fixed on 8 Sep 2026: read the exact error, it
+# names the missing role; grant it to firebase-adminsdk-fbsvc@sarvamula-org.iam.gserviceaccount.com
+# in Google Cloud Console -> IAM & Admin -> IAM, the same way "Firebase Admin" was added. Don't guess
+# a bundle of roles up front — grant only what the actual error asks for, one at a time.
+#
+# 8 Sep 2026, run 1: hit "Error: Permissions denied enabling artifactregistry.googleapis.com. Please
+# ask a project owner to visit [console link] to enable this service." Not an IAM-role problem — the
+# CLI auto-enabled cloudbuild.googleapis.com and cloudfunctions.googleapis.com fine, then a project
+# owner (not the service account) needs to manually enable Artifact Registry API once, the same way
+# Firestore/Rules APIs were checked earlier: Google Cloud Console -> APIs & Services -> Library ->
+# search "Artifact Registry API" -> Enable. One-time; re-dispatch after.
+
+name: Deploy — Firebase Functions
+
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'Optional: a specific function or comma list (e.g. "requestOtp,verifyOtp"). Leave blank to deploy all functions.'
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble the service-account key from the repository secrets
+        # Same resolution as deploy-firebase-hosting.yml — see that file's header for the accepted
+        # secret names. Prints only which secret NAMES were found, never a value.
+        env:
+          PID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          SA_JSON_1: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          SA_JSON_2: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+          SA_JSON_3: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SARVAMULA_ORG }}
+          SA_JSON_4: ${{ secrets.FIREBASE_ADMIN_SDK }}
+          SA_JSON_5: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
+          F_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+          F_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
+          F_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          F_CLIENT_ID: ${{ secrets.FIREBASE_CLIENT_ID }}
+        run: |
+          test -n "$PID" || { echo "FIREBASE_PROJECT_ID secret is not set"; exit 1; }
+          python3 - <<'PY'
+          import json, os, sys
+          found = []
+          sa = None
+          for name in ("SA_JSON_1", "SA_JSON_2", "SA_JSON_3", "SA_JSON_4", "SA_JSON_5"):
+              v = os.environ.get(name, "").strip()
+              if v:
+                  try:
+                      sa = json.loads(v); found.append(name); break
+                  except Exception:
+                      print(f"{name} is set but is not valid JSON")
+          if sa is None:
+              f = {k: os.environ.get(k, "") for k in ("F_PRIVATE_KEY", "F_PRIVATE_KEY_ID", "F_CLIENT_EMAIL", "F_CLIENT_ID")}
+              present = [k for k, v in f.items() if v.strip()]
+              print("per-field secrets present:", ", ".join(present) or "none")
+              if f["F_PRIVATE_KEY"].strip() and f["F_CLIENT_EMAIL"].strip():
+                  key = f["F_PRIVATE_KEY"].replace("\\n", "\n")
+                  email = f["F_CLIENT_EMAIL"].strip()
+                  sa = {"type": "service_account", "project_id": os.environ["PID"], "private_key_id": f["F_PRIVATE_KEY_ID"].strip(),
+                        "private_key": key, "client_email": email, "client_id": f["F_CLIENT_ID"].strip(),
+                        "auth_uri": "https://accounts.google.com/o/oauth2/auth", "token_uri": "https://oauth2.googleapis.com/token",
+                        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+                        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/" + email.replace("@", "%40"),
+                        "universe_domain": "googleapis.com"}
+                  found.append("assembled from FIREBASE_PRIVATE_KEY + FIREBASE_CLIENT_EMAIL (+ id fields)")
+          if sa is None:
+              print("No service-account key found. Add ONE secret FIREBASE_SERVICE_ACCOUNT holding the whole JSON key file, "
+                    "or the fields FIREBASE_PRIVATE_KEY, FIREBASE_PRIVATE_KEY_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_CLIENT_ID.")
+              sys.exit(1)
+          if not str(sa.get("private_key", "")).startswith("-----BEGIN"):
+              print("private_key does not look like a PEM key (should start with -----BEGIN PRIVATE KEY-----)"); sys.exit(1)
+          os.makedirs(os.path.expanduser("~/.sa"), exist_ok=True)
+          with open(os.path.expanduser("~/.sa/key.json"), "w") as fh:
+              json.dump(sa, fh)
+          print("service account:", sa.get("client_email"), "| source:", ", ".join(found))
+          PY
+      - name: Write .firebaserc (gitignored on purpose — the repo never carries a project id)
+        run: |
+          printf '{ "projects": { "default": "%s" } }\n' "${{ secrets.FIREBASE_PROJECT_ID }}" > dge/firebase/.firebaserc
+      - name: Install function dependencies
+        run: cd dge/firebase/functions && npm install
+      - name: Write default values for non-secret Cloud Functions params
+        # firebase-tools v2 params (defineString/defineInt) refuse to fall back to their own
+        # code-level `default` in --non-interactive mode -- it wants an explicit .env file
+        # instead, or the deploy fails outright listing every param with no value. None of
+        # these are secrets (see PAYMENT_SECRETS/index.js for the ones that are, which go
+        # through Secret Manager instead) -- this file just makes each one's already-declared
+        # default explicit so CI can deploy without a prompt. Never committed; regenerated by
+        # this step every run. Discovered 10 Sep 2026 on the first deploy attempt that got far
+        # enough to resolve all twelve Secret Manager secrets successfully.
+        run: |
+          cat > dge/firebase/functions/.env <<'EOF'
+          OTP_PROVIDER=whatsapp
+          OTP_TEMPLATE_NAME=dge_otp
+          OTP_TEMPLATE_LANG=en
+          OTP_DEFAULT_COUNTRY=91
+          MSG91_TEMPLATE_ID=
+          GITHUB_REPO=Tribhuvanachar/bhumandala
+          PAYMENT_GATEWAY=mock
+          PAYMENT_GATEWAYS_ENABLED=mock
+          CASHFREE_ENV=sandbox
+          CASHFREE_API_VERSION=2023-08-01
+          RAZORPAY_KEY_ID=
+          EMAIL_PROVIDER=console
+          EOF
+      - name: Deploy Cloud Functions
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /home/runner/.sa/key.json
+          PID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          ONLY: ${{ inputs.only }}
+        run: |
+          npm install -g firebase-tools@15 >/dev/null 2>&1
+          cd dge/firebase
+          if [ -n "$ONLY" ]; then
+            TARGET="$(echo "$ONLY" | sed 's/^/functions:/; s/,/,functions:/g')"
+          else
+            TARGET="functions"
+          fi
+          # --force also auto-sets an Artifact Registry cleanup policy for build images in
+          # asia-south1 on first deploy -- without it, firebase-tools exits 1 AFTER a fully
+          # successful function deploy just because that one-time policy step was skipped,
+          # which looks like a failure even when every function deployed fine. Discovered
+          # 10 Sep 2026 on the first deploy that got functions created at all.
+          firebase deploy --only "$TARGET" --project "$PID" --non-interactive --force
+          echo "Functions deployed to project $PID (region asia-south1, per functions/index.js setGlobalOptions)"

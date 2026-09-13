@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="js/vandana-guard.js?v=2"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Sarvamoola · DGE</title>
+<!--
+  Donation / honorarium page. Calls the already-built createDonation /
+  getDonationStatus callables (dge/firebase/functions/index.js) directly —
+  see PAYMENTS_SETUP.md for what those do and don't guarantee yet. This
+  page never decides which gateway runs: PAYMENT_GATEWAY / PAYMENT_GATEWAYS_ENABLED
+  (Cloud Functions config) do, so nothing here needs to change when real
+  Cashfree/Razorpay credentials land — the mock gateway is what handles a
+  submission until then, and this page says so plainly rather than implying
+  a real payment happened.
+
+  A gateway's own return/callback is NEVER trusted for the "did it succeed"
+  answer — only getDonationStatus is, via the ?ref= reference on reload
+  (see PAYMENTS_SETUP.md §7 / the state-machine comment in index.js).
+
+  Design tokens lifted from dvaitavedanta-status.html so this sits in the
+  same visual system as the rest of DGE's utility pages.
+-->
+<style>
+  :root{--bg:#f5efe4;--panel:#fffdf8;--panel2:#fbf4e7;--ink:#2b2117;--muted:#8b7c66;--line:#e6dac6;
+    --accent:#9a3b1b;--accent2:#1f6f5c;--gold:#b6862c;
+    --ok:#2f9e6f;--warn:#c98a2b;--bad:#b3402c;
+    --shadow:0 2px 16px rgba(90,60,20,.10);--radius:14px}
+  body.dark{--bg:#14161c;--panel:#1b1f27;--panel2:#20242f;--ink:#e9e3d5;--muted:#98a0b2;--line:#2b3140;
+    --accent:#e0794b;--accent2:#5bb894;--gold:#e0b25a;
+    --ok:#5bb894;--warn:#e0b25a;--bad:#ef8a72;--shadow:0 6px 26px rgba(0,0,0,.4)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.5;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;transition:.3s}
+  header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);
+    backdrop-filter:blur(9px);border-bottom:1px solid var(--line)}
+  .bar{max-width:720px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;gap:10px}
+  .brand{font-weight:700}.brand small{color:var(--muted);font-weight:400;display:block;font-size:11px}
+  .spacer{flex:1}
+  a.btn,button.btn{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:7px 12px;
+    cursor:pointer;color:var(--ink);font:inherit;font-size:13px;text-decoration:none;display:inline-block}
+  main{max-width:720px;margin:0 auto;padding:18px 14px 80px}
+  h1{font-size:22px;margin:6px 0 4px}
+  .lede{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
+  .card h2{font-size:14px;letter-spacing:.02em;text-transform:uppercase;color:var(--muted);
+    font-weight:600;margin:0 0 12px}
+  label{display:block;font-size:13px;color:var(--muted);margin:12px 0 4px}
+  label:first-child{margin-top:0}
+  input[type=text],input[type=email],input[type=tel],input[type=number],select,textarea{
+    width:100%;border:1px solid var(--line);background:var(--panel2);border-radius:10px;
+    padding:10px 12px;font:inherit;font-size:14px;color:var(--ink)}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:160px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 10px}
+  .chip{border:1px solid var(--line);background:var(--panel2);border-radius:999px;padding:7px 16px;
+    cursor:pointer;font-size:14px;color:var(--ink);font-variant-numeric:tabular-nums}
+  .chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .check{display:flex;align-items:flex-start;gap:8px;margin:10px 0;font-size:13px;color:var(--muted)}
+  .check input{margin-top:3px}
+  .note{background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--gold);
+    border-radius:10px;padding:11px 14px;color:var(--muted);font-size:13px;margin:14px 0}
+  .note.warn{border-left-color:var(--warn)}
+  .note.ok{border-left-color:var(--ok)}
+  .note.bad{border-left-color:var(--bad)}
+  .err{color:var(--bad);font-size:13px;margin:8px 0 0;min-height:1em}
+  .submit{width:100%;border:none;background:var(--accent);color:#fff;border-radius:10px;
+    padding:13px 16px;font:inherit;font-size:15px;font-weight:600;cursor:pointer;margin-top:16px}
+  .submit:disabled{opacity:.6;cursor:default}
+  .status-amt{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+  .status-dot{display:inline-flex;align-items:center;gap:7px;font-size:14px}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .dot.ok{background:var(--ok)}.dot.warn{background:var(--warn)}.dot.bad{background:var(--bad)}
+  #resultCard,#devBanner{display:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <div class="brand">Sarvamoola Digital Library<small>Support this work</small></div>
+    <span class="spacer"></span>
+    <a class="btn" href="index.html">← Library</a>
+  </div>
+</header>
+<main>
+  <h1>Support the scholars behind this library</h1>
+  <p class="lede">
+    Sarvamoola is built and maintained largely by volunteer effort. What you give here goes
+    towards honoraria for scholars who proofread OCR, verify Sanskrit text, and help digitize
+    new granthas — never towards anything else.
+  </p>
+
+  <div class="note warn">
+    A trust is being registered for this project, but is not yet complete. Until it is, and
+    until 12A/80G approval follows, contributions here are <strong>not tax-deductible</strong> and
+    no 80G receipt can be issued — only a plain acknowledgement of what you gave. If that changes
+    what you'd like to do, please wait, or write to
+    <a href="mailto:sanatanavidyagurukuam@gmail.com">sanatanavidyagurukuam@gmail.com</a> first.
+  </div>
+
+  <div class="card" id="resultCard"></div>
+  <div class="note warn" id="devBanner"></div>
+
+  <form class="card" id="donateForm">
+    <h2>Your details</h2>
+    <label for="fName">Full name</label>
+    <input type="text" id="fName" name="name" maxlength="120" required autocomplete="name">
+
+    <div class="row">
+      <div>
+        <label for="fEmail">Email</label>
+        <input type="email" id="fEmail" name="email" required autocomplete="email">
+      </div>
+      <div>
+        <label for="fPhone">Phone</label>
+        <input type="tel" id="fPhone" name="phone" required autocomplete="tel" placeholder="10-digit mobile">
+      </div>
+    </div>
+
+    <label for="fPan">PAN <span style="font-weight:400">(optional — only useful once 80G receipts exist)</span></label>
+    <input type="text" id="fPan" name="pan" maxlength="10" style="text-transform:uppercase" placeholder="ABCDE1234F">
+
+    <h2 style="margin-top:22px">Amount</h2>
+    <div class="chips" id="amountChips">
+      <span class="chip" data-amt="501">₹501</span>
+      <span class="chip" data-amt="1001">₹1,001</span>
+      <span class="chip" data-amt="2501">₹2,501</span>
+      <span class="chip" data-amt="5001">₹5,001</span>
+    </div>
+    <label for="fAmount">Or enter your own amount (₹)</label>
+    <input type="number" id="fAmount" name="amount" min="1" step="0.01" required>
+
+    <label for="fPurpose">This is towards</label>
+    <select id="fPurpose" name="purpose">
+      <option value="General support">General support</option>
+      <option value="OCR and proofreading honorarium">OCR &amp; proofreading honorarium</option>
+      <option value="Grantha digitization">New grantha digitization</option>
+      <option value="Kamadhenu voice project">Kamadhenu (chant voice) project</option>
+    </select>
+
+    <label class="check"><input type="checkbox" id="fDisplayName" name="displayName">
+      Show my name on the public Supporters list</label>
+    <label class="check"><input type="checkbox" id="fDisplayAmount" name="displayAmount">
+      Also show the amount I gave</label>
+
+    <p class="err" id="formErr"></p>
+    <button class="submit" type="submit" id="submitBtn">Continue to pay</button>
+  </form>
+</main>
+
+<script>
+if (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches) document.body.classList.add('dark');
+</script>
+
+<!-- Firebase compat SDK — only the two modules this page actually calls.
+     FIREBASE_CONFIG values duplicated from js/config.js: these are public
+     identifiers, not secrets (see that file's own comment on this). -->
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.17.1/firebase-functions-compat.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var FIREBASE_CONFIG = {
+    apiKey: "AIzaSyC_mvK6f4CS91B51iEvx2B6wlk_9A-lVCw",
+    authDomain: "sarvamula-org.firebaseapp.com",
+    projectId: "sarvamula-org",
+    storageBucket: "sarvamula-org.firebasestorage.app",
+    messagingSenderId: "1005094356690",
+    appId: "1:1005094356690:web:f2e196c0ad9bc299b14f0b",
+    measurementId: "G-YB411NKZLE"
+  };
+  var FUNCTIONS_REGION = 'asia-south1'; // must match setGlobalOptions in functions/index.js
+
+  // Flip to 'production' only once real, live Cashfree credentials are
+  // configured on the deployment (PAYMENTS_SETUP.md §4/§9) — the client
+  // has no way to ask the server which CASHFREE_ENV is set, so this has
+  // to be kept in sync by hand at go-live time.
+  var CASHFREE_MODE = 'sandbox';
+
+  firebase.initializeApp(FIREBASE_CONFIG);
+  var fns = firebase.app().functions(FUNCTIONS_REGION);
+  var createDonationCall = fns.httpsCallable('createDonation');
+  var getDonationStatusCall = fns.httpsCallable('getDonationStatus');
+
+  var form = document.getElementById('donateForm');
+  var amountInput = document.getElementById('fAmount');
+  var chips = document.querySelectorAll('#amountChips .chip');
+  var errEl = document.getElementById('formErr');
+  var submitBtn = document.getElementById('submitBtn');
+  var resultCard = document.getElementById('resultCard');
+  var devBanner = document.getElementById('devBanner');
+
+  chips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      chips.forEach(function (c) { c.classList.remove('on'); });
+      chip.classList.add('on');
+      amountInput.value = chip.getAttribute('data-amt');
+    });
+  });
+  amountInput.addEventListener('input', function () {
+    chips.forEach(function (c) { c.classList.remove('on'); });
+  });
+
+  function formatRupees(amountMinor) {
+    return '₹' + (amountMinor / 100).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  function loadScriptOnce(src) {
+    return new Promise(function (resolve, reject) {
+      if (document.querySelector('script[data-src="' + src + '"]')) { resolve(); return; }
+      var el = document.createElement('script');
+      el.src = src;
+      el.setAttribute('data-src', src);
+      el.onload = function () { resolve(); };
+      el.onerror = function () { reject(new Error('Could not load ' + src)); };
+      document.head.appendChild(el);
+    });
+  }
+
+  function withRef(reference) {
+    return location.origin + location.pathname + '?ref=' + encodeURIComponent(reference);
+  }
+
+  function showFormError(msg) {
+    errEl.textContent = msg;
+  }
+
+  function setBusy(busy) {
+    submitBtn.disabled = busy;
+    submitBtn.textContent = busy ? 'Please wait…' : 'Continue to pay';
+  }
+
+  function openRazorpay(reference, checkout) {
+    loadScriptOnce('https://checkout.razorpay.com/v1/checkout.js').then(function () {
+      var rzp = new Razorpay({
+        key: checkout.keyId,
+        amount: checkout.amount,
+        currency: checkout.currency,
+        order_id: checkout.orderId,
+        name: 'Sarvamoola Digital Library',
+        description: 'Support for scholars & digitization',
+        handler: function () { location.href = withRef(reference); },
+        modal: { ondismiss: function () { showFormError('Payment window closed before completing. You can try again.'); setBusy(false); } }
+      });
+      rzp.open();
+    }).catch(function () {
+      showFormError('Could not open the payment window. Check your connection and try again.');
+      setBusy(false);
+    });
+  }
+
+  function openCashfree(reference, checkout) {
+    loadScriptOnce('https://sdk.cashfree.com/js/v3/cashfree.js').then(function () {
+      var cashfree = Cashfree({ mode: CASHFREE_MODE });
+      cashfree.checkout({ paymentSessionId: checkout.paymentSessionId, redirectTarget: '_self' });
+      // Cashfree takes over the page from here and returns to returnUrl
+      // (sent in the createDonation request below) with the order id
+      // substituted in — getDonationStatus on reload is still the only
+      // thing trusted to say whether it actually succeeded.
+    }).catch(function () {
+      showFormError('Could not open the payment window. Check your connection and try again.');
+      setBusy(false);
+    });
+  }
+
+  function showDevBanner(reference) {
+    devBanner.className = 'note warn';
+    devBanner.style.display = 'block';
+    devBanner.innerHTML = 'This deployment is not yet accepting real payments (no live gateway configured) — ' +
+      'donation reference <code>' + reference + '</code> was recorded in test mode only. Nothing was charged.';
+  }
+
+  function handleCheckout(reference, checkout) {
+    if (!checkout || checkout.gateway === 'mock') { showDevBanner(reference); setBusy(false); return; }
+    if (checkout.gateway === 'razorpay') { openRazorpay(reference, checkout); return; }
+    if (checkout.gateway === 'cashfree') { openCashfree(reference, checkout); return; }
+    showFormError('Unrecognized payment gateway response.');
+    setBusy(false);
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    showFormError('');
+    setBusy(true);
+
+    var payload = {
+      name: document.getElementById('fName').value,
+      email: document.getElementById('fEmail').value,
+      phone: document.getElementById('fPhone').value,
+      country: 'IN',
+      pan: document.getElementById('fPan').value,
+      amount: amountInput.value,
+      purpose: document.getElementById('fPurpose').value,
+      displayName: document.getElementById('fDisplayName').checked,
+      displayAmount: document.getElementById('fDisplayAmount').checked,
+      // Cashfree substitutes {order_id} itself on redirect; Razorpay's
+      // adapter does not use returnUrl at all, so sending it unconditionally
+      // is harmless either way (see lib/payment-providers.js).
+      returnUrl: location.origin + location.pathname + '?ref={order_id}'
+    };
+
+    createDonationCall(payload).then(function (result) {
+      var data = result.data;
+      if (!data || !data.ok) throw new Error('Could not start the donation.');
+      handleCheckout(data.donationReference, data.checkout);
+    }).catch(function (err) {
+      showFormError((err && err.message) || 'Something went wrong. Please try again.');
+      setBusy(false);
+    });
+  });
+
+  function statusPresentation(status) {
+    switch (status) {
+      case 'SUCCESS': return { dot: 'ok', text: 'Received — thank you!' };
+      case 'PARTIALLY_REFUNDED': return { dot: 'warn', text: 'Partially refunded' };
+      case 'REFUNDED': return { dot: 'warn', text: 'Refunded' };
+      case 'FAILED': return { dot: 'bad', text: 'Payment failed' };
+      case 'CANCELLED': return { dot: 'bad', text: 'Payment cancelled' };
+      case 'PENDING': return { dot: 'warn', text: 'Still processing — refresh in a moment' };
+      default: return { dot: 'warn', text: status || 'Unknown status' };
+    }
+  }
+
+  function checkStatus(reference) {
+    getDonationStatusCall({ donationReference: reference }).then(function (result) {
+      var data = result.data;
+      var pres = statusPresentation(data.status);
+      resultCard.style.display = 'block';
+      resultCard.innerHTML =
+        '<h2>Your donation</h2>' +
+        '<div class="status-amt">' + formatRupees(data.amountMinor) + '</div>' +
+        '<p class="status-dot"><span class="dot ' + pres.dot + '"></span>' + pres.text + '</p>' +
+        (data.receiptNumber ? '<p style="color:var(--muted);font-size:13px">Reference: ' + data.receiptNumber + '</p>' : '') +
+        '<p style="color:var(--muted);font-size:13px">Donation reference: ' + reference + '</p>';
+    }).catch(function () {
+      resultCard.style.display = 'block';
+      resultCard.innerHTML = '<h2>Your donation</h2><p class="err">Could not look up that donation reference.</p>';
+    });
+  }
+
+  var ref = new URLSearchParams(location.search).get('ref');
+  if (ref) checkStatus(ref);
+})();
+</script>
+</body>
+</html>

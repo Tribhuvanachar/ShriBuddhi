@@ -1,0 +1,69 @@
+From 8f06e70720e21d3b96d7ce42fd5dec4283d5047d Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Thu, 10 Sep 2026 10:48:11 +0000
+Subject: [PATCH 7/7] Record that all 9 Cloud Functions are now live in
+ sarvamula-org
+
+Documents the four root causes between secrets resolving and every
+function actually deploying: the non-interactive dotenv requirement,
+five more APIs needing manual enable, the cleanup-policy exit code,
+and two IAM roles that had been mis-added as similarly-named wrong
+ones (Datastore Backup Schedules Admin, Pub/Sub Lite Admin).
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_0111c5EUqdmiA4aXfMDSjopx
+---
+ dge/FIREBASE_SETUP.md | 30 +++++++++++++++++++++++++++++-
+ 1 file changed, 29 insertions(+), 1 deletion(-)
+
+diff --git a/dge/FIREBASE_SETUP.md b/dge/FIREBASE_SETUP.md
+index 7a8c16c44..61fc74f78 100644
+--- a/dge/FIREBASE_SETUP.md
++++ b/dge/FIREBASE_SETUP.md
+@@ -22,7 +22,7 @@ only `FIREBASE_PROJECT_ID` is used by the deploy workflows; the web config is pu
+ | `FIREBASE_SERVICE_ACCOUNT` secret | ✅ added by the lead, 8 Sep 2026 |
+ | Firestore rules + indexes deploy | ✅ **live, 8 Sep 2026, ~11:56 am IST** (`Deploy — Firestore rules & indexes` runs 8 and 9) — see §0.1 for what it actually took to get here |
+ | Hosting deploy | ✅ **live, 8 Sep 2026, ~12:11 pm IST** — preview channel confirmed serving the real site (fetched, title "Sarvamūla Digital Library", the ॐ landing page and footer links render). First attempt had failed with `Error: ../.. is outside of project directory` (`dge/firebase/firebase.json`'s `hosting.public: "../.."` reached outside what firebase-tools treats as the config file's own directory); fixed with a dedicated `firebase-hosting.json` at the repo root (`public: "."`) used via `--config` — `dge/firebase/firebase.json` unchanged, still serves firestore/functions/emulators. `live` channel / DNS cutover is still the lead's decision, GitHub Pages remains the live origin until then |
+-| Cloud Functions (WhatsApp OTP + broadcasts) | ⏳ Sixth attempt (run 6, 8 Sep ~7:57 pm IST), after the lead enabled the Secret Manager API, got past that too — reached the actual secret lookup and failed with `Permission 'secretmanager.secrets.get' denied on resource (or it may not exist)` for `WHATSAPP_TOKEN` specifically: the secret has no version in Secret Manager yet, because `push-firebase-function-secrets.yml` has never been run. **Root cause understood now, not just another API/IAM gap**: every `defineSecret()` in `functions/index.js` — all seven (`WHATSAPP_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_VERIFY_TOKEN`, `WHATSAPP_APP_SECRET`, `MSG91_AUTHKEY`, `OTP_PEPPER`, `GH_DISPATCH_TOKEN`) — gets resolved while firebase-tools loads and analyzes the whole codebase, so the deploy fails outright if even ONE of the seven has no version yet, regardless of which specific function you target. This means `push-firebase-function-secrets.yml` has to run BEFORE `Deploy — Firebase Functions` succeeds, not after, reversing what §0.2 originally assumed — and `GH_DISPATCH_TOKEN` (§12, powers `admin/workflows.html`, unrelated to WhatsApp) was never even in that pushing workflow's list. Fixed the workflow gap (now pushes `GH_DISPATCH_TOKEN` too). **What the lead needs to do next, before another deploy attempt makes sense:** add these as GitHub repository secrets — `GH_DISPATCH_TOKEN` (a real fine-grained PAT, §12 step 2 — this one's used immediately, not a placeholder), `OTP_PEPPER` (a real long random string — never rotate it once phone accounts exist, §7), and the four WhatsApp fields + `MSG91_AUTHKEY` (a placeholder value is fine for these specifically, since `AUTH_CONFIG.enablePhoneAuth`/`enableWhatsappBroadcasts` are both still `false` — nothing reads them yet; swap in real values, a normal secret update, once §0.2 step 4's Meta setup is done). Then dispatch `Push Firebase Functions secrets`, then re-dispatch `Deploy — Firebase Functions` |
++| Cloud Functions (WhatsApp OTP + broadcasts + donations) | ✅ **all 9 functions live, 10 Sep 2026 ~10:46 am IST** (`sendOtp`, `verifyOtp`, `whatsappWebhook`, `runWhatsAppBroadcast`, `listWorkflows`, `runWorkflow`, `createDonation`, `paymentWebhook`, `getDonationStatus`, region `asia-south1`) — see the 10 Sep entries below for the four distinct root causes it took to get here. `whatsappWebhook` URL: `https://asia-south1-sarvamula-org.cloudfunctions.net/whatsappWebhook`; `paymentWebhook`: `https://asia-south1-sarvamula-org.cloudfunctions.net/paymentWebhook`. Still off in `AUTH_CONFIG` (`enablePhoneAuth: false`) and `PAYMENT_GATEWAYS_ENABLED=mock` — deployed and callable, not yet switched on for real traffic. |
+ | Role-based content access (Access Control) | ✅ **built 8 Sep 2026** — see §0.3 |
+ 
+ **10 Sep 2026 correction**: while actually adding these as GitHub repository secrets for the first
+@@ -35,6 +35,34 @@ never pushed the five payment secrets (`PAYMENT_WEBHOOK_SECRET`, `CASHFREE_CLIEN
+ `RAZORPAY_KEY_SECRET`/`WEBHOOK_SECRET`) despite documenting them as required — both fixed the same
+ session (see `PAYMENTS_SETUP.md` §4 and the workflow file's own header comment).
+ 
++**10 Sep 2026, getting from secrets resolving to all 9 functions actually live — three more
++distinct root causes, in order:**
++1. **`firebase deploy --non-interactive` refuses a `defineString()`'s own code-level `default`.**
++   All twelve non-secret params (`OTP_PROVIDER`, `PAYMENT_GATEWAY`, etc.) failed with "In
++   non-interactive mode but have no value for the following environment variables" even though
++   every one has a `{ default: ... }` in `index.js`. Fixed: `deploy-firebase-functions.yml` now
++   writes `dge/firebase/functions/.env` with each param's already-declared default before
++   deploying — never committed, regenerated every run.
++2. **Four more Google Cloud APIs needed a project owner to click Enable**, on top of Artifact
++   Registry (8 Sep): `cloudscheduler.googleapis.com`, `run.googleapis.com`,
++   `eventarc.googleapis.com`, `pubsub.googleapis.com`, and finally `cloudbilling.googleapis.com` —
++   same class of problem as §0.1, same fix (Cloud Console → APIs & Services → Library → Enable),
++   just five more of them, one at a time as each was reached.
++3. **`firebase deploy` exits 1 even after every function deploys successfully** if Artifact
++   Registry has no image cleanup policy yet for the deploy region — a one-time setup step, not a
++   real failure. Fixed: the deploy step now passes `--non-interactive --force`, which lets
++   firebase-tools configure that policy itself instead of erroring afterward.
++4. **`runWhatsAppBroadcast` (the one scheduled function) needed two more IAM roles** on
++   `firebase-adminsdk-fbsvc@...`, on top of the ones already granted for the other eight functions
++   (Cloud Functions Admin, Cloud Build Editor, Artifact Registry Administrator, Cloud Run Admin,
++   Eventarc Admin, Secret Manager Admin, Service Account User/Token Creator, plus the pre-existing
++   Firebase Admin/Rules Admin/Authentication Admin) — **Cloud Scheduler Admin** and **Pub/Sub
++   Admin** — easy to mis-click for similarly-named wrong roles
++   (**Cloud Datastore Backup Schedules Admin**, **Pub/Sub Lite Admin**) when searching by keyword
++   in the IAM role picker; both are real, different roles for unrelated products. Confirm the
++   *exact* role name landed on the *right* service account, not just that "something with that
++   keyword" was added.
++
+ ### 0.1 What actually blocked the Firestore deploy (resolved 8 Sep 2026)
+ 
+ Nine dispatches, three distinct root causes, in the order they were found and fixed:
+-- 
+2.43.0
+

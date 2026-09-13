@@ -1,0 +1,37 @@
+From 0e34ca2ec1acda4c49ec94a3f09bca464532aa9e Mon Sep 17 00:00:00 2001
+From: Daasoham <119830645+Tribhuvanachar@users.noreply.github.com>
+Date: Thu, 10 Sep 2026 15:48:49 +0530
+Subject: [PATCH 6/7] Deploy workflow: auto-set Artifact Registry cleanup
+ policy on first run
+
+8 of 9 functions deployed successfully on the first real attempt, but
+the command still exited 1 because Artifact Registry had no cleanup
+policy yet for asia-south1 build images -- a one-time setup step, not
+an actual deploy failure. Firebase's non-interactive flag now lets the
+CLI configure that policy itself instead of erroring afterward.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_0111c5EUqdmiA4aXfMDSjopx
+---
+ .github/workflows/deploy-firebase-functions.yml | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/.github/workflows/deploy-firebase-functions.yml b/.github/workflows/deploy-firebase-functions.yml
+index b1070c405..1f597c3a7 100644
+--- a/.github/workflows/deploy-firebase-functions.yml
++++ b/.github/workflows/deploy-firebase-functions.yml
+@@ -134,5 +134,10 @@ jobs:
+           else
+             TARGET="functions"
+           fi
+-          firebase deploy --only "$TARGET" --project "$PID" --non-interactive
++          # --force also auto-sets an Artifact Registry cleanup policy for build images in
++          # asia-south1 on first deploy -- without it, firebase-tools exits 1 AFTER a fully
++          # successful function deploy just because that one-time policy step was skipped,
++          # which looks like a failure even when every function deployed fine. Discovered
++          # 10 Sep 2026 on the first deploy that got functions created at all.
++          firebase deploy --only "$TARGET" --project "$PID" --non-interactive --force
+           echo "Functions deployed to project $PID (region asia-south1, per functions/index.js setGlobalOptions)"
+-- 
+2.43.0
+

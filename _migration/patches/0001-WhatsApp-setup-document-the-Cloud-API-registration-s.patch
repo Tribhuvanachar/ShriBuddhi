@@ -1,0 +1,68 @@
+From d8c51d48c8488e4cd1ece89dd92cbea05792ff71 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Thu, 10 Sep 2026 02:11:08 +0000
+Subject: [PATCH 1/7] WhatsApp setup: document the Cloud API registration step
+
+SMS/voice OTP only proves ownership of the number; WhatsApp Manager
+keeps it "Pending" until a separate call to the registration API
+succeeds. Not previously written down, and easy to mistake for the
+verification failing.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_0111c5EUqdmiA4aXfMDSjopx
+---
+ dge/FIREBASE_SETUP.md | 24 ++++++++++++++++++++----
+ 1 file changed, 20 insertions(+), 4 deletions(-)
+
+diff --git a/dge/FIREBASE_SETUP.md b/dge/FIREBASE_SETUP.md
+index edbdba298..c097f76c4 100644
+--- a/dge/FIREBASE_SETUP.md
++++ b/dge/FIREBASE_SETUP.md
+@@ -80,6 +80,21 @@ This is the actual sequence, in order — each step names who does it:
+    - Create a Meta Business account and a WhatsApp Business app at developers.facebook.com.
+    - WhatsApp → API Setup: note the **Phone number ID**, generate a **permanent** (System User) access
+      token — not the 24-hour temporary one.
++   - **Register the phone number on the Cloud API.** WhatsApp Manager → Phone numbers shows the number
++     stuck on **Pending** with "register this phone number using the registration API" even after you
++     complete the SMS/voice OTP — that OTP only proves you own the number, it is a *different* step from
++     making the number able to send/receive on the Cloud API. The "reach out to your partner" half of
++     that message is generic boilerplate Meta shows on every number regardless of setup; ignore it for a
++     direct (non-BSP) integration like this one and call the API yourself:
++     ```bash
++     curl -X POST "https://graph.facebook.com/v21.0/<PHONE_NUMBER_ID>/register" \
++       -H "Authorization: Bearer <ACCESS_TOKEN>" \
++       -H "Content-Type: application/json" \
++       -d '{"messaging_product": "whatsapp", "pin": "<PICK_A_6_DIGIT_PIN>"}'
++     ```
++     The temporary token from API Setup works for this one call. The 6-digit `pin` you choose becomes
++     that number's two-step verification PIN for future registrations/migrations — write it down next to
++     `OTP_PEPPER`. A `{"success": true}` response flips WhatsApp Manager's status to Connected on refresh.
+    - WhatsApp Manager → Message templates → create an **Authentication** template named `dge_otp`
+      with the **copy code** button enabled. Approval is usually minutes to a few hours.
+    - Create a **Utility** template for broadcasts (e.g. the daily shloka), with whatever variables you
+@@ -302,9 +317,10 @@ argued with.
+ 
+ 1. Create a Meta Business account and a WhatsApp Business app at [developers.facebook.com](https://developers.facebook.com).
+ 2. **WhatsApp → API Setup**: note the **Phone number ID** and generate a **permanent** access token (a System User token — the temporary 24-hour one is only useful for a first smoke test).
+-3. **WhatsApp Manager → Message templates** → create an **Authentication** template. Name it `dge_otp` (or set `OTP_TEMPLATE_NAME` to whatever you call it). Enable the **copy code** button — that button is the reason to use WhatsApp for OTP at all. Approval usually takes minutes to a few hours.
+-4. Create a **Utility** template for broadcasts, with whatever variables you need. Utility is the correct category for "here is today's shloka"; marketing costs more and is held to stricter rules.
+-5. Set the secrets:
++3. **Register the number** — see the "Register the phone number on the Cloud API" bullet in §0.2 step 4. SMS/voice ownership verification and Cloud API registration are two different steps; the number stays "Pending" in WhatsApp Manager until the registration API call succeeds.
++4. **WhatsApp Manager → Message templates** → create an **Authentication** template. Name it `dge_otp` (or set `OTP_TEMPLATE_NAME` to whatever you call it). Enable the **copy code** button — that button is the reason to use WhatsApp for OTP at all. Approval usually takes minutes to a few hours.
++5. Create a **Utility** template for broadcasts, with whatever variables you need. Utility is the correct category for "here is today's shloka"; marketing costs more and is held to stricter rules.
++6. Set the secrets:
+ 
+ ```bash
+ cd dge/firebase
+@@ -321,7 +337,7 @@ firebase functions:secrets:set MSG91_AUTHKEY
+ UIDs are derived from it; changing it orphans every existing phone
+ account, because the same person would derive a different UID.
+ 
+-6. Point Meta's webhook at the deployed `whatsappWebhook` URL, using the
++7. Point Meta's webhook at the deployed `whatsappWebhook` URL, using the
+    `WHATSAPP_VERIFY_TOKEN` you chose, and subscribe to the `messages`
+    field. This is what honours **STOP** replies. It is not optional:
+    ignoring opt-outs is a policy breach, and recipients blocking the
+-- 
+2.43.0
+

@@ -1,0 +1,124 @@
+From f485e2a5a7a8ab4397f0df105744586ae75e9235 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Thu, 10 Sep 2026 06:25:54 +0000
+Subject: [PATCH 4/7] Rename GITHUB_DISPATCH_TOKEN to GH_DISPATCH_TOKEN
+
+GitHub Actions refuses to create a repository secret whose name starts
+with the reserved GITHUB_ prefix, discovered while actually adding it
+in the console. Renamed the Secret Manager name everywhere it's
+referenced (index.js's defineSecret() call, the push-secrets workflow's
+env/loop); the JS constant name is unchanged, only the string passed to
+defineSecret() and the GitHub secret name itself.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_0111c5EUqdmiA4aXfMDSjopx
+---
+ .../workflows/push-firebase-function-secrets.yml  | 15 +++++++++------
+ dge/FIREBASE_SETUP.md                             | 14 ++++++++++++--
+ dge/firebase/functions/index.js                   |  5 ++++-
+ 3 files changed, 25 insertions(+), 9 deletions(-)
+
+diff --git a/.github/workflows/push-firebase-function-secrets.yml b/.github/workflows/push-firebase-function-secrets.yml
+index f84b36a51..79c184cf3 100644
+--- a/.github/workflows/push-firebase-function-secrets.yml
++++ b/.github/workflows/push-firebase-function-secrets.yml
+@@ -15,9 +15,12 @@
+ #   WHATSAPP_APP_SECRET       Meta app → Settings → Basic → App Secret
+ #   OTP_PEPPER                any long random string — see the warning below, do NOT set this twice
+ #   MSG91_AUTHKEY             optional, only if AUTH_CONFIG.phoneOtpProvider will be 'msg91'
+-#   GITHUB_DISPATCH_TOKEN     fine-grained GitHub PAT for admin/workflows.html's Run-a-Workflow panel
++#   GH_DISPATCH_TOKEN         fine-grained GitHub PAT for admin/workflows.html's Run-a-Workflow panel
+ #                             (FIREBASE_SETUP.md §12 — Actions: Read and write on this repo ONLY,
+-#                             nothing else; never a classic repo-scoped PAT)
++#                             nothing else; never a classic repo-scoped PAT). Named GH_ rather than
++#                             GITHUB_ because GitHub Actions refuses to create a secret whose name
++#                             starts with the reserved GITHUB_ prefix — discovered 10 Sep 2026 the
++#                             hard way, when the console rejected creating GITHUB_DISPATCH_TOKEN.
+ #   PAYMENT_WEBHOOK_SECRET    any random string — the `mock` payment gateway's shared HMAC secret
+ #                             (PAYMENTS_SETUP.md). Never actually used in production (mock refuses to
+ #                             run outside an emulator), but still has to EXIST for a deploy to succeed
+@@ -34,11 +37,11 @@
+ # 8 Sep 2026: every defineSecret() in functions/index.js — not just the ones for whichever function
+ # you're deploying — gets resolved while firebase-tools loads and analyzes the codebase, so a Cloud
+ # Functions deploy FAILS OUTRIGHT if even one declared secret has no version in Secret Manager yet,
+-# regardless of `--only`. That includes GITHUB_DISPATCH_TOKEN even though it has nothing to do with
++# regardless of `--only`. That includes GH_DISPATCH_TOKEN even though it has nothing to do with
+ # WhatsApp/OTP — this is why it is pushed here alongside the phone/WhatsApp ones, not left to the
+ # manual `firebase functions:secrets:set` §12 originally described. A WhatsApp/MSG91 value that isn't
+ # real yet is harmless to push as a placeholder (those transports are off in AUTH_CONFIG until turned
+-# on deliberately) — GITHUB_DISPATCH_TOKEN needs a real token from day one, since admin/workflows.html
++# on deliberately) — GH_DISPATCH_TOKEN needs a real token from day one, since admin/workflows.html
+ # calls it as soon as the functions exist.
+ #
+ # OTP_PEPPER must be set once and NEVER rotated: phone-account UIDs are derived from it, so changing
+@@ -132,7 +135,7 @@ jobs:
+           S_WHATSAPP_APP_SECRET: ${{ secrets.WHATSAPP_APP_SECRET }}
+           S_OTP_PEPPER: ${{ secrets.OTP_PEPPER }}
+           S_MSG91_AUTHKEY: ${{ secrets.MSG91_AUTHKEY }}
+-          S_GITHUB_DISPATCH_TOKEN: ${{ secrets.GITHUB_DISPATCH_TOKEN }}
++          S_GH_DISPATCH_TOKEN: ${{ secrets.GH_DISPATCH_TOKEN }}
+           S_PAYMENT_WEBHOOK_SECRET: ${{ secrets.PAYMENT_WEBHOOK_SECRET }}
+           S_CASHFREE_CLIENT_ID: ${{ secrets.CASHFREE_CLIENT_ID }}
+           S_CASHFREE_CLIENT_SECRET: ${{ secrets.CASHFREE_CLIENT_SECRET }}
+@@ -143,7 +146,7 @@ jobs:
+           cd dge/firebase
+           pushed=()
+           skipped=()
+-          for NAME in WHATSAPP_TOKEN WHATSAPP_PHONE_NUMBER_ID WHATSAPP_VERIFY_TOKEN WHATSAPP_APP_SECRET OTP_PEPPER MSG91_AUTHKEY GITHUB_DISPATCH_TOKEN PAYMENT_WEBHOOK_SECRET CASHFREE_CLIENT_ID CASHFREE_CLIENT_SECRET RAZORPAY_KEY_SECRET RAZORPAY_WEBHOOK_SECRET; do
++          for NAME in WHATSAPP_TOKEN WHATSAPP_PHONE_NUMBER_ID WHATSAPP_VERIFY_TOKEN WHATSAPP_APP_SECRET OTP_PEPPER MSG91_AUTHKEY GH_DISPATCH_TOKEN PAYMENT_WEBHOOK_SECRET CASHFREE_CLIENT_ID CASHFREE_CLIENT_SECRET RAZORPAY_KEY_SECRET RAZORPAY_WEBHOOK_SECRET; do
+             VAR="S_${NAME}"
+             VALUE="${!VAR}"
+             if [ -z "$VALUE" ]; then
+diff --git a/dge/FIREBASE_SETUP.md b/dge/FIREBASE_SETUP.md
+index c097f76c4..7a8c16c44 100644
+--- a/dge/FIREBASE_SETUP.md
++++ b/dge/FIREBASE_SETUP.md
+@@ -22,9 +22,19 @@ only `FIREBASE_PROJECT_ID` is used by the deploy workflows; the web config is pu
+ | `FIREBASE_SERVICE_ACCOUNT` secret | ✅ added by the lead, 8 Sep 2026 |
+ | Firestore rules + indexes deploy | ✅ **live, 8 Sep 2026, ~11:56 am IST** (`Deploy — Firestore rules & indexes` runs 8 and 9) — see §0.1 for what it actually took to get here |
+ | Hosting deploy | ✅ **live, 8 Sep 2026, ~12:11 pm IST** — preview channel confirmed serving the real site (fetched, title "Sarvamūla Digital Library", the ॐ landing page and footer links render). First attempt had failed with `Error: ../.. is outside of project directory` (`dge/firebase/firebase.json`'s `hosting.public: "../.."` reached outside what firebase-tools treats as the config file's own directory); fixed with a dedicated `firebase-hosting.json` at the repo root (`public: "."`) used via `--config` — `dge/firebase/firebase.json` unchanged, still serves firestore/functions/emulators. `live` channel / DNS cutover is still the lead's decision, GitHub Pages remains the live origin until then |
+-| Cloud Functions (WhatsApp OTP + broadcasts) | ⏳ Sixth attempt (run 6, 8 Sep ~7:57 pm IST), after the lead enabled the Secret Manager API, got past that too — reached the actual secret lookup and failed with `Permission 'secretmanager.secrets.get' denied on resource (or it may not exist)` for `WHATSAPP_TOKEN` specifically: the secret has no version in Secret Manager yet, because `push-firebase-function-secrets.yml` has never been run. **Root cause understood now, not just another API/IAM gap**: every `defineSecret()` in `functions/index.js` — all seven (`WHATSAPP_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_VERIFY_TOKEN`, `WHATSAPP_APP_SECRET`, `MSG91_AUTHKEY`, `OTP_PEPPER`, `GITHUB_DISPATCH_TOKEN`) — gets resolved while firebase-tools loads and analyzes the whole codebase, so the deploy fails outright if even ONE of the seven has no version yet, regardless of which specific function you target. This means `push-firebase-function-secrets.yml` has to run BEFORE `Deploy — Firebase Functions` succeeds, not after, reversing what §0.2 originally assumed — and `GITHUB_DISPATCH_TOKEN` (§12, powers `admin/workflows.html`, unrelated to WhatsApp) was never even in that pushing workflow's list. Fixed the workflow gap (now pushes `GITHUB_DISPATCH_TOKEN` too). **What the lead needs to do next, before another deploy attempt makes sense:** add these as GitHub repository secrets — `GITHUB_DISPATCH_TOKEN` (a real fine-grained PAT, §12 step 2 — this one's used immediately, not a placeholder), `OTP_PEPPER` (a real long random string — never rotate it once phone accounts exist, §7), and the four WhatsApp fields + `MSG91_AUTHKEY` (a placeholder value is fine for these specifically, since `AUTH_CONFIG.enablePhoneAuth`/`enableWhatsappBroadcasts` are both still `false` — nothing reads them yet; swap in real values, a normal secret update, once §0.2 step 4's Meta setup is done). Then dispatch `Push Firebase Functions secrets`, then re-dispatch `Deploy — Firebase Functions` |
++| Cloud Functions (WhatsApp OTP + broadcasts) | ⏳ Sixth attempt (run 6, 8 Sep ~7:57 pm IST), after the lead enabled the Secret Manager API, got past that too — reached the actual secret lookup and failed with `Permission 'secretmanager.secrets.get' denied on resource (or it may not exist)` for `WHATSAPP_TOKEN` specifically: the secret has no version in Secret Manager yet, because `push-firebase-function-secrets.yml` has never been run. **Root cause understood now, not just another API/IAM gap**: every `defineSecret()` in `functions/index.js` — all seven (`WHATSAPP_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_VERIFY_TOKEN`, `WHATSAPP_APP_SECRET`, `MSG91_AUTHKEY`, `OTP_PEPPER`, `GH_DISPATCH_TOKEN`) — gets resolved while firebase-tools loads and analyzes the whole codebase, so the deploy fails outright if even ONE of the seven has no version yet, regardless of which specific function you target. This means `push-firebase-function-secrets.yml` has to run BEFORE `Deploy — Firebase Functions` succeeds, not after, reversing what §0.2 originally assumed — and `GH_DISPATCH_TOKEN` (§12, powers `admin/workflows.html`, unrelated to WhatsApp) was never even in that pushing workflow's list. Fixed the workflow gap (now pushes `GH_DISPATCH_TOKEN` too). **What the lead needs to do next, before another deploy attempt makes sense:** add these as GitHub repository secrets — `GH_DISPATCH_TOKEN` (a real fine-grained PAT, §12 step 2 — this one's used immediately, not a placeholder), `OTP_PEPPER` (a real long random string — never rotate it once phone accounts exist, §7), and the four WhatsApp fields + `MSG91_AUTHKEY` (a placeholder value is fine for these specifically, since `AUTH_CONFIG.enablePhoneAuth`/`enableWhatsappBroadcasts` are both still `false` — nothing reads them yet; swap in real values, a normal secret update, once §0.2 step 4's Meta setup is done). Then dispatch `Push Firebase Functions secrets`, then re-dispatch `Deploy — Firebase Functions` |
+ | Role-based content access (Access Control) | ✅ **built 8 Sep 2026** — see §0.3 |
+ 
++**10 Sep 2026 correction**: while actually adding these as GitHub repository secrets for the first
++time, GitHub's own console refused to create one named `GITHUB_DISPATCH_TOKEN` — repository secret
++names may never start with the reserved `GITHUB_` prefix. Every reference in this repo (`index.js`'s
++`defineSecret()` call, `push-firebase-function-secrets.yml`) is renamed to **`GH_DISPATCH_TOKEN`**
++throughout; the table row above and §12 below already reflect the new name. Also confirmed while
++digging into this: `push-firebase-function-secrets.yml` had never been run even once, and separately
++never pushed the five payment secrets (`PAYMENT_WEBHOOK_SECRET`, `CASHFREE_CLIENT_ID/SECRET`,
++`RAZORPAY_KEY_SECRET`/`WEBHOOK_SECRET`) despite documenting them as required — both fixed the same
++session (see `PAYMENTS_SETUP.md` §4 and the workflow file's own header comment).
++
+ ### 0.1 What actually blocked the Firestore deploy (resolved 8 Sep 2026)
+ 
+ Nine dispatches, three distinct root causes, in the order they were found and fixed:
+@@ -499,7 +509,7 @@ the page shows today, because `AUTH_CONFIG.enabled` is still `false`.
+ 
+ ```bash
+ cd dge/firebase
+-firebase functions:secrets:set GITHUB_DISPATCH_TOKEN     # paste the token
++firebase functions:secrets:set GH_DISPATCH_TOKEN     # paste the token
+ firebase deploy --only functions:listWorkflows,functions:runWorkflow
+ firebase deploy --only firestore:indexes,firestore:rules
+ ```
+diff --git a/dge/firebase/functions/index.js b/dge/firebase/functions/index.js
+index 6c3c8a39a..2dc546207 100644
+--- a/dge/firebase/functions/index.js
++++ b/dge/firebase/functions/index.js
+@@ -72,7 +72,10 @@ const MSG91_TEMPLATE_ID = defineString('MSG91_TEMPLATE_ID', { default: '' });
+ // access token, scoped to this one repository, with Actions: read and write
+ // and nothing else. A classic PAT with `repo` scope would hand whoever
+ // reaches this function the whole account -- see FIREBASE_SETUP.md SS12.
+-const GITHUB_DISPATCH_TOKEN = defineSecret('GITHUB_DISPATCH_TOKEN');
++// Named GH_ rather than GITHUB_ because GitHub Actions refuses to let a
++// repository secret's name start with the reserved GITHUB_ prefix --
++// discovered 10 Sep 2026 when the console rejected creating it outright.
++const GITHUB_DISPATCH_TOKEN = defineSecret('GH_DISPATCH_TOKEN');
+ const GITHUB_REPO = defineString('GITHUB_REPO', { default: 'Tribhuvanachar/bhumandala' });
+ 
+ // The donation/supporter system's own secrets and config. Both Cashfree
+-- 
+2.43.0
+
