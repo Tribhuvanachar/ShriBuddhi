@@ -1,0 +1,2541 @@
+{
+ "schema": "itihasa_purana_text",
+ "default_author": "महर्षिवेदव्यासः",
+ "source_url": "https://gretil.sub.uni-goettingen.de/gretil/corpustei/transformations/plaintext/sa_viSNupurANa.txt",
+ "source_note": "GRETIL. Distributed under CC BY-NC-SA 4.0 by GRETIL. source_edition: Bombay: Venkatesvara Steam Press 1910 (Sansknet Project) quality: unproofed note: 6 aṃśas, one folder each via split_targets. Maṅgala verses use ref3 = 0 (ViP_1,1.0). ## Data entry: members of the Sansknet Project | ## Contribution: members of the Sansknet Project | ## Date of this version: 2020-07-31 | ## Source: | ## Publisher: Göttingen Register of Electronic Texts in Indian Languages (GRETIL), SUB Göttingen | ## Licence: | Based on the edition Bombay : Venkatesvara Steam Press 1910 | Input by members of the SANSKNET-project",
+ "items": [
+  {
+   "id": "adhyaya_01",
+   "reference": "Viṣṇupurāṇa, Amsha 06, adhyaya 1",
+   "shlokas": [
+    {
+     "number": "1",
+     "sanskrit_text": "इति श्रीविष्णुमहापुराणे पञ्चमाशे ऽष्टत्रिंशो ऽध्यायः इति श्रीविष्णुमहापुराणे विष्णुचित्त्यात्मप्रकाशाख्य श्रीधरीयव्याख्याद्वयोपेते पञ्च मांशः समाप्तः / अथ श्रीविष्णुमहापुराणे विष्णुचित्त्यात्मप्रकाशाख्यश्रीधरीय व्याख्याद्वयोपेते षष्ठांशः प्रारभ्यते / श्रीमते रामानुजाय नमः मैत्रेय उवाच व्याख्याता भवता सर्गवंशमन्वन्तरस्थितिः / वंशानुचरितं चैव विस्तरेण महामुने",
+     "iast_text": "iti śrīviṣṇumahāpurāṇe pañcamāśe 'ṣṭatriṃśo 'dhyāyaḥ iti śrīviṣṇumahāpurāṇe viṣṇucittyātmaprakāśākhya śrīdharīyavyākhyādvayopete pañca māṃśaḥ samāptaḥ / atha śrīviṣṇumahāpurāṇe viṣṇucittyātmaprakāśākhyaśrīdharīya vyākhyādvayopete ṣaṣṭhāṃśaḥ prārabhyate / śrīmate rāmānujāya namaḥ maitreya uvāca vyākhyātā bhavatā sargavaṃśamanvantarasthitiḥ / vaṃśānucaritaṃ caiva vistareṇa mahāmune"
+    },
+    {
+     "number": "2",
+     "sanskrit_text": "श्रोतुमिच्छाम्यहं त्वत्तो यथावदुपसंहृतिम् / महाप्रलयसंज्ञां च कल्पान्ते च महामुने",
+     "iast_text": "śrotumicchāmyahaṃ tvatto yathāvadupasaṃhṛtim / mahāpralayasaṃjñāṃ ca kalpānte ca mahāmune"
+    },
+    {
+     "number": "3",
+     "sanskrit_text": "श्रीपराशर उवाच मैत्रेय श्रूयतां मत्तो यथावदुपसंहृतिः / कल्पान्ते प्राकृते चैव प्रलयो जायते यथा",
+     "iast_text": "śrīparāśara uvāca maitreya śrūyatāṃ matto yathāvadupasaṃhṛtiḥ / kalpānte prākṛte caiva pralayo jāyate yathā"
+    },
+    {
+     "number": "4",
+     "sanskrit_text": "अहोरात्रं पितॄणां तु मासो ऽब्दस्त्रिदिवौकसाम् / चतुर्युगमहस्रे तु ब्रह्मणो वै द्विजोत्तम",
+     "iast_text": "ahorātraṃ pitṝṇāṃ tu māso 'bdastridivaukasām / caturyugamahasre tu brahmaṇo vai dvijottama"
+    },
+    {
+     "number": "5",
+     "sanskrit_text": "कृतं त्रेता द्वापरं च कलिश्चेति चतुर्युगम् / दिव्यैर् वर्षसहस्रैस् तु तद्द्वादशभिर् उच्यते",
+     "iast_text": "kṛtaṃ tretā dvāparaṃ ca kaliśceti caturyugam / divyair varṣasahasrais tu taddvādaśabhir ucyate"
+    },
+    {
+     "number": "6",
+     "sanskrit_text": "चतुर्युगाण्य् अशेषाणि सदृशानि स्वरूपतः / आद्यं कृतयुगं मुक्त्वा मैत्रेयान्त्यं तथा कलिम्",
+     "iast_text": "caturyugāṇy aśeṣāṇi sadṛśāni svarūpataḥ / ādyaṃ kṛtayugaṃ muktvā maitreyāntyaṃ tathā kalim"
+    },
+    {
+     "number": "7",
+     "sanskrit_text": "आद्ये कृतयुगे सर्गो ब्रह्मणा क्रियते यथा / क्रियते चोपसंहारस्तथांऽते च कलौ युगे",
+     "iast_text": "ādye kṛtayuge sargo brahmaṇā kriyate yathā / kriyate copasaṃhārastathāṃ'te ca kalau yuge"
+    },
+    {
+     "number": "8",
+     "sanskrit_text": "मैत्रेय उवाच कलेःस्वरूपं भगवन्विस्तराद्वक्तुमर्हसि / धर्मश् चतुष्पाद् भगवान् यस्मिन् विप्लवम् ऋच्छति",
+     "iast_text": "maitreya uvāca kaleḥsvarūpaṃ bhagavanvistarādvaktumarhasi / dharmaś catuṣpād bhagavān yasmin viplavam ṛcchati"
+    },
+    {
+     "number": "9",
+     "sanskrit_text": "श्रीपराशर उवाच कलेःस्वरूपं मैत्रेय यद्भवाञ्छ्रोतु मिच्छति / तन्निबोध समासेन वर्तते यन्महामुने",
+     "iast_text": "śrīparāśara uvāca kaleḥsvarūpaṃ maitreya yadbhavāñchrotu micchati / tannibodha samāsena vartate yanmahāmune"
+    },
+    {
+     "number": "10",
+     "sanskrit_text": "वर्णाश्रमाचारवती प्रवृत्तिर्न कलौ नृणाम् / न सामऋग्यजुर्धर्मविनिष्पादनहैतुकी",
+     "iast_text": "varṇāśramācāravatī pravṛttirna kalau nṛṇām / na sāmaṛgyajurdharmaviniṣpādanahaitukī"
+    },
+    {
+     "number": "11",
+     "sanskrit_text": "विवाहा न कलौ धर्म्या न शिष्यगुरुसंस्थितिः / न दांपत्यक्रमो नैव वह्निदेवात्मकः क्रमः",
+     "iast_text": "vivāhā na kalau dharmyā na śiṣyagurusaṃsthitiḥ / na dāṃpatyakramo naiva vahnidevātmakaḥ kramaḥ"
+    },
+    {
+     "number": "12",
+     "sanskrit_text": "यत्र कुत्र कुले जातो बली सर्वेश्वरः कलौ / सर्वेभ्य एव वर्णेभ्यो योग्यः कन्यावरोधने",
+     "iast_text": "yatra kutra kule jāto balī sarveśvaraḥ kalau / sarvebhya eva varṇebhyo yogyaḥ kanyāvarodhane"
+    },
+    {
+     "number": "13",
+     "sanskrit_text": "येन केन च योगेन द्विजातिर्दीक्षितः कलौ / यैव सैव च मैत्रेय प्रायश्चित्तं कलौ क्रिया",
+     "iast_text": "yena kena ca yogena dvijātirdīkṣitaḥ kalau / yaiva saiva ca maitreya prāyaścittaṃ kalau kriyā"
+    },
+    {
+     "number": "14",
+     "sanskrit_text": "सर्वमेव कलौ शास्त्रं यस्य यद्वजनं द्विज / देवता च कलौ सर्वा सर्वःसर्वस्य चाश्रमः",
+     "iast_text": "sarvameva kalau śāstraṃ yasya yadvajanaṃ dvija / devatā ca kalau sarvā sarvaḥsarvasya cāśramaḥ"
+    },
+    {
+     "number": "15",
+     "sanskrit_text": "उपवासस्तथाऽयासौ वित्तोत्सर्गस्तपः कलौ / धर्मो यथाभिरुचितैर् अनुष्ठनैर् अनुष्ठितः",
+     "iast_text": "upavāsastathā'yāsau vittotsargastapaḥ kalau / dharmo yathābhirucitair anuṣṭhanair anuṣṭhitaḥ"
+    },
+    {
+     "number": "16",
+     "sanskrit_text": "वित्तेन भविता पुंसां स्वल्पेनाढ्यमदः कलौ / स्त्रीणां रूपमदश्चैवं केशैर् एव भविष्यति",
+     "iast_text": "vittena bhavitā puṃsāṃ svalpenāḍhyamadaḥ kalau / strīṇāṃ rūpamadaścaivaṃ keśair eva bhaviṣyati"
+    },
+    {
+     "number": "17",
+     "sanskrit_text": "मुवर्णमणिरत्नादौ वस्त्रे चोपक्षयं गते / कलौ स्त्रियो भविष्यन्ति तदा केशैर् अलङ्कृताः",
+     "iast_text": "muvarṇamaṇiratnādau vastre copakṣayaṃ gate / kalau striyo bhaviṣyanti tadā keśair alaṅkṛtāḥ"
+    },
+    {
+     "number": "18",
+     "sanskrit_text": "परित्यक्ष्यन्ति भर्तारं वित्तहीनं तथा स्त्रियः / भर्ता भविष्यति कलौ वित्तवानेव योषिताम्",
+     "iast_text": "parityakṣyanti bhartāraṃ vittahīnaṃ tathā striyaḥ / bhartā bhaviṣyati kalau vittavāneva yoṣitām"
+    },
+    {
+     "number": "19",
+     "sanskrit_text": "यो वै ददाति बहुलं स्वं स स्वामी सदा नृणाम् / स्वामित्वहेतुःसंबन्धो न चाभिजनता तथा",
+     "iast_text": "yo vai dadāti bahulaṃ svaṃ sa svāmī sadā nṛṇām / svāmitvahetuḥsaṃbandho na cābhijanatā tathā"
+    },
+    {
+     "number": "20",
+     "sanskrit_text": "गृहान्ता द्रव्य्संघाता द्रव्यान्ता च तथा मतिः / अर्थाश्चात्मोपभोग्यान्ता भविष्यन्ति कलौ युगे",
+     "iast_text": "gṛhāntā dravysaṃghātā dravyāntā ca tathā matiḥ / arthāścātmopabhogyāntā bhaviṣyanti kalau yuge"
+    },
+    {
+     "number": "21",
+     "sanskrit_text": "स्त्रियः कलौ भविष्यन्ति स्वैरिण्यो ललितस्पृहाः / अन्यायादाप्तवित्तेषु पुरुषाः स्पृहयालबः",
+     "iast_text": "striyaḥ kalau bhaviṣyanti svairiṇyo lalitaspṛhāḥ / anyāyādāptavitteṣu puruṣāḥ spṛhayālabaḥ"
+    },
+    {
+     "number": "22",
+     "sanskrit_text": "अभ्यर्थितापि सुहृदा स्वार्थमेव निरीक्ष्यते / पणार्धार्धाद्धमात्रे ऽपि करिष्यन्ति तथा स्पृहाम्",
+     "iast_text": "abhyarthitāpi suhṛdā svārthameva nirīkṣyate / paṇārdhārdhāddhamātre 'pi kariṣyanti tathā spṛhām"
+    },
+    {
+     "number": "23",
+     "sanskrit_text": "समानपौरुषं चेतो भुवि विप्रेषु वै कलौ / क्षीरप्रदानसंबन्धि भावि गोषु च गौरवम्",
+     "iast_text": "samānapauruṣaṃ ceto bhuvi vipreṣu vai kalau / kṣīrapradānasaṃbandhi bhāvi goṣu ca gauravam"
+    },
+    {
+     "number": "24",
+     "sanskrit_text": "अनावृष्टिभयप्रायाः प्रजाः क्षुद्भयकातराः / भविष्यन्ति तदा सर्वे गगनासक्तदृष्टयः",
+     "iast_text": "anāvṛṣṭibhayaprāyāḥ prajāḥ kṣudbhayakātarāḥ / bhaviṣyanti tadā sarve gaganāsaktadṛṣṭayaḥ"
+    },
+    {
+     "number": "25",
+     "sanskrit_text": "कन्दमूलफलाहारास्तापसा इव मानवाः / आत्मानं घातयिष्यन्ति ह्यनावृष्ट्यादिदुःखिताः",
+     "iast_text": "kandamūlaphalāhārāstāpasā iva mānavāḥ / ātmānaṃ ghātayiṣyanti hyanāvṛṣṭyādiduḥkhitāḥ"
+    },
+    {
+     "number": "26",
+     "sanskrit_text": "दुर्भिक्षमेव सततं तथा क्लेशमनीश्वराः / प्राप्स्यन्ति व्याहतसुखप्रमोदा मानवाः कलौ",
+     "iast_text": "durbhikṣameva satataṃ tathā kleśamanīśvarāḥ / prāpsyanti vyāhatasukhapramodā mānavāḥ kalau"
+    },
+    {
+     "number": "27",
+     "sanskrit_text": "अस्नानभोजिनो नाग्निदेवतातिथिपूजंनम् / करिष्यन्ति कलौ प्राप्ते न च पिण्डोदकक्रियाम्",
+     "iast_text": "asnānabhojino nāgnidevatātithipūjaṃnam / kariṣyanti kalau prāpte na ca piṇḍodakakriyām"
+    },
+    {
+     "number": "28",
+     "sanskrit_text": "लोलुपा ह्रस्वदेहाश् च बह्वन्नादनतत्पराः / बहुप्रजाल्पभाग्याश् च भविष्यन्ति कलौ स्त्रियः",
+     "iast_text": "lolupā hrasvadehāś ca bahvannādanatatparāḥ / bahuprajālpabhāgyāś ca bhaviṣyanti kalau striyaḥ"
+    },
+    {
+     "number": "29",
+     "sanskrit_text": "उभाभ्यामपि पाणिभ्यां शिरःकण्डूयनं स्त्रियः / कुर्वन्त्यो गुरुभर्तॄणाम् आज्ञां भर्त्स्यन्त्यनादराः",
+     "iast_text": "ubhābhyāmapi pāṇibhyāṃ śiraḥkaṇḍūyanaṃ striyaḥ / kurvantyo gurubhartṝṇām ājñāṃ bhartsyantyanādarāḥ"
+    },
+    {
+     "number": "30",
+     "sanskrit_text": "स्वपोषणपराः क्षुद्रा देहसंस्कारवर्जिताः / परुषानृतभाषिण्यो भविष्यन्ति कलौ स्त्रियः",
+     "iast_text": "svapoṣaṇaparāḥ kṣudrā dehasaṃskāravarjitāḥ / paruṣānṛtabhāṣiṇyo bhaviṣyanti kalau striyaḥ"
+    },
+    {
+     "number": "31",
+     "sanskrit_text": "दुःशीला दुष्टशीलेषु कुर्वन्त्यःसततं स्पृहाम् / असद्वृत्ता भविष्यन्ति पुरुषेषु कुलाङ्गनाः",
+     "iast_text": "duḥśīlā duṣṭaśīleṣu kurvantyaḥsatataṃ spṛhām / asadvṛttā bhaviṣyanti puruṣeṣu kulāṅganāḥ"
+    },
+    {
+     "number": "32",
+     "sanskrit_text": "वेदादानं करिष्यन्ति बटवश्चाकृतव्रताः / गृहस्थाश् च न होष्यन्ति न दास्यन्त्युचितान्यपि",
+     "iast_text": "vedādānaṃ kariṣyanti baṭavaścākṛtavratāḥ / gṛhasthāś ca na hoṣyanti na dāsyantyucitānyapi"
+    },
+    {
+     "number": "33",
+     "sanskrit_text": "वानप्रस्था भविष्यन्ति ग्राम्याहारपरिग्रहाः / भिक्षवश्चापि मित्रादिस्नेहसंबन्धयन्त्रणाः",
+     "iast_text": "vānaprasthā bhaviṣyanti grāmyāhāraparigrahāḥ / bhikṣavaścāpi mitrādisnehasaṃbandhayantraṇāḥ"
+    },
+    {
+     "number": "34",
+     "sanskrit_text": "अरक्षितारो हर्तारः शुल्कव्याजेन पार्थिवाः / हारिणो जनवित्तानां संप्राप्ते तु कलौ युगे",
+     "iast_text": "arakṣitāro hartāraḥ śulkavyājena pārthivāḥ / hāriṇo janavittānāṃ saṃprāpte tu kalau yuge"
+    },
+    {
+     "number": "35",
+     "sanskrit_text": "योयो ऽश्वरथनागाढ्यःस स राजा भविष्यति / यश् च यश्चाबलः सर्वः स स भृत्यः कलौ युगे",
+     "iast_text": "yoyo 'śvarathanāgāḍhyaḥsa sa rājā bhaviṣyati / yaś ca yaścābalaḥ sarvaḥ sa sa bhṛtyaḥ kalau yuge"
+    },
+    {
+     "number": "36",
+     "sanskrit_text": "वैश्याः कृषिवणिज्यादि संत्यज्य निजकर्म यत् / शूद्रवृत्त्या प्रवर्त्स्यन्ति कारुकर्मोपजीविनः",
+     "iast_text": "vaiśyāḥ kṛṣivaṇijyādi saṃtyajya nijakarma yat / śūdravṛttyā pravartsyanti kārukarmopajīvinaḥ"
+    },
+    {
+     "number": "37",
+     "sanskrit_text": "भैक्षव्रतपराः शूद्रा प्रव्रज्यालिङ्गिनो ऽधमाः / पाषण्डसंश्रयां वृत्तिमाश्रयिष्यन्ति सत्कृताः",
+     "iast_text": "bhaikṣavrataparāḥ śūdrā pravrajyāliṅgino 'dhamāḥ / pāṣaṇḍasaṃśrayāṃ vṛttimāśrayiṣyanti satkṛtāḥ"
+    },
+    {
+     "number": "38",
+     "sanskrit_text": "दुर्भिक्षकरपीडाभिर् अतीवोपद्रुता जनाः / गोधूमान्नयवान्नाढ्यान्देशान्यास्यन्ति दुःखिताः",
+     "iast_text": "durbhikṣakarapīḍābhir atīvopadrutā janāḥ / godhūmānnayavānnāḍhyāndeśānyāsyanti duḥkhitāḥ"
+    },
+    {
+     "number": "39",
+     "sanskrit_text": "वेदमार्गे प्रलीने च पाषण्डाढ्ये ततो जने / अधर्मवृद्ध्या लोकानामल्पमायुर्भविष्यति",
+     "iast_text": "vedamārge pralīne ca pāṣaṇḍāḍhye tato jane / adharmavṛddhyā lokānāmalpamāyurbhaviṣyati"
+    },
+    {
+     "number": "40",
+     "sanskrit_text": "अशास्त्रविहितं घोरं तप्यमानेषु वै तपः / नरेषु नृपदोषेण बाल्ये मृत्युर्भविष्यति",
+     "iast_text": "aśāstravihitaṃ ghoraṃ tapyamāneṣu vai tapaḥ / nareṣu nṛpadoṣeṇa bālye mṛtyurbhaviṣyati"
+    },
+    {
+     "number": "41",
+     "sanskrit_text": "भविता योषितां सूतिः पञ्चषट्मप्तवार्षिकी / नवाष्टदशवर्षाणां मनुष्याणां तथा कलौ",
+     "iast_text": "bhavitā yoṣitāṃ sūtiḥ pañcaṣaṭmaptavārṣikī / navāṣṭadaśavarṣāṇāṃ manuṣyāṇāṃ tathā kalau"
+    },
+    {
+     "number": "42",
+     "sanskrit_text": "पलितोद्भवश् च भविता तथा द्वादशवार्षिकः / नातिजीवति वै कश्चित्कलौ वर्षाणि विंशतिः",
+     "iast_text": "palitodbhavaś ca bhavitā tathā dvādaśavārṣikaḥ / nātijīvati vai kaścitkalau varṣāṇi viṃśatiḥ"
+    },
+    {
+     "number": "43",
+     "sanskrit_text": "अल्पप्रज्ञा वृथालिङ्गा दुष्टान्तःकरणाः कलौ / यतस्ततो विनङ्क्ष्यन्ति कालेनाल्पेन मानवाः",
+     "iast_text": "alpaprajñā vṛthāliṅgā duṣṭāntaḥkaraṇāḥ kalau / yatastato vinaṅkṣyanti kālenālpena mānavāḥ"
+    },
+    {
+     "number": "44",
+     "sanskrit_text": "यदायादा हि मैत्रेय हानिर्धर्मस्य लक्ष्यते / तदातदा कलेर्वृद्धिरनुमेया विचक्षणैः",
+     "iast_text": "yadāyādā hi maitreya hānirdharmasya lakṣyate / tadātadā kalervṛddhiranumeyā vicakṣaṇaiḥ"
+    },
+    {
+     "number": "45",
+     "sanskrit_text": "यदायदा हि पांषडवृद्धिर्मैत्रेय लक्ष्यते / तदातदा कलेर्वृद्धिरनुमेया महात्मभिः",
+     "iast_text": "yadāyadā hi pāṃṣaḍavṛddhirmaitreya lakṣyate / tadātadā kalervṛddhiranumeyā mahātmabhiḥ"
+    },
+    {
+     "number": "46",
+     "sanskrit_text": "यदायदा सतां हीनिर्वेदमार्गानुसारिणाम् / तदातदा कलेर्वृद्धिरनुमेया विचक्षणैः",
+     "iast_text": "yadāyadā satāṃ hīnirvedamārgānusāriṇām / tadātadā kalervṛddhiranumeyā vicakṣaṇaiḥ"
+    },
+    {
+     "number": "47",
+     "sanskrit_text": "प्रारंभाश्चावसीदन्ति यदा धर्मभृतां नृणाम् / तदानुमेयं प्राधान्यं कलेर् मैत्रेय पण्डितैः",
+     "iast_text": "prāraṃbhāścāvasīdanti yadā dharmabhṛtāṃ nṛṇām / tadānumeyaṃ prādhānyaṃ kaler maitreya paṇḍitaiḥ"
+    },
+    {
+     "number": "48",
+     "sanskrit_text": "यदायाद न यज्ञानामीश्वरः पुरुषोत्तमः / इज्यते पुरुषैर् यज्ञैस् तदा ज्ञेयं कलेर् बलम्",
+     "iast_text": "yadāyāda na yajñānāmīśvaraḥ puruṣottamaḥ / ijyate puruṣair yajñais tadā jñeyaṃ kaler balam"
+    },
+    {
+     "number": "49",
+     "sanskrit_text": "न प्रीतिर्वेदवादेषु पाषण्डेषु यदा रतिः / कलेर्वृद्धिस्तदा प्राज्ञैर् अनुमेया विचक्षणैः",
+     "iast_text": "na prītirvedavādeṣu pāṣaṇḍeṣu yadā ratiḥ / kalervṛddhistadā prājñair anumeyā vicakṣaṇaiḥ"
+    },
+    {
+     "number": "50",
+     "sanskrit_text": "कलौ जगत्पतिं विष्णुंसर्वस्रष्टारमीश्वरम् / नार्चयिष्यन्ति मैत्रेय पाषण्डोपहता जनाः",
+     "iast_text": "kalau jagatpatiṃ viṣṇuṃsarvasraṣṭāramīśvaram / nārcayiṣyanti maitreya pāṣaṇḍopahatā janāḥ"
+    },
+    {
+     "number": "51",
+     "sanskrit_text": "किं देवैः किं द्विजैर् वेदैः किं शौचे नांबुजन्मना / इत्येवं विप्रवक्ष्यन्ति पाषण्डोपहता जनाः",
+     "iast_text": "kiṃ devaiḥ kiṃ dvijair vedaiḥ kiṃ śauce nāṃbujanmanā / ityevaṃ vipravakṣyanti pāṣaṇḍopahatā janāḥ"
+    },
+    {
+     "number": "52",
+     "sanskrit_text": "स्वल्पांबुवृष्टिः पर्जन्यः सस्यं स्वल्पफलं तथा / फलं तथाल्पसारं च विप्र प्राप्ते कलौ युगे",
+     "iast_text": "svalpāṃbuvṛṣṭiḥ parjanyaḥ sasyaṃ svalpaphalaṃ tathā / phalaṃ tathālpasāraṃ ca vipra prāpte kalau yuge"
+    },
+    {
+     "number": "53",
+     "sanskrit_text": "शाणीप्रायाणि वस्त्राणि शमीप्राया महीरुहाः / शूद्रप्रायास् तथा वर्णा भविष्यन्ति कलौ युगे",
+     "iast_text": "śāṇīprāyāṇi vastrāṇi śamīprāyā mahīruhāḥ / śūdraprāyās tathā varṇā bhaviṣyanti kalau yuge"
+    },
+    {
+     "number": "54",
+     "sanskrit_text": "अणुप्रायाणि धान्यानि चाज्यप्रायं तथा पयः / भविष्यति कलौ प्राप्ते ह्यौशीरं चानुलेपनम्",
+     "iast_text": "aṇuprāyāṇi dhānyāni cājyaprāyaṃ tathā payaḥ / bhaviṣyati kalau prāpte hyauśīraṃ cānulepanam"
+    },
+    {
+     "number": "55",
+     "sanskrit_text": "श्वश्रूश्वशुरभूयिष्ठा गुरवश् च नृणां कलौ / श्यालाद्य हारिभार्याश् च सृहृदो मुनिसत्तम",
+     "iast_text": "śvaśrūśvaśurabhūyiṣṭhā guravaś ca nṛṇāṃ kalau / śyālādya hāribhāryāś ca sṛhṛdo munisattama"
+    },
+    {
+     "number": "56",
+     "sanskrit_text": "कस्य माता पिता कस्य यथा कर्मानुगः पुमान् / इति चोदाहरिष्यन्ति श्वशुरानुगतानराः",
+     "iast_text": "kasya mātā pitā kasya yathā karmānugaḥ pumān / iti codāhariṣyanti śvaśurānugatānarāḥ"
+    },
+    {
+     "number": "57",
+     "sanskrit_text": "वाङ्मनःकायगैर् दोषैर् अभिभूताः पुनः पुनः / नराः पापान्यनुदिनं करिष्यन्त्यल्पमेधसः",
+     "iast_text": "vāṅmanaḥkāyagair doṣair abhibhūtāḥ punaḥ punaḥ / narāḥ pāpānyanudinaṃ kariṣyantyalpamedhasaḥ"
+    },
+    {
+     "number": "58",
+     "sanskrit_text": "निःसत्त्वानामशौचानां निह्रीकाणां तथा नृणाम् / यद्यद्दुःखाय तत्सर्वं कलिकाले भविष्यति",
+     "iast_text": "niḥsattvānāmaśaucānāṃ nihrīkāṇāṃ tathā nṛṇām / yadyadduḥkhāya tatsarvaṃ kalikāle bhaviṣyati"
+    },
+    {
+     "number": "59",
+     "sanskrit_text": "निःस्वाध्यायवषट्कारे स्वधास्वाहाविवर्जिते / तदा प्रविरलो धर्मः क्वचिल्लोके निवत्स्यति",
+     "iast_text": "niḥsvādhyāyavaṣaṭkāre svadhāsvāhāvivarjite / tadā praviralo dharmaḥ kvacilloke nivatsyati"
+    },
+    {
+     "number": "60",
+     "sanskrit_text": "तत्राल्पेनैव यत्नेन पुण्यस्कन्धमनुत्तमम् / करोतियः कृतयुगे क्रियते तपसा हि सः",
+     "iast_text": "tatrālpenaiva yatnena puṇyaskandhamanuttamam / karotiyaḥ kṛtayuge kriyate tapasā hi saḥ"
+    }
+   ]
+  },
+  {
+   "id": "adhyaya_02",
+   "reference": "Viṣṇupurāṇa, Amsha 06, adhyaya 2",
+   "shlokas": [
+    {
+     "number": "1",
+     "sanskrit_text": "इति श्रीविष्णुमहापुराणे षष्ठांशे प्रथमो ऽध्यायः श्रीपराशर उवाच व्यासश्चाह महाबुद्धिर्यदत्रैव हि वस्तुनि / तच्छ्रूयतां महाभागा गदतो मम तत्त्वतः",
+     "iast_text": "iti śrīviṣṇumahāpurāṇe ṣaṣṭhāṃśe prathamo 'dhyāyaḥ śrīparāśara uvāca vyāsaścāha mahābuddhiryadatraiva hi vastuni / tacchrūyatāṃ mahābhāgā gadato mama tattvataḥ"
+    },
+    {
+     "number": "2",
+     "sanskrit_text": "कस्मिन्काले ऽल्पको धर्मो ददानि सुमहत्फलम् / मुनीनां पुण्यवादो ऽभूत्कैश् चासौ क्रियते सुखम्",
+     "iast_text": "kasminkāle 'lpako dharmo dadāni sumahatphalam / munīnāṃ puṇyavādo 'bhūtkaiś cāsau kriyate sukham"
+    },
+    {
+     "number": "3",
+     "sanskrit_text": "संदेहनिर्णयार्थाय वेदव्यासं महामुनिम् / ययुस्ते संशयं प्रष्टुं मैत्रेय मुनिपुङ्गवाः",
+     "iast_text": "saṃdehanirṇayārthāya vedavyāsaṃ mahāmunim / yayuste saṃśayaṃ praṣṭuṃ maitreya munipuṅgavāḥ"
+    },
+    {
+     "number": "4",
+     "sanskrit_text": "दृदृशुस्ते मुनिं तत्र जाह्नवीसलिले द्विज / वेदव्यासं महाभागमर्धस्नातं सुतं मम",
+     "iast_text": "dṛdṛśuste muniṃ tatra jāhnavīsalile dvija / vedavyāsaṃ mahābhāgamardhasnātaṃ sutaṃ mama"
+    },
+    {
+     "number": "5",
+     "sanskrit_text": "स्नानावसानं ते तस्य प्रतीक्षन्तो महर्षयः / तस्थुस् तीरे महानद्यास् तरुषण्डम् उपाश्रिताः",
+     "iast_text": "snānāvasānaṃ te tasya pratīkṣanto maharṣayaḥ / tasthus tīre mahānadyās taruṣaṇḍam upāśritāḥ"
+    },
+    {
+     "number": "6",
+     "sanskrit_text": "मग्नो ऽथ जाह्नवीतोयादुत्थायाह सुतो मम / शुद्रःसाधुः कलिःसाधुरित्येवं शृण्वतां वचः / तेषां मुनीनां भूयश् च ममज्ज स नदीजले",
+     "iast_text": "magno 'tha jāhnavītoyādutthāyāha suto mama / śudraḥsādhuḥ kaliḥsādhurityevaṃ śṛṇvatāṃ vacaḥ / teṣāṃ munīnāṃ bhūyaś ca mamajja sa nadījale"
+    },
+    {
+     "number": "7",
+     "sanskrit_text": "साधुसाध्विति चोत्थाय शूद्र धन्योसि चाब्रवीत्",
+     "iast_text": "sādhusādhviti cotthāya śūdra dhanyosi cābravīt"
+    },
+    {
+     "number": "8",
+     "sanskrit_text": "निमग्नश् च समुत्थाय पुनः प्राह महामुनिः / योषितः साधु धन्यास्तास्ताब्यो धन्यतरोस्तिकः",
+     "iast_text": "nimagnaś ca samutthāya punaḥ prāha mahāmuniḥ / yoṣitaḥ sādhu dhanyāstāstābyo dhanyatarostikaḥ"
+    },
+    {
+     "number": "9",
+     "sanskrit_text": "ततः स्नात्वा यथान्यायमाचान्तं च कृतक्रियम् / उपतस्थुर्महाभागं मुनयस्ते सुतं मम",
+     "iast_text": "tataḥ snātvā yathānyāyamācāntaṃ ca kṛtakriyam / upatasthurmahābhāgaṃ munayaste sutaṃ mama"
+    },
+    {
+     "number": "10",
+     "sanskrit_text": "कृतसंवन्दनांश्चाह कृतासनपरिग्रहान् / किमर्थ मागता यूयमिति सत्यवतीसुतः",
+     "iast_text": "kṛtasaṃvandanāṃścāha kṛtāsanaparigrahān / kimartha māgatā yūyamiti satyavatīsutaḥ"
+    },
+    {
+     "number": "11",
+     "sanskrit_text": "श्रीपराशर उवाच तमूचुःसंशयं प्रष्टं भवन्तं वयमागताः / अलं तेनास्तु तावन्नः कथ्यतामपरं त्वया",
+     "iast_text": "śrīparāśara uvāca tamūcuḥsaṃśayaṃ praṣṭaṃ bhavantaṃ vayamāgatāḥ / alaṃ tenāstu tāvannaḥ kathyatāmaparaṃ tvayā"
+    },
+    {
+     "number": "12",
+     "sanskrit_text": "कलिःसाध्विति यत्प्रोक्तं शूद्रः साध्विति योषितः / यदाह भगवान्त्साधु धन्याश्चेति पुनः पुनाः",
+     "iast_text": "kaliḥsādhviti yatproktaṃ śūdraḥ sādhviti yoṣitaḥ / yadāha bhagavāntsādhu dhanyāśceti punaḥ punāḥ"
+    },
+    {
+     "number": "13",
+     "sanskrit_text": "तत् सर्वं श्रोतुम् इच्छामो न चेद् गुह्यं महामुने / तत्कथ्यतां ततो हृत्स्थं पृच्छामस्त्वां प्रयोजनम्",
+     "iast_text": "tat sarvaṃ śrotum icchāmo na ced guhyaṃ mahāmune / tatkathyatāṃ tato hṛtsthaṃ pṛcchāmastvāṃ prayojanam"
+    },
+    {
+     "number": "14",
+     "sanskrit_text": "श्रीपराश उवाच इत्युक्तो मुनिभिर् व्यासः प्रहस्येदमथाब्रवीत् / श्रूयतां भो मुनिश्रेष्ठा यदुक्तं साधुसाध्विति",
+     "iast_text": "śrīparāśa uvāca ityukto munibhir vyāsaḥ prahasyedamathābravīt / śrūyatāṃ bho muniśreṣṭhā yaduktaṃ sādhusādhviti"
+    },
+    {
+     "number": "15",
+     "sanskrit_text": "व्यास उवाच यत्कृते दशभिर् वर्षैस् त्रेतायां हायनेन तत् / द्वापरे तच्च मासेन ह्यहोरात्रेण तत्कलौ",
+     "iast_text": "vyāsa uvāca yatkṛte daśabhir varṣais tretāyāṃ hāyanena tat / dvāpare tacca māsena hyahorātreṇa tatkalau"
+    },
+    {
+     "number": "16",
+     "sanskrit_text": "तपसो ब्रह्मचर्यस्य जपादेश् च फलं द्विजाः / प्राप्नोति पुरषस्तेन कलिःसाध्विति भाषितम्",
+     "iast_text": "tapaso brahmacaryasya japādeś ca phalaṃ dvijāḥ / prāpnoti puraṣastena kaliḥsādhviti bhāṣitam"
+    },
+    {
+     "number": "17",
+     "sanskrit_text": "ध्यायन्कृते यजन्यज्ञैस् त्रेतायां द्वापरेर्ऽचयन् / यदाप्नोति तदाप्नोति कलौ संकीर्त्य केशवम्",
+     "iast_text": "dhyāyankṛte yajanyajñais tretāyāṃ dvāparer'cayan / yadāpnoti tadāpnoti kalau saṃkīrtya keśavam"
+    },
+    {
+     "number": "18",
+     "sanskrit_text": "धर्मोत्कर्षमतीवात्र प्राप्नोति पुरुषः कलौ / अल्पायासेन धर्मज्ञास्तेन तुष्टोस्म्यहं कलेः",
+     "iast_text": "dharmotkarṣamatīvātra prāpnoti puruṣaḥ kalau / alpāyāsena dharmajñāstena tuṣṭosmyahaṃ kaleḥ"
+    },
+    {
+     "number": "19",
+     "sanskrit_text": "व्रतचर्यापरैर् ग्राह्या वेदाः पूर्वं द्विजातिभिः / ततःस धर्मसंप्राप्तैर् यष्टव्यं विधिवद् धनैः",
+     "iast_text": "vratacaryāparair grāhyā vedāḥ pūrvaṃ dvijātibhiḥ / tataḥsa dharmasaṃprāptair yaṣṭavyaṃ vidhivad dhanaiḥ"
+    },
+    {
+     "number": "20",
+     "sanskrit_text": "वृथा कथा वृथा भोज्यं वृथेज्या च द्विजन्मनाम् / पतनाय ततो भाव्यं तैस् तु संयमिभिः सदा",
+     "iast_text": "vṛthā kathā vṛthā bhojyaṃ vṛthejyā ca dvijanmanām / patanāya tato bhāvyaṃ tais tu saṃyamibhiḥ sadā"
+    },
+    {
+     "number": "21",
+     "sanskrit_text": "असम्यक्करणे दोषस्तेषां सर्वेषु वस्तुषु / भोज्यपेयादिकं चैषां नेच्छाप्राप्तिकरं द्विजाः",
+     "iast_text": "asamyakkaraṇe doṣasteṣāṃ sarveṣu vastuṣu / bhojyapeyādikaṃ caiṣāṃ necchāprāptikaraṃ dvijāḥ"
+    },
+    {
+     "number": "22",
+     "sanskrit_text": "पारतन्त्र्यं समस्तेषु तेषां कार्येषु वै यतः / जयन्ति ते निजांल्लोकान्क्लेशेन महताद्विजाः",
+     "iast_text": "pāratantryaṃ samasteṣu teṣāṃ kāryeṣu vai yataḥ / jayanti te nijāṃllokānkleśena mahatādvijāḥ"
+    },
+    {
+     "number": "23",
+     "sanskrit_text": "द्विजशुश्रूषयैवैष पाकयज्ञाधिकारवान् / निजाञ्जयति वै लोकाञ्छूद्रो धन्यतरस्ततः",
+     "iast_text": "dvijaśuśrūṣayaivaiṣa pākayajñādhikāravān / nijāñjayati vai lokāñchūdro dhanyatarastataḥ"
+    },
+    {
+     "number": "24",
+     "sanskrit_text": "भक्ष्याभक्ष्येषु नास्यास्ति पेयापेयेषु वै यतः / नियमो मुनिशार्दूलास्तेनासौ साध्वितीरितः",
+     "iast_text": "bhakṣyābhakṣyeṣu nāsyāsti peyāpeyeṣu vai yataḥ / niyamo muniśārdūlāstenāsau sādhvitīritaḥ"
+    },
+    {
+     "number": "25",
+     "sanskrit_text": "स्वधर्मस्याविरोधेन नरैर् लब्धं धनं सदा / प्रतिपादनीयं पात्रेषु यष्टव्यं च यथाविधि",
+     "iast_text": "svadharmasyāvirodhena narair labdhaṃ dhanaṃ sadā / pratipādanīyaṃ pātreṣu yaṣṭavyaṃ ca yathāvidhi"
+    },
+    {
+     "number": "26",
+     "sanskrit_text": "तस्यार्जने महाक्लेशः पालने च द्विजोत्तमाः / तथासद्विनियोगेन विज्ञातं गहनं नृणाम्",
+     "iast_text": "tasyārjane mahākleśaḥ pālane ca dvijottamāḥ / tathāsadviniyogena vijñātaṃ gahanaṃ nṛṇām"
+    },
+    {
+     "number": "27",
+     "sanskrit_text": "एवमन्यैस् तथा क्लेशैः पुरुषा द्विजसत्तमाः / निजाञ्जयन्ति वै लोकान्प्राजापत्यादिकान्क्रमात्",
+     "iast_text": "evamanyais tathā kleśaiḥ puruṣā dvijasattamāḥ / nijāñjayanti vai lokānprājāpatyādikānkramāt"
+    },
+    {
+     "number": "28",
+     "sanskrit_text": "योषिच्छुश्रूषणाद्भर्तुः कर्मणा मनसा गिरा / तद्धिता शुभमाप्नोति तत्सालोक्यं यतो द्विजाः",
+     "iast_text": "yoṣicchuśrūṣaṇādbhartuḥ karmaṇā manasā girā / taddhitā śubhamāpnoti tatsālokyaṃ yato dvijāḥ"
+    },
+    {
+     "number": "29",
+     "sanskrit_text": "नातिक्लेशेन महता तानेव पुरुषो यथा / तृतीयं व्याहृतं तेन मया साध्विति योषितः",
+     "iast_text": "nātikleśena mahatā tāneva puruṣo yathā / tṛtīyaṃ vyāhṛtaṃ tena mayā sādhviti yoṣitaḥ"
+    },
+    {
+     "number": "30",
+     "sanskrit_text": "एतद्वः कथितं विप्रायन्निमित्तमिहागतः / तत्पृच्छतः यथाकामं सव बक्ष्यामि वः स्फुटम्",
+     "iast_text": "etadvaḥ kathitaṃ viprāyannimittamihāgataḥ / tatpṛcchataḥ yathākāmaṃ sava bakṣyāmi vaḥ sphuṭam"
+    },
+    {
+     "number": "31",
+     "sanskrit_text": "ऋषयस्ते ततः प्रोचुर्यत्प्रष्टव्यं महामुने / अस्मिन्नेव च तत्प्रश्ने यथावत्कथितं त्वया",
+     "iast_text": "ṛṣayaste tataḥ procuryatpraṣṭavyaṃ mahāmune / asminneva ca tatpraśne yathāvatkathitaṃ tvayā"
+    },
+    {
+     "number": "32",
+     "sanskrit_text": "श्रीपराशर उवाच ततः प्रहस्य तानाह कृष्णद्वैपायनोमुनिः / विस्मयोत्फुल्लनयनांस्तापसांस्तानुपागतान्",
+     "iast_text": "śrīparāśara uvāca tataḥ prahasya tānāha kṛṣṇadvaipāyanomuniḥ / vismayotphullanayanāṃstāpasāṃstānupāgatān"
+    },
+    {
+     "number": "33",
+     "sanskrit_text": "मयैष भवतां प्रश्रो ज्ञातो दिव्येन चक्षुषा / ततोहं वः प्रसंगेन साधुसाध्विति भाषितम्",
+     "iast_text": "mayaiṣa bhavatāṃ praśro jñāto divyena cakṣuṣā / tatohaṃ vaḥ prasaṃgena sādhusādhviti bhāṣitam"
+    },
+    {
+     "number": "34",
+     "sanskrit_text": "स्वल्पेन हि प्रत्यनेनधर्मःसिध्यति वै कलौ / नरैर् आत्मगुणांभोभिः क्षलिताखिलकिल्बिषैः",
+     "iast_text": "svalpena hi pratyanenadharmaḥsidhyati vai kalau / narair ātmaguṇāṃbhobhiḥ kṣalitākhilakilbiṣaiḥ"
+    },
+    {
+     "number": "35",
+     "sanskrit_text": "शुद्रैश् च द्विजशुश्रूषातत्परैर् द्विजसत्तमाः / तथा स्त्रीभिर् अनाया सात्पतिशुश्रूषयैव हि",
+     "iast_text": "śudraiś ca dvijaśuśrūṣātatparair dvijasattamāḥ / tathā strībhir anāyā sātpatiśuśrūṣayaiva hi"
+    },
+    {
+     "number": "36",
+     "sanskrit_text": "ततस्त्रितयमप्येतन्मम धन्यतरं मतम् / धर्मसंपादने क्लेशो द्विजातीनां कृतादिषु",
+     "iast_text": "tatastritayamapyetanmama dhanyataraṃ matam / dharmasaṃpādane kleśo dvijātīnāṃ kṛtādiṣu"
+    },
+    {
+     "number": "37",
+     "sanskrit_text": "भवद्भिर् यद् अभिप्रेतं तदेतत्कथितं मया / अपृष्टेनापि धर्मज्ञाः किमन्यत्क्रियतां द्विजाः",
+     "iast_text": "bhavadbhir yad abhipretaṃ tadetatkathitaṃ mayā / apṛṣṭenāpi dharmajñāḥ kimanyatkriyatāṃ dvijāḥ"
+    },
+    {
+     "number": "38",
+     "sanskrit_text": "श्रीपराशर उवाच ततःसंपूज्य ते व्यासं प्रशशंसुः पुनः पुनः / यथागतन्द्विजा जग्मुर्व्यासोक्तिकृतनिश्चयाः",
+     "iast_text": "śrīparāśara uvāca tataḥsaṃpūjya te vyāsaṃ praśaśaṃsuḥ punaḥ punaḥ / yathāgatandvijā jagmurvyāsoktikṛtaniścayāḥ"
+    },
+    {
+     "number": "39",
+     "sanskrit_text": "भवतो ऽपि महाभाग रहस्यं कथितं मया / अत्यन्तदुष्टस्य कलेरयमेको महान्मुणः",
+     "iast_text": "bhavato 'pi mahābhāga rahasyaṃ kathitaṃ mayā / atyantaduṣṭasya kalerayameko mahānmuṇaḥ"
+    },
+    {
+     "number": "40",
+     "sanskrit_text": "यच्चाहं भवता पृष्टो जगतामुपसंहृतिम् / प्राकृतामन्तरालां च तामप्येष वदामि ते",
+     "iast_text": "yaccāhaṃ bhavatā pṛṣṭo jagatāmupasaṃhṛtim / prākṛtāmantarālāṃ ca tāmapyeṣa vadāmi te"
+    }
+   ]
+  },
+  {
+   "id": "adhyaya_03",
+   "reference": "Viṣṇupurāṇa, Amsha 06, adhyaya 3",
+   "shlokas": [
+    {
+     "number": "1",
+     "sanskrit_text": "इति श्रीविष्णुमाहपुराणे षष्ठांशे द्वितीयो ऽध्यायः श्रीपराशर उवाच सर्वेषामेव भूतानां त्रिविधः प्रतिसंचरः / नैमित्तिकः प्राकृतिकः तथैवात्यन्तिको लयः",
+     "iast_text": "iti śrīviṣṇumāhapurāṇe ṣaṣṭhāṃśe dvitīyo 'dhyāyaḥ śrīparāśara uvāca sarveṣāmeva bhūtānāṃ trividhaḥ pratisaṃcaraḥ / naimittikaḥ prākṛtikaḥ tathaivātyantiko layaḥ"
+    },
+    {
+     "number": "2",
+     "sanskrit_text": "ब्राह्मो नैमित्तिकस्तेषां कल्पान्ते प्रतिसंचरः / आत्यन्तिकस्तु मोक्षाख्यः प्राकृतो द्विपरार्धकः",
+     "iast_text": "brāhmo naimittikasteṣāṃ kalpānte pratisaṃcaraḥ / ātyantikastu mokṣākhyaḥ prākṛto dviparārdhakaḥ"
+    },
+    {
+     "number": "3",
+     "sanskrit_text": "मैत्रेय उवाच परार्धसंख्यां भगवन्ममाचक्ष्व यया तु सः / द्विगुणीकृतया ज्ञेयः प्राकृतः प्रतिसंचरः",
+     "iast_text": "maitreya uvāca parārdhasaṃkhyāṃ bhagavanmamācakṣva yayā tu saḥ / dviguṇīkṛtayā jñeyaḥ prākṛtaḥ pratisaṃcaraḥ"
+    },
+    {
+     "number": "4",
+     "sanskrit_text": "श्रीपराशर उवाच स्थानात्स्थानं दशगुणमेकस्माद्रण्यते द्विज / ततोष्टादशमे भागे परार्धमभिधीयते",
+     "iast_text": "śrīparāśara uvāca sthānātsthānaṃ daśaguṇamekasmādraṇyate dvija / tatoṣṭādaśame bhāge parārdhamabhidhīyate"
+    },
+    {
+     "number": "5",
+     "sanskrit_text": "परार्धद्विगुणं यत्तु प्राकृतःस लयो द्विज / तदाव्यक्तेखिलं व्यक्तं स्वहेतौ लयमेति वै",
+     "iast_text": "parārdhadviguṇaṃ yattu prākṛtaḥsa layo dvija / tadāvyaktekhilaṃ vyaktaṃ svahetau layameti vai"
+    },
+    {
+     "number": "6",
+     "sanskrit_text": "निमेषो मानुषो यो ऽसौ मात्रामात्राप्रमाणतः / तैः पञ्चदशभिः काष्ठा त्रिंशत्काष्ठ कला स्मृता",
+     "iast_text": "nimeṣo mānuṣo yo 'sau mātrāmātrāpramāṇataḥ / taiḥ pañcadaśabhiḥ kāṣṭhā triṃśatkāṣṭha kalā smṛtā"
+    },
+    {
+     "number": "7",
+     "sanskrit_text": "नाडिका तु प्रमाणेन सा कला दश पञ्च च",
+     "iast_text": "nāḍikā tu pramāṇena sā kalā daśa pañca ca"
+    },
+    {
+     "number": "8",
+     "sanskrit_text": "उन्मानेनांभसःसा तु पलान्यर्धत्रयोदश / मागधेन तु मानेन जलप्रस्थस्तु स स्मृतः / हेममाषैः कृतच्छिद्रचतुर्भिश्चातुरङ्गुलैः",
+     "iast_text": "unmānenāṃbhasaḥsā tu palānyardhatrayodaśa / māgadhena tu mānena jalaprasthastu sa smṛtaḥ / hemamāṣaiḥ kṛtacchidracaturbhiścāturaṅgulaiḥ"
+    },
+    {
+     "number": "9",
+     "sanskrit_text": "नाडिकाभ्यामथ द्वाभ्यां मुहूर्तो द्विजसत्तम / अहोरात्रं मुहुर्तास्तु त्रिंशन्मासो दिनैस् तथा",
+     "iast_text": "nāḍikābhyāmatha dvābhyāṃ muhūrto dvijasattama / ahorātraṃ muhurtāstu triṃśanmāso dinais tathā"
+    },
+    {
+     "number": "10",
+     "sanskrit_text": "मासैर् द्वादशभिर् वर्षमहोरात्रं तुतद्दिवि / त्रिभिर् वर्षशतैर् वर्षं षष्ट्या चैवासुरद्विषाम्",
+     "iast_text": "māsair dvādaśabhir varṣamahorātraṃ tutaddivi / tribhir varṣaśatair varṣaṃ ṣaṣṭyā caivāsuradviṣām"
+    },
+    {
+     "number": "11",
+     "sanskrit_text": "तैस् तु द्वादशसाहस्त्रैश् चतुर्युगमुदाहृतम् / चतुर्युगसहस्रं तु कथ्यते ब्रह्मणो दिनम्",
+     "iast_text": "tais tu dvādaśasāhastraiś caturyugamudāhṛtam / caturyugasahasraṃ tu kathyate brahmaṇo dinam"
+    },
+    {
+     "number": "12",
+     "sanskrit_text": "स कल्पस्तत्र मनवश्चतुर्दश महामुने / तदन्ते चैव मैत्रेय ब्राह्मो नेमित्तिको लयः",
+     "iast_text": "sa kalpastatra manavaścaturdaśa mahāmune / tadante caiva maitreya brāhmo nemittiko layaḥ"
+    },
+    {
+     "number": "13",
+     "sanskrit_text": "तस्य स्वरूपमत्युग्रं मैत्रेय गदतो मम / शृणुष्व प्राकृतं भूयस्तव वक्ष्याम्यहं लयम्",
+     "iast_text": "tasya svarūpamatyugraṃ maitreya gadato mama / śṛṇuṣva prākṛtaṃ bhūyastava vakṣyāmyahaṃ layam"
+    },
+    {
+     "number": "14",
+     "sanskrit_text": "चतुर्युगसहस्रान्ते क्षीणप्राये महीतले / अनावृष्टिरतीवोग्रा जायते शतवार्षिकी",
+     "iast_text": "caturyugasahasrānte kṣīṇaprāye mahītale / anāvṛṣṭiratīvogrā jāyate śatavārṣikī"
+    },
+    {
+     "number": "15",
+     "sanskrit_text": "ततो यान्यल्पसाराणि तानि सत्त्वान्यशेषतः / क्षयं यान्ति मुनिश्रेष्ठ पार्थिवान्यनुपीजनात्",
+     "iast_text": "tato yānyalpasārāṇi tāni sattvānyaśeṣataḥ / kṣayaṃ yānti muniśreṣṭha pārthivānyanupījanāt"
+    },
+    {
+     "number": "16",
+     "sanskrit_text": "ततः सभगवान्विष्णु रुद्ररूपधरो ऽव्ययः / क्षयाय यतते कर्तुमात्मस्थाःसकलाः प्रजाः",
+     "iast_text": "tataḥ sabhagavānviṣṇu rudrarūpadharo 'vyayaḥ / kṣayāya yatate kartumātmasthāḥsakalāḥ prajāḥ"
+    },
+    {
+     "number": "17",
+     "sanskrit_text": "ततः स भगवान् विष्णुर् भानोः सप्तसु रश्मिषु / स्थितः पिबत्यशेषाणि जलानि मुनिसप्तम",
+     "iast_text": "tataḥ sa bhagavān viṣṇur bhānoḥ saptasu raśmiṣu / sthitaḥ pibatyaśeṣāṇi jalāni munisaptama"
+    },
+    {
+     "number": "18",
+     "sanskrit_text": "पीत्वांभांसि समस्तानि प्राणिभूमिगतान्यपि / शोषं नयति मैत्रेय समस्तं पृथिवीतलम्",
+     "iast_text": "pītvāṃbhāṃsi samastāni prāṇibhūmigatānyapi / śoṣaṃ nayati maitreya samastaṃ pṛthivītalam"
+    },
+    {
+     "number": "19",
+     "sanskrit_text": "समुद्रान्सारितः शैलनदीप्रस्रवणानि च / पातालेषु च यत्तोयं तत्सर्वं नयति क्षयम्",
+     "iast_text": "samudrānsāritaḥ śailanadīprasravaṇāni ca / pātāleṣu ca yattoyaṃ tatsarvaṃ nayati kṣayam"
+    },
+    {
+     "number": "20",
+     "sanskrit_text": "ततस्तस्यानुभावेन तोयाहारोपबृंहिताः / त एव रश्मयःसप्त जायन्ते सप्त भास्कराः",
+     "iast_text": "tatastasyānubhāvena toyāhāropabṛṃhitāḥ / ta eva raśmayaḥsapta jāyante sapta bhāskarāḥ"
+    },
+    {
+     "number": "21",
+     "sanskrit_text": "अधश्चोर्ध्वं च ते दीप्ता स्ततःसप्त दिवाकराः / दहन्त्यशषं त्रैलोक्यं सपातालतलं द्विज",
+     "iast_text": "adhaścordhvaṃ ca te dīptā stataḥsapta divākarāḥ / dahantyaśaṣaṃ trailokyaṃ sapātālatalaṃ dvija"
+    },
+    {
+     "number": "22",
+     "sanskrit_text": "दह्यमानं तु तैर् दीप्तैस् त्रैलोक्यं द्विज भास्करैः / साद्रिनद्यर्णवाभोगं निस्नेहमभिजायते",
+     "iast_text": "dahyamānaṃ tu tair dīptais trailokyaṃ dvija bhāskaraiḥ / sādrinadyarṇavābhogaṃ nisnehamabhijāyate"
+    },
+    {
+     "number": "23",
+     "sanskrit_text": "ततो निर्दग्धवृक्षांबुत्रैलोक्यमाखितं द्विज / भवत्येषा च वसुधा कूर्मपृष्ठोपमाकृतिः",
+     "iast_text": "tato nirdagdhavṛkṣāṃbutrailokyamākhitaṃ dvija / bhavatyeṣā ca vasudhā kūrmapṛṣṭhopamākṛtiḥ"
+    },
+    {
+     "number": "24",
+     "sanskrit_text": "ततः कालाग्निरुद्रो ऽसौ भूत्वा सर्वहरो ऽनलः / शेषाहिश्वाससंभूतः पातालानि दहत्यधः",
+     "iast_text": "tataḥ kālāgnirudro 'sau bhūtvā sarvaharo 'nalaḥ / śeṣāhiśvāsasaṃbhūtaḥ pātālāni dahatyadhaḥ"
+    },
+    {
+     "number": "25",
+     "sanskrit_text": "पातालानि समस्तानि स दग्ध्वा ज्वलनो महान् / भूमिमभ्येत्य सकलं बभस्ति वसुधातलम्",
+     "iast_text": "pātālāni samastāni sa dagdhvā jvalano mahān / bhūmimabhyetya sakalaṃ babhasti vasudhātalam"
+    },
+    {
+     "number": "26",
+     "sanskrit_text": "भुवर्लोकं ततःसर्वं स्वर्लोकं च सुदारुणः / ज्वालामालामहावर्तस्तत्रैव परिवर्तते",
+     "iast_text": "bhuvarlokaṃ tataḥsarvaṃ svarlokaṃ ca sudāruṇaḥ / jvālāmālāmahāvartastatraiva parivartate"
+    },
+    {
+     "number": "27",
+     "sanskrit_text": "अंबरीषमिवाभाति त्रैलोक्यमखिलं तदा / ज्वालावर्तपरिवारमुपक्षीणचराचरम्",
+     "iast_text": "aṃbarīṣamivābhāti trailokyamakhilaṃ tadā / jvālāvartaparivāramupakṣīṇacarācaram"
+    },
+    {
+     "number": "28",
+     "sanskrit_text": "ततस्तापपरीतास्तु लोकद्वयनिवासिनः / कृताधिकारागच्छन्ति महर्लोकं महामुने",
+     "iast_text": "tatastāpaparītāstu lokadvayanivāsinaḥ / kṛtādhikārāgacchanti maharlokaṃ mahāmune"
+    },
+    {
+     "number": "29",
+     "sanskrit_text": "तस्मादपि महातापतप्ता लोकात्ततः परम् / गञ्च्छन्ति जनलोकं ते दशावृत्त्या परैषिणः",
+     "iast_text": "tasmādapi mahātāpataptā lokāttataḥ param / gañcchanti janalokaṃ te daśāvṛttyā paraiṣiṇaḥ"
+    },
+    {
+     "number": "30",
+     "sanskrit_text": "ततो दग्ध्वा जगत्सर्वं रुद्ररूपीजनार्दनः / मुखनिश्वासजान्मेघान्करोति मुनिसत्तम",
+     "iast_text": "tato dagdhvā jagatsarvaṃ rudrarūpījanārdanaḥ / mukhaniśvāsajānmeghānkaroti munisattama"
+    },
+    {
+     "number": "31",
+     "sanskrit_text": "ततो गजकुलप्रख्यास्तडित्वन्तो ऽतिनादिनः / उत्तिष्ठन्ति तथा व्योम्निघोराःसंवर्तका घनाः",
+     "iast_text": "tato gajakulaprakhyāstaḍitvanto 'tinādinaḥ / uttiṣṭhanti tathā vyomnighorāḥsaṃvartakā ghanāḥ"
+    },
+    {
+     "number": "32",
+     "sanskrit_text": "केचिन्नीलोत्पलश्यामाः केचित्कुमुदसन्निभाः / धूम्रवर्णा घनाः केचित्केचित्पीताः पयो धराः",
+     "iast_text": "kecinnīlotpalaśyāmāḥ kecitkumudasannibhāḥ / dhūmravarṇā ghanāḥ kecitkecitpītāḥ payo dharāḥ"
+    },
+    {
+     "number": "33",
+     "sanskrit_text": "केचिद्रासभवर्णाभा लाक्षारसनिभास् तथा / केचिद्वैडूर्यसंकाशा इन्द्रनीलनिभाः क्वचित्",
+     "iast_text": "kecidrāsabhavarṇābhā lākṣārasanibhās tathā / kecidvaiḍūryasaṃkāśā indranīlanibhāḥ kvacit"
+    },
+    {
+     "number": "34",
+     "sanskrit_text": "शङ्खकुन्दनिभाश् चान्ये जात्यं जननिभाः परे / इन्द्रगोपनिभाः केचित् ततः शखिनिभास् तथा",
+     "iast_text": "śaṅkhakundanibhāś cānye jātyaṃ jananibhāḥ pare / indragopanibhāḥ kecit tataḥ śakhinibhās tathā"
+    },
+    {
+     "number": "35",
+     "sanskrit_text": "मनःशिलाभाः केचिद् वै हरितालनिभाः परे / चाषपत्रनिभाः केचिदुत्तिष्ठन्ते महाघनाः",
+     "iast_text": "manaḥśilābhāḥ kecid vai haritālanibhāḥ pare / cāṣapatranibhāḥ keciduttiṣṭhante mahāghanāḥ"
+    },
+    {
+     "number": "36",
+     "sanskrit_text": "केचित्पुरवराकाराः केचित्पर्वतसन्निभाः / कूटागारनिभाश्चान्ये केचित्स्थलनिबा घनाः",
+     "iast_text": "kecitpuravarākārāḥ kecitparvatasannibhāḥ / kūṭāgāranibhāścānye kecitsthalanibā ghanāḥ"
+    },
+    {
+     "number": "37",
+     "sanskrit_text": "महारावा महाकायाः पूरयन्ति नभःस्थलम् / वर्षन्तस्ते महासारास्तमग्निमतिभैरवम् / शमयन्त्यखिलं विप्र त्रैलोक्यान्तरधिष्ठितम्",
+     "iast_text": "mahārāvā mahākāyāḥ pūrayanti nabhaḥsthalam / varṣantaste mahāsārāstamagnimatibhairavam / śamayantyakhilaṃ vipra trailokyāntaradhiṣṭhitam"
+    },
+    {
+     "number": "38",
+     "sanskrit_text": "नष्टे चाग्नौ च सततं वर्षमाणा ह्यहर्निशम् / प्लावयन्ति जगत् सर्वम् अंभोबिर् मुनिसत्तम",
+     "iast_text": "naṣṭe cāgnau ca satataṃ varṣamāṇā hyaharniśam / plāvayanti jagat sarvam aṃbhobir munisattama"
+    },
+    {
+     "number": "39",
+     "sanskrit_text": "धाराभिर् अतिमात्राभिः प्लावयित्वाखिलां भुवम् / भुवर्लोकं तथेवोर्धू प्लावयन्ति हि ते द्विज",
+     "iast_text": "dhārābhir atimātrābhiḥ plāvayitvākhilāṃ bhuvam / bhuvarlokaṃ tathevordhū plāvayanti hi te dvija"
+    },
+    {
+     "number": "40",
+     "sanskrit_text": "अन्धकारीकृते लोके नष्टे स्थावरजङ्गमे / वर्षति ते महामेघा वर्षाणामधिकं शतम्",
+     "iast_text": "andhakārīkṛte loke naṣṭe sthāvarajaṅgame / varṣati te mahāmeghā varṣāṇāmadhikaṃ śatam"
+    },
+    {
+     "number": "41",
+     "sanskrit_text": "एवं भवति कल्पान्ते समस्तं मुनिसत्तम / वासुदेवस्य माहात्म्यान्नित्यस्य परमात्मनः",
+     "iast_text": "evaṃ bhavati kalpānte samastaṃ munisattama / vāsudevasya māhātmyānnityasya paramātmanaḥ"
+    }
+   ]
+  },
+  {
+   "id": "adhyaya_04",
+   "reference": "Viṣṇupurāṇa, Amsha 06, adhyaya 4",
+   "shlokas": [
+    {
+     "number": "1",
+     "sanskrit_text": "इति श्रीविष्णुमहापुराणे षष्ठांशे तृतीयो ऽध्यायः श्रीपराशर उवाच सप्तर्शिस्थानामाक्रम्य स्थितेंभसि महामुने / एकार्णवं भवत्येतत्त्रैलोक्यमखिलं ततः",
+     "iast_text": "iti śrīviṣṇumahāpurāṇe ṣaṣṭhāṃśe tṛtīyo 'dhyāyaḥ śrīparāśara uvāca saptarśisthānāmākramya sthiteṃbhasi mahāmune / ekārṇavaṃ bhavatyetattrailokyamakhilaṃ tataḥ"
+    },
+    {
+     "number": "2",
+     "sanskrit_text": "मुखनिश्वासजो विष्णोर्वायुस्ताञ्जलदांस्ततः / नाशयन्वाति मैत्रेय वर्षाणामपरं शतम्",
+     "iast_text": "mukhaniśvāsajo viṣṇorvāyustāñjaladāṃstataḥ / nāśayanvāti maitreya varṣāṇāmaparaṃ śatam"
+    },
+    {
+     "number": "3",
+     "sanskrit_text": "सर्वभूतमयो ऽचिन्त्यो भगवान्भूतभावनः / अनादिरादिर्विश्वस्य पीत्वा वायुमशेषतः",
+     "iast_text": "sarvabhūtamayo 'cintyo bhagavānbhūtabhāvanaḥ / anādirādirviśvasya pītvā vāyumaśeṣataḥ"
+    },
+    {
+     "number": "4",
+     "sanskrit_text": "एकार्णवे ततस्तस्मिञ्छेषशय्यागतः प्रभुः / ब्रह्मरूपधरः शेते भगवानादिकृद्धरिः",
+     "iast_text": "ekārṇave tatastasmiñcheṣaśayyāgataḥ prabhuḥ / brahmarūpadharaḥ śete bhagavānādikṛddhariḥ"
+    },
+    {
+     "number": "5",
+     "sanskrit_text": "जनलोकगतैः सिद्धैः समकाद्यैर् अभिष्टुतः / ब्रह्मलोकगतैश् चैव चिन्त्यमानो मुमुक्षुभिः",
+     "iast_text": "janalokagataiḥ siddhaiḥ samakādyair abhiṣṭutaḥ / brahmalokagataiś caiva cintyamāno mumukṣubhiḥ"
+    },
+    {
+     "number": "6",
+     "sanskrit_text": "आत्ममायामयीं दिव्यां योगनिद्रां समास्थितः / आत्मानं वासुदेवाख्यं चिन्तयन्मधुसूदनः",
+     "iast_text": "ātmamāyāmayīṃ divyāṃ yoganidrāṃ samāsthitaḥ / ātmānaṃ vāsudevākhyaṃ cintayanmadhusūdanaḥ"
+    },
+    {
+     "number": "7",
+     "sanskrit_text": "एष नैमित्तिको नाम मैत्रेयः प्रतिसंचरः / निमित्तं तत्र यच्छेते ब्रह्मरूपधरो हरिः",
+     "iast_text": "eṣa naimittiko nāma maitreyaḥ pratisaṃcaraḥ / nimittaṃ tatra yacchete brahmarūpadharo hariḥ"
+    },
+    {
+     "number": "8",
+     "sanskrit_text": "यदा जागर्ति सर्वात्मा स तदा चेष्टते जगत् / निमीलत्येतदखिलं मायाशय्यां गते ऽच्युते",
+     "iast_text": "yadā jāgarti sarvātmā sa tadā ceṣṭate jagat / nimīlatyetadakhilaṃ māyāśayyāṃ gate 'cyute"
+    },
+    {
+     "number": "9",
+     "sanskrit_text": "पद्मयोनेर्दिनं यत्तु चतुर्युगसहस्रवत् / एकार्णवीकृते लोके तावती रात्रिरिष्यते",
+     "iast_text": "padmayonerdinaṃ yattu caturyugasahasravat / ekārṇavīkṛte loke tāvatī rātririṣyate"
+    },
+    {
+     "number": "10",
+     "sanskrit_text": "ततः प्रबुद्धो रात्र्यन्ते पुनःसृष्टिं करोत्यजः / ब्रह्मस्वरूपधृग्विष्णुर्यथा ते कथितं पुरा",
+     "iast_text": "tataḥ prabuddho rātryante punaḥsṛṣṭiṃ karotyajaḥ / brahmasvarūpadhṛgviṣṇuryathā te kathitaṃ purā"
+    },
+    {
+     "number": "11",
+     "sanskrit_text": "इत्येष कल्पसंहारो ऽवान्तरप्रलयो द्विज / नैमित्तिकस्ते कथितः प्राकृतः शृण्वतः परम्",
+     "iast_text": "ityeṣa kalpasaṃhāro 'vāntarapralayo dvija / naimittikaste kathitaḥ prākṛtaḥ śṛṇvataḥ param"
+    },
+    {
+     "number": "12",
+     "sanskrit_text": "अनावृष्ट्यादिसंपर्कात् कृते संक्षालने मुने / समस्तेष्वेव लोकेषु पातालेष्वखिलेषु च",
+     "iast_text": "anāvṛṣṭyādisaṃparkāt kṛte saṃkṣālane mune / samasteṣveva lokeṣu pātāleṣvakhileṣu ca"
+    },
+    {
+     "number": "13",
+     "sanskrit_text": "महदादेर्विकारस्य विशेषान्तस्य संक्षये / कृष्णेच्छाकारिते तस्मिन्प्रवृत्ते प्रतिसंचरे",
+     "iast_text": "mahadādervikārasya viśeṣāntasya saṃkṣaye / kṛṣṇecchākārite tasminpravṛtte pratisaṃcare"
+    },
+    {
+     "number": "14",
+     "sanskrit_text": "आपो ग्रसंति वै पूर्वं भूमेर्गन्धात्मकं गुणम् / आत्तगन्धा ततो भूमिः प्रलयत्वाय कल्पते",
+     "iast_text": "āpo grasaṃti vai pūrvaṃ bhūmergandhātmakaṃ guṇam / āttagandhā tato bhūmiḥ pralayatvāya kalpate"
+    },
+    {
+     "number": "15",
+     "sanskrit_text": "प्रणष्टे गन्धतन्मात्रे भवत्युर्वी जलात्मिका / आपस्तदा प्रवृद्धास्तु वेगवत्यो महास्वनाः",
+     "iast_text": "praṇaṣṭe gandhatanmātre bhavatyurvī jalātmikā / āpastadā pravṛddhāstu vegavatyo mahāsvanāḥ"
+    },
+    {
+     "number": "16",
+     "sanskrit_text": "सर्वमापूरयन्तीदं तिष्ठन्ति विचरन्ति च / सलिलेनोर्मिमालेन आलोकान्तात्समन्ततः",
+     "iast_text": "sarvamāpūrayantīdaṃ tiṣṭhanti vicaranti ca / salilenormimālena ālokāntātsamantataḥ"
+    },
+    {
+     "number": "17",
+     "sanskrit_text": "अपामपि गुणो यस्तु ज्योतिषा पीयते तु सः / नश्यन्त्यापस्ततस्ताश् च रसतन्मात्रसंक्षयात्",
+     "iast_text": "apāmapi guṇo yastu jyotiṣā pīyate tu saḥ / naśyantyāpastatastāś ca rasatanmātrasaṃkṣayāt"
+    },
+    {
+     "number": "18",
+     "sanskrit_text": "ततश्चापो हृतरसाज्योतिषं प्राप्नुवन्ति वै / अग्नावस्थे तु सलिले तेजसा सर्वतो वृते",
+     "iast_text": "tataścāpo hṛtarasājyotiṣaṃ prāpnuvanti vai / agnāvasthe tu salile tejasā sarvato vṛte"
+    },
+    {
+     "number": "19",
+     "sanskrit_text": "स चाग्निः सर्वतो व्याप्य चादत्ते तज्जलं तथा / सर्वमापूर्यतेर्चिर्भिस् तदा जगदिदं शनैः",
+     "iast_text": "sa cāgniḥ sarvato vyāpya cādatte tajjalaṃ tathā / sarvamāpūryatercirbhis tadā jagadidaṃ śanaiḥ"
+    },
+    {
+     "number": "20",
+     "sanskrit_text": "अर्चिर्भिः संवृते तस्मिंस्तिर्यगूर्ध्वमधस्तदा / ज्योतिषो ऽपि परं रूपं वायुरत्ति प्रभाकरम्",
+     "iast_text": "arcirbhiḥ saṃvṛte tasmiṃstiryagūrdhvamadhastadā / jyotiṣo 'pi paraṃ rūpaṃ vāyuratti prabhākaram"
+    },
+    {
+     "number": "21",
+     "sanskrit_text": "प्रलीने च ततस्तस्मिन्वायुभूते ऽखिलात्मनि / प्रनष्टे रूपतन्मात्रे हृतरूपो विभावसुः",
+     "iast_text": "pralīne ca tatastasminvāyubhūte 'khilātmani / pranaṣṭe rūpatanmātre hṛtarūpo vibhāvasuḥ"
+    },
+    {
+     "number": "22",
+     "sanskrit_text": "प्रशाम्यति तदाज्योतिर्वायुर्देधूयते महान् / निरा लोके तथा लोके वाय्ववस्थे च तेजसि",
+     "iast_text": "praśāmyati tadājyotirvāyurdedhūyate mahān / nirā loke tathā loke vāyvavasthe ca tejasi"
+    },
+    {
+     "number": "23",
+     "sanskrit_text": "ततस्तु मूलमासाद्य वायुःसंभवमात्मनः / ऊर्ध्वं चाधश् च तिर्यक्च दोधवीति दिशो दश",
+     "iast_text": "tatastu mūlamāsādya vāyuḥsaṃbhavamātmanaḥ / ūrdhvaṃ cādhaś ca tiryakca dodhavīti diśo daśa"
+    },
+    {
+     "number": "24",
+     "sanskrit_text": "वायोरपि गुणं स्पर्शमाकाशो ग्रसते ततः / प्रशाम्यति ततो वायुः खं तु तिष्ठत्यनावृतम्",
+     "iast_text": "vāyorapi guṇaṃ sparśamākāśo grasate tataḥ / praśāmyati tato vāyuḥ khaṃ tu tiṣṭhatyanāvṛtam"
+    },
+    {
+     "number": "25",
+     "sanskrit_text": "अरूपरसमस्पर्शमगन्धं न च मूर्तिमत् / सर्वमापूरयच्चैव सुमहात्तत्प्रकाशते",
+     "iast_text": "arūparasamasparśamagandhaṃ na ca mūrtimat / sarvamāpūrayaccaiva sumahāttatprakāśate"
+    },
+    {
+     "number": "27",
+     "sanskrit_text": "भूतेन्द्रियेषु युगपद्भूतादौ संस्थितेषु वै / अबिमानात्मको ह्येष भूतादिस्तामसःस्मृतः",
+     "iast_text": "bhūtendriyeṣu yugapadbhūtādau saṃsthiteṣu vai / abimānātmako hyeṣa bhūtādistāmasaḥsmṛtaḥ"
+    },
+    {
+     "number": "28",
+     "sanskrit_text": "भीतादिं ग्रसते चापि महान्वे बुद्धिलक्षणः",
+     "iast_text": "bhītādiṃ grasate cāpi mahānve buddhilakṣaṇaḥ"
+    },
+    {
+     "number": "29",
+     "sanskrit_text": "उर्वी महंश् च जगतः प्रतिन्तर्बाह्यतस् तथा",
+     "iast_text": "urvī mahaṃś ca jagataḥ pratintarbāhyatas tathā"
+    },
+    {
+     "number": "30",
+     "sanskrit_text": "एवं सप्त महाबुद्धे क्रमात्प्रकृतयःस्मृताः / प्रत्याहारे तु ताःसर्वाः प्रविशन्ति परस्परम्",
+     "iast_text": "evaṃ sapta mahābuddhe kramātprakṛtayaḥsmṛtāḥ / pratyāhāre tu tāḥsarvāḥ praviśanti parasparam"
+    },
+    {
+     "number": "31",
+     "sanskrit_text": "येनेदमावृतं सर्वमण्डमप्सु प्रलीयते / सप्तद्वीपसमुद्रान्तं सप्तलोकं सपर्वतम्",
+     "iast_text": "yenedamāvṛtaṃ sarvamaṇḍamapsu pralīyate / saptadvīpasamudrāntaṃ saptalokaṃ saparvatam"
+    },
+    {
+     "number": "32",
+     "sanskrit_text": "उदकावरणं यत्तु ज्योतिषा पीयते तु तम् / ज्योतिर्वायौ लयं याति यात्याकाशे समीरमः",
+     "iast_text": "udakāvaraṇaṃ yattu jyotiṣā pīyate tu tam / jyotirvāyau layaṃ yāti yātyākāśe samīramaḥ"
+    },
+    {
+     "number": "33",
+     "sanskrit_text": "आकाशं चैव भूतादिर्ग्रसते तं तथा महान् / महान्तमेभिः सहितं प्रकृतिर्ग्रसते द्विज",
+     "iast_text": "ākāśaṃ caiva bhūtādirgrasate taṃ tathā mahān / mahāntamebhiḥ sahitaṃ prakṛtirgrasate dvija"
+    },
+    {
+     "number": "34",
+     "sanskrit_text": "गुमसाम्यमनुद्रिक्तमन्यूनं च महामुने / प्रोच्यते प्रकतिर्हेतुः प्रधानङ्कारणं परम्",
+     "iast_text": "gumasāmyamanudriktamanyūnaṃ ca mahāmune / procyate prakatirhetuḥ pradhānaṅkāraṇaṃ param"
+    },
+    {
+     "number": "35",
+     "sanskrit_text": "इत्येषा प्रकृतिःसर्वा व्यक्ताव्यक्तस्वरूपिणी / व्यक्तस्वरूपमव्यक्ते तस्मान्मैत्रेय लीयते",
+     "iast_text": "ityeṣā prakṛtiḥsarvā vyaktāvyaktasvarūpiṇī / vyaktasvarūpamavyakte tasmānmaitreya līyate"
+    },
+    {
+     "number": "36",
+     "sanskrit_text": "एकः शुद्धो ऽक्षरो नित्यःसर्वव्यापी तथा पुमान् / सो ऽप्य् अंशःसर्वभूतस्य मैत्रेय परमात्मनः",
+     "iast_text": "ekaḥ śuddho 'kṣaro nityaḥsarvavyāpī tathā pumān / so 'py aṃśaḥsarvabhūtasya maitreya paramātmanaḥ"
+    },
+    {
+     "number": "37",
+     "sanskrit_text": "न संति यत्र सर्वेशे नामजात्यादिकल्पनाः / सत्तामात्रत्मके ज्ञेये ज्ञानात्मन्यात्मनः परे",
+     "iast_text": "na saṃti yatra sarveśe nāmajātyādikalpanāḥ / sattāmātratmake jñeye jñānātmanyātmanaḥ pare"
+    },
+    {
+     "number": "38",
+     "sanskrit_text": "तद्ब्रह्म परमं धाम परमात्मा स चेश्वरः / स विष्णुःसर्वमेवेदं यतो नावर्तते यतिः",
+     "iast_text": "tadbrahma paramaṃ dhāma paramātmā sa ceśvaraḥ / sa viṣṇuḥsarvamevedaṃ yato nāvartate yatiḥ"
+    },
+    {
+     "number": "39",
+     "sanskrit_text": "प्रकृतिर्या मयाख्याता व्यक्ताव्यक्तस्वरूपिणी / पुरुषश्चाप्युभावेतौ लियते परमात्मनि",
+     "iast_text": "prakṛtiryā mayākhyātā vyaktāvyaktasvarūpiṇī / puruṣaścāpyubhāvetau liyate paramātmani"
+    },
+    {
+     "number": "40",
+     "sanskrit_text": "परमात्मा च सर्वेषामाधारः परमेश्वरः / विष्णुनामा स वेदेषु वेदान्तेषु च गीयते",
+     "iast_text": "paramātmā ca sarveṣāmādhāraḥ parameśvaraḥ / viṣṇunāmā sa vedeṣu vedānteṣu ca gīyate"
+    },
+    {
+     "number": "41",
+     "sanskrit_text": "प्रवृत्तं च निवृत्तं च द्विविधङ्कर्म वैदिकम् / ताभ्यामुभाभ्यां पुरुषैः सर्वमूर्तिःस इज्यते",
+     "iast_text": "pravṛttaṃ ca nivṛttaṃ ca dvividhaṅkarma vaidikam / tābhyāmubhābhyāṃ puruṣaiḥ sarvamūrtiḥsa ijyate"
+    },
+    {
+     "number": "42",
+     "sanskrit_text": "ऋग्यजुःसामभिर् मार्गैः प्रवृत्तेरिज्यते ह्यसौ / यज्ञेश्वरो यज्ञपुमान्पुरुषैः पुरुषोत्तमः",
+     "iast_text": "ṛgyajuḥsāmabhir mārgaiḥ pravṛtterijyate hyasau / yajñeśvaro yajñapumānpuruṣaiḥ puruṣottamaḥ"
+    },
+    {
+     "number": "43",
+     "sanskrit_text": "ज्ञानात्मा ज्ञानयोगेन ज्ञानमूर्तिः स चेज्यते / निवृत्ते योगिभिर् मार्गे विष्णुर्मुक्तिफलप्रदः",
+     "iast_text": "jñānātmā jñānayogena jñānamūrtiḥ sa cejyate / nivṛtte yogibhir mārge viṣṇurmuktiphalapradaḥ"
+    },
+    {
+     "number": "44",
+     "sanskrit_text": "ह्रस्वदीर्घप्लुतैर् यत्तु किञ्चिद्वस्त्वभिधीयते / यच्च वाचामविषयं तत्सर्वं विष्णुरव्ययः",
+     "iast_text": "hrasvadīrghaplutair yattu kiñcidvastvabhidhīyate / yacca vācāmaviṣayaṃ tatsarvaṃ viṣṇuravyayaḥ"
+    },
+    {
+     "number": "45",
+     "sanskrit_text": "व्यक्तःस एव चाव्यक्तःस एव पुरुषोत्तमः / परमात्मा च विश्वात्मा विश्वरूपधरोहरिः",
+     "iast_text": "vyaktaḥsa eva cāvyaktaḥsa eva puruṣottamaḥ / paramātmā ca viśvātmā viśvarūpadharohariḥ"
+    },
+    {
+     "number": "46",
+     "sanskrit_text": "व्यक्ताव्यक्तात्मिका तस्मिन्प्रकृतिःसंप्रलीयते / पुरुषश्चापि मैत्रेय व्यापिन्यव्याहतात्मनि",
+     "iast_text": "vyaktāvyaktātmikā tasminprakṛtiḥsaṃpralīyate / puruṣaścāpi maitreya vyāpinyavyāhatātmani"
+    },
+    {
+     "number": "47",
+     "sanskrit_text": "द्विपरार्धात्मकः कालः कथितो यो मया तव / तदहस्तस्य मैत्रेय विष्णोरीशस्य कथ्यते",
+     "iast_text": "dviparārdhātmakaḥ kālaḥ kathito yo mayā tava / tadahastasya maitreya viṣṇorīśasya kathyate"
+    },
+    {
+     "number": "48",
+     "sanskrit_text": "व्यक्ते च प्रकृतौ लीने प्रकृत्यां पुरुषे तथा / तत्र स्थिते निशा चास्य तत्प्रमाणा महामुने",
+     "iast_text": "vyakte ca prakṛtau līne prakṛtyāṃ puruṣe tathā / tatra sthite niśā cāsya tatpramāṇā mahāmune"
+    },
+    {
+     "number": "49",
+     "sanskrit_text": "नैवाहस्तस्य न निशा नित्यस्य परमात्मनः / उपचारस्तथाप्येष तस्येशस्य द्विजोच्यते",
+     "iast_text": "naivāhastasya na niśā nityasya paramātmanaḥ / upacārastathāpyeṣa tasyeśasya dvijocyate"
+    },
+    {
+     "number": "50",
+     "sanskrit_text": "इत्येष तव मैत्रेय कथितः प्राकृतो लयः / आत्यन्तिकमथो ब्रह्मन्निबोध प्रतिसंचरम्",
+     "iast_text": "ityeṣa tava maitreya kathitaḥ prākṛto layaḥ / ātyantikamatho brahmannibodha pratisaṃcaram"
+    }
+   ]
+  },
+  {
+   "id": "adhyaya_05",
+   "reference": "Viṣṇupurāṇa, Amsha 06, adhyaya 5",
+   "shlokas": [
+    {
+     "number": "1",
+     "sanskrit_text": "इति श्रीविष्णुमहापुराणे षष्ठांशे चतुर्थो ऽध्यायः श्रीपराशर उवाच आध्यात्मिकादि मैत्रेय ज्ञात्वा तापत्रयं बुधः / उत्पन्नज्ञानवैराग्यं प्राप्नोत्यात्यन्तिकं लयम्",
+     "iast_text": "iti śrīviṣṇumahāpurāṇe ṣaṣṭhāṃśe caturtho 'dhyāyaḥ śrīparāśara uvāca ādhyātmikādi maitreya jñātvā tāpatrayaṃ budhaḥ / utpannajñānavairāgyaṃ prāpnotyātyantikaṃ layam"
+    },
+    {
+     "number": "2",
+     "sanskrit_text": "आध्यात्मिकोपि द्विविधः शरीरो मानसस् तथा / शरीरो बहुभिर् भेदैर् भिद्यते श्रुयतां च सः",
+     "iast_text": "ādhyātmikopi dvividhaḥ śarīro mānasas tathā / śarīro bahubhir bhedair bhidyate śruyatāṃ ca saḥ"
+    },
+    {
+     "number": "3",
+     "sanskrit_text": "शिरोरोगप्रतिश्यायज्वरशूलभगन्दरैः / गुल्मार्शः श्वययुश्वासच्छर्द्यादिभिर् अनेकधा",
+     "iast_text": "śirorogapratiśyāyajvaraśūlabhagandaraiḥ / gulmārśaḥ śvayayuśvāsacchardyādibhir anekadhā"
+    },
+    {
+     "number": "4",
+     "sanskrit_text": "तथाक्षिरोगातीसारकुष्ठाङ्गामयसंज्ञितैः / भिद्यते देहजस्तापो मानसं श्रोतुमर्हसि",
+     "iast_text": "tathākṣirogātīsārakuṣṭhāṅgāmayasaṃjñitaiḥ / bhidyate dehajastāpo mānasaṃ śrotumarhasi"
+    },
+    {
+     "number": "5",
+     "sanskrit_text": "कामक्रोधभयद्वेषलोभमोहविषादजः / शोकासूयावमानेर्ष्यामात्सर्यादिमयस् तथा",
+     "iast_text": "kāmakrodhabhayadveṣalobhamohaviṣādajaḥ / śokāsūyāvamānerṣyāmātsaryādimayas tathā"
+    },
+    {
+     "number": "6",
+     "sanskrit_text": "मानसो ऽपि द्विजश्रेष्ठ तापो भवति नैकधा / इत्येवमादिभिर् भेदैस् तापो ह्याध्यात्मिकः स्मृतः",
+     "iast_text": "mānaso 'pi dvijaśreṣṭha tāpo bhavati naikadhā / ityevamādibhir bhedais tāpo hyādhyātmikaḥ smṛtaḥ"
+    },
+    {
+     "number": "7",
+     "sanskrit_text": "मृगपक्षिमनुष्याद्यैः पिशाचोरगराक्षसैः / सरीसृपाद्यैश् च नृणां जायते चाधिभौतिकः",
+     "iast_text": "mṛgapakṣimanuṣyādyaiḥ piśācoragarākṣasaiḥ / sarīsṛpādyaiś ca nṛṇāṃ jāyate cādhibhautikaḥ"
+    },
+    {
+     "number": "8",
+     "sanskrit_text": "शीतवा तोष्णवार्षाबुबैद्युतादिसमुद्भवः / तापो द्विजवरश्रेष्ठैः कथ्यते चाधिदैविकः",
+     "iast_text": "śītavā toṣṇavārṣābubaidyutādisamudbhavaḥ / tāpo dvijavaraśreṣṭhaiḥ kathyate cādhidaivikaḥ"
+    },
+    {
+     "number": "9",
+     "sanskrit_text": "गर्भजन्मजराज्ञानमृत्युनारकजं तथा / दुःखं सहस्रशो भेदैर् भिद्यते मुनिसत्तम",
+     "iast_text": "garbhajanmajarājñānamṛtyunārakajaṃ tathā / duḥkhaṃ sahasraśo bhedair bhidyate munisattama"
+    },
+    {
+     "number": "10",
+     "sanskrit_text": "सुकुमारतनुर्गर्भे जन्तुर्बहुमलावृते / उल्वसंवेष्टितो भुग्नपृष्ठग्रीवास्थिसंहतिः",
+     "iast_text": "sukumāratanurgarbhe janturbahumalāvṛte / ulvasaṃveṣṭito bhugnapṛṣṭhagrīvāsthisaṃhatiḥ"
+    },
+    {
+     "number": "11",
+     "sanskrit_text": "अत्यम्लकटुतीक्ष्मोष्णलवणैर् मातृभोजनैः / अत्यन्ततापैर् अत्यर्थं वर्धमानातिवेदनः",
+     "iast_text": "atyamlakaṭutīkṣmoṣṇalavaṇair mātṛbhojanaiḥ / atyantatāpair atyarthaṃ vardhamānātivedanaḥ"
+    },
+    {
+     "number": "12",
+     "sanskrit_text": "प्रसारणाकुञ्चनादौ नाङ्गानां प्रभुरात्मनः / शकृन्मूत्रमहापङ्कशायी सर्वत्र पीडितः",
+     "iast_text": "prasāraṇākuñcanādau nāṅgānāṃ prabhurātmanaḥ / śakṛnmūtramahāpaṅkaśāyī sarvatra pīḍitaḥ"
+    },
+    {
+     "number": "13",
+     "sanskrit_text": "निरुच्छ्वासः सचैतन्यः स्मरञ् जन्मशतान्य् अथ / आस्ते गर्भे ऽतिदुःखेन निजकर्मनिबन्धनः",
+     "iast_text": "nirucchvāsaḥ sacaitanyaḥ smarañ janmaśatāny atha / āste garbhe 'tiduḥkhena nijakarmanibandhanaḥ"
+    },
+    {
+     "number": "14",
+     "sanskrit_text": "जायमानः पुरीषासृङ्मूत्रशुक्राविलाननः / प्राजापत्येन वातेन पीड्यमानास्थिबन्धनः",
+     "iast_text": "jāyamānaḥ purīṣāsṛṅmūtraśukrāvilānanaḥ / prājāpatyena vātena pīḍyamānāsthibandhanaḥ"
+    },
+    {
+     "number": "15",
+     "sanskrit_text": "अधोमुखो वै क्रियते प्रबलैः सूतिमारुतैः / क्लेशान्निष्क्रान्तिमाप्नोति जठरान्मातुरातुरः",
+     "iast_text": "adhomukho vai kriyate prabalaiḥ sūtimārutaiḥ / kleśānniṣkrāntimāpnoti jaṭharānmāturāturaḥ"
+    },
+    {
+     "number": "16",
+     "sanskrit_text": "मुर्छामवाप्य महतीं संस्पृष्टो बाह्यवायुना / विज्ञानभ्रंशमाप्नोति जातश् च मुनिसत्तम",
+     "iast_text": "murchāmavāpya mahatīṃ saṃspṛṣṭo bāhyavāyunā / vijñānabhraṃśamāpnoti jātaś ca munisattama"
+    },
+    {
+     "number": "17",
+     "sanskrit_text": "कण्टकैर् इव तुन्नाङ्गः क्रकचैर् इव दारितः / पूतिव्रणान्निपतितो धरण्यां क्रिमिको यथा",
+     "iast_text": "kaṇṭakair iva tunnāṅgaḥ krakacair iva dāritaḥ / pūtivraṇānnipatito dharaṇyāṃ krimiko yathā"
+    },
+    {
+     "number": "18",
+     "sanskrit_text": "कण्डूयने ऽपि चाशक्तः परिवर्तेप्यनीश्वरः / स्नानपानादिकाहारम् अप्य् आप्नोति परेच्छया",
+     "iast_text": "kaṇḍūyane 'pi cāśaktaḥ parivartepyanīśvaraḥ / snānapānādikāhāram apy āpnoti parecchayā"
+    },
+    {
+     "number": "19",
+     "sanskrit_text": "अशुचिप्रस्तरे सुप्तः कीटद्रंशादिभिस् तथा / भक्ष्यमाणो ऽपि नैवैषां समर्थो विनिवारणे",
+     "iast_text": "aśuciprastare suptaḥ kīṭadraṃśādibhis tathā / bhakṣyamāṇo 'pi naivaiṣāṃ samartho vinivāraṇe"
+    },
+    {
+     "number": "20",
+     "sanskrit_text": "जन्मदुःखान्यनेकानि जन्मनोनन्तरिणी च / बालभावे यदा प्नोति ह्याधिभौतादिकानि च",
+     "iast_text": "janmaduḥkhānyanekāni janmanonantariṇī ca / bālabhāve yadā pnoti hyādhibhautādikāni ca"
+    },
+    {
+     "number": "21",
+     "sanskrit_text": "अज्ञानतमसाच्छन्नो मूढान्तःकरणो नरः / न जानाति कुतः कोहं क्वाहं गन्ता किमात्मनः",
+     "iast_text": "ajñānatamasācchanno mūḍhāntaḥkaraṇo naraḥ / na jānāti kutaḥ kohaṃ kvāhaṃ gantā kimātmanaḥ"
+    },
+    {
+     "number": "22",
+     "sanskrit_text": "केनबन्धेन बद्धोहं कारणं किमकारणम् / किं कार्यं किमकार्यं वा किं वाच्यं किं च नोच्यते",
+     "iast_text": "kenabandhena baddhohaṃ kāraṇaṃ kimakāraṇam / kiṃ kāryaṃ kimakāryaṃ vā kiṃ vācyaṃ kiṃ ca nocyate"
+    },
+    {
+     "number": "23",
+     "sanskrit_text": "को धर्मः कश् च वाधर्मः कस्मिन्वर्ते ऽथ वा कथम् / किं कर्तव्यमकर्तव्यं किं वा किङ्गुणदोषवत्",
+     "iast_text": "ko dharmaḥ kaś ca vādharmaḥ kasminvarte 'tha vā katham / kiṃ kartavyamakartavyaṃ kiṃ vā kiṅguṇadoṣavat"
+    },
+    {
+     "number": "24",
+     "sanskrit_text": "एवं पशुसमैर् मुढैर् अज्ञानप्रभवं महत् / अवाप्यते नरैर् दुःखं शिश्रोदरपरायणैः",
+     "iast_text": "evaṃ paśusamair muḍhair ajñānaprabhavaṃ mahat / avāpyate narair duḥkhaṃ śiśrodaraparāyaṇaiḥ"
+    },
+    {
+     "number": "25",
+     "sanskrit_text": "अज्ञानं तामसो भावः कार्यारंभप्रवृत्तयः / अज्ञानिनां प्रवर्तन्ते कर्मलोपास्ततो द्विज",
+     "iast_text": "ajñānaṃ tāmaso bhāvaḥ kāryāraṃbhapravṛttayaḥ / ajñānināṃ pravartante karmalopāstato dvija"
+    },
+    {
+     "number": "26",
+     "sanskrit_text": "नरकं कर्मणां लोपात्फलमाहुर्मनीषिणः / तस्मादज्ञानिनां दुःखमिह चामुत्र चोत्तमम्",
+     "iast_text": "narakaṃ karmaṇāṃ lopātphalamāhurmanīṣiṇaḥ / tasmādajñānināṃ duḥkhamiha cāmutra cottamam"
+    },
+    {
+     "number": "27",
+     "sanskrit_text": "जराजर्जरदेहश् च शिथिलावयवः पुमान् / विचलच्छीर्णदशनो वलिस्नायुशिरावृतः",
+     "iast_text": "jarājarjaradehaś ca śithilāvayavaḥ pumān / vicalacchīrṇadaśano valisnāyuśirāvṛtaḥ"
+    },
+    {
+     "number": "28",
+     "sanskrit_text": "दूरप्रनष्टनयनो व्योमान्तर्गततारकः / नासाविवलनिर्यातलोमपुञ्जश्चलद्वपुः",
+     "iast_text": "dūrapranaṣṭanayano vyomāntargatatārakaḥ / nāsāvivalaniryātalomapuñjaścaladvapuḥ"
+    },
+    {
+     "number": "29",
+     "sanskrit_text": "प्रकटीभूतसर्वास्थिर्नतपृष्ठास्थिसंहतिः / उत्सन्नजठराग्नित्वाद् अल्पाहारो ऽप्लचेष्टितः",
+     "iast_text": "prakaṭībhūtasarvāsthirnatapṛṣṭhāsthisaṃhatiḥ / utsannajaṭharāgnitvād alpāhāro 'placeṣṭitaḥ"
+    },
+    {
+     "number": "30",
+     "sanskrit_text": "कृच्छ्राच्चङ्क्रमणोत्थानशयनासनचेष्टितः / मन्दीभवच्छ्रोत्रनेत्रःस्रवल्लालाविलाननः",
+     "iast_text": "kṛcchrāccaṅkramaṇotthānaśayanāsanaceṣṭitaḥ / mandībhavacchrotranetraḥsravallālāvilānanaḥ"
+    },
+    {
+     "number": "31",
+     "sanskrit_text": "अनायत्तैः समस्तैश् च करणेर्मरणोन्मुखः / तत्क्षणेप्यनुभूतानामस्मर्तऽखिलवस्तुनाम्",
+     "iast_text": "anāyattaiḥ samastaiś ca karaṇermaraṇonmukhaḥ / tatkṣaṇepyanubhūtānāmasmarta'khilavastunām"
+    },
+    {
+     "number": "32",
+     "sanskrit_text": "सकृदुच्चारिते वाक्ये समुद्भूत महाश्रमः / श्वासकाशसमुद्भूतमहायासप्रजागरः",
+     "iast_text": "sakṛduccārite vākye samudbhūta mahāśramaḥ / śvāsakāśasamudbhūtamahāyāsaprajāgaraḥ"
+    },
+    {
+     "number": "33",
+     "sanskrit_text": "अन्येनोत्थाप्यते ऽन्येन तथा संवेश्यते जरी / भृत्यात्मपुत्रदाराणामवामानास्पदी कृतः",
+     "iast_text": "anyenotthāpyate 'nyena tathā saṃveśyate jarī / bhṛtyātmaputradārāṇāmavāmānāspadī kṛtaḥ"
+    },
+    {
+     "number": "34",
+     "sanskrit_text": "प्रक्षीणाखिलशौचश् च विहाराहारसस्पृहः / हास्यः परिजनस्यापि निर्विण्णाशेषबान्धवः",
+     "iast_text": "prakṣīṇākhilaśaucaś ca vihārāhārasaspṛhaḥ / hāsyaḥ parijanasyāpi nirviṇṇāśeṣabāndhavaḥ"
+    },
+    {
+     "number": "35",
+     "sanskrit_text": "अनुभूतमिवान्यस्मिञ्जन्मन्यात्मविचेष्टितम् / संस्मरन्यौवने दीर्घं निश्वसत्यभितापितः",
+     "iast_text": "anubhūtamivānyasmiñjanmanyātmaviceṣṭitam / saṃsmaranyauvane dīrghaṃ niśvasatyabhitāpitaḥ"
+    },
+    {
+     "number": "36",
+     "sanskrit_text": "एवमादीनि दुःखानि जरायामनुबूय वै / मरणे यानि दुःखानि प्राप्नोति शृणुतान्यपि",
+     "iast_text": "evamādīni duḥkhāni jarāyāmanubūya vai / maraṇe yāni duḥkhāni prāpnoti śṛṇutānyapi"
+    },
+    {
+     "number": "37",
+     "sanskrit_text": "श्लथद्ग्रीवाङ्घ्रिहस्ते ऽथ व्याप्तो वेपथुना भृशम् / मुहुर्ग्लानिः परवशो मुहुर्ज्ञानलवान्वितः",
+     "iast_text": "ślathadgrīvāṅghrihaste 'tha vyāpto vepathunā bhṛśam / muhurglāniḥ paravaśo muhurjñānalavānvitaḥ"
+    },
+    {
+     "number": "38",
+     "sanskrit_text": "हिरण्यधान्यतनयभार्याभृत्यगृहादिषु / एते कथं भविष्यन्तीत्यतीव ममताकुलः",
+     "iast_text": "hiraṇyadhānyatanayabhāryābhṛtyagṛhādiṣu / ete kathaṃ bhaviṣyantītyatīva mamatākulaḥ"
+    },
+    {
+     "number": "39",
+     "sanskrit_text": "मर्मभिद्भिर् भहारोगैः क्रकचैर् इव दारुणैः / शरैर् इवान्तकस्योग्रैश् छद्यमानासुबन्धनः",
+     "iast_text": "marmabhidbhir bhahārogaiḥ krakacair iva dāruṇaiḥ / śarair ivāntakasyograiś chadyamānāsubandhanaḥ"
+    },
+    {
+     "number": "40",
+     "sanskrit_text": "परिवर्तितताराक्षो हस्तपादं मुहुः क्षिपन् / संशुष्यमाणताल्वोष्ठपुटो घुरघुरायते",
+     "iast_text": "parivartitatārākṣo hastapādaṃ muhuḥ kṣipan / saṃśuṣyamāṇatālvoṣṭhapuṭo ghuraghurāyate"
+    },
+    {
+     "number": "41",
+     "sanskrit_text": "निरुद्धकण्ठो दोषौघैर् उदानश्वसापीडितः / तापेन महता व्याप्तस्तृषा चार्तस् तथा क्षुधा",
+     "iast_text": "niruddhakaṇṭho doṣaughair udānaśvasāpīḍitaḥ / tāpena mahatā vyāptastṛṣā cārtas tathā kṣudhā"
+    },
+    {
+     "number": "42",
+     "sanskrit_text": "क्लेशादुत्क्रान्तिमाप्नोति यमकिङ्करपीडितः / ततश् च यातनादेहं क्लेशेन प्रतिपद्यते",
+     "iast_text": "kleśādutkrāntimāpnoti yamakiṅkarapīḍitaḥ / tataś ca yātanādehaṃ kleśena pratipadyate"
+    },
+    {
+     "number": "43",
+     "sanskrit_text": "एतान्यन्यानि चोग्राणि दुःखानि मरणे नृणाम् / शृणुष्व नरके यानि प्राप्यन्ते पुरुषैर् मृतैः",
+     "iast_text": "etānyanyāni cogrāṇi duḥkhāni maraṇe nṛṇām / śṛṇuṣva narake yāni prāpyante puruṣair mṛtaiḥ"
+    },
+    {
+     "number": "44",
+     "sanskrit_text": "याम्यकिङ्करपाशादिग्रहणं दण्डताडनम् / यमस्य दर्शनं चोग्रमुग्रमार्गविलोकनम्",
+     "iast_text": "yāmyakiṅkarapāśādigrahaṇaṃ daṇḍatāḍanam / yamasya darśanaṃ cogramugramārgavilokanam"
+    },
+    {
+     "number": "45",
+     "sanskrit_text": "करंभवालुकावह्नियन्त्रशस्त्रासिभीषणे / प्रत्येकं नरकेयाश् च यातना द्विज दुःसहाः",
+     "iast_text": "karaṃbhavālukāvahniyantraśastrāsibhīṣaṇe / pratyekaṃ narakeyāś ca yātanā dvija duḥsahāḥ"
+    },
+    {
+     "number": "46",
+     "sanskrit_text": "क्रकचैः पाट्यमानानां मूषायां चापि दह्यताम् / कुठारैः कृत्यमानानां भूमौ चापि निखन्यताम्",
+     "iast_text": "krakacaiḥ pāṭyamānānāṃ mūṣāyāṃ cāpi dahyatām / kuṭhāraiḥ kṛtyamānānāṃ bhūmau cāpi nikhanyatām"
+    },
+    {
+     "number": "47",
+     "sanskrit_text": "शूलेष्वारोप्यमाणानं व्याघ्रवक्त्रे प्रवेश्यताम् / गृध्रैः संभक्ष्यमाणानां द्वीपिभिश्चोपभूज्यताम्",
+     "iast_text": "śūleṣvāropyamāṇānaṃ vyāghravaktre praveśyatām / gṛdhraiḥ saṃbhakṣyamāṇānāṃ dvīpibhiścopabhūjyatām"
+    },
+    {
+     "number": "48",
+     "sanskrit_text": "क्वाथ्यतां तैलमध्ये च क्लिद्यतां क्षारकर्दमे / उच्चान्निपात्यमानानां क्षिप्यतां क्षेपयन्त्रकैः",
+     "iast_text": "kvāthyatāṃ tailamadhye ca klidyatāṃ kṣārakardame / uccānnipātyamānānāṃ kṣipyatāṃ kṣepayantrakaiḥ"
+    },
+    {
+     "number": "49",
+     "sanskrit_text": "नरके यानि दुःखानि पापहेतूद्भवानि वै / प्राप्यन्ते नारकैर् विप्र तेषां संख्या न विद्यते",
+     "iast_text": "narake yāni duḥkhāni pāpahetūdbhavāni vai / prāpyante nārakair vipra teṣāṃ saṃkhyā na vidyate"
+    },
+    {
+     "number": "50",
+     "sanskrit_text": "न केवलं द्विजश्रेष्ठ नरके दुःखपद्धतिः / स्वगंपि पातभीतस्त क्षयिष्णोर्नास्ति निर्वृतिः",
+     "iast_text": "na kevalaṃ dvijaśreṣṭha narake duḥkhapaddhatiḥ / svagaṃpi pātabhītasta kṣayiṣṇornāsti nirvṛtiḥ"
+    },
+    {
+     "number": "51",
+     "sanskrit_text": "पुनश् च गर्भे भवति जायते च पुनः पुनः / गर्भे विलीयते भूयो जायमानो ऽस्तमेति वै",
+     "iast_text": "punaś ca garbhe bhavati jāyate ca punaḥ punaḥ / garbhe vilīyate bhūyo jāyamāno 'stameti vai"
+    },
+    {
+     "number": "52",
+     "sanskrit_text": "जातमात्रश् च म्रियते बालभावे ऽथ यौवने / मध्यमं वा वयः प्राप्य वार्धके वाथ वा मृतिः",
+     "iast_text": "jātamātraś ca mriyate bālabhāve 'tha yauvane / madhyamaṃ vā vayaḥ prāpya vārdhake vātha vā mṛtiḥ"
+    },
+    {
+     "number": "53",
+     "sanskrit_text": "यावज्जीवति तावच्च दुःखैर् नानाविधैः प्लुतः / तं तु कारणपक्ष्मौघैर् आस्ते कार्पासबीजवत्",
+     "iast_text": "yāvajjīvati tāvacca duḥkhair nānāvidhaiḥ plutaḥ / taṃ tu kāraṇapakṣmaughair āste kārpāsabījavat"
+    },
+    {
+     "number": "54",
+     "sanskrit_text": "द्रव्यनाशे तथोत्पत्तौ पालने च सदा नृणाम् / भवन्त्यनेकदुःखानि तथैवेष्टविपत्तिषु",
+     "iast_text": "dravyanāśe tathotpattau pālane ca sadā nṛṇām / bhavantyanekaduḥkhāni tathaiveṣṭavipattiṣu"
+    },
+    {
+     "number": "55",
+     "sanskrit_text": "यद्यत्प्रीतिकरं पुंसां वस्तु मैत्रेय जायते / तदेव दुःखवृक्षस्य बीजत्वमुपगच्छति",
+     "iast_text": "yadyatprītikaraṃ puṃsāṃ vastu maitreya jāyate / tadeva duḥkhavṛkṣasya bījatvamupagacchati"
+    },
+    {
+     "number": "56",
+     "sanskrit_text": "कलत्रपुत्रमित्रार्थगृहक्षेत्रधनादिकैः / क्रियते न तथा भूरि सुखं पुंसां यथा सुखम्",
+     "iast_text": "kalatraputramitrārthagṛhakṣetradhanādikaiḥ / kriyate na tathā bhūri sukhaṃ puṃsāṃ yathā sukham"
+    },
+    {
+     "number": "57",
+     "sanskrit_text": "इति संसारदुःखार्कतापतापितचेतसाम् / विमुक्तिपादपच्छायामृते कुत्र सुखं नृणाम्",
+     "iast_text": "iti saṃsāraduḥkhārkatāpatāpitacetasām / vimuktipādapacchāyāmṛte kutra sukhaṃ nṛṇām"
+    },
+    {
+     "number": "58",
+     "sanskrit_text": "तदस्य त्रिविधस्तऽपि दुःखजातस्य वै मम / गर्भजन्मजराद्येषु स्थानेषु प्रभविष्यतः",
+     "iast_text": "tadasya trividhasta'pi duḥkhajātasya vai mama / garbhajanmajarādyeṣu sthāneṣu prabhaviṣyataḥ"
+    },
+    {
+     "number": "59",
+     "sanskrit_text": "निरस्तातिशयाह्लादसुखभावैकलक्षणा / भेषजं भगवत्प्राप्तिरेकान्तात्यन्तिकी मता",
+     "iast_text": "nirastātiśayāhlādasukhabhāvaikalakṣaṇā / bheṣajaṃ bhagavatprāptirekāntātyantikī matā"
+    },
+    {
+     "number": "60",
+     "sanskrit_text": "तस्मात् तत्प्राप्तये यत्नः कर्तव्यः पण्डितैर् नरैः / तत्प्राप्तिहेतुर्ज्ञानं च कर्म चोक्तं महामुने",
+     "iast_text": "tasmāt tatprāptaye yatnaḥ kartavyaḥ paṇḍitair naraiḥ / tatprāptiheturjñānaṃ ca karma coktaṃ mahāmune"
+    },
+    {
+     "number": "61",
+     "sanskrit_text": "आगमोत्थं विवेकाच्च द्विधा ज्ञानं तद् उच्यते / शब्दब्रह्मागममयं परं ब्रह्म विवेकजम्",
+     "iast_text": "āgamotthaṃ vivekācca dvidhā jñānaṃ tad ucyate / śabdabrahmāgamamayaṃ paraṃ brahma vivekajam"
+    },
+    {
+     "number": "62",
+     "sanskrit_text": "अन्धं तम इवाज्ञानं दीपवच्चेन्द्रियोद्भवम् / यथा सूर्यस् तथा ज्ञानं यद्विप्रर्षे विवेकजम्",
+     "iast_text": "andhaṃ tama ivājñānaṃ dīpavaccendriyodbhavam / yathā sūryas tathā jñānaṃ yadviprarṣe vivekajam"
+    },
+    {
+     "number": "63",
+     "sanskrit_text": "मनुरप्याह वेदार्थं स्मृत्वा यन्मुनिसत्तम / तदेतच्छ्रूयतामत्र संबन्धे गदतो मम",
+     "iast_text": "manurapyāha vedārthaṃ smṛtvā yanmunisattama / tadetacchrūyatāmatra saṃbandhe gadato mama"
+    },
+    {
+     "number": "64",
+     "sanskrit_text": "द्वे ब्रह्मणी वेदितव्ये शब्दब्रह्म परं च यत् / शब्दब्रह्मणि निष्णातः परं ब्रह्माधिगच्छति",
+     "iast_text": "dve brahmaṇī veditavye śabdabrahma paraṃ ca yat / śabdabrahmaṇi niṣṇātaḥ paraṃ brahmādhigacchati"
+    },
+    {
+     "number": "65",
+     "sanskrit_text": "द्वे वै विद्ये वेदितव्ये इति चाथर्वणी श्रुतिः / परया त्वक्षरप्राप्तिरृग्वेदादिमयापरा",
+     "iast_text": "dve vai vidye veditavye iti cātharvaṇī śrutiḥ / parayā tvakṣaraprāptirṛgvedādimayāparā"
+    },
+    {
+     "number": "66",
+     "sanskrit_text": "यत् तद् अव्यक्तम् अजरम् अचिन्त्यम् अजम् अव्ययम् / अनिर्देश्यमरूपं च पाणिपादाद्यसंयुतम्",
+     "iast_text": "yat tad avyaktam ajaram acintyam ajam avyayam / anirdeśyamarūpaṃ ca pāṇipādādyasaṃyutam"
+    },
+    {
+     "number": "67",
+     "sanskrit_text": "विभु सर्वगतं नित्यं भूतयोनिरकारणम् / व्याप्य व्याप्तं यतः सर्वं यद् वै पश्यन्ति सूरयः",
+     "iast_text": "vibhu sarvagataṃ nityaṃ bhūtayonirakāraṇam / vyāpya vyāptaṃ yataḥ sarvaṃ yad vai paśyanti sūrayaḥ"
+    },
+    {
+     "number": "68",
+     "sanskrit_text": "तद्ब्रह्म तत्परं धाम तद् ध्येयं मोक्षकांक्षिभिः / श्रुतिवाक्योदितं सूक्ष्मं तद्विष्णोः परमं पदम्",
+     "iast_text": "tadbrahma tatparaṃ dhāma tad dhyeyaṃ mokṣakāṃkṣibhiḥ / śrutivākyoditaṃ sūkṣmaṃ tadviṣṇoḥ paramaṃ padam"
+    },
+    {
+     "number": "69",
+     "sanskrit_text": "तदेव भगवद्वाच्यं स्वरूपं परमात्मनः / वाचको भगवच्छब्दस्तस्याद्यस्वाक्षयात्मनः",
+     "iast_text": "tadeva bhagavadvācyaṃ svarūpaṃ paramātmanaḥ / vācako bhagavacchabdastasyādyasvākṣayātmanaḥ"
+    },
+    {
+     "number": "70",
+     "sanskrit_text": "एवं निगदितार्थस्त तत्तत्त्वं तस्य तत्त्वतः / ज्ञायते येन तज्ज्ञानं परमन्यत्त्रयीमयम्",
+     "iast_text": "evaṃ nigaditārthasta tattattvaṃ tasya tattvataḥ / jñāyate yena tajjñānaṃ paramanyattrayīmayam"
+    },
+    {
+     "number": "71",
+     "sanskrit_text": "अशब्दगोचरस्यापि तस्य वै ब्रह्मणो द्विज / पूजायां भगवच्छब्दः क्रियते ह्युपचारतः",
+     "iast_text": "aśabdagocarasyāpi tasya vai brahmaṇo dvija / pūjāyāṃ bhagavacchabdaḥ kriyate hyupacārataḥ"
+    },
+    {
+     "number": "72",
+     "sanskrit_text": "शुद्धे महाविभूत्वाख्ये परे ब्रह्मणि शब्दिते / मैत्रेय भगवच्छब्दःसर्वकारणकारणे",
+     "iast_text": "śuddhe mahāvibhūtvākhye pare brahmaṇi śabdite / maitreya bhagavacchabdaḥsarvakāraṇakāraṇe"
+    },
+    {
+     "number": "73",
+     "sanskrit_text": "संभर्तेति तथा भर्ता भकारोर्थद्वयान्वितः / नेता गमयता स्रष्टा गकारार्थस् तथा मुने",
+     "iast_text": "saṃbharteti tathā bhartā bhakārorthadvayānvitaḥ / netā gamayatā sraṣṭā gakārārthas tathā mune"
+    },
+    {
+     "number": "74",
+     "sanskrit_text": "ऐश्वर्यस्य समग्रस्य वीर्यस्य यशसः श्रियः / ज्ञानवैराग्ययोश्चैव षण्णां भग इतीरणा",
+     "iast_text": "aiśvaryasya samagrasya vīryasya yaśasaḥ śriyaḥ / jñānavairāgyayoścaiva ṣaṇṇāṃ bhaga itīraṇā"
+    },
+    {
+     "number": "75",
+     "sanskrit_text": "वसंति तत्र भूतानि भूतात्मन्यखिलात्मनि / स च भूतेष्वशेषेषु वकारार्थस्ततो ऽव्ययः",
+     "iast_text": "vasaṃti tatra bhūtāni bhūtātmanyakhilātmani / sa ca bhūteṣvaśeṣeṣu vakārārthastato 'vyayaḥ"
+    },
+    {
+     "number": "76",
+     "sanskrit_text": "एवमेष महाञ्छब्दो मैत्रेय भगवानिति / परमब्रह्मभूतस्य वासुदेवस्य नान्यगः",
+     "iast_text": "evameṣa mahāñchabdo maitreya bhagavāniti / paramabrahmabhūtasya vāsudevasya nānyagaḥ"
+    },
+    {
+     "number": "77",
+     "sanskrit_text": "तत्र पूज्यपदार्थोक्तिपरिभाषासमन्वितः / शब्दो ऽयं नोपचारेण त्वन्यत्र ह्य् उपचारतः",
+     "iast_text": "tatra pūjyapadārthoktiparibhāṣāsamanvitaḥ / śabdo 'yaṃ nopacāreṇa tvanyatra hy upacārataḥ"
+    },
+    {
+     "number": "78",
+     "sanskrit_text": "उत्पत्तिं प्रलयं चैव भूतानामागतिं गतिम् / वेत्ति विद्यामाविद्यां च स वाच्यो भगवानिति",
+     "iast_text": "utpattiṃ pralayaṃ caiva bhūtānāmāgatiṃ gatim / vetti vidyāmāvidyāṃ ca sa vācyo bhagavāniti"
+    },
+    {
+     "number": "79",
+     "sanskrit_text": "ज्ञानशक्तिबलैश्वयवीर्यतेजांस्यशेषतः / भगवच्छब्दवाच्याति विना हेयैर् गुणादिभिः",
+     "iast_text": "jñānaśaktibalaiśvayavīryatejāṃsyaśeṣataḥ / bhagavacchabdavācyāti vinā heyair guṇādibhiḥ"
+    },
+    {
+     "number": "80",
+     "sanskrit_text": "सर्वाणि तत्र भूतानि वसांति परमात्मनि / भूतेषु च स सर्वात्मा वासुदेवस्ततः स्मृतः",
+     "iast_text": "sarvāṇi tatra bhūtāni vasāṃti paramātmani / bhūteṣu ca sa sarvātmā vāsudevastataḥ smṛtaḥ"
+    },
+    {
+     "number": "81",
+     "sanskrit_text": "खाण्डिक्यजनकायाह पृष्टः केशिध्वजः पुरा / नाभव्याख्यामनन्तस्य वासुदेवस्य तत्त्वतः",
+     "iast_text": "khāṇḍikyajanakāyāha pṛṣṭaḥ keśidhvajaḥ purā / nābhavyākhyāmanantasya vāsudevasya tattvataḥ"
+    },
+    {
+     "number": "82",
+     "sanskrit_text": "भूतेषु वसते सोंऽतर्वसंत्यत्र च तानि यत् / धाता विधाता जगतां वासुदेवस्ततः प्रभुः",
+     "iast_text": "bhūteṣu vasate soṃ'tarvasaṃtyatra ca tāni yat / dhātā vidhātā jagatāṃ vāsudevastataḥ prabhuḥ"
+    },
+    {
+     "number": "83",
+     "sanskrit_text": "स सर्वभूतप्रकृतिं विकारान्गुणादिदोशांश् च मुने व्यतीतः / अतीतसर्वावरणोखिलात्मा तेनास्तृतं यद्भुवनान्तराले",
+     "iast_text": "sa sarvabhūtaprakṛtiṃ vikārānguṇādidośāṃś ca mune vyatītaḥ / atītasarvāvaraṇokhilātmā tenāstṛtaṃ yadbhuvanāntarāle"
+    },
+    {
+     "number": "84",
+     "sanskrit_text": "समस्तकल्याणगुणात्मको ऽसौ स्वशक्तिलेशावृतभूतवर्गः / इच्छागृहीताभिमतोरुदेहःसंसाधिताशेषजगद्वितो यः",
+     "iast_text": "samastakalyāṇaguṇātmako 'sau svaśaktileśāvṛtabhūtavargaḥ / icchāgṛhītābhimatorudehaḥsaṃsādhitāśeṣajagadvito yaḥ"
+    },
+    {
+     "number": "85",
+     "sanskrit_text": "तेजोबलैश्वर्यमहावबोध सुवीर्यशक्त्यादिगुणैकराशिः / परः पराणां सकला न यत्र क्लेशादयःसंति परावरेशे",
+     "iast_text": "tejobalaiśvaryamahāvabodha suvīryaśaktyādiguṇaikarāśiḥ / paraḥ parāṇāṃ sakalā na yatra kleśādayaḥsaṃti parāvareśe"
+    },
+    {
+     "number": "86",
+     "sanskrit_text": "स ईश्वरो व्यष्टिसमष्टिरूपो व्यक्तस्वरूपः / सर्वेश्वरःसर्वदृक् सर्वविच्च समस्तशक्तिः परमेश्वराख्यः",
+     "iast_text": "sa īśvaro vyaṣṭisamaṣṭirūpo vyaktasvarūpaḥ / sarveśvaraḥsarvadṛk sarvavicca samastaśaktiḥ parameśvarākhyaḥ"
+    },
+    {
+     "number": "87",
+     "sanskrit_text": "संज्ञायते येन तदस्तदोषं शुद्धं परं निर्मलमेकरूपम् / संदृश्यते वाप्यवगम्यते वा तज्ज्ञानमज्ञानमतोन्यदुक्तम्",
+     "iast_text": "saṃjñāyate yena tadastadoṣaṃ śuddhaṃ paraṃ nirmalamekarūpam / saṃdṛśyate vāpyavagamyate vā tajjñānamajñānamatonyaduktam"
+    }
+   ]
+  },
+  {
+   "id": "adhyaya_06",
+   "reference": "Viṣṇupurāṇa, Amsha 06, adhyaya 6",
+   "shlokas": [
+    {
+     "number": "1",
+     "sanskrit_text": "इति श्रीविष्णुमहापुराणे षष्ठांशे पञ्चमो ऽध्यायः श्रीपराशर उवाच स्वाध्यायसंयमाभ्यां स दृश्यते पुरुषोत्तमः / तत्प्राप्तिकारणं ब्रह्म तद् एतद् इति पठ्यते",
+     "iast_text": "iti śrīviṣṇumahāpurāṇe ṣaṣṭhāṃśe pañcamo 'dhyāyaḥ śrīparāśara uvāca svādhyāyasaṃyamābhyāṃ sa dṛśyate puruṣottamaḥ / tatprāptikāraṇaṃ brahma tad etad iti paṭhyate"
+    },
+    {
+     "number": "2",
+     "sanskrit_text": "स्वाध्यायाध्योगमासीत योगात्स्वाध्यायमावसेत् / स्वाध्याययोगसंपत्त्या परमात्मा प्रकाशते",
+     "iast_text": "svādhyāyādhyogamāsīta yogātsvādhyāyamāvaset / svādhyāyayogasaṃpattyā paramātmā prakāśate"
+    },
+    {
+     "number": "3",
+     "sanskrit_text": "तदीक्षणाय स्वाध्यायश्चक्षुर्योगस् तथा परम् / न मां स चक्षुषा द्रष्टुं ब्रह्मभूतःस शक्यते",
+     "iast_text": "tadīkṣaṇāya svādhyāyaścakṣuryogas tathā param / na māṃ sa cakṣuṣā draṣṭuṃ brahmabhūtaḥsa śakyate"
+    },
+    {
+     "number": "4",
+     "sanskrit_text": "मैत्रेय उवाच भगवंस्तमहं योगं ज्ञातुमिच्छामि तं वद / ज्ञाते यत्राखिलाधारं पश्येयं परमेश्वरम्",
+     "iast_text": "maitreya uvāca bhagavaṃstamahaṃ yogaṃ jñātumicchāmi taṃ vada / jñāte yatrākhilādhāraṃ paśyeyaṃ parameśvaram"
+    },
+    {
+     "number": "5",
+     "sanskrit_text": "श्रीपराशर उवाच यथा केशिध्वजः प्राह खाण्डिक्याय महात्मने / नजकाय पुरा योग तमहं कथयामि ते",
+     "iast_text": "śrīparāśara uvāca yathā keśidhvajaḥ prāha khāṇḍikyāya mahātmane / najakāya purā yoga tamahaṃ kathayāmi te"
+    },
+    {
+     "number": "6",
+     "sanskrit_text": "मैत्रेय उवाच खाण्डिक्य को ऽभवद्ब्रह्मन्को वा केशिध्वजः कृती / कथं तयोश् च संवादो योगसंबन्धकारणात्",
+     "iast_text": "maitreya uvāca khāṇḍikya ko 'bhavadbrahmanko vā keśidhvajaḥ kṛtī / kathaṃ tayoś ca saṃvādo yogasaṃbandhakāraṇāt"
+    },
+    {
+     "number": "7",
+     "sanskrit_text": "श्रीपराशर उवाच धर्मध्वजो वै जनक स्तस्य पुत्रो ऽमितध्वजः / कृतध्वजश् च नाम्नासीत्सदाध्यात्मरतिर्नृपः",
+     "iast_text": "śrīparāśara uvāca dharmadhvajo vai janaka stasya putro 'mitadhvajaḥ / kṛtadhvajaś ca nāmnāsītsadādhyātmaratirnṛpaḥ"
+    },
+    {
+     "number": "8",
+     "sanskrit_text": "कृतध्वजस्य पुत्रो ऽभूत्ख्यातः केशिध्वजो नृपः / पुत्रोमितध्वजस्यापि खाण्डिक्यजनको ऽभवत्",
+     "iast_text": "kṛtadhvajasya putro 'bhūtkhyātaḥ keśidhvajo nṛpaḥ / putromitadhvajasyāpi khāṇḍikyajanako 'bhavat"
+    },
+    {
+     "number": "9",
+     "sanskrit_text": "कर्ममार्गेण खाण्डिक्यः पृतिव्यामभवत्पतिः / केशिध्वजो ऽप्यतीवासीदात्मविद्याविशारदः",
+     "iast_text": "karmamārgeṇa khāṇḍikyaḥ pṛtivyāmabhavatpatiḥ / keśidhvajo 'pyatīvāsīdātmavidyāviśāradaḥ"
+    },
+    {
+     "number": "10",
+     "sanskrit_text": "तावुभावपि चैवास्तां विजिगीषू परस्परम् / केशिध्यजेन खाण्डिक्यःस्वराज्यादवरोपितः",
+     "iast_text": "tāvubhāvapi caivāstāṃ vijigīṣū parasparam / keśidhyajena khāṇḍikyaḥsvarājyādavaropitaḥ"
+    },
+    {
+     "number": "11",
+     "sanskrit_text": "पुरोधसा मन्त्रिभिश् च समवेतो ऽल्पसाधनः / राज्यान्निराकृतःसो ऽथ दुर्गारण्यचरो ऽभवत्",
+     "iast_text": "purodhasā mantribhiś ca samaveto 'lpasādhanaḥ / rājyānnirākṛtaḥso 'tha durgāraṇyacaro 'bhavat"
+    },
+    {
+     "number": "12",
+     "sanskrit_text": "इयाह सो ऽपि सुबहून्यज्ञाञ्ज्ञानव्यपाश्रयः / ब्रह्मविद्यामधिष्ठाय तर्त्तु मृत्युमविद्यया",
+     "iast_text": "iyāha so 'pi subahūnyajñāñjñānavyapāśrayaḥ / brahmavidyāmadhiṣṭhāya tarttu mṛtyumavidyayā"
+    },
+    {
+     "number": "13",
+     "sanskrit_text": "एकदा वर्त्तमानस्य यागो योगविदां वर / घर्मधेनुं जघानोग्रः शार्दुलो विजने वने",
+     "iast_text": "ekadā varttamānasya yāgo yogavidāṃ vara / gharmadhenuṃ jaghānograḥ śārdulo vijane vane"
+    },
+    {
+     "number": "14",
+     "sanskrit_text": "ततो राजा हतां श्रुत्वा धनुं व्याघ्रेण चर्त्विजः / प्रायश्चितं स पप्रच्छ किमत्रेति विधीयताम्",
+     "iast_text": "tato rājā hatāṃ śrutvā dhanuṃ vyāghreṇa cartvijaḥ / prāyaścitaṃ sa papraccha kimatreti vidhīyatām"
+    },
+    {
+     "number": "15",
+     "sanskrit_text": "तेप्यूचुर्न वयं विद्म कशेरुः पृच्छतामिति / कशेरुरपि तेनोक्तस्तथैव प्राह भार्गवम्",
+     "iast_text": "tepyūcurna vayaṃ vidma kaśeruḥ pṛcchatāmiti / kaśerurapi tenoktastathaiva prāha bhārgavam"
+    },
+    {
+     "number": "16",
+     "sanskrit_text": "शुनकं पृच्छ राजैन्द्र नाहं वेद्मि स वेत्स्यति / स गत्वा कमपृच्छच्च सो ऽप्य् आह शृणु यन्मुने",
+     "iast_text": "śunakaṃ pṛccha rājaindra nāhaṃ vedmi sa vetsyati / sa gatvā kamapṛcchacca so 'py āha śṛṇu yanmune"
+    },
+    {
+     "number": "17",
+     "sanskrit_text": "न केशरुर्न चैवाहं न चैकःसांप्रतं भुवि / वेत्त्येक एव त्वच्छत्रुः खाण्डिक्यो यो जितस्त्वया",
+     "iast_text": "na keśarurna caivāhaṃ na caikaḥsāṃprataṃ bhuvi / vettyeka eva tvacchatruḥ khāṇḍikyo yo jitastvayā"
+    },
+    {
+     "number": "18",
+     "sanskrit_text": "स चाह तं व्रजाम्येष प्रष्टुमात्मरीपुं मुने / प्राप्त एव महायज्ञो यदि मां स हनिष्यति",
+     "iast_text": "sa cāha taṃ vrajāmyeṣa praṣṭumātmarīpuṃ mune / prāpta eva mahāyajño yadi māṃ sa haniṣyati"
+    },
+    {
+     "number": "19",
+     "sanskrit_text": "प्रायश्चित्तमशेषेण स चेत्पृष्टो वदिष्यति / ततश्चाविकलो योगो मुनिश्रेष्ठ भविष्यति",
+     "iast_text": "prāyaścittamaśeṣeṇa sa cetpṛṣṭo vadiṣyati / tataścāvikalo yogo muniśreṣṭha bhaviṣyati"
+    },
+    {
+     "number": "20",
+     "sanskrit_text": "श्रीपराशर उवाच इत्युक्त्वा रथमारुह्य कृष्णाजिनधरो नृपः / वनं जगाम यत्रास्ते स खाण्डिक्यो महामतिः",
+     "iast_text": "śrīparāśara uvāca ityuktvā rathamāruhya kṛṣṇājinadharo nṛpaḥ / vanaṃ jagāma yatrāste sa khāṇḍikyo mahāmatiḥ"
+    },
+    {
+     "number": "21",
+     "sanskrit_text": "तमापतन्तमालोक्य खाण्डिक्यो रिपुमात्मनः / प्रोवाच क्रोधताम्राक्षःसमारोपितकार्मुकः",
+     "iast_text": "tamāpatantamālokya khāṇḍikyo ripumātmanaḥ / provāca krodhatāmrākṣaḥsamāropitakārmukaḥ"
+    },
+    {
+     "number": "22",
+     "sanskrit_text": "खाण्डिक्य उवाच कृष्णाजिनं त्वं कवचमाबध्यास्मान्हनिष्यसि / कृष्णाजिनधरे वेत्सि न मयि प्रहरिष्यति",
+     "iast_text": "khāṇḍikya uvāca kṛṣṇājinaṃ tvaṃ kavacamābadhyāsmānhaniṣyasi / kṛṣṇājinadhare vetsi na mayi prahariṣyati"
+    },
+    {
+     "number": "23",
+     "sanskrit_text": "मृगाणां वद पृष्ठेषु मूढ कृष्णाजिनं न किम् / येषां मया त्वाय चोग्राः प्रहिताः शितसायकाः",
+     "iast_text": "mṛgāṇāṃ vada pṛṣṭheṣu mūḍha kṛṣṇājinaṃ na kim / yeṣāṃ mayā tvāya cogrāḥ prahitāḥ śitasāyakāḥ"
+    },
+    {
+     "number": "24",
+     "sanskrit_text": "स त्वामहं हनिष्यामि न मे जीवन्विमोक्ष्यसे / आतताय्यसि दुर्बुद्धे मम राज्यहरो रिपुः",
+     "iast_text": "sa tvāmahaṃ haniṣyāmi na me jīvanvimokṣyase / ātatāyyasi durbuddhe mama rājyaharo ripuḥ"
+    },
+    {
+     "number": "25",
+     "sanskrit_text": "केशिध्वज उवाच खाण्डिक्य संशयं प्रष्टुं भवन्तमहामागतः / न त्वां हन्तुं विचार्यैतत्कोपं बाणं विमुञ्च वा",
+     "iast_text": "keśidhvaja uvāca khāṇḍikya saṃśayaṃ praṣṭuṃ bhavantamahāmāgataḥ / na tvāṃ hantuṃ vicāryaitatkopaṃ bāṇaṃ vimuñca vā"
+    },
+    {
+     "number": "26",
+     "sanskrit_text": "श्रीपराशर उवाच ततःस मन्त्रिभिः सार्धमेकान्ते सपुरोहितः / मन्त्रयामास खाण्डिक्यःसर्वैर् एव महामतिः",
+     "iast_text": "śrīparāśara uvāca tataḥsa mantribhiḥ sārdhamekānte sapurohitaḥ / mantrayāmāsa khāṇḍikyaḥsarvair eva mahāmatiḥ"
+    },
+    {
+     "number": "27",
+     "sanskrit_text": "तमूचुर्मत्रिणो वध्यो रिपुरेष वशं गतः / हते ऽस्मिन् पृथिवी सर्वा तव वश्या भविष्यति",
+     "iast_text": "tamūcurmatriṇo vadhyo ripureṣa vaśaṃ gataḥ / hate 'smin pṛthivī sarvā tava vaśyā bhaviṣyati"
+    },
+    {
+     "number": "28",
+     "sanskrit_text": "खाण्डिक्यश्चाह तान्सर्वानेवमेतन्न संशयः / हतेस्मिन्पृतिवी सर्वा मम वश्या भविष्यति",
+     "iast_text": "khāṇḍikyaścāha tānsarvānevametanna saṃśayaḥ / hatesminpṛtivī sarvā mama vaśyā bhaviṣyati"
+    },
+    {
+     "number": "29",
+     "sanskrit_text": "परलोकजयस्तस्य पृथिवी सकला मम / न हन्मि चेल्लोकजयो मम तस्य वसुंधरा",
+     "iast_text": "paralokajayastasya pṛthivī sakalā mama / na hanmi cellokajayo mama tasya vasuṃdharā"
+    },
+    {
+     "number": "30",
+     "sanskrit_text": "नाहं मन्ये लोकजयादधिका स्याद्वसुंधरा / परलोकजयो ऽनन्तःस्वल्पकालो महीजयः",
+     "iast_text": "nāhaṃ manye lokajayādadhikā syādvasuṃdharā / paralokajayo 'nantaḥsvalpakālo mahījayaḥ"
+    },
+    {
+     "number": "31",
+     "sanskrit_text": "तस्मान्नैनं हनिष्यामि यत्पृच्छति वदामि तत्",
+     "iast_text": "tasmānnainaṃ haniṣyāmi yatpṛcchati vadāmi tat"
+    },
+    {
+     "number": "32",
+     "sanskrit_text": "श्रीपराशर उवाच ततस्तमब्युपेत्याह खाण्डिक्यजनको रिपुम् / प्रष्टव्यं यत्त्वाय सर्वं तत्पृच्छस्व वदाम्यहम्",
+     "iast_text": "śrīparāśara uvāca tatastamabyupetyāha khāṇḍikyajanako ripum / praṣṭavyaṃ yattvāya sarvaṃ tatpṛcchasva vadāmyaham"
+    },
+    {
+     "number": "33",
+     "sanskrit_text": "श्रीपराशर उवाच ततः सर्वं यथावृत्तं घर्मधेनुवधं द्विज / कथांयत्वा स पप्रच्छ प्रायश्तित्तं हि तद्गतम्",
+     "iast_text": "śrīparāśara uvāca tataḥ sarvaṃ yathāvṛttaṃ gharmadhenuvadhaṃ dvija / kathāṃyatvā sa papraccha prāyaśtittaṃ hi tadgatam"
+    },
+    {
+     "number": "34",
+     "sanskrit_text": "स चाचष्ट यथान्यायं द्विज केशिध्वजाय तत् / प्रायश्चित्तमशेषेण यद्धै तत्र विधीयते",
+     "iast_text": "sa cācaṣṭa yathānyāyaṃ dvija keśidhvajāya tat / prāyaścittamaśeṣeṇa yaddhai tatra vidhīyate"
+    },
+    {
+     "number": "35",
+     "sanskrit_text": "विदितार्थःस तेनैव ह्यनुज्ञातो महात्मना / यागभूमिम् उपागम्य चक्रे सर्वाः क्रियाः क्रमात्",
+     "iast_text": "viditārthaḥsa tenaiva hyanujñāto mahātmanā / yāgabhūmim upāgamya cakre sarvāḥ kriyāḥ kramāt"
+    },
+    {
+     "number": "36",
+     "sanskrit_text": "क्रमेण विधिवद्यागं नीत्वा सो ऽवभृथाप्लुतः / कृतकृत्यस्ततो भूत्वा चिन्तयामास पार्थिवः",
+     "iast_text": "krameṇa vidhivadyāgaṃ nītvā so 'vabhṛthāplutaḥ / kṛtakṛtyastato bhūtvā cintayāmāsa pārthivaḥ"
+    },
+    {
+     "number": "37",
+     "sanskrit_text": "पूजिताश् च द्विजाःसर्वे सदस्या मानिता मया / तथैवार्थिजनो ऽप्य् अर्थैर् यो ऽर्जितो ऽभिमतैर् मया",
+     "iast_text": "pūjitāś ca dvijāḥsarve sadasyā mānitā mayā / tathaivārthijano 'py arthair yo 'rjito 'bhimatair mayā"
+    },
+    {
+     "number": "38",
+     "sanskrit_text": "यथार्हमस्य लोकस्य मया सर्वं विचेष्टितम् / अनिष्पन्नक्रियं चेतस्तथापि मम किं यथा",
+     "iast_text": "yathārhamasya lokasya mayā sarvaṃ viceṣṭitam / aniṣpannakriyaṃ cetastathāpi mama kiṃ yathā"
+    },
+    {
+     "number": "39",
+     "sanskrit_text": "इत्थं संचिन्तयन्नैव सस्मार स महीपतिः / खाण्डिक्याय न दत्तेति मया वै गुरुदक्षिणा",
+     "iast_text": "itthaṃ saṃcintayannaiva sasmāra sa mahīpatiḥ / khāṇḍikyāya na datteti mayā vai gurudakṣiṇā"
+    },
+    {
+     "number": "40",
+     "sanskrit_text": "स जगाम तदा भूयो रथमारुह्य पार्थिवः / मैत्रेय दुर्गगहनं खाण्डिक्यो यत्र संस्थितः",
+     "iast_text": "sa jagāma tadā bhūyo rathamāruhya pārthivaḥ / maitreya durgagahanaṃ khāṇḍikyo yatra saṃsthitaḥ"
+    },
+    {
+     "number": "41",
+     "sanskrit_text": "खाण्डिक्यो ऽपि पुनर्दृष्ट्वा तमायान्तं धृतायुधम् / तस्थौ हन्तुं कृतमतिस्तमाह स पुनर्नृपः",
+     "iast_text": "khāṇḍikyo 'pi punardṛṣṭvā tamāyāntaṃ dhṛtāyudham / tasthau hantuṃ kṛtamatistamāha sa punarnṛpaḥ"
+    },
+    {
+     "number": "42",
+     "sanskrit_text": "भो नाहं ते ऽपराधाय प्राप्तः खाण्डिक्य मा क्रुद्धाः / गुरोर्निक्रयदानाय मामवेहि त्वमागतम्",
+     "iast_text": "bho nāhaṃ te 'parādhāya prāptaḥ khāṇḍikya mā kruddhāḥ / gurornikrayadānāya māmavehi tvamāgatam"
+    },
+    {
+     "number": "43",
+     "sanskrit_text": "निष्पादितो मया यागः सम्यक्त्वदुपदेशतः / सो ऽहं ते दातुमिच्छामि वृणीष्व गुरुदक्षिणाम्",
+     "iast_text": "niṣpādito mayā yāgaḥ samyaktvadupadeśataḥ / so 'haṃ te dātumicchāmi vṛṇīṣva gurudakṣiṇām"
+    },
+    {
+     "number": "44",
+     "sanskrit_text": "श्रीपराशर उवाच भूयस्य मन्त्रिभिः सार्धं मन्त्रयामास पार्थिवः / गुरुनिष्क्रयकामो ऽयं किं मया प्रार्थ्यतामिति",
+     "iast_text": "śrīparāśara uvāca bhūyasya mantribhiḥ sārdhaṃ mantrayāmāsa pārthivaḥ / guruniṣkrayakāmo 'yaṃ kiṃ mayā prārthyatāmiti"
+    },
+    {
+     "number": "45",
+     "sanskrit_text": "तमूचुर्मत्रिणो राज्यमशंषं प्रार्थ्यतामयम् / शत्रिभिः प्रार्थ्यते राज्यमना यासितसैनिकैः",
+     "iast_text": "tamūcurmatriṇo rājyamaśaṃṣaṃ prārthyatāmayam / śatribhiḥ prārthyate rājyamanā yāsitasainikaiḥ"
+    },
+    {
+     "number": "46",
+     "sanskrit_text": "प्रहस्य तानाह नृपःस खाण्डिक्यो महामतिः / स्वल्पकालं महीपाल्यं मादृशैः प्रार्थ्यते कथम्",
+     "iast_text": "prahasya tānāha nṛpaḥsa khāṇḍikyo mahāmatiḥ / svalpakālaṃ mahīpālyaṃ mādṛśaiḥ prārthyate katham"
+    },
+    {
+     "number": "47",
+     "sanskrit_text": "एवमेतद्भवन्तो ऽत्र ह्यर्थसाधनमन्त्रिणः / परमार्थः कथं को ऽत्र यूयं नात्र विचक्षणाः",
+     "iast_text": "evametadbhavanto 'tra hyarthasādhanamantriṇaḥ / paramārthaḥ kathaṃ ko 'tra yūyaṃ nātra vicakṣaṇāḥ"
+    },
+    {
+     "number": "48",
+     "sanskrit_text": "श्रीपराशर उवाच इत्युक्त्वा समुपेत्यैनं स तु केशिध्वजं नृपः / उवाच किमवश्यं त्वं ददासि गुरुदक्षिणाम्",
+     "iast_text": "śrīparāśara uvāca ityuktvā samupetyainaṃ sa tu keśidhvajaṃ nṛpaḥ / uvāca kimavaśyaṃ tvaṃ dadāsi gurudakṣiṇām"
+    },
+    {
+     "number": "49",
+     "sanskrit_text": "बाढमित्येव तेनोक्तः खाण्डिक्यस्तमथाब्रवीत् / भवानद्यात्म विज्ञानपरमार्थविचक्षणः",
+     "iast_text": "bāḍhamityeva tenoktaḥ khāṇḍikyastamathābravīt / bhavānadyātma vijñānaparamārthavicakṣaṇaḥ"
+    },
+    {
+     "number": "50",
+     "sanskrit_text": "यदि चेद्दीयते मह्यं भवता गुरुनिष्क्रयः / तत्क्लेशप्रशमायालं यत्कर्म तदुदीरय",
+     "iast_text": "yadi ceddīyate mahyaṃ bhavatā guruniṣkrayaḥ / tatkleśapraśamāyālaṃ yatkarma tadudīraya"
+    }
+   ]
+  },
+  {
+   "id": "adhyaya_07",
+   "reference": "Viṣṇupurāṇa, Amsha 06, adhyaya 7",
+   "shlokas": [
+    {
+     "number": "1",
+     "sanskrit_text": "इति श्रीविष्णुमहापुराणे षष्ठांशे षष्ठोध्यायः केशिध्वज उवाच न प्रार्थितं त्वया कस्मादस्मद्राज्यमकण्टकम् / राज्यलाभाद्विना नान्यत्क्षत्रियाणा मतिप्रियम्",
+     "iast_text": "iti śrīviṣṇumahāpurāṇe ṣaṣṭhāṃśe ṣaṣṭhodhyāyaḥ keśidhvaja uvāca na prārthitaṃ tvayā kasmādasmadrājyamakaṇṭakam / rājyalābhādvinā nānyatkṣatriyāṇā matipriyam"
+    },
+    {
+     "number": "2",
+     "sanskrit_text": "खाण्डिक्य उवाच केशिध्वज निबोध त्वं मया न प्रार्थितं यतः / राज्यमेतदशेषं ते यत्र गृध्नन्त्यपण्डिताः",
+     "iast_text": "khāṇḍikya uvāca keśidhvaja nibodha tvaṃ mayā na prārthitaṃ yataḥ / rājyametadaśeṣaṃ te yatra gṛdhnantyapaṇḍitāḥ"
+    },
+    {
+     "number": "3",
+     "sanskrit_text": "क्षत्रियाणामयं धर्मो यत्प्रजापरिपालनम् / वधश् च धर्मयुद्धेन स्वराज्यपरिपन्थिनाम्",
+     "iast_text": "kṣatriyāṇāmayaṃ dharmo yatprajāparipālanam / vadhaś ca dharmayuddhena svarājyaparipanthinām"
+    },
+    {
+     "number": "4",
+     "sanskrit_text": "तत्राशक्तस्य मे दोषो नैवास्त्यपहृते त्वया / बन्धायैव भवत्येषा ह्यविद्याप्यक्रमोज्झिता",
+     "iast_text": "tatrāśaktasya me doṣo naivāstyapahṛte tvayā / bandhāyaiva bhavatyeṣā hyavidyāpyakramojjhitā"
+    },
+    {
+     "number": "5",
+     "sanskrit_text": "अल्पोपभोगलिप्सार्थम् इयं राज्यस्पृहा मम / अन्येषां दोषज सैव धर्मं वै नानुरुध्यते",
+     "iast_text": "alpopabhogalipsārtham iyaṃ rājyaspṛhā mama / anyeṣāṃ doṣaja saiva dharmaṃ vai nānurudhyate"
+    },
+    {
+     "number": "6",
+     "sanskrit_text": "न याच्ञा क्षत्रबन्धूनां धर्मयैतत्सतां मतम् / अतो न याचितं राज्यमविद्यान्तर्गतं तव",
+     "iast_text": "na yācñā kṣatrabandhūnāṃ dharmayaitatsatāṃ matam / ato na yācitaṃ rājyamavidyāntargataṃ tava"
+    },
+    {
+     "number": "7",
+     "sanskrit_text": "राज्ये गृध्नन्त्यविद्वांसो ममत्वाहृतचेतसः / अहंमानमहापानमदमत्ता न मादृशाः",
+     "iast_text": "rājye gṛdhnantyavidvāṃso mamatvāhṛtacetasaḥ / ahaṃmānamahāpānamadamattā na mādṛśāḥ"
+    },
+    {
+     "number": "8",
+     "sanskrit_text": "श्रीपराशर उवाच प्रहृष्टःसाध्विति ततः प्राह केशिध्वजो नृपः / खाण्डिक्यजनकं प्रीत्या श्रूयतां वचनं मम",
+     "iast_text": "śrīparāśara uvāca prahṛṣṭaḥsādhviti tataḥ prāha keśidhvajo nṛpaḥ / khāṇḍikyajanakaṃ prītyā śrūyatāṃ vacanaṃ mama"
+    },
+    {
+     "number": "9",
+     "sanskrit_text": "केशिध्वज उवाच अहं ह्यविद्यया कृत्युं तर्तुकामः करोमि वै / राज्यं यागांश् च विविधान्योगैः पुण्यक्षयं तथा",
+     "iast_text": "keśidhvaja uvāca ahaṃ hyavidyayā kṛtyuṃ tartukāmaḥ karomi vai / rājyaṃ yāgāṃś ca vividhānyogaiḥ puṇyakṣayaṃ tathā"
+    },
+    {
+     "number": "10",
+     "sanskrit_text": "तदिदं ते मनो दिष्ट्या विवेकैश्वर्यतां गतम् / तच्छ्रूयतामविद्यायाःस्वरूपं कुलनन्दन",
+     "iast_text": "tadidaṃ te mano diṣṭyā vivekaiśvaryatāṃ gatam / tacchrūyatāmavidyāyāḥsvarūpaṃ kulanandana"
+    },
+    {
+     "number": "11",
+     "sanskrit_text": "अनात्मन्यात्मबुद्धिर्या चास्वे स्वमिति या मतिः / संसारतरुसंभूतिबीजमेतद्द्विधा स्थितम्",
+     "iast_text": "anātmanyātmabuddhiryā cāsve svamiti yā matiḥ / saṃsāratarusaṃbhūtibījametaddvidhā sthitam"
+    },
+    {
+     "number": "12",
+     "sanskrit_text": "पञ्चभूतात्मके देहे देही मोहतमोवृतः / अहं ममैतदित्युच्चैः कुरुते कुमतिर्मतिम्",
+     "iast_text": "pañcabhūtātmake dehe dehī mohatamovṛtaḥ / ahaṃ mamaitadityuccaiḥ kurute kumatirmatim"
+    },
+    {
+     "number": "13",
+     "sanskrit_text": "आकाशवाय्वग्निजलपृथिवीभ्यः पृथक् स्थिते / आत्मन्यात्ममयं भावं कः करोति कलेवरे",
+     "iast_text": "ākāśavāyvagnijalapṛthivībhyaḥ pṛthak sthite / ātmanyātmamayaṃ bhāvaṃ kaḥ karoti kalevare"
+    },
+    {
+     "number": "14",
+     "sanskrit_text": "कलेवरोपभोग्यंहि गृहक्षेत्रादिकं च कः / अदेहे ह्यात्मनि प्राज्ञे ममेदमिति मन्यते",
+     "iast_text": "kalevaropabhogyaṃhi gṛhakṣetrādikaṃ ca kaḥ / adehe hyātmani prājñe mamedamiti manyate"
+    },
+    {
+     "number": "15",
+     "sanskrit_text": "इत्थं च पुत्त्रपौत्त्रेषु तद्देहोत्पादितेषु कः / करोति पण्डितःस्वाम्यमनात्मनि कलेवरे",
+     "iast_text": "itthaṃ ca puttrapauttreṣu taddehotpāditeṣu kaḥ / karoti paṇḍitaḥsvāmyamanātmani kalevare"
+    },
+    {
+     "number": "16",
+     "sanskrit_text": "सर्वं देहोपभोगाय कुरुते कर्म मानवः / देहश्चान्यो यदा पुंसस्तदा बन्धाय तत्परम्",
+     "iast_text": "sarvaṃ dehopabhogāya kurute karma mānavaḥ / dehaścānyo yadā puṃsastadā bandhāya tatparam"
+    },
+    {
+     "number": "17",
+     "sanskrit_text": "मृण्मयं हि यथा गेहं लिप्यते वै मृदंभसा / पार्थिवो ऽयं तथा देहो मृदंब्वालेपनस्थितः",
+     "iast_text": "mṛṇmayaṃ hi yathā gehaṃ lipyate vai mṛdaṃbhasā / pārthivo 'yaṃ tathā deho mṛdaṃbvālepanasthitaḥ"
+    },
+    {
+     "number": "18",
+     "sanskrit_text": "पञ्जभूतत्मकैर् भोगोः पञ्चभूतात्मकं वपुः / आप्यायते यदि ततः पुंसो भोगो ऽत्र किं कृतः",
+     "iast_text": "pañjabhūtatmakair bhogoḥ pañcabhūtātmakaṃ vapuḥ / āpyāyate yadi tataḥ puṃso bhogo 'tra kiṃ kṛtaḥ"
+    },
+    {
+     "number": "19",
+     "sanskrit_text": "अनेकजन्मसाहस्रीं संसारपदवीं व्रजन् / मोहश्रमं प्रयातो ऽसौ वासनरेमुकुण्ठितः",
+     "iast_text": "anekajanmasāhasrīṃ saṃsārapadavīṃ vrajan / mohaśramaṃ prayāto 'sau vāsanaremukuṇṭhitaḥ"
+    },
+    {
+     "number": "20",
+     "sanskrit_text": "प्रक्षाल्यते यदा सोस्य रेणुज्ञानोष्णवारिणा / तदा संसारपान्थस्य याति मोहश्रमः शमम्",
+     "iast_text": "prakṣālyate yadā sosya reṇujñānoṣṇavāriṇā / tadā saṃsārapānthasya yāti mohaśramaḥ śamam"
+    },
+    {
+     "number": "21",
+     "sanskrit_text": "मोहश्रमे शमं याते स्वस्थान्तःकरणः पुमान् / अनन्यातिशयाबाधं परं निर्वाणमृच्छति",
+     "iast_text": "mohaśrame śamaṃ yāte svasthāntaḥkaraṇaḥ pumān / ananyātiśayābādhaṃ paraṃ nirvāṇamṛcchati"
+    },
+    {
+     "number": "22",
+     "sanskrit_text": "निर्वाणमय एवायम् आत्मा ज्ञानमयो ऽमलः / दुःखाज्ञानमया धर्माः प्रकृतेस् ते तु नात्मनः",
+     "iast_text": "nirvāṇamaya evāyam ātmā jñānamayo 'malaḥ / duḥkhājñānamayā dharmāḥ prakṛtes te tu nātmanaḥ"
+    },
+    {
+     "number": "23",
+     "sanskrit_text": "जलस्य नाग्निसंसर्गस्थालीसंगात्तथापि हि / शब्दोद्रेकादिकान्धर्मांस्तत्करोति यथा नृप",
+     "iast_text": "jalasya nāgnisaṃsargasthālīsaṃgāttathāpi hi / śabdodrekādikāndharmāṃstatkaroti yathā nṛpa"
+    },
+    {
+     "number": "24",
+     "sanskrit_text": "तथात्मा प्रकृतेःसंगादहंमानादिदूषितः / भजते प्राकृतान् धर्मान् अन्यस् तेभ्यो हि सो ऽव्ययः",
+     "iast_text": "tathātmā prakṛteḥsaṃgādahaṃmānādidūṣitaḥ / bhajate prākṛtān dharmān anyas tebhyo hi so 'vyayaḥ"
+    },
+    {
+     "number": "25",
+     "sanskrit_text": "तदेतत्कथितं बीजमविद्याया मया तव / क्लेशानां च क्षयकरं योगादन्यन्न विद्यते",
+     "iast_text": "tadetatkathitaṃ bījamavidyāyā mayā tava / kleśānāṃ ca kṣayakaraṃ yogādanyanna vidyate"
+    },
+    {
+     "number": "26",
+     "sanskrit_text": "खाण्डिक्य उवाच तं ब्रवीहि महाभाग योगं योगविदुत्तम / विज्ञातयोगशास्त्रार्थस्त्वमस्यां निमिसंततौ",
+     "iast_text": "khāṇḍikya uvāca taṃ bravīhi mahābhāga yogaṃ yogaviduttama / vijñātayogaśāstrārthastvamasyāṃ nimisaṃtatau"
+    },
+    {
+     "number": "27",
+     "sanskrit_text": "केशिध्वज उवाच योगस्वरूपं खाण्डिक्य श्रूयतां गदतो मम / यत्र स्थितो न च्यवते प्राप्य ब्रह्मलयं मुनिः",
+     "iast_text": "keśidhvaja uvāca yogasvarūpaṃ khāṇḍikya śrūyatāṃ gadato mama / yatra sthito na cyavate prāpya brahmalayaṃ muniḥ"
+    },
+    {
+     "number": "28",
+     "sanskrit_text": "मन एव मनुष्याणां कारणं बन्धमोक्षयोः / बन्धाय विषयासंगि मुक्त्यै निर्विषयं मनः",
+     "iast_text": "mana eva manuṣyāṇāṃ kāraṇaṃ bandhamokṣayoḥ / bandhāya viṣayāsaṃgi muktyai nirviṣayaṃ manaḥ"
+    },
+    {
+     "number": "29",
+     "sanskrit_text": "विषयेभ्यः समाहृत्य विज्ञानात्मामनो मुनिः / चिन्तयेन्मुक्तये तेन ब्रह्मभूतं परेश्वरम्",
+     "iast_text": "viṣayebhyaḥ samāhṛtya vijñānātmāmano muniḥ / cintayenmuktaye tena brahmabhūtaṃ pareśvaram"
+    },
+    {
+     "number": "30",
+     "sanskrit_text": "आत्मभावं नयत्येनं तद्बह्य ध्यायिनं मुनिम् / विकार्यमात्मनः शक्त्या लोहमाकर्षको यथा",
+     "iast_text": "ātmabhāvaṃ nayatyenaṃ tadbahya dhyāyinaṃ munim / vikāryamātmanaḥ śaktyā lohamākarṣako yathā"
+    },
+    {
+     "number": "31",
+     "sanskrit_text": "आत्मप्रयत्नसापेक्षा विशिष्टा या मनोगतिः / तस्य ब्रह्मणि संयोगो योग इत्यभिधीयते",
+     "iast_text": "ātmaprayatnasāpekṣā viśiṣṭā yā manogatiḥ / tasya brahmaṇi saṃyogo yoga ityabhidhīyate"
+    },
+    {
+     "number": "32",
+     "sanskrit_text": "एवमत्यन्तवैशिष्ट्ययुक्तधर्मोपलक्षणः / यस्य योगःस वै योगी मुमुक्षुरभिधीयते",
+     "iast_text": "evamatyantavaiśiṣṭyayuktadharmopalakṣaṇaḥ / yasya yogaḥsa vai yogī mumukṣurabhidhīyate"
+    },
+    {
+     "number": "33",
+     "sanskrit_text": "योगयुक् प्रथमं योगी युञ्जानो ह्यभिधीयते / विनिष्पन्नसमाधिस्तु परं ब्रह्मोपलब्धिमान्",
+     "iast_text": "yogayuk prathamaṃ yogī yuñjāno hyabhidhīyate / viniṣpannasamādhistu paraṃ brahmopalabdhimān"
+    },
+    {
+     "number": "34",
+     "sanskrit_text": "यद्यन्तरायदोषेण दूष्यते चास्य मानसम् / जन्मान्तरैर् अभ्यसतो मुक्तिः पुर्वस्य जायते",
+     "iast_text": "yadyantarāyadoṣeṇa dūṣyate cāsya mānasam / janmāntarair abhyasato muktiḥ purvasya jāyate"
+    },
+    {
+     "number": "35",
+     "sanskrit_text": "विनिष्पन्नसमाधिस्तु मुक्तिं तत्रैव जन्मनि / प्राप्नोति योगी योगाग्निदग्धकर्मचयो ऽचिरात्",
+     "iast_text": "viniṣpannasamādhistu muktiṃ tatraiva janmani / prāpnoti yogī yogāgnidagdhakarmacayo 'cirāt"
+    },
+    {
+     "number": "36",
+     "sanskrit_text": "ब्रह्मचर्यमहिंसां च सत्यास्तेयापरिग्रहान् / सेवेत योगी निष्कामो योग्यतां स्वमनो नयन्",
+     "iast_text": "brahmacaryamahiṃsāṃ ca satyāsteyāparigrahān / seveta yogī niṣkāmo yogyatāṃ svamano nayan"
+    },
+    {
+     "number": "37",
+     "sanskrit_text": "स्वाध्यायशौचसंतोषतपांसि नियतात्मवान् / कुर्वीत ब्रह्मणि तथा परस्मिन्प्रवणंमनः",
+     "iast_text": "svādhyāyaśaucasaṃtoṣatapāṃsi niyatātmavān / kurvīta brahmaṇi tathā parasminpravaṇaṃmanaḥ"
+    },
+    {
+     "number": "38",
+     "sanskrit_text": "एते यमाःसनियमाः पञ्च पञ्च च कीर्तिताः / विशिष्टफलदाः काम्या निष्कामानां विमुक्तिदाः",
+     "iast_text": "ete yamāḥsaniyamāḥ pañca pañca ca kīrtitāḥ / viśiṣṭaphaladāḥ kāmyā niṣkāmānāṃ vimuktidāḥ"
+    },
+    {
+     "number": "39",
+     "sanskrit_text": "एकं भद्रासनादीनां समास्थाय गुणैर् युतः / यमाख्यैर् नियमाख्यैश् च युञ्जीत नियतो यतिः",
+     "iast_text": "ekaṃ bhadrāsanādīnāṃ samāsthāya guṇair yutaḥ / yamākhyair niyamākhyaiś ca yuñjīta niyato yatiḥ"
+    },
+    {
+     "number": "40",
+     "sanskrit_text": "प्राणाख्यमनिलं वश्यमभ्यासात्कुरुते तु यत् / प्राणायामःसविज्ञेयःसबीजो ऽबीज एव च",
+     "iast_text": "prāṇākhyamanilaṃ vaśyamabhyāsātkurute tu yat / prāṇāyāmaḥsavijñeyaḥsabījo 'bīja eva ca"
+    },
+    {
+     "number": "41",
+     "sanskrit_text": "परस्परेणाभिभवं प्राणापानौ यथानिलौ / कुरुतःसद्विधानेन तृतीयःसंयमात्तयोः",
+     "iast_text": "paraspareṇābhibhavaṃ prāṇāpānau yathānilau / kurutaḥsadvidhānena tṛtīyaḥsaṃyamāttayoḥ"
+    },
+    {
+     "number": "42",
+     "sanskrit_text": "तस्य चालंबनवतः स्थूलरूपं द्विजोत्तम / आलंबनमनन्तस्य योगिनो ऽभ्यसतः स्मृतम्",
+     "iast_text": "tasya cālaṃbanavataḥ sthūlarūpaṃ dvijottama / ālaṃbanamanantasya yogino 'bhyasataḥ smṛtam"
+    },
+    {
+     "number": "43",
+     "sanskrit_text": "शब्दादिष्वनुरक्तानि निगृह्याक्षाणि योगवित् / कुर्याच्चित्तानुकारीणि प्रत्याहारपरायणः",
+     "iast_text": "śabdādiṣvanuraktāni nigṛhyākṣāṇi yogavit / kuryāccittānukārīṇi pratyāhāraparāyaṇaḥ"
+    },
+    {
+     "number": "44",
+     "sanskrit_text": "वश्यता परमा तेन जायतेति चलात्मनाम् / इन्द्रियाणामवश्यैस् तैर् न योगी योगसाधकः",
+     "iast_text": "vaśyatā paramā tena jāyateti calātmanām / indriyāṇāmavaśyais tair na yogī yogasādhakaḥ"
+    },
+    {
+     "number": "45",
+     "sanskrit_text": "प्राणयामेन पवने प्रत्याहारेण चेन्द्रिये / वशीकृते ततः कुर्यात्स्थितं चेतः शुभाश्रये",
+     "iast_text": "prāṇayāmena pavane pratyāhāreṇa cendriye / vaśīkṛte tataḥ kuryātsthitaṃ cetaḥ śubhāśraye"
+    },
+    {
+     "number": "46",
+     "sanskrit_text": "खाडिक्य उवाच कथ्यतां मे महाभागा चेतसो यः शुभाश्रयः / यदाधारमशेषं तद्धन्ति दोषमलोद्भवम्",
+     "iast_text": "khāḍikya uvāca kathyatāṃ me mahābhāgā cetaso yaḥ śubhāśrayaḥ / yadādhāramaśeṣaṃ taddhanti doṣamalodbhavam"
+    },
+    {
+     "number": "47",
+     "sanskrit_text": "केशिध्वाज उवाच आश्रयश्चेतसो ब्रह्म द्विधा तच्चस्वभावतः / भूप मूर्तममूर्तं च परं चापरमेव च",
+     "iast_text": "keśidhvāja uvāca āśrayaścetaso brahma dvidhā taccasvabhāvataḥ / bhūpa mūrtamamūrtaṃ ca paraṃ cāparameva ca"
+    },
+    {
+     "number": "48",
+     "sanskrit_text": "त्रिविधा भावना भूप विश्वमेतन्निबोधताम् / ब्रह्माख्या कर्मसंज्ञा च तथा चैवोभयात्मिका",
+     "iast_text": "trividhā bhāvanā bhūpa viśvametannibodhatām / brahmākhyā karmasaṃjñā ca tathā caivobhayātmikā"
+    },
+    {
+     "number": "49",
+     "sanskrit_text": "कर्मभावात्मिका ह्येकाब्रह्मभावात्मिका परा / उभयात्मिका तथैवान्या त्रिविधा भावभावना",
+     "iast_text": "karmabhāvātmikā hyekābrahmabhāvātmikā parā / ubhayātmikā tathaivānyā trividhā bhāvabhāvanā"
+    },
+    {
+     "number": "50",
+     "sanskrit_text": "सनन्दनादयो ये तु ब्रह्मभावनया युताः / कर्मभावनया चान्ये देवाद्याः स्थावरावराः",
+     "iast_text": "sanandanādayo ye tu brahmabhāvanayā yutāḥ / karmabhāvanayā cānye devādyāḥ sthāvarāvarāḥ"
+    },
+    {
+     "number": "51",
+     "sanskrit_text": "हिरण्यगर्भादिषु च ब्रह्मकर्मात्मिका द्विधा / बोधाधिकारयुक्तेषु विद्यते भावभावना",
+     "iast_text": "hiraṇyagarbhādiṣu ca brahmakarmātmikā dvidhā / bodhādhikārayukteṣu vidyate bhāvabhāvanā"
+    },
+    {
+     "number": "52",
+     "sanskrit_text": "अक्षीणेषु समस्तेषु विशेषज्ञानकर्मसु / विश्वमेतत्परं चान्यद्भेदभिन्नदृशां नृणाम्",
+     "iast_text": "akṣīṇeṣu samasteṣu viśeṣajñānakarmasu / viśvametatparaṃ cānyadbhedabhinnadṛśāṃ nṛṇām"
+    },
+    {
+     "number": "53",
+     "sanskrit_text": "प्रत्यस्तमितभेदं यत्सत्तामात्रमगोचरम् / वचसामात्मसंवेद्यं तज्ज्ञानं ब्रह्मसंज्ञितम्",
+     "iast_text": "pratyastamitabhedaṃ yatsattāmātramagocaram / vacasāmātmasaṃvedyaṃ tajjñānaṃ brahmasaṃjñitam"
+    },
+    {
+     "number": "54",
+     "sanskrit_text": "तच्च विष्णोः परं रूपमरूपाख्यमनुत्तमम् / विश्वस्वरूपवैरूप्यलक्षणं परमात्मनः",
+     "iast_text": "tacca viṣṇoḥ paraṃ rūpamarūpākhyamanuttamam / viśvasvarūpavairūpyalakṣaṇaṃ paramātmanaḥ"
+    },
+    {
+     "number": "55",
+     "sanskrit_text": "न तद्योगयुजा शक्यं नृप चिन्तयितुंयतः / ततःस्थूलं हरे रूपं चिन्तयेद्विश्वगोचरम्",
+     "iast_text": "na tadyogayujā śakyaṃ nṛpa cintayituṃyataḥ / tataḥsthūlaṃ hare rūpaṃ cintayedviśvagocaram"
+    },
+    {
+     "number": "56",
+     "sanskrit_text": "हिरण्यगर्भो भगवान्वासुदेवः प्रजापतिः / मरुतो वसवो रुद्रा भास्करास्तारका ग्रहाः",
+     "iast_text": "hiraṇyagarbho bhagavānvāsudevaḥ prajāpatiḥ / maruto vasavo rudrā bhāskarāstārakā grahāḥ"
+    },
+    {
+     "number": "57",
+     "sanskrit_text": "गन्धर्वयक्षदैत्याद्यःसकला देवयोनयः / मनुष्याः पशवः शैलाःसमुद्राःसरितो द्रुमाः",
+     "iast_text": "gandharvayakṣadaityādyaḥsakalā devayonayaḥ / manuṣyāḥ paśavaḥ śailāḥsamudrāḥsarito drumāḥ"
+    },
+    {
+     "number": "58",
+     "sanskrit_text": "भूप भूतान्यशेषाणि भूतानां ये च हेतवः / प्रधानादिविशेषान्तं चेतनाचेतनात्मकम्",
+     "iast_text": "bhūpa bhūtānyaśeṣāṇi bhūtānāṃ ye ca hetavaḥ / pradhānādiviśeṣāntaṃ cetanācetanātmakam"
+    },
+    {
+     "number": "59",
+     "sanskrit_text": "एकपादं द्विपादं च बहुपादमपादकम् / मूर्तमेतद्धरे रूपं भावनात्रितयात्मकम्",
+     "iast_text": "ekapādaṃ dvipādaṃ ca bahupādamapādakam / mūrtametaddhare rūpaṃ bhāvanātritayātmakam"
+    },
+    {
+     "number": "60",
+     "sanskrit_text": "एतत्सर्वमिदं विश्वं जगदेतच्चराचरम् / परब्रह्मस्वरूपस्य विष्णोः शक्तिसमन्वितम्",
+     "iast_text": "etatsarvamidaṃ viśvaṃ jagadetaccarācaram / parabrahmasvarūpasya viṣṇoḥ śaktisamanvitam"
+    },
+    {
+     "number": "61",
+     "sanskrit_text": "विष्णुशक्तिः परा प्रोक्ता क्षेत्रज्ञाख्या तथापरा / अविद्याकर्मसंज्ञान्या तृतीया शक्तिरिष्यते",
+     "iast_text": "viṣṇuśaktiḥ parā proktā kṣetrajñākhyā tathāparā / avidyākarmasaṃjñānyā tṛtīyā śaktiriṣyate"
+    },
+    {
+     "number": "62",
+     "sanskrit_text": "यया क्षेत्रज्ञशक्तिःसा वेष्टिता नृपसर्वगा / संसारतापानखिलानवाप्रोत्यतिसंततान्",
+     "iast_text": "yayā kṣetrajñaśaktiḥsā veṣṭitā nṛpasarvagā / saṃsāratāpānakhilānavāprotyatisaṃtatān"
+    },
+    {
+     "number": "63",
+     "sanskrit_text": "तया तिरोहितत्वाच्च शक्तिः क्षेत्रज्ञसंज्ञिता / सर्वभूतेषु भूपाल तारतम्येनलक्ष्यते",
+     "iast_text": "tayā tirohitatvācca śaktiḥ kṣetrajñasaṃjñitā / sarvabhūteṣu bhūpāla tāratamyenalakṣyate"
+    },
+    {
+     "number": "64",
+     "sanskrit_text": "अप्राणवत्सुस्वल्पा सा स्थावरेषु ततो ऽधिका / सरीसृपेषु तेभ्योपि ह्यतिशक्त्या पतत्त्रिषु",
+     "iast_text": "aprāṇavatsusvalpā sā sthāvareṣu tato 'dhikā / sarīsṛpeṣu tebhyopi hyatiśaktyā patattriṣu"
+    },
+    {
+     "number": "65",
+     "sanskrit_text": "पातत्त्रिंभ्यो मृगास्तेभ्यस्तच्छक्त्या पशवो ऽधिकाः / पशुभ्यो मनुजाश्चातिशक्त्या पुंसः प्रभाविताः",
+     "iast_text": "pātattriṃbhyo mṛgāstebhyastacchaktyā paśavo 'dhikāḥ / paśubhyo manujāścātiśaktyā puṃsaḥ prabhāvitāḥ"
+    },
+    {
+     "number": "66",
+     "sanskrit_text": "तेभ्योपि नागगन्धर्वयक्षाद्या देवता नृप",
+     "iast_text": "tebhyopi nāgagandharvayakṣādyā devatā nṛpa"
+    },
+    {
+     "number": "67",
+     "sanskrit_text": "शक्रःसमस्तदेवेभ्यस्ततश्चातिप्रजापतिः / हिरण्यगर्भो ऽपि ततः पुंसः शक्त्युपलक्षितः",
+     "iast_text": "śakraḥsamastadevebhyastataścātiprajāpatiḥ / hiraṇyagarbho 'pi tataḥ puṃsaḥ śaktyupalakṣitaḥ"
+    },
+    {
+     "number": "68",
+     "sanskrit_text": "एतान्यशेषरूपाणि तस्य रूपाणि पार्थिव / यतस्तच्छक्तियोगेन युक्तानि नभसा यथा",
+     "iast_text": "etānyaśeṣarūpāṇi tasya rūpāṇi pārthiva / yatastacchaktiyogena yuktāni nabhasā yathā"
+    },
+    {
+     "number": "69",
+     "sanskrit_text": "द्वितीयं विष्णुसंज्ञस्य योगिध्येयं महामते / अमूर्तं ब्रह्मणो रूपं यत् सद् इत्यु च्यते बुधैः",
+     "iast_text": "dvitīyaṃ viṣṇusaṃjñasya yogidhyeyaṃ mahāmate / amūrtaṃ brahmaṇo rūpaṃ yat sad ityu cyate budhaiḥ"
+    },
+    {
+     "number": "70",
+     "sanskrit_text": "समस्ताः शक्तयश्चैता नृप यत्र प्रतिष्ठिताः / तद्विश्वरूपवैरूप्यं रूपम् अन्यद् धरेर् महत्",
+     "iast_text": "samastāḥ śaktayaścaitā nṛpa yatra pratiṣṭhitāḥ / tadviśvarūpavairūpyaṃ rūpam anyad dharer mahat"
+    },
+    {
+     "number": "71",
+     "sanskrit_text": "समस्तशक्तिरूपाणि तत्करोति जनेश्वर / देवतिर्यङ्मनुष्यादिचेष्टावन्ति स्वलीलया",
+     "iast_text": "samastaśaktirūpāṇi tatkaroti janeśvara / devatiryaṅmanuṣyādiceṣṭāvanti svalīlayā"
+    },
+    {
+     "number": "72",
+     "sanskrit_text": "जगतामुपकाराय न सा कर्मनिमित्तजा / चेष्टा तस्याप्रमेयस्य व्यापिन्यव्याहतात्मिका",
+     "iast_text": "jagatāmupakārāya na sā karmanimittajā / ceṣṭā tasyāprameyasya vyāpinyavyāhatātmikā"
+    },
+    {
+     "number": "73",
+     "sanskrit_text": "तद्रूपं विश्वरूपस्य तस्य योगयुजा नृप / चिन्त्यमात्मविशुद्ध्यर्थं सर्वकिल्बिषनाशनम्",
+     "iast_text": "tadrūpaṃ viśvarūpasya tasya yogayujā nṛpa / cintyamātmaviśuddhyarthaṃ sarvakilbiṣanāśanam"
+    },
+    {
+     "number": "74",
+     "sanskrit_text": "यथाग्निरुद्धतशिखः कक्षं दहति सानिलः / तथा चित्तस्थितो विष्णुर्योगिनां सर्वकिल्बिषम्",
+     "iast_text": "yathāgniruddhataśikhaḥ kakṣaṃ dahati sānilaḥ / tathā cittasthito viṣṇuryogināṃ sarvakilbiṣam"
+    },
+    {
+     "number": "75",
+     "sanskrit_text": "तस्मात्समस्तशक्तीनामाधारे तत्र चेतसः / कुर्वीत संस्थितिं सा तु विज्ञेया शुद्धधारणा",
+     "iast_text": "tasmātsamastaśaktīnāmādhāre tatra cetasaḥ / kurvīta saṃsthitiṃ sā tu vijñeyā śuddhadhāraṇā"
+    },
+    {
+     "number": "76",
+     "sanskrit_text": "शुभाश्रयस्य चित्तस्य सर्वगस्याचलात्मनः / त्रिभावभाघनातीतो मुक्तये योगिनो नृप",
+     "iast_text": "śubhāśrayasya cittasya sarvagasyācalātmanaḥ / tribhāvabhāghanātīto muktaye yogino nṛpa"
+    },
+    {
+     "number": "77",
+     "sanskrit_text": "अन्ये तु पुरुषव्याघ्र चेतसो ये व्यापाश्रयाः / अशुद्धास्ते समस्तास्तु देवाद्याः कर्मयोनयः",
+     "iast_text": "anye tu puruṣavyāghra cetaso ye vyāpāśrayāḥ / aśuddhāste samastāstu devādyāḥ karmayonayaḥ"
+    },
+    {
+     "number": "78",
+     "sanskrit_text": "मूर्तं भगवतो रूपं सर्वापाश्रयनिस्पृहम् / एषा वै धारण प्रोक्ता यच्चित्तं तत्र धार्यते",
+     "iast_text": "mūrtaṃ bhagavato rūpaṃ sarvāpāśrayanispṛham / eṣā vai dhāraṇa proktā yaccittaṃ tatra dhāryate"
+    },
+    {
+     "number": "79",
+     "sanskrit_text": "यच्च मूर्तं हरे रूपं यादृक्चिन्त्यं नराधिप / तच्छ्रूयतामनाधारा धारमा नोपपद्यते",
+     "iast_text": "yacca mūrtaṃ hare rūpaṃ yādṛkcintyaṃ narādhipa / tacchrūyatāmanādhārā dhāramā nopapadyate"
+    },
+    {
+     "number": "80",
+     "sanskrit_text": "प्रसन्नवदनं चारुपद्मपत्रोपमेक्षणम् / सुकपोलं सुविस्तीर्णललाटफलकोज्ज्वलम्",
+     "iast_text": "prasannavadanaṃ cārupadmapatropamekṣaṇam / sukapolaṃ suvistīrṇalalāṭaphalakojjvalam"
+    },
+    {
+     "number": "81",
+     "sanskrit_text": "समकर्णान्तविन्यस्तचारुकुण्डलभूषणम् / कंबुग्रीवं सुवीस्तीर्णश्रीवत्सांकितवक्षसम्",
+     "iast_text": "samakarṇāntavinyastacārukuṇḍalabhūṣaṇam / kaṃbugrīvaṃ suvīstīrṇaśrīvatsāṃkitavakṣasam"
+    },
+    {
+     "number": "82",
+     "sanskrit_text": "वलित्रिभङ्गिना मग्ननाभिना ह्युदरेण च / प्रलंबाष्टभुजं विष्णुमथवापि चतुर्भुजम्",
+     "iast_text": "valitribhaṅginā magnanābhinā hyudareṇa ca / pralaṃbāṣṭabhujaṃ viṣṇumathavāpi caturbhujam"
+    },
+    {
+     "number": "83",
+     "sanskrit_text": "समस्थितोरुजङ्घं च सुस्थिताङ्घ्रिवरांबुजम् / चिन्तयेद्ब्रह्मभूतं तं पीतनिर्मलवाससम्",
+     "iast_text": "samasthitorujaṅghaṃ ca susthitāṅghrivarāṃbujam / cintayedbrahmabhūtaṃ taṃ pītanirmalavāsasam"
+    },
+    {
+     "number": "84",
+     "sanskrit_text": "किरीटहारकेयूरकटकादिविभूषितम्",
+     "iast_text": "kirīṭahārakeyūrakaṭakādivibhūṣitam"
+    },
+    {
+     "number": "85",
+     "sanskrit_text": "शार्ङ्गशङ्खगदाखड्गचक्राक्षवलयान्वितम् / वरदाभयहस्तं च मुद्रिकारत्नभूषितम्",
+     "iast_text": "śārṅgaśaṅkhagadākhaḍgacakrākṣavalayānvitam / varadābhayahastaṃ ca mudrikāratnabhūṣitam"
+    },
+    {
+     "number": "86",
+     "sanskrit_text": "चिन्तयेत्तन्मयो योगी समाधायात्ममानसम् / तावद्यावदृढीभूता तत्रैव नृप धारणा",
+     "iast_text": "cintayettanmayo yogī samādhāyātmamānasam / tāvadyāvadṛḍhībhūtā tatraiva nṛpa dhāraṇā"
+    },
+    {
+     "number": "87",
+     "sanskrit_text": "व्रजतस्तिष्ठतोन्यद्वा स्वेच्छया कर्म कुर्वतः / नापयाति यदा चित्तत्सिद्धां मन्येत तां तदा",
+     "iast_text": "vrajatastiṣṭhatonyadvā svecchayā karma kurvataḥ / nāpayāti yadā cittatsiddhāṃ manyeta tāṃ tadā"
+    },
+    {
+     "number": "88",
+     "sanskrit_text": "ततः शङ्खगदाचक्रशर्ङ्गीदिरहितं बुधः / चिन्तयेद्भगवद्रूपं प्रशान्तं साक्षसूत्रकम्",
+     "iast_text": "tataḥ śaṅkhagadācakraśarṅgīdirahitaṃ budhaḥ / cintayedbhagavadrūpaṃ praśāntaṃ sākṣasūtrakam"
+    },
+    {
+     "number": "89",
+     "sanskrit_text": "सा यदा धारणा तद्वदवस्थानवती ततः / किरिटकेयूरमुखैर् भूषणै रहितं स्मरेत्",
+     "iast_text": "sā yadā dhāraṇā tadvadavasthānavatī tataḥ / kiriṭakeyūramukhair bhūṣaṇai rahitaṃ smaret"
+    },
+    {
+     "number": "90",
+     "sanskrit_text": "तदेकावयवं देवं चेतसा हि पुनर्बुधः / कुर्यात्ततो ऽवयविनि प्रणिधानपरो भवेत्",
+     "iast_text": "tadekāvayavaṃ devaṃ cetasā hi punarbudhaḥ / kuryāttato 'vayavini praṇidhānaparo bhavet"
+    },
+    {
+     "number": "91",
+     "sanskrit_text": "तद्रूपप्रत्यया चैका संततिश्चान्यनिःस्पृहा / तद्ध्यानं प्रथमैर् अङ्गैः षड्भिर् निष्पाद्यते नृप",
+     "iast_text": "tadrūpapratyayā caikā saṃtatiścānyaniḥspṛhā / taddhyānaṃ prathamair aṅgaiḥ ṣaḍbhir niṣpādyate nṛpa"
+    },
+    {
+     "number": "92",
+     "sanskrit_text": "तस्यैव कल्पनाहीनं स्वरूपग्रहणं हियत् / मनसा ध्याननिष्पाद्यं समाधिःसो ऽभिधीयते",
+     "iast_text": "tasyaiva kalpanāhīnaṃ svarūpagrahaṇaṃ hiyat / manasā dhyānaniṣpādyaṃ samādhiḥso 'bhidhīyate"
+    },
+    {
+     "number": "93",
+     "sanskrit_text": "विज्ञानं प्रापकं प्राप्ये परे ब्रह्मणि पार्थिव / प्रापणीयस्तथैवात्मा प्रक्षीणाशेषभावनः",
+     "iast_text": "vijñānaṃ prāpakaṃ prāpye pare brahmaṇi pārthiva / prāpaṇīyastathaivātmā prakṣīṇāśeṣabhāvanaḥ"
+    },
+    {
+     "number": "94",
+     "sanskrit_text": "क्षेत्रज्ञः करणी ज्ञानं करणं तस्य तेन तत् / निष्पाद्य मुक्तिकार्यं वै कृतकृत्यं निवर्तते",
+     "iast_text": "kṣetrajñaḥ karaṇī jñānaṃ karaṇaṃ tasya tena tat / niṣpādya muktikāryaṃ vai kṛtakṛtyaṃ nivartate"
+    },
+    {
+     "number": "95",
+     "sanskrit_text": "तद्भावभावमापन्नस्ततो ऽसौ परमात्मना / भवत्यभेदी भेदश् च तस्याज्ञानकृतो भवेत्",
+     "iast_text": "tadbhāvabhāvamāpannastato 'sau paramātmanā / bhavatyabhedī bhedaś ca tasyājñānakṛto bhavet"
+    },
+    {
+     "number": "96",
+     "sanskrit_text": "विभेदजनके ज्ञाने नाशमात्यन्तिकं गते / आत्मनो ब्रह्मणो भेदम संतं कः करीष्यति",
+     "iast_text": "vibhedajanake jñāne nāśamātyantikaṃ gate / ātmano brahmaṇo bhedama saṃtaṃ kaḥ karīṣyati"
+    },
+    {
+     "number": "97",
+     "sanskrit_text": "इत्युक्तस्ते मया योगः खाण्डिक्य परिपृच्छतः / संक्षेपविस्तराभ्यां तु किमन्यत्क्रियतां तव",
+     "iast_text": "ityuktaste mayā yogaḥ khāṇḍikya paripṛcchataḥ / saṃkṣepavistarābhyāṃ tu kimanyatkriyatāṃ tava"
+    },
+    {
+     "number": "98",
+     "sanskrit_text": "खाण्डिक्य उवाच कथिते योगसद्भावे सर्वमेव कृतं मम / तवोपदेशेनाशेषो नष्टश्चित्तमलो यतः",
+     "iast_text": "khāṇḍikya uvāca kathite yogasadbhāve sarvameva kṛtaṃ mama / tavopadeśenāśeṣo naṣṭaścittamalo yataḥ"
+    },
+    {
+     "number": "99",
+     "sanskrit_text": "ममेति यन्मया चोक्तमसदेतन्न चान्यथा / नरेद्र गदितुं शक्यमपि विज्ञेयवेदिभिः",
+     "iast_text": "mameti yanmayā coktamasadetanna cānyathā / naredra gadituṃ śakyamapi vijñeyavedibhiḥ"
+    },
+    {
+     "number": "100",
+     "sanskrit_text": "अहं ममेत्यविद्येयं व्यवहारस्तथानयोः / परमार्थस्त्वसंलापो गोचरे वचसां न यः",
+     "iast_text": "ahaṃ mametyavidyeyaṃ vyavahārastathānayoḥ / paramārthastvasaṃlāpo gocare vacasāṃ na yaḥ"
+    },
+    {
+     "number": "101",
+     "sanskrit_text": "तद्गच्छ श्रेयसे सर्वं ममैतद्भवता कृतम् / यद्विमुक्तिप्रदो योगः प्रोक्तः केशिध्वजाव्ययः",
+     "iast_text": "tadgaccha śreyase sarvaṃ mamaitadbhavatā kṛtam / yadvimuktiprado yogaḥ proktaḥ keśidhvajāvyayaḥ"
+    },
+    {
+     "number": "102",
+     "sanskrit_text": "श्रीपराशर उवाच यथार्हं पूजया तेन खाण्डिक्येन स पूजितः / आजगाम पुरं ब्रह्मंस्ततः केशिध्वजो नृपः",
+     "iast_text": "śrīparāśara uvāca yathārhaṃ pūjayā tena khāṇḍikyena sa pūjitaḥ / ājagāma puraṃ brahmaṃstataḥ keśidhvajo nṛpaḥ"
+    },
+    {
+     "number": "103",
+     "sanskrit_text": "खाण्डिक्यो ऽपि सुतं कृत्वा राजानं योगसिद्दये / वनं जगाम गोविन्दे विनिवेशितमानसः",
+     "iast_text": "khāṇḍikyo 'pi sutaṃ kṛtvā rājānaṃ yogasiddaye / vanaṃ jagāma govinde viniveśitamānasaḥ"
+    },
+    {
+     "number": "104",
+     "sanskrit_text": "तत्रैकान्तमतिर्भूत्वा यमादिगुणसंयुतः / विष्ण्वाख्ये निर्मले ब्रह्मण्य् अवाप नृपतिर् लयम्",
+     "iast_text": "tatraikāntamatirbhūtvā yamādiguṇasaṃyutaḥ / viṣṇvākhye nirmale brahmaṇy avāpa nṛpatir layam"
+    },
+    {
+     "number": "105",
+     "sanskrit_text": "केशिध्वजो विमुक्त्यर्थं स्वकर्मक्षपणोन्मुखः / बुभुजे विषयान्कर्म चक्रे चानभिसंहितम्",
+     "iast_text": "keśidhvajo vimuktyarthaṃ svakarmakṣapaṇonmukhaḥ / bubhuje viṣayānkarma cakre cānabhisaṃhitam"
+    },
+    {
+     "number": "106",
+     "sanskrit_text": "अकल्याणोपभोगैश् च क्षीणपापो ऽमलस् तथा / अवाप सिद्धिमत्यन्तां तापक्षयफलां द्विज",
+     "iast_text": "akalyāṇopabhogaiś ca kṣīṇapāpo 'malas tathā / avāpa siddhimatyantāṃ tāpakṣayaphalāṃ dvija"
+    }
+   ]
+  },
+  {
+   "id": "adhyaya_08",
+   "reference": "Viṣṇupurāṇa, Amsha 06, adhyaya 8",
+   "shlokas": [
+    {
+     "number": "1",
+     "sanskrit_text": "इति श्रीविष्णुमहापुराणे षष्ठांशे सप्तमो ऽध्यायः श्रीपराशर उवाच इत्येष कथितःसम्यक् तृतीयः प्रतिसंचरः / आत्यन्तिको विमुक्तिर्या लयो ब्रह्मणि शाश्वते",
+     "iast_text": "iti śrīviṣṇumahāpurāṇe ṣaṣṭhāṃśe saptamo 'dhyāyaḥ śrīparāśara uvāca ityeṣa kathitaḥsamyak tṛtīyaḥ pratisaṃcaraḥ / ātyantiko vimuktiryā layo brahmaṇi śāśvate"
+    },
+    {
+     "number": "2",
+     "sanskrit_text": "सर्गश् च प्रतिसर्गश् च वंशमन्वन्तराणि च / वंशानुचरितं चैव भवतो गदितं मया",
+     "iast_text": "sargaś ca pratisargaś ca vaṃśamanvantarāṇi ca / vaṃśānucaritaṃ caiva bhavato gaditaṃ mayā"
+    },
+    {
+     "number": "3",
+     "sanskrit_text": "पुरामं बैष्णवं चैतत्सर्वकिल्बिषनाशनम् / विशिष्टं सर्वशास्त्रेभ्यः पुरुषार्थोपपादकम्",
+     "iast_text": "purāmaṃ baiṣṇavaṃ caitatsarvakilbiṣanāśanam / viśiṣṭaṃ sarvaśāstrebhyaḥ puruṣārthopapādakam"
+    },
+    {
+     "number": "4",
+     "sanskrit_text": "तुभ्यं यथावन्मैत्रेय प्रोक्तं शुश्रुषवे ऽव्ययम् / यदन्यदपि वक्तव्यं तृत्पृच्छाद्य वदामि ते",
+     "iast_text": "tubhyaṃ yathāvanmaitreya proktaṃ śuśruṣave 'vyayam / yadanyadapi vaktavyaṃ tṛtpṛcchādya vadāmi te"
+    },
+    {
+     "number": "5",
+     "sanskrit_text": "मैत्रेय उवाच भगवन्कथितं सर्वं यत्पृष्टोसि मया मुने / श्रुतं चैतन्मया भक्त्या नान्यत्प्रष्टव्यमस्ति मे",
+     "iast_text": "maitreya uvāca bhagavankathitaṃ sarvaṃ yatpṛṣṭosi mayā mune / śrutaṃ caitanmayā bhaktyā nānyatpraṣṭavyamasti me"
+    },
+    {
+     "number": "6",
+     "sanskrit_text": "विच्छिन्नाःसर्वसंदेहा वैमल्यं मनसः कृतम् / त्वत्प्रसादान्मया ज्ञाता उत्पत्तिस्थितिसंक्षयाः",
+     "iast_text": "vicchinnāḥsarvasaṃdehā vaimalyaṃ manasaḥ kṛtam / tvatprasādānmayā jñātā utpattisthitisaṃkṣayāḥ"
+    },
+    {
+     "number": "7",
+     "sanskrit_text": "ज्ञातश् च त्रिविधो राशिः शक्तिश् च त्रिविधा गुरो / विज्ञाता सा च कार्त्स्न्येन त्रिविधा भावभावना",
+     "iast_text": "jñātaś ca trividho rāśiḥ śaktiś ca trividhā guro / vijñātā sā ca kārtsnyena trividhā bhāvabhāvanā"
+    },
+    {
+     "number": "8",
+     "sanskrit_text": "त्वत्प्रसादान्मया ज्ञातं ज्ञेयमन्यैर् अलं द्विज / यदेतदखिलं विष्णोर्जगन्न व्यतिरिच्यते",
+     "iast_text": "tvatprasādānmayā jñātaṃ jñeyamanyair alaṃ dvija / yadetadakhilaṃ viṣṇorjaganna vyatiricyate"
+    },
+    {
+     "number": "9",
+     "sanskrit_text": "कृतार्थोहमसंदेहस्त्वत्प्रसादान्महामुने / वर्णधर्मादयो धर्मा विदिता यदशेषतः",
+     "iast_text": "kṛtārthohamasaṃdehastvatprasādānmahāmune / varṇadharmādayo dharmā viditā yadaśeṣataḥ"
+    },
+    {
+     "number": "10",
+     "sanskrit_text": "प्रवृत्तं च निवृत्तं च ज्ञानं कर्ममयाखिलम् / प्रसीद विप्रप्रवर नान्यत्प्रष्टव्यमस्ति मे",
+     "iast_text": "pravṛttaṃ ca nivṛttaṃ ca jñānaṃ karmamayākhilam / prasīda viprapravara nānyatpraṣṭavyamasti me"
+    },
+    {
+     "number": "11",
+     "sanskrit_text": "यदस्य कथनायासैर् यो ऽर्जितो ऽसि मया गुरो / तत्क्षम्यतां विशेषोस्ति न सतां पुत्रशिष्ययोः",
+     "iast_text": "yadasya kathanāyāsair yo 'rjito 'si mayā guro / tatkṣamyatāṃ viśeṣosti na satāṃ putraśiṣyayoḥ"
+    },
+    {
+     "number": "12",
+     "sanskrit_text": "श्रीपराशर उवाच एतत्ते यन्मयाख्यातं पुराणं वेदसंमतम् / श्रुते ऽस्मिन्सर्वदोषोत्थः पापराशिः प्रणश्यति",
+     "iast_text": "śrīparāśara uvāca etatte yanmayākhyātaṃ purāṇaṃ vedasaṃmatam / śrute 'sminsarvadoṣotthaḥ pāparāśiḥ praṇaśyati"
+    },
+    {
+     "number": "13",
+     "sanskrit_text": "सर्गश् च प्रतिसर्गश् च वंशमन्वन्तरामि च / वंशानुचरितं कृत्स्नं मयात्र तव कीर्तितम्",
+     "iast_text": "sargaś ca pratisargaś ca vaṃśamanvantarāmi ca / vaṃśānucaritaṃ kṛtsnaṃ mayātra tava kīrtitam"
+    },
+    {
+     "number": "14",
+     "sanskrit_text": "अत्र देवास् तथा दैत्या गन्धर्वोरगराक्षसाः / यक्षविद्याधराःसिद्धाः कथ्यन्ते ऽप्सरसस् तथा",
+     "iast_text": "atra devās tathā daityā gandharvoragarākṣasāḥ / yakṣavidyādharāḥsiddhāḥ kathyante 'psarasas tathā"
+    },
+    {
+     "number": "15",
+     "sanskrit_text": "मुनयो भावितात्मानः कथ्यन्ते तपसान्विताः / चातुर्वण्यं तथा पुंसा विशिष्टचरितानिच",
+     "iast_text": "munayo bhāvitātmānaḥ kathyante tapasānvitāḥ / cāturvaṇyaṃ tathā puṃsā viśiṣṭacaritānica"
+    },
+    {
+     "number": "16",
+     "sanskrit_text": "पुण्याः प्रदेशा मेदिन्याः पुण्या नद्यो ऽथ सागराः / पर्वताश् च महापुण्याश्चरितानि च धीमताम्",
+     "iast_text": "puṇyāḥ pradeśā medinyāḥ puṇyā nadyo 'tha sāgarāḥ / parvatāś ca mahāpuṇyāścaritāni ca dhīmatām"
+    },
+    {
+     "number": "17",
+     "sanskrit_text": "वर्णधर्मादयो धर्मावेदशास्त्राणि कृत्स्नशः / येषां संस्मरमात्सद्यःसर्वपापैः प्रमुच्यते",
+     "iast_text": "varṇadharmādayo dharmāvedaśāstrāṇi kṛtsnaśaḥ / yeṣāṃ saṃsmaramātsadyaḥsarvapāpaiḥ pramucyate"
+    },
+    {
+     "number": "18",
+     "sanskrit_text": "उत्पत्तिस्थितिनाशानां हेतुर्यो जगतो ऽव्ययः / स सर्वभूतःसर्वात्मा कथ्यते भगवान्हरिः",
+     "iast_text": "utpattisthitināśānāṃ heturyo jagato 'vyayaḥ / sa sarvabhūtaḥsarvātmā kathyate bhagavānhariḥ"
+    },
+    {
+     "number": "19",
+     "sanskrit_text": "अवशेनापि यन्नाम्नि कीर्तिते सर्वपातकैः / पुमान्विमनच्ये सद्यःसिंहत्रस्तैर् मृगैर् इव",
+     "iast_text": "avaśenāpi yannāmni kīrtite sarvapātakaiḥ / pumānvimanacye sadyaḥsiṃhatrastair mṛgair iva"
+    },
+    {
+     "number": "20",
+     "sanskrit_text": "यन्नामकीर्तनं भक्त्या विलायनमनुत्तमम् / मैत्रेयासेषपापानां धातूनामिव पावकः",
+     "iast_text": "yannāmakīrtanaṃ bhaktyā vilāyanamanuttamam / maitreyāseṣapāpānāṃ dhātūnāmiva pāvakaḥ"
+    },
+    {
+     "number": "21",
+     "sanskrit_text": "कलिकल्मषमत्युग्रं नरकार्त्तिप्रदं नृणाम् / प्रयाति विलयं सद्यःसकृद्यत्र च संस्मृते",
+     "iast_text": "kalikalmaṣamatyugraṃ narakārttipradaṃ nṛṇām / prayāti vilayaṃ sadyaḥsakṛdyatra ca saṃsmṛte"
+    },
+    {
+     "number": "22",
+     "sanskrit_text": "हिरण्यगर्भदेवेन्द्ररुद्रादित्याश्विवायुभिः / पावकैर् वसुभिः साध्यैर् विश्वेदेवादिभिः सुरैः",
+     "iast_text": "hiraṇyagarbhadevendrarudrādityāśvivāyubhiḥ / pāvakair vasubhiḥ sādhyair viśvedevādibhiḥ suraiḥ"
+    },
+    {
+     "number": "23",
+     "sanskrit_text": "यक्षरक्षोरगैः सिद्धैर् दैत्यगन्धर्वदानवैः / अप्सरोभिस् तथा तारानक्षत्रैः सकलैर् ग्रहैः",
+     "iast_text": "yakṣarakṣoragaiḥ siddhair daityagandharvadānavaiḥ / apsarobhis tathā tārānakṣatraiḥ sakalair grahaiḥ"
+    },
+    {
+     "number": "24",
+     "sanskrit_text": "सप्तर्षिभिस् तथा धिष्ण्यैर् धिष्ण्याधिपतिभिस् तथा / ब्रह्मणाद्यैर् मनुष्यैश् च तथैव पशुभिर् मृगैः",
+     "iast_text": "saptarṣibhis tathā dhiṣṇyair dhiṣṇyādhipatibhis tathā / brahmaṇādyair manuṣyaiś ca tathaiva paśubhir mṛgaiḥ"
+    },
+    {
+     "number": "25",
+     "sanskrit_text": "सरीसृपैर् विहङ्गैश् च पलाशाद्यैर् महीरुहैः / वनाग्निसागरसरित्पातालैः ससुराग्निभिः",
+     "iast_text": "sarīsṛpair vihaṅgaiś ca palāśādyair mahīruhaiḥ / vanāgnisāgarasaritpātālaiḥ sasurāgnibhiḥ"
+    },
+    {
+     "number": "26",
+     "sanskrit_text": "शब्दादिभिश्चसहितं ब्रह्माण्डमखिलं द्विज / मेरोरिवाणुर्यस्यैतद्यन्मयं च द्विजोत्तम",
+     "iast_text": "śabdādibhiścasahitaṃ brahmāṇḍamakhilaṃ dvija / merorivāṇuryasyaitadyanmayaṃ ca dvijottama"
+    },
+    {
+     "number": "27",
+     "sanskrit_text": "स सर्वः सर्ववित्सर्वस्वरूपो रूपवर्जितः / भगवान्कीर्तितो विष्णुरत्र पापप्रणाशनः",
+     "iast_text": "sa sarvaḥ sarvavitsarvasvarūpo rūpavarjitaḥ / bhagavānkīrtito viṣṇuratra pāpapraṇāśanaḥ"
+    },
+    {
+     "number": "28",
+     "sanskrit_text": "यदश्वमेधावभृथे स्नातः प्राप्नोति वै फलम् / मानवस्तदवाप्नोति श्रुत्वैतन्मुनिसत्तम",
+     "iast_text": "yadaśvamedhāvabhṛthe snātaḥ prāpnoti vai phalam / mānavastadavāpnoti śrutvaitanmunisattama"
+    },
+    {
+     "number": "29",
+     "sanskrit_text": "प्रयागे पुष्करेचैव कुरुक्षेत्रे तथार्ऽणवे / कृतोपवासः प्राप्नोति तदस्य श्रवणान्नरः",
+     "iast_text": "prayāge puṣkarecaiva kurukṣetre tathār'ṇave / kṛtopavāsaḥ prāpnoti tadasya śravaṇānnaraḥ"
+    },
+    {
+     "number": "30",
+     "sanskrit_text": "यदग्निहोत्रे सुहुते वर्षेणाप्नोति मानवः / महापुण्यफलं विप्र तदस्य श्रवणात्सकृत्",
+     "iast_text": "yadagnihotre suhute varṣeṇāpnoti mānavaḥ / mahāpuṇyaphalaṃ vipra tadasya śravaṇātsakṛt"
+    },
+    {
+     "number": "31",
+     "sanskrit_text": "यज्ज्येष्ठसुक्लद्वादश्यां स्नात्वा वै यमुनाजले / मथुरायां हरिं दृष्ट्वा प्राप्नोति पुरुषः फलम्",
+     "iast_text": "yajjyeṣṭhasukladvādaśyāṃ snātvā vai yamunājale / mathurāyāṃ hariṃ dṛṣṭvā prāpnoti puruṣaḥ phalam"
+    },
+    {
+     "number": "32",
+     "sanskrit_text": "तदाप्नोत्यखिलं सम्यगध्यायं यः शृणोति वै / पुराणस्यास्य विप्रर्ष केशवार्पितमानसः",
+     "iast_text": "tadāpnotyakhilaṃ samyagadhyāyaṃ yaḥ śṛṇoti vai / purāṇasyāsya viprarṣa keśavārpitamānasaḥ"
+    },
+    {
+     "number": "33",
+     "sanskrit_text": "यमुनासलिलस्नातः पुरुषो मुनिसत्तम / ज्येष्ठामूले सिते पक्षे द्वादश्यां समुपोषितः",
+     "iast_text": "yamunāsalilasnātaḥ puruṣo munisattama / jyeṣṭhāmūle site pakṣe dvādaśyāṃ samupoṣitaḥ"
+    },
+    {
+     "number": "34",
+     "sanskrit_text": "समभ्यर्च्याच्युतं सम्यङ् मथुरायां समादितः / अश्वमेधस्य यज्ञस्य प्राप्नोत्यविकलं फलम्",
+     "iast_text": "samabhyarcyācyutaṃ samyaṅ mathurāyāṃ samāditaḥ / aśvamedhasya yajñasya prāpnotyavikalaṃ phalam"
+    },
+    {
+     "number": "35",
+     "sanskrit_text": "आलोक्यर्धिमथान्येषामुन्नीतानां स्ववंशजैः / एतत्किलोचुरप्येषां पितरः सपितामहाः",
+     "iast_text": "ālokyardhimathānyeṣāmunnītānāṃ svavaṃśajaiḥ / etatkilocurapyeṣāṃ pitaraḥ sapitāmahāḥ"
+    },
+    {
+     "number": "36",
+     "sanskrit_text": "कच्चिदस्मत्कुले जातः कालिन्दीसलिलाप्लुतः / अर्तयिष्यति गोविन्दं मथुरायामुपोषितः",
+     "iast_text": "kaccidasmatkule jātaḥ kālindīsalilāplutaḥ / artayiṣyati govindaṃ mathurāyāmupoṣitaḥ"
+    },
+    {
+     "number": "37",
+     "sanskrit_text": "ज्योष्ठामूले सिते पक्षे केनैवं वयमप्युत / परामृद्धिमवाप्स्यामस्तारिताःस्वकुलोद्भवैः",
+     "iast_text": "jyoṣṭhāmūle site pakṣe kenaivaṃ vayamapyuta / parāmṛddhimavāpsyāmastāritāḥsvakulodbhavaiḥ"
+    },
+    {
+     "number": "38",
+     "sanskrit_text": "ज्येष्ठामूले सिते पक्षे समभ्यर्च्य जनार्दनम् / धन्यानां कुलजः पिण्डान्यमुनायां प्रदास्यति",
+     "iast_text": "jyeṣṭhāmūle site pakṣe samabhyarcya janārdanam / dhanyānāṃ kulajaḥ piṇḍānyamunāyāṃ pradāsyati"
+    },
+    {
+     "number": "39",
+     "sanskrit_text": "तस्मिन्काले समभ्यर्च्य तत्र कृष्णं समाहितः / दत्त्वा पिण्डं पितृभ्यश् च यमुनासलिलाप्लुतः",
+     "iast_text": "tasminkāle samabhyarcya tatra kṛṣṇaṃ samāhitaḥ / dattvā piṇḍaṃ pitṛbhyaś ca yamunāsalilāplutaḥ"
+    },
+    {
+     "number": "40",
+     "sanskrit_text": "यदाप्नोति नरः पुण्यं तारयन्स्वपितामहान् / श्रुत्वाध्यायं तदाप्नोति पुराणस्यास्य शक्तितः",
+     "iast_text": "yadāpnoti naraḥ puṇyaṃ tārayansvapitāmahān / śrutvādhyāyaṃ tadāpnoti purāṇasyāsya śaktitaḥ"
+    },
+    {
+     "number": "41",
+     "sanskrit_text": "एतत्संसारभीरूणां परित्राणमनुत्तमम् / श्राव्याणां परमं श्राव्यं पवित्राणामनुत्तमम्",
+     "iast_text": "etatsaṃsārabhīrūṇāṃ paritrāṇamanuttamam / śrāvyāṇāṃ paramaṃ śrāvyaṃ pavitrāṇāmanuttamam"
+    },
+    {
+     "number": "42",
+     "sanskrit_text": "दुःस्वप्ननाशनं नॄणां सर्वदुष्टनिबर्हणम् / मङ्गलं मङ्गलानां च पुत्रसंपत्प्रदायकम्",
+     "iast_text": "duḥsvapnanāśanaṃ nṝṇāṃ sarvaduṣṭanibarhaṇam / maṅgalaṃ maṅgalānāṃ ca putrasaṃpatpradāyakam"
+    },
+    {
+     "number": "43",
+     "sanskrit_text": "इदमार्षं पुरा प्राह ऋभवे कमलोद्भवः / ऋभुः प्रियव्रतायाह स च भागुरये ऽबवीत्",
+     "iast_text": "idamārṣaṃ purā prāha ṛbhave kamalodbhavaḥ / ṛbhuḥ priyavratāyāha sa ca bhāguraye 'bavīt"
+    },
+    {
+     "number": "44",
+     "sanskrit_text": "भागुरिस्तंभमित्राय दधीचाय स चोक्तवान् / सारस्वताय तेनोक्तं भृगुःसारस्वतेन च",
+     "iast_text": "bhāguristaṃbhamitrāya dadhīcāya sa coktavān / sārasvatāya tenoktaṃ bhṛguḥsārasvatena ca"
+    },
+    {
+     "number": "45",
+     "sanskrit_text": "भृगुणा पुरुकुत्साय नर्मदायै स चोक्तवान् / नर्मदा धृतराष्ट्रायनागायापूरणाय च",
+     "iast_text": "bhṛguṇā purukutsāya narmadāyai sa coktavān / narmadā dhṛtarāṣṭrāyanāgāyāpūraṇāya ca"
+    },
+    {
+     "number": "46",
+     "sanskrit_text": "ताभ्यां च नागराजाय प्रोक्तं वासुकये द्विज / वासुकिः प्राह वत्साय वत्सश्चाश्वतराय वै",
+     "iast_text": "tābhyāṃ ca nāgarājāya proktaṃ vāsukaye dvija / vāsukiḥ prāha vatsāya vatsaścāśvatarāya vai"
+    },
+    {
+     "number": "47",
+     "sanskrit_text": "कंबलाय च तेनोक्तमेलापुत्राय तेन वै",
+     "iast_text": "kaṃbalāya ca tenoktamelāputrāya tena vai"
+    },
+    {
+     "number": "48",
+     "sanskrit_text": "पातालं समनुप्राप्तः ततो वेदशिरा मुनिः / प्राप्तवानेतदखिलं स च प्रमतये ददौ",
+     "iast_text": "pātālaṃ samanuprāptaḥ tato vedaśirā muniḥ / prāptavānetadakhilaṃ sa ca pramataye dadau"
+    },
+    {
+     "number": "49",
+     "sanskrit_text": "दत्तं प्रमतिना चैतज्जातुकर्णाय धीमते / जातुकर्णेन चैवोक्तमन्येषां पुण्यकर्मणाम्",
+     "iast_text": "dattaṃ pramatinā caitajjātukarṇāya dhīmate / jātukarṇena caivoktamanyeṣāṃ puṇyakarmaṇām"
+    },
+    {
+     "number": "50",
+     "sanskrit_text": "पुलस्त्यवरदानेन ममाप्येतत्स्मृतिं गतम् / मयापि तूभ्यं मैत्रेय यथावत्कथितं त्बिदम्",
+     "iast_text": "pulastyavaradānena mamāpyetatsmṛtiṃ gatam / mayāpi tūbhyaṃ maitreya yathāvatkathitaṃ tbidam"
+    },
+    {
+     "number": "51",
+     "sanskrit_text": "त्वमप्येतच्छिनीकाय कलेरन्ते वदिष्यसि",
+     "iast_text": "tvamapyetacchinīkāya kalerante vadiṣyasi"
+    },
+    {
+     "number": "52",
+     "sanskrit_text": "इत्येतत्परमं गुह्यं कलिकल्मषनाशनम् / यः शृणोति नरो भक्त्या सर्वपापैः प्रमुच्यते",
+     "iast_text": "ityetatparamaṃ guhyaṃ kalikalmaṣanāśanam / yaḥ śṛṇoti naro bhaktyā sarvapāpaiḥ pramucyate"
+    },
+    {
+     "number": "53",
+     "sanskrit_text": "समस्ततीर्थस्नानानि समस्तामरसंस्तुतिः / कृता तेन भवेदेतद्यः शृणोतिदिनेदिते",
+     "iast_text": "samastatīrthasnānāni samastāmarasaṃstutiḥ / kṛtā tena bhavedetadyaḥ śṛṇotidinedite"
+    },
+    {
+     "number": "54",
+     "sanskrit_text": "कपिलादानजनितं पुम्यमत्यन्तदुर्लभम् / श्रुत्वैतस्य दशाध्यायानवाप्नोति न संशयः",
+     "iast_text": "kapilādānajanitaṃ pumyamatyantadurlabham / śrutvaitasya daśādhyāyānavāpnoti na saṃśayaḥ"
+    },
+    {
+     "number": "55",
+     "sanskrit_text": "यस्त्वेतत्सकलं शृणोतिपुरुषः कृत्वा मनस्यच्युतं सर्वं सर्वमयं समस्तजगतामाधारमात्माश्रयम् / ज्ञानज्ञेयमनादिमन्तरहितं सर्वामराणां हितं स प्राप्नोति न संशयोस्त्यविकलं यद्वाजिमेधे फलम्",
+     "iast_text": "yastvetatsakalaṃ śṛṇotipuruṣaḥ kṛtvā manasyacyutaṃ sarvaṃ sarvamayaṃ samastajagatāmādhāramātmāśrayam / jñānajñeyamanādimantarahitaṃ sarvāmarāṇāṃ hitaṃ sa prāpnoti na saṃśayostyavikalaṃ yadvājimedhe phalam"
+    },
+    {
+     "number": "56",
+     "sanskrit_text": "यत्रादौ भगवांश्चराचरगुरुर्मध्ये तथान्ते च स ब्रह्मज्ञानमयो ऽच्युतो ऽखिलजगन्मध्यान्तसर्गप्रभुः / ततसर्वं पुरुषः पवित्रममलं शृण्वन्पठन्वाचयन्प्राप्नोत्यस्ति न तत्फलं त्रिभुवनेष्वेकान्तसिद्धिर्हरिः",
+     "iast_text": "yatrādau bhagavāṃścarācaragururmadhye tathānte ca sa brahmajñānamayo 'cyuto 'khilajaganmadhyāntasargaprabhuḥ / tatasarvaṃ puruṣaḥ pavitramamalaṃ śṛṇvanpaṭhanvācayanprāpnotyasti na tatphalaṃ tribhuvaneṣvekāntasiddhirhariḥ"
+    },
+    {
+     "number": "57",
+     "sanskrit_text": "यस्मिन्न्यस्तमनिर्न याति नरकं स्वर्गो ऽपि यच्चिन्तने विघ्नो यत्र निवेशितात्ममनसो ब्राह्मो ऽपि लोको ऽल्पकः / मुक्तिं चेतसि यःस्थितो मलधियां पुंसां ददात्यव्ययः किं चित्रं यदघं प्रयाति विलयं तत्राच्युते कीर्तिते",
+     "iast_text": "yasminnyastamanirna yāti narakaṃ svargo 'pi yaccintane vighno yatra niveśitātmamanaso brāhmo 'pi loko 'lpakaḥ / muktiṃ cetasi yaḥsthito maladhiyāṃ puṃsāṃ dadātyavyayaḥ kiṃ citraṃ yadaghaṃ prayāti vilayaṃ tatrācyute kīrtite"
+    },
+    {
+     "number": "58",
+     "sanskrit_text": "यज्ञैर् यज्ञविदो यजन्ति सततं यज्ञेश्वरं कर्मिणो यं वै ब्रह्ममयं परावरमयं ध्यायन्ति च ज्ञानिनः / यं संचित्य न जायते न म्रियते नो वर्धते हीयते नैवासन्न च सद्भवत्यति ततः किं वा हरेः श्रूयताम्",
+     "iast_text": "yajñair yajñavido yajanti satataṃ yajñeśvaraṃ karmiṇo yaṃ vai brahmamayaṃ parāvaramayaṃ dhyāyanti ca jñāninaḥ / yaṃ saṃcitya na jāyate na mriyate no vardhate hīyate naivāsanna ca sadbhavatyati tataḥ kiṃ vā hareḥ śrūyatām"
+    },
+    {
+     "number": "59",
+     "sanskrit_text": "कव्यं यः पुतृरूपधृग्विधिहुतं हव्यं च भुक्तं विभुर्देवत्वे भगवाननादिनिधनःसावहास्वधासंज्ञिते / यस्मिन्ब्रह्मणि सर्वशक्तिनिलये मानानि नो मानिनां विष्ठायै प्रभवन्ति हन्ति कलुषं श्रोत्रं स यातो हरिः",
+     "iast_text": "kavyaṃ yaḥ putṛrūpadhṛgvidhihutaṃ havyaṃ ca bhuktaṃ vibhurdevatve bhagavānanādinidhanaḥsāvahāsvadhāsaṃjñite / yasminbrahmaṇi sarvaśaktinilaye mānāni no mānināṃ viṣṭhāyai prabhavanti hanti kaluṣaṃ śrotraṃ sa yāto hariḥ"
+    },
+    {
+     "number": "60",
+     "sanskrit_text": "नान्तोस्ति यस्य न च यस्य समुद्भवो ऽस्ति वृद्धिर्न यस्य परिणामविवर्जितस्य / नापक्षयं च समुपैत्यविकारि वस्तु यस्तं नतोस्मि पुरुषोत्ममीशमीड्यम्",
+     "iast_text": "nāntosti yasya na ca yasya samudbhavo 'sti vṛddhirna yasya pariṇāmavivarjitasya / nāpakṣayaṃ ca samupaityavikāri vastu yastaṃ natosmi puruṣotmamīśamīḍyam"
+    },
+    {
+     "number": "61",
+     "sanskrit_text": "तस्यैव योनु गुमभुग्बहुधैक एव सुद्धोप्यशुद्ध इव भाति हि मूर्तिभेदैः / ज्ञानान्वितःसकलसत्त्वविभूतिकर्ता तस्मै नमोस्तु पुरुषाय सदाव्ययाय",
+     "iast_text": "tasyaiva yonu gumabhugbahudhaika eva suddhopyaśuddha iva bhāti hi mūrtibhedaiḥ / jñānānvitaḥsakalasattvavibhūtikartā tasmai namostu puruṣāya sadāvyayāya"
+    },
+    {
+     "number": "62",
+     "sanskrit_text": "ज्ञानप्रवृत्तिनियमैक्यमयाय पुंसो भोगप्रदानपटवे त्रिगुणात्मकाय / अव्याकृताय भवबावनकारणाय वन्दे स्वरूपभवनाय सदाजराय",
+     "iast_text": "jñānapravṛttiniyamaikyamayāya puṃso bhogapradānapaṭave triguṇātmakāya / avyākṛtāya bhavabāvanakāraṇāya vande svarūpabhavanāya sadājarāya"
+    },
+    {
+     "number": "63",
+     "sanskrit_text": "व्योमानिलाग्निजलभूरचनामयाय शब्दादिभोग्यविषयोपनयक्षमाय / पुंसःसमस्तकरणैर् उपकारकाय व्यक्ताय सूक्ष्मबृहदात्मवते नतोस्मि",
+     "iast_text": "vyomānilāgnijalabhūracanāmayāya śabdādibhogyaviṣayopanayakṣamāya / puṃsaḥsamastakaraṇair upakārakāya vyaktāya sūkṣmabṛhadātmavate natosmi"
+    },
+    {
+     "number": "64",
+     "sanskrit_text": "इति विविधमजस्य यस्य रूपं प्रकृतिपरात्ममयं सनातनस्य / प्रदिशतु भगवानशेषपुंसां हरिरपजन्मजरादिकां सिद्धिम्",
+     "iast_text": "iti vividhamajasya yasya rūpaṃ prakṛtiparātmamayaṃ sanātanasya / pradiśatu bhagavānaśeṣapuṃsāṃ harirapajanmajarādikāṃ siddhim"
+    }
+   ]
+  }
+ ]
+}
