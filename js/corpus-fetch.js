@@ -1,0 +1,222 @@
+// js/corpus-fetch.js — the one place a grantha's data.json is fetched.
+//
+// THE SWITCH. Three ways to read the corpus live behind this file:
+//
+//   corpusBase unset, no local override (today, and the default)
+//       fetch('data/x/y/data.json') — a public static file on Hosting,
+//       exactly as the reader has always done. Nothing about this path
+//       changes; this module adds one indirection and no behaviour.
+//
+//   corpusBase set
+//       fetch(corpusBase + '/x/y/data.json') with the signed-in reader's
+//       Firebase ID token in an Authorization header. That endpoint is the
+//       corpusFile Cloud Function, which resolves the caller's stored role,
+//       applies the same shelf and gates the reader applies, and streams the
+//       file from a PRIVATE bucket. A text the shelf hides is then genuinely
+//       unreachable, not merely unlisted.
+//
+//   local data override, superadmin only
+//       fetch(localBase + '/data/x/y/data.json') — for an admin who has
+//       cloned one of the private pipeline repos (ParaBuddhi/ShriBuddhi/
+//       BrahmaBuddhi) and is running a plain static file server over it, so
+//       staged content can be reviewed in the real reader before it is
+//       promoted to this public repo. Set with ?dataBase=http://localhost:PORT
+//       (only honoured for a signed-in super-admin; clear with
+//       ?dataBase=off). Persists in localStorage across pages so it survives
+//       normal reader navigation. This never touches production data or the
+//       corpusBase proxy — it is a pure client-side redirect of one fetch.
+//
+// Everything else in the reader is identical either way, which is the whole
+// point: flipping corpusBase in config.js is the entire migration, and
+// flipping it back is the entire rollback.
+//
+// Why this is a real change and not just paranoia: every gate in this app so
+// far has been UI-level, and role-access.js says so in its own header. The
+// data.json is a public static asset, so "hidden" has meant "not shown to
+// someone who does not already know the URL". For the go-live shelf that was
+// accepted deliberately. For anything genuinely restricted it is not enough,
+// and this is the switch that makes it enough.
+window.DGE_VERSIONS = window.DGE_VERSIONS || {};
+window.DGE_VERSIONS['corpus-fetch.js'] = 'v1.1 (13 Sep 2026: superadmin ?dataBase= local override for testing private-repo staged content)';
+
+(function () {
+  'use strict';
+
+  const LOCAL_BASE_KEY = 'dgeLocalDataBase';
+
+  function corpusBase() {
+    const c = window.appConfig || {};
+    const b = c.corpusBase;
+    return (typeof b === 'string' && b.trim()) ? b.trim().replace(/\/+$/, '') : '';
+  }
+
+  /** True when corpus reads are going through the authenticated proxy. */
+  window.dgeCorpusProxyOn = function () { return !!corpusBase(); };
+
+  function isSuperAdmin() {
+    try { return localStorage.getItem('is_superadmin') === 'true'; }
+    catch (e) { return false; }
+  }
+
+  /**
+   * The locally-served origin an admin has pointed the reader at, or ''
+   * when there isn't one. Gated on is_superadmin every time it is read
+   * (not just when it was set) so logging out immediately stops honouring
+   * a stale value left in localStorage.
+   */
+  function localDataBase() {
+    if (!isSuperAdmin()) return '';
+    try {
+      const b = localStorage.getItem(LOCAL_BASE_KEY);
+      return (typeof b === 'string' && b.trim()) ? b.trim().replace(/\/+$/, '') : '';
+    } catch (e) { return ''; }
+  }
+
+  /** True when corpus reads are being redirected to a local admin override. */
+  window.dgeLocalDataBaseOn = function () { return !!localDataBase(); };
+
+  // One-time ?dataBase= handling. Superadmin-gated because this is a way to
+  // silently repoint the whole library at an arbitrary origin — nothing a
+  // regular visitor's URL bar should be able to do, so a non-admin's param
+  // is logged and ignored rather than honoured.
+  (function applyDataBaseParam() {
+    let params;
+    try { params = new URLSearchParams(window.location.search); }
+    catch (e) { return; }
+    if (!params.has('dataBase')) return;
+    if (!isSuperAdmin()) {
+      console.warn('[Corpus] ?dataBase= ignored: super-admin sign-in required.');
+      return;
+    }
+    const v = (params.get('dataBase') || '').trim();
+    try {
+      if (!v || v === 'off') {
+        localStorage.removeItem(LOCAL_BASE_KEY);
+        console.info('[Corpus] Local data override cleared.');
+      } else {
+        localStorage.setItem(LOCAL_BASE_KEY, v);
+        console.info('[Corpus] Local data override set:', v);
+      }
+    } catch (e) { console.warn('[Corpus] Could not persist local data override:', e); }
+  })();
+
+  // A visible reminder while the override is live — this redirects every
+  // grantha fetch away from the real site, so an admin who forgets it is on
+  // must not mistake stale/incomplete local test data for what visitors see.
+  document.addEventListener('DOMContentLoaded', () => {
+    const base = localDataBase();
+    if (!base) return;
+    const bar = document.createElement('div');
+    bar.style.cssText = 'position:fixed; top:0; left:0; right:0; z-index:99999; background:#7b3fa0; color:#fff; ' +
+      'font-size:12px; padding:6px 14px; text-align:center; line-height:1.4;';
+    bar.innerHTML = 'Local data override ON — reading from <b>' + base.replace(/</g, '&lt;') + '</b>, not the live site. ' +
+      '<span style="text-decoration:underline;cursor:pointer;" id="dge-local-base-off">Turn off</span>';
+    document.body.appendChild(bar);
+    document.getElementById('dge-local-base-off').onclick = () => {
+      try { localStorage.removeItem(LOCAL_BASE_KEY); } catch (e) {}
+      location.reload();
+    };
+  });
+
+  /**
+   * The corpus-relative object path ("x/y/data.json") behind whatever the
+   * reader is holding — a fetch-relative "data/x/y/data.json", a repo-rooted
+   * "data/x/y/data.json", or a full CDN URL under kavyaDataBase. The
+   * proxy names files by their on-disk path under data/, so all three
+   * have to come back to the same string.
+   */
+  window.dgeCorpusObjectPath = function (url) {
+    let u = String(url || '').trim();
+    if (!u) return '';
+    const kavya = (window.KAVYA_DATA_BASE || '').replace(/\/+$/, '');
+    if (kavya && u.indexOf(kavya) === 0) u = u.slice(kavya.length);
+    if (/^https?:\/\//i.test(u)) {
+      try { u = new URL(u).pathname; } catch (e) { return ''; }
+    }
+    u = u.split('?')[0].split('#')[0];
+    u = u.replace(/^\/+/, '').replace(/^dge\//, '');
+    // jsDelivr's own routing prefix: gh/<owner>/<repo>@<commit>/ . Stripped
+    // by shape rather than by comparing against KAVYA_DATA_BASE, because that
+    // config value carries a commit pin that MOVES — a URL minted before a
+    // re-pin must not stop resolving just because the prefix no longer
+    // matches character for character.
+    u = u.replace(/^gh\/[^/]+\/[^/]+@[^/]+\//, '');
+    // A CDN URL carries the repo and commit before the path
+    // (…/gh/owner/repo@sha/data/x/y/data.json), so keep from the first
+    // "data/" SEGMENT on. Segment, not substring: a grantha folder named
+    // metadata/ or devadatta/ contains the letters "data/" and truncating
+    // there would silently ask the proxy for a different text.
+    const m = u.match(/(?:^|\/)data\/(.*)$/);
+    return m ? m[1] : u;
+  };
+
+  /**
+   * The reader's ID token, or null when nobody is signed in.
+   *
+   * Signed out is a normal, supported state — the library is public and the
+   * shelf is what narrows it — so this resolves to null rather than waiting
+   * or throwing. It also refuses to wait on a Firebase SDK that is not there:
+   * accounts can be switched off entirely (AUTH_CONFIG.enabled false) and the
+   * corpus must still load.
+   */
+  async function idToken() {
+    try {
+      if (!window.AUTH_CONFIG || !window.AUTH_CONFIG.enabled) return null;
+      if (typeof window.dgeEnsureFirebaseSdk === 'function') await window.dgeEnsureFirebaseSdk();
+      if (typeof firebase === 'undefined' || !firebase.apps || !firebase.apps.length) return null;
+      const user = firebase.auth().currentUser;
+      if (!user) return null;
+      return await user.getIdToken();
+    } catch (e) {
+      // A token we could not mint is the same as no token: the visitor gets
+      // whatever is public. Failing the whole fetch here would take the
+      // public library down over a signed-in reader's expired session.
+      console.warn('[Corpus] no ID token, continuing as a visitor:', e && e.message);
+      return null;
+    }
+  }
+
+  /**
+   * The same token, for anything else that calls one of our own functions
+   * (book-builder.js's one-tap PDF is the first). Shared rather than copied
+   * so there is one answer to "how does this app get an ID token", and one
+   * place to change it.
+   */
+  window.dgeIdTokenForApi = idToken;
+
+  /**
+   * Fetch a grantha dataset. Returns a Response, so callers keep their own
+   * res.ok / res.json() handling and their own retries.
+   *
+   * `bust` (default true) is the cache-buster the static path has always
+   * used. The proxy does not get one: its responses are ETagged and marked
+   * private, so a conditional request is both fresher and cheaper than a URL
+   * the browser has never seen.
+   */
+  window.dgeFetchCorpus = async function (url, opts) {
+    const options = opts || {};
+    const local = localDataBase();
+    if (local) {
+      // A plain static file server over a cloned private repo, laid out
+      // identically to this repo's own data/ tree — no auth header, no
+      // proxy, just a different origin for the same relative path.
+      const objectPath = window.dgeCorpusObjectPath(url);
+      if (!objectPath) throw new Error('Not a corpus path: ' + url);
+      const bust = options.bust === false ? '' : '?t=' + Date.now();
+      return fetch(local + '/data/' + objectPath + bust, options.init || {});
+    }
+    const base = corpusBase();
+    if (!base) {
+      const bust = options.bust === false ? '' : ((String(url).indexOf('?') >= 0 ? '&' : '?') + 't=' + Date.now());
+      return fetch(url + bust, options.init || {});
+    }
+    const objectPath = window.dgeCorpusObjectPath(url);
+    if (!objectPath) throw new Error('Not a corpus path: ' + url);
+    const init = Object.assign({}, options.init || {});
+    const headers = new Headers(init.headers || {});
+    const token = await idToken();
+    if (token) headers.set('Authorization', 'Bearer ' + token);
+    init.headers = headers;
+    return fetch(base + '/' + objectPath, init);
+  };
+})();

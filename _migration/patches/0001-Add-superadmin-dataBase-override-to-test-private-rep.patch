@@ -1,0 +1,160 @@
+From 1cc429ba781a2498c7aa57c0d9017ea7f36936be Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Sun, 13 Sep 2026 03:39:58 +0000
+Subject: [PATCH] Add superadmin ?dataBase= override to test private-repo
+ staged content
+
+Lets a super-admin who has cloned ParaBuddhi/ShriBuddhi/BrahmaBuddhi
+locally and is serving it over a plain static file server point the
+live reader at that origin instead of the public site, so staged
+data.json content can be reviewed in the real app before promotion.
+Slots into the existing corpusBase switch in corpus-fetch.js (the one
+place a grantha dataset is fetched) rather than adding a second path;
+gated on is_superadmin and shows a visible banner while active.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01Ne5Y2oTFHuSexwU4U6ptRm
+---
+ js/corpus-fetch.js | 94 ++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 91 insertions(+), 3 deletions(-)
+
+diff --git a/js/corpus-fetch.js b/js/corpus-fetch.js
+index 441986591..c738f5752 100644
+--- a/js/corpus-fetch.js
++++ b/js/corpus-fetch.js
+@@ -1,8 +1,8 @@
+ // js/corpus-fetch.js — the one place a grantha's data.json is fetched.
+ //
+-// THE SWITCH. Two ways to read the corpus live behind this file:
++// THE SWITCH. Three ways to read the corpus live behind this file:
+ //
+-//   corpusBase unset (today, and the default)
++//   corpusBase unset, no local override (today, and the default)
+ //       fetch('data/x/y/data.json') — a public static file on Hosting,
+ //       exactly as the reader has always done. Nothing about this path
+ //       changes; this module adds one indirection and no behaviour.
+@@ -15,6 +15,17 @@
+ //       file from a PRIVATE bucket. A text the shelf hides is then genuinely
+ //       unreachable, not merely unlisted.
+ //
++//   local data override, superadmin only
++//       fetch(localBase + '/data/x/y/data.json') — for an admin who has
++//       cloned one of the private pipeline repos (ParaBuddhi/ShriBuddhi/
++//       BrahmaBuddhi) and is running a plain static file server over it, so
++//       staged content can be reviewed in the real reader before it is
++//       promoted to this public repo. Set with ?dataBase=http://localhost:PORT
++//       (only honoured for a signed-in super-admin; clear with
++//       ?dataBase=off). Persists in localStorage across pages so it survives
++//       normal reader navigation. This never touches production data or the
++//       corpusBase proxy — it is a pure client-side redirect of one fetch.
++//
+ // Everything else in the reader is identical either way, which is the whole
+ // point: flipping corpusBase in config.js is the entire migration, and
+ // flipping it back is the entire rollback.
+@@ -26,11 +37,13 @@
+ // accepted deliberately. For anything genuinely restricted it is not enough,
+ // and this is the switch that makes it enough.
+ window.DGE_VERSIONS = window.DGE_VERSIONS || {};
+-window.DGE_VERSIONS['corpus-fetch.js'] = 'v1.0 (11 Sep 2026: corpusBase switch — static files or the authenticated proxy)';
++window.DGE_VERSIONS['corpus-fetch.js'] = 'v1.1 (13 Sep 2026: superadmin ?dataBase= local override for testing private-repo staged content)';
+ 
+ (function () {
+   'use strict';
+ 
++  const LOCAL_BASE_KEY = 'dgeLocalDataBase';
++
+   function corpusBase() {
+     const c = window.appConfig || {};
+     const b = c.corpusBase;
+@@ -40,6 +53,71 @@ window.DGE_VERSIONS['corpus-fetch.js'] = 'v1.0 (11 Sep 2026: corpusBase switch 
+   /** True when corpus reads are going through the authenticated proxy. */
+   window.dgeCorpusProxyOn = function () { return !!corpusBase(); };
+ 
++  function isSuperAdmin() {
++    try { return localStorage.getItem('is_superadmin') === 'true'; }
++    catch (e) { return false; }
++  }
++
++  /**
++   * The locally-served origin an admin has pointed the reader at, or ''
++   * when there isn't one. Gated on is_superadmin every time it is read
++   * (not just when it was set) so logging out immediately stops honouring
++   * a stale value left in localStorage.
++   */
++  function localDataBase() {
++    if (!isSuperAdmin()) return '';
++    try {
++      const b = localStorage.getItem(LOCAL_BASE_KEY);
++      return (typeof b === 'string' && b.trim()) ? b.trim().replace(/\/+$/, '') : '';
++    } catch (e) { return ''; }
++  }
++
++  /** True when corpus reads are being redirected to a local admin override. */
++  window.dgeLocalDataBaseOn = function () { return !!localDataBase(); };
++
++  // One-time ?dataBase= handling. Superadmin-gated because this is a way to
++  // silently repoint the whole library at an arbitrary origin — nothing a
++  // regular visitor's URL bar should be able to do, so a non-admin's param
++  // is logged and ignored rather than honoured.
++  (function applyDataBaseParam() {
++    let params;
++    try { params = new URLSearchParams(window.location.search); }
++    catch (e) { return; }
++    if (!params.has('dataBase')) return;
++    if (!isSuperAdmin()) {
++      console.warn('[Corpus] ?dataBase= ignored: super-admin sign-in required.');
++      return;
++    }
++    const v = (params.get('dataBase') || '').trim();
++    try {
++      if (!v || v === 'off') {
++        localStorage.removeItem(LOCAL_BASE_KEY);
++        console.info('[Corpus] Local data override cleared.');
++      } else {
++        localStorage.setItem(LOCAL_BASE_KEY, v);
++        console.info('[Corpus] Local data override set:', v);
++      }
++    } catch (e) { console.warn('[Corpus] Could not persist local data override:', e); }
++  })();
++
++  // A visible reminder while the override is live — this redirects every
++  // grantha fetch away from the real site, so an admin who forgets it is on
++  // must not mistake stale/incomplete local test data for what visitors see.
++  document.addEventListener('DOMContentLoaded', () => {
++    const base = localDataBase();
++    if (!base) return;
++    const bar = document.createElement('div');
++    bar.style.cssText = 'position:fixed; top:0; left:0; right:0; z-index:99999; background:#7b3fa0; color:#fff; ' +
++      'font-size:12px; padding:6px 14px; text-align:center; line-height:1.4;';
++    bar.innerHTML = 'Local data override ON — reading from <b>' + base.replace(/</g, '&lt;') + '</b>, not the live site. ' +
++      '<span style="text-decoration:underline;cursor:pointer;" id="dge-local-base-off">Turn off</span>';
++    document.body.appendChild(bar);
++    document.getElementById('dge-local-base-off').onclick = () => {
++      try { localStorage.removeItem(LOCAL_BASE_KEY); } catch (e) {}
++      location.reload();
++    };
++  });
++
+   /**
+    * The corpus-relative object path ("x/y/data.json") behind whatever the
+    * reader is holding — a fetch-relative "data/x/y/data.json", a repo-rooted
+@@ -117,6 +195,16 @@ window.DGE_VERSIONS['corpus-fetch.js'] = 'v1.0 (11 Sep 2026: corpusBase switch 
+    */
+   window.dgeFetchCorpus = async function (url, opts) {
+     const options = opts || {};
++    const local = localDataBase();
++    if (local) {
++      // A plain static file server over a cloned private repo, laid out
++      // identically to this repo's own data/ tree — no auth header, no
++      // proxy, just a different origin for the same relative path.
++      const objectPath = window.dgeCorpusObjectPath(url);
++      if (!objectPath) throw new Error('Not a corpus path: ' + url);
++      const bust = options.bust === false ? '' : '?t=' + Date.now();
++      return fetch(local + '/data/' + objectPath + bust, options.init || {});
++    }
+     const base = corpusBase();
+     if (!base) {
+       const bust = options.bust === false ? '' : ((String(url).indexOf('?') >= 0 ? '&' : '?') + 't=' + Date.now());
+-- 
+2.43.0
+
