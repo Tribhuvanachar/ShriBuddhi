@@ -1,0 +1,79 @@
+[
+  {"id": "q1", "category": "factual", "lang": "en", "answerable": true,
+   "question": "What does Prahlada say about the Lord's terrifying Narasimha form in the Prahlada Nrsimha Stotra -- what specifically does he say he is not afraid of?",
+   "gold_targets": ["stotra/PrahladaKrutaNarasimha::8"]},
+
+  {"id": "q2", "category": "factual", "lang": "en", "answerable": true,
+   "question": "According to Raghavendra Vijaya, whose exposition of the Brahma Sutras is praised in verse 8, and what does the verse say happens to a scholar who hears it?",
+   "gold_targets": ["kavya_alankara/raghavendra_vijaya/sarga_1::8"]},
+
+  {"id": "q3", "category": "conceptual", "lang": "en", "answerable": true,
+   "question": "Does the Prahlada Nrsimha Stotra teach that wealth, noble birth, beauty and austerity alone are enough to please God?",
+   "gold_targets": ["stotra/PrahladaKrutaNarasimha::2"]},
+
+  {"id": "q4", "category": "conceptual", "lang": "en", "answerable": true,
+   "question": "What does the Prahlada Nrsimha Stotra suggest happens to a person of low birth who has completely surrendered mind, speech, body and life to the Lord?",
+   "gold_targets": ["stotra/PrahladaKrutaNarasimha::3"]},
+
+  {"id": "q5", "category": "sanskrit", "lang": "sa", "answerable": true,
+   "question": "भगवतो गुणान् वर्णयितुं के के असमर्था इति प्रह्लादस्तोत्रे उक्तम्? कृपया संस्कृतेन उत्तरं ददातु।",
+   "question_en_gloss": "Who is said to be unable to describe the Lord's qualities, per the Prahlada stotra? Please answer in Sanskrit.",
+   "gold_targets": ["stotra/PrahladaKrutaNarasimha::1"]},
+
+  {"id": "q6", "category": "en_to_sanskrit", "lang": "en", "answerable": true,
+   "question": "In the Aitareya Upanishad passage, what came forth from the primordial being's mouth, and what element or deity is associated with it?",
+   "gold_targets": ["vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.13",
+                    "vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.14"]},
+
+  {"id": "q7", "category": "en_to_sanskrit", "lang": "en", "answerable": true,
+   "question": "According to the Aitareya Upanishad, what existed in the very beginning, before creation?",
+   "gold_targets": ["vedas/rigveda/shakala_shakha/upanishads/aitareya_upanishad::1.1.1"]},
+
+  {"id": "q8", "category": "kannada", "lang": "kn", "answerable": true,
+   "question": "ಕುರುಕ್ಷೇತ್ರ ಯುದ್ಧಕ್ಕೆ ಮೊದಲು ಯುಧಿಷ್ಠಿರನು ತನ್ನ ಸೈನ್ಯವನ್ನು ಹೇಗೆ ಸಿದ್ಧಪಡಿಸಿದನು?",
+   "question_en_gloss": "How did Yudhishthira prepare his army before the Kurukshetra war?",
+   "gold_targets": ["itihasa/mahabharata_kannada/bhishma_parva::0601001-8",
+                    "itihasa/mahabharata_kannada/bhishma_parva::0601001-13"]},
+
+  {"id": "q9", "category": "kannada", "lang": "en", "answerable": true,
+   "question": "What does the Kannada Mahabharata say about the size and state of the remaining land after the armies departed for war?",
+   "gold_targets": ["itihasa/mahabharata_kannada/bhishma_parva::0601001-9"]},
+
+  {"id": "q10", "category": "multi_passage_synthesis", "lang": "en", "answerable": true,
+   "question": "Compare what Prahlada Nrsimha Stotra verse 1 itself says with what its Satyadharmiya commentary explains about the phrase 'brahmadayah suraganah' (Brahma and the gods).",
+   "gold_targets": ["stotra/PrahladaKrutaNarasimha::1"]},
+
+  {"id": "q11", "category": "multi_passage_synthesis", "lang": "en", "answerable": true,
+   "question": "Using the Mahabharata Kannada Bhishma Parva passages, describe both how Yudhishthira fed and camped his army, and how he identified his own soldiers on the battlefield.",
+   "gold_targets": ["itihasa/mahabharata_kannada/bhishma_parva::0601001-8",
+                    "itihasa/mahabharata_kannada/bhishma_parva::0601001-13"]},
+
+  {"id": "q12", "category": "multi_passage_synthesis", "lang": "en", "answerable": true,
+   "question": "In Raghavendra Vijaya verse 5, what is being compared to a diamond, and why?",
+   "gold_targets": ["kavya_alankara/raghavendra_vijaya/sarga_1::5"]},
+
+  {"id": "q13", "category": "unanswerable", "lang": "en", "answerable": false,
+   "question": "According to the supplied passages, what year was the Prahlada Nrsimha Stotra composed?",
+   "gold_targets": []},
+
+  {"id": "q14", "category": "unanswerable", "lang": "en", "answerable": false,
+   "question": "Based on the supplied passages, what does the Bhagavad Gita say about the nature of karma?",
+   "gold_targets": []},
+
+  {"id": "q15", "category": "unanswerable", "lang": "en", "answerable": false,
+   "question": "What specific raga (musical mode) is prescribed for chanting the Prahlada Nrsimha Stotra, according to the supplied passages?",
+   "gold_targets": []},
+
+  {"id": "q16", "category": "factual", "lang": "en", "answerable": true,
+   "question": "Quote the exact Sanskrit line in Raghavendra Vijaya sarga 1 that describes Goddess Sarasvati (Sharada) dancing on Raghavendra's tongue.",
+   "gold_targets": ["kavya_alankara/raghavendra_vijaya/sarga_1::4"]},
+
+  {"id": "q17", "category": "conceptual", "lang": "en", "answerable": true,
+   "question": "What broader lesson about devotion versus material qualifications does the Prahlada Nrsimha Stotra convey in its early verses?",
+   "gold_targets": ["stotra/PrahladaKrutaNarasimha::1", "stotra/PrahladaKrutaNarasimha::2",
+                    "stotra/PrahladaKrutaNarasimha::3"]},
+
+  {"id": "q18", "category": "factual", "lang": "en", "answerable": true,
+   "question": "What does Raghavendra Vijaya verse 1 ask Narasimha's claw to grant, and to whom?",
+   "gold_targets": ["kavya_alankara/raghavendra_vijaya/sarga_1::1"]}
+]
