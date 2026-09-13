@@ -1,0 +1,23 @@
+{
+  "institution": "Sri Raghavendra Swamy Matha (SRS Matha, Mantralaya)",
+  "source_name": "SRS Matha Panchanga app (Flutter)",
+  "app_package": "com.panchanga",
+  "app_version": "2.0.0",
+  "app_sha256": "7232c5ab115bf2d869300ccf644d8d74ccdcb370726a156bd10564fc9786a9c8",
+  "artifacts": {
+    "panchanga.en.json": "73898d026b1177e1c4b17c8cc4b072ebf2fd9b24565c0607d9a0bd43e0672e31",
+    "aradhana.json": "516ac8a20745afb9fecc09ddd301318a5ece2507ae652c92ee6f75fc7e74713a",
+    "ekadashi.json": "405b07104904fd3a98c8b607941859b910f7ef448c32b6ad30e6bec9742c3f7e",
+    "festivals.json": "d41b9b03a7ba608273fff8f9be1cfeba123bed4d54b552f7f3db540e3a00ffda",
+    "tarpana.json": "c2bb869672622457552229008fd20f2f77ebf3c8ed0e826347c7e8c235b3efbc"
+  },
+  "method": "apk_asset",
+  "retrieved_at": "2026-09-11",
+  "content_type": "application/json",
+  "row_count": 402,
+  "date_coverage": "2026-03-01 to 2027-04-06",
+  "location_name": "Mantralaya",
+  "rights_status": "UNKNOWN - official SRS Matha app; no explicit licence/redistribution terms observed",
+  "verification_status": "needs_review",
+  "notes": "Full daily-panchanga schema already close to DGE's canonical panchanga_day shape (§21) -- date, samvatsara, ayana, ritu, masa, paksha, tithi, nakshatra, yoga, karana, sunrise, sunset, rahukaala, gulikaala, yamaganda, festival, shraddha, masaniyamaka all present per-record. aradhana/ekadashi/festivals/tarpana are separate curated collections per DGE_Madhva_Acquisition_Architecture.md §11, not yet cross-checked against the daily records for consistency (§41)."
+}

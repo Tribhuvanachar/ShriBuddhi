@@ -1,0 +1,19 @@
+{
+  "institution": "Sode Sri Vadiraja Matha (author: Sri Vadiraja Tirtha, per the app's own colophons)",
+  "source_name": "\"Vadiraja Vijaya\" app (B4A/Basic4Android) -- name is misleading, see notes",
+  "app_package": "vvm.g",
+  "app_version": "VV V.01",
+  "app_sha256": "a59d49509fb0995306ce654d00c177ec54a9f2c8ba1eaaaf1820448d992635af",
+  "artifacts": {
+    "svapnavrindavanakhyana_full.vss": "ee6cb9b707e15f244ab38317521d2e128b46805a191176bec1cdb77eaab176df",
+    "bundled_stotra_index.vss": "6cd63c5c8a7ce737a5f5fe42eb37d952331ede36ab41800ff902bc55cb76752d",
+    "volume_title_index.vss": "c8e58b33f86fe4980631d4a5ffa50cad37037c3429aa36bf261e2eba7dfd6995"
+  },
+  "method": "apk_asset",
+  "retrieved_at": "2026-09-11",
+  "content_type": "text/plain (custom '<devanagari text>#<chapter-tag>' per line, tag format 0101NNN where NNN = 3-digit chapter number)",
+  "verification_status": "needs_review",
+  "notes": "Despite the app's title, static analysis of every asset file found NO text of the kavya 'Vadiraja Vijaya' itself -- the volume_title_index.vss (the printed book's front-matter/title list) names it as part of a compilation alongside a Brahmasutrabhashya + commentary set and 'works composed by Sri Vadiraja Guru Sarvabhauma', but only one of those named works is actually digitized here: Svapnavrindavanakhyanam, complete start-to-colophon across all 22 adhyayas (confirmed: chapter-end colophons run '...tritiyo'dhyayah samaptah' through '...dvavimsho'dhyayah samaptah||22||' with no gap). Verse-boundary reconstruction from the raw '||N||'-terminated lines (verses are 2 lines for anushtubh, more for other metres) has NOT been done yet -- this manifest covers acquisition of the raw text only, not parsing into DGE's grantha schema. bundled_stotra_index.vss is a 10-title index of small stotras also bundled in the same app (Narasimha Nakhastuti, Harivayustuti, Vishnustuti, Madhvashtakam, Purnabodhastotram, Krishnamala, Ramagityashtaka, Dasharathyashtakam, Nrisimhastuti, Prameyanavamalika) -- their actual verse text was not located in this pass. Confirmed via repo-wide search: neither Svapnavrindavanakhyana nor Vadiraja Vijaya existed anywhere in dge/data/ before this acquisition. Vadiraja Vijaya itself (the kavya, presumably a separate biographical work) remains an open acquisition -- this app does not solve it despite the name.",
+  "rights_status": "UNKNOWN - app appears to be an independent devotional digitization, not an official matha publication; no licence terms observed",
+  "next_step": "A dedicated pass to (1) reconstruct verse boundaries per chapter with a proper count-check against the printed adhyaya markers, (2) decide taxonomy placement (likely alongside Sumadhva Vijaya under darshana/vedanta/dvaita/DvaitaVedanta/later_acharyas, or as its own kavya_alankara entry -- needs a look at how other single-author minor works are placed before deciding), (3) still separately source the actual Vadiraja Vijaya kavya text."
+}

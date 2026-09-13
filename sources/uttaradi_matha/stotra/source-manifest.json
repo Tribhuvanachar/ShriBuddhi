@@ -1,0 +1,18 @@
+{
+  "institution": "Sri Uttaradi Matha",
+  "source_name": "UM Sri Uttaradi Math app (Flutter)",
+  "app_package": "org.uttaradimath.app",
+  "app_version": "1.9.0",
+  "app_sha256": "1ed1f8a62dc7c7d6a8d8e3a526a731e2551827b1572540fa83241ee182fcea75",
+  "artifact": "um_app_seed.db tables stotra_table (121 rows) + stotra_lyrics_table (16027 rows)",
+  "artifact_sha256": "9ea98602f3327df180b1ed20c6dd640ab481676d919cd5b6b4ae897dd43f8166",
+  "method": "apk_asset",
+  "retrieved_at": "2026-09-11",
+  "content_type": "application/json",
+  "row_count": {"stotras": 121, "lyric_lines": 16027},
+  "languages": ["english (IAST-ish transliteration)", "kannada", "sanskrit", "tamil", "telugu"],
+  "rights_status": "UNKNOWN - official app, no explicit licence/redistribution terms observed",
+  "verification_status": "needs_review",
+  "notes": "Broader than pure 'stotra' genre despite the table name -- includes short devotional hymns, but also multi-part recitations of larger works: Dvadasha Stotra (12 parts, group 'Dwadashastotra'/'Dwadashastotra v2'), Jitante Stotra (5 parts), Brahma Sutra Anu Bhashya excerpts (4 parts), and Sumadhva Vijaya recitation audio (groups 'Sumadhwavijaya'/'Sumadhwavijaya v2'). Each entry has per-line timing (start_ms/end_ms) for audio sync and an is_remark flag separating actual verse lines from spoken framing (e.g. closing 'iti ... stotram' announcements). Checked against dge/data/library.json before archiving: Dvadasha Stotra's MULA TEXT is already ingested from two independent sources (SarvaMula and SetuTila editions) -- this audio+lyrics data would be an audio-recitation ENRICHMENT for that existing text, not a new acquisition. Jitante Stotra and Madhwanama were not found in a quick library.json/taxonomy.json check and look like genuine gaps, but that was not an exhaustive search.",
+  "next_step": "A dedicated ingestion pass, item by item, following this project's normal standard (source verification, taxonomy placement, author attribution per text) -- 121 items is real, multi-session work, not something to force through in one pass. Priority candidates: Jitante Stotra and Madhwanama if confirmed absent; Dvadasha Stotra audio as an enrichment of the existing mula text (needs a decision on where audio_url attaches to an existing grantha's metadata)."
+}

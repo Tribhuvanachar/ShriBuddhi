@@ -1,0 +1,17 @@
+{
+  "institution": "Sri Pejavara Adhokshaja Matha (Panchanga published as Vishwesha Panchanga; one source, see DGE_Madhva_Acquisition_Architecture.md §14/§18/§20)",
+  "source_name": "Vishwesha Panchanga app (B4A/Basic4Android)",
+  "app_package": "maha.kani",
+  "app_version": "V.26",
+  "app_sha256": "a992d7bb9e18e67c07688b1518e9534212bb88d8b6b61b0dee77a8a7e25e2479",
+  "artifact": "assets/vss4.vss",
+  "artifact_sha256": "8e9eed6769a3169d3ba908bb0c53a70e7729b4dd9893f47a5c6f4687d654a168",
+  "method": "apk_asset",
+  "content_type": "text/csv (custom, YYYY-DD-Mon-notes per line)",
+  "retrieved_at": "2026-09-11",
+  "row_count": 794,
+  "date_coverage": "2022 to 2026, special-day/festival annotations only (not full five-anga daily Panchanga)",
+  "rights_status": "UNKNOWN - official Vishwesha Panchanga app; no explicit licence/redistribution terms observed",
+  "verification_status": "PARTIAL - incomplete acquisition",
+  "notes": "This app's full daily five-anga Panchanga (tithi/nakshatra/yoga/karana per day) is NOT stored as readable text: assets/thithi.vss holds only a single year (2020) of special-day notes with the actual tithi/nakshatra/etc encoded as opaque numeric codes (e.g. '06010706') whose decode logic lives in the app's compiled B4A bytecode, not yet reverse-engineered. assets/1-2025.vss..12-2026.vss (the numbered monthly files) are JPEG calendar-page scans, not machine-readable data, despite the .vss extension -- confirmed by `file`, matching the same pattern documented for the sibling Udupi Panchanga app in the architecture doc §13. assets/ph.vss is a pontiffs' contact directory (names + personal phone numbers) -- NOT archived here on purpose; it is personal contact data and needs an explicit rights/consent decision before any use, per the architecture doc §49/§67. Full five-anga acquisition for this source is UNRESOLVED pending either (a) B4A bytecode reverse-engineering of the numeric-code decode logic, or (b) a runtime/network capture pass (§7-9 of the architecture doc)."
+}

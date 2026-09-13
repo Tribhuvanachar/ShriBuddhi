@@ -1,0 +1,19 @@
+{
+  "institution": "Sri Uttaradi Matha",
+  "source_name": "UM Sri Uttaradi Math app (Flutter)",
+  "app_package": "org.uttaradimath.app",
+  "app_version": "1.9.0",
+  "app_sha256": "1ed1f8a62dc7c7d6a8d8e3a526a731e2551827b1572540fa83241ee182fcea75",
+  "artifacts": {
+    "contacts.json": "a86ec5affdf99390f3d2a416fc237550293f015a0f6a77b2ac2a8ae520f75f8e",
+    "seva.json": "c34b50cad548205ce4571983eda48c885d1fb86d7c5b7c0e06895c5153b401b0"
+  },
+  "method": "apk_asset",
+  "retrieved_at": "2026-09-11",
+  "content_type": "application/json",
+  "row_count": {"contacts": 165, "seva": 16},
+  "rights_status": "UNKNOWN - official app, no explicit licence/redistribution terms observed",
+  "verification_status": "needs_review",
+  "notes": "contacts.json is contact_table: 165 rows of institutional/office phone numbers for branch sannidhis, research centres, and publications -- these are organizational numbers tied to a place/institution, NOT personal mobile numbers of named individuals (contrast with the Vishwesha app's ph.vss, a pontiffs' personal-phone directory deliberately left unarchived -- see dge/sources/vishwesha_panchanga's manifest). Still flagged rights_status UNKNOWN, not asserted clean, but this is the kind of institutional 'official contacts' data the architecture doc's institutional-knowledge model explicitly wants (mathas.json even has a currently-null 'contact' field per matha waiting to be filled from a verified source). 'state' field is inconsistently capitalized/spelled in the source (Bengaluru/Bangalore/bengaluru all appear) -- kept as-is, not normalized, since this is a raw acquisition archive. seva.json is seva_table joined with seva_item_table (16 active seva offerings with their priced sub-items) -- donation/ritual-offering information, no personal devotee records.",
+  "next_step": "Normalization/dedup of the state field and wiring into mathas.json's branches/contact fields is a Phase 2 task, not done here -- this manifest covers acquisition only."
+}

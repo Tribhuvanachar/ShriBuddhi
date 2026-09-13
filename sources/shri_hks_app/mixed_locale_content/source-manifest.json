@@ -1,0 +1,15 @@
+{
+  "institution": "Jagannatha Dasa tradition (Harikathamrutasara)",
+  "source_name": "Shri HKS app (native Android)",
+  "app_package": "com.devloop0.shrihks",
+  "app_version": "1.2",
+  "app_sha256": "73c5a79c0083b8718daa58fb8c3d0e3cb0fa2dd65099e695b1bad182f8ed3a3d",
+  "artifact": "resources.arsc string-array resources hks_sandhi_content_list/hks_sandhi_title_list, default (no-locale) config",
+  "artifact_sha256": "fd05d0d1dfc2abdda024c334bc4f09836f6cc9aefc862b1cd5786eeaeecf9663",
+  "method": "apk_asset",
+  "retrieved_at": "2026-09-11",
+  "content_type": "application/json (this repo's own dump format: {default_titles:[33], default_content:[33], kn_content:[33]})",
+  "verification_status": "needs_review",
+  "notes": "This is the SAME app already used for the existing 947-verse Kannada ingestion at dge/data/dasa_sahitya/dasakuta/jagannathadasa/harikathamrutasara/data.json (confirmed via matching string-array resource names). That ingestion's source_meta claims 'No verse-level meaning exists in this source' -- this is INCORRECT for 3 of the 33 sandhis: sandhis 1, 26, and 27 have real content in the app's default (non-Kannada) locale config -- romanized (IAST-style) verse text interleaved with genuine per-verse word-by-word glosses ('word = meaning' style) and extended prose commentary, not placeholder text. The other 30 sandhis are empty in this locale, so the original claim holds for those. NOT MERGED into the ingested data.json: the raw text has no clean machine-parseable boundary between one verse's meaning/commentary block and the next verse's romanized restatement of its own text (both appear in the same run-on stream, separated only by the '|| N ||' verse-end marker that starts the meaning block, not by anything marking where it ends) -- attempting an automatic split risks misattributing a commentary paragraph to the wrong verse. A careful manual or heavily-supervised pass is needed before this becomes part of the corpus. See dge/PENDING.md 11 Sep 2026 entry.",
+  "rights_status": "UNKNOWN - no licence terms observed in the app"
+}

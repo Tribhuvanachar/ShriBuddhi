@@ -1,0 +1,26 @@
+{
+  "institution": "Sri Uttaradi Matha",
+  "source_name": "UM Sri Uttaradi Math app (Flutter)",
+  "app_package": "org.uttaradimath.app",
+  "app_version": "1.9.0",
+  "app_sha256": "1ed1f8a62dc7c7d6a8d8e3a526a731e2551827b1572540fa83241ee182fcea75",
+  "artifact": "assets/flutter_assets/assets/um_app_seed.db",
+  "artifact_sha256": "18f6a98a4a930fb5da192f3a14c96c618928f5ec567f7c68de2bef310ae8a292",
+  "method": "apk_asset",
+  "retrieved_at": "2026-09-11",
+  "content_type": "application/vnd.sqlite3",
+  "table": "panchanga_table",
+  "row_count": 4478,
+  "date_coverage": "2024-02-29 to 2027-04-05 (unix epoch dates 1709247600-1806962400)",
+  "languages": ["English", "Kannada", "Sanskrit", "Tamil", "Telugu"],
+  "other_tables_present_not_extracted": [
+    "main_deities_table (6 rows) - institutional deity data, Phase 2",
+    "parampara_table (42 rows) - lineage data, Phase 2",
+    "gallery_table, generic_media_table - photos, needs rights review before any use",
+    "stotra_table, stotra_lyrics_table - stotra content, separate acquisition thread",
+    "seva_table, contact_table, bank_account_table, announcement_table - NOT extracted: bank_account_table is clearly sensitive institutional financial data and must never be published; contact_table not reviewed for personal-data content"
+  ],
+  "rights_status": "UNKNOWN - app is the official Uttaradi Matha app, but no explicit licence/redistribution terms observed; treat as OFFICIAL_APP_ASSET pending a rights review before any public site display",
+  "verification_status": "needs_review",
+  "notes": "Full sqlite database preserved as the immutable source artifact per DGE_Madhva_Acquisition_Architecture.md §24. Normalization into DGE's panchanga_day schema (§21) not yet done -- this manifest covers acquisition only."
+}
