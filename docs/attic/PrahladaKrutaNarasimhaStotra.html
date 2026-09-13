@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" id="themeColorMeta" content="#FFFDF9">
+<title>Bhagavata Digital Library</title>
+
+<!-- Fonts & Bulletproof Transliteration Engine -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Indic transliteration, vendored (js/vendor/README.md): the reader's
+     script setting and the धातु/कोश word marking both depend on it, so it
+     must not be one CDN outage away from silently not working. -->
+<script src="../js/vendor/sanscript-1.3.3.min.js?v=1.3.3"></script>
+
+<style>
+  :root {
+    --bg-main: #FAF3E6; --card-bg: #ffffff; --card-border: #E9DCC3;
+    --card-active: #FCE9DE; --text-primary: #2B2119; --text-sanskrit: #9A1B1B;
+    --accent-red: #AE231F; --accent-gold: #B9821F; --panel-bg: #ffffff;
+    --top-bar-bg: #FFFDF9; --top-bar-border: #EEE3CB;
+    --font-multiplier: 18px;
+    --font-sanskrit: 'Tiro Devanagari Sanskrit', 'Noto Serif Devanagari', serif;
+    --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  body.dark-mode {
+    --bg-main: #18120E; --card-bg: #241A14; --card-border: #3A2A1F;
+    --card-active: #3E2013; --text-primary: #EDE2D3; --text-sanskrit: #E8A067;
+    --accent-red: #E2664A; --accent-gold: #D9A544; --panel-bg: #241A14;
+    --top-bar-bg: #18120E; --top-bar-border: #3A2A1F;
+  }
+
+  * { -webkit-tap-highlight-color: transparent; }
+  body { margin: 0; padding-top: calc(60px + env(safe-area-inset-top)); padding-bottom: calc(126px + env(safe-area-inset-bottom)); font-family: var(--font-ui); background: var(--bg-main); color: var(--text-primary); transition: background 0.3s, color 0.3s; }
+  
+  body.modal-open { overflow: hidden !important; }
+
+  .app-container { max-width: 650px; margin: 0 auto; padding: 12px; position: relative; }
+
+  /* Dynamic Font Switching for Non-Devanagari Scripts */
+  body.non-devanagari .reading-card,
+  body.non-devanagari .shloka-text,
+  body.non-devanagari .commentary-block { font-family: var(--font-ui) !important; }
+
+  .flex-row { display: flex; align-items: center; }
+  .flex-center { display: flex; align-items: center; justify-content: center; }
+
+  /* Top App Bar */
+  .top-bar { position: fixed; top: 0; left: 0; right: 0; height: calc(50px + env(safe-area-inset-top)); padding-top: env(safe-area-inset-top); background: var(--top-bar-bg); border-bottom: 1px solid var(--top-bar-border); z-index: 200; display: flex; align-items: center; justify-content: space-between; padding-left: 6px; padding-right: 6px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); box-sizing: border-box; }
+  .top-bar-title { font-size: 14px; font-weight: 700; color: var(--accent-red); cursor: pointer; white-space: nowrap; flex-shrink: 0; margin-right: auto; padding-left: 4px; }
+  .top-actions { display: flex; gap: 2px; align-items: center; justify-content: flex-end; flex-wrap: nowrap; }
+
+  .btn-top, .btn-lang { background: transparent; border: none; font-size: 18px; color: var(--text-primary); cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 4px; border-radius: 8px; transition: background 0.15s; }
+  .btn-top:hover, .btn-lang:hover { background: var(--card-active); }
+  .btn-lang { font-size: 12px; font-weight: 700; border: 1px solid var(--card-border); border-radius: 12px; padding: 4px 6px; }
+
+  .advanced-feature { display: none !important; }
+  body.is-authorized .advanced-feature { display: flex !important; }
+
+  /* Header & Search Bar */
+  .header { text-align: center; padding: 10px 0 14px; }
+  .header h1 { margin: 0; font-family: var(--font-sanskrit); font-size: 24px; color: var(--accent-red); font-weight: 700; }
+  .header .author { font-size: 11px; color: #8a7a63; text-transform: uppercase; font-weight: 600; letter-spacing: 0.6px; margin-top: 4px; }
+  .header .rule { width: 64px; height: 2px; margin: 8px auto 0; background: linear-gradient(90deg, transparent, var(--accent-gold), transparent); opacity: 0.8; }
+
+  .search-box-group { display: flex; gap: 6px; margin-bottom: 12px; }
+  .search-scope-select { border: 1px solid var(--card-border); border-radius: 16px; padding: 0 8px; font-size: 11px; font-weight: 700; background: var(--card-bg); color: var(--text-primary); outline: none; }
+  .search-container { position: relative; flex-grow: 1; }
+  .search-input { width: 100%; padding: 10px 32px 10px 14px; border: 1px solid var(--card-border); border-radius: 20px; font-size: 13px; background: var(--card-bg); color: var(--text-primary); box-sizing: border-box; outline: none; }
+  .clear-search-btn { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 14px; color: #999; cursor: pointer; display: none; }
+
+  .search-match { background-color: #fff59d; color: #000; padding: 0 2px; border-radius: 3px; font-weight: bold; }
+  body.dark-mode .search-match { background-color: #fbc02d; color: #000; }
+  .search-match.active-match { background-color: #ff9800; color: #fff; box-shadow: 0 0 0 2px #fff, 0 0 0 4px #ff9800; }
+  
+  .search-navigator { position: fixed; top: calc(60px + env(safe-area-inset-top)); right: 10px; background: var(--card-bg); border: 2px solid var(--accent-red); border-radius: 20px; padding: 4px 12px; display: none; align-items: center; gap: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.3); z-index: 1000; font-size: 12px; font-weight: 700; color: var(--text-primary); white-space: nowrap; }
+  .search-nav-btn { background: none; border: none; font-size: 14px; cursor: pointer; color: var(--accent-red); padding: 4px; display: flex; align-items: center; justify-content: center; }
+
+  /* Reading & List Cards */
+  .reading-card { position: relative; width: 100%; box-sizing: border-box; background: var(--card-bg); border: 2px solid var(--card-border); border-radius: 14px; padding: 22px 18px; text-align: center; font-family: var(--font-sanskrit); font-size: calc(var(--font-multiplier) * 1.15); color: var(--text-sanskrit); line-height: 1.7; font-weight: 500; margin-bottom: 16px; min-height: 70px; display: block; overflow-wrap: anywhere; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+  .reading-card.highlight { border-color: var(--accent-red); }
+  .reading-card::before, .reading-card::after { content: "❈"; display: block; font-size: 12px; color: var(--accent-gold); opacity: 0.6; margin-bottom: 6px; font-family: var(--font-ui); }
+  .reading-card::after { margin-bottom: 0; margin-top: 6px; }
+
+  .shloka-list { display: flex; flex-direction: column; gap: 10px; }
+  .shloka-card { width: 100%; box-sizing: border-box; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; overflow-wrap: anywhere; }
+  .shloka-card.active { background: var(--card-active); border-color: var(--accent-red); border-left: 4px solid var(--accent-red); }
+
+  .shloka-main-row { display: flex; width: 100%; gap: 12px; align-items: flex-start; }
+  .shloka-num { font-size: 12px; font-weight: 700; color: #9a8a72; min-width: 20px; margin-top: 4px; }
+  .shloka-text { flex-grow: 1; font-family: var(--font-sanskrit); font-size: var(--font-multiplier); color: var(--text-sanskrit); line-height: 1.55; font-weight: 500; cursor: pointer; overflow-wrap: anywhere; }
+
+  .card-actions { display: flex; gap: 6px; align-items: flex-start; flex-shrink: 0; }
+  .btn-icon { background: none; border: none; font-size: 16px; cursor: pointer; color: #b0bec5; padding: 4px; }
+  .is-fav { color: var(--accent-gold) !important; }
+  .is-practice { color: var(--accent-red) !important; }
+  .has-note { color: var(--accent-red) !important; }
+
+  .snippet-badge { background: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; border-radius: 12px; padding: 2px 8px; font-size: 10px; font-weight: 700; cursor: pointer; margin-left: 6px; display: inline-block; }
+
+  .commentary-block { background: rgba(0,0,0,0.025); border-left: 3px solid var(--accent-gold); padding: 8px 12px; border-radius: 4px; font-size: calc(var(--font-multiplier) * 0.85); line-height: 1.6; color: var(--text-primary); margin-top: 6px; overflow-wrap: anywhere; font-family: var(--font-sanskrit); }
+  body.dark-mode .commentary-block { background: rgba(255,255,255,0.03); }
+  .commentary-title { font-weight: 700; font-family: var(--font-ui); color: var(--accent-red); font-size: 11px; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+  /* Bottom Toolbar Grid — hidden until updatePlayUI() below adds
+     .dge-audio-active (only once something has actually been played). */
+  .bottom-player { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--panel-bg); border-top: 1px solid var(--card-border); box-shadow: 0 -4px 20px rgba(0,0,0,0.1); z-index: 9999; box-sizing: border-box; padding-bottom: env(safe-area-inset-bottom); }
+  .bottom-player.dge-audio-active { display: block; }
+  .player-inner { max-width: 650px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 8px 4px; box-sizing: border-box; gap: 4px; }
+
+  .controls-main { display: flex; gap: 8px; justify-content: center; }
+  .timer-group { display: flex; flex-direction: column; text-align: center; min-width: 60px; }
+  .popup-container { position: relative; display: flex; justify-content: center; }
+
+  .btn-play { background: var(--accent-red); color: #fff; border: none; width: 42px; height: 42px; border-radius: 50%; font-size: 18px; cursor: pointer; box-shadow: 0 4px 10px rgba(174, 35, 31, 0.4); flex-shrink: 0; margin: 0 4px; }
+  .btn-play:active { transform: scale(0.95); }
+  .btn-nav { background: none; border: none; font-size: 18px; color: var(--text-primary); cursor: pointer; padding: 2px; }
+  .btn-sm { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 6px 10px; font-size: 11px; font-weight: 700; color: var(--text-primary); cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+  .btn-sm:active { filter: brightness(0.9); }
+
+  .track-label { font-size: 11px; font-weight: 800; color: var(--text-primary); }
+  .time-display { font-size: 10px; font-weight: 600; color: #8a7a63; font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .repeat-counter { font-size: 9px; font-weight: 700; color: var(--accent-red); }
+
+  /* Popups */
+  .popup { position: absolute; bottom: 45px; background: var(--panel-bg); border: 1px solid var(--card-border); border-radius: 12px; padding: 14px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); display: none; flex-direction: column; gap: 12px; z-index: 300; width: max-content; max-width: min(280px, calc(100vw - 24px)); min-width: 170px; color: var(--text-primary); }
+  .popup-top { bottom: auto; top: 35px; right: 0; }
+  .popup.show { display: flex; }
+  .popup hr { width: 100%; border: 0; border-top: 1px solid var(--card-border); margin: 0; }
+
+  .pop-row { display: flex; align-items: center; justify-content: space-between; font-size: 12px; font-weight: 700; width: 100%; gap: 12px; white-space: nowrap; }
+  .pop-input { width: 48px; text-align: center; border: 1px solid var(--card-border); border-radius: 6px; padding: 4px; font-size: 12px; box-sizing: border-box; background: var(--card-bg); color: var(--text-primary); }
+  .pop-item { padding: 8px 12px; font-size: 12px; font-weight: 600; cursor: pointer; border-radius: 8px; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+  .pop-item:hover { background: var(--card-border); }
+  .pop-item.active { background: var(--card-active); color: var(--accent-red); }
+
+  .ab-container { display: flex; flex-direction: column; gap: 8px; width: 100%; font-size: 12px; font-weight: 700; }
+  .ab-row-inputs { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+
+  .range-box { border-top: 1px solid var(--card-border); padding-top: 8px; margin-top: 4px; display: flex; flex-direction: column; gap: 8px; font-size: 11px; font-weight: 700; }
+  .range-row-flex { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+  .clear-range-btn { background: var(--card-border); border: none; border-radius: 4px; font-size: 10px; padding: 4px 8px; cursor: pointer; color: var(--text-primary); }
+
+  /* Context Menu */
+  .context-menu { position: fixed; background: var(--panel-bg); border: 1px solid var(--card-border); border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.2); display: none; flex-direction: column; z-index: 500; color: var(--text-primary); }
+  .context-menu.show { display: flex; }
+  .context-menu div { padding: 10px 16px; cursor: pointer; font-size: 13px; font-weight: 600; display: flex; gap: 8px; }
+  .context-menu div:hover { background: var(--card-border); }
+
+  /* Context-Aware Palette Tooltip */
+  #actionTooltip {
+    position: fixed; background: #1a1a1a; padding: 8px 10px; border-radius: 14px;
+    display: none; z-index: 10000; box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    transform: translateX(-50%); flex-direction: column; gap: 6px; user-select: none;
+  }
+  .tooltip-header { font-size: 10px; font-weight: 800; color: #a8907a; text-transform: uppercase; letter-spacing: 0.5px; text-align: center; margin-bottom: 2px; }
+  .tooltip-row { display: flex; gap: 6px; justify-content: center; }
+  .tooltip-btn { background: rgba(255,255,255,0.12); color: white; border: 1px solid rgba(255,255,255,0.05); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 12px; white-space: nowrap; transition: background 0.2s; }
+  .tooltip-btn:hover { background: rgba(255,255,255,0.25); }
+
+  /* Floating Selection Button inside Modal */
+  #modalAppendBtn {
+    display: none; position: fixed; z-index: 11001; background: var(--accent-red); color: white;
+    border: none; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 700;
+    box-shadow: 0 6px 16px rgba(174, 35, 31, 0.4); cursor: pointer; transform: translateX(-50%);
+  }
+
+  /* Custom Toast */
+  #toastMsg {
+    display: none; position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
+    background: var(--text-primary); color: var(--bg-main); padding: 10px 20px;
+    border-radius: 24px; font-size: 12px; font-weight: 700; z-index: 12000;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.3); text-align: center; white-space: nowrap;
+  }
+
+  /* Modals with Absolute Sticky Headers - High Z-Index */
+  .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 11000; backdrop-filter: blur(2px); }
+  
+  .modal-content { background: var(--card-bg); color: var(--text-primary); border-radius: 16px; width: 90%; max-width: 440px; border: 1px solid var(--card-border); max-height: 85vh; box-shadow: 0 10px 40px rgba(0,0,0,0.4); display: flex; flex-direction: column; overflow: hidden; transition: all 0.3s; position: relative; }
+  
+  .modal-content.fullscreen { width: 100%; height: 100%; max-width: none; max-height: none; border-radius: 0; border: none; display: flex; flex-direction: column; }
+  .modal-content.fullscreen .modal-body { display: flex; flex-direction: column; flex-grow: 1; padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
+  .modal-content.fullscreen textarea { flex-grow: 1; height: auto; min-height: 50vh; resize: none; margin-bottom: 12px; }
+
+  .modal-header-sticky { padding: 16px; background: var(--card-bg); z-index: 10; border-bottom: 1px solid var(--card-border); display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+  .modal-body { padding: 16px; overflow-y: auto; flex-grow: 1; }
+
+  .modal-content textarea { width: 100%; height: 140px; margin: 8px 0; padding: 12px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--bg-main); color: var(--text-primary); font-family: inherit; font-size: 13px; box-sizing: border-box; resize: vertical; line-height: 1.5; }
+  .modal-input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--card-border); background: var(--bg-main); color: var(--text-primary); margin: 8px 0; font-size: 13px; box-sizing: border-box; }
+
+  /* Bhashya Picker Item Styling */
+  .bhashya-picker-btn { width: 100%; text-align: left; background: var(--bg-main); border: 1px solid var(--card-border); padding: 12px 14px; border-radius: 10px; font-weight: 700; color: var(--text-primary); font-size: 13px; margin-bottom: 8px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: background 0.2s, border 0.2s; }
+  .bhashya-picker-btn:hover { background: var(--card-active); border-color: var(--accent-red); color: var(--accent-red); }
+
+  /* Project Banner */
+  .project-banner { background: var(--card-active); border: 1px solid var(--accent-red); border-radius: 10px; padding: 14px 16px; margin-top: 24px; text-align: center; font-size: 12px; font-weight: 500; color: var(--text-primary); line-height: 1.6; }
+  .project-banner a { color: var(--accent-red); font-weight: 700; text-decoration: none; border-bottom: 1px dashed var(--accent-red); padding-bottom: 1px; }
+
+  /* Markdown Rendering Classes */
+  .md-h2 { color: var(--accent-red); font-size: 16px; font-weight: 800; margin: 16px 0 8px; border-bottom: 1px solid var(--card-border); padding-bottom: 6px; }
+  .md-h3 { color: var(--accent-gold); font-size: 14px; font-weight: 700; margin: 14px 0 6px; }
+  .md-list { margin: 6px 0 6px 20px; padding: 0; line-height: 1.7; }
+  .md-strong { font-weight: 700; color: var(--text-primary); }
+
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+  .app-footer { text-align: center; padding: 24px 10px 40px; font-size: 10px; font-weight: 600; color: #a8907a; border-top: 1px solid var(--card-border); margin-top: 24px; text-transform: uppercase; letter-spacing: 0.5px; }
+</style>
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../../dge/images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../dge/images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../../dge/images/genie/apple-touch-icon.png">
+</head>
+<body>
+<button onclick="location.href='dge/index.html'">
+🚀 Open Digital Grantha Engine (Beta)
+</button>
+<div id="toastMsg"></div>
+
+<!-- Context-Aware Floating Palette Tooltip -->
+<div id="actionTooltip">
+  <div class="tooltip-header">🕉️ Ask Acharya</div>
+  <div class="tooltip-row">
+    <button class="tooltip-btn" onpointerdown="askAcharya(event, 'shloka')">📜 Shloka</button>
+    <button class="tooltip-btn" onpointerdown="askAcharya(event, 'grammar')">⚙️ Word</button>
+    <button class="tooltip-btn" onpointerdown="openBhashyaPicker(event)">🔍 Bhashya</button>
+  </div>
+  <div style="height:1px; background:rgba(255,255,255,0.1); margin:4px 0;"></div>
+  <button class="tooltip-btn" style="width:100%; text-align:center; background: rgba(226, 102, 74, 0.2);" onpointerdown="askAcharya(event, 'translate')">🌐 Native Meaning</button>
+</div>
+
+<!-- Floating Append-to-Notes Selection Button for Modal -->
+<button id="modalAppendBtn" onpointerdown="appendSelectedTextToNote(event)">➕ Add Selection to Notes</button>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="top-bar-title" onclick="location.reload()">❮ Library</div>
+  <div class="top-actions">
+    <button class="btn-lang" onclick="showToast('Padachheda view will be available once datasets are uploaded!')" title="Pada View">पद</button>
+
+    <div style="position:relative;">
+      <button class="btn-top" onclick="togglePopup('fontPopup')" title="Font Size">Aa</button>
+      <div class="popup popup-top" id="fontPopup" style="min-width: 140px;">
+        <div style="font-size:10px; color:#8a7a63; margin-bottom:4px; text-transform:uppercase;">Reading Size</div>
+        <div class="pop-item" data-size="16" onclick="setFontSize(16, this)">Small <span style="margin-left:auto; color:#8a7a63; font-size:10px;">16px</span></div>
+        <div class="pop-item active" data-size="18" onclick="setFontSize(18, this)" id="font-def">Medium <span style="margin-left:auto; color:#8a7a63; font-size:10px;">18px</span></div>
+        <div class="pop-item" data-size="20" onclick="setFontSize(20, this)">Large <span style="margin-left:auto; color:#8a7a63; font-size:10px;">20px</span></div>
+        <div class="pop-item" data-size="23" onclick="setFontSize(23, this)">Larger <span style="margin-left:auto; color:#8a7a63; font-size:10px;">23px</span></div>
+      </div>
+    </div>
+
+    <div style="position:relative;">
+      <button class="btn-top" onclick="togglePopup('commentaryPopup')" id="activeCommBtn" title="Commentary Options">💬</button>
+      <div class="popup popup-top" id="commentaryPopup">
+        <div style="font-size:10px; color:#8a7a63; margin-bottom:4px; text-transform:uppercase;">View Bhashya</div>
+        <div class="pop-item active" onclick="setCommentaryView('none', this)">None (Mula Only)</div>
+        <div class="pop-item" onclick="setCommentaryView('all', this)">All Commentaries</div>
+        <div id="commentaryDynamicList"></div>
+      </div>
+    </div>
+
+    <button class="btn-top advanced-feature" id="keyManagerBtn" onclick="openModal('keyModal')" title="Access Key Settings" style="font-size: 18px;">🔑</button>
+    <button class="btn-top" onclick="toggleDarkMode()" id="darkModeBtn" title="Toggle Dark Mode" style="font-size: 18px;">☀️</button>
+
+    <!-- Transliteration Script Selector -->
+    <div style="position:relative;">
+      <button class="btn-top" onclick="togglePopup('scriptPopup')" id="activeScriptBtn" title="Transliterate Script" style="font-size: 18px;">🔠</button>
+      <div class="popup popup-top" id="scriptPopup">
+        <div style="font-size:10px; color:#8a7a63; margin-bottom:4px; text-transform:uppercase;">Reading Script</div>
+        <div class="pop-item active" data-script="devanagari" onclick="setScript('devanagari', this)">Sanskrit <span style="margin-left:auto; font-family:var(--font-sanskrit);">संस्कृतम्</span></div>
+        <div class="pop-item" data-script="iast" onclick="setScript('iast', this)">English <span style="margin-left:auto; font-family:serif;">Eng</span></div>
+        <div class="pop-item" data-script="kannada" onclick="setScript('kannada', this)">Kannada <span style="margin-left:auto; font-family:serif;">ಕನ್ನಡ</span></div>
+        <div class="pop-item" data-script="telugu" onclick="setScript('telugu', this)">Telugu <span style="margin-left:auto; font-family:serif;">తెలుగు</span></div>
+        <div class="pop-item" data-script="tamil" onclick="setScript('tamil', this)">Tamil <span style="margin-left:auto; font-family:serif;">தமிழ்</span></div>
+        <div class="pop-item" data-script="malayalam" onclick="setScript('malayalam', this)">Malayalam <span style="margin-left:auto; font-family:serif;">മലയാളം</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="app-container">
+  <div class="header">
+    <h1 id="stotraTitle">Loading...</h1>
+    <div class="author" id="stotraAuthor">...</div>
+    <div class="rule"></div>
+  </div>
+
+  <div class="search-box-group">
+    <select id="searchScope" class="search-scope-select" onchange="handleSearch()">
+      <option value="all">Search All</option>
+      <option value="mula">Shloka Only</option>
+    </select>
+    <div class="search-container">
+      <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search text or shloka number..." oninput="handleSearch()">
+      <button class="clear-search-btn" id="clearSearchBtn" onclick="clearSearch()">✖</button>
+    </div>
+  </div>
+
+  <div class="reading-card" id="readingCard">श्लोकं चिनोतु (Select a shloka)</div>
+  <div class="shloka-list" id="shlokaList"></div>
+
+  <!-- Contribution & Support Banner -->
+  <div class="project-banner">
+    <strong style="font-size: 13px;">🙏 Sarvamoola Digitisation Project</strong><br>
+    To contribute, sponsor digitisation, or support our educational initiatives, please write to:<br>
+    <a href="mailto:sanatanavidyagurukulam@gmail.com" id="configEmailLink" style="display:inline-block; margin-top:6px;">sanatanavidyagurukulam@gmail.com</a>
+  </div>
+
+  <div class="app-footer" id="appFooter">v9.1</div>
+</div>
+
+<!-- Search Navigator Floating Pill -->
+<div class="search-navigator" id="searchNavigator">
+  <span id="searchMatchCount">0/0</span>
+  <button class="search-nav-btn" onclick="navSearch(-1)">▲</button>
+  <button class="search-nav-btn" onclick="navSearch(1)">▼</button>
+  <div style="width: 1px; height: 16px; background: var(--card-border); margin: 0 4px;"></div>
+  <button class="search-nav-btn" style="color: #8a7a63;" onclick="clearSearch()" title="Clear Search">✖</button>
+</div>
+
+<!-- Bottom Toolbar -->
+<div class="bottom-player">
+  <div class="player-inner">
+    <div class="controls-main">
+      <button class="btn-nav" onclick="playPrevFiltered()" aria-label="Previous">⏮</button>
+      <button class="btn-play flex-center" id="playBtn" onclick="togglePlay()" aria-label="Play/Pause">▶</button>
+      <button class="btn-nav" onclick="playNextFiltered()" aria-label="Next">⏭</button>
+    </div>
+
+    <div class="timer-group">
+      <div class="track-label" id="trackLabel">०/४३</div>
+      <div class="time-display" id="timeDisplay">0:00.000 / 0:00.000</div>
+      <div class="repeat-counter" id="repeatCounter"></div>
+    </div>
+
+    <div class="popup-container advanced-feature">
+      <button class="btn-sm" onclick="togglePopup('filterPopup')" id="filterBtn">🔽 Filter</button>
+      <div class="popup" id="filterPopup" style="left: 50%; transform: translateX(-50%);">
+        <div class="pop-item active" id="opt-all" onclick="setFilter('all')">▶ All</div>
+        <div class="pop-item" id="opt-fav" onclick="setFilter('fav')">▶ ★ Favorites</div>
+        <div class="pop-item" id="opt-practice" onclick="setFilter('practice')">▶ 🚩 Practice</div>
+        <div class="pop-item" id="opt-none" onclick="setFilter('none')">⏸ Single Track</div>
+        <hr>
+        <div class="range-box">
+          <div class="range-row-flex">
+            <span>📐 Range:</span>
+            <select id="rangeMode" style="font-size:11px; padding:2px; border-radius:4px; background:var(--card-bg); color:var(--text-primary); border:1px solid var(--card-border);" onchange="applyRangeFilter()">
+              <option value="include">Include</option>
+              <option value="exclude">Exclude</option>
+            </select>
+          </div>
+          <div class="range-row-flex">
+            <input class="pop-input" type="number" id="rangeStart" placeholder="From" min="1" max="43" onchange="applyRangeFilter()">
+            <span style="font-size: 10px; font-weight:normal;">to</span>
+            <input class="pop-input" type="number" id="rangeEnd" placeholder="To" min="1" max="43" onchange="applyRangeFilter()">
+            <button class="clear-range-btn" onclick="clearRange()">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="popup-container advanced-feature">
+      <button class="btn-sm" onclick="togglePopup('toolsPopup')" title="Tools">⚙️ Tools</button>
+      <div class="popup" id="toolsPopup" style="right: 0;">
+        <div class="pop-row">
+          <span>⚡ <span id="speedVal">1.0</span>x</span>
+          <input type="range" class="pop-range" id="speedInput" min="0.5" max="2.0" step="0.1" value="1.0">
+        </div>
+        <div class="pop-row">
+          <span>🔁 Rep:</span>
+          <input type="number" class="pop-input" id="repeatInput" value="1" min="1" onchange="updateRepeatDisplay()">
+        </div>
+        <hr>
+        <div style="font-size: 12px; font-weight: 700; margin-bottom: 4px;">
+          <label class="flex-row" style="gap:6px; cursor:pointer; color: var(--accent-red);">
+            <input type="checkbox" id="autoABToggle" style="margin:0; width:14px; height:14px;"> 🎯 Auto A-B Capture
+          </label>
+        </div>
+        <div class="ab-container">
+          <label class="flex-row" style="gap:6px; cursor:pointer; margin:0;">
+            <input type="checkbox" id="enableAB" style="margin:0; width:14px; height:14px;"> ✂️ Active Loop
+          </label>
+          <div class="ab-row-inputs">
+            <span>Start: <input class="pop-input" type="number" id="loopA" placeholder="0.0" step="0.1"></span>
+            <span>End: <input class="pop-input" type="number" id="loopB" placeholder="End" step="0.1"></span>
+          </div>
+          <button class="btn-sm" style="margin-top: 4px;" onclick="saveSnippet()">💾 Save Snippet</button>
+        </div>
+        <hr>
+        <button class="btn-sm flex-center" id="cacheBtn" style="width:100%; background:var(--card-active); color:var(--accent-red); border-color:var(--accent-red);" onclick="cacheAllAudio(this)">📥 Preload All Audio</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="context-menu" id="markerMenu">
+  <div onclick="setMark('fav')">⭐ Mark Favorite</div>
+  <div onclick="setMark('practice')">🚩 Needs Practice</div>
+  <div onclick="setMark('none')" style="color: #888;">❌ Clear Marker</div>
+</div>
+
+<!-- Modal Structure Engine -->
+<script>
+  function openModal(id) {
+    document.getElementById(id).style.display = 'flex';
+    document.body.classList.add('modal-open'); 
+  }
+  function closeModal(id) {
+    document.getElementById(id).style.display = 'none';
+    document.body.classList.remove('modal-open'); 
+  }
+</script>
+
+<div class="modal-overlay" id="snippetModal">
+  <div class="modal-content">
+    <div class="modal-header-sticky">
+       <h4 style="margin:0; color:var(--accent-red); font-size: 16px;">🎯 Saved Snippets</h4>
+       <button class="btn-sm" onclick="closeModal('snippetModal')" style="font-size:11px;">✖ Close</button>
+    </div>
+    <div class="modal-body">
+      <div id="snippetListContainer"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Notes Modal with Maximize Fix -->
+<div class="modal-overlay" id="noteModal">
+  <div class="modal-content" id="noteModalBox">
+    <div class="modal-header-sticky">
+       <h4 style="margin:0; color:var(--accent-red); font-size: 16px;">📝 Notes (Shloka <span id="noteShlokaNum"></span>)</h4>
+       <div style="display:flex; gap:6px;">
+         <button class="btn-sm" onclick="toggleMaximizeNote()" id="maxNoteBtn" style="font-size:11px;">⛶ Expand</button>
+         <button class="btn-sm" onclick="closeNoteModal()" style="font-size:11px;">✖ Close</button>
+       </div>
+    </div>
+    <div class="modal-body">
+      <textarea id="noteText" placeholder="Write your notes or append Acharya excerpts here..."></textarea>
+      <div style="display:flex; justify-content:space-between; margin-top: 12px; flex-shrink: 0;">
+        <button class="btn-sm" onclick="clearNote()" style="color:var(--accent-red);">🗑 Clear All</button>
+        <button class="btn-sm" style="background:var(--accent-red); color:#fff; border:none;" onclick="saveNote()">Save Notes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bhashya Picker Modal -->
+<div class="modal-overlay" id="bhashyaPickerModal">
+  <div class="modal-content">
+    <div class="modal-header-sticky">
+       <h4 style="margin:0; color:var(--accent-red); font-size: 16px;">📜 Select Bhashya to Analyze</h4>
+       <button class="btn-sm" onclick="closeModal('bhashyaPickerModal')" style="font-size:11px;">✖ Close</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12px; color:#8a7a63; margin:0 0 12px 0;">Which traditional commentary would you like Acharya to break down line-by-line?</p>
+      <div id="bhashyaOptionsContainer"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="keyModal">
+  <div class="modal-content">
+    <div class="modal-header-sticky">
+       <h3 style="margin:0; color:var(--accent-red); font-size: 16px;">🔑 Secret Access</h3>
+       <button class="btn-sm" onclick="closeModal('keyModal')" style="font-size:11px;">✖ Close</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:12px; color:#666; margin:0 0 12px 0; line-height: 1.5;">Enter your Secret Access Key below to enable deep textual analysis. If you do not have one, please contact the administrator at <strong id="contactEmailDisplay">sanatanavidyagurukulam@gmail.com</strong>.</p>
+      <input type="password" id="userApiKeyInput" class="modal-input" placeholder="Enter Access Key Here...">
+      <div style="text-align:right; margin-top:16px;">
+        <button class="btn-sm" style="background:var(--accent-red); color:#fff; border:none;" onclick="saveUserApiKey()">Save Key</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="acharyaModal">
+  <div class="modal-content" id="acharyaModalBox">
+    <div class="modal-header-sticky">
+      <h4 style="margin:0; color:var(--accent-red); font-size: 16px;">🕉️ Acharya's Analysis</h4>
+      <div style="display:flex; gap:6px;">
+         <button class="btn-sm" onclick="shareAcharyaAnalysis()" style="font-size:11px;">📤 Share</button>
+         <button class="btn-sm" onclick="closeAcharyaModal()" style="font-size:11px;">✖ Close</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div id="acharyaLoading" style="display:none; text-align:center; padding: 30px;">
+        <span style="font-size:28px; display:inline-block; animation: spin 1s linear infinite;">⏳</span>
+        <p style="font-size:13px; font-weight: 600; color:#8a7a63; margin-top:12px;">Consulting traditional scriptures...</p>
+      </div>
+      <div id="acharyaResult" style="font-size:14px; line-height:1.7; overflow-wrap: anywhere;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // --- MASTER CONFIG STATE ---
+  let appConfig = {
+    appName: "Bhagavata Digital Library",
+    designedBy: "Tribhuvan Achar",
+    contactEmail: "sanatanavidyagurukulam@gmail.com",
+    geminiModel: "gemini-3.6-flash", 
+    secretPasskey: "SHRI108",
+    version: "v9.1 (Transliteration Patch)"
+  };
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const providedPass = urlParams.get('pass');
+
+  fetch('config.json')
+    .then(r => r.ok ? r.json() : {})
+    .then(cfg => {
+      if (cfg.geminiModel) appConfig.geminiModel = cfg.geminiModel;
+      if (cfg.designedBy) appConfig.designedBy = cfg.designedBy;
+      if (cfg.secretPasskey) appConfig.secretPasskey = cfg.secretPasskey;
+      if (cfg.contactEmail) appConfig.contactEmail = cfg.contactEmail;
+      
+      if (providedPass && providedPass.toUpperCase() === appConfig.secretPasskey.toUpperCase()) {
+        localStorage.setItem('acharyaAuthorized', 'true');
+      }
+      initAuthAndBranding();
+    })
+    .catch(() => {
+      if (providedPass && providedPass.toUpperCase() === appConfig.secretPasskey.toUpperCase()) {
+        localStorage.setItem('acharyaAuthorized', 'true');
+      }
+      initAuthAndBranding();
+    });
+
+  function initAuthAndBranding() {
+    const isAuthorized = localStorage.getItem('acharyaAuthorized') === 'true';
+    if (isAuthorized) { document.body.classList.add('is-authorized'); }
+    document.getElementById('stotraAuthor').innerText = `DESIGNED BY ${appConfig.designedBy.toUpperCase()}`;
+    document.getElementById('contactEmailDisplay').innerText = appConfig.contactEmail;
+    document.getElementById('configEmailLink').href = `mailto:${appConfig.contactEmail}`;
+    document.getElementById('configEmailLink').innerText = appConfig.contactEmail;
+    document.getElementById('appFooter').innerText = `${appConfig.version} · Designed by ${appConfig.designedBy}`;
+  }
+
+  // --- APP STATE ---
+  const stotraCode = urlParams.get('code') || 'pns';
+  const jsonFileName = `data_${stotraCode}.json`;
+  const AUDIO_CACHE_NAME = `narasimha-audio-${stotraCode}`;
+
+  function nsKey(base) { return `narasimha_${base}_${stotraCode}`; }
+
+  let stotraData = null;
+  let currentAudio = new Audio();
+  let activeId = null;
+  let contextShlokaId = null; 
+  let currentAcharyaShlokaId = null; 
+  let isPlaying = false;
+  let currentLoopCount = 0;
+  let currentFilter = 'all';
+  let activeScript = 'devanagari'; 
+  let selectedCommentaryView = 'none';
+  let lastSelectedText = "";
+  let modalSelectedText = "";
+  let targetNoteId = null;
+  let targetMenuId = null;
+  let audioRetryDone = false;
+  let searchDebounceTimer = null;
+
+  window.searchMatches = [];
+  window.currentMatchIdx = -1;
+
+  let marks = JSON.parse(localStorage.getItem(nsKey('marks')) || '{}');
+  let notes = JSON.parse(localStorage.getItem(nsKey('notes')) || '{}');
+  let snippets = JSON.parse(localStorage.getItem(nsKey('snippets')) || '{}');
+
+  const els = {
+    playBtn: document.getElementById('playBtn'), speedInput: document.getElementById('speedInput'),
+    speedVal: document.getElementById('speedVal'), trackLabel: document.getElementById('trackLabel'),
+    timeDisplay: document.getElementById('timeDisplay'), repeatCounter: document.getElementById('repeatCounter'),
+    readingCard: document.getElementById('readingCard'), markerMenu: document.getElementById('markerMenu'),
+    filterBtn: document.getElementById('filterBtn'), searchInput: document.getElementById('searchInput'),
+    clearSearchBtn: document.getElementById('clearSearchBtn'), repeatInput: document.getElementById('repeatInput'),
+    cacheBtn: document.getElementById('cacheBtn'), listEl: document.getElementById('shlokaList'),
+    loopA: document.getElementById('loopA'), loopB: document.getElementById('loopB'), enableAB: document.getElementById('enableAB'),
+    autoABToggle: document.getElementById('autoABToggle'), searchScope: document.getElementById('searchScope'),
+    navContainer: document.getElementById('searchNavigator')
+  };
+
+  function applyDarkMode(isDark) {
+    document.body.classList.toggle('dark-mode', isDark);
+    document.getElementById('darkModeBtn').innerText = isDark ? '🌙' : '☀️';
+    const meta = document.getElementById('themeColorMeta');
+    if (meta) meta.setAttribute('content', isDark ? '#18120E' : '#FFFDF9');
+  }
+  function toggleDarkMode() {
+    const isDark = !document.body.classList.contains('dark-mode');
+    applyDarkMode(isDark);
+    localStorage.setItem('app_darkMode', isDark ? 'true' : 'false');
+  }
+
+  function applyFontSize(px) {
+    document.documentElement.style.setProperty('--font-multiplier', px + 'px');
+    document.querySelectorAll('#fontPopup .pop-item').forEach(el => {
+      el.classList.toggle('active', parseInt(el.dataset.size, 10) === px);
+    });
+  }
+  function setFontSize(px, el) {
+    applyFontSize(px);
+    localStorage.setItem('app_fontSize', String(px));
+    togglePopup('fontPopup');
+  }
+
+  // ROBUST HTML-Safe Transliteration Core
+  function applyTransliteration(htmlText, script) {
+    if (script === 'devanagari' || !htmlText) return htmlText;
+    if (typeof Sanscript === 'undefined') {
+       console.error("Transliteration engine failed to load. Check internet connection.");
+       return htmlText; 
+    }
+    try {
+        const parts = htmlText.split(/(<[^>]+>)/g);
+        for (let i = 0; i < parts.length; i++) {
+          if (!parts[i].startsWith('<')) {
+            // FIX: Strip invisible zero-width characters that break transliterators
+            let cleanText = parts[i].replace(/[\u200B-\u200D\uFEFF]/g, '');
+            parts[i] = Sanscript.t(cleanText, 'devanagari', script);
+          }
+        }
+        return parts.join('');
+    } catch (e) {
+        console.error("Transliteration error:", e);
+        return htmlText;
+    }
+  }
+
+  function applyScript(code) {
+    activeScript = code;
+    document.querySelectorAll('#scriptPopup .pop-item').forEach(el => {
+      if (el.dataset.script) {
+        el.classList.toggle('active', el.dataset.script === code);
+      }
+    });
+    if (code !== 'devanagari') {
+        document.body.classList.add('non-devanagari');
+    } else {
+        document.body.classList.remove('non-devanagari');
+    }
+  }
+  
+  function setScript(code, el) {
+    applyScript(code);
+    localStorage.setItem('app_script', code);
+    
+    showToast("आचार्यः ग्रन्थं सज्जीकुर्वन् अस्ति... (Translating script)");
+    
+    setTimeout(() => {
+        renderList();
+        if (activeId) els.readingCard.innerHTML = getText(activeId);
+        togglePopup('scriptPopup');
+    }, 50);
+  }
+
+  (function restorePrefs() {
+    applyDarkMode(localStorage.getItem('app_darkMode') === 'true');
+    const savedFont = parseInt(localStorage.getItem('app_fontSize'), 10);
+    if (!isNaN(savedFont)) applyFontSize(savedFont);
+    const savedScript = localStorage.getItem('app_script');
+    if (savedScript) applyScript(savedScript);
+  })();
+
+  fetch(jsonFileName)
+    .then(res => { if(!res.ok) throw new Error(`Could not find ${jsonFileName}`); return res.json(); })
+    .then(data => { stotraData = data; initApp(); })
+    .catch(err => {
+      document.getElementById('stotraTitle').innerText = "Data Not Found";
+      els.readingCard.innerText = `Error: Please ensure '${jsonFileName}' is available in your repository.`;
+    });
+
+  function initApp() {
+    document.getElementById('stotraTitle').innerHTML = applyTransliteration(stotraData.metadata.title, activeScript);
+    document.getElementById('rangeStart').max = stotraData.metadata.totalShlokas || 43;
+    document.getElementById('rangeEnd').max = stotraData.metadata.totalShlokas || 43;
+
+    const dynamicList = document.getElementById('commentaryDynamicList');
+    dynamicList.innerHTML = '';
+    els.searchScope.innerHTML = '<option value="all">Search All</option><option value="mula">Shloka Only</option>';
+
+    if(stotraData.metadata.availableCommentaries) {
+      Object.entries(stotraData.metadata.availableCommentaries).forEach(([key, name]) => {
+        dynamicList.innerHTML += `<div class="pop-item" onclick="setCommentaryView('${key}', this)">${applyTransliteration(name, activeScript)}</div>`;
+        els.searchScope.innerHTML += `<option value="${key}">${applyTransliteration(name, activeScript)} Only</option>`;
+      });
+    }
+
+    if (localStorage.getItem(nsKey('allCached')) === 'true') {
+      els.cacheBtn.innerText = `✅ All Cached`;
+      els.cacheBtn.dataset.cached = "true";
+      els.cacheBtn.style.background = "#e8f5e9"; els.cacheBtn.style.color = "#2e7d32"; els.cacheBtn.style.borderColor = "#c8e6c9";
+    }
+
+    renderList();
+  }
+
+  function getText(id) {
+    if (!stotraData || !stotraData.shlokas[id]) return `श्लोक ${id}`;
+    return applyTransliteration(stotraData.shlokas[id].sa, activeScript);
+  }
+
+  function formatTime(s) { if (isNaN(s)) return "0:00.000"; const m = Math.floor(s/60), sec = Math.floor(s%60), ms = Math.floor((s%1)*1000); return m + ":" + (sec<10?"0":"") + sec + "." + String(ms).padStart(3,'0'); }
+  function updateRepeatDisplay() { const t = parseInt(els.repeatInput.value) || 1; els.repeatCounter.innerText = (activeId && t > 1) ? `Loop ${currentLoopCount + 1}/${t}` : ""; }
+
+  function getFilteredIds() {
+    if(!stotraData) return [];
+    let ids = [];
+    const total = stotraData.metadata.totalShlokas || 43;
+    const rs = parseInt(document.getElementById('rangeStart').value), re = parseInt(document.getElementById('rangeEnd').value);
+    const rm = document.getElementById('rangeMode').value, hasRange = !isNaN(rs) && !isNaN(re) && rs <= re;
+    for (let i = 1; i <= total; i++) {
+      if (currentFilter === 'fav' && marks[i] !== 'fav') continue;
+      if (currentFilter === 'practice' && marks[i] !== 'practice') continue;
+      if (hasRange) { const inR = (i >= rs && i <= re); if ((rm === 'include' && !inR) || (rm === 'exclude' && inR)) continue; }
+      ids.push(i);
+    }
+    return ids;
+  }
+
+  function clearRange() { document.getElementById('rangeStart').value = ""; document.getElementById('rangeEnd').value = ""; applyRangeFilter(); }
+  function setFilter(type) {
+    currentFilter = type; document.getElementById('filterPopup').classList.remove('show');
+    document.querySelectorAll('#filterPopup .pop-item').forEach(el => el.classList.remove('active')); document.getElementById(`opt-${type}`).classList.add('active');
+    renderList();
+    if (type !== 'none') { const aIds = getFilteredIds(); if (aIds.length) playShloka(aIds[0]); else { currentAudio.pause(); activeId = null; isPlaying = false; updatePlayUI(); } }
+  }
+  function applyRangeFilter() { renderList(); const aIds = getFilteredIds(); if (aIds.length && currentFilter !== 'none') playShloka(aIds[0]); }
+
+  function handleSearch() {
+    els.clearSearchBtn.style.display = els.searchInput.value ? 'block' : 'none';
+    clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = setTimeout(renderList, 120);
+  }
+  function clearSearch() { els.searchInput.value = ''; els.navContainer.style.display = 'none'; handleSearch(); }
+
+  function highlightText(text, query) {
+    if (!query) return text;
+    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${escapedQuery})(?![^<]*>|[^<>]*<\\/)`, 'gi');
+    return text.replace(regex, '<mark class="search-match">$1</mark>');
+  }
+
+  function renderList() {
+    if(!stotraData) return;
+    els.listEl.innerHTML = '';
+    const fIds = getFilteredIds();
+    const query = els.searchInput.value.toLowerCase().trim();
+    const scope = els.searchScope.value;
+    const total = stotraData.metadata.totalShlokas || 43;
+
+    window.searchMatches = [];
+    window.currentMatchIdx = -1;
+
+    for (let i = 1; i <= total; i++) {
+      if (!fIds.includes(i)) continue;
+      const shloka = stotraData.shlokas[i];
+      if (!shloka) continue;
+
+      let forceCommentaries = [];
+      let hasMatch = false;
+
+      if(query) {
+        if(scope === 'all') {
+          hasMatch = i.toString().includes(query) || shloka.sa.toLowerCase().includes(query);
+          if (shloka.commentaries) {
+            Object.entries(shloka.commentaries).forEach(([cKey, cText]) => {
+              if (cText.toLowerCase().includes(query)) {
+                forceCommentaries.push(cKey);
+                hasMatch = true;
+              }
+            });
+          }
+        } else if(scope === 'mula') {
+          hasMatch = i.toString().includes(query) || shloka.sa.toLowerCase().includes(query);
+        } else if(shloka.commentaries && shloka.commentaries[scope]) {
+          hasMatch = shloka.commentaries[scope].toLowerCase().includes(query);
+          if(hasMatch) forceCommentaries.push(scope);
+        }
+        if(!hasMatch) continue;
+      }
+
+      const c = document.createElement('div');
+      c.className = `shloka-card ${activeId===i ? 'active':''}`; c.id = `shloka-${i}`;
+
+      let cardActionsHtml = '';
+      let badgeHtml = '';
+      if (document.body.classList.contains('is-authorized')) {
+        let mClass = "btn-icon", mIcon = "⋮";
+        if (marks[i] === 'fav') { mClass += " is-fav"; mIcon = "★"; } else if (marks[i] === 'practice') { mClass += " is-practice"; mIcon = "🚩"; }
+        const nClass = notes[i] ? "btn-icon has-note" : "btn-icon";
+        badgeHtml = (snippets[i] && snippets[i].length > 0) ? `<div class="snippet-badge" onclick="openSnippetModal(${i}, event)">🎯 ${snippets[i].length}</div>` : '';
+        cardActionsHtml = `<div class="card-actions"><button class="${nClass}" onclick="openNote(${i})">📝</button><button class="${mClass}" onclick="openMarkerMenu(event, ${i})">${mIcon}</button></div>`;
+      }
+
+      let commentaryHtml = '';
+      if (shloka.commentaries) {
+        Object.entries(shloka.commentaries).forEach(([cKey, cText]) => {
+          const isSelected = (selectedCommentaryView === 'all' || selectedCommentaryView === cKey);
+          const isForcedBySearch = forceCommentaries.includes(cKey);
+
+          if (isSelected || isForcedBySearch) {
+            const name = stotraData.metadata.availableCommentaries[cKey] || cKey;
+            let convertedText = applyTransliteration(cText, activeScript);
+            let convertedName = applyTransliteration(name, activeScript);
+            commentaryHtml += `<div class="commentary-block" data-ckey="${cKey}"><div class="commentary-title">${convertedName}</div>${highlightText(convertedText, query)}</div>`;
+          }
+        });
+      }
+
+      c.innerHTML = `
+        <div class="shloka-main-row">
+          <div class="shloka-num">${i}</div>
+          <div class="shloka-text" onclick="playShloka(${i})">${highlightText(getText(i), query)} ${badgeHtml}</div>
+          ${cardActionsHtml}
+        </div>
+        ${commentaryHtml}`;
+      els.listEl.appendChild(c);
+    }
+
+    window.searchMatches = Array.from(document.querySelectorAll('.search-match'));
+    if (query && window.searchMatches.length > 0) {
+      els.navContainer.style.display = 'flex';
+      navSearch(1);
+    } else {
+      els.navContainer.style.display = 'none';
+    }
+  }
+
+  function navSearch(direction) {
+    if (!window.searchMatches || window.searchMatches.length === 0) return;
+    if(window.currentMatchIdx >= 0 && window.searchMatches[window.currentMatchIdx]) { window.searchMatches[window.currentMatchIdx].classList.remove('active-match'); }
+
+    window.currentMatchIdx += direction;
+    if (window.currentMatchIdx >= window.searchMatches.length) window.currentMatchIdx = 0;
+    if (window.currentMatchIdx < 0) window.currentMatchIdx = window.searchMatches.length - 1;
+
+    const target = window.searchMatches[window.currentMatchIdx];
+    target.classList.add('active-match');
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById('searchMatchCount').innerText = `${window.currentMatchIdx + 1} / ${window.searchMatches.length}`;
+  }
+
+  function updatePlayUI() {
+    els.playBtn.innerHTML = isPlaying ? '⏸' : '▶';
+    if(activeId) els.readingCard.classList.toggle('highlight', isPlaying);
+    // Same fix as dge/js/audio.js: don't show the persistent player just
+    // because a track was selected (activeId set) -- only once it's
+    // actually been played (isPlaying, or paused partway through).
+    var player = document.querySelector('.bottom-player');
+    if (player) player.classList.toggle('dge-audio-active', isPlaying || (!!activeId && currentAudio.currentTime > 0));
+  }
+
+  currentAudio.addEventListener('playing', () => { isPlaying = true; updatePlayUI(); });
+  currentAudio.addEventListener('pause', () => { isPlaying = false; updatePlayUI(); });
+  currentAudio.addEventListener('loadedmetadata', () => { currentAudio.playbackRate = parseFloat(els.speedInput.value) || 1.0; els.timeDisplay.innerText = `0:00.000 / ${formatTime(currentAudio.duration)}`; updateRepeatDisplay(); });
+
+  currentAudio.addEventListener('error', () => {
+    if (!activeId || !stotraData) return;
+    if (audioRetryDone) { els.timeDisplay.innerText = "Audio unavailable"; return; }
+    audioRetryDone = true;
+    currentAudio.src = `${stotraData.metadata.archiveBaseUrl}${stotraData.metadata.filePrefix}${activeId}%E2%80%8B${stotraData.metadata.fileExtension}`;
+    currentAudio.load();
+    currentAudio.play().then(() => { isPlaying=true; updatePlayUI(); }).catch(()=>{});
+  });
+
+  async function resolveAudioSrc(id) {
+    const primary = `${stotraData.metadata.archiveBaseUrl}${stotraData.metadata.filePrefix}${id}${stotraData.metadata.fileExtension}`;
+    const alt = `${stotraData.metadata.archiveBaseUrl}${stotraData.metadata.filePrefix}${id}%E2%80%8B${stotraData.metadata.fileExtension}`;
+    if ('caches' in window) {
+      try {
+        const cache = await caches.open(AUDIO_CACHE_NAME);
+        const hit = (await cache.match(primary)) || (await cache.match(alt));
+        if (hit) { const blob = await hit.blob(); return URL.createObjectURL(blob); }
+      } catch (e) {}
+    }
+    return primary;
+  }
+
+  async function playShloka(id) {
+    if (!stotraData) return;
+    if (activeId === id && isPlaying) { currentAudio.pause(); return; }
+    activeId = id; contextShlokaId = id; currentLoopCount = 0; audioRetryDone = false; updateRepeatDisplay(); renderList();
+    const ac = document.getElementById(`shloka-${id}`); if (ac) ac.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    const total = stotraData.metadata.totalShlokas || 43;
+    els.trackLabel.innerText = `${id}/${total}`; els.readingCard.innerHTML = getText(id); els.timeDisplay.innerText = "0:00.000 / 0:00.000";
+    currentAudio.src = await resolveAudioSrc(id);
+    currentAudio.playbackRate = parseFloat(els.speedInput.value) || 1.0;
+    els.loopA.value = ""; els.loopB.value = ""; els.enableAB.checked = false;
+    currentAudio.play().catch(err => { if(err.name !== 'AbortError') console.error(err); });
+  }
+
+  function togglePlay() {
+    if (!stotraData) return;
+    if (!activeId) { const aIds = getFilteredIds(); if(aIds.length) playShloka(aIds[0]); }
+    else if (isPlaying) {
+      currentAudio.pause();
+      if (els.autoABToggle.checked) {
+        const curr = currentAudio.currentTime.toFixed(1);
+        if (!els.loopA.value) { els.loopA.value = curr; }
+        else if (!els.loopB.value) { els.loopB.value = curr; els.enableAB.checked = true; currentAudio.currentTime = parseFloat(els.loopA.value); currentAudio.play(); }
+        else { els.loopA.value = ""; els.loopB.value = ""; els.enableAB.checked = false; }
+      }
+    } else { currentAudio.play(); }
+  }
+
+  function playNextFiltered() { const ids = getFilteredIds(); if (!ids.length) return; const idx = ids.indexOf(activeId); if (idx !== -1 && idx < ids.length - 1) playShloka(ids[idx + 1]); else { currentAudio.pause(); els.repeatCounter.innerText = ""; } }
+  function playPrevFiltered() { const ids = getFilteredIds(); if (!ids.length) return; const idx = ids.indexOf(activeId); if (idx > 0) playShloka(ids[idx - 1]); else playShloka(ids[ids.length - 1]); }
+
+  currentAudio.addEventListener('timeupdate', () => {
+    els.timeDisplay.innerText = `${formatTime(currentAudio.currentTime)} / ${formatTime(currentAudio.duration)}`;
+    if (els.enableAB.checked) { const end = parseFloat(els.loopB.value), start = parseFloat(els.loopA.value) || 0; if (end && currentAudio.currentTime >= end) currentAudio.currentTime = start; }
+  });
+  currentAudio.addEventListener('ended', () => {
+    const tRep = parseInt(els.repeatInput.value) || 1;
+    if (++currentLoopCount < tRep) { currentAudio.currentTime = parseFloat(els.loopA.value) || 0; updateRepeatDisplay(); currentAudio.play(); }
+    else { currentLoopCount = 0; updateRepeatDisplay(); if (currentFilter === 'none') { isPlaying=false; updatePlayUI(); return; } playNextFiltered(); }
+  });
+
+  function setCommentaryView(view, el) {
+    selectedCommentaryView = view;
+    document.querySelectorAll('#commentaryPopup .pop-item').forEach(item => item.classList.remove('active'));
+    if (el) el.classList.add('active');
+    togglePopup('commentaryPopup');
+    renderList();
+  }
+
+  // --- SELECTION TOOLTIP & DYNAMIC ID TRACKING ---
+  document.addEventListener('selectionchange', () => {
+    if (!document.body.classList.contains('is-authorized')) return;
+
+    const activeTag = document.activeElement ? document.activeElement.tagName : '';
+    if (['INPUT', 'TEXTAREA'].includes(activeTag)) {
+       document.getElementById('actionTooltip').style.display = 'none';
+       document.getElementById('modalAppendBtn').style.display = 'none';
+       return;
+    }
+
+    clearTimeout(window.selectionTimeout);
+    window.selectionTimeout = setTimeout(() => {
+      const selection = window.getSelection();
+      const txt = selection.toString().trim();
+      const tooltip = document.getElementById('actionTooltip');
+      const modalAppendBtn = document.getElementById('modalAppendBtn');
+
+      const acharyaResEl = document.getElementById('acharyaResult');
+      const isInsideAcharyaModal = acharyaResEl && acharyaResEl.contains(selection.anchorNode);
+
+      const anchor = selection.anchorNode;
+      const shlokaCard = anchor && anchor.nodeType === 3 ? anchor.parentElement.closest('.shloka-card') : (anchor && anchor.closest ? anchor.closest('.shloka-card') : null);
+      if (shlokaCard) {
+        contextShlokaId = parseInt(shlokaCard.id.split('-')[1]);
+      } else if (!isInsideAcharyaModal) {
+        contextShlokaId = null;
+      }
+
+      if (txt.length > 0) {
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        if(rect.top === 0 && rect.left === 0) return;
+
+        if (isInsideAcharyaModal) {
+          modalSelectedText = txt;
+          tooltip.style.display = 'none';
+          modalAppendBtn.style.display = 'block';
+          modalAppendBtn.style.top = `${Math.min(rect.bottom + 8, window.innerHeight - 50)}px`;
+          modalAppendBtn.style.left = `${rect.left + (rect.width / 2)}px`;
+        } else {
+          lastSelectedText = txt;
+          modalAppendBtn.style.display = 'none';
+          tooltip.style.display = 'flex';
+          const tw = tooltip.offsetWidth || 260;
+          let left = rect.left + (rect.width / 2);
+          left = Math.max(tw/2 + 8, Math.min(left, window.innerWidth - tw/2 - 8));
+          
+          let yPos = rect.bottom + 8;
+          if (yPos + 100 > window.innerHeight) { 
+              yPos = rect.top - 95; 
+          }
+          
+          tooltip.style.top = `${yPos}px`;
+          tooltip.style.left = `${left}px`;
+        }
+      } else {
+        tooltip.style.display = 'none';
+        modalAppendBtn.style.display = 'none';
+      }
+    }, 50);
+  });
+
+  function parseMarkdown(md) {
+    return md
+      .replace(/^### (.*$)/gim, '<div class="md-h3">$1</div>')
+      .replace(/^## (.*$)/gim, '<div class="md-h2">$1</div>')
+      .replace(/^\* (.*$)/gim, '<ul class="md-list"><li>$1</li></ul>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong class="md-strong">$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/<\/ul>\n<ul class="md-list">/gim, '')
+      .replace(/\n/g, '<br>');
+  }
+
+  // --- SELECTIVE APPEND TO NOTES ---
+  function appendSelectedTextToNote(e) {
+    if (e) e.preventDefault();
+
+    document.getElementById('modalAppendBtn').style.display = 'none';
+    window.getSelection().removeAllRanges();
+
+    const targetId = currentAcharyaShlokaId || contextShlokaId || activeId;
+
+    if (!targetId) {
+      showToast("Please tap on a Shloka card first to make it active before appending notes.");
+      return;
+    }
+
+    if (!modalSelectedText) return;
+
+    const existingNote = notes[targetId] || "";
+    const updatedNote = existingNote ? `${existingNote}\n\n[Acharya Excerpt]:\n${modalSelectedText}` : `[Acharya Excerpt]:\n${modalSelectedText}`;
+    notes[targetId] = updatedNote;
+    localStorage.setItem(nsKey('notes'), JSON.stringify(notes));
+
+    renderList();
+    showToast(`Successfully appended excerpt to Shloka ${targetId} notes!`);
+  }
+
+  // --- SECRET KEY SETTINGS ---
+  function openKeyModal() { 
+      document.getElementById('userApiKeyInput').value = localStorage.getItem('user_gemini_key') || ''; 
+      openModal('keyModal');
+  }
+  function closeKeyModal() { closeModal('keyModal'); }
+  function saveUserApiKey() {
+    const key = document.getElementById('userApiKeyInput').value.trim();
+    if(key) { localStorage.setItem('user_gemini_key', key); } else { localStorage.removeItem('user_gemini_key'); }
+    closeKeyModal();
+  }
+
+  // --- DYNAMIC BHASHYA PICKER WORKFLOW ---
+  function openBhashyaPicker(e) {
+    if (e) e.preventDefault();
+    document.getElementById('actionTooltip').style.display = 'none';
+    
+    // FIX: Force Android Native Toolbar Dismissal
+    window.getSelection().removeAllRanges();
+
+    const targetId = contextShlokaId || activeId || 1;
+    currentAcharyaShlokaId = targetId;
+
+    const shloka = stotraData.shlokas[targetId];
+    const container = document.getElementById('bhashyaOptionsContainer');
+    container.innerHTML = '';
+
+    if (shloka && shloka.commentaries) {
+      Object.entries(shloka.commentaries).forEach(([cKey, cText]) => {
+        const name = stotraData.metadata.availableCommentaries[cKey] || cKey;
+        const displayName = applyTransliteration(name, activeScript);
+        container.innerHTML += `
+          <button class="bhashya-picker-btn" onpointerdown="executeBhashyaAnalysis('${cKey}')">
+             <span>📖 ${displayName}</span>
+             <span style="font-size:11px; opacity:0.6;">Analyze ➔</span>
+          </button>`;
+      });
+
+      container.innerHTML += `
+        <button class="bhashya-picker-btn" style="border-color: var(--accent-gold);" onpointerdown="executeBhashyaAnalysis('all')">
+           <span>📚 All Available Commentaries Combined</span>
+           <span style="font-size:11px; opacity:0.6;">Analyze ➔</span>
+        </button>`;
+    }
+
+    container.innerHTML += `
+      <button class="bhashya-picker-btn" style="background:transparent; border-style:dashed;" onpointerdown="executeBhashyaAnalysis('general')">
+         <span>🌐 General Acharya Analysis (External Knowledge)</span>
+         <span style="font-size:11px; opacity:0.6;">Analyze ➔</span>
+      </button>`;
+
+    openModal('bhashyaPickerModal');
+  }
+
+  function closeBhashyaPicker() {
+    closeModal('bhashyaPickerModal');
+  }
+
+  function executeBhashyaAnalysis(cKey) {
+    closeBhashyaPicker();
+    const targetId = currentAcharyaShlokaId || contextShlokaId || activeId || 1;
+    const shloka = stotraData.shlokas[targetId];
+
+    let commentaryTextToFeed = "";
+    let commTitle = "";
+
+    if (cKey === 'all') {
+      commTitle = "All Available Commentaries";
+      Object.entries(shloka.commentaries).forEach(([k, v]) => {
+         const name = stotraData.metadata.availableCommentaries[k] || k;
+         commentaryTextToFeed += `\n--- Commentary: ${name} ---\n${v}\n`;
+      });
+    } else if (cKey !== 'general' && shloka.commentaries && shloka.commentaries[cKey]) {
+      commTitle = stotraData.metadata.availableCommentaries[cKey] || cKey;
+      commentaryTextToFeed = shloka.commentaries[cKey];
+    }
+
+    const payload = {
+      type: 'commentary',
+      selectedText: lastSelectedText,
+      shlokaText: shloka ? shloka.sa : "",
+      commentaryTitle: commTitle,
+      commentaryText: commentaryTextToFeed
+    };
+
+    askAcharya(null, 'commentary', payload);
+  }
+
+  // --- ASK ACHARYA (Madhva Sampradaya Context) ---
+  async function askAcharya(e, type, payload) {
+    if (e) e.preventDefault();
+    document.getElementById('actionTooltip').style.display = 'none';
+
+    currentAcharyaShlokaId = contextShlokaId || activeId;
+
+    const apiKey = localStorage.getItem('user_gemini_key');
+    if (!apiKey && document.body.classList.contains('is-authorized')) { 
+        openKeyModal(); return; 
+    } else if (!apiKey) {
+        openModal('acharyaModal');
+        document.getElementById('acharyaLoading').style.display = 'none';
+        document.getElementById('acharyaResult').innerHTML = `<span style="color:var(--accent-red); font-weight:bold;">आचार्यः ध्याने मग्नः अस्ति (Acharya is meditating).</span><br><br>The traditional text analysis engine is currently unavailable. Please try again later.`;
+        return;
+    }
+
+    const text = payload ? payload.selectedText : (lastSelectedText || window.getSelection().toString().trim());
+    if(!text && type !== 'commentary') return;
+    window.getSelection().removeAllRanges();
+
+    openModal('acharyaModal');
+    document.getElementById('acharyaLoading').style.display = 'block';
+    document.getElementById('acharyaResult').innerHTML = '';
+
+    let targetLang = "English";
+    if(activeScript === 'kannada') targetLang = "Kannada";
+    if(activeScript === 'telugu') targetLang = "Telugu";
+    if(activeScript === 'tamil') targetLang = "Tamil";
+    if(activeScript === 'malayalam') targetLang = "Malayalam";
+
+    let promptText = "";
+    if (type === 'shloka') {
+        promptText = `You are a traditional scholar of the Madhva Sampradaya (Dvaita Vedanta). For the verse: "${text}", provide: 1. Padachheda (Word-by-word split) 2. Anvaya (Prose word order) 3. Word Meaning 4. Bhavartha (Overarching theme strictly according to Sri Madhvacharya's philosophy). Format using clean markdown headings.`;
+    } else if (type === 'grammar') {
+        promptText = `You are a traditional Vyakarana Acharya. For the text: "${text}", provide: 1. Dhatu & Gana (if verb) 2. Pratyaya (Krt/Taddhita/Tin) 3. Vibhakti & Linga (if noun) 4. Samasa Vigraha (if compound). Format using clean markdown.`;
+    } else if (type === 'commentary') {
+        if (payload && payload.commentaryText) {
+            promptText = `You are a traditional scholar of the Madhva Sampradaya (Dvaita Vedanta). Analyze ONLY the supplied commentary text provided below. Do NOT hallucinate external commentaries.
+
+Mula Shloka: "${payload.shlokaText}"
+Commentary Name: "${payload.commentaryTitle}"
+Commentary Text: "${payload.commentaryText}"
+Highlighted Fragment: "${payload.selectedText}"
+
+Provide a detailed scholarly breakdown in clean markdown:
+1. Sentence-by-Sentence Breakdown & Word-by-Word Meaning of this supplied commentary fragment.
+2. Pramana & Citation Expansion: Identify every scriptural quote (Shruti, Smriti, Gita, Amarakosha, etc.) cited in this text. Provide the FULL Sanskrit quote, source attribution, and precise meaning.
+3. Philosophical Siddhanta strictly according to Sri Madhvacharya's Dvaita philosophy derived from this commentary.`;
+        } else {
+            promptText = `You are a traditional scholar of the Madhva Sampradaya (Dvaita Vedanta). Analyze this commentary excerpt: "${text}". Provide: 1. Sentence Breakdown 2. Purvapaksha & Siddhanta (strictly according to Sri Madhvacharya) 3. Pramana/Citations expanded with full quotes. Format using clean markdown.`;
+        }
+    } else if (type === 'translate') {
+        promptText = `Translate and explain the meaning of this Sanskrit text: "${text}" into ${targetLang}. Provide a natural translation and a brief summary of its philosophical significance according to the Madhva Sampradaya (Dvaita philosophy). Format cleanly using markdown.`;
+    }
+
+    try {
+      const modelName = appConfig.geminiModel || "gemini-3.6-flash";
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`, {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+      });
+      const data = await response.json();
+      if(data.error) throw new Error(data.error.message);
+
+      let result = data.candidates[0].content.parts[0].text;
+      document.getElementById('acharyaLoading').style.display = 'none';
+      document.getElementById('acharyaResult').innerHTML = parseMarkdown(result);
+    } catch (err) {
+      document.getElementById('acharyaLoading').style.display = 'none';
+      if (document.body.classList.contains('is-authorized')) {
+         document.getElementById('acharyaResult').innerHTML = `<span style="color:var(--accent-red); font-weight:bold;">Admin Debug Error:</span> ${err.message}`;
+      } else {
+         document.getElementById('acharyaResult').innerHTML = `<span style="color:var(--accent-red); font-weight:bold;">आचार्यः ध्याने मग्नः अस्ति (Acharya is meditating).</span><br><br>The traditional text analysis engine is currently unavailable. Please try again later.`;
+      }
+    }
+  }
+
+  function shareAcharyaAnalysis() {
+    const resText = document.getElementById('acharyaResult').innerText;
+    if (!resText) return;
+    if (navigator.share) {
+      navigator.share({ title: `Acharya Analysis (Shloka ${currentAcharyaShlokaId || activeId || ''})`, text: resText }).catch(()=>{});
+    } else {
+      navigator.clipboard.writeText(resText);
+      showToast("Analysis copied to clipboard!");
+    }
+  }
+
+  function closeAcharyaModal() { 
+    closeModal('acharyaModal');
+    document.getElementById('modalAppendBtn').style.display = 'none';
+    window.getSelection().removeAllRanges();
+  }
+
+  // --- SNIPPETS ---
+  function saveSnippet() {
+    if(!activeId) return alert("Select a shloka first.");
+    const a = parseFloat(els.loopA.value), b = parseFloat(els.loopB.value);
+    if(isNaN(a) || isNaN(b)) return alert("Set Start and End times in the A-B Loop first.");
+    if(!snippets[activeId]) snippets[activeId] = [];
+    snippets[activeId].push({ start: a, end: b });
+    localStorage.setItem(nsKey('snippets'), JSON.stringify(snippets));
+    renderList();
+  }
+
+  let targetSnipId = null;
+  function openSnippetModal(id, e) {
+    e.stopPropagation(); targetSnipId = id;
+    document.getElementById('snipShlokaNum').innerText = id;
+    const container = document.getElementById('snippetListContainer'); container.innerHTML = '';
+
+    if(snippets[id] && snippets[id].length > 0) {
+      snippets[id].forEach((snip, index) => {
+        container.innerHTML += `
+          <div class="snip-list-item">
+            <div><strong>Loop ${index + 1}:</strong> ${snip.start}s to ${snip.end}s</div>
+            <div><button class="btn-sm" style="color:var(--accent-red); margin-right:4px;" onclick="playSnippet(${id}, ${snip.start}, ${snip.end})">▶ Play</button><button class="btn-sm" onclick="deleteSnippet(${id}, ${index})">🗑</button></div>
+          </div>`;
+      });
+    } else { container.innerHTML = "<p style='font-size:12px; color:#8a7a63;'>No snippets saved.</p>"; }
+    openModal('snippetModal');
+  }
+  function closeSnippetModal() { closeModal('snippetModal'); }
+  function playSnippet(id, start, end) { closeSnippetModal(); if(activeId !== id) { playShloka(id); } els.loopA.value = start; els.loopB.value = end; els.enableAB.checked = true; currentAudio.currentTime = start; currentAudio.play(); }
+  function deleteSnippet(id, index) { snippets[id].splice(index, 1); if(snippets[id].length === 0) delete snippets[id]; localStorage.setItem(nsKey('snippets'), JSON.stringify(snippets)); renderList(); openSnippetModal(id, {stopPropagation:()=>{}}); }
+
+  // --- POPUPS & MARKERS ---
+  function togglePopup(id) { document.querySelectorAll('.popup').forEach(p => { if(p.id !== id) p.classList.remove('show'); }); document.getElementById(id).classList.toggle('show'); }
+
+  function openMarkerMenu(e, id) {
+    targetMenuId = id;
+    const menu = els.markerMenu;
+    menu.classList.add('show');
+    const rect = menu.getBoundingClientRect();
+    let x = e.clientX - 130, y = e.clientY - 40;
+    x = Math.max(8, Math.min(x, window.innerWidth - rect.width - 8));
+    y = Math.max(8, Math.min(y, window.innerHeight - rect.height - 8));
+    menu.style.left = `${x}px`;
+    menu.style.top = `${y}px`;
+  }
+  function setMark(type) { if (type === 'none') delete marks[targetMenuId]; else marks[targetMenuId] = type; localStorage.setItem(nsKey('marks'), JSON.stringify(marks)); els.markerMenu.classList.remove('show'); renderList(); }
+
+  // --- AUDIO PRELOAD ---
+  async function cacheAllAudio(btn) {
+    if(!stotraData || btn.dataset.cached === "true") return;
+    if (!('caches' in window)) { alert('This browser does not support offline caching.'); return; }
+
+    btn.innerText = "⏳ Preloading 0%"; btn.disabled = true;
+    const total = stotraData.metadata.totalShlokas || 43;
+    const cache = await caches.open(AUDIO_CACHE_NAME);
+    const queue = Array.from({ length: total }, (_, i) => i + 1);
+    let done = 0, success = 0;
+    const CONCURRENCY = 4;
+
+    async function worker() {
+      while (queue.length) {
+        const i = queue.shift();
+        const primary = `${stotraData.metadata.archiveBaseUrl}${stotraData.metadata.filePrefix}${i}${stotraData.metadata.fileExtension}`;
+        const alt = `${stotraData.metadata.archiveBaseUrl}${stotraData.metadata.filePrefix}${i}%E2%80%8B${stotraData.metadata.fileExtension}`;
+        try {
+          let res = await fetch(primary);
+          if (!res.ok) res = await fetch(alt);
+          if (res.ok) { await cache.put(res.url, res.clone()); success++; }
+        } catch (e) { /* skip this track */ }
+        done++;
+        btn.innerText = `⏳ Preloading ${Math.round((done/total)*100)}%`;
+      }
+    }
+    await Promise.all(Array.from({ length: CONCURRENCY }, worker));
+
+    localStorage.setItem(nsKey('allCached'), 'true');
+    btn.innerText = `✅ All Cached (${success}/${total})`;
+    btn.dataset.cached = "true";
+    btn.style.background = "#e8f5e9"; btn.style.color = "#2e7d32"; btn.style.borderColor = "#c8e6c9";
+  }
+
+  // --- NOTES MODAL & EXPAND/MINIMIZE ---
+  function openNoteModal() {
+     openModal('noteModal');
+  }
+  function closeNoteModal() {
+     closeModal('noteModal');
+     document.getElementById('noteModalBox').classList.remove('fullscreen');
+     document.getElementById('maxNoteBtn').innerText = '⛶ Expand';
+  }
+  function openNote(id) { 
+    targetNoteId = id; 
+    document.getElementById('noteShlokaNum').innerText = id; 
+    document.getElementById('noteText').value = notes[id] || ""; 
+    openNoteModal();
+  }
+  function saveNote() { 
+    const txt = document.getElementById('noteText').value.trim(); 
+    if(txt) notes[targetNoteId] = txt; else delete notes[targetNoteId]; 
+    localStorage.setItem(nsKey('notes'), JSON.stringify(notes)); 
+    closeNoteModal(); 
+    renderList(); 
+    showToast(`Saved notes for Shloka ${targetNoteId}!`);
+  }
+  function clearNote() {
+    if (confirm("Are you sure you want to clear all notes for this Shloka?")) {
+        document.getElementById('noteText').value = "";
+    }
+  }
+  function toggleMaximizeNote() {
+    const box = document.getElementById('noteModalBox');
+    const btn = document.getElementById('maxNoteBtn');
+    box.classList.toggle('fullscreen');
+    if (box.classList.contains('fullscreen')) {
+        btn.innerText = '🗗 Minimize';
+    } else {
+        btn.innerText = '⛶ Expand';
+    }
+  }
+
+  els.speedInput.addEventListener('input', (e) => { els.speedVal.innerText = parseFloat(e.target.value).toFixed(1); currentAudio.playbackRate = e.target.value; });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.popup-container') && !e.target.closest('.popup') && !e.target.closest('.top-actions')) document.querySelectorAll('.popup').forEach(p => p.classList.remove('show'));
+    if (!e.target.closest('.card-actions') && !e.target.closest('.context-menu')) els.markerMenu.classList.remove('show');
+  });
+</script>
+</body>
+</html>
