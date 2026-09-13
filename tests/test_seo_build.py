@@ -3,9 +3,28 @@ that pass the validator's per-page checks, and every generated page carries the 
 import json, re, subprocess, sys
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools/seo"))
 import taxonomy as T  # noqa: E402
+
+# The SEO build reads the reader app's own hand-written index.html files — to
+# know which public URLs are already taken, and to place the catalogue beside
+# them. Those pages live in the Buddhi repository now; this one holds the data
+# and the tools. So the two tests that build a site and check it against the
+# app's own tree have nothing here to check against, while the two that only
+# exercise the URL grammar still do. Skipped rather than deleted: the day
+# tools/seo moves to Buddhi, or is given a site root to point at, they are the
+# tests that say whether it still works.
+# The app's own front door. Buddhi has one; this repo does not. (Note the
+# only index.html here is tools/audio_admin/templates/index.html, a Flask
+# template that reserved_urls() already mistakes for a reserved public URL —
+# worth excluding there whichever repo the build ends up running in.)
+NEEDS_SITE_TREE = not (ROOT / "index.html").exists()
+needs_site = pytest.mark.skipif(
+    NEEDS_SITE_TREE,
+    reason="needs the reader app's index.html tree, which lives in the Buddhi repo")
 
 
 def test_public_urls_unique_and_shaped():
@@ -30,6 +49,7 @@ def test_labels_and_transliteration():
     assert T.slugify_segment("mandala_01") == "mandala-1" and T.slugify_segment("PrahladaKrutaNarasimha") == "prahladakrutanarasimha"
 
 
+@needs_site
 def test_subset_build_and_validate(tmp_path):
     out = tmp_path / "site"
     subprocess.run([sys.executable, str(ROOT / "tools/seo/build_seo_site.py"), "--out", str(out), "--only", "DvaitaVedanta/Itara/Kavya/raghavendra_vijaya", "--quiet"], check=True, capture_output=True)
@@ -48,6 +68,7 @@ def test_subset_build_and_validate(tmp_path):
     assert not [b for b in rep["blocking"] if "broken link" not in b and "missing from the sitemap" not in b and "orphan" not in b and "no page" not in b], rep["blocking"][:5]
 
 
+@needs_site
 def test_generated_index_never_lands_on_an_app_page(tmp_path):
     """The reader owns / and /kavya/ (its own index.html files); generated category indexes move aside."""
     import sys, json

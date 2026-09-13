@@ -104,9 +104,25 @@ def load_recognisers():
     return morph, verbs, upasargas
 
 
+def _sandhi():
+    """The third-party splitter, built on first use and kept per worker.
+
+    Deliberately not built in init_worker. Everything else in this module —
+    the ranking, the bucket names, which half counts as a verb or an upasarga
+    — is this repo's own logic and needs no splitter at all. Constructing one
+    eagerly meant none of that could be exercised without sanskrit_parser
+    installed, which is exactly what the test file's own docstring says it is
+    not testing. The import still happens once per worker, at the first split.
+    """
+    s = _STATE.get('sandhi')
+    if s is None:
+        from sanskrit_parser.parser.sandhi import Sandhi
+        s = _STATE['sandhi'] = Sandhi()
+    return s
+
+
 def init_worker(morph, verbs, upasargas, min_half):
-    from sanskrit_parser.parser.sandhi import Sandhi
-    _STATE['sandhi'] = Sandhi()
+    _STATE['sandhi'] = None
     _STATE['morph'] = morph
     _STATE['verbs'] = verbs
     _STATE['upasargas'] = upasargas
@@ -128,7 +144,7 @@ def split_word(word):
     from sanskrit_parser.base.sanskrit_base import SanskritImmutableString, sanscript
     try:
         obj = SanskritImmutableString(word, encoding=sanscript.DEVANAGARI)
-        raw = _STATE['sandhi'].split_all(obj)
+        raw = _sandhi().split_all(obj)
     except Exception:
         return word, []
     if not raw:

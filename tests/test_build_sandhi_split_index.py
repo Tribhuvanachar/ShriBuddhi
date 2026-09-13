@@ -13,6 +13,12 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "tools"))
 
 import build_sandhi_split_index as b  # noqa: E402
 
+try:  # noqa: SIM105 — the bucket names come from sanskrit_parser's SLP1 form
+    import sanskrit_parser  # noqa: F401
+    HAS_PARSER = True
+except ImportError:
+    HAS_PARSER = False
+
 
 class Ranking(unittest.TestCase):
     def rank(self, splits, counts):
@@ -55,6 +61,11 @@ class Ranking(unittest.TestCase):
         self.assertEqual(self.rank(splits, {}), self.rank(list(reversed(splits)), {}))
 
 
+@unittest.skipUnless(HAS_PARSER, "needs sanskrit_parser: these assert that this "
+                                 "module's bucket names match the ones ai.js computes, "
+                                 "and both are derived from the library's own SLP1 form. "
+                                 "Substituting another transliterator here would test "
+                                 "agreement with something the build never uses.")
 class Buckets(unittest.TestCase):
     def test_bucket_matches_the_clients_own_convention(self):
         # ai.js's dgeSandhiBucketOf: first two SLP1 characters, an uppercase

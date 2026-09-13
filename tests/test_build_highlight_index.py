@@ -201,7 +201,8 @@ class MultiScriptClient(unittest.TestCase):
     index stays Devanagari-keyed; the client carries the word back to it."""
 
     def setUp(self):
-        base = os.path.join(os.path.dirname(__file__), "..", "dge")
+        # The reader's JS sits at the repository root now, not under dge/.
+        base = os.path.join(os.path.dirname(__file__), "..")
         with open(os.path.join(base, "js", "highlight-words.js"), encoding="utf-8") as fh:
             self.js = fh.read()
         self.base = base

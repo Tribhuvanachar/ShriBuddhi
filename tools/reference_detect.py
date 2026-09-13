@@ -315,15 +315,23 @@ class SutraDetector:
                         break
         self.fragments = {f: next(iter(ids)) for f, ids in owners.items() if len(ids) == 1}
 
+        # The same table the automaton is built from, kept so there is
+        # something to scan when ahocorasick is not installed. DhatuDetector
+        # has always had that fallback; this class did not, and without it a
+        # missing third-party package silently produced ZERO sutra links
+        # rather than failing — the one outcome a corpus tool should never
+        # have, because nothing downstream can tell "no citations here" from
+        # "the matcher was never built".
+        self.whole = {}
+        for n, sid in entries:
+            self.whole.setdefault(n, []).append(sid)
+
         self.automaton = None
         self.frag_automaton = None
         if ahocorasick and entries:
             a = ahocorasick.Automaton()
-            for n, sid in entries:
-                if a.exists(n):
-                    a.get(n).append(sid)
-                else:
-                    a.add_word(n, [sid])
+            for n, sids in self.whole.items():
+                a.add_word(n, list(sids))
             a.make_automaton()
             self.automaton = a
         if ahocorasick and self.fragments:
@@ -333,54 +341,80 @@ class SutraDetector:
             fa.make_automaton()
             self.frag_automaton = fa
 
+    def _whole_hits(self, ntext):
+        """(end_index, [sutra ids]) for every whole sūtra present in `ntext`.
+
+        Yields exactly what ahocorasick's iter() yields — the index of the
+        match's LAST character — so the caller's span arithmetic is identical
+        either way.
+        """
+        if self.automaton:
+            yield from self.automaton.iter(ntext)
+            return
+        for n, sids in self.whole.items():                   # pragma: no cover
+            start = ntext.find(n)
+            while start >= 0:
+                yield start + len(n) - 1, sids
+                start = ntext.find(n, start + 1)
+
     def detect(self, text):
         ntext, omap = normalize_with_map(text)
         if not ntext:
             return []
         out, seen = [], set()
-        if self.automaton:
-            for end, ids in self.automaton.iter(ntext):
-                for sid in ids:
-                    if sid in seen:
+        for end, ids in self._whole_hits(ntext):
+            for sid in ids:
+                if sid in seen:
+                    continue
+                nlen = self.norm_len[sid]
+                n0 = max(0, end - (nlen - 1))
+                o0 = omap[n0]
+                o1 = omap[min(len(omap) - 1, end)]
+                if o0 > 0 and DEVA_LETTER.match(text[o0 - 1]):
+                    continue
+                if o1 + 1 < len(text) and DEVA_LETTER.match(text[o1 + 1]):
+                    continue
+                if nlen < self.FREESTANDING_NORM:
+                    after = text[o1 + 1:o1 + 12]
+                    before = text[max(0, o0 - 3):o0]
+                    around = text[max(0, o0 - 50):min(len(text), o1 + 30)]
+                    # The quote has to CLOSE just after the sūtra, or the
+                    # sūtra is only a word inside somebody else's
+                    # quotation: ‘स्त्रियां मूर्तिस्तनुस्तनूः’ इत्यमरः is
+                    # Amara being quoted, and 4.1.3 स्त्रियाम् happens to
+                    # be its first word.
+                    closing = text[o1 + 1:o1 + 4]
+                    quoted = (any(q in before for q in OPENQ)
+                              and any(q in closing for q in CLOSEQ))
+                    cued = self.CUE.search(around)
+                    # A following इति counts only for a MULTI-word sūtra:
+                    # a single ordinary word closes statements with इति all
+                    # the time (मम प्रयोजनम् इति भावः is not a citation of
+                    # 5.1.108, and 39 such non-citations turned up in the
+                    # first build of the prayoga index).
+                    if not (quoted or cued or (self.multiword[sid] and ITI.match(after))):
                         continue
-                    nlen = self.norm_len[sid]
-                    n0 = max(0, end - (nlen - 1))
-                    o0 = omap[n0]
-                    o1 = omap[min(len(omap) - 1, end)]
-                    if o0 > 0 and DEVA_LETTER.match(text[o0 - 1]):
-                        continue
-                    if o1 + 1 < len(text) and DEVA_LETTER.match(text[o1 + 1]):
-                        continue
-                    if nlen < self.FREESTANDING_NORM:
-                        after = text[o1 + 1:o1 + 12]
-                        before = text[max(0, o0 - 3):o0]
-                        around = text[max(0, o0 - 50):min(len(text), o1 + 30)]
-                        # The quote has to CLOSE just after the sūtra, or the
-                        # sūtra is only a word inside somebody else's
-                        # quotation: ‘स्त्रियां मूर्तिस्तनुस्तनूः’ इत्यमरः is
-                        # Amara being quoted, and 4.1.3 स्त्रियाम् happens to
-                        # be its first word.
-                        closing = text[o1 + 1:o1 + 4]
-                        quoted = (any(q in before for q in OPENQ)
-                                  and any(q in closing for q in CLOSEQ))
-                        cued = self.CUE.search(around)
-                        # A following इति counts only for a MULTI-word sūtra:
-                        # a single ordinary word closes statements with इति all
-                        # the time (मम प्रयोजनम् इति भावः is not a citation of
-                        # 5.1.108, and 39 such non-citations turned up in the
-                        # first build of the prayoga index).
-                        if not (quoted or cued or (self.multiword[sid] and ITI.match(after))):
-                            continue
-                    if is_protected(text, o0, o1 + 1):
-                        continue
-                    seen.add(sid)
-                    out.append(self._ref(text, o0, o1 + 1, sid, 'high',
-                                         'sutra text quoted verbatim'))
+                if is_protected(text, o0, o1 + 1):
+                    continue
+                seen.add(sid)
+                out.append(self._ref(text, o0, o1 + 1, sid, 'high',
+                                     'sutra text quoted verbatim'))
         out += self._fragments(text, ntext, omap, seen)
         return out
 
+    def _frag_hits(self, ftext):
+        """(end_index, (fragment, sutra id)) — the automaton's own shape."""
+        if self.frag_automaton:
+            yield from self.frag_automaton.iter(ftext)
+            return
+        for frag, sid in self.fragments.items():             # pragma: no cover
+            start = ftext.find(frag)
+            while start >= 0:
+                yield start + len(frag) - 1, (frag, sid)
+                start = ftext.find(frag, start + 1)
+
     def _fragments(self, text, ntext, omap, seen):
-        if not self.frag_automaton:
+        if not self.fragments:
             return []
         ftext = fold(text)
         if len(ftext) != len(ntext):
@@ -388,7 +422,7 @@ class SutraDetector:
             # stops being true, refuse rather than misplace every span.
             return []
         out = []
-        for end, (frag, sid) in self.frag_automaton.iter(ftext):
+        for end, (frag, sid) in self._frag_hits(ftext):
             if sid in seen:
                 continue
             n0 = max(0, end - len(frag) + 1)

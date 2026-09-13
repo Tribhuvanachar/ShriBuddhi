@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 spec = importlib.util.spec_from_file_location(
-    "build_search_index", ROOT / "build_search_index.py")
+    "build_search_index", ROOT / "tools" / "build_search_index.py")
 B = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(B)
 
