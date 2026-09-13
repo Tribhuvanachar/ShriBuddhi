@@ -160,16 +160,114 @@ def digitise(pdf_slice: str, language: str, fmt: str, key: str, poll=6, max_wait
     return status, payload
 
 
-def unpack(payload: bytes, fmt: str, pages: list[int]) -> list[dict]:
-    """The result is a zip (one file per page) or a single document. Either
-    way, return one entry per requested page, in order."""
+#: Sarvam's own layout vocabulary, mapped onto the block tags the studio and
+#: tools/ocr_review_merge.py understand. The point of the mapping is that each
+#: Sarvam tag keeps its OWN slot: admin/ocr-studio.html's "all N" selects every
+#: block the OCR tagged alike, so folding footnote and paragraph both onto <p>
+#: would quietly destroy the distinction Sarvam paid attention to make.
+LAYOUT_TAGS = {
+    "headline": "h1",
+    "section-title": "h2",
+    "header": "h4",        # the running head at the top of a page
+    "paragraph": "p",
+    "footnote": "blockquote",
+    "page-number": "div",
+    "formula": "pre",
+}
+DEFAULT_TAG = "p"
+
+
+def blocks_to_html(blocks: list[dict]) -> str:
+    """One page of Sarvam blocks as HTML, in reading order.
+
+    `layout_tag` is carried through as data-layout so nothing Sarvam decided is
+    lost to the tag mapping, and the confidence rides along for a reviewer who
+    wants to know which blocks to look at first.
+    """
+    rows = sorted(blocks, key=lambda b: b.get("reading_order", 0))
     out = []
+    for b in rows:
+        text = (b.get("text") or "").strip()
+        if not text:
+            continue
+        lt = b.get("layout_tag") or ""
+        tag = LAYOUT_TAGS.get(lt, DEFAULT_TAG)
+        body = "<br>".join(
+            line.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            for line in text.split("\n"))
+        attrs = f' data-layout="{lt}"' if lt else ""
+        conf = b.get("confidence")
+        if isinstance(conf, (int, float)):
+            attrs += f' data-confidence="{conf:.2f}"'
+        out.append(f"<{tag}{attrs}>{body}</{tag}>")
+    return "\n".join(out)
+
+
+def unpack(payload: bytes, fmt: str, pages: list[int]) -> list[dict]:
+    """One entry per requested page.
+
+    Sarvam's zip is not "one file per page". For a ten-page slice asked for as
+    HTML it returned twelve members: a status manifest, ten per-page JSON files
+    carrying every block with its layout_tag, reading order, bounding box and
+    confidence, and the rendered HTML for the whole slice as ONE document.
+
+    The first version of this function concatenated all twelve — manifest
+    included — into a single "html" string filed under the first page. The
+    output was unusable and the per-page structure Sarvam had already worked
+    out was thrown away. The per-page JSON is the better source whatever format
+    was asked for, so it is preferred when present; the flat document is the
+    fallback for a response that does not carry it.
+    """
+    out = []
+    members = []
     if payload[:2] == b"PK":
         with zipfile.ZipFile(io.BytesIO(payload)) as z:
-            names = sorted(z.namelist(), key=lambda n: [int(x) if x.isdigit() else x for x in re.split(r"(\d+)", n)])
-            docs = [z.read(n).decode("utf-8", "replace") for n in names if not n.endswith("/")]
+            names = sorted(z.namelist(),
+                           key=lambda n: [int(x) if x.isdigit() else x for x in re.split(r"(\d+)", n)])
+            members = [z.read(n).decode("utf-8", "replace") for n in names if not n.endswith("/")]
     else:
-        docs = [payload.decode("utf-8", "replace")]
+        members = [payload.decode("utf-8", "replace")]
+
+    # Per-page JSON: an object with page_num and blocks. The manifest has
+    # page_count and no blocks, so it drops out here rather than being filed
+    # as though it were a page of the book.
+    per_page = {}
+    leftovers = []
+    for m in members:
+        t = m.lstrip()
+        if t[:1] == "{":
+            try:
+                o = json.loads(m)
+            except ValueError:
+                leftovers.append(m)
+                continue
+            if isinstance(o, dict) and "page_num" in o and isinstance(o.get("blocks"), list):
+                per_page[int(o["page_num"])] = o
+                continue
+            if isinstance(o, dict) and "page_count" in o:
+                continue                       # the status manifest
+            leftovers.append(m)
+        else:
+            leftovers.append(m)
+
+    if per_page:
+        # page_num is 1-based within the slice; pages[] are the real PDF pages.
+        for i, p in enumerate(pages, start=1):
+            o = per_page.get(i)
+            if o is None:
+                out.append({"page": p, "ok": False, "error": "no page %d in the response" % i})
+                continue
+            blocks = o.get("blocks") or []
+            entry = {"page": p, "ok": True, "blocks_count": len(blocks)}
+            entry[fmt if fmt != "json" else "html"] = blocks_to_html(blocks)
+            if fmt == "json":
+                entry["blocks"] = blocks
+            if o.get("image_width"):
+                entry["image_size"] = [o.get("image_width"), o.get("image_height")]
+            out.append(entry)
+        return out
+
+    docs = leftovers or members
     if len(docs) == len(pages):
         for p, d in zip(pages, docs):
             out.append({"page": p, fmt: d, "ok": True})
