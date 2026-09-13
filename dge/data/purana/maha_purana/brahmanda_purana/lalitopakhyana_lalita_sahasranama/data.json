@@ -1,0 +1,9 @@
+{
+ "schema": "itihasa_purana_text",
+ "default_author": "Maharshi Veda Vyasa",
+ "items": [],
+ "guna_classification": "rajasa",
+ "purana_class": "mahapurana",
+ "note": "Deliberately left empty here. The Lalita Sahasranama stotra (the Hayagriva-Agastya dialogue this leaf is named for) is imported instead at dge/data/stotra/lalita_sahasranama/ -- per the project lead's call, it is used and known as a standalone stotra, not read as Purana narrative, so it belongs in the global stotra library rather than filed twice. This leaf would still be the right place for the surrounding Lalitopakhyana NARRATIVE frame (the story context, distinct from the 1000-names stotra itself) if that is ever sourced separately -- none was found on Sanskrit Wikisource as of 11 Sep 2026 (see dge/PENDING.md)."
+}
+

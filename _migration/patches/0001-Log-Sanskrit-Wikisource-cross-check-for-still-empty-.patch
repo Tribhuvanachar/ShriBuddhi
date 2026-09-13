@@ -1,0 +1,90 @@
+From e1d5ce9638490a79b01bf3d2fffc965d4db2f8cc Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 11 Sep 2026 01:13:55 +0000
+Subject: [PATCH 1/4] Log Sanskrit Wikisource cross-check for still-empty
+ Puranas
+
+Most texts flagged in the 25 Aug GRETIL batch as "not checked yet" or
+"no e-text located anywhere" (Vayu, Bhavishya, Brahmavaivarta, Padma,
+Garuda/Skanda/Shiva's remaining khandas, Narada's purvabhaga,
+Vishnudharmottara) are in fact present on sa.wikisource.org, confirmed
+via its MediaWiki search API. Vayu Purana is additionally scan-backed
+(djvu Index) and is the best-sourced candidate for a first import.
+
+Adi, Brihannaradiya, Nandi, Sanatkumara, and Saura Purana remain
+confirmed absent from Wikisource (zero API hits); only page-image
+scans exist on archive.org for most of them, which would need an OCR
+pass and a separate cost go-ahead.
+
+No content imported yet -- this is a research log update only.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01Ppr62MWTEpFSCjqsQj9pLe
+---
+ dge/PENDING.md | 53 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 53 insertions(+)
+
+diff --git a/dge/PENDING.md b/dge/PENDING.md
+index 3ec40958b..fef3be21d 100644
+--- a/dge/PENDING.md
++++ b/dge/PENDING.md
+@@ -5597,3 +5597,56 @@ The 38 remaps: all 10 Tīrtha Prabandha files (Paścima, not Dakṣiṇa) and 28
+ with `--accept-remap` → 131 pairs on the text actually heard. The 5 unresolved (SBS9.5, SBS20.30, SBS1.8,
+ SBS31.1, SBS1.16) need a human ear; two of them sound like full Bhāgavata verses the Saroddhāra text does not
+ contain. Attempt 4 therefore trained with **28 % wrong pairs**; the rerun waits on the lead's cost go-ahead.
++
++## Sanskrit Wikisource cross-check on the still-empty Puranas (11 Sep 2026)
++
++Followed up on the "not checked yet" / "not on GRETIL" items from the 25 Aug batch (part 6, above) by
++checking `sa.wikisource.org` directly — via its MediaWiki search API, not just external search-engine
++guessing — plus `sanskritdocuments.org` and `archive.org` as fallbacks. Pure research pass, no Gemini
++calls, nothing imported yet. Updates several claims from part 6:
++
++**Found on Wikisource with real chapter content (contradicts "not checked"/"not available" in part 6):**
++- **Vayu Purana** — present, and **scan-backed**: a djvu Index (369 pages, Devanagari + Hindi translation
++  edition) exists at `अनुक्रमणिका:वायुपुराणम्.djvu`. This is the best-sourced item found — worth prioritizing
++  first since it's also the one part 6 flagged as having no e-text anywhere.
++- **Bhavishya Purana** (all 4 parvas) and **Brahmavaivarta Purana** (all 4 khandas, also scan-backed via
++  djvu Index) — both fully populated, contra "e-text needs verification, not checked yet."
++- **Padma Purana** — all 7 khandas (not 6 — Wikisource's split has one more than our taxonomy assumed)
++  populated with real content, contra "not in GRETIL's registry at all... Sanskrit Documents... not
++  checked yet." Raw digitized text, "digitized by Dr. Peter Freund" per the page, no scan backing.
++- **Garuda/Skanda Purana's remaining khandas** — the "likely quick win, not attempted" from part 6 is
++  confirmed: Wikisource has all of it. Garuda splits 3-way (Ācāra/Preta/Brahma-kāṇḍa, covering both our
++  missing khandas); Skanda's 7 missing khandas (Avantya, Brahma, Kashi, Maheshvara, Nagara, Prabhasa,
++  Vaishnava) are all present and populated.
++- **Shiva Purana's remaining samhitas** — all 5 (Kailasa, Kotirudra, Shatarudra, Uma, Rudra-samhita with
++  its 5 sub-khandas) present and populated, same "quick win" category as Garuda/Skanda.
++- **Narada Purana's purvabhaga padas 1-4** — present, continuous ch. 1-125 across the 4 padas.
++- **Vishnudharmottara Purana** — far more complete on Wikisource than GRETIL's 2-excerpt stub: all 3
++  khandas, hundreds of chapters. The "low value on their own, deferred" call in part 6 was about GRETIL
++  specifically and no longer applies once Wikisource is the source.
++- **Devi Bhagavata Purana** (4 of 12 skandhas spot-checked, rest likely present) and **Ganesha Purana**
++  (both khandas) — not previously flagged as blocked, but confirmed populated on Wikisource too.
++- **Brahmanda Purana's embedded works** — mixed: Adhyatma Ramayana exists as one large (283 KB) page,
++  likely complete but not chapter-by-chapter verified (page too large for a full fetch — needs a manual
++  browser check before relying on it). Lalita Sahasranama itself is present and **scan-backed** (djvu/pdf
++  Index with Bhaskararaya's Saubhagyabhaskara commentary — second-best-sourced item after Vayu Purana),
++  but that's only the 1000-names stotra, not the surrounding Lalitopakhyana narrative frame, which was not
++  found as a separate page.
++
++**Confirmed still absent** (MediaWiki search API returned zero hits — an authoritative signal, not a weak
++external search): Adi Purana, Brihannaradiya Purana, Nandi Purana, Sanatkumara Purana, Saura Purana. None
++on `sanskritdocuments.org` either. `archive.org` has page-image scans of printed editions for Adi,
++Brihannaradiya, and Saura Purana (Nandi's archive.org match is unverified as the same work; Sanatkumara has
++no located digitized copy at all) — these are scans, not Unicode e-text, so importing them is an OCR job
++(Gemini cost estimate needed first, same as any OCR stage) and out of scope for this pass.
++
++**Caveat before importing anything found above:** only Vayu Purana, Brahmavaivarta Purana, and Lalita
++Sahasranama have Wikisource's scan-backed ProofreadPage infrastructure (djvu/pdf Index pages); their actual
++proofread/validated percentage per page wasn't confirmed and should be checked in-browser. Everything else
++marked present above is raw community-transcribed text of unverified accuracy, same caution the project
++already applies to other Wikisource-sourced imports — spot-checked for real content (1-3 sample chapters
++per text), not audited chapter-by-chapter.
++
++**Not started:** actually importing any of this. Vayu Purana is the natural first case (best-sourced,
++explicitly named in part 6 as needing "source identified, e-text not yet secured" → now secured) — scoping
++that import is the next step once the lead confirms priority.
+-- 
+2.43.0
+
