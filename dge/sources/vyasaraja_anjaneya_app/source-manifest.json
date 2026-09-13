@@ -1,0 +1,17 @@
+{
+  "institution": "Associated with Sri Vyasaraja Tirtha (Sri Vyasaraja Matha, Sosale) -- see notes on scope",
+  "source_name": "\"Vyasaraja Anjaneya Hanuman Maruti Mukhyaprana\" app (native Android)",
+  "app_package": "com.kannada.anjaneya",
+  "app_version": "18.0",
+  "app_sha256": "08a5f32ea5fe4293505a674065b424dc6e7e1a85da04fa51bbb78a5dc8f98e39",
+  "artifact": "assets/karnataka.json, assets/tamilnadu.json, assets/andhra.json, assets/maharashtra.json (merged here into vyasaraja_hanuman_installations.json)",
+  "method": "apk_asset",
+  "retrieved_at": "2026-09-11",
+  "content_type": "application/json",
+  "row_count": 323,
+  "coverage": "Karnataka 231, Tamil Nadu 47, Andhra Pradesh 43, Maharashtra 2",
+  "fields": ["state", "district", "place", "address", "map_url (Google Maps link)", "plus_code"],
+  "rights_status": "UNKNOWN - app author describes it as a devotee-curated, growing list assembled from multiple sources, not an official matha publication; the app's own about-text asks for corrections rather than asserting authorship/copyright over the compiled list; no formal licence observed",
+  "verification_status": "needs_review",
+  "notes": "This is a directory of ~732 Hanuman/Anjaneya idols traditionally said to have been installed by Sri Vyasaraja Tirtha across India (the app's intro text describes distinguishing physical features of a genuine Vyasaraja-installed idol -- kore hallu tooth, both eyes visible even in profile, sougandhika pushpa flower, abhaya hasta, shanka+chakra, tail raised in a semi-circle with a bell, a demon at the feet, sun+moon motifs). This app covers 323 of them across 4 states with address + Google Maps link. IMPORTANT SCOPE NOTE: this is the broader network of idols attributed to the saint, NOT specifically 'Vyasaraja Matha, Sosale' as an institution -- no single entry is tagged as the Sosale seat itself by that exact place name (two entries do reference 'Sosale Sri Vyasaraja Matha' as part of an address, at Bengaluru and Tumakuru branch locations, not the historical Sosale town seat). Do not conflate this dataset with 'the matha's own location' when using it. Not yet wired into dge/guru-parampara/data/ -- there is currently no deity/pratima schema anywhere in the corpus to attach it to (mathas.json and parampara.json only model saints and institutions, not individual worshipped images/idols); wiring this in should happen as part of a cross-institution pratima/deity schema decision (Phase 2 of DGE_Madhva_Acquisition_Architecture.md §26), not as a one-off just for this dataset, so it stays consistent with however Uttaradi/Sode/other institutions' deity data eventually gets modelled."
+}

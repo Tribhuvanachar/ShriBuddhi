@@ -1,0 +1,2143 @@
+From 065aa81d265a75542808f5ec776fb0a39ed2d2e4 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 11 Sep 2026 11:07:04 +0000
+Subject: [PATCH 13/13] Archive Uttaradi institutional contacts (165) and seva
+ offerings (16)
+
+Office/branch phone numbers tied to a place, not personal numbers of
+named individuals -- checked deliberately before archiving, distinct
+from the Vishwesha app's personal pontiff-phone directory which stays
+unarchived. Matches the architecture doc's "official contacts"
+institutional-knowledge domain; mathas.json has a null contact field per
+matha waiting for exactly this kind of data.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01VsaYhDriufTCN4vSPcMtHQ
+---
+ dge/PENDING.md                                |   29 +
+ .../institutional/contacts.json               | 1487 +++++++++++++++++
+ .../uttaradi_matha/institutional/seva.json    |  554 ++++++
+ .../institutional/source-manifest.json        |   19 +
+ 4 files changed, 2089 insertions(+)
+ create mode 100644 dge/sources/uttaradi_matha/institutional/contacts.json
+ create mode 100644 dge/sources/uttaradi_matha/institutional/seva.json
+ create mode 100644 dge/sources/uttaradi_matha/institutional/source-manifest.json
+
+diff --git a/dge/PENDING.md b/dge/PENDING.md
+index 3dbd0557c..346917667 100644
+--- a/dge/PENDING.md
++++ b/dge/PENDING.md
+@@ -6172,3 +6172,32 @@ to force through in one sitting; flagged Jitante Stotra and Madhwanāma
+ as the two best-motivated candidates to start with if this gets picked up.
+ 
+ `./run_tests.sh`: same pre-existing baseline, nothing new.
++
++## Uttarādi institutional contacts + seva offerings archived (11 Sep 2026, 4:36 pm IST)
++
++Last pass through the same db: `contact_table` (165 rows) and
++`seva_table`/`seva_item_table` (16 active seva offerings with priced
++sub-items, e.g. Tulasi Dala Samarpaṇe ₹1001). Archived to
++`dge/sources/uttaradi_matha/institutional/`.
++
++Checked the sensitivity question deliberately before archiving, not after:
++these are **office/branch phone numbers tied to a place** (Digvijaya
++Lakshmi Narasimha Sannidhi, research centres, publication offices), not
++named individuals' personal numbers — a different situation from the
++Vishwesha app's `ph.vss` (pontiffs' own mobile numbers), which stays
++unarchived. This is exactly the "official contacts" institutional-
++knowledge domain the architecture doc wants, and `mathas.json` even has a
++currently-null `contact` field per maṭha waiting for real data like this.
++Still marked `rights_status: UNKNOWN` in the manifest, not asserted clean.
++
++Noted but not fixed: the source's own `state` field is inconsistently
++spelled/capitalized (Bengaluru/Bangalore/bengaluru all appear as literal
++values) — kept as-is since this is a raw acquisition archive; normalizing
++it is Phase 2 wiring work, not an acquisition-time decision.
++
++This closes out what's readily extractable from the Uttarādi seed database
++for this round — remaining unexamined tables (`gallery_table`,
++`generic_media_table`, `article_table`, `booklet_table`, `announcement_table`,
++`feed_table`, `page_table`, `menu_table`) are either photo/media content
++needing the rights review already flagged, or lower-value UI/navigation
++tables not worth a dedicated pass right now.
+diff --git a/dge/sources/uttaradi_matha/institutional/contacts.json b/dge/sources/uttaradi_matha/institutional/contacts.json
+new file mode 100644
+index 000000000..9650d4054
+--- /dev/null
++++ b/dge/sources/uttaradi_matha/institutional/contacts.json
+@@ -0,0 +1,1487 @@
++[
++ {
++  "id": 1,
++  "place": "Digvijaya Lakshmi Narasimha Sannidi",
++  "state": "bengaluru",
++  "group": "bengaluru",
++  "phone_no": "8079692615",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 2,
++  "place": "Vishwa Madwa Maha Parishat Research Center",
++  "state": "bengaluru",
++  "group": "bengaluru",
++  "phone_no": "08042103176",
++  "phone_no2": "9242955488",
++  "active": 1
++ },
++ {
++  "id": 3,
++  "place": "Srisudha Kannada Magzine ",
++  "state": "bengaluru",
++  "group": "bengaluru",
++  "phone_no": "08022429132",
++  "phone_no2": "8762629132",
++  "active": 1
++ },
++ {
++  "id": 4,
++  "place": "Uttaradi Math, Bangalore",
++  "state": "bengaluru",
++  "group": "bengaluru",
++  "phone_no": "08079692615",
++  "phone_no2": "08035711753",
++  "active": 1
++ },
++ {
++  "id": 5,
++  "place": "Admin Office Bangalore",
++  "state": "bengaluru",
++  "group": "bengaluru",
++  "phone_no": "08035711753",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 6,
++  "place": "UM INFO",
++  "state": "bengaluru",
++  "group": "bengaluru",
++  "phone_no": "7676383176",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 7,
++  "place": "Sahakaranagara",
++  "state": "bengaluru",
++  "group": "bengaluru",
++  "phone_no": "0220000000",
++  "phone_no2": "9448054211",
++  "active": 1
++ },
++ {
++  "id": 8,
++  "place": "Chikkapete  ",
++  "state": "bengaluru",
++  "group": "bengaluru",
++  "phone_no": "9845196899",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 9,
++  "place": "Bagalkot ",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9480002324",
++  "phone_no2": "08354355700",
++  "active": 1
++ },
++ {
++  "id": 10,
++  "place": "Bellary ",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9900862838",
++  "phone_no2": "9481047478",
++  "active": 1
++ },
++ {
++  "id": 11,
++  "place": "Belur",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9448593380",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 12,
++  "place": "Bijapur",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9986309108",
++  "phone_no2": "7204845435",
++  "active": 1
++ },
++ {
++  "id": 13,
++  "place": "Chitradurga",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9480410950",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 14,
++  "place": "Dharwad",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "08362446535",
++  "phone_no2": "9448896707",
++  "active": 1
++ },
++ {
++  "id": 15,
++  "place": "Holenarasipura",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9845761995",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 16,
++  "place": "Hospet",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9449754187",
++  "phone_no2": "9449354922",
++  "active": 1
++ },
++ {
++  "id": 17,
++  "place": "Hubballi",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "08362278799",
++  "phone_no2": "9741704053",
++  "active": 1
++ },
++ {
++  "id": 18,
++  "place": "Narsha",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "6362716796",
++  "phone_no2": "08217648583",
++  "active": 1
++ },
++ {
++  "id": 19,
++  "place": "Raichur Gajagar Pet",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9731123457",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 20,
++  "place": "Ramanathapur",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9740217015",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 21,
++  "place": "Shivamogga",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "8762406466",
++  "phone_no2": "7989628573",
++  "active": 1
++ },
++ {
++  "id": 22,
++  "place": "Srirangapatna",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9606077142",
++  "phone_no2": "9980218142",
++  "active": 1
++ },
++ {
++  "id": 23,
++  "place": "Tumkuru",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9449905855",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 24,
++  "place": "Udupi Math",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9480518176",
++  "phone_no2": "9480518176",
++  "active": 1
++ },
++ {
++  "id": 25,
++  "place": "Ananthapur",
++  "state": "andra pradesh",
++  "group": "andra pradesh state",
++  "phone_no": "8779088185",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 26,
++  "place": "Guntur  Arundelpet",
++  "state": "andra pradesh",
++  "group": "andra pradesh state",
++  "phone_no": "7306950008",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 27,
++  "place": "Hyderabad - Kachiguda ",
++  "state": "telangana",
++  "group": "telangana state",
++  "phone_no": "04027564624",
++  "phone_no2": "7416061008",
++  "active": 1
++ },
++ {
++  "id": 28,
++  "place": "Hyderabad - Jillelaguda",
++  "state": "telangana",
++  "group": "telangana state",
++  "phone_no": "9441928448",
++  "phone_no2": "8309654594",
++  "active": 1
++ },
++ {
++  "id": 29,
++  "place": "Hyderabad - Malkajgiri",
++  "state": "telangana",
++  "group": "telangana state",
++  "phone_no": "9441117719",
++  "phone_no2": "04035660513",
++  "active": 1
++ },
++ {
++  "id": 30,
++  "place": "Mehbubnagar",
++  "state": "telangana",
++  "group": "telangana state",
++  "phone_no": "7416624684",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 31,
++  "place": "Nandyal",
++  "state": "andra pradesh",
++  "group": "andra pradesh state",
++  "phone_no": "9849355195",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 32,
++  "place": "Nellore",
++  "state": "andra pradesh",
++  "group": "andra pradesh state",
++  "phone_no": "8500441008",
++  "phone_no2": "9666108807",
++  "active": 1
++ },
++ {
++  "id": 34,
++  "place": "Tirumala",
++  "state": "andra pradesh",
++  "group": "andra pradesh state",
++  "phone_no": "9642437172",
++  "phone_no2": "9440271924",
++  "active": 1
++ },
++ {
++  "id": 35,
++  "place": "Tirupati",
++  "state": "andra pradesh",
++  "group": "andra pradesh state",
++  "phone_no": "8772221008",
++  "phone_no2": "9849179701",
++  "active": 1
++ },
++ {
++  "id": 36,
++  "place": "Vijayawada",
++  "state": "andra pradesh",
++  "group": "andra pradesh state",
++  "phone_no": "9441008284",
++  "phone_no2": "7901510081",
++  "active": 1
++ },
++ {
++  "id": 37,
++  "place": "Chennai",
++  "state": "tamil nadu state",
++  "group": "tamil nadu state",
++  "phone_no": "4428440988",
++  "phone_no2": "9444405108",
++  "active": 1
++ },
++ {
++  "id": 38,
++  "place": "Coimbatore",
++  "state": "tamil nadu",
++  "group": "tamil nadu state",
++  "phone_no": "9994941706",
++  "phone_no2": "9944008076",
++  "active": 1
++ },
++ {
++  "id": 39,
++  "place": "Kanchipuram",
++  "state": "tamil nadu state",
++  "group": "tamil nadu state",
++  "phone_no": "7299152328",
++  "phone_no2": "4427269360",
++  "active": 1
++ },
++ {
++  "id": 40,
++  "place": "Kumbakonam",
++  "state": "tamil nadu state",
++  "group": "tamil nadu state",
++  "phone_no": "9498005708",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 41,
++  "place": "Rameswaram",
++  "state": "tamil nadu state",
++  "group": "tamil nadu state",
++  "phone_no": "9731565593",
++  "phone_no2": "63615809801",
++  "active": 1
++ },
++ {
++  "id": 42,
++  "place": "Srimushnam",
++  "state": "tamil nadu state",
++  "group": "tamil nadu state",
++  "phone_no": "9445221287",
++  "phone_no2": "9940725871",
++  "active": 1
++ },
++ {
++  "id": 44,
++  "place": "Srirangam",
++  "state": "tamil nadu state",
++  "group": "tamil nadu state",
++  "phone_no": "9787304756",
++  "phone_no2": "9962070165",
++  "active": 1
++ },
++ {
++  "id": 45,
++  "place": "Selam",
++  "state": "tamil nadu state",
++  "group": "tamil nadu state",
++  "phone_no": "8610557088",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 46,
++  "place": "Thanjavur",
++  "state": "tamil nadu state",
++  "group": "tamil nadu state",
++  "phone_no": "9488674264",
++  "phone_no2": "9025648942",
++  "active": 1
++ },
++ {
++  "id": 49,
++  "place": "Kolhapur",
++  "state": "maharastra",
++  "group": "maharastra",
++  "phone_no": "02312624400",
++  "phone_no2": "08329500047",
++  "active": 1
++ },
++ {
++  "id": 50,
++  "place": "Miraj",
++  "state": "maharastra",
++  "group": "maharastra",
++  "phone_no": "0233223432",
++  "phone_no2": "9890334358",
++  "active": 1
++ },
++ {
++  "id": 51,
++  "place": "Jath",
++  "state": "maharastra",
++  "group": "maharastra",
++  "phone_no": "9420223287",
++  "phone_no2": "9922913738",
++  "active": 1
++ },
++ {
++  "id": 52,
++  "place": "Latur",
++  "state": "maharastra",
++  "group": "maharastra",
++  "phone_no": "9420213286",
++  "phone_no2": "9890454108",
++  "active": 1
++ },
++ {
++  "id": 54,
++  "place": "Prayag (Alahabad)",
++  "state": "other states ( north india )",
++  "group": "north india",
++  "phone_no": "9451366300",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 55,
++  "place": "Gaya",
++  "state": "other states ( north india )",
++  "group": "north india",
++  "phone_no": "8809341008",
++  "phone_no2": "9686611008",
++  "active": 1
++ },
++ {
++  "id": 56,
++  "place": "New Delhi",
++  "state": "other states ( north india )",
++  "group": "north india",
++  "phone_no": "7021199464",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 57,
++  "place": "Siddhpur ( Matrugaya )",
++  "state": "other states ( north india )",
++  "group": "north india",
++  "phone_no": "9825879729",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 58,
++  "place": "Kashi ( Varanasi )",
++  "state": "other states ( north india )",
++  "group": "north india",
++  "phone_no": "7398867600",
++  "phone_no2": "8808414200",
++  "active": 1
++ },
++ {
++  "id": 59,
++  "place": "Anegundi [Nava Vrundavana]",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "8533267562",
++  "phone_no2": "9449253155",
++  "active": 1
++ },
++ {
++  "id": 60,
++  "place": "Atkur",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9739726649",
++  "phone_no2": "6360903785",
++  "active": 1
++ },
++ {
++  "id": 61,
++  "place": "Hampi ( Venkatapur)  - Narahari Teerthara Sannidhana",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9449786478",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 62,
++  "place": "Chittapur",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9741705945",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 63,
++  "place": "Holehonnur",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "6361232937",
++  "phone_no2": "7483585636",
++  "active": 1
++ },
++ {
++  "id": 64,
++  "place": "Kolpur ( A.P)",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9553285924",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 65,
++  "place": "Korlahalli",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9448394287",
++  "phone_no2": "7019509548",
++  "active": 1
++ },
++ {
++  "id": 66,
++  "place": "Kurnool",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "8518244082",
++  "phone_no2": "8297221008",
++  "active": 1
++ },
++ {
++  "id": 67,
++  "place": "Mahishi",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "8296123378",
++  "phone_no2": "9449896874",
++  "active": 1
++ },
++ {
++  "id": 68,
++  "place": "Malkhed",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9632580547",
++  "phone_no2": "9448181288",
++  "active": 1
++ },
++ {
++  "id": 69,
++  "place": "Manamadurai",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "6362364027",
++  "phone_no2": "9952814813",
++  "active": 1
++ },
++ {
++  "id": 70,
++  "place": "Mannur",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9449950523",
++  "phone_no2": "9448952626",
++  "active": 1
++ },
++ {
++  "id": 71,
++  "place": "Mysore",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9448147459",
++  "phone_no2": "9445370983",
++  "active": 1
++ },
++ {
++  "id": 72,
++  "place": "Nachargudi",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "7795379732",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 73,
++  "place": "Pandharpur",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9326223700",
++  "phone_no2": "2186223700",
++  "active": 1
++ },
++ {
++  "id": 74,
++  "place": "Penukonda",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "8977265290",
++  "phone_no2": "8009980045",
++  "active": 1
++ },
++ {
++  "id": 75,
++  "place": "Rajahmundry",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9703924889",
++  "phone_no2": "7842556479",
++  "active": 1
++ },
++ {
++  "id": 76,
++  "place": "Ranebennur",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "08373262524",
++  "phone_no2": "9481042484",
++  "active": 1
++ },
++ {
++  "id": 77,
++  "place": "Sangli",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "02332333525",
++  "phone_no2": "8087280696",
++  "active": 1
++ },
++ {
++  "id": 78,
++  "place": "Santebidanur",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9866372460",
++  "phone_no2": "7780441699",
++  "active": 1
++ },
++ {
++  "id": 79,
++  "place": "Satyavijayanagaram",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9944463550",
++  "phone_no2": "9944463550",
++  "active": 1
++ },
++ {
++  "id": 80,
++  "place": "Savanoor",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9741975608",
++  "phone_no2": "08378241544",
++  "active": 1
++ },
++ {
++  "id": 81,
++  "place": "Tirukoilur",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9488614358",
++  "phone_no2": "9442865395",
++  "active": 1
++ },
++ {
++  "id": 82,
++  "place": "Veeracholapura",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9486218256",
++  "phone_no2": "6383604973",
++  "active": 1
++ },
++ {
++  "id": 83,
++  "place": "Yaragola",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "9916517333",
++  "phone_no2": "9743859952",
++  "active": 1
++ },
++ {
++  "id": 84,
++  "place": "Neera narasingpur",
++  "state": "maharastra",
++  "group": "maharastra",
++  "phone_no": "9420545746",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 85,
++  "place": "Totadri",
++  "state": "tamil nadu state",
++  "group": "tamil nadu state",
++  "phone_no": "9245442122",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 86,
++  "place": "ShadNagar",
++  "state": "telangana",
++  "group": "telangana state",
++  "phone_no": "8886100873",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 87,
++  "place": "Indur (Nijamabad)",
++  "state": "telangana",
++  "group": "telangana state",
++  "phone_no": "8985020188",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 88,
++  "place": "Guntur  Krishnanagar",
++  "state": "andra pradesh",
++  "group": "andra pradesh state",
++  "phone_no": "9449734901",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 89,
++  "place": "Rajahmundry [Mallige Satram]",
++  "state": "andra pradesh",
++  "group": "andra pradesh state",
++  "phone_no": "08832472566",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 90,
++  "place": "Vizianagaram Kanukurthi vari satram",
++  "state": "andra pradesh",
++  "group": "andra pradesh state",
++  "phone_no": "9441909321",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 91,
++  "place": "Gulbarga",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9448441740",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 92,
++  "place": "Udupi Rooms",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "8495822010",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 93,
++  "place": "Harihar",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9739778013",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 94,
++  "place": "Mysore [ Venkateshwara Dhyana Kendra ]",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "8147205326",
++  "phone_no2": "8762322984",
++  "active": 1
++ },
++ {
++  "id": 95,
++  "place": "Satyapramoda Kalyana Mantapa",
++  "state": "bengaluru",
++  "group": "bengaluru",
++  "phone_no": "7090177077",
++  "phone_no2": "08031203340",
++  "active": 1
++ },
++ {
++  "id": 96,
++  "place": "Srisudha Marathi (Pune)",
++  "state": "bengaluru",
++  "group": "bengaluru",
++  "phone_no": "9422320951",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 97,
++  "place": "Srisudha Telugu (Kurnool)",
++  "state": "bengaluru",
++  "group": "bengaluru",
++  "phone_no": "9949474877",
++  "phone_no2": "8297221008",
++  "active": 1
++ },
++ {
++  "id": 98,
++  "place": "Srisudha Tamil (Srirangam)",
++  "state": "bengaluru",
++  "group": "bengaluru",
++  "phone_no": "8667439077",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 99,
++  "place": "Raichur Satyanatha Colony",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9153381008",
++  "phone_no2": "08532223108",
++  "active": 1
++ },
++ {
++  "id": 101,
++  "place": "Ayodhya",
++  "state": "other states ( north india )",
++  "group": "north india",
++  "phone_no": "9482881829",
++  "phone_no2": "9632468785",
++  "active": 1
++ },
++ {
++  "id": 102,
++  "place": "Badarinath",
++  "state": "other states ( north india )",
++  "group": "north india",
++  "phone_no": "9410567005",
++  "phone_no2": "7302779299",
++  "active": 1
++ },
++ {
++  "id": 103,
++  "place": "Gadwal",
++  "state": "telangana state",
++  "group": "telangana state",
++  "phone_no": "6361764001",
++  "phone_no2": "9945491192",
++  "active": 1
++ },
++ {
++  "id": 104,
++  "place": "Vizianagaram venugopalaswamy temple",
++  "state": "andra pradesh",
++  "group": "andra pradesh state",
++  "phone_no": "9222001008",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 105,
++  "place": "Ambajogai",
++  "state": "maharastra",
++  "group": "maharastra",
++  "phone_no": "9689847640",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 106,
++  "place": "Belagavi",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "8970097818",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 108,
++  "place": "Orissa (Jajpur Road)",
++  "state": "other states ( north india )",
++  "group": "north india",
++  "phone_no": "08073255047",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 109,
++  "place": "Kusamurty",
++  "state": "moola_vrundavana",
++  "group": "moola vrundavana",
++  "phone_no": "81979 71964",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 110,
++  "place": "Trivendram",
++  "state": "tamil nadu state",
++  "group": "tamil nadu state",
++  "phone_no": "9082953153",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 111,
++  "place": "Diwan Sri Uttaradi Math",
++  "state": "bengaluru",
++  "group": "bengaluru",
++  "phone_no": "9448020240",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 112,
++  "place": "Sri Jayateertha Vidyapeetha",
++  "state": "Bangalore",
++  "group": "Gurukula",
++  "phone_no": "9448923346",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 113,
++  "place": "Satyadharma Vidyapeetha {Holenarasipur}",
++  "state": "Holenarasipura",
++  "group": "Gurukula",
++  "phone_no": "8880517757",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 114,
++  "place": "SatyaPramoda Vidyapeetha (HYD)",
++  "state": "Hyderabad",
++  "group": "Gurukula",
++  "phone_no": "9849191837",
++  "phone_no2": "9900036395",
++  "active": 1
++ },
++ {
++  "id": 115,
++  "place": "Satyanatha Vidyapeetha (BLR)",
++  "state": "Bangalore",
++  "group": "Gurukula",
++  "phone_no": "9900036394",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 116,
++  "place": "Vedavyasa Vidyapeetha (SEC)",
++  "state": "Secunderabad",
++  "group": "Gurukula",
++  "phone_no": "9441117719",
++  "phone_no2": "9949004401",
++  "active": 1
++ },
++ {
++  "id": 117,
++  "place": "Satyanidhiteertha Vidyapeetha {Nijamabad}",
++  "state": "Nizamabad",
++  "group": "Gurukula",
++  "phone_no": "77698 66911",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 118,
++  "place": "Sri SatyaSandhateertha Vidyapeetha (SOAN)",
++  "state": "SOAN",
++  "group": "Gurukula",
++  "phone_no": "8904010771",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 119,
++  "place": "Pramodatma Vidyapeetha (Vijayapur)",
++  "state": "Bijapur",
++  "group": "Gurukula",
++  "phone_no": "9886092722",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 120,
++  "place": "Bhavabhoda Vidyapeetha {Tirukoviluru}",
++  "state": "Tirukoviluru",
++  "group": "Gurukula",
++  "phone_no": "9442865395",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 121,
++  "place": "Atmashrama Gurukula {Bengaluru}",
++  "state": "Bengaluru",
++  "group": "Gurukula",
++  "phone_no": "7259670376",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 122,
++  "place": "Narayanapet",
++  "state": "telangana",
++  "group": "telangana state",
++  "phone_no": "9769015234",
++  "phone_no2": "9603681008",
++  "active": 1
++ },
++ {
++  "id": 123,
++  "place": "Satyabhijna Narayana Pathashala {Totadri}",
++  "state": "Nanguneri",
++  "group": "Gurukula",
++  "phone_no": "9845465297",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 124,
++  "place": "Tandur",
++  "state": "telangana state",
++  "group": "telangana state",
++  "phone_no": "9000278462",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 125,
++  "place": "Electronics City",
++  "state": "bengaluru",
++  "group": "bengaluru",
++  "phone_no": "9740644244",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 126,
++  "place": "Hyderabad - Haribowli",
++  "state": "telangana state",
++  "group": "telangana state",
++  "phone_no": "9391347208",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 127,
++  "place": "Sri Vedesha Teertha Vidyapeetha [Mannur]",
++  "state": "KARNATAKA",
++  "group": "Gurukula",
++  "phone_no": "9449950523",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 128,
++  "place": "Naimisharanya",
++  "state": "other states ( north india )",
++  "group": "north india",
++  "phone_no": "9360485700",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 130,
++  "place": "Sri Satyadhyana Vidyapeetha Mulund [Mumbai]",
++  "state": "Maharashtra",
++  "group": "Gurukula",
++  "phone_no": "7045494589",
++  "phone_no2": "2235435033",
++  "active": 1
++ },
++ {
++  "id": 131,
++  "place": "Sourabha Dasa Sahitya Vidyalaya [Koppal]",
++  "state": "KARNATAKA",
++  "group": "Gurukula",
++  "phone_no": "9916029793",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 133,
++  "place": "Mathura",
++  "state": "North india ",
++  "group": "north india",
++  "phone_no": "7302507173",
++  "phone_no2": "8169007173",
++  "active": 1
++ },
++ {
++  "id": 135,
++  "place": "Tiruvallur",
++  "state": "tamil nadu state",
++  "group": "tamil nadu state",
++  "phone_no": "8277361522",
++  "phone_no2": "7695983926",
++  "active": 1
++ },
++ {
++  "id": 136,
++  "place": "Pune",
++  "state": "maharastra",
++  "group": "maharastra",
++  "phone_no": "7799951370",
++  "phone_no2": "8850966944",
++  "active": 1
++ },
++ {
++  "id": 137,
++  "place": "Tirupati [Bhavani Nagar]",
++  "state": "andra pradesh",
++  "group": "andra pradesh state",
++  "phone_no": "7506629593",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 138,
++  "place": "Hubballi [Pramodatma Kalyan Mantap]",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "7760046013",
++  "phone_no2": "9731123457",
++  "active": 1
++ },
++ {
++  "id": 139,
++  "place": "Gangavati",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9342270222",
++  "phone_no2": "9448119966",
++  "active": 1
++ },
++ {
++  "id": 140,
++  "place": "Soan [Suvarnapuri]",
++  "state": "telangana state",
++  "group": "telangana state",
++  "phone_no": "9010791685",
++  "phone_no2": "7989988630",
++  "active": 1
++ },
++ {
++  "id": 141,
++  "place": "Satyapramodateertha vidyapeetha [Tiruppur]",
++  "state": "Tamilnadu ",
++  "group": "Gurukula",
++  "phone_no": "9043593863",
++  "phone_no2": "04212232476",
++  "active": 1
++ },
++ {
++  "id": 142,
++  "place": "Hubballi [Sriram Vidyarti Nilaya]",
++  "state": "karnataka",
++  "group": "Vidyarthi Nilaya",
++  "phone_no": "7204721069",
++  "phone_no2": "9960130001",
++  "active": 1
++ },
++ {
++  "id": 143,
++  "place": "Nasik",
++  "state": "maharashtra",
++  "group": "maharastra",
++  "phone_no": "9930774829",
++  "phone_no2": "8087253452",
++  "active": 1
++ },
++ {
++  "id": 144,
++  "place": "Ahamedabad",
++  "state": "other states ( north india )",
++  "group": "north india",
++  "phone_no": "9408688889",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 145,
++  "place": "Dvaita Vedanta Studies",
++  "state": "Karnataka",
++  "group": "Research Foundation",
++  "phone_no": "8277652023",
++  "phone_no2": "8277658863",
++  "active": 1
++ },
++ {
++  "id": 146,
++  "place": "Vishwa Madhwa Maha Parishat ",
++  "state": "Karnataka",
++  "group": "Research Foundation",
++  "phone_no": "08042103176",
++  "phone_no2": "9242955488",
++  "active": 1
++ },
++ {
++  "id": 147,
++  "place": "Yalaguru [Pramodatma Go-Samrakshana Kendra]",
++  "state": "Karnataka",
++  "group": "Goshala",
++  "phone_no": "9448190933",
++  "phone_no2": "7021159152",
++  "active": 1
++ },
++ {
++  "id": 148,
++  "place": "Nelluru [Dhanvantri Go Shala]",
++  "state": "andra pradesh",
++  "group": "Goshala",
++  "phone_no": "9666108807",
++  "phone_no2": "8500441008",
++  "active": 1
++ },
++ {
++  "id": 149,
++  "place": "Ayodhya [Kapila Goshala]",
++  "state": "Uttar Pradesh ",
++  "group": "Goshala",
++  "phone_no": "9482881829",
++  "phone_no2": "9901144877",
++  "active": 1
++ },
++ {
++  "id": 150,
++  "place": "Atkur [UM Goshala]",
++  "state": "KARNATAKA",
++  "group": "Goshala",
++  "phone_no": "9739726649",
++  "phone_no2": "6360903785",
++  "active": 1
++ },
++ {
++  "id": 151,
++  "place": "Kumbakonam [Satyabhoda Goshala]",
++  "state": "tamilnadu",
++  "group": "Goshala",
++  "phone_no": "9894005708",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 152,
++  "place": "Holenarasipura [Laxmi Narasimha Goshala]",
++  "state": "KARNATAKA",
++  "group": "Goshala",
++  "phone_no": "9845791995",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 153,
++  "place": "Anantpur [Kapila Goshala]",
++  "state": "andra pradesh",
++  "group": "Goshala",
++  "phone_no": "8779088185",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 154,
++  "place": "Kanchi [Satyadharma Goshala]",
++  "state": "tamil nadu state",
++  "group": "Goshala",
++  "phone_no": "7299152328",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 155,
++  "place": "SMSO SABHA Mandir Tirupati",
++  "state": "andra pradesh",
++  "group": "andra pradesh state",
++  "phone_no": "9490922614",
++  "phone_no2": "9849916915",
++  "active": 1
++ },
++ {
++  "id": 156,
++  "place": "Makthal",
++  "state": "telangana state",
++  "group": "telangana state",
++  "phone_no": "7672041840",
++  "phone_no2": "9553285924",
++  "active": 1
++ },
++ {
++  "id": 157,
++  "place": "Shoorpali {Sri Laxminarasimha Devastana]",
++  "state": "KARNATAKA",
++  "group": "Temples",
++  "phone_no": "9900934146",
++  "phone_no2": "9740834331",
++  "active": 1
++ },
++ {
++  "id": 158,
++  "place": "Toravi [Sri Laxminarasimha Devastana]",
++  "state": "KARNATAKA",
++  "group": "Temples",
++  "phone_no": "9449417388",
++  "phone_no2": "9008923712",
++  "active": 1
++ },
++ {
++  "id": 159,
++  "place": "Muttagi [Sri Laxminarasimha Devastana}",
++  "state": "KARNATAKA",
++  "group": "Temples",
++  "phone_no": "9590244298",
++  "phone_no2": "9449172524",
++  "active": 1
++ },
++ {
++  "id": 160,
++  "place": "Banashankari [Manoratha Pratistana]",
++  "state": "KARNATAKA",
++  "group": "Goshala",
++  "phone_no": "8880088444",
++  "phone_no2": "9164935642",
++  "active": 1
++ },
++ {
++  "id": 161,
++  "place": "Motampalli [Sri Bheemasena Devastana]",
++  "state": "KARNATAKA",
++  "group": "Temples",
++  "phone_no": "9902366953",
++  "phone_no2": "9741247858",
++  "active": 1
++ },
++ {
++  "id": 162,
++  "place": "Yalaguru [Sri Pranadevara Devastana]",
++  "state": "KARNATAKA",
++  "group": "Temples",
++  "phone_no": "9448257528",
++  "phone_no2": "8310322827",
++  "active": 1
++ },
++ {
++  "id": 163,
++  "place": "Kallur [Sri Mahalakshmi Devastana]",
++  "state": "KARNATAKA",
++  "group": "Temples",
++  "phone_no": "9448649352",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 164,
++  "place": "M K Hubballi [Sri Laxminarasimha Devastana ]",
++  "state": "KARNATAKA",
++  "group": "Temples",
++  "phone_no": "8197689563",
++  "phone_no2": "9341849678",
++  "active": 1
++ },
++ {
++  "id": 165,
++  "place": "Tuljapur",
++  "state": "maharastra",
++  "group": "maharastra",
++  "phone_no": "8123243380",
++  "phone_no2": "9945710834",
++  "active": 1
++ },
++ {
++  "id": 166,
++  "place": "Bidar",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "8088234011",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 167,
++  "place": "Yadgir",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9740337078",
++  "phone_no2": "9632340102",
++  "active": 1
++ },
++ {
++  "id": 168,
++  "place": "Harugeri",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "8123345685",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 169,
++  "place": "Mannuru",
++  "state": "karnataka",
++  "group": "Goshala",
++  "phone_no": "9448952626",
++  "phone_no2": "9449950523",
++  "active": 1
++ },
++ {
++  "id": 170,
++  "place": "Mannur [Chennakeshava Devastana]",
++  "state": "karnataka",
++  "group": "Temples",
++  "phone_no": "9448952626",
++  "phone_no2": "9449950523",
++  "active": 1
++ },
++ {
++  "id": 171,
++  "place": "Nanded ",
++  "state": "maharastra",
++  "group": "maharastra",
++  "phone_no": "7021798683",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 172,
++  "place": "Yargol",
++  "state": "KARNATAKA",
++  "group": "Goshala",
++  "phone_no": "9916517333",
++  "phone_no2": "9743859952",
++  "active": 1
++ },
++ {
++  "id": 173,
++  "place": "Basavana Bagevadi",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "8296305522",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 174,
++  "place": "Solapur",
++  "state": "maharastra",
++  "group": "maharastra",
++  "phone_no": "9595495508",
++  "phone_no2": "",
++  "active": 1
++ },
++ {
++  "id": 175,
++  "place": "Kembhavi",
++  "state": "karnataka",
++  "group": "karnataka state",
++  "phone_no": "9448414422",
++  "phone_no2": "",
++  "active": 1
++ }
++]
+diff --git a/dge/sources/uttaradi_matha/institutional/seva.json b/dge/sources/uttaradi_matha/institutional/seva.json
+new file mode 100644
+index 000000000..7cead13db
+--- /dev/null
++++ b/dge/sources/uttaradi_matha/institutional/seva.json
+@@ -0,0 +1,554 @@
++[
++ {
++  "id": 1,
++  "title": "Donation",
++  "slug": "generic-donations",
++  "description": "utilized purely towards various activities of Srimatha as required.",
++  "group": "Donations/Building Funds",
++  "items": [
++   {
++    "name": "Donate Any amount",
++    "price": 0
++   }
++  ]
++ },
++ {
++  "id": 6,
++  "title": "Tulasi dala Samarpane",
++  "slug": "tulasi-samarpane",
++  "description": "Sri 1008 Sri Satyatmatirtha\nOpportunity to offer Tulsi at Swamiji's sannidhana\n(Services such as birthday, wedding day, wedding/upanayan, etc. can be done as per capacity.)",
++  "group": "Aradhana/Special Events",
++  "items": [
++   {
++    "name": "Tulasi dala Samarpane",
++    "price": 1001
++   }
++  ]
++ },
++ {
++  "id": 21,
++  "title": "Vedavyasa Nidhi",
++  "slug": "vedavyasa-nidhi",
++  "description": "Sripadangalavaru has taken it as his primary mission to prepare an optimum number of pundits and depute them across India to preserve and grow Sanatana dharma in general and Dwaita philosophy in particular. ",
++  "group": "Aradhana/Special Events",
++  "items": [
++   {
++    "name": "Vedavyasa Nidhi",
++    "price": 1
++   }
++  ]
++ },
++ {
++  "id": 26,
++  "title": "Malakheda Building Fund",
++  "slug": "malakheda-building-fund",
++  "description": "Malakheda Building Fund\nNew Dharmika Bhavana Planned To Construct At Divine Place Of Shri Jayateerthara Moolavrindavana Malakheda. ",
++  "group": "Aradhana/Special Events",
++  "items": [
++   {
++    "name": "Malakhed Building fund",
++    "price": 1
++   }
++  ]
++ },
++ {
++  "id": 35,
++  "title": "Digvijaya Lakshminarasimha Sannidana UM Bengaluru ",
++  "slug": "digvijaya-lakshminarasimha-sannidana-um-bengaluru",
++  "description": "Digvijaya Lakshminarasimha Sannidana Uttaradi Math Bengaluru \nNitya sevas",
++  "group": "Aradhana/Special Events",
++  "items": [
++   {
++    "name": "Annadana Seva",
++    "price": 2001
++   },
++   {
++    "name": "Bramhana Dampati bhojana",
++    "price": 501
++   },
++   {
++    "name": "Hastodaka",
++    "price": 200
++   },
++   {
++    "name": "Ksheerabhisheka Seva {Sat Only}",
++    "price": 501
++   },
++   {
++    "name": "MahaMangalarathi",
++    "price": 201
++   },
++   {
++    "name": "Nootana Vastra Seva",
++    "price": 3000
++   },
++   {
++    "name": "Sankalpa sradha",
++    "price": 300
++   },
++   {
++    "name": "Satyanarayana Puje Poornima Only",
++    "price": 200
++   }
++  ]
++ },
++ {
++  "id": 47,
++  "title": "Shashwata & Nitya Samsthana Seva",
++  "slug": "samsthana-seva",
++  "description": "\"Offer Bhiksha Seva at Sri Swamiji Sannidhana on your special days (Masa-Paksha-Thithi). Book online to receive divine blessings and delivered Prasada.\"",
++  "group": "Aradhana/Special Events",
++  "items": [
++   {
++    "name": "Bhiksha Seva for 2 days for 1 year",
++    "price": 10000
++   },
++   {
++    "name": "Bhiksha Seva on 2 days for 3 years",
++    "price": 25000
++   },
++   {
++    "name": "Bhiksha Seva on 2 days for 5 years",
++    "price": 50000
++   }
++  ]
++ },
++ {
++  "id": 53,
++  "title": "pravachana Seva",
++  "slug": "pravachana-seva",
++  "description": "Devotees listening to the daily online \"Srimad Bhagavatha Pravachana\" by Paramapoojya Sri 1008 Sri Satyatma Tirtha Sripadangalavaru from Mysuru during this sacred Adhika Masa can offer their Pravachana Seva",
++  "group": "Aradhana/Special Events",
++  "items": [
++   {
++    "name": "donations",
++    "price": 1
++   }
++  ]
++ },
++ {
++  "id": 56,
++  "title": "Nithya Anna Daanam @ Tirumala Uttaradi Math",
++  "slug": "uttaradi-math-tirumala",
++  "description": "\"Be a part of H.H. Sri Swamiji's noble vision. Sponsor Nithya Anna Daanam at Sri Uttaradi Math, Tirumala on your special days and receive the divine grace of Lord Venkateshwara.\"",
++  "group": "Aradhana/Special Events",
++  "items": [
++   {
++    "name": "1 Days Annadana ",
++    "price": 2001
++   },
++   {
++    "name": "3 Days Annadana ",
++    "price": 5001
++   },
++   {
++    "name": "Annadana Seva",
++    "price": 10001
++   },
++   {
++    "name": "Dampati Bhojana seva",
++    "price": 1200
++   },
++   {
++    "name": "Naivedya Samarpane",
++    "price": 1000
++   },
++   {
++    "name": "Yatha Shakti Kuladeva Seva",
++    "price": 501
++   }
++  ]
++ },
++ {
++  "id": 57,
++  "title": "Rogamochana Dhanvanthari Sannidana UM Mysore",
++  "slug": "rogamochana-dhanvanthari-sannidana-um-mysore",
++  "description": "Sri Uttaradi Math Mysore\nSri Rogamochana Dhanvantari & Sri Satyasankalpateertharu & Sri Satyasantushthateerthar Moola Brundavana Sannidhana",
++  "group": "Aradhana/Special Events",
++  "items": [
++   {
++    "name": "Astottara Seva",
++    "price": 500
++   },
++   {
++    "name": "Hastodaka Seva",
++    "price": 200
++   },
++   {
++    "name": "Ksheerabhisheka Seva {Sunday Only}",
++    "price": 300
++   },
++   {
++    "name": "Madhu Abhishek [Pranadevaru]*",
++    "price": 200
++   },
++   {
++    "name": "Maha Annadana Seva",
++    "price": 5001
++   },
++   {
++    "name": "Pushpalankara Seva [1day]*",
++    "price": 500
++   },
++   {
++    "name": "Sarva Seva",
++    "price": 3000
++   },
++   {
++    "name": "Shaswat Seva [5 Year]",
++    "price": 25000
++   },
++   {
++    "name": "Tomala Seava",
++    "price": 1000
++   },
++   {
++    "name": "Vastra seva [silk only Sunday]",
++    "price": 10000
++   },
++   {
++    "name": "Yati Hastodaka Seva",
++    "price": 400
++   }
++  ]
++ },
++ {
++  "id": 62,
++  "title": "Sri Raghoottama Teertha Moola Brindavana Sannidhana [Tirukoviluru]",
++  "slug": "sri-raghoottama-teertha-aradhana-mahotsava-tirukoviluru",
++  "description": "\"Offer daily Nitya Sevas, Abhisheka, and Hasthodaka at the holy Moola Vrundavana of Sri Sri Raghuttamateertha Swamiji in Tirukoilur. Fill in your details and book online instantly.\"",
++  "group": "Aradhana/Special Events",
++  "items": [
++   {
++    "name": "Annadana Seva",
++    "price": 2001
++   },
++   {
++    "name": "Hastodaka Seva",
++    "price": 300
++   },
++   {
++    "name": "Kanakabhisheka Seva",
++    "price": 1000
++   },
++   {
++    "name": "Kavacha Seva (Mukhyapranadevaru)",
++    "price": 1001
++   },
++   {
++    "name": "Ksheerabhisheka Seva",
++    "price": 100
++   },
++   {
++    "name": "Rathotsava",
++    "price": 3000
++   },
++   {
++    "name": "Sarva Seva",
++    "price": 5000
++   },
++   {
++    "name": "Vastra Seva (Silk)",
++    "price": 25000
++   },
++   {
++    "name": "panchamruta Seva",
++    "price": 200
++   }
++  ]
++ },
++ {
++  "id": 63,
++  "title": "Dharwad Building Fund",
++  "slug": "dharwad-building-fund",
++  "description": "Construction of new building in Malamaddi, Dharwad.",
++  "group": "Donations/Building Funds",
++  "items": [
++   {
++    "name": "donations",
++    "price": 1
++   }
++  ]
++ },
++ {
++  "id": 69,
++  "title": "Anugraha Mantrakshate Kanike",
++  "slug": "anugraha-mantrakshate-kanike",
++  "description": "Anugraha Mantrakshate Kanike - Offering is entirely optional; there is no mandatory requirement for any contribution (in-kind or cash).",
++  "group": "Aradhana/Special Events",
++  "items": [
++   {
++    "name": "donations",
++    "price": 1
++   }
++  ]
++ },
++ {
++  "id": 70,
++  "title": "Sri Jayateertha Vidyapeetha - Bengaluru",
++  "slug": "sri-jayateertha-vidyapeetha-bengaluru",
++  "description": "\"Support Vedic education by sponsoring Annadhana Seva at Sri Jayatheertha Vidya Peetha. Offer daily, monthly, or special occasion meals online and receive divine blessings.\"",
++  "group": "Aradhana/Special Events",
++  "items": [
++   {
++    "name": "donations",
++    "price": 1
++   }
++  ]
++ },
++ {
++  "id": 73,
++  "title": "Tirukoilur Building Fund",
++  "slug": "tirukoilur-building-fund",
++  "description": "Tirukoilur, abode of Sri Raghothama Teertha, sees many devotees seeking relief through seva.\n\nTo meet rising demand, 24 new rooms are being built, to be completed before next Aradhana and offered to Paramatma via Sri Satyatma Teertharu.\n",
++  "group": "Donations/Building Funds",
++  "items": [
++   {
++    "name": "Govinda seva ",
++    "price": 50001
++   },
++   {
++    "name": "Keshava seva",
++    "price": 10001
++   },
++   {
++    "name": "Madhava seva",
++    "price": 30001
++   },
++   {
++    "name": "Narayana seva ",
++    "price": 20001
++   },
++   {
++    "name": "Srikrishna seva",
++    "price": 100001
++   },
++   {
++    "name": "Yathashakti",
++    "price": 5001
++   },
++   {
++    "name": "Yathshakti",
++    "price": 1001
++   },
++   {
++    "name": "Yathshakti",
++    "price": 2001
++   },
++   {
++    "name": "Yathshakti",
++    "price": 3001
++   }
++  ]
++ },
++ {
++  "id": 78,
++  "title": "Adhika Masa Seva - Mysuru",
++  "slug": "adhika-masa-donations",
++  "description": "\"Participate in the sacred Adhika Masa Utsava 2026 at Mysuru in the divine presence of H.H. Sri Swamiji. Click here for full schedule and Seva bookings.\"",
++  "group": "Aradhana/Special Events",
++  "items": [
++   {
++    "name": "30 days Alankara seva",
++    "price": 133333
++   },
++   {
++    "name": "Alankara Seva",
++    "price": 5300
++   },
++   {
++    "name": "Annadana Seva",
++    "price": 333333
++   },
++   {
++    "name": "Apoopa Dana (Bronze Plate)",
++    "price": 3333
++   },
++   {
++    "name": "Apoopa Dana (In Adike Plate)",
++    "price": 900
++   },
++   {
++    "name": "Apoopa Dana (Silver Plate)",
++    "price": 75333
++   },
++   {
++    "name": "Chaturveda Parayana Seva",
++    "price": 10333
++   },
++   {
++    "name": "Dasa Sahitya Seva",
++    "price": 20000
++   },
++   {
++    "name": "Dhanvanthri Homa Seva (Only Homa)",
++    "price": 17333
++   },
++   {
++    "name": "Dhanvantri Homa Seva (Godana, Samoohika Bhiksha, Apoopa Dana)",
++    "price": 33333
++   },
++   {
++    "name": "Godana Sankalpa",
++    "price": 6300
++   },
++   {
++    "name": "Hastodaka Seva ",
++    "price": 1008
++   },
++   {
++    "name": "Health & Wellness Sankalpa Seva",
++    "price": 501
++   },
++   {
++    "name": "Pada Kanike",
++    "price": 1001
++   },
++   {
++    "name": "Panchamruta (Sunday Only)",
++    "price": 1300
++   },
++   {
++    "name": "Parayana Seva",
++    "price": 233333
++   },
++   {
++    "name": "Pravachana Seva",
++    "price": 8333
++   },
++   {
++    "name": "Samoohika Bhiksha",
++    "price": 5000
++   },
++   {
++    "name": "Silk Vasta to Moola Rama Devaru",
++    "price": 13333
++   },
++   {
++    "name": "Suvarna Dana (3gms)",
++    "price": 53333
++   },
++   {
++    "name": "Udayastamana Seva",
++    "price": 300333
++   },
++   {
++    "name": "Vastra Seva ",
++    "price": 23333
++   },
++   {
++    "name": "Vyasa Dasa Sahitya Seva",
++    "price": 30333
++   },
++   {
++    "name": "Yati Bhiksha Seva",
++    "price": 100333
++   }
++  ]
++ },
++ {
++  "id": 79,
++  "title": "Chaturmasya 2026 Dharwad",
++  "slug": "chaturmasya-donations",
++  "description": "Dharwad Chaturmasya - 08th August - 26th Sept, 2026",
++  "group": "Aradhana/Special Events",
++  "items": [
++   {
++    "name": "Brahmanarinda Japada Seva",
++    "price": 2000
++   },
++   {
++    "name": "Dampat Bhojana",
++    "price": 20000
++   },
++   {
++    "name": "Hayagreeva Devara 1 day sampoorna seva",
++    "price": 20000
++   },
++   {
++    "name": "Hayagreeva Devara Archane",
++    "price": 500
++   },
++   {
++    "name": "Hayagreeva Devara Panchamruta & Naivedya",
++    "price": 1000
++   },
++   {
++    "name": "Hayagreeva Devara Pushpalankara",
++    "price": 3000
++   },
++   {
++    "name": "Hayagreeva Devara Rajata Patre/Kavacha Samarpane",
++    "price": 12000
++   },
++   {
++    "name": "Hayagreeva Devara Vastrasamarpane",
++    "price": 4000
++   },
++   {
++    "name": "Homa Seva",
++    "price": 8000
++   },
++   {
++    "name": "Kanike for Sri Matha",
++    "price": 5000
++   },
++   {
++    "name": "Kunkumarchane (Shravana Masa)",
++    "price": 1000
++   },
++   {
++    "name": "Nitya Anndana Seva",
++    "price": 251000
++   },
++   {
++    "name": "Panditara Sambhavane",
++    "price": 12000
++   },
++   {
++    "name": "Pravachana Seva",
++    "price": 5000
++   },
++   {
++    "name": "Proshtapadi Bhagavata Pravachana",
++    "price": 5000
++   },
++   {
++    "name": "Samoohika Annadana",
++    "price": 2000
++   },
++   {
++    "name": "Samoohika Bhiksha",
++    "price": 25000
++   },
++   {
++    "name": "Samskrutika Karyakrama Poshane",
++    "price": 8000
++   },
++   {
++    "name": "Samsthana Pooja & Annadana",
++    "price": 108000
++   },
++   {
++    "name": "Shashwata Kattada Nidhi",
++    "price": 100000
++   },
++   {
++    "name": "Tottilu Pooja",
++    "price": 10000
++   },
++   {
++    "name": "Udayastamana Seva",
++    "price": 201000
++   },
++   {
++    "name": "Veda/Sarvamoola Parayana",
++    "price": 4000
++   },
++   {
++    "name": "Vishesha Bhiksha",
++    "price": 50000
++   }
++  ]
++ }
++]
+diff --git a/dge/sources/uttaradi_matha/institutional/source-manifest.json b/dge/sources/uttaradi_matha/institutional/source-manifest.json
+new file mode 100644
+index 000000000..f376d4c31
+--- /dev/null
++++ b/dge/sources/uttaradi_matha/institutional/source-manifest.json
+@@ -0,0 +1,19 @@
++{
++  "institution": "Sri Uttaradi Matha",
++  "source_name": "UM Sri Uttaradi Math app (Flutter)",
++  "app_package": "org.uttaradimath.app",
++  "app_version": "1.9.0",
++  "app_sha256": "1ed1f8a62dc7c7d6a8d8e3a526a731e2551827b1572540fa83241ee182fcea75",
++  "artifacts": {
++    "contacts.json": "a86ec5affdf99390f3d2a416fc237550293f015a0f6a77b2ac2a8ae520f75f8e",
++    "seva.json": "c34b50cad548205ce4571983eda48c885d1fb86d7c5b7c0e06895c5153b401b0"
++  },
++  "method": "apk_asset",
++  "retrieved_at": "2026-09-11",
++  "content_type": "application/json",
++  "row_count": {"contacts": 165, "seva": 16},
++  "rights_status": "UNKNOWN - official app, no explicit licence/redistribution terms observed",
++  "verification_status": "needs_review",
++  "notes": "contacts.json is contact_table: 165 rows of institutional/office phone numbers for branch sannidhis, research centres, and publications -- these are organizational numbers tied to a place/institution, NOT personal mobile numbers of named individuals (contrast with the Vishwesha app's ph.vss, a pontiffs' personal-phone directory deliberately left unarchived -- see dge/sources/vishwesha_panchanga's manifest). Still flagged rights_status UNKNOWN, not asserted clean, but this is the kind of institutional 'official contacts' data the architecture doc's institutional-knowledge model explicitly wants (mathas.json even has a currently-null 'contact' field per matha waiting to be filled from a verified source). 'state' field is inconsistently capitalized/spelled in the source (Bengaluru/Bangalore/bengaluru all appear) -- kept as-is, not normalized, since this is a raw acquisition archive. seva.json is seva_table joined with seva_item_table (16 active seva offerings with their priced sub-items) -- donation/ritual-offering information, no personal devotee records.",
++  "next_step": "Normalization/dedup of the state field and wiring into mathas.json's branches/contact fields is a Phase 2 task, not done here -- this manifest covers acquisition only."
++}
+-- 
+2.43.0
+

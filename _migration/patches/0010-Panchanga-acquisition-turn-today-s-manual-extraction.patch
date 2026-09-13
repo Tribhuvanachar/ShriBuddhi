@@ -1,0 +1,504 @@
+From ce6195af4a7c6e6afbc51f67e6b4dc877ccef790 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 11 Sep 2026 10:55:17 +0000
+Subject: [PATCH 10/13] Panchanga acquisition: turn today's manual extraction
+ into re-runnable tools
+
+tools/panchanga/acquire_{uttaradi,srs,vishwesha}.py take a fresh APK and
+reproduce the 11 Sep manual archival: package-name verified, date range
+derived from the actual data, written to dge/sources/ with a manifest.
+Idempotent against the same APK; refuses to overwrite a folder that
+already holds different content.
+
+Caught and fixed a real off-by-one in the Vishwesha manifest's row_count
+(wc -l undercounts a file whose last line has no trailing newline) while
+verifying the new script against this morning's own archive.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01VsaYhDriufTCN4vSPcMtHQ
+---
+ dge/PENDING.md                                | 40 ++++++++
+ .../source-manifest.json                      |  2 +-
+ tools/panchanga/README.md                     | 36 +++++++
+ tools/panchanga/acquire_common.py             | 96 +++++++++++++++++++
+ tools/panchanga/acquire_srs.py                | 76 +++++++++++++++
+ tools/panchanga/acquire_uttaradi.py           | 90 +++++++++++++++++
+ tools/panchanga/acquire_vishwesha.py          | 79 +++++++++++++++
+ 7 files changed, 418 insertions(+), 1 deletion(-)
+ create mode 100644 tools/panchanga/README.md
+ create mode 100644 tools/panchanga/acquire_common.py
+ create mode 100644 tools/panchanga/acquire_srs.py
+ create mode 100644 tools/panchanga/acquire_uttaradi.py
+ create mode 100644 tools/panchanga/acquire_vishwesha.py
+
+diff --git a/dge/PENDING.md b/dge/PENDING.md
+index 3d9969009..4babf3599 100644
+--- a/dge/PENDING.md
++++ b/dge/PENDING.md
+@@ -6049,3 +6049,43 @@ server be hit," not a puzzle to keep solving. srsmatha.org's old
+ locked; `www.srsmatha.org/srsapp/?p=srsmatha` (the old jQuery-era site) is
+ still live and 200s, lower priority since the current 2.0.0 app's packaged
+ JSON is already the better-structured source per the architecture doc.
++
++## Panchāṅga acquisition: formalized into re-runnable scripts (11 Sep 2026, 4:24 pm IST)
++
++Project lead said to keep making progress independently. Picked the most
++directly useful next thing: today's three manual Panchāṅga extractions
++(Uttarādi, SRS, Vishwesha) were one-off shell/python sessions, not
++anything a future session could re-run against next year's app version
++without redoing the archaeology from scratch — the actual "syncer" ask
++from the start of this thread, still undone. Fixed that.
++
++New `tools/panchanga/acquire_{uttaradi,srs,vishwesha}.py`, each: verifies
++the given APK's package name matches (refuses a wrong-app mix-up rather
++than silently extracting garbage), pulls the packaged asset(s), derives
++the real date range from the data itself rather than trusting the app's
++version string, and archives to `dge/sources/.../<derived-range>/` with
++a manifest — shared logic in `tools/panchanga/acquire_common.py`.
++Idempotent by design: re-running against the identical APK is a no-op;
++landing on a folder that already holds a *different* acquisition raises
++rather than silently overwriting (architecture doc §24's rule enforced in
++code, not just as a comment).
++
++Tested all three against today's own APKs as the correctness check — all
++three correctly reported `already_acquired` with the exact row
++counts/date ranges from this morning's manual work, confirming the
++scripts reproduce it exactly. One real bug caught in the process: the
++Vishwesha manifest's `row_count` was 793 from this morning's `wc -l`,
++which undercounts by one when a file's last line has no trailing newline
++(confirmed: `vss4.vss` doesn't). The script's `splitlines()`-based count
++(794) is correct; fixed the stored manifest directly since the file
++itself wasn't touched (hash matched, so `already_acquired` fired) —
++purely a metadata correction, no data change.
++
++Documented per-source limits in `tools/panchanga/README.md` rather than
++letting the scripts imply more coverage than they have: Udupi has no
++script (no APK supplied at all), Tithi Nirṇaya/Vyāsarāja Sosale have no
++script (no native code to extract from in the copies acquired so far),
++Sode has no script (server-backed, not a packaged asset — a website-crawl
++or authorized-API approach is a different kind of tool, not this pattern).
++
++`./run_tests.sh`: same pre-existing 3 failures/14 errors, nothing new.
+diff --git a/dge/sources/vishwesha_panchanga/panchanga/festival_notes_2022-2026/source-manifest.json b/dge/sources/vishwesha_panchanga/panchanga/festival_notes_2022-2026/source-manifest.json
+index 432d26d85..c6095be2a 100644
+--- a/dge/sources/vishwesha_panchanga/panchanga/festival_notes_2022-2026/source-manifest.json
++++ b/dge/sources/vishwesha_panchanga/panchanga/festival_notes_2022-2026/source-manifest.json
+@@ -9,7 +9,7 @@
+   "method": "apk_asset",
+   "content_type": "text/csv (custom, YYYY-DD-Mon-notes per line)",
+   "retrieved_at": "2026-09-11",
+-  "row_count": 793,
++  "row_count": 794,
+   "date_coverage": "2022 to 2026, special-day/festival annotations only (not full five-anga daily Panchanga)",
+   "rights_status": "UNKNOWN - official Vishwesha Panchanga app; no explicit licence/redistribution terms observed",
+   "verification_status": "PARTIAL - incomplete acquisition",
+diff --git a/tools/panchanga/README.md b/tools/panchanga/README.md
+new file mode 100644
+index 000000000..be4a53599
+--- /dev/null
++++ b/tools/panchanga/README.md
+@@ -0,0 +1,36 @@
++# Panchāṅga acquisition scripts
++
++One script per source, each taking a fresh copy of that source's APK and
++reproducing the acquisition documented in `dge/sources/README.md` and
++`dge/PENDING.md` (11 Sep 2026 entries) as a re-runnable tool instead of a
++one-off manual pass.
++
++```
++python3 tools/panchanga/acquire_uttaradi.py  --apk path/to/uttaradi.apk
++python3 tools/panchanga/acquire_srs.py       --apk path/to/srs.apk
++python3 tools/panchanga/acquire_vishwesha.py --apk path/to/vishwesha.apk
++```
++
++Each script:
++- verifies the APK's package name matches the expected source (refuses to
++  run against the wrong app rather than silently extracting garbage);
++- pulls the packaged asset(s) and derives the actual date range from the
++  data itself, not the app's version string;
++- writes to `dge/sources/<institution>/panchanga/<derived-date-range>/`
++  with a `source-manifest.json` per architecture doc §24.
++
++**Idempotent, and safe against silent overwrites**: re-running against the
++exact same APK is a no-op (`already_acquired`). Running against a genuinely
++different acquisition that would land in the same folder (same year range,
++different content) raises rather than overwrites — per §24, a real content
++change needs a new folder (a `-v2` suffix, say), a deliberate choice by
++whoever runs it, not something this script decides on its own.
++
++**Not covered yet, because the source itself is incomplete or blocked**
++(see `dge/sources/README.md` for the details on each):
++- Udupi Panchanga — no APK has been supplied at all.
++- Tithi Nirṇaya, Vyāsarāja Matha Sosale — ship without any native code in
++  the copies acquired so far; nothing to statically extract until a
++  complete app bundle arrives.
++- Sode Matha — server/API-backed, not a packaged asset; needs either an
++  authorized API or a website-crawl approach, not this kind of script.
+diff --git a/tools/panchanga/acquire_common.py b/tools/panchanga/acquire_common.py
+new file mode 100644
+index 000000000..18f334fb2
+--- /dev/null
++++ b/tools/panchanga/acquire_common.py
+@@ -0,0 +1,96 @@
++"""Shared helpers for the tools/panchanga/acquire_*.py scripts.
++
++Each acquire_<source>.py script takes a fresh APK for one Panchanga source
++and reproduces the manual extraction done on 11 Sep 2026 (see
++dge/sources/README.md and dge/PENDING.md for that session's notes) as a
++re-runnable tool: next year's app version in, a new dated archive folder
++out, nothing hand-done.
++
++Policy from DGE_Madhva_Acquisition_Architecture.md §24: never overwrite an
++existing acquisition's artifact in place. write_archive() enforces this --
++if the target folder already holds a manifest with the same artifact
++hash, it's a no-op (already acquired); if the hash differs, it refuses
++and tells the caller to pick a new folder name (a new year range, or a
++`-v2` suffix) rather than silently clobbering history.
++"""
++from __future__ import annotations
++
++import hashlib
++import json
++import logging
++import os
++import zipfile
++
++logging.disable(logging.CRITICAL)  # androguard is very chatty on DEBUG/INFO by default
++
++ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
++
++
++def sha256_bytes(data: bytes) -> str:
++    return hashlib.sha256(data).hexdigest()
++
++
++def sha256_file(path: str) -> str:
++    h = hashlib.sha256()
++    with open(path, "rb") as f:
++        for chunk in iter(lambda: f.read(1 << 20), b""):
++            h.update(chunk)
++    return h.hexdigest()
++
++
++def apk_info(apk_path: str) -> dict:
++    """Package name + version, via androguard (no aapt needed)."""
++    from androguard.core.apk import APK
++    a = APK(apk_path)
++    return {
++        "package": a.get_package(),
++        "version": a.get_androidversion_name(),
++        "sha256": sha256_file(apk_path),
++    }
++
++
++def extract_from_apk(apk_path: str, member: str) -> bytes:
++    with zipfile.ZipFile(apk_path) as z:
++        return z.read(member)
++
++
++def write_archive(target_dir: str, files: dict, manifest: dict) -> str:
++    """files: {relative_filename: bytes}. manifest: the source-manifest.json
++    content (artifact_sha256 / artifact hashes are computed here and merged
++    in, not passed by the caller, so they can't drift from the actual bytes
++    written).
++
++    Returns 'written', 'already_acquired', or raises on a real hash
++    mismatch against an existing manifest (a genuine content change that
++    needs a new folder, not an overwrite).
++    """
++    full_dir = os.path.join(ROOT, target_dir)
++    manifest_path = os.path.join(full_dir, "source-manifest.json")
++
++    if len(files) == 1:
++        (fname, data), = files.items()
++        manifest["artifact_sha256"] = sha256_bytes(data)
++    else:
++        manifest["artifacts"] = {fname: sha256_bytes(data) for fname, data in files.items()}
++
++    if os.path.exists(manifest_path):
++        existing = json.load(open(manifest_path, encoding="utf-8"))
++        existing_hash = existing.get("artifact_sha256") or existing.get("artifacts")
++        new_hash = manifest.get("artifact_sha256") or manifest.get("artifacts")
++        if existing_hash == new_hash:
++            return "already_acquired"
++        raise FileExistsError(
++            f"{target_dir} already holds a DIFFERENT acquisition "
++            f"(existing hash {existing_hash} != new {new_hash}). "
++            "Per architecture doc §24, pick a new folder (new date "
++            "range or a -v2 suffix) rather than overwriting."
++        )
++
++    os.makedirs(full_dir, exist_ok=True)
++    for fname, data in files.items():
++        with open(os.path.join(full_dir, fname), "wb") as f:
++            f.write(data)
++    with open(manifest_path, "w", encoding="utf-8") as f:
++        json.dump(manifest, f, ensure_ascii=False, indent=1)
++        f.write("\n")
++    return "written"
+diff --git a/tools/panchanga/acquire_srs.py b/tools/panchanga/acquire_srs.py
+new file mode 100644
+index 000000000..c8e3737ba
+--- /dev/null
++++ b/tools/panchanga/acquire_srs.py
+@@ -0,0 +1,76 @@
++#!/usr/bin/env python3
++"""Acquire SRS Matha (Mantralaya)'s Panchanga from a fresh copy of the
++"SRS Matha Panchanga" app (com.panchanga).
++
++Reproduces the 11 Sep 2026 manual extraction: pulls the packaged JSON
++bundle (daily panchanga + aradhana/ekadashi/festivals/tarpana), reads the
++daily records' actual date coverage, and archives to
++dge/sources/srs_matha/panchanga/<date-range>/.
++
++Usage: python3 tools/panchanga/acquire_srs.py --apk path/to/srs.apk
++"""
++from __future__ import annotations
++
++import argparse
++import datetime
++import json
++import os
++import sys
++
++sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
++from acquire_common import apk_info, extract_from_apk, write_archive
++
++ASSETS = {
++    "panchanga.en.json": "assets/flutter_assets/assets/data/panchanga_bundle/panchanga.en.json",
++    "aradhana.json": "assets/flutter_assets/srsmatha.org/srsmatha_panchanga/storage/sacred_calendars/aradhana.json",
++    "ekadashi.json": "assets/flutter_assets/srsmatha.org/srsmatha_panchanga/storage/sacred_calendars/ekadashi.json",
++    "festivals.json": "assets/flutter_assets/srsmatha.org/srsmatha_panchanga/storage/sacred_calendars/festivals.json",
++    "tarpana.json": "assets/flutter_assets/srsmatha.org/srsmatha_panchanga/storage/sacred_calendars/tarpana.json",
++}
++
++
++def main():
++    ap = argparse.ArgumentParser()
++    ap.add_argument("--apk", required=True)
++    args = ap.parse_args()
++
++    info = apk_info(args.apk)
++    if info["package"] != "com.panchanga":
++        raise SystemExit(f"expected com.panchanga, got {info['package']} -- wrong APK? "
++                          "(note: the OLDER srsmatha.com.srsmatha legacy app is a different, "
++                          "unrelated package -- see dge/sources/README.md)")
++
++    files = {fname: extract_from_apk(args.apk, member) for fname, member in ASSETS.items()}
++    daily = json.loads(files["panchanga.en.json"])
++    dates = sorted(r["date"] for r in daily)
++    lo, hi = dates[0], dates[-1]
++    year_range = f"{lo[:4]}-{hi[:4]}"
++    location = daily[0].get("location_name", "unknown")
++
++    manifest = {
++        "institution": "Sri Raghavendra Swamy Matha (SRS Matha, Mantralaya)",
++        "source_name": "SRS Matha Panchanga app (Flutter)",
++        "app_package": info["package"],
++        "app_version": info["version"],
++        "app_sha256": info["sha256"],
++        "method": "apk_asset",
++        "retrieved_at": datetime.date.today().isoformat(),
++        "content_type": "application/json",
++        "row_count": len(daily),
++        "date_coverage": f"{lo} to {hi}",
++        "location_name": location,
++        "rights_status": "UNKNOWN - official app, no explicit licence/redistribution terms observed",
++        "verification_status": "needs_review",
++        "notes": "Acquired via tools/panchanga/acquire_srs.py. Daily schema already close to "
++                 "DGE's canonical panchanga_day shape. aradhana/ekadashi/festivals/tarpana are "
++                 "separate curated collections, not yet cross-checked against the daily records "
++                 "for consistency (architecture doc §41).",
++    }
++
++    target = f"dge/sources/srs_matha/panchanga/{year_range}"
++    result = write_archive(target, files, manifest)
++    print(f"{result}: {target} ({len(daily)} rows, {lo} to {hi}, {location})")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/tools/panchanga/acquire_uttaradi.py b/tools/panchanga/acquire_uttaradi.py
+new file mode 100644
+index 000000000..d31a1e1b9
+--- /dev/null
++++ b/tools/panchanga/acquire_uttaradi.py
+@@ -0,0 +1,90 @@
++#!/usr/bin/env python3
++"""Acquire Sri Uttaradi Matha's Panchanga from a fresh copy of the "UM Sri
++Uttaradi Math" app (org.uttaradimath.app).
++
++Reproduces the 11 Sep 2026 manual extraction: pulls the packaged
++um_app_seed.db, reads panchanga_table's real date coverage (not the app
++version number -- the db's actual row dates are the ground truth), and
++archives it to dge/sources/uttaradi_matha/panchanga/<date-range>/.
++
++Usage: python3 tools/panchanga/acquire_uttaradi.py --apk path/to/um.apk
++"""
++from __future__ import annotations
++
++import argparse
++import datetime
++import os
++import sqlite3
++import sys
++import tempfile
++
++sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
++from acquire_common import apk_info, extract_from_apk, write_archive
++
++ASSET = "assets/flutter_assets/assets/um_app_seed.db"
++
++
++def date_range(db_bytes: bytes) -> tuple[str, str]:
++    with tempfile.NamedTemporaryFile(suffix=".db") as tmp:
++        tmp.write(db_bytes)
++        tmp.flush()
++        con = sqlite3.connect(tmp.name)
++        lo, hi = con.execute("select min(date), max(date) from panchanga_table").fetchone()
++        row_count = con.execute("select count(*) from panchanga_table").fetchone()[0]
++        con.close()
++    lo_d = datetime.datetime.utcfromtimestamp(lo).date()
++    hi_d = datetime.datetime.utcfromtimestamp(hi).date()
++    return lo_d.isoformat(), hi_d.isoformat(), row_count
++
++
++def main():
++    ap = argparse.ArgumentParser()
++    ap.add_argument("--apk", required=True)
++    args = ap.parse_args()
++
++    info = apk_info(args.apk)
++    if info["package"] != "org.uttaradimath.app":
++        raise SystemExit(f"expected org.uttaradimath.app, got {info['package']} -- wrong APK?")
++
++    db_bytes = extract_from_apk(args.apk, ASSET)
++    lo, hi, row_count = date_range(db_bytes)
++    year_range = f"{lo[:4]}-{hi[:4]}"
++
++    manifest = {
++        "institution": "Sri Uttaradi Matha",
++        "source_name": "UM Sri Uttaradi Math app (Flutter)",
++        "app_package": info["package"],
++        "app_version": info["version"],
++        "app_sha256": info["sha256"],
++        "artifact": ASSET,
++        "method": "apk_asset",
++        "retrieved_at": datetime.date.today().isoformat(),
++        "content_type": "application/vnd.sqlite3",
++        "table": "panchanga_table",
++        "row_count": row_count,
++        "date_coverage": f"{lo} to {hi}",
++        "languages": ["English", "Kannada", "Sanskrit", "Tamil", "Telugu"],
++        "other_tables_present_not_extracted": [
++            "main_deities_table - institutional deity data, see tools/build_pratima.py",
++            "parampara_table - lineage data, Phase 2",
++            "gallery_table, generic_media_table - photos, needs rights review before any use",
++            "stotra_table, stotra_lyrics_table - stotra content, separate acquisition thread",
++            "seva_table, contact_table, bank_account_table, announcement_table - NOT extracted: "
++            "bank_account_table is sensitive institutional financial data and must never be "
++            "published; contact_table not reviewed for personal-data content",
++        ],
++        "rights_status": "UNKNOWN - official app, no explicit licence/redistribution terms observed",
++        "verification_status": "needs_review",
++        "notes": "Acquired via tools/panchanga/acquire_uttaradi.py. The app syncs from a live "
++                 "Firebase backend at runtime (confirmed 11 Sep 2026, see PENDING.md) but that "
++                 "backend requires authorization DGE doesn't have -- this packaged asset is the "
++                 "practical acquisition path until/unless authorized access is arranged.",
++    }
++
++    target = f"dge/sources/uttaradi_matha/panchanga/{year_range}"
++    result = write_archive(target, {"um_app_seed.db": db_bytes}, manifest)
++    print(f"{result}: {target} ({row_count} rows, {lo} to {hi})")
++
++
++if __name__ == "__main__":
++    main()
+diff --git a/tools/panchanga/acquire_vishwesha.py b/tools/panchanga/acquire_vishwesha.py
+new file mode 100644
+index 000000000..c7d12a6fc
+--- /dev/null
++++ b/tools/panchanga/acquire_vishwesha.py
+@@ -0,0 +1,79 @@
++#!/usr/bin/env python3
++"""Acquire Vishwesha Panchanga (= Sri Pejavara Adhokshaja Matha's official
++Panchanga -- one source, see DGE_Madhva_Acquisition_Architecture.md
++§14/§18/§20) from a fresh copy of the "Vishwesha Panchanga" app
++(maha.kani).
++
++Reproduces the 11 Sep 2026 manual extraction: pulls assets/vss4.vss (the
++festival/special-day annotation file -- see dge/sources/README.md for why
++this is a PARTIAL acquisition, not the full five-anga daily Panchanga,
++which is packed in undecoded numeric codes elsewhere in this app).
++
++Usage: python3 tools/panchanga/acquire_vishwesha.py --apk path/to/vishwesha.apk
++"""
++from __future__ import annotations
++
++import argparse
++import datetime
++import os
++import sys
++
++sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
++from acquire_common import apk_info, extract_from_apk, write_archive
++
++ASSET = "assets/vss4.vss"
++
++
++def year_span(vss4_bytes: bytes) -> tuple[str, str, int]:
++    lines = [l for l in vss4_bytes.decode("utf-8", errors="replace").splitlines() if l.strip()]
++    years = sorted({line.split("-", 1)[0] for line in lines if line[:4].isdigit()})
++    return years[0], years[-1], len(lines)
++
++
++def main():
++    ap = argparse.ArgumentParser()
++    ap.add_argument("--apk", required=True)
++    args = ap.parse_args()
++
++    info = apk_info(args.apk)
++    if info["package"] != "maha.kani":
++        raise SystemExit(f"expected maha.kani, got {info['package']} -- wrong APK? "
++                          "(note: the sibling Udupi Panchanga B4A app shares most of this "
++                          "app's asset naming but is a different package -- see architecture "
++                          "doc §14)")
++
++    data = extract_from_apk(args.apk, ASSET)
++    lo_year, hi_year, row_count = year_span(data)
++
++    manifest = {
++        "institution": "Sri Pejavara Adhokshaja Matha (Panchanga published as Vishwesha "
++                        "Panchanga; one source, not two -- see architecture doc §14/§18/§20)",
++        "source_name": "Vishwesha Panchanga app (B4A/Basic4Android)",
++        "app_package": info["package"],
++        "app_version": info["version"],
++        "app_sha256": info["sha256"],
++        "artifact": ASSET,
++        "method": "apk_asset",
++        "content_type": "text/csv (custom, YYYY-DD-Mon-notes per line)",
++        "retrieved_at": datetime.date.today().isoformat(),
++        "row_count": row_count,
++        "date_coverage": f"{lo_year} to {hi_year}, special-day/festival annotations only "
++                          "(not full five-anga daily Panchanga)",
++        "rights_status": "UNKNOWN - official app, no explicit licence/redistribution terms observed",
++        "verification_status": "PARTIAL - incomplete acquisition",
++        "notes": "Acquired via tools/panchanga/acquire_vishwesha.py. This app's full daily "
++                 "five-anga Panchanga is NOT stored as readable text -- it's packed as opaque "
++                 "numeric codes elsewhere in the app (assets/thithi.vss), decoded by compiled "
++                 "B4A bytecode not yet reverse-engineered. The numbered monthly files "
++                 "(assets/1-YYYY.vss etc.) are JPEG calendar-page scans despite the .vss "
++                 "extension, not text. ph.vss (a pontiffs' contact directory with personal "
++                 "phone numbers) is deliberately never extracted by this script.",
++    }
++
++    target = f"dge/sources/vishwesha_panchanga/panchanga/festival_notes_{lo_year}-{hi_year}"
++    result = write_archive(target, {"vss4.vss": data}, manifest)
++    print(f"{result}: {target} ({row_count} rows, {lo_year} to {hi_year})")
++
++
++if __name__ == "__main__":
++    main()
+-- 
+2.43.0
+

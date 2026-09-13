@@ -1,0 +1,39 @@
+From 32fb8952d63105e1c6285ff562c2da27285be5c2 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 11 Sep 2026 07:48:31 +0000
+Subject: [PATCH 07/13] Vadiraja Vijaya = Svapnavrindavanakhyana, per the
+ project lead
+
+Closes the acquisition question: not a separate title, not Rukminisha
+Vijaya either. We already have the text (raw, archived). What's left is
+the verse-boundary parsing already flagged, not sourcing.
+
+Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01VsaYhDriufTCN4vSPcMtHQ
+---
+ dge/PENDING.md | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/dge/PENDING.md b/dge/PENDING.md
+index 9a3c36742..bda87f1e6 100644
+--- a/dge/PENDING.md
++++ b/dge/PENDING.md
+@@ -5923,3 +5923,15 @@ Worth asking the project lead directly: was "Vādirāja Vijaya" possibly
+ meant as Rukmiṇīśa Vijaya, or is it a real third title (perhaps only in
+ manuscript catalogues like the New Catalogus Catalogorum, which wasn't
+ searched here)?
++
++**Resolved by the project lead (11 Sep 2026, 1:18 pm IST): "Vādirāja Vijaya"
++*is* Svāpnavṛndāvanākhyānam** — not a separate title, and not Rukmiṇīśa
++Vijaya either. So the acquisition question is closed: we already have the
++text (raw, archived at
++`dge/sources/vadiraja_vijaya_app/svapnavrindavanakhyana/`, all 22 adhyāyas).
++What's still open is only what was already flagged two entries up: turning
++that raw `.vss` into a proper per-verse `data.json` (the verse-boundary
++reconstruction problem) and deciding taxonomy placement — not sourcing.
++Rukmiṇīśa Vijaya stays exactly where it was, an unrelated, still-real,
++still-unsourced wishlist gap — not pursued further per the lead's
++instruction, dropped from this thread.
+-- 
+2.43.0
+
