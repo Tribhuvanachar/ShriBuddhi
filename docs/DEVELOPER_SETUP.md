@@ -1,13 +1,70 @@
-# Cloning this repository on Windows or macOS
+# Working on this repository
 
-A plain `git clone` — including GitHub Desktop's Clone button — **fails on
-Windows and silently corrupts data on macOS**. This is not a bug in your
-machine, your network, or GitHub Desktop. Read the two paragraphs under
-"Why" before deciding to work around it; the failure is protecting you.
+## Cloning — a plain clone now works everywhere
 
-## The short version
+```bash
+git clone https://github.com/Tribhuvanachar/shribuddhi
+```
 
-Use Git Bash (Windows) or Terminal (macOS). Once, per machine:
+GitHub Desktop's Clone button works too. Nothing special is needed on Windows
+or macOS any more.
+
+That was not true until 14 Sep 2026. This repository held **37,234 colliding
+paths** and 7 named after reserved MS-DOS devices, so a clone failed on Windows
+and silently overwrote half the dictionary on macOS. `tools/safe_paths.py` now
+encodes every filesystem-facing name — an uppercase letter becomes lowercase +
+`-`, a reserved name gets `~` — and the trees were migrated onto it. The count
+today is 0 and 0.
+
+`bash tools/check_checkout.sh` confirms any working copy is safe to commit
+from; it probes the filesystem rather than guessing from the OS, so WSL2 and a
+case-sensitive Mac volume both pass.
+
+## Running the OCR Studio locally
+
+```bash
+python3 -m http.server 8777
+```
+
+Then <http://localhost:8777/admin/ocr-studio.html>. Pick a staged file from the
+dropdown, or deep-link one:
+
+    ?file=raghavendra_vijaya/sarvam_pages44-53.json
+
+Loading a file now pulls in the **other engines' readings of the same pages**
+automatically, so **⚖ Compare engines** shows all three with an agreement
+figure against the chosen one. Rebuild the dropdown's index after staging
+anything new:
+
+```bash
+python3 tools/build_ocr_staging_index.py
+```
+
+## Scanning a PDF from your own machine
+
+`tools/sarvam_docai.py` is the local path — no workflow, no browser, and the
+key never leaves your shell:
+
+```bash
+export SARVAM_API_KEY=...            # your shell only; never committed
+python3 tools/sarvam_docai.py --pdf scans/raghavendra_vijaya.pdf \
+        --pages 44-53 --work raghavendra_vijaya --dry-run
+```
+
+`--dry-run` slices and counts and calls nothing. Drop it to run for real —
+Sarvam bills per page, and `--max-pages` (default 200) is the guard against a
+mistyped range becoming an invoice.
+
+**Do not put the key in the browser.** The studio makes no API calls of its
+own, by design; a key in page JavaScript is readable by anyone with devtools,
+and Sarvam's endpoint will not accept a browser origin anyway. For scans run in
+CI the key stays a repository secret and `tools/ocr_auto.py` drives it.
+
+## Cloning with the two generated trees excluded
+
+Optional, and only worth it if you want a smaller checkout — `search_index/`
+and `data/kosha/` are generated (by `tools/build_search_index.py` and
+`kosha_toolkit/importers/`) and are 2 GB of the clone:
 
 ```bash
 git clone --no-checkout https://github.com/Tribhuvanachar/shribuddhi
@@ -15,12 +72,6 @@ cd shribuddhi
 git sparse-checkout set --no-cone '/*' '!/data/kosha/' '!/search_index/'
 git checkout main
 ```
-
-Then add the folder to GitHub Desktop with **File → Add local repository**.
-From that point on Desktop works normally — branches, commits, pushes, pulls
-— and never tries to write the paths it cannot.
-
-Verify with `bash tools/check_checkout.sh`.
 
 ## Why
 

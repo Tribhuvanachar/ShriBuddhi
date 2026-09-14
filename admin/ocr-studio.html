@@ -251,10 +251,39 @@ select,input[type=text],input[type=number],input[type=color]{padding:6px 9px;bor
   // ---- staged files -----------------------------------------------------
   // Same location ocr-review.html reads from, so the two pages see the same
   // work and a file reviewed in one can be styled in the other.
+  // The index's own entries, kept so a load can find its siblings. Set by
+  // listFiles(); empty until then, and every user of it copes with that.
+  var INDEX = [];
+
+  /**
+   * The other engines' readings of the SAME pages.
+   *
+   * "Compare engines" showed one engine and two empty rows, because loading a
+   * file only ever filled the slot belonging to the engine that produced it --
+   * the other two sat there saying "nothing loaded" beside a dropdown the
+   * reviewer had to work twice more. The readings were staged all along
+   * (sarvam_, vision_ and tesseract_pages44-53.json, all on main); nothing
+   * went looking for them.
+   *
+   * Matched on work AND page count rather than on the filename, because the
+   * three stagers do not agree on how to spell a range -- sarvam_pages44-53
+   * beside vision_pages_44-53 -- and a comparison that silently paired
+   * different pages would be worse than one that pairs nothing.
+   */
+  function siblingsOf(path){
+    var me = INDEX.filter(function(e){ return e.path === path; })[0];
+    if (!me) return [];
+    return INDEX.filter(function(e){
+      return e.path !== path && e.work === me.work && e.pages === me.pages &&
+             e.engine && e.engine !== me.engine;
+    });
+  }
+
   function listFiles(){
     fetch("../data/ocr_staging/index.json").then(function(r){
       return r.ok ? r.json() : null;
     }).catch(function(){ return null; }).then(function(idx){
+      INDEX = (idx && idx.entries) || [];
       var files = (idx && idx.files) || [];
       var sel = $("#file");
       if (!files.length){
@@ -263,21 +292,36 @@ select,input[type=text],input[type=number],input[type=color]{padding:6px 9px;bor
       }
       sel.innerHTML = '<option value="">— staged OCR file —</option>' +
         files.map(function(f){ return '<option value="'+esc(f)+'">'+esc(f)+'</option>'; }).join("");
-    });
+    }).then(openFromUrl, openFromUrl);
+  }
+
+  // Deliberately AFTER the index resolves, and on the failure path too.
+  // ?file= used to be honoured synchronously, which was fine when a load
+  // filled one slot and fatal the moment it had to find its siblings: INDEX
+  // was still empty, siblingsOf() returned nothing, and the other two engines
+  // stayed blank exactly as before -- a fix that looked applied and did
+  // nothing. On the failure path the load still runs, just without siblings,
+  // because a missing index should cost the comparison and not the file.
+  var opened = false;
+  function openFromUrl(){
+    if (opened) return;
+    opened = true;
     var q = new URLSearchParams(location.search);
-    if (q.get("file")) loadFile(q.get("file"), $("#asEngine").value || null);
-    S.ENGINE_IDS.forEach(function(id){ if (q.get(id)) loadFile(q.get(id), id); });
+    if (q.get("file")) loadFile(q.get("file"), $("#asEngine").value || null, true);
+    // An explicit per-engine URL is the reviewer naming each file themselves,
+    // so it is left alone -- pulling siblings in would override their choice.
+    S.ENGINE_IDS.forEach(function(id){ if (q.get(id)) loadFile(q.get(id), id, false); });
   }
 
   $("#loadBtn").onclick = function(){
-    if ($("#file").value) loadFile($("#file").value, $("#asEngine").value || null);
+    if ($("#file").value) loadFile($("#file").value, $("#asEngine").value || null, true);
   };
 
   // A staged file goes into the slot for the engine that PRODUCED it, which
   // the file itself says (sarvam_docai.py writes engine:"sarvam-docai"; the
   // older stagers wrote only the Gemini model that proofread Vision's text).
   // The "as …" dropdown is the override for a file that says nothing.
-  function loadFile(path, forceId){
+  function loadFile(path, forceId, withSiblings){
     var url = path.indexOf("/") === 0 || /^https?:/.test(path)
       ? path : "../data/ocr_staging/" + path;
     $("#docBody").innerHTML = '<div class="empty">Loading…</div>';
@@ -287,6 +331,9 @@ select,input[type=text],input[type=number],input[type=color]{padding:6px 9px;bor
     }).then(function(d){
       var id = forceId || S.stagedEngine(d) || "sarvam";
       setSource(id, pagesOf(d), path.split("/").pop());
+      if (withSiblings) siblingsOf(path).forEach(function(sib){
+        loadFile(sib.path, sib.engine, false);   // false: no recursion back
+      });
     }).catch(function(e){
         $("#docBody").innerHTML = '<div class="empty">Could not load that file — ' + esc(e.message) + '</div>';
       });
