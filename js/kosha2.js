@@ -107,7 +107,8 @@
     var loc = E.bucketFor(slug, efold);
     if (!loc) return Promise.resolve(null);
     var url = RENDER_BASE + '/' + loc.category + '/' + slug + '/e/' +
-              encodeURIComponent(loc.bucket) + '.json';
+              (window.dgeSafeBucket ? window.dgeSafeBucket(loc.bucket)
+                                    : encodeURIComponent(loc.bucket)) + '.json';
     var p = enrichCache[url] || (enrichCache[url] = fetchJson(url));
     return p.then(function (sh) {
       if (!sh || !sh[efold]) return null;

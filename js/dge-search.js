@@ -121,7 +121,7 @@
   // fetchJSON can take, was a real bug: it made the Node-local test (used to
   // validate this fix) pass while the browser path was silently broken.
   function safeTrigram(tg) {
-    return tg.replace(/[^0-9A-Za-z^$]/g, '_') || '_';
+    return safeComponent(tg.replace(/[^0-9A-Za-z^$]/g, '_') || '_');
   }
 
   // How many of a trigram set's members to actually fetch, rarest first (by
@@ -262,6 +262,26 @@
       return t && !/^[0-9]+$/.test(t);
     });
   }
+  // Mirrors tools/safe_paths.py safe_component EXACTLY. If one changes and
+  // the other does not, every posting fetch 404s and search silently returns
+  // nothing. 'Ba' -> 'b-a' so it cannot collide with 'ba' on a case-
+  // insensitive filesystem; a reserved device name gets '~' rather than '-',
+  // because 'nuL' already escapes to 'nul-' and the repo holds both spellings.
+  var DGE_RESERVED = {con:1,prn:1,aux:1,nul:1};
+  for (var _i = 0; _i < 10; _i++) { DGE_RESERVED['com' + _i] = 1; DGE_RESERVED['lpt' + _i] = 1; }
+  function safeComponent(name) {
+    var out = '';
+    for (var i = 0; i < name.length; i++) {
+      var ch = name[i];
+      if ((ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'z') || ch === '^' || ch === '$') out += ch;
+      else if (ch >= 'A' && ch <= 'Z') out += ch.toLowerCase() + '-';
+      else out += '_';
+    }
+    out = out || '_';
+    if (DGE_RESERVED[out.split('.')[0].toLowerCase()]) out += '~';
+    return out;
+  }
+
   function bucketKey(word, depth) {
     var out = '';
     var prefix = word.slice(0, depth);
@@ -271,7 +291,7 @@
       else if (ch >= 'A' && ch <= 'Z') out += ch.toLowerCase() + '-';
       else out += '_';
     }
-    return out || '_';
+    return safeComponent(out || '_');
   }
   // Adaptive depth: manifest.wordBucketDeepen is a presence-set written by
   // the builder ({prefixKey: 1}); a word's 2-char key being present means

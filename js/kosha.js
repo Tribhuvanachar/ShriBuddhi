@@ -139,8 +139,24 @@
   // filename must be URI-encoded once more ("%25967.json", which serves).
   // Found live, 1 Sep 2026: this one dictionary was the missing 36th कोश
   // on every अब्ज-style lookup. ASCII bucket names pass through unchanged.
-  function safeBucket(b) { return encodeURIComponent(b.replace(/[^0-9A-Za-z_]/g, function (c) {
-    return '%' + c.charCodeAt(0).toString(16).padStart(2, '0'); }) || '_'); }
+  // 14 Sep 2026: was percent-escaping anything non-alphanumeric, which left
+  // gaD.json and gad.json as one file on Windows/macOS -- two different
+  // dictionary entries, one of them silently lost. Now the same encoder the
+  // index uses (tools/safe_paths.py safe_component).
+  var K_RESERVED = {con:1,prn:1,aux:1,nul:1};
+  for (var _k = 0; _k < 10; _k++) { K_RESERVED['com' + _k] = 1; K_RESERVED['lpt' + _k] = 1; }
+  function safeBucket(b) {
+    var out = '';
+    for (var i = 0; i < b.length; i++) {
+      var ch = b[i];
+      if ((ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'z') || ch === '^' || ch === '$') out += ch;
+      else if (ch >= 'A' && ch <= 'Z') out += ch.toLowerCase() + '-';
+      else out += '_';
+    }
+    out = out || '_';
+    if (K_RESERVED[out.split('.')[0].toLowerCase()]) out += '~';
+    return encodeURIComponent(out);
+  }
 
   // ---- SLP1 + fold (mirrors the importer / the app's search spine) ----------
   function fold(s) {

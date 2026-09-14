@@ -298,6 +298,10 @@ def word_tokens(pk: str):
     return [t for t in _WORD_SPLIT.split(pk) if t and not _PURE_DIGITS.match(t)]
 
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from safe_paths import safe_component  # noqa: E402
+
+
 def bucket_key(word: str, depth: int) -> str:
     """Case-safe, filesystem/URL-safe bucket name from a word's first
     `depth` chars. pkey retains uppercase (aspirates K/G/C/J/T/D/P/B,
@@ -319,7 +323,11 @@ def bucket_key(word: str, depth: int) -> str:
             out.append(ch.lower() + "-")
         else:
             out.append("_")
-    return "".join(out) or "_"
+    # 14 Sep 2026: the case half was always right here; what it never did was
+    # the reserved device names. 'nul' and 'prn' are ordinary syllable pairs in
+    # this corpus and Windows has refused them as filenames since 1983, so the
+    # shared encoder finishes the job. See tools/safe_paths.py.
+    return safe_component("".join(out) or "_")
 
 
 # Adaptive bucket depth (Fable review, 30 Aug 2026, measured against the
@@ -359,7 +367,10 @@ def safe_trigram_filename(tg: str) -> str:
     filename already containing a literal "%" was requested as something
     else entirely and 404'd. Only a genuinely unexpected character (none
     should occur) falls back to '_', same spirit as the old bucket_of()."""
-    return _UNSAFE_TG_CHARS.sub("_", tg) or "_"
+    # The trigram tree is what bucket_key's own docstring called "the same
+    # latent landmine" and declined to repeat. Now it uses the same encoder,
+    # so Ki and ki are no longer one file on a Mac.
+    return safe_component(_UNSAFE_TG_CHARS.sub("_", tg) or "_")
 
 
 def build(data_dir: str, out_dir: str, extra_dirs=(), commentaries=False) -> dict:
