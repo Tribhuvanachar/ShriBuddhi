@@ -669,7 +669,7 @@
           "note": "ॐ-गायत्री-पुरुषसूक्तम्",
           "enabled": true,
           "leaves_seen": 3,
-          "_note": "Checked live site 28 Aug 2026: this grantha's \"mula\" layer is the Vedic Purusha Sukta mantra itself (apaurusheya, no human author) with what looks like Vadiraja Tirtha's own explanatory verses (cf. the embedded \"Yukti Mallika\" heading inside dge_d7f8deeec8e5) mixed into the same layer. Neither \"leave as Madhva\" nor a single acharya override is honest here -- setting one would misattribute the shruti portion, and the code's acharya field has no \"unattributed\" state, only silence-defaults-to-Madhva or an override string. Left unconfigured deliberately; a real fix needs the mula content itself re-examined/re-split, not a config field -- out of scope for this pass."
+          "_note": "Checked live site 28 Aug 2026: this grantha's \"mula\" layer is the Vedic Purusha Sukta mantra itself (apaurusheya, no human author) with what looks like Vadiraja Tirtha's own explanatory verses (cf. the embedded \"Yukti Mallika\" heading inside L13:3) mixed into the same layer. Neither \"leave as Madhva\" nor a single acharya override is honest here -- setting one would misattribute the shruti portion, and the code's acharya field has no \"unattributed\" state, only silence-defaults-to-Madhva or an override string. Left unconfigured deliberately; a real fix needs the mula content itself re-examined/re-split, not a config field -- out of scope for this pass."
         },
         {
           "slug": "madhvamukhalankara",

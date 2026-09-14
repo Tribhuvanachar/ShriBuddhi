@@ -473,7 +473,7 @@
    "in_group": 3,
    "name": "Anuvyākhyāna",
    "sarvamula_path": "data/Tattvavada/SarvaMula/sutra_prasthana/anuvyakhyana",
-   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana_sudha",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana",
    "tika_count": 1,
    "tikas": [
     {
@@ -531,8 +531,12 @@
        "code": "SM13.1.12",
        "folder": "tika_yadupatyam"
       }
-     ]
+     ],
+     "mula_at": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/nyaya_sudha/mula"
     }
+   ],
+   "also_paths": [
+    "data/darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana_sudha"
    ]
   },
   {
@@ -921,7 +925,7 @@
    "in_group": 1,
    "name": "Ṛg Bhāṣya",
    "sarvamula_path": "data/Tattvavada/SarvaMula/shruti_prasthana/rg_bhashya",
-   "commentary_path": null,
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/sruti_prasthana/rig_bhashya",
    "tika_count": 0,
    "tikas": []
   },

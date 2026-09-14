@@ -49,7 +49,7 @@ block (`first_sutra_id`). Every further unit named in the RIGHT-hand nav
 The original import never followed this endpoint, so every page contributed
 exactly its first unit — verified live against
 `category-details/977/975/...` (Nyāyasudhā maṅgalamācaraṇam): 9 units on the
-site, 1 (`dge_fafb965ea499`) in `data`, units 979–986 absent repo-wide (the
+site, 1 (`SM13:1`) in `data`, units 979–986 absent repo-wide (the
 reported missing गुरुराजेन passages among them). The importer now exhausts
 `/load-data` per page (see `extract_lazy_units` / `parse_load_fragment` in
 `dv_parse.py` and the leaf loop); a re-run with the cache warm re-fetches

@@ -45,8 +45,8 @@ def item(iid, text="पाठः", layer="", tika_title=None):
 
 class TestBaseId(unittest.TestCase):
     def test_strips_collision_suffix_only(self):
-        self.assertEqual(base_id("dge_fafb965ea499-2"), "dge_fafb965ea499")
-        self.assertEqual(base_id("dge_fafb965ea499"), "dge_fafb965ea499")
+        self.assertEqual(base_id("SM13:1-2"), "SM13:1")
+        self.assertEqual(base_id("SM13:1"), "SM13:1")
         self.assertEqual(base_id("sutra_1"), "sutra_1")  # trailing _N is not -N
 
 

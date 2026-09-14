@@ -400,7 +400,7 @@ def main():
             failures += not check("ids are unique inside the layer",
                                   len(m_ids) == len(set(m_ids)), m_ids)
             failures += not check("ids follow the article, not the page",
-                                  set(m_ids) == {"dge_7c7b71e743cb", "dge_6a92f9b0fc11"}, m_ids)
+                                  set(m_ids) == {"SM1:170", "SM1:85"}, m_ids)
             failures += not check("cross-layer link survives", set(t_ids) == set(m_ids),
                                   (t_ids, m_ids))
         finally:

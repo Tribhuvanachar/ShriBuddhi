@@ -94,7 +94,7 @@ def is_structural_heading(text: str) -> bool:
 # stem: "प्रकृत्यधिकरणम्" (the प्रकृति-adhikaraṇa heading) contains कृत
 # followed by ्, and without the guard it parsed as author "प्र" + work —
 # which bypassed the single_work mula-fold on Anuvyākhyāna and minted a
-# fake tika_pra folder (found on the 25 Aug cache replay, node dge_a793d5700317).
+# fake tika_pra folder (found on the 25 Aug cache replay, node SM13:2719).
 # Genuine attributions inflect as कृतः/कृता/कृतम्/विरचिता…, never कृत्/कृति.
 ATTRIBUTION_RE = re.compile(r"(कृत|विरचित|प्रणीत|प्रोक्त|विरचयाम्)(?![ि्ी])")
 ATTRIBUTION_MAX_CHARS = 90

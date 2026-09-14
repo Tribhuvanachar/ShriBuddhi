@@ -25,7 +25,7 @@
     var ref = '';
     if (sh) {
       var vid = sh.vedicId ? String(sh.vedicId).trim() : '';
-      // Data-side codes are not a reference: the pre-cutover shape (dge_238246a08d02,
+      // Data-side codes are not a reference: the pre-cutover shape (SM26:1,
       // uppercase-letters-then-underscore) AND the post-cutover shape (publish.py's
       // per-file sequential renumbering: a bare integer, e.g. "2586") are both raw
       // ids leaking through vedicId when the item has no real `reference` string --

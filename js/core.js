@@ -805,7 +805,7 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
         // prefer it, matching the itihasa_purana_text branch above which
         // already prefers chapter.reference over a raw id.
         vedicId: item.reference || item.id || '',
-        // The item's raw id too (dge_696d72c4488b, AV_C01_S01_I01, ...): deep links
+        // The item's raw id too (SM7:23, AV_C01_S01_I01, ...): deep links
         // built from data-side indexes (prayoga index, backlinks) address
         // units by this id, while vedicId above is the human-facing
         // reference string when one exists.
@@ -1405,7 +1405,7 @@ function dgeResolveQuickJumpTarget(target) {
         return vid && normalize(vid).indexOf(wanted + '.') === 0;
       });
     }
-    // Data-side unit ids (dge_696d72c4488b ...) aren't dotted numbers and aren't the
+    // Data-side unit ids (SM7:23 ...) aren't dotted numbers and aren't the
     // display reference -- match them exactly against the id each shloka
     // now carries. For a nested grantha this lands on the chapter's first
     // shloka, which is the honest resolution of a chapter-level id.
