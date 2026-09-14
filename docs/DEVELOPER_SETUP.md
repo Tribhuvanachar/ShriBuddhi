@@ -23,7 +23,7 @@ case-sensitive Mac volume both pass.
 ## Running the OCR Studio locally
 
 ```bash
-python3 -m http.server 8777
+python3 tools/dev_server.py          # or plain: python3 -m http.server 8777
 ```
 
 Then <http://localhost:8777/admin/ocr-studio.html>. Pick a staged file from the
@@ -55,10 +55,41 @@ python3 tools/sarvam_docai.py --pdf scans/raghavendra_vijaya.pdf \
 Sarvam bills per page, and `--max-pages` (default 200) is the guard against a
 mistyped range becoming an invoice.
 
-**Do not put the key in the browser.** The studio makes no API calls of its
-own, by design; a key in page JavaScript is readable by anyone with devtools,
-and Sarvam's endpoint will not accept a browser origin anyway. For scans run in
-CI the key stays a repository secret and `tools/ocr_auto.py` drives it.
+### Why the key is not pasted into the page, the way convert/ does it
+
+`convert/` holds a Gemini or Vision key in `localStorage` and calls
+`googleapis.com` straight from the page, and that works. Sarvam cannot be used
+the same way, and the reason is one missing response header rather than a
+policy decision:
+
+```
+$ curl -X OPTIONS https://api.sarvam.ai/doc-ai/v1/job \
+    -H 'Origin: http://localhost:8778' \
+    -H 'Access-Control-Request-Method: POST' \
+    -H 'Access-Control-Request-Headers: api-subscription-key'
+access-control-allow-origin: *
+(no access-control-allow-headers, no access-control-allow-methods)
+```
+
+Sarvam authenticates with a **custom header**, `api-subscription-key`. A custom
+header makes the request non-simple, so the browser preflights it, and the
+preflight must name that header in `Access-Control-Allow-Headers` or the
+browser refuses to send the real request. It does not. Google's preflight
+returns `access-control-allow-headers: content-type` and takes its key in the
+query string, which is why the same pattern works there.
+
+So `tools/dev_server.py` serves the pages *and* proxies `/sarvam/…` to
+`api.sarvam.ai`, adding the key on the way out. The key comes from the shell
+you start it in: never sent to the browser, never written to disk, never
+committed. It binds `127.0.0.1` only — anything that can reach it can spend
+money.
+
+If Sarvam ever adds `api-subscription-key` to their `Access-Control-Allow-
+Headers`, the proxy stops being necessary and the `convert/` pattern works
+unchanged. Worth asking them; it is a one-line change on their side.
+
+For scans run in CI the key stays a repository secret and `tools/ocr_auto.py`
+drives it.
 
 ## Cloning with the two generated trees excluded
 
