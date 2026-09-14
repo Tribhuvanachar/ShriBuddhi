@@ -1,279 +1,1623 @@
 {
- "_readme": "Serial numbering of the Sarvamula granthas of Sri Madhvacharya -- the spine every other id in the corpus hangs from. SM13 is Anuvyakhyana; SM13.3 is its third tika; SM13.3.1 is a commentary ON that tika. A unit inside any of them is <code>:<n>, e.g. SM13.3:412. Replaces the imported site's own record numbers (see tools/renumber_origin_ids.py); the mapping back lives in Parabuddhi and nowhere else.",
+ "_readme": "Serial numbering of the 38 Sarvamula granthas of Sri Madhvacharya, settled by scholarly review 14 Sep 2026. SM13 is Anuvyakhyana; SM13.3 its third tika; SM13.3.1 a commentary on that tika; SM13.3:412 a unit inside it. Works by later acharyas take an L prefix, not SM -- they are not Madhva's. Replaces the imported site's own record numbers; the mapping back lives in Parabuddhi.",
  "scheme": {
   "work": "SM<serial>",
   "tika": "SM<serial>.<t>",
   "sub_tika": "SM<serial>.<t>.<s>",
-  "unit": "<code>:<n>"
+  "unit": "<code>:<n>",
+  "later_acharya": "L<serial>"
  },
- "order_note": "Conventional sequence: the ten prakaranas, the four Brahmasutra works, the ten Upanishad bhashyas, Rg bhashya, the two Gita works, the two tatparya nirnayas, Yamaka Bharata, then the achara and stotra granthas. PROPOSAL -- the lead confirms the order before any id is minted from it.",
+ "code_note": "The id is SM<serial> alone -- deliberately short. The reviewer's markup sketched a longer form carrying the prasthana (SM1-D.P-1-P.L), but 'S.P' was used there for BOTH Sutra Prasthana and Stotra Prasthana, which two different works cannot share in an identifier. The prasthana is kept as a separate `group` field instead, so it can be displayed without being load-bearing.",
  "count": 38,
  "works": [
   {
    "code": "SM1",
    "serial": 1,
+   "group": "DP",
+   "in_group": 1,
    "name": "Pramāṇa Lakṣaṇa",
-   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/pramana_lakshana",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/pramana_lakshana",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas/pramana_lakshana",
+   "tika_count": 5,
+   "tikas": [
+    {
+     "code": "SM1.1",
+     "folder": "tika_bhavadipa"
+    },
+    {
+     "code": "SM1.2",
+     "folder": "tika_jayatirtha"
+    },
+    {
+     "code": "SM1.3",
+     "folder": "tika_pramanalakshanam"
+    },
+    {
+     "code": "SM1.4",
+     "folder": "tika_vakyarthakaumudi"
+    },
+    {
+     "code": "SM1.5",
+     "folder": "tika_vivarana"
+    }
+   ]
   },
   {
    "code": "SM2",
    "serial": 2,
+   "group": "DP",
+   "in_group": 2,
    "name": "Kathā Lakṣaṇa",
-   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/katha_lakshana",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/katha_lakshana",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas/katha_lakshana",
+   "tika_count": 5,
+   "tikas": [
+    {
+     "code": "SM2.1",
+     "folder": "tika_bhavadipa"
+    },
+    {
+     "code": "SM2.2",
+     "folder": "tika_jayatirtha"
+    },
+    {
+     "code": "SM2.3",
+     "folder": "tika_kathalakshanam"
+    },
+    {
+     "code": "SM2.4",
+     "folder": "tika_panchika"
+    },
+    {
+     "code": "SM2.5",
+     "folder": "tika_vivarana"
+    }
+   ]
   },
   {
    "code": "SM3",
    "serial": 3,
-   "name": "Upādhi Khaṇḍana",
-   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/upadhi_khandhana",
-   "verified": true
+   "group": "DP",
+   "in_group": 3,
+   "name": "Māyāvāda Khaṇḍana",
+   "sarvamula_path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/mayavada_khandana",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas/mayavada_khandana",
+   "tika_count": 4,
+   "tikas": [
+    {
+     "code": "SM3.1",
+     "folder": "tika_jayatirtha"
+    },
+    {
+     "code": "SM3.2",
+     "folder": "tika_mandaramanjari"
+    },
+    {
+     "code": "SM3.3",
+     "folder": "tika_mayavadaparashu"
+    },
+    {
+     "code": "SM3.4",
+     "folder": "tika_nivasatirthatippani"
+    }
+   ]
   },
   {
    "code": "SM4",
    "serial": 4,
-   "name": "Prapañca Mithyātva Anumāna Khaṇḍana",
-   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/prapancha_mithyatva_anumana_khandana",
-   "verified": true
+   "group": "DP",
+   "in_group": 4,
+   "name": "Upādhi Khaṇḍana",
+   "sarvamula_path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/upadhi_khandhana",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas/upadhi_khandana",
+   "tika_count": 4,
+   "tikas": [
+    {
+     "code": "SM4.1",
+     "folder": "tika_jayatirtha"
+    },
+    {
+     "code": "SM4.2",
+     "folder": "tika_mandaramanjari"
+    },
+    {
+     "code": "SM4.3",
+     "folder": "tika_nivasatirthiyatippani"
+    },
+    {
+     "code": "SM4.4",
+     "folder": "tika_parashunamnitippani"
+    }
+   ]
   },
   {
    "code": "SM5",
    "serial": 5,
-   "name": "Māyāvāda Khaṇḍana",
-   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/mayavada_khandana",
-   "verified": true
+   "group": "DP",
+   "in_group": 5,
+   "name": "Prapañca Mithyātva Anumāna Khaṇḍana",
+   "sarvamula_path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/prapancha_mithyatva_anumana_khandana",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas/prapancha_mithyatvanumana_khandana",
+   "tika_count": 4,
+   "tikas": [
+    {
+     "code": "SM5.1",
+     "folder": "tika_gururajiyatippani"
+    },
+    {
+     "code": "SM5.2",
+     "folder": "tika_jayatirtha"
+    },
+    {
+     "code": "SM5.3",
+     "folder": "tika_mithyatvanumanakhandanaparashu"
+    },
+    {
+     "code": "SM5.4",
+     "folder": "tika_nivasatirthiyatippani"
+    }
+   ]
   },
   {
    "code": "SM6",
    "serial": 6,
+   "group": "DP",
+   "in_group": 6,
    "name": "Tattva Saṅkhyāna",
-   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvasankhyana",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvasankhyana",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas/tattva_sankhyana",
+   "tika_count": 8,
+   "tikas": [
+    {
+     "code": "SM6.1",
+     "folder": "tika_bhavacandrika"
+    },
+    {
+     "code": "SM6.2",
+     "folder": "tika_bhavadipa"
+    },
+    {
+     "code": "SM6.3",
+     "folder": "tika_bhavavarnanam"
+    },
+    {
+     "code": "SM6.4",
+     "folder": "tika_jayatirtha"
+    },
+    {
+     "code": "SM6.5",
+     "folder": "tika_kashitippani"
+    },
+    {
+     "code": "SM6.6",
+     "folder": "tika_tatvasankhyanatikatippani"
+    },
+    {
+     "code": "SM6.7",
+     "folder": "tika_tatvasankhyanatippanam"
+    },
+    {
+     "code": "SM6.8",
+     "folder": "tika_vivarana"
+    }
+   ]
   },
   {
    "code": "SM7",
    "serial": 7,
+   "group": "DP",
+   "in_group": 7,
    "name": "Tattva Viveka",
-   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvaviveka",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvaviveka",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas/tattva_viveka",
+   "tika_count": 10,
+   "tikas": [
+    {
+     "code": "SM7.1",
+     "folder": "tika_dvaitadyumani"
+    },
+    {
+     "code": "SM7.2",
+     "folder": "tika_govindiya"
+    },
+    {
+     "code": "SM7.3",
+     "folder": "tika_gururajiya"
+    },
+    {
+     "code": "SM7.4",
+     "folder": "tika_janardanabhattiya"
+    },
+    {
+     "code": "SM7.5",
+     "folder": "tika_jayatirtha"
+    },
+    {
+     "code": "SM7.6",
+     "folder": "tika_mula"
+    },
+    {
+     "code": "SM7.7",
+     "folder": "tika_naropantiya"
+    },
+    {
+     "code": "SM7.8",
+     "folder": "tika_raghavendratirtha"
+    },
+    {
+     "code": "SM7.9",
+     "folder": "tika_vedeshatirtha"
+    },
+    {
+     "code": "SM7.10",
+     "folder": "tika_vijayindrabhikshu"
+    }
+   ]
   },
   {
    "code": "SM8",
    "serial": 8,
+   "group": "DP",
+   "in_group": 8,
    "name": "Tattvodyota",
-   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvodyota",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvodyota",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas/tattvodyota",
+   "tika_count": 3,
+   "tikas": [
+    {
+     "code": "SM8.1",
+     "folder": "tika_jayatirtha"
+    },
+    {
+     "code": "SM8.2",
+     "folder": "tika_mandaramanjari"
+    },
+    {
+     "code": "SM8.3",
+     "folder": "tika_vivarana"
+    }
+   ]
   },
   {
    "code": "SM9",
    "serial": 9,
+   "group": "DP",
+   "in_group": 9,
    "name": "Karma Nirṇaya",
-   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/karma_nirnaya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/karma_nirnaya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas/karma_nirnaya",
+   "tika_count": 5,
+   "tikas": [
+    {
+     "code": "SM9.1",
+     "folder": "tika_bhavadipa"
+    },
+    {
+     "code": "SM9.2",
+     "folder": "tika_jayatirtha"
+    },
+    {
+     "code": "SM9.3",
+     "folder": "tika_karmaprakasha"
+    },
+    {
+     "code": "SM9.4",
+     "folder": "tika_panchika"
+    },
+    {
+     "code": "SM9.5",
+     "folder": "tika_vivarana"
+    }
+   ]
   },
   {
    "code": "SM10",
    "serial": 10,
+   "group": "DP",
+   "in_group": 10,
    "name": "Viṣṇu Tattva Nirṇaya",
-   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/vishnu_tattva_nirnaya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/vishnu_tattva_nirnaya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas/vishnu_tattva_vinirnaya",
+   "tika_count": 7,
+   "tikas": [
+    {
+     "code": "SM10.1",
+     "folder": "tika_bhavabodha"
+    },
+    {
+     "code": "SM10.2",
+     "folder": "tika_bhavadipa"
+    },
+    {
+     "code": "SM10.3",
+     "folder": "tika_jayatirtha"
+    },
+    {
+     "code": "SM10.4",
+     "folder": "tika_laghuprabha"
+    },
+    {
+     "code": "SM10.5",
+     "folder": "tika_tattvamanjari"
+    },
+    {
+     "code": "SM10.6",
+     "folder": "tika_vakyarthadipika"
+    },
+    {
+     "code": "SM10.7",
+     "folder": "tika_vishamapadavakyarthavivriti"
+    }
+   ]
   },
   {
    "code": "SM11",
    "serial": 11,
+   "group": "SU",
+   "in_group": 1,
    "name": "Brahmasūtra Bhāṣya",
-   "path": "data/Tattvavada/SarvaMula/sutra_prasthana/brahmasutra_bhashya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/sutra_prasthana/brahmasutra_bhashya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya",
+   "tika_count": 22,
+   "tikas": [
+    {
+     "code": "SM11.1",
+     "folder": "tika_abhinavacandrika"
+    },
+    {
+     "code": "SM11.2",
+     "folder": "tika_bhashya"
+    },
+    {
+     "code": "SM11.3",
+     "folder": "tika_bhavabodha"
+    },
+    {
+     "code": "SM11.4",
+     "folder": "tika_bhavadipa"
+    },
+    {
+     "code": "SM11.5",
+     "folder": "tika_gurvarthadipika"
+    },
+    {
+     "code": "SM11.6",
+     "folder": "tika_pandurangi_shrinivasacarya"
+    },
+    {
+     "code": "SM11.7",
+     "folder": "tika_sattarkadipavali"
+    },
+    {
+     "code": "SM11.8",
+     "folder": "tika_sharkara_shrinivasacarya"
+    },
+    {
+     "code": "SM11.9",
+     "folder": "tika_shriraghuttamatirtha"
+    },
+    {
+     "code": "SM11.10",
+     "folder": "tika_shrivadirajatirtha"
+    },
+    {
+     "code": "SM11.11",
+     "folder": "tika_tamraparni_shrinivasacarya"
+    },
+    {
+     "code": "SM11.12",
+     "folder": "tika_tattvapradipika"
+    },
+    {
+     "code": "SM11.13",
+     "folder": "tika_tattvaprakashika"
+    },
+    {
+     "code": "SM11.14",
+     "folder": "tika_tattvaprakashikabhavabodha"
+    },
+    {
+     "code": "SM11.15",
+     "folder": "tika_tattvaprakashikavivriti"
+    },
+    {
+     "code": "SM11.16",
+     "folder": "tika_tattvaprradipika"
+    },
+    {
+     "code": "SM11.17",
+     "folder": "tika_tattvasubodhini"
+    },
+    {
+     "code": "SM11.18",
+     "folder": "tika_vakyarthamancari"
+    },
+    {
+     "code": "SM11.19",
+     "folder": "tika_vakyarthamanjari"
+    },
+    {
+     "code": "SM11.20",
+     "folder": "tika_vakyarthamuktavali"
+    },
+    {
+     "code": "SM11.21",
+     "folder": "tika_vivarana"
+    },
+    {
+     "code": "SM11.22",
+     "folder": "tika_vivriti"
+    }
+   ]
   },
   {
    "code": "SM12",
    "serial": 12,
+   "group": "SU",
+   "in_group": 2,
    "name": "Aṇu Bhāṣya",
-   "path": "data/Tattvavada/SarvaMula/sutra_prasthana/anu_bhashya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/sutra_prasthana/anu_bhashya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anubhashya",
+   "tika_count": 1,
+   "tikas": [
+    {
+     "code": "SM12.1",
+     "folder": "tika_bhashya"
+    }
+   ]
   },
   {
    "code": "SM13",
    "serial": 13,
+   "group": "SU",
+   "in_group": 3,
    "name": "Anuvyākhyāna",
-   "path": "data/Tattvavada/SarvaMula/sutra_prasthana/anuvyakhyana",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/sutra_prasthana/anuvyakhyana",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana_sudha",
+   "tika_count": 1,
+   "tikas": [
+    {
+     "code": "SM13.1",
+     "folder": "tika_nyayasudha",
+     "name": "Nyāyasudhā",
+     "also_at": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/nyaya_sudha",
+     "note": "Jayatirtha's tika on the Anuvyakhyana. Filed twice in the corpus; the later_acharyas copy is the one carrying sub-commentaries.",
+     "sub_tikas": [
+      {
+       "code": "SM13.1.1",
+       "folder": "tika_anuvyakhyanam"
+      },
+      {
+       "code": "SM13.1.2",
+       "folder": "tika_na_ca_tata"
+      },
+      {
+       "code": "SM13.1.3",
+       "folder": "tika_nivasatirthiya"
+      },
+      {
+       "code": "SM13.1.4",
+       "folder": "tika_nyayasudha"
+      },
+      {
+       "code": "SM13.1.5",
+       "folder": "tika_parimala"
+      },
+      {
+       "code": "SM13.1.6",
+       "folder": "tika_pra"
+      },
+      {
+       "code": "SM13.1.7",
+       "folder": "tika_sheshavakyarthacandrika"
+      },
+      {
+       "code": "SM13.1.8",
+       "folder": "tika_sudha"
+      },
+      {
+       "code": "SM13.1.9",
+       "folder": "tika_vakyarthacandrika"
+      },
+      {
+       "code": "SM13.1.10",
+       "folder": "tika_vakyartharatnamala"
+      },
+      {
+       "code": "SM13.1.11",
+       "folder": "tika_vivarana"
+      },
+      {
+       "code": "SM13.1.12",
+       "folder": "tika_yadupatyam"
+      }
+     ]
+    }
+   ]
   },
   {
    "code": "SM14",
    "serial": 14,
+   "group": "SU",
+   "in_group": 4,
    "name": "Nyāya Vivaraṇa",
-   "path": "data/Tattvavada/SarvaMula/sutra_prasthana/nyaya_vivarana",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/sutra_prasthana/nyaya_vivarana",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/nyaya_vivarana",
+   "tika_count": 3,
+   "tikas": [
+    {
+     "code": "SM14.1",
+     "folder": "tika_bhavabodha"
+    },
+    {
+     "code": "SM14.2",
+     "folder": "tika_nigudharthaprabodhini"
+    },
+    {
+     "code": "SM14.3",
+     "folder": "tika_panchika"
+    }
+   ]
   },
   {
    "code": "SM15",
    "serial": 15,
+   "group": "UP",
+   "in_group": 1,
    "name": "Īśāvāsya Bhāṣya",
-   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/ishavasya_bhashya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/upanishat_prasthana/ishavasya_bhashya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/ishavasyopanishad_bhashya",
+   "tika_count": 3,
+   "tikas": [
+    {
+     "code": "SM15.1",
+     "folder": "tika_bhashya"
+    },
+    {
+     "code": "SM15.2",
+     "folder": "tika_jayatirtha"
+    },
+    {
+     "code": "SM15.3",
+     "folder": "tika_prakashika"
+    }
+   ]
   },
   {
    "code": "SM16",
    "serial": 16,
+   "group": "UP",
+   "in_group": 2,
    "name": "Kāṭhaka Bhāṣya",
-   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/kathaka_bhashya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/upanishat_prasthana/kathaka_bhashya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/kathopanishad_bhashya",
+   "tika_count": 10,
+   "tikas": [
+    {
+     "code": "SM16.1",
+     "folder": "tika_bhashya"
+    },
+    {
+     "code": "SM16.2",
+     "folder": "tika_raghavendratirthakhandartha"
+    },
+    {
+     "code": "SM16.3",
+     "folder": "tika_upanishat"
+    },
+    {
+     "code": "SM16.4",
+     "folder": "tika_vadirajatirtha"
+    },
+    {
+     "code": "SM16.5",
+     "folder": "tika_vamanapanditacarya"
+    },
+    {
+     "code": "SM16.6",
+     "folder": "tika_varadatirtha"
+    },
+    {
+     "code": "SM16.7",
+     "folder": "tika_varadatirthakhandartha"
+    },
+    {
+     "code": "SM16.8",
+     "folder": "tika_vedeshatirtha"
+    },
+    {
+     "code": "SM16.9",
+     "folder": "tika_vedeshatirthakhandartha"
+    },
+    {
+     "code": "SM16.10",
+     "folder": "tika_vyasatirtha"
+    }
+   ]
   },
   {
    "code": "SM17",
    "serial": 17,
+   "group": "UP",
+   "in_group": 3,
    "name": "Ṣaṭpraśna Bhāṣya",
-   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/shatprashna_bhashya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/upanishat_prasthana/shatprashna_bhashya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/shatprashnopanishadbhashyam",
+   "tika_count": 14,
+   "tikas": [
+    {
+     "code": "SM17.1",
+     "folder": "tika_anantabhatta"
+    },
+    {
+     "code": "SM17.2",
+     "folder": "tika_bhashya"
+    },
+    {
+     "code": "SM17.3",
+     "folder": "tika_gudhakartrikashatprashnabhashyatikatippani"
+    },
+    {
+     "code": "SM17.4",
+     "folder": "tika_jayatirtha"
+    },
+    {
+     "code": "SM17.5",
+     "folder": "tika_mankalidharmarajacarya"
+    },
+    {
+     "code": "SM17.6",
+     "folder": "tika_panchika"
+    },
+    {
+     "code": "SM17.7",
+     "folder": "tika_prakashika"
+    },
+    {
+     "code": "SM17.8",
+     "folder": "tika_shrinivasatirtha"
+    },
+    {
+     "code": "SM17.9",
+     "folder": "tika_shriraghavendrayati"
+    },
+    {
+     "code": "SM17.10",
+     "folder": "tika_shrisatyaprajnatirtha"
+    },
+    {
+     "code": "SM17.11",
+     "folder": "tika_shrivamanapanditacarya"
+    },
+    {
+     "code": "SM17.12",
+     "folder": "tika_tamraparnishrinivasacarya"
+    },
+    {
+     "code": "SM17.13",
+     "folder": "tika_upanishat"
+    },
+    {
+     "code": "SM17.14",
+     "folder": "tika_vivarana"
+    }
+   ]
   },
   {
    "code": "SM18",
    "serial": 18,
+   "group": "UP",
+   "in_group": 4,
    "name": "Māṇḍūkya Bhāṣya",
-   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/manduka_bhashya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/upanishat_prasthana/manduka_bhashya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/mandukyopanishadbhashyam",
+   "tika_count": 5,
+   "tikas": [
+    {
+     "code": "SM18.1",
+     "folder": "tika_bhashya"
+    },
+    {
+     "code": "SM18.2",
+     "folder": "tika_prakashika"
+    },
+    {
+     "code": "SM18.3",
+     "folder": "tika_shrinivasatirtha"
+    },
+    {
+     "code": "SM18.4",
+     "folder": "tika_shrivyasatirtha"
+    },
+    {
+     "code": "SM18.5",
+     "folder": "tika_upanishat"
+    }
+   ]
   },
   {
    "code": "SM19",
    "serial": 19,
+   "group": "UP",
+   "in_group": 5,
    "name": "Talavakāra Bhāṣya",
-   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/talavakara_bhashya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/upanishat_prasthana/talavakara_bhashya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/kenopanishad_bhashya",
+   "tika_count": 9,
+   "tikas": [
+    {
+     "code": "SM19.1",
+     "folder": "tika_bhashya"
+    },
+    {
+     "code": "SM19.2",
+     "folder": "tika_prakashika"
+    },
+    {
+     "code": "SM19.3",
+     "folder": "tika_shriraghavendrayati"
+    },
+    {
+     "code": "SM19.4",
+     "folder": "tika_shrisatyapriyatirtha"
+    },
+    {
+     "code": "SM19.5",
+     "folder": "tika_shrivamanapandita"
+    },
+    {
+     "code": "SM19.6",
+     "folder": "tika_shrivaradatirthabhikshu"
+    },
+    {
+     "code": "SM19.7",
+     "folder": "tika_shrivedeshatirtha"
+    },
+    {
+     "code": "SM19.8",
+     "folder": "tika_upanishat"
+    },
+    {
+     "code": "SM19.9",
+     "folder": "tika_vivarana"
+    }
+   ]
   },
   {
    "code": "SM20",
    "serial": 20,
+   "group": "UP",
+   "in_group": 6,
    "name": "Aitareya Bhāṣya",
-   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/aitareya_bhashya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/upanishat_prasthana/aitareya_bhashya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/aitareyopanishad_bhashya",
+   "tika_count": 3,
+   "tikas": [
+    {
+     "code": "SM20.1",
+     "folder": "tika_bhashya"
+    },
+    {
+     "code": "SM20.2",
+     "folder": "tika_bhavapradipa"
+    },
+    {
+     "code": "SM20.3",
+     "folder": "tika_upanishat"
+    }
+   ]
   },
   {
    "code": "SM21",
    "serial": 21,
+   "group": "UP",
+   "in_group": 7,
    "name": "Taittirīya Bhāṣya",
-   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/taittiriya_bhashya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/upanishat_prasthana/taittiriya_bhashya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/taittiriyopanishad_bhashya",
+   "tika_count": 6,
+   "tikas": [
+    {
+     "code": "SM21.1",
+     "folder": "tika_bhashya"
+    },
+    {
+     "code": "SM21.2",
+     "folder": "tika_khandartha"
+    },
+    {
+     "code": "SM21.3",
+     "folder": "tika_nivasatirthiyakhandartha"
+    },
+    {
+     "code": "SM21.4",
+     "folder": "tika_padarthadipika"
+    },
+    {
+     "code": "SM21.5",
+     "folder": "tika_prakashika"
+    },
+    {
+     "code": "SM21.6",
+     "folder": "tika_taittiriyopanishat"
+    }
+   ]
   },
   {
    "code": "SM22",
    "serial": 22,
+   "group": "UP",
+   "in_group": 8,
    "name": "Bṛhadāraṇyaka Bhāṣya",
-   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/brihad_bhashya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/upanishat_prasthana/brihad_bhashya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/brihadaranyakopanishadbhashyam",
+   "tika_count": 4,
+   "tikas": [
+    {
+     "code": "SM22.1",
+     "folder": "tika_bhashya"
+    },
+    {
+     "code": "SM22.2",
+     "folder": "tika_bhavabodhatippani"
+    },
+    {
+     "code": "SM22.3",
+     "folder": "tika_khandartha"
+    },
+    {
+     "code": "SM22.4",
+     "folder": "tika_upanishat"
+    }
+   ]
   },
   {
    "code": "SM23",
    "serial": 23,
+   "group": "UP",
+   "in_group": 9,
    "name": "Chāndogya Bhāṣya",
-   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/chhaandogyopnishdbhaashym",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/upanishat_prasthana/chhaandogyopnishdbhaashym",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/chandogyopanishad_bhashya",
+   "tika_count": 5,
+   "tikas": [
+    {
+     "code": "SM23.1",
+     "folder": "tika_bhashya"
+    },
+    {
+     "code": "SM23.2",
+     "folder": "tika_chandogyopanishatkhandartha"
+    },
+    {
+     "code": "SM23.3",
+     "folder": "tika_khandartha"
+    },
+    {
+     "code": "SM23.4",
+     "folder": "tika_padarthakaumudi"
+    },
+    {
+     "code": "SM23.5",
+     "folder": "tika_upanishat"
+    }
+   ]
   },
   {
    "code": "SM24",
    "serial": 24,
+   "group": "UP",
+   "in_group": 10,
    "name": "Atharvaṇa Bhāṣya",
-   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/atharvana_bhashya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/upanishat_prasthana/atharvana_bhashya",
+   "commentary_path": null,
+   "tika_count": 0,
+   "tikas": []
   },
   {
    "code": "SM25",
    "serial": 25,
+   "group": "RG",
+   "in_group": 1,
    "name": "Ṛg Bhāṣya",
-   "path": "data/Tattvavada/SarvaMula/shruti_prasthana/rg_bhashya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/shruti_prasthana/rg_bhashya",
+   "commentary_path": null,
+   "tika_count": 0,
+   "tikas": []
   },
   {
    "code": "SM26",
    "serial": 26,
+   "group": "GI",
+   "in_group": 1,
    "name": "Gītā Bhāṣya",
-   "path": "data/Tattvavada/SarvaMula/gita_prasthana/gita_bhashya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/gita_prasthana/gita_bhashya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/gita_prasthana/gita_bhashya",
+   "tika_count": 10,
+   "tikas": [
+    {
+     "code": "SM26.1",
+     "folder": "tika_bhashya"
+    },
+    {
+     "code": "SM26.2",
+     "folder": "tika_bhavabodha"
+    },
+    {
+     "code": "SM26.3",
+     "folder": "tika_bhavadipa"
+    },
+    {
+     "code": "SM26.4",
+     "folder": "tika_bhavadipika"
+    },
+    {
+     "code": "SM26.5",
+     "folder": "tika_bhavapradipika"
+    },
+    {
+     "code": "SM26.6",
+     "folder": "tika_bhavaprakasha"
+    },
+    {
+     "code": "SM26.7",
+     "folder": "tika_bhavaratnakosha"
+    },
+    {
+     "code": "SM26.8",
+     "folder": "tika_prakashika"
+    },
+    {
+     "code": "SM26.9",
+     "folder": "tika_prameyadipika"
+    },
+    {
+     "code": "SM26.10",
+     "folder": "tika_vakyarthapradipa"
+    }
+   ]
   },
   {
    "code": "SM27",
    "serial": 27,
+   "group": "GI",
+   "in_group": 2,
    "name": "Gītā Tātparya Nirṇaya",
-   "path": "data/Tattvavada/SarvaMula/gita_prasthana/gita_tatparya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/gita_prasthana/gita_tatparya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/gita_prasthana/gita_tatparya_nirnaya",
+   "tika_count": 10,
+   "tikas": [
+    {
+     "code": "SM27.1",
+     "folder": "tika_bhavadipa"
+    },
+    {
+     "code": "SM27.2",
+     "folder": "tika_bhavaprakasha"
+    },
+    {
+     "code": "SM27.3",
+     "folder": "tika_gita"
+    },
+    {
+     "code": "SM27.4",
+     "folder": "tika_kiranavali"
+    },
+    {
+     "code": "SM27.5",
+     "folder": "tika_nyayadeepika"
+    },
+    {
+     "code": "SM27.6",
+     "folder": "tika_nyayadipakiranavali"
+    },
+    {
+     "code": "SM27.7",
+     "folder": "tika_nyayadipikabhavaprakasha"
+    },
+    {
+     "code": "SM27.8",
+     "folder": "tika_prakashika"
+    },
+    {
+     "code": "SM27.9",
+     "folder": "tika_tatparya"
+    },
+    {
+     "code": "SM27.10",
+     "folder": "tika_vakyaviveka"
+    }
+   ]
   },
   {
    "code": "SM28",
    "serial": 28,
+   "group": "IT",
+   "in_group": 1,
    "name": "Mahābhārata Tātparya Nirṇaya",
-   "path": "data/Tattvavada/SarvaMula/itihasa_prasthana/mahabharata_tatparya_nirnaya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/itihasa_prasthana/mahabharata_tatparya_nirnaya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/itihasa_prasthana/mahabharata_tatparya_nirnaya",
+   "tika_count": 16,
+   "tikas": [
+    {
+     "code": "SM28.1",
+     "folder": "tika_anantabhatta"
+    },
+    {
+     "code": "SM28.2",
+     "folder": "tika_bharatshri"
+    },
+    {
+     "code": "SM28.3",
+     "folder": "tika_bhavachandrika"
+    },
+    {
+     "code": "SM28.4",
+     "folder": "tika_bhavavivrti"
+    },
+    {
+     "code": "SM28.5",
+     "folder": "tika_chatti"
+    },
+    {
+     "code": "SM28.6",
+     "folder": "tika_janardana"
+    },
+    {
+     "code": "SM28.7",
+     "folder": "tika_kanthakoddhara"
+    },
+    {
+     "code": "SM28.8",
+     "folder": "tika_madhusudana"
+    },
+    {
+     "code": "SM28.9",
+     "folder": "tika_sangraha"
+    },
+    {
+     "code": "SM28.10",
+     "folder": "tika_satyabhinava"
+    },
+    {
+     "code": "SM28.11",
+     "folder": "tika_satyadharma"
+    },
+    {
+     "code": "SM28.12",
+     "folder": "tika_tamraparni"
+    },
+    {
+     "code": "SM28.13",
+     "folder": "tika_vadiraja"
+    },
+    {
+     "code": "SM28.14",
+     "folder": "tika_varadaraja"
+    },
+    {
+     "code": "SM28.15",
+     "folder": "tika_vedangatirtha"
+    },
+    {
+     "code": "SM28.16",
+     "folder": "tika_vyasatirtha"
+    }
+   ]
   },
   {
    "code": "SM29",
    "serial": 29,
+   "group": "PU",
+   "in_group": 1,
    "name": "Bhāgavata Tātparya Nirṇaya",
-   "path": "data/Tattvavada/SarvaMula/purana_prasthana/bhagavata_tatparya_nirnaya",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/purana_prasthana/bhagavata_tatparya_nirnaya",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/purana_prasthana/bhagavata_tatparya_nirnaya",
+   "tika_count": 17,
+   "tikas": [
+    {
+     "code": "SM29.1",
+     "folder": "tika_bhagavataprakashika"
+    },
+    {
+     "code": "SM29.2",
+     "folder": "tika_catti"
+    },
+    {
+     "code": "SM29.3",
+     "folder": "tika_chalari"
+    },
+    {
+     "code": "SM29.4",
+     "folder": "tika_durghatabhavadipika"
+    },
+    {
+     "code": "SM29.5",
+     "folder": "tika_iti_shri_chalari_sheshacarya"
+    },
+    {
+     "code": "SM29.6",
+     "folder": "tika_lingeri"
+    },
+    {
+     "code": "SM29.7",
+     "folder": "tika_lingheri"
+    },
+    {
+     "code": "SM29.8",
+     "folder": "tika_mandanandini"
+    },
+    {
+     "code": "SM29.9",
+     "folder": "tika_nivasatirthiya"
+    },
+    {
+     "code": "SM29.10",
+     "folder": "tika_padaratnavali"
+    },
+    {
+     "code": "SM29.11",
+     "folder": "tika_prakashika"
+    },
+    {
+     "code": "SM29.12",
+     "folder": "tika_prameyacandrika"
+    },
+    {
+     "code": "SM29.13",
+     "folder": "tika_satyadharma"
+    },
+    {
+     "code": "SM29.14",
+     "folder": "tika_satyadharmiya"
+    },
+    {
+     "code": "SM29.15",
+     "folder": "tika_sumanoranjini"
+    },
+    {
+     "code": "SM29.16",
+     "folder": "tika_virodhoddhara"
+    },
+    {
+     "code": "SM29.17",
+     "folder": "tika_virododdhara"
+    }
+   ]
   },
   {
    "code": "SM30",
    "serial": 30,
+   "group": "IT",
+   "in_group": 2,
    "name": "Yamaka Bhārata",
-   "path": "data/Tattvavada/SarvaMula/itihasa_prasthana/yamaka_bharata",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/itihasa_prasthana/yamaka_bharata",
+   "commentary_path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/itihasa_prasthana/yamaka_bharata",
+   "tika_count": 0,
+   "tikas": []
   },
   {
    "code": "SM31",
    "serial": 31,
+   "group": "AC",
+   "in_group": 1,
    "name": "Tantrasāra Saṅgraha",
-   "path": "data/Tattvavada/SarvaMula/achara_granthas/tantrasara",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/achara_granthas/tantrasara",
+   "commentary_path": null,
+   "tika_count": 0,
+   "tikas": []
   },
   {
    "code": "SM32",
    "serial": 32,
+   "group": "AC",
+   "in_group": 2,
    "name": "Sadācāra Smṛti",
-   "path": "data/Tattvavada/SarvaMula/achara_granthas/sadacharasmriti",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/achara_granthas/sadacharasmriti",
+   "commentary_path": null,
+   "tika_count": 0,
+   "tikas": []
   },
   {
    "code": "SM33",
    "serial": 33,
+   "group": "AC",
+   "in_group": 3,
    "name": "Kṛṣṇāmṛta Mahārṇava",
-   "path": "data/Tattvavada/SarvaMula/achara_granthas/krishnamruta_maharnava",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/achara_granthas/krishnamruta_maharnava",
+   "commentary_path": null,
+   "tika_count": 0,
+   "tikas": []
   },
   {
    "code": "SM34",
    "serial": 34,
+   "group": "AC",
+   "in_group": 4,
    "name": "Jayantī Nirṇaya",
-   "path": "data/Tattvavada/SarvaMula/achara_granthas/jayanti_kalpa",
-   "verified": true
+   "sarvamula_path": "data/Tattvavada/SarvaMula/achara_granthas/jayanti_kalpa",
+   "commentary_path": null,
+   "tika_count": 0,
+   "tikas": []
   },
   {
    "code": "SM35",
    "serial": 35,
-   "name": "Nyāsa Paddhati",
-   "path": "data/Tattvavada/SarvaMula/achara_granthas/nyasa_paddhati",
-   "verified": true
+   "group": "AC",
+   "in_group": 5,
+   "name": "Yati Praṇava Kalpa",
+   "sarvamula_path": "data/Tattvavada/SarvaMula/achara_granthas/yati_pranava_kalpa",
+   "commentary_path": null,
+   "tika_count": 0,
+   "tikas": []
   },
   {
    "code": "SM36",
    "serial": 36,
-   "name": "Yati Praṇava Kalpa",
-   "path": "data/Tattvavada/SarvaMula/achara_granthas/yati_pranava_kalpa",
-   "verified": true
+   "group": "ST",
+   "in_group": 1,
+   "name": "Dvādaśa Stotra",
+   "sarvamula_path": "data/Tattvavada/SarvaMula/stotra_granthas/dvadasha_stotra",
+   "commentary_path": null,
+   "tika_count": 0,
+   "tikas": []
   },
   {
    "code": "SM37",
    "serial": 37,
-   "name": "Dvādaśa Stotra",
-   "path": "data/Tattvavada/SarvaMula/stotra_granthas/dvadasha_stotra",
-   "verified": true
+   "group": "ST",
+   "in_group": 2,
+   "name": "Nakha Stuti & other stutis",
+   "sarvamula_path": "data/Tattvavada/SarvaMula/stotra_granthas/nakhastuti_kandukastuti_more",
+   "commentary_path": null,
+   "tika_count": 0,
+   "tikas": []
   },
   {
    "code": "SM38",
    "serial": 38,
-   "name": "Nakha Stuti & other stutis",
-   "path": "data/Tattvavada/SarvaMula/stotra_granthas/nakhastuti_kandukastuti_more",
-   "verified": true
+   "group": "AC",
+   "in_group": 6,
+   "name": "Nyāsa Paddhati",
+   "sarvamula_path": "data/Tattvavada/SarvaMula/achara_granthas/nyasa_paddhati",
+   "commentary_path": null,
+   "tika_count": 0,
+   "tikas": []
   }
- ]
+ ],
+ "later_acharyas": [
+  {
+   "code": "L1",
+   "name": "Bhagavato Nirdoshatvalakshanam",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/bhagavato_nirdoshatvalakshanam",
+   "tika_count": 0,
+   "tikas": []
+  },
+  {
+   "code": "L2",
+   "name": "Bhedaparanyeva Khalu Brahmasutrani",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/bhedaparanyeva_khalu_brahmasutrani",
+   "tika_count": 0,
+   "tikas": []
+  },
+  {
+   "code": "L3",
+   "name": "Bhedojjivana",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/bhedojjivana",
+   "tika_count": 6,
+   "tikas": [
+    {
+     "code": "L3.1",
+     "folder": "tika_bhavapradipa"
+    },
+    {
+     "code": "L3.2",
+     "folder": "tika_bhedacandrika"
+    },
+    {
+     "code": "L3.3",
+     "folder": "tika_bhedacintaratnam"
+    },
+    {
+     "code": "L3.4",
+     "folder": "tika_bhedasanjivini"
+    },
+    {
+     "code": "L3.5",
+     "folder": "tika_kashitimmannacarya"
+    },
+    {
+     "code": "L3.6",
+     "folder": "tika_sharkarashrinivasacarya"
+    }
+   ]
+  },
+  {
+   "code": "L4",
+   "name": "Brahmasutranyayasamgraha",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/brahmasutranyayasamgraha",
+   "tika_count": 0,
+   "tikas": []
+  },
+  {
+   "code": "L5",
+   "name": "Candrikamandanam",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/candrikamandanam",
+   "tika_count": 1,
+   "tikas": [
+    {
+     "code": "L5.1",
+     "folder": "tika_ramasubba"
+    }
+   ]
+  },
+  {
+   "code": "L6",
+   "name": "Dvaita Dyumani",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/dvaita_dyumani",
+   "tika_count": 2,
+   "tikas": [
+    {
+     "code": "L6.1",
+     "folder": "tika_dvaitadyumani"
+    },
+    {
+     "code": "L6.2",
+     "folder": "tika_jayatirtha"
+    }
+   ]
+  },
+  {
+   "code": "L7",
+   "name": "Karmavijaya",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/karmavijaya",
+   "tika_count": 4,
+   "tikas": [
+    {
+     "code": "L7.1",
+     "folder": "tika_buddhipu_rvam_sarvakartritvaditi_he_tau_dalakrityacintapurvakam_"
+    },
+    {
+     "code": "L7.2",
+     "folder": "tika_karmanirnayanamna_acarya"
+    },
+    {
+     "code": "L7.3",
+     "folder": "tika_mahajanaparigrihitatvalingena_karmanirnaya_na_mna_acarya"
+    },
+    {
+     "code": "L7.4",
+     "folder": "tika_siddhantedushanasyapyaprasiddhavisheshanatvasyasiddhisankirnatad"
+    }
+   ]
+  },
+  {
+   "code": "L8",
+   "name": "Madhvamukhalankara",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/madhvamukhalankara",
+   "tika_count": 0,
+   "tikas": []
+  },
+  {
+   "code": "L9",
+   "name": "Madhvasiddhantasara",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/madhvasiddhantasara",
+   "tika_count": 0,
+   "tikas": []
+  },
+  {
+   "code": "L10",
+   "name": "Nyayamrita",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/nyayamrita",
+   "tika_count": 7,
+   "tikas": [
+    {
+     "code": "L10.1",
+     "folder": "tika_nyayakalpalata"
+    },
+    {
+     "code": "L10.2",
+     "folder": "tika_nyayamritakantakoddhara"
+    },
+    {
+     "code": "L10.3",
+     "folder": "tika_nyayamritam"
+    },
+    {
+     "code": "L10.4",
+     "folder": "tika_nyayamritamadhuri"
+    },
+    {
+     "code": "L10.5",
+     "folder": "tika_nyayamritaprakasha"
+    },
+    {
+     "code": "L10.6",
+     "folder": "tika_nyayamritasaugandhyam"
+    },
+    {
+     "code": "L10.7",
+     "folder": "tika_nyayamritatarangini"
+    }
+   ]
+  },
+  {
+   "code": "L11",
+   "name": "Padarthasangraha",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/padarthasangraha",
+   "tika_count": 0,
+   "tikas": []
+  },
+  {
+   "code": "L12",
+   "name": "Pramana Paddhati",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/pramana_paddhati",
+   "tika_count": 8,
+   "tikas": [
+    {
+     "code": "L12.1",
+     "folder": "tika_abhinavamritam"
+    },
+    {
+     "code": "L12.2",
+     "folder": "tika_adarsha"
+    },
+    {
+     "code": "L12.3",
+     "folder": "tika_bhavadipa"
+    },
+    {
+     "code": "L12.4",
+     "folder": "tika_jayatirthavijaya"
+    },
+    {
+     "code": "L12.5",
+     "folder": "tika_vakyarthamanjari"
+    },
+    {
+     "code": "L12.6",
+     "folder": "tika_vedeshabhikshu"
+    },
+    {
+     "code": "L12.7",
+     "folder": "tika_vijayindratirtha"
+    },
+    {
+     "code": "L12.8",
+     "folder": "tika_vittalabhatta"
+    }
+   ]
+  },
+  {
+   "code": "L13",
+   "name": "Purushasuktam",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/purushasuktam",
+   "tika_count": 2,
+   "tikas": [
+    {
+     "code": "L13.1",
+     "folder": "tika_satyapramoda"
+    },
+    {
+     "code": "L13.2",
+     "folder": "tika_surottama"
+    }
+   ]
+  },
+  {
+   "code": "L14",
+   "name": "Sarvasiddhantasarasaravivecanam",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/sarvasiddhantasarasaravivecanam",
+   "tika_count": 0,
+   "tikas": []
+  },
+  {
+   "code": "L15",
+   "name": "Shrimanmadhvasiddhantasaroddhara",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/shrimanmadhvasiddhantasaroddhara",
+   "tika_count": 0,
+   "tikas": []
+  },
+  {
+   "code": "L16",
+   "name": "Shrimannyayasudhamandanam",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/shrimannyayasudhamandanam",
+   "tika_count": 0,
+   "tikas": []
+  },
+  {
+   "code": "L17",
+   "name": "Shrivijayindravijayavaibhavam",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/shrivijayindravijayavaibhavam",
+   "tika_count": 0,
+   "tikas": []
+  },
+  {
+   "code": "L18",
+   "name": "Tantradipika",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/tantradipika",
+   "tika_count": 0,
+   "tikas": []
+  },
+  {
+   "code": "L19",
+   "name": "Tarka Tandava",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/tarka_tandava",
+   "tika_count": 4,
+   "tikas": [
+    {
+     "code": "L19.1",
+     "folder": "tika_jayatirtha"
+    },
+    {
+     "code": "L19.2",
+     "folder": "tika_nyayadipa"
+    },
+    {
+     "code": "L19.3",
+     "folder": "tika_tarkatandavam"
+    },
+    {
+     "code": "L19.4",
+     "folder": "tika_yuktiratnakara"
+    }
+   ]
+  },
+  {
+   "code": "L20",
+   "name": "Tatparya Chandrika",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/tatparya_chandrika",
+   "tika_count": 5,
+   "tikas": [
+    {
+     "code": "L20.1",
+     "folder": "tika_candrikabindu"
+    },
+    {
+     "code": "L20.2",
+     "folder": "tika_candrikavivriti"
+    },
+    {
+     "code": "L20.3",
+     "folder": "tika_pandurangi"
+    },
+    {
+     "code": "L20.4",
+     "folder": "tika_prakashika"
+    },
+    {
+     "code": "L20.5",
+     "folder": "tika_tatparyachandrika"
+    }
+   ]
+  },
+  {
+   "code": "L21",
+   "name": "Vadavali",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/vadavali",
+   "tika_count": 3,
+   "tikas": [
+    {
+     "code": "L21.1",
+     "folder": "tika_bhavadipika"
+    },
+    {
+     "code": "L21.2",
+     "folder": "tika_prakasha"
+    },
+    {
+     "code": "L21.3",
+     "folder": "tika_vivarana"
+    }
+   ]
+  },
+  {
+   "code": "L22",
+   "name": "Vagvajra",
+   "folder": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/vagvajra",
+   "tika_count": 0,
+   "tikas": []
+  }
+ ],
+ "later_acharya_note": "Works by later acharyas, L-prefixed at the lead's instruction (14 Sep 2026): 'definitely not SM Sarvamula ... maybe L for later'. They are numbered in their own space rather than hung beneath a Sarvamula grantha, because several are independent works, not commentaries on anything Madhva wrote."
 }
