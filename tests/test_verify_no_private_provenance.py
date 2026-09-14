@@ -27,8 +27,17 @@ class TestScan:
         assert g.scan({"a": {"b": ["https://setutila.in/y"]}})
 
     def test_catches_an_origin_record_id(self):
-        assert g.scan({"id": "DV_14063"})
-        assert g.scan({"note": "article5631"})
+        # These two literals are SYNTHETIC -- 000 and 000 are not records that
+        # exist anywhere. They are here because a detector you cannot test is a
+        # detector you cannot trust, and testing this one means handing it a
+        # string in the shape it hunts for.
+        #
+        # 14 Sep 2026: tools/renumber_origin_ids.py rewrote this fixture on its
+        # first run (it was a real id), which turned the assertion into "the
+        # scanner finds nothing in a scrubbed id" -- true, and worthless. The
+        # renumberer now skips this file and the detector for that reason.
+        assert g.scan({"id": "DV_000"})
+        assert g.scan({"note": "article000"})
 
     def test_catches_a_structural_origin_field_by_name(self):
         for k in ("source_html", "content_id", "work_id", "block_uuid", "oldKey"):

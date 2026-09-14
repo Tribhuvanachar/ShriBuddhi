@@ -61,7 +61,7 @@ def test_rare_heading_folds_into_previous_layer():
                       DEFAULTS, "2026-09-01", _warnings())
     assert "tika_sudha" in out, sorted(out)
     assert not any(k.startswith("tika_v") for k in out), sorted(out)
-    sudha_101 = next(i for i in out["tika_sudha"]["items"] if i["id"] == "DV_101")
+    sudha_101 = next(i for i in out["tika_sudha"]["items"] if i["id"] == "dge_6489e41ab894")
     assert "वैशेषिकाधिकरणम्" in sudha_101["sanskrit_text"]
     assert "अधिकरणविषयः" in sudha_101["sanskrit_text"]
 
@@ -70,8 +70,8 @@ def test_record_opening_rare_heading_goes_to_mula():
     out = build_items([json.loads(json.dumps(r)) for r in RECORDS], GRANTHA, {},
                       DEFAULTS, "2026-09-01", _warnings())
     mula_ids = [i["id"] for i in out["mula"]["items"]]
-    assert "DV_103" in mula_ids, mula_ids
-    m103 = next(i for i in out["mula"]["items"] if i["id"] == "DV_103")
+    assert "dge_3d98fc522946" in mula_ids, mula_ids
+    m103 = next(i for i in out["mula"]["items"] if i["id"] == "dge_3d98fc522946")
     assert m103["sanskrit_text"].startswith("अणुत्वमहत्त्वनिरासः")
     assert out["mula"]["default_author"] == "श्रीजयतीर्थः"
 

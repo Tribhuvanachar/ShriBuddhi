@@ -45,8 +45,8 @@ def item(iid, text="पाठः", layer="", tika_title=None):
 
 class TestBaseId(unittest.TestCase):
     def test_strips_collision_suffix_only(self):
-        self.assertEqual(base_id("DV_978-2"), "DV_978")
-        self.assertEqual(base_id("DV_978"), "DV_978")
+        self.assertEqual(base_id("dge_fafb965ea499-2"), "dge_fafb965ea499")
+        self.assertEqual(base_id("dge_fafb965ea499"), "dge_fafb965ea499")
         self.assertEqual(base_id("sutra_1"), "sutra_1")  # trailing _N is not -N
 
 
@@ -60,16 +60,16 @@ class TestBuild(unittest.TestCase):
 
     def test_joinable_grantha_gets_entry_with_matched_counts(self):
         g = self.root / "sec" / "sudha_like"
-        write_layer(g, "mula", [item("DV_1", layer="मूलम्"), item("DV_2", layer="मूलम्")],
+        write_layer(g, "mula", [item("dge_86d600322ab6", layer="मूलम्"), item("dge_5061d3ca33bd", layer="मूलम्")],
                     "श्रीमदानन्दतीर्थभगवत्पादाचार्यः")
         write_layer(g, "tika_sudha",
-                    [item("DV_1", layer="सुधा", tika_title="सुधा")], "श्रीजयतीर्थः")
+                    [item("dge_86d600322ab6", layer="सुधा", tika_title="सुधा")], "श्रीजयतीर्थः")
         # joins via the -N duplicate suffix, both directions
         write_layer(g, "tika_parimala",
-                    [item("DV_2-3", layer="परिमळ", tika_title="परिमळ")])
+                    [item("dge_5061d3ca33bd-3", layer="परिमळ", tika_title="परिमळ")])
         # a one-item folder from a DIFFERENT leaf page: no id in mula
         write_layer(g, "tika_adhikarana",
-                    [item("DV_99", layer="जिज्ञासाधिकरणम्")])
+                    [item("dge_a1cf901c8eb7", layer="जिज्ञासाधिकरणम्")])
         out = build(self.root, {})
         self.assertIn("sec/sudha_like", out)
         entry = out["sec/sudha_like"]
@@ -101,21 +101,21 @@ class TestBuild(unittest.TestCase):
 
     def test_mula_only_grantha_gets_no_entry(self):
         g = self.root / "sec" / "solo"
-        write_layer(g, "mula", [item("DV_1")])
+        write_layer(g, "mula", [item("dge_86d600322ab6")])
         self.assertEqual(build(self.root, {}), {})
 
     def test_title_from_library_catalog_strips_layer_suffix(self):
         g = self.root / "sec" / "titled"
-        write_layer(g, "mula", [item("DV_1")])
-        write_layer(g, "tika_x", [item("DV_1", tika_title="टीका")])
+        write_layer(g, "mula", [item("dge_86d600322ab6")])
+        write_layer(g, "tika_x", [item("dge_86d600322ab6", tika_title="टीका")])
         titles = {"data/sec/titled/mula/data.json": "श्रीमन्न्यायसुधा — mula"}
         out = build(self.root, titles)
         self.assertEqual(out["sec/titled"]["title"], "श्रीमन्न्यायसुधा")
 
     def test_garbage_author_withheld(self):
         g = self.root / "sec" / "misattributed"
-        write_layer(g, "mula", [item("DV_1")])
-        write_layer(g, "tika_y", [item("DV_1", tika_title="टीका")],
+        write_layer(g, "mula", [item("dge_86d600322ab6")])
+        write_layer(g, "tika_y", [item("dge_86d600322ab6", tika_title="टीका")],
                     default_author="आद्यसूत्रापव्याख्यानस्य " * 10)
         out = build(self.root, {})
         self.assertEqual(out["sec/misattributed"]["layers"][0]["author"], "")

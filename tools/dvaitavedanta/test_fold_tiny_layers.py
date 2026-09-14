@@ -75,7 +75,7 @@ def test_numbered_chunks_merge_into_one_layer(tree, tmp_path):
     run_tool(tmp_path)
     merged = r(tree, "tika_bhavapradipa")
     assert [i["id"] for i in merged["items"]] == [
-        "DV_110", "DV_210", "DV_310", "DV_410"]
+        "dge_48136842efdf", "dge_cea609824a4b", "dge_328ff7ed6a43", "dge_ed240634c3f3"]
     assert not (merged.get("default_author") or "").strip()
     assert not (tree / "tika_1_bhavapradipa").exists()
 
@@ -88,7 +88,7 @@ def test_rare_heading_folds_into_enclosing_item(tree, tmp_path):
     run_tool(tmp_path)
     assert not (tree / "tika_yavadadhikaranam_15").exists()
     mula = r(tree, "mula")
-    # folds into the item with the nearest smaller id (DV_200)
+    # folds into the item with the nearest smaller id (dge_ecfef839ec6f)
     target = mula["items"][1]
     assert "यावदधिकरणम् - १५" in target["sanskrit_text"]
     assert "॥ सूत्रम् ॥" in target["sanskrit_text"]
@@ -101,7 +101,7 @@ def test_orphan_before_all_ids_becomes_mula_item(tree, tmp_path):
        "items": [item(50, "मङ्गलम्", tika_title="मङ्गलाचरणम्")]})
     run_tool(tmp_path)
     mula = r(tree, "mula")
-    assert mula["items"][0]["id"] == "DV_50"
+    assert mula["items"][0]["id"] == "dge_98d0709aa178"
     assert mula["items"][0]["unit_title"] == "मङ्गलाचरणम्"
     assert "tika_title" not in mula["items"][0]
 
@@ -138,5 +138,5 @@ def test_helpers():
     assert not reliable_author("८.")
     assert not reliable_author("१३. प्र")
     assert not reliable_author("")
-    assert item_id_key({"id": "DV_19355"}) == 19355
+    assert item_id_key({"id": "dge_0589237f8a54"}) == 19355
     assert item_id_key({"id": ""}) == -1

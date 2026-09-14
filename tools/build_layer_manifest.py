@@ -41,7 +41,7 @@ NUMERIC_ID_RE = re.compile(r"^\d+$")
 
 
 def base_id(item_id: str) -> str:
-    """DV_978-2 -> DV_978 (the importer's duplicate-id disambiguation)."""
+    """dge_fafb965ea499-2 -> dge_fafb965ea499 (the importer's duplicate-id disambiguation)."""
     return SUFFIX_RE.sub("", item_id or "")
 
 

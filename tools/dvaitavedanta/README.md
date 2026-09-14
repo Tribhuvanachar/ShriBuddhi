@@ -49,7 +49,7 @@ block (`first_sutra_id`). Every further unit named in the RIGHT-hand nav
 The original import never followed this endpoint, so every page contributed
 exactly its first unit — verified live against
 `category-details/977/975/...` (Nyāyasudhā maṅgalamācaraṇam): 9 units on the
-site, 1 (`DV_978`) in `data`, units 979–986 absent repo-wide (the
+site, 1 (`dge_fafb965ea499`) in `data`, units 979–986 absent repo-wide (the
 reported missing गुरुराजेन passages among them). The importer now exhausts
 `/load-data` per page (see `extract_lazy_units` / `parse_load_fragment` in
 `dv_parse.py` and the leaf loop); a re-run with the cache warm re-fetches
@@ -112,7 +112,7 @@ Each `data.json` follows the repo shape (`importers/common.write_grantha`):
  "source_note": "No published licence. Used with case-by-case permission…",
  "items": [
   {
-   "id": "DV_13528",
+   "id": "dge_11f054541371",
    "reference": "दशप्रकरणानि > 1. प्रमाणलक्षणम् > मङ्गलाचरणम्",
    "section": "प्रमाणलक्षणम्",
    "unit_title": "मङ्गलाचरणम्",

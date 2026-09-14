@@ -1421,7 +1421,7 @@
           ' A longer phrase narrows it.</div>'
         : '');
     box.innerHTML = note + hits.map(function (h) {
-      // h.unit is a raw source-importer id (unit_0370, DV_5752, a verse
+      // h.unit is a raw source-importer id (unit_0370, dge_657f26e66340, a verse
       // number...) -- real navigation state (kept in data-unit, below, for
       // go()/jumpShloka), but not something a reader needs to see, and the
       // project lead has separately asked that the app's own internal

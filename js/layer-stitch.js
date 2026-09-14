@@ -121,7 +121,7 @@ window.dgeApplyLayerStitching = async function(slug) {
 
   // id -> internal shloka number, built once. Exact id first; the base id
   // (importer's -N duplicate suffix stripped) fills the gaps so a tika
-  // keyed DV_978 still lands on a spine item stored as DV_978-2.
+  // keyed dge_fafb965ea499 still lands on a spine item stored as dge_fafb965ea499-2.
   const idMap = {};
   Object.keys(window.stotraData.shlokas).forEach(n => {
     const uid = window.stotraData.shlokas[n].unitId;

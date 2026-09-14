@@ -277,7 +277,7 @@ def main():
 
     # The real shape: an h2.shloka that is a bare pada-heading, with genuine
     # h3 commentary right alongside it under the same article id (this is
-    # exactly Nyaya Sudha's DV_4841/DV_4845/DV_4853 -- the heading and the
+    # exactly Nyaya Sudha's dge_2b629aeadf2f/dge_5020ddfca902/dge_bd612cc8c046 -- the heading and the
     # commentary on the sutras inside that pada share one article block).
     heading_page = f"""
 <html><body>

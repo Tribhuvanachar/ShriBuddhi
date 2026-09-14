@@ -189,7 +189,7 @@ def main():
                               "permission" in mula["source_note"].lower())
 
         item = mula["items"][0]
-        failures += not check("item id shape", item["id"] == "DV_13528", item["id"])
+        failures += not check("item id shape", item["id"] == "dge_11f054541371", item["id"])
         failures += not check("per-item provenance",
                               item["source"]["url"].startswith(BASE)
                               and item["source"]["site"] == "dvaitavedanta.in"
@@ -400,7 +400,7 @@ def main():
             failures += not check("ids are unique inside the layer",
                                   len(m_ids) == len(set(m_ids)), m_ids)
             failures += not check("ids follow the article, not the page",
-                                  set(m_ids) == {"DV_13800", "DV_13801"}, m_ids)
+                                  set(m_ids) == {"dge_7c7b71e743cb", "dge_6a92f9b0fc11"}, m_ids)
             failures += not check("cross-layer link survives", set(t_ids) == set(m_ids),
                                   (t_ids, m_ids))
         finally:

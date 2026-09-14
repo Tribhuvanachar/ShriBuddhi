@@ -39,7 +39,7 @@ the reader stitches sibling `tika_*` layers onto mūla cards on demand
 
 ```json
 {
-  "id": "DV_1187",
+  "id": "dge_42c9dabfa7ab",
   "reference": "सूत्रप्रस्थानम् > 1. ब्रह्मसूत्रभाष्यम् > प्रथमाध्यायः > प्रथमः पादः > जिज्ञासाधिकरणम् > ॐ अथातो ब्रह्मजिज्ञासा ॐ",
   "section": "जिज्ञासाधिकरणम्",
   "unit_title": "ॐ अथातो ब्रह्मजिज्ञासा ॐ",
@@ -57,14 +57,14 @@ the reader stitches sibling `tika_*` layers onto mūla cards on demand
 
 1. **The "mūla" file is not mūla.** For the Brahmasūtra chain, the sūtra
    line, the label "सूत्रभाष्यम्", and Madhva's entire bhāṣya passage sit
-   concatenated in ONE `sanskrit_text` string (unit DV_1187 above is
+   concatenated in ONE `sanskrit_text` string (unit dge_42c9dabfa7ab above is
    30,965 characters). The Brahmasūtras do not exist as their own layer at
    all — they are the first line of each blob.
 2. **No paragraph identity.** The unit is the source site's "article"
    (roughly one adhikaraṇa view). A single Nyāyasudhā ṭīkā unit runs to
    24,000+ characters with no addressable subdivisions — so "the Sudhā's
    3rd paragraph on this verse" cannot be referenced, edited, or linked.
-3. **Foreign, flat IDs.** `DV_1187` is dvaitavedanta.in's HTML anchor
+3. **Foreign, flat IDs.** `dge_42c9dabfa7ab` is dvaitavedanta.in's HTML anchor
    number. It encodes nothing (no adhyāya/pāda/sūtra), sorts arbitrarily,
    and is meaningless the day the source site changes. Layer alignment
    works only because sibling files happen to reuse the same anchor ids.
