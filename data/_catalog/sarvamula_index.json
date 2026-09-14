@@ -1,0 +1,279 @@
+{
+ "_readme": "Serial numbering of the Sarvamula granthas of Sri Madhvacharya -- the spine every other id in the corpus hangs from. SM13 is Anuvyakhyana; SM13.3 is its third tika; SM13.3.1 is a commentary ON that tika. A unit inside any of them is <code>:<n>, e.g. SM13.3:412. Replaces the imported site's own record numbers (see tools/renumber_origin_ids.py); the mapping back lives in Parabuddhi and nowhere else.",
+ "scheme": {
+  "work": "SM<serial>",
+  "tika": "SM<serial>.<t>",
+  "sub_tika": "SM<serial>.<t>.<s>",
+  "unit": "<code>:<n>"
+ },
+ "order_note": "Conventional sequence: the ten prakaranas, the four Brahmasutra works, the ten Upanishad bhashyas, Rg bhashya, the two Gita works, the two tatparya nirnayas, Yamaka Bharata, then the achara and stotra granthas. PROPOSAL -- the lead confirms the order before any id is minted from it.",
+ "count": 38,
+ "works": [
+  {
+   "code": "SM1",
+   "serial": 1,
+   "name": "Pramāṇa Lakṣaṇa",
+   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/pramana_lakshana",
+   "verified": true
+  },
+  {
+   "code": "SM2",
+   "serial": 2,
+   "name": "Kathā Lakṣaṇa",
+   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/katha_lakshana",
+   "verified": true
+  },
+  {
+   "code": "SM3",
+   "serial": 3,
+   "name": "Upādhi Khaṇḍana",
+   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/upadhi_khandhana",
+   "verified": true
+  },
+  {
+   "code": "SM4",
+   "serial": 4,
+   "name": "Prapañca Mithyātva Anumāna Khaṇḍana",
+   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/prapancha_mithyatva_anumana_khandana",
+   "verified": true
+  },
+  {
+   "code": "SM5",
+   "serial": 5,
+   "name": "Māyāvāda Khaṇḍana",
+   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/mayavada_khandana",
+   "verified": true
+  },
+  {
+   "code": "SM6",
+   "serial": 6,
+   "name": "Tattva Saṅkhyāna",
+   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvasankhyana",
+   "verified": true
+  },
+  {
+   "code": "SM7",
+   "serial": 7,
+   "name": "Tattva Viveka",
+   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvaviveka",
+   "verified": true
+  },
+  {
+   "code": "SM8",
+   "serial": 8,
+   "name": "Tattvodyota",
+   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvodyota",
+   "verified": true
+  },
+  {
+   "code": "SM9",
+   "serial": 9,
+   "name": "Karma Nirṇaya",
+   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/karma_nirnaya",
+   "verified": true
+  },
+  {
+   "code": "SM10",
+   "serial": 10,
+   "name": "Viṣṇu Tattva Nirṇaya",
+   "path": "data/Tattvavada/SarvaMula/dasha_prakarana_granthas/vishnu_tattva_nirnaya",
+   "verified": true
+  },
+  {
+   "code": "SM11",
+   "serial": 11,
+   "name": "Brahmasūtra Bhāṣya",
+   "path": "data/Tattvavada/SarvaMula/sutra_prasthana/brahmasutra_bhashya",
+   "verified": true
+  },
+  {
+   "code": "SM12",
+   "serial": 12,
+   "name": "Aṇu Bhāṣya",
+   "path": "data/Tattvavada/SarvaMula/sutra_prasthana/anu_bhashya",
+   "verified": true
+  },
+  {
+   "code": "SM13",
+   "serial": 13,
+   "name": "Anuvyākhyāna",
+   "path": "data/Tattvavada/SarvaMula/sutra_prasthana/anuvyakhyana",
+   "verified": true
+  },
+  {
+   "code": "SM14",
+   "serial": 14,
+   "name": "Nyāya Vivaraṇa",
+   "path": "data/Tattvavada/SarvaMula/sutra_prasthana/nyaya_vivarana",
+   "verified": true
+  },
+  {
+   "code": "SM15",
+   "serial": 15,
+   "name": "Īśāvāsya Bhāṣya",
+   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/ishavasya_bhashya",
+   "verified": true
+  },
+  {
+   "code": "SM16",
+   "serial": 16,
+   "name": "Kāṭhaka Bhāṣya",
+   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/kathaka_bhashya",
+   "verified": true
+  },
+  {
+   "code": "SM17",
+   "serial": 17,
+   "name": "Ṣaṭpraśna Bhāṣya",
+   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/shatprashna_bhashya",
+   "verified": true
+  },
+  {
+   "code": "SM18",
+   "serial": 18,
+   "name": "Māṇḍūkya Bhāṣya",
+   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/manduka_bhashya",
+   "verified": true
+  },
+  {
+   "code": "SM19",
+   "serial": 19,
+   "name": "Talavakāra Bhāṣya",
+   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/talavakara_bhashya",
+   "verified": true
+  },
+  {
+   "code": "SM20",
+   "serial": 20,
+   "name": "Aitareya Bhāṣya",
+   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/aitareya_bhashya",
+   "verified": true
+  },
+  {
+   "code": "SM21",
+   "serial": 21,
+   "name": "Taittirīya Bhāṣya",
+   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/taittiriya_bhashya",
+   "verified": true
+  },
+  {
+   "code": "SM22",
+   "serial": 22,
+   "name": "Bṛhadāraṇyaka Bhāṣya",
+   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/brihad_bhashya",
+   "verified": true
+  },
+  {
+   "code": "SM23",
+   "serial": 23,
+   "name": "Chāndogya Bhāṣya",
+   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/chhaandogyopnishdbhaashym",
+   "verified": true
+  },
+  {
+   "code": "SM24",
+   "serial": 24,
+   "name": "Atharvaṇa Bhāṣya",
+   "path": "data/Tattvavada/SarvaMula/upanishat_prasthana/atharvana_bhashya",
+   "verified": true
+  },
+  {
+   "code": "SM25",
+   "serial": 25,
+   "name": "Ṛg Bhāṣya",
+   "path": "data/Tattvavada/SarvaMula/shruti_prasthana/rg_bhashya",
+   "verified": true
+  },
+  {
+   "code": "SM26",
+   "serial": 26,
+   "name": "Gītā Bhāṣya",
+   "path": "data/Tattvavada/SarvaMula/gita_prasthana/gita_bhashya",
+   "verified": true
+  },
+  {
+   "code": "SM27",
+   "serial": 27,
+   "name": "Gītā Tātparya Nirṇaya",
+   "path": "data/Tattvavada/SarvaMula/gita_prasthana/gita_tatparya",
+   "verified": true
+  },
+  {
+   "code": "SM28",
+   "serial": 28,
+   "name": "Mahābhārata Tātparya Nirṇaya",
+   "path": "data/Tattvavada/SarvaMula/itihasa_prasthana/mahabharata_tatparya_nirnaya",
+   "verified": true
+  },
+  {
+   "code": "SM29",
+   "serial": 29,
+   "name": "Bhāgavata Tātparya Nirṇaya",
+   "path": "data/Tattvavada/SarvaMula/purana_prasthana/bhagavata_tatparya_nirnaya",
+   "verified": true
+  },
+  {
+   "code": "SM30",
+   "serial": 30,
+   "name": "Yamaka Bhārata",
+   "path": "data/Tattvavada/SarvaMula/itihasa_prasthana/yamaka_bharata",
+   "verified": true
+  },
+  {
+   "code": "SM31",
+   "serial": 31,
+   "name": "Tantrasāra Saṅgraha",
+   "path": "data/Tattvavada/SarvaMula/achara_granthas/tantrasara",
+   "verified": true
+  },
+  {
+   "code": "SM32",
+   "serial": 32,
+   "name": "Sadācāra Smṛti",
+   "path": "data/Tattvavada/SarvaMula/achara_granthas/sadacharasmriti",
+   "verified": true
+  },
+  {
+   "code": "SM33",
+   "serial": 33,
+   "name": "Kṛṣṇāmṛta Mahārṇava",
+   "path": "data/Tattvavada/SarvaMula/achara_granthas/krishnamruta_maharnava",
+   "verified": true
+  },
+  {
+   "code": "SM34",
+   "serial": 34,
+   "name": "Jayantī Nirṇaya",
+   "path": "data/Tattvavada/SarvaMula/achara_granthas/jayanti_kalpa",
+   "verified": true
+  },
+  {
+   "code": "SM35",
+   "serial": 35,
+   "name": "Nyāsa Paddhati",
+   "path": "data/Tattvavada/SarvaMula/achara_granthas/nyasa_paddhati",
+   "verified": true
+  },
+  {
+   "code": "SM36",
+   "serial": 36,
+   "name": "Yati Praṇava Kalpa",
+   "path": "data/Tattvavada/SarvaMula/achara_granthas/yati_pranava_kalpa",
+   "verified": true
+  },
+  {
+   "code": "SM37",
+   "serial": 37,
+   "name": "Dvādaśa Stotra",
+   "path": "data/Tattvavada/SarvaMula/stotra_granthas/dvadasha_stotra",
+   "verified": true
+  },
+  {
+   "code": "SM38",
+   "serial": 38,
+   "name": "Nakha Stuti & other stutis",
+   "path": "data/Tattvavada/SarvaMula/stotra_granthas/nakhastuti_kandukastuti_more",
+   "verified": true
+  }
+ ]
+}
