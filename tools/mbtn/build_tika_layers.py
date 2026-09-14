@@ -30,7 +30,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from mbtn_labels import canon, LABEL_OF, SECTION_MARKERS  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-FAM = os.path.join(ROOT, 'dge/data/darshana/vedanta/dvaita/DvaitaVedanta/'
+FAM = os.path.join(ROOT, 'dge/data/darshana/vedanta/dvaita/Tattvavada/'
                          'itihasa_prasthana/mahabharata_tatparya_nirnaya')
 LIB = os.path.join(ROOT, 'dge/data/library.json')
 GRANTHA_TITLE = 'महाभारततात्पर्यनिर्णयः'
@@ -191,7 +191,7 @@ def main():
     # library.json entries
     if args.write:
         lib = json.load(open(LIB, encoding='utf-8'))
-        rel = 'dge/data/darshana/vedanta/dvaita/DvaitaVedanta/itihasa_prasthana/mahabharata_tatparya_nirnaya'
+        rel = 'dge/data/darshana/vedanta/dvaita/Tattvavada/itihasa_prasthana/mahabharata_tatparya_nirnaya'
         have = {e['path'] for e in lib['granthas']}
         for folder, label, _n, _t in report:
             p = '%s/%s/data.json' % (rel, folder)

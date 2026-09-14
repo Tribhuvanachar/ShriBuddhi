@@ -218,7 +218,7 @@
   // 31 Aug 2026 "search inside ANY node of the Library tree, several at
   // once" project-lead ask) and usable at every depth the slugs
   // themselves have: a whole section ('kavya_alankara'), one work
-  // ('DvaitaVedanta/Itara/Kavya/raghavendra_vijaya'), a single sarga's own grantha.
+  // ('Tattvavada/Itara/Kavya/raghavendra_vijaya'), a single sarga's own grantha.
   function slugInPrefixes(slug, prefixes) {
     for (var p = 0; p < prefixes.length; p++) {
       if (slug === prefixes[p] || slug.indexOf(prefixes[p] + '/') === 0) return true;

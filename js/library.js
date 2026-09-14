@@ -66,7 +66,7 @@ const DGE_PATH_LABELS = {
   // either side of it.
   Itara: 'इतराणि', Kavya: 'काव्यम्', Stotra: 'स्तोत्राणि', DasaSahitya: 'दाससाहित्यम्',
   DvaitaVedantaIn: 'द्वैतसाहित्यम्',
-  DvaitaVedanta: 'द्वैतवेदान्तः', SetuTila: 'सेतुतिला',
+  Tattvavada: 'तत्त्ववादः', SetuTila: 'सेतुतिला',
   sarvadarshana_sangraha: 'सर्वदर्शनसङ्ग्रहः',
 
   // 23 Aug: upaveda/shastra, added per the project lead's own framework
@@ -254,8 +254,8 @@ const DGE_PATH_LABELS = {
   shankara_bhashya: 'शङ्करभाष्यम्', badhanta: 'बाधान्तः', brahmasutranyayasamgraha: 'ब्रह्मसूत्रन्यायसंग्रहः',
   // Dasa Sahitya composers (25 Aug 2026 taxonomy integration) --
   // Devanagari transliteration of each composer's own Kannada name in
-  // data/DvaitaVedanta/Itara/DasaSahitya/index.json (generated with indic_transliteration,
-  // the same library tools/DvaitaVedanta/Itara/DasaSahitya/*.py uses for the compositions
+  // data/Tattvavada/Itara/DasaSahitya/index.json (generated with indic_transliteration,
+  // the same library tools/Tattvavada/Itara/DasaSahitya/*.py uses for the compositions
   // themselves), plus hand-attested Devanagari for the major composers
   // whose index.json name is Latin (Purandara/Vijaya/Kanaka Dasaru etc.).
   // A handful of singleton, likely-mis-attributed 'composer' entries
@@ -297,14 +297,14 @@ const DGE_PATH_LABELS = {
   // (project lead's own count: ~1055 English names in the library tree).
   // Scoped with a script cross-checked against the real filesystem (many
   // taxonomy.json entries have no folder on disk, and a chunk of the raw
-  // count was metadata keys like DvaitaVedanta/Itara/DasaSahitya's label/data/forms, not real
+  // count was metadata keys like Tattvavada/Itara/DasaSahitya's label/data/forms, not real
   // tree nodes -- both excluded). The Dvaita Vedanta commentary sub-folders
   // account for the largest single slice (~554 real folders); all but 33 of
   // those are already absorbed into the stitched multi-tab reader
   // (dgeFoldLayerEntries, layer_manifest.json) and never render as a separate
   // tree label at all -- the 33 real holdouts are included below, read
   // directly off each folder's own data.json content rather than guessed
-  // from its slug. A handful of DvaitaVedanta/Itara/DasaSahitya/composers/* entries are left
+  // from its slug. A handful of Tattvavada/Itara/DasaSahitya/composers/* entries are left
   // unlabeled on purpose, same call as the earlier composer batch (a title
   // filed as a composer name, a URL-garbled slug, the honest 'untitled'
   // bucket) -- see PENDING.md.

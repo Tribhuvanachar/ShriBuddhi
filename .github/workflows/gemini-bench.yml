@@ -20,7 +20,7 @@ on:
       sarga_path:
         description: "One sarga's data.json to sample verses from"
         required: true
-        default: data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_2/data.json
+        default: data/Tattvavada/Itara/Kavya/raghavendra_vijaya/sarga_2/data.json
       verses:
         description: "Sample size for the model x batch-size grid (phase 1)"
         required: true

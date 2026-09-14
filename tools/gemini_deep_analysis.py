@@ -42,7 +42,7 @@ point at this object's own field names (23 Aug 2026).
 
 Usage:
   GEMINI_API_KEY=... python3 tools/gemini_deep_analysis.py \
-      --sarga-dir data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya --cantos 1-10
+      --sarga-dir data/Tattvavada/Itara/Kavya/raghavendra_vijaya --cantos 1-10
   python3 tools/gemini_deep_analysis.py --sarga-dir ... --cantos 1 --dry-run
 """
 from __future__ import annotations

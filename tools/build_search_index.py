@@ -63,7 +63,7 @@ _DEVANAGARI = re.compile(r"[ऀ-ॿ]")   # this corpus stores text in Devanagari
 # for every letter, matra and sign this corpus uses, so a plain block
 # transposition (after NFC) yields correct Devanagari for INDEXING.
 # Reported live (31 Aug 2026): the entire Kannada-script Yuktimallika
-# (DvaitaVedanta/Itara/DasaSahitya/vyasakuta/vadiraja_tirtha, 5,542 units -- "ಭಕ್ತ್ಯಾ ಸ್ತುತ್ಯಾ...")
+# (Tattvavada/Itara/DasaSahitya/vyasakuta/vadiraja_tirtha, 5,542 units -- "ಭಕ್ತ್ಯಾ ಸ್ತುತ್ಯಾ...")
 # was dropped by the has_devanagari stub gate below, so स्तुत्या could never
 # find it. The fold runs only when a unit has no Devanagari of its own, and
 # only feeds pk/ck/postings -- the stored snippet keeps the original script,

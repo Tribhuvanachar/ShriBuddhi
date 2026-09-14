@@ -39,7 +39,7 @@ the text may by then have been transliterated into Kannada or IAST. Character
 offsets do not survive transliteration; token counts do.
 
 Run:  python3 tools/build_references.py            # whole library
-      python3 tools/build_references.py --slug DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_1
+      python3 tools/build_references.py --slug Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_1
       python3 tools/build_references.py --report   # counts only, writes nothing
 """
 

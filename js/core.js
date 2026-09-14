@@ -124,19 +124,19 @@ const DGE_LEGACY_SLUGS = {
   // paths lands on the real text instead. Exact slugs, not a prefix: there is
   // no tika_* folder on the other side to append.
   'darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/sumadhva_vijaya':
-    'DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_1',
+    'Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_1',
   'darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/sumadhva_vijaya/tika_prakashika':
-    'DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_1',
+    'Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_1',
   'darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/sumadhva_vijaya/tika_padarthadipikodbodhika':
-    'DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_1',
+    'Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_1',
   'darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/sumadhva_vijaya/tika_mandopakarini':
-    'DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_1',
+    'Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_1',
   'darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/sumadhva_vijaya/tika_shrichalarisheshacarya':
-    'DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_1',
+    'Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_1',
   'darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/sumadhva_vijaya/tika_iti_shrimadvedangamuni':
-    'DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_1',
+    'Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_1',
   'darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/sumadhva_vijaya/tika_iti_shrinarayanapanditacarya':
-    'DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_1',
+    'Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_1',
   'shankara_bhashya':       'darshana/vedanta/advaita/shankara_bhashya',
   'itihasas':               'itihasa',
   'puranas':                'purana',
@@ -146,8 +146,8 @@ const DGE_LEGACY_SLUGS = {
   'koshas':                 'kosha',
   'stotras':                'stotra',
   'pancharatra_agama':      'agama/vaishnava_agama/pancharatra',
-  'dasakuta':               'DvaitaVedanta/Itara/DasaSahitya/dasakuta',
-  'vyasakuta':              'DvaitaVedanta/Itara/DasaSahitya/vyasakuta',
+  'dasakuta':               'Tattvavada/Itara/DasaSahitya/dasakuta',
+  'vyasakuta':              'Tattvavada/Itara/DasaSahitya/vyasakuta',
   // 25 Aug 2026 Agama restructure. pancharatra/pashupata/shaiva_siddhanta
   // moved intact under new parents, so their sub-paths resolve exactly.
   // pratyabhijna/natha_sampradaya/shakta_agama were split across several
@@ -200,7 +200,7 @@ const DGE_LEGACY_SLUGS = {
   // PrahladaKrutaNarasimha for the same reason.
   'dvaitavedanta':                       'darshana/vedanta/dvaita/DvaitaVedantaIn',
   'darshana/vedanta/dvaita/sarvamula':   'darshana/vedanta/dvaita/Anandamakaranda',
-  'stotra/pns':                          'DvaitaVedanta/Itara/Stotra/prahlada_kruta_narasimha',
+  'stotra/pns':                          'Tattvavada/Itara/Stotra/prahlada_kruta_narasimha',
   // 25 Aug 2026 Purana restructure: purana/<X> split into purana/maha_purana/
   // (the 18 traditional Mahapuranas, plus the Bhagavata-Madhva variant and
   // Vayu Purana, already present) and purana/upa_purana/ (was upapuranas).
@@ -900,7 +900,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Global short-URL abbreviations (js/text-abbreviations.js, loaded before
   // this file, is the one place these are configured) — ?SMV=1.1 means the
-  // same as ?path=DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_1&jumpShloka=1, just
+  // same as ?path=Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_1&jumpShloka=1, just
   // short enough to type or share. Resolved to plain path/jumpShloka values
   // BEFORE those are read below, so everything downstream — including the
   // legacy-slug upgrade and the namespace logic — behaves exactly as if the
@@ -996,7 +996,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const stotrasDirectChild = slug.match(/^stotra\/([^/]+)$/);
 
-  // 23 Aug 2026: stotra/pns was renamed DvaitaVedanta/Itara/Stotra/prahlada_kruta_narasimha for
+  // 23 Aug 2026: stotra/pns was renamed Tattvavada/Itara/Stotra/prahlada_kruta_narasimha for
   // display-name consistency (see DGE_LEGACY_SLUGS above), but this text's
   // localStorage/audio-cache namespace has always been the bare folder
   // name (see the comment at dgeGranthaFetchUrl above this block). Without

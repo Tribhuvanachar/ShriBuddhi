@@ -4,7 +4,7 @@ The internal slug (the folder under data, e.g. vedas/rigveda/shakala_shakha/samh
 location. The public URL describes the literary entity and never changes when files move:
 
     vedas/rigveda/shakala_shakha/samhita/mandala_01   →  /veda/rigveda/samhita/mandala-1/
-    DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_1         →  /kavya/raghavendra-vijaya/sarga-1/
+    Tattvavada/Itara/Kavya/raghavendra_vijaya/sarga_1         →  /kavya/raghavendra-vijaya/sarga-1/
     itihasa/mahabharata/adi_parva/mula                →  /itihasa/mahabharata/adi-parva/
 
 Rules (admin/config/seo.json): the top-level folder is renamed by rootMap; segments in dropSegments (the default
@@ -207,8 +207,8 @@ if __name__ == "__main__":
     slugs = public_slugs(lib)
     t = Taxonomy(slugs)
     print(len(slugs), "public granthas;", len(t.category_prefixes()), "category pages")
-    for s in ["vedas/rigveda/shakala_shakha/samhita/mandala_01", "DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_1", "itihasa/mahabharata/adi_parva/mula",
+    for s in ["vedas/rigveda/shakala_shakha/samhita/mandala_01", "Tattvavada/Itara/Kavya/raghavendra_vijaya/sarga_1", "itihasa/mahabharata/adi_parva/mula",
               "vedas/yajurveda/krishna_yajurveda/taittiriya_shakha/samhita/kanda_01", "purana/maha_purana/bhagavata_purana/skandha_10",
-              "vedas/samaveda/kauthuma_shakha/samhita/purvarchika", "DvaitaVedanta/Itara/Stotra/prahlada_kruta_narasimha", "DvaitaVedanta/Itara/DasaSahitya/composers/raghavendra"]:
+              "vedas/samaveda/kauthuma_shakha/samhita/purvarchika", "Tattvavada/Itara/Stotra/prahlada_kruta_narasimha", "Tattvavada/Itara/DasaSahitya/composers/raghavendra"]:
         if s in t._urls:
             print(f"{s}\n   → {t.url(s)}\n   crumbs: {[(a, b, c) for a, b, c in t.crumbs(s)]}")

@@ -10,7 +10,7 @@ name: Publish Dasa Sahitya local-asset imports
 # this can re-fetch and rebuild from on each run: each asset (an Android
 # app's SQLite DB, a Firestore export, a flat JSON dump) was a one-off file
 # uploaded straight into an editing session and imported there with
-# tools/DvaitaVedanta/Itara/DasaSahitya/import_dasa_sahitya_{local_db,collection_json,flat_json}.py.
+# tools/Tattvavada/Itara/DasaSahitya/import_dasa_sahitya_{local_db,collection_json,flat_json}.py.
 # So the flow for a NEW asset arriving is: import it locally in a session,
 # commit data/dasa_sahitya_local/<asset>/ to a branch same as always,
 # THEN run this workflow (against that branch) to move it off main and onto
@@ -19,8 +19,8 @@ name: Publish Dasa Sahitya local-asset imports
 #
 # Nothing reads this branch yet -- there is no dasa_sahitya_local UI, only
 # the plan in ARCHITECTURE.md for when composer-identity review finishes and
-# a composer's data is ready to fold into data/DvaitaVedanta/Itara/DasaSahitya/ (see
-# tools/DvaitaVedanta/Itara/DasaSahitya/merge_confirmed_composers.py for how that half works).
+# a composer's data is ready to fold into data/Tattvavada/Itara/DasaSahitya/ (see
+# tools/Tattvavada/Itara/DasaSahitya/merge_confirmed_composers.py for how that half works).
 # This just keeps the pending, not-yet-merged data reviewable via git
 # without it costing main anything.
 
@@ -75,7 +75,7 @@ jobs:
           rm -rf /tmp/dasa-sahitya-local-dist
           mkdir -p /tmp/dasa-sahitya-local-dist
           cp -r data/dasa_sahitya_local/* /tmp/dasa-sahitya-local-dist/
-          cp tools/DvaitaVedanta/Itara/DasaSahitya/dasa_sahitya_local_dist_README.md /tmp/dasa-sahitya-local-dist/README.md
+          cp tools/Tattvavada/Itara/DasaSahitya/dasa_sahitya_local_dist_README.md /tmp/dasa-sahitya-local-dist/README.md
           cd /tmp/dasa-sahitya-local-dist
           git init -q -b dasa-sahitya-local-dist
           git add -A
@@ -88,7 +88,7 @@ jobs:
             echo ""
             echo "Browse it: https://github.com/Tribhuvanachar/BrahmaBuddhi/tree/dasa-sahitya-local-dist"
             echo ""
-            echo "No pin to bump yet -- nothing reads this branch over jsDelivr. Once a composer's data is ready to fold into the live corpus, that goes through tools/DvaitaVedanta/Itara/DasaSahitya/merge_confirmed_composers.py, not through pointing a UI at this branch."
+            echo "No pin to bump yet -- nothing reads this branch over jsDelivr. Once a composer's data is ready to fold into the live corpus, that goes through tools/Tattvavada/Itara/DasaSahitya/merge_confirmed_composers.py, not through pointing a UI at this branch."
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Remove data/dasa_sahitya_local from this branch
@@ -108,7 +108,7 @@ jobs:
               echo "# .github/workflows/publish-dasa-sahitya-local.yml -- pending Dasa Sahitya"
               echo "# local-asset imports, kept off main the same reason wordnet/kavya/search-dist"
               echo "# are. Rebuild it here (or checkout the dist branch) to review or continue the"
-              echo "# merge in tools/DvaitaVedanta/Itara/DasaSahitya/merge_confirmed_composers.py."
+              echo "# merge in tools/Tattvavada/Itara/DasaSahitya/merge_confirmed_composers.py."
               echo "data/dasa_sahitya_local/"
             } >> .gitignore
           fi

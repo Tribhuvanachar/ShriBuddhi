@@ -257,7 +257,7 @@
     "primaryTextField": null
   },
   "stotra_text": {
-    "description": "Devotional hymns, e.g. Prahlada Krita Narasimha Stotra (DvaitaVedanta/Itara/Stotra/prahlada_kruta_narasimha, folder renamed from pns 23 Aug 2026; internal stotraCode stayed pns for localStorage continuity). Verse-by-verse, with heavier emphasis on audio (these are typically chanted) and a closing phala-shruti (benefits of recitation) section that most stotras have. Each stotra's folder carries its own _default_author in taxonomy.json (e.g. PrahladaKrutaNarasimha -> 'Bhakta Prahlada').",
+    "description": "Devotional hymns, e.g. Prahlada Krita Narasimha Stotra (Tattvavada/Itara/Stotra/prahlada_kruta_narasimha, folder renamed from pns 23 Aug 2026; internal stotraCode stayed pns for localStorage continuity). Verse-by-verse, with heavier emphasis on audio (these are typically chanted) and a closing phala-shruti (benefits of recitation) section that most stotras have. Each stotra's folder carries its own _default_author in taxonomy.json (e.g. PrahladaKrutaNarasimha -> 'Bhakta Prahlada').",
     "item_fields": {
       "id": {
         "type": "string",
@@ -581,7 +581,7 @@
     "primaryTextField": "kannada_text"
   },
   "dasa_pada_text": {
-    "description": "A single Haridasa devotional composition (pada/suladi/ugabhoga/...) imported from the public Haridasa-sahitya web archives via tools/DvaitaVedanta/Itara/DasaSahitya/. Kannada is the primary text; IAST/Devanagari are auto-transliterated.",
+    "description": "A single Haridasa devotional composition (pada/suladi/ugabhoga/...) imported from the public Haridasa-sahitya web archives via tools/Tattvavada/Itara/DasaSahitya/. Kannada is the primary text; IAST/Devanagari are auto-transliterated.",
     "item_fields": {
       "id": {
         "type": "string",

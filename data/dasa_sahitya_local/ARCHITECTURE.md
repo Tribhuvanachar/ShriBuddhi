@@ -3,10 +3,10 @@
 Two independent sources of Dasa Sahitya (Dasara Padagalu / Suladi / Ugabhoga
 / ...) now exist side by side under `data/`:
 
-| | `data/DvaitaVedanta/Itara/DasaSahitya/` | `data/dasa_sahitya_local/` |
+| | `data/Tattvavada/Itara/DasaSahitya/` | `data/dasa_sahitya_local/` |
 |---|---|---|
 | Source | Web crawl (madhwafestivals, dasasahithyamahithi, dasasahitya.net, ...) | Local Android-app SQLite assets (e.g. `dasa1.db`) |
-| Built by | `tools/DvaitaVedanta/Itara/DasaSahitya/import_DvaitaVedanta/Itara/DasaSahitya.py` | `tools/DvaitaVedanta/Itara/DasaSahitya/import_dasa_sahitya_local_db.py` |
+| Built by | `tools/Tattvavada/Itara/DasaSahitya/import_Tattvavada/Itara/DasaSahitya.py` | `tools/Tattvavada/Itara/DasaSahitya/import_dasa_sahitya_local_db.py` |
 | Composers | 34 files, ~1396 compositions | 135 dasaru (`dasa1` alone), 13540 keerthanas |
 | Composer names | Latin/English (romanized by the scraper) | Kannada (native, from the app's own `dasaru` table) |
 | Attribution quality | 453 of 1396 (32%) filed as `untitled` — no composer known | Every row has a `dasaru_id` FK — no untitled bucket |
@@ -29,7 +29,7 @@ importer since none share a schema. Every source lands in its own subfolder
 data/dasa_sahitya_local/
   dasa1/                       -- Android SQLite asset (dasa1.db): 135 dasaru, 13540 keerthanas
     index.json                          -- manifest: counts, category guess, per-dasaru file list
-    cross_source_duplicate_review.json  -- composer-level overlap vs DvaitaVedanta/Itara/DasaSahitya/ (web crawl), tagged pending
+    cross_source_duplicate_review.json  -- composer-level overlap vs Tattvavada/Itara/DasaSahitya/ (web crawl), tagged pending
     dasaru/<slug>.json
   collection_padagalu/         -- Firestore-style personal-collection export: 4 dasaru, 145 compositions
     index.json                          -- only source with genuine parallel Kannada + English-transliteration text
@@ -45,15 +45,15 @@ Each importer takes `--asset-name` so the next batch (one more source
 expected next month) lands in its own subfolder the same way:
 ```
 # SQLite asset (Android app DB)
-python3 tools/DvaitaVedanta/Itara/DasaSahitya/import_dasa_sahitya_local_db.py \
+python3 tools/Tattvavada/Itara/DasaSahitya/import_dasa_sahitya_local_db.py \
     --db /path/to/dasaN.db --out data/dasa_sahitya_local --asset-name dasaN
 
 # Firestore-style {index.json + one <slug>.json per dasaru} export
-python3 tools/DvaitaVedanta/Itara/DasaSahitya/import_dasa_sahitya_collection_json.py \
+python3 tools/Tattvavada/Itara/DasaSahitya/import_dasa_sahitya_collection_json.py \
     --src-dir /path/to/export --out data/dasa_sahitya_local --asset-name <name>
 
 # Flat JSON-array-per-file dump, no per-record composer/metadata
-python3 tools/DvaitaVedanta/Itara/DasaSahitya/import_dasa_sahitya_flat_json.py \
+python3 tools/Tattvavada/Itara/DasaSahitya/import_dasa_sahitya_flat_json.py \
     --src-dir /path/to/files --out data/dasa_sahitya_local --asset-name <name> \
     --composer-map file.json=ಕನ್ನಡಹೆಸರು ... --no-composer-files genre_dump.json --no-composer-form ugabhoga
 ```
@@ -87,7 +87,7 @@ fresher copy of that asset shows up — it's a full regenerate, not additive.
      983 dasa1 / 54 collection_padagalu / 305 raw_dump) — meaning composer
      identity is settled for these 5, but composition-level overlap isn't:
      the same fingerprint-based `dedupe()` already in
-     `tools/DvaitaVedanta/Itara/DasaSahitya/import_DvaitaVedanta/Itara/DasaSahitya.py` needs to run across all
+     `tools/Tattvavada/Itara/DasaSahitya/import_Tattvavada/Itara/DasaSahitya.py` needs to run across all
      four sources' records for these 5 names before merging, since a close
      count (raw_dump's 305 vs web's 306) could mean near-total overlap or
      two mostly-disjoint sets that happen to be similarly sized.
@@ -134,7 +134,7 @@ repo's own `dasa-sahitya-local-dist` branch — same reasoning and mechanism
 as `data/_wordnet/` → `wordnet-dist`, and the same repo's own
 `SEARCH_ARCHITECTURE.md` rule ("a data branch of the same repository," not a
 new repo, for something this size class). `.github/workflows/
-publish-dasa-sahitya-local.yml` republishes it; `tools/DvaitaVedanta/Itara/DasaSahitya/
+publish-dasa-sahitya-local.yml` republishes it; `tools/Tattvavada/Itara/DasaSahitya/
 dasa_sahitya_local_dist_README.md` (mirrored onto the dist branch as its own
 README) documents what's on it and how a new asset flows through, since —
 unlike wordnet/kavya/search-dist — there's no live external source this can
@@ -173,16 +173,16 @@ on `main` while the 330MB it describes doesn't.
    present under that name in any of the four sources as of this pass.
 4. ✅ Folded: `finalize_single_corpus.py` moved every remaining dasa1
    composer (123, all confirmed distinct — see above) into its own new file
-   under `DvaitaVedanta/Itara/DasaSahitya/composers/`, and folded `raw_dump`'s unattributed
+   under `Tattvavada/Itara/DasaSahitya/composers/`, and folded `raw_dump`'s unattributed
    `ugabhoga.json` (278 items) into the existing `untitled.json` bucket via
    the same dedupe (3 exact duplicates against the web crawl's own untitled
    pile collapsed). **`dasa_sahitya_local/` is retired** — every composition
-   from every source now lives under `data/DvaitaVedanta/Itara/DasaSahitya/composers/`.
+   from every source now lives under `data/Tattvavada/Itara/DasaSahitya/composers/`.
    Final count: **15,863 compositions, 152 composer files, ~95 MB**.
 5. Repeat this same review (composer-identity check, category confirmation,
    fold-in) for each future asset as it arrives — one at a time, not
    batched, so the backlog of undecided calls never grows into its own
-   project. `tools/DvaitaVedanta/Itara/DasaSahitya/merge_or_relabel.py` (see its own docstring)
+   project. `tools/Tattvavada/Itara/DasaSahitya/merge_or_relabel.py` (see its own docstring)
    is the reusable tool for folding a future confirmed-duplicate composer in,
    or moving/relabeling any composition, without hand-writing a one-off
    script each time.
@@ -195,10 +195,10 @@ full, not just this summary.
 ## Taxonomy integration — done (25 Aug 2026)
 
 The 152-composer corpus above was complete and correct but reachable only
-through `DvaitaVedanta/Itara/DasaSahitya.html`'s own runtime fetch of `index.json` — it had no
+through `Tattvavada/Itara/DasaSahitya.html`'s own runtime fetch of `index.json` — it had no
 real leaves in `taxonomy.json`/`library.json`, so it never showed up in the
 Library folder browser, global search, or `tools/audit_library.py`'s
-completion count, and the taxonomy-registered `DvaitaVedanta/Itara/DasaSahitya/dasakuta/`
+completion count, and the taxonomy-registered `Tattvavada/Itara/DasaSahitya/dasakuta/`
 scaffold it had actually superseded (empty `pada`/`suladi`/`ugabhoga`/...
 stub folders per composer, predating this whole 4-source merge) was still
 what visitors saw there instead.
@@ -206,15 +206,15 @@ what visitors saw there instead.
 Fixed by converting each `composers/<slug>.json` in place to
 `composers/<slug>/data.json` (schema `dasa_pada_text`, `items` instead of
 `compositions` — no duplication, same file moved not copied) and adding one
-real taxonomy leaf per composer under `DvaitaVedanta/Itara/DasaSahitya.composers.<slug>`. The
+real taxonomy leaf per composer under `Tattvavada/Itara/DasaSahitya.composers.<slug>`. The
 empty `dasakuta` pada/keerthana stub was removed; its one genuinely
 populated leaf (Jagannathadasa's Harikathamritasara, a distinct kavya, not a
 pada) and the whole `vyasakuta` tree (real, separate Sanskrit-prakarana
 scaffolding by Madhva-tradition ācāryas, unrelated to this corpus) were left
 alone.
 
-`tools/DvaitaVedanta/Itara/DasaSahitya/import_DvaitaVedanta/Itara/DasaSahitya.py` (fresh web imports) and
-`tools/DvaitaVedanta/Itara/DasaSahitya/merge_or_relabel.py` (the reusable composer-merge/
+`tools/Tattvavada/Itara/DasaSahitya/import_Tattvavada/Itara/DasaSahitya.py` (fresh web imports) and
+`tools/Tattvavada/Itara/DasaSahitya/merge_or_relabel.py` (the reusable composer-merge/
 relabel tool) both write the new `<slug>/data.json` layout now.
 `finalize_single_corpus.py` and `merge_confirmed_composers.py` were
 one-off scripts whose job is done (see the checklist above) and were left

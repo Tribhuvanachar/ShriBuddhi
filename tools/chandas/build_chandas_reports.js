@@ -22,7 +22,7 @@ const crypto = require('crypto');
 const ROOT = path.resolve(__dirname, '..', '..');
 const DATA = path.join(ROOT, 'data');
 const OUT = path.join(DATA, 'vedanga/chandas/reports');
-const TOPDIRS = ['darshana', 'DvaitaVedanta/Itara/DasaSahitya', 'itihasa', 'kavya_alankara', 'purana', 'smriti_dharma', 'stotra',
+const TOPDIRS = ['darshana', 'Tattvavada/Itara/DasaSahitya', 'itihasa', 'kavya_alankara', 'purana', 'smriti_dharma', 'stotra',
   'nitishastra', 'upaveda', 'agama', 'vedas', 'shastra', 'misc', 'vedanga'];
 const only = (() => { const i = process.argv.indexOf('--only'); return i > 0 ? process.argv[i + 1] : ''; })();
 

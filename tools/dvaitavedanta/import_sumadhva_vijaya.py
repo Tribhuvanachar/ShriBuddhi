@@ -40,7 +40,7 @@ BOOK_ID = "10497"
 SEED = "https://dvaitavedanta.in/category-details/10498/10497/samath/samath/parath"
 CATEGORY_URL = "https://dvaitavedanta.in/category-details/{cid}/" + BOOK_ID + "/x/x/x"
 LOAD_URL = "https://dvaitavedanta.in/load-data?book_id=" + BOOK_ID + "&id={uid}&search="
-DEST = "data/DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_{n}/data.json"
+DEST = "data/Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_{n}/data.json"
 
 SOURCE_NOTE = ("No published licence. Used with case-by-case permission granted by "
                "the project lead on 2026-08-15 for non-commercial, educational "
@@ -277,7 +277,7 @@ def best_match(our_text, site_verses, number):
     return best_n, best_r
 
 
-BANNANJE = "data/DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/bannanje_patha.json"
+BANNANJE = "data/Tattvavada/Itara/Kavya/sumadhva_vijaya/bannanje_patha.json"
 
 # A patha difference IS a textual difference, so the floor for recognising the
 # same verse across the two recensions has to sit well below the one used for
@@ -534,7 +534,7 @@ def main(argv=None):
         print("\nrebuilding the mula from the DvaitaVedanta recension")
         rebuild_mula(collected, args.apply)
 
-    print("\nmerging into data/DvaitaVedanta/Itara/Kavya/sumadhva_vijaya")
+    print("\nmerging into data/Tattvavada/Itara/Kavya/sumadhva_vijaya")
     report = merge_into_repo(collected, args.apply)
     bad = [r for r in report if r.get("error") or r.get("unmatched")]
     if bad:

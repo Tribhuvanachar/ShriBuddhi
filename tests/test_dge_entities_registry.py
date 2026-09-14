@@ -135,7 +135,7 @@ class TestRequiredCrossReferenceCases(unittest.TestCase):
         # _score(), 'word-exact' via) relies on; the search engine itself is
         # a browser/CDN-index module exercised via Playwright, not here.
         data = _load_json(os.path.join(
-            DGE_DATA, "DvaitaVedanta", "Itara", "Kavya", "sumadhva_vijaya", "sarga_1", "data.json"))
+            DGE_DATA, "Tattvavada", "Itara", "Kavya", "sumadhva_vijaya", "sarga_1", "data.json"))
         shlokas = data.get("shlokas") or data.get("items")
         first = shlokas["1"] if isinstance(shlokas, dict) else shlokas[0]
         # 9 Sep 2026: the primary text is now the DvaitaVedanta recension,

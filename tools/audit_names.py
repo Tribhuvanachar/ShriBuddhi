@@ -55,7 +55,7 @@ LIBRARY = os.path.join(DATA, "library.json")
 TAXONOMY = os.path.join(DATA, "taxonomy.json")
 ALIASES = os.path.join(DATA, "author_aliases.json")
 PARAMPARA = os.path.join(ROOT, "pages", "guru-parampara", "data", "parampara.json")
-DASA_INDEX = os.path.join(DATA, "DvaitaVedanta/Itara/DasaSahitya", "index.json")
+DASA_INDEX = os.path.join(DATA, "Tattvavada/Itara/DasaSahitya", "index.json")
 ADMIN_ASHTADHYAYI = os.path.join(ROOT, "admin", "ashtadhyayi.html")
 
 DEVA = re.compile(r"[ऀ-ॿ]")
@@ -203,7 +203,7 @@ def check_parampara(par, lib):
 
 def check_dasa(aliases):
     if not os.path.exists(DASA_INDEX):
-        return {"skipped": "no DvaitaVedanta/Itara/DasaSahitya/index.json"}
+        return {"skipped": "no Tattvavada/Itara/DasaSahitya/index.json"}
     idx = load(DASA_INDEX)
     alias = {norm(k): v for k, v in aliases.get("aliases", {}).items()}
     comps = idx.get("composers", [])
@@ -211,7 +211,7 @@ def check_dasa(aliases):
     unmapped = [c["composer"] for c in comps if norm(c.get("composer", "")) not in alias]
     mismatch = []
     for c in comps:
-        f = os.path.join(DATA, "DvaitaVedanta/Itara/DasaSahitya", c.get("file", ""))
+        f = os.path.join(DATA, "Tattvavada/Itara/DasaSahitya", c.get("file", ""))
         if os.path.exists(f):
             try:
                 d = load(f)

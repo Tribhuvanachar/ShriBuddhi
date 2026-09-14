@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Every heading in DvaitaVedanta/SarvaMula, as a downloadable workbook.
+"""Every heading in Tattvavada/SarvaMula, as a downloadable workbook.
 
 WHAT A "COMMENTARY TITLE" IS HERE. The reader's .commentary-title element is
 fed from two different places (js/render.js): the commentary's display name
@@ -24,7 +24,7 @@ import json
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-ROOT = REPO / "data" / "DvaitaVedanta" / "SarvaMula"
+ROOT = REPO / "data" / "Tattvavada" / "SarvaMula"
 
 
 def collect(root: Path):

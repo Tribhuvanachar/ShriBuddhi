@@ -5,10 +5,10 @@ DGE — Dasa Sahitya cross-source composer merge
 ==================================================
 
 Folds the 12 composer identities confirmed as the SAME person across the
-web crawl (data/DvaitaVedanta/Itara/DasaSahitya/) and the local-asset imports
+web crawl (data/Tattvavada/Itara/DasaSahitya/) and the local-asset imports
 (data/dasa_sahitya_local/{dasa1,collection_padagalu,raw_dump}) into one
-canonical file each under data/DvaitaVedanta/Itara/DasaSahitya/composers/, using the
-existing cross-source fingerprint dedupe() from import_DvaitaVedanta/Itara/DasaSahitya.py
+canonical file each under data/Tattvavada/Itara/DasaSahitya/composers/, using the
+existing cross-source fingerprint dedupe() from import_Tattvavada/Itara/DasaSahitya.py
 (composer + first 80 non-punctuation Kannada chars) so the SAME pada seen
 in two sources collapses to one record with both sources recorded in
 `also_at`, while genuinely different padas by the same composer stay as
@@ -29,11 +29,11 @@ What it does, per confirmed composer:
      one, so dedupe()'s `also_at` provenance list stays meaningful instead
      of collapsing every local duplicate under one blank "" URL.
   4. Run the existing dedupe(), write the merged set to
-     data/DvaitaVedanta/Itara/DasaSahitya/composers/<canonical_slug>.json, replacing the
+     data/Tattvavada/Itara/DasaSahitya/composers/<canonical_slug>.json, replacing the
      web-only file.
   5. Remove the now-merged dasaru file(s) from dasa_sahitya_local and
      rewrite its index.json so nothing is duplicated across both folders.
-  6. Rewrite data/DvaitaVedanta/Itara/DasaSahitya/index.json's composer counts.
+  6. Rewrite data/Tattvavada/Itara/DasaSahitya/index.json's composer counts.
 
 Run once: `python3 merge_confirmed_composers.py`. Not idempotent against a
 second run after dasa_sahitya_local's source files are already removed --
@@ -46,12 +46,12 @@ import os
 import re
 
 ROOT = os.path.join(os.path.dirname(__file__), "..", "..")
-WEB_DIR = os.path.join(ROOT, "data", "DvaitaVedanta/Itara/DasaSahitya")
+WEB_DIR = os.path.join(ROOT, "data", "Tattvavada/Itara/DasaSahitya")
 LOCAL_DIR = os.path.join(ROOT, "data", "dasa_sahitya_local")
 FETCH_DATE = _dt.date.today().isoformat()
 
 # canonical_english_name -> {
-#   "web_prefixes": [composer-field prefixes to match in DvaitaVedanta/Itara/DasaSahitya/composers/*.json],
+#   "web_prefixes": [composer-field prefixes to match in Tattvavada/Itara/DasaSahitya/composers/*.json],
 #   "local": {asset_name: [kannada composer names as they appear in that asset]},
 # }
 CONFIRMED = {
@@ -108,7 +108,7 @@ CONFIRMED = {
 }
 
 # --------------------------------------------------------------------------- #
-# Inlined from tools/DvaitaVedanta/Itara/DasaSahitya/import_DvaitaVedanta/Itara/DasaSahitya.py's dedupe()/slugify(),
+# Inlined from tools/Tattvavada/Itara/DasaSahitya/import_Tattvavada/Itara/DasaSahitya.py's dedupe()/slugify(),
 # verbatim, rather than importing that module -- it pulls in requests/bs4 for
 # its (unrelated, network-only) scraping code, which this merge script has no
 # business depending on.
@@ -288,7 +288,7 @@ def main():
                 os.remove(p)
                 print(f"    removed merged local file: {os.path.relpath(p, ROOT)}")
 
-    # Rebuild data/DvaitaVedanta/Itara/DasaSahitya/index.json + counts.json from what's on disk now.
+    # Rebuild data/Tattvavada/Itara/DasaSahitya/index.json + counts.json from what's on disk now.
     rebuild_web_manifest()
     for asset in ("dasa1", "collection_padagalu", "raw_dump"):
         rebuild_local_manifest(asset)
@@ -341,7 +341,7 @@ def rebuild_local_manifest(asset):
     manifest["count_dasaru"] = len(kept)
     manifest["note_confirmed_composers_merged_out"] = (
         f"Composers confirmed as duplicates of the web corpus were merged into "
-        f"data/DvaitaVedanta/Itara/DasaSahitya/composers/ and removed from here by "
+        f"data/Tattvavada/Itara/DasaSahitya/composers/ and removed from here by "
         f"merge_confirmed_composers.py on {FETCH_DATE}; see that folder's file for the "
         "merged record, and ALL_SOURCES_composer_registry.json for which composers those were."
     )

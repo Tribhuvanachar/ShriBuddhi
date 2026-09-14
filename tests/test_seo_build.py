@@ -37,7 +37,12 @@ def test_public_urls_unique_and_shaped():
         assert re.match(r"^/[a-z0-9\-/]+/$", u), u
         assert "_" not in u and "mula" not in u.split("/")[-2:]
     assert t.url("vedas/rigveda/shakala_shakha/samhita/mandala_01") == "/veda/rigveda/samhita/mandala-1/"
-    assert t.url("DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_1") == "/dvaitavedanta/kavya/raghavendra-vijaya/sarga-1/"
+    # 14 Sep 2026: the shelf renamed DvaitaVedanta -> Tattvavada and its public
+    # URL root moved with it. Safe only because seo.json still has
+    # canonicalLive: false -- no canonical URL was ever published under
+    # /dvaitavedanta/ for a search engine to have indexed. Once that flips, a
+    # rename here needs redirects, not an edited expectation.
+    assert t.url("Tattvavada/Itara/Kavya/raghavendra_vijaya/sarga_1") == "/tattvavada/kavya/raghavendra-vijaya/sarga-1/"
     assert t.url("itihasa/mahabharata/adi_parva/mula") == "/itihasa/mahabharata/adi-parva/"
     for s in slugs:                            # nothing from the licensed corpora leaks into the public tree
         assert not s.startswith("darshana/vedanta/dvaita/DvaitaVedantaIn") and not s.startswith("darshana/vedanta/advaita")
@@ -52,13 +57,13 @@ def test_labels_and_transliteration():
 @needs_site
 def test_subset_build_and_validate(tmp_path):
     out = tmp_path / "site"
-    subprocess.run([sys.executable, str(ROOT / "tools/seo/build_seo_site.py"), "--out", str(out), "--only", "DvaitaVedanta/Itara/Kavya/raghavendra_vijaya", "--quiet"], check=True, capture_output=True)
-    page = out / "dvaitavedanta/kavya/raghavendra-vijaya/sarga-1/index.html"
+    subprocess.run([sys.executable, str(ROOT / "tools/seo/build_seo_site.py"), "--out", str(out), "--only", "Tattvavada/Itara/Kavya/raghavendra_vijaya", "--quiet"], check=True, capture_output=True)
+    page = out / "tattvavada/kavya/raghavendra-vijaya/sarga-1/index.html"
     html = page.read_text(encoding="utf-8")
-    assert '<html lang="sa">' in html and '<link rel="canonical" href="https://tribhuvanachar.github.io/bhumandala/dvaitavedanta/kavya/raghavendra-vijaya/sarga-1/">' in html
+    assert '<html lang="sa">' in html and '<link rel="canonical" href="https://tribhuvanachar.github.io/bhumandala/tattvavada/kavya/raghavendra-vijaya/sarga-1/">' in html
     assert "<h1>" in html and 'class="sa" lang="sa"' in html and 'lang="sa-Latn"' in html and "BreadcrumbList" in html
     assert re.search(r"<title>Sarga 1 — [^<]*Rāghavendra[^<]*</title>", html, re.I) or "sargaḥ 1" in html.lower()
-    assert 'href="/bhumandala/render.html?path=DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_1' in html   # link into the reader
+    assert 'href="/bhumandala/render.html?path=Tattvavada/Itara/Kavya/raghavendra_vijaya/sarga_1' in html   # link into the reader
     assert "?rgv1" in html                                                                              # the short address
     assert (out / "sitemap.xml").exists() and (out / "robots.txt").read_text().count("Sitemap:") == 1
     # the validator's per-page checks pass on the subset (site-wide link checks are only meaningful on a full build)
@@ -80,5 +85,5 @@ def test_generated_index_never_lands_on_an_app_page(tmp_path):
     assert "/" in t.reserved and "/kavya/" in t.reserved
     assert t.catalogue == "/texts/"
     assert t.prefix_url("kavya_alankara") == "/kavya/texts/"
-    assert t.url("DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_1") == "/dvaitavedanta/kavya/raghavendra-vijaya/sarga-1/"
+    assert t.url("Tattvavada/Itara/Kavya/raghavendra_vijaya/sarga_1") == "/tattvavada/kavya/raghavendra-vijaya/sarga-1/"
     assert not (set(t._urls.values()) & t.reserved)

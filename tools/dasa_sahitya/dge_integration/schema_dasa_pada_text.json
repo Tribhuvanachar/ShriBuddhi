@@ -1,5 +1,5 @@
 {
-  "_instructions": "Add this 'dasa_pada_text' type to DGE schemas.json. It is self-contained (does not disturb the mula/tika/tippani/itihasa_purana schemas). Each composition record in data/DvaitaVedanta/Itara/DasaSahitya/composers/<slug>.json validates against this shape.",
+  "_instructions": "Add this 'dasa_pada_text' type to DGE schemas.json. It is self-contained (does not disturb the mula/tika/tippani/itihasa_purana schemas). Each composition record in data/Tattvavada/Itara/DasaSahitya/composers/<slug>.json validates against this shape.",
   "dasa_pada_text": {
     "description": "A single Haridasa composition (pada / suladi / ugabhoga / related song form) with Kannada text, auto-generated transliterations, and source attribution.",
     "fields": {

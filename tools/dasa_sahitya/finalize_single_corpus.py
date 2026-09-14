@@ -29,14 +29,14 @@ collection_padagalu/ is already empty -- its composers were among the 12
 confirmed duplicates and got merged out by the earlier pass.
 
 After this runs, dasa_sahitya_local/ holds nothing new to review; every
-composition lives under data/DvaitaVedanta/Itara/DasaSahitya/composers/. Re-running this
+composition lives under data/Tattvavada/Itara/DasaSahitya/composers/. Re-running this
 script is safe as long as dasa_sahitya_local/dasa1/dasaru/ and
 raw_dump/dasaru/ugabhoga.json still exist locally (they are NOT deleted by
 this script -- only referenced -- since they live on the
 dasa-sahitya-local-dist branch, not in this checkout, when run for real).
 
 Usage:
-    python3 tools/DvaitaVedanta/Itara/DasaSahitya/finalize_single_corpus.py \
+    python3 tools/Tattvavada/Itara/DasaSahitya/finalize_single_corpus.py \
         --local-dir /path/to/a/checkout/of/dasa-sahitya-local-dist
 """
 import argparse
@@ -47,7 +47,7 @@ import os
 import re
 
 ROOT = os.path.join(os.path.dirname(__file__), "..", "..")
-WEB_DIR = os.path.join(ROOT, "data", "DvaitaVedanta/Itara/DasaSahitya")
+WEB_DIR = os.path.join(ROOT, "data", "Tattvavada/Itara/DasaSahitya")
 FETCH_DATE = _dt.date.today().isoformat()
 
 _PUNCT_RE = re.compile(r"[\s।॥.,\-–—’‘'\"()\[\]:;!?|/]+")
@@ -117,7 +117,7 @@ def dump_json(path, obj):
 
 def fold_in_dasa1(local_dir):
     """Every remaining dasa1 composer becomes its own new composer file --
-    none of them matched anything already in DvaitaVedanta/Itara/DasaSahitya/composers/ (the 12
+    none of them matched anything already in Tattvavada/Itara/DasaSahitya/composers/ (the 12
     that did were already merged out by merge_confirmed_composers.py, and
     the 5 name-root-alike candidates were confirmed as different people)."""
     src_dir = os.path.join(local_dir, "dasa1", "dasaru")
@@ -241,7 +241,7 @@ def main():
                           "(has dasa1/, raw_dump/, collection_padagalu/ at its root)")
     args = ap.parse_args()
 
-    print("== Folding dasa_sahitya_local/ into DvaitaVedanta/Itara/DasaSahitya/ ==")
+    print("== Folding dasa_sahitya_local/ into Tattvavada/Itara/DasaSahitya/ ==")
     fold_in_dasa1(args.local_dir)
     fold_in_raw_dump_ugabhoga(args.local_dir)
     rebuild_web_manifest()

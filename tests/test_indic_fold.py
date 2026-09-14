@@ -1,6 +1,6 @@
 """The Indic-script fold in build_search_index.py (31 Aug 2026).
 
-The Kannada-script Yuktimallika (DvaitaVedanta/Itara/DasaSahitya/vyasakuta/vadiraja_tirtha,
+The Kannada-script Yuktimallika (Tattvavada/Itara/DasaSahitya/vyasakuta/vadiraja_tirtha,
 5,542 units) was dropped wholesale by the has_devanagari stub gate, so
 स्तुत्या could never find its opening ಭಕ್ತ್ಯಾ ಸ್ತುತ್ಯಾ. These tests pin the
 fold's contract: aligned Indic blocks transpose to Devanagari for indexing,

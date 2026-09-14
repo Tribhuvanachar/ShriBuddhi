@@ -56,7 +56,7 @@ def test_prefix_and_bounds():
 
 def test_make_reverses_parse():
     assert node("S.make('vedas/rigveda/shakala_shakha/samhita/mandala_01',{vedicId:'1.1.3'},3)") == "rv1.1.3"
-    assert node("S.make('DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_1',{},5)") == "smv1.5"
+    assert node("S.make('Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_1',{},5)") == "smv1.5"
     assert node("S.make('itihasa/mahabharata/shanti_parva/mula',{unitId:'adhyaya_003',unitNo:'7'},500)") == "mbh12.3.7"
     assert node("S.make('purana/maha_purana/bhagavata_purana/skandha_10',{unitId:'adhyaya_14',unitNo:'8'},9)") == "bhp10.14.8"
     assert node("S.make('vedas/samaveda/kauthuma_shakha/samhita/uttararchika',{vedicId:'651'},1)") == "sv651"

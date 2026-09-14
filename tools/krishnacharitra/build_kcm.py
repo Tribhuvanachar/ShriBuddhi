@@ -22,7 +22,7 @@ import os
 import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-DEST = os.path.join(ROOT, 'dge/data/darshana/vedanta/dvaita/DvaitaVedanta/'
+DEST = os.path.join(ROOT, 'dge/data/darshana/vedanta/dvaita/Tattvavada/'
                           'later_acharyas/krishnacharitra_manjari/mula')
 LIB = os.path.join(ROOT, 'dge/data/library.json')
 TITLE = 'श्रीकृष्णचरित्रमञ्जरी'
@@ -102,7 +102,7 @@ def main():
         json.dump(data, open(os.path.join(DEST, 'data.json'), 'w', encoding='utf-8'),
                   ensure_ascii=False, indent=1)
         lib = json.load(open(LIB, encoding='utf-8'))
-        p = ('dge/data/darshana/vedanta/dvaita/DvaitaVedanta/later_acharyas/'
+        p = ('dge/data/darshana/vedanta/dvaita/Tattvavada/later_acharyas/'
              'krishnacharitra_manjari/mula/data.json')
         if p not in {e['path'] for e in lib['granthas']}:
             lib['granthas'].append({

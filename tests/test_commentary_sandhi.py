@@ -134,7 +134,7 @@ class BuiltOutput(unittest.TestCase):
     def test_the_index_was_built_for_sumadhva_vijaya(self):
         names = {f.name for f in self.files}
         self.assertIn('kavya_alankara__sumadhva_vijaya__sarga_1.json', names,
-                      'run tools/build_padaccheda.py --commentary DvaitaVedanta/Itara/Kavya/sumadhva_vijaya')
+                      'run tools/build_padaccheda.py --commentary Tattvavada/Itara/Kavya/sumadhva_vijaya')
 
     def test_every_row_is_a_two_piece_split_of_its_own_token(self):
         rows = 0

@@ -20,7 +20,7 @@
   var SELF = (document.currentScript && document.currentScript.src) || "";
   // .../js/dasa-data.js  ->  .../
   var DGE_ROOT = SELF ? SELF.replace(/js\/dasa-data\.js.*$/, "") : "../";
-  var BASE = DGE_ROOT + "data/DvaitaVedanta/Itara/DasaSahitya";
+  var BASE = DGE_ROOT + "data/Tattvavada/Itara/DasaSahitya";
   var PEOPLE_URL = DGE_ROOT + "guru-parampara/data/people.json";
   // kosha.js resolves this against the page URL if it's relative, but an
   // absolute (script-derived) base is depth-proof; set it before kosha.js.

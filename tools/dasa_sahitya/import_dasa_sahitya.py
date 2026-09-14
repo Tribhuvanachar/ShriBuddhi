@@ -19,11 +19,11 @@ For every composition it captures:
     - auto-generated Devanagari + IAST transliterations from the Kannada
     - source url + attribution + fetch date
 
-Outputs (under --out, default ``data/DvaitaVedanta/Itara/DasaSahitya/``):
+Outputs (under --out, default ``data/Tattvavada/Itara/DasaSahitya/``):
     index.json                         -- manifest of every composition
     composers/<slug>/data.json         -- full records grouped by composer
     _dump/dasa_sahitya_full.txt        -- human-readable plain-text dump
-    _dump/DvaitaVedanta/Itara/DasaSahitya.jsonl           -- one JSON record per line
+    _dump/Tattvavada/Itara/DasaSahitya.jsonl           -- one JSON record per line
 
 Design notes
 ------------
@@ -617,7 +617,7 @@ def crawl(config, fetcher, limit_per_index=None, verbose=True):
 def main():
     ap = argparse.ArgumentParser(description="DGE Dasa Sahitya importer")
     ap.add_argument("--config", default=os.path.join(os.path.dirname(__file__), "dasa_sources.json"))
-    ap.add_argument("--out", default="data/DvaitaVedanta/Itara/DasaSahitya")
+    ap.add_argument("--out", default="data/Tattvavada/Itara/DasaSahitya")
     ap.add_argument("--cache", default=".dasa_cache")
     ap.add_argument("--delay", type=float, default=1.0, help="seconds between requests")
     ap.add_argument("--limit-per-index", type=int, default=None,
@@ -745,7 +745,7 @@ def write_outputs(records, out_dir, fetch_date, stats=None, failed_fetch=None, n
             return ""
 
     manifest = {
-        "category": "DvaitaVedanta/Itara/DasaSahitya",
+        "category": "Tattvavada/Itara/DasaSahitya",
         "label": {"kn": "ದಾಸ ಸಾಹಿತ್ಯ", "sa": "दाससाहित्यम्", "en": "Dasa Sahitya"},
         "generated": fetch_date,
         "count_total": len(records),
@@ -769,7 +769,7 @@ def write_outputs(records, out_dir, fetch_date, stats=None, failed_fetch=None, n
         # taxonomy/library.json leaf convention every other DGE grantha uses
         # (see tools/audit_library.py, tools/register_layers.py), so this
         # corpus is a real, browsable/searchable Library entry per composer
-        # instead of only reachable through DvaitaVedanta/Itara/DasaSahitya.html's own fetch.
+        # instead of only reachable through Tattvavada/Itara/DasaSahitya.html's own fetch.
         slug_dir = os.path.join(comp_dir, slug)
         os.makedirs(slug_dir, exist_ok=True)
         with open(os.path.join(slug_dir, "data.json"), "w", encoding="utf-8") as f:
@@ -801,7 +801,7 @@ def write_outputs(records, out_dir, fetch_date, stats=None, failed_fetch=None, n
         }, f, ensure_ascii=False, indent=2)
 
     # JSONL
-    with open(os.path.join(dump_dir, "DvaitaVedanta/Itara/DasaSahitya.jsonl"), "w", encoding="utf-8") as f:
+    with open(os.path.join(dump_dir, "Tattvavada/Itara/DasaSahitya.jsonl"), "w", encoding="utf-8") as f:
         for r in records:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
 
@@ -876,7 +876,7 @@ def write_outputs(records, out_dir, fetch_date, stats=None, failed_fetch=None, n
     print(f"  by source: {manifest['counts_by_source']}")
     print(f"  written under: {out_dir}")
     print(f"    index.json, counts.json, composers/*.json,")
-    print(f"    _dump/dasa_sahitya_full.txt, _dump/DvaitaVedanta/Itara/DasaSahitya.jsonl, _dump/COUNTS.txt")
+    print(f"    _dump/dasa_sahitya_full.txt, _dump/Tattvavada/Itara/DasaSahitya.jsonl, _dump/COUNTS.txt")
 
 
 if __name__ == "__main__":

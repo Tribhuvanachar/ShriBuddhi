@@ -3,7 +3,7 @@
 
 Scans the grantha corpus (darshana -- which now includes DvaitaVedanta,
 nested under darshana/vedanta/dvaita/ since the 23 Aug 2026 restructure --
-kavya, itihasa, purana, smriti, stotra, DvaitaVedanta/Itara/DasaSahitya, ... -- everything
+kavya, itihasa, purana, smriti, stotra, Tattvavada/Itara/DasaSahitya, ... -- everything
 EXCEPT vedanga/vyakarana's
 own commentary layers, whose citing of sutras is their whole job, and the
 non-text datasets kosha/_morph/_synonyms) for real usages of Panini's
@@ -39,7 +39,7 @@ first --
   rank 0  सर्वमूलम् (darshana/vedanta/dvaita/Anandamakaranda)
   rank 1  the wider Dvaita corpus (darshana/vedanta/dvaita/DvaitaVedantaIn/**:
           Sumadhva Vijaya, Yuktimallika, Nyaya Sudha, the later acharyas' works)
-  rank 2  DvaitaVedanta/Itara/DasaSahitya (Vyasakuta/Haridasa works)
+  rank 2  Tattvavada/Itara/DasaSahitya (Vyasakuta/Haridasa works)
   rank 3  everything else (itihasa, kavya, purana, smriti, ...)
 
 Output: data/vedanga/vyakarana/ashtadhyayi/prayoga_index/a<N>.json, one
@@ -68,7 +68,7 @@ DATA = REPO / 'data'
 SUTRAPATHA = DATA / 'vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json'
 OUT = DATA / 'vedanga/vyakarana/ashtadhyayi/prayoga_index'
 
-SCAN_TOPDIRS = ['darshana', 'DvaitaVedanta/Itara/DasaSahitya', 'itihasa',
+SCAN_TOPDIRS = ['darshana', 'Tattvavada/Itara/DasaSahitya', 'itihasa',
                 'kavya_alankara', 'purana', 'smriti_dharma', 'stotra',
                 'nitishastra', 'upaveda', 'agama', 'vedas']
 MIN_QUOTE_NORM = 8
@@ -100,7 +100,7 @@ def rank_of(slug):
         return 0
     if slug.startswith('darshana/vedanta/dvaita/DvaitaVedantaIn'):
         return 1
-    if slug.startswith('DvaitaVedanta/Itara/DasaSahitya'):
+    if slug.startswith('Tattvavada/Itara/DasaSahitya'):
         return 2
     return 3
 
@@ -240,7 +240,7 @@ def main():
                     'tools/build_sutra_prayoga_index.py (its docstring records '
                     'the detection rules and the lineage-first ranking). '
                     'Entry: [slug, unit, quote|ref, rank, snippet, title]. '
-                    'rank: 0 sarvamula, 1 dvaitavedanta, 2 DvaitaVedanta/Itara/DasaSahitya, 3 rest.'),
+                    'rank: 0 sarvamula, 1 dvaitavedanta, 2 Tattvavada/Itara/DasaSahitya, 3 rest.'),
         'v': 1,
         'sutrasWithUsages': len(found),
         'usages': sum(len(v) for v in found.values()),

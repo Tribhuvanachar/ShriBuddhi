@@ -7,7 +7,7 @@ top of wherever the files happened to land when they were imported. The lead
 asked for that to stop: what the library manager shows IS the folder structure,
 so a rename in one is a rename in the other.
 
-    DvaitaVedanta/                  <- new, at the top of the library
+    Tattvavada/                  <- new, at the top of the library
       SarvaMula/                    <- was darshana/vedanta/dvaita/SetuTila
       Itara/                        <- everything that is not a mula grantha
         DasaSahitya/                <- was dasa_sahitya/
@@ -48,13 +48,13 @@ DATA = REPO / "dge" / "data"
 # (source, destination) in data terms. Order matters: the DvaitaVedanta
 # rename runs last, so the earlier entries can still name the old path.
 MOVES = [
-    ("darshana/vedanta/dvaita/SetuTila",            "DvaitaVedanta/SarvaMula"),
-    ("dasa_sahitya",                                "DvaitaVedanta/Itara/DasaSahitya"),
-    ("kavya_alankara/sumadhva_vijaya",              "DvaitaVedanta/Itara/Kavya/sumadhva_vijaya"),
-    ("kavya_alankara/raghavendra_vijaya",           "DvaitaVedanta/Itara/Kavya/raghavendra_vijaya"),
+    ("darshana/vedanta/dvaita/SetuTila",            "Tattvavada/SarvaMula"),
+    ("dasa_sahitya",                                "Tattvavada/Itara/DasaSahitya"),
+    ("kavya_alankara/sumadhva_vijaya",              "Tattvavada/Itara/Kavya/sumadhva_vijaya"),
+    ("kavya_alankara/raghavendra_vijaya",           "Tattvavada/Itara/Kavya/raghavendra_vijaya"),
     ("darshana/vedanta/dvaita/Anandamakaranda/kavya/tirtha_prabandha",
-                                                    "DvaitaVedanta/Itara/Kavya/tirtha_prabandha"),
-    ("stotra/PrahladaKrutaNarasimha",               "DvaitaVedanta/Itara/Stotra/prahlada_kruta_narasimha"),
+                                                    "Tattvavada/Itara/Kavya/tirtha_prabandha"),
+    ("stotra/PrahladaKrutaNarasimha",               "Tattvavada/Itara/Stotra/prahlada_kruta_narasimha"),
     # Last: frees the name DvaitaVedanta for the new top-level container.
     ("darshana/vedanta/dvaita/DvaitaVedanta",       "darshana/vedanta/dvaita/DvaitaVedantaIn"),
 ]
@@ -187,16 +187,16 @@ def update_overrides(apply=False, quiet=False):
         return x
 
     kept = {remap(k): remap(v) for k, v in before.items()
-            if remap(k).startswith("DvaitaVedanta/Itara/DasaSahitya/")}
+            if remap(k).startswith("Tattvavada/Itara/DasaSahitya/")}
     d["moves"] = kept
     d["shelf"]["allow"] = [
-        "DvaitaVedanta/Itara/Kavya/sumadhva_vijaya",
-        "DvaitaVedanta/Itara/Kavya/mani_manjari",
-        "DvaitaVedanta/Itara/Kavya/raghavendra_vijaya",
-        "DvaitaVedanta/Itara/Kavya/tirtha_prabandha",
+        "Tattvavada/Itara/Kavya/sumadhva_vijaya",
+        "Tattvavada/Itara/Kavya/mani_manjari",
+        "Tattvavada/Itara/Kavya/raghavendra_vijaya",
+        "Tattvavada/Itara/Kavya/tirtha_prabandha",
     ]
     if not quiet:
-        print(f"  moves: {len(before)} -> {len(kept)}; shelf re-pointed at DvaitaVedanta/Itara/Kavya")
+        print(f"  moves: {len(before)} -> {len(kept)}; shelf re-pointed at Tattvavada/Itara/Kavya")
     if apply:
         p.write_text(json.dumps(d, ensure_ascii=False, indent=1), encoding="utf-8")
     return before, kept

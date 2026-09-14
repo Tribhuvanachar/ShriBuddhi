@@ -3,7 +3,7 @@
 
 Runs on GitHub Actions (open network egress). It does NOT run inside the Cowork
 sandbox, which has no scraping egress to this host — that is by design and
-matches the established DGE import workflow (see tools/DvaitaVedanta/Itara/DasaSahitya/).
+matches the established DGE import workflow (see tools/Tattvavada/Itara/DasaSahitya/).
 
 Pipeline per grantha
   1. discover  fetch the seed leaf, harvest the full sidebar -> the leaf id set

@@ -38,7 +38,7 @@ with):
 
 Usage:
   GEMINI_API_KEY=... python3 tools/gemini_summarize.py \
-      --sarga-dir data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya --cantos 1-10 \
+      --sarga-dir data/Tattvavada/Itara/Kavya/raghavendra_vijaya --cantos 1-10 \
       --batch-size 10 --concurrency 5
   python3 tools/gemini_summarize.py --sarga-dir ... --cantos 1 --dry-run
 """

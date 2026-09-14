@@ -24,7 +24,7 @@ diagnostic output from an actual run, not guessed:
     be skipped, not extracted as text.
   - The "zurich" witness text is in ROMANIZED ISO-15919 transliteration
     (e.g. "agním īḷe puróhitaṁ"), not Devanagari. Since DGE is
-    Devanagari-first elsewhere (see DvaitaVedanta/Itara/Stotra/prahlada_kruta_narasimha/data.json), this version
+    Devanagari-first elsewhere (see Tattvavada/Itara/Stotra/prahlada_kruta_narasimha/data.json), this version
     converts to Devanagari via the `indic_transliteration` library and
     keeps the original IAST alongside it for cross-checking.
   - Large files are processed ONE BOOK AT A TIME so memory use stays

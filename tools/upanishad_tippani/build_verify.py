@@ -28,7 +28,7 @@ BOOKS = {
     "taittiriya": {"vision": ["taittiriya_upanishad_bhashya_tippani"], "dge": DV / "taittiriyopanishad_bhashya",     "title": "तैत्तिरीयोपनिषद्भाष्यम् — 6 टिप्पण्यः"},
     "tantrasara": {"vision": ["tantrasara_sangraha_tippani_a", "tantrasara_sangraha_tippani_b"],
                    "dge": [ROOT / "data/darshana/vedanta/dvaita/Anandamakaranda/achara_and_ancillary_granthas/tantrasara_sangraha",
-                           ROOT / "data/DvaitaVedanta/SarvaMula/achara_granthas/tantrasara"],
+                           ROOT / "data/Tattvavada/SarvaMula/achara_granthas/tantrasara"],
                    "title": "तन्त्रसारसङ्ग्रहः (2017, प्रह्लादाचार्य जोशी) — 4 टिप्पण्यः"},
 }
 LABEL = re.compile(r"^\s*((?:[ऀ-ॿ]{1,7}\.){1,3}(?:[ऀ-ॿ]{1,12})?[ः:]?)\s*[-–—:]+\s*")

@@ -387,7 +387,7 @@
   },
   "dasa-sahitya-local-dist": {
    "category": "review-needed",
-   "purpose": "An earlier build of the Dāsa Sāhitya corpus from local (non-scraped) assets, before it was merged onto main directly as data/DvaitaVedanta/Itara/DasaSahitya/.",
+   "purpose": "An earlier build of the Dāsa Sāhitya corpus from local (non-scraped) assets, before it was merged onto main directly as data/Tattvavada/Itara/DasaSahitya/.",
    "recommendation": "review",
    "notes": "Not found referenced in any live js/*.js file — the corpus now lives on main directly. Likely safe to delete once confirmed no page still points at it; kept as review rather than delete because it hasn't been individually diff-checked.",
    "snapshot": {
@@ -1627,7 +1627,7 @@
       "name": "sarga_path",
       "label": "One sarga's data.json to sample verses from",
       "type": "string",
-      "default": "data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_2/data.json",
+      "default": "data/Tattvavada/Itara/Kavya/raghavendra_vijaya/sarga_2/data.json",
       "required": true
      },
      {
@@ -1715,7 +1715,7 @@
       "name": "sarga_dir",
       "label": "Directory of sarga_N/data.json subfolders to process",
       "type": "string",
-      "default": "data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya",
+      "default": "data/Tattvavada/Itara/Kavya/raghavendra_vijaya",
       "required": true
      },
      {
@@ -1948,7 +1948,7 @@
       "name": "sarga_dir",
       "label": "Directory of sarga_N/data.json subfolders to process",
       "type": "string",
-      "default": "data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya",
+      "default": "data/Tattvavada/Itara/Kavya/raghavendra_vijaya",
       "required": true
      },
      {
@@ -2056,10 +2056,10 @@
     "secrets": [],
     "cost": [],
     "scripts": [
-     "tools/DvaitaVedanta/Itara/DasaSahitya/import_DvaitaVedanta/Itara/DasaSahitya.py"
+     "tools/Tattvavada/Itara/DasaSahitya/import_Tattvavada/Itara/DasaSahitya.py"
     ],
     "missing_scripts": [
-     "tools/DvaitaVedanta/Itara/DasaSahitya/import_DvaitaVedanta/Itara/DasaSahitya.py"
+     "tools/Tattvavada/Itara/DasaSahitya/import_Tattvavada/Itara/DasaSahitya.py"
     ],
     "writes": [
      "opens a pull request"

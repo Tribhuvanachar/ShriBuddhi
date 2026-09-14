@@ -23,7 +23,7 @@ link_english_commentary.py's existing convention.
 
 Usage:
   python3 tools/merge_staged_commentary.py --staged data/ocr_staging/raghavendra_vijaya/tika_x_canto1_pages12-54.json \
-      --sarga-dir data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya
+      --sarga-dir data/Tattvavada/Itara/Kavya/raghavendra_vijaya
   python3 tools/merge_staged_commentary.py --staged ... --sarga-dir ... --include-review --force
 """
 from __future__ import annotations

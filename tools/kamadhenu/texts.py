@@ -21,10 +21,10 @@ _DANDA = re.compile(r"[।॥|]+")
 # Works to index: (work id, glob of data.json files, loader kind, human label)
 WORKS = [
     ("bhagavad_gita", "data/itihasa/bhagavad_gita/adhyaya_*/data.json", "gita", "Bhagavad Gītā"),
-    ("sumadhva_vijaya", "data/DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_*/data.json", "legacy", "Sumadhva Vijaya"),
-    ("raghavendra_vijaya", "data/DvaitaVedanta/Itara/Kavya/raghavendra_vijaya/sarga_*/data.json", "legacy", "Rāghavendra Vijaya"),
-    ("tirtha_prabandha", "data/DvaitaVedanta/Itara/Kavya/tirtha_prabandha/*_prabandha/data.json", "items", "Tīrtha Prabandha"),
-    ("PrahladaKrutaNarasimha", "data/DvaitaVedanta/Itara/Stotra/prahlada_kruta_narasimha/data.json", "legacy", "Prahlāda-kṛta Narasiṃha Stotra"),
+    ("sumadhva_vijaya", "data/Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_*/data.json", "legacy", "Sumadhva Vijaya"),
+    ("raghavendra_vijaya", "data/Tattvavada/Itara/Kavya/raghavendra_vijaya/sarga_*/data.json", "legacy", "Rāghavendra Vijaya"),
+    ("tirtha_prabandha", "data/Tattvavada/Itara/Kavya/tirtha_prabandha/*_prabandha/data.json", "items", "Tīrtha Prabandha"),
+    ("PrahladaKrutaNarasimha", "data/Tattvavada/Itara/Stotra/prahlada_kruta_narasimha/data.json", "legacy", "Prahlāda-kṛta Narasiṃha Stotra"),
     ("nakha_stuti", "data/darshana/vedanta/dvaita/Anandamakaranda/achara_and_ancillary_granthas/nakha_stuti/mula/data.json", "items", "Nakha Stuti"),
     ("kanduka_stuti", "data/darshana/vedanta/dvaita/Anandamakaranda/achara_and_ancillary_granthas/kanduka_stuti/mula/data.json", "items", "Kanduka Stuti"),
     ("dvadasha_stotra", "data/darshana/vedanta/dvaita/Anandamakaranda/dvadasha_stotra/mula/data.json", "items", "Dvādaśa Stotra"),
@@ -34,7 +34,7 @@ WORKS = [
     ("mahabharata_tatparya_nirnaya", "data/darshana/vedanta/dvaita/Anandamakaranda/*/mahabharata_tatparya_nirnaya/mula/data.json", "items", "Mahābhārata Tātparya Nirṇaya"),
     ("stotra_misc", "data/stotra/*/data.json", "auto", "Stotra (misc)"),
     ("vedavyasa_gadya", "data/darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/vedavyasa_gadya/mula/data.json", "items", "Vedavyāsa Gadyam (Yādavārya, prose)"),   # one item per epithet; recorded as one 9.7-min file
-    ("harikathamrutasara", "data/DvaitaVedanta/Itara/DasaSahitya/dasakuta/jagannathadasa/harikathamrutasara/data.json", "hks", "Harikathāmṛtasāra (Jagannātha Dāsa, Kannada)"),   # hks.<sandhi>.<n>.aac recordings
+    ("harikathamrutasara", "data/Tattvavada/Itara/DasaSahitya/dasakuta/jagannathadasa/harikathamrutasara/data.json", "hks", "Harikathāmṛtasāra (Jagannātha Dāsa, Kannada)"),   # hks.<sandhi>.<n>.aac recordings
 ]
 
 

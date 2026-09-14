@@ -11,7 +11,7 @@ stops holding. These are the three files it would have broken for.
 
 | File | Why it was removed | Still superseded by |
 |---|---|---|
-| `PrahladaKrutaNarasimhaStotra.html` | a standalone copy of one stotra, read by no code | the live text at `DvaitaVedanta/Itara/Stotra/prahlada_kruta_narasimha` |
+| `PrahladaKrutaNarasimhaStotra.html` | a standalone copy of one stotra, read by no code | the live text at `Tattvavada/Itara/Stotra/prahlada_kruta_narasimha` |
 | `apply_taxonomy_patch.py` | a one-off merge of the Kāvya genre tree into `taxonomy.json` | `tools/restructure_taxonomy.py` and `tools/migrate_slugs.py`, which are maintained |
 | `nav-snippets.md` | two hand edits for a corpus package applied long ago | nothing — the edits are in the code |
 | `lineage-3d.html` | a 3D guru-paramparā lineage view, dropped by the redesign — it appears nowhere in `tools/redesign/page_inventory.json`'s 84 rows | `pages/guru-parampara/lineage-2d.html`, which is the 2D view, not this one |

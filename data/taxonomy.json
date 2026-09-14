@@ -6806,15 +6806,15 @@
    "mula": {}
   }
  },
- "DvaitaVedanta/Itara/DasaSahitya": {
+ "Tattvavada/Itara/DasaSahitya": {
   "_schema": "dasa_pada_text",
-  "_note": "Haridasa devotional compositions (padas/suladis/ugabhogas/...) from four independently-sourced collections (web crawl, Android app, Firestore export, flat-JSON dump), reviewed and merged into one corpus 21 Aug 2026 -- see data/dasa_sahitya_local/ARCHITECTURE.md for the full review history. Registered here as real leaves under 'composers' (25 Aug 2026); DvaitaVedanta/Itara/DasaSahitya.html still reads the same files directly via data/DvaitaVedanta/Itara/DasaSahitya/index.json for its own bespoke browsing UI. 'dasakuta' above kept only Jagannathadasa's Harikathamritasara -- a distinct kavya, not a pada -- after its empty per-composer pada/suladi/ugabhoga stub (superseded by 'composers') was removed. 'vyasakuta' (Sanskrit prakaranas by Madhva-tradition acharyas) is a separate, unrelated corpus.",
+  "_note": "Haridasa devotional compositions (padas/suladis/ugabhogas/...) from four independently-sourced collections (web crawl, Android app, Firestore export, flat-JSON dump), reviewed and merged into one corpus 21 Aug 2026 -- see data/dasa_sahitya_local/ARCHITECTURE.md for the full review history. Registered here as real leaves under 'composers' (25 Aug 2026); Tattvavada/Itara/DasaSahitya.html still reads the same files directly via data/Tattvavada/Itara/DasaSahitya/index.json for its own bespoke browsing UI. 'dasakuta' above kept only Jagannathadasa's Harikathamritasara -- a distinct kavya, not a pada -- after its empty per-composer pada/suladi/ugabhoga stub (superseded by 'composers') was removed. 'vyasakuta' (Sanskrit prakaranas by Madhva-tradition acharyas) is a separate, unrelated corpus.",
   "label": {
    "sa": "दाससाहित्यम्",
    "kn": "ದಾಸ ಸಾಹಿತ್ಯ",
    "en": "Dasa Sahitya"
   },
-  "data": "data/DvaitaVedanta/Itara/DasaSahitya/index.json",
+  "data": "data/Tattvavada/Itara/DasaSahitya/index.json",
   "forms": [
    "pada",
    "suladi",

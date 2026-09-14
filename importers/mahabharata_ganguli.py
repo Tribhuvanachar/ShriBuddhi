@@ -21,7 +21,7 @@ import re, time
 from common import http_get, to_text, write_grantha
 
 BASE = "https://sacred-texts.com/hin"
-# Politeness delay -- unlike tools/DvaitaVedanta/Itara/DasaSahitya's crawler, this loop has no
+# Politeness delay -- unlike tools/Tattvavada/Itara/DasaSahitya's crawler, this loop has no
 # built-in pause between requests, and it can make thousands of them across
 # 18 books (up to max_gap consecutive misses per book, on top of every real
 # hit). A public archive site deserves the same courtesy Dasa Sahitya's own

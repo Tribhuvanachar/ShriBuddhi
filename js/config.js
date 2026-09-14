@@ -713,7 +713,7 @@ const QUICK_SEARCH_ABBREVIATIONS = [
       if (parts.length !== 1 || !/^\d+$/.test(parts[0])) return null;
       const n = parseInt(parts[0], 10);
       if (!n) return null;
-      return { granthaPath: 'DvaitaVedanta/Itara/Stotra/prahlada_kruta_narasimha', shlokaNumber: n };
+      return { granthaPath: 'Tattvavada/Itara/Stotra/prahlada_kruta_narasimha', shlokaNumber: n };
     }
   }
 ];

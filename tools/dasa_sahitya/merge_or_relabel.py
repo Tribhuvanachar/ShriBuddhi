@@ -11,14 +11,14 @@ to be the same person after all; a song is filed under the wrong form). This
 script is how that change gets applied, WITHOUT hand-editing composer JSON
 files or re-deriving the manifest by hand every time.
 
-Both subcommands rewrite data/DvaitaVedanta/Itara/DasaSahitya/index.json and counts.json
+Both subcommands rewrite data/Tattvavada/Itara/DasaSahitya/index.json and counts.json
 before exiting, so the corpus is never left in a state where the manifest
 disagrees with what's actually on disk.
 
 --------------------------------------------------------------------------
 1. Two composers turn out to be the same person:
 
-    python3 tools/DvaitaVedanta/Itara/DasaSahitya/merge_or_relabel.py merge-composers \
+    python3 tools/Tattvavada/Itara/DasaSahitya/merge_or_relabel.py merge-composers \
         --from gopalaryaru --into gopala_dasaru \
         [--canonical-name "Gopala Dasaru"]
 
@@ -31,7 +31,7 @@ disagrees with what's actually on disk.
 
 2. One song needs a different form (category) and/or a different composer:
 
-    python3 tools/DvaitaVedanta/Itara/DasaSahitya/merge_or_relabel.py relabel \
+    python3 tools/Tattvavada/Itara/DasaSahitya/merge_or_relabel.py relabel \
         --composer gopalaryaru --id gopalaryaru__dasa1_1234 \
         --form suladi --move-to gopala_dasaru
 
@@ -43,7 +43,7 @@ disagrees with what's actually on disk.
 
 3. Finding a composition's id when you only know the title:
 
-    python3 tools/DvaitaVedanta/Itara/DasaSahitya/merge_or_relabel.py find --composer gopalaryaru --title-contains "ಕರುಣ"
+    python3 tools/Tattvavada/Itara/DasaSahitya/merge_or_relabel.py find --composer gopalaryaru --title-contains "ಕರುಣ"
 
 Every operation is one call, always ends with a rebuilt manifest -- there is
 deliberately no "preview" mode: run `find` first to confirm you have the
@@ -57,9 +57,9 @@ import os
 import re
 
 ROOT = os.path.join(os.path.dirname(__file__), "..", "..")
-COMP_DIR = os.path.join(ROOT, "data", "DvaitaVedanta/Itara/DasaSahitya", "composers")
-MANIFEST_PATH = os.path.join(ROOT, "data", "DvaitaVedanta/Itara/DasaSahitya", "index.json")
-COUNTS_PATH = os.path.join(ROOT, "data", "DvaitaVedanta/Itara/DasaSahitya", "counts.json")
+COMP_DIR = os.path.join(ROOT, "data", "Tattvavada/Itara/DasaSahitya", "composers")
+MANIFEST_PATH = os.path.join(ROOT, "data", "Tattvavada/Itara/DasaSahitya", "index.json")
+COUNTS_PATH = os.path.join(ROOT, "data", "Tattvavada/Itara/DasaSahitya", "counts.json")
 FETCH_DATE = _dt.date.today().isoformat()
 
 _PUNCT_RE = re.compile(r"[\s।॥.,\-–—’‘'\"()\[\]:;!?|/]+")

@@ -1,7 +1,7 @@
 /* =========================================================================
    Global short-URL abbreviations for deep-linking a grantha + shloka in one
    query param, e.g. ?SMV=1.1 for Sumadhva Vijaya, sarga 1, shloka 1 —
-   instead of the verbose ?path=DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_1&
+   instead of the verbose ?path=Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_1&
    jumpShloka=1 the reader (core.js) already understands.
 
    Add an entry here and it works immediately, on every page that loads this
@@ -18,7 +18,7 @@
    ========================================================================= */
 window.DGE_TEXT_ABBREVIATIONS = {
   SMV: {
-    path: 'DvaitaVedanta/Itara/Kavya/sumadhva_vijaya/sarga_{ch}',
+    path: 'Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_{ch}',
     label: 'Sumadhva Vijaya'
   }
 };

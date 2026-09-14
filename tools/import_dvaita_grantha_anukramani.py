@@ -476,7 +476,7 @@ def build_cross_links(rows, masters, data_dir, repo_root):
                                       "canonical": t["canonical"], "matches": hits[:3]})
 
     # --- dāsa sāhitya composers (Kannada) ---------------------------------
-    dasa = load_json(os.path.join(data_dir, "DvaitaVedanta/Itara/DasaSahitya", "index.json"), {}) or {}
+    dasa = load_json(os.path.join(data_dir, "Tattvavada/Itara/DasaSahitya", "index.json"), {}) or {}
     dasa_index = {}
     for c in (dasa.get("composers") or []):
         dasa_index.setdefault(join_key(c.get("slug", "")), c)

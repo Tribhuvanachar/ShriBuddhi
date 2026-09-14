@@ -807,12 +807,19 @@ async function dgeAdminValidateGranthaFileEntries(fileEntries) {
   // requirement.
   //
   // 23 Aug 2026: the project lead deliberately chose PascalCase for these
-  // four folders (SarvaMula/DvaitaVedanta/SetuTila under Vedanta/Dvaita,
-  // and DvaitaVedanta/Itara/Stotra/prahlada_kruta_narasimha) as the new naming standard going
-  // forward, so they're exempted here rather than nagging on every future
-  // load of this editor.
+  // folder NAMES (not a path) as the new naming standard going forward, so
+  // they're exempted here rather than nagging on every future load of this
+  // editor.
+  //
+  // 14 Sep 2026: 'DvaitaVedanta' became 'Tattvavada' when the top-level shelf
+  // was renamed, so the exemption moves with it -- left as the old name this
+  // list would stop matching anything and every load would nag about a folder
+  // the lead chose on purpose. 'DvaitaVedantaIn' (the admin-only tree under
+  // darshana/vedanta/dvaita/, a DIFFERENT shelf that was NOT renamed) is
+  // listed too: it is equally intentional and was missing here all along.
   const DGE_INTENTIONAL_PASCAL_CASE = new Set([
-    'SarvaMula', 'DvaitaVedanta', 'SetuTila', 'PrahladaKrutaNarasimha'
+    'SarvaMula', 'Tattvavada', 'DvaitaVedantaIn', 'SetuTila', 'PrahladaKrutaNarasimha',
+    'Anandamakaranda'
   ]);
   const badSegs = new Set();
   parsed.forEach(({ path }) => {

@@ -7,7 +7,7 @@ DGE — Dasa Sahitya "local assets" importer
 Converts a Dasara-Padagalu SQLite asset shipped inside an Android app
 (schema: dasaru(id,name), Keerthanas(id,title,txt,dasaru_id,category,favorite))
 into the same JSON-per-composer shape the web-crawled corpus already uses
-(data/DvaitaVedanta/Itara/DasaSahitya/), but written to a SEPARATE output folder so the two
+(data/Tattvavada/Itara/DasaSahitya/), but written to a SEPARATE output folder so the two
 sources stay distinguishable until a human has reviewed and merged them.
 
 Why a separate folder instead of merging straight in
@@ -68,7 +68,7 @@ def slugify(text):
 
 def ascii_slug(kn_text):
     """Latin, diacritic-free slug (matches the naming convention already used
-    by data/DvaitaVedanta/Itara/DasaSahitya/composers/*.json), via IAST with combining marks
+    by data/Tattvavada/Itara/DasaSahitya/composers/*.json), via IAST with combining marks
     stripped. Falls back to the raw-Kannada slugify() if transliteration is
     unavailable — Python's \\w does not treat Kannada vowel-sign/virama marks
     as word characters, so that fallback alone is lossy; only used as a last
