@@ -1,4 +1,17 @@
 #!/usr/bin/env python3
+"""SUPERSEDED, 15 Sep 2026 -- kept for the record, not for running.
+
+This script existed because our sutra numbering disagreed with the source the
+enrichment came from, so it moved each gloss back onto the sutra it belonged to
+BY TEXT. tools/sync_ashtadhyayi.py now takes the sutrapatha and its enrichment
+from that source together, with the source's own numbering, so there is nothing
+left to realign: the ids and the glosses cannot disagree when they arrive in the
+same record.
+
+The account below is still the clearest description of what the misalignment
+was, which is why the file stays.
+"""
+
 """Put each sutra's padaccheda, anvaya, type and gloss back on the sutra it
 actually belongs to.
 
