@@ -64,9 +64,23 @@ class Pattern1RealCorpus(unittest.TestCase):
         self.assertEqual(tps("इति कोषोक्तेराह– ननु गन्धरसेति ।। भिन्नेति ।।"),
                          ["ननु गन्धरसेति ।।"])
 
-    def test_a_dash_is_required_without_an_opening_delimiter(self):
-        # Otherwise the match has nothing to stop it wandering into prose.
-        self.assertEqual(tps("इत्याह विषयाणामिति ।। मात्रा"), [])
+    def test_a_plain_space_between_introducer_and_pratika(self):
+        # P1C. The Bhavacandrika writes "इत्यत आह उद्देशेनैवेति ।" with no
+        # delimiter and no dash, so requiring one missed the real pratika.
+        self.assertEqual(tps("इत्याह विषयाणामिति ।। मात्रा"), ["विषयाणामिति ।।"])
+
+    def test_what_stops_that_form_running_into_prose(self):
+        # Not a dash any more -- the citation particle. This is the SM6:2
+        # false positive: an introducer followed by 77 characters of prose
+        # ending in वा, which is not how any citation ends.
+        self.assertEqual(
+            tps("इत्याह साक्षात्परम्परासाधारणसकलगुरुसङ्ग्रहार्थं गुरोः इति "
+                "सामान्येन निर्देश इति वा ।"), [])
+
+    def test_a_bare_particle_is_not_a_pratika(self):
+        # इति and इत्यर्थः are commentary joinery with no lemma quoted.
+        self.assertEqual(tps("इत्याह इति ।"), [])
+        self.assertEqual(tps("इत्याह इत्यर्थः ।"), [])
 
 
 class Pattern2(unittest.TestCase):

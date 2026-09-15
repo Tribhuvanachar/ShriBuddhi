@@ -9,7 +9,13 @@
   "introducers_exact match at the END of a word, not as standalone words:",
   "sandhi joins them, and the corpus's own 'कोषोक्तेराह' is exactly that case.",
   "introducers_family are morphological wildcards -- '*दयति' admits",
-  "'प्रतिपादयति' -- never expanded to an unrestricted '.*'."
+  "'प्रतिपादयति' -- never expanded to an unrestricted '.*'.",
+  "",
+  "p1_require_citation_ending: a Pattern-1 pratika's LAST word must end in one",
+  "of pratika_suffixes. Without it the rule captured 77 characters of ordinary",
+  "prose ending in 'वा' -- an introducer followed by whatever reached the next",
+  "danda. A pratika is a quoted lemma plus its citation particle, so requiring",
+  "the citation particle is the definition, not a heuristic."
  ],
  "delimiters": {
   "_note": [
@@ -53,9 +59,11 @@
   ]
  },
  "limits": {
-  "p1_max_pratika_words": 8,
+  "p1_max_pratika_words": 5,
   "p2_max_words": 2,
-  "p2_delimiters": "pipes_only"
+  "p2_delimiters": "pipes_only",
+  "p1_require_citation_ending": true,
+  "p1c_max_chars": 40
  },
  "introducers_exact": {
   "P1_001": "इत्याह",
@@ -171,7 +179,17 @@
   "P2_055": "त्यादिना",
   "P2_056": "इति",
   "P2_057": "मित्यर्थः",
-  "P2_058": "त्यर्थः"
+  "P2_058": "त्यर्थः",
+  "P2_059": "त्यादौ",
+  "P2_060": "त्यादिषु",
+  "P2_061": "मिति",
+  "P2_062": "वदिति",
+  "P2_063": "न्तीति",
+  "P2_064": "ष्वीति",
+  "P2_065": "सेति",
+  "P2_066": "गीति",
+  "P2_067": "हेति",
+  "P2_068": "षीति"
  },
  "paragraph_closers": {
   "L_001": "इति भावः",
@@ -199,5 +217,27 @@
   "S_015": "अयं भावः",
   "S_016": "पूर्वपक्षस्तु",
   "S_017": "सिद्धान्तस्तु"
+ },
+ "bare_particles": {
+  "_note": [
+   "A pratika is a quoted LEMMA plus its citation particle. These are the",
+   "particle with no lemma in front of it -- ordinary commentary joinery,",
+   "not a quotation of anything. P1C found इति । and इत्यर्थः । as",
+   "'pratikas' in SM6:6 and SM6:12 until this list existed."
+  ],
+  "forms": [
+   "इति",
+   "इतीति",
+   "इत्यर्थः",
+   "इत्यादि",
+   "इत्यादिना",
+   "इत्यादौ",
+   "इत्युक्तम्",
+   "इति च",
+   "इति वा",
+   "इति भावः",
+   "इति शेषः",
+   "इति यावत्"
+  ]
  }
 }

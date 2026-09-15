@@ -127,6 +127,19 @@ class Formatter:
             rf"(?P<pad>\s*)"
             rf"(?P<close>{self.DELIM})")
 
+        # P1C -- introducer, a plain space, pratika, danda. No opening delimiter
+        # and no dash, which is why neither rule above sees it:
+        #     इत्यत आह उद्देशेनैवेति ।
+        # It is the loosest of the three, so it leans entirely on the citation
+        # gate -- without that requirement this shape would capture prose, and
+        # with it the pratika has to end the way a pratika ends.
+        self.RE_P1C = re.compile(
+            rf"(?P<intro>{self.INTRO})"
+            rf"(?P<sep>[ \t]+)"
+            rf"(?P<prat>{WORD}(?:\s+{WORD}){{0,{maxw - 1}}})"
+            rf"(?P<pad>\s*)"
+            rf"(?P<close>{self.DELIM})")
+
         # P2 -- inferred. One or two words between delimiters, the last ending
         # in an approved family. Never a scan of the paragraph.
         #
@@ -147,7 +160,15 @@ class Formatter:
             rf"(?P<prat>{WORD}(?:\s+{WORD}){{0,{n - 1}}})"
             rf"(?P<pad>\s*)"
             rf"(?P<close>{p2_delim})")
-        self.SUFFIX_RE = re.compile(rf"(?:{_alt(self.suffixes.values())})$")
+        # The citation particle is fused to the quoted word by sandhi, so इति is
+        # written -मिति, -पीति, -वदिति: the independent vowel becomes its matra
+        # and a literal endswith("इति") fails on exactly the real cases.
+        # यच्चायमिति, गन्धर्वादीनामिति and इत्युपलक्षणमिति were all missed this
+        # way -- the same defect as कोषोक्तेराह against आह.
+        self.SUFFIX_FORMS = with_sandhi_variants(list(self.suffixes.values()))
+        self.BARE = {w.strip() for w in
+                     (r.get("bare_particles", {}).get("forms") or [])}
+        self.SUFFIX_RE = re.compile(rf"(?:{_alt(self.SUFFIX_FORMS)})$")
 
         self.RE_EXISTING_TP = re.compile(r"<TP>.*?</TP>", re.S)
         self.RE_EXISTING_P = re.compile(r'<p class="rule">.*?</p>', re.S)
@@ -161,6 +182,26 @@ class Formatter:
                     if text.endswith(form):
                         return rid
         return "P1_?"
+
+    def ends_as_citation(self, pratika: str) -> bool:
+        """Does this end the way a pratika ends?
+
+        A pratika is a quoted lemma plus its citation particle -- लक्ष्मीपतेः +
+        इति, गुरोः अपि + इति. Requiring the particle is the definition of the
+        thing, not a heuristic about it, and it is the single check that stops
+        an introducer swallowing whatever prose happens to precede the next
+        danda: the 77-character capture in SM6:2 ends in वा, which no citation
+        ever does.
+        """
+        words = pratika.split()
+        if not words:
+            return False
+        # The particle alone is not a citation of anything: इति and इत्यर्थः are
+        # ordinary commentary joinery, and P1C read both as pratikas until this
+        # check existed.
+        if " ".join(words) in self.BARE:
+            return False
+        return bool(self.SUFFIX_RE.search(words[-1]))
 
     def _suffix_id(self, word: str) -> str | None:
         best, bid = "", None
@@ -196,12 +237,34 @@ class Formatter:
             taken.append((m.start(), m.end()))
 
         out = []
-        for rid_base, rx in (("P1A", self.RE_P1A), ("P1B", self.RE_P1B)):
+        for rid_base, rx in (("P1A", self.RE_P1A), ("P1B", self.RE_P1B),
+                             ("P1C", self.RE_P1C)):
             for m in rx.finditer(text):
                 a, b = m.start("prat"), m.end("close")
                 if not free(m.start(), m.end()):
                     if debug is not None:
                         debug.append(f"  skip  {rid_base} at {m.start()}: overlaps a claimed span")
+                    continue
+                cap_ok = True
+                if rid_base == "P1C":
+                    # P1C has no delimiter or dash to bound it, so it is capped
+                    # by length too. Longer ones are reported as candidates
+                    # rather than accepted: some genuine quotations are long,
+                    # and a 57-character sentence ending in इति is exactly the
+                    # case that needs a person to look at it.
+                    cap_ok = len(m.group("prat")) <= self.limits.get("p1c_max_chars", 40)
+                    if not cap_ok and debug is not None:
+                        debug.append(
+                            f"  candidate P1C at {m.start()}: {len(m.group('prat'))} chars, "
+                            f"over the cap -- NOT LINKED: {m.group('prat')[:50]!r}")
+                if not cap_ok:
+                    continue
+                if self.limits.get("p1_require_citation_ending", True) \
+                        and not self.ends_as_citation(m.group("prat")):
+                    if debug is not None:
+                        debug.append(
+                            f"  reject {rid_base} at {m.start()}: {m.group('prat')[:40]!r} "
+                            f"does not end in a citation particle")
                     continue
                 rid = self._rule_id_for_intro(m.group("intro"))
                 taken.append((m.start(), m.end()))
@@ -209,7 +272,7 @@ class Formatter:
                 if debug is not None:
                     debug.append(
                         f"TP DETECTED rule={rid_base}/{rid} introducer={m.group('intro')!r} "
-                        f"open={m.group('open') if 'open' in m.groupdict() and m.group('open') else '(dash)'!r} "
+                        f"open={(m.groupdict().get('open') or '(none)')!r} "
                         f"text={m.group('prat')!r} close={m.group('close')!r} "
                         f"confidence=high position={a}")
 
