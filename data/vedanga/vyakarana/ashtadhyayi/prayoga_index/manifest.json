@@ -1,9 +1,9 @@
 {
  "_readme": "Sutra -> usages across the grantha corpus, built by tools/build_sutra_prayoga_index.py (its docstring records the detection rules and the lineage-first ranking). Entry: [slug, unit, quote|ref, rank, snippet, title]. rank: 0 sarvamula, 1 dvaitavedanta, 2 Tattvavada/Itara/DasaSahitya, 3 rest.",
  "v": 1,
- "sutrasWithUsages": 784,
- "usages": 2498,
- "quotableSutras": 3534,
+ "sutrasWithUsages": 1429,
+ "usages": 5894,
+ "quotableSutras": 3544,
  "minQuoteNorm": 8,
  "maxPerSutra": 60
 }

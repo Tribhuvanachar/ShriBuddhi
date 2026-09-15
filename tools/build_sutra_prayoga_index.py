@@ -116,22 +116,37 @@ def norm_with_map(text):
     return ''.join(out), omap
 
 
+def _as_text(v):
+    """A unit's text is normally a string. A Gold-Standard commentary
+    (format: gold_v2_2) is an OBJECT instead, and this scan crashed on the
+    first one it met -- the whole index build, on a type it never expected.
+    Take the object's own prose and carry on; it is text either way."""
+    if isinstance(v, str):
+        return v
+    if isinstance(v, dict):
+        for k in ('commentary_markdown', 'mula_sanskrit', 'text', 'sanskrit_text'):
+            if isinstance(v.get(k), str) and v[k].strip():
+                return v[k]
+        return ' '.join(x for x in v.values() if isinstance(x, str))
+    return ''
+
+
 def units_of(doc):
     """Yield (unit_id, text) for every piece of text a grantha carries --
     flat items and nested shlokas, mula and per-verse bhashya alike."""
     for it in doc.get('items') or []:
         uid = str(it.get('id') or it.get('reference') or '')
-        base = it.get('sanskrit_text') or it.get('samhita_patha') or \
-            it.get('sa') or it.get('text') or ''
+        base = _as_text(it.get('sanskrit_text') or it.get('samhita_patha') or
+                        it.get('sa') or it.get('text') or '')
         if base:
             yield uid, base
         for sh in it.get('shlokas') or []:
             suid = uid + ('#' + str(sh.get('number')) if sh.get('number') is not None else '')
-            st = sh.get('sanskrit_text') or sh.get('sa') or ''
+            st = _as_text(sh.get('sanskrit_text') or sh.get('sa') or '')
             if st:
                 yield suid, st
             for b in sh.get('bhashya') or []:
-                bt = b.get('text') or ''
+                bt = _as_text(b.get('text') or '')
                 if bt:
                     yield suid, bt
 
