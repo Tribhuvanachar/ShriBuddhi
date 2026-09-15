@@ -16,7 +16,15 @@ repo=$(git rev-parse --show-toplevel) || exit 0
 [ -f "$repo/tools/normalize_data_json.py" ] || exit 0
 
 python3 "$repo/tools/normalize_data_json.py" --staged --stage-fixed --quiet
-if [ $? -eq 2 ]; then
+status=$?
+
+# Then put the file in the corpus's canonical shape -- one unit per line -- so
+# the pull request shows which units changed instead of "the whole file".
+if [ $status -ne 2 ]; then
+  python3 "$repo/tools/format_data_json.py" --staged --stage-fixed --quiet
+fi
+
+if [ $status -eq 2 ]; then
   echo "" >&2
   echo "pre-commit: a staged .json is broken in a way auto-escaping cannot fix." >&2
   echo "            Nothing was committed -- see the error above." >&2

@@ -48,9 +48,10 @@ python3 tools/normalize_data_json.py data/.../data.json # fix one file
 
 ## Bulk editing: explode and implode
 
-A `data.json` is one enormous line. Find-and-replace works, but regular
-expressions do not really: `^` and `$` match the start and end of the whole
-file, so line-based patterns are useless, and the text is hard to read.
+A `data.json` now holds one unit per line, so a diff shows exactly which units
+you changed and `^`/`$` work per unit. But the text of a unit is still a single
+long line -- a JSON string cannot wrap, however the file is formatted -- so for
+real work on the text itself, take it out.
 
 So take the text out, edit it as text, and put it back.
 

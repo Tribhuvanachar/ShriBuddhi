@@ -157,10 +157,16 @@ def implode_one(md_path: str, src_override: str | None = None) -> tuple[str, int
             it[field] = text
             changed += 1
 
-    # Written the way the corpus is written: one line, UTF-8 as itself. Matching
-    # the existing shape keeps the diff to the units that actually changed.
+    # Written in the corpus's canonical shape -- one unit per line -- so the
+    # diff names the units that changed and nothing else. That is the whole
+    # reason a reviewer can look at a content pull request at all.
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import format_data_json
+    text = format_data_json.canonical(doc)
+    if text is None:
+        text = json.dumps(doc, ensure_ascii=False, separators=(",", ":"))
     with open(src, "w", encoding="utf-8", newline="") as fh:
-        json.dump(doc, fh, ensure_ascii=False, separators=(",", ":"))
+        fh.write(text)
     return src, changed
 
 

@@ -16,6 +16,7 @@ sys.path.insert(0, os.path.join(REPO, "tools"))
 
 import normalize_data_json as N  # noqa: E402
 import dge_text as T  # noqa: E402
+import format_data_json  # noqa: E402,F401
 
 
 def doc(*texts):
@@ -85,10 +86,11 @@ class Normalizer(unittest.TestCase):
 
 class ExplodeImplode(unittest.TestCase):
     def roundtrip(self, d):
+        import format_data_json as F
         tmp = tempfile.mkdtemp()
         src = os.path.join(tmp, "data.json")
         with open(src, "w", encoding="utf-8", newline="") as fh:
-            json.dump(d, fh, ensure_ascii=False, separators=(",", ":"))
+            fh.write(F.canonical(d))          # the shape implode writes back
         before = open(src, "rb").read()
         md = os.path.join(tmp, "data.md")
         T.explode_one(src, md)
@@ -121,7 +123,9 @@ class ExplodeImplode(unittest.TestCase):
         T.implode_one(md)
         raw = open(src, encoding="utf-8").read()
         json.loads(raw)                                   # strict: no exception
-        self.assertEqual(sum(1 for c in raw if c < " "), 0)
+        # The newlines that remain are structure -- one per unit. None of them
+        # is inside a string, which is what would break the parser.
+        self.assertEqual(N.escape_control_chars_in_strings(raw)[1], 0)
         self.assertEqual(json.loads(raw)["items"][0]["sanskrit_text"], "line one\nline two")
 
     def test_context_lines_are_ignored_not_imported(self):
@@ -153,6 +157,55 @@ class ExplodeImplode(unittest.TestCase):
             with self.assertRaises(SystemExit) as cm:
                 T.implode_one(p)
             self.assertIn("dge:file", str(cm.exception))
+
+
+class Formatter(unittest.TestCase):
+    def canon(self, d):
+        import format_data_json as F
+        return F.canonical(d)
+
+    def test_one_unit_per_line(self):
+        text = self.canon(doc("a", "b", "c"))
+        self.assertEqual(text.count("\n"), 5)      # open, 3 units, close, trailing
+        self.assertEqual(json.loads(text), doc("a", "b", "c"))
+
+    def test_a_change_to_one_unit_is_a_one_line_diff(self):
+        before = self.canon(doc("a", "b", "c")).split("\n")
+        after = self.canon(doc("a", "CHANGED", "c")).split("\n")
+        differing = [i for i, (x, y) in enumerate(zip(before, after)) if x != y]
+        self.assertEqual(len(differing), 1, "a one-unit edit must touch exactly one line")
+
+    def test_the_legacy_shloka_dict_shape_is_handled_too(self):
+        d = {"metadata": {"t": "x"}, "shlokas": {"1": {"sa": "a"}, "2": {"sa": "b"}}}
+        text = self.canon(d)
+        self.assertEqual(json.loads(text), d)
+        self.assertEqual(text.count("\n"), 4)
+
+    def test_a_shape_we_do_not_own_is_left_alone(self):
+        self.assertIsNone(self.canon({"index": ["a", "b"]}))
+        self.assertIsNone(self.canon([1, 2, 3]))
+
+    def test_escaped_newlines_inside_text_do_not_become_real_ones(self):
+        text = self.canon(doc("one\ntwo"))
+        self.assertEqual(text.count("\n"), 3)      # structure only
+        self.assertEqual(json.loads(text)["items"][0]["sanskrit_text"], "one\ntwo")
+
+    def test_it_is_idempotent(self):
+        once = self.canon(doc("a", "b"))
+        self.assertEqual(self.canon(json.loads(once)), once)
+
+    def test_the_whole_corpus_is_already_canonical(self):
+        import format_data_json as F
+        off = []
+        for p in F.all_data_json(os.path.join(REPO, "data")):
+            raw = open(p, encoding="utf-8").read()
+            try:
+                want = F.canonical(json.loads(raw))
+            except ValueError:
+                off.append(p); continue
+            if want is not None and want != raw:
+                off.append(os.path.relpath(p, REPO))
+        self.assertEqual(off[:10], [], f"{len(off)} file(s) not in canonical shape")
 
 
 class AgainstTheRealCorpus(unittest.TestCase):

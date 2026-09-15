@@ -93,6 +93,12 @@ jobs:
         # that never installed the hook.
         run: python3 tools/normalize_data_json.py --check --all --quiet
 
+      - name: data.json is in canonical shape (format_data_json.py --check)
+        # One unit per line. Not cosmetics: on a single-line file GitHub shows
+        # no diff at all, so a content pull request cannot be reviewed, and the
+        # first one we received went in unread.
+        run: python3 tools/format_data_json.py --check --all --quiet
+
       - name: Corpus structural check (validate_data.py)
         run: python3 tools/validate_data.py
 
