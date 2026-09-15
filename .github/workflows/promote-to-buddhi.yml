@@ -1,0 +1,62 @@
+# Proof-of-concept for the private build chain: Parabuddhi -> ShriBuddhi ->
+# BrahmaBuddhi -> Buddhi. This is the last hop, and the only one that is
+# NOT automatic: BrahmaBuddhi is staging -- per the project lead, nothing
+# should run here on its own. This workflow sits dormant until someone
+# deliberately runs it (Actions tab -> this workflow -> Run workflow),
+# which is meant to be the same moment as "staging is finalized, move it
+# to production."
+
+name: Promote to Buddhi (proof of concept)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout this repo's content
+        uses: actions/checkout@v4
+        with:
+          path: brahmabuddhi
+
+      - name: Checkout Buddhi
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/Buddhi
+          token: ${{ secrets.BUDDHI_TOKEN }}
+          path: buddhi
+
+      - name: Relay marker file
+        run: |
+          mkdir -p buddhi/_pipeline_test
+          if [ -d brahmabuddhi/_pipeline_test ]; then
+            cp -r brahmabuddhi/_pipeline_test/. buddhi/_pipeline_test/
+          fi
+          cat > buddhi/_pipeline_test/from_brahmabuddhi.md <<EOF
+          # Pipeline test marker
+
+          Written by BrahmaBuddhi's \`promote-to-buddhi.yml\`, run
+          manually to promote staging to production.
+
+          - Run: ${{ github.run_id }}
+          - Promoted commit: ${{ github.sha }}
+          - Time (UTC): $(date -u +"%Y-%m-%d %H:%M:%S")
+          EOF
+
+      - name: Commit and push to Buddhi
+        working-directory: buddhi
+        run: |
+          git config user.name "brahmabuddhi-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add _pipeline_test/
+          if git diff --cached --quiet; then
+            echo "No change to push."
+            exit 0
+          fi
+          git commit -m "Pipeline test: promoted from BrahmaBuddhi staging (run ${{ github.run_id }})"
+          git push origin HEAD:main
