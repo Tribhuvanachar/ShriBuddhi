@@ -169,3 +169,34 @@ class Report(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class MissingMula(unittest.TestCase):
+    """One verse came back with its mula misread into Kannada glyphs. The
+    verse is still there and still numbered; it must not be dropped."""
+
+    def pages_with_unreadable_verse(self):
+        garbled = ("<p data-layout=\"paragraph\">%s</p>\n"
+                   "<p data-layout=\"paragraph\">ನೀಲಾಂ ನಗ್ನಜಿತಃಪುತ್ರೀ "
+                   "ಮಿತ್ರವಿन्दाಂ पितृष्वसुः ।</p>\n"
+                   "<p data-layout=\"paragraph\">%s</p>\n"
+                   % (TIKA % 2, KANNADA % 2))
+        return [(1, verse_html(1) + garbled + verse_html(3))]
+
+    def test_a_verse_the_scan_lost_still_counts_as_a_verse(self):
+        blocks, _ = split_pages(self.pages_with_unreadable_verse())
+        kannada = split.assemble(blocks, "tika_kannada")
+        self.assertEqual([u["verse"] for u in kannada], [1, 2, 3])
+        self.assertEqual([u["verse"] for u in split.assemble(blocks, "mula")],
+                         [1, 3])
+
+    def test_and_the_report_names_it(self):
+        blocks, _ = split_pages(self.pages_with_unreadable_verse())
+        self.assertIn("s1v2", split.report(blocks))
+
+    def test_the_gloss_formula_is_not_mistaken_for_a_verse(self):
+        # "नीलामिति ॥ ..." is a gloss: the इ sandhis into the pratika's vowel,
+        # and the line carries on past the danda. A verse's line ends at it.
+        blocks, _ = split_pages(self.pages_with_unreadable_verse())
+        mula = split.assemble(blocks, "mula")
+        self.assertFalse([u for u in mula if "नीलामिति" in u["text"]])

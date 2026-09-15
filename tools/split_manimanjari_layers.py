@@ -109,11 +109,14 @@ MIN_SCRIPT_RUN_CHARS = 25
 
 # Raghavendracharya opens every gloss the way a commentator does: the word he
 # is about to explain, then "इति", then a danda -- "महदिति ॥", "अथेति ॥",
-# "इतीति ॥". A block that opens that way is commentary whatever its length,
-# and saying so keeps the closing gloss of a sarga from being read as a verse.
+# "नीलामिति ॥", "इतीति ॥". The इ sandhis into whatever vowel precedes it, so
+# the matra varies. A verse's line ENDS at its danda; a gloss carries on past
+# it on the same line, which is what tells the two apart. A block that opens
+# that way is commentary whatever its length, and saying so keeps the closing
+# gloss of a sarga from being read as a verse.
 # "ीति" as well as "इति": इति + इति sandhis to इतीति, which is how the gloss on
 # a verse ending in इति opens.
-TIKA_OPENER = re.compile(r"^.{0,42}?(इ|ी)ति\s*[।॥|]")
+TIKA_OPENER = re.compile(r"^[^\n]{0,42}?[इिीे]ति\s*[।॥|]{1,2}[ \t]*[^\s]")
 
 LAYERS = {
     "mula": "manimanjari/mula",
@@ -419,7 +422,20 @@ def _absorb_groups_without_mula(content: list[dict]) -> None:
     sargas = sorted({key[0] for key in groups})
     for sarga in sargas:
         keys = sorted(key for key in groups if key[0] == sarga)
-        keep = [key for key in keys if any(b["layer"] == "mula" for b in groups[key])]
+        keep = []
+        for key in keys:
+            blocks_here = groups[key]
+            if any(b["layer"] == "mula" for b in blocks_here):
+                keep.append(key)
+                continue
+            # No verse in it. It is still a verse if the page numbers it as
+            # the next one -- one verse in this scan came back with its mula
+            # misread into Kannada glyphs, and dropping it would be worse
+            # than keeping it flagged. Closing matter is never numbered that
+            # way, so the colophon still falls out here.
+            expected = len(keep) + 1
+            if keep and any(b["ocr_number"] == expected for b in blocks_here):
+                keep.append(key)
         if not keep:
             # A whole "sarga" with no verse in it is the matter after the last
             # colophon -- the editor's own signature. It belongs to the sarga
@@ -525,6 +541,14 @@ def report(blocks: list[dict], second: dict | None = None) -> str:
                      % (sarga, len(verses[sarga]),
                         (", no Kannada gloss for %s" % no_kannada[:10]) if no_kannada else ""))
     lines.append("  %d verses in all" % total)
+    with_mula = {(b["sarga"], b["verse"]) for b in content if b["layer"] == "mula"}
+    no_mula = sorted(key for key in
+                     {(b["sarga"], b["verse"]) for b in content if b["verse"]}
+                     if key not in with_mula)
+    if no_mula:
+        lines.append("  the scan did not read a verse for %d of them (the gloss "
+                     "is there, the verse is not): %s"
+                     % (len(no_mula), ", ".join("s%dv%d" % k for k in no_mula[:10])))
 
     # The cross-check. Each verse is numbered up to three times on the page
     # (closing the tika, standing alone, closing the Kannada), so one bad
