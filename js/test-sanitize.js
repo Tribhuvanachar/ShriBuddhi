@@ -3,8 +3,14 @@
 //
 // The cases are the real ones found by scanning the corpus, not invented:
 // the Anandamakaranda pramana spans and the Boray Gita divs that must survive,
-// the Siddhanta Kaumudi's <{SK121}> citations and the Dayabhaga's <९> marks
-// that are being eaten today, and Keith's "&c." ampersands.
+// the Siddhanta Kaumudi's <{SK121}> citations and the Dayabhaga's <९> marks,
+// and Keith's "&c." ampersands.
+//
+// Note what the browser actually does, measured rather than assumed: it only
+// starts a tag when a LETTER follows the '<', so <{SK121}> and <९> already
+// render as text and are not damaged today. Escaping them is belt and braces.
+// The case that matters is 'a<b', which renders as 'a' -- the rest of the line
+// silently gone.
 global.window = {};
 require('./dge-sanitize.js');
 const S = global.window.DGESanitize;
@@ -27,15 +33,19 @@ eq(S.body('a<br/>b'), 'a<br/>b', 'self-closing br kept');
 eq(S.body('a<br>b'), 'a<br/>b', 'bare br normalised to self-closing');
 eq(S.body('<b>Comments:</b>'), '<b>Comments:</b>', 'bold kept');
 
-console.log('\ncontent the browser is eating today becomes visible:');
+console.log('\nangle brackets that are not markup survive intact:');
 eq(S.body('खरि चे <{SK121}>ति'), 'खरि चे &lt;{SK121}&gt;ति',
-   'Siddhanta Kaumudi sutra citation survives instead of vanishing');
+   'Siddhanta Kaumudi sutra citation escaped (already safe, now explicitly so)');
 eq(S.body('विभागः । <९> विशेषेण'), 'विभागः । &lt;९&gt; विशेषेण',
-   'Dayabhaga section mark survives');
+   'Dayabhaga section mark escaped');
 eq(S.body('the scorpion, &c. Thou art'), 'the scorpion, &amp;c. Thou art',
    'bare ampersand escaped rather than left to browser recovery');
 eq(S.body('&amp; and &#x27; and &gt;'), '&amp; and &#x27; and &gt;',
    'real entities are left exactly as they are');
+
+console.log('\nthe case that actually loses text today:');
+eq(S.body('a<b इति'), 'a&lt;b इति',
+   "'a<b' keeps the rest of the line -- unsanitised the browser renders just 'a'");
 
 console.log('\nanything that could carry behaviour is neutralised:');
 eq(S.body('<script>alert(1)</script>'), '&lt;script&gt;alert(1)&lt;/script&gt;',

@@ -1,19 +1,26 @@
 // DGE Module: dge-sanitize.js
 // Body text reaches the page through innerHTML, and it has always reached it
-// unescaped. That is not an oversight -- importers deliberately put markup in
-// there: 17,086 tags across the corpus, span/div/br/b/em and nothing else,
+// unescaped. That is deliberate: importers put markup in there -- 17,086 tags
+// across the corpus, and a scan says they are exactly five, span/div/br/b/em,
 // carrying the Anandamakaranda pramana citations and the Boray Gita layout.
-// Escaping it all would destroy that.
+// Escaping the lot would destroy real styling.
 //
-// But unescaped means the browser reads EVERY '<' as a tag, and 2,374 of them
-// are not tags. The Siddhanta Kaumudi cites its own sutras as <{SK121}>, so a
-// reader sees "खरि चे ति चर्त्त्वे" -- the citation silently eaten and the
-// sandhi broken across the gap. The Dayabhaga's <९> section marks vanish the
-// same way. And a content editor who types '<' loses whatever follows it.
+// The exposure is anything else that starts with '<' followed by a letter.
+// Measured in a browser: "a<b इति" renders as "a" -- everything from the '<'
+// onward is silently gone, with no error and nothing on the page to suggest
+// text is missing. In a grammar text discussing sandhi that is an ordinary
+// thing for a content editor to type.
 //
-// So: keep the tags the corpus actually uses, escape everything else. The
-// citation becomes visible, a stray '<' survives, '&c.' stops being a
-// half-entity, and a <script> is inert.
+// Nothing in the corpus is damaged today: every one of those 17,086 is one of
+// the five intentional tags. The 2,374 remaining '<' are things like the
+// Siddhanta Kaumudi's <{SK121}> sutra citations and the Dayabhaga's <९> marks,
+// and those are safe as they stand -- HTML only starts a tag when a letter
+// follows the '<', so a browser already shows them as text. This is a guard
+// against what an editor or an OCR pass may introduce, not a repair.
+//
+// So: keep the tags the corpus uses, escape everything else. A stray '<'
+// survives to the page instead of taking the rest of the line with it, "&c."
+// stops depending on browser recovery, and a <script> is inert.
 window.DGE_VERSIONS = window.DGE_VERSIONS || {};
 window.DGE_VERSIONS['dge-sanitize.js'] = 'v1.0 (whitelist sanitiser for body text on the innerHTML path)';
 
