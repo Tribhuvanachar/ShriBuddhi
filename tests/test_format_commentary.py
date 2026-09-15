@@ -61,8 +61,10 @@ class Pattern1RealCorpus(unittest.TestCase):
     def test_sandhi_joined_introducer(self):
         # कोषोक्तेः + आह -> कोषोक्तेराह: the letters आ and ह never occur
         # together, so a literal word-list match misses it entirely.
-        self.assertEqual(tps("इति कोषोक्तेराह– ननु गन्धरसेति ।। भिन्नेति ।।"),
-                         ["ननु गन्धरसेति ।।"])
+        # भिन्नेति ।। now tags too, by the Pattern-2 decision of 15 Sep 2026.
+        # The point of this test is the introducer, which is the first one.
+        self.assertEqual(tps("इति कोषोक्तेराह– ननु गन्धरसेति ।। भिन्नेति ।।")[0],
+                         "ननु गन्धरसेति ।।")
 
     def test_a_plain_space_between_introducer_and_pratika(self):
         # P1C. The Bhavacandrika writes "इत्यत आह उद्देशेनैवेति ।" with no
@@ -127,18 +129,39 @@ class Pattern2(unittest.TestCase):
         self.assertEqual(tps("... इति । | भवतीति और"), [])
 
 
-class MustNotFire(unittest.TestCase):
-    """Section 29: not every ।। is a pratika. These three are named in the
-    specification itself, and section 11's own rule would tag all of them --
-    in danda-punctuated prose '। x ।।' and '| x |' are the same shape. Pattern
-    2 is therefore restricted to the pipe forms, which every one of the
-    specification's own Pattern-2 examples uses."""
+class Pattern2OnDandas(unittest.TestCase):
+    """Pattern 2 accepts danda delimiters as of 15 Sep 2026, by decision. What
+    keeps it honest is no longer the delimiter but the two constraints that
+    remain: at most two words, and a citation particle at the end."""
 
-    def test_segmentation_markers_are_left_alone(self):
-        for src in ("इत्यर्थः । भिन्नेति ।। मात्रा इति",
-                    "इत्यर्थः । द्वन्द्वत्वेति ।। स्पर्शानां",
-                    "इत्यनेन । विषयाणामिति ।। मात्रा विषया"):
-            self.assertEqual(tps(src), [], src)
+    def test_the_bare_danda_form(self):
+        self.assertEqual(tps("भावः । तथेति ।"), ["तथेति ।"])
+        self.assertEqual(tps("ध्येयम् । अपेक्षत इति ।"), ["अपेक्षत इति ।"])
+
+    def test_a_shared_danda_serves_both_neighbours(self):
+        # The ।। closes the first pratika AND opens the second. Requiring the
+        # whole match to be untouched lost every pratika that followed another.
+        self.assertEqual(tps("दर्शयति भाविन इति ।। पूर्वस्येति ।"),
+                         ["भाविन इति ।।", "पूर्वस्येति ।"])
+
+    def test_the_two_word_cap_still_holds(self):
+        self.assertEqual(tps("इति । तद् एव निरूपयतीति ।"), [])
+
+    def test_the_citation_ending_still_holds(self):
+        self.assertEqual(tps("इति । गच्छति ।"), [])
+
+
+class MustNotFire(unittest.TestCase):
+    """Section 29 of the brief said not every ।। is a pratika, and while Pattern
+    2 was pipes-only that held automatically. The project lead has since turned
+    it on for dandas, knowingly: भिन्नेति ।। and its kind now tag. What must
+    STILL never fire is anything failing the two real constraints."""
+
+    def test_a_bare_particle_is_never_a_pratika(self):
+        self.assertEqual(tps("इत्यर्थः । इति ।"), [])
+
+    def test_three_words_is_never_a_pratika(self):
+        self.assertEqual(tps("इत्यर्थः । तत्र च भिन्नेति ।।"), [])
 
 
 class Paragraphs(unittest.TestCase):
@@ -216,12 +239,17 @@ FIXTURE = (
 class RealSampleRegression(unittest.TestCase):
     def test_the_pratikas_the_sample_contains(self):
         self.assertEqual(tps(FIXTURE), [
-            "ननु गन्धरसेति ।।", "विषयाणामिति ।।", "देहशब्देनेति ।।", "तत्तदित्यादिना ।।"])
+            "ननु गन्धरसेति ।।", "भिन्नेति ।।", "द्वन्द्वत्वेति ।।",
+            "विषयाणामिति ।।", "देहशब्देनेति ।।", "तत्तदित्यादिना ।।"])
 
-    def test_the_segmentation_markers_in_it_are_untouched(self):
+    def test_the_segmentation_markers_now_tag_by_decision(self):
+        # Until 15 Sep 2026 these were REQUIRED not to tag, per §29 of the
+        # brief. The project lead turned Pattern 2 on for dandas knowing that
+        # भिन्नेति ।। and द्वन्द्वत्वेति ।। are exactly what it adds. The test
+        # is kept, inverted, so the reversal stays visible rather than silent.
         out = F.format(FIXTURE)
         for word in ("भिन्नेति", "द्वन्द्वत्वेति"):
-            self.assertNotIn(f"<TP>{word}", out, word)
+            self.assertIn(f"<TP>{word}", out, word)
 
 
 if __name__ == "__main__":

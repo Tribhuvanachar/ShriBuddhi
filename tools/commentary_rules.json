@@ -33,18 +33,16 @@
    "||"
   ],
   "_p2_note": [
-   "Pattern 2 is restricted to the ASCII pipe forms, and that is not fussiness.",
-   "Section 11 defines it as delimiter + one or two words + delimiter, while",
-   "section 29 forbids treating भिन्नेति ।। and द्वन्द्वत्वेति ।। as pratikas --",
-   "and in danda-punctuated prose those two are the SAME shape. '. x ..' between",
-   "two sentence dandas cannot be told from '| x |' by structure alone.",
+   "Pattern 2 accepts danda delimiters as of 15 Sep 2026, on the project lead's",
+   "decision. It was restricted to ASCII pipes before that because section 11 of",
+   "the brief defines it as delimiter + one or two words + delimiter while section",
+   "29 forbids reading भिन्नेति ।। as a pratika -- and in danda-punctuated prose",
+   "those are the same shape, so honouring both meant declining to fire on a danda.",
    "",
-   "Every Pattern-2 example in the specification is written with pipes, and the",
-   "real corpus contains none, so restricting it here satisfies both sections:",
-   "the rule fires wherever OCR genuinely uses a pipe, and never on ordinary",
-   "sentence punctuation. Set to 'all' to widen it once pipe-bearing OCR exists",
-   "to check against. Section 30: a false negative beats a destructive false",
-   "positive."
+   "With it on, the precision now rests entirely on the two constraints that",
+   "remain: at most two words, and the last of them must end in a citation",
+   "particle. Those are what keep it from tagging ordinary sentence endings.",
+   "Set back to 'pipes_only' to restore the earlier behaviour."
   ]
  },
  "separators": {
@@ -61,7 +59,7 @@
  "limits": {
   "p1_max_pratika_words": 5,
   "p2_max_words": 2,
-  "p2_delimiters": "pipes_only",
+  "p2_delimiters": "all",
   "p1_require_citation_ending": true,
   "p1c_max_chars": 40
  },

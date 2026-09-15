@@ -299,16 +299,27 @@ class Formatter:
 
         for m in self.RE_P2.finditer(text):
             words = m.group("prat").split()
-            if not free(m.start(), m.end()):
+            # The OPENING delimiter may already belong to an earlier match, as
+            # its closing one. In "... भाविन इति ।। पूर्वस्येति ।" the same ।।
+            # closes the first pratika and opens the second, and requiring the
+            # whole match to be untouched lost every pratika that followed
+            # another. Only the pratika and its own closing danda have to be
+            # free -- which is also the only span this rule goes on to claim,
+            # so nothing can nest.
+            if not free(m.start("prat"), m.end()):
                 continue
-            last = words[-1]
-            sid = self._suffix_id(last)
-            if sid is None:
+            # Through ends_as_citation, not _suffix_id alone: that is where the
+            # bare-particle guard lives, and P2 was going round it. With P2
+            # restricted to pipes the gap never showed, because the corpus has
+            # no pipes; the moment dandas were allowed it tagged a naked इति ।
+            if not self.ends_as_citation(m.group("prat")):
                 if debug is not None:
-                    debug.append(f"  reject P2 at {m.start()}: {last!r} matches no suffix family")
+                    debug.append(f"  reject P2 at {m.start()}: {m.group('prat')!r} "
+                                 f"is not a lemma plus a citation particle")
                 continue
+            sid = self._suffix_id(words[-1]) or "P2_?"
             a, b = m.start("prat"), m.end("close")
-            taken.append((m.start(), m.end()))
+            taken.append((a, b))
             out.append((a, b, f"P2/{sid}", text[a:b]))
             if debug is not None:
                 debug.append(
