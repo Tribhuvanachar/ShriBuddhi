@@ -68,8 +68,22 @@ LAYERS = [
     ("sutrartha",             "sutrartha",             "Sūtrārtha (Sanskrit gloss)", "सूत्रार्थः",            ""),
     ("vasu_english",          "vasu",                  "S. C. Vasu — translation & notes", "",                "Śrīśa Chandra Vasu"),
     ("vasu_english_summary",  "vasu_summary",          "S. C. Vasu — summary",    "",                         "Śrīśa Chandra Vasu"),
+    ("sutrartha_english",     "sutrartha_english",     "Sūtrārtha (English gloss)", "",                       ""),
 ]
-EXCLUDED = {"sutrartha_english": "removed from published data 23 Aug 2026 over attribution; the lead's call to revisit"}
+EXCLUDED = {}
+
+#: Recorded on the file itself, because this layer was withdrawn once and the
+#: reason it is back has to travel with it rather than live in a commit message.
+ENGLISH_NOTE = (
+    "Withdrawn from published data on 23 Aug 2026: it was shown to readers with no "
+    "attribution at all and rested on an informal curator e-mail rather than any stated "
+    "licence, and as a public static file the JSON was exposed whatever the UI rendered. "
+    "Re-imported 15 Sep 2026 on the project lead's decision. The basis is that the source "
+    "repository now states terms in its README (read at commit dated 13 Sep 2026): \"You "
+    "are free to use this data in your own projects provided that appropriate credits are "
+    "mentioned wherever applicable.\" Both conditions are met here -- the credit is on this "
+    "file, in the Credits modal and in the site footer. The 2026 objection was the absence "
+    "of attribution and of stated terms; neither is absent now.")
 
 TYPE_LABELS = {
     "S":  ("Definition (saṃjñā)", "संज्ञा"),
@@ -163,6 +177,9 @@ def build_layer(raw: dict, folder: str, title: str, dev: str, author: str,
     items.sort(key=lambda i: [int(p) for p in i["id"].split(".")])
     doc = {"schema": "grantha_tika_text", "title": title, "source": CREDIT,
            "count": len(items), "items": items}
+    if folder == "sutrartha_english":
+        doc["licence_note"] = ENGLISH_NOTE
+        doc["language"] = "en"
     if dev:
         doc["title_devanagari"] = dev
     if author:
