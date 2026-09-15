@@ -88,6 +88,12 @@ jobs:
       - name: JS -- audio detection
         run: node tools/audio_admin/test-audio-detect.js
 
+      - name: Commentary formatter is deterministic (format_commentary.py)
+        # Runs on every incoming OCR document, so it must be offline and give
+        # the same answer every time. The suite asserts both, and asserts the
+        # cases section 29 says must NOT become pratikas.
+        run: python3 -m pytest tests/test_format_commentary.py -q
+
       - name: Every data.json is strict JSON (normalize_data_json.py --check)
         # The browser's JSON.parse is strict, so a raw line break inside a
         # string is a page that will not load. Content editors work these files
