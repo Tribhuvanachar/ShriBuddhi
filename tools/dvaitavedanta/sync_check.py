@@ -291,18 +291,23 @@ def main(argv=None, discover_fn=None):
     ap.add_argument("--verbose", action="store_true")
     args = ap.parse_args(argv)
 
-    config = load_config(args.config)
-    sections_filter = tuple(s.strip() for s in args.sections.split(",") if s.strip())
-    granthas = all_granthas(config, sections_filter)
     log = (lambda s: print(s, file=sys.stderr)) if args.verbose else (lambda s: None)
 
-    user_agent = config.get("site", {}).get("user_agent") or (
-        "DGE-DvaitaVedanta-Importer/1.0 (non-commercial; dharma-prachara; "
-        "+https://tribhuvanachar.github.io/bhumandala)")
-    discover = discover_fn or (lambda gs: discover_census(
-        gs, delay=args.delay, timeout=args.timeout, user_agent=user_agent,
-        log=log))
-    census = discover(granthas)
+    if discover_fn is None:
+        # Only the real crawler needs the private source config; an injected
+        # discovery function supplies its own census, so don't demand it.
+        config = load_config(args.config)
+        sections_filter = tuple(
+            s.strip() for s in args.sections.split(",") if s.strip())
+        granthas = all_granthas(config, sections_filter)
+        user_agent = config.get("site", {}).get("user_agent") or (
+            "DGE-DvaitaVedanta-Importer/1.0 (non-commercial; dharma-prachara; "
+            "+https://tribhuvanachar.github.io/bhumandala)")
+        census = discover_census(granthas, delay=args.delay,
+                                 timeout=args.timeout, user_agent=user_agent,
+                                 log=log)
+    else:
+        census = discover_fn([])
 
     old_state = {}
     if os.path.exists(args.state):
