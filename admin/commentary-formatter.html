@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Commentary formatter · DGE</title>
+<style>
+  :root {
+    --bg: #fbf8f3; --fg: #241d16; --muted: #6b6259; --line: #e3d9c9;
+    --card: #fff; --accent: #8c3b12; --warn-bg: #fff4e5; --warn-line: #e0a458;
+    --tp: #1f6f43; --tp-bg: #e6f3ea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17140f; --fg: #ece5da; --muted: #a09585; --line: #3a332a;
+      --card: #201b15; --accent: #e08a5a; --warn-bg: #2e2313; --warn-line: #8a6a3c;
+      --tp: #7fd0a2; --tp-bg: #17301f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 -apple-system,
+         BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  .banner { background: var(--warn-bg); border: 1px solid var(--warn-line);
+            border-left-width: 5px; border-radius: 8px; padding: 12px 14px; margin: 0 0 22px; }
+  .banner strong { color: var(--accent); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+          padding: 16px; margin: 0 0 16px; }
+  label { display: block; font-weight: 600; margin: 0 0 6px; font-size: .92rem; }
+  textarea, input[type=text] { width: 100%; font: 15px/1.7 "Noto Sans Devanagari", serif;
+          padding: 10px; border: 1px solid var(--line); border-radius: 8px;
+          background: var(--bg); color: var(--fg); }
+  textarea { min-height: 150px; resize: vertical; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+  button { font: 600 15px/1 inherit; padding: 11px 18px; border-radius: 8px; cursor: pointer;
+           border: 1px solid var(--accent); background: var(--accent); color: #fff; }
+  button.ghost { background: transparent; color: var(--accent); }
+  button[disabled] { opacity: .5; cursor: default; }
+  .tabs { display: flex; gap: 6px; margin: 0 0 14px; }
+  .tabs button { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+  .tabs button[aria-selected="true"] { background: var(--card); color: var(--fg);
+           border-color: var(--accent); }
+  pre { white-space: pre-wrap; word-break: break-word; background: var(--bg);
+        border: 1px solid var(--line); border-radius: 8px; padding: 12px;
+        font: 14px/1.75 "Noto Sans Devanagari", ui-monospace, monospace; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .tp { background: var(--tp-bg); color: var(--tp); border-radius: 4px; padding: 0 3px;
+        font-weight: 600; }
+  .ev { font: 12px/1.6 ui-monospace, monospace; color: var(--muted); }
+  .muted { color: var(--muted); }
+  .err { color: #b3261e; }
+  @media (max-width: 560px) { .wrap { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Commentary formatter</h1>
+  <p class="sub">Pratīka tagging and paragraph structure for Sanskrit commentary OCR.
+     Deterministic, offline — no model is consulted.</p>
+
+  <div class="banner">
+    <strong>REMOVE BEFORE GO-LIVE.</strong> This is a testing surface. It calls a
+    localhost-only endpoint and must not be part of the public site. It reports by
+    default and writes nothing to the corpus unless “write back” is ticked.
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" id="tab-text" aria-selected="true" onclick="pick('text')">Paste text</button>
+    <button role="tab" id="tab-path" aria-selected="false" onclick="pick('path')">Folder or file</button>
+  </div>
+
+  <div class="card" id="pane-text">
+    <label for="src">Commentary text — OCR output, or anything pasted</label>
+    <textarea id="src" spellcheck="false" placeholder="कथमित्यत आह– विषयाणामिति ।। मात्रा विषया इति भावः । किञ्च अत्र विचारः ।"></textarea>
+  </div>
+
+  <div class="card" id="pane-path" hidden>
+    <label for="path">Path inside the repository — a data.json, or a folder of them</label>
+    <input type="text" id="path" spellcheck="false"
+           value="data/darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas/tattva_sankhyana">
+    <div class="row">
+      <label style="font-weight:400;margin:0">
+        <input type="checkbox" id="inplace"> write the result back into the corpus
+      </label>
+    </div>
+  </div>
+
+  <div class="row">
+    <button id="run" onclick="run()">Format</button>
+    <button class="ghost" onclick="showEvents()">Show what fired</button>
+    <span id="status" class="muted"></span>
+  </div>
+
+  <div id="result"></div>
+</div>
+
+<script>
+var MODE = 'text', LAST = null;
+
+function pick(m) {
+  MODE = m;
+  document.getElementById('pane-text').hidden = (m !== 'text');
+  document.getElementById('pane-path').hidden = (m !== 'path');
+  document.getElementById('tab-text').setAttribute('aria-selected', m === 'text');
+  document.getElementById('tab-path').setAttribute('aria-selected', m === 'path');
+}
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>]/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c];
+  });
+}
+
+// Show the formatter's own markup as markup, not as live HTML: <TP> is the
+// thing under review, so it has to be visible rather than rendered away.
+function showMarkup(s) {
+  return esc(s)
+    .replace(/&lt;TP&gt;([\s\S]*?)&lt;\/TP&gt;/g, '<span class="tp">&lt;TP&gt;$1&lt;/TP&gt;</span>')
+    .replace(/&lt;p class="rule"&gt;/g, '<span class="muted">&lt;p class="rule"&gt;</span>')
+    .replace(/&lt;\/p&gt;/g, '<span class="muted">&lt;/p&gt;</span>');
+}
+
+function setStatus(t, bad) {
+  var el = document.getElementById('status');
+  el.textContent = t; el.className = bad ? 'err' : 'muted';
+}
+
+function run() {
+  var body;
+  if (MODE === 'text') {
+    var t = document.getElementById('src').value;
+    if (!t.trim()) { setStatus('nothing to format', true); return; }
+    body = { text: t };
+  } else {
+    var p = document.getElementById('path').value.trim();
+    if (!p) { setStatus('give a path', true); return; }
+    body = { path: p, in_place: document.getElementById('inplace').checked };
+    if (body.in_place && !confirm('Write the formatting into ' + p + '?\n\nThis edits the corpus.')) return;
+  }
+  document.getElementById('run').disabled = true;
+  setStatus('running…');
+  fetch('/format-commentary', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  }).then(function (r) { return r.json(); })
+    .then(function (d) {
+      document.getElementById('run').disabled = false;
+      if (d.error) { setStatus(d.error, true); return; }
+      LAST = d; setStatus('');
+      render(d);
+    })
+    .catch(function (e) {
+      document.getElementById('run').disabled = false;
+      setStatus('could not reach the formatter — is tools/dev_server.py running? (' + e.message + ')', true);
+    });
+}
+
+function render(d) {
+  var out = document.getElementById('result');
+  if (d.mode === 'text') {
+    var n = (d.output.match(/<TP>/g) || []).length;
+    var p = (d.output.match(/<p class="rule">/g) || []).length;
+    out.innerHTML = '<div class="card"><label>' + n + ' pratīka' + (n === 1 ? '' : 's') +
+      ', ' + p + ' paragraph' + (p === 1 ? '' : 's') + '</label><pre>' +
+      showMarkup(d.output) + '</pre></div>';
+    return;
+  }
+  var rows = d.files.map(function (f) {
+    return '<tr><td>' + esc(f.file.split('/').slice(-2).join('/')) + '</td>' +
+      '<td class="n">' + f.units + '</td><td class="n">' + f.pratikas + '</td>' +
+      '<td class="n">' + f.paragraphs + '</td>' +
+      '<td class="' + (f.error ? 'err' : 'muted') + '">' + esc(f.error || '') + '</td></tr>';
+  }).join('');
+  var tot = d.files.reduce(function (a, f) { return a + f.pratikas; }, 0);
+  var samples = d.sample.map(function (s) {
+    return '<div class="card"><label>' + esc(s.file.split('/').slice(-2).join('/')) +
+      ' · ' + esc(s.id) + '</label><pre>' + showMarkup(s.after) + '</pre></div>';
+  }).join('');
+  out.innerHTML = '<div class="card"><label>' + d.files.length + ' file(s), ' + tot +
+    ' pratīkas' + (d.written ? ' — WRITTEN to the corpus' : ' — nothing written') +
+    '</label><table><tr><th>file</th><th class="n">units</th><th class="n">pratīkas</th>' +
+    '<th class="n">paras</th><th></th></tr>' + rows + '</table></div>' + samples;
+}
+
+function showEvents() {
+  if (!LAST) { setStatus('run it first', true); return; }
+  var ev = LAST.events || (LAST.sample || []).reduce(function (a, s) {
+    return a.concat(s.events.map(function (e) { return s.id + ': ' + e; })); }, []);
+  document.getElementById('result').insertAdjacentHTML('afterbegin',
+    '<div class="card"><label>' + ev.length + ' event(s)</label><pre class="ev">' +
+    esc(ev.join('\n')) + '</pre></div>');
+}
+</script>
+</body>
+</html>

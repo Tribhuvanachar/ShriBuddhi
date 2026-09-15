@@ -44,6 +44,10 @@ import json
 import subprocess
 import urllib.parse
 
+# The repository this server serves from -- the formatter endpoint confines
+# every path it is handed to inside it.
+REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 PORT = int(os.environ.get("DGE_PORT", "8777"))
 UPSTREAM = "https://api.sarvam.ai"
 PREFIX = "/sarvam/"
@@ -132,7 +136,73 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             return self._proxy("POST")
         if self.path.rstrip("/") == "/scan":
             return self._scan()
+        if self.path.rstrip("/") == "/format-commentary":
+            return self._format_commentary()
         self.send_error(405)
+
+    def _format_commentary(self):
+        """The commentary formatter as a service.
+
+        Takes either pasted text or a corpus path -- a single data.json or a
+        whole folder -- so the same stage serves an OCR hand-off, a scholar
+        checking one grantha, and a paste from anywhere. Read-only unless
+        in_place is asked for explicitly: a first look must never write.
+        """
+        try:
+            n = int(self.headers.get("Content-Length") or 0)
+            req = json.loads(self.rfile.read(n) or b"{}")
+        except (ValueError, TypeError) as e:
+            return self._json(400, {"error": f"bad request body: {e}"})
+
+        sys.path.insert(0, os.path.join(REPO, "tools"))
+        try:
+            import format_commentary as FC
+        except ImportError as e:
+            return self._json(500, {"error": f"formatter unavailable: {e}"})
+
+        fmt = FC.Formatter()
+        text = req.get("text")
+        if isinstance(text, str) and text.strip():
+            events: list = []
+            return self._json(200, {"mode": "text", "output": fmt.format(text, events),
+                                    "events": events})
+
+        rel = (req.get("path") or "").strip()
+        if not rel:
+            return self._json(400, {"error": "give either 'text' or 'path'"})
+        # Confined to the repository: a path service that will open anything is
+        # a file-read primitive, localhost or not.
+        target = os.path.realpath(os.path.join(REPO, rel))
+        if not target.startswith(os.path.realpath(REPO) + os.sep):
+            return self._json(400, {"error": "path must be inside the repository"})
+        if not os.path.exists(target):
+            return self._json(404, {"error": f"no such path: {rel}"})
+
+        res = FC.run_corpus(target, fmt, bool(req.get("in_place")))
+        summary = [{"file": os.path.relpath(r["file"], REPO),
+                    "units": r.get("units", 0), "changed": r.get("changed", 0),
+                    "pratikas": sum(u["after"].count("<TP>") for u in r.get("detail", [])),
+                    "paragraphs": sum(u["after"].count('<p class="rule">')
+                                      for u in r.get("detail", [])),
+                    "error": r.get("error")} for r in res]
+        sample = []
+        for r in res:
+            for u in r.get("detail", [])[:3]:
+                sample.append({"file": os.path.relpath(r["file"], REPO), "id": u["id"],
+                               "before": u["before"], "after": u["after"],
+                               "events": u["events"]})
+            if len(sample) >= 12:
+                break
+        return self._json(200, {"mode": "corpus", "written": bool(req.get("in_place")),
+                                "files": summary, "sample": sample})
+
+    def _json(self, code: int, payload: dict):
+        body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
 
     def log_message(self, fmt, *args):
         # The default logs the full path, which for a proxied call would put the
@@ -146,6 +216,7 @@ def main() -> int:
     else:
         print(f"{KEY_ENV} not set — pages load, {PREFIX}… returns 503")
     print(f"POST /scan runs tools/sarvam_docai.py (dry by default; real spends)")
+    print(f"POST /format-commentary runs the commentary formatter (read-only unless in_place)")
     print(f"http://127.0.0.1:{PORT}/admin/ocr-studio.html")
     socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer(("127.0.0.1", PORT), Handler) as srv:

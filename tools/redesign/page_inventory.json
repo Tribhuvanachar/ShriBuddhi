@@ -1,5 +1,5 @@
 {
- "page_count": 17,
+ "page_count": 18,
  "pages": [
   {
    "path": "convert/index.html",
@@ -52,6 +52,17 @@
     "css/audio.css"
    ],
    "title": "Audio Admin · DGE (restricted)"
+  },
+  {
+   "path": "admin/commentary-formatter.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "Commentary formatter · DGE"
   },
   {
    "path": "admin/content-provenance.html",

@@ -338,6 +338,63 @@ def format_commentary(text: str) -> str:
     return _DEFAULT.format(text)
 
 
+# ---------------------------------------------------------------- corpus mode
+
+TEXT_FIELDS = ("sanskrit_text", "text", "sa")
+
+
+def corpus_files(path: str) -> list[str]:
+    if os.path.isfile(path):
+        return [path]
+    return sorted(os.path.join(d, f)
+                  for d, _s, fs in os.walk(path) for f in fs if f == "data.json")
+
+
+def run_corpus(path: str, fmt: "Formatter", in_place: bool = False):
+    """Apply the formatter to every unit's body text under a path.
+
+    Selective by design: a single data.json, one grantha's folder, or a whole
+    shelf. Reports rather than writes unless asked, because the point of a
+    first run is for a scholar to look at it.
+    """
+    results = []
+    for f in corpus_files(path):
+        try:
+            doc = json.load(open(f, encoding="utf-8"))
+        except (OSError, ValueError) as e:
+            results.append({"file": f, "error": str(e)}); continue
+        items = doc.get("items") if isinstance(doc, dict) else None
+        if not isinstance(items, list):
+            continue
+        field = next((x for x in TEXT_FIELDS
+                      if any(isinstance(i.get(x), str) for i in items if isinstance(i, dict))), None)
+        if not field:
+            continue
+        units, changed = [], 0
+        for i in items:
+            if not isinstance(i, dict) or not isinstance(i.get(field), str):
+                continue
+            before = i[field]
+            dbg: list = []
+            after = fmt.format(before, dbg)
+            if after != before:
+                changed += 1
+                units.append({"id": i.get("id", ""), "before": before, "after": after,
+                              "events": dbg})
+                if in_place:
+                    i[field] = after
+        if in_place and changed:
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+            import format_data_json
+            text = format_data_json.canonical(doc) or json.dumps(
+                doc, ensure_ascii=False, separators=(",", ":"))
+            with open(f, "w", encoding="utf-8", newline="") as fh:
+                fh.write(text)
+        results.append({"file": f, "field": field, "units": len(items),
+                        "changed": changed, "detail": units})
+    return results
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -345,7 +402,27 @@ def main(argv=None) -> int:
     ap.add_argument("output", nargs="?")
     ap.add_argument("--debug", action="store_true")
     ap.add_argument("--diff", action="store_true")
+    ap.add_argument("--corpus", action="store_true",
+                    help="treat input as a data.json or a folder of them")
+    ap.add_argument("--in-place", action="store_true",
+                    help="with --corpus, write the formatting back into the corpus")
+    ap.add_argument("--json", action="store_true", help="with --corpus, emit the report as JSON")
     a = ap.parse_args(argv)
+
+    if a.corpus:
+        res = run_corpus(a.input, Formatter(), a.in_place)
+        if a.json:
+            json.dump(res, sys.stdout, ensure_ascii=False, indent=1)
+            return 0
+        tot_u = sum(r.get("units", 0) for r in res)
+        tot_c = sum(r.get("changed", 0) for r in res)
+        for r in res:
+            if "error" in r:
+                print(f"  ERROR {r['file']}: {r['error']}", file=sys.stderr); continue
+            print(f"  {r['changed']:>4}/{r['units']:<5} {r['file']}")
+        print(f"\n{len(res)} file(s), {tot_u} units, {tot_c} changed"
+              + ("" if a.in_place else "  (nothing written -- pass --in-place)"))
+        return 0
 
     src = open(a.input, encoding="utf-8").read()
     f = Formatter()
