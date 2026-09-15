@@ -1,0 +1,25 @@
+#!/bin/sh
+# Installed by tools/install_hooks.sh. Runs on every commit in this clone.
+#
+# A line break inside a text field is a feature -- it becomes a <br> on the
+# page -- but JSON requires it be written \n, and in a text editor a line break
+# is the Enter key. This hook does that translation so the editor can behave
+# normally, then re-stages what it fixed so the commit carries valid JSON.
+#
+# It fixes; it does not scold. The only thing it stops for is a file broken in
+# a way escaping cannot repair, which is a real mistake worth catching here.
+#
+# Deliberately thin: every path decision, and the staging, happen in Python, so
+# this works the same in Git Bash on Windows as on a Mac or Linux box.
+
+repo=$(git rev-parse --show-toplevel) || exit 0
+[ -f "$repo/tools/normalize_data_json.py" ] || exit 0
+
+python3 "$repo/tools/normalize_data_json.py" --staged --stage-fixed --quiet
+if [ $? -eq 2 ]; then
+  echo "" >&2
+  echo "pre-commit: a staged .json is broken in a way auto-escaping cannot fix." >&2
+  echo "            Nothing was committed -- see the error above." >&2
+  exit 1
+fi
+exit 0

@@ -85,6 +85,14 @@ jobs:
       - name: JS -- audio detection
         run: node tools/audio_admin/test-audio-detect.js
 
+      - name: Every data.json is strict JSON (normalize_data_json.py --check)
+        # The browser's JSON.parse is strict, so a raw line break inside a
+        # string is a page that will not load. Content editors work these files
+        # in a text editor where a line break IS the Enter key, so the fix is
+        # the pre-commit hook that escapes it; this is the backstop for a clone
+        # that never installed the hook.
+        run: python3 tools/normalize_data_json.py --check --all --quiet
+
       - name: Corpus structural check (validate_data.py)
         run: python3 tools/validate_data.py
 
