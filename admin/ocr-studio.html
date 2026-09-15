@@ -149,6 +149,7 @@ select,input[type=text],input[type=number],input[type=color]{padding:6px 9px;bor
     <button class="btn" id="loadBtn">Load</button>
     <label class="btn" style="cursor:pointer">📄 Scan…
       <input type="file" id="scanFiles" accept="image/*" multiple hidden></label>
+    <button class="btn" id="sarvamScan" title="Run Sarvam Document AI over a PDF in this checkout. Needs tools/dev_server.py — a plain file server cannot do it.">⚡ OCR a PDF…</button>
     <span class="spacer"></span>
     <button class="btn" id="cmpMode" title="Vision, Sarvam and Tesseract one beneath the other, each beside the scan it read">⚖ Compare engines</button>
     <button class="btn" id="styleMode" title="Style the reading you chose">🎨 Style</button>
@@ -312,6 +313,58 @@ select,input[type=text],input[type=number],input[type=color]{padding:6px 9px;bor
     // so it is left alone -- pulling siblings in would override their choice.
     S.ENGINE_IDS.forEach(function(id){ if (q.get(id)) loadFile(q.get(id), id, false); });
   }
+
+  // ---- run a real scan ---------------------------------------------------
+  // The browser cannot call Sarvam: it authenticates with a custom header and
+  // its CORS preflight does not allow one, so a fetch() to api.sarvam.ai never
+  // leaves the page. tools/dev_server.py runs tools/sarvam_docai.py instead and
+  // hands back what it staged — the key stays in that server's shell and never
+  // reaches this page. Served by anything else, /scan 404s and we say so
+  // plainly rather than looking broken.
+  $("#sarvamScan").onclick = function(){
+    var pdf = prompt("PDF path, relative to the repo root:", "scans/raghavendra_vijaya.pdf");
+    if (!pdf) return;
+    var pages = prompt("Pages (e.g. 44-53, or 1-10,15):", "44-53");
+    if (!pages) return;
+    var work = prompt("Work slug — the staging folder to write:", "raghavendra_vijaya");
+    if (!work) return;
+
+    // Count first, always. A dry run costs nothing and is the only honest way
+    // to show a page count before asking anyone to approve spending on it.
+    var btn = this;
+    btn.disabled = true; btn.textContent = "⏳ counting…";
+    post({ pdf: pdf, pages: pages, work: work, real: false }).then(function(d){
+      // sarvam_docai.py prints its human log to stderr and a JSON summary to
+      // stdout. Scraping the prose gave "? page(s)" in the confirmation — the
+      // one number a person needs before agreeing to be billed. Read the JSON.
+      var n = "?";
+      try { n = JSON.parse(d.stdout.slice(d.stdout.indexOf("{"))).pages; } catch (e) {}
+      btn.disabled = false; btn.textContent = "⚡ OCR a PDF…";
+      if (!confirm("Sarvam bills per page.\n\n" + n + " page(s) of " + work +
+                   " would be sent and charged to your account.\n\nSend them?")) return;
+      btn.disabled = true; btn.textContent = "⏳ scanning…";
+      return post({ pdf: pdf, pages: pages, work: work, real: true }).then(function(r){
+        btn.disabled = false; btn.textContent = "⚡ OCR a PDF…";
+        if (!r.ok) { alert("Sarvam run failed:\n\n" + (r.stderr || r.stdout).slice(-600)); return; }
+        alert("Staged. Rebuild the index with\n  python3 tools/build_ocr_staging_index.py\nthen reload to see it in the dropdown.");
+      });
+    }).catch(function(e){
+      btn.disabled = false; btn.textContent = "⚡ OCR a PDF…";
+      alert("Could not reach /scan — " + e.message +
+            "\n\nThis needs the local dev server:\n  python3 tools/dev_server.py" +
+            "\n\nA plain python3 -m http.server cannot run a scan.");
+    });
+
+    function post(body){
+      return fetch("/scan", { method: "POST", headers: { "Content-Type": "application/json" },
+                              body: JSON.stringify(body) })
+        .then(function(r){
+          if (r.status === 404 || r.status === 501 || r.status === 405)
+            throw new Error("the server has no /scan endpoint");
+          return r.json().catch(function(){ throw new Error("HTTP " + r.status); });
+        });
+    }
+  };
 
   $("#loadBtn").onclick = function(){
     if ($("#file").value) loadFile($("#file").value, $("#asEngine").value || null, true);

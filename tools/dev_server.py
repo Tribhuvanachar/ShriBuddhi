@@ -40,6 +40,10 @@ import sys
 import urllib.error
 import urllib.request
 
+import json
+import subprocess
+import urllib.parse
+
 PORT = int(os.environ.get("DGE_PORT", "8777"))
 UPSTREAM = "https://api.sarvam.ai"
 PREFIX = "/sarvam/"
@@ -75,6 +79,49 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(payload)
 
+    def _scan(self) -> None:
+        """Run a real Sarvam scan and stage it, so a page can ask for one.
+
+        The browser cannot do this itself. Sarvam authenticates with a custom
+        header and its CORS preflight does not permit one, so a fetch() to
+        api.sarvam.ai never leaves the page -- which is why the studio has only
+        ever REVIEWED readings and never produced them.
+
+        The work is done by tools/sarvam_docai.py, unchanged: it already
+        slices the PDF, runs the job, unpacks one entry per page and writes
+        data/ocr_staging/<work>/. Reimplementing any of that in JavaScript
+        would mean a second, untested copy of the one path that costs money.
+        """
+        length = int(self.headers.get("Content-Length") or 0)
+        try:
+            body = json.loads(self.rfile.read(length) or b"{}")
+        except ValueError:
+            self.send_error(400, "expected JSON")
+            return
+        pdf, pages, work = body.get("pdf"), body.get("pages"), body.get("work")
+        if not (pdf and pages and work):
+            self.send_error(400, "need pdf, pages and work")
+            return
+        if not os.path.isfile(pdf):
+            self.send_error(404, f"no such PDF: {pdf}")
+            return
+        if not os.environ.get(KEY_ENV) and body.get("real"):
+            self.send_error(503, f"{KEY_ENV} is not set in this server's shell")
+            return
+
+        cmd = [sys.executable, os.path.join("tools", "sarvam_docai.py"),
+               "--pdf", pdf, "--pages", str(pages), "--work", work]
+        if not body.get("real"):
+            cmd.append("--dry-run")
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=1800)
+        out = json.dumps({"ok": r.returncode == 0, "dry_run": not body.get("real"),
+                          "stdout": r.stdout[-4000:], "stderr": r.stderr[-2000:]}).encode()
+        self.send_response(200 if r.returncode == 0 else 500)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(out)))
+        self.end_headers()
+        self.wfile.write(out)
+
     def do_GET(self):
         if self.path.startswith(PREFIX):
             return self._proxy("GET")
@@ -83,6 +130,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def do_POST(self):
         if self.path.startswith(PREFIX):
             return self._proxy("POST")
+        if self.path.rstrip("/") == "/scan":
+            return self._scan()
         self.send_error(405)
 
     def log_message(self, fmt, *args):
@@ -96,6 +145,7 @@ def main() -> int:
         print(f"{KEY_ENV} found — {PREFIX}… proxies to {UPSTREAM} (Sarvam bills per page)")
     else:
         print(f"{KEY_ENV} not set — pages load, {PREFIX}… returns 503")
+    print(f"POST /scan runs tools/sarvam_docai.py (dry by default; real spends)")
     print(f"http://127.0.0.1:{PORT}/admin/ocr-studio.html")
     socketserver.TCPServer.allow_reuse_address = True
     with socketserver.TCPServer(("127.0.0.1", PORT), Handler) as srv:
