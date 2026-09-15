@@ -79,6 +79,9 @@ jobs:
       - name: JS -- JS/Python normalizer parity
         run: node js/test-parity.js
 
+      - name: JS -- body-text sanitiser
+        run: node js/test-sanitize.js
+
       - name: JS -- Gold-Standard renderer
         run: node js/test-gold-render.js
 
