@@ -45,7 +45,15 @@ TEXT_EXT = {".json", ".js", ".py", ".md", ".html", ".yml", ".yaml", ".txt", ".xm
 # the alarm -- the first run did exactly that and the suite caught it.
 SKIP = {"tools/verify_no_private_provenance.py",
         "tests/test_verify_no_private_provenance.py",
-        "tools/renumber_origin_ids.py"}
+        "tools/renumber_origin_ids.py",
+        # The fold tools read an ordinal out of the origin site's id, so their
+        # tests build ids with an f-string -- f"DV_{n}" -- which no textual
+        # scrub can see. The first run rewrote the EXPECTED ids beside that
+        # generator and left the generator alone, so the fixtures disagreed
+        # with themselves and five tests failed behind a broken CI for days.
+        "tools/dvaitavedanta/test_fold_tiny_layers.py",
+        "tools/dvaitavedanta/test_import_offline.py",
+        "tools/dvaitavedanta/test_fold_rare_headings.py"}
 
 
 def new_id(old: str) -> str:

@@ -17,7 +17,11 @@
 import json, os
 from collections import defaultdict
 
-ROOT = 'dge' if os.path.isdir('data') else '.'
+# Probe for the nested layout by the nested path itself. The old test asked
+# whether 'data' existed, which is true exactly when the data is NOT under
+# dge/ -- so it picked 'dge' in the flattened layout and '.' in the nested
+# one, i.e. it was wrong in both.
+ROOT = 'dge' if os.path.isdir(os.path.join('dge', 'data')) else '.'
 DATA = os.path.join(ROOT, 'data')
 # The snapshot is an admin artefact, so it lands in admin/config/ while the
 # corpus it describes stays under data/.

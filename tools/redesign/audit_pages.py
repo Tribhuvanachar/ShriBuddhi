@@ -62,11 +62,22 @@ def discover_pages():
                       if "node_modules" not in p.parts and ".claude" not in p.parts
                       and p.relative_to(root).parts[0] not in skip_top)
 
-    pages = [REPO_ROOT / "index.html"]
+    # The public site's shell lives in the production repo; this one carries
+    # only admin tooling. Listing index.html unconditionally made every
+    # shell gate die on a missing file instead of auditing what IS here.
+    pages = [REPO_ROOT / "index.html"] if (REPO_ROOT / "index.html").exists() else []
     # dge/ moved to the repo root (12 Sep 2026); admin/ and data/ are walked
     # separately below (data/ excluded, never audited as DGE chrome), and
     # root index.html is already in the list above.
-    pages.extend(p for p in real_pages(REPO_ROOT, skip_top={"admin", "data"}) if p != REPO_ROOT / "index.html")
+    # Only admin/ and convert/ hold pages a person actually opens. The rest of
+    # the root is tooling, corpora and reports -- test fixtures, dataset health
+    # dumps, Flask templates -- and asking those for the vandana guard produced
+    # seventeen findings about files that are not pages at all.
+    NOT_PAGES = {"admin", "data", "docs", "images", "importers", "kamadhenu",
+                 "kamadhenu_dataset", "kosha_toolkit", "rag_prototype", "scans",
+                 "search_index", "search_toolkit_pkg", "tests", "tools",
+                 "veda_toolkit"}
+    pages.extend(p for p in real_pages(REPO_ROOT, skip_top=NOT_PAGES) if p != REPO_ROOT / "index.html")
     pages.extend(real_pages(REPO_ROOT / "admin"))
     return pages
 

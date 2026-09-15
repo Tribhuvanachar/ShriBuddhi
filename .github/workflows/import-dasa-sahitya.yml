@@ -33,7 +33,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install -r tools/Tattvavada/Itara/DasaSahitya/requirements.txt
+        run: pip install -r tools/dasa_sahitya/requirements.txt
 
       - name: Run importer
         run: |
@@ -41,8 +41,8 @@ jobs:
           if [ -n "${{ inputs.limit_per_index }}" ]; then
             ARGS="--limit-per-index ${{ inputs.limit_per_index }}"
           fi
-          python tools/Tattvavada/Itara/DasaSahitya/import_Tattvavada/Itara/DasaSahitya.py \
-            --config tools/Tattvavada/Itara/DasaSahitya/dasa_sources.json \
+          python tools/dasa_sahitya/import_dasa_sahitya.py \
+            --config tools/dasa_sahitya/dasa_sources.json \
             --out data/Tattvavada/Itara/DasaSahitya \
             --cache .dasa_cache \
             --delay ${{ inputs.delay }} \
@@ -95,6 +95,6 @@ jobs:
             Adds/refreshes `data/Tattvavada/Itara/DasaSahitya/` — padas, suladis and ugabhogas
             from the public Haridasa-sahitya archives. Non-commercial, dharma-prachara.
             Review the diff, then merge. Remember to add the `Tattvavada/Itara/DasaSahitya` node to
-            `taxonomy.json` (see tools/Tattvavada/Itara/DasaSahitya/dge_integration/) if not already present.
+            `taxonomy.json` (see tools/dasa_sahitya/dge_integration/) if not already present.
           add-paths: |
             data/Tattvavada/Itara/DasaSahitya/**

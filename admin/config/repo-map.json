@@ -16,169 +16,236 @@
   "snapshot.* on each branch = git-verified data as of the analysis date above (ahead/behind vs main, ancestry, last commit). Baked in so the page shows real numbers with zero GitHub API calls; a per-branch 'Refresh live' button re-checks on demand."
  ],
  "branches": {
-  "ayurveda-kamashastra-corrections": {
-   "category": "merged-safe-delete",
-   "purpose": "Fixed two duplicate Āyurveda leaf entries.",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main (fully merged, 0 unique commits ahead).",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 694,
-    "last_commit_date": "2026-08-28",
-    "last_commit_subject": "Remove two Ayurveda leaves superseded by later DCS imports (duplicate content)",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
+  "buddhi-archive/claude-library-view-sync-cuveif": {
+   "category": "unclassified",
+   "snapshot": {}
   },
-  "claude/copyleft-licensing-dg-zmk9ac": {
-   "category": "merged-safe-delete",
-   "purpose": "The 6 Sep licensing/scholar-features session's branch. HANDOFF.md says everything it did is merged to main.",
-   "recommendation": "delete",
-   "notes": "Was 'current work' on 5 Sep; that session has ended.",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 390,
-    "last_commit_date": "2026-09-06",
-    "last_commit_subject": "Merge: session handoff document",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
+  "buddhi-archive/claude-puranas-bhagavata-duplicates-t32plj": {
+   "category": "unclassified",
+   "snapshot": {}
   },
-  "claude/dge-commits-review-kr5qeu": {
-   "category": "review-needed",
-   "purpose": "\"Admin panel: real per-commit Undo, request-race guard, CDN-delay note\" — 25 commits ahead of main.",
-   "recommendation": "review",
-   "notes": "No open PR found; check whether the per-commit Undo feature it describes already exists in admin/library.html before deleting.",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 1418,
-    "last_commit_date": "2026-08-14",
-    "last_commit_subject": "Admin panel: real per-commit Undo, request-race guard, CDN-delay note",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
+  "buddhi-archive/claude-puranas-loading-qa0ymy": {
+   "category": "unclassified",
+   "snapshot": {}
   },
-  "claude/dge-gemini-architecture-v129e3": {
-   "category": "review-needed",
-   "purpose": "Gemini OCR/architecture work stream — 5 commits ahead of main.",
-   "recommendation": "review",
-   "notes": "Most of its historical PRs (#95, #97, #119, #122, #127, #129-#133) are closed, meaning most content already reached main via separate PRs; the 5 remaining commits are the unmerged tail.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 5,
-    "behind_main": 819,
-    "last_commit_date": "2026-08-25",
-    "last_commit_subject": "Record: apte-sa is the clear one of the pair, pushed live",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
+  "buddhi-archive/claude-rag-search-llm-assessment-40nqx8": {
+   "category": "unclassified",
+   "snapshot": {}
   },
-  "claude/dge-guru-welcome-page-9n5vy4": {
-   "category": "merged-safe-delete",
-   "purpose": "Guru Paramparā walkthrough/welcome page.",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main.",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 1284,
-    "last_commit_date": "2026-08-18",
-    "last_commit_subject": "Merge main into the walkthrough branch before merging back",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
+  "buddhi-archive/claude-rv-pratishakhya-krama-spec-0v7nnc": {
+   "category": "unclassified",
+   "snapshot": {}
   },
-  "claude/dge-origin-story-prp2zo": {
-   "category": "review-needed",
-   "purpose": "\"Our Story\" homepage copy — 2 commits ahead, the latest being a revert of its own change.",
-   "recommendation": "review-likely-delete",
-   "notes": "The tip commit reverting its own work suggests the branch was abandoned mid-experiment.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 2,
-    "behind_main": 1176,
-    "last_commit_date": "2026-08-19",
-    "last_commit_subject": "Revert \"Rewrite the Our Story modal for clarity and directness\"",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
+  "buddhi-archive/claude-session-start-b88gls": {
+   "category": "unclassified",
+   "snapshot": {}
   },
-  "claude/dge-workflow-architecture-pxacxt": {
-   "category": "review-needed",
-   "purpose": "\"Workflow architecture: map the proposed lifecycle onto what exists\" — a planning/analysis commit, 1 ahead of main.",
-   "recommendation": "review",
-   "notes": "Likely a design note rather than code; check if superseded by GO_LIVE_ARCHITECTURE.md.",
+  "buddhi-archive/claude-whatsapp-integration-tob5tq": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/dasa-sahitya-local-dist": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/gemini-enrich-32394277438": {
+   "category": "unclassified",
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 1065,
-    "last_commit_date": "2026-08-21",
-    "last_commit_subject": "Workflow architecture: map the proposed lifecycle onto what exists, name the real gaps",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch gemini-enrich/32394277438 (snapshot of 95ec37feb2e5, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
-  "claude/dvaita-vedanta-reader-ui-p06173": {
-   "category": "merged-safe-delete",
-   "purpose": "DvaitaVedanta reader UI work; sync-check drift-flag fix.",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main.",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 711,
-    "last_commit_date": "2026-08-27",
-    "last_commit_subject": "Sync check: only flag drift when a nonzero status appears in the summary",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
+  "buddhi-archive/gemini-enrich-32394277438-full": {
+   "category": "unclassified",
+   "snapshot": {}
   },
-  "claude/firebase-auth-messaging-g88vub": {
-   "category": "review-needed",
-   "purpose": "\"Run the Cloud Functions for the first time, and fix what that found\" — 1 commit ahead of main.",
-   "recommendation": "review",
-   "notes": "Possibly an operational one-off (a manual Functions test) rather than a durable code change.",
+  "buddhi-archive/gemini-enrich-32395365588": {
+   "category": "unclassified",
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 1264,
-    "last_commit_date": "2026-08-18",
-    "last_commit_subject": "Run the Cloud Functions for the first time, and fix what that found",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch gemini-enrich/32395365588 (snapshot of 75bcb13321be, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
-  "claude/four-fixes-2908": {
-   "category": "merged-safe-delete",
-   "purpose": "Śabda sūtra popover fix, Kosha/search sūtra backlink audit.",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main.",
+  "buddhi-archive/gemini-enrich-32395365588-full": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/genie-asr-audio-seed": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/kavya-dist": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/library-view-sync": {
+   "category": "unclassified",
    "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 658,
-    "last_commit_date": "2026-08-29",
-    "last_commit_subject": "Fix śabda sūtra popover, audit+fix Kosha/search sūtra backlinks, real search progress bar",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
+    "merged_into_main": false,
+    "ahead_of_main": 1,
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch claude/library-view-sync-cuveif (snapshot of 1cc429ba781a, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
-  "claude/handoff-pending-review-o4cvmf": {
-   "category": "merged-safe-delete",
-   "purpose": "The 6–7 Sep handoff session's working branch (reader declutter, chandas reports, short URLs). Everything merged; the branch tip is main's own merge commit.",
-   "notes": "HANDOFF.md §0 names it as finished.",
-   "recommendation": "delete",
+  "buddhi-archive/nightly-library-sync": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/ocr-staging-isha_upanishad_bhashya_tippani": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/ocr-staging-katha_upanishad_bhashya_tippani": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/ocr-staging-kena_upanishad_bhashya_tippani": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/ocr-staging-mandukya_upanishad_bhashya_tippani": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/ocr-staging-mundaka_upanishad_bhashya_tippani": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/ocr-staging-prashna_upanishad_bhashya_tippani": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/ocr-staging-raghavendra_vijaya": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/ocr-staging-taittiriya_upanishad_bhashya_tippani": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/ocr-staging-tantrasara_sangraha_tippani_a": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/ocr-staging-tantrasara_sangraha_tippani_b": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/puranas-bhagavata-duplicates": {
+   "category": "unclassified",
    "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 27,
-    "last_commit_date": "2026-09-11",
-    "last_commit_subject": "Merge OCR Studio three-engine comparison",
+    "merged_into_main": false,
+    "ahead_of_main": 1,
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch claude/puranas-bhagavata-duplicates-t32plj (snapshot of 6f303f09a648, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
+   }
+  },
+  "buddhi-archive/puranas-loading": {
+   "category": "unclassified",
+   "snapshot": {
+    "merged_into_main": false,
+    "ahead_of_main": 1,
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch claude/puranas-loading-qa0ymy (snapshot of 1164781dff23, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
+   }
+  },
+  "buddhi-archive/recover-tattvavada-structure": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/rv-pratishakhya-krama-spec": {
+   "category": "unclassified",
+   "snapshot": {
+    "merged_into_main": false,
+    "ahead_of_main": 1,
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch claude/rv-pratishakhya-krama-spec-0v7nnc (snapshot of 49a1b5279c4f, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
+   }
+  },
+  "buddhi-archive/sandhi-dist": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/search-dist": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/session-start": {
+   "category": "unclassified",
+   "snapshot": {
+    "merged_into_main": false,
+    "ahead_of_main": 1,
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch claude/session-start-b88gls (snapshot of 065aa81d265a, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
+   }
+  },
+  "buddhi-archive/tattvavada-cache-dist": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "buddhi-archive/unplaced-files": {
+   "category": "unclassified",
+   "snapshot": {
+    "merged_into_main": false,
+    "ahead_of_main": 1,
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate files from bhumandala that reached no new repository (snapshot of 054e9a414)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
+   }
+  },
+  "buddhi-archive/whatsapp-integration": {
+   "category": "unclassified",
+   "snapshot": {
+    "merged_into_main": false,
+    "ahead_of_main": 1,
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch claude/whatsapp-integration-tob5tq (snapshot of 8f06e70720e2, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
+   }
+  },
+  "buddhi-archive/wordnet-dist": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "claude/bhumandala-dge-migration": {
+   "category": "unclassified",
+   "snapshot": {
+    "merged_into_main": false,
+    "ahead_of_main": 1,
+    "behind_main": 35,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate DGE Madhva acquisition work from bhumandala/Buddhi before deletion",
     "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "claude/library-view-sync-cuveif": {
@@ -189,48 +256,6 @@
     "behind_main": 4,
     "last_commit_date": "2026-09-11",
     "last_commit_subject": "Merge remote-tracking branch 'origin/main' into claude/library-view-sync-cuveif",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "claude/mobile-overlay-fixes": {
-   "category": "merged-safe-delete",
-   "purpose": "Mobile overlay/UI fixes.",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main (merge commit is on main).",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 699,
-    "last_commit_date": "2026-08-28",
-    "last_commit_subject": "Merge branch 'claude/mobile-overlay-fixes' into tmp-merge-mobile-overlay-fixes",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "claude/ocr-studio-work": {
-   "category": "unclassified",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 0,
-    "last_commit_date": "2026-09-11",
-    "last_commit_subject": "Merge OCR Studio phone-reachability and staging-engine fixes",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "claude/prelaunch-adhikara-brahmasutrani-commentators-2808": {
-   "category": "merged-safe-delete",
-   "purpose": "Pre-launch content verification pass (adhikāra links, Brahma Sūtra commentaries).",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main.",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 703,
-    "last_commit_date": "2026-08-28",
-    "last_commit_subject": "Pre-launch: verify adhikara links, re-check brahma_sutrani, fill commentators.json gap",
     "last_author": "Claude",
     "checked_at": "2026-09-12 02:39 IST"
    }
@@ -262,46 +287,32 @@
     "checked_at": "2026-09-12 02:39 IST"
    }
   },
+  "claude/rag-search-llm-assessment-40nqx8": {
+   "category": "unclassified",
+   "snapshot": {}
+  },
+  "claude/rv-pratishakhya-krama-migration": {
+   "category": "unclassified",
+   "snapshot": {
+    "merged_into_main": false,
+    "ahead_of_main": 1,
+    "behind_main": 34,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate the Rigveda-Pratishakhya Krama-patha generator from bhumandala/Buddhi",
+    "last_author": "Claude",
+    "checked_at": "2026-09-15 14:56 IST"
+   }
+  },
   "claude/rv-pratishakhya-krama-spec-0v7nnc": {
    "category": "unclassified",
    "snapshot": {
     "merged_into_main": false,
-    "ahead_of_main": 24,
-    "behind_main": 236,
-    "last_commit_date": "2026-09-11",
-    "last_commit_subject": "Resolve Q2 directly; sharpen and send out the RV 1.1.7 visarga gap (Round 4)",
+    "ahead_of_main": 2494,
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Fix a real pada_patha parsing bug found while diagnosing beyond RV 1.1",
     "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "claude/sanskrit-texts-sources-dg-mpmrjy": {
-   "category": "review-needed",
-   "purpose": "\"Cost/feasibility analysis\" for Madhva AI Assistant future features — 3 commits ahead of main.",
-   "recommendation": "review-likely-delete",
-   "notes": "PR #67 closed unmerged; reads as a planning note, not shipped code.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 3,
-    "behind_main": 1251,
-    "last_commit_date": "2026-08-23",
-    "last_commit_subject": "Add cost/feasibility analysis to the Madhva AI Assistant future-feature note",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "claude/search-taxonomy-entity-linking": {
-   "category": "merged-safe-delete",
-   "purpose": "Entity-linker script-tag additions; sitemap regeneration.",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main.",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 686,
-    "last_commit_date": "2026-08-28",
-    "last_commit_subject": "Regenerate sitemap.xml after entity-linker.js script-tag additions",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "claude/session-start-b88gls": {
@@ -312,36 +323,6 @@
     "behind_main": 228,
     "last_commit_date": "2026-09-11",
     "last_commit_subject": "Archive Uttaradi institutional contacts (165) and seva offerings (16)",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "claude/sitemap-provenance": {
-   "category": "merged-safe-delete",
-   "purpose": "Sitemap regeneration after menu edits.",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main.",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 690,
-    "last_commit_date": "2026-08-28",
-    "last_commit_subject": "Regenerate sitemap.xml after render.html's admin-menu edit",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "claude/tarka-sangraha-nyaya-load-n9flne": {
-   "category": "merged-safe-delete",
-   "purpose": "Tarka Saṅgraha (Nyāya) import; Raghavendra Vijaya audio fix.",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main.",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 856,
-    "last_commit_date": "2026-08-25",
-    "last_commit_subject": "Fix Raghavendra Vijaya audio playback: zero-pad sarga in filePrefix",
     "last_author": "Claude",
     "checked_at": "2026-09-12 02:39 IST"
    }
@@ -358,33 +339,6 @@
     "checked_at": "2026-09-12 02:39 IST"
    }
   },
-  "claude/workflow-library-consolidation-6hludj": {
-   "category": "unclassified",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 297,
-    "last_commit_date": "2026-09-09",
-    "last_commit_subject": "Merge: CI green — collection skip, page audit scope, vandana guard on four pages, sitemap",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "cowork/sarvamoola-and-search": {
-   "category": "review-needed",
-   "purpose": "A large (1,105 unique commits) branch from a Cowork session adding a SarvaMūla corpus + global Sanskrit-aware search — from very early in the project (8 Aug), before this session's own search/library architecture existed.",
-   "recommendation": "review",
-   "notes": "Not diffed file-by-file given its size; almost certainly superseded by the search/library work done since, but deserves a deliberate look (not an automatic delete) given its size.",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 1600,
-    "last_commit_date": "2026-08-08",
-    "last_commit_subject": "Add Sarvamoola Grantha corpus + global Sanskrit-aware search",
-    "last_author": "Claude (Cowork)",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
   "dasa-sahitya-local-dist": {
    "category": "review-needed",
    "purpose": "An earlier build of the Dāsa Sāhitya corpus from local (non-scraped) assets, before it was merged onto main directly as data/Tattvavada/Itara/DasaSahitya/.",
@@ -393,26 +347,11 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 2,
-    "behind_main": 2705,
+    "behind_main": 38,
     "last_commit_date": "2026-08-24",
     "last_commit_subject": "Label every composition with a readable form tag; flag studio recordings",
     "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "dasa-sahitya-ux-integration": {
-   "category": "merged-safe-delete",
-   "purpose": "Wired Dāsa Sāhitya into the shared reader infra (word-tap Kośa, composer sheets).",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main.",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 682,
-    "last_commit_date": "2026-08-28",
-    "last_commit_subject": "Wire Dasa Sahitya into the shared reader infra: word-tap Kosha, composer sheets, composition contextual menu",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "dv-cache-dist": {
@@ -423,26 +362,11 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 2705,
+    "behind_main": 38,
     "last_commit_date": "2026-08-19",
-    "last_commit_subject": "The the source edition pages as fetched, kept so the structure stays recoverable",
+    "last_commit_subject": "The dvaitavedanta.in pages as fetched, kept so the structure stays recoverable",
     "last_author": "github-actions[bot]",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "fix-sarvamula-heading-bug-and-later-acharyas-authors": {
-   "category": "merged-safe-delete",
-   "purpose": "SarvaMūla heading bug fix; later_acharyas author metadata.",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main (merge commit present).",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 701,
-    "last_commit_date": "2026-08-28",
-    "last_commit_subject": "Merge branch 'fix-sarvamula-heading-bug-and-later-acharyas-authors' into tmp-merge-sarvamula-authors",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "gemini-enrich/32394277438": {
@@ -475,21 +399,6 @@
     "checked_at": "2026-09-12 02:39 IST"
    }
   },
-  "gemini-summarize/32467649451": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by gemini-summarize-kavya.yml (padaccheda/anvaya/summary for Raghavendra Vijaya canto 1).",
-   "recommendation": "delete",
-   "notes": "PR #120, closed unmerged; superseded by the later cantos 1-10 run (PR #124, also closed — check if merged content differently before deleting that one).",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 1,
-    "behind_main": 1060,
-    "last_commit_date": "2026-08-21",
-    "last_commit_subject": "data: gemini padaccheda/anvaya/summary for data/kavya_alankara/raghavendra_vijaya (cantos 1)",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
   "genie-asr-audio-seed": {
    "category": "review-needed",
    "purpose": "\"Add 62 real recordings completing the Genie ASR benchmark's audio coverage\" — 3 commits ahead of main.",
@@ -497,222 +406,12 @@
    "notes": "Check whether genie_asr_benchmark/ on main already has this audio, or whether it's still pending.",
    "snapshot": {
     "merged_into_main": false,
-    "ahead_of_main": 3,
-    "behind_main": 690,
-    "last_commit_date": "2026-08-28",
-    "last_commit_subject": "Add 62 real recordings completing the Genie ASR benchmark's audio coverage",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "ingest/bhagavata": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by ingest.yml for a Bhāgavata Purāṇa import run.",
-   "recommendation": "delete",
-   "notes": "73 matching files already on main under a later path/structure; branch diff against current main is 12,840+ files (ancient fork point). No open PR.",
-   "snapshot": {
-    "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 1575,
-    "last_commit_date": "2026-08-09",
-    "last_commit_subject": "data: ingest bhagavata",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "ingest/harivamsha": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by ingest.yml for a Harivaṃśa import run.",
-   "recommendation": "delete",
-   "notes": "Content already on main (6 matching files); ancient fork, no open PR.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 1,
-    "behind_main": 1549,
-    "last_commit_date": "2026-08-09",
-    "last_commit_subject": "data: ingest harivamsha",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "ingest/kiratarjuniya": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by ingest.yml for Kirātārjunīya.",
-   "recommendation": "delete",
-   "notes": "Content already on main; ancient fork, no open PR.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 1,
-    "behind_main": 1565,
-    "last_commit_date": "2026-08-09",
-    "last_commit_subject": "data: ingest kiratarjuniya",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "ingest/kumarasambhava": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by ingest.yml for Kumārasambhava.",
-   "recommendation": "delete",
-   "notes": "Content already on main; ancient fork, no open PR.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 1,
-    "behind_main": 1565,
-    "last_commit_date": "2026-08-09",
-    "last_commit_subject": "data: ingest kumarasambhava",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "ingest/mahabharata": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by ingest.yml for a Mahābhārata import run.",
-   "recommendation": "delete",
-   "notes": "213 matching files already on main; ancient fork, no open PR.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 1,
-    "behind_main": 1575,
-    "last_commit_date": "2026-08-09",
-    "last_commit_subject": "data: ingest mahabharata",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "ingest/manu_smriti": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by ingest.yml for Manusmṛti.",
-   "recommendation": "delete",
-   "notes": "Content already on main; ancient fork, no open PR.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 1,
-    "behind_main": 1575,
-    "last_commit_date": "2026-08-09",
-    "last_commit_subject": "data: ingest manu_smriti",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "ingest/narada_smriti": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by ingest.yml for Nārada Smṛti.",
-   "recommendation": "delete",
-   "notes": "Content already on main; ancient fork, no open PR.",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 1576,
-    "last_commit_date": "2026-08-09",
-    "last_commit_subject": "data: ingest narada_smriti",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "ingest/parashara_smriti": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by ingest.yml for Parāśara Smṛti.",
-   "recommendation": "delete",
-   "notes": "Content already on main; ancient fork, no open PR.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 1,
-    "behind_main": 1559,
-    "last_commit_date": "2026-08-09",
-    "last_commit_subject": "data: ingest parashara_smriti",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "ingest/raghuvamsha": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by ingest.yml for Raghuvaṃśa.",
-   "recommendation": "delete",
-   "notes": "Content already on main; ancient fork, no open PR.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 1,
-    "behind_main": 1565,
-    "last_commit_date": "2026-08-09",
-    "last_commit_subject": "data: ingest raghuvamsha",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "ingest/ramayana": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by ingest.yml for a Rāmāyaṇa import run.",
-   "recommendation": "delete",
-   "notes": "34 matching files already on main; ancient fork, no open PR.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 1,
-    "behind_main": 1575,
-    "last_commit_date": "2026-08-09",
-    "last_commit_subject": "data: ingest ramayana",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "ingest/shankara_bhashya": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by ingest-commentaries.yml for a Śāṅkara Bhāṣya run.",
-   "recommendation": "delete",
-   "notes": "27 matching files already on main; PR #138 closed unmerged, superseded by later Sringeri-edition replacement work.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 1,
-    "behind_main": 948,
-    "last_commit_date": "2026-08-24",
-    "last_commit_subject": "data: ingest shankara_bhashya",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "ingest/shishupalavadha": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by ingest.yml for Śiśupālavadha.",
-   "recommendation": "delete",
-   "notes": "Content already on main; ancient fork, no open PR.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 1,
-    "behind_main": 1575,
-    "last_commit_date": "2026-08-09",
-    "last_commit_subject": "data: ingest shishupalavadha",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "ingest/vishnu_smriti": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by ingest.yml for Viṣṇu Smṛti.",
-   "recommendation": "delete",
-   "notes": "Content already on main; ancient fork, no open PR.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 1,
-    "behind_main": 1559,
-    "last_commit_date": "2026-08-09",
-    "last_commit_subject": "data: ingest vishnu_smriti",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "ingest/yajnavalkya_smriti": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by ingest.yml for Yājñavalkya Smṛti.",
-   "recommendation": "delete",
-   "notes": "Content already on main; ancient fork, no open PR.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 1,
-    "behind_main": 1575,
-    "last_commit_date": "2026-08-09",
-    "last_commit_subject": "data: ingest yajnavalkya_smriti",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch genie-asr-audio-seed (snapshot of 537d6e5ac4fc, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "kavya-dist": {
@@ -723,11 +422,11 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 2705,
+    "behind_main": 38,
     "last_commit_date": "2026-08-18",
     "last_commit_subject": "The built Kavya corpus: 43 works, 68 layers, 94,949 entries",
     "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "main": {
@@ -739,7 +438,19 @@
     "merged_into_main": true,
     "ahead_of_main": 0,
     "behind_main": 0,
-    "checked_at": "2026-09-12 02:39 IST"
+    "checked_at": "2026-09-15 14:56 IST"
+   }
+  },
+  "migrate-purana-from-bhumandala": {
+   "category": "unclassified",
+   "snapshot": {
+    "merged_into_main": false,
+    "ahead_of_main": 1,
+    "behind_main": 35,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Bring over this session's Wikisource/GRETIL Purana importer code from bhumandala",
+    "last_author": "Claude",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "nightly/library-sync": {
@@ -761,12 +472,12 @@
    "recommendation": "keep",
    "snapshot": {
     "merged_into_main": false,
-    "ahead_of_main": 2,
-    "behind_main": 457,
-    "last_commit_date": "2026-09-06",
-    "last_commit_subject": "ocr staging: Bhāgavata Sāroddhāra verification queue (1,103 items) + crops bundle + merged pages + build report",
+    "ahead_of_main": 1,
+    "behind_main": 29,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Recover the Bhagavata Saroddhara staging branch from a deleted branch",
     "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "ocr-staging/isha_upanishad_bhashya_tippani": {
@@ -777,11 +488,11 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 441,
-    "last_commit_date": "2026-09-06",
-    "last_commit_subject": "ocr: Vision pages 1-292 for isha_upanishad_bhashya_tippani",
-    "last_author": "github-actions[bot]",
-    "checked_at": "2026-09-12 02:39 IST"
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch ocr-staging/isha_upanishad_bhashya_tippani (snapshot of df57989495fd, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "ocr-staging/katha_upanishad_bhashya_tippani": {
@@ -792,11 +503,11 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 441,
-    "last_commit_date": "2026-09-06",
-    "last_commit_subject": "ocr: Vision pages 1-438 for katha_upanishad_bhashya_tippani",
-    "last_author": "github-actions[bot]",
-    "checked_at": "2026-09-12 02:39 IST"
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch ocr-staging/katha_upanishad_bhashya_tippani (snapshot of c070cf2bd553, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "ocr-staging/kena_upanishad_bhashya_tippani": {
@@ -807,11 +518,11 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 441,
-    "last_commit_date": "2026-09-06",
-    "last_commit_subject": "ocr: Vision pages 1-122 for kena_upanishad_bhashya_tippani",
-    "last_author": "github-actions[bot]",
-    "checked_at": "2026-09-12 02:39 IST"
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch ocr-staging/kena_upanishad_bhashya_tippani (snapshot of 2aabed8f1328, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "ocr-staging/mandukya_upanishad_bhashya_tippani": {
@@ -822,11 +533,11 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 441,
-    "last_commit_date": "2026-09-06",
-    "last_commit_subject": "ocr: Vision pages 1-218 for mandukya_upanishad_bhashya_tippani",
-    "last_author": "github-actions[bot]",
-    "checked_at": "2026-09-12 02:39 IST"
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch ocr-staging/mandukya_upanishad_bhashya_tippani (snapshot of 3bbf0d1ae5af, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "ocr-staging/mundaka_upanishad_bhashya_tippani": {
@@ -837,11 +548,11 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 441,
-    "last_commit_date": "2026-09-06",
-    "last_commit_subject": "ocr: Vision pages 1-417 for mundaka_upanishad_bhashya_tippani",
-    "last_author": "github-actions[bot]",
-    "checked_at": "2026-09-12 02:39 IST"
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch ocr-staging/mundaka_upanishad_bhashya_tippani (snapshot of d9b39757684f, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "ocr-staging/prashna_upanishad_bhashya_tippani": {
@@ -852,23 +563,23 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 441,
-    "last_commit_date": "2026-09-06",
-    "last_commit_subject": "ocr: Vision pages 1-287 for prashna_upanishad_bhashya_tippani",
-    "last_author": "github-actions[bot]",
-    "checked_at": "2026-09-12 02:39 IST"
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch ocr-staging/prashna_upanishad_bhashya_tippani (snapshot of 86b25b322c34, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "ocr-staging/raghavendra_vijaya": {
    "category": "unclassified",
    "snapshot": {
     "merged_into_main": false,
-    "ahead_of_main": 2,
-    "behind_main": 13,
-    "last_commit_date": "2026-09-11",
-    "last_commit_subject": "ocr: Tesseract pages 44-53 for raghavendra_vijaya",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
+    "ahead_of_main": 1,
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch ocr-staging/raghavendra_vijaya (snapshot of f1fda495dff6, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "ocr-staging/taittiriya_upanishad_bhashya_tippani": {
@@ -879,11 +590,11 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 441,
-    "last_commit_date": "2026-09-06",
-    "last_commit_subject": "ocr: Vision pages 1-546 for taittiriya_upanishad_bhashya_tippani",
-    "last_author": "github-actions[bot]",
-    "checked_at": "2026-09-12 02:39 IST"
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch ocr-staging/taittiriya_upanishad_bhashya_tippani (snapshot of c1df7aeca9d3, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "ocr-staging/tantrasara_sangraha_tippani_a": {
@@ -894,11 +605,11 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 441,
-    "last_commit_date": "2026-09-06",
-    "last_commit_subject": "ocr: Vision pages 1-566 for tantrasara_sangraha_tippani_a",
-    "last_author": "github-actions[bot]",
-    "checked_at": "2026-09-12 02:39 IST"
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch ocr-staging/tantrasara_sangraha_tippani_a (snapshot of 9f14bcc8d230, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "ocr-staging/tantrasara_sangraha_tippani_b": {
@@ -909,57 +620,16 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 441,
-    "last_commit_date": "2026-09-06",
-    "last_commit_subject": "ocr: Vision pages 567-1133 for tantrasara_sangraha_tippani_b",
-    "last_author": "github-actions[bot]",
-    "checked_at": "2026-09-12 02:39 IST"
+    "behind_main": 38,
+    "last_commit_date": "2026-09-13",
+    "last_commit_subject": "Migrate bhumandala branch ocr-staging/tantrasara_sangraha_tippani_b (snapshot of c1d05fef8b1d, 2026-09-13)",
+    "last_author": "Claude (migration)",
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
-  "reader-redesign": {
-   "category": "merged-safe-delete",
-   "purpose": "An earlier reader redesign pass.",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main (merge commit present).",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 683,
-    "last_commit_date": "2026-08-28",
-    "last_commit_subject": "Merge branch 'reader-redesign' into tmp-merge-reader-redesign",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "recover/dv-structure": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by recover-dv-structure.yml to rebuild the DvaitaVedanta nav tree after an import flattened it.",
-   "recommendation": "delete",
-   "notes": "PR #86, closed unmerged; the tree was rebuilt on main via other later work.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 2,
-    "behind_main": 1148,
-    "last_commit_date": "2026-08-19",
-    "last_commit_subject": "Recover the the source edition tree from the cached pages",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "reindex/search-and-status": {
-   "category": "stale-superseded",
-   "purpose": "Auto-created by reindex.yml for an early search-index rebuild.",
-   "recommendation": "delete",
-   "notes": "PRs #62 and #49, both closed unmerged; many newer reindexes have landed on main since.",
-   "snapshot": {
-    "merged_into_main": false,
-    "ahead_of_main": 1,
-    "behind_main": 1255,
-    "last_commit_date": "2026-08-18",
-    "last_commit_subject": "chore: re-index global search + refresh library status",
-    "last_author": "Tribhuvanachar",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
+  "recover/tattvavada-structure": {
+   "category": "unclassified",
+   "snapshot": {}
   },
   "sandhi-dist": {
    "category": "runtime-dist",
@@ -969,11 +639,11 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 2705,
+    "behind_main": 38,
     "last_commit_date": "2026-08-21",
     "last_commit_subject": "Precomputed sandhi-vicheda index, built by tools/build_sandhi_index.py",
     "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "search-dist": {
@@ -984,56 +654,11 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 2705,
-    "last_commit_date": "2026-09-10",
+    "behind_main": 38,
+    "last_commit_date": "2026-09-11",
     "last_commit_subject": "The built corpus-search index, rebuilt by reindex.yml",
     "last_author": "github-actions[bot]",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "smriti-dharmashastra-fixes": {
-   "category": "merged-safe-delete",
-   "purpose": "find_title() fuzzy-match bug fix; Vīramitrodaya/Āpastamba formatting.",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main.",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 693,
-    "last_commit_date": "2026-08-28",
-    "last_commit_subject": "Fix find_title() fuzzy-match bug; document Vīramitrodaya/Āpastamba findings",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "tmp-dhatu-grounding-wip": {
-   "category": "merged-safe-delete",
-   "purpose": "Scratch branch for the dhātu_lexicon grounded-regeneration pass.",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main; name says tmp — was always meant to be deleted after merge.",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 664,
-    "last_commit_date": "2026-08-28",
-    "last_commit_subject": "dhatu_lexicon: full grounded regeneration complete, surface real sources in UI",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
-   }
-  },
-  "tmp-dhatu-lexicon-wip": {
-   "category": "merged-safe-delete",
-   "purpose": "Scratch branch for the dhātu_lexicon Gemini run (2229/2229 roots).",
-   "recommendation": "delete",
-   "notes": "Verified ancestor of main; name says tmp.",
-   "snapshot": {
-    "merged_into_main": true,
-    "ahead_of_main": 0,
-    "behind_main": 672,
-    "last_commit_date": "2026-08-28",
-    "last_commit_subject": "dhatu_lexicon: complete Gemini run (2229/2229), retire artha_extra gloss",
-    "last_author": "Claude",
-    "checked_at": "2026-09-12 02:39 IST"
+    "checked_at": "2026-09-15 14:56 IST"
    }
   },
   "wordnet-dist": {
@@ -1044,11 +669,11 @@
    "snapshot": {
     "merged_into_main": false,
     "ahead_of_main": 1,
-    "behind_main": 2705,
+    "behind_main": 38,
     "last_commit_date": "2026-08-18",
     "last_commit_subject": "The built Sanskrit WordNet, rebuilt by publish-wordnet.yml",
     "last_author": "github-actions[bot]",
-    "checked_at": "2026-09-12 02:39 IST"
+    "checked_at": "2026-09-15 14:56 IST"
    }
   }
  },
@@ -1090,7 +715,7 @@
     "writes": [
      "commits directly to the branch it ran on"
     ],
-    "lines": 241
+    "lines": 259
    }
   },
   "check-sources.yml": {
@@ -1141,6 +766,55 @@
      "opens a GitHub issue"
     ],
     "lines": 114
+   }
+  },
+  "check-vishvasa.yml": {
+   "category": "source-sync",
+   "display_name": "Vishvāsa — check for new material",
+   "purpose": "Asks the open vedAH_yajuH repository whether anything we hold has changed, and reports. Reports only; it never imports on its own.",
+   "notes": "The source is a public GitHub repository, so this is a ref comparison rather than a crawl.",
+   "recommendation": "keep",
+   "reason": "The watch half of the Vishvasa source pair.",
+   "keep": true,
+   "generated": {
+    "name": "Check vishvAsa sources for updates",
+    "triggers": [
+     "schedule",
+     "manual"
+    ],
+    "schedule": [
+     {
+      "cron_utc": "30 6 1,16 * *",
+      "ist": "12:00 pm IST on the 1st and 16th of every month"
+     }
+    ],
+    "inputs": [
+     {
+      "name": "only",
+      "label": "Check only these vishvasa_* source ids (comma-separated; blank = all 13)",
+      "type": "string",
+      "default": "",
+      "required": false
+     },
+     {
+      "name": "remember",
+      "label": "Record what was seen, so the next run reports only what is new",
+      "type": "boolean",
+      "default": true,
+      "required": false
+     }
+    ],
+    "secrets": [],
+    "cost": [],
+    "scripts": [
+     "tools/check_vishvasa.py"
+    ],
+    "missing_scripts": [],
+    "writes": [
+     "commits directly to the branch it ran on",
+     "opens a GitHub issue"
+    ],
+    "lines": 138
    }
   },
   "darshanas.yml": {
@@ -1205,7 +879,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "importers/darshana_gretil.py",
@@ -1220,7 +896,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 160
+    "lines": 185
    }
   },
   "deploy-firebase-functions.yml": {
@@ -1275,6 +951,7 @@
      }
     ],
     "secrets": [
+     "BUDDHI_TOKEN",
      "FIREBASE_ADMIN_SDK",
      "FIREBASE_CLIENT_EMAIL",
      "FIREBASE_CLIENT_ID",
@@ -1292,7 +969,7 @@
     "writes": [
      "deploys to Firebase"
     ],
-    "lines": 176
+    "lines": 211
    }
   },
   "deploy-firebase-hosting.yml": {
@@ -1318,6 +995,7 @@
      }
     ],
     "secrets": [
+     "BUDDHI_TOKEN",
      "FIREBASE_ADMIN_SDK",
      "FIREBASE_CLIENT_EMAIL",
      "FIREBASE_CLIENT_ID",
@@ -1335,7 +1013,7 @@
     "writes": [
      "deploys to Firebase"
     ],
-    "lines": 111
+    "lines": 122
    }
   },
   "deploy-firestore.yml": {
@@ -1354,6 +1032,7 @@
     "schedule": [],
     "inputs": [],
     "secrets": [
+     "BUDDHI_TOKEN",
      "FIREBASE_ADMIN_SDK",
      "FIREBASE_CLIENT_EMAIL",
      "FIREBASE_CLIENT_ID",
@@ -1371,7 +1050,7 @@
     "writes": [
      "deploys to Firebase"
     ],
-    "lines": 121
+    "lines": 130
    }
   },
   "deploy-kamadhenu-space.yml": {
@@ -1542,7 +1221,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "tools/dvaitavedanta/dv_inspect.py",
@@ -1561,7 +1242,7 @@
      "opens a pull request",
      "uploads a run artifact"
     ],
-    "lines": 465
+    "lines": 488
    }
   },
   "extract-setutila.yml": {
@@ -1594,7 +1275,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "tools/audit_library.py",
@@ -1605,7 +1288,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 89
+    "lines": 111
    }
   },
   "gemini-bench.yml": {
@@ -1766,6 +1449,7 @@
      }
     ],
     "secrets": [
+     "BRAHMABUDDHI_TOKEN",
      "GEMINI_API_KEY"
     ],
     "cost": [
@@ -1780,7 +1464,7 @@
      "opens a pull request",
      "commits directly to the branch it ran on"
     ],
-    "lines": 140
+    "lines": 164
    }
   },
   "gemini-dhatu-lexicon.yml": {
@@ -1846,6 +1530,7 @@
      }
     ],
     "secrets": [
+     "BRAHMABUDDHI_TOKEN",
      "GEMINI_API_KEY"
     ],
     "cost": [
@@ -1860,7 +1545,7 @@
      "opens a pull request",
      "commits directly to the branch it ran on"
     ],
-    "lines": 128
+    "lines": 151
    }
   },
   "gemini-enrich.yml": {
@@ -1912,6 +1597,7 @@
      }
     ],
     "secrets": [
+     "BRAHMABUDDHI_TOKEN",
      "GEMINI_API_KEY"
     ],
     "cost": [
@@ -1926,7 +1612,7 @@
      "opens a pull request",
      "commits directly to the branch it ran on"
     ],
-    "lines": 120
+    "lines": 143
    }
   },
   "gemini-summarize-kavya.yml": {
@@ -2006,6 +1692,7 @@
      }
     ],
     "secrets": [
+     "BRAHMABUDDHI_TOKEN",
      "GEMINI_API_KEY"
     ],
     "cost": [
@@ -2020,7 +1707,7 @@
      "opens a pull request",
      "commits directly to the branch it ran on"
     ],
-    "lines": 139
+    "lines": 162
    }
   },
   "import-dasa-sahitya.yml": {
@@ -2053,18 +1740,18 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
-     "tools/Tattvavada/Itara/DasaSahitya/import_Tattvavada/Itara/DasaSahitya.py"
+     "tools/dasa_sahitya/import_dasa_sahitya.py"
     ],
-    "missing_scripts": [
-     "tools/Tattvavada/Itara/DasaSahitya/import_Tattvavada/Itara/DasaSahitya.py"
-    ],
+    "missing_scripts": [],
     "writes": [
      "opens a pull request"
     ],
-    "lines": 79
+    "lines": 101
    }
   },
   "import-kavya.yml": {
@@ -2112,7 +1799,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "-m kavya.build_kavya_index",
@@ -2126,7 +1815,7 @@
      "force-pushes a dist/staging branch",
      "uploads a run artifact"
     ],
-    "lines": 170
+    "lines": 177
    }
   },
   "ingest-commentaries.yml": {
@@ -2165,7 +1854,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "importers/dispatch.py",
@@ -2177,7 +1868,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 69
+    "lines": 91
    }
   },
   "ingest-gretil-bulk.yml": {
@@ -2230,7 +1921,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "importers/gretil_bulk.py",
@@ -2243,7 +1936,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 125
+    "lines": 149
    }
   },
   "ingest-sayana-smriti.yml": {
@@ -2322,10 +2015,11 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
-     "build_search_index.py",
      "tools/sayana_smriti/patches/taxonomy_patch.py",
      "tools/sayana_smriti/tests/test_core_patch.js",
      "tools/sayana_smriti/tests/test_parsers.py",
@@ -2337,7 +2031,7 @@
      "opens a pull request",
      "uploads a run artifact"
     ],
-    "lines": 196
+    "lines": 220
    }
   },
   "ingest.yml": {
@@ -2379,10 +2073,11 @@
       ]
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
-     "build_search_index.py",
      "importers/dispatch.py",
      "tools/gen_library_status.py"
     ],
@@ -2390,7 +2085,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 64
+    "lines": 86
    }
   },
   "interlink.yml": {
@@ -2409,7 +2104,9 @@
     ],
     "schedule": [],
     "inputs": [],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "tools/build_dhatu_prayoga_index.py",
@@ -2422,7 +2119,7 @@
     "writes": [
      "commits directly to the branch it ran on"
     ],
-    "lines": 106
+    "lines": 126
    }
   },
   "kamadhenu-diagnostics.yml": {
@@ -2682,7 +2379,9 @@
     ],
     "schedule": [],
     "inputs": [],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "tools/build_kavya_tracker.py"
@@ -2691,7 +2390,7 @@
     "writes": [
      "commits directly to the branch it ran on"
     ],
-    "lines": 78
+    "lines": 89
    }
   },
   "nightly.yml": {
@@ -2723,7 +2422,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "tools/audit_library.py",
@@ -2738,7 +2439,7 @@
      "opens a pull request",
      "commits directly to the branch it ran on"
     ],
-    "lines": 128
+    "lines": 155
    }
   },
   "ocr-lakshmi-kaumudi.yml": {
@@ -2880,7 +2581,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "tools/ocr_preview_pages.py"
@@ -2890,7 +2593,7 @@
      "force-pushes a dist/staging branch",
      "uploads a run artifact"
     ],
-    "lines": 93
+    "lines": 99
    }
   },
   "ocr-review-merge.yml": {
@@ -2981,7 +2684,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "tools/ocr_review_merge.py",
@@ -2991,7 +2696,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 116
+    "lines": 139
    }
   },
   "ocr-sanskrit-commentary.yml": {
@@ -3159,6 +2864,7 @@
      }
     ],
     "secrets": [
+     "BRAHMABUDDHI_TOKEN",
      "GEMINI_API_KEY",
      "VISION_API_KEY"
     ],
@@ -3177,7 +2883,7 @@
      "commits directly to the branch it ran on",
      "uploads a run artifact"
     ],
-    "lines": 236
+    "lines": 261
    }
   },
   "ocr-sarvam.yml": {
@@ -3197,10 +2903,17 @@
     "inputs": [
      {
       "name": "pdf_url",
-      "label": "Direct URL of the PDF (archive.org download link, Drive direct link, …)",
+      "label": "Direct URL of the PDF (archive.org download link, Drive direct link, …). Leave empty if using pdf_path.",
       "type": "string",
       "default": "",
-      "required": true
+      "required": false
+     },
+     {
+      "name": "pdf_path",
+      "label": "Path to a PDF inside THIS repository, e.g. source/pdf/raghavendra_vijaya.pdf. Use instead of pdf_url for a scan that is not public.",
+      "type": "string",
+      "default": "",
+      "required": false
      },
      {
       "name": "pages",
@@ -3244,11 +2957,15 @@
       ]
      },
      {
-      "name": "dry_run",
-      "label": "Count pages and jobs only — call nothing, spend nothing",
-      "type": "boolean",
-      "default": true,
-      "required": false
+      "name": "mode",
+      "label": "dry-run counts the pages and spends nothing. real-run sends them to Sarvam and bills the prepaid balance.",
+      "type": "choice",
+      "default": "dry-run",
+      "required": false,
+      "options": [
+       "dry-run",
+       "real-run"
+      ]
      }
     ],
     "secrets": [
@@ -3263,7 +2980,7 @@
      "commits directly to the branch it ran on",
      "uploads a run artifact"
     ],
-    "lines": 99
+    "lines": 130
    }
   },
   "ocr-vasu-kaumudi.yml": {
@@ -3431,7 +3148,7 @@
     "writes": [
      "commits directly to the branch it ran on"
     ],
-    "lines": 76
+    "lines": 82
    }
   },
   "probe-archive-sayana.yml": {
@@ -3582,6 +3299,33 @@
     "lines": 73
    }
   },
+  "promote-to-buddhi.yml": {
+   "category": "deploy",
+   "display_name": "Promote to Buddhi (proof of concept)",
+   "purpose": "The last hop of the private build chain, moving finalized staging content into the public repository. Manual by design.",
+   "notes": "Deliberately workflow_dispatch only: BrahmaBuddhi is staging and nothing there may run by itself. Running this means 'staging is finalized, move it to production'.",
+   "recommendation": "keep",
+   "reason": "The only route from staging to the public site.",
+   "keep": true,
+   "generated": {
+    "name": "Promote to Buddhi (proof of concept)",
+    "triggers": [
+     "manual"
+    ],
+    "schedule": [],
+    "inputs": [],
+    "secrets": [
+     "BUDDHI_TOKEN"
+    ],
+    "cost": [],
+    "scripts": [],
+    "missing_scripts": [],
+    "writes": [
+     "commits directly to the branch it ran on"
+    ],
+    "lines": 63
+   }
+  },
   "publish-dasa-sahitya-local.yml": {
    "category": "content-import",
    "display_name": "Dāsa Sāhitya — publish local-asset imports to a dist branch",
@@ -3606,14 +3350,16 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [],
     "missing_scripts": [],
     "writes": [
      "force-pushes a dist/staging branch"
     ],
-    "lines": 114
+    "lines": 119
    }
   },
   "publish-wordnet.yml": {
@@ -3653,7 +3399,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "tools/build_wordnet.py"
@@ -3662,7 +3410,7 @@
     "writes": [
      "force-pushes a dist/staging branch"
     ],
-    "lines": 146
+    "lines": 151
    }
   },
   "push-firebase-function-secrets.yml": {
@@ -3688,6 +3436,7 @@
      }
     ],
     "secrets": [
+     "BUDDHI_TOKEN",
      "CASHFREE_CLIENT_ID",
      "CASHFREE_CLIENT_SECRET",
      "FIREBASE_ADMIN_SDK",
@@ -3718,7 +3467,35 @@
     "writes": [
      "deploys to Firebase"
     ],
-    "lines": 185
+    "lines": 195
+   }
+  },
+  "push-to-brahmabuddhi.yml": {
+   "category": "deploy",
+   "display_name": "Push to BrahmaBuddhi (staging)",
+   "purpose": "Sends this repository's reviewed content up to the staging repository, the hop before the public site.",
+   "notes": "Staging holds no development of its own, so this is a one-way push; nothing is edited at the far end.",
+   "recommendation": "keep",
+   "reason": "The middle hop of the build chain.",
+   "keep": true,
+   "generated": {
+    "name": "Push to BrahmaBuddhi (proof of concept)",
+    "triggers": [
+     "manual",
+     "push to main"
+    ],
+    "schedule": [],
+    "inputs": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
+    "cost": [],
+    "scripts": [],
+    "missing_scripts": [],
+    "writes": [
+     "commits directly to the branch it ran on"
+    ],
+    "lines": 64
    }
   },
   "recover-dv-structure.yml": {
@@ -3759,7 +3536,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "tools/dvaitavedanta/recover_structure.py"
@@ -3770,7 +3549,7 @@
      "commits directly to the branch it ran on",
      "uploads a run artifact"
     ],
-    "lines": 142
+    "lines": 164
    }
   },
   "reindex.yml": {
@@ -3831,10 +3610,12 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN",
+     "BUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
-     "build_search_index.py",
      "tools/gen_library_status.py"
     ],
     "missing_scripts": [],
@@ -3842,7 +3623,7 @@
      "opens a pull request",
      "force-pushes a dist/staging branch"
     ],
-    "lines": 221
+    "lines": 274
    }
   },
   "seo-pages.yml": {
@@ -3895,7 +3676,7 @@
     "lines": 92
    }
   },
-  "sync-the source edition.yml": {
+  "sync-advaitasharada.yml": {
    "category": "source-sync",
    "display_name": "Advaita Śāradā — sync (re-read and PR)",
    "purpose": "Re-reads all 51 works we hold from the source edition and opens a pull request with whatever changed. Monthly by itself (3rd, 6:00 am IST) or on demand. The site publishes no change dates, so each run is a full re-crawl (~980 pages, ~17 min at one request a second).",
@@ -3904,7 +3685,7 @@
    "reason": "The import half of the Advaita Śāradā syncer card.",
    "keep": true,
    "generated": {
-    "name": "Sync — Advaita Śāradā (the source edition)",
+    "name": "Sync — Advaita Śāradā (advaitasharada.sringeri.net)",
     "triggers": [
      "schedule",
      "manual"
@@ -3938,7 +3719,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "importers/advaita_sharada.py",
@@ -3950,7 +3733,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 111
+    "lines": 135
    }
   },
   "sync-anandamakaranda.yml": {
@@ -3962,7 +3745,7 @@
    "reason": "The import half of the Ānandamakaranda syncer card.",
    "keep": true,
    "generated": {
-    "name": "Sync — Ānandamakaranda (the source edition)",
+    "name": "Sync — Ānandamakaranda (anandamakaranda.in)",
     "triggers": [
      "schedule",
      "manual"
@@ -3996,7 +3779,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "tools/anandamakaranda/sync_anandamakaranda.py",
@@ -4008,7 +3793,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 115
+    "lines": 139
    }
   },
   "sync-ashtadhyayi.yml": {
@@ -4054,7 +3839,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "importers/ashtadhyayi_layers.py",
@@ -4068,7 +3855,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 118
+    "lines": 142
    }
   },
   "sync-dvaitavedanta.yml": {
@@ -4081,7 +3868,7 @@
    "keep": true,
    "trigger": "cron + manual",
    "generated": {
-    "name": "Sync check the source edition",
+    "name": "Sync check dvaitavedanta.in",
     "triggers": [
      "schedule",
      "manual"
@@ -4145,7 +3932,7 @@
    "reason": "The import half of the Meghamālā syncer card; the importer was retired to the zip and brought back for this.",
    "keep": true,
    "generated": {
-    "name": "Sync — Śrī Rāmānuja Meghamālā (the source edition)",
+    "name": "Sync — Śrī Rāmānuja Meghamālā (srivaishnavan.com)",
     "triggers": [
      "schedule",
      "manual"
@@ -4186,7 +3973,9 @@
       "required": false
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "importers/ramanuja_meghamala.py",
@@ -4199,7 +3988,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 135
+    "lines": 159
    }
   },
   "test.yml": {
@@ -4223,9 +4012,6 @@
     "cost": [],
     "scripts": [
      "-m pytest",
-     "js/test-gold-render.js",
-     "js/test-parity.js",
-     "js/test-search-resilience.js",
      "tools/audio_admin/test-audio-detect.js",
      "tools/audit_names.py",
      "tools/build_repo_inventory.py",
@@ -4243,7 +4029,7 @@
     "writes": [
      "nothing in the repository (report only)"
     ],
-    "lines": 116
+    "lines": 122
    }
   },
   "vedavani-extract.yml": {
@@ -4320,7 +4106,9 @@
       "required": true
      }
     ],
-    "secrets": [],
+    "secrets": [
+     "BRAHMABUDDHI_TOKEN"
+    ],
     "cost": [],
     "scripts": [
      "tools/vedavani/extract_audio.py"
@@ -4330,7 +4118,7 @@
      "opens a pull request",
      "uploads a run artifact"
     ],
-    "lines": 105
+    "lines": 124
    }
   },
   "vedavani-hf-corpus.yml": {
@@ -4390,6 +4178,7 @@
      }
     ],
     "secrets": [
+     "BRAHMABUDDHI_TOKEN",
      "HF_TOKEN"
     ],
     "cost": [
@@ -4404,11 +4193,11 @@
      "uploads a run artifact",
      "talks to Hugging Face"
     ],
-    "lines": 99
+    "lines": 115
    }
   }
  },
- "generated_at": "2026-09-12 02:39 IST",
+ "generated_at": "2026-09-15 14:56 IST",
  "workflow_categories": [
   {
    "id": "source-sync",

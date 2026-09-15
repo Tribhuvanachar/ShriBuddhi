@@ -10,7 +10,11 @@ with populated = (it has content). Safe to run repeatedly; run AFTER an importer
 """
 import json, os, glob, datetime
 
-ROOT = 'dge' if os.path.isdir('data') else '.'
+# Probe for the nested layout by the nested path itself. The old test asked
+# whether 'data' existed, which is true exactly when the data is NOT under
+# dge/ -- so it picked 'dge' in the flattened layout and '.' in the nested
+# one, i.e. it was wrong in both.
+ROOT = 'dge' if os.path.isdir(os.path.join('dge', 'data')) else '.'
 DATA = os.path.join(ROOT, 'data')
 LIB = os.path.join(DATA, 'library.json')
 

@@ -19,6 +19,20 @@ import sys
 import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+
+# dv_sources.json names the sites the importer harvests, which is provenance,
+# so it lives in the private source repository -- resolved exactly as
+# sync_check.py resolves it. Without it this file cannot run at all, and it
+# must say so and stand down rather than die on a missing path: CI has no
+# checkout of that repository, and a traceback there reads like a real
+# regression.
+_CONFIG_DIR = os.environ.get(
+    "DGE_IMPORT_CONFIG",
+    os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(HERE))),
+                 "parabuddhi", "import_config"))
+CONFIG = os.path.join(HERE, "dv_sources.json")
+if not os.path.isfile(CONFIG):
+    CONFIG = os.path.join(_CONFIG_DIR, "tools_dvaitavedanta_dv_sources.json")
 sys.path.insert(0, HERE)
 
 import import_dvaitavedanta as I  # noqa: E402
@@ -159,7 +173,7 @@ def main():
         prime(cache, BASE + "/category-details/13533/937/thasha/1-para/lkashh/lkashh", CONTAINER)
 
         rc = I.main([
-            "--config", os.path.join(HERE, "dv_sources.json"),
+            "--config", CONFIG,
             "--out", out, "--cache", cache,
             "--granthas", "pramana_lakshana",
             "--delay", "0", "--write",
@@ -189,7 +203,7 @@ def main():
                               "permission" in mula["source_note"].lower())
 
         item = mula["items"][0]
-        failures += not check("item id shape", item["id"] == "dge_11f054541371", item["id"])
+        failures += not check("item id shape", item["id"] == "DV_13528", item["id"])
         failures += not check("per-item provenance",
                               item["source"]["url"].startswith(BASE)
                               and item["source"]["site"] == "dvaitavedanta.in"
@@ -234,7 +248,7 @@ def main():
         # Idempotence: a second --write run must not change anything.
         before = open(mula_path, encoding="utf-8").read()
         I.main([
-            "--config", os.path.join(HERE, "dv_sources.json"),
+            "--config", CONFIG,
             "--out", out, "--cache", cache, "--granthas", "pramana_lakshana",
             "--delay", "0", "--write", "--fetch-date", "2026-08-15", "--summary-file", "",
         ])
@@ -244,7 +258,7 @@ def main():
         # Dry run must write nothing.
         out2 = os.path.join(tmp, "out2")
         I.main([
-            "--config", os.path.join(HERE, "dv_sources.json"),
+            "--config", CONFIG,
             "--out", out2, "--cache", cache, "--granthas", "pramana_lakshana",
             "--delay", "0", "--dry-run", "--summary-file", "",
         ])
@@ -255,7 +269,7 @@ def main():
         # Keshavacharya's Vivarana under Jayatirtha's tika — two different
         # authors' works silently merged into one folder.
         print("layer name resolution")
-        cfg = json.load(open(os.path.join(HERE, "dv_sources.json"),
+        cfg = json.load(open(CONFIG,
                              encoding="utf-8"))["layers"]
         resolve = I.resolve_layer_config
         cases = [
@@ -320,7 +334,7 @@ def main():
         # is not a routine sweep. nyaya_sudha needs ~46h of its own, so it must
         # be reachable by name without editing the config each time.
         print("explicit selection overrides enabled: false")
-        full = json.load(open(os.path.join(HERE, "dv_sources.json"), encoding="utf-8"))
+        full = json.load(open(CONFIG, encoding="utf-8"))
         swept = {g["slug"] for g in I.select_granthas(full, None, None)}
         failures += not check("scope=all leaves nyaya_sudha out",
                               "nyaya_sudha" not in swept)
@@ -346,7 +360,7 @@ def main():
             prime(deep_cache, BASE + "/category-details/13533/937/thasha/1-para/lkashh/lkashh", CONTAINER_WITH_CHILDREN)
             prime(deep_cache, BASE + "/category-details/13777/937/thasha/1-para/deep/deep", LEAF_DEEP)
             rc2 = I.main([
-                "--config", os.path.join(HERE, "dv_sources.json"),
+                "--config", CONFIG,
                 "--out", deep_out, "--cache", deep_cache,
                 "--granthas", "pramana_lakshana",
                 "--delay", "0", "--write", "--fetch-date", "2026-08-15",
@@ -382,7 +396,7 @@ def main():
                         "/category-details/13533/937/thasha/1-para/lkashh/lkashh"):
                 prime(multi_cache, BASE + url, CONTAINER)
             rc3 = I.main([
-                "--config", os.path.join(HERE, "dv_sources.json"),
+                "--config", CONFIG,
                 "--out", multi_out, "--cache", multi_cache,
                 "--granthas", "pramana_lakshana",
                 "--delay", "0", "--write", "--fetch-date", "2026-08-15",
@@ -400,7 +414,7 @@ def main():
             failures += not check("ids are unique inside the layer",
                                   len(m_ids) == len(set(m_ids)), m_ids)
             failures += not check("ids follow the article, not the page",
-                                  set(m_ids) == {"SM1:170", "SM1:85"}, m_ids)
+                                  set(m_ids) == {"DV_13800", "DV_13801"}, m_ids)
             failures += not check("cross-layer link survives", set(t_ids) == set(m_ids),
                                   (t_ids, m_ids))
         finally:
@@ -415,7 +429,7 @@ def main():
             prime(ka_cache, BASE + "/category-details/19180/19173/sharas/karama/managa",
                   KARMAVIJAYA_LEAF)
             rc4 = I.main([
-                "--config", os.path.join(HERE, "dv_sources.json"),
+                "--config", CONFIG,
                 "--out", ka_out, "--cache", ka_cache,
                 "--granthas", "karmavijaya",
                 "--delay", "0", "--write",
@@ -445,7 +459,7 @@ def main():
             prime(av_cache, BASE + "/category-details/14473/563/satara/2-anav/parath/parath",
                   ANUVYAKHYANA_LEAF)
             rc5 = I.main([
-                "--config", os.path.join(HERE, "dv_sources.json"),
+                "--config", CONFIG,
                 "--out", av_out, "--cache", av_cache,
                 "--granthas", "anuvyakhyana",
                 "--delay", "0", "--write",
@@ -486,4 +500,9 @@ def main():
 
 
 if __name__ == "__main__":
+    if not os.path.isfile(CONFIG):
+        print("SKIP test_import_offline: no dv_sources.json. It lives in the "
+              "private source repository; point DGE_IMPORT_CONFIG at that "
+              "repo's import_config/ directory to run these tests.")
+        raise SystemExit(0)
     raise SystemExit(main())

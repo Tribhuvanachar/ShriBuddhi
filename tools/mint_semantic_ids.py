@@ -34,6 +34,16 @@ CAT = "data/_catalog/sarvamula_index.json"
 PLACEHOLDER = re.compile(r"\bdge_[0-9a-f]{12}\b")
 TEXT_EXT = {".json", ".js", ".py", ".md", ".html", ".yml", ".yaml", ".txt", ".xml"}
 
+# These tests assert on what the IMPORTER emits, which is the origin site's own
+# record number -- the id before any of this runs. Rewriting the expectation
+# beside a generator no textual pass can see leaves a test disagreeing with
+# itself, which is how three of them sat failing behind a dead CI. The
+# renumberer keeps the same list.
+SKIP = {"tools/dvaitavedanta/test_import_offline.py",
+        "tools/dvaitavedanta/test_fold_tiny_layers.py",
+        "tools/dvaitavedanta/test_fold_rare_headings.py",
+        "tools/mint_semantic_ids.py"}
+
 
 def code_by_dir() -> dict[str, str]:
     """Directory holding a data.json -> its code. `mula` is the work itself."""
@@ -145,7 +155,7 @@ def main() -> int:
     files = [f for f in subprocess.run(
         ["git", "grep", "-lI", "-E", r"\bdge_[0-9a-f]{12}\b"],
         capture_output=True, text=True).stdout.splitlines()
-        if os.path.splitext(f)[1].lower() in TEXT_EXT]
+        if os.path.splitext(f)[1].lower() in TEXT_EXT and f not in SKIP]
 
     hits = touched = unmapped = 0
     for rel in files:

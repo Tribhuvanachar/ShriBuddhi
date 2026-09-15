@@ -18,6 +18,12 @@ name: Tests
 
 on:
   push:
+    # buddhi-archive/** are frozen snapshots of the public repo's branches,
+    # kept only so nothing was lost when those branches were deleted. They
+    # carry the pre-migration dge/ layout, so they fail this gate by
+    # construction; running it on them is 28 red runs that mean nothing.
+    branches-ignore:
+      - 'buddhi-archive/**'
   pull_request:
   workflow_dispatch: {}
 
@@ -44,7 +50,7 @@ jobs:
       # exporter; indic-transliteration: tools/seo/taxonomy.py's IAST labels.
       # Without them pytest stopped at collection and every later step here
       # (validators, drift gates) never ran — main was red for the wrong reason.
-      - run: pip install pytest beautifulsoup4 requests pyyaml numpy indic-transliteration
+      - run: pip install pytest beautifulsoup4 requests pyyaml numpy indic-transliteration openpyxl
 
       - name: Python test suite (tests/)
         run: python3 -m pytest tests/ -q

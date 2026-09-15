@@ -69,10 +69,22 @@ function jsSideFor(word) {
 }
 
 function pySideForAll(words) {
-  const scriptPath = path.join(__dirname, '..', 'parity_compute.py');
+  // parity_compute.py moved into tools/ when the repo was flattened; this
+  // path still pointed at the old root location, so the step died on a
+  // missing file rather than on a parity mismatch.
+  const scriptPath = path.join(__dirname, '..', 'tools', 'parity_compute.py');
+  // Python puts the SCRIPT's directory on sys.path, not the working
+  // directory, so a script under tools/ cannot see search_toolkit_pkg at the
+  // repo root on its own. Say where the root is rather than depending on
+  // where the runner happened to cd to.
+  const repoRoot = path.join(__dirname, '..');
   const result = spawnSync('python3', [scriptPath], {
     input: JSON.stringify(words),
     encoding: 'utf8',
+    cwd: repoRoot,
+    env: Object.assign({}, process.env, {
+      PYTHONPATH: repoRoot + (process.env.PYTHONPATH ? path.delimiter + process.env.PYTHONPATH : ''),
+    }),
   });
   if (result.status !== 0) {
     throw new Error('parity_compute.py failed (status ' + result.status + '):\n' + result.stderr);

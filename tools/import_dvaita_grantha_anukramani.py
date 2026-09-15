@@ -54,7 +54,10 @@ import re
 import unicodedata
 from collections import defaultdict
 
-import openpyxl
+# openpyxl is imported inside read_rows(), the one function that touches a
+# workbook. Everything else here -- parent resolution, breadcrumbs, duplicate
+# detection -- is pure logic the tests exercise directly, and a module-level
+# import made the whole test module uncollectable wherever openpyxl was absent.
 from indic_transliteration import sanscript
 from indic_transliteration.sanscript import transliterate
 
@@ -147,6 +150,7 @@ def fold_title(s):
 
 
 def read_rows(path):
+    import openpyxl
     from openpyxl.utils import column_index_from_string
     ws = openpyxl.load_workbook(path, data_only=True)[SHEET_NAME]
     col_idx = {f: column_index_from_string(L) for L, f in COLUMNS.items()}

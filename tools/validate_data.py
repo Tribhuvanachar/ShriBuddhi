@@ -12,7 +12,11 @@ files unrelated to an import. Uses schemas.json for the schema-name vocabulary.
 """
 import json, os, glob, sys
 
-ROOT = 'dge' if os.path.isdir('data') else '.'
+# Probe for the nested layout by the nested path itself. The old test asked
+# whether 'data' existed, which is true exactly when the data is NOT under
+# dge/ -- so it picked 'dge' in the flattened layout and '.' in the nested
+# one, i.e. it was wrong in both.
+ROOT = 'dge' if os.path.isdir(os.path.join('dge', 'data')) else '.'
 DATA = os.path.join(ROOT, 'data')
 schemas = json.load(open(os.path.join(DATA, 'schemas.json'), encoding='utf-8'))
 SCHEMA_NAMES = {k for k in schemas if not k.startswith('_')}

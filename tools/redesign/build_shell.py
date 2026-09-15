@@ -96,7 +96,10 @@ def discover_pages():
                       if "node_modules" not in p.parts and ".claude" not in p.parts
                       and p.relative_to(root).parts[0] not in skip_top)
 
-    pages = [REPO_ROOT / "index.html"]
+    # The public site's shell lives in the production repo; this one carries
+    # only admin tooling. Listing index.html unconditionally made every
+    # shell gate die on a missing file instead of auditing what IS here.
+    pages = [REPO_ROOT / "index.html"] if (REPO_ROOT / "index.html").exists() else []
     pages.extend(p for p in real_pages(REPO_ROOT, skip_top={"admin", "data"}) if p != REPO_ROOT / "index.html")
     return pages
 
