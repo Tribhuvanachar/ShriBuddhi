@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=1"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guru Paramparā Manager · DGE Admin</title>
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<!-- Central editor for guru-parampara/data/parampara.json.
+     STATIC-SITE ADMIN CONVENTION (same as the Kosha/Library managers):
+     edits accumulate in a localStorage DRAFT (guru_admin_draft) with a
+     visible per-field change log; a superadmin sees the draft overlaid in
+     every reader layout (guru1/2/3); Export produces the fully merged
+     parampara.json + changelog for committing (then re-run
+     tools/build_guru_parampara_entities.py to refresh people/mathas/places).
+     ENTITY DISCIPLINE: guru, matha, place and work fields are chosen from
+     the central lists (datalist), so the same person or grantha can never
+     be entered under two spellings. -->
+<style>
+:root{--bg:#12141a;--card:#1b1f28;--line:#303645;--ink:#eef1f7;--mut:#98a0b3;--gold:#e0b055;--red:#d06a4e;--ok:#4ea672}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 system-ui,sans-serif}
+header{position:sticky;top:0;z-index:10;background:var(--card);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+h1{font-size:15px;margin:0;color:var(--gold)}
+.wrap{max-width:1100px;margin:0 auto;padding:14px;display:grid;grid-template-columns:330px 1fr;gap:14px}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+input,select,textarea{width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 9px;font:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+textarea{min-height:74px;resize:vertical}
+label{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);margin:10px 0 4px;font-weight:700}
+button{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 13px;cursor:pointer;font:inherit}
+button:hover{border-color:var(--gold)}
+button.primary{background:var(--gold);color:#14161c;border:0;font-weight:700}
+button.danger{border-color:var(--red);color:var(--red)}
+.plist{max-height:56vh;overflow:auto;display:flex;flex-direction:column;gap:4px;margin-top:8px}
+.plist button{text-align:left;display:flex;justify-content:space-between;gap:8px;border:1px solid transparent}
+.plist button.sel{border-color:var(--gold)}
+.plist .m{color:var(--mut);font-size:11px;white-space:nowrap}
+.plist button.draft{border-left:3px solid #7a4a9a}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chips span{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;display:inline-flex;gap:6px;align-items:center}
+.chips b{cursor:pointer;color:var(--red)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.note{color:var(--mut);font-size:12px}
+.log{max-height:200px;overflow:auto;font-size:12px;border-top:1px dashed var(--line);margin-top:10px;padding-top:8px}
+.log div{padding:3px 0;border-bottom:1px solid var(--line)}
+.log .t{color:var(--mut)}
+#toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--card);border:1px solid var(--gold);border-radius:999px;padding:8px 18px;z-index:99}
+#toast[hidden]{display:none}
+a{color:var(--gold)}
+.gate{max-width:480px;margin:15vh auto;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <h1>Guru Paramparā Manager</h1>
+  <span class="note" id="stats">loading…</span>
+  <span style="flex:1"></span>
+  <button id="addBtn">＋ Add guru</button>
+  <button id="exportBtn" class="primary">⬇ Export merged JSON</button>
+  <button id="discardBtn" class="danger">Discard draft</button>
+  <a href="../guru-parampara/guru1.html" target="_blank" rel="noopener">Preview in reader ↗</a>
+</header>
+
+<div class="wrap" id="app" hidden>
+  <div class="panel">
+    <input id="filter" type="search" placeholder="Filter by name / matha / place…">
+    <div class="plist" id="plist"></div>
+    <div class="note" style="margin-top:8px">✏️-marked entries carry unexported draft edits (visible to superadmins in every reader layout).</div>
+  </div>
+
+  <div class="panel" id="form">
+    <div class="note">Pick a guru on the left, or ＋ Add. Every reference field is a dropdown-backed entity — the same guru, maṭha, place or grantha can never be spelled two ways.</div>
+    <div id="fields" hidden>
+      <div class="row2">
+        <div><label>ID (slug, immutable once exported)</label><input id="f_id"></div>
+        <div><label>Name (display)</label><input id="f_name"></div>
+      </div>
+      <div class="row2">
+        <div><label>Guru (predecessor)</label><input id="f_guru" list="peopleList" placeholder="type to pick…"></div>
+        <div><label>Maṭha / line</label><select id="f_matha"></select></div>
+      </div>
+      <div class="row2">
+        <div><label>Tag</label><select id="f_tag"><option>acharya</option><option>deity</option><option>mula</option><option>dasa</option><option>lay</option><option>peripheral</option></select></div>
+        <div><label>Confidence</label><select id="f_conf"><option>high</option><option>traditional</option><option>medium</option><option>low</option></select></div>
+      </div>
+      <label>Pūrvāśrama name</label><input id="f_purva">
+      <label>Titles (comma-separated)</label><input id="f_titles">
+      <label>Period (free text) · birth / death years</label>
+      <div class="row2"><input id="f_period" placeholder="c.1595–1671; pontificate 1621–1671"><div class="row2"><input id="f_b" type="number" placeholder="b."><input id="f_d" type="number" placeholder="d."></div></div>
+      <label>Brindāvana / sthala</label><input id="f_brind">
+      <label>Place (entity — pick or add)</label><input id="f_place" list="placeList">
+      <label>Geo location (lat, lng) · <a href="#" id="mapPrev" target="_blank" rel="noopener">open in Google Maps ↗</a></label>
+      <div class="row2"><input id="f_lat" type="number" step="any" placeholder="15.9394"><input id="f_lng" type="number" step="any" placeholder="77.4192"></div>
+      <label>Works (entities — pick from the central grantha list, Enter to add)</label>
+      <input id="f_workAdd" list="workList" placeholder="type a work name…">
+      <div class="chips" id="workChips"></div>
+      <label>Contribution / summary</label><textarea id="f_contrib"></textarea>
+      <label>Sources (one per line — every fact stays traceable)</label><textarea id="f_sources"></textarea>
+      <label>Note (internal)</label><input id="f_note">
+      <div style="display:flex;gap:8px;margin-top:12px">
+        <button class="primary" id="saveBtn">Save to draft</button>
+        <button id="revertBtn">Revert entry</button>
+        <button class="danger" id="deleteBtn">Delete entry</button>
+      </div>
+      <div class="log" id="log"></div>
+    </div>
+  </div>
+</div>
+
+<div class="gate" id="gate" hidden>
+  <h2>Admin only</h2>
+  <p class="note">This manager needs the superadmin flag on this browser (same gate as the other DGE managers).</p>
+</div>
+
+<datalist id="peopleList"></datalist>
+<datalist id="placeList"></datalist>
+<datalist id="workList"></datalist>
+<div id="toast" hidden></div>
+
+<script>
+(function(){
+'use strict';
+var $=function(s){return document.querySelector(s)};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c]})};
+function toast(m){var t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(toast._t);toast._t=setTimeout(function(){t.hidden=true},2200)}
+
+var SA=false;
+try{SA=localStorage.getItem('is_superadmin')==='true'||localStorage.getItem('dge.admin.ok')==='1'}catch(e){}
+if(!SA){$('#gate').hidden=false;document.querySelector('header').style.display='none';}
+else $('#app').hidden=false;
+
+var BASE=null, DRAFT={nodes:{},deleted:[],log:[]}, SEL=null, WORKS=[];
+try{DRAFT=JSON.parse(localStorage.getItem('guru_admin_draft')||'null')||DRAFT}catch(e){}
+function saveDraft(){try{localStorage.setItem('guru_admin_draft',JSON.stringify(DRAFT))}catch(e){}}
+
+function merged(){
+  var out=BASE.nodes.map(function(n){return DRAFT.nodes[n.id]?Object.assign({},n,DRAFT.nodes[n.id]):n});
+  Object.keys(DRAFT.nodes).forEach(function(id){
+    if(!BASE.byId[id]) out.push(Object.assign({id:id},DRAFT.nodes[id]));
+  });
+  return out.filter(function(n){return DRAFT.deleted.indexOf(n.id)<0});
+}
+
+function renderList(){
+  var q=($('#filter').value||'').toLowerCase();
+  var nodes=merged();
+  $('#stats').textContent=nodes.length+' gurus · '+Object.keys(DRAFT.nodes).length+' drafted edits';
+  $('#plist').innerHTML=nodes
+    .filter(function(n){return !q||[n.name,n.matha,n.place,n.brindavana].join(' ').toLowerCase().indexOf(q)>=0})
+    .map(function(n){return '<button data-id="'+esc(n.id)+'" class="'+(n.id===SEL?'sel ':'')+(DRAFT.nodes[n.id]?'draft':'')+'">'+
+      '<span>'+esc(n.name)+(DRAFT.nodes[n.id]?' ✏️':'')+'</span><span class="m">'+esc(n.matha)+'</span></button>'}).join('');
+  document.querySelectorAll('#plist [data-id]').forEach(function(b){
+    b.onclick=function(){SEL=b.dataset.id;loadForm();renderList()};
+  });
+}
+
+function nodeOf(id){
+  var base=BASE.byId[id]||{};
+  return Object.assign({},base,DRAFT.nodes[id]||{});
+}
+
+function loadForm(){
+  $('#fields').hidden=!SEL;
+  if(!SEL)return;
+  var n=nodeOf(SEL);
+  $('#f_id').value=n.id||SEL; $('#f_id').disabled=!!BASE.byId[SEL];
+  $('#f_name').value=n.name||'';
+  $('#f_guru').value=n.guru?( (BASE.byId[n.guru]||{}).name||n.guru ):'';
+  $('#f_matha').value=n.matha||'peripheral';
+  $('#f_tag').value=n.tag||'acharya';
+  $('#f_conf').value=n.confidence||'traditional';
+  $('#f_purva').value=n.purva||'';
+  $('#f_titles').value=(n.titles||[]).join(', ');
+  $('#f_period').value=n.period||''; $('#f_b').value=n.b!=null?n.b:''; $('#f_d').value=n.d!=null?n.d:'';
+  $('#f_brind').value=n.brindavana||'';
+  $('#f_place').value=n.place||'';
+  var g=n.gps||null; $('#f_lat').value=g&&g.lat!=null?g.lat:(Array.isArray(g)?g[0]:''); $('#f_lng').value=g&&g.lng!=null?g.lng:(Array.isArray(g)?g[1]:'');
+  WORKS=(n.works||[]).slice();
+  renderWorks();
+  $('#f_contrib').value=n.contrib||'';
+  $('#f_sources').value=(n.sources||[]).join('\n');
+  $('#f_note').value=n.note||'';
+  updateMapPrev();
+  renderLog();
+}
+function renderWorks(){
+  $('#workChips').innerHTML=WORKS.map(function(w,i){return '<span>'+esc(w)+'<b data-i="'+i+'">✕</b></span>'}).join('');
+  document.querySelectorAll('#workChips b').forEach(function(b){b.onclick=function(){WORKS.splice(+b.dataset.i,1);renderWorks()}});
+}
+function updateMapPrev(){
+  var la=$('#f_lat').value,ln=$('#f_lng').value;
+  $('#mapPrev').href=la&&ln?'https://www.google.com/maps/search/?api=1&query='+la+','+ln:'#';
+}
+$('#f_lat').oninput=updateMapPrev;$('#f_lng').oninput=updateMapPrev;
+
+$('#f_workAdd').addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&this.value.trim()){WORKS.push(this.value.trim());this.value='';renderWorks();e.preventDefault()}
+});
+
+function guruIdFromInput(){
+  var v=$('#f_guru').value.trim();
+  if(!v)return null;
+  var hit=BASE.nodes.filter(function(n){return n.name===v||n.id===v})[0];
+  return hit?hit.id:v.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+}
+
+$('#saveBtn').onclick=function(){
+  if(!SEL)return;
+  var before=nodeOf(SEL);
+  var upd={
+    id:$('#f_id').value.trim()||SEL,
+    name:$('#f_name').value.trim(),
+    guru:guruIdFromInput(),
+    matha:$('#f_matha').value, tag:$('#f_tag').value, confidence:$('#f_conf').value,
+    purva:$('#f_purva').value.trim()||null,
+    titles:$('#f_titles').value.split(',').map(function(s){return s.trim()}).filter(Boolean),
+    period:$('#f_period').value.trim()||null,
+    b:$('#f_b').value?+$('#f_b').value:null, d:$('#f_d').value?+$('#f_d').value:null,
+    brindavana:$('#f_brind').value.trim()||null,
+    place:$('#f_place').value.trim()||null,
+    gps:($('#f_lat').value&&$('#f_lng').value)?{lat:+$('#f_lat').value,lng:+$('#f_lng').value}:null,
+    works:WORKS.slice(),
+    contrib:$('#f_contrib').value.trim()||null,
+    sources:$('#f_sources').value.split('\n').map(function(s){return s.trim()}).filter(Boolean),
+    note:$('#f_note').value.trim()||null
+  };
+  var changed=[];
+  Object.keys(upd).forEach(function(k){
+    if(JSON.stringify(upd[k])!==JSON.stringify(before[k]!==undefined?before[k]:null)) changed.push(k);
+  });
+  DRAFT.nodes[SEL]=Object.assign({},DRAFT.nodes[SEL]||{},upd);
+  DRAFT.log.unshift({t:new Date().toISOString(),id:SEL,fields:changed});
+  saveDraft();renderList();renderLog();
+  toast('Saved to draft ('+changed.length+' fields) — superadmins now see it in every layout');
+};
+$('#revertBtn').onclick=function(){
+  if(!SEL)return;
+  delete DRAFT.nodes[SEL];
+  DRAFT.deleted=DRAFT.deleted.filter(function(x){return x!==SEL});
+  DRAFT.log.unshift({t:new Date().toISOString(),id:SEL,fields:['(reverted)']});
+  saveDraft();loadForm();renderList();toast('Entry reverted to committed state');
+};
+$('#deleteBtn').onclick=function(){
+  if(!SEL)return;
+  if(!confirm('Mark '+SEL+' deleted in the draft?'))return;
+  if(!BASE.byId[SEL]) delete DRAFT.nodes[SEL];
+  else DRAFT.deleted.push(SEL);
+  DRAFT.log.unshift({t:new Date().toISOString(),id:SEL,fields:['(deleted)']});
+  SEL=null;saveDraft();loadForm();renderList();
+};
+$('#addBtn').onclick=function(){
+  var id=prompt('New guru id (slug, e.g. satyapriya):');
+  if(!id)return;
+  id=id.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+  if(BASE.byId[id]||DRAFT.nodes[id]){toast('That id already exists — pick it from the list');return}
+  DRAFT.nodes[id]={id:id,name:id,matha:'peripheral',tag:'acharya',confidence:'traditional',works:[],sources:[],titles:[]};
+  DRAFT.log.unshift({t:new Date().toISOString(),id:id,fields:['(created)']});
+  saveDraft();SEL=id;renderList();loadForm();
+};
+$('#discardBtn').onclick=function(){
+  if(!confirm('Discard ALL drafted edits?'))return;
+  DRAFT={nodes:{},deleted:[],log:[]};saveDraft();SEL=null;loadForm();renderList();toast('Draft discarded');
+};
+$('#exportBtn').onclick=function(){
+  var doc=Object.assign({},BASE.raw,{nodes:merged()});
+  doc.meta=Object.assign({},doc.meta,{last_admin_export:new Date().toISOString()});
+  dl('parampara.json',JSON.stringify(doc,null,1));
+  dl('parampara_changelog.json',JSON.stringify(DRAFT.log,null,1));
+  toast('Exported — commit guru-parampara/data/parampara.json, then re-run tools/build_guru_parampara_entities.py');
+};
+function dl(name,text){
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([text],{type:'application/json'}));
+  a.download=name;a.click();
+}
+function renderLog(){
+  $('#log').innerHTML='<b>Change log (every edit is tracked)</b>'+
+    DRAFT.log.slice(0,40).map(function(l){return '<div><span class="t">'+esc(l.t.slice(0,16).replace('T',' '))+'</span> · <b>'+esc(l.id)+'</b> · '+esc((l.fields||[]).join(', '))+'</div>'}).join('');
+}
+$('#filter').oninput=renderList;
+
+/* boot: canonical store + entity lists (people, places, works from
+   parampara works + library authors' granthas via library.json titles) */
+Promise.all([
+  fetch('../guru-parampara/data/parampara.json').then(function(r){return r.json()}),
+  fetch('../guru-parampara/data/places.json').then(function(r){return r.ok?r.json():null}).catch(function(){return null}),
+  fetch('../data/library.json').then(function(r){return r.ok?r.json():null}).catch(function(){return null})
+]).then(function(res){
+  var d=res[0], places=res[1], lib=res[2];
+  var byId={}; (d.nodes||[]).forEach(function(n){byId[n.id]=n});
+  BASE={raw:d,nodes:d.nodes||[],byId:byId};
+  $('#peopleList').innerHTML=BASE.nodes.map(function(n){return '<option value="'+esc(n.name)+'">'+esc(n.id)+'</option>'}).join('');
+  var m=$('#f_matha');
+  m.innerHTML=Object.keys(d.matha_labels||{}).map(function(k){return '<option value="'+esc(k)+'">'+esc(d.matha_labels[k])+'</option>'}).join('');
+  var pl=(places&&places.places)||[];
+  $('#placeList').innerHTML=(Array.isArray(pl)?pl:Object.values(pl)).map(function(p){return '<option value="'+esc(p.label)+'">'}).join('');
+  var works={};
+  BASE.nodes.forEach(function(n){(n.works||[]).forEach(function(w){works[w]=1})});
+  (lib&&lib.granthas?lib.granthas:Array.isArray(lib)?lib:[]).slice(0,4000).forEach(function(g){
+    var t=g&&(g.title||g.name); if(t)works[t]=1;
+  });
+  $('#workList').innerHTML=Object.keys(works).sort().map(function(w){return '<option value="'+esc(w)+'">'}).join('');
+  renderList();renderLog();
+}).catch(function(e){
+  $('#stats').textContent='Could not load parampara.json ('+e.message+')';
+});
+})();
+</script>
+</body>
+</html>

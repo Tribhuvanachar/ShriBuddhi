@@ -1,0 +1,9 @@
+{
+  "name": "brahmabuddhi-admin-tests",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Tests for BrahmaBuddhi's admin-tool-only JS (moved here from bhumandala's firebase/tests/ on 12 Sep 2026, alongside admin/js/ocr-studio-core.js itself).",
+  "scripts": {
+    "test": "node --test"
+  }
+}

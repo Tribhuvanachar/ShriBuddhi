@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=1"></script>
+<!-- Passkeys come from admin/config/keys.json, not from this page. -->
+<script src="js/keys.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Access Control · DGE (super-admin)</title>
+<link rel="stylesheet" href="css/library.css?v=3">
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+<style>
+  /* Page-specific additions on top of css/library.css's shared admin look. */
+  .acPanel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:16px}
+  .acPanel h2{margin:0 0 4px;font-size:16px}
+  .acPanel .hint{color:var(--muted);font-size:12px;margin:0 0 12px}
+  .roleRow,.gateRow{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px dashed var(--line)}
+  .roleRow:first-of-type,.gateRow:first-of-type{border-top:none}
+  .roleId{font-weight:700;min-width:110px}
+  .roleLabel{color:var(--muted);font-size:12px;flex:1}
+  .badge.builtin{font-size:10px;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:1px 7px}
+  .gatePrefix{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .roleChips{display:flex;flex-wrap:wrap;gap:4px;flex:2}
+  .roleChip{border:1px solid var(--line);border-radius:999px;padding:3px 9px;font-size:11px;cursor:pointer;background:var(--panel2);color:var(--muted)}
+  .roleChip.on{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+  .addForm{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+  .addForm input[type=text]{border:1px solid var(--line);background:var(--panel2);border-radius:8px;padding:7px 10px;font:inherit;color:var(--ink)}
+  .previewResult{margin-top:10px;padding:10px 12px;border-radius:10px;font-size:13px;font-weight:700}
+  .previewResult.visible{background:color-mix(in srgb,var(--ok) 15%,transparent);color:var(--ok);border:1px solid var(--ok)}
+  .previewResult.hidden{background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent);border:1px solid var(--accent)}
+  .delBtn{border:none;background:transparent;color:var(--accent);cursor:pointer;font-size:15px;flex:none;padding:2px 6px}
+  #authState{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="gate" id="gate">
+  <div style="font-size:22px;font-weight:700">🔐 DGE Access Control</div>
+  <div class="muted">Super-admin only. Enter the passkey.</div>
+  <input id="gk" type="password" placeholder="passkey" autocomplete="off">
+  <button class="btn pri" id="gbtn">Enter</button>
+  <div class="muted" style="max-width:420px">This passkey only opens the page. Every write still goes through Firestore's own real superadmin check (firestore.rules) — the passkey alone cannot save a change.</div>
+</div>
+
+<header style="display:none" id="hdr">
+  <div class="bar">
+    <div class="brand"><a href="../render.html" title="DGE Home" style="color:var(--accent);text-decoration:none">⌂ DGE</a> <span style="color:var(--muted)">›</span> 🔐 Access Control <small>· super-admin</small></div>
+    <span class="spacer"></span>
+    <span id="authState">Checking sign-in…</span>
+    <button class="btn" id="signInBtn" style="display:none">Sign in with Google</button>
+    <button class="btn" id="signOutBtn" style="display:none">Sign out</button>
+    <button class="icon" id="theme">◐</button>
+  </div>
+</header>
+
+<main id="app" style="display:none">
+  <div class="acPanel">
+    <p class="hint" style="margin-bottom:0">
+      <b>What this does:</b> hides gated library paths from readers who don't hold an allowed role —
+      the same UI-level curation as the Library Manager's own "Hide" list, extended with roles.
+      A determined visitor with the direct file URL can still fetch it; the corpus itself stays public
+      static files either way. Reads work for everyone immediately; <b>saving a change here needs you
+      signed in with a Firebase account whose stored role is superadmin</b> (firestore.rules enforces
+      that for real, regardless of this page's own passkey).
+    </p>
+  </div>
+
+  <div class="acPanel">
+    <h2>Roles</h2>
+    <p class="hint">The six built-in tiers ship with every deployment and can't be removed. Add a custom
+      role here to use it in a content gate below — e.g. a "patron" or "sanskrit-teacher" tier.</p>
+    <div id="rolesList"></div>
+    <div class="addForm">
+      <input type="text" id="newRoleId" placeholder="role id (e.g. patron)" style="width:160px">
+      <input type="text" id="newRoleLabel" placeholder="display label (e.g. Patron)" style="width:200px">
+      <button class="btn" id="addRoleBtn">➕ Add role</button>
+    </div>
+  </div>
+
+  <div class="acPanel">
+    <h2>Content gates</h2>
+    <p class="hint">A gate restricts one taxonomy path (and everything under it) to the roles you tick.
+      A path with no gate stays open to everyone, signed in or not — same default as before this page
+      existed. The longest matching gate on a path wins.</p>
+    <div id="gatesList"></div>
+    <div class="addForm" style="align-items:flex-start">
+      <input type="text" id="newGatePrefix" list="pathSuggestions" placeholder="path, e.g. darshana/vedanta/dvaita" style="width:320px">
+      <datalist id="pathSuggestions"></datalist>
+      <button class="btn" id="addGateBtn">➕ Add gate</button>
+    </div>
+  </div>
+
+  <div class="acPanel">
+    <h2>Capabilities</h2>
+    <p class="hint">A gate decides what a role may <b>see</b>. A capability decides what it may
+      <b>do</b>. Tick the roles that may copy text out of the reader — a word, a sentence or a whole
+      verse, from the right-click menu and the 🕉️ Genie row. An admin always can. With nothing ticked,
+      nobody else can, which is exactly how the site behaved before this panel existed.</p>
+    <div id="capsList"></div>
+  </div>
+
+  <div class="acPanel">
+    <h2>Test it</h2>
+    <p class="hint">Instant check against the gates above, including any unsaved edits — the fast
+      create-role → grant-access → test loop, no second account needed. This checks the DRAFT you see
+      on this page; save below to make it real for actual visitors.</p>
+    <div class="addForm">
+      <input type="text" id="previewPath" list="pathSuggestions" placeholder="path to test, e.g. darshana/vedanta/dvaita/DvaitaVedantaIn/mula" style="width:340px">
+      <select id="previewRole"></select>
+      <button class="btn" id="previewBtn">🔎 Check</button>
+    </div>
+    <div id="previewResult" class="previewResult" style="display:none"></div>
+    <p class="hint" style="margin-top:10px">
+      To see the actual reader as that role — not just this yes/no check — open
+      <a href="../render.html" target="_blank">the app</a> after using
+      <code>window.dgeSetPreviewRole('role-id')</code> in its console (superadmin only; clears on tab
+      close, or call <code>dgeClearPreviewRole()</code>).
+    </p>
+  </div>
+
+  <div class="acPanel" id="saveGateNote" style="display:none">
+    <p class="hint" style="margin:0"><b>Sign in above with a superadmin Firebase account to save.</b> You can still edit the draft and test it — nothing is written until then.</p>
+  </div>
+  <div class="acPanel" id="saveBar" style="display:none">
+    <button class="btn pri" id="saveBtn">💾 Save (live for every visitor immediately)</button>
+    <span id="saveState" class="muted" style="margin-left:10px"></span>
+  </div>
+</main>
+
+<script src="../js/config.js?v=1"></script>
+<script src="../js/role-access.js?v=1.3.0"></script>
+<script>
+(function(){
+  'use strict';
+  var GATE = 'superadmin';
+  var $ = function(s){ return document.querySelector(s); };
+
+  // ---- entry gate (client-side convenience only — see the note under the
+  // passkey input; the real check is Firestore rules on every write) ----
+  if (sessionStorage.getItem('dge.admin.ok') === '1' || localStorage.getItem('is_superadmin') === 'true') start();
+  else {
+    $('#gate').style.display = 'flex';
+    var tryK = function () {
+      window.dgeCheckKey(GATE, $('#gk').value).then(function (ok) {
+        if (ok) { sessionStorage.setItem('dge.admin.ok', '1'); location.reload(); }
+        else { $('#gk').value = ''; $('#gk').placeholder = 'wrong — try again'; }
+      });
+    };
+    $('#gbtn').onclick = tryK;
+    $('#gk').addEventListener('keydown', function (e) { if (e.key === 'Enter') tryK(); });
+    $('#gk').focus();
+  }
+
+  if (localStorage.getItem('dge.libadmin.dark') === '1') document.body.classList.add('dark');
+  $('#theme') && ($('#theme').onclick = function () {
+    document.body.classList.toggle('dark');
+    localStorage.setItem('dge.libadmin.dark', document.body.classList.contains('dark') ? '1' : '0');
+  });
+
+  function esc(s) {
+    var d = document.createElement('div');
+    d.textContent = s == null ? '' : String(s);
+    return d.innerHTML;
+  }
+
+  // Editable in-memory draft. Loaded from Firestore (via role-access.js),
+  // never written back there until Save -- so browsing/testing here can
+  // never itself change what a real visitor sees.
+  var ROLES = [];   // [{id,label,builtin}]
+  var GATES = [];   // [{prefix,allowRoles:[id,...]}]
+  var CAPS = {};    // { capability: [role id, ...] } -- what a role may DO
+  var auth = null, db = null;
+  var REAL_ROLE = null;
+
+  function start() {
+    $('#gate').style.display = 'none';
+    $('#hdr').style.display = '';
+    $('#app').style.display = '';
+    initFirebase();
+    loadPathSuggestions();
+  }
+
+  // ---- minimal, self-contained Firebase glue -----------------------
+  // Deliberately NOT js/user-auth.js: that file wires up DOM elements
+  // this page doesn't have (#accountSignedIn etc — harmless, it no-ops)
+  // but ALSO redirects to the vandana gate after a Google sign-in
+  // (dgeVandanaAfterSignIn), which would bounce an admin off this tool at
+  // exactly the moment they sign in to unlock Save. This page only needs
+  // auth state + a Google popup, both a handful of lines on their own.
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      var el = document.createElement('script');
+      el.src = src; el.async = false;
+      el.onload = function () { resolve(); };
+      el.onerror = function () { reject(new Error('load failed: ' + src)); };
+      document.head.appendChild(el);
+    });
+  }
+
+  async function initFirebase() {
+    if (!window.AUTH_CONFIG || !window.AUTH_CONFIG.enabled) {
+      setSignInStatus(null, false, 'Accounts are not set up on this deployment — gates can be viewed but not saved.');
+      await loadConfig();
+      return;
+    }
+    try {
+      var base = window.AUTH_CONFIG.sdkBase || 'https://www.gstatic.com/firebasejs/12.17.1/';
+      await loadScript(base + 'firebase-app-compat.js');
+      await loadScript(base + 'firebase-auth-compat.js');
+      await loadScript(base + 'firebase-firestore-compat.js');
+      firebase.initializeApp(window.FIREBASE_CONFIG);
+      auth = firebase.auth();
+      db = firebase.firestore();
+      auth.onAuthStateChanged(onAuthChange);
+      await loadConfig();
+    } catch (e) {
+      console.error('[AccessControl] Firebase init failed:', e);
+      setSignInStatus(null, false, "Couldn't reach Firebase — check your connection.");
+      await loadConfig();
+    }
+  }
+
+  async function onAuthChange(user) {
+    if (!user) { REAL_ROLE = null; setSignInStatus(null, false); return; }
+    try {
+      var snap = await db.collection('users').doc(user.uid).get();
+      REAL_ROLE = snap.exists ? (snap.data().role || 'basic') : 'basic';
+    } catch (e) { REAL_ROLE = null; }
+    setSignInStatus(user.displayName || user.email || user.phoneNumber || 'Signed in', REAL_ROLE === 'superadmin');
+  }
+
+  $('#signInBtn').onclick = async function () {
+    if (!auth) return;
+    try { await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()); }
+    catch (e) {
+      if (e && (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request')) return;
+      alert('Sign-in failed: ' + (e.message || e));
+    }
+  };
+  $('#signOutBtn').onclick = function () { if (auth) auth.signOut(); };
+
+  function setSignInStatus(who, isSuper, overrideMsg) {
+    var el = $('#authState');
+    if (overrideMsg) {
+      el.innerHTML = esc(overrideMsg);
+      $('#signInBtn').style.display = 'none';
+      $('#signOutBtn').style.display = 'none';
+    } else if (!who) {
+      el.innerHTML = 'Not signed in — <b>saving needs a superadmin sign-in</b>.';
+      $('#signInBtn').style.display = window.AUTH_CONFIG && window.AUTH_CONFIG.enabled ? '' : 'none';
+      $('#signOutBtn').style.display = 'none';
+    } else {
+      el.innerHTML = 'Signed in as <b>' + esc(who) + '</b> · role: <b>' + esc(REAL_ROLE || 'unknown') + '</b>' + (isSuper ? '' : ' (saving needs the superadmin role)');
+      $('#signInBtn').style.display = 'none';
+      $('#signOutBtn').style.display = '';
+    }
+    $('#saveBar').style.display = isSuper ? '' : 'none';
+    $('#saveGateNote').style.display = isSuper ? 'none' : '';
+  }
+
+  // ---- load current config as the editable draft ----
+  async function loadConfig() {
+    await window.dgeLoadRoleAccessConfig();
+    ROLES = window.dgeAllRoleDefs().map(function (r) {
+      return { id: r.id, label: r.label, builtin: window.dgeFixedRoleIds().indexOf(r.id) >= 0 };
+    });
+    GATES = window.dgeCurrentRoleGates();
+    CAPS = window.dgeAllCapabilities();
+    renderRoles();
+    renderGates();
+    renderCaps();
+    renderPreviewRoleOptions();
+  }
+
+  // ---- capabilities panel ----
+  // One row per capability. Only 'copy' exists today; the shape is a map so
+  // adding a second is a row here and a dgeRoleCan() call at the point of use,
+  // not another config surface.
+  // What a role may DO. One row per capability; adding another is a line
+  // here plus a dgeRoleCan() call at the point of use, not a new config
+  // surface. Content lives in the gates panel above — this is features.
+  var CAPABILITY_DEFS = [
+    { id: 'copy', label: 'Copy text', hint: 'Copy a word, a sentence or a verse out of the reader.' },
+    { id: 'book', label: 'Prepare a book / PDF', hint: 'Build a watermarked book from a grantha, a range, or their own marked verses, and print it to PDF.' }
+  ];
+  function renderCaps() {
+    var list = $('#capsList');
+    list.innerHTML = CAPABILITY_DEFS.map(function (c) {
+      var granted = CAPS[c.id] || [];
+      return '<div class="roleRow" style="align-items:flex-start; flex-wrap:wrap">' +
+        '<span class="roleId">' + esc(c.id) + '</span>' +
+        '<span class="roleLabel" style="flex:1 1 220px">' + esc(c.hint) + '</span>' +
+        '<span style="flex:1 1 100%; display:flex; flex-wrap:wrap; gap:10px; margin-top:6px">' +
+        ROLES.map(function (r) {
+          return '<label style="font-size:12px"><input type="checkbox" data-cap="' + esc(c.id) + '" ' +
+            'data-role="' + esc(r.id) + '"' + (granted.indexOf(r.id) >= 0 ? ' checked' : '') + '> ' +
+            esc(r.label || r.id) + '</label>';
+        }).join('') + '</span></div>';
+    }).join('');
+    list.querySelectorAll('input[data-cap]').forEach(function (cb) {
+      cb.onchange = function () {
+        var cap = cb.getAttribute('data-cap'), role = cb.getAttribute('data-role');
+        var arr = CAPS[cap] || (CAPS[cap] = []);
+        var at = arr.indexOf(role);
+        if (cb.checked && at < 0) arr.push(role);
+        if (!cb.checked && at >= 0) arr.splice(at, 1);
+      };
+    });
+  }
+
+  // ---- roles panel ----
+  function renderRoles() {
+    var list = $('#rolesList');
+    list.innerHTML = ROLES.map(function (r) {
+      return '<div class="roleRow">' +
+        '<span class="roleId">' + esc(r.id) + '</span>' +
+        '<span class="roleLabel">' + esc(r.label || '') + '</span>' +
+        (r.builtin ? '<span class="badge builtin">built-in</span>' : '<button class="delBtn" data-role="' + esc(r.id) + '" title="Remove this role">✕</button>') +
+        '</div>';
+    }).join('') || '<p class="hint">No roles yet.</p>';
+    list.querySelectorAll('.delBtn').forEach(function (btn) {
+      btn.onclick = function () {
+        var id = btn.getAttribute('data-role');
+        var used = GATES.some(function (g) { return (g.allowRoles || []).indexOf(id) >= 0; });
+        if (used && !confirm('"' + id + '" is used in at least one content gate. Remove the role and strip it from those gates too?')) return;
+        ROLES = ROLES.filter(function (r) { return r.id !== id; });
+        GATES.forEach(function (g) { g.allowRoles = (g.allowRoles || []).filter(function (rid) { return rid !== id; }); });
+        Object.keys(CAPS).forEach(function (c) { CAPS[c] = (CAPS[c] || []).filter(function (rid) { return rid !== id; }); });
+        renderRoles(); renderGates(); renderCaps(); renderPreviewRoleOptions();
+      };
+    });
+  }
+
+  $('#addRoleBtn').onclick = function () {
+    var idEl = $('#newRoleId'), labelEl = $('#newRoleLabel');
+    var id = idEl.value.trim().toLowerCase().replace(/[^a-z0-9_-]/g, '');
+    var label = labelEl.value.trim() || (id.charAt(0).toUpperCase() + id.slice(1));
+    if (!id) { alert('Give the role an id (letters, digits, - or _).'); return; }
+    if (ROLES.some(function (r) { return r.id === id; })) { alert('That role id already exists.'); return; }
+    ROLES.push({ id: id, label: label, builtin: false });
+    idEl.value = ''; labelEl.value = '';
+    renderRoles(); renderCaps(); renderPreviewRoleOptions();
+  };
+
+  // ---- gates panel ----
+  function renderGates() {
+    var list = $('#gatesList');
+    list.innerHTML = GATES.map(function (g, i) {
+      var chips = ROLES.map(function (r) {
+        var on = (g.allowRoles || []).indexOf(r.id) >= 0;
+        return '<span class="roleChip' + (on ? ' on' : '') + '" data-gate="' + i + '" data-role="' + esc(r.id) + '">' + esc(r.id) + '</span>';
+      }).join('');
+      return '<div class="gateRow">' +
+        '<span class="gatePrefix" title="' + esc(g.prefix) + '">' + esc(g.prefix) + '</span>' +
+        '<span class="roleChips">' + chips + '</span>' +
+        '<button class="delBtn" data-gate-del="' + i + '" title="Remove this gate">✕</button>' +
+        '</div>';
+    }).join('') || '<p class="hint">No gates yet — everything is open to everyone.</p>';
+    list.querySelectorAll('.roleChip').forEach(function (chip) {
+      chip.onclick = function () {
+        var gi = Number(chip.getAttribute('data-gate'));
+        var rid = chip.getAttribute('data-role');
+        var g = GATES[gi];
+        g.allowRoles = g.allowRoles || [];
+        var at = g.allowRoles.indexOf(rid);
+        if (at >= 0) g.allowRoles.splice(at, 1); else g.allowRoles.push(rid);
+        renderGates();
+      };
+    });
+    list.querySelectorAll('[data-gate-del]').forEach(function (btn) {
+      btn.onclick = function () {
+        var gi = Number(btn.getAttribute('data-gate-del'));
+        GATES.splice(gi, 1);
+        renderGates();
+      };
+    });
+  }
+
+  $('#addGateBtn').onclick = function () {
+    var el = $('#newGatePrefix');
+    var prefix = el.value.trim().replace(/^\/+|\/+$/g, '');
+    if (!prefix) { alert('Enter a path to gate.'); return; }
+    if (GATES.some(function (g) { return g.prefix === prefix; })) { alert('That path already has a gate — edit it below instead.'); return; }
+    GATES.push({ prefix: prefix, allowRoles: [] });
+    el.value = '';
+    renderGates();
+  };
+
+  // ---- preview / test ----
+  function renderPreviewRoleOptions() {
+    var sel = $('#previewRole');
+    var opts = ['anonymous'].concat(ROLES.map(function (r) { return r.id; }));
+    sel.innerHTML = opts.map(function (id) { return '<option value="' + esc(id) + '">' + esc(id) + '</option>'; }).join('');
+  }
+  $('#previewBtn').onclick = function () {
+    var path = $('#previewPath').value.trim().replace(/^\/+|\/+$/g, '');
+    var role = $('#previewRole').value;
+    var out = $('#previewResult');
+    if (!path) { alert('Enter a path to test.'); return; }
+    var gated = window.dgeIsRoleGatedPath(path, role, GATES);
+    var matched = window.dgeMatchRoleGate(path, GATES);
+    out.style.display = 'block';
+    if (gated) {
+      out.className = 'previewResult hidden';
+      out.textContent = '✕ Hidden from "' + role + '" — blocked by the gate on "' + (matched ? matched.prefix : path) + '".';
+    } else {
+      out.className = 'previewResult visible';
+      out.textContent = '✓ Visible to "' + role + '"' + (matched ? ' (gate on "' + matched.prefix + '" allows this role).' : ' (no gate covers this path).');
+    }
+  };
+
+  // ---- save ----
+  $('#saveBtn').onclick = async function () {
+    var stateEl = $('#saveState');
+    stateEl.textContent = 'Saving…';
+    try {
+      var customRoles = ROLES.filter(function (r) { return !r.builtin; }).map(function (r) { return { id: r.id, label: r.label }; });
+      await window.dgeSaveRoleAccessConfig(customRoles, GATES, CAPS);
+      stateEl.textContent = 'Saved — live for every visitor now.';
+    } catch (e) {
+      console.error('[AccessControl] Save failed:', e);
+      // The page opens on a passkey, but SAVING is enforced by
+      // firestore.rules against the signed-in account's stored role. Those
+      // are two different things and the difference is invisible until a
+      // save is refused -- so when it is, say exactly why.
+      if (window.dgeIsPermissionError && window.dgeIsPermissionError(e)) {
+        stateEl.textContent = '';
+        var note = document.getElementById('saveBootstrapNote');
+        if (!note) {
+          note = document.createElement('div');
+          note.id = 'saveBootstrapNote';
+          note.style.marginTop = '12px';
+          stateEl.parentNode.appendChild(note);
+        }
+        var u = (window.firebase && firebase.auth && firebase.auth().currentUser) || null;
+        note.innerHTML = window.dgeSuperadminBootstrapHtml({ uid: u && u.uid, email: u && u.email });
+        return;
+      }
+      stateEl.textContent = 'Save failed: ' + (e.message || e);
+    }
+  };
+
+  // ---- path suggestions, best-effort (typeahead only, free text always works) ----
+  async function loadPathSuggestions() {
+    try {
+      var lib = await fetch('../data/library.json', { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; });
+      if (!lib || !Array.isArray(lib.granthas)) return;
+      var set = {};
+      lib.granthas.forEach(function (g) {
+        var p = String(g.path || '').replace(/^dge\//, '').replace(/^data\//, '').replace(/\/data\.json$/, '');
+        var parts = p.split('/');
+        for (var i = 1; i <= parts.length; i++) set[parts.slice(0, i).join('/')] = true;
+      });
+      var dl = $('#pathSuggestions');
+      dl.innerHTML = Object.keys(set).sort().map(function (p) { return '<option value="' + esc(p) + '">'; }).join('');
+    } catch (e) { /* typeahead only — a failed fetch just means free-typing */ }
+  }
+})();
+</script>
+</body>
+</html>

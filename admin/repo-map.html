@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=1"></script>
+<!-- Passkeys come from admin/config/keys.json, not from this page. -->
+<script src="js/keys.js?v=1"></script>
+<!-- FIREBASE_CONFIG and AUTH_CONFIG: whether one-click dispatch through the
+     Cloud Function is even possible on this deployment. Never assumed. -->
+<script src="../js/config.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Repository &amp; Workflows · DGE (super-admin)</title>
+<link rel="stylesheet" href="css/repo-map.css?v=2">
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<body>
+<div class="gate" id="gate">
+  <div style="font-size:22px;font-weight:700">🔐 Repository &amp; Workflows</div>
+  <div class="muted">Super-admin only. Enter the passkey.</div>
+  <input id="gk" type="password" placeholder="passkey" autocomplete="off">
+  <button class="btn pri" id="gbtn">Enter</button>
+  <div class="muted" style="max-width:420px;font-size:12px">A client-side latch for convenience, not security — this page and the repo are public. What may actually start a job is decided by the Cloud Function's role check or by the GitHub token you hold.</div>
+</div>
+
+<header style="display:none" id="hdr">
+  <div class="bar">
+    <div class="brand"><a href="../render.html" title="DGE Home" style="color:var(--accent);text-decoration:none">⌂ DGE</a> <span style="color:var(--muted)">›</span> ⚙️ Repository &amp; Workflows</div>
+    <span class="spacer"></span>
+    <button class="icon" id="theme" title="Light / dark">◐</button>
+    <button class="btn" id="refresh" title="Re-fetch branches, workflows and recent runs">↻ Refresh</button>
+    <button class="btn gh" id="opengh" title="Open the Actions tab on GitHub">GitHub ↗</button>
+    <button class="btn" id="tokbtn" title="Set the GitHub token used for run / delete / Ask Claude">🔑 Token</button>
+  </div>
+</header>
+
+<main id="app" style="display:none">
+  <div class="modebar" id="modebar"></div>
+  <div class="totals" id="totals"></div>
+
+  <div class="tabs">
+    <div class="tab on" data-tab="workflows">⚙️ Workflows</div>
+    <div class="tab" data-tab="branches">🌿 Branches</div>
+    <div class="tab" data-tab="ask">🤖 Ask Claude</div>
+  </div>
+
+  <section id="pane-workflows">
+    <div class="toolbar">
+      <input type="search" id="wsearch" placeholder="Search workflows by name, site or purpose…">
+      <span class="chip on" data-wfilter="all">All</span>
+      <span class="chip" data-wfilter="keep">Active</span>
+      <span class="chip" data-wfilter="delete">Proposed for deletion</span>
+      <span class="chip" data-wfilter="decide">Needs your decision</span>
+      <span class="chip" data-wfilter="cost">Costs money</span>
+      <span class="chip" data-wfilter="scheduled">Runs by itself</span>
+    </div>
+    <div id="workflow-groups"></div>
+  </section>
+
+  <section id="pane-branches" style="display:none">
+    <div class="toolbar">
+      <input type="search" id="bsearch" placeholder="Search branches by name or purpose…">
+      <span class="chip on" data-cat="all">All</span>
+      <span class="chip" data-cat="open-pr-needs-decision">Needs decision</span>
+      <span class="chip" data-cat="review-needed">Review</span>
+      <span class="chip" data-cat="merged-safe-delete">Safe to delete</span>
+      <span class="chip" data-cat="stale-superseded">Stale/superseded</span>
+      <span class="chip" data-cat="runtime-dist">Runtime data</span>
+      <span class="chip" data-cat="current-work">Current work</span>
+    </div>
+    <div class="hint" id="bulkhint" style="display:none"></div>
+    <div id="branch-groups"></div>
+  </section>
+
+  <section id="pane-ask" style="display:none">
+    <div class="ask">
+      <div class="box">
+        <div style="font-weight:700;font-size:15px">Leave an instruction for Claude</div>
+        <p class="muted" style="margin:4px 0 10px">Pick the library sections it concerns (optional), write what you want in plain English, Kannada or Sanskrit — a question, "delete this", "pair this with that", "categorise these", anything — and Send. The page commits <code>tasks/inbox/&lt;id&gt;.json</code> with your token; that push starts the <b>Ask Claude</b> workflow, a Claude Code session on GitHub's runner, which answers or makes the change (changes arrive as a pull request) and writes its reply into the same file. This page keeps polling and shows the reply here, usually within two to four minutes. The Sunday session is the fallback if the workflow's secret is missing.</p>
+        <input type="search" id="secsearch" placeholder="Find a section — type part of a title or path (e.g. brahmasutra, purana/ maha, गीता)…">
+        <div class="picklist" id="picklist"><div class="empty">Type to search the 1,700 library entries.</div></div>
+        <div class="chosen" id="chosen"></div>
+        <textarea id="askText" placeholder="What should Claude do or tell you about these sections?"></textarea>
+        <div class="actions" style="display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap">
+          <button class="btn pri" id="askSend">📨 Send to Claude</button>
+          <span class="say" id="askSay"></span>
+        </div>
+      </div>
+      <div class="box">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <div style="font-weight:700;font-size:15px">Conversations</div>
+          <button class="btn" id="askReload" style="font-size:12px;padding:4px 10px">↻ Reload</button>
+          <span class="say" id="askListSay"></span>
+        </div>
+        <div id="threads"><div class="empty">Loading…</div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="foot" style="display:none">
+  Purpose, notes and recommendations come from <code>admin/config/repo-map.json</code> (hand-maintained) and the input forms from <code>firebase/functions/workflows.json</code>; <code>tools/build_repo_inventory.py</code> refreshes the generated parts and renders <a href="../docs/REPO_INVENTORY.md">docs/REPO_INVENTORY.md</a>, the same inventory as a document. Deleting a branch does <b>not</b> delete its pull-request history, and deleting a workflow file leaves it in git history. What each job does and why checking and importing are separate: <a href="../SOURCE_SYNC.md">SOURCE_SYNC.md</a>.
+</footer>
+
+<dialog id="confirmDlg">
+  <div class="dhead" id="cdTitle">Confirm</div>
+  <div class="dbody" id="cdBody"></div>
+  <div class="dfoot">
+    <button class="btn" id="cdCancel">Cancel</button>
+    <button class="btn danger" id="cdOk">Confirm</button>
+  </div>
+</dialog>
+
+<dialog id="tokenDlg">
+  <div class="dhead">GitHub token</div>
+  <div class="dbody">
+    <p>A personal access token for this repository with <b>Contents</b> and <b>Actions</b> read-and-write (fine-grained), or classic <code>repo</code> + <code>workflow</code>. Used only from your browser, only against <code>api.github.com</code>, stored in this browser's <code>localStorage</code> under the same key the Repo Files editor uses — set it once, every admin page shares it.</p>
+    <input type="password" id="tokInput" placeholder="github_pat_… or ghp_…" style="width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--ink);font:inherit">
+  </div>
+  <div class="dfoot">
+    <button class="btn" id="tokClear">Clear</button>
+    <button class="btn pri" id="tokSave">Save</button>
+  </div>
+</dialog>
+
+<script>
+(function(){
+  'use strict';
+
+  var OWNER = "Tribhuvanachar", REPO = "bhumandala";
+  var API = "https://api.github.com/repos/" + OWNER + "/" + REPO;
+  var GATE = "superadmin";
+  var TOK_KEY = "github_admin_pat"; // shared with js/admin-editor.js
+  var $ = function(s, r){ return (r || document).querySelector(s); };
+  var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  function esc(s){ var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+
+  // ---- gate ---------------------------------------------------------
+  if (sessionStorage.getItem("dge.admin.ok") === "1" || localStorage.getItem("is_superadmin") === "true") start();
+  else {
+    $("#gate").style.display = "flex";
+    var tryK = function(){
+      window.dgeCheckKey(GATE, $("#gk").value).then(function(ok){
+        if (ok) { sessionStorage.setItem("dge.admin.ok", "1"); location.reload(); }
+        else { $("#gk").value = ""; $("#gk").placeholder = "wrong — try again"; }
+      });
+    };
+    $("#gbtn").onclick = tryK;
+    $("#gk").addEventListener("keydown", function(e){ if (e.key === "Enter") tryK(); });
+    $("#gk").focus();
+  }
+
+  // ---- state --------------------------------------------------------
+  var MANIFEST = null;       // admin/config/repo-map.json
+  var CATALOGUE = [];        // firebase/functions/workflows.json .workflows
+  var CAT_BY_ID = {}, CAT_BY_FILE = {};
+  var REGISTRY = {};         // admin/config/sources.registry.json by id
+  var SRC_STATE = {};        // admin/config/sources.state.json .sources
+  var SRC_CHECKED = "";
+  var LIVE_BRANCHES = null;  // name -> {sha, protected}
+  var LIVE_RUNS = {};        // workflow file -> newest run
+  var LIVE_OVERRIDE = {};    // branch -> {ahead, behind}
+  var FN = null, ROLE = null, FN_REASON = "";
+  var selectedBranches = {};
+  var RANK = { basic: 0, admin: 1, superadmin: 2 };
+
+  var CAT_BADGE = { "open-pr-needs-decision": "decision", "review-needed": "review",
+                    "merged-safe-delete": "delete", "stale-superseded": "delete",
+                    "runtime-dist": "keep", "current-work": "keep", "unclassified": "review" };
+
+  function token(){ return localStorage.getItem(TOK_KEY) || ""; }
+  function patLive(){ return !!token(); }
+  function fnLive(){ return !!FN && !!ROLE; }
+  function ghHeaders(){
+    var h = { "Accept": "application/vnd.github+json" };
+    if (token()) h["Authorization"] = "token " + token();
+    return h;
+  }
+  async function gh(path, opts){
+    opts = opts || {};
+    opts.headers = Object.assign({}, ghHeaders(), opts.headers || {});
+    return fetch(API + path, opts);
+  }
+  function b64utf8(str){ return btoa(unescape(encodeURIComponent(str))); }
+  function utf8b64(b64){ return decodeURIComponent(escape(atob(b64.replace(/\n/g, "")))); }
+
+  /* GitHub timestamps are UTC. Nobody here reads UTC — this is Bangalore. */
+  function whenIST(iso){
+    if (!iso) return "date unknown";
+    var d = new Date(iso);
+    if (isNaN(d)) return "date unknown";
+    return d.toLocaleString("en-IN", { timeZone: "Asia/Kolkata", day: "numeric", month: "short",
+                                       hour: "numeric", minute: "2-digit", hour12: true }) + " IST";
+  }
+  function nowIST(){ return new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata", day: "numeric", month: "short", year: "numeric", hour: "numeric", minute: "2-digit", hour12: true }) + " IST"; }
+  function concluded(c){
+    return { success: 'succeeded', failure: 'failed', cancelled: 'was cancelled', timed_out: 'timed out',
+             skipped: 'was skipped', startup_failure: 'could not start' }[c] || ('ended ' + (c || 'unclearly'));
+  }
+
+  // ---- start --------------------------------------------------------
+  async function start(){
+    if (sessionStorage.getItem("dge.admin.ok") !== "1" && localStorage.getItem("is_superadmin") !== "true") return;
+    $("#gate").style.display = "none";
+    $("#hdr").style.display = ""; $("#app").style.display = ""; $("#foot").style.display = "";
+
+    if (localStorage.getItem("dge.repomap.dark") === "1") document.body.classList.add("dark");
+    $("#theme").onclick = function(){
+      document.body.classList.toggle("dark");
+      localStorage.setItem("dge.repomap.dark", document.body.classList.contains("dark") ? "1" : "0");
+    };
+    $("#opengh").onclick = function(){ window.open("https://github.com/" + OWNER + "/" + REPO + "/actions", "_blank"); };
+    $("#refresh").onclick = function(){ loadLive(true); };
+    $("#tokbtn").onclick = function(){ $("#tokInput").value = token(); $("#tokenDlg").showModal(); };
+    $("#tokSave").onclick = function(){ localStorage.setItem(TOK_KEY, $("#tokInput").value.trim()); $("#tokenDlg").close(); renderModebar(); loadLive(true); };
+    $("#tokClear").onclick = function(){ localStorage.removeItem(TOK_KEY); $("#tokInput").value = ""; $("#tokenDlg").close(); renderModebar(); renderWorkflows(); renderBranches(); };
+    $("#cdCancel").onclick = function(){ $("#confirmDlg").close(); };
+
+    $$(".tab").forEach(function(t){ t.onclick = function(){ showTab(t.dataset.tab); }; });
+    $$("[data-cat]").forEach(function(c){ c.onclick = function(){ $$("[data-cat]").forEach(function(x){ x.classList.remove("on"); }); c.classList.add("on"); renderBranches(); }; });
+    $$("[data-wfilter]").forEach(function(c){ c.onclick = function(){ $$("[data-wfilter]").forEach(function(x){ x.classList.remove("on"); }); c.classList.add("on"); renderWorkflows(); }; });
+    $("#bsearch").oninput = renderBranches;
+    $("#wsearch").oninput = renderWorkflows;
+
+    var loads = await Promise.all([
+      fetch("config/repo-map.json?t=" + Date.now(), { cache: "no-store" }).then(function(r){ return r.json(); }),
+      fetch("../firebase/functions/workflows.json?t=" + Date.now(), { cache: "no-store" }).then(function(r){ return r.json(); }).catch(function(){ return { workflows: [] }; }),
+      fetch("config/sources.registry.json?t=" + Date.now(), { cache: "no-store" }).then(function(r){ return r.json(); }).catch(function(){ return { sources: [] }; }),
+      fetch("config/sources.state.json?t=" + Date.now(), { cache: "no-store" }).then(function(r){ return r.json(); }).catch(function(){ return { sources: {} }; })
+    ]);
+    MANIFEST = loads[0];
+    CATALOGUE = loads[1].workflows || [];
+    CATALOGUE.forEach(function(w){ CAT_BY_ID[w.id] = w; (CAT_BY_FILE[w.file] = CAT_BY_FILE[w.file] || []).push(w); });
+    (loads[2].sources || []).forEach(function(s){ REGISTRY[s.id] = s; });
+    SRC_STATE = loads[3].sources || {};
+    SRC_CHECKED = loads[3].checked_at_utc || "";
+
+    renderModebar();
+    renderTotals();
+    renderWorkflows();
+    renderBranches();
+    if (location.hash === "#branches" || location.hash === "#ask") showTab(location.hash.slice(1));
+    loadLive(false);
+    connectFunction();
+  }
+
+  function showTab(name){
+    $$(".tab").forEach(function(x){ x.classList.toggle("on", x.dataset.tab === name); });
+    ["workflows", "branches", "ask"].forEach(function(p){ $("#pane-" + p).style.display = p === name ? "" : "none"; });
+    history.replaceState(null, "", "#" + name);
+    if (name === "ask") initAsk();
+  }
+
+  // ---- the three ways a button can act --------------------------------
+  function renderModebar(){
+    var mb = $("#modebar");
+    if (fnLive()) {
+      mb.className = "modebar live";
+      mb.innerHTML = '<b>🟢 One click, from here.</b> Signed in as <code>' + esc(ROLE) + '</code>: the curated cards start jobs through the Cloud Function (no token in the browser).' +
+        (patLive() ? ' A GitHub token is also set, so every other card, branch deletion and Ask Claude act for real too.' : ' Set a 🔑 Token to run the non-curated cards, delete branches and use Ask Claude.');
+    } else if (patLive()) {
+      mb.className = "modebar pat";
+      mb.innerHTML = '<b>🟢 Live — GitHub token set.</b> Run, Delete and Ask Claude act from here, as you, through api.github.com (5,000 requests/hour).' +
+        (FN_REASON ? ' <span class="muted">The Cloud Function route is not available: ' + esc(FN_REASON) + '</span>' : '');
+    } else {
+      mb.className = "modebar fallback";
+      mb.innerHTML = '<b>⚪ Read-only.</b> No GitHub token and no signed-in admin account, so Run and Delete open GitHub for you to act there (same click path: pick the workflow, then <em>Run workflow</em>). Reads use the unauthenticated API, about 60 requests/hour. Click 🔑 Token to act from here.';
+    }
+  }
+
+  async function connectFunction(){
+    var c = window.FIREBASE_CONFIG || {};
+    if (!(window.AUTH_CONFIG && window.AUTH_CONFIG.enabled && c.projectId && String(c.projectId).indexOf("REPLACE_WITH") !== 0)) {
+      FN_REASON = "accounts are not switched on for this deployment."; renderModebar(); return;
+    }
+    try {
+      var base = (window.AUTH_CONFIG && window.AUTH_CONFIG.sdkBase) || "https://www.gstatic.com/firebasejs/12.17.1/";
+      if (typeof firebase === 'undefined') {
+        for (var i = 0, srcs = ["firebase-app-compat.js", "firebase-auth-compat.js", "firebase-functions-compat.js"]; i < srcs.length; i++) {
+          await new Promise(function(res, rej){ var el = document.createElement('script'); el.src = base + srcs[i]; el.onload = res; el.onerror = rej; document.head.appendChild(el); });
+        }
+      }
+      if (!firebase.apps.length) firebase.initializeApp(window.FIREBASE_CONFIG);
+      var user = await new Promise(function(res){ var off = firebase.auth().onAuthStateChanged(function(u){ off(); res(u); }); });
+      if (!user) { FN_REASON = "sign in to the site first, in this browser, with an admin account."; renderModebar(); return; }
+      var region = (window.AUTH_CONFIG && window.AUTH_CONFIG.functionsRegion) || 'asia-south1';
+      FN = firebase.app().functions(region);
+      var res = await FN.httpsCallable('listWorkflows')({});
+      var d = res.data || {};
+      ROLE = d.role || null;
+      // The Function's runs are keyed by catalogue id; fold them onto files
+      // so one code path renders the "last run" line.
+      Object.keys(d.runs || {}).forEach(function(id){ var w = CAT_BY_ID[id]; if (w && !LIVE_RUNS[w.file]) LIVE_RUNS[w.file] = { created_at: d.runs[id].startedAt, status: d.runs[id].status, conclusion: d.runs[id].conclusion, html_url: d.runs[id].url, triggering_actor: { login: d.runs[id].by } }; });
+    } catch (e) {
+      FN = null; ROLE = null;
+      var code = String((e && e.code) || "").replace(/^functions\//, "");
+      FN_REASON = code === "permission-denied" ? "that account is not an admin."
+                : (code === "not-found" || code === "internal") ? "the workflow Function is not deployed on this project yet (FIREBASE_SETUP.md §12)."
+                : ((e && e.message) || "could not reach the workflow Function.");
+    }
+    renderModebar(); renderWorkflows();
+  }
+
+  // ---- live data ----------------------------------------------------------
+  async function loadLive(forceAllBranchCompare){
+    try {
+      var br = await gh("/branches?per_page=100");
+      if (br.ok) { var arr = await br.json(); LIVE_BRANCHES = {}; arr.forEach(function(b){ LIVE_BRANCHES[b.name] = b; }); }
+    } catch (e) {}
+    try {
+      var runs = await gh("/actions/runs?per_page=100");
+      if (runs.ok) {
+        var d = await runs.json();
+        LIVE_RUNS = {};
+        (d.workflow_runs || []).forEach(function(run){
+          var file = (run.path || "").split("/").pop();
+          if (!file) return;
+          if (!LIVE_RUNS[file] || new Date(run.created_at) > new Date(LIVE_RUNS[file].created_at)) LIVE_RUNS[file] = run;
+        });
+      }
+    } catch (e) {}
+    if (forceAllBranchCompare && patLive() && MANIFEST) {
+      var names = Object.keys(MANIFEST.branches).filter(function(n){ return n !== "main"; });
+      for (var i = 0; i < names.length; i++) { await refreshCompare(names[i]); }
+    }
+    renderTotals(); renderBranches(); renderWorkflows();
+  }
+
+  async function refreshCompare(name){
+    try {
+      var r = await gh("/compare/main..." + encodeURIComponent(name));
+      if (!r.ok) return null;
+      var d = await r.json();
+      LIVE_OVERRIDE[name] = { ahead: d.ahead_by, behind: d.behind_by, checkedAt: new Date().toISOString() };
+      return LIVE_OVERRIDE[name];
+    } catch (e) { return null; }
+  }
+
+  function snapshotFor(name){
+    var b = MANIFEST.branches[name] || {};
+    var s = Object.assign({}, b.snapshot || {});
+    var live = LIVE_OVERRIDE[name];
+    if (live) { s.ahead_of_main = live.ahead; s.behind_main = live.behind; s._live = true; }
+    var lb = LIVE_BRANCHES && LIVE_BRANCHES[name];
+    s._existsOnGithub = LIVE_BRANCHES ? !!lb : null;
+    return s;
+  }
+
+  // ---- totals -------------------------------------------------------------
+  function renderTotals(){
+    var wfs = MANIFEST.workflows, brs = MANIFEST.branches;
+    var rec = function(v){ return v.recommendation || (v.keep === false ? "delete" : "keep"); };
+    var wKeep = Object.values(wfs).filter(function(w){ return rec(w) === "keep"; }).length;
+    var wDel = Object.values(wfs).filter(function(w){ return rec(w) === "delete"; }).length;
+    var wDec = Object.values(wfs).filter(function(w){ return rec(w) === "decide"; }).length;
+    var counts = {};
+    Object.values(brs).forEach(function(b){ counts[b.category] = (counts[b.category] || 0) + 1; });
+    var syncers = CATALOGUE.filter(function(w){ return w.group === "source-sync" && w.id.indexOf("sync-") === 0 && w.id !== "sync-dvaitavedanta"; }).length;
+    $("#totals").innerHTML = [
+      stat(Object.keys(wfs).length, "workflow files", "", "workflows", "all"),
+      stat(wKeep, "active", "ok", "workflows", "keep"),
+      stat(wDel, "proposed delete", wDel ? "bad" : "", "workflows", "delete"),
+      stat(wDec, "your decision", wDec ? "warn" : "", "workflows", "decide"),
+      stat(syncers, "source syncers", "", "workflows", "all"),
+      stat(Object.keys(brs).length, "branches", "", "branches", "all"),
+      stat((counts["merged-safe-delete"] || 0) + (counts["stale-superseded"] || 0), "safe to delete", "", "branches", "merged-safe-delete"),
+      stat((counts["review-needed"] || 0) + (counts["unclassified"] || 0), "need review", "", "branches", "review-needed"),
+      stat(counts["open-pr-needs-decision"] || 0, "need a decision", counts["open-pr-needs-decision"] ? "warn" : "", "branches", "open-pr-needs-decision")
+    ].join("");
+    $$(".stat").forEach(function(el){
+      el.onclick = function(){
+        showTab(el.dataset.tab);
+        if (el.dataset.tab === "workflows") { $$("[data-wfilter]").forEach(function(x){ x.classList.toggle("on", x.dataset.wfilter === el.dataset.filter); }); renderWorkflows(); }
+        else { $$("[data-cat]").forEach(function(x){ x.classList.toggle("on", x.dataset.cat === el.dataset.filter); }); renderBranches(); }
+      };
+    });
+  }
+  function stat(n, label, cls, tab, filter){ return '<div class="stat ' + cls + '" data-tab="' + tab + '" data-filter="' + filter + '"><b>' + esc(n) + '</b><span>' + esc(label) + '</span></div>'; }
+
+  // ---- workflows ------------------------------------------------------------
+  function recOf(w){ return w.recommendation || (w.keep === false ? "delete" : "keep"); }
+  function matchesFilter(w, g, f){
+    if (f === "all") return true;
+    if (f === "cost") return !!(g.cost && g.cost.length);
+    if (f === "scheduled") return !!(g.schedule && g.schedule.length) || g.triggers.some(function(t){ return /^push|^after|pull_request/.test(t); });
+    return recOf(w) === f;
+  }
+
+  function renderWorkflows(){
+    var q = ($("#wsearch").value || "").toLowerCase();
+    var f = $("[data-wfilter].on") ? $("[data-wfilter].on").dataset.wfilter : "all";
+    var host = $("#workflow-groups");
+    var openState = {};
+    $$(".acc", host).forEach(function(a){ openState[a.dataset.cat] = a.classList.contains("open"); });
+    host.innerHTML = "";
+
+    (MANIFEST.workflow_categories || []).forEach(function(cat, idx){
+      var files = Object.keys(MANIFEST.workflows).filter(function(file){
+        var w = MANIFEST.workflows[file], g = w.generated || {};
+        if (w.category !== cat.id) return false;
+        if (!matchesFilter(w, g, f)) return false;
+        if (!q) return true;
+        var hay = [file, w.display_name, g.name, w.purpose, w.notes, w.reason].join(" ").toLowerCase();
+        return hay.indexOf(q) >= 0;
+      }).sort();
+      // The syncer cards live in the first accordion, ahead of the two files that power them.
+      var syncers = cat.id === "source-sync" && (f === "all" || f === "keep" || f === "scheduled")
+        ? CATALOGUE.filter(function(w){ return w.group === "source-sync" && w.id.indexOf("sync-") === 0 && w.id !== "sync-dvaitavedanta" &&
+            (!q || [w.name, w.site, w.blurb, w.feeds].join(" ").toLowerCase().indexOf(q) >= 0); })
+        : [];
+      if (!files.length && !syncers.length) return;
+
+      var nDel = files.filter(function(x){ return recOf(MANIFEST.workflows[x]) === "delete"; }).length;
+      var nDec = files.filter(function(x){ return recOf(MANIFEST.workflows[x]) === "decide"; }).length;
+      var acc = document.createElement("div");
+      acc.className = "acc" + ((openState[cat.id] !== undefined ? openState[cat.id] : (idx === 0 || !!q || f !== "all")) ? " open" : "");
+      acc.dataset.cat = cat.id;
+      acc.innerHTML = '<button class="acc-h" type="button"><span>' + esc(cat.label) + '</span>' +
+        '<span class="n">' + (syncers.length ? '<span class="pill">' + syncers.length + ' sites</span>' : '') +
+        '<span class="pill">' + files.length + ' file' + (files.length === 1 ? '' : 's') + '</span>' +
+        (nDel ? '<span class="badge delete">' + nDel + ' to delete</span>' : '') +
+        (nDec ? '<span class="badge decide">' + nDec + ' to decide</span>' : '') +
+        '<span class="arrow">' + (acc.classList.contains("open") ? '▴' : '▾') + '</span></span></button>' +
+        '<div class="acc-b"><p class="gm">' + esc(cat.blurb) + '</p><div class="cards"></div></div>';
+      var cards = $(".cards", acc);
+      syncers.forEach(function(w){ cards.appendChild(syncerCard(w)); });
+      files.forEach(function(file){ cards.appendChild(fileCard(file)); });
+      $(".acc-h", acc).onclick = function(){ acc.classList.toggle("open"); $(".arrow", acc).textContent = acc.classList.contains("open") ? '▴' : '▾'; };
+      host.appendChild(acc);
+    });
+    if (!host.children.length) host.innerHTML = '<div class="empty">No workflows match.</div>';
+  }
+
+  function lastRunHtml(file){
+    var r = LIVE_RUNS[file];
+    if (!r) return '<span class="dot none"></span><span class="say">No run in the last 100 repo-wide runs.</span>';
+    var cls = r.status !== 'completed' ? 'run' : (r.conclusion === 'success' ? 'ok' : 'bad');
+    var what = r.status !== 'completed' ? 'Running now, started ' + whenIST(r.created_at)
+                                        : 'Last run ' + concluded(r.conclusion) + ', ' + whenIST(r.created_at);
+    var by = r.triggering_actor && r.triggering_actor.login;
+    return '<span class="dot ' + cls + '"></span><span class="say">' + esc(what) + (by ? ' · by ' + esc(by) : '') + '</span>' +
+           (r.html_url ? ' <a href="' + esc(r.html_url) + '" target="_blank">open the run ↗</a>' : '');
+  }
+
+  function sourceStateHtml(ids){
+    var parts = [];
+    (ids || []).forEach(function(id){
+      var s = SRC_STATE[id], reg = REGISTRY[id] || {};
+      if (!s) { parts.push('<span><b>' + esc(reg.title ? reg.title.split(" — ")[0] : id) + '</b>: never checked yet</span>'); return; }
+      var det = Object.keys(s.detail || {}).map(function(k){ return k + ' ' + s.detail[k]; }).join(', ');
+      parts.push('<span><b>' + esc(reg.title ? reg.title.split(" — ")[0] : id) + '</b>: ' + esc(det) + '</span>');
+    });
+    var when = SRC_CHECKED ? ' <span>(as of ' + esc(whenIST(SRC_CHECKED)) + ')</span>' : '';
+    return parts.length ? '<div class="meta">' + parts.join('') + when + '</div>' : '';
+  }
+
+  function inputsForm(inputs, keyPrefix){
+    var opts = document.createElement('div');
+    opts.className = "opts";
+    (inputs || []).forEach(function(spec){
+      var row = document.createElement('div');
+      row.className = "opt";
+      var id = "in_" + keyPrefix + "_" + spec.name;
+      var def = spec.default == null ? '' : spec.default;
+      if (spec.type === 'boolean') {
+        row.innerHTML = '<input type="checkbox" id="' + id + '"' + ((def === true || def === 'true') ? ' checked' : '') + '><label for="' + id + '">' + esc(spec.label) + '</label>';
+      } else if (spec.options && spec.options.length) {
+        row.innerHTML = '<label for="' + id + '">' + esc(spec.label) + '</label><select id="' + id + '">' +
+          spec.options.map(function(o){ return '<option' + (String(o) === String(def) ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join('') + '</select>';
+      } else {
+        row.innerHTML = '<label for="' + id + '">' + esc(spec.label) + '</label><input type="text" id="' + id + '" value="' + esc(def) + '"' + (spec.fixed ? ' readonly title="fixed for this card"' : '') + '>';
+      }
+      row.dataset.name = spec.name; row.dataset.type = spec.type === 'boolean' ? 'boolean' : 'string';
+      opts.appendChild(row);
+    });
+    return opts;
+  }
+  function collect(optsEl){
+    var out = {};
+    $$('.opt', optsEl).forEach(function(row){
+      var input = row.querySelector('input,select');
+      out[row.dataset.name] = row.dataset.type === 'boolean' ? input.checked : input.value;
+    });
+    return out;
+  }
+
+  function syncerCard(w){
+    var el = document.createElement('div');
+    el.className = "card nothing";
+    var reg = (w.source_ids || []).map(function(id){ return REGISTRY[id]; }).filter(Boolean);
+    var rights = reg.length === 1 && reg[0].rights ? '<div class="notes">Rights: ' + esc(reg[0].rights) + '</div>' : '';
+    var imp = w.importer ? CAT_BY_ID[w.importer] : null;
+    el.innerHTML = '<div class="top"><span class="title">' + esc(w.name) + '</span>' +
+      '<span class="badge plain">checks only</span>' + (w.site ? ' <a class="badge plain" href="' + esc(w.url) + '" target="_blank">' + esc(w.site) + ' ↗</a>' : '') + '</div>' +
+      '<div class="purpose">' + esc(w.blurb) + '</div>' +
+      (w.feeds ? '<div class="notes">Feeds: ' + esc(w.feeds) + '</div>' : '') + rights +
+      sourceStateHtml(w.source_ids) +
+      '<div class="last">' + lastRunHtml(w.file) + '</div>' +
+      '<div class="actions"></div>';
+    var opts = inputsForm(w.inputs, w.id);
+    el.insertBefore(opts, $('.actions', el));
+    var actions = $('.actions', el);
+    var say = document.createElement('span'); say.className = "say";
+    var run = document.createElement('button'); run.className = "btn pri"; run.textContent = "▶ Check now";
+    run.onclick = function(){ dispatchCard(w, w.file, collect(opts), run, say, false); };
+    actions.appendChild(run);
+    if (imp) {
+      var go = document.createElement('button'); go.className = "btn gh"; go.textContent = "⬇ Import — " + imp.name.split(" — ")[0];
+      go.onclick = function(){ jumpToFile(imp.file); };
+      actions.appendChild(go);
+    } else {
+      var none = document.createElement('span'); none.className = "say"; none.textContent = "No importer wired — a change here is a note for you.";
+      actions.appendChild(none);
+    }
+    var o = document.createElement('button'); o.className = "btn"; o.textContent = "Options"; o.onclick = function(){ opts.classList.toggle('open'); };
+    actions.appendChild(o);
+    actions.appendChild(say);
+    return el;
+  }
+
+  function jumpToFile(file){
+    var w = MANIFEST.workflows[file];
+    if (!w) return;
+    var acc = $('.acc[data-cat="' + w.category + '"]');
+    if (acc && !acc.classList.contains('open')) $('.acc-h', acc).click();
+    var card = $('.card[data-file="' + file + '"]');
+    if (card) { card.scrollIntoView({ behavior: 'smooth', block: 'center' }); card.style.outline = '2px solid var(--accent)'; setTimeout(function(){ card.style.outline = ''; }, 2500); }
+  }
+
+  function fileCard(file){
+    var w = MANIFEST.workflows[file], g = w.generated || {};
+    var cats = (CAT_BY_FILE[file] || []).filter(function(c){ return c.group !== "source-sync" || c.id === "check-sources" || c.id === "sync-dvaitavedanta"; });
+    var cat = cats[0] || null;                       // the curated form, if there is one
+    var writes = cat ? cat.writes : (g.writes || []).some(function(x){ return /pull request|force-pushes|commits directly/.test(x); }) ? 'metadata' : 'nothing';
+    if (cat && cat.writes !== 'corpus' && cat.writes !== 'metadata' && cat.writes !== 'nothing') writes = 'metadata';
+    var rec = recOf(w);
+    var el = document.createElement('div');
+    el.className = "card " + (rec === "delete" ? "trash" : esc(writes));
+    el.dataset.file = file;
+
+    var trig = (g.triggers || []).join("; ") || "never (no trigger)";
+    if (g.schedule && g.schedule.length) trig += " — " + g.schedule.map(function(s){ return s.ist; }).join("; ");
+    var badges = '<span class="badge ' + esc(rec) + '">' + (rec === "keep" ? "active" : rec === "delete" ? "proposed: delete" : "your decision") + '</span>';
+    if (g.cost && g.cost.length) badges += ' <span class="badge cost" title="' + esc(g.cost.join(", ")) + '">₹ ' + esc(g.cost.map(function(c){ return c.split(" ")[0]; }).join(" + ")) + '</span>';
+    if (writes === 'corpus') badges += ' <span class="badge plain">rewrites the corpus · super-admin</span>';
+    if (cat) badges += ' <span class="badge plain">curated form</span>';
+
+    el.innerHTML = '<div class="top"><span class="title">' + esc(w.display_name || g.name || file) + '</span>' + badges + '</div>' +
+      '<div class="name">' + esc(file) + '</div>' +
+      '<div class="purpose">' + esc(w.purpose || "(no purpose written yet — add one in admin/config/repo-map.json)") + '</div>' +
+      (w.notes ? '<div class="notes">' + esc(w.notes) + '</div>' : '') +
+      '<div class="meta"><span><b>Runs when:</b> ' + esc(trig) + '</span><span><b>Writes:</b> ' + esc((g.writes || []).join(", ")) + '</span>' +
+      (g.secrets && g.secrets.length ? '<span><b>Secrets:</b> ' + esc(g.secrets.join(", ")) + '</span>' : '') + '</div>' +
+      (g.scripts && g.scripts.length ? '<details class="more"><summary>Code it runs</summary>' + g.scripts.map(function(s){ return '<code>' + esc(s) + '</code>'; }).join(' ') + '</details>' : '') +
+      '<div class="reason"><b>Recommendation: ' + esc(rec) + '.</b> ' + esc(w.reason || "") + '</div>' +
+      '<div class="last">' + lastRunHtml(file) + '</div>' +
+      '<div class="actions"></div>';
+
+    var inputs = cat ? cat.inputs : (g.inputs || []);
+    var opts = inputsForm(inputs, file.replace(/\W/g, "_"));
+    el.insertBefore(opts, $('.actions', el));
+    var actions = $('.actions', el);
+    var say = document.createElement('span'); say.className = "say";
+
+    var run = document.createElement('button');
+    var canDispatch = (g.triggers || []).indexOf("manual") >= 0;
+    if (!canDispatch) { run.className = "btn"; run.textContent = "no manual trigger"; run.disabled = true; }
+    else if (fnLive() && cat) {
+      run.className = "btn pri"; run.textContent = "▶ Run";
+      var need = cat.minRole || (cat.writes === 'corpus' ? 'superadmin' : 'admin');
+      if ((RANK[ROLE] || 0) < (RANK[need] || 0)) { run.disabled = true; say.textContent = "Needs a super-admin account."; }
+      run.onclick = function(){ dispatchCard(cat, file, collect(opts), run, say, writes === 'corpus'); };
+    } else if (patLive()) {
+      run.className = "btn pri"; run.textContent = "▶ Run";
+      run.onclick = function(){ dispatchCard(cat, file, collect(opts), run, say, writes === 'corpus'); };
+    } else {
+      run.className = "btn gh"; run.textContent = "Open on GitHub ↗";
+      run.onclick = function(){ window.open("https://github.com/" + OWNER + "/" + REPO + "/actions/workflows/" + file, "_blank"); };
+    }
+    actions.appendChild(run);
+    if (inputs.length) { var o = document.createElement('button'); o.className = "btn"; o.textContent = "Options (" + inputs.length + ")"; o.onclick = function(){ opts.classList.toggle('open'); }; actions.appendChild(o); }
+    var runs = document.createElement('button'); runs.className = "btn"; runs.textContent = "Runs ↗";
+    runs.onclick = function(){ window.open("https://github.com/" + OWNER + "/" + REPO + "/actions/workflows/" + file, "_blank"); };
+    actions.appendChild(runs);
+    var src = document.createElement('button'); src.className = "btn"; src.textContent = "Source ↗";
+    src.onclick = function(){ window.open("https://github.com/" + OWNER + "/" + REPO + "/blob/main/.github/workflows/" + file, "_blank"); };
+    actions.appendChild(src);
+    if (rec !== "keep") {
+      var del = document.createElement('button'); del.className = "btn danger"; del.textContent = "🗑 Delete workflow file";
+      del.onclick = function(){ confirmDeleteWorkflow(file); };
+      actions.appendChild(del);
+    }
+    actions.appendChild(say);
+    return el;
+  }
+
+  // Order of preference: the Cloud Function (no token in the browser, role
+  // checked server-side) for a curated card; the GitHub token for anything;
+  // else GitHub itself. The card never pretends which one it is doing.
+  async function dispatchCard(cat, file, inputs, btn, say, isCorpus){
+    if (isCorpus && inputs.probe_only !== true && inputs.dry_run !== true) {
+      if (!confirm((cat ? cat.name : file) + " rewrites corpus data or republishes a branch.\n\nGo ahead?")) return;
+    }
+    btn.disabled = true; say.className = "say"; say.textContent = "Starting…";
+    try {
+      if (fnLive() && cat) {
+        var clean = {}; Object.keys(inputs).forEach(function(k){ clean[k] = inputs[k]; });
+        await FN.httpsCallable('runWorkflow')({ workflow: cat.id, inputs: clean });
+      } else if (patLive()) {
+        var strInputs = {};
+        Object.keys(inputs).forEach(function(k){ strInputs[k] = typeof inputs[k] === 'boolean' ? (inputs[k] ? 'true' : 'false') : String(inputs[k]); });
+        var r = await gh("/actions/workflows/" + encodeURIComponent(file) + "/dispatches", {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ref: "main", inputs: strInputs })
+        });
+        if (!r.ok) { var t = await r.text(); throw new Error("GitHub said " + r.status + (t ? ": " + t.slice(0, 160) : "")); }
+      } else {
+        window.open("https://github.com/" + OWNER + "/" + REPO + "/actions/workflows/" + file, "_blank");
+        say.textContent = "Opened on GitHub."; btn.disabled = false; return;
+      }
+      say.className = "say ok"; say.textContent = "Started. It reports in its own run summary on GitHub.";
+      setTimeout(function(){ loadLive(false); }, 8000);
+    } catch (e) {
+      say.className = "say bad";
+      var code = String((e && e.code) || "").replace(/^functions\//, "");
+      say.textContent = code === "resource-exhausted" ? (e.message || "Just started — wait a minute.") : ((e && e.message) || "Could not start it.");
+      btn.disabled = false;
+    }
+  }
+
+  // Deleting a workflow file: the file goes, and the manifest entry with it,
+  // so the CI drift check (build_repo_inventory.py --check) stays green.
+  function confirmDeleteWorkflow(file){
+    if (!patLive()) { window.open("https://github.com/" + OWNER + "/" + REPO + "/blob/main/.github/workflows/" + file, "_blank"); return; }
+    var w = MANIFEST.workflows[file];
+    $("#cdTitle").textContent = "Delete " + file + "?";
+    $("#cdBody").innerHTML = '<p>' + esc(w.purpose || '') + '</p><p><b>Why it is proposed:</b> ' + esc(w.reason || '') + '</p>' +
+      '<p>This commits two changes to <code>main</code> as you: the file is removed from <code>.github/workflows/</code>, and its entry from <code>admin/config/repo-map.json</code>. Git history keeps both; nothing that already ran is affected.</p>';
+    $("#cdOk").onclick = async function(){
+      $("#cdOk").disabled = true; $("#cdOk").textContent = "Deleting…";
+      try {
+        await deleteRepoFile(".github/workflows/" + file, "Remove workflow " + file + " (" + (w.reason || "retired") + ")");
+        var man = await getRepoFile("admin/config/repo-map.json");
+        var obj = JSON.parse(man.text);
+        delete obj.workflows[file];
+        await putRepoFile("admin/config/repo-map.json", JSON.stringify(obj, null, 1) + "\n", "Repo inventory: drop " + file, man.sha);
+        delete MANIFEST.workflows[file];
+        $("#confirmDlg").close();
+        renderTotals(); renderWorkflows();
+        alert(file + " deleted. docs/REPO_INVENTORY.md will follow on the next inventory rebuild.");
+      } catch (e) { alert("Could not delete: " + e.message); }
+      $("#cdOk").disabled = false; $("#cdOk").textContent = "Confirm";
+    };
+    $("#confirmDlg").showModal();
+  }
+
+  async function getRepoFile(path){
+    var r = await gh("/contents/" + path + "?ref=main&_=" + Date.now());
+    if (!r.ok) throw new Error("GitHub said " + r.status + " for " + path);
+    var d = await r.json();
+    return { sha: d.sha, text: utf8b64(d.content || "") };
+  }
+  async function putRepoFile(path, text, message, sha){
+    var body = { message: message, content: b64utf8(text), branch: "main" };
+    if (sha) body.sha = sha;
+    var r = await gh("/contents/" + path, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    if (!r.ok) throw new Error("GitHub said " + r.status + " writing " + path);
+    return r.json();
+  }
+  async function deleteRepoFile(path, message){
+    var f = await getRepoFile(path);
+    var r = await gh("/contents/" + path, { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ message: message, sha: f.sha, branch: "main" }) });
+    if (!r.ok) throw new Error("GitHub said " + r.status + " deleting " + path);
+  }
+
+  // ---- branches -------------------------------------------------------------
+  function renderBranches(){
+    var q = ($("#bsearch").value || "").toLowerCase();
+    var activeCat = $("[data-cat].on") ? $("[data-cat].on").dataset.cat : "all";
+    var host = $("#branch-groups");
+    host.innerHTML = "";
+    var order = (MANIFEST.branch_categories || []).map(function(c){ return c.id; });
+    var labels = {}; (MANIFEST.branch_categories || []).forEach(function(c){ labels[c.id] = c.label; });
+
+    order.forEach(function(cat){
+      if (activeCat !== "all" && activeCat !== cat) return;
+      var names = Object.keys(MANIFEST.branches).filter(function(n){
+        var b = MANIFEST.branches[n];
+        if (b.category !== cat) return false;
+        if (!q) return true;
+        return n.toLowerCase().indexOf(q) >= 0 || (b.purpose || "").toLowerCase().indexOf(q) >= 0 || (b.notes || "").toLowerCase().indexOf(q) >= 0;
+      }).sort();
+      if (!names.length) return;
+      var canBulkDelete = (cat === "merged-safe-delete" || cat === "stale-superseded");
+      var acc = document.createElement("div");
+      acc.className = "acc" + ((activeCat !== "all" || !!q || cat === "open-pr-needs-decision" || cat === "review-needed" || cat === "unclassified") ? " open" : "");
+      acc.innerHTML = '<button class="acc-h" type="button"><span>' + esc(labels[cat] || cat) + '</span><span class="n"><span class="pill">' + names.length + '</span>' +
+        (canBulkDelete ? '<button class="btn" data-bulkcat="' + cat + '" style="font-size:11px;padding:3px 9px">Select all</button>' : '') +
+        '<span class="arrow">' + (acc.classList.contains("open") ? '▴' : '▾') + '</span></span></button>' +
+        '<div class="acc-b"><div class="cards">' + names.map(function(n){ return branchCard(n, cat); }).join("") + '</div></div>';
+      $(".acc-h", acc).onclick = function(e){ if (e.target.dataset.bulkcat) return; acc.classList.toggle("open"); $(".arrow", acc).textContent = acc.classList.contains("open") ? '▴' : '▾'; };
+      host.appendChild(acc);
+    });
+    if (!host.children.length) host.innerHTML = '<div class="empty">No branches match.</div>';
+
+    $$("[data-bulkcat]").forEach(function(b){
+      b.onclick = function(e){
+        e.stopPropagation();
+        Object.keys(MANIFEST.branches).forEach(function(n){ if (MANIFEST.branches[n].category === b.dataset.bulkcat) selectedBranches[n] = true; });
+        renderBranches();
+      };
+    });
+    $$("[data-selbranch]").forEach(function(cb){
+      cb.onchange = function(){ if (cb.checked) selectedBranches[cb.dataset.selbranch] = true; else delete selectedBranches[cb.dataset.selbranch]; renderBulkHint(); };
+    });
+    $$("[data-delbranch]").forEach(function(b){ b.onclick = function(){ confirmDeleteBranches([b.dataset.delbranch]); }; });
+    $$("[data-refreshbranch]").forEach(function(b){ b.onclick = async function(){ b.textContent = "…"; await refreshCompare(b.dataset.refreshbranch); renderBranches(); }; });
+    renderBulkHint();
+  }
+
+  function branchCard(name, cat){
+    var b = MANIFEST.branches[name];
+    var s = snapshotFor(name);
+    var badge = CAT_BADGE[cat] || "review";
+    var canDelete = (cat === "merged-safe-delete" || cat === "stale-superseded" || cat === "review-needed" || cat === "open-pr-needs-decision");
+    var canSelect = (cat === "merged-safe-delete" || cat === "stale-superseded");
+    var aheadPill = (s.ahead_of_main != null) ? '<span class="pill ahead">' + s.ahead_of_main + ' ahead of main</span>' : '';
+    var behindPill = (s.behind_main != null) ? '<span class="pill behind">' + s.behind_main + ' behind</span>' : '';
+    var mergedPill = s.merged_into_main ? '<span class="pill" style="color:var(--ok)">fully merged</span>' : '';
+    var livePill = s._live ? '<span class="pill" style="color:var(--accent2)">live-checked</span>' : (s.checked_at ? '<span class="pill">git-checked ' + esc(s.checked_at) + '</span>' : '<span class="pill">baked-in snapshot</span>');
+    var existsPill = (s._existsOnGithub === false) ? '<span class="pill" style="color:var(--bad)">no longer exists on GitHub</span>' : '';
+    return '<div class="card selectable">'
+      + (canSelect ? '<input type="checkbox" data-selbranch="' + esc(name) + '" ' + (selectedBranches[name] ? 'checked' : '') + '>' : '<span style="width:16px;display:inline-block"></span>')
+      + '<div class="body">'
+      + '<div class="top"><span class="name" style="color:var(--ink);font-size:13px;font-weight:700">' + esc(name) + '</span><span class="badge ' + badge + '">' + esc(b.recommendation || cat) + '</span></div>'
+      + '<div class="purpose">' + esc(b.purpose || "") + '</div>'
+      + (b.notes ? '<div class="notes">' + esc(b.notes) + '</div>' : '')
+      + '<div class="meta">' + aheadPill + behindPill + mergedPill + livePill + existsPill
+        + (s.last_commit_date ? '<span><b>' + esc(s.last_commit_date) + '</b> · ' + esc(s.last_author || "") + ' · ' + esc(s.last_commit_subject || "") + '</span>' : '')
+      + '</div>'
+      + '<div class="actions">'
+        + '<button class="btn" onclick="window.open(\'https://github.com/' + OWNER + '/' + REPO + '/compare/main...' + encodeURIComponent(name) + '\',\'_blank\')">Compare ↗</button>'
+        + '<button class="btn" data-refreshbranch="' + esc(name) + '" title="Live compare against main right now (one API call)">↻ Refresh live</button>'
+        + (canDelete ? '<button class="btn danger" data-delbranch="' + esc(name) + '">🗑 Delete branch</button>' : '')
+      + '</div></div></div>';
+  }
+
+  function renderBulkHint(){
+    var n = Object.keys(selectedBranches).length;
+    var hint = $("#bulkhint");
+    if (!n) { hint.style.display = "none"; return; }
+    hint.style.display = "block";
+    hint.innerHTML = n + ' branch(es) selected. <button class="btn danger" id="bulkDeleteBtn" style="font-size:12px;padding:4px 10px">🗑 Delete selected</button> <button class="btn" id="bulkClearBtn" style="font-size:12px;padding:4px 10px">Clear selection</button>';
+    $("#bulkDeleteBtn").onclick = function(){ confirmDeleteBranches(Object.keys(selectedBranches)); };
+    $("#bulkClearBtn").onclick = function(){ selectedBranches = {}; renderBranches(); };
+  }
+
+  function confirmDeleteBranches(names){
+    if (!patLive()) { window.open("https://github.com/" + OWNER + "/" + REPO + "/branches", "_blank"); return; }
+    $("#cdTitle").textContent = "Delete " + names.length + " branch" + (names.length > 1 ? "es" : "") + "?";
+    $("#cdBody").innerHTML = '<p>This deletes the branch ref on GitHub. It does <b>not</b> delete any pull request made from it — a closed PR keeps its title, diff and comments. An open PR from the branch is closed.</p><ul>' +
+      names.map(function(n){ return '<li><code>' + esc(n) + '</code></li>'; }).join('') + '</ul>';
+    $("#cdOk").onclick = async function(){
+      $("#cdOk").disabled = true; $("#cdOk").textContent = "Deleting…";
+      var results = [];
+      for (var i = 0; i < names.length; i++) {
+        var n = names[i];
+        try {
+          var r = await gh("/git/refs/heads/" + encodeURIComponent(n), { method: "DELETE" });
+          results.push(n + ": " + (r.ok ? "deleted" : ("failed (" + r.status + ")")));
+          if (r.ok) { delete MANIFEST.branches[n]; if (LIVE_BRANCHES) delete LIVE_BRANCHES[n]; }
+        } catch (e) { results.push(n + ": failed (" + e.message + ")"); }
+      }
+      $("#confirmDlg").close();
+      $("#cdOk").disabled = false; $("#cdOk").textContent = "Confirm";
+      selectedBranches = {};
+      alert(results.join("\n") + "\n\nRun tools/build_repo_inventory.py (or let the next Claude session) to drop them from the manifest.");
+      renderTotals(); renderBranches();
+    };
+    $("#confirmDlg").showModal();
+  }
+
+  // ---- Ask Claude -------------------------------------------------------------
+  // The protocol (tasks/README.md): one JSON file per conversation in
+  // tasks/inbox/, plus a bullet under "## Pending" in tasks/WEEKLY_INSTRUCTIONS.md
+  // that the Sunday session already reads. Everything is written with the
+  // lead's own token, so the commit author is the lead — which is the trust
+  // check that session applies.
+  var ASK_READY = false, LIB = [], CHOSEN = {};
+  async function initAsk(){
+    if (ASK_READY) return;
+    ASK_READY = true;
+    try {
+      var lib = await fetch("../data/library.json", { cache: "force-cache" }).then(function(r){ return r.json(); });
+      LIB = (lib.granthas || []).map(function(g){
+        var p = String(g.path || "").replace(/^dge\/data\//, "").replace(/\/data\.json$/, "");
+        return { path: p, title: g.title || p, hay: (p + " " + (g.title || "")).toLowerCase() };
+      });
+    } catch (e) { LIB = []; }
+    $("#secsearch").oninput = renderPicklist;
+    $("#askSend").onclick = sendAsk;
+    $("#askReload").onclick = loadThreads;
+    renderPicklist();
+    loadThreads();
+  }
+  function renderPicklist(){
+    var q = ($("#secsearch").value || "").trim().toLowerCase();
+    var host = $("#picklist");
+    if (!q) { host.innerHTML = '<div class="empty">Type to search the ' + LIB.length.toLocaleString("en-IN") + ' library entries — or send without a section.</div>'; renderChosen(); return; }
+    var hits = LIB.filter(function(e){ return e.hay.indexOf(q) >= 0; }).slice(0, 150);
+    host.innerHTML = hits.length ? hits.map(function(e){
+      return '<label><input type="checkbox" data-pick="' + esc(e.path) + '"' + (CHOSEN[e.path] ? ' checked' : '') + '><span>' + esc(e.title) + '<br><span class="p">' + esc(e.path) + '</span></span></label>';
+    }).join("") : '<div class="empty">Nothing matches.</div>';
+    $$("[data-pick]", host).forEach(function(cb){ cb.onchange = function(){ if (cb.checked) CHOSEN[cb.dataset.pick] = true; else delete CHOSEN[cb.dataset.pick]; renderChosen(); }; });
+    renderChosen();
+  }
+  function renderChosen(){
+    var host = $("#chosen");
+    var keys = Object.keys(CHOSEN);
+    host.innerHTML = keys.map(function(p){ return '<span class="pill" data-unpick="' + esc(p) + '" title="remove">' + esc(p) + ' ✕</span>'; }).join("");
+    $$("[data-unpick]", host).forEach(function(el){ el.onclick = function(){ delete CHOSEN[el.dataset.unpick]; renderPicklist(); }; });
+  }
+  function askId(){
+    var d = new Date(); var p = function(n){ return String(n).padStart(2, "0"); };
+    var ist = new Date(d.getTime() + (330 + d.getTimezoneOffset()) * 60000);
+    return ist.getFullYear() + p(ist.getMonth() + 1) + p(ist.getDate()) + "-" + p(ist.getHours()) + p(ist.getMinutes()) + "-" + Math.random().toString(16).slice(2, 6);
+  }
+  async function sendAsk(){
+    var say = $("#askSay");
+    var text = ($("#askText").value || "").trim();
+    if (!text) { say.className = "say bad"; say.textContent = "Write the instruction first."; return; }
+    if (!patLive()) { say.className = "say bad"; say.textContent = "Set a GitHub token (🔑) first — the request is written to the repo as you."; return; }
+    var id = askId();
+    var sections = Object.keys(CHOSEN).map(function(p){ var e = LIB.find(function(x){ return x.path === p; }); return { path: "data/" + p + "/data.json", title: e ? e.title : p }; });
+    var doc = { id: id, created_at: new Date().toISOString(), created_ist: nowIST(), by: "lead (via admin/repo-map.html)",
+                sections: sections, instruction: text, status: "pending",
+                thread: [{ who: "lead", at: new Date().toISOString(), text: text }] };
+    $("#askSend").disabled = true; say.className = "say"; say.textContent = "Writing…";
+    try {
+      await putRepoFile("tasks/inbox/" + id + ".json", JSON.stringify(doc, null, 1) + "\n", "Ask Claude " + id + ": " + text.slice(0, 60).replace(/\s+/g, " "), null);
+      var wi = await getRepoFile("tasks/WEEKLY_INSTRUCTIONS.md");
+      var bullet = "- [inbox " + id + "] " + text.replace(/\s+/g, " ").slice(0, 300) +
+        (sections.length ? " — sections: " + sections.map(function(s){ return s.path; }).join(", ") : "") +
+        " (full request and reply thread: tasks/inbox/" + id + ".json — answer there per tasks/README.md)";
+      var lines = wi.text.split("\n");
+      var at = lines.findIndex(function(l){ return /^## Pending\s*$/.test(l); });
+      if (at < 0) throw new Error("tasks/WEEKLY_INSTRUCTIONS.md has no '## Pending' heading");
+      lines.splice(at + 1, 0, "", bullet);
+      await putRepoFile("tasks/WEEKLY_INSTRUCTIONS.md", lines.join("\n"), "Ask Claude " + id + ": queue in WEEKLY_INSTRUCTIONS.md", wi.sha);
+      say.className = "say ok"; say.textContent = "Sent as " + id + ". Claude usually replies here within a few minutes.";
+      $("#askText").value = ""; CHOSEN = {}; renderPicklist();
+      setTimeout(loadThreads, 1500);
+      watchThread(id);
+    } catch (e) { say.className = "say bad"; say.textContent = "Could not send: " + e.message; }
+    $("#askSend").disabled = false;
+  }
+  // Live: while a request is with Claude, re-read its file every few seconds
+  // and the workflow's latest run alongside, so the thread updates in place.
+  var WATCHING = {};
+  function watchThread(id){
+    if (WATCHING[id]) return;
+    var started = Date.now();
+    WATCHING[id] = setInterval(async function(){
+      if (Date.now() - started > 20 * 60 * 1000) { clearInterval(WATCHING[id]); delete WATCHING[id]; return; }
+      try {
+        var f = await getRepoFile("tasks/inbox/" + id + ".json");
+        var d = JSON.parse(f.text);
+        var last = (d.thread || [{}])[(d.thread || [{}]).length - 1];
+        await loadThreads(true);
+        if (last.who === "claude" && d.status !== "pending") { clearInterval(WATCHING[id]); delete WATCHING[id]; }
+      } catch (e) {}
+    }, 7000);
+  }
+  var ASK_RUN = null;
+  async function askRunStatus(){
+    try {
+      var r = await gh("/actions/workflows/ask-claude.yml/runs?per_page=1");
+      if (!r.ok) { ASK_RUN = { missing: r.status === 404 }; return; }
+      var d = await r.json();
+      ASK_RUN = (d.workflow_runs || [])[0] || { none: true };
+    } catch (e) { ASK_RUN = null; }
+  }
+  function waitingHtml(d){
+    var last = (d.thread || [{}])[(d.thread || [{}]).length - 1];
+    if (d.status !== "pending" || last.who === "claude") return "";
+    var run = ASK_RUN || {};
+    var line;
+    if (d.working) line = "⏳ Claude is working on this since " + whenIST(d.working.since) + (d.working.run ? ' — <a href="' + esc(d.working.run) + '" target="_blank">watch the run ↗</a>' : "");
+    else if (run.missing) line = "⚠ The Ask Claude workflow is not on main yet — the Sunday session will answer this.";
+    else if (run.status && run.status !== "completed") line = '⏳ The Ask Claude workflow is running (' + esc(run.status) + ') — <a href="' + esc(run.html_url) + '" target="_blank">watch ↗</a>';
+    else if (run.conclusion === "failure") line = '⚠ The last Ask Claude run failed — usually the ANTHROPIC_API_KEY / CLAUDE_CODE_OAUTH_TOKEN secret is missing. <a href="' + esc(run.html_url) + '" target="_blank">see why ↗</a>';
+    else line = "⏳ Waiting for Claude — the workflow starts within a minute of your commit.";
+    return '<div class="msg lead" style="border-style:dashed"><span class="who">status</span>' + line + '</div>';
+  }
+
+  async function loadThreads(quiet){
+    var host = $("#threads"), say = $("#askListSay");
+    say.textContent = "";
+    await askRunStatus();
+    try {
+      var r = await gh("/contents/tasks/inbox?ref=main&_=" + Date.now());
+      if (!r.ok) throw new Error("GitHub said " + r.status);
+      var list = (await r.json()).filter(function(f){ return /\.json$/.test(f.name); }).sort(function(a, b){ return a.name < b.name ? 1 : -1; }).slice(0, 30);
+      if (!list.length) { host.innerHTML = '<div class="empty">No conversations yet.</div>'; return; }
+      var docs = [];
+      for (var i = 0; i < list.length; i++) {
+        try { var f = await getRepoFile("tasks/inbox/" + list[i].name); var d = JSON.parse(f.text); d._sha = f.sha; d._name = list[i].name; docs.push(d); } catch (e) {}
+      }
+      host.innerHTML = docs.map(threadHtml).join("");
+      // Anything still with Claude keeps refreshing itself while this tab is open.
+      docs.forEach(function(d){ var last = (d.thread || [{}])[(d.thread || [{}]).length - 1]; if (d.status === "pending" && last.who !== "claude") watchThread(d.id); });
+      $$("[data-reply]", host).forEach(function(btn){ btn.onclick = function(){ sendReply(btn.dataset.reply, docs.find(function(d){ return d.id === btn.dataset.reply; })); }; });
+      $$("[data-copyprompt]", host).forEach(function(btn){
+        btn.onclick = function(){
+          var p = "In Tribhuvanachar/bhumandala, read tasks/README.md, then tasks/inbox/" + btn.dataset.copyprompt + ".json. Do what it asks (or answer it), append your reply to its `thread` as who:\"claude\", set `status`, commit to main, and move its bullet in tasks/WEEKLY_INSTRUCTIONS.md to Done.";
+          navigator.clipboard.writeText(p).then(function(){ btn.textContent = "Copied"; setTimeout(function(){ btn.textContent = "Copy prompt for a Claude session"; }, 1800); });
+        };
+      });
+      $$("[data-close]", host).forEach(function(btn){ btn.onclick = function(){ closeThread(docs.find(function(d){ return d.id === btn.dataset.close; })); }; });
+    } catch (e) { host.innerHTML = '<div class="empty">Could not list tasks/inbox: ' + esc(e.message) + (patLive() ? '' : ' — set a 🔑 Token, the unauthenticated API is rate-limited.') + '</div>'; }
+  }
+  function threadHtml(d){
+    var secs = (d.sections || []).map(function(s){ return '<span class="pill" title="' + esc(s.path) + '">' + esc(s.title) + '</span>'; }).join(" ");
+    var msgs = (d.thread || []).map(function(m){ return '<div class="msg ' + (m.who === 'claude' ? 'claude' : 'lead') + '"><span class="who">' + esc(m.who === 'claude' ? 'Claude' : 'You') + ' · ' + esc(whenIST(m.at)) + '</span>' + esc(m.text) + '</div>'; }).join("");
+    var st = d.status || "pending";
+    return '<div class="card nothing" style="margin-top:8px"><div class="top"><span class="title">' + esc(d.id) + '</span><span class="status ' + esc(st) + '">' + esc(st) + '</span></div>' +
+      (secs ? '<div class="chosen">' + secs + '</div>' : '') +
+      '<div class="thread">' + msgs + waitingHtml(d) + '</div>' +
+      (st !== "done" ? '<textarea id="reply_' + esc(d.id) + '" placeholder="Reply…" style="min-height:56px;margin-top:6px"></textarea>' : '') +
+      '<div class="actions">' +
+      (st !== "done" ? '<button class="btn pri" data-reply="' + esc(d.id) + '">Reply</button>' : '') +
+      '<button class="btn" data-copyprompt="' + esc(d.id) + '">Copy prompt for a Claude session</button>' +
+      (st !== "done" ? '<button class="btn" data-close="' + esc(d.id) + '">Mark done</button>' : '') +
+      '<a class="say" href="https://github.com/' + OWNER + '/' + REPO + '/blob/main/tasks/inbox/' + esc(d._name) + '" target="_blank">file ↗</a></div></div>';
+  }
+  async function sendReply(id, d){
+    var ta = $("#reply_" + id.replace(/[^\w-]/g, ""));
+    var text = ta ? ta.value.trim() : "";
+    if (!text) return;
+    if (!patLive()) { alert("Set a GitHub token first."); return; }
+    d.thread = d.thread || [];
+    d.thread.push({ who: "lead", at: new Date().toISOString(), text: text });
+    d.status = "pending";
+    var sha = d._sha; delete d._sha; var name = d._name; delete d._name;
+    try {
+      await putRepoFile("tasks/inbox/" + name, JSON.stringify(d, null, 1) + "\n", "Ask Claude " + id + ": reply from the lead", sha);
+      loadThreads();
+      watchThread(id);
+    } catch (e) { alert("Could not write the reply: " + e.message); }
+  }
+  async function closeThread(d){
+    if (!patLive()) { alert("Set a GitHub token first."); return; }
+    d.status = "done";
+    var sha = d._sha; delete d._sha; var name = d._name; delete d._name;
+    try { await putRepoFile("tasks/inbox/" + name, JSON.stringify(d, null, 1) + "\n", "Ask Claude " + d.id + ": closed by the lead", sha); loadThreads(); }
+    catch (e) { alert("Could not close: " + e.message); }
+  }
+})();
+</script>
+</body>
+</html>

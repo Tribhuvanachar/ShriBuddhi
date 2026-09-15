@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=1"></script>
+<!-- Passkeys come from admin/config/keys.json, not from this page. -->
+<script src="js/keys.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashtadhyayi Manager · DGE (super-admin)</title>
+<link rel="stylesheet" href="css/ashtadhyayi.css?v=1">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<body>
+<div class="gate" id="gate">
+  <div style="font-size:22px;font-weight:700">🔐 Ashtadhyayi Manager</div>
+  <div class="muted">Super-admin only. Enter the passkey.</div>
+  <input id="gk" type="password" placeholder="passkey" autocomplete="off">
+  <button class="btn pri" id="gbtn">Enter</button>
+  <div class="muted" style="max-width:420px">Client-side gate for convenience, not real security — the page and data are public in the repo.</div>
+</div>
+
+<header style="display:none" id="hdr">
+  <div class="bar">
+    <div class="brand">📜 Ashtadhyayi Manager <small>· DGE super-admin</small></div>
+    <span class="spacer"></span>
+    <a class="icon" href="../vyakarana/ashtadhyayi.html">◂ Reader</a>
+    <button class="icon" id="theme">◐</button>
+    <button class="btn" id="reload">↻ Refresh</button>
+  </div>
+  <div class="crumbs"><a href="../render.html">⌂ DGE</a> › <a href="../vyakarana/ashtadhyayi.html">अष्टाध्यायी</a> › <b>Layer &amp; coverage tracker</b></div>
+</header>
+
+<main id="app" style="display:none">
+  <div class="totals" id="totals"></div>
+
+  <h3>Commentary &amp; translation layers <span class="muted" style="font-weight:400;font-size:12px">— 👁 controls whether readers are offered this layer at all, site-wide</span></h3>
+  <div class="grid" id="layers"></div>
+  <div id="vispub" style="display:none;margin:10px 0 4px;">
+    <button class="btn pri" id="vispubbtn">Publish visibility changes</button>
+    <span class="muted" id="vispubnote" style="margin-left:8px"></span>
+  </div>
+
+  <h3>Sūtrapāṭha enrichment coverage</h3>
+  <div class="muted" style="margin-bottom:8px">Structured per-sūtra fields shown in the reader's <b>॥ पदच्छेद / विश्लेषण ॥</b> panel. Source: ashtadhyayi.com <code>sutraani/data.txt</code> + <code>sutrartha_english.txt</code> — <b>padaccheda &amp; anvaya come from the sūtra metadata, not from any single commentary layer</b>. 👁 next to a field toggles it the same way as a layer above.</div>
+  <div class="enrich" id="enrich"></div>
+
+  <div class="warn" id="licnote"></div>
+  <p class="muted" style="margin-top:14px">Coverage counts are read live from each layer's <code>data.json</code>. “Cleared (PD)” = public domain; “Permitted (curator)” = used under the ashtadhyayi.com curator's e-mail permission for non-commercial/educational use (source repo has no formal LICENSE) — keep attribution, resolve before public launch; “Verify” = not yet investigated against any public copy. Where a card shows a “Provenance evidence” expander, a real investigation happened and left a citable trail (exact source repo/commit, matched passages) — expand it to see exactly what was checked and what, if anything, is still unconfirmed. Licence resolution is a project-lead decision — this page only surfaces the status. <b>Update, 27 Aug:</b> Kashika, Nyāsa, Bālamanoramā and Tattvabodhinī were traced to a specific upstream (<code>github.com/indic-dict/stardict-sanskrit-vyAkaraNa</code>), confirmed public domain by byte-for-byte text match including reproduced source-file artifacts — moved from “Verify” to “Cleared (PD)”; the specific printed edition each was originally digitized from is still unidentified (does not affect PD status). Siddhānta-Kaumudī and Mahābhāṣya remain unresolved — no record of the claimed curator permission could be found in this repo beyond an unverified note, and ashtadhyayi.com's source repo still has no formal licence. This admin page's own layer paths for those two were also found and fixed — they pointed at a directory removed in an earlier taxonomy reorganisation, so this page previously couldn't load their data or status at all. <b>Earlier, 23 Aug:</b> the English gloss field (<code>sutrartha_english.txt</code>) was disabled and its data removed from <code>sutrapatha/data.json</code> — it was the one field shown to readers with no attribution at all. Vasu is unaffected by any of this.</p>
+</main>
+
+<script>
+(function(){
+  // Key comes from admin/config/keys.json via js/keys.js.
+  var GATE="superadmin";
+  var $=function(s){return document.querySelector(s);};
+  if(sessionStorage.getItem("dge.admin.ok")==="1" || localStorage.getItem("is_superadmin")==="true") start();
+  else {
+    $("#gate").style.display="flex";
+    var tryK=function(){ window.dgeCheckKey(GATE,$("#gk").value).then(function(ok){ if(ok){ sessionStorage.setItem("dge.admin.ok","1"); location.reload(); } else { $("#gk").value=""; $("#gk").placeholder="wrong — try again"; } }); };
+    $("#gbtn").onclick=tryK; $("#gk").addEventListener("keydown",function(e){ if(e.key==="Enter") tryK(); }); $("#gk").focus();
+  }
+
+  // layer registry — mirrors ashtadhyayi.js META/ORDER + the two ancillary leaves
+  var LAYERS=[
+    {key:"kashika",           t:"काशिकावृत्तिः",   sub:"Kāśikā-vṛtti",     who:"Vāmana–Jayāditya",  role:"tika",        tag:"var(--k)",  path:"../data/vedanga/vyakarana/ashtadhyayi/kashika/data.json"},
+    {key:"siddhanta_kaumudi", t:"सिद्धान्तकौमुदी", sub:"Siddhānta-Kaumudī",who:"Bhaṭṭoji Dīkṣita",  role:"tika",        tag:"var(--sk)", path:"../data/vedanga/vyakarana/ashtadhyayi/siddhanta_kaumudi/data.json"},
+    {key:"mahabhashya",       t:"महाभाष्यम्",      sub:"Mahā-bhāṣya",      who:"Patañjali",         role:"bhāṣya",      tag:"var(--mb)", path:"../data/vedanga/vyakarana/ashtadhyayi/mahabhashya_patanjali/data.json"},
+    {key:"balamanorama",      t:"बालमनोरमा",       sub:"Bāla-manoramā",    who:"Vāsudeva Dīkṣita",  role:"tippani",     tag:"var(--b)",  path:"../data/vedanga/vyakarana/ashtadhyayi/balamanorama/data.json"},
+    {key:"tattvabodhini",     t:"तत्त्वबोधिनी",    sub:"Tattva-bodhinī",   who:"Jñānendra Sarasvatī",role:"tippani",    tag:"var(--t)",  path:"../data/vedanga/vyakarana/ashtadhyayi/tattvabodhini/data.json"},
+    {key:"nyasa",             t:"न्यासः",          sub:"Nyāsa",            who:"Jinendrabuddhi",    role:"tippani",     tag:"var(--n)",  path:"../data/vedanga/vyakarana/ashtadhyayi/nyasa/data.json"},
+    {key:"vasu",              t:"Vasu · English",  sub:"S.C. Vasu (1891)", who:"Śrīśa Chandra Vasu",role:"translation", tag:"var(--vs)", path:"../data/vedanga/vyakarana/ashtadhyayi/vasu/data.json"}
+  ];
+  var PENDING=[{t:"⚙ प्रक्रिया (derivation engine)", note:"planned — external Vidyut/Vidyullekha engine, not a text layer"}];
+
+  // ---- site-wide visibility config (admin/content/ashtadhyayi-layers.json) ----
+  // Same GitHub-Contents-API-direct-commit mechanism js/content-inline.js
+  // uses for prose fields (token()/repo()/b64()/api() below are copied from
+  // there rather than exposed on window, since that file's closure is
+  // private) — applied here to a small visibility config instead.
+  var VIS_PATH = "admin/content/ashtadhyayi-layers.json";
+  var VIS = null, VIS_SHA = null, VIS_DIRTY = false;
+  function token(){ return localStorage.getItem("github_admin_pat") || ""; }
+  function repoCfg(){ return window.GITHUB_REPO_CONFIG || {owner:"Tribhuvanachar", repo:"bhumandala", branch:"main"}; }
+  function b64(text){ var bytes=new TextEncoder().encode(text), bin=""; bytes.forEach(function(b){ bin+=String.fromCharCode(b); }); return btoa(bin); }
+  function ghApi(path, options){
+    var c=repoCfg();
+    var url="https://api.github.com/repos/"+c.owner+"/"+c.repo+"/contents/"+path;
+    var headers={"Accept":"application/vnd.github+json"};
+    if(token()) headers.Authorization="token "+token();
+    return fetch(url+(options&&options.method?"":"?ref="+c.branch), Object.assign({headers:headers}, options||{}));
+  }
+  function loadVis(){
+    return ghApi(VIS_PATH).then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function(j){ VIS_SHA=j.sha; return JSON.parse(decodeURIComponent(escape(atob(j.content.replace(/\n/g,""))))); })
+      .catch(function(){
+        // Fall back to a plain fetch (works even without a token, read-only)
+        // so the page still shows real state when no PAT is configured yet.
+        return fetchJSON("../"+VIS_PATH+"?t="+Date.now());
+      })
+      .then(function(cfg){ VIS=cfg||{layers:{},fields:{}}; VIS.layers=VIS.layers||{}; VIS.fields=VIS.fields||{}; });
+  }
+  function layerVisible(key){ return !(VIS && VIS.layers[key] && VIS.layers[key].visible===false); }
+  function fieldVisible(key){ return !(VIS && VIS.fields[key] && VIS.fields[key].visible===false); }
+  function toggleLayer(key){
+    VIS.layers[key]=VIS.layers[key]||{}; VIS.layers[key].visible = !layerVisible(key);
+    VIS_DIRTY=true; renderLayers(window.__lastLayerRes||[], window.__lastTotal||0);
+    renderVisPub();
+  }
+  function toggleField(key){
+    VIS.fields[key]=VIS.fields[key]||{}; VIS.fields[key].visible = !fieldVisible(key);
+    VIS_DIRTY=true; renderEnrichment(window.__lastSutras||[], window.__lastTotal||0);
+    renderVisPub();
+  }
+  function renderVisPub(){
+    $("#vispub").style.display = VIS_DIRTY ? "block" : "none";
+  }
+  function publishVis(){
+    if(!token()){ alert('No GitHub token saved on this device.\n\nOpen the library, unlock Super Admin, and add a personal access token under Repo Files.'); return; }
+    var btn=$("#vispubbtn"); btn.disabled=true; btn.textContent="Publishing…";
+    var text=JSON.stringify(VIS, null, 1)+"\n";
+    ghApi(VIS_PATH).then(function(r){ return r.ok?r.json():null; }).then(function(existing){
+      return ghApi(VIS_PATH, {method:"PUT", body:JSON.stringify({
+        message:"Ashtadhyayi layer visibility: edit via admin panel",
+        content:b64(text), branch:repoCfg().branch, sha:existing&&existing.sha
+      })});
+    }).then(function(r){
+      if(!r.ok) return r.text().then(function(t){ throw new Error(r.status+" "+t.slice(0,200)); });
+      VIS_DIRTY=false; renderVisPub();
+      alert("Published. The live site fetches this file fresh on every load — a reader who already has the page open sees it on their next visit.");
+      btn.disabled=false; btn.textContent="Publish visibility changes";
+    }).catch(function(e){
+      alert("Could not publish: "+e.message);
+      btn.disabled=false; btn.textContent="Publish visibility changes";
+    });
+  }
+
+  function start(){
+    if(sessionStorage.getItem("dge.admin.ok")!=="1" && localStorage.getItem("is_superadmin")!=="true") return;
+    $("#gate").style.display="none"; $("#hdr").style.display=""; $("#app").style.display="";
+    if(localStorage.getItem("dge.ashadmin.dark")==="1") document.body.classList.add("dark");
+    $("#theme").onclick=function(){ document.body.classList.toggle("dark"); localStorage.setItem("dge.ashadmin.dark", document.body.classList.contains("dark")?"1":"0"); };
+    $("#reload").onclick=function(){ location.reload(); };
+    $("#vispubbtn").onclick=publishVis;
+    load();
+  }
+
+  function esc(s){ return (s||"").replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function fetchJSON(u){ return fetch(u).then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); }); }
+
+  function licBadge(lic){
+    var l=(lic||"").toLowerCase();
+    if(l.indexOf("public domain")>=0) return {cls:"ok",  txt:"Cleared (PD)"};
+    if(l.indexOf("curator")>=0||l.indexOf("permission")>=0) return {cls:"info",txt:"Permitted (curator)"};
+    if(l.indexOf("verify")>=0||!lic) return {cls:"verify",txt:"Verify"};
+    return {cls:"pend",txt:"See note"};
+  }
+
+  function load(){
+    var total=0;
+    loadVis().then(function(){
+      return fetchJSON("../data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json");
+    }).then(function(sp){
+      var sutras=sp.items||[]; total=sutras.length;
+      window.__lastSutras=sutras; window.__lastTotal=total;
+      renderEnrichment(sutras, total);
+      return Promise.all(LAYERS.map(function(L){
+        return fetchJSON(L.path).then(function(d){ return {L:L, n:(d.items||[]).length, meta:d}; })
+          .catch(function(){ return {L:L, n:0, meta:null, err:true}; });
+      })).then(function(res){ window.__lastLayerRes=res; renderLayers(res, total); renderTotals(res, total); });
+    }).catch(function(e){
+      $("#layers").innerHTML='<div class="muted">Could not load sutrapatha ('+e+'). Serve this page from the  folder.</div>';
+    });
+  }
+
+  function renderTotals(res, total){
+    var loaded=res.filter(function(r){return r.n>0;}).length;
+    var pending=LAYERS.length-loaded+PENDING.length;
+    // "Needing licence review" = still bare "verify" (never investigated)
+    // OR the licence text itself says to resolve before launch -- a layer
+    // that's Public Domain with cited evidence does NOT need review even
+    // though its exact print edition is unconfirmed (see licence_note).
+    var needingReview=res.filter(function(r){
+      if(!(r.n>0) || !r.meta) return false;
+      if(r.meta.licence_note) return false;
+      return licBadge(r.meta.licence).cls==="verify" || /resolve before/i.test(r.meta.licence||"");
+    }).length;
+    $("#totals").innerHTML=
+      stat(loaded+" / "+LAYERS.length, "text layers populated")+
+      stat(total.toLocaleString(), "sūtras (canonical)")+
+      stat(pending, "layers pending")+
+      stat(needingReview, "layers needing licence review");
+  }
+  function stat(b,s){ return '<div class="stat"><b>'+b+'</b><span>'+s+'</span></div>'; }
+
+  function renderLayers(res, total){
+    var html=res.map(function(r){
+      var L=r.L, pct=total?Math.round(r.n/total*100):0;
+      var lb=licBadge(r.meta&&r.meta.licence);
+      var statusBadge = r.n>0 ? '<span class="badge ok">loaded</span>' : '<span class="badge pend">pending</span>';
+      var vis=layerVisible(L.key);
+      return '<div class="card" style="--tag:'+L.tag+(vis?'':';opacity:.55')+'">'
+        +'<div class="top"><span class="t deva">'+esc(L.t)+'</span><span class="sub">'+esc(L.sub)+'</span>'
+        +'<span class="role">'+esc(L.role)+'</span>'
+        +'<button class="eye" data-vis-layer="'+esc(L.key)+'" title="'+(vis?"Visible to readers — click to hide":"Hidden from readers — click to show")+'">'+(vis?"👁":"🚫")+'</button>'
+        +'<span class="who">'+esc(L.who)+'</span></div>'
+        +'<div class="prog"><i style="width:'+pct+'%"></i></div>'
+        +'<div class="meta">'+statusBadge
+        +'<span><b>'+r.n.toLocaleString()+'</b> / '+total.toLocaleString()+' sūtras ('+pct+'%)</span>'
+        +'<span class="badge '+lb.cls+'">'+lb.txt+'</span></div>'
+        +(r.meta&&r.meta.source?'<div class="src">source: '+esc(r.meta.source)+'</div>':(r.err?'<div class="src">⚠ file not found at '+esc(L.path)+'</div>':''))
+        +(r.meta&&r.meta.licence?'<div class="lic">licence: '+esc(r.meta.licence)+'</div>':'')
+        +(r.meta&&r.meta.licence_note?'<details class="licnote-detail"><summary>Provenance evidence</summary><div>'+esc(r.meta.licence_note)+'</div></details>':'')
+        +'</div>';
+    }).join("");
+    html+=PENDING.map(function(p){
+      return '<div class="card" style="--tag:var(--line)"><div class="top"><span class="t">'+esc(p.t)+'</span>'
+        +'<span class="badge pend" style="margin-left:auto">pending</span></div>'
+        +'<div class="lic">'+esc(p.note)+'</div></div>';
+    }).join("");
+    $("#layers").innerHTML=html;
+    $("#layers").querySelectorAll("[data-vis-layer]").forEach(function(b){
+      b.onclick=function(e){ e.stopPropagation(); toggleLayer(b.getAttribute("data-vis-layer")); };
+    });
+
+    // Three buckets, read live from each layer's own licence text (not
+    // hardcoded by key) so this stays accurate as fields change:
+    //  - resolvedWithEvidence: carries a licence_note (a provenance
+    //    investigation actually happened and left a citable trail)
+    //  - needsResolution: licence text itself says so ("resolve before
+    //    public launch" / "resolve before"), regardless of wording
+    //  - stillVerify: the old bare licBadge()==="verify" case, kept as a
+    //    fallback for any future layer that hasn't been looked at at all
+    var populated=res.filter(function(r){return r.n>0;});
+    var resolvedWithEvidence=populated.filter(function(r){return r.meta&&r.meta.licence_note;});
+    var needsResolution=populated.filter(function(r){return r.meta&&/resolve before/i.test(r.meta.licence||"");});
+    var stillVerify=populated.filter(function(r){return licBadge(r.meta&&r.meta.licence).cls==="verify" && !(r.meta&&r.meta.licence_note);});
+    // "Layers of concern" = ever flagged as needing investigation (either
+    // already resolved with cited evidence, or still explicitly unresolved)
+    // -- excludes layers like Vasu that were public-domain-clean from the
+    // start and never carried a licence question, so this count matches
+    // "N / M layers of concern", not "N / all populated layers".
+    var ofConcern=resolvedWithEvidence.length+needsResolution.length+stillVerify.length;
+
+    var parts=[];
+    parts.push('<b>'+resolvedWithEvidence.length+' / '+ofConcern+' layers flagged for licence review are now resolved</b> with cited evidence (public domain — see "Provenance evidence" on each card): '
+      +(resolvedWithEvidence.length ? resolvedWithEvidence.map(function(r){return r.L.sub;}).join(", ") : "none yet")+'.');
+    if(needsResolution.length){
+      parts.push('⚠ <b>Still unresolved, needs action before public launch:</b> '
+        +needsResolution.map(function(r){return r.L.sub;}).join(", ")
+        +' — used under an informal e-mail permission with no formal licence on the source repo; see the licence text on each card for exactly what\'s missing.');
+    }
+    if(stillVerify.length){
+      parts.push('⚠ <b>Not yet investigated:</b> '+stillVerify.map(function(r){return r.L.sub;}).join(", ")+'.');
+    }
+    $("#licnote").innerHTML = parts.join(' ');
+  }
+
+  function renderEnrichment(sutras, total){
+    function cov(pred){ return sutras.filter(pred).length; }
+    var fields=[
+      {k:"padaccheda", lbl:"padaccheda (word-split)", pred:function(s){return s.padaccheda&&s.padaccheda.length;}},
+      {k:"anvaya",     lbl:"anvaya (prose order)",    pred:function(s){return !!s.anvaya;}},
+      {k:"anuvritti",  lbl:"anuvṛtti (carried words)",pred:function(s){return s.anuvritti&&s.anuvritti.length;}},
+      {k:"adhikara",   lbl:"adhikāra",                pred:function(s){return !!s.adhikara;}},
+      {k:"sutra_type", lbl:"sūtra type",              pred:function(s){return !!s.sutra_type;}},
+      {k:"english",    lbl:"English gloss",           pred:function(s){return !!s.english;}}
+    ];
+    $("#enrich").innerHTML=fields.map(function(f){
+      var n=cov(f.pred), pct=total?Math.round(n/total*100):0;
+      var toggle = f.k==="english"
+        ? '<button class="eye" data-vis-field="'+esc(f.k)+'" title="'+(fieldVisible(f.k)?"Visible to readers — click to hide":"Hidden from readers — click to show")+'">'+(fieldVisible(f.k)?"👁":"🚫")+'</button>'
+        : '';
+      return '<div class="er"><b>'+n.toLocaleString()+'</b><span>'+esc(f.lbl)+' '+toggle+'</span><span class="p">'+pct+'% of sūtras</span></div>';
+    }).join("");
+    $("#enrich").querySelectorAll("[data-vis-field]").forEach(function(b){
+      b.onclick=function(e){ e.stopPropagation(); toggleField(b.getAttribute("data-vis-field")); };
+    });
+  }
+})();
+</script>
+</body>
+</html>

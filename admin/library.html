@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=1"></script>
+<!-- Passkeys come from admin/config/keys.json, not from this page. -->
+<script src="js/keys.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Library Manager · DGE (super-admin)</title>
+<link rel="stylesheet" href="css/library.css?v=3">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<body>
+<div class="gate" id="gate">
+  <div style="font-size:22px;font-weight:700">🔐 DGE Library Manager</div>
+  <div class="muted">Super-admin only. Enter the passkey.</div>
+  <input id="gk" type="password" placeholder="passkey" autocomplete="off">
+  <button class="btn pri" id="gbtn">Enter</button>
+  <div class="muted" style="max-width:420px">Note: this is a client-side gate for convenience, not real security — the page and data are public in the repo. Keep sensitive controls behind the app's real auth if needed.</div>
+</div>
+
+<header style="display:none" id="hdr">
+  <div class="bar">
+    <div class="brand"><a href="../render.html" title="DGE Home" style="color:var(--accent);text-decoration:none">⌂ DGE</a> <span style="color:var(--muted)">›</span> 🗂️ Library Manager <small>· super-admin</small></div>
+    <span class="spacer"></span>
+    <span id="ovState" style="font-size:11px;color:var(--muted);white-space:nowrap"></span>
+    <button class="btn" id="loadCommitted" style="display:none" title="Discard this browser's draft and reload the committed library-overrides.json">↺ Load committed</button>
+    <button class="icon" id="theme">◐</button>
+    <button class="btn gh" id="reindex" title="Open the GitHub Actions Re-index workflow">↻ Re-index search</button>
+    <button class="btn" id="newTop" title="Add a new top-level folder (display-only; becomes visible to readers once something is moved into it)">➕ New folder</button>
+    <button class="btn" id="tierBtn" title="Set a grantha's per-layer (commentary/tika/tippani/...) visibility tier">🎚 Visibility Tiers</button>
+    <button class="btn" id="reset" title="Discard all local curation edits">⟲ Reset edits</button>
+    <button class="btn" id="reload">↻ Refresh</button>
+    <button class="btn pri" id="export">⬇ Export overrides</button>
+  </div>
+</header>
+
+<main id="app" style="display:none">
+  <div class="totals" id="totals"></div>
+  <div class="secgrid" id="secgrid"></div>
+
+  <div class="mbar">
+    <button class="btn" id="helpBtn">ℹ️ Legend &amp; Help</button>
+    <button class="btn" id="filterBtn">⚙ Filters<span class="fcount" id="fcount" style="display:none"></span></button>
+  </div>
+  <div class="tree" id="tree"></div>
+  <p class="muted" style="margin-top:14px">Loaded = a <code>data.json</code> with items; Pending = empty/absent. Reordering &amp; pinning affect how entries appear in the app's Library browser; moves and renames are display-only and never rewrite <code>library.json</code>/<code>taxonomy.json</code>.</p>
+</main>
+
+<!-- move-to-folder picker -->
+<div class="ov" id="moveOv">
+  <div class="ovbox">
+    <div class="ovhd">📁 Move <span id="moveWhat" style="color:var(--accent2)"></span> to…<span class="spacer" style="flex:1"></span><button class="ctl" id="moveClose">✕</button></div>
+    <div class="ovbody">
+      <input type="search" id="moveQ" placeholder="Search destination folder…">
+      <div id="moveList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- legend & help -->
+<div class="ov" id="helpOv">
+  <div class="ovbox">
+    <div class="ovhd">ℹ️ Legend &amp; Help<span class="spacer" style="flex:1"></span><button class="ctl" id="helpClose">✕</button></div>
+    <div class="ovbody">
+      <div class="helpbox" style="margin-bottom:0">
+        Curate the <b>public Library</b> without touching the corpus. Every edit here is a
+        <b>non-destructive override</b> — reorder, pin, rename, move between folders, or hide.
+        This tool <b>starts from the committed</b> <code>library-overrides.json</code> — the very file
+        the app's Library reads — so what you see here is what readers see. Edits become a
+        <b>draft in this browser</b> (the header shows when it differs from committed);
+        click <b>Export overrides</b> to download the file and commit it to
+        <code>admin/config/</code> to publish, or <b>↺ Load committed</b> to discard the draft.
+        <b>➕ New folder</b> adds a display-layer folder anywhere; move entries into it and
+        it appears in the app. Folders always sort before granthas — same as in the app.
+        <div class="legend">
+          <span>▲▼ reorder</span><span>⋮ more actions (pin / rename / move / hide / hide-from-search)</span>
+          <span>🖱 drag a row onto a folder to move it (hover a collapsed folder to open it)</span>
+          <span>👁 Hide = out of the Library tree · 🔍̶ Hide from search = out of corpus-search results — independent switches</span>
+          <span><span class="dot ok"></span> loaded</span><span><span class="dot pend"></span> pending</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- search + filters -->
+<div class="ov" id="filterOv">
+  <div class="ovbox">
+    <div class="ovhd">⚙ Filters<span class="spacer" style="flex:1"></span><button class="ctl" id="filterClose">✕</button></div>
+    <div class="ovbody">
+      <input type="search" id="q" placeholder="Filter by name or path…">
+      <div class="toolbar">
+        <button class="chip" id="fAll" data-f="all">All</button>
+        <button class="chip" id="fPend" data-f="pending">Pending only</button>
+        <button class="chip" id="fLoad" data-f="loaded">Loaded only</button>
+        <button class="chip" id="fHid" data-f="hidden">Hidden only</button>
+        <button class="chip" id="fEdit" data-f="edited">Edited only</button>
+      </div>
+      <div class="toolbar">
+        <button class="chip" id="expand">⤢ Expand all</button>
+        <button class="chip" id="collapse">⤡ Collapse all</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- per-row action menu (pin / rename / move / hide) -->
+<div class="ov" id="actOv">
+  <div class="ovbox" style="max-width:340px">
+    <div class="ovhd"><span id="actWhat" style="color:var(--accent2)"></span><span class="spacer" style="flex:1"></span><button class="ctl" id="actClose">✕</button></div>
+    <div class="ovbody" style="display:flex; flex-direction:column; gap:8px">
+      <button class="btn" id="actPin" style="text-align:left">📌 <span id="actPinLabel">Pin to top</span></button>
+      <button class="btn" id="actLabel" style="text-align:left">✏️ Rename (custom display label)</button>
+      <button class="btn" id="actMove" style="text-align:left">📁 Move to another folder</button>
+      <button class="btn" id="actHide" style="text-align:left">👁 <span id="actHideLabel">Hide</span></button>
+      <button class="btn" id="actSearchHide" style="text-align:left">🔍 <span id="actSearchHideLabel">Hide from search</span></button>
+      <button class="btn" id="actNewSub" style="text-align:left;display:none">➕ New subfolder here</button>
+      <button class="btn" id="actDelVirtual" style="text-align:left;display:none">🗑 Remove this new folder</button>
+    </div>
+  </div>
+</div>
+
+<!-- Per-layer visibility tier (12 Sep 2026, first working version). Reads
+     data/library.json and a grantha's own _meta.json LIVE from bhumandala
+     (public, unauthenticated — same jsDelivr read every reader's browser
+     already does); nothing here writes to GitHub directly. Sets access on
+     each layer to public / gated / private_provenance (the vocabulary
+     already established in docs/CONTENT_ACCESS_ARCHITECTURE.md), then
+     hands back the updated _meta.json to Copy/Download and commit by hand —
+     the SAME "generate, then commit yourself" pattern this page's own
+     Export overrides button and admin/legal.html already use, rather than
+     inventing a new live-write path. private_provenance only sets the
+     manifest FLAG here: it does NOT move the underlying data.json's bytes
+     out of bhumandala. That move (Parabuddhi/staging-repo relocation on a
+     tier change) is exactly the "admin-toggle-driven workflow ... not yet
+     designed" the architecture doc calls out — this panel deliberately
+     does not pretend to do it, and warns before Generate if asked to. -->
+<div class="ov" id="tierOv">
+  <div class="ovbox" style="max-width:640px">
+    <div class="ovhd">🎚 Visibility Tiers<span class="spacer" style="flex:1"></span><button class="ctl" id="tierClose">✕</button></div>
+    <div class="ovbody">
+      <div class="helpbox" style="margin-bottom:10px">
+        Pick a grantha, set each layer's tier, then <b>Generate</b> the updated
+        <code>_meta.json</code> to copy/download and commit — same as
+        <b>⬇ Export overrides</b> above. <code>gated</code> needs the reader
+        already signed in with a matching role (via the existing
+        <code>corpusFile</code>/role-access mechanism once it's switched on);
+        <code>private_provenance</code> only flags the layer here — moving its
+        actual file out of this public repo is a separate, manual step for now.
+      </div>
+      <input type="search" id="tierGranthaQ" placeholder="Search a grantha by name or path…">
+      <div id="tierGranthaList" style="max-height:160px; overflow:auto; margin:8px 0"></div>
+      <div id="tierLayers" style="display:none">
+        <div style="font-weight:700; margin:10px 0 4px" id="tierGranthaTitle"></div>
+        <div id="tierLayerRows"></div>
+        <div class="toolbar" style="margin-top:10px">
+          <button class="btn pri" id="tierGenerate">⚙ Generate updated _meta.json</button>
+        </div>
+        <textarea id="tierOutput" readonly style="display:none; width:100%; min-height:160px; margin-top:10px; font-family:monospace; font-size:12px;"></textarea>
+        <div class="toolbar" id="tierOutputActions" style="display:none; margin-top:8px">
+          <button class="chip" id="tierCopy">📋 Copy</button>
+          <button class="chip" id="tierDownload">⬇ Download _meta.json</button>
+          <span class="muted" id="tierOutputPath" style="align-self:center"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@indic-transliteration/sanscript@1.3.3/sanscript.js"
+        onerror="this.onerror=null;console.warn('[Sanscript] jsDelivr failed, falling back to unpkg');var s=document.createElement('script');s.src='https://unpkg.com/@indic-transliteration/sanscript@1.3.3/sanscript.js';document.head.appendChild(s);"></script>
+<script>
+(function(){
+  // Key comes from admin/config/keys.json via js/keys.js.
+  var GATE="superadmin";
+  // Set this to your repo so the "Re-index search" button can deep-link to the
+  // Actions run page. (owner/repo)
+  var REPO="Tribhuvanachar/bhumandala";
+  var REINDEX_WORKFLOW="reindex.yml";
+  var $=function(s){return document.querySelector(s);};
+
+  // ---- gate ----
+  if(sessionStorage.getItem("dge.admin.ok")==="1" || localStorage.getItem("is_superadmin")==="true") start();
+  else {
+    $("#gate").style.display="flex";
+    var tryK=function(){ window.dgeCheckKey(GATE,$("#gk").value).then(function(ok){ if(ok){ sessionStorage.setItem("dge.admin.ok","1"); location.reload(); } else { $("#gk").value=""; $("#gk").placeholder="wrong — try again"; } }); };
+    $("#gbtn").onclick=tryK; $("#gk").addEventListener("keydown",function(e){ if(e.key==="Enter") tryK(); }); $("#gk").focus();
+  }
+
+  var TAX=null, ST=null, FILTER="all";
+  // ---- override state (all keyed by EFFECTIVE display path, matching library.js) ----
+  var OV; // {hidden:Set, pinned:[], labels:{}, order:{}, moves:{}}
+  var LS="dge.liboverrides";
+  // COMMITTED = the library-overrides.json actually in the repo -- the file
+  // the reader app (js/library.js) reads. 31 Aug 2026, project-lead
+  // sync report: this tool used to start every fresh browser from a BLANK
+  // slate (localStorage only), so an admin never saw the live curation and
+  // an export from that browser silently discarded it. Now the committed
+  // file is the seed whenever no local draft exists, and the header says
+  // plainly whether this browser's draft matches what readers see.
+  var COMMITTED=null, COMMITTED_AT=0;
+  function normOV(raw){
+    if(!raw||typeof raw!=="object") return null;
+    // DEEP copy, not a shallow one: OV is seeded from COMMITTED, and a
+    // shared labels/order/moves object would make every later edit mutate
+    // the committed baseline too -- the drift indicator would then never
+    // fire (caught by the Playwright sync suite, 31 Aug 2026).
+    return JSON.parse(JSON.stringify({
+      hidden:raw.hidden||[], pinned:raw.pinned||[],
+      labels:raw.labels||{}, order:raw.order||{}, moves:raw.moves||{},
+      adds:raw.adds||[],
+      // hidden from the CORPUS SEARCH only (1 Sep 2026 ask) -- independent
+      // of `hidden` (the Library tree). Keyed by REAL taxonomy slug, not
+      // display path: the search index speaks real slugs, and a display
+      // move must never change what search hides.
+      searchHidden:raw.searchHidden||[]}));
+  }
+  function ovKey(o){ if(!o) return "null";
+    return JSON.stringify({h:(o.hidden||[]).slice().sort(), p:o.pinned||[], l:o.labels||{}, o:o.order||{}, m:o.moves||{}, a:(o.adds||[]).slice().sort(), sh:(o.searchHidden||[]).slice().sort()}); }
+  function blankOV(){ return {hidden:[],pinned:[],labels:{},order:{},moves:{},adds:[],searchHidden:[]}; }
+  // When this browser's draft was last edited (epoch ms). The reader's
+  // draft preview only overlays a draft NEWER than the committed file's
+  // updatedAt — a stale draft used to silently mask newer committed
+  // curation (project-lead report, 2 Sep 2026).
+  var DRAFT_AT=0;
+  function loadOV(){
+    var draft=null;
+    DRAFT_AT=0;
+    try{ var raw=JSON.parse(localStorage.getItem(LS)||"null"); if(raw&&typeof raw==="object"){ draft=normOV(raw); DRAFT_AT=Number(raw.draftAt)||0; } }catch(e){}
+    if(draft){ OV=draft; }
+    else if(COMMITTED){ OV=normOV(COMMITTED); }
+    else { OV=blankOV(); }
+    // migrate the legacy hidden-only key if present and OV is empty
+    if(!OV.hidden.length){
+      try{ var legacy=JSON.parse(localStorage.getItem("dge.libvis")||"[]"); if(Array.isArray(legacy)&&legacy.length) OV.hidden=legacy.slice(); }catch(e){}
+    }
+    updateOvState();
+  }
+  function saveOV(){ DRAFT_AT=Date.now(); localStorage.setItem(LS, JSON.stringify(Object.assign({draftAt:DRAFT_AT}, OV))); updateOvState(); }
+  // Test/debug hook (used by the Playwright sync suite): read-only snapshot
+  // of the draft and the committed baseline this session loaded.
+  window.__dgeLibMgrDebug=function(){ return { ov: JSON.parse(JSON.stringify(OV||null)), committed: JSON.parse(JSON.stringify(COMMITTED||null)) }; };
+  function updateOvState(){
+    var el=$("#ovState"), lc=$("#loadCommitted"); if(!el) return;
+    var inSync = ovKey(normOV(OV))===ovKey(normOV(COMMITTED||blankOV()));
+    var committedNewer = !inSync && COMMITTED_AT > (DRAFT_AT||0);
+    el.textContent = inSync ? "✓ in sync with committed"
+      : committedNewer ? "⚠ the COMMITTED curation is NEWER than this browser's draft — ↺ Load committed to see it (this draft predates it)"
+      : "● draft differs from committed — export & commit to publish";
+    el.style.color = inSync ? "var(--muted)" : "var(--accent2)";
+    if(lc) lc.style.display = inSync ? "none" : "";
+  }
+  function isHidden(path){ var parts=path.split("/"); for(var i=1;i<=parts.length;i++){ if(OV.hidden.indexOf(parts.slice(0,i).join("/"))>=0) return true;} return false; }
+  function selfHidden(path){ return OV.hidden.indexOf(path)>=0; }
+  function isPinned(path){ return OV.pinned.indexOf(path)>=0; }
+  function pinRank(path){ var i=OV.pinned.indexOf(path); return i<0?Infinity:i; }
+  function hasEdit(path){ return selfHidden(path)||isPinned(path)|| (OV.labels[path]!==undefined) || (OV.moves[path]!==undefined) || (OV.adds||[]).indexOf(path)>=0; }
+
+  // ---- transliteration preview (mirror of library.js dgeToActiveScript, Devanagari->active) ----
+  function activeLabelPreview(deva){
+    // Admin always previews in Devanagari source; the app transliterates live.
+    return deva;
+  }
+
+  // ---- rekey helper: when a move changes a subtree's effective path prefix ----
+  function rekeyPrefix(from, to){
+    // hidden
+    OV.hidden = OV.hidden.map(function(p){ return (p===from||p.indexOf(from+"/")===0)? to+p.slice(from.length): p; });
+    // pinned
+    OV.pinned = OV.pinned.map(function(p){ return (p===from||p.indexOf(from+"/")===0)? to+p.slice(from.length): p; });
+    // labels
+    var nl={}; Object.keys(OV.labels).forEach(function(k){ var nk=(k===from||k.indexOf(from+"/")===0)? to+k.slice(from.length): k; nl[nk]=OV.labels[k]; }); OV.labels=nl;
+    // order (keys are parent paths)
+    var no={}; Object.keys(OV.order).forEach(function(k){ var nk=(k===from||k.indexOf(from+"/")===0)? to+k.slice(from.length): k; no[nk]=OV.order[k]; }); OV.order=no;
+  }
+
+  function start(){
+    if(sessionStorage.getItem("dge.admin.ok")!=="1" && localStorage.getItem("is_superadmin")!=="true") return;
+    $("#gate").style.display="none"; $("#hdr").style.display=""; $("#app").style.display="";
+    if(localStorage.getItem("dge.libadmin.dark")==="1") document.body.classList.add("dark");
+    $("#theme").onclick=function(){ document.body.classList.toggle("dark"); localStorage.setItem("dge.libadmin.dark", document.body.classList.contains("dark")?"1":"0"); };
+    $("#reload").onclick=function(){ location.reload(); };
+    $("#export").onclick=exportOV;
+    $("#loadCommitted").onclick=function(){
+      if(!confirm("Replace this browser's draft with the COMMITTED library-overrides.json (what readers currently see)? Unexported draft edits are discarded.")) return;
+      localStorage.removeItem(LS); loadOV(); render();
+    };
+    $("#newTop").onclick=function(){ newFolder(""); };
+    $("#reset").onclick=function(){ if(confirm("Discard this browser's draft and reload the COMMITTED overrides? (The committed library-overrides.json itself is untouched until you re-export.)")){ localStorage.removeItem(LS); loadOV(); render(); } };
+    $("#reindex").onclick=function(){ window.open("https://github.com/"+REPO+"/actions/workflows/"+REINDEX_WORKFLOW, "_blank"); };
+    $("#q").addEventListener("input",render);
+    var FILTER_LABELS={pending:"Pending only",loaded:"Loaded only",hidden:"Hidden only",edited:"Edited only"};
+    document.querySelectorAll(".chip[data-f]").forEach(function(c){ c.onclick=function(){ FILTER=c.dataset.f; document.querySelectorAll(".chip[data-f]").forEach(function(x){x.classList.toggle("on",x===c);}); updateFilterCount(); render(); }; });
+    $("#fAll").classList.add("on");
+    function updateFilterCount(){
+      var fc=$("#fcount");
+      if(FILTER==="all" && !q()){ fc.style.display="none"; return; }
+      fc.style.display=""; fc.textContent=FILTER!=="all"? FILTER_LABELS[FILTER] : "filtered";
+    }
+    $("#q").addEventListener("input",updateFilterCount);
+    $("#expand").onclick=function(){ document.querySelectorAll(".node.hasK").forEach(function(n){setNodeOpen(n,true);}); };
+    $("#collapse").onclick=function(){ document.querySelectorAll(".node.hasK").forEach(function(n){setNodeOpen(n,false);}); };
+    $("#moveClose").onclick=closeMove;
+    $("#moveOv").addEventListener("click",function(e){ if(e.target===$("#moveOv")) closeMove(); });
+
+    // Legend/help and search/filters: collapsed behind one button each (see
+    // the .mbar comment in library.css) rather than sitting permanently
+    // above the tree.
+    $("#helpBtn").onclick=function(){ $("#helpOv").classList.add("show"); };
+    $("#helpClose").onclick=function(){ $("#helpOv").classList.remove("show"); };
+    $("#helpOv").addEventListener("click",function(e){ if(e.target===$("#helpOv")) $("#helpOv").classList.remove("show"); });
+    $("#filterBtn").onclick=function(){ $("#filterOv").classList.add("show"); setTimeout(function(){$("#q").focus();},30); };
+    $("#filterClose").onclick=function(){ $("#filterOv").classList.remove("show"); };
+    $("#filterOv").addEventListener("click",function(e){ if(e.target===$("#filterOv")) $("#filterOv").classList.remove("show"); });
+
+    // ---------------------------------------------------------------
+    // Visibility Tiers panel (12 Sep 2026) -- see the tierOv markup's own
+    // comment for the design. Deliberately independent of dgeLibTree/the
+    // rest of this page's edit model: reads live from bhumandala, writes
+    // nothing itself, hands back JSON to commit by hand.
+    // ---------------------------------------------------------------
+    (function () {
+      var BH_RAW = "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@main/";
+      // Mirrors js/config.js's AUTH_CONFIG.roles -- kept as a literal here
+      // since this standalone page doesn't load config.js. Update both if
+      // the role list ever changes.
+      var ROLES = ["basic", "subscriber", "sponsor", "admin", "superadmin", "special"];
+      var granthaIndex = null; // [{dir, name}], built once
+      var currentDir = null, currentMeta = null;
+
+      function fetchPublicJson(path) {
+        return fetch(BH_RAW + path, { cache: "no-store" }).then(function (r) {
+          if (!r.ok) throw new Error(path + ": " + r.status);
+          return r.json();
+        });
+      }
+
+      function buildGranthaIndex() {
+        if (granthaIndex) return Promise.resolve(granthaIndex);
+        return fetchPublicJson("data/library.json").then(function (lib) {
+          var seen = {};
+          (lib.granthas || []).forEach(function (g) {
+            var parts = (g.path || "").split("/");
+            if (parts.length < 3) return;
+            var dir = parts.slice(0, -2).join("/");
+            if (!seen[dir]) seen[dir] = dir.split("/").pop();
+          });
+          granthaIndex = Object.keys(seen).map(function (dir) { return { dir: dir, name: seen[dir] }; })
+            .sort(function (a, b) { return a.dir < b.dir ? -1 : a.dir > b.dir ? 1 : 0; });
+          return granthaIndex;
+        });
+      }
+
+      function renderGranthaList(filterText) {
+        var listEl = $("#tierGranthaList");
+        var ft = (filterText || "").toLowerCase();
+        var matches = granthaIndex.filter(function (g) {
+          return !ft || g.dir.toLowerCase().indexOf(ft) !== -1 || g.name.toLowerCase().indexOf(ft) !== -1;
+        }).slice(0, 60);
+        listEl.innerHTML = matches.map(function (g) {
+          return '<div class="node" style="cursor:pointer;padding:6px 8px" data-dir="' + g.dir.replace(/"/g, "&quot;") + '">' +
+            g.name + ' <span class="muted" style="font-size:11px">' + g.dir + '</span></div>';
+        }).join("") || '<div class="muted" style="padding:6px 8px">No match.</div>';
+        listEl.querySelectorAll("[data-dir]").forEach(function (row) {
+          row.onclick = function () { selectGrantha(row.getAttribute("data-dir")); };
+        });
+      }
+
+      function accessOptionsHtml(selected) {
+        return ["public", "gated", "private_provenance"].map(function (v) {
+          return '<option value="' + v + '"' + (v === selected ? " selected" : "") + '>' + v + '</option>';
+        }).join("");
+      }
+      function roleOptionsHtml(selected) {
+        return ROLES.map(function (r) {
+          return '<option value="' + r + '"' + (r === selected ? " selected" : "") + '>' + r + '</option>';
+        }).join("");
+      }
+
+      function selectGrantha(dir) {
+        currentDir = dir;
+        currentMeta = null;
+        $("#tierLayers").style.display = "none";
+        $("#tierOutput").style.display = "none";
+        $("#tierOutputActions").style.display = "none";
+        fetchPublicJson(dir + "/_meta.json").then(function (meta) {
+          currentMeta = meta;
+          $("#tierGranthaTitle").textContent = (meta.description || dir.split("/").pop()) + "  ·  " + dir + "/_meta.json";
+          var rows = $("#tierLayerRows");
+          if (!Array.isArray(meta.layers) || !meta.layers.length) {
+            rows.innerHTML = '<div class="muted">This grantha has no per-layer manifest yet (older _meta.json shape) — nothing to set a tier on here. Add a "layers" array first (see docs/CONTENT_ACCESS_ARCHITECTURE.md).</div>';
+            $("#tierLayers").style.display = "";
+            return;
+          }
+          rows.innerHTML = meta.layers.map(function (layer, i) {
+            var label = (layer.label && (layer.label.en || layer.label.sa)) || layer.id;
+            var isGated = layer.access === "gated";
+            return '<div class="node" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:6px 8px" data-layer-idx="' + i + '">' +
+              '<b style="min-width:160px">' + label + '</b>' +
+              (layer.author ? '<span class="muted" style="font-size:11px">' + layer.author + '</span>' : '') +
+              '<span class="spacer" style="flex:1"></span>' +
+              '<select class="tierAccessSel" data-idx="' + i + '">' + accessOptionsHtml(layer.access || "public") + '</select>' +
+              '<select class="tierRoleSel" data-idx="' + i + '" style="' + (isGated ? '' : 'display:none') + '">' + roleOptionsHtml(layer.minRole || "subscriber") + '</select>' +
+              '</div>';
+          }).join("");
+          rows.querySelectorAll(".tierAccessSel").forEach(function (sel) {
+            sel.onchange = function () {
+              var roleSel = rows.querySelector('.tierRoleSel[data-idx="' + sel.getAttribute("data-idx") + '"]');
+              if (roleSel) roleSel.style.display = sel.value === "gated" ? "" : "none";
+            };
+          });
+          $("#tierLayers").style.display = "";
+        }).catch(function (e) {
+          $("#tierGranthaTitle").textContent = dir + " — could not load _meta.json (" + e.message + ")";
+          $("#tierLayerRows").innerHTML = "";
+          $("#tierLayers").style.display = "";
+        });
+      }
+
+      $("#tierBtn").onclick = function () {
+        $("#tierOv").classList.add("show");
+        $("#tierGranthaList").innerHTML = '<div class="muted" style="padding:6px 8px">Loading library…</div>';
+        buildGranthaIndex().then(function () { renderGranthaList(""); });
+        setTimeout(function () { $("#tierGranthaQ").focus(); }, 30);
+      };
+      $("#tierClose").onclick = function () { $("#tierOv").classList.remove("show"); };
+      $("#tierOv").addEventListener("click", function (e) { if (e.target === $("#tierOv")) $("#tierOv").classList.remove("show"); });
+      $("#tierGranthaQ").addEventListener("input", function () { if (granthaIndex) renderGranthaList($("#tierGranthaQ").value); });
+
+      $("#tierGenerate").onclick = function () {
+        if (!currentMeta || !Array.isArray(currentMeta.layers)) return;
+        var hasNewProvenance = false;
+        document.querySelectorAll("#tierLayerRows .tierAccessSel").forEach(function (sel) {
+          var idx = +sel.getAttribute("data-idx");
+          var layer = currentMeta.layers[idx];
+          var newAccess = sel.value;
+          if (newAccess === "private_provenance" && layer.access !== "private_provenance") hasNewProvenance = true;
+          layer.access = newAccess;
+          if (newAccess === "gated") {
+            var roleSel = document.querySelector('.tierRoleSel[data-idx="' + idx + '"]');
+            layer.minRole = roleSel ? roleSel.value : "subscriber";
+          } else {
+            delete layer.minRole;
+          }
+        });
+        if (hasNewProvenance && !confirm('One or more layers were just set to "private_provenance". This ONLY updates the flag in _meta.json — it does NOT move that layer\'s data.json out of this public repo (that move-between-repos step is not automated yet; see admin/README.md). Continue generating the file anyway?')) return;
+        var text = JSON.stringify(currentMeta, null, 2) + "\n";
+        $("#tierOutput").value = text;
+        $("#tierOutput").style.display = "";
+        $("#tierOutputActions").style.display = "flex";
+        $("#tierOutputPath").textContent = "→ commit as " + currentDir + "/_meta.json";
+      };
+      $("#tierCopy").onclick = function () {
+        $("#tierOutput").select();
+        try { document.execCommand("copy"); } catch (e) {}
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText($("#tierOutput").value).catch(function(){});
+      };
+      $("#tierDownload").onclick = function () {
+        var blob = new Blob([$("#tierOutput").value], { type: "application/json" });
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "_meta.json";
+        a.click();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+      };
+    })();
+
+    // Per-row "⋮" action menu (pin/rename/move/hide) -- see the renderNode
+    // comment on why these four moved off the row itself.
+    var actCtx=null; // {path, parent, name, op}
+    function closeAct(){ $("#actOv").classList.remove("show"); actCtx=null; }
+    $("#actClose").onclick=closeAct;
+    $("#actOv").addEventListener("click",function(e){ if(e.target===$("#actOv")) closeAct(); });
+    $("#actPin").onclick=function(){ if(actCtx) togglePin(actCtx.path); closeAct(); };
+    $("#actLabel").onclick=function(){ if(actCtx) editLabel(actCtx.path, actCtx.name); closeAct(); };
+    $("#actMove").onclick=function(){ if(actCtx){ var c=actCtx; closeAct(); openMove(c.op, c.path, c.name); } };
+    $("#actHide").onclick=function(){ if(actCtx) toggleHide(actCtx.path); closeAct(); };
+    $("#actSearchHide").onclick=function(){ if(actCtx) toggleSearchHide(actCtx.op); closeAct(); };
+    $("#actNewSub").onclick=function(){ if(actCtx){ var c=actCtx; closeAct(); newFolder(c.path); } };
+    $("#actDelVirtual").onclick=function(){ if(actCtx) removeVirtual(actCtx.path); closeAct(); };
+    window.dgeOpenRowActions=function(ctx){
+      actCtx=ctx;
+      $("#actWhat").textContent=ctx.name.replace(/_/g," ");
+      $("#actPinLabel").textContent=isPinned(ctx.path)?"Unpin":"Pin to top";
+      $("#actHideLabel").textContent=selfHidden(ctx.path)?"Unhide (show again)":"Hide";
+      $("#actSearchHideLabel").textContent=(OV.searchHidden||[]).indexOf(ctx.op)>=0?"Show in search again":"Hide from search";
+      $("#actNewSub").style.display=ctx.leaf?"none":"";
+      $("#actDelVirtual").style.display=ctx.virtual?"":"none";
+      $("#actOv").classList.add("show");
+    };
+    Promise.all([
+      fetch("../data/taxonomy.json").then(function(r){return r.json();}),
+      fetch("config/library-status.json").then(function(r){return r.json();}),
+      // the committed overrides -- the reader's live curation; absent file
+      // (first ever run) is fine and seeds a blank slate
+      fetch("config/library-overrides.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
+    ]).then(function(a){
+      TAX=a[0]; ST=a[1]; COMMITTED=normOV(a[2]);
+      // normOV strips unknown keys — carry the commit stamp separately
+      COMMITTED_AT=(a[2]&&Number(a[2].updatedAt))||0;
+      loadOV();
+      renderTotals(); renderSections(); render();
+      // Deep link from the reader app's "📊 Progress" nav link
+      // (js/library.js's dgeSectionTrackerHtml) -- e.g.
+      // library.html?section=agama. Reuses the existing name/path filter
+      // + auto-expand-on-search exactly as if the admin had typed it in,
+      // so this needs no rendering path of its own.
+      var section=new URLSearchParams(location.search).get("section");
+      if(section){
+        $("#q").value=section;
+        updateFilterCount();
+        render();
+        var hit=document.querySelector('#tree .node[data-node="'+CSS.escape(section)+'"]');
+        if(hit) hit.scrollIntoView({block:"center"});
+      }
+    })
+      .catch(function(e){ $("#tree").innerHTML='<div class="muted" style="padding:14px">Could not load taxonomy.json / library-status.json ('+e+'). Regenerate with tools/gen_library_status.py.</div>'; });
+  }
+
+  function renderTotals(){
+    var t=ST.totals, pct=Math.round(t.loaded/t.leaves*100);
+    $("#totals").innerHTML=
+      stat(t.loaded+" / "+t.leaves,"folders loaded ("+pct+"%)")+
+      stat(t.items.toLocaleString(),"verses / entries loaded")+
+      stat((t.leaves-t.loaded),"folders pending")+
+      stat(Object.keys(ST.sections).length,"top sections");
+  }
+  function stat(b,s){ return '<div class="stat"><b>'+b+'</b><span>'+s+'</span></div>'; }
+  function renderSections(){
+    var el=$("#secgrid"), html="";
+    Object.keys(ST.sections).forEach(function(k){ var s=ST.sections[k], pct=s.total?Math.round(s.loaded/s.total*100):0;
+      html+='<div class="sec"><div class="n">'+k.replace(/_/g," ")+'</div><div class="m">'+s.loaded+'/'+s.total+' folders · '+s.items.toLocaleString()+' items</div><div class="prog"><i style="width:'+pct+'%"></i></div></div>'; });
+    el.innerHTML=html;
+  }
+
+  // ---- build tree model from taxonomy (opath = original identity, path = effective) ----
+  function build(node, prefix){
+    var kids=Object.keys(node||{}).filter(function(k){return k[0]!=="_";});
+    var p=prefix.join("/");
+    if(!kids.length){ return {name:prefix[prefix.length-1],path:p,opath:p,leaf:true,items:(ST.leaves[p]||0),children:[]}; }
+    var children=kids.map(function(k){ return build((typeof node[k]==="object")?node[k]:{}, prefix.concat(k)); });
+    return {name:prefix[prefix.length-1],path:p,opath:p,leaf:false,children:children};
+  }
+  function recount(n){
+    if(n.leaf){ n.loaded=n.items>0?1:0; n.total=1; return; }
+    var loaded=0,total=0,items=0;
+    n.children.forEach(function(c){ recount(c); if(c.leaf){ total++; if(c.items>0){loaded++;items+=c.items;} } else { total+=c.total; loaded+=c.loaded; items+=c.items; } });
+    n.loaded=loaded; n.total=total; n.items=items;
+  }
+  // index nodes by opath and by path
+  function indexTree(n, byOp, byP){ byOp[n.opath]=n; byP[n.path]=n; if(!n.leaf) n.children.forEach(function(c){indexTree(c,byOp,byP);}); }
+  // set effective .path for a subtree given a new parent effective path
+  function reparentPaths(n, parentPath){ n.path=parentPath?parentPath+"/"+n.name:n.name; if(!n.leaf) n.children.forEach(function(c){reparentPaths(c,n.path);}); }
+
+  function buildDisplayTree(){
+    var roots=Object.keys(TAX).filter(function(k){return k[0]!=="_";}).map(function(k){ return build((typeof TAX[k]==="object")?TAX[k]:{}, [k]); });
+    var forest={leaf:false,children:roots,path:"",opath:"",name:""};
+    linkParents(forest); // __parent pointers needed to detach nodes during moves
+    // apply moves (by original opath). Longest source first so nested moves are stable.
+    var byOp={}, byP={}; indexTree(forest,byOp,byP);
+    // A move's DEST is a display path and may not exist in the taxonomy at
+    // all (the committed "…/SarvaMula" -> top-level "SarvaMula" is exactly
+    // that). The reader (library.js dgeEffectiveDisplayPath) treats the
+    // dest as a display prefix and simply renders it; this tool used to
+    // SKIP such a move instead -- the very desync the project lead
+    // reported (31 Aug 2026). Now any missing dest folder is created as a
+    // virtual node, segment by segment, matching the reader.
+    function ensureFolder(displayPath){
+      if(displayPath==="") return forest;
+      if(byP[displayPath]) return byP[displayPath];
+      var slash=displayPath.lastIndexOf("/");
+      var parentNode=ensureFolder(slash<0?"":displayPath.slice(0,slash));
+      if(!parentNode||parentNode.leaf) return null;
+      var nm=slash<0?displayPath:displayPath.slice(slash+1);
+      var vn={name:nm, path:displayPath, opath:displayPath, leaf:false, virtual:true, children:[], __parent:parentNode};
+      parentNode.children.push(vn);
+      byP[displayPath]=vn; byOp[displayPath]=vn;
+      return vn;
+    }
+    // Apply moves with EXACTLY library.js's semantics (dgeEffectiveDisplayPath):
+    // moves[src] is the subtree's FULL new display path -- the node lands AT
+    // that path (its display name = the dest's last segment), with any
+    // missing ancestor folders created virtually. This tool used to treat
+    // dest as a parent folder and nest the node inside it, which both
+    // rendered the committed "…/SarvaMula" -> "SarvaMula" move wrongly and
+    // exported chained moves the reader can't follow (31 Aug 2026 sync fix).
+    var srcs=Object.keys(OV.moves).sort(function(a,b){return b.length-a.length;});
+    srcs.forEach(function(src){
+      var dest=OV.moves[src];
+      var node=byOp[src]; if(!node||!dest) return;
+      var slash=dest.lastIndexOf("/");
+      var destParent=slash<0?"":dest.slice(0,slash), newName=slash<0?dest:dest.slice(slash+1);
+      var parentNode=(destParent==="")?forest:ensureFolder(destParent);
+      if(!parentNode||parentNode.leaf) return;
+      if(parentNode.opath===node.opath || (parentNode.opath+"/").indexOf(node.opath+"/")===0) return; // no move into itself/descendant
+      // detach from current parent, land at dest
+      var cur=node.__parent; if(cur){ cur.children=cur.children.filter(function(c){return c!==node;}); }
+      parentNode.children.push(node); node.__parent=parentNode;
+      node.name=newName;
+      reparentPaths(node, parentNode.path);
+      byOp={};byP={};indexTree(forest,byOp,byP);
+    });
+    // Inject curator-added folders (OV.adds, effective display paths).
+    // These exist only in the overrides layer: the app's Library shows one
+    // as soon as a grantha is moved under it (library.js builds folders
+    // from display paths), and an empty one simply doesn't render for
+    // readers -- honest, and why the manager badges them "new".
+    (OV.adds||[]).slice().sort(function(a,b){return a.length-b.length;}).forEach(function(ap){
+      ensureFolder(ap); // no-op if something (real or virtual) already lives there
+    });
+    recount(forest);
+    return forest.children;
+  }
+  // attach parent pointers
+  function linkParents(n){ if(!n.leaf) n.children.forEach(function(c){ c.__parent=n; linkParents(c); }); }
+
+  function matchFilter(n){
+    if(FILTER==="all") return true;
+    if(FILTER==="hidden") return n.leaf? isHidden(n.path): true;
+    if(FILTER==="edited") return hasEdit(n.path) || !n.leaf;
+    if(n.leaf){ if(FILTER==="loaded") return n.items>0; if(FILTER==="pending") return n.items===0; }
+    return true; // internal nodes shown so children reachable
+  }
+  function q(){ return ($("#q").value||"").trim().toLowerCase(); }
+
+  // sibling comparator: pinned → explicit order[parent] → default name.
+  // 31 Aug 2026 sync fix: folders sort BEFORE leaves, and pin/order apply
+  // within each of those two groups -- exactly library.js's
+  // dgeSortChildKeys/dgeSortLeaves semantics -- so the order an admin sees
+  // here IS the order readers get. (Previously this tool merged the two
+  // groups into one list, so a leaf reordered above a folder previewed
+  // here but never reproduced in the app.)
+  function siblingSort(parentPath, arr){
+    var explicit=OV.order[parentPath]||null;
+    function orank(name){ if(!explicit) return Infinity; var i=explicit.indexOf(name); return i<0?Infinity:i; }
+    function full(name){ return parentPath?parentPath+"/"+name:name; }
+    function cmp(a,b){
+      var pa=pinRank(full(a.name)), pb=pinRank(full(b.name)); if(pa!==pb) return pa-pb;
+      var oa=orank(a.name), ob=orank(b.name); if(oa!==ob) return oa-ob;
+      // numeric-aware default (mirrors library.js dgeCompareSlugs)
+      var x=a.name,y=b.name; var mx=x.match(/^(.*?)(\d+)$/), my=y.match(/^(.*?)(\d+)$/);
+      if(mx&&my&&mx[1]===my[1]) return parseInt(mx[2],10)-parseInt(my[2],10);
+      return x.localeCompare(y);
+    }
+    var folders=arr.filter(function(n){return !n.leaf;}).sort(cmp);
+    var leaves=arr.filter(function(n){return n.leaf;}).sort(cmp);
+    return folders.concat(leaves);
+  }
+
+  function renderNode(n, parentPath){
+    var query=q();
+    var self=(n.name+" "+n.path+" "+(OV.labels[n.path]||"")).toLowerCase().indexOf(query)>=0;
+    var kidsHtml="", anyKid=false, orderedKids=[];
+    if(!n.leaf){
+      orderedKids=siblingSort(n.path, n.children);
+      orderedKids.forEach(function(c){ var h=renderNode(c, n.path); if(h){kidsHtml+=h; anyKid=true;} });
+    }
+    if(query && !self && !anyKid) return "";
+    if(!matchFilter(n) && !anyKid) return "";
+
+    var dot,badge,cnt="",src="";
+    if(n.leaf){
+      var ok=n.items>0;
+      dot='<span class="dot '+(ok?"ok":"pend")+'"></span>';
+      badge= ok?'<span class="badge ok">loaded</span>':'<span class="badge pend">pending</span>';
+      cnt= ok?'<span class="cnt">'+n.items.toLocaleString()+'</span>':'';
+      // Source/provenance (admin/config/library-status.json's leaf_sources,
+      // see tools/gen_library_status.py's leaf_source()) -- keyed by the
+      // ORIGINAL taxonomy path (opath), never the display-only moved path.
+      var so=ST.leaf_sources&&ST.leaf_sources[n.opath];
+      if(so){
+        var title=esc((so.source||"")+(so.licence?" · "+so.licence:""));
+        src=so.source_url
+          ? '<a class="srclink" href="'+esc(so.source_url)+'" target="_blank" rel="noopener" title="'+title+'" onclick="event.stopPropagation()">🔗 source</a>'
+          : '<span class="srclink" title="'+title+'">🔗 source</span>';
+      } else {
+        // No real source yet -- but admin/config/pending_pdf_sources.json
+        // (a hand-maintained research log, see tools/gen_library_status.py)
+        // may already name a candidate scanned PDF or e-text for this empty
+        // leaf, worth surfacing here so whoever's dispatching the OCR
+        // pipeline (or a direct text import, for a "text_available" one)
+        // doesn't have to re-research it from scratch.
+        var pend=ST.pending_sources&&ST.pending_sources[n.opath];
+        if(pend&&pend.candidates&&pend.candidates.length){
+          var first=pend.candidates[0];
+          var icon=pend.status==="text_available"?"📝":"📄";
+          var ptitle=esc((pend.status||"")+" · "+first.label+(pend.candidates.length>1?" (+"+(pend.candidates.length-1)+" more)":""));
+          src='<a class="srclink pdflink" href="'+esc(first.url)+'" target="_blank" rel="noopener" title="'+ptitle+'" onclick="event.stopPropagation()">'+icon+' candidate</a>';
+        }
+      }
+    } else {
+      var full=n.loaded===n.total&&n.total>0, none=n.loaded===0;
+      dot='<span class="dot '+(full?"ok":(none?"pend":"part"))+'"></span>';
+      badge='<span class="badge '+(full?"ok":"pend")+'">'+n.loaded+'/'+n.total+'</span>';
+      cnt= n.items?'<span class="cnt">'+n.items.toLocaleString()+'</span>':'';
+    }
+    var hid=selfHidden(n.path);
+    var eff=isHidden(n.path);
+    var pinned=isPinned(n.path);
+    var moved=(n.opath!==n.path) && !n.virtual;
+    var custom=OV.labels[n.path];
+    var tw=n.leaf?'<span class="tw"></span>':'<span class="tw" data-tw="1">▸</span>';
+    var cls="node"+(n.leaf?"":" hasK")+(eff?" hiddenNode":"")+(moved?" movedNode":"");
+
+    // sibling index for up/down enable/disable
+    var sibs=parentPath!==null? null : null;
+    var nameShown= custom? esc(custom) : esc(n.name.replace(/_/g," "));
+    var pinMark= pinned? '<span class="pin" title="pinned to top">📌</span>':'';
+    var movedMark= moved? '<span class="pin" title="moved here from '+esc(n.opath)+'">➜</span>':'';
+
+    // Pin/rename/move/hide used to be four always-visible buttons on every
+    // single row. On a narrow phone that left barely any width for .nm
+    // (the actual folder name) to render before its own ellipsis kicked
+    // in -- names were showing as a single character. Collapsed into one
+    // "⋮" button opening a small action menu (#actOv) instead; ▲▼ stay
+    // inline since reordering is the most frequent action here. A quiet
+    // dot on the ⋮ button itself (not a whole extra badge) still signals
+    // "something here has a custom edit" without costing any more width.
+    var srchHidden=(OV.searchHidden||[]).indexOf(n.opath)>=0;
+    var srchMark= srchHidden? '<span class="pin" style="opacity:.55" title="hidden from corpus search (Library tree unaffected)">🔍̶</span>':'';
+    var anyEdit = pinned || hid || custom || moved || n.virtual || srchHidden;
+    if(n.virtual) badge='<span class="badge pend" title="curator-added folder — shows to readers once something is moved into it">new</span>';
+    var row='<div class="row" draggable="true" data-path="'+esc(n.path)+'" data-op="'+esc(n.opath)+'" data-parent="'+esc(parentPath||"")+'" data-name="'+esc(n.name)+'" data-leaf="'+(n.leaf?1:0)+'" data-virtual="'+(n.virtual?1:0)+'">'+
+      tw+dot+pinMark+movedMark+srchMark+
+      '<span class="nm"><span class="actual">'+nameShown+'</span>'+(custom?' <span class="disp">✎</span>':'')+' <span class="path">'+esc(n.path)+'</span>'+(moved?' <span class="disp">from '+esc(n.opath)+'</span>':'')+'</span>'+
+      cnt+badge+src+
+      '<button class="ctl" data-act="up" title="move up">▲</button>'+
+      '<button class="ctl" data-act="down" title="move down">▼</button>'+
+      '<button class="ctl'+(anyEdit?" on":"")+'" data-act="more" title="pin / rename / move / hide">⋮</button>'+
+      '</div>';
+    return '<div class="'+cls+'" data-node="'+esc(n.path)+'">'+row+(n.leaf?"":'<div class="kids">'+kidsHtml+"</div>")+"</div>";
+  }
+
+  var DISPLAY_ROOTS=[];
+  // Paths to force open on the next render only -- a move's destination
+  // chain lands here so the moved node is visible where it arrived.
+  var EXTRA_OPEN=[];
+  // Which nodes are open, by display path -- the source of truth for
+  // re-render AND persisted per browser (1 Sep 2026 follow-up to the
+  // collapse fix: open state now also survives a page reload, same ask
+  // as the reader Library's own open-node persistence).
+  var MGR_OPEN=(function(){ try{ var a=JSON.parse(localStorage.getItem("dge.libmgr.open")||"[]"); return Array.isArray(a)?a:[]; }catch(e){ return []; } })();
+  function saveMgrOpen(){ try{ localStorage.setItem("dge.libmgr.open", JSON.stringify(MGR_OPEN.slice(-600))); }catch(e){} }
+  function setNodeOpen(el, open){
+    el.classList.toggle("open", open);
+    // :scope>div is the .row (kids live in a sibling .kids div), so this
+    // never reaches into a descendant node's own twisty.
+    var tw=el.querySelector(":scope>.row .tw[data-tw]");
+    if(tw) tw.textContent=open?"▾":"▸";
+    var p=el.dataset.node, i=MGR_OPEN.indexOf(p);
+    if(open&&i<0) MGR_OPEN.push(p); else if(!open&&i>=0) MGR_OPEN.splice(i,1);
+    saveMgrOpen();
+  }
+  function render(){
+    // 1 Sep 2026, project-lead report: every operation (reorder, rename,
+    // move, hide, pin) collapsed the whole open structure, because this
+    // rebuilds #tree's innerHTML wholesale. MGR_OPEN (persisted, updated by
+    // every twisty/expand/collapse via setNodeOpen) is re-applied after the
+    // rebuild -- "smoothly, every operation should happen".
+    var keepOpen={};
+    MGR_OPEN.forEach(function(p){ keepOpen[p]=1; });
+    EXTRA_OPEN.forEach(function(p){ keepOpen[p]=1; });
+    EXTRA_OPEN=[];
+    DISPLAY_ROOTS=buildDisplayTree();
+    DISPLAY_ROOTS.forEach(linkParents);
+    var forest={leaf:false,children:DISPLAY_ROOTS,path:"",name:""};
+    var roots=siblingSort("", DISPLAY_ROOTS);
+    var html=roots.map(function(r){return renderNode(r,"");}).join("");
+    $("#tree").innerHTML=html||'<div class="muted" style="padding:14px">No nodes match.</div>';
+    wire();
+    Object.keys(keepOpen).forEach(function(p){
+      var el=document.querySelector('#tree .node.hasK[data-node="'+CSS.escape(p)+'"]');
+      if(el) setNodeOpen(el, true);
+    });
+    // Search auto-expansion is VISUAL only (no setNodeOpen): matching a
+    // filter shouldn't overwrite the persisted open-node set.
+    if(q()) document.querySelectorAll('#tree .node.hasK').forEach(function(n){ n.classList.add("open"); var tw=n.querySelector(':scope>.row .tw[data-tw]'); if(tw) tw.textContent="▾"; });
+  }
+
+  function wire(){
+    document.querySelectorAll('#tree .tw[data-tw]').forEach(function(t){ t.onclick=function(){ var node=t.closest(".node"); setNodeOpen(node, !node.classList.contains("open")); }; });
+    document.querySelectorAll('#tree .ctl').forEach(function(b){
+      b.onclick=function(ev){
+        ev.stopPropagation();
+        var row=b.closest(".row"); var path=row.dataset.path, parent=row.dataset.parent, name=row.dataset.name, op=row.dataset.op;
+        var act=b.dataset.act;
+        if(act==="up"){ reorder(parent, name, -1); }
+        else if(act==="down"){ reorder(parent, name, 1); }
+        else if(act==="more"){ window.dgeOpenRowActions({path:path, parent:parent, name:name, op:op, leaf:row.dataset.leaf==="1", virtual:row.dataset.virtual==="1"}); }
+      };
+    });
+    wireDnd();
+  }
+
+  // ---- drag & drop moves (1 Sep 2026 project-lead ask) ----
+  // Any row can be picked up and dropped onto a FOLDER row; the drop asks
+  // for confirmation, then routes through the exact same doMove() the Move
+  // dialog uses (identical semantics, rekeying, and validation). Hovering
+  // a collapsed folder for a moment auto-opens it, so a drag can descend
+  // into an unopened subtree. Mouse/trackpad only (HTML5 dnd) -- on touch
+  // the ⋮ > Move dialog remains the way, so nothing is lost on Android.
+  var DND=null, dndHoverTimer=null, dndHoverRow=null;
+  function dndClearHover(){
+    if(dndHoverTimer){ clearTimeout(dndHoverTimer); dndHoverTimer=null; }
+    if(dndHoverRow){ dndHoverRow.classList.remove("droptgt"); dndHoverRow=null; }
+  }
+  function dndValidDest(row){
+    if(!DND||row.dataset.leaf==="1") return false;      // only folders take drops
+    var destOp=row.dataset.op;
+    if(destOp===DND.op) return false;                    // itself
+    if((destOp+"/").indexOf(DND.op+"/")===0) return false; // its own descendant
+    return true;
+  }
+  function wireDnd(){
+    document.querySelectorAll('#tree .row').forEach(function(row){
+      row.addEventListener("dragstart",function(e){
+        DND={op:row.dataset.op, name:row.dataset.name, path:row.dataset.path};
+        e.dataTransfer.effectAllowed="move";
+        try{ e.dataTransfer.setData("text/plain", row.dataset.path); }catch(err){}
+        row.classList.add("dragging");
+      });
+      row.addEventListener("dragend",function(){ DND=null; dndClearHover(); row.classList.remove("dragging"); });
+      row.addEventListener("dragover",function(e){
+        if(!dndValidDest(row)) return;
+        e.preventDefault(); e.dataTransfer.dropEffect="move";
+        if(dndHoverRow!==row){
+          dndClearHover();
+          dndHoverRow=row; row.classList.add("droptgt");
+          var node=row.closest(".node");
+          if(node&&node.classList.contains("hasK")&&!node.classList.contains("open")){
+            dndHoverTimer=setTimeout(function(){ setNodeOpen(node,true); }, 600);
+          }
+        }
+      });
+      row.addEventListener("dragleave",function(e){
+        if(dndHoverRow===row && !(e.relatedTarget&&row.contains(e.relatedTarget))) dndClearHover();
+      });
+      row.addEventListener("drop",function(e){
+        var ok=dndValidDest(row);
+        var d=DND; DND=null; dndClearHover();
+        if(!ok||!d) return;
+        e.preventDefault(); e.stopPropagation();
+        var destPath=row.dataset.path;
+        if(!confirm('Move "'+d.name.replace(/_/g," ")+'" into "'+destPath+'"?')) return;
+        doMove(d.op, d.name, destPath);
+      });
+    });
+  }
+
+  function toggleHide(path){ var i=OV.hidden.indexOf(path); if(i>=0) OV.hidden.splice(i,1); else OV.hidden.push(path); saveOV(); render(); }
+  // Hide from the CORPUS SEARCH only (global-search.js reads searchHidden
+  // and drops matching hits for readers; the Library tree is untouched).
+  // Real slug (opath), so display moves never shift what search hides.
+  function toggleSearchHide(op){ OV.searchHidden=OV.searchHidden||[]; var i=OV.searchHidden.indexOf(op); if(i>=0) OV.searchHidden.splice(i,1); else OV.searchHidden.push(op); saveOV(); render(); }
+  // Curator-added folders (the "add a new node" ask, 31 Aug 2026): a new
+  // display-layer folder anywhere in the tree. It becomes a normal move
+  // destination immediately; readers see it once something lives in it.
+  function newFolder(parentPath){
+    var v=prompt("New folder under "+(parentPath?("\""+parentPath+"\""):"the library root")+".\n\nFolder id: lowercase letters, digits and _ only (e.g. stotra_sangraha).\nYou can give it a Devanāgarī display name right after.");
+    if(v===null) return;
+    v=v.trim().toLowerCase();
+    if(!/^[a-z0-9_]+$/.test(v)){ alert("Folder id must be lowercase letters, digits and underscores only."); return; }
+    var path=parentPath?parentPath+"/"+v:v;
+    // collision with anything already at that display path?
+    var byOp={},byP={}; var forest={leaf:false,children:DISPLAY_ROOTS,path:"",opath:"",name:""}; indexTree(forest,byOp,byP);
+    if(byP[path]||OV.adds.indexOf(path)>=0){ alert("Something already exists at \""+path+"\"."); return; }
+    OV.adds.push(path);
+    var lbl=prompt("Devanāgarī display name for \""+v+"\" (optional — Enter to skip; transliterates with the app's script selector).","");
+    if(lbl&&lbl.trim()) OV.labels[path]=lbl.trim();
+    saveOV(); render();
+    var hit=document.querySelector('#tree .node[data-node="'+CSS.escape(path)+'"]');
+    if(hit) hit.scrollIntoView({block:"center"});
+  }
+  function removeVirtual(path){
+    // only removable while empty: anything moved under it must be moved
+    // back out first (its rows carry their own Move action).
+    var hasContent=Object.keys(OV.moves).some(function(src){ var d=OV.moves[src]; return d===path||d.indexOf(path+"/")===0; })
+      || (OV.adds||[]).some(function(a){ return a!==path && a.indexOf(path+"/")===0; });
+    if(hasContent){ alert("This folder has contents (moved entries or subfolders). Move them out first."); return; }
+    OV.adds=OV.adds.filter(function(a){return a!==path;});
+    delete OV.labels[path];
+    OV.pinned=OV.pinned.filter(function(pp){return pp!==path;});
+    var hi=OV.hidden.indexOf(path); if(hi>=0) OV.hidden.splice(hi,1);
+    delete OV.order[path];
+    saveOV(); render();
+  }
+  function togglePin(path){ var i=OV.pinned.indexOf(path); if(i>=0) OV.pinned.splice(i,1); else OV.pinned.push(path); saveOV(); render(); }
+  function editLabel(path, name){
+    var cur=OV.labels[path]||"";
+    var v=prompt("Custom display label for this entry.\n\n• Enter Devanāgarī to have it transliterate with the app's script selector (e.g. भागवतम्).\n• Leave blank to clear and restore the default.\n\nPath: "+path, cur);
+    if(v===null) return;
+    v=v.trim();
+    if(v==="") delete OV.labels[path]; else OV.labels[path]=v;
+    saveOV(); render();
+  }
+  function reorder(parent, name, dir){
+    // find current sibling order (as displayed), swap, persist full order for parent
+    var siblings;
+    if(parent===""||parent===undefined){ siblings=siblingSort("", DISPLAY_ROOTS); }
+    else{
+      var byOp={},byP={}; var forest={leaf:false,children:DISPLAY_ROOTS,path:"",opath:"",name:""}; indexTree(forest,byOp,byP);
+      var pnode=byP[parent]; if(!pnode) return; siblings=siblingSort(parent, pnode.children);
+    }
+    var names=siblings.map(function(s){return s.name;});
+    var i=names.indexOf(name); var j=i+dir;
+    if(i<0||j<0||j>=names.length) return;
+    // same-group guard: the reader never interleaves folders and leaves
+    // (see siblingSort), so a swap across that boundary would change
+    // nothing in the app -- refuse it here too rather than pretending.
+    if(!!siblings[i].leaf !== !!siblings[j].leaf) return;
+    names.splice(j,0,names.splice(i,1)[0]);
+    OV.order[parent]=names;
+    // reordering an entry by hand implies it should hold that spot: keep pins as-is
+    saveOV(); render();
+  }
+
+  // ---- move-to-folder picker ----
+  var moveSrcOp=null, moveSrcName=null;
+  function openMove(op, path, name){
+    moveSrcOp=op; moveSrcName=name;
+    $("#moveWhat").textContent=name.replace(/_/g," ");
+    $("#moveQ").value="";
+    renderMoveList("");
+    $("#moveOv").classList.add("show");
+    setTimeout(function(){$("#moveQ").focus();},30);
+    $("#moveQ").oninput=function(){ renderMoveList($("#moveQ").value.trim().toLowerCase()); };
+  }
+  function closeMove(){ $("#moveOv").classList.remove("show"); moveSrcOp=null; moveSrcName=null; }
+  // 1 Sep 2026, project-lead report: this used to be one flat list of up
+  // to 300 "path/path/path" rows -- "a big list of folders without any
+  // tree structure which makes it difficult for the admin". Now it is the
+  // same folder TREE the main view shows (same siblingSort order):
+  // top-level folders visible, deeper levels behind ▸ twisties, and a
+  // search that prunes to matching branches (auto-expanded).
+  function renderMoveList(filter){
+    function subfolders(arr,parentPath){ return siblingSort(parentPath,arr).filter(function(n){return !n.leaf;}); }
+    // prune: drop self/descendants (can't move into them); keep a folder
+    // if it matches the filter itself or any kept descendant does.
+    function prune(n){
+      if(n.opath===moveSrcOp||(n.opath+"/").indexOf(moveSrcOp+"/")===0) return null;
+      var kids=subfolders(n.children,n.path).map(prune).filter(Boolean);
+      var selfHit=!filter||(n.path+" "+n.name).toLowerCase().indexOf(filter)>=0;
+      if(!selfHit&&!kids.length) return null;
+      return {name:n.name,path:n.path,kids:kids};
+    }
+    var roots=subfolders(DISPLAY_ROOTS,"").map(prune).filter(Boolean);
+    // data-dest carries the folder's DISPLAY path: the reader resolves a
+    // move's dest verbatim as a display prefix, so that is the coordinate
+    // system this file must speak too.
+    function rowHTML(f,depth){
+      var open=!!filter||depth===0; // roots visible; deeper levels behind twisties unless searching
+      return '<div class="mnode'+(f.kids.length?" hasK":"")+(open?" open":"")+'">'+
+        '<div class="foldopt" data-dest="'+esc(f.path)+'" style="padding-left:'+(10+depth*18)+'px">'+
+        (f.kids.length?'<span class="mtw" data-mtw="1">'+(open?"▾":"▸")+'</span>':'<span class="mtw"></span>')+
+        '<b>'+esc(f.name.replace(/_/g," "))+'</b><div class="p">'+esc(f.path)+'</div></div>'+
+        (f.kids.length?'<div class="mkids">'+f.kids.map(function(k){return rowHTML(k,depth+1);}).join("")+'</div>':'')+
+        '</div>';
+    }
+    var html='<div class="foldopt" data-dest="" style="padding-left:10px"><span class="mtw"></span><b>⌂ Top level</b><div class="p">move out to the root of the library</div></div>';
+    html+=roots.map(function(r){return rowHTML(r,0);}).join("");
+    if(!roots.length&&filter) html+='<div class="muted" style="padding:12px">No folder matches.</div>';
+    $("#moveList").innerHTML=html;
+    document.querySelectorAll('#moveList .mtw[data-mtw]').forEach(function(t){
+      t.onclick=function(e){ e.stopPropagation(); var mn=t.closest(".mnode"); var open=mn.classList.toggle("open"); t.textContent=open?"▾":"▸"; };
+    });
+    document.querySelectorAll('#moveList .foldopt').forEach(function(o){ o.onclick=function(){ doMove(moveSrcOp, moveSrcName, o.dataset.dest); }; });
+  }
+  function doMove(srcOp, srcName, destFolderPath){
+    if(srcOp===undefined||srcOp===null) return;
+    // compute old effective path (to rekey dependent overrides) then set the move
+    var oldEff=effectivePathOf(srcOp);
+    if(destFolderPath==="" && srcOp.indexOf("/")<0){
+      // already a root-level original: "move to top level" = no override
+      delete OV.moves[srcOp];
+    } else {
+      // moves[src] = FULL new display path (folder + this node's own name)
+      // -- the reader's dgeEffectiveDisplayPath semantics, verbatim.
+      var full=(destFolderPath?destFolderPath+"/":"")+srcName;
+      if(full===srcOp) delete OV.moves[srcOp]; else OV.moves[srcOp]=full;
+    }
+    // recompute new effective path after this move and migrate label/pin/hide/order keys
+    var newEff=effectivePathOf(srcOp);
+    if(oldEff && newEff && oldEff!==newEff) rekeyPrefix(oldEff, newEff);
+    // open the destination chain on the re-render (the moved node included,
+    // if it's a folder) so the admin sees where it landed -- including a
+    // previously collapsed destination subtree.
+    var segs=(newEff||"").split("/"); var pfx="";
+    segs.forEach(function(s){ pfx=pfx?pfx+"/"+s:s; EXTRA_OPEN.push(pfx); });
+    saveOV(); closeMove(); render();
+    var hit=newEff&&document.querySelector('#tree .node[data-node="'+CSS.escape(newEff)+'"]');
+    if(hit) hit.scrollIntoView({block:"center"});
+  }
+  // effective display path for an original opath -- a byte-for-byte mirror
+  // of library.js dgeEffectiveDisplayPath (single longest-prefix hop, dest
+  // used verbatim as the display prefix).
+  function effectivePathOf(opath){
+    var best=null; Object.keys(OV.moves).forEach(function(src){ if(opath===src||opath.indexOf(src+"/")===0){ if(!best||src.length>best.length) best=src; } });
+    if(!best) return opath;
+    var dest=OV.moves[best];
+    var rel=opath.slice(best.length).replace(/^\//,"");
+    return dest? (rel? dest+"/"+rel: dest): rel;
+  }
+
+  function esc(s){ return (s||"").replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+  function exportOV(){
+    // prune empties for a clean file
+    var out={
+      note:"DGE library curation overrides — a NON-DESTRUCTIVE display layer read by js/library.js (v3+). Keys are effective (post-move) display paths; a move's source is an original taxonomy path and its dest is the subtree's FULL new display path. Commit to admin/config/library-overrides.json.",
+      version:1,
+      // Stamps this export as the newest curation once committed: the
+      // reader's draft preview and the manager's own state line compare
+      // it against each browser draft's draftAt.
+      updatedAt:Date.now(),
+      hidden:(OV.hidden||[]).slice().sort(),
+      pinned:(OV.pinned||[]).slice(),
+      labels:OV.labels||{},
+      order:OV.order||{},
+      moves:OV.moves||{},
+      adds:(OV.adds||[]).slice().sort(),
+      searchHidden:(OV.searchHidden||[]).slice().sort()
+    };
+    var blob=new Blob([JSON.stringify(out,null,1)],{type:"application/json"});
+    var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="library-overrides.json"; a.click();
+  }
+})();
+</script>
+</body>
+</html>

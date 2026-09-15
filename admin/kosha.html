@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=1"></script>
+<!-- Passkeys come from admin/config/keys.json, not from this page. -->
+<script src="js/keys.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kosha Manager · DGE (super-admin)</title>
+<link rel="stylesheet" href="css/kosha.css?v=1">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<body>
+<div class="gate" id="gate">
+  <div style="font-size:22px;font-weight:700">🔐 DGE Kosha Manager</div>
+  <div class="muted">Super-admin only. Enter the passkey.</div>
+  <input id="gk" type="password" placeholder="passkey" autocomplete="off">
+  <button class="btn pri" id="gbtn">Enter</button>
+  <div class="muted" style="max-width:440px">Client-side gate for convenience, not real security — the page and dictionary data are public in the repo. Keep sensitive controls behind the app's real auth if needed.</div>
+</div>
+
+<header style="display:none" id="hdr">
+  <div class="bar">
+    <div class="brand"><a href="../render.html" title="DGE Home" style="color:var(--accent);text-decoration:none">⌂ DGE</a> <span style="color:var(--muted)">›</span> 📖 Kosha Manager <small>· super-admin</small></div>
+    <span class="spacer"></span>
+    <a class="icon" href="../render.html#kosha" title="The कोश search opens from the floating button on the main library page">कोश →</a>
+    <button class="icon" id="theme">◐</button>
+    <button class="btn" id="reload">↻ Refresh</button>
+    <button class="btn" id="export">⬇ Legacy visibility</button>
+    <button class="btn pri" id="exportOv">⬇ Export kosha-overrides.json</button>
+  </div>
+</header>
+
+<main id="app" style="display:none">
+  <div class="totals" id="totals"></div>
+
+  <h2 class="sect">Loaded dictionaries <span class="muted" id="loadedSub"></span></h2>
+  <div class="toolbar">
+    <input type="search" id="q" placeholder="Filter by name / slug / language…">
+    <button class="chip on" data-f="all">All</button>
+    <button class="chip" data-f="cleared">Cleared only</button>
+    <button class="chip" data-f="unclear">Unclear only</button>
+    <button class="chip" data-f="hidden">Hidden only</button>
+    <button class="chip" data-f="tiered">Tiered only</button>
+  </div>
+  <table id="tbl">
+    <thead><tr>
+      <th data-k="name">Dictionary</th>
+      <th data-k="dir">Direction</th>
+      <th data-k="license">Licence</th>
+      <th data-k="headwords" class="num">Headwords</th>
+      <th data-k="senses" class="num">Senses</th>
+      <th data-k="tier">Tier</th>
+      <th data-k="vis">Search</th>
+    </tr></thead>
+    <tbody id="tb"></tbody>
+  </table>
+  <p class="muted" style="margin-top:10px"><b>Tier</b> is the committed, every-visitor policy from <code>admin/config/kosha-overrides.json</code>, read by <code>kosha2.html</code>: <b>public</b> (searchable + browsable), <b>search-hidden</b> (browse list only), <b>unlisted</b> (direct <code>?browse=</code> link only), <b>disabled</b> (not served). ★ pins a dictionary to the top of every visitor's results. Changes here are a local draft (dot-marked) until you download <b>Export kosha-overrides.json</b> and commit it at <code>admin/config/kosha-overrides.json</code>. 👁 is the older per-browser flag the classic <b>कोश</b> overlay reads (<code>kosha_hidden_dicts</code>).</p>
+
+  <h2 class="sect">Known but not loaded <span class="muted">— and why · see <code>kosha_toolkit/LICENSING.md</code></span></h2>
+  <p class="muted" style="margin:0 0 8px">Every dictionary in <code>indic-dict/stardict-sanskrit</code> is loaded, as are the encyclopaedias and indices of <code>-kAvya</code>, the Aṣṭādhyāyī/dhātu set of <code>-vyAkaraNa</code>, and the two Cologne dictionaries (<code>pwkvn</code>, <code>krm</code>) that the indic-dict mirror lacks — a code-by-code diff found the other 42 of <code>sanskrit-lexicon/csl-orig</code> already present under different names. What is left out below is left out <b>on purpose</b>, not for want of ingesting — each row says why. Rows are cross-checked against the live manifest on every load, so anything that does get ingested drops off this list by itself rather than sitting here stale.</p>
+  <table id="tbl2">
+    <thead><tr>
+      <th>Source</th><th>Direction</th><th>Licence</th><th>Why not loaded</th>
+    </tr></thead>
+    <tbody id="tb2"></tbody>
+  </table>
+
+  <div class="note" id="puranaNote"></div>
+</main>
+
+<script>
+(function(){
+  // Key comes from admin/config/keys.json via js/keys.js.
+  var GATE="superadmin";
+  var $=function(s){return document.querySelector(s);};
+  function gate(){
+    if(sessionStorage.getItem("dge.admin.ok")==="1" || localStorage.getItem("is_superadmin")==="true"){ start(); return; }
+    $("#gate").style.display="flex";
+    var tryK=function(){ window.dgeCheckKey(GATE,$("#gk").value).then(function(ok){ if(ok){ sessionStorage.setItem("dge.admin.ok","1"); location.reload(); } else { $("#gk").value=""; $("#gk").placeholder="wrong — try again"; } }); };
+    $("#gbtn").onclick=tryK; $("#gk").addEventListener("keydown",function(e){ if(e.key==="Enter") tryK(); }); $("#gk").focus();
+  }
+
+  // dictionaries hidden from कोश search. Shared key with js/kosha.js.
+  var HIDDEN, FILTER="all", SORT={k:"headwords",dir:-1}, MAN=null, ROWS=[];
+  function loadVis(){ try{ HIDDEN=new Set(JSON.parse(localStorage.getItem("kosha_hidden_dicts")||"[]")); }catch(e){ HIDDEN=new Set(); } }
+  function saveVis(){ localStorage.setItem("kosha_hidden_dicts", JSON.stringify([...HIDDEN])); }
+
+  // Committed visibility tiers (admin/config/kosha-overrides.json) + a local
+  // draft overlay. The committed file applies to EVERY visitor of kosha2;
+  // edits made here stay in this browser until exported and committed.
+  var TIERS=["public","search_hidden","unlisted","disabled"];
+  var OV={visibility:{},pins:[],order:[]};          // committed baseline
+  var DRAFT={visibility:{},pins:null};              // local, sparse overlay
+  function loadDraft(){ try{ var d=JSON.parse(localStorage.getItem("kosha_overrides_draft")||"{}"); DRAFT={visibility:d.visibility||{},pins:Array.isArray(d.pins)?d.pins:null}; }catch(e){ DRAFT={visibility:{},pins:null}; } }
+  function saveDraft(){ localStorage.setItem("kosha_overrides_draft", JSON.stringify(DRAFT)); }
+  function tierOf(slug){ var t=DRAFT.visibility[slug]!==undefined?DRAFT.visibility[slug]:OV.visibility[slug]; return TIERS.indexOf(t)>0?t:"public"; }
+  function tierDirty(slug){ return DRAFT.visibility[slug]!==undefined && DRAFT.visibility[slug]!==(OV.visibility[slug]||"public"); }
+  function pinsNow(){ return DRAFT.pins!==null?DRAFT.pins:(OV.pins||[]); }
+  function pinsDirty(){ return DRAFT.pins!==null && JSON.stringify(DRAFT.pins)!==JSON.stringify(OV.pins||[]); }
+
+  // Catalogue of sources deliberately NOT ingested, with the reason. Anything
+  // listed here that turns up in the live manifest is dropped from the table
+  // by renderNotLoaded() — the previous hardcoded list had gone entirely stale
+  // (all 26 rows had in fact been loaded), so the check is now automatic.
+  var NOT_LOADED=[
+    // Machine-generated inflection tables — millions of derived word-forms.
+    // They belong behind a morphology service; in a dictionary index they
+    // would bury real headwords.
+    {name:"vidyut subanta / tiṅanta / kṛdanta / taddhitānta tables",slug:"vidyut-*",dir:"सं→सं",lic:"unclear",
+     note:"stardict-sanskrit-vyAkaraNa — generated form tables, ~60 files. Deliberate: they would dwarf the lexicon."},
+    {name:"kṛdanta-rūpa-mālā / kṛdanta-sa / puṣpā-ārdhadhātuka / jnu-tiṅanta",slug:"vyakarana-forms",dir:"सं→सं",lic:"unclear",
+     note:"stardict-sanskrit-vyAkaraNa — also generated paradigm tables rather than lexicon entries."},
+    {name:"aShTAdhyAyi_com / dhaval-tiNanta / sanskritabhyas (deprecated)",slug:"vyakarana-deprecated",dir:"सं→सं",lic:"unclear",
+     note:"stardict-sanskrit-vyAkaraNa/_deprecated — upstream superseded these; the live aShTAdhyAyI set is loaded instead."},
+    // Duplicate of something already in the manifest.
+    {name:"Rāṇaḍe Vedic Rituals",slug:"rAnADe-vedic-rituals",dir:"सं→हि",lic:"unclear",
+     note:"stardict-sanskrit-kAvya — the same lexicon already loaded as vedic-rituals-hi, differently segmented."},
+    // Different corpus decision, not a Sanskrit-kosha gap.
+    {name:"indic-dict siblings: stardict-hindi / -kannada / -tamil / -pali / -english",slug:"other-language-repos",dir:"—",lic:"unclear",
+     note:"Checked: these key on a regional headword (te-head, ml-head, bn-head), not Sanskrit — there is no sa→te/ml/bn bridge in them. A separate corpus decision, not a missing Sanskrit kosha."}
+  ];
+
+
+  function start(){
+    if(sessionStorage.getItem("dge.admin.ok")!=="1" && localStorage.getItem("is_superadmin")!=="true") return;
+    $("#gate").style.display="none"; $("#hdr").style.display=""; $("#app").style.display="";
+    loadVis(); loadDraft();
+    fetch("config/kosha-overrides.json?v="+Date.now()).then(function(r){return r.json();})
+      .then(function(o){ OV={visibility:o.visibility||{},pins:o.pins||[],order:o.order||[]}; OV._readme=o._readme; OV.version=o.version||1; if(MAN){renderTotals();renderLoaded();} })
+      .catch(function(){ /* baseline stays empty; drafts still editable */ });
+    if(localStorage.getItem("dge.koshaadmin.dark")==="1") document.body.classList.add("dark");
+    $("#theme").onclick=function(){ document.body.classList.toggle("dark"); localStorage.setItem("dge.koshaadmin.dark", document.body.classList.contains("dark")?"1":"0"); };
+    $("#reload").onclick=function(){ location.reload(); };
+    $("#export").onclick=exportVis;
+    $("#exportOv").onclick=exportOverrides;
+    $("#q").addEventListener("input",renderLoaded);
+    document.querySelectorAll(".chip[data-f]").forEach(function(c){ c.onclick=function(){ FILTER=c.dataset.f; document.querySelectorAll(".chip[data-f]").forEach(function(x){x.classList.toggle("on",x===c);}); renderLoaded(); }; });
+    document.querySelectorAll("#tbl th[data-k]").forEach(function(th){ th.onclick=function(){ var k=th.dataset.k; if(k==="vis") k="hidden"; if(SORT.k===k) SORT.dir*=-1; else {SORT.k=k;SORT.dir=(k==="name"||k==="license"||k==="dir")?1:-1;} renderLoaded(); }; });
+    renderNotLoaded(); renderPuranaNote();
+    // Standalone admin page (no config.js include, like the other *-admin.html
+    // pages) so this is hardcoded rather than read from window.appConfig --
+    // keep in sync with appConfig.koshaDataBase in js/config.js. Points at
+    // the full corpus now that it's built and js/kosha.js's live search
+    // reads from the same place; the old local-sample manifest only ever
+    // covered 10 of ~1046 real buckets, so this page was showing an
+    // almost-empty dictionary list.
+    var KOSHA_BASE = "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala-kosha-data@54072a8d40d4907df588d722b3796afe06ec2568/data/koshas";
+    // Bump ?v= whenever the corpus is rebuilt — jsDelivr caches branch files
+    // for ~12h, so without it this page keeps showing the previous manifest.
+    fetch(KOSHA_BASE + "/_index/manifest.json?v=1.5").then(function(r){return r.json();})
+      .then(function(m){ MAN=m; buildRows(); renderTotals(); renderLoaded(); renderNotLoaded(); renderPuranaNote(); })
+      .catch(function(e){ $("#tb").innerHTML='<tr><td colspan="7" class="muted">Could not load '+KOSHA_BASE+'/_index/manifest.json ('+e+').</td></tr>'; });
+  }
+
+  function licClass(s){ s=(s||"").toLowerCase(); if(s.indexOf("cc-by")===0||s.indexOf("cc-by")>-1) return "ok"; if(s.indexOf("no license")>-1||s.indexOf("no licence")>-1) return "bad"; return "unclear"; }
+  function licLabel(s){ var c=licClass(s); return c==="ok"?"Cleared":(c==="bad"?"Unclear — no licence":"Unclear"); }
+  function dirOf(d){ var a={sa:"सं",en:"En",kn:"ಕ",hi:"हि",bn:"বা",ta:"த",te:"తె",fr:"Fr",de:"De"}; return (a[d.headword_language]||d.headword_language)+" → "+(a[d.gloss_language]||d.gloss_language); }
+
+  function buildRows(){
+    ROWS=Object.keys(MAN.dictionaries).map(function(slug){
+      var d=MAN.dictionaries[slug];
+      return {slug:slug,name:d.name,dir:dirOf(d),category:d.category,license:d.license||"",
+        licClass:licClass(d.license),headwords:d.headwords||0,senses:d.senses||0,attribution:d.attribution||""};
+    });
+  }
+  function renderTotals(){
+    var hw=0,se=0; ROWS.forEach(function(r){hw+=r.headwords;se+=r.senses;});
+    $("#loadedSub").textContent="("+ROWS.length+")";
+    $("#totals").innerHTML=
+      stat(ROWS.length,"dictionaries loaded")+
+      stat(hw.toLocaleString(),"headwords")+
+      stat(se.toLocaleString(),"senses")+
+      stat(HIDDEN.size,"hidden from search")+
+      stat(ROWS.filter(function(r){return tierOf(r.slug)!=="public";}).length,"tiered (non-public)")+
+      stat(Object.keys(DRAFT.visibility).length+(pinsDirty()?1:0),"draft edits to export")+
+      stat(notLoadedRows().length,"known, deliberately not loaded");
+  }
+  function stat(b,s){ return '<div class="stat"><b>'+b+'</b><span>'+s+'</span></div>'; }
+
+  function passFilter(r){
+    if(FILTER==="cleared") return r.licClass==="ok";
+    if(FILTER==="unclear") return r.licClass!=="ok";
+    if(FILTER==="hidden") return HIDDEN.has(r.slug);
+    if(FILTER==="tiered") return tierOf(r.slug)!=="public";
+    return true;
+  }
+  function renderLoaded(){
+    var query=($("#q").value||"").trim().toLowerCase();
+    var list=ROWS.filter(function(r){
+      if(!passFilter(r)) return false;
+      if(query && (r.name+" "+r.slug+" "+r.dir+" "+r.license).toLowerCase().indexOf(query)<0) return false;
+      return true;
+    });
+    list.sort(function(a,b){
+      var k=SORT.k; var av,bv;
+      if(k==="hidden"){ av=HIDDEN.has(a.slug)?1:0; bv=HIDDEN.has(b.slug)?1:0; }
+      else if(k==="tier"){ av=TIERS.indexOf(tierOf(a.slug)); bv=TIERS.indexOf(tierOf(b.slug)); }
+      else { av=a[k]; bv=b[k]; }
+      if(typeof av==="string") return av.localeCompare(bv)*SORT.dir;
+      return (av-bv)*SORT.dir;
+    });
+    document.querySelectorAll("#tbl th[data-k]").forEach(function(th){ var k=th.dataset.k==="vis"?"hidden":th.dataset.k; th.classList.toggle("sorted",k===SORT.k); th.classList.toggle("asc",k===SORT.k&&SORT.dir===1); });
+    var pins=pinsNow();
+    $("#tb").innerHTML=list.map(function(r){
+      var hid=HIDDEN.has(r.slug), tier=tierOf(r.slug), pinned=pins.indexOf(r.slug)>-1;
+      var sel='<select class="tiersel" data-t="'+esc(r.slug)+'" title="Committed visibility tier (kosha2)" style="font:inherit;font-size:12px;background:transparent;color:inherit;border:1px solid rgba(128,128,128,.35);border-radius:6px;padding:2px 4px'+(tier!=="public"?';border-color:var(--accent,#c62828)':'')+'">'+
+        TIERS.map(function(t){ return '<option value="'+t+'"'+(t===tier?' selected':'')+'>'+t.replace("_","-")+'</option>'; }).join("")+'</select>'+
+        (tierDirty(r.slug)?' <span title="Draft — not yet committed" style="color:var(--accent,#c62828)">●</span>':'');
+      return '<tr class="'+(hid?"hiddenRow":"")+'">'+
+        '<td class="nm"><button class="pin" data-p="'+esc(r.slug)+'" title="'+(pinned?"Pinned to top for every visitor — click to unpin":"Pin to top for every visitor")+'" style="background:none;border:0;cursor:pointer;font-size:13px;opacity:'+(pinned?'1':'.35')+'">'+(pinned?'★':'☆')+'</button><b>'+esc(r.name)+'</b><span class="slug">'+esc(r.slug)+' · <span class="cat">'+esc(r.category.replace(/_/g," "))+'</span></span></td>'+
+        '<td>'+esc(r.dir)+'</td>'+
+        '<td><span class="badge '+r.licClass+'" title="'+esc(r.license)+'">'+licLabel(r.license)+'</span></td>'+
+        '<td class="num">'+r.headwords.toLocaleString()+'</td>'+
+        '<td class="num">'+r.senses.toLocaleString()+'</td>'+
+        '<td>'+sel+'</td>'+
+        '<td><button class="eye'+(hid?" off":"")+'" data-h="'+esc(r.slug)+'" title="'+(hid?"hidden — click to search again":"searched — click to hide")+'">'+(hid?"🚫":"👁")+'</button></td>'+
+        '</tr>';
+    }).join("")|| '<tr><td colspan="7" class="muted">No dictionaries match.</td></tr>';
+    document.querySelectorAll("#tb .eye").forEach(function(b){ b.onclick=function(){ var s=b.dataset.h; if(HIDDEN.has(s)) HIDDEN.delete(s); else HIDDEN.add(s); saveVis(); renderTotals(); renderLoaded(); }; });
+    document.querySelectorAll("#tb .tiersel").forEach(function(s){ s.onchange=function(){ var slug=s.dataset.t, v=s.value;
+      if(v===(OV.visibility[slug]||"public")) delete DRAFT.visibility[slug]; else DRAFT.visibility[slug]=v;
+      saveDraft(); renderTotals(); renderLoaded(); }; });
+    document.querySelectorAll("#tb .pin").forEach(function(b){ b.onclick=function(){ var slug=b.dataset.p, p=pinsNow().slice(), i=p.indexOf(slug);
+      if(i>-1) p.splice(i,1); else p.push(slug);
+      DRAFT.pins = JSON.stringify(p)===JSON.stringify(OV.pins||[]) ? null : p;
+      saveDraft(); renderTotals(); renderLoaded(); }; });
+  }
+
+  // A catalogue row survives only while its slug is genuinely absent from the
+  // live manifest — that is what keeps this table from going stale again.
+  function notLoadedRows(){
+    if(!MAN) return NOT_LOADED;
+    return NOT_LOADED.filter(function(r){ return !MAN.dictionaries[r.slug]; });
+  }
+  function renderNotLoaded(){
+    $("#tb2").innerHTML=notLoadedRows().map(function(r){
+      var cls=r.lic==="cc"?"ok":(r.lic==="bad"?"bad":"unclear");
+      var lab=r.lic==="cc"?"Cleared":(r.lic==="bad"?"Unclear — no licence":"Unclear");
+      return '<tr><td class="nm"><b>'+esc(r.name)+'</b><span class="slug">'+esc(r.slug)+'</span></td>'+
+        '<td>'+esc(r.dir)+'</td>'+
+        '<td><span class="badge '+cls+'">'+lab+'</span></td>'+
+        '<td class="muted">'+esc(r.note)+'</td></tr>';
+    }).join("");
+  }
+
+  function renderPuranaNote(){
+    var pe = MAN && MAN.dictionaries["purana-encyclopedia"];
+    var pi = MAN && MAN.dictionaries["purana-index"];
+    $("#puranaNote").innerHTML=
+      '<b>Purāṇic encyclopaedia — loaded, licence unresolved:</b> the gap is closed. '+
+      '<code>purana-encyclopedia</code>'+(pe?' ('+pe.headwords.toLocaleString()+' headwords)':'')+
+      ' and <code>purana-index</code>'+(pi?' ('+pi.headwords.toLocaleString()+' headwords)':'')+
+      ' now ship in the corpus, from <a href="https://github.com/indic-dict/stardict-sanskrit-kAvya" target="_blank" rel="noopener">'+
+      'indic-dict/stardict-sanskrit-kAvya</a>, alongside Sörensen’s Mahābhārata name index, the Mahābhārata '+
+      'cultural index, the Macdonell–Keith Vedic Index and the Ramakrishna Math encyclopaedia. '+
+      '<b>The copyright question is unchanged and is still the project lead’s to settle.</b> '+
+      '<code>purana-encyclopedia</code> is a digitisation of Vettam Mani’s <i>Purāṇic Encyclopaedia</i> '+
+      '(Motilal Banarsidass, 1975) and is almost certainly still in copyright; <code>purana-index</code> is '+
+      'Dikshitar’s <i>Purana Index</i> (University of Madras, 1951–55). The source repo’s own licence grants '+
+      'CC-BY 4.0 only where no third-party book title is named, so neither is covered by it. Both are stamped '+
+      '<i>Unclear</i> with a <code>license_note</code> in their <code>meta.json</code>, on the same '+
+      'non-commercial/educational basis as the other Unclear dictionaries — nothing here is presented as cleared. '+
+      'To pull either back out: hide it with 👁 above for a soft removal, or drop its entry from '+
+      '<code>dicts_config.json</code> in the data repo and re-run the build for a hard one.';
+  }
+
+  function exportOverrides(){
+    // Committed baseline + this browser's draft, in the exact shape
+    // admin/config/kosha-overrides.json is kept in. Commit the download at
+    // that path (visibility only keeps non-public tiers — public is the
+    // default and stays out of the file).
+    var vis={};
+    Object.keys(OV.visibility).forEach(function(s){ vis[s]=OV.visibility[s]; });
+    Object.keys(DRAFT.visibility).forEach(function(s){ vis[s]=DRAFT.visibility[s]; });
+    Object.keys(vis).forEach(function(s){ if(vis[s]==="public") delete vis[s]; });
+    var out={ _readme:OV._readme||["See kosha2.html; tiers: public | search_hidden | unlisted | disabled."],
+      version:OV.version||1, updatedAt:Date.now(), visibility:vis, pins:pinsNow(), order:OV.order||[] };
+    var blob=new Blob([JSON.stringify(out,null,1)],{type:"application/json"});
+    var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="kosha-overrides.json"; a.click();
+  }
+  function exportVis(){
+    var out={ note:"DGE Kosha search visibility. hidden = dictionary slugs (from data/kosha/_index/manifest.json) to exclude from कोश search. js/kosha.js reads this list at query time via localStorage key kosha_hidden_dicts.", hidden:[...HIDDEN].sort() };
+    var blob=new Blob([JSON.stringify(out,null,1)],{type:"application/json"});
+    var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="kosha-visibility.json"; a.click();
+  }
+  function esc(s){ return (s||"").replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+
+  gate(); // run last, after every var/function above is initialised
+})();
+</script>
+</body>
+</html>

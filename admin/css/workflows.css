@@ -1,0 +1,82 @@
+/* =========================================================================
+   Styles for admin/workflows.html.
+
+   Same palette and the same light/dark switch as the other admin pages —
+   this is one more tool in that family, not a new place.
+
+   The one idea in here worth naming is the `writes` colour. A card that
+   republishes text a reader will see is bordered in the accent; one that
+   only writes a report is not. The point is that the two never look
+   interchangeable at a glance, because they are not.
+   ========================================================================= */
+
+:root{--bg:#f5efe4;--panel:#fffdf8;--panel2:#fbf4e7;--ink:#2b2117;--muted:#8b7c66;--line:#e6dac6;
+  --accent:#9a3b1b;--accent2:#1f6f5c;--gold:#b6862c;--ok:#2f9e6f;--warn:#c98a2b;--bad:#b3402a;
+  --shadow:0 2px 16px rgba(90,60,20,.10);--radius:14px}
+body.dark{--bg:#14161c;--panel:#1b1f27;--panel2:#20242f;--ink:#e9e3d5;--muted:#98a0b2;--line:#2b3140;
+  --accent:#e0794b;--accent2:#5bb894;--gold:#e0b25a;--ok:#5bb894;--warn:#e0b25a;--bad:#e07a63;
+  --shadow:0 6px 26px rgba(0,0,0,.4)}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.5;
+  font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;transition:.3s}
+
+header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(9px);border-bottom:1px solid var(--line)}
+.bar{max-width:960px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.brand{font-weight:700}.brand small{color:var(--muted);font-weight:400}.spacer{flex:1}
+.icon,.btn{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:7px 12px;
+  cursor:pointer;color:var(--ink);font:inherit;font-size:13px}
+.btn.pri{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.gh{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+main{max-width:960px;margin:0 auto;padding:16px 14px 80px}
+
+.gate{display:none;min-height:100vh;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px;text-align:center}
+.gate input{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:9px 12px;font:inherit;color:var(--ink);min-width:220px}
+.muted{color:var(--muted);font-size:13px}
+
+/* The banner that says which of the three modes this page is in. */
+.mode{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:12px 14px;
+  margin-bottom:16px;box-shadow:var(--shadow);font-size:14px}
+.mode.live{border-left:4px solid var(--ok)}
+.mode.fallback{border-left:4px solid var(--warn)}
+.mode.error{border-left:4px solid var(--bad)}
+.mode b{display:block;margin-bottom:3px}
+.mode p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.mode code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;background:var(--panel2);
+  border:1px solid var(--line);border-radius:5px;padding:1px 5px}
+
+.cards{display:grid;gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--line);
+  border-radius:12px;padding:13px 15px;box-shadow:var(--shadow)}
+.card.corpus{border-left-color:var(--accent)}
+.card.metadata{border-left-color:var(--gold)}
+.card.nothing{border-left-color:var(--accent2)}
+
+.card h2{margin:0;font-size:17px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.tag{font-size:11px;font-weight:400;color:var(--muted);border:1px solid var(--line);
+  background:var(--panel2);border-radius:999px;padding:1px 8px;font-family:system-ui,sans-serif}
+.blurb{margin:6px 0 0;font-size:14px;color:var(--muted)}
+
+.last{margin-top:9px;font-size:12.5px;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}.dot.run{background:var(--warn)}
+.dot.none{background:var(--line)}
+.last a{color:var(--accent2)}
+
+.opts{margin:10px 0 0;padding:10px 0 0;border-top:1px dashed var(--line);display:none}
+.opts.open{display:block}
+.opt{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:13.5px}
+.opt label{flex:1;min-width:0}
+.opt input[type=text]{border:1px solid var(--line);background:var(--panel2);border-radius:8px;
+  padding:6px 9px;font:inherit;font-size:13px;color:var(--ink);min-width:180px}
+.opt input[type=checkbox]{width:16px;height:16px;accent-color:var(--accent)}
+
+.actions{margin-top:11px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.say{font-size:12.5px;color:var(--muted)}
+.say.ok{color:var(--ok)}.say.bad{color:var(--bad)}
+
+footer{max-width:960px;margin:24px auto 0;padding:0 14px;font-size:12.5px;color:var(--muted)}
+footer a{color:var(--accent2)}

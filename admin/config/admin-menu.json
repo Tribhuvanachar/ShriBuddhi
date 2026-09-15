@@ -1,0 +1,40 @@
+{
+ "_readme": [
+  "The management-tool menu for bhumandala's BYOK loader (js/admin-brahmabuddhi.js).",
+  "",
+  "Fetched live from THIS repo (BrahmaBuddhi) via the GitHub Contents API, using",
+  "the visitor's own BrahmaBuddhi-scoped PAT -- never bundled into bhumandala's",
+  "public JS, so a visitor without a valid token never learns these page names",
+  "or paths exist. Add a page here and it appears in the popup on next open;",
+  "nothing else needs touching in bhumandala.",
+  "",
+  "  id       DOM id for the rendered popup row (cosmetic, must be unique).",
+  "  icon     leading emoji.",
+  "  label    visible text once unlocked.",
+  "  path     this repo's path to the HTML file, fetched and rendered via the",
+  "           loader's srcdoc iframe (see dgeOpenBrahmaBuddhiPage).",
+  "  requires 'admin' or 'superadmin' -- matches the SAME localStorage tier",
+  "           flags bhumandala's own menu.js reads (acharyaAuthorized /",
+  "           is_superadmin). Purely a tidiness gate on top of the PAT gate,",
+  "           same spirit as bhumandala's admin/config/menu.json 'requires'."
+ ],
+ "items": [
+  { "id": "bbLibraryManagerItem", "icon": "🗂️", "label": "Library Manager", "path": "admin/library.html", "requires": "superadmin" },
+  { "id": "bbKoshaManagerItem", "icon": "📖", "label": "Kosha Manager", "path": "admin/kosha.html", "requires": "superadmin" },
+  { "id": "bbAshtadhyayiManagerItem", "icon": "📜", "label": "Ashtadhyayi Manager", "path": "admin/ashtadhyayi.html", "requires": "superadmin" },
+  { "id": "bbDasaCaptureItem", "icon": "🎶", "label": "Dasa Sahitya Capture", "path": "admin/dasa-capture.html", "requires": "superadmin" },
+  { "id": "bbHolyPlacesManagerItem", "icon": "🛕", "label": "Holy Places Curation", "path": "admin/holy-places.html", "requires": "superadmin" },
+  { "id": "bbAudioManagerItem", "icon": "🎙️", "label": "Audio Admin", "path": "admin/audio.html", "requires": "superadmin" },
+  { "id": "bbGenieAsrRecorderItem", "icon": "🗣️", "label": "Genie ASR Recorder", "path": "admin/genie-asr-recorder.html", "requires": "superadmin" },
+  { "id": "bbRepoMapItem", "icon": "⚙️", "label": "Repository & Workflows", "path": "admin/repo-map.html", "requires": "superadmin" },
+  { "id": "bbOcrReviewItem", "icon": "🔍", "label": "OCR Review", "path": "admin/ocr-review.html", "requires": "admin" },
+  { "id": "bbOcrStudioItem", "icon": "🔍", "label": "OCR Studio", "path": "admin/ocr-studio.html", "requires": "admin" },
+  { "id": "bbAccessControlItem", "icon": "🛡️", "label": "Access Control", "path": "admin/access-control.html", "requires": "superadmin" },
+  { "id": "bbContentProvenanceItem", "icon": "🗺️", "label": "Content Provenance Map", "path": "admin/content-provenance.html", "requires": "admin" },
+  { "id": "bbLegalEditorItem", "icon": "⚖️", "label": "Legal Text Editor", "path": "admin/legal.html", "requires": "superadmin" },
+  { "id": "bbGuruEditorItem", "icon": "🪷", "label": "Guru Parampara Editor", "path": "admin/guru.html", "requires": "superadmin" },
+  { "id": "bbWorkflowsItem", "icon": "⚙️", "label": "Workflows (redirect)", "path": "admin/workflows.html", "requires": "superadmin" },
+  { "id": "bbConvertToolItem", "icon": "🔄", "label": "Convert Tool", "path": "convert/index.html", "requires": "superadmin" },
+  { "id": "bbDvaitaStatusItem", "icon": "📊", "label": "DvaitaVedanta Extraction Status", "path": "dvaitavedanta-status/dvaitavedanta-status.html", "requires": "admin" }
+ ]
+}

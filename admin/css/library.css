@@ -1,0 +1,100 @@
+/* =========================================================================
+   Styles for admin/library.html.
+
+   Lifted out of the page unchanged — same rules, same order, so it renders
+   exactly as before. Pages hold structure; their styles live here and their
+   words in admin/content/.
+   ========================================================================= */
+
+:root{--bg:#f5efe4;--panel:#fffdf8;--panel2:#fbf4e7;--ink:#2b2117;--muted:#8b7c66;--line:#e6dac6;
+    --accent:#9a3b1b;--accent2:#1f6f5c;--gold:#b6862c;--ok:#2f9e6f;--pend:#b9ab90;--part:#c98a2b;
+    --shadow:0 2px 16px rgba(90,60,20,.10);--radius:14px}
+  body.dark{--bg:#14161c;--panel:#1b1f27;--panel2:#20242f;--ink:#e9e3d5;--muted:#98a0b2;--line:#2b3140;
+    --accent:#e0794b;--accent2:#5bb894;--gold:#e0b25a;--ok:#5bb894;--pend:#5a5f6b;--part:#e0b25a;--shadow:0 6px 26px rgba(0,0,0,.4)}
+  *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.5;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;transition:.3s}
+  header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(9px);border-bottom:1px solid var(--line)}
+  .bar{max-width:1100px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .brand{font-weight:700}.brand small{color:var(--muted);font-weight:400}.spacer{flex:1}
+  .icon,.btn{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:7px 12px;cursor:pointer;color:var(--ink);font:inherit;font-size:13px}
+  .btn.pri{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn.gh{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+  main{max-width:1100px;margin:0 auto;padding:16px 14px 80px}
+  .totals{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;box-shadow:var(--shadow)}
+  .stat b{font-size:24px;display:block}.stat span{color:var(--muted);font-size:12px}
+  .secgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:18px}
+  .sec{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 13px}
+  .sec .n{font-weight:700;text-transform:capitalize}
+  .sec .m{color:var(--muted);font-size:12px;margin:2px 0 7px}
+  .prog{height:8px;background:var(--panel2);border-radius:999px;overflow:hidden;border:1px solid var(--line)}
+  .prog i{display:block;height:100%;background:var(--ok)}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:6px 0 12px}
+  .toolbar input[type=search]{flex:1;min-width:180px;border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:9px 12px;font:inherit;color:var(--ink)}
+  .chip{border:1px solid var(--line);background:var(--panel2);border-radius:999px;padding:6px 11px;cursor:pointer;font-size:13px;color:var(--muted)}
+  .chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .tree{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:6px 4px}
+  .node{padding:2px 0}
+  .row{display:flex;align-items:center;gap:6px;padding:5px 8px;border-radius:8px}
+  .row:hover{background:var(--panel2)}
+  /* drag & drop move states (1 Sep 2026) */
+  .row.dragging{opacity:.45}
+  .row.droptgt{outline:2px dashed var(--accent2);outline-offset:-2px;background:color-mix(in srgb,var(--accent2) 10%,transparent)}
+  .tw{width:16px;text-align:center;color:var(--muted);cursor:pointer;user-select:none;flex:none}
+  .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .nm .path{color:var(--muted);font-size:11px}
+  .nm .disp{font-size:11px;color:var(--accent2)}
+  .dot{width:9px;height:9px;border-radius:50%;flex:none}
+  .dot.ok{background:var(--ok)}.dot.pend{background:var(--pend)}.dot.part{background:var(--part)}
+  .cnt{font-size:12px;color:var(--muted);flex:none}
+  .badge{font-size:11px;border-radius:8px;padding:1px 7px;flex:none}
+  .badge.ok{color:var(--ok);border:1px solid var(--ok)}.badge.pend{color:var(--muted);border:1px solid var(--line)}
+  /* Per-leaf provenance link (admin/config/library-status.json's leaf_sources) */
+  .srclink{font-size:11px;color:var(--accent2);flex:none;text-decoration:none;white-space:nowrap;cursor:help}
+  a.srclink{cursor:pointer}
+  .srclink:hover{text-decoration:underline}
+  /* Candidate-but-not-yet-imported PDF/e-text (pending_pdf_sources.json via
+     leaf_sources' fallback) -- var(--part), the same amber already used for
+     "partially loaded" folder dots, so "candidate found" reads as progress
+     toward loaded rather than as another flavor of "empty". */
+  .srclink.pdflink{color:var(--part)}
+  .ctl{flex:none;border:1px solid var(--line);background:var(--panel);border-radius:8px;width:28px;height:26px;cursor:pointer;color:var(--ink);font-size:12px;padding:0;line-height:1}
+  .ctl:hover{background:var(--panel2)}
+  .ctl.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .ctl.off{opacity:.5}
+  .ctl[disabled]{opacity:.25;cursor:default}
+  .pin{flex:none;font-size:11px;color:var(--gold)}
+  .kids{margin-left:18px;border-left:1px dashed var(--line);padding-left:4px;display:none}
+  .node.open>.kids{display:block}
+  .hiddenNode>.row .nm .actual{opacity:.45;text-decoration:line-through}
+  .movedNode>.row{background:color-mix(in srgb,var(--accent2) 8%,transparent)}
+  .gate{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:24px;text-align:center}
+  .gate input{font:inherit;font-size:18px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink)}
+  .muted{color:var(--muted);font-size:13px}
+  a{color:var(--accent2)}
+  /* move-picker overlay */
+  .ov{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:80;display:none;align-items:center;justify-content:center;padding:18px}
+  .ov.show{display:flex}
+  .ovbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;max-width:520px;width:100%;max-height:80vh;display:flex;flex-direction:column;box-shadow:var(--shadow)}
+  .ovhd{padding:12px 14px;border-bottom:1px solid var(--line);font-weight:700;display:flex;align-items:center;gap:8px}
+  .ovbody{padding:10px 12px;overflow:auto}
+  .ovbody input[type=search]{width:100%;border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:9px 12px;font:inherit;color:var(--ink);margin-bottom:8px}
+  .foldopt{padding:8px 10px;border-radius:8px;cursor:pointer;font-size:13px;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+  .foldopt:hover{background:var(--panel2)}
+  .foldopt .p{color:var(--muted);font-size:11px}
+  /* the Move dialog's folder TREE (1 Sep 2026 -- was one flat path list):
+     same twisty/kids pattern as the main tree, scoped to the picker. */
+  .mtw{width:14px;text-align:center;color:var(--muted);cursor:pointer;user-select:none;flex:none}
+  .mnode>.mkids{display:none}
+  .mnode.open>.mkids{display:block}
+  .helpbox{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:14px;font-size:13px}
+  .helpbox b{color:var(--accent)}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:8px}
+  .legend span{display:inline-flex;align-items:center;gap:4px}
+  /* Legend/help and search/filters used to sit permanently above the tree --
+     on a narrow phone that pushed the actual folder list well below the
+     fold before a reader saw a single row. Both now live behind one small
+     button each (reusing the existing .ov modal already built for the
+     move-to-folder picker) so the everyday view is just the tree. */
+  .mbar{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+  .fcount{display:inline-block;margin-left:6px;background:var(--accent);color:#fff;border-radius:999px;font-size:10px;padding:1px 6px}

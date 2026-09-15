@@ -417,7 +417,7 @@
   },
   "dv-cache-dist": {
    "category": "runtime-dist",
-   "purpose": "The raw dvaitavedanta.in pages as crawled, kept so the site structure can be reconstructed if a re-extraction ever goes wrong.",
+   "purpose": "The raw the source edition pages as crawled, kept so the site structure can be reconstructed if a re-extraction ever goes wrong.",
    "recommendation": "keep",
    "notes": "Not live-fetched by any page — this is cold-storage / disaster-recovery, not a runtime dependency. Written by extract-dvaitavedanta.yml and read by recover-dv-structure.yml.",
    "snapshot": {
@@ -425,7 +425,7 @@
     "ahead_of_main": 1,
     "behind_main": 2705,
     "last_commit_date": "2026-08-19",
-    "last_commit_subject": "The dvaitavedanta.in pages as fetched, kept so the structure stays recoverable",
+    "last_commit_subject": "The the source edition pages as fetched, kept so the structure stays recoverable",
     "last_author": "github-actions[bot]",
     "checked_at": "2026-09-12 02:39 IST"
    }
@@ -941,7 +941,7 @@
     "ahead_of_main": 2,
     "behind_main": 1148,
     "last_commit_date": "2026-08-19",
-    "last_commit_subject": "Recover the dvaitavedanta.in tree from the cached pages",
+    "last_commit_subject": "Recover the the source edition tree from the cached pages",
     "last_author": "Tribhuvanachar",
     "checked_at": "2026-09-12 02:39 IST"
    }
@@ -1412,8 +1412,8 @@
   },
   "extract-dvaitavedanta.yml": {
    "category": "content-import",
-   "display_name": "dvaitavedanta.in — extract",
-   "purpose": "Crawls dvaitavedanta.in section by section, parses each grantha into data.json and opens a pull request. 699 granthas today. Dry-run and no-PR by default; caches pages between runs.",
+   "display_name": "the source edition — extract",
+   "purpose": "Crawls the source edition section by section, parses each grantha into data.json and opens a pull request. 699 granthas today. Dry-run and no-PR by default; caches pages between runs.",
    "recommendation": "keep",
    "reason": "The importer for the largest corpus; re-run whenever the sync check names changed granthas.",
    "keep": true,
@@ -1566,7 +1566,7 @@
   },
   "extract-setutila.yml": {
    "category": "content-import",
-   "display_name": "setutila.in — import / delta sync",
+   "display_name": "the source edition — import / delta sync",
    "purpose": "Pulls the SetuTila Sarvamūla edition (WordPress) — new or modified posts only, by slug or as a delta since last run — and opens a pull request.",
    "recommendation": "keep",
    "reason": "Live source, delta-capable; nothing else covers it.",
@@ -3723,7 +3723,7 @@
   },
   "recover-dv-structure.yml": {
    "category": "probe-oneoff",
-   "display_name": "Recover dvaitavedanta.in tree from the crawl cache",
+   "display_name": "Recover the source edition tree from the crawl cache",
    "purpose": "Rescue job from the incident where an import flattened the grantha tree: rebuilds it from cached HTML and preserves that cache on dv-cache-dist.",
    "notes": "The Actions cache it reads expired after 7 days; the raw pages it saved are on the dv-cache-dist branch, and tools/dvaitavedanta/recover_structure.py can be run locally from that.",
    "recommendation": "delete",
@@ -3895,16 +3895,16 @@
     "lines": 92
    }
   },
-  "sync-advaitasharada.yml": {
+  "sync-the source edition.yml": {
    "category": "source-sync",
    "display_name": "Advaita Śāradā — sync (re-read and PR)",
-   "purpose": "Re-reads all 51 works we hold from advaitasharada.sringeri.net and opens a pull request with whatever changed. Monthly by itself (3rd, 6:00 am IST) or on demand. The site publishes no change dates, so each run is a full re-crawl (~980 pages, ~17 min at one request a second).",
+   "purpose": "Re-reads all 51 works we hold from the source edition and opens a pull request with whatever changed. Monthly by itself (3rd, 6:00 am IST) or on demand. The site publishes no change dates, so each run is a full re-crawl (~980 pages, ~17 min at one request a second).",
    "notes": "Guarded by tools/sync_guard.py: no file may lose items, nothing outside the Advaita folder may change. Never widens the corpus (new works on the site are reported by check-sources).",
    "recommendation": "keep",
    "reason": "The import half of the Advaita Śāradā syncer card.",
    "keep": true,
    "generated": {
-    "name": "Sync — Advaita Śāradā (advaitasharada.sringeri.net)",
+    "name": "Sync — Advaita Śāradā (the source edition)",
     "triggers": [
      "schedule",
      "manual"
@@ -3962,7 +3962,7 @@
    "reason": "The import half of the Ānandamakaranda syncer card.",
    "keep": true,
    "generated": {
-    "name": "Sync — Ānandamakaranda (anandamakaranda.in)",
+    "name": "Sync — Ānandamakaranda (the source edition)",
     "triggers": [
      "schedule",
      "manual"
@@ -4073,7 +4073,7 @@
   },
   "sync-dvaitavedanta.yml": {
    "category": "source-sync",
-   "display_name": "dvaitavedanta.in — precise sync check",
+   "display_name": "the source edition — precise sync check",
    "purpose": "The deeper check for the biggest source: one request per grantha (~56), a census of pages per grantha diffed against the stored one, plus a random re-fetch of imported pages to catch text edits. Names exactly which granthas to re-extract and can dispatch the extractor for them.",
    "notes": "Complements check-sources (which only notices that the site changed, not where).",
    "recommendation": "keep",
@@ -4081,7 +4081,7 @@
    "keep": true,
    "trigger": "cron + manual",
    "generated": {
-    "name": "Sync check dvaitavedanta.in",
+    "name": "Sync check the source edition",
     "triggers": [
      "schedule",
      "manual"
@@ -4139,13 +4139,13 @@
   "sync-meghamala.yml": {
    "category": "source-sync",
    "display_name": "Śrī Rāmānuja Meghamālā — sync (changed granthas and PR)",
-   "purpose": "Scrapes the archive page's knowledge tree, asks srivaishnavan.com's WordPress API which posts changed, re-fetches only those granthas whole, rebuilds them with importers/ramanuja_meghamala.py --strict, and opens a pull request. Twice a month by itself (5th and 20th) or on demand.",
+   "purpose": "Scrapes the archive page's knowledge tree, asks the source edition's WordPress API which posts changed, re-fetches only those granthas whole, rebuilds them with importers/ramanuja_meghamala.py --strict, and opens a pull request. Twice a month by itself (5th and 20th) or on demand.",
    "notes": "First run fetches everything it has no state for, capped at 60 granthas per run. State travels in the PR (admin/config/sync/meghamala.state.json).",
    "recommendation": "keep",
    "reason": "The import half of the Meghamālā syncer card; the importer was retired to the zip and brought back for this.",
    "keep": true,
    "generated": {
-    "name": "Sync — Śrī Rāmānuja Meghamālā (srivaishnavan.com)",
+    "name": "Sync — Śrī Rāmānuja Meghamālā (the source edition)",
     "triggers": [
      "schedule",
      "manual"

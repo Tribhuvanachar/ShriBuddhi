@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=1"></script>
+<script src="../js/audio-detect.js?v=1"></script>
+<!-- Passkeys come from admin/config/keys.json, not from this page. -->
+<script src="js/keys.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audio Admin · DGE (restricted)</title>
+<link rel="stylesheet" href="css/audio.css?v=1">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<body>
+<div class="gate" id="gate">
+  <div style="font-size:22px;font-weight:700">🎙️ Audio Admin</div>
+  <div class="muted">Restricted tool. Enter the passkey.</div>
+  <input id="gk" type="password" placeholder="passkey" autocomplete="off">
+  <button class="btn pri" id="gbtn">Enter</button>
+  <div class="muted" style="max-width:440px">Client-side gate for convenience, not real security — the page itself is public in the repo. Deliberately separate from the site's other admin pages: this one's write access is meant to reach only <code>bhumandala-audio-data</code>, never the main content repo, so use a GitHub token scoped to just that repository (see the note below the token field).</div>
+</div>
+
+<header style="display:none" id="hdr">
+  <div class="bar">
+    <div class="brand">🎙️ Audio Admin <small>· trim/chunk chanting audio, push to bhumandala-audio-data</small></div>
+    <span class="spacer"></span>
+    <a class="icon" href="../render.html">◂ DGE</a>
+    <button class="icon" id="theme">◐</button>
+    <a class="icon" href="../render.html" title="Close Audio Admin">✕</a>
+  </div>
+</header>
+
+<main id="app" style="display:none">
+
+  <h2 class="sect">1. Upload</h2>
+  <div class="card">
+    <label for="fileInput">Audio file (WAV/MP3/etc. — whatever your browser can decode)</label>
+    <input type="file" id="fileInput" accept="audio/*">
+    <div class="muted" id="fileInfo" style="margin-top:8px"></div>
+  </div>
+
+  <h2 class="sect">2. How should we split it?</h2>
+  <div class="card">
+    <div class="row">
+      <label style="display:flex;align-items:center;gap:8px;font-weight:400;margin:0;min-width:auto">
+        <input type="checkbox" id="optHasBackground" checked>
+        <span><b>There's background music</b> — tabla, veena, tanpura, anything playing under the chanting</span>
+      </label>
+    </div>
+    <div class="muted">Leave this on unless the recording is a bare voice. It listens for the <i>voice</i> rather than for silence, which is what lets it find the gaps even while the accompaniment keeps playing. Turning it off uses the old plain-silence method — faster, but a recording with continuous accompaniment will come back as one single piece.</div>
+
+    <div class="row" style="margin-top:12px">
+      <div class="field">
+        <label for="optExpected">How many shlokas do you expect? (optional)</label>
+        <input type="number" id="optExpected" placeholder="e.g. 62" min="1">
+      </div>
+      <div class="field">
+        <label for="optMinLen">Shortest a shloka can be (seconds)</label>
+        <input type="number" id="optMinLen" value="10" step="0.5">
+      </div>
+      <div class="field">
+        <label for="optMinGap">Shortest pause that means "new shloka" (seconds)</label>
+        <input type="number" id="optMinGap" value="1.5" step="0.1">
+      </div>
+    </div>
+    <div class="muted">If you fill in the expected count we'll tell you whether we hit it — nothing is forced to match. A chanted shloka follows a vṛtta, so it's rarely shorter than 10–15 seconds; anything shorter gets joined to its neighbour. A pause shorter than the second figure is treated as a breath inside a verse, not a boundary.</div>
+
+    <details style="margin-top:12px">
+      <summary style="cursor:pointer;font-weight:600">Know more — fine tuning</summary>
+      <div class="muted" style="margin-top:8px">You shouldn't need any of this. It's here for the case where a particular recording splits badly and you'd rather fix it yourself than wait.</div>
+      <div class="row" style="margin-top:10px">
+        <div class="field">
+          <label for="optSilenceDb">Loudness cut-off (dB) — blank means "work it out"</label>
+          <input type="number" id="optSilenceDb" placeholder="automatic" step="0.5">
+        </div>
+        <div class="field">
+          <label for="optEdgePad">Extra breathing room kept at each end (seconds)</label>
+          <input type="number" id="optEdgePad" value="0.10" step="0.01">
+        </div>
+        <div class="field">
+          <label for="optNoisePct">How much of the recording is pause (%)</label>
+          <input type="number" id="optNoisePct" value="5" step="1" min="1" max="40">
+        </div>
+      </div>
+      <div class="muted">
+        <b>Loudness cut-off</b> — anything quieter than this counts as a gap. Left blank, it's chosen from the recording itself, which is usually better than a guess.<br>
+        <b>Breathing room</b> — each clip is extended by this much at both ends so nothing is clipped mid-syllable. It applies to the timestamps and the WAV clips alike, so both play the same audio.<br>
+        <b>How much is pause</b> — used to work out what the background music sounds like on its own. If the recording has unusually long gaps, raise it; if it's almost wall-to-wall chanting, lower it.
+      </div>
+      <div class="row" style="margin-top:10px">
+        <label style="display:flex;align-items:center;gap:6px;font-weight:400;margin:0;min-width:auto">
+          <input type="checkbox" id="optAutoDetect" checked> Work the cut-off out from this recording
+        </label>
+      </div>
+    </details>
+  </div>
+
+  <h2 class="sect">3. Naming and output</h2>
+  <div class="card">
+    <div class="row">
+      <div class="field"><label for="optPrefix">Filename prefix</label><input type="text" id="optPrefix" value="chunk_"></div>
+      <div class="field"><label for="optStart">Start number</label><input type="number" id="optStart" value="1"></div>
+      <div class="field"><label for="optDigits">Digits in the number</label><input type="number" id="optDigits" value="2"></div>
+    </div>
+    <div class="row">
+      <label style="display:flex;align-items:center;gap:6px;font-weight:400;margin:0;min-width:auto">
+        <input type="checkbox" id="optExportJson" checked> A JSON list of timestamps (the audio file stays whole)
+      </label>
+      <label style="display:flex;align-items:center;gap:6px;font-weight:400;margin:0;min-width:auto">
+        <input type="checkbox" id="optExportClips" checked> One trimmed WAV per shloka
+      </label>
+    </div>
+    <div class="muted">Keep at least one ticked or there's nothing to produce.</div>
+  </div>
+
+  <div class="row">
+    <button class="btn pri" id="processBtn">▶ Process</button>
+    <span class="muted" id="processStatus"></span>
+  </div>
+
+  <h2 class="sect">3. Review</h2>
+  <div class="card" id="reviewCard" style="display:none">
+    <div class="muted" id="reviewSummary"></div>
+    <table id="reviewTable"><thead><tr><th>#</th><th>Name</th><th>Start</th><th>End</th><th>Dur</th><th>Preview</th></tr></thead><tbody></tbody></table>
+    <div class="row" id="reviewActions" style="display:none">
+      <button class="btn" id="downloadZipBtn">⬇ Download all (.zip)</button>
+      <button class="btn" id="downloadJsonBtn">⬇ Download JSON only</button>
+    </div>
+    <div class="muted">Downloading works regardless of GitHub — use it any time you just want the files locally, or as a fallback when a file is too large to push (see the note below).</div>
+  </div>
+
+  <h2 class="sect">4. Push to <code>bhumandala-audio-data</code></h2>
+  <div class="card">
+    <div class="note"><b>Scope this token to ONLY <code>bhumandala-audio-data</code>.</b> GitHub → Settings → Developer settings → Fine-grained tokens → Repository access: "Only select repositories" → <code>bhumandala-audio-data</code> → Permissions: Contents: Read and write. This page hardcodes its target repo (no picker), but that only helps if the token itself can't reach anywhere else — a broadly-scoped token pasted here could still write elsewhere if this page had a bug, so don't rely on the UI alone.</div>
+    <div class="note">Pushes go through GitHub's Git Data API (blob → tree → commit, all files in one atomic commit), not the plain "upload a file" API — that raises the reliable per-file ceiling to roughly GitHub's own ~100 MB hard limit (without Git LFS), well past the 25 MB cap you'll hit dragging a file into the GitHub website (that limit is specific to the website's uploader, not the API). A single file anywhere near 100 MB still won't go through, though — use Download above instead and place it wherever you like.</div>
+    <div class="row">
+      <div class="field" style="flex:2"><label for="ghToken">GitHub token (scoped to bhumandala-audio-data only)</label><input type="password" id="ghToken" autocomplete="off"></div>
+      <div class="field"><label for="destFolder">Destination folder in the repo</label><input type="text" id="destFolder" placeholder="e.g. sumadhva_vijaya/sarga_1"></div>
+    </div>
+    <div class="muted">Prefilled from the uploaded filename when you first pick a file — edit it to anything you like. GitHub has no real "create folder" step: typing a new path and pushing to it creates it automatically.</div>
+    <div class="row">
+      <button class="btn pri" id="pushBtn" disabled>⬆ Push to GitHub</button>
+      <span class="muted" id="pushStatus"></span>
+    </div>
+    <div class="log" id="pushLog" style="display:none"></div>
+  </div>
+
+</main>
+
+<script>
+(function(){
+  // Key comes from admin/config/keys.json via js/keys.js.
+  var GATE = "audioadmin";
+  var $ = function(s){ return document.querySelector(s); };
+  var REPO_OWNER = "Tribhuvanachar", REPO_NAME = "bhumandala-audio-data", REPO_BRANCH = "main";
+
+  // Deliberately its own session flag ("dge.audioadmin.ok"), NOT shared with
+  // the site's other admin pages' "dge.admin.ok"/is_superadmin — this tool's
+  // whole point is a separate, more narrowly-scoped credential.
+  if (sessionStorage.getItem("dge.audioadmin.ok") === "1") start();
+  else {
+    $("#gate").style.display = "flex";
+    var tryK = function(){
+      window.dgeCheckKey(GATE, $("#gk").value).then(function(ok){
+        if (ok) { sessionStorage.setItem("dge.audioadmin.ok", "1"); location.reload(); }
+        else { $("#gk").value = ""; $("#gk").placeholder = "wrong — try again"; }
+      });
+    };
+    $("#gbtn").onclick = tryK;
+    $("#gk").addEventListener("keydown", function(e){ if (e.key === "Enter") tryK(); });
+    $("#gk").focus();
+  }
+
+  function start(){
+    if (sessionStorage.getItem("dge.audioadmin.ok") !== "1") return;
+    $("#gate").style.display = "none"; $("#hdr").style.display = ""; $("#app").style.display = "";
+    if (localStorage.getItem("dge.audioadmin.dark") === "1") document.body.classList.add("dark");
+    $("#theme").onclick = function(){ document.body.classList.toggle("dark"); localStorage.setItem("dge.audioadmin.dark", document.body.classList.contains("dark") ? "1" : "0"); };
+    var tok = localStorage.getItem("github_audio_admin_pat");
+    if (tok) $("#ghToken").value = tok;
+    $("#ghToken").addEventListener("input", function(){ localStorage.setItem("github_audio_admin_pat", $("#ghToken").value); });
+  }
+
+  // ---------------------------------------------------------------
+  // Decode + analysis
+  // ---------------------------------------------------------------
+  var decodedBuffer = null;
+  var sourceFileName = "";
+  var lastSegments = null; // [{id,name,start,end,start_ms,end_ms,duration}]
+  var lastClipBlobs = null; // name -> Blob
+  var lastMapping = null; // the shlokas.json object, built whenever segments exist
+
+  function slugify(name){
+    return (name || "").replace(/\.[^.]+$/, "").toLowerCase().replace(/[^a-z0-9]+/g, "_").replace(/^_+|_+$/g, "") || "upload";
+  }
+
+  $("#optAutoDetect").addEventListener("change", function(){
+    var lbl = document.querySelector('label[for="optSilenceDb"]');
+    if (this.checked) {
+      lbl.textContent = "Silence threshold override (dB, optional — blank = auto)";
+      $("#optSilenceDb").placeholder = "auto";
+    } else {
+      lbl.textContent = "Silence threshold (dB, required — auto-detect is off)";
+      $("#optSilenceDb").placeholder = "-40";
+    }
+  });
+
+  $("#fileInput").addEventListener("change", async function(){
+    var f = this.files[0];
+    if (!f) return;
+    sourceFileName = f.name;
+    $("#fileInfo").textContent = "Decoding " + f.name + " (" + (f.size / 1e6).toFixed(1) + " MB)…";
+    try {
+      var arrBuf = await f.arrayBuffer();
+      var ctx = new (window.AudioContext || window.webkitAudioContext)();
+      decodedBuffer = await ctx.decodeAudioData(arrBuf);
+      $("#fileInfo").textContent = f.name + " — " + decodedBuffer.duration.toFixed(1) + "s, " +
+        decodedBuffer.numberOfChannels + "ch, " + decodedBuffer.sampleRate + " Hz. Ready to process.";
+      if (!$("#destFolder").value.trim()) $("#destFolder").value = slugify(f.name);
+    } catch (e) {
+      $("#fileInfo").textContent = "Could not decode this file: " + e.message;
+      decodedBuffer = null;
+    }
+  });
+
+  function monoOf(buffer){
+    var ch = buffer.numberOfChannels;
+    var out = new Float32Array(buffer.length);
+    for (var c = 0; c < ch; c++) {
+      var data = buffer.getChannelData(c);
+      for (var i = 0; i < data.length; i++) out[i] += data[i] / ch;
+    }
+    return out;
+  }
+
+  function percentile(sortedAsc, p){
+    var idx = (p / 100) * (sortedAsc.length - 1);
+    var lo = Math.floor(idx), hi = Math.ceil(idx);
+    if (lo === hi) return sortedAsc[lo];
+    return sortedAsc[lo] + (sortedAsc[hi] - sortedAsc[lo]) * (idx - lo);
+  }
+
+  // 1-D Otsu split on log-gap-lengths -> the natural divide between short
+  // in-chunk breaths and real inter-chunk silence. Direct port of the
+  // Colab notebook's _otsu() (same bin count, same log-domain search).
+  function otsuSplit(vals){
+    var v = vals.map(function(x){ return Math.log(x + 1e-6); });
+    var bins = 64;
+    var lo = Math.min.apply(null, v), hi = Math.max.apply(null, v);
+    if (hi <= lo) return null;
+    var hist = new Float64Array(bins);
+    var mids = new Float64Array(bins);
+    for (var b = 0; b < bins; b++) mids[b] = lo + (hi - lo) * (b + 0.5) / bins;
+    v.forEach(function(x){
+      var b = Math.min(bins - 1, Math.floor((x - lo) / (hi - lo) * bins));
+      hist[b]++;
+    });
+    var tot = v.length;
+    var w = 0, mu = 0, muT = 0;
+    for (var i = 0; i < bins; i++) muT += hist[i] * mids[i];
+    var best = -1, bestK = -1;
+    var wAcc = 0, muAcc = 0;
+    for (var k = 0; k < bins; k++) {
+      wAcc += hist[k]; muAcc += hist[k] * mids[k];
+      var wF = tot - wAcc;
+      if (wAcc === 0 || wF === 0) continue;
+      var mB = muAcc / wAcc, mF = (muT - muAcc) / wF;
+      var sigma = wAcc * wF * (mB - mF) * (mB - mF);
+      if (sigma > best) { best = sigma; bestK = k; }
+    }
+    if (bestK < 0) return null;
+    return Math.exp(mids[bestK]);
+  }
+
+  // Direct port of the Colab notebook's detect_shlokas() -- same frame/hop
+  // sizes, same adaptive-threshold formula, same Otsu-based gap length,
+  // same 5ms boundary refinement window, same overlap resolution. Ported
+  // so the web tool and the notebook produce comparable results on the
+  // same recording, not two independently-tuned algorithms.
+  // Boundary detection now lives in js/audio-detect.js so it can be tested
+  // in Node instead of by reloading this page and squinting at the result --
+  // see tests/test-audio-detect.js, which reproduces the one-segment bug on a
+  // synthetic recording with continuous accompaniment and then asserts the fix.
+  //
+  // The old inline implementation measured BROADBAND energy on the raw mix.
+  // That is unfixable by tuning when the accompaniment never stops: there is no
+  // loudness cut-off that separates "voice + tabla" from "tabla", because the
+  // tabla is equally loud in both. The shared module listens in the vocal band
+  // and subtracts whatever is playing continuously underneath, so the pauses
+  // become visible again. Setting "There's background music" off restores the
+  // old behaviour exactly, for a bare-voice recording where it is cheaper.
+  function detectSegments(mono, sr, opts){
+    if (!window.DGEAudioDetect) throw new Error(
+      "audio-detect.js did not load — check the <script> tag at the top of this page.");
+    var r = window.DGEAudioDetect.detect(mono, sr, {
+      method: opts.hasBackground === false ? 'broadband' : 'voice',
+      minLenSec: opts.minLenSec,
+      minGapSec: opts.minGapSec,
+      padSec: opts.edgePad,
+      noisePercentile: opts.noisePercentile,
+      silenceDbOverride: opts.autoDetect === false && opts.silenceDbOverride == null
+        ? -40 : opts.silenceDbOverride
+    });
+    return {
+      segs: r.segments.map(function(s){ return [s.start, s.end]; }),
+      method: r.method,
+      total: r.totalSec,
+      thr: r.threshold,
+      minGap: r.minGap,
+      minLen: opts.minLenSec
+    };
+  }
+
+  // ---------------------------------------------------------------
+  // Process button
+  // ---------------------------------------------------------------
+  $("#processBtn").addEventListener("click", function(){
+    if (!decodedBuffer) { $("#processStatus").textContent = "Load an audio file first."; return; }
+    $("#processStatus").textContent = "Analyzing…";
+    setTimeout(function(){ // let the status text paint before the (synchronous, can be slow) analysis
+      try {
+        var mono = monoOf(decodedBuffer);
+        var dbOverrideRaw = parseFloat($("#optSilenceDb").value);
+        var opts = {
+          autoDetect: $("#optAutoDetect").checked,
+          hasBackground: $("#optHasBackground").checked,
+          noisePercentile: parseFloat($("#optNoisePct").value) || 5,
+          silenceDbOverride: isNaN(dbOverrideRaw) ? null : dbOverrideRaw,
+          minGapSec: parseFloat($("#optMinGap").value) || 1.5,
+          minLenSec: parseFloat($("#optMinLen").value) || 10,
+          edgePad: parseFloat($("#optEdgePad").value) || 0
+        };
+        var result = detectSegments(mono, decodedBuffer.sampleRate, opts);
+        var prefix = $("#optPrefix").value || "chunk_";
+        var startNum = parseInt($("#optStart").value, 10) || 1;
+        var digits = Math.max(1, parseInt($("#optDigits").value, 10) || 2);
+
+        lastSegments = result.segs.map(function(seg, i){
+          var num = startNum + i;
+          var name = prefix + String(num).padStart(digits, "0");
+          return { id: num, name: name, start: +seg[0].toFixed(3), end: +seg[1].toFixed(3),
+                    start_ms: Math.round(seg[0] * 1000), end_ms: Math.round(seg[1] * 1000),
+                    duration: +(seg[1] - seg[0]).toFixed(3) };
+        });
+
+        lastClipBlobs = {};
+        if ($("#optExportClips").checked) {
+          lastSegments.forEach(function(s){ lastClipBlobs[s.name + ".wav"] = sliceToWavBlob(decodedBuffer, s.start, s.end); });
+        }
+        lastMapping = {
+          source_audio: sourceFileName,
+          duration: decodedBuffer ? +decodedBuffer.duration.toFixed(3) : null,
+          count: lastSegments.length,
+          segments: lastSegments
+        };
+
+        renderReview(result);
+        var expected = parseInt($("#optExpected").value, 10);
+        var msg = "Found " + lastSegments.length + " shloka" +
+          (lastSegments.length === 1 ? "" : "s") + ".";
+        if (expected > 0) {
+          if (expected === lastSegments.length) msg += " That matches what you expected.";
+          else if (lastSegments.length === 1 && result.method === "broadband")
+            msg += " You expected " + expected + ". One single piece almost always means " +
+                   "there is background music playing throughout — tick \u201cThere\u2019s " +
+                   "background music\u201d and run it again.";
+          else msg += " You expected " + expected + ". Try nudging \u201cshortest pause\u201d " +
+                      (lastSegments.length < expected ? "down" : "up") + " a little and re-running.";
+        }
+        msg += "  (" + (result.method === "voice" ? "listening for the voice" : "plain silence") +
+               ", shortest pause " + result.minGap.toFixed(2) + "s, shortest shloka " +
+               result.minLen.toFixed(1) + "s" +
+               (result.thr == null ? "" : ", cut-off " + result.thr.toFixed(1) + " dB") + ")";
+        $("#processStatus").textContent = msg;
+        $("#pushBtn").disabled = lastSegments.length === 0;
+      } catch (e) {
+        $("#processStatus").textContent = "Processing failed: " + e.message;
+        console.error(e);
+      }
+    }, 30);
+  });
+
+  function renderReview(result){
+    $("#reviewCard").style.display = "block";
+    $("#reviewActions").style.display = "flex";
+    $("#reviewSummary").textContent = sourceFileName + " — " + result.total.toFixed(1) + "s total, " +
+      lastSegments.length + " segment(s) detected.";
+    var tbody = $("#reviewTable tbody");
+    tbody.innerHTML = "";
+    lastSegments.forEach(function(s){
+      var tr = document.createElement("tr");
+      var previewTd = document.createElement("td");
+      var blob = lastClipBlobs[s.name + ".wav"];
+      if (blob) {
+        var url = URL.createObjectURL(blob);
+        var audio = document.createElement("audio");
+        audio.controls = true; audio.style.height = "28px";
+        audio.src = url;
+        previewTd.appendChild(audio);
+        var dl = document.createElement("a");
+        dl.href = url; dl.download = s.name + ".wav"; dl.title = "Download " + s.name + ".wav";
+        dl.textContent = "⬇"; dl.style.marginLeft = "8px"; dl.style.fontSize = "16px";
+        previewTd.appendChild(dl);
+      } else {
+        previewTd.textContent = "(clips off)";
+      }
+      tr.innerHTML = "<td>" + s.id + "</td><td>" + s.name + "</td><td>" + s.start.toFixed(3) +
+        "s</td><td>" + s.end.toFixed(3) + "s</td><td class=\"num\">" + s.duration.toFixed(2) + "s</td>";
+      tr.appendChild(previewTd);
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ---------------------------------------------------------------
+  // Local download -- works with no GitHub token/repo at all, and is the
+  // fallback for any file GitHub's size limits reject.
+  // ---------------------------------------------------------------
+  var CRC_TABLE = (function(){
+    var table = new Uint32Array(256);
+    for (var n = 0; n < 256; n++) {
+      var c = n;
+      for (var k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      table[n] = c >>> 0;
+    }
+    return table;
+  })();
+  function crc32(bytes){
+    var crc = 0xFFFFFFFF;
+    for (var i = 0; i < bytes.length; i++) crc = CRC_TABLE[(crc ^ bytes[i]) & 0xFF] ^ (crc >>> 8);
+    return (crc ^ 0xFFFFFFFF) >>> 0;
+  }
+  // Minimal ZIP (store method, no compression -- the payloads are already
+  // WAV/compressed audio or a small JSON file, so deflate wouldn't help
+  // enough to justify pulling in an external library just for packaging).
+  function buildZip(entries){ // [{name, bytes: Uint8Array}]
+    var localParts = [], centralParts = [], offset = 0;
+    var encoder = new TextEncoder();
+    entries.forEach(function(e){
+      var nameBytes = encoder.encode(e.name);
+      var crc = crc32(e.bytes), size = e.bytes.length;
+      var lh = new DataView(new ArrayBuffer(30));
+      lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(6, 0, true);
+      lh.setUint16(8, 0, true); lh.setUint16(10, 0, true); lh.setUint16(12, 0, true);
+      lh.setUint32(14, crc, true); lh.setUint32(18, size, true); lh.setUint32(22, size, true);
+      lh.setUint16(26, nameBytes.length, true); lh.setUint16(28, 0, true);
+      localParts.push(new Uint8Array(lh.buffer), nameBytes, e.bytes);
+
+      var ch = new DataView(new ArrayBuffer(46));
+      ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true);
+      ch.setUint16(8, 0, true); ch.setUint16(10, 0, true); ch.setUint16(12, 0, true); ch.setUint16(14, 0, true);
+      ch.setUint32(16, crc, true); ch.setUint32(20, size, true); ch.setUint32(24, size, true);
+      ch.setUint16(28, nameBytes.length, true); ch.setUint16(30, 0, true); ch.setUint16(32, 0, true);
+      ch.setUint16(34, 0, true); ch.setUint16(36, 0, true); ch.setUint32(38, 0, true);
+      ch.setUint32(42, offset, true);
+      centralParts.push(new Uint8Array(ch.buffer), nameBytes);
+      offset += 30 + nameBytes.length + size;
+    });
+    var centralStart = offset;
+    var centralSize = centralParts.reduce(function(s, p){ return s + p.length; }, 0);
+    var eocd = new DataView(new ArrayBuffer(22));
+    eocd.setUint32(0, 0x06054b50, true); eocd.setUint16(4, 0, true); eocd.setUint16(6, 0, true);
+    eocd.setUint16(8, entries.length, true); eocd.setUint16(10, entries.length, true);
+    eocd.setUint32(12, centralSize, true); eocd.setUint32(16, centralStart, true); eocd.setUint16(20, 0, true);
+    return new Blob(localParts.concat(centralParts, [new Uint8Array(eocd.buffer)]), { type: "application/zip" });
+  }
+  function triggerDownload(blob, filename){
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob); a.download = filename;
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+  $("#downloadJsonBtn").addEventListener("click", function(){
+    if (!lastMapping) return;
+    triggerDownload(new Blob([JSON.stringify(lastMapping, null, 2)], { type: "application/json" }), "shlokas.json");
+  });
+  $("#downloadZipBtn").addEventListener("click", async function(){
+    var entries = [];
+    if (lastMapping) entries.push({ name: "shlokas.json", bytes: new TextEncoder().encode(JSON.stringify(lastMapping, null, 2)) });
+    for (var name in lastClipBlobs) {
+      if (!lastClipBlobs.hasOwnProperty(name)) continue;
+      entries.push({ name: name, bytes: new Uint8Array(await lastClipBlobs[name].arrayBuffer()) });
+    }
+    if (!entries.length) return;
+    triggerDownload(buildZip(entries), slugify(sourceFileName) + "_clips.zip");
+  });
+
+  // ---------------------------------------------------------------
+  // Push to GitHub -- hardcoded to bhumandala-audio-data, no repo picker,
+  // so this page structurally cannot target anywhere else regardless of
+  // what token is pasted in (the token's own scope is still the real
+  // safety boundary -- see the note in the UI).
+  // ---------------------------------------------------------------
+  function b64FromArrayBuffer(buf){
+    var bytes = new Uint8Array(buf), binary = "";
+    for (var i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+    return btoa(binary);
+  }
+  function b64FromString(str){ return btoa(unescape(encodeURIComponent(str))); }
+
+  // Git Data API (blob -> tree -> commit -> ref update) instead of the
+  // "create/update file contents" endpoint used before. That endpoint
+  // sends the whole file inline as one base64 JSON PUT per file and is
+  // where real-world uploads become unreliable well under its officially
+  // documented ceiling; blobs on the Git Data API reliably hold files
+  // close to GitHub's actual ~100MB per-file limit (without Git LFS), and
+  // batching every file from one run into a single tree/commit makes the
+  // push atomic (either the whole run lands, or the ref never moves).
+  var GH_API = "https://api.github.com/repos/" + REPO_OWNER + "/" + REPO_NAME;
+  async function ghReq(method, path, token, body){
+    var res = await fetch(GH_API + path, {
+      method: method,
+      headers: Object.assign({ Authorization: "token " + token, Accept: "application/vnd.github+json" },
+        body ? { "Content-Type": "application/json" } : {}),
+      body: body ? JSON.stringify(body) : undefined
+    });
+    if (res.status === 404) return null;
+    if (!res.ok) { var j = await res.json().catch(function(){ return {}; }); throw new Error(method + " " + path + " failed: " + res.status + " " + (j.message || res.statusText)); }
+    return res.json();
+  }
+  async function ghPushFiles(files, token, message, logLine){ // files: [{path, base64, sizeMB}]
+    var ref = await ghReq("GET", "/git/ref/heads/" + REPO_BRANCH, token);
+    var parentSha = ref ? ref.object.sha : null;
+    var baseTreeSha = null;
+    if (parentSha) { var parentCommit = await ghReq("GET", "/git/commits/" + parentSha, token); baseTreeSha = parentCommit.tree.sha; }
+
+    var treeEntries = [];
+    for (var i = 0; i < files.length; i++) {
+      var f = files[i];
+      logLine("Uploading " + f.path + (f.sizeMB ? " (" + f.sizeMB.toFixed(1) + " MB)" : "") + " …");
+      var blob = await ghReq("POST", "/git/blobs", token, { content: f.base64, encoding: "base64" });
+      treeEntries.push({ path: f.path, mode: "100644", type: "blob", sha: blob.sha });
+      logLine("  blob ok.");
+    }
+    var treeBody = { tree: treeEntries };
+    if (baseTreeSha) treeBody.base_tree = baseTreeSha;
+    var tree = await ghReq("POST", "/git/trees", token, treeBody);
+    var commitBody = { message: message, tree: tree.sha };
+    if (parentSha) commitBody.parents = [parentSha];
+    var newCommit = await ghReq("POST", "/git/commits", token, commitBody);
+    if (ref) await ghReq("PATCH", "/git/ref/heads/" + REPO_BRANCH, token, { sha: newCommit.sha });
+    else await ghReq("POST", "/git/refs", token, { ref: "refs/heads/" + REPO_BRANCH, sha: newCommit.sha });
+    return newCommit.sha;
+  }
+
+  $("#pushBtn").addEventListener("click", async function(){
+    var token = $("#ghToken").value.trim();
+    if (!token) { $("#pushStatus").textContent = "Paste a GitHub token first (scoped to bhumandala-audio-data)."; return; }
+    if (!lastSegments || !lastSegments.length) { $("#pushStatus").textContent = "Process a file first."; return; }
+    var folder = ($("#destFolder").value || "").trim().replace(/^\/+|\/+$/g, "");
+    if (!folder) { $("#pushStatus").textContent = "Enter a destination folder first."; return; }
+
+    $("#pushBtn").disabled = true;
+    var log = $("#pushLog"); log.style.display = "block"; log.textContent = "";
+    function logLine(s){ log.textContent += s + "\n"; log.scrollTop = log.scrollHeight; }
+
+    try {
+      var files = [];
+      if ($("#optExportJson").checked && lastMapping) {
+        files.push({ path: folder + "/shlokas.json", base64: b64FromString(JSON.stringify(lastMapping, null, 2)) });
+      }
+      if ($("#optExportClips").checked) {
+        for (var name in lastClipBlobs) {
+          if (!lastClipBlobs.hasOwnProperty(name)) continue;
+          var buf = await lastClipBlobs[name].arrayBuffer();
+          files.push({ path: folder + "/" + name, base64: b64FromArrayBuffer(buf), sizeMB: buf.byteLength / 1e6 });
+        }
+      }
+      if (!files.length) { $("#pushStatus").textContent = "Nothing to push — check at least one export option and process a file first."; $("#pushBtn").disabled = false; return; }
+
+      var big = files.filter(function(f){ return f.sizeMB && f.sizeMB > 90; });
+      if (big.length) logLine("Warning: " + big.map(function(f){ return f.path + " (" + f.sizeMB.toFixed(1) + " MB)"; }).join(", ") +
+        " are close to or over GitHub's ~100MB per-file limit without Git LFS — this push may fail for those specifically. Download instead if so.");
+
+      logLine("Committing " + files.length + " file(s) to " + folder + " in one commit…");
+      var sha = await ghPushFiles(files, token, "Audio Admin: add " + sourceFileName + " (" + lastSegments.length + " segment(s))", logLine);
+      logLine("Commit " + sha.slice(0, 7) + " ok.");
+      $("#pushStatus").textContent = "Done — pushed to " + REPO_OWNER + "/" + REPO_NAME + "/" + folder;
+    } catch (e) {
+      logLine("FAILED: " + e.message);
+      $("#pushStatus").textContent = "Push failed — see log. Because this commits atomically, nothing landed in the repo yet; fix the issue (often a too-large file — try Download for that one instead) and push again.";
+    } finally {
+      $("#pushBtn").disabled = false;
+    }
+  });
+})();
+</script>
+</body>
+</html>

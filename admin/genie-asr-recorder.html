@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=1"></script>
+<!-- Passkeys come from admin/config/keys.json, not from this page. -->
+<script src="js/keys.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Genie ASR Recorder · DGE (restricted)</title>
+<link rel="stylesheet" href="css/genie-asr-recorder.css?v=1">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<body>
+<div class="gate" id="gate">
+  <div style="font-size:22px;font-weight:700">🗣️ Genie ASR Recorder</div>
+  <div class="muted">Restricted tool. Enter the passkey.</div>
+  <input id="gk" type="password" placeholder="passkey" autocomplete="off">
+  <button class="btn pri" id="gbtn">Enter</button>
+  <div class="muted" style="max-width:440px">Client-side gate for convenience, not real security — the page itself is public in the repo. Deliberately its own key, separate from Audio Admin: this tool's write access reaches <code>Tribhuvanachar/bhumandala</code> itself (the main repo), on the <code>genie-asr-audio-seed</code> branch only — a different, larger blast radius than Audio Admin's token, which is scoped to a separate audio-only repo. See the note on the <code>genieasr</code> gate in <code>admin/config/keys.json</code>.</div>
+</div>
+
+<header style="display:none" id="hdr">
+  <div class="bar">
+    <div class="brand">🗣️ Genie ASR Recorder <small>· record DGE Genie voice-command samples, push to genie-asr-audio-seed</small></div>
+    <span class="spacer"></span>
+    <a class="icon" href="../render.html">◂ DGE</a>
+    <button class="icon" id="theme">◐</button>
+    <a class="icon" href="../render.html" title="Close Genie ASR Recorder">✕</a>
+  </div>
+</header>
+
+<main id="main" style="display:none">
+
+  <h2 class="sect">1. Microphone</h2>
+  <div class="card">
+    <div class="row">
+      <button class="btn pri" id="micBtn">🎙️ Enable microphone</button>
+      <span class="muted" id="micStatus"></span>
+    </div>
+    <div class="muted">Echo cancellation, noise suppression and automatic gain control are all deliberately off — clean, unprocessed audio makes better ASR test data than a "cleaned up" recording would.</div>
+  </div>
+
+  <h2 class="sect">2. Progress</h2>
+  <div class="card">
+    <div class="progress"><div id="bar" class="bar-fill"></div></div>
+    <div id="counter" class="counter">Loading manifest…</div>
+    <div class="row" style="margin-top:10px">
+      <div class="field" style="flex:2"><label for="ghToken">GitHub token (write access to Tribhuvanachar/bhumandala)</label><input type="password" id="ghToken" autocomplete="off"></div>
+    </div>
+    <div class="muted">Used only to push to <code>genie_asr_benchmark/audio/&lt;category&gt;/&lt;id&gt;.wav</code> on the <code>genie-asr-audio-seed</code> branch — this page hardcodes that repo and branch, so it structurally can't push anywhere else, but the token itself can still reach the whole repo (GitHub has no per-branch token scope). See the gate note above.</div>
+    <div class="row">
+      <button class="btn pri" id="pushAllBtn">⬆ Push all recorded here</button>
+      <span class="muted" id="pushAllStatus"></span>
+    </div>
+    <div class="log" id="pushAllLog" style="display:none"></div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn" id="zipBtn">📦 Download ZIP (offline fallback)</button>
+      <button class="btn" id="manifestBtn">⬇ Download manifest export</button>
+      <button class="btn danger" id="resetBtn">Reset local progress</button>
+      <span class="muted" id="zipStatus"></span>
+    </div>
+  </div>
+
+  <h2 class="sect">3. Items</h2>
+  <div id="app"></div>
+
+</main>
+<script src="js/genie-asr-recorder.js?v=1"></script>
+</body>
+</html>

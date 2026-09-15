@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<script>
+  // Same super-admin gate as Convert — this page can push straight to
+  // GitHub, so a hidden link alone isn't enough.
+  if (localStorage.getItem('is_superadmin') !== 'true') {
+    window.location.replace('../render.html');
+  }
+</script>
+<title>Dasa Sahitya — Capture &amp; Progress — DGE</title>
+<link rel="stylesheet" href="css/dasa-capture.css?v=1">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<body>
+<header>
+  <div class="wrap" style="padding-bottom:10px">
+    <h1>Dasa Sahitya — Capture &amp; Progress<small>Track what's crawled, hand-capture what didn't come out well</small></h1>
+    <div class="nav">
+      <a href="../render.html">🏠 Main site</a>
+      <a href="../dasa-sahitya/index.html">📖 Browse corpus</a>
+      <a href="../convert/index.html">🔁 Convert (OCR tool)</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section id="setupSec">
+  <h2>GitHub token</h2>
+  <p class="hint">Shared with Convert/Library Manager — if you've already pasted one there, it's already here.</p>
+  <input type="password" id="ghToken" placeholder="ghp_… (repo scope)" autocomplete="off">
+  <div style="margin-top:8px"><button class="btn ghost" id="saveTokenBtn">Save token</button> <span id="tokenStatus" class="hint"></span></div>
+</section>
+
+<section id="progressSec">
+  <h2>Progress <span class="n" id="genDate"></span></h2>
+  <div class="stats" id="statsRow"></div>
+  <table class="mini" id="formTable"></table>
+</section>
+
+<section id="reviewSec">
+  <h2>Review queue <span class="n">— click a link, capture it below, click "Mark done" or just Save</span></h2>
+  <div class="tabs" id="queueTabs"></div>
+  <div class="qlist" id="queueList"><div class="empty">Loading…</div></div>
+</section>
+
+<section id="bookmarkletSec">
+  <h2>1. Bookmarklet — drag to your bookmarks bar</h2>
+  <p class="hint">On the source page: select the lyrics text, then click this bookmark. It copies the selection + page URL + title to your clipboard, formatted for the paste box below. No install, works on any site (including ones this tool can't fetch itself).</p>
+  <a class="bookmarklet" id="bookmarkletLink" href="#" onclick="return false" draggable="true">📋 Capture for DGE</a>
+</section>
+
+<section id="captureSec">
+  <h2>2. Paste &amp; save</h2>
+  <label for="pasteBox">Paste here (from the bookmarklet, or just raw lyrics text)</label>
+  <textarea id="pasteBox" rows="4" placeholder="Click the bookmarklet on the source page first, then paste (Ctrl/Cmd+V) here…"></textarea>
+  <div style="margin-top:6px"><button class="btn ghost" id="parseBtn">Parse into fields ↓</button></div>
+
+  <div class="row2">
+    <div>
+      <label for="fSourceUrl">Source URL</label>
+      <input type="url" id="fSourceUrl" placeholder="https://…">
+    </div>
+    <div>
+      <label for="fForm">Form</label>
+      <select id="fForm">
+        <option value="pada">Pada</option>
+        <option value="suladi">Suladi</option>
+        <option value="ugabhoga">Ugabhoga</option>
+        <option value="devaranama">Devaranama</option>
+        <option value="aarati">Aarati</option>
+        <option value="mangala">Mangala</option>
+        <option value="kolu">Kolu</option>
+        <option value="shobhane">Shobhane</option>
+        <option value="laali">Laali</option>
+        <option value="dashavatara">Dashavatara</option>
+        <option value="sampradaya">Sampradaya</option>
+        <option value="kavya">Kavya</option>
+        <option value="mundige">Mundige</option>
+        <option value="dandaka">Dandaka</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row2">
+    <div>
+      <label for="fComposer">Composer (Dasa) — pick or type new</label>
+      <input type="text" id="fComposer" list="composerList" placeholder="e.g. Purandara Dasaru">
+      <datalist id="composerList"></datalist>
+    </div>
+    <div>
+      <label for="fDeity">Deity (optional)</label>
+      <input type="text" id="fDeity">
+    </div>
+  </div>
+
+  <div class="row2">
+    <div>
+      <label for="fTitleKn">Title — Kannada/source script</label>
+      <input type="text" id="fTitleKn" placeholder="defaults to first line if left blank">
+    </div>
+    <div>
+      <label for="fTitleLatin">Title — rough English (optional)</label>
+      <input type="text" id="fTitleLatin">
+    </div>
+  </div>
+
+  <div class="row2">
+    <div>
+      <label for="fRaga">Raga (optional)</label>
+      <input type="text" id="fRaga">
+    </div>
+    <div>
+      <label for="fTala">Tala (optional)</label>
+      <input type="text" id="fTala">
+    </div>
+  </div>
+
+  <label for="fTags">Tags (comma-separated, optional)</label>
+  <input type="text" id="fTags" placeholder="on:Raghavendra Theertharu, theme:...">
+
+  <label for="fText">Verse text — one blank line between stanzas</label>
+  <textarea id="fText" rows="10" placeholder="ಪದ್ಯದ ಸಾಲುಗಳು…"></textarea>
+
+  <label for="fMeaning">Meaning (optional)</label>
+  <textarea id="fMeaning" rows="3"></textarea>
+
+  <label>Preview record</label>
+  <div class="preview" id="previewBox">—</div>
+
+  <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+    <button class="btn" id="saveBtn">☁ Save to GitHub</button>
+    <button class="btn ghost" id="clearBtn">Clear form</button>
+    <span id="saveStatus" class="hint"></span>
+  </div>
+</section>
+
+<section id="logSec">
+  <h2>Recent captures (this device)</h2>
+  <div class="log" id="activityLog"><div class="hint">Nothing yet.</div></div>
+</section>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="../convert/github.js"></script>
+<script>
+"use strict";
+const BASE = "../data/DvaitaVedanta/Itara/DasaSahitya";
+const GH_BASE = "data/DvaitaVedanta/Itara/DasaSahitya";
+const FORM_LABELS = {pada:"Pada",suladi:"Suladi",ugabhoga:"Ugabhoga",devaranama:"Devaranama",
+  aarati:"Aarati",mangala:"Mangala",kolu:"Kolu",shobhane:"Shobhane",laali:"Laali",
+  dashavatara:"Dashavatara",sampradaya:"Sampradaya",kavya:"Kavya",
+  mundige:"Mundige",dandaka:"Dandaka",other:"Other"};
+
+const state = { manifest: null, pending: null, captured: [], queueTab: "no_text" };
+
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
+  clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('show'),2200);}
+function esc(s){return (s||"").replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+
+// ---------------------------------------------------------------- setup ----
+const GH = window.DGE && window.DGE.GitHub;
+document.getElementById('ghToken').value = GH ? GH.getToken() : '';
+document.getElementById('saveTokenBtn').onclick = () => {
+  GH.setToken(document.getElementById('ghToken').value.trim());
+  document.getElementById('tokenStatus').textContent = 'Saved.';
+  setTimeout(()=>document.getElementById('tokenStatus').textContent='', 1500);
+};
+
+// ------------------------------------------------------------- bootstrap ---
+async function boot(){
+  try{
+    const [man, pend, capt] = await Promise.all([
+      fetchJson(BASE+"/index.json"),
+      fetchJson(BASE+"/_dump/pending_review.json").catch(()=>({failed_fetch:[],no_text:[]})),
+      GH ? GH.getFileText(GH_BASE+"/_dump/manual_captures.json").then(JSON.parse).catch(()=>[]) : Promise.resolve([]),
+    ]);
+    state.manifest = man; state.pending = pend; state.captured = capt;
+  }catch(e){
+    document.getElementById('statsRow').innerHTML = '<div class="empty">No corpus data yet at <code>'+BASE+'/index.json</code> — run the importer first, or wait for PR #24 (or its successor) to merge.</div>';
+    document.getElementById('queueList').innerHTML = '';
+    renderComposerList([]);
+    return;
+  }
+  renderStats(); renderQueueTabs(); renderQueue(); renderComposerList(state.manifest.composers||[]);
+}
+async function fetchJson(url){ const r = await fetch(url,{cache:"no-store"}); if(!r.ok) throw new Error(r.status); return r.json(); }
+
+function renderStats(){
+  const m = state.manifest;
+  document.getElementById('genDate').textContent = m.generated ? '— generated '+m.generated : '';
+  const parts = [
+    `<span class="stat"><b>${m.count_total||0}</b> compositions</span>`,
+    `<span class="stat"><b>${(m.composers||[]).length}</b> composers</span>`,
+  ];
+  if(m.dedup && m.dedup.duplicates_merged)
+    parts.push(`<span class="stat">deduped −<b>${m.dedup.duplicates_merged}</b></span>`);
+  const p = m.pending || {};
+  if(p.untitled_composer) parts.push(`<span class="stat warn"><b>${p.untitled_composer}</b> untitled composer</span>`);
+  if(p.no_text) parts.push(`<span class="stat warn"><b>${p.no_text}</b> no verse text</span>`);
+  if(p.failed_fetch) parts.push(`<span class="stat warn"><b>${p.failed_fetch}</b> failed fetch</span>`);
+  document.getElementById('statsRow').innerHTML = parts.join("");
+
+  const byForm = m.counts_by_form||{};
+  let rows = '<tr><th>Form</th><th>Count</th></tr>';
+  Object.keys(FORM_LABELS).forEach(f=>{ if(byForm[f]) rows += `<tr><td>${FORM_LABELS[f]}</td><td>${byForm[f]}</td></tr>`; });
+  Object.keys(byForm).forEach(f=>{ if(!FORM_LABELS[f]) rows += `<tr><td>${esc(f)}</td><td>${byForm[f]}</td></tr>`; });
+  document.getElementById('formTable').innerHTML = rows;
+}
+
+function capturedUrls(){ return new Set(state.captured.map(c=>c.url)); }
+
+function renderQueueTabs(){
+  const p = state.pending||{};
+  const tabs = [
+    ["no_text", "No verse text ("+((p.no_text||[]).length)+")"],
+    ["failed_fetch", "Failed fetch ("+((p.failed_fetch||[]).length)+")"],
+  ];
+  document.getElementById('queueTabs').innerHTML = tabs.map(([k,l])=>
+    `<button data-k="${k}" aria-pressed="${state.queueTab===k}">${l}</button>`).join("");
+  document.querySelectorAll('#queueTabs button').forEach(b=>b.onclick=()=>{
+    state.queueTab=b.dataset.k; renderQueueTabs(); renderQueue();
+  });
+}
+
+function renderQueue(){
+  const p = state.pending||{};
+  const done = capturedUrls();
+  const items = (p[state.queueTab]||[]).filter(it=>!done.has(it.url));
+  const list = document.getElementById('queueList');
+  if(!items.length){ list.innerHTML = '<div class="empty">Nothing pending here — either empty, or already captured.</div>'; return; }
+  list.innerHTML = items.slice(0,300).map(it=>`
+    <div class="qrow">
+      <a href="${esc(it.url)}" target="_blank" rel="noopener">${esc(it.title_hint||it.url)}</a>
+      <span class="t meta">${esc(it.form||'')} ${it.reason?('· '+esc(it.reason)):''}</span>
+      <button class="btn ghost" style="padding:4px 10px;font-size:.76rem" data-url="${esc(it.url)}" data-hint="${esc(it.title_hint||'')}" data-form="${esc(it.form||'')}" data-composer="${esc(it.composer||'')}">Capture this ↓</button>
+    </div>`).join("");
+  list.querySelectorAll('button[data-url]').forEach(b=>b.onclick=()=>{
+    document.getElementById('fSourceUrl').value = b.dataset.url;
+    document.getElementById('fTitleLatin').value = b.dataset.hint;
+    if(b.dataset.form && FORM_LABELS[b.dataset.form]) document.getElementById('fForm').value = b.dataset.form;
+    if(b.dataset.composer) document.getElementById('fComposer').value = b.dataset.composer;
+    document.getElementById('captureSec').scrollIntoView({behavior:'smooth'});
+    document.getElementById('fText').focus();
+  });
+  if(items.length > 300) list.innerHTML += `<div class="hint" style="padding:8px">…and ${items.length-300} more (showing first 300).</div>`;
+}
+
+function renderComposerList(comps){
+  document.getElementById('composerList').innerHTML =
+    [...comps].sort((a,b)=>(a.composer||a.slug).localeCompare(b.composer||b.slug))
+    .map(c=>`<option value="${esc(c.composer||c.slug)}">`).join("");
+}
+
+// -------------------------------------------------------- bookmarklet ------
+(function setupBookmarklet(){
+  const code = "(function(){var sel=window.getSelection().toString();"+
+    "if(!sel){alert('Select some lyrics text on this page first, then click this bookmark.');return;}"+
+    "var block='[DGE-CAPTURE]\\nurl: '+location.href+'\\ntitle: '+document.title+'\\n---\\n'+sel+'\\n[/DGE-CAPTURE]';"+
+    "function done(msg){var d=document.createElement('div');d.textContent=msg;"+
+    "d.style.cssText='position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:8px;font:14px sans-serif;z-index:2147483647';"+
+    "document.body.appendChild(d);setTimeout(function(){d.remove();},2600);}"+
+    "function fallback(){var ta=document.createElement('textarea');ta.value=block;ta.style.position='fixed';ta.style.opacity='0';"+
+    "document.body.appendChild(ta);ta.select();"+
+    "try{document.execCommand('copy');done('DGE: copied ('+sel.length+' chars). Switch to the Capture tab and paste.');}"+
+    "catch(e){done('DGE: could not auto-copy — copy the alert text manually.');alert(block);}"+
+    "ta.remove();}"+
+    "if(navigator.clipboard&&navigator.clipboard.writeText){"+
+    "navigator.clipboard.writeText(block).then(function(){done('DGE: copied '+sel.length+' chars + source info. Switch to the Capture tab and paste.');},fallback);"+
+    "}else{fallback();}})();";
+  document.getElementById('bookmarkletLink').href = 'javascript:' + code;
+})();
+
+// -------------------------------------------------------------- parsing ----
+document.getElementById('parseBtn').onclick = () => {
+  const raw = document.getElementById('pasteBox').value;
+  const m = raw.match(/\[DGE-CAPTURE\][\s\S]*?url:\s*(.*)\n[\s\S]*?title:\s*(.*)\n[\s\S]*?---\n([\s\S]*?)\n?\[\/DGE-CAPTURE\]/);
+  if(m){
+    document.getElementById('fSourceUrl').value = m[1].trim();
+    if(!document.getElementById('fTitleLatin').value) document.getElementById('fTitleLatin').value = m[2].trim();
+    document.getElementById('fText').value = m[3].trim();
+    toast('Parsed — check the fields below, then Save.');
+  } else if(raw.trim()){
+    document.getElementById('fText').value = raw.trim();
+    toast("Didn't look like a bookmarklet block — dropped the whole paste into the verse text field.");
+  }
+  updatePreview();
+};
+
+function splitStanzas(text){
+  return text.split(/\n\s*\n/).map(st=>st.split("\n").map(l=>l.trim()).filter(Boolean)).filter(st=>st.length);
+}
+function slugify(s){
+  // JS \w is ASCII-only, so a Kannada name used to collapse to "" and every
+  // such capture landed in one "untitled" bucket. A Kannada/Devanagari name now
+  // gets a stable hash slug instead; resolveSlug() below prefers the slug the
+  // corpus already uses for that composer, so existing folders are reused.
+  const ascii = (s||"").normalize('NFKD').replace(/[^\w\s-]/g,"").trim().toLowerCase().replace(/[\s_-]+/g,"_");
+  if (ascii) return ascii;
+  const raw = (s||"").trim();
+  if (!raw) return "untitled";
+  let h = 0; for (const ch of raw) h = (h * 31 + ch.codePointAt(0)) >>> 0;
+  return "composer_" + h.toString(16);
+}
+// The corpus keys composers by slug in index.json (composer names there are
+// mostly Kannada). Match the typed name against index.json first -- exact,
+// then case-insensitive on the Latin form -- so a capture joins the composer's
+// existing file rather than creating a second one under a new slug.
+function resolveSlug(manifest, composerName){
+  const want = (composerName||"").trim();
+  const norm = x => (x||"").normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z\u0C80-\u0CFF\u0900-\u097F]/g,'');
+  const list = (manifest && manifest.composers) || [];
+  let hit = list.find(c => c.composer === want) || list.find(c => norm(c.composer) === norm(want) && norm(want));
+  return hit ? hit.slug : slugify(want);
+}
+async function sha1hex8(s){
+  const buf = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(buf)).slice(0,4).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+function readForm(){
+  return {
+    sourceUrl: document.getElementById('fSourceUrl').value.trim(),
+    form: document.getElementById('fForm').value,
+    composer: document.getElementById('fComposer').value.trim(),
+    deity: document.getElementById('fDeity').value.trim(),
+    titleKn: document.getElementById('fTitleKn').value.trim(),
+    titleLatin: document.getElementById('fTitleLatin').value.trim(),
+    raga: document.getElementById('fRaga').value.trim(),
+    tala: document.getElementById('fTala').value.trim(),
+    tags: document.getElementById('fTags').value.split(',').map(s=>s.trim()).filter(Boolean),
+    text: document.getElementById('fText').value,
+    meaning: document.getElementById('fMeaning').value.trim(),
+  };
+}
+
+async function buildRecord(f){
+  const stanzas = splitStanzas(f.text);
+  const firstLine = (stanzas[0]||[])[0] || "";
+  const titleKn = f.titleKn || firstLine;
+  const hash = await sha1hex8(f.sourceUrl || (titleKn + Date.now()));
+  const slug = slugify(f.composer);
+  let site = "manual";
+  try{ if(f.sourceUrl) site = new URL(f.sourceUrl).hostname.replace(/^www\./,''); }catch(e){}
+  return {
+    slug,
+    record: {
+      id: slug + "__" + hash,
+      form: f.form,
+      title: { kn: titleKn, latin: f.titleLatin, iast: "", devanagari: "" },
+      composer: f.composer,
+      deity: f.deity,
+      tags: f.tags,
+      raga: f.raga,
+      tala: f.tala,
+      language: "kn",
+      meaning: f.meaning,
+      text: { kannada: stanzas },
+      source: {
+        site, url: f.sourceUrl,
+        attribution: "Captured manually by a DGE admin from a public source; non-commercial, dharma-prachara use.",
+        fetched: new Date().toISOString().slice(0,10),
+        manual: true,
+      },
+    },
+  };
+}
+
+async function updatePreview(){
+  const f = readForm();
+  if(!f.text.trim()){ document.getElementById('previewBox').textContent = '—'; return; }
+  const { record } = await buildRecord(f);
+  document.getElementById('previewBox').textContent = JSON.stringify(record, null, 2);
+}
+["fSourceUrl","fForm","fComposer","fDeity","fTitleKn","fTitleLatin","fRaga","fTala","fTags","fText","fMeaning"]
+  .forEach(id => document.getElementById(id).addEventListener('input', updatePreview));
+
+document.getElementById('clearBtn').onclick = () => {
+  ["fSourceUrl","fComposer","fDeity","fTitleKn","fTitleLatin","fRaga","fTala","fTags","fText","fMeaning","pasteBox"]
+    .forEach(id => document.getElementById(id).value = "");
+  document.getElementById('fForm').value = "pada";
+  updatePreview();
+};
+
+// ---------------------------------------------------------------- save -----
+function logActivity(msg){
+  const el = document.getElementById('activityLog');
+  if(el.querySelector('.hint')) el.innerHTML = '';
+  const d = document.createElement('div');
+  d.textContent = new Date().toLocaleTimeString() + " — " + msg;
+  el.insertBefore(d, el.firstChild);
+}
+
+document.getElementById('saveBtn').onclick = async () => {
+  const btn = document.getElementById('saveBtn');
+  const status = document.getElementById('saveStatus');
+  const f = readForm();
+  if(!f.text.trim()){ status.textContent = 'Nothing to save — paste some verse text first.'; return; }
+  if(!f.composer){ status.textContent = 'Composer is required (type "Unknown" if genuinely unattributed).'; return; }
+  if(!GH || !GH.getToken()){ status.textContent = 'Paste a GitHub token above first.'; return; }
+  btn.disabled = true; status.textContent = 'Saving…';
+  try{
+    // Read the manifest FIRST so the slug can reuse the composer's existing
+    // folder. The corpus shape is composers/<slug>/data.json with `items`
+    // (see data/DvaitaVedanta/Itara/DasaSahitya/composers/*/data.json and schemas.json
+    // `dasa_pada_text`); the earlier composers/<slug>.json + `compositions`
+    // wrote a file the reader never fetched and re-pointed index.json at it.
+    const indexPath = `${GH_BASE}/index.json`;
+    let manifest = JSON.parse(await GH.getFileText(indexPath));
+    const { record } = await buildRecord(f);
+    const slug = resolveSlug(manifest, f.composer);
+    record.id = slug + "__" + record.id.split("__").pop();
+    const composerPath = `${GH_BASE}/composers/${slug}/data.json`;
+    let composerFile;
+    try{ composerFile = JSON.parse(await GH.getFileText(composerPath)); }
+    catch(e){ composerFile = { schema: "dasa_pada_text", default_author: f.composer, composer: f.composer, count: 0, bio_notes: "", items: [] }; }
+    composerFile.schema = composerFile.schema || "dasa_pada_text";
+    composerFile.composer = composerFile.composer || f.composer;
+    composerFile.default_author = composerFile.default_author || composerFile.composer;
+    composerFile.items = composerFile.items || composerFile.compositions || [];
+    delete composerFile.compositions;
+    composerFile.items.push(record);
+    composerFile.count = composerFile.items.length;
+
+    let entry = (manifest.composers||[]).find(c=>c.slug===slug);
+    if(entry){ entry.count = composerFile.count; entry.composer = entry.composer || composerFile.composer; entry.file = `composers/${slug}/data.json`; }
+    else { entry = { slug, composer: composerFile.composer, count: composerFile.count, file: `composers/${slug}/data.json` };
+      manifest.composers = manifest.composers||[]; manifest.composers.push(entry); }
+    manifest.count_total = (manifest.count_total||0) + 1;
+    manifest.counts_by_form = manifest.counts_by_form||{};
+    manifest.counts_by_form[record.form] = (manifest.counts_by_form[record.form]||0) + 1;
+    manifest.counts_by_composer = manifest.counts_by_composer||{};
+    manifest.counts_by_composer[record.composer] = (manifest.counts_by_composer[record.composer]||0) + 1;
+    manifest.counts_by_source = manifest.counts_by_source||{};
+    manifest.counts_by_source['manual (captured)'] = (manifest.counts_by_source['manual (captured)']||0) + 1;
+
+    const ledgerPath = `${GH_BASE}/_dump/manual_captures.json`;
+    let ledger;
+    try{ ledger = JSON.parse(await GH.getFileText(ledgerPath)); } catch(e){ ledger = []; }
+    ledger.push({ url: f.sourceUrl, capturedAt: new Date().toISOString(), composer: record.composer, slug, id: record.id, form: record.form });
+
+    const files = [
+      { path: composerPath, text: JSON.stringify(composerFile, null, 2) },
+      { path: indexPath, text: JSON.stringify(manifest, null, 2) },
+      { path: ledgerPath, text: JSON.stringify(ledger, null, 2) },
+    ];
+    const msg = `data: manual capture — ${record.composer} · ${record.form} · ${(record.title.kn||record.title.latin||'').slice(0,60)}`;
+    await GH.commitFiles(files, msg);
+
+    state.manifest = manifest; state.captured = ledger;
+    renderStats(); renderQueue(); renderComposerList(manifest.composers);
+    status.textContent = 'Saved ✓';
+    logActivity(`${record.composer} — ${record.form} — ${record.title.kn || record.title.latin || record.id}`);
+    toast('Pushed to GitHub — composer file, index.json, and capture ledger updated in one commit.');
+    ["fSourceUrl","fDeity","fTitleKn","fTitleLatin","fRaga","fTala","fTags","fText","fMeaning","pasteBox"]
+      .forEach(id => document.getElementById(id).value = "");
+    updatePreview();
+  }catch(e){
+    status.textContent = 'Failed: ' + e.message;
+  }finally{
+    btn.disabled = false;
+  }
+};
+
+updatePreview();
+boot();
+</script>
+</body>
+</html>

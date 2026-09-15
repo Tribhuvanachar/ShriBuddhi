@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=1"></script>
+<!-- Passkeys come from admin/config/keys.json, not from this page. -->
+<script src="js/keys.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Provenance · DGE (super-admin)</title>
+<link rel="stylesheet" href="css/content-provenance.css?v=1">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<body>
+<div class="gate" id="gate">
+  <div style="font-size:22px;font-weight:700">🔐 Content Provenance</div>
+  <div class="muted">Super-admin only. Enter the passkey.</div>
+  <input id="gk" type="password" placeholder="passkey" autocomplete="off">
+  <button class="btn" id="gbtn" style="background:var(--accent);color:#fff;border-color:var(--accent)">Enter</button>
+  <div class="muted" style="max-width:440px">Client-side gate for convenience, not real security — see admin/config/keys.json's own caveat.</div>
+</div>
+
+<header style="display:none" id="hdr">
+  <div class="bar">
+    <div class="brand"><a href="../render.html" title="DGE Home" style="color:var(--accent);text-decoration:none">⌂ DGE</a> <span style="color:var(--muted)">›</span> 🗺️ Content Provenance <small>· super-admin</small></div>
+    <span class="spacer"></span>
+    <button class="icon" id="theme">◐</button>
+  </div>
+</header>
+
+<main id="app" style="display:none">
+  <p class="muted">A map of where each part of the reader-facing site actually gets its words and
+  data from, for whoever is asked "where do I change this?" and doesn't already know this codebase's
+  content-vs-config split. Each row points at the same file the admin editors already read and write —
+  this page doesn't invent a second mapping, it just writes the existing one down in one place.</p>
+
+  <div class="note">
+    <b>Scope, stated plainly:</b> this is a static reference — a list of sources and what governs them —
+    not a live per-element inspector that could tell you "this exact paragraph on screen comes from
+    line N of file X" by clicking it. That would be a materially bigger feature (finding and tracing the
+    render path of an arbitrary DOM node at runtime), and wasn't what was asked for. If a live inspector
+    turns out to be what's actually wanted, that's a separate, larger pass — flagging the distinction here
+    rather than quietly building the smaller thing and calling it done.
+  </div>
+
+  <h2 class="sect">1. Page-chrome text — edited in place via the ci-bar</h2>
+  <p class="muted">Titles, panel copy, labels — anything with a <code>data-edit="dotted.path"</code>
+  attribute on a page whose <code>&lt;body&gt;</code> carries <code>data-content-file="admin/content/&lt;file&gt;"</code>.
+  <code>js/content-inline.js</code> reads and writes these; its edit toolbar (the "ci-bar") names the
+  file it's editing whenever you click a highlighted field, so this table restates what it already tells you
+  in one place rather than requiring a click per field.</p>
+  <div class="twrap"><table>
+    <thead><tr><th>File</th><th>Governs</th><th>Used on</th></tr></thead>
+    <tbody>
+      <tr><td><code>content/home.json</code></td><td>Every word on the landing page — brand, tagline, sections, the "Tribhuvan Achar" / gurus panel.</td><td><code>index.html</code>, <code>home-panel.html</code></td></tr>
+      <tr><td><code>content/reader.json</code></td><td>The reader app's Support/About panel text, plus <code>SPONSOR_CONFIG</code> / <code>CONTRIBUTORS_CONFIG</code> / <code>KEY_SPONSORS_CONFIG</code> — the single source for sponsor and contributor names (<code>core.js</code> sets <code>window.SPONSOR_CONFIG</code> and friends from this file at boot; nothing else defines them).</td><td><code>render.html</code></td></tr>
+      <tr><td><code>content/tour.json</code></td><td>The reader-facing "Take the Walkthrough" feature-discovery tour (double-tap a word, the search box, …). Not to be confused with this page — a different audience and purpose.</td><td><code>render.html</code> (via <code>js/tour.js</code>)</td></tr>
+      <tr><td><code>content/whats-new.json</code></td><td>The What's New / Coming Soon panel. Read fresh, no caching, each time the panel opens.</td><td><code>render.html</code> (via <code>js/modals.js</code>)</td></tr>
+      <tr><td><code>content/ashtadhyayi-layers.json</code></td><td>Which commentary/translation layers and per-sūtra enrichment fields are offered to readers at all (site-wide gate, distinct from a reader's own per-browser layer toggle).</td><td><code>vyakarana/ashtadhyayi.html</code> (via <code>js/ashtadhyayi.js</code>)</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sect">2. Grantha corpus data — edited via the structural shloka editor</h2>
+  <p class="muted">The actual texts: every <code>data/**/data.json</code> file, catalogued by
+  <code>data/library.json</code> (one entry per grantha — <code>path</code>, <code>populated</code>,
+  <code>title</code>, <code>addedAt</code>, optional <code>source</code>/<code>facets</code>/<code>hidden</code>).
+  This is a deliberately separate editing surface from Section 1 above — <code>js/content-editor.js</code>
+  (reusing <code>admin-editor.js</code>'s commit machinery) reorders/inserts/deletes shlokas through its own
+  structural popup, so a UI-copy edit can never accidentally go through the shloka save path or vice versa.
+  <code>library.json</code>'s <code>populated</code> flag is also what <code>tools/build_sitemap.py</code>
+  reads to decide which granthas are offered to search engines — an unpopulated or admin-<code>hidden</code>
+  entry is invisible to readers and is excluded from the sitemap the same way.</p>
+  <div class="twrap"><table>
+    <thead><tr><th>File</th><th>Governs</th><th>Edited via</th></tr></thead>
+    <tbody>
+      <tr><td><code>data/library.json</code></td><td>The catalogue: which granthas exist, whether each is populated/hidden, when it was added.</td><td><code>admin/library.html</code> (curation), direct commits (ingestion)</td></tr>
+      <tr><td><code>data/**/data.json</code></td><td>The shloka/verse text itself, per grantha.</td><td><code>js/content-editor.js</code>'s structural editor</td></tr>
+      <tr><td><code>admin/config/library-overrides.json</code></td><td>Non-destructive display layer over the catalogue — hide a path prefix, pin, reorder, rename, move — without touching the underlying data.</td><td>Exported by <code>admin/library.html</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sect">3. Settings &amp; curation config — not content-inline-editable</h2>
+  <p class="muted">Site behaviour rather than reader-facing words. None of these carry a
+  <code>data-edit</code> path; each is either hand-edited directly or written by its own dedicated tool.</p>
+  <div class="twrap"><table>
+    <thead><tr><th>File</th><th>Governs</th><th>Written by</th></tr></thead>
+    <tbody>
+      <tr><td><code>config/config-overrides.json</code></td><td>Contact address, app name, designer credit, feature flags — overrides merged over <code>js/config.js</code>'s defaults at boot.</td><td>Site Settings, in-app (<code>js/config-editor.js</code>)</td></tr>
+      <tr><td><code>config/menu.json</code></td><td>Which top-menu items appear, and in what order.</td><td>Hand-edited</td></tr>
+      <tr><td><code>config/intellisense.json</code></td><td>Sūtra-citation auto-linking and word analysis.</td><td>Hand-edited</td></tr>
+      <tr><td><code>config/library-status.json</code></td><td>A generated snapshot of what's loaded, shown in <code>admin/library.html</code>.</td><td><code>tools/gen_library_status.py</code></td></tr>
+      <tr><td><code>config/site.config.json</code></td><td>The site's own absolute URL (<code>siteOrigin</code>) — read by <code>tools/set_site_url.py</code> (Open Graph tags) and <code>tools/build_sitemap.py</code> (every sitemap URL).</td><td>Hand-edited, then applied by that script</td></tr>
+      <tr><td><code>config/keys.json</code></td><td>Every admin passkey and gate, in one place.</td><td>Hand-edited</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sect">4. Hardcoded in JavaScript — <span style="color:var(--accent)">not</span> in any admin-editable file</h2>
+  <p class="muted">Worth calling out on its own: content that looks editable but isn't, because it was
+  never moved into an <code>admin/content/*.json</code> file.</p>
+  <div class="twrap"><table>
+    <thead><tr><th>What</th><th>Lives in</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Footer links, license/terms text (<code>footerLinks()</code>, <code>LICENSE_URL</code>, <code>TERMS_NOTICE</code>)</td><td><code>js/dge-shell.js</code></td><td><span class="badge">two copies</span> <code>tools/redesign/build_shell.py</code> ports this same logic to bake static markup at build time — its own drift gate (<code>--check</code>) is what keeps the two in lockstep, not a shared file.</td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="muted" style="margin-top:22px">Fuller detail on any of the above — including which config files
+  fail open vs. which have no fallback at all — lives in <code>admin/README.md</code>. This page summarizes
+  it for a quick "which file do I open" lookup; that file is the one to update first if a source moves.</p>
+</main>
+
+<script>
+(function(){
+  var GATE="superadmin";
+  var $=function(s){return document.querySelector(s);};
+  function gate(){
+    if(sessionStorage.getItem("dge.admin.ok")==="1" || localStorage.getItem("is_superadmin")==="true"){ start(); return; }
+    $("#gate").style.display="flex";
+    var tryK=function(){ window.dgeCheckKey(GATE,$("#gk").value).then(function(ok){ if(ok){ sessionStorage.setItem("dge.admin.ok","1"); location.reload(); } else { $("#gk").value=""; $("#gk").placeholder="wrong — try again"; } }); };
+    $("#gbtn").onclick=tryK; $("#gk").addEventListener("keydown",function(e){ if(e.key==="Enter") tryK(); }); $("#gk").focus();
+  }
+  function start(){
+    if(sessionStorage.getItem("dge.admin.ok")!=="1" && localStorage.getItem("is_superadmin")!=="true") return;
+    $("#gate").style.display="none"; $("#hdr").style.display=""; $("#app").style.display="";
+    if(localStorage.getItem("dge.contentprovenance.dark")==="1") document.body.classList.add("dark");
+    $("#theme").onclick=function(){ document.body.classList.toggle("dark"); localStorage.setItem("dge.contentprovenance.dark", document.body.classList.contains("dark")?"1":"0"); };
+  }
+  gate(); // run last, after every var/function above is initialised
+})();
+</script>
+</body>
+</html>
