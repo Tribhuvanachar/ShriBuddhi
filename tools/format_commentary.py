@@ -73,11 +73,32 @@ _MATRA = {"आ": "ा", "इ": "ि", "ई": "ी", "उ": "ु", "ऊ": "ू",
           "ऋ": "ृ", "ए": "े", "ऐ": "ै", "ओ": "ो", "औ": "ौ"}
 
 
+#: Word-final म् and the anusvara are the same sound written two ways, and this
+#: edition writes उक्तं where the rule table says उक्तम्. Nothing in the table
+#: matched भावेनोक्तं, इत्यत उक्तं or इत्याशयेनोक्तं for that reason alone.
+def _anusvara_variants(w):
+    out = []
+    if "म्" in w:
+        out.append(w.replace("म्", "ं"))
+    if "ं" in w:
+        out.append(w.replace("ं", "म्"))
+    return out
+
+
 def with_sandhi_variants(words):
+    """Every way the same introducer or particle is actually written.
+
+    Two transformations, both deterministic and both forced on us by the
+    corpus rather than guessed: an independent vowel becomes its matra once
+    sandhi joins the word to what precedes (आह -> ...ाह), and word-final म्
+    is written as an anusvara (उक्तम् -> उक्तं).
+    """
     out = list(words)
     for w in words:
         if w and w[0] in _MATRA:
             out.append(_MATRA[w[0]] + w[1:])
+    for w in list(out):
+        out.extend(_anusvara_variants(w))
     return out
 
 

@@ -83,6 +83,33 @@ class Pattern1RealCorpus(unittest.TestCase):
         self.assertEqual(tps("इत्याह इत्यर्थः ।"), [])
 
 
+class OrthographicVariantsOfIntroducers(unittest.TestCase):
+    """Reported by a reviewer reading the tagged Bhavacandrika: five pratikas
+    that any scholar can see, missed for reasons that are purely orthographic."""
+
+    def test_word_final_m_written_as_anusvara(self):
+        # The table says उक्तम्; this edition writes उक्तं. Same sound, two
+        # spellings, and nothing in the table matched the second.
+        self.assertEqual(tps("इत्यत उक्तं तदिदमिति ।"), ["तदिदमिति ।"])
+        self.assertEqual(tps("इत्याशयेनोक्तं प्रधानेत्यादि ।"), ["प्रधानेत्यादि ।"])
+        self.assertEqual(tps("नेत्यत उक्तं शिष्येति ।"), ["शिष्येति ।"])
+        self.assertEqual(tps("भावेनोक्तं सामान्यत इति ।"), ["सामान्यत इति ।"])
+
+    def test_the_m_spelling_still_works(self):
+        # The variant is additive: both spellings have to match, not one.
+        self.assertEqual(tps("भावेनोक्तम् सामान्यत इति ।"), ["सामान्यत इति ।"])
+
+    def test_the_plural_introducer(self):
+        # आहुः, "they say" -- a standard commentary introducer the table lacked.
+        self.assertEqual(tps("प्याहुः । प्रकरणमिति ।"), ["प्रकरणमिति ।"])
+
+    def test_loosening_did_not_reopen_the_prose_capture(self):
+        # The SM6:2 false positive must stay dead after every widening.
+        self.assertEqual(
+            tps("इत्याह साक्षात्परम्परासाधारणसकलगुरुसङ्ग्रहार्थं गुरोः इति "
+                "सामान्येन निर्देश इति वा ।"), [])
+
+
 class Pattern2(unittest.TestCase):
     def test_one_and_two_word_forms(self):
         self.assertEqual(tps("... इति । | भवतीति |"), ["भवतीति |"])
