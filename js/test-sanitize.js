@@ -79,6 +79,23 @@ eq(S.body(null), '', 'null does not throw');
 eq(S.body('a > b'), 'a > b', 'lone > left alone -- inert, and the breadcrumb separator');
 eq(S.body('<b>a</b> > c'), '<b>a</b> &gt; c', 'but once a tag is present, > is escaped too');
 
+console.log('\ninline markup is off unless a file opts in:');
+eq(S.render('**भावदीपः** इति', ''), '**भावदीपः** इति',
+   'no flag: asterisks are left as the text the corpus already contains');
+eq(S.render('इति * त्रिः॥', ''), 'इति * त्रिः॥',
+   "Satapatha Brahmana's editorial '*' untouched without the flag");
+eq(S.render('इति * त्रिः॥ * इति', S.MARKUP_FLAG), 'इति <em> त्रिः॥ </em> इति',
+   'with the flag those same marks WOULD be read as italic -- which is exactly why it is opt-in');
+eq(S.render('**भावदीपः** इति', S.MARKUP_FLAG), '<strong>भावदीपः</strong> इति',
+   'flag on: bold renders');
+eq(S.render('a *b* c', S.MARKUP_FLAG), 'a <em>b</em> c', 'flag on: italic renders');
+eq(S.render('<script>x</script>', S.MARKUP_FLAG), '&lt;script&gt;x&lt;/script&gt;',
+   'markup never bypasses the sanitiser -- it runs on already-safe text');
+eq(S.render('**<b>x</b>**', S.MARKUP_FLAG), '<strong><b>x</b></strong>',
+   'bold may wrap markup the importer already put there');
+eq(S.render('**one\ntwo**', S.MARKUP_FLAG), '**one\ntwo**',
+   'markup never spans a line break -- a stray pair of asterisks cannot bold a paragraph');
+
 console.log('\nidempotence (it may run twice without doubling):');
 const once = S.body('<span class="x">a &c. <{SK1}></span>');
 eq(S.body(once), once, 'sanitising an already-sanitised string is a no-op');

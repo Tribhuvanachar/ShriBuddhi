@@ -656,6 +656,10 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
       const commentaries = {};
       if (item.meaning) { commentaries.artha = item.meaning; withMeaning++; }
       shlokas[n] = {
+        // Opt-in inline markup (**bold**, *italic*), declared once per
+        // file as "markup": "dge_inline_v1". Carried onto the unit so
+        // render.js can ask without reaching back for the file.
+        markup: data.markup || '',
         sa: dgeStripEditionMarkers(flat),
         vedicId: (item.title && (item.title.kn || item.title.latin)) || '',
         unitId: item.id || '',
@@ -737,6 +741,10 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
         });
         if (Object.keys(commentaries).length) shlokasWithCommentaries++;
         shlokas[n] = {
+        // Opt-in inline markup (**bold**, *italic*), declared once per
+        // file as "markup": "dge_inline_v1". Carried onto the unit so
+        // render.js can ask without reaching back for the file.
+        markup: data.markup || '',
           sa: dgeStripEditionMarkers(dgeSanitizeVedicAccents(v.sanskrit_text || v.sa || '')),
           vedicId: chapter.reference ? (chapter.reference + (v.number != null ? ' · ' + v.number : '')) : '',
           unitId: chapter.id || '',
@@ -784,6 +792,10 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
         }
       });
       shlokas[n] = {
+        // Opt-in inline markup (**bold**, *italic*), declared once per
+        // file as "markup": "dge_inline_v1". Carried onto the unit so
+        // render.js can ask without reaching back for the file.
+        markup: data.markup || '',
         // schemas.json declares a different primaryTextField per schema --
         // samhita_patha for vedic_text, sanskrit_text for generic and
         // several others (see its own "primaryTextField" entries) -- but

@@ -117,11 +117,21 @@ Inside the text you can use:
 | `---` | a colophon |
 | `**"word"**` | a tappable cross-reference to that word |
 
-**One caveat.** This styling only renders for a commentary marked
-`"format": "gold_v2_2"`. Elsewhere, a line break renders as a line break — but
-`**bold**` would show the asterisks as themselves. Ask before styling a work
-that has not been switched over, or the page will show your markup instead of
-your meaning.
+**Styling is opt-in, per work.** In a work that has not been switched on,
+`**bold**` shows the asterisks themselves. Switching one on:
+
+```
+python3 tools/enable_inline_markup.py data/.../karma_nirnaya --recursive
+python3 tools/enable_inline_markup.py data/.../karma_nirnaya --recursive --check
+```
+
+The Karmanirṇaya and its five ṭīkās are already on.
+
+The default is off for a reason: `*` occurs 6,305 times in the corpus as an
+editorial mark — the Śatapatha Brāhmaṇa uses it — so reading every asterisk as
+italic would silently mangle thousands of passages in texts nobody had touched.
+`--check` reports how many asterisks a file already holds before you switch it,
+and switching on a file that has some prints a warning naming the count.
 
 ## If a push is refused
 

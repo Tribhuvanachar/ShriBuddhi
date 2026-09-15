@@ -80,7 +80,34 @@ const DGESanitize = (function () {
     return out + escapeText(html.slice(last));
   }
 
-  return { body: body, escapeText: escapeText, ALLOWED_TAGS: ALLOWED_TAGS };
+  // Opt-in inline markup, applied AFTER body() so it only ever sees text that
+  // is already safe. Off unless a file asks for it by carrying
+  //   "markup": "dge_inline_v1"
+  // and that gate is not caution for its own sake: '*' occurs 6,305 times in
+  // the corpus as an editorial mark -- the Satapatha Brahmana uses it -- and
+  // reading every one of those as italic would silently mangle thousands of
+  // passages in texts nobody had touched. A work opts in when someone has
+  // looked at it.
+  //
+  // Same syntax as gold-render.js, deliberately: an editor should not have to
+  // learn two dialects depending on which commentary they are in.
+  const MARKUP_FLAG = 'dge_inline_v1';
+
+  function inline(safeHtml) {
+    if (typeof safeHtml !== 'string' || safeHtml.indexOf('*') < 0) return safeHtml;
+    return safeHtml
+      .replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/(^|[^*])\*([^*\n]+)\*(?!\*)/g, '$1<em>$2</em>');
+  }
+
+  // The one call render.js makes: sanitise always, style only if asked.
+  function render(text, markupFlag) {
+    const safe = body(text);
+    return markupFlag === MARKUP_FLAG ? inline(safe) : safe;
+  }
+
+  return { body: body, inline: inline, render: render, escapeText: escapeText,
+           MARKUP_FLAG: MARKUP_FLAG, ALLOWED_TAGS: ALLOWED_TAGS };
 })();
 
 window.DGESanitize = DGESanitize;

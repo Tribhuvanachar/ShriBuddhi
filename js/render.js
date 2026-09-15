@@ -24,9 +24,9 @@ const _dgePadaCache = new Map();
 // Falls through unchanged if the module is not loaded, which is exactly the
 // behaviour of every build before it existed -- a missing script must not
 // blank the text.
-function dgeSanitizeBody(s) {
-  return (typeof DGESanitize !== 'undefined' && DGESanitize && DGESanitize.body)
-    ? DGESanitize.body(s) : s;
+function dgeSanitizeBody(s, markup) {
+  return (typeof DGESanitize !== 'undefined' && DGESanitize && DGESanitize.render)
+    ? DGESanitize.render(s, markup) : s;
 }
 
 function dgePadaBreak(sa) {
@@ -699,7 +699,7 @@ function renderList() {
             const aiBadge = (typeof dgeIsAiGeneratedCommentaryKey === 'function' && dgeIsAiGeneratedCommentaryKey(cKey))
               ? '<span class="dge-ai-badge" title="AI-generated -- not author-verified">AI</span>' : '';
             blocks.push({ cKey, name: convertedName,
-              html: `<div class="commentary-block" data-ckey="${cKey}"><div class="commentary-title">${convertedName}${aiBadge}</div>${dgeWrapWordsForTap(highlightText(dgeSanitizeBody(convertedText), pattern))}</div>` });
+              html: `<div class="commentary-block" data-ckey="${cKey}"><div class="commentary-title">${convertedName}${aiBadge}</div>${dgeWrapWordsForTap(highlightText(dgeSanitizeBody(convertedText, shloka.markup), pattern))}</div>` });
           }
         }
       });
@@ -844,7 +844,7 @@ function renderList() {
 
     // footnoteResult.html is HTML this project generated itself; only the
     // corpus-derived branch needs sanitising.
-    let mulaHtml = highlightText(footnoteResult ? footnoteResult.html : dgeSanitizeBody(mulaDisplayText), pattern);
+    let mulaHtml = highlightText(footnoteResult ? footnoteResult.html : dgeSanitizeBody(mulaDisplayText, shloka.markup), pattern);
     if (shloka.vedicId) {
       mulaHtml = mulaHtml.replace(/\s*\/\s*/g, '<br>');
     }
