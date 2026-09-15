@@ -1,0 +1,472 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=2"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<script>
+  // Access guard — runs before anything else on this page. Convert has
+  // real GitHub push capability, so it needs the same super-admin gate
+  // as the main app's admin panel, not just a hidden icon (a hidden icon
+  // alone doesn't stop someone who knows/guesses this URL directly).
+  if (localStorage.getItem('is_superadmin') !== 'true') {
+    window.location.replace('../index.html');
+  }
+</script>
+<title>DGE Convert v0.35.0</title>
+<link rel="stylesheet" href="style.css?v=0.35.0">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<body>
+
+<div style="font-size:.85rem;margin:10px 0"><a href="../index.html" title="DGE Home" style="text-decoration:none;font-weight:700">⌂ DGE</a><span style="opacity:.6;margin:0 6px">›</span><b>Convert</b></div>
+<h2>DGE Convert</h2>
+<div>Version: <b id="versionDisplay">0.35.0</b> · Build: <span id="buildDisplay"></span></div>
+<p class="hint">PDF or page images → Google Vision OCR → Gemini proofreading → DGE JSON. Everything runs in this browser — no server, nothing uploaded except directly to Google's APIs using your own keys below.</p>
+
+<div id="errorBox" class="error-box"></div>
+
+<div id="fileStatusBar" class="file-status-bar" style="display:none;">
+  <div class="file-status-title" id="fileStatusTitle"></div>
+  <div class="file-status-grid">
+    <div><span class="file-status-label">OCR</span><span id="fileStatusOcr" class="file-status-value"></span></div>
+    <div><span class="file-status-label">Proofread</span><span id="fileStatusProofread" class="file-status-value"></span></div>
+    <div><span class="file-status-label">Target</span><span id="fileStatusTarget" class="file-status-value"></span></div>
+  </div>
+</div>
+
+<div class="tab-bar" id="tabBar">
+  <button type="button" class="tab-btn" data-tab="setup">⚙️ Setup</button>
+  <button type="button" class="tab-btn" data-tab="upload">1. Upload</button>
+  <button type="button" class="tab-btn" data-tab="ocr">2. OCR</button>
+  <button type="button" class="tab-btn" data-tab="proofread">3. Proofread</button>
+  <button type="button" class="tab-btn" data-tab="review">4. Review</button>
+  <button type="button" class="tab-btn" data-tab="push">5. Push</button>
+  <button type="button" class="tab-btn" data-tab="server">☁️ Server Pipeline</button>
+  <button type="button" class="tab-btn" data-tab="log">📋 Log</button>
+</div>
+
+<div class="tab-panel" data-tab="setup">
+<fieldset>
+  <legend>API Keys</legend>
+  <label for="visionKey">Vision API Key</label>
+  <input type="password" id="visionKey" autocomplete="off">
+  <label for="languageHintsInput">OCR language hint(s) — optional</label>
+  <input type="text" id="languageHintsInput" placeholder="e.g. kn — or kn,sa for mixed Sanskrit-in-Kannada pages">
+  <div id="langChipRow" class="lang-chip-row"></div>
+  <p class="hint">Blank = auto-detect (default). For Kannada text — especially pages mixing plain Kannada with Sanskrit shlokas printed in Kannada script — an explicit hint noticeably helps Vision pick the right script. Comma-separate multiple codes, or just tap the codes above to toggle them in/out.</p>
+  <label for="geminiKey">Gemini API Key</label>
+  <input type="password" id="geminiKey" autocomplete="off">
+  <label for="geminiModelSelect">Gemini model</label>
+  <select id="geminiModelSelect"><option value="">(default — tap "Load available models" below)</option></select>
+  <input type="text" id="geminiModelCustom" placeholder="custom model name" style="display:none;">
+  <button type="button" id="refreshModelsBtn">🔄 Load available models</button>
+  <div id="modelsHint" class="hint"></div>
+  <p class="hint">Fetches the actual models your key can use right now (via Gemini's own models.list, not a hardcoded guess), so this always shows what's really current instead of a name that can go stale. Change this if Proofread hits a rate/quota limit on the current model — a different one has its own separate quota.</p>
+  <label for="chunkDelayInput">Delay between Gemini requests (seconds)</label>
+  <input type="text" id="chunkDelayInput" inputmode="numeric" style="width:80px;">
+  <p class="hint">A small pause between each Proofread chunk, even when nothing failed — most "quota exceeded" (HTTP 429) errors on a fresh key are a per-minute request-burst limit, not your prepaid balance running out, so spacing requests out avoids tripping it in the first place. Default 3s; raise it if you keep seeing 429s anyway.</p>
+  <p class="hint">Stored only in this browser's local storage.</p>
+</fieldset>
+<div class="tab-nav"><span class="tab-nav-spacer"></span><button type="button" class="tab-next-btn" data-next="upload">Next: Upload →</button></div>
+</div>
+
+<div class="tab-panel" data-tab="upload">
+<fieldset>
+  <legend>1. Upload PDF, Page Images, or Import from URL</legend>
+  <div id="knownFilesHint" class="hint" style="display:none;"></div>
+  <input id="pdfFile" type="file" accept="application/pdf,.pdf,image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" multiple>
+  <p class="hint">A single PDF, or select multiple page-image files (JPG/PNG/WEBP) at once — pick them in reading order, since the order you select them in is the order they'll be OCR'd in. JP2 isn't supported yet (no browser can decode it without an extra library) — convert to JPG/PNG first.</p>
+  <p class="hint">⚠ Keep this tab open and in the foreground while OCR/Proofread are running. Two separate things can interrupt a run: (1) mobile browsers pause a backgrounded tab's JavaScript immediately (switching apps, locking the screen) — work simply pauses and continues when you come back; (2) after a few minutes away, the browser can go further and reclaim the whole tab's memory, which wipes the live PDF file (not something any web page can prevent — it's the same browser security boundary that stops any site from reading files without you re-picking them). Either way, <strong>no OCR/Proofread progress is lost</strong> — it's saved after every single page/chunk. If Run OCR says a file needs re-selecting, that's case (2): tap "Choose Files" and pick the same PDF again — it resumes exactly where it left off. Proofread never needs this (it only reads already-saved OCR text), which is why it can resume with one tap while OCR needs the file back first.</p>
+  <div id="pageCountDisplay" class="hint"></div>
+  <p class="hint">— or —</p>
+  <label for="importUrlInput">Page URL (any MediaWiki page)</label>
+  <input type="text" id="importUrlInput" placeholder="https://example.org/index.php?title=PageName">
+  <button id="importUrlBtn">Fetch Page</button>
+  <p class="hint">Already-digital text — no OCR needed. Fetches the raw page text and prepares it for Proofread directly.</p>
+</fieldset>
+
+<fieldset>
+  <legend>Backup raw data to GitHub</legend>
+  <p class="hint">OCR and Proofread progress lives only in <em>this browser's</em> storage until it's pushed as a finished grantha — cleared browsing data, a different device, or storage eviction can lose it before that point, forcing an expensive OCR+Proofread re-run. This pushes the raw, unprocessed OCR pages and/or Proofread chunks for the currently-loaded file to <code>convert/backups/</code> in the repo as a safety copy — separate from the Library catalog, not shown or used anywhere in the reader app. Runs automatically (silently, only when a GitHub token is already pasted below in Setup): every few pages/chunks <em>during</em> a run (so a crash or force-quit doesn't lose more than a handful of pages/chunks), plus once more at the end of every OCR pass and every completed or paused Proofread run. This button is for backing up sooner, or for a token added after a run already finished.</p>
+  <button type="button" id="backupToGithubBtn">☁ Backup this file's raw data now</button>
+  <div id="backupStatusText" class="progress-text"></div>
+</fieldset>
+
+<fieldset>
+  <legend>Danger zone</legend>
+  <div id="dangerZoneFileLabel" class="hint">No file loaded — nothing to clear.</div>
+  <label style="display:flex; align-items:center; gap:6px; font-weight:400; margin:6px 0;">
+    <input type="checkbox" id="clearOcrDataCk" style="width:auto; margin:0;" checked> OCR text (Vision and/or Tesseract results for this file)
+  </label>
+  <label style="display:flex; align-items:center; gap:6px; font-weight:400; margin:6px 0;">
+    <input type="checkbox" id="clearProofreadDataCk" style="width:auto; margin:0;" checked> Proofread (Gemini) results for this file
+  </label>
+  <label style="display:flex; align-items:center; gap:6px; font-weight:400; margin:6px 0;">
+    <input type="checkbox" id="clearOptionsDefaultsCk" style="width:auto; margin:0;"> Reset the options above (chunk size, max output tokens, request delay, OCR batch size, language hints, model, engine) to their defaults
+  </label>
+  <button id="clearProgressBtn">Clear the checked item(s) above</button>
+  <p class="hint">Only affects what's checked, only for the file named above — nothing else, no other file's saved progress. Use this if you've replaced the PDF with a corrected version under the same name, or just want to redo one stage.</p>
+</fieldset>
+<div class="tab-nav"><button type="button" class="tab-back-btn" data-back="setup">← Back: Setup</button><span class="tab-nav-spacer"></span><button type="button" class="tab-next-btn" data-next="ocr">Next: OCR →</button></div>
+</div>
+
+<div class="tab-panel" data-tab="ocr">
+<fieldset>
+  <legend>2. Run OCR</legend>
+  <label for="pageSelectionInput">Pages to process (optional, super admin only tool)</label>
+  <input type="text" id="pageSelectionInput" placeholder="e.g. 1-10, 15, 20-25 — blank = all pages">
+  <p class="hint">Leave blank to OCR every page (default). Narrowing this also scopes step 3 (Proofread) to the same pages — useful for testing a few pages first, or re-running just the ones that failed, without redoing the whole book.</p>
+  <label for="ocrEngineSelect">OCR engine</label>
+  <select id="ocrEngineSelect">
+    <option value="vision">Vision AI only (default — most accurate, costs API quota)</option>
+    <option value="tesseract">Tesseract.js only (free, offline, skips Vision entirely — no API key needed)</option>
+    <option value="both">Both (Vision AI + free Tesseract.js cross-check)</option>
+  </select>
+  <p class="hint">"Tesseract.js only" lets you preview/download a free OCR pass — e.g. to sanity-check a file — without spending any Vision quota. "Both" runs Vision as the primary result and flags pages where Tesseract disagrees, roughly doubling per-page time and downloading a language model the first time (a few MB, cached after). Tesseract <strong>requires</strong> a matching language hint above (it can't auto-detect script like Vision can) — running it with none set is refused rather than silently guessing English.</p>
+  <label for="ocrBatchSizeInput">Pages per Vision API call ("Vision AI only" engine)</label>
+  <input type="text" id="ocrBatchSizeInput" inputmode="numeric" style="width:80px;">
+  <p class="hint">Sends this many pages in one Vision request instead of one call per page — real time savings on a large book, since it cuts the number of network round-trips, not how fast Vision reads any single page. Default 5. Set to 1 to go back to one call per page (e.g. if a single flaky page keeps taking a whole batch down — a batch fails as a unit, same "everything before it stays saved" resume as before, just a coarser unit). Only applies to "Vision AI only" — Tesseract runs locally with no network call to batch, and "Both" needs each page's cross-check done individually anyway.</p>
+  <div id="resumeBar" class="resume-bar" style="display:none;">
+    <span id="resumeText"></span>
+    <button id="resumeBtn">Resume</button>
+  </div>
+  <button id="runOcrBtn" class="btn-primary">Run OCR</button>
+  <button id="cancelBtn">Cancel</button>
+  <div id="progressText" class="progress-text"></div>
+  <progress id="ocrProgressBar" value="0" max="100" style="width:100%; display:none;"></progress>
+  <div id="ocrGapsText" class="hint"></div>
+  <button type="button" id="viewOcrOutputBtn">👁 View OCR Output</button>
+  <button id="downloadOcrBtn">Download ocr.json</button>
+  <label style="display:flex; align-items:center; gap:6px; font-weight:400; margin-top:10px;">
+    <input type="checkbox" id="readingOrderFix" style="width:auto; margin:0;">
+    Reconstruct reading order from word positions (row-by-row)
+  </label>
+  <p class="hint">Vision groups text into layout blocks and can print a whole page's worth of margin verse-numbers (॥१॥ ॥२॥ …) together at the end instead of after each verse, when they sit in their own visual column. This re-sorts the same words by on-page row position instead of trusting Vision's block order — try it if your output looks like that. Off by default (Vision's own order is usually right for plain running text).</p>
+</fieldset>
+<div class="tab-nav"><button type="button" class="tab-back-btn" data-back="upload">← Back: Upload</button><span class="tab-nav-spacer"></span><button type="button" class="tab-next-btn" data-next="proofread">Next: Proofread →</button></div>
+</div>
+
+<div class="tab-panel" data-tab="proofread">
+<fieldset>
+  <legend>3. Proofread</legend>
+  <label for="proofreadContextInput">Context anchor (optional)</label>
+  <input type="text" id="proofreadContextInput" placeholder="e.g. Bhagavad Gita Chapter 1, with the Bhavadipa commentary by Raghavendra Yati">
+  <p class="hint">Telling Gemini what the text actually is helps it resolve ambiguous OCR errors using real context instead of guessing blind — e.g. it can favor a term that fits the known verse/commentary over a similar-looking misread. Optional; leave blank for the same behavior as before.</p>
+  <label for="chunkSizeInput">Pages per Gemini request</label>
+  <input type="text" id="chunkSizeInput" inputmode="numeric" style="width:80px;">
+  <p class="hint">Large books are sent to Gemini in chunks of this many pages, not all at once — smaller chunks are less likely to hit an output limit or produce malformed JSON. Default 8; lower it if a chunk keeps failing. If you're hitting a per-request quota limit instead, try RAISING this — fewer, bigger requests use up that quota more slowly.</p>
+  <label style="display:flex; align-items:center; gap:6px; font-weight:400; margin:6px 0;">
+    <input type="checkbox" id="alignChunksToMarkersCk" style="width:auto; margin:0;" checked> Align chunk boundaries to chapter markers (sarga/adhyaya/skandha/etc.)
+  </label>
+  <p class="hint">When on (default), a chunk is cut early — before it hits the size above — whenever a page starts a new chapter (detects "अथ &lt;ordinal&gt; सर्गः"-style openers), so one Gemini call never mixes the tail of one chapter with the head of the next. A real, generic contributor to boundary confusion (duplicated/dropped verses right at a chapter transition) that this removes for any chaptered text, whatever the chapter word is. Never produces a WORSE split than plain fixed-size chunking — chunks near a boundary just come out a bit smaller. Turn off only to force literal fixed-size chunking (e.g. while debugging).</p>
+  <label for="maxOutputTokensInput">Max output tokens per Gemini response</label>
+  <input type="text" id="maxOutputTokensInput" inputmode="numeric" style="width:100px;">
+  <p class="hint">Raise this if a chunk fails with "response was cut off before finishing (hit the output token limit)" — a dense commentary page's full corrected text plus per-shloka classification/notes can genuinely need more room than the old fixed default (2048) allowed. Default 8192; try 16000+ if it still gets cut off on the same chunk (or lower the chunk size above instead — either fixes it, pick whichever suits the book).</p>
+  <div id="proofreadResumeNote" class="hint"></div>
+  <button id="proofreadBtn" class="btn-primary">Proofread with Gemini</button>
+  <button id="proofreadCancelBtn" style="display:none;">Cancel</button>
+  <div id="proofreadProgressText" class="progress-text"></div>
+  <progress id="proofreadProgressBar" value="0" max="100" style="width:100%; display:none;"></progress>
+  <div id="proofreadGapsText" class="hint"></div>
+  <button type="button" id="viewProofreadOutputBtn">👁 View Proofread Output</button>
+  <button id="downloadFinalBtn">Download final.json</button>
+</fieldset>
+<div class="tab-nav"><button type="button" class="tab-back-btn" data-back="ocr">← Back: OCR</button><span class="tab-nav-spacer"></span><button type="button" class="tab-next-btn" data-next="review">Next: Review →</button></div>
+</div>
+
+<div class="tab-panel" data-tab="review">
+<fieldset>
+  <legend>4. Review Flagged Units</legend>
+  <p class="hint">Every proofread unit gets a review class from comparing OCR candidates and Gemini's own confidence — A/B need no action, C is AI-resolved (optional to check), D/E need a human look. This panel shows only what's actually worth your time, with the original page image and every candidate reading side by side.</p>
+  <div id="reviewSummary" class="hint">Run Proofread first.</div>
+  <label style="display:flex; align-items:center; gap:6px; font-weight:400;">
+    <input type="checkbox" id="reviewIncludeC" style="width:auto; margin:0;">
+    Also include class C (AI-assisted, optional audit)
+  </label>
+  <button id="openReviewBtn">Open Review Queue</button>
+  <div id="reviewDetailArea"></div>
+</fieldset>
+<div class="tab-nav"><button type="button" class="tab-back-btn" data-back="proofread">← Back: Proofread</button><span class="tab-nav-spacer"></span><button type="button" class="tab-next-btn" data-next="push">Next: Push →</button></div>
+</div>
+
+<div class="tab-panel" data-tab="push">
+<fieldset>
+  <legend>5. Schema Map &amp; Push to GitHub</legend>
+  <label for="githubTokenInput">GitHub Personal Access Token</label>
+  <input type="password" id="githubTokenInput" autocomplete="off">
+  <p class="hint">Shares the same token as the main app's Admin panel on this device — paste once, works in both. Scope it to only this repo.</p>
+
+  <label for="granthaTitleInput">Grantha title</label>
+  <input type="text" id="granthaTitleInput" placeholder="e.g. श्रीमद्भागवतम् — स्कन्ध १">
+  <label for="granthaAuthorInput">Author</label>
+  <input type="text" id="granthaAuthorInput" placeholder="e.g. Vyasa, with commentary by...">
+
+  <label for="startingShlokaInput">Starting shloka/unit number</label>
+  <input type="text" id="startingShlokaInput" inputmode="numeric" placeholder="1" style="width:100px;">
+  <div id="startingShlokaHint" class="hint"></div>
+  <p class="hint">Leave blank (or 1) if this batch starts at the very first unit of the work. If Proofread found a verse-number marker (e.g. ॥१५॥) in the first shloka's own text, it's auto-filled above already — check the note under the field, and override it if it's wrong or missing. Set this <em>before</em> tapping "Build Schema Preview" below — changing it after the preview is already built won't renumber it; tap Build again to regenerate (this discards any manual edits already made in the preview, same as rebuilding for any other reason).</p>
+
+  <label for="targetSlugSearch">Target grantha (from the library catalog)</label>
+  <input type="text" id="targetSlugSearch" placeholder="Type to search — e.g. &quot;yajurveda&quot; or &quot;grihyasutra&quot;… (loading catalog…)" autocomplete="off">
+  <div id="targetSlugResults" class="target-slug-results" style="display:none;"></div>
+  <div id="targetSlugChosen" class="hint" style="display:none;"></div>
+  <button type="button" id="targetSlugUseOther" style="margin-top:4px;">Use a path not in the catalog…</button>
+  <input type="text" id="targetSlugCustom" placeholder="e.g. purana/bhagavata_purana/skandha_01" style="display:none;">
+  <p class="hint">Search only finds NOT-yet-populated catalog entries. Adding a new sarga/skandha/part of an existing multi-part work? Use the folder browser below instead — it shows you exactly what's already there at each level, so a new part lands as a proper sibling instead of a guessed, possibly-inconsistent path.</p>
+
+  <button type="button" id="targetTreeToggleBtn">📁 Browse existing folders…</button>
+  <div id="targetTreeBrowser" class="target-tree-browser" style="display:none;">
+    <div class="target-tree-breadcrumb" id="targetTreeBreadcrumb"></div>
+    <div class="target-tree-list" id="targetTreeList"></div>
+  </div>
+
+  <label for="commentaryKeyInput">Commentary key (short, no spaces)</label>
+  <input type="text" id="commentaryKeyInput" placeholder="e.g. tatparya">
+  <label for="commentaryLabelInput">Commentary display name</label>
+  <input type="text" id="commentaryLabelInput" placeholder="e.g. तात्पर्यम्">
+
+  <div id="chapterManifestSection">
+    <button type="button" id="manifestToggleBtn" class="hint-toggle">📋 Chapter/sarga manifest (optional) — tell it what to expect, before checking the output</button>
+    <div id="manifestBody" style="display:none;">
+      <p class="hint">Fill this in with what you already know from the printed source — how many chapters/sub-chapters, how many shlokas each, and a few words from the start/end of each. Every Build Schema Preview (and every edit after) is checked against this automatically, so a wrong split or a missing/extra shloka gets flagged instead of silently going out.</p>
+      <div id="manifestRows"></div>
+      <button type="button" id="manifestAddRowBtn">+ Add chapter</button>
+    </div>
+    <div id="manifestCheckResults"></div>
+  </div>
+
+  <button id="buildSchemaBtn" class="btn-primary">Build Schema Preview</button>
+  <p class="hint">Builds an editable preview below — nothing is pushed yet. Fix anything before continuing. Each shloka has its own move/insert/split/delete controls — numbering always auto-adjusts.</p>
+  <div id="schemaJumpBar" style="display:none;">
+    <input type="text" id="schemaJumpInput" placeholder="Find text in any shloka/commentary below…">
+    <button type="button" id="schemaJumpBtn">Jump</button>
+    <span id="schemaJumpStatus"></span>
+  </div>
+  <div id="schemaPreviewArea"></div>
+
+  <button id="pushToGithubBtn" class="btn-primary">Push to GitHub</button>
+  <div id="pushStatusText" class="progress-text"></div>
+</fieldset>
+<div class="tab-nav"><button type="button" class="tab-back-btn" data-back="review">← Back: Review</button><span class="tab-nav-spacer"></span><button type="button" class="tab-next-btn" data-next="server">Next: Server Pipeline →</button></div>
+</div>
+
+<div class="tab-panel" data-tab="server">
+<fieldset>
+  <legend>☁️ Server Pipeline — OCR a real book without this browser tab timing out</legend>
+  <p class="hint">Runs OCR + Gemini proofreading on GitHub Actions instead of in this tab — no wall-clock timeout, and works from a PDF link instead of a file upload. Two steps: preview pages to confirm your range, then send that range for the real (billed) OCR + proofread run. The result stages as a plain JSON file — nothing is merged into the corpus here; that's a deliberate separate step (<code>tools/merge_staged_commentary.py</code>).</p>
+
+  <label for="spPdfUrl">PDF direct-download URL</label>
+  <input type="text" id="spPdfUrl" placeholder="https://…/commentary.pdf">
+  <p class="hint">— or, if the source is a split 7z archive (this project's sources have always come as exactly 3 parts) —</p>
+  <label for="spPdfUrlPart1">Split-7z part 1 URL</label>
+  <input type="text" id="spPdfUrlPart1" placeholder="https://…/part.7z.001">
+  <label for="spPdfUrlPart2">Split-7z part 2 URL</label>
+  <input type="text" id="spPdfUrlPart2" placeholder="https://…/part.7z.002">
+  <label for="spPdfUrlPart3">Split-7z part 3 URL</label>
+  <input type="text" id="spPdfUrlPart3" placeholder="https://…/part.7z.003">
+
+  <label for="spStartPage">Start page</label>
+  <input type="number" id="spStartPage" inputmode="numeric" min="1" style="width:100px;">
+  <label for="spEndPage">End page</label>
+  <input type="number" id="spEndPage" inputmode="numeric" min="1" style="width:100px;">
+  <label for="spExtraPreviewPages">Also preview these pages (optional)</label>
+  <input type="text" id="spExtraPreviewPages" placeholder="e.g. 25,26 — to spot-check pages inside the range too">
+  <button type="button" id="spPreviewBtn">👁️ Preview start/end/extra pages</button>
+  <p class="hint">Free — no Vision/Gemini calls, just renders the pages so you can visually confirm before spending anything.</p>
+  <div id="spPreviewMeta" class="hint"></div>
+  <div id="spPreviewStrip" class="sp-preview-strip"></div>
+
+  <label for="spExcludePages">Exclude pages within the range (optional)</label>
+  <input type="text" id="spExcludePages" placeholder="e.g. 13,40-42">
+
+  <label for="spWorkSlug">Work folder name (under data/ocr_staging/)</label>
+  <input type="text" id="spWorkSlug" placeholder="e.g. raghavendra_vijaya">
+  <label for="spCanto">Canto/sarga number</label>
+  <input type="number" id="spCanto" inputmode="numeric" min="1" style="width:100px;">
+  <label for="spCommentaryKey">Commentary key (short, no spaces)</label>
+  <input type="text" id="spCommentaryKey" placeholder="e.g. tika_someauthor">
+  <label for="spDisplayLabel">Commentary display name</label>
+  <input type="text" id="spDisplayLabel" placeholder="e.g. Someone's Sanskrit Ṭīkā">
+  <label for="spContextAnchor">Context anchor (optional, helps Gemini)</label>
+  <input type="text" id="spContextAnchor" placeholder="e.g. Raghavendra Vijaya, Sanskrit tika by X, Sarga 1">
+  <label for="spContentField">Which field is this commentary's real text</label>
+  <select id="spContentField">
+    <option value="commentary" selected>commentary — for a tika/bhashya PDF (usual case)</option>
+    <option value="sa">sa — only if this PDF IS a mula-text source</option>
+  </select>
+  <label for="spModel">Gemini model</label>
+  <select id="spModel">
+    <option value="gemini-flash-latest" selected>gemini-flash-latest</option>
+    <option value="gemini-flash-lite-latest">gemini-flash-lite-latest</option>
+  </select>
+
+  <button type="button" id="spRunOcrBtn" class="btn-primary">☁️ Send for OCR + Proofread</button>
+  <div id="spStatus" class="progress-text"></div>
+  <div id="spError" class="error-box"></div>
+
+  <div id="spJsonView"></div>
+
+  <div id="spOutputActions" style="display:none;">
+    <button type="button" id="spDownloadBtn">⬇️ Download JSON</button>
+    <button type="button" id="spShareBtn">📤 Share / Email</button>
+    <button type="button" id="spPushBtn">⬆️ Push to ocr_staging (admin)</button>
+    <p class="hint">Download/Share hand you the staged file directly. Push writes it to <code>data/ocr_staging/&lt;work&gt;/</code> on <code>main</code> — a separate later pipeline reads staged files from there and actually merges them into the corpus.</p>
+  </div>
+
+  <details style="margin-top:12px;">
+    <summary>Run log</summary>
+    <pre id="spLog" class="sp-log"></pre>
+  </details>
+</fieldset>
+<div class="tab-nav"><button type="button" class="tab-back-btn" data-back="push">← Back: Push</button><span class="tab-nav-spacer"></span><button type="button" class="tab-next-btn" data-next="log">Next: Log →</button></div>
+</div>
+
+<div id="outputModal" class="output-modal">
+  <div class="output-modal-header">
+    <span id="outputModalTitle">Output</span>
+    <span class="output-modal-controls">
+      <button type="button" id="previewRawBtn">Raw OCR</button>
+      <button type="button" id="previewProofreadBtn">Proofread</button>
+      <button type="button" id="copyOutputBtn" title="Copy this text">📋 Copy</button>
+      <button type="button" id="outputMinimizeBtn" title="Minimize">─</button>
+      <button type="button" id="outputMaximizeBtn" title="Maximize/Restore">⛶</button>
+      <button type="button" id="outputCloseBtn" title="Close">✕</button>
+    </span>
+  </div>
+  <div class="output-modal-body">
+    <div id="previewLabel" class="hint"></div>
+    <div id="previewArea"></div>
+  </div>
+</div>
+
+<div class="tab-panel" data-tab="log">
+<fieldset>
+  <legend>Log</legend>
+  <button id="copyLogBtn">📋 Copy Log</button>
+  <pre id="logArea"></pre>
+</fieldset>
+<div class="tab-nav"><button type="button" class="tab-back-btn" data-back="push">← Back: Push</button><span class="tab-nav-spacer"></span></div>
+</div>
+
+<!-- Always-visible live log, pinned to the bottom regardless of which tab
+     is active -- switching tabs during a long OCR/Proofread run used to
+     hide all progress feedback, making a run that's working fine look
+     stuck. Collapsed by default (just the newest line); tap to expand the
+     full log, same minimize/copy pattern as the Output modal above. -->
+<div id="liveLogBar" class="live-log-bar">
+  <div class="live-log-header" id="liveLogHeader">
+    <span id="liveLogLatest" class="live-log-latest">Ready.</span>
+    <span class="live-log-controls">
+      <button type="button" id="liveLogExpandBtn" title="Expand/collapse">▲</button>
+      <button type="button" id="liveLogCopyBtn" title="Copy full log">📋</button>
+      <button type="button" id="liveLogHideBtn" title="Hide">✕</button>
+    </span>
+  </div>
+  <div id="liveLogBody" class="live-log-body" style="display:none;">
+    <pre id="liveLogFullText"></pre>
+  </div>
+</div>
+<button type="button" id="liveLogShowBtn" class="live-log-show-btn" style="display:none;" title="Show log">📋</button>
+
+<script>
+  window.DGE_CONVERT_VERSION = '0.35.0';
+  window.DGE_CONVERT_BUILD = '2026-08-23a';
+  document.getElementById('buildDisplay').textContent = window.DGE_CONVERT_BUILD;
+  // The visible "Version: X" text (and this page's <title>) were plain
+  // hardcoded HTML with no JS keeping them in sync -- only the build string
+  // above was ever actually wired up. Confirmed as a real, user-visible
+  // staleness bug: the version shown on screen had been frozen at "0.30.1"
+  // for several releases while DGE_CONVERT_VERSION kept moving. Driven from
+  // the same source of truth now, so this can't drift again.
+  document.getElementById('versionDisplay').textContent = window.DGE_CONVERT_VERSION;
+  document.title = 'DGE Convert v' + window.DGE_CONVERT_VERSION;
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+  // PDF.js needs its worker script pointed at explicitly when loaded via CDN.
+  if (typeof pdfjsLib !== 'undefined') {
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  }
+</script>
+<!-- Optional free second-opinion OCR (Tesseract.js, WASM, runs entirely in
+     the browser) — only ever invoked if the "cross-check" checkbox is on;
+     harmless to load unconditionally otherwise. Pinned exact version, same
+     convention as pdf.js/Sanscript above. -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
+<script src="utils.js?v=0.35.0"></script>
+<script src="idb.js?v=0.35.0"></script>
+<script src="pdf.js?v=0.35.0"></script>
+<script src="image.js?v=0.35.0"></script>
+<script src="loaders.js?v=0.35.0"></script>
+<script src="vision.js?v=0.35.0"></script>
+<script src="tesseract-check.js?v=0.35.0"></script>
+<script src="review-classifier.js?v=0.35.0"></script>
+<script src="../js/gemini.js?v=0.35.0"></script>
+<script src="gemini.js?v=0.35.0"></script>
+<script src="github.js?v=0.35.0"></script>
+<script src="actions.js?v=0.35.0"></script>
+<script src="zipread.js?v=0.35.0"></script>
+<script src="mapper.js?v=0.35.0"></script>
+<script src="sarga-detect.js?v=0.35.0"></script>
+<script src="urlimport.js?v=0.35.0"></script>
+<script src="renderer.js?v=0.35.0"></script>
+<script src="review-ui.js?v=0.35.0"></script>
+<script src="app.js?v=0.35.0"></script>
+<script src="server-pipeline.js?v=0.35.0"></script>
+<script>
+  if (window.DGE.ServerPipeline) window.DGE.ServerPipeline.init();
+</script>
+<script>
+  // Tab/wizard navigation -- purely presentational (which panel is
+  // visible), so it's kept separate from app.js's own state/logic and
+  // just shows/hides existing elements by their existing IDs. Tabs are
+  // always directly clickable; Next/Back buttons step through in order
+  // for the common linear flow.
+  (function () {
+    var TAB_ORDER = ['setup', 'upload', 'ocr', 'proofread', 'review', 'push', 'server', 'log'];
+    var LAST_TAB_KEY = 'convert_last_tab';
+
+    function showTab(id) {
+      if (TAB_ORDER.indexOf(id) === -1) return;
+      document.querySelectorAll('.tab-panel').forEach(function (el) {
+        el.classList.toggle('active', el.getAttribute('data-tab') === id);
+      });
+      document.querySelectorAll('.tab-btn').forEach(function (el) {
+        el.classList.toggle('active', el.getAttribute('data-tab') === id);
+      });
+      try { localStorage.setItem(LAST_TAB_KEY, id); } catch (e) {}
+      var bar = document.getElementById('tabBar');
+      var activeBtn = bar && bar.querySelector('.tab-btn.active');
+      if (activeBtn && activeBtn.scrollIntoView) activeBtn.scrollIntoView({ block: 'nearest', inline: 'center' });
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { showTab(btn.getAttribute('data-tab')); });
+    });
+    document.querySelectorAll('.tab-next-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { showTab(btn.getAttribute('data-next')); });
+    });
+    document.querySelectorAll('.tab-back-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () { showTab(btn.getAttribute('data-back')); });
+    });
+
+    var startTab = 'setup';
+    try {
+      var saved = localStorage.getItem(LAST_TAB_KEY);
+      if (saved && TAB_ORDER.indexOf(saved) !== -1) startTab = saved;
+    } catch (e) {}
+    showTab(startTab);
+  })();
+</script>
+</body>
+</html>

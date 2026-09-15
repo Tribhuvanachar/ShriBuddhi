@@ -1,0 +1,215 @@
+/* convert/style.css — same warm palette as the rest of DGE's admin
+   pages (audio-admin.html etc.), not a from-scratch look, so this tool
+   doesn't feel like a separate, unpolished product. */
+:root {
+  --bg:#f5efe4; --panel:#fffdf8; --panel2:#fbf4e7; --ink:#2b2117; --muted:#8b7c66; --line:#e6dac6;
+  --accent:#9a3b1b; --accent2:#1f6f5c; --gold:#b6862c; --ok:#2f9e6f; --bad:#b23b2b;
+  --shadow:0 2px 14px rgba(90,60,20,.10); --radius:12px;
+}
+* { box-sizing: border-box; }
+body { font-family: system-ui, sans-serif; max-width: 680px; margin: 16px auto; padding: 0 14px 60px; line-height: 1.5; background: var(--bg); color: var(--ink); }
+h2 { margin-bottom: 4px; color: var(--accent); }
+a { color: var(--accent2); }
+.hint { color: var(--muted); font-size: 12px; margin: 4px 0; }
+fieldset { margin: 18px 0; padding: 14px 16px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+legend { font-weight: 700; color: var(--accent); padding: 2px 8px; background: var(--panel); font-size: 15px; }
+label { display: block; font-size: 13px; font-weight: 700; margin: 10px 0 3px; color: var(--ink); }
+input[type="password"], input[type="text"] { width: 100%; box-sizing: border-box; padding: 9px 10px; font-size: 14px; margin-bottom: 6px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel2); color: var(--ink); }
+input[type="password"]:focus, input[type="text"]:focus, select:focus { outline: none; border-color: var(--accent2); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent2) 20%, transparent); }
+input[type="file"] { margin: 6px 0; }
+button { padding: 9px 16px; font-size: 14px; font-weight: 700; margin: 4px 6px 4px 0; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--panel2); color: var(--ink); transition: filter .15s, transform .05s; }
+button:hover:not(:disabled) { filter: brightness(0.97); }
+button:active:not(:disabled) { transform: translateY(1px); }
+button:disabled { opacity: 0.5; cursor: default; }
+button.btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+progress { height: 10px; border-radius: 6px; overflow: hidden; margin: 6px 0; accent-color: var(--accent2); }
+.error-box { display: none; background: #fce8e6; border: 1px solid #ea4335; color: #5f1a13; padding: 10px; border-radius: 4px; margin-bottom: 12px; font-size: 13px; }
+.resume-bar { background: #fef7e0; border: 1px solid #f9ab00; padding: 8px; border-radius: 4px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.progress-text { font-weight: 700; margin: 8px 0; }
+#logArea { background: #f5f5f5; padding: 8px; font-size: 12px; max-height: 160px; overflow-y: auto; white-space: pre-wrap; }
+#previewArea { max-height: 400px; overflow-y: auto; }
+.preview-shloka { border-bottom: 1px solid #ddd; padding: 10px 0; }
+.preview-num { font-weight: 700; font-size: 12px; color: #666; }
+.preview-sa { margin: 4px 0; }
+.preview-commentary { color: #444; font-size: 13px; margin-top: 4px; }
+.preview-raw-page { border-bottom: 1px solid #ddd; padding: 10px 0; }
+.preview-raw-text { white-space: pre-wrap; font-size: 13px; margin-top: 4px; }
+.preview-confidence { font-size: 12px; margin-top: 4px; }
+.preview-confidence.conf-good { color: #1a7a3a; }
+.preview-confidence.conf-mid { color: #a06a00; }
+.preview-confidence.conf-low { color: #c02020; font-weight: 700; }
+.low-conf-word { background: #fff2cc; border-bottom: 1px dashed #c02020; padding: 0 2px; }
+.crosscheck-diff { display: flex; gap: 10px; margin-top: 6px; font-size: 12px; }
+.crosscheck-col { flex: 1; min-width: 0; background: #fafafa; border: 1px solid #e2e2e2; border-radius: 4px; padding: 6px; word-wrap: break-word; }
+.crosscheck-label { font-weight: 700; color: #666; margin-bottom: 4px; }
+.diff-mismatch { background: #ffd9d9; border-radius: 2px; }
+.review-nav { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 8px; font-size: 13px; }
+.review-badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-weight: 700; font-size: 12px; margin-bottom: 8px; }
+.review-badge-A, .review-badge-B { background: #e6f4ea; color: #1a7a3a; }
+.review-badge-C { background: #fff4dc; color: #a06a00; }
+.review-badge-D, .review-badge-E { background: #fce8e6; color: #c02020; }
+.review-note { background: #fafafa; border: 1px solid #e2e2e2; border-radius: 4px; padding: 8px; font-size: 13px; margin-bottom: 8px; }
+.review-canvas { max-width: 100%; border: 1px solid #ccc; margin-bottom: 8px; display: block; }
+.review-candidates { display: flex; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.review-candidates > div { flex: 1; min-width: 200px; background: #fafafa; border: 1px solid #e2e2e2; border-radius: 4px; padding: 8px; font-size: 13px; }
+.review-cand-text { white-space: pre-wrap; margin-top: 4px; }
+.review-actions { display: flex; gap: 8px; margin-top: 8px; }
+#previewLabel { margin: 4px 0 8px; }
+select { width: 100%; box-sizing: border-box; padding: 9px 10px; font-size: 14px; margin-bottom: 6px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel2); color: var(--ink); }
+.schema-row { border-bottom: 1px solid #ddd; padding: 10px 0; }
+.schema-row.schema-row-highlight { background: #fff3cd; }
+.schema-sa-input, .schema-commentary-input { width: 100%; box-sizing: border-box; padding: 6px; font-size: 13px; margin-bottom: 6px; font-family: inherit; }
+.schema-row-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-bottom: 6px; }
+.schema-row-toolbar .preview-num { margin-right: 4px; }
+.row-btn { font-size: 11px; padding: 3px 6px; border: 1px solid #bbb; border-radius: 4px; background: #f7f7f7; cursor: pointer; }
+.row-btn:hover { background: #eee; }
+.row-move-to-input { width: 44px; font-size: 11px; padding: 3px; box-sizing: border-box; }
+.schema-colophon-block { margin: 8px 0 14px; padding: 8px; background: #faf7ee; border: 1px dashed #d8c9a0; border-radius: 4px; }
+.schema-colophon-block textarea { width: 100%; box-sizing: border-box; padding: 6px; font-size: 13px; font-family: inherit; margin-top: 4px; }
+.schema-segment-title-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 6px; }
+.schema-segment-title-row input { font-size: 13px; padding: 4px 6px; }
+.segment-title-input { flex: 1; min-width: 160px; }
+.segment-slug-input { flex: 1; min-width: 160px; font-family: monospace; }
+#schemaJumpBar { display: flex; gap: 6px; align-items: center; margin-bottom: 8px; }
+#schemaJumpBar input { flex: 1; }
+#schemaJumpBar button { font-size: 12px; padding: 6px 10px; }
+#schemaJumpStatus { font-size: 12px; color: #666; }
+#chapterManifestSection { margin-bottom: 12px; }
+.hint-toggle { width: 100%; text-align: left; font-size: 13px; padding: 8px 10px; border: 1px solid #ccc; border-radius: 6px; background: #f7f7f7; cursor: pointer; }
+.manifest-row { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; margin-bottom: 6px; padding-bottom: 6px; border-bottom: 1px dashed #ddd; }
+.manifest-row input { font-size: 12px; padding: 4px 6px; box-sizing: border-box; }
+.manifest-label { width: 70px; }
+.manifest-count { width: 60px; }
+.manifest-start, .manifest-end { flex: 1; min-width: 100px; }
+.manifest-colophon { flex: 1; min-width: 100px; }
+.manifest-remove-row { font-size: 11px; padding: 3px 6px; border: 1px solid #bbb; border-radius: 4px; background: #f7f7f7; cursor: pointer; }
+#manifestAddRowBtn { font-size: 12px; padding: 6px 10px; margin-top: 4px; }
+#manifestCheckResults { margin-top: 8px; }
+.manifest-result-ok { background: #e6f4ea; border: 1px solid #b7dfc4; color: #1e5c33; padding: 6px 8px; border-radius: 4px; font-size: 13px; margin-bottom: 6px; }
+.manifest-result-warn { background: #fdecea; border: 1px solid #f0b7ae; color: #7a2a1f; padding: 6px 8px; border-radius: 4px; font-size: 13px; margin-bottom: 4px; }
+.target-slug-results { max-height: 260px; overflow-y: auto; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 6px; background: #fff; }
+.target-slug-result { padding: 8px 10px; border-bottom: 1px solid #eee; cursor: pointer; font-size: 13px; }
+.target-slug-result:last-child { border-bottom: none; }
+.target-slug-result:hover, .target-slug-result:focus { background: #f0f4ff; }
+.target-slug-result-title { font-weight: 700; }
+.target-slug-result-path { color: #666; font-size: 11px; margin-top: 2px; }
+.target-slug-result-path .sep { color: #aaa; margin: 0 3px; }
+.target-slug-chosen-box { background: #eef7ee; border: 1px solid #cbe6cb; border-radius: 4px; padding: 8px; }
+.lang-chip-row { display: flex; flex-wrap: wrap; gap: 6px; margin: 2px 0 6px; }
+.lang-chip { padding: 4px 10px; font-size: 12px; font-weight: 400; margin: 0; border: 1px solid #ccc; border-radius: 12px; background: #fff; cursor: pointer; }
+.lang-chip.on { background: #e0f0ff; border-color: #6ab0ff; font-weight: 700; }
+.known-file-btn { display: block; width: 100%; text-align: left; background: #fff; border: 1px solid #ddd; border-radius: 4px; padding: 6px 8px; margin: 3px 0; font-size: 12px; font-weight: 400; cursor: pointer; }
+.known-file-btn:hover { background: #f0f4ff; }
+
+/* Output modal -- expandable/minimizable/closeable so OCR/Proofread text
+   can be read without scrolling to the bottom of a long mobile page. */
+.output-modal { display: none; position: fixed; left: 4%; right: 4%; top: 6%; bottom: 6%; z-index: 1000;
+  background: #fff; border: 1px solid #999; border-radius: 6px; box-shadow: 0 6px 28px rgba(0,0,0,.35);
+  flex-direction: column; overflow: hidden; }
+.output-modal.open { display: flex; }
+.output-modal.maximized { left: 0; right: 0; top: 0; bottom: 0; border-radius: 0; }
+.output-modal.minimized { top: auto; bottom: 10px; right: 10px; left: auto; width: 220px; height: auto; }
+.output-modal.minimized .output-modal-body { display: none; }
+.output-modal-header { display: flex; align-items: center; justify-content: space-between; gap: 6px;
+  background: #222; color: #fff; padding: 8px 10px; font-weight: 700; font-size: 13px; flex-shrink: 0; }
+.output-modal-controls { display: flex; gap: 4px; }
+.output-modal-controls button { padding: 4px 8px; font-size: 12px; margin: 0; }
+.output-modal-body { flex: 1; overflow-y: auto; padding: 10px 14px; min-height: 0; }
+.output-modal-body #previewArea { max-height: none; }
+
+/* Live log bar -- pinned to the bottom of the viewport regardless of
+   which tab is active, so a long OCR/Proofread run stays visible even
+   while looking at another tab. Collapsed by default to one line. */
+.live-log-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 950;
+  background: #2b2320; color: #f5ead9; box-shadow: 0 -2px 10px rgba(0,0,0,.3); }
+.live-log-header { display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 7px 10px; cursor: pointer; font-size: 12px; }
+.live-log-latest { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.live-log-controls { display: flex; gap: 4px; flex-shrink: 0; }
+.live-log-controls button { background: transparent; border: 1px solid #7a6a5a; color: inherit;
+  padding: 2px 8px; font-size: 12px; margin: 0; border-radius: 3px; }
+.live-log-body { max-height: 32vh; overflow-y: auto; padding: 0 10px 10px; border-top: 1px solid #4a3d33; }
+.live-log-body pre#liveLogFullText { white-space: pre-wrap; word-break: break-word; margin: 8px 0;
+  font-family: monospace; font-size: 11px; color: #f5ead9; }
+.live-log-show-btn { position: fixed; right: 10px; bottom: 10px; z-index: 950; border-radius: 999px;
+  width: 42px; height: 42px; padding: 0; font-size: 18px; }
+
+/* Folder browser for picking/creating a target grantha path -- shows the
+   REAL existing sibling names at each level (e.g. sarga_01) so a new part
+   of a multi-sarga work lands as a consistent sibling instead of a
+   guessed, possibly-inconsistent free-typed path. */
+.target-tree-browser { border: 1px solid #ccc; border-radius: 4px; margin: 6px 0 10px; background: #fafafa; }
+.target-tree-breadcrumb { padding: 8px 10px; border-bottom: 1px solid #ddd; font-size: 13px; background: #f0f0f0; }
+.target-tree-crumb { cursor: pointer; color: #1a5fb4; }
+.target-tree-crumb:hover { text-decoration: underline; }
+.target-tree-crumb-sep { color: #999; margin: 0 4px; }
+.target-tree-list { max-height: 280px; overflow-y: auto; }
+.target-tree-row { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-bottom: 1px solid #eee; cursor: pointer; font-size: 13px; }
+.target-tree-row:last-child { border-bottom: none; }
+.target-tree-row:hover { background: #f0f4ff; }
+.target-tree-row-count { color: #888; font-size: 11px; margin-left: auto; }
+.target-tree-row-badge { font-size: 10px; padding: 1px 6px; border-radius: 999px; margin-left: auto; }
+.target-tree-row-badge.populated { background: #e6f4ea; color: #1e7a34; }
+.target-tree-row-badge.empty { background: #fff4dc; color: #a06a00; }
+.target-tree-add-row { padding: 8px 10px; border-top: 1px dashed #ccc; }
+.target-tree-add-row input { width: 100%; box-sizing: border-box; padding: 6px; font-size: 13px; margin: 4px 0; }
+.target-tree-add-row .hint { margin: 2px 0 6px; }
+
+/* Tabbed/wizard layout -- the whole page used to be one long vertical
+   scroll through every stage at once; on a phone (the real usage pattern
+   here) that meant a lot of scrolling past stages that aren't relevant
+   yet. Tabs are always directly clickable (jump anywhere), and a
+   Next/Back pair at the bottom of each panel supports the linear
+   step-by-step flow most sessions actually follow. */
+.tab-bar { display: flex; overflow-x: auto; gap: 4px; margin: 14px 0 10px; padding-bottom: 2px;
+  position: sticky; top: 0; background: var(--bg); z-index: 5; -webkit-overflow-scrolling: touch; }
+.tab-bar::-webkit-scrollbar { height: 4px; }
+.tab-btn { flex: 0 0 auto; padding: 9px 14px; font-size: 13px; font-weight: 700; margin: 0; cursor: pointer;
+  border: 1px solid var(--line); border-bottom: 3px solid var(--line); border-radius: 8px 8px 0 0;
+  background: var(--panel2); color: var(--muted); white-space: nowrap; }
+.tab-btn.active { color: var(--accent); background: var(--panel); border-bottom-color: var(--accent); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+.tab-panel fieldset { margin-top: 0; }
+.tab-nav { display: flex; justify-content: space-between; gap: 8px; margin: 4px 0 20px; }
+.tab-nav .tab-nav-spacer { flex: 1; }
+
+/* Always-visible file status dashboard -- same "outside any tab, never
+   hidden" placement as the error box, since knowing what's loaded/done/
+   pending for the current file shouldn't require being on a specific
+   tab or re-selecting the file to find out. */
+.file-status-bar { background: var(--panel2); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 8px 12px; margin-bottom: 10px; font-size: 12px; }
+.file-status-title { font-weight: 700; color: var(--accent); margin-bottom: 4px; word-break: break-word; }
+.file-status-grid { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.file-status-label { color: var(--muted); margin-right: 4px; }
+.file-status-value { font-weight: 600; }
+
+/* Server Pipeline tab (server-pipeline.js) -- page-preview thumbnail
+   strip, and the staged-shloka review list, colored by Gemini's own
+   accept/review/unresolved self-classification so a problem verse is
+   visible at a glance without reading the raw JSON. */
+.sp-preview-strip { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 14px; }
+.sp-preview-page { margin: 0; border: 1px solid var(--line); border-radius: var(--radius); padding: 4px;
+  background: var(--panel2); }
+.sp-preview-page img { display: block; max-width: 160px; max-height: 220px; border-radius: 2px; }
+.sp-preview-page figcaption { text-align: center; font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+.sp-shloka-list { display: flex; flex-direction: column; gap: 6px; margin: 8px 0; }
+.sp-shloka-row { border: 1px solid var(--line); border-left-width: 4px; border-radius: var(--radius);
+  padding: 8px 10px; font-size: 13px; background: var(--panel2); }
+.sp-shloka-row.sp-cls-accept { border-left-color: var(--ok); }
+.sp-shloka-row.sp-cls-review { border-left-color: var(--gold); }
+.sp-shloka-row.sp-cls-unresolved { border-left-color: var(--bad); }
+.sp-badge { font-size: 10px; text-transform: uppercase; letter-spacing: .02em; font-weight: 700;
+  padding: 1px 6px; border-radius: 999px; background: var(--panel); color: var(--muted); margin-left: 4px; }
+.sp-cls-accept .sp-badge { color: var(--ok); }
+.sp-cls-review .sp-badge { color: var(--gold); }
+.sp-cls-unresolved .sp-badge { color: var(--bad); }
+.sp-sa { font-family: var(--font-sanskrit, serif); margin-top: 4px; }
+.sp-commentary { margin-top: 2px; color: var(--muted); }
+.sp-raw-json { max-height: 260px; overflow: auto; font-size: 11px; background: var(--panel2);
+  border: 1px solid var(--line); border-radius: var(--radius); padding: 8px; white-space: pre-wrap; word-break: break-word; }
+.sp-log { max-height: 200px; overflow-y: auto; font-size: 11px; background: var(--panel2);
+  border: 1px solid var(--line); border-radius: var(--radius); padding: 8px; white-space: pre-wrap; }
