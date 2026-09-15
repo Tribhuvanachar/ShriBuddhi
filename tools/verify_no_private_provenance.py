@@ -26,7 +26,13 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-DATA = REPO / "data"
+# 15 Sep 2026: this used to be REPO / "data", and the narrowness was the
+# root cause of a whole class of misses. The lead found anandamakaranda.in
+# sitting in backlinks/backlinks/darshana__...json on the PUBLIC site, and
+# this script had reported that site clean — because the path was outside
+# data/ AND the file was not named data.json, so it failed BOTH filters at
+# once. A guard that only looks where you expect trouble is not a guard.
+DATA = REPO
 
 # Mirrors Parabuddhi's tools/lib/provenance.py PRIVATE_SITES. Kept as a literal
 # here rather than imported: the private repo is not present when this runs.
@@ -76,7 +82,8 @@ def scan(value, path="$"):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--data", default=str(DATA))
+    ap.add_argument("--data", default=str(DATA),
+                    help="root to scan (default: the whole repository)")
     ap.add_argument("--max-report", type=int, default=15)
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args(argv)
@@ -88,13 +95,31 @@ def main(argv=None):
 
     files = hits = 0
     offenders = []
-    for p in sorted(root.rglob("data.json")):
+    # Every .json, not just data.json. The importer's fingerprints land in
+    # backlink shards, _meta.json, taxonomy.json and index files just as
+    # readily as in a grantha's own data.json.
+    #
+    # Widening it to every file made the run unusable — json.loads over 200k
+    # files takes minutes, and a check nobody can afford to run is a check
+    # nobody runs. So each file is first read as BYTES and tested against the
+    # literal site names and the id shapes; only a file that could possibly
+    # match is parsed, which is the handful that matter. Same answer, and the
+    # scan is bounded by disk rather than by the JSON parser.
+    needles = [s.encode() for s in PRIVATE_SITES] + [b"DV_", b"article", b"content_id",
+                                                     b"work_id", b"source_html", b"block_uuid"]
+    for p in sorted(root.rglob("*.json")):
         rel = p.relative_to(root)
         if any(part in SKIP_DIRS for part in rel.parts[:-1]):
             continue
         files += 1
         try:
-            doc = json.loads(p.read_text(encoding="utf-8"))
+            raw = p.read_bytes()
+        except OSError:
+            continue
+        if not any(n in raw for n in needles):
+            continue
+        try:
+            doc = json.loads(raw.decode("utf-8"))
         except Exception:
             continue
         found = scan(doc)

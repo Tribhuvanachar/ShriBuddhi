@@ -45,7 +45,18 @@ REPO = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 
 DEFAULT_STATE = os.path.join(REPO, "admin", "config", "dv_sync.state.json")
+
+# 15 Sep 2026: dv_sources.json and dv_sync.state.json name the sites this
+# importer harvests, which is provenance, so they moved to the private source
+# repository. This tool is the only thing that reads them and it now has to be
+# told where they are. DGE_IMPORT_CONFIG points at that directory; the old
+# in-tree path is still honoured so a checkout that predates the move keeps
+# working rather than failing in a way nobody can interpret.
+_IMPORT_CONFIG_DIR = os.environ.get(
+    "DGE_IMPORT_CONFIG", os.path.join(os.path.dirname(REPO), "parabuddhi", "import_config"))
 DEFAULT_CONFIG = os.path.join(HERE, "dv_sources.json")
+if not os.path.isfile(DEFAULT_CONFIG):
+    DEFAULT_CONFIG = os.path.join(_IMPORT_CONFIG_DIR, "tools_dvaitavedanta_dv_sources.json")
 
 # A challenge interstitial is a 200 with no library in it. Both markers have
 # been seen from this site; the sidebar-count guard below catches variants.
@@ -57,8 +68,15 @@ SHRINK_GUARD = 0.5
 
 
 def load_config(path):
-    with open(path, encoding="utf-8") as handle:
-        return json.load(handle)
+    try:
+        with open(path, encoding="utf-8") as handle:
+            return json.load(handle)
+    except FileNotFoundError:
+        raise SystemExit(
+            f"source config not found at {path}.\n"
+            "It names the sites this importer harvests, so it lives in the private\n"
+            "source repository rather than here. Point DGE_IMPORT_CONFIG at that\n"
+            "repo's import_config/ directory, or pass --config explicitly.")
 
 
 def all_granthas(config, sections_filter=()):
