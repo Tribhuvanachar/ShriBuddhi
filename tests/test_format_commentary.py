@@ -6,6 +6,7 @@ and the things that must NOT be tagged -- which is where the specification
 contradicts itself and where the damage would be.
 """
 import os
+import re
 import sys
 import unittest
 
@@ -254,3 +255,57 @@ class RealSampleRegression(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CorpusModeStoresTextNotMarkup(unittest.TestCase):
+    """The cases a scholar reported as "still not tagged".
+
+    They were tagged all along. The JSON had been run through the DEFAULT
+    mode, which reads the file as prose -- braces, keys and all -- so the
+    pratika rules never saw a unit. And corpus mode wrapped what it did tag
+    in <p class="rule">, which belongs to the page, not to the stored text.
+    """
+
+    MISSED = [
+        ("इत्यत उक्तं तदिदमिति ।", "तदिदमिति ।"),
+        ("इत्याशयेनोक्तं प्रधानेत्यादि ।", "प्रधानेत्यादि ।"),
+        ("नेत्यत उक्तं शिष्येति ।", "शिष्येति ।"),
+        ("भावेनोक्तं सामान्यत इति ।", "सामान्यत इति ।"),
+        ("प्याहुः । प्रकरणमिति ।", "प्रकरणमिति ।"),
+        ("नमित्यर्थः । अवान्तरेति ।", "अवान्तरेति ।"),
+        ("दोष इत्यन्तेन ।। सम्बन्ध इति ।", "सम्बन्ध इति ।"),
+        ("। दोषवशादिति ।", "दोषवशादिति ।"),
+        ("भावः । तथेति ।", "तथेति ।"),
+        ("ध्येयम् । अपेक्षत इति ।", "अपेक्षत इति ।"),
+        ("दर्शयति भाविन इति ।। पूर्वस्येति ।", "पूर्वस्येति ।"),
+        ("परमात्मज्ञानमित्यर्थः । अवान्तरेति ।", "अवान्तरेति ।"),
+    ]
+
+    def test_every_reported_case_is_tagged(self):
+        f = Formatter()
+        for source, pratika in self.MISSED:
+            got = f.format(source, paragraphs=False)
+            self.assertIn("<TP>%s</TP>" % pratika, got, source)
+
+    def test_corpus_mode_leaves_no_paragraph_markup_in_the_text(self):
+        f = Formatter()
+        for source, _ in self.MISSED:
+            got = f.format(source, paragraphs=False)
+            self.assertNotIn("<p", got, source)
+
+    def test_the_page_still_gets_its_paragraphs_when_asked(self):
+        f = Formatter()
+        got = f.format(self.MISSED[0][0])
+        self.assertIn("<p", got)
+
+    def test_two_pratikas_in_one_unit_both_survive(self):
+        f = Formatter()
+        got = f.format("दर्शयति भाविन इति ।। पूर्वस्येति ।", paragraphs=False)
+        self.assertIn("<TP>भाविन इति ।।</TP>", got)
+        self.assertIn("<TP>पूर्वस्येति ।</TP>", got)
+
+    def test_the_sanskrit_is_untouched_either_way(self):
+        f = Formatter()
+        for source, _ in self.MISSED:
+            got = f.format(source, paragraphs=False)
+            self.assertEqual(re.sub(r"</?TP>", "", got).strip(), source.strip())
