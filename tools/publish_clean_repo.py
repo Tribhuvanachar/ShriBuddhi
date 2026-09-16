@@ -36,9 +36,18 @@ import sys
 # Paths that describe HOW the site is made rather than what it contains.
 # Nothing here is content; every one of them is tooling, configuration or a
 # record of process.
-EXCLUDE_DIRS = (".git", ".github", ".claude", "docs", "admin", "tools",
+# `firebase` is here on the same grounds as `tools`, and it is the one people argue
+# about, so it is worth naming: it is the server side of the site -- phone login,
+# donations, WhatsApp, the admin workflow dispatcher and workflows.json, which is a
+# plain-English catalogue of how the corpus is made. None of it is text anyone reads.
+# It lives in the private repository as of 16 Sep 2026 and deploys from there.
+# `firebase-hosting.json` goes with it: deploy configuration, whose ignore list names
+# private-side directories that do not exist publicly. deploy-firebase-hosting.yml
+# copies it into the checkout at deploy time.
+EXCLUDE_DIRS = (".git", ".github", ".claude", "docs", "admin", "tools", "firebase",
                 "node_modules", ".pytest_cache", "__pycache__")
-EXCLUDE_FILES = ("CLAUDE.md", "PENDING.md", "HANDOFF.md", ".gitattributes")
+EXCLUDE_FILES = ("CLAUDE.md", "PENDING.md", "HANDOFF.md", ".gitattributes",
+                 "firebase-hosting.json")
 
 # Words that name the private side of the project. A hit is not automatically
 # a leak -- parabuddhi matches a line of the Narada Purana, and bhumandala is

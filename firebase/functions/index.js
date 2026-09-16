@@ -75,7 +75,11 @@ const MSG91_TEMPLATE_ID = defineString('MSG91_TEMPLATE_ID', { default: '' });
 // and nothing else. A classic PAT with `repo` scope would hand whoever
 // reaches this function the whole account -- see FIREBASE_SETUP.md SS12.
 const GITHUB_DISPATCH_TOKEN = defineSecret('GITHUB_DISPATCH_TOKEN');
-const GITHUB_REPO = defineString('GITHUB_REPO', { default: 'Tribhuvanachar/buddhi' });
+// The workflows live in the private repository -- all 57 of them. The public site
+// repository has no .github/ at all, so the old default dispatched into a repository
+// with nothing to dispatch. deploy-firebase-functions.yml writes this value into the
+// deploy .env as well; this default is the floor under that, not the source of truth.
+const GITHUB_REPO = defineString('GITHUB_REPO', { default: 'Tribhuvanachar/shribuddhi' });
 
 // The donation/supporter system's own secrets and config. Both Cashfree
 // and Razorpay are wired in (lib/payment-providers.js) alongside the

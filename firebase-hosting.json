@@ -1,0 +1,41 @@
+{
+  "//": "Firebase Hosting config, dedicated and separate from firebase/firebase.json. Firebase CLI",
+  "//2": "requires hosting.public to resolve within the directory that contains this file (its 'project",
+  "//3": "directory') -- it cannot point above/outside that directory. firebase/firebase.json lives two",
+  "//4": "levels below the repo root and needs public to reach the whole site (../..), which the CLI",
+  "//5": "rejects as \"outside of project directory\" (found running deploy-firebase-hosting.yml, 8 Sep 2026,",
+  "//6": "firebase-tools v15). This file sits at the repo root instead so public can just be \".\".",
+  "//7": "firebase/firebase.json still owns firestore/functions/emulators -- unchanged, still used by",
+  "//8": "those workflows. See FIREBASE_SETUP.md §9.",
+
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "firebase-hosting.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/*.7z.*",
+      "**/*.zip",
+      "firebase/**",
+      "tools/**",
+      "importers/**",
+      "tests/**",
+      "kamadhenu/**",
+      "kamadhenu_dataset/**",
+      "genie_asr_benchmark/**",
+      "local_drive/**",
+      "docs/**",
+      "**/*.md",
+      "**/__pycache__/**",
+      ".github/**"
+    ],
+    "cleanUrls": true,
+    "headers": [
+      {
+        "source": "**/*.@(json|js|css)",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
+      }
+    ]
+  }
+}

@@ -25,6 +25,9 @@ class Fixture(unittest.TestCase):
             ("docs/HANDOFF.md", "internal"),
             ("tools/build.py", "print(1)"),
             ("CLAUDE.md", "instructions"),
+            ("firebase/functions/index.js", "exports.sendOtp = 1;"),
+            ("firebase/functions/workflows.json", '{"workflows":[]}'),
+            ("firebase-hosting.json", '{"hosting":{"public":"."}}'),
         ):
             full = os.path.join(self.src, rel)
             os.makedirs(os.path.dirname(full), exist_ok=True)
@@ -41,6 +44,21 @@ class WhatGetsPublished(Fixture):
         self.assertIn("data/ok.json", published)
         for excluded in (".claude/settings.json", "docs/HANDOFF.md",
                          "tools/build.py", "CLAUDE.md"):
+            self.assertNotIn(excluded, published, excluded)
+
+    def test_the_server_side_is_not_content_and_does_not_ship(self):
+        """firebase/ is the site's backend, not text anyone reads.
+
+        workflows.json in particular is a plain-English catalogue of the
+        corpus pipeline; it was the most revealing file in the public tree.
+        firebase-hosting.json is deploy config whose ignore list names
+        private-side directories. Both belong to the private repository, and
+        deploy-firebase-hosting.yml copies the config in at deploy time.
+        """
+        published = {rel for _, rel in publish.walk(self.src)}
+        for excluded in ("firebase/functions/index.js",
+                         "firebase/functions/workflows.json",
+                         "firebase-hosting.json"):
             self.assertNotIn(excluded, published, excluded)
 
     def test_the_scan_names_the_private_side_without_editing_it(self):

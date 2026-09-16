@@ -41,12 +41,30 @@ jobs:
       # 12 Sep 2026: this workflow moved here from bhumandala (Buddhi), which
       # is what's actually served -- the site content to deploy has to come
       # from THERE, not from this repo's own (possibly stale) copy.
+      #
+      # This checkout stays, unlike the one deploy-firebase-functions.yml dropped on
+      # 16 Sep 2026, and the difference is the point: Hosting publishes the site tree,
+      # and the site tree IS the public repository. Functions publish server code, which
+      # is not content and has no business being readable there. Content deploys from
+      # the public side; code deploys from this one.
       - name: Checkout bhumandala (the site actually being deployed)
         uses: actions/checkout@v4
         with:
           repository: Tribhuvanachar/bhumandala
           token: ${{ secrets.BUDDHI_TOKEN }}
           path: bhumandala
+      - name: Lay this repo's hosting config over the checkout
+        # firebase-hosting.json used to sit in the public repo, because the CLI requires
+        # hosting.public to resolve inside the directory holding the config, and public is
+        # "." (the whole site). That constraint is about WHERE THE FILE SITS AT DEPLOY TIME,
+        # not where it is stored -- so it is stored here and copied in. It is deploy
+        # configuration, and its ignore list named private-side directories
+        # (genie_asr_benchmark, local_drive, kamadhenu_dataset, tools) that a reader could
+        # otherwise have used to map the workspace the site is built in.
+        run: |
+          cp firebase-hosting.json bhumandala/firebase-hosting.json
+          echo "hosting config in place:"
+          python3 -c "import json;d=json.load(open('bhumandala/firebase-hosting.json'))['hosting'];print(' public:',d['public'],'|',len(d['ignore']),'ignore rules')"
       - name: Assemble the service-account key from the repository secrets
         # Accepts either the whole JSON in FIREBASE_SERVICE_ACCOUNT (or one of the common alternative names)
         # or the individual fields the lead stored one secret each (FIREBASE_PRIVATE_KEY, FIREBASE_PRIVATE_KEY_ID,
