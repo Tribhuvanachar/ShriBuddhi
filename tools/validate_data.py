@@ -47,12 +47,17 @@ for fp in sorted(glob.glob(os.path.join(DATA, '**', 'data.json'), recursive=True
     if sc == 'vyakarana_corpus_v1':
         # the small sutra-corpora imported from ashtadhyayi.com
         # (tools/vyakarana/import_ashtadhyayi_corpora.py) keep the source's
-        # own field names verbatim ('i'/'ind'/'id' + corpus fields) plus a
-        # mandatory attribution block — that block IS the check here.
+        # own field names verbatim ('i'/'ind'/'id' + corpus fields).
+        #
+        # 16 Sep 2026: this used to require an `attribution.source_url` block
+        # on each of them. The project lead's direction is that no file in the
+        # published corpus names a source, a URL or a licence — the site's
+        # footer Credits section is the single credit surface, and the record
+        # of what came from where lives in ParaBuddhi. The obligation did not
+        # go away, it moved: ashtadhyayi.com is named in the footer credits,
+        # and content/legal.json is where that is checked now.
         if not isinstance(d.get('items'), list) or not d['items']:
             errors.append(f"{fp}: corpus has no items")
-        if not isinstance(d.get('attribution'), dict) or not d['attribution'].get('source_url'):
-            errors.append(f"{fp}: vyakarana corpus missing attribution.source_url")
         continue
     if sc and sc not in SCHEMA_NAMES:
         warns.append(f"{fp}: unknown schema '{sc}'")
