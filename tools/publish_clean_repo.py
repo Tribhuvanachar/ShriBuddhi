@@ -104,7 +104,14 @@ def scan(source: str) -> list[tuple[str, str, str]]:
         except OSError:
             continue
         for term in PRIVATE_NAMES + TOOLING_NAMES + STALE_NAMES:
-            for match in re.finditer(re.escape(term), text, re.I):
+            # A stale name must not match a LONGER repository name that merely
+            # starts with it. Tribhuvanachar/buddhi-audio-data and
+            # .../buddhi-kosha-data are separate repositories serving audio and
+            # dictionary data over jsDelivr; they are not the site repository and
+            # renaming them would break live URLs. Whether they keep the old name
+            # is the lead's decision, not this checker's.
+            pattern = re.escape(term) + (r"(?!-)" if term in STALE_NAMES else "")
+            for match in re.finditer(pattern, text, re.I):
                 line_start = text.rfind("\n", 0, match.start()) + 1
                 line_end = text.find("\n", match.end())
                 line = text[line_start:line_end if line_end > 0 else len(text)]

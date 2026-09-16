@@ -34,7 +34,7 @@
   window.DGE_VERSIONS = window.DGE_VERSIONS || {};
   window.DGE_VERSIONS['site-footer.js'] = 'v1.0';
 
-  var LICENSE_URL = 'https://github.com/Tribhuvanachar/bhumandala/blob/main/LICENSE';
+  var LICENSE_URL = 'https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE';
   var TERMS_NOTICE = 'Not yet written. This site is a free, ad-free educational and ' +
     'devotional resource; a full terms-of-use page for it hasn\'t been drafted yet. ' +
     'Contact us if you have a question in the meantime.';

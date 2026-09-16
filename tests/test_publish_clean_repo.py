@@ -31,6 +31,7 @@ class Fixture(unittest.TestCase):
             ("sitemap.xml", "<loc>https://tribhuvanachar.github.io/Buddhi/x.html</loc>"),
             ("js/entity-linker.test.js", "assert(1)"),
             ("js/test-parity.js", "assert(1)"),
+            ("js/audio.js", "cdn.jsdelivr.net/gh/Tribhuvanachar/buddhi-audio-data@main/"),
         ):
             full = os.path.join(self.src, rel)
             os.makedirs(os.path.dirname(full), exist_ok=True)
@@ -80,6 +81,17 @@ class WhatGetsPublished(Fixture):
         self.assertTrue(any(h[0] == "sitemap.xml" for h in stale), stale)
         # and --scan says so in its exit code, so a script cannot miss it
         self.assertEqual(1, publish.main(["--source", self.src, "--scan"]))
+
+    def test_a_longer_repository_name_is_not_a_false_positive(self):
+        """buddhi-audio-data and buddhi-kosha-data are separate repositories.
+
+        They serve audio and dictionary data over jsDelivr. Renaming them
+        would break live URLs, so whether they keep the old name is the
+        lead's call -- but a checker that flags them as the site repository
+        would push someone into making that call by accident.
+        """
+        hits = publish.scan(self.src)
+        self.assertFalse([h for h in hits if h[0] == "js/audio.js"], hits)
 
     def test_it_refuses_to_build_while_the_old_name_is_there(self):
         self.assertEqual(3, publish.main(

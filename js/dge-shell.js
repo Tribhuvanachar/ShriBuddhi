@@ -37,7 +37,7 @@
   window.DGE_VERSIONS = window.DGE_VERSIONS || {};
   window.DGE_VERSIONS['dge-shell.js'] = 'v1.0 (Phase 2: <dge-footer> custom element)';
 
-  var LICENSE_URL = 'https://github.com/Tribhuvanachar/bhumandala/blob/main/LICENSE';
+  var LICENSE_URL = 'https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE';
   var TERMS_NOTICE = 'Not yet written. This site is a free, ad-free educational and ' +
     'devotional resource; a full terms-of-use page for it hasn\'t been drafted yet. ' +
     'Contact us if you have a question in the meantime.';
