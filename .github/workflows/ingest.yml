@@ -59,11 +59,12 @@ jobs:
       - name: Mirror changed content into the BrahmaBuddhi checkout
         run: |
           set -euo pipefail
-          CHANGED=$(git status --porcelain -- data search_index | awk '{print $2}')
-          for f in $CHANGED; do
-            mkdir -p "brahmabuddhi/$(dirname "$f")"
-            cp -a "$f" "brahmabuddhi/$f"
-          done
+          # A run that DELETES a file used to die here: `awk '{print $2}'`
+          # reads a deleted path as something to copy and `cp` answers
+          # "cannot stat". The same awk took the wrong field for a rename and
+          # split any path with a space in it.
+          git status --porcelain -z -- data search_index > "$RUNNER_TEMP/changed.z"
+          python3 tools/mirror_changed_paths.py "$RUNNER_TEMP/changed.z" brahmabuddhi
 
       - name: Open Pull Request (against BrahmaBuddhi)
         uses: peter-evans/create-pull-request@v6

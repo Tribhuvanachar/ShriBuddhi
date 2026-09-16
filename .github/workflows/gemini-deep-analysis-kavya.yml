@@ -116,11 +116,12 @@ jobs:
       - name: Mirror changed output into the BrahmaBuddhi checkout
         run: |
           set -euo pipefail
-          CHANGED=$(git status --porcelain -- "${{ inputs.sarga_dir }}" | awk '{print $2}')
-          for f in $CHANGED; do
-            mkdir -p "brahmabuddhi/$(dirname "$f")"
-            cp -a "$f" "brahmabuddhi/$f"
-          done
+          # A run that DELETES a file used to die here: `awk '{print $2}'`
+          # reads a deleted path as something to copy and `cp` answers
+          # "cannot stat". The same awk took the wrong field for a rename and
+          # split any path with a space in it.
+          git status --porcelain -z -- "${{ inputs.sarga_dir }}" > "$RUNNER_TEMP/changed.z"
+          python3 tools/mirror_changed_paths.py "$RUNNER_TEMP/changed.z" brahmabuddhi
 
       - name: Push directly to BrahmaBuddhi's main
         if: ${{ fromJSON(inputs.direct_push) }}

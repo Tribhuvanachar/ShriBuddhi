@@ -82,11 +82,13 @@ jobs:
       - name: Commit generated files to BrahmaBuddhi's main
         run: |
           set -euo pipefail
-          CHANGED=$(git status --porcelain -- admin/config/library-status.json admin/config/repo-map.json docs/REPO_INVENTORY.md sitemap.xml robots.txt | awk '{print $2}')
-          for f in $CHANGED; do
-            mkdir -p "brahmabuddhi/$(dirname "$f")"
-            cp -a "$f" "brahmabuddhi/$f"
-          done
+          # Same mirror as interlink.yml, and the same reason not to do it
+          # with `awk '{print $2}'`: a deleted path came back as something to
+          # copy and killed the run on `cp: cannot stat`.
+          git status --porcelain -z -- \
+              admin/config/library-status.json admin/config/repo-map.json \
+              docs/REPO_INVENTORY.md sitemap.xml robots.txt > "$RUNNER_TEMP/changed.z"
+          python3 tools/mirror_changed_paths.py "$RUNNER_TEMP/changed.z" brahmabuddhi
           cd brahmabuddhi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -132,7 +134,16 @@ jobs:
           cp -a data/library.json brahmabuddhi/data/library.json
           cp -a data/taxonomy.json brahmabuddhi/data/taxonomy.json
 
+      # BRAHMABUDDHI_TOKEN can push the branch -- it does, every night -- but
+      # it cannot open the pull request: GitHub answers "Resource not
+      # accessible by personal access token", which needs
+      # `Pull requests: Read and write` on BrahmaBuddhi added to the token.
+      # Until that is granted, failing the whole run over it would throw away
+      # a sync that actually succeeded (and mail about it nightly), so the
+      # step is allowed to fail and the next one says what is left to do.
       - name: Open or update the library-sync pull request (against BrahmaBuddhi)
+        id: library_sync_pr
+        continue-on-error: true
         if: steps.fix.outputs.changed == 'true' && (github.event_name == 'schedule' || inputs.open_pr)
         uses: peter-evans/create-pull-request@v6
         with:
@@ -152,3 +163,22 @@ jobs:
             data/library.json
             data/taxonomy.json
           delete-branch: true
+
+      - name: Say where the sync landed, and what it could not do
+        if: always() && steps.fix.outputs.changed == 'true'
+        run: |
+          {
+            if [ "${{ steps.library_sync_pr.outcome }}" = "success" ]; then
+              echo "Library sync is on \`nightly/library-sync\` and its pull request is open."
+            else
+              echo "### Library sync pushed, pull request NOT opened"
+              echo ""
+              echo "The repairs are on BrahmaBuddhi's \`nightly/library-sync\` branch."
+              echo "Opening the PR was refused: BRAHMABUDDHI_TOKEN can push but has no"
+              echo "\`Pull requests: Read and write\` permission on BrahmaBuddhi."
+              echo ""
+              echo "Open it by hand, or grant that permission to the token:"
+              echo ""
+              echo "https://github.com/Tribhuvanachar/BrahmaBuddhi/compare/main...nightly/library-sync?expand=1"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

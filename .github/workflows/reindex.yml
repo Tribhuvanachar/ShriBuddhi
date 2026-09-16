@@ -11,16 +11,15 @@ name: DGE re-index (search + library status)
 # The "Re-index" job: rebuilds the corpus-wide search index and the Library
 # Manager status snapshot so both reflect the current data.
 #
-# Two ways it runs:
-#   * by hand (Repository & Workflows → Search index, or the Actions tab) —
-#     opens a PR with the status/backlinks and prints the search-dist hash to
-#     pin, exactly as before;
-#   * every night at 00:30 IST (19:00 UTC), after nightly.yml — and then ONLY
-#     if data has changed since the index was last published (the last
-#     data commit is remembered in admin/config/search-index.state.json).
-#     A scheduled run bumps the CDN pin itself (js/config.js and
-#     js/global-search.js) and commits pin + status + backlinks straight to
-#     main, so readers get the new index by morning without a hand on it.
+# One way it runs, since 16 Sep 2026: by hand (Repository & Workflows →
+# Search index, or the Actions tab). It opens a PR with the status/backlinks
+# and prints the search-dist hash to pin. It still skips the rebuild when no
+# data has changed since the last publish (remembered in
+# admin/config/search-index.state.json).
+#
+# The nightly schedule is commented out below, with the reason: its publish
+# targets on the public Buddhi repo no longer exist. Restore the cron in the
+# same breath as deciding where the built index should now be published.
 #
 # It regenerates two build products (generated-from-data artifacts, never
 # hand-edited):
@@ -30,8 +29,23 @@ name: DGE re-index (search + library status)
 # over jsDelivr; only backlinks and status live on main.
 
 on:
-  schedule:
-    - cron: "0 19 * * *"
+  # The nightly schedule is OFF as of 16 Sep 2026, and this is not a mute.
+  #
+  # Everything after the rebuild publishes into the public Buddhi repo: a
+  # force-push of the 330 MB index to its search-dist branch, then a commit
+  # to its main moving a jsDelivr pin. Neither target is still real. Buddhi's
+  # dist branches were deleted in the September cleanup, and its js/config.js
+  # now reads searchIndexBase: "search_index", kavyaDataBase, wordnetDataBase
+  # and koshaDataBase from the site itself -- the CDN pins this job exists to
+  # bump are gone from the config it would bump them in.
+  #
+  # So a nightly run cannot do its job; it can only fail and mail about it.
+  # Where the index should be published now that the site reads its own files
+  # is a decision for the project lead, not something to guess at nightly.
+  # workflow_dispatch below still runs the whole thing on demand.
+  #
+  #  schedule:
+  #    - cron: "0 19 * * *"
   workflow_dispatch:
     inputs:
       open_pr:
@@ -100,9 +114,13 @@ jobs:
       - name: Fetch the Kavya corpus
         if: steps.gate.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.include_kavya)
         run: |
-          # kavya-dist only exists on bhumandala (Buddhi), not this repo --
-          # public repo, so a plain unauthenticated fetch works.
-          git fetch --depth=1 https://github.com/Tribhuvanachar/bhumandala.git kavya-dist
+          # kavya-dist lives in THIS repo. It used to be fetched from the
+          # public Buddhi repo by URL, and that stopped working the day those
+          # branches were cleaned off Buddhi: "couldn't find remote ref
+          # kavya-dist", every night. The branch came across in the migration
+          # and origin is already authenticated by actions/checkout, so ask
+          # origin -- one less repo this has to be right about.
+          git fetch --depth=1 origin kavya-dist
           rm -rf _kavya && mkdir -p _kavya
           git --work-tree=_kavya checkout FETCH_HEAD -- kavya_alankara
           du -sh _kavya

@@ -18,12 +18,23 @@ name: Tests
 
 on:
   push:
-    # buddhi-archive/** are frozen snapshots of the public repo's branches,
-    # kept only so nothing was lost when those branches were deleted. They
-    # carry the pre-migration dge/ layout, so they fail this gate by
-    # construction; running it on them is 28 red runs that mean nothing.
-    branches-ignore:
-      - 'buddhi-archive/**'
+    # Only main, and only PRs into it.
+    #
+    # Most branches in this repo are not code at all -- they are data that
+    # tools READ and that never merges: ocr-staging/** (staged OCR awaiting
+    # review), the *-dist branches behind the CDN, gemini-enrich/**,
+    # nightly/**, and buddhi-archive/** (frozen snapshots of the public
+    # repo's deleted branches, in the pre-migration dge/ layout). Each is
+    # branched from whatever main was at the time, so it carries whatever
+    # bugs main had then -- pushing one data file to it re-runs the whole
+    # suite against months-old code and fails by construction. That is where
+    # the failure mails were coming from, and a green or red run on such a
+    # branch would mean nothing either way.
+    #
+    # A feature branch still gets the gate the moment it opens a pull
+    # request, which is the point at which its code could reach main.
+    branches:
+      - main
   pull_request:
   workflow_dispatch: {}
 
