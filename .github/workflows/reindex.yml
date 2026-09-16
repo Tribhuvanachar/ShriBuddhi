@@ -1,11 +1,12 @@
-# search-dist publishes to bhumandala (Buddhi) directly, same jsDelivr-needs-
-# a-public-repo exemption as import-kavya.yml/publish-wordnet.yml. The CDN
-# pin bump goes straight to bhumandala too -- it is the thing that makes the
-# already-published (and already immutable, hash-pinned) index live for
-# readers, not new unreviewed content, so it skips BrahmaBuddhi staging the
-# same way the dist branches themselves do. What DOES carry real, reviewable
-# content (library-status.json, backlinks) goes to BrahmaBuddhi as a PR,
-# same as every other relocated content workflow.
+# The built corpus-search index goes to the Cloud Storage bucket this project
+# already has (js/config.js's storageBucket), under a prefix named for the data
+# commit it was built from. What carries real, reviewable content
+# (library-status.json, backlinks) still goes to BrahmaBuddhi as a PR, same as
+# every other relocated content workflow.
+#
+# It used to go to a search-dist branch on the public repo behind a jsDelivr
+# pin. See the note above the publish step for why that ended: 183,187 files,
+# a 12-hour per-file CDN cache, and dist branches that no longer exist.
 name: DGE re-index (search + library status)
 
 # The "Re-index" job: rebuilds the corpus-wide search index and the Library
@@ -13,7 +14,7 @@ name: DGE re-index (search + library status)
 #
 # One way it runs, since 16 Sep 2026: by hand (Repository & Workflows →
 # Search index, or the Actions tab). It opens a PR with the status/backlinks
-# and prints the search-dist hash to pin. It still skips the rebuild when no
+# and prints the prefix it published to. It still skips the rebuild when no
 # data has changed since the last publish (remembered in
 # admin/config/search-index.state.json).
 #
@@ -25,24 +26,15 @@ name: DGE re-index (search + library status)
 # hand-edited):
 #   search_index/**               (build_search_index.py)
 #   admin/config/library-status.json  (tools/gen_library_status.py)
-# The index itself (330 MB) is force-pushed to the search-dist branch and read
-# over jsDelivr; only backlinks and status live on main.
+# The index itself goes to Cloud Storage; only backlinks and status live on main.
 
 on:
   # The nightly schedule is OFF as of 16 Sep 2026, and this is not a mute.
   #
-  # Everything after the rebuild publishes into the public Buddhi repo: a
-  # force-push of the 330 MB index to its search-dist branch, then a commit
-  # to its main moving a jsDelivr pin. Neither target is still real. Buddhi's
-  # dist branches were deleted in the September cleanup, and its js/config.js
-  # now reads searchIndexBase: "search_index", kavyaDataBase, wordnetDataBase
-  # and koshaDataBase from the site itself -- the CDN pins this job exists to
-  # bump are gone from the config it would bump them in.
-  #
-  # So a nightly run cannot do its job; it can only fail and mail about it.
-  # Where the index should be published now that the site reads its own files
-  # is a decision for the project lead, not something to guess at nightly.
-  # workflow_dispatch below still runs the whole thing on demand.
+  # The nightly schedule stays OFF until the first Cloud Storage publish has
+  # actually run and been checked. The publish path below is new as of 16 Sep
+  # and has never executed; a nightly job is the wrong place to find that out.
+  # Restore this the day after a manual run succeeds.
   #
   #  schedule:
   #    - cron: "0 19 * * *"
@@ -149,48 +141,104 @@ jobs:
         run: |
           git status --porcelain search_index admin/config/library-status.json || true
 
-      - name: Publish the index to search-dist
-        if: steps.gate.outputs.run == 'true'
-        id: publish
+      # 16 Sep 2026: this used to force-push the whole index to a search-dist
+      # branch on the public repo and serve it over jsDelivr behind a commit
+      # pin that a person bumped by hand. Three things ended that:
+      #
+      #   * the index is 183,187 FILES. Firebase Hosting caps a version far
+      #     below that and GitHub Pages caps the whole site at 1 GB, so
+      #     neither can carry it. The many-small-files shape is right -- a
+      #     posting file averages 10 KB and a query fetches a handful --
+      #     so the answer is an object store, not a smaller index.
+      #   * jsDelivr caches per file for about 12 hours, which is why the pin
+      #     existed at all: without it a new manifest could meet stale shards
+      #     and, in js/config.js's own words, break search entirely for those
+      #     users.
+      #   * the dist branches were cleaned off the public repo in September.
+      #
+      # So it goes to the Cloud Storage bucket this project already has, under
+      # a prefix named for the data commit it was built from. Every path is
+      # then immutable by construction: no staleness, and no pin to bump --
+      # the config points at the new prefix as part of the build.
+      - name: Assemble the service-account key from the repository secrets
+        # Accepts either the whole JSON in FIREBASE_SERVICE_ACCOUNT (or one of the common alternative names)
+        # or the individual fields the lead stored one secret each (FIREBASE_PRIVATE_KEY, FIREBASE_PRIVATE_KEY_ID,
+        # FIREBASE_CLIENT_EMAIL, FIREBASE_CLIENT_ID; the remaining fields are constants). Prints only which
+        # secret NAMES were found — never a value. The assembled key is written to a file the deploy step reads.
         env:
-          GIT_AUTHOR_NAME: github-actions[bot]
-          GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
-          GIT_COMMITTER_NAME: github-actions[bot]
-          GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
+          PID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          SA_JSON_1: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          SA_JSON_2: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+          SA_JSON_3: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SARVAMULA_ORG }}
+          SA_JSON_4: ${{ secrets.FIREBASE_ADMIN_SDK }}
+          SA_JSON_5: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
+          F_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+          F_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
+          F_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+          F_CLIENT_ID: ${{ secrets.FIREBASE_CLIENT_ID }}
+        run: |
+          test -n "$PID" || { echo "FIREBASE_PROJECT_ID secret is not set"; exit 1; }
+          python3 - <<'PY'
+          import json, os, sys
+          found = []
+          sa = None
+          for name in ("SA_JSON_1", "SA_JSON_2", "SA_JSON_3", "SA_JSON_4", "SA_JSON_5"):
+              v = os.environ.get(name, "").strip()
+              if v:
+                  try:
+                      sa = json.loads(v); found.append(name); break
+                  except Exception:
+                      print(f"{name} is set but is not valid JSON")
+          if sa is None:
+              f = {k: os.environ.get(k, "") for k in ("F_PRIVATE_KEY", "F_PRIVATE_KEY_ID", "F_CLIENT_EMAIL", "F_CLIENT_ID")}
+              present = [k for k, v in f.items() if v.strip()]
+              print("per-field secrets present:", ", ".join(present) or "none")
+              if f["F_PRIVATE_KEY"].strip() and f["F_CLIENT_EMAIL"].strip():
+                  key = f["F_PRIVATE_KEY"].replace("\\n", "\n")
+                  email = f["F_CLIENT_EMAIL"].strip()
+                  sa = {"type": "service_account", "project_id": os.environ["PID"], "private_key_id": f["F_PRIVATE_KEY_ID"].strip(),
+                        "private_key": key, "client_email": email, "client_id": f["F_CLIENT_ID"].strip(),
+                        "auth_uri": "https://accounts.google.com/o/oauth2/auth", "token_uri": "https://oauth2.googleapis.com/token",
+                        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+                        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/" + email.replace("@", "%40"),
+                        "universe_domain": "googleapis.com"}
+                  found.append("assembled from FIREBASE_PRIVATE_KEY + FIREBASE_CLIENT_EMAIL (+ id fields)")
+          if sa is None:
+              print("No service-account key found. Add ONE secret FIREBASE_SERVICE_ACCOUNT holding the whole JSON key file, "
+                    "or the fields FIREBASE_PRIVATE_KEY, FIREBASE_PRIVATE_KEY_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_CLIENT_ID.")
+              sys.exit(1)
+          if not str(sa.get("private_key", "")).startswith("-----BEGIN"):
+              print("private_key does not look like a PEM key (should start with -----BEGIN PRIVATE KEY-----)"); sys.exit(1)
+          os.makedirs(os.path.expanduser("~/.sa"), exist_ok=True)
+          with open(os.path.expanduser("~/.sa/key.json"), "w") as fh:
+
+      - name: Publish the index to Cloud Storage
+        id: publish
+        if: steps.gate.outputs.run == 'true'
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /home/runner/.sa/key.json
+          BUCKET: ${{ secrets.SEARCH_INDEX_BUCKET }}
+          DATA_SHA: ${{ steps.gate.outputs.data_sha }}
         run: |
           set -euo pipefail
-          # The index is 330 MB. Committed to main it took the published site
-          # from 966 MB to 1,013 MB against a 1 GB Pages ceiling, so it is
-          # published like the Kavya and WordNet corpora and read over
-          # jsDelivr. backlinks/ stays in the repo -- it is 0.1 MB and
-          # js/backlinks.js reads it from beside the app.
-          rm -rf /tmp/search-dist
-          mkdir -p /tmp/search-dist
-          cp -r search_index/manifest.json search_index/postings \
-                search_index/units search_index/words \
-                search_index/vocab /tmp/search-dist/
-          cp search_index_dist_README.md /tmp/search-dist/README.md
-          cd /tmp/search-dist
-          git init -q -b search-dist
-          git add -A
-          git commit -q -m "The built corpus-search index, rebuilt by reindex.yml"
-          git push -q --force "https://x-access-token:${{ secrets.BUDDHI_TOKEN }}@github.com/Tribhuvanachar/bhumandala" \
-            search-dist:refs/heads/search-dist
-          SHA=$(git rev-parse HEAD)
-          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          test -n "$BUCKET" || { echo "::error::SEARCH_INDEX_BUCKET secret is not set"; exit 1; }
+          BUILD="${DATA_SHA:0:12}"
+          PREFIX="search_index/$BUILD"
+          gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
+          echo "uploading $(find search_index -type f | wc -l) files to gs://$BUCKET/$PREFIX/"
+          # Immutable paths, so tell the browser it may keep them for a year.
+          gcloud storage rsync -r --delete-unmatched-destination-objects \
+            --cache-control="public, max-age=31536000, immutable" \
+            search_index "gs://$BUCKET/$PREFIX"
+          echo "prefix=$PREFIX" >> "$GITHUB_OUTPUT"
+          echo "base=https://storage.googleapis.com/$BUCKET/$PREFIX" >> "$GITHUB_OUTPUT"
           {
-            echo "published to search-dist as \`$SHA\`"
+            echo "published to \`gs://$BUCKET/$PREFIX\`"
             echo ""
-            echo "CDN base: https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@$SHA"
+            echo "read at https://storage.googleapis.com/$BUCKET/$PREFIX"
           } >> "$GITHUB_STEP_SUMMARY"
 
-      # Nightly (or bump_pin on a manual run): move the pin, remember what was
-      # indexed, and commit everything that belongs on main directly. This
-      # lands on bhumandala's own main (not ShriBuddhi's) -- it is the step
-      # that makes the already-published, already-immutable search-dist
-      # commit live for readers, so it checks out bhumandala separately with
-      # BUDDHI_TOKEN rather than pushing to "origin" (which after this
-      # migration is ShriBuddhi).
+
       - name: Checkout bhumandala for the pin bump
         if: steps.gate.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.bump_pin)
         uses: actions/checkout@v4
@@ -208,40 +256,22 @@ jobs:
           cp -r search_index/backlinks buddhi-pin/search_index/backlinks
           cp search_index/backlinks.json buddhi-pin/search_index/backlinks.json 2>/dev/null || true
 
-      - name: Bump the CDN pin and commit to main
+      - name: Point the site at the new prefix and commit to main
         if: steps.gate.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.bump_pin)
         env:
-          SHA: ${{ steps.publish.outputs.sha }}
+          BASE: ${{ steps.publish.outputs.base }}
+          PREFIX: ${{ steps.publish.outputs.prefix }}
           DATA_SHA: ${{ steps.gate.outputs.data_sha }}
         working-directory: buddhi-pin
         run: |
           set -euo pipefail
-          python3 - <<'PY'
-          import json, os, re, time
-          sha, data_sha = os.environ["SHA"], os.environ["DATA_SHA"]
-          pin = re.compile(r"(cdn\.jsdelivr\.net/gh/Tribhuvanachar/bhumandala@)[0-9a-f]{40}(?=['\"])")
-          for path in ("js/config.js", "js/global-search.js"):
-              src = open(path, encoding="utf-8").read()
-              # Only the search-index pin: the wordnet/kavya pins carry a path suffix (/_wordnet) or sit on other keys.
-              def repl(m, line):
-                  return m.group(1) + sha
-              out = []
-              for line in src.split("\n"):
-                  if ("searchIndexBase" in line or "CDN_INDEX" in line) and "cdn.jsdelivr.net" in line:
-                      line = pin.sub(lambda m: m.group(1) + sha, line)
-                  out.append(line)
-              open(path, "w", encoding="utf-8").write("\n".join(out))
-          json.dump({"_readme": "Written by reindex.yml: which data commit the published search index was built from, and where it went.",
-                     "data_sha": data_sha, "dist_sha": sha,
-                     "published_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},
-                    open("admin/config/search-index.state.json", "w", encoding="utf-8"), indent=1)
-          open("admin/config/search-index.state.json", "a").write("\n")
-          PY
+          python3 "$GITHUB_WORKSPACE/tools/point_search_index.py" \
+            --base "$BASE" --prefix "$PREFIX" --data-sha "$DATA_SHA"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add js/config.js js/global-search.js admin/config/search-index.state.json \
                   admin/config/library-status.json search_index/backlinks search_index/backlinks.json 2>/dev/null || true
-          git commit -q -m "Re-index: publish search index ${SHA:0:12}, bump CDN pin, refresh status and backlinks" || echo "nothing to commit"
+          git commit -q -m "Re-index: publish search index to ${PREFIX}, refresh status and backlinks" || echo "nothing to commit"
           for attempt in 1 2 3; do
             git push -q origin HEAD:main && break
             git pull -q --rebase origin main || true
@@ -281,10 +311,11 @@ jobs:
           title: "Re-index: library status and backlinks"
           commit-message: "Re-index: refresh library status and backlinks"
           body: |
-            The search index itself is NOT here -- it is 330 MB and was
-            published to bhumandala's `search-dist` branch by the same run;
-            bump `appConfig.searchIndexBase` to the hash in the job summary,
-            or re-run with "bump_pin" on to have it done for you.
+            The search index itself is NOT here -- it is 183,187 files and
+            was published to the Cloud Storage prefix named in the job
+            summary. `appConfig.searchIndexBase` is pointed at that prefix by
+            the same run when "bump_pin" is on; otherwise set it by hand from
+            the summary.
 
             What this PR carries is the part that belongs on main:
             `admin/config/library-status.json` and

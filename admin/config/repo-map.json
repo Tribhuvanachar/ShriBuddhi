@@ -3626,7 +3626,18 @@
     ],
     "secrets": [
      "BRAHMABUDDHI_TOKEN",
-     "BUDDHI_TOKEN"
+     "BUDDHI_TOKEN",
+     "FIREBASE_ADMIN_SDK",
+     "FIREBASE_CLIENT_EMAIL",
+     "FIREBASE_CLIENT_ID",
+     "FIREBASE_PRIVATE_KEY",
+     "FIREBASE_PRIVATE_KEY_ID",
+     "FIREBASE_PROJECT_ID",
+     "FIREBASE_SERVICE_ACCOUNT",
+     "FIREBASE_SERVICE_ACCOUNT_KEY",
+     "FIREBASE_SERVICE_ACCOUNT_SARVAMULA_ORG",
+     "GOOGLE_APPLICATION_CREDENTIALS_JSON",
+     "SEARCH_INDEX_BUCKET"
     ],
     "cost": [],
     "scripts": [
@@ -3635,9 +3646,9 @@
     "missing_scripts": [],
     "writes": [
      "opens a pull request",
-     "force-pushes a dist/staging branch"
+     "commits directly to the branch it ran on"
     ],
-    "lines": 292
+    "lines": 322
    }
   },
   "seo-pages.yml": {
@@ -4217,7 +4228,7 @@
    }
   }
  },
- "generated_at": "2026-09-16 12:34 IST",
+ "generated_at": "2026-09-16 12:52 IST",
  "workflow_categories": [
   {
    "id": "source-sync",
