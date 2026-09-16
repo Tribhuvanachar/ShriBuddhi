@@ -354,12 +354,19 @@ window.dgeRenderStitchChrome = function() {
 // Built from the per-item breadcrumb the importer already stores:
 // [grantha, layer, adhyaya, pada, adhikarana, topic, unit]. The first two
 // levels name the book, the last names the unit itself; everything
-// between is the structural path. Grouping on up to the first THREE
-// structural levels gives exactly the adhikarana picker a Dvaita reader
-// expects on nyaya_sudha (अध्याय > पाद > अधिकरण) and degrades gracefully
-// on shallower texts (gita_bhashya: adhyaya only). Does nothing when
-// breadcrumbs are absent (every non-DvaitaVedanta text) or there is only
-// one section to pick.
+// between is the structural path. Grouping on up to the first FOUR
+// structural levels gives the adhikarana AND its own headings (the
+// project lead, 16 Sep 2026: within one adhikarana — "jijñāsādhikaraṇa"
+// etc. — there can be several headings, each its own sub-section with its
+// own sudhā chunk(s); picking a heading should jump straight to it, not
+// just to the adhikarana's first verse). Grouped by the shared parent path
+// (adhyaya · pada · adhikarana), so headings under the same adhikarana
+// nest under one <optgroup> — the two-tier "adhikarana, then its
+// headings" picker the lead described, built from the one native <select>
+// this reader already has rather than a second panel. Degrades gracefully
+// on shallower texts (gita_bhashya: adhyaya only, one level). Does nothing
+// when breadcrumbs are absent (every non-DvaitaVedanta text) or there is
+// only one section to pick.
 window.dgeInitSectionNav = function() {
   const row = document.getElementById('sectionNavRow');
   const select = document.getElementById('sectionNavSelect');
@@ -404,14 +411,14 @@ window.dgeInitSectionNav = function() {
   }
 
   // MODE B — structural breadcrumb sections (nyaya_sudha अध्याय > पाद >
-  // अधिकरण, gita_bhashya adhyaya): the dropdown JUMPS to a section's first
-  // verse, unchanged from the original navigator.
+  // अधिकरण > heading, gita_bhashya adhyaya): the dropdown JUMPS to a
+  // section's first verse.
   const groups = []; // [{path:[...], firstN}], in reading order
   const seen = {};
   order.forEach(n => {
     const crumbs = window.stotraData.shlokas[n].breadcrumb;
     if (!Array.isArray(crumbs) || crumbs.length < 4) return;
-    const path = crumbs.slice(2, -1).slice(0, 3);
+    const path = crumbs.slice(2, -1).slice(0, 4);
     if (!path.length) return;
     const keyStr = path.join('>');
     if (seen[keyStr] === undefined) {
@@ -421,8 +428,10 @@ window.dgeInitSectionNav = function() {
   });
   if (groups.length < 2) return;
 
-  // <optgroup> per parent path (adhyaya · pada), one <option> per deepest
-  // section — native, keyboard/mobile friendly, no new popup plumbing.
+  // <optgroup> per parent path (adhyaya · pada · adhikarana on a 4-level
+  // text; adhyaya · pada on a 3-level one, etc.), one <option> per deepest
+  // section (a heading, where the data goes that deep) — native,
+  // keyboard/mobile friendly, no new popup plumbing.
   let html = `<option value="">${t('विभागं चिनुत')}…</option>`;
   let openGroup = null;
   groups.forEach(g => {
