@@ -58,14 +58,23 @@ FACET_KEYS = ("genre", "guna_classification", "ratnatraya", "madhvacharya_releva
               "purana_class", "traditional_lists", "default_author")
 
 
-def derive_source(payload):
+def derive_source(payload, existing=None):
     """Lightweight provenance for the admin tracker's "sources" column --
     copied into library.json alongside facets, same reasoning: read once
     here rather than have the browser fetch every leaf's full data.json
-    just to show where its text came from."""
+    just to show where its text came from.
+
+    Merges over what the catalogue already holds instead of replacing it.
+    Most data.json files declare only `source`; `source_url` and `licence`
+    were written straight into library.json by the importers and exist
+    NOWHERE ELSE. Deriving fresh and overwriting dropped source_url from 214
+    entries and licence from 197 -- including the CC-BY 4.0 attributions for
+    DCS and GRETIL, which is a licensing promise, not a cache. A field the
+    file does not declare is left alone; a field it does declare wins.
+    """
     if not isinstance(payload, dict):
-        return None
-    source = {}
+        return dict(existing) if existing else None
+    source = dict(existing) if isinstance(existing, dict) else {}
     for key in ("source", "source_url", "licence", "license"):
         value = payload.get(key)
         if isinstance(value, str) and value.strip():
@@ -193,7 +202,8 @@ def main(argv=None):
     facet_diffs = [p for p in set(by_path) & set(on_disk)
                    if by_path[p].get("facets") != derive_facets(on_disk[p]["payload"])]
     source_diffs = [p for p in set(by_path) & set(on_disk)
-                     if by_path[p].get("source") != derive_source(on_disk[p]["payload"])]
+                     if by_path[p].get("source") != derive_source(on_disk[p]["payload"],
+                                                                  by_path[p].get("source"))]
 
     hidden_items = sum(on_disk[p]["count"] for p in orphans)
     hidden_bytes = sum(os.path.getsize(on_disk[p]["full"]) for p in orphans)
@@ -254,7 +264,7 @@ def main(argv=None):
         facets = derive_facets(record["payload"])
         if facets:
             entry["facets"] = facets
-        source = derive_source(record["payload"])
+        source = derive_source(record["payload"])   # a new entry has nothing to preserve
         if source:
             entry["source"] = source
         entries.append(entry)
@@ -272,7 +282,7 @@ def main(argv=None):
         else:
             by_path[path].pop("facets", None)
     for path in source_diffs:
-        source = derive_source(on_disk[path]["payload"])
+        source = derive_source(on_disk[path]["payload"], by_path[path].get("source"))
         if source:
             by_path[path]["source"] = source
         else:
