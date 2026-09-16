@@ -407,11 +407,21 @@ class Formatter:
 
     # ---------- entry point ---------------------------------------------
 
-    def format(self, text: str, debug: list | None = None) -> str:
+    def format(self, text: str, debug: list | None = None,
+               paragraphs: bool = True) -> str:
+        """Tag pratikas, and (by default) wrap the result into paragraphs.
+
+        `paragraphs=False` is what corpus mode wants. A unit in a data.json is
+        ALREADY one paragraph -- the reader lays it out -- so wrapping it in
+        <p class="rule"> stores presentation markup in the text and makes the
+        sanitiser carry it to every reader forever. Running the whole corpus
+        through the default would have put a <p> tag inside every unit it
+        touched.
+        """
         src = text
         norm = self.normalize(text)
         tagged = self.apply_tps(norm, self.find_tps(norm, debug))
-        out = self.paragraphs(tagged, debug)
+        out = self.paragraphs(tagged, debug) if paragraphs else tagged
         problems = self.validate(src, out)
         if problems:
             # False negatives beat destructive false positives: hand back the
@@ -471,7 +481,7 @@ def run_corpus(path: str, fmt: "Formatter", in_place: bool = False):
                 continue
             before = i[field]
             dbg: list = []
-            after = fmt.format(before, dbg)
+            after = fmt.format(before, dbg, paragraphs=False)
             if after != before:
                 changed += 1
                 units.append({"id": i.get("id", ""), "before": before, "after": after,
