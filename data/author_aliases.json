@@ -142,6 +142,18 @@
    "kind": "collective",
    "name_sa": "—",
    "name_en": "Traditional / anonymous"
+  },
+  "srinivasatirtha_tippanikara": {
+   "kind": "person",
+   "name_sa": "श्रीनिवासतीर्थः",
+   "name_en": "Śrīnivāsa Tīrtha",
+   "note": "Author of the श्रीनिवासतीर्थीया tippaṇī (and सुधाविवरणम्) on Nyāyasudhā, as the source names them. Deliberately NOT identified with any specific paramparā pontiff of this common name -- several maṭhas list a Śrīnivāsa/Śrīnivāsa Tīrtha across different generations (tools/guru_harvest/sources/guru_parampara_sheet_raw.txt); which one, if any, wrote this tippaṇī is not established here."
+  },
+  "pandurangi_keshavacharya": {
+   "kind": "person",
+   "name_sa": "श्रीपाण्डुरङ्गिकेशवाचार्यः",
+   "name_en": "Śrī Pāṇḍuraṅgi Keśavācārya",
+   "note": "Author of the शेषवाक्यार्थचन्द्रिका tippaṇī on Nyāyasudhā, as the source names them."
   }
  },
  "aliases": {
@@ -172,6 +184,10 @@
   "श्रीमदानन्दतीर्थभगवत्पादाचार्यः": "madhva",
   "श्रीराघवेन्द्रतीर्थः": "raghavendra",
   "श्रीवादिराजतीर्थः": "vadiraja",
-  "श्रीव्यासतीर्थः": "vyasatirtha"
+  "श्रीव्यासतीर्थः": "vyasatirtha",
+  "श्रीनिवासतीर्थः": "srinivasatirtha_tippanikara",
+  "श्री श्रीनिवासतीर्थविरचितं": "srinivasatirtha_tippanikara",
+  "श्रीपाण्डुरङ्गि-केशवाचार्यः": "pandurangi_keshavacharya",
+  "श्री पाण्डुरङ्गीकेशवाचार्यविरचिता": "pandurangi_keshavacharya"
  }
 }

@@ -64,6 +64,23 @@ LAYER_META = {
                                         "श्रीपाण्डुरङ्गि-केशवाचार्यः", ""),
 }
 
+# Links each layer to data/author_aliases.json's shared person registry (the
+# project's existing name-join table, NOT a new commentators.json -- one
+# person, one id, one place, per that file's own stated purpose) so a
+# consumer can resolve "who wrote this" without a second lookup table. Only
+# set where the LAYER_META author string above resolves to a real,
+# non-ambiguous person already declared there; "mula" (Madhva) and
+# "tika_nyayasudha" (Jayatirtha) already have ids via the paramparā.
+# Left unset (None) for the four upa-tikas whose author is unknown --
+# matching their empty LAYER_META author string honestly rather than
+# guessing one.
+COMMENTATOR_IDS = {
+    "mula": "madhva",
+    "tika_nyayasudha": "jayatirtha",
+    "tippani_srinivasatirthiya": "srinivasatirtha_tippanikara",
+    "tippani_sheshavakyarthacandrika": "pandurangi_keshavacharya",
+}
+
 
 def layer_for_heading(head: str) -> str | None:
     sq = re.sub(r"\s+", "", head)
@@ -275,6 +292,9 @@ def main() -> int:
             continue
         entry = {"slug": slug, "title": title, "author": author,
                  "units": len(units)}
+        cid = COMMENTATOR_IDS.get(slug)
+        if cid:
+            entry["commentator_id"] = cid
         if slug != "mula":
             entry["commentary_on"] = chain
             if not chain:

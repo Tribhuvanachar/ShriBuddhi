@@ -53,10 +53,15 @@ const DGE_GRANTHA_LINEAGE = {
     { label: 'ब्रह्मसूत्राणि', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya/mula' }
   ],
   // The grantha_layer_v2 consolidation of later_acharyas/nyaya_sudha (see
-  // tools/compile_anuvyakhyana_v2.py): same lineage as the legacy entry
-  // above, its own mula IS the Anuvyakhyana so no further link for that.
+  // tools/compile_anuvyakhyana_v2.py): identical two-hop lineage to the
+  // legacy entry above. Its own mula IS the Anuvyakhyana verses too (with
+  // Nyayasudha and the upa-tikas stitched onto them) -- the second hop
+  // here links to the OTHER copy, sutra_prasthana/anuvyakhyana/mula, which
+  // is just the bare verses with no commentary, a genuinely different
+  // reading (plain text vs. annotated), not a self-reference.
   'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana_sudha': [
-    { label: 'ब्रह्मसूत्राणि', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya/mula' }
+    { label: 'ब्रह्मसूत्राणि', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya/mula' },
+    { label: 'अनुव्याख्यानम्', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana/mula' }
   ],
   'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya': [
     { label: 'ब्रह्मसूत्राणि', slug: null } // the spine of this grantha IS the sutra text

@@ -191,13 +191,21 @@ def build_v2(root: Path, lib_titles: dict) -> dict:
             if not tunits:
                 continue
             matched = sum(1 for u in tunits if u.get("ref") in spine_refs)
-            layers.append({
+            layer = {
                 "folder": slug,
                 "label": wl.get("title") or slug,
                 "author": wl.get("author") or "",
                 "items": len(tunits),
                 "matched": matched,
-            })
+            }
+            # Links to data/author_aliases.json's persons registry, where
+            # work.json's own layer entry names one (tools/compile_grantha_v2.py
+            # / compile_anuvyakhyana_v2.py's COMMENTATOR_IDS) -- passed through
+            # rather than re-derived, so the manifest never has to guess an
+            # attribution the compiler declined to make.
+            if wl.get("commentator_id"):
+                layer["commentatorId"] = wl["commentator_id"]
+            layers.append(layer)
             any_matched = any_matched or matched > 0
         if not any_matched:
             continue
@@ -211,6 +219,8 @@ def build_v2(root: Path, lib_titles: dict) -> dict:
             "mulaItems": len(spine_units),
             "layers": layers,
         }
+        if wlayers[0].get("commentator_id"):
+            entry["commentatorId"] = wlayers[0]["commentator_id"]
         if spine_slug != "mula":
             entry["spineSlug"] = spine_slug
         granthas[rel] = entry
