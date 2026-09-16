@@ -894,13 +894,14 @@
      "tools/darshanas/scaffold_darshanas.py",
      "tools/darshanas/test_darshanas.py",
      "tools/gen_library_status.py",
+     "tools/mirror_changed_paths.py",
      "tools/validate_data.py"
     ],
     "missing_scripts": [],
     "writes": [
      "opens a pull request"
     ],
-    "lines": 185
+    "lines": 186
    }
   },
   "deploy-firebase-functions.yml": {
@@ -1239,6 +1240,7 @@
      "tools/dvaitavedanta/test_import_offline.py",
      "tools/dvaitavedanta/verify_extract.py",
      "tools/gen_library_status.py",
+     "tools/mirror_changed_paths.py",
      "tools/validate_data.py"
     ],
     "missing_scripts": [],
@@ -1246,7 +1248,7 @@
      "opens a pull request",
      "uploads a run artifact"
     ],
-    "lines": 488
+    "lines": 489
    }
   },
   "extract-setutila.yml": {
@@ -1285,6 +1287,7 @@
     "cost": [],
     "scripts": [
      "tools/audit_library.py",
+     "tools/mirror_changed_paths.py",
      "tools/setutila/import_setutila.py",
      "tools/validate_data.py"
     ],
@@ -1292,7 +1295,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 111
+    "lines": 112
    }
   },
   "gemini-bench.yml": {
@@ -1461,6 +1464,7 @@
     ],
     "scripts": [
      "tools/gemini_deep_analysis.py",
+     "tools/mirror_changed_paths.py",
      "tools/validate_data.py"
     ],
     "missing_scripts": [],
@@ -1468,7 +1472,7 @@
      "opens a pull request",
      "commits directly to the branch it ran on"
     ],
-    "lines": 164
+    "lines": 165
    }
   },
   "gemini-dhatu-lexicon.yml": {
@@ -1542,6 +1546,7 @@
     ],
     "scripts": [
      "tools/gemini_dhatu_lexicon.py",
+     "tools/mirror_changed_paths.py",
      "tools/validate_data.py"
     ],
     "missing_scripts": [],
@@ -1549,7 +1554,7 @@
      "opens a pull request",
      "commits directly to the branch it ran on"
     ],
-    "lines": 151
+    "lines": 152
    }
   },
   "gemini-enrich.yml": {
@@ -1609,6 +1614,7 @@
     ],
     "scripts": [
      "tools/gemini_enrich.py",
+     "tools/mirror_changed_paths.py",
      "tools/validate_data.py"
     ],
     "missing_scripts": [],
@@ -1616,7 +1622,7 @@
      "opens a pull request",
      "commits directly to the branch it ran on"
     ],
-    "lines": 143
+    "lines": 144
    }
   },
   "gemini-summarize-kavya.yml": {
@@ -1704,6 +1710,7 @@
     ],
     "scripts": [
      "tools/gemini_summarize.py",
+     "tools/mirror_changed_paths.py",
      "tools/validate_data.py"
     ],
     "missing_scripts": [],
@@ -1711,7 +1718,7 @@
      "opens a pull request",
      "commits directly to the branch it ran on"
     ],
-    "lines": 162
+    "lines": 163
    }
   },
   "import-dasa-sahitya.yml": {
@@ -1749,13 +1756,14 @@
     ],
     "cost": [],
     "scripts": [
-     "tools/dasa_sahitya/import_dasa_sahitya.py"
+     "tools/dasa_sahitya/import_dasa_sahitya.py",
+     "tools/mirror_changed_paths.py"
     ],
     "missing_scripts": [],
     "writes": [
      "opens a pull request"
     ],
-    "lines": 101
+    "lines": 102
    }
   },
   "import-kavya.yml": {
@@ -1865,6 +1873,7 @@
     "scripts": [
      "importers/dispatch.py",
      "tools/gen_library_status.py",
+     "tools/mirror_changed_paths.py",
      "tools/register_layers.py",
      "tools/validate_data.py"
     ],
@@ -1872,7 +1881,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 91
+    "lines": 92
    }
   },
   "ingest-gretil-bulk.yml": {
@@ -1934,13 +1943,14 @@
      "importers/test_gretil_bulk.py",
      "tools/audit_library.py",
      "tools/gen_library_status.py",
+     "tools/mirror_changed_paths.py",
      "tools/validate_data.py"
     ],
     "missing_scripts": [],
     "writes": [
      "opens a pull request"
     ],
-    "lines": 149
+    "lines": 150
    }
   },
   "ingest-sayana-smriti.yml": {
@@ -2024,6 +2034,7 @@
     ],
     "cost": [],
     "scripts": [
+     "tools/mirror_changed_paths.py",
      "tools/sayana_smriti/patches/taxonomy_patch.py",
      "tools/sayana_smriti/tests/test_core_patch.js",
      "tools/sayana_smriti/tests/test_parsers.py",
@@ -2035,7 +2046,7 @@
      "opens a pull request",
      "uploads a run artifact"
     ],
-    "lines": 220
+    "lines": 221
    }
   },
   "ingest.yml": {
@@ -2083,13 +2094,14 @@
     "cost": [],
     "scripts": [
      "importers/dispatch.py",
-     "tools/gen_library_status.py"
+     "tools/gen_library_status.py",
+     "tools/mirror_changed_paths.py"
     ],
     "missing_scripts": [],
     "writes": [
      "opens a pull request"
     ],
-    "lines": 86
+    "lines": 87
    }
   },
   "interlink.yml": {
@@ -2117,13 +2129,14 @@
      "tools/build_sutra_prayoga_index.py",
      "tools/chandas/build_chandas_reports.js",
      "tools/gen_library_status.py",
+     "tools/mirror_changed_paths.py",
      "tools/shard_backlinks.py"
     ],
     "missing_scripts": [],
     "writes": [
      "commits directly to the branch it ran on"
     ],
-    "lines": 126
+    "lines": 131
    }
   },
   "kamadhenu-diagnostics.yml": {
@@ -2436,6 +2449,7 @@
      "tools/build_repo_inventory.py",
      "tools/build_sitemap.py",
      "tools/gen_library_status.py",
+     "tools/mirror_changed_paths.py",
      "tools/validate_data.py"
     ],
     "missing_scripts": [],
@@ -2443,7 +2457,7 @@
      "opens a pull request",
      "commits directly to the branch it ran on"
     ],
-    "lines": 155
+    "lines": 185
    }
   },
   "ocr-lakshmi-kaumudi.yml": {
@@ -2693,6 +2707,7 @@
     ],
     "cost": [],
     "scripts": [
+     "tools/mirror_changed_paths.py",
      "tools/ocr_review_merge.py",
      "tools/validate_data.py"
     ],
@@ -2700,7 +2715,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 139
+    "lines": 140
    }
   },
   "ocr-sanskrit-commentary.yml": {
@@ -2879,6 +2894,7 @@
     "scripts": [
      "tools/gemini_ocr_commentary.py",
      "tools/merge_staged_commentary.py",
+     "tools/mirror_changed_paths.py",
      "tools/validate_data.py"
     ],
     "missing_scripts": [],
@@ -2887,7 +2903,7 @@
      "commits directly to the branch it ran on",
      "uploads a run artifact"
     ],
-    "lines": 261
+    "lines": 262
    }
   },
   "ocr-sarvam.yml": {
@@ -3568,15 +3584,9 @@
    "generated": {
     "name": "DGE re-index (search + library status)",
     "triggers": [
-     "schedule",
      "manual"
     ],
-    "schedule": [
-     {
-      "cron_utc": "0 19 * * *",
-      "ist": "12:30 am IST daily"
-     }
-    ],
+    "schedule": [],
     "inputs": [
      {
       "name": "open_pr",
@@ -3627,7 +3637,7 @@
      "opens a pull request",
      "force-pushes a dist/staging branch"
     ],
-    "lines": 274
+    "lines": 292
    }
   },
   "seo-pages.yml": {
@@ -3730,6 +3740,7 @@
     "scripts": [
      "importers/advaita_sharada.py",
      "tools/audit_library.py",
+     "tools/mirror_changed_paths.py",
      "tools/sync_guard.py",
      "tools/validate_data.py"
     ],
@@ -3737,7 +3748,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 135
+    "lines": 136
    }
   },
   "sync-anandamakaranda.yml": {
@@ -3790,6 +3801,7 @@
     "scripts": [
      "tools/anandamakaranda/sync_anandamakaranda.py",
      "tools/audit_library.py",
+     "tools/mirror_changed_paths.py",
      "tools/sync_guard.py",
      "tools/validate_data.py"
     ],
@@ -3797,7 +3809,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 139
+    "lines": 140
    }
   },
   "sync-ashtadhyayi.yml": {
@@ -3850,6 +3862,7 @@
     "scripts": [
      "importers/ashtadhyayi_layers.py",
      "tools/build_sutra_index.py",
+     "tools/mirror_changed_paths.py",
      "tools/realign_sutra_enrichment.py",
      "tools/sync_guard.py",
      "tools/validate_data.py",
@@ -3859,7 +3872,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 142
+    "lines": 143
    }
   },
   "sync-dvaitavedanta.yml": {
@@ -3985,6 +3998,7 @@
      "importers/ramanuja_meghamala.py",
      "tools/audit_library.py",
      "tools/meghamala/crawl_meghamala.py",
+     "tools/mirror_changed_paths.py",
      "tools/sync_guard.py",
      "tools/validate_data.py"
     ],
@@ -3992,7 +4006,7 @@
     "writes": [
      "opens a pull request"
     ],
-    "lines": 159
+    "lines": 160
    }
   },
   "test.yml": {
@@ -4007,7 +4021,7 @@
     "name": "Tests",
     "triggers": [
      "manual",
-     "push",
+     "push to main",
      "pull_request"
     ],
     "schedule": [],
@@ -4035,7 +4049,7 @@
     "writes": [
      "nothing in the repository (report only)"
     ],
-    "lines": 145
+    "lines": 156
    }
   },
   "vedavani-extract.yml": {
@@ -4203,7 +4217,7 @@
    }
   }
  },
- "generated_at": "2026-09-16 02:41 IST",
+ "generated_at": "2026-09-16 07:56 IST",
  "workflow_categories": [
   {
    "id": "source-sync",
