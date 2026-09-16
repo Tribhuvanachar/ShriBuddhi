@@ -23,7 +23,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "tools"))
 
-from build_layer_manifest import build, base_id, layer_label  # noqa: E402
+from build_layer_manifest import build, build_v2, base_id, layer_label  # noqa: E402
 
 
 def write_layer(gdir: Path, folder: str, items, default_author=""):
@@ -119,6 +119,85 @@ class TestBuild(unittest.TestCase):
                     default_author="आद्यसूत्रापव्याख्यानस्य " * 10)
         out = build(self.root, {})
         self.assertEqual(out["sec/misattributed"]["layers"][0]["author"], "")
+
+
+def write_v2_layer(gdir: Path, slug: str, units):
+    d = gdir / slug
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "data.json").write_text(json.dumps({
+        "schema": "grantha_layer_v2", "work": gdir.name, "layer": slug, "units": units,
+    }, ensure_ascii=False), encoding="utf-8")
+
+
+def unit(ref, text="पाठः"):
+    return {"id": ref + ".p1", "ref": ref, "text": text}
+
+
+class TestBuildV2(unittest.TestCase):
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self.root = Path(self._tmp.name)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def test_joinable_v2_family_gets_entry_with_matched_counts_by_ref(self):
+        g = self.root / "sec" / "sudha_v2"
+        g.mkdir(parents=True)
+        (g / "work.json").write_text(json.dumps({
+            "schema": "grantha_work_v2", "work": "sudha_v2",
+            "title": "अनुव्याख्यानम् (सटीका)",
+            "layers": [
+                {"slug": "mula", "title": "अनुव्याख्यानम्", "author": "मध्वः"},
+                {"slug": "tika_nyayasudha", "title": "न्यायसुधा", "author": "जयतीर्थः"},
+                {"slug": "tippani_parimala", "title": "परिमळः"},
+            ],
+        }, ensure_ascii=False), encoding="utf-8")
+        write_v2_layer(g, "mula", [unit("1.1.1"), unit("1.1.2")])
+        write_v2_layer(g, "tika_nyayasudha", [unit("1.1.1"), unit("1.1.1"), unit("1.1.2")])
+        write_v2_layer(g, "tippani_parimala", [unit("1.1.1"), unit("9.9.9")])  # one ref outside mula
+        out = build_v2(self.root, {})
+        entry = out["sec/sudha_v2"]
+        self.assertEqual(entry["title"], "अनुव्याख्यानम् (सटीका)")
+        self.assertEqual(entry["mulaItems"], 2)
+        self.assertNotIn("spineSlug", entry)  # spine IS "mula" -- default, not recorded
+        by_folder = {l["folder"]: l for l in entry["layers"]}
+        self.assertEqual(by_folder["tika_nyayasudha"]["matched"], 3)
+        self.assertEqual(by_folder["tippani_parimala"]["matched"], 1)
+
+    def test_non_mula_spine_is_recorded(self):
+        g = self.root / "sec" / "sutra_v2"
+        g.mkdir(parents=True)
+        (g / "work.json").write_text(json.dumps({
+            "schema": "grantha_work_v2", "work": "sutra_v2", "title": "सूत्रम्",
+            "layers": [{"slug": "sutra", "title": "सूत्रम्"},
+                       {"slug": "bhashya", "title": "भाष्यम्"}],
+        }, ensure_ascii=False), encoding="utf-8")
+        write_v2_layer(g, "sutra", [unit("1.1.1")])
+        write_v2_layer(g, "bhashya", [unit("1.1.1")])
+        out = build_v2(self.root, {})
+        self.assertEqual(out["sec/sutra_v2"]["spineSlug"], "sutra")
+
+    def test_legacy_and_v2_families_coexist(self):
+        # build() and build_v2() key their output by the same relative-dir
+        # scheme; main() merges both dicts, so a legacy items-schema grantha
+        # elsewhere in the tree must be untouched by a v2 family's presence.
+        legacy = self.root / "sec" / "legacy_like"
+        write_layer(legacy, "mula", [item("dge_1")])
+        write_layer(legacy, "tika_x", [item("dge_1", tika_title="टीका")])
+        v2 = self.root / "sec" / "v2_like"
+        v2.mkdir(parents=True)
+        (v2 / "work.json").write_text(json.dumps({
+            "schema": "grantha_work_v2", "work": "v2_like",
+            "layers": [{"slug": "mula", "title": "मूलम्"},
+                       {"slug": "tika_y", "title": "टीका"}],
+        }, ensure_ascii=False), encoding="utf-8")
+        write_v2_layer(v2, "mula", [unit("1.1.1")])
+        write_v2_layer(v2, "tika_y", [unit("1.1.1")])
+        merged = build(self.root, {})
+        merged.update(build_v2(self.root, {}))
+        self.assertIn("sec/legacy_like", merged)
+        self.assertIn("sec/v2_like", merged)
 
 
 class TestLayerLabel(unittest.TestCase):

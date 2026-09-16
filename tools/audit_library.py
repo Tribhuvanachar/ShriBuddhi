@@ -154,16 +154,16 @@ def scan(data_root):
         full = os.path.join(dirpath, "data.json")
         rel = "data/" + os.path.relpath(full, data_root).replace(os.sep, "/")
         payload = load(full, {})
-        if isinstance(payload, dict) and payload.get("schema") == "grantha_layer_v2":
-            # v2 architecture layers (grantha_data_architecture.md) are
-            # deliberately outside library.json until the reader's v2 path
-            # ships — never auto-registered by --fix, never counted orphans
-            continue
         if isinstance(payload, dict) and payload.get("schema") == "vyakarana_corpus_v1":
             # sutra-corpora consumed by their own vyakarana/*.html pages
-            # (phitsutra/ganapatha/linganushasana/unadi), not by the reader —
-            # same standing exclusion as grantha_layer_v2
+            # (phitsutra/ganapatha/linganushasana/unadi), not by the reader
             continue
+        # grantha_layer_v2 (grantha_data_architecture.md) files used to be
+        # excluded here too, "until the reader's v2 path ships" — it now
+        # does (js/core.js's dgeNormalizeGranthaData + js/layer-stitch.js's
+        # ref-based join, data/layer_manifest.json's build_v2()), so a v2
+        # family is a normal orphan/missing candidate like any other: register
+        # it in library.json once its data is reviewed, same as legacy data.
         found[rel] = {"count": item_count(payload), "payload": payload, "full": full}
     return found
 

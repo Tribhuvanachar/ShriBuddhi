@@ -463,6 +463,15 @@ document.addEventListener('DOMContentLoaded', () => {
 // marks — confirmed by checking the actual codepoints against real
 // rendered output, not guessed. Remapped here, as early as possible, so
 // every downstream use (display, copy, search, share) benefits uniformly.
+// Same spellings as tools/compile_grantha_v2.py's own ADHYAYA/PADA tables
+// (reversed index->word here since the compiler only ever needed word->index) --
+// used by dgeNormalizeGranthaData's grantha_layer_v2 branch to label a v2
+// spine's section-navigator groups the way the legacy breadcrumb branch's
+// data already does. Falls back to "अध्यायः <N>" beyond adhyaya 4 / pada 4,
+// which no Brahmasutra-family work needs today.
+const DGE_ADHYAYA_WORDS = { 1: 'प्रथमाध्यायः', 2: 'द्वितीयोऽध्यायः', 3: 'तृतीयोऽध्यायः', 4: 'चतुर्थोऽध्यायः' };
+const DGE_PADA_WORDS = { 1: 'प्रथमः पादः', 2: 'द्वितीयः पादः', 3: 'तृतीयः पादः', 4: 'चतुर्थः पादः' };
+
 function dgeToDevanagariDigits(s) {
   const map = { '0': '०', '1': '१', '2': '२', '3': '३', '4': '४', '5': '५', '6': '६', '7': '७', '8': '८', '9': '९' };
   return String(s).replace(/[0-9]/g, (d) => map[d]);
@@ -764,6 +773,72 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
         author: data.default_author || '',
         totalShlokas: n,
         availableCommentaries: availableCommentaries
+      },
+      shlokas,
+      totalShlokas: n
+    };
+  }
+
+  // grantha_layer_v2 (tools/reports/grantha_data_architecture.md): the
+  // spine of a work-family compiled by tools/compile_grantha_v2.py /
+  // compile_anuvyakhyana_v2.py -- units:[{id, ref, text, adhikarana?,
+  // topic?}], one paragraph per unit, `ref` the shared traditional
+  // citation (adhyaya.pada.n) every sibling layer of the family uses as
+  // its join key. This branch handles the SPINE layer only (whichever
+  // layer data/layer_manifest.json's build_v2() recorded as first in
+  // work.json's layers[], "mula" unless spineSlug says otherwise); sibling
+  // tika_*/tippani_* layers are fetched and merged in afterwards by
+  // dgeApplyLayerStitching/dgeMergeStitchedLayer (layer-stitch.js), which
+  // joins by `ref` when a unit carries one, exactly as this branch sets
+  // unitId = ref for every shloka. A unit's own `id` (`<ref>.p<n>`) is not
+  // used as the internal key -- unlike legacy ids it is not even unique
+  // across a whole work (only within its layer file) and multiple mula
+  // units never share a ref in the compiled data, so ref alone addresses
+  // every spine card.
+  if (data.schema === 'grantha_layer_v2' && Array.isArray(data.units)) {
+    const shlokas = {};
+    let n = 0;
+    data.units.forEach(u => {
+      const ref = u.ref || u.id || '';
+      if (!ref) return;
+      n++;
+      const parts = String(ref).split('.').map(x => parseInt(x, 10));
+      const adhyaya = Number.isFinite(parts[0])
+        ? (DGE_ADHYAYA_WORDS[parts[0]] || ('अध्यायः ' + dgeToDevanagariDigits(parts[0])))
+        : '';
+      const pada = Number.isFinite(parts[1])
+        ? (DGE_PADA_WORDS[parts[1]] || ('पादः ' + dgeToDevanagariDigits(parts[1])))
+        : '';
+      shlokas[n] = {
+        markup: data.markup || '',
+        sa: dgeStripEditionMarkers(dgeSanitizeVedicAccents(u.text || '')),
+        vedicId: ref,
+        unitId: ref,
+        rishi: '', devata: '', chandas: '', padapatha: '',
+        commentaries: {},
+        geminiEnrichment: null,
+        // Same [work, layer, adhyaya, pada, adhikarana, topic, unit] shape
+        // the legacy breadcrumb branch below builds, so layer-stitch.js's
+        // dgeInitSectionNav (Adhyaya > Pada > Adhikaraṇa navigator) works
+        // unchanged on a v2 spine -- adhyaya/pada come from `ref` since v2
+        // units carry no breadcrumb array of their own.
+        breadcrumb: (adhyaya || pada || u.adhikarana)
+          ? [granthaTitle || data.work || '', data.layer || '', adhyaya, pada,
+             u.adhikarana || '', u.topic || '', ref]
+          : null,
+        category: '',
+        sourceHtml: '',
+        tirthaLink: '',
+        bhagavataLink: null
+      };
+    });
+    console.log(`[Data] Normalized "${granthaTitle || 'untitled'}" (grantha_layer_v2): ${n} unit(s)`);
+    return {
+      metadata: {
+        title: granthaTitle || data.work || 'Untitled',
+        author: data.default_author || '',
+        totalShlokas: n,
+        availableCommentaries: {}
       },
       shlokas,
       totalShlokas: n

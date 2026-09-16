@@ -52,6 +52,12 @@ const DGE_GRANTHA_LINEAGE = {
   'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana': [
     { label: 'ब्रह्मसूत्राणि', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya/mula' }
   ],
+  // The grantha_layer_v2 consolidation of later_acharyas/nyaya_sudha (see
+  // tools/compile_anuvyakhyana_v2.py): same lineage as the legacy entry
+  // above, its own mula IS the Anuvyakhyana so no further link for that.
+  'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana_sudha': [
+    { label: 'ब्रह्मसूत्राणि', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya/mula' }
+  ],
   'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya': [
     { label: 'ब्रह्मसूत्राणि', slug: null } // the spine of this grantha IS the sutra text
   ],
@@ -85,15 +91,21 @@ window.dgeApplyLayerStitching = async function(slug) {
   const leafDir = slug.slice(lastSlash + 1);
   const entry = manifest.granthas[parent];
   if (!entry) return;
+  // Legacy families' spine folder is always "mula"; a grantha_layer_v2
+  // family's spine is whichever layer work.json lists first (build_v2() in
+  // tools/build_layer_manifest.py records it as spineSlug only when it
+  // ISN'T "mula", e.g. brahma_sutra's is "sutra").
+  const spineDir = entry.spineSlug || 'mula';
 
-  if (leafDir !== 'mula') {
-    // A tika_* layer opened standalone: keep it exactly as it renders
-    // today, but remember enough to offer the way back to the full view.
-    if (leafDir.indexOf('tika_') === 0) {
+  if (leafDir !== spineDir) {
+    // A tika_*/tippani_* layer opened standalone: keep it exactly as it
+    // renders today, but remember enough to offer the way back to the
+    // full view.
+    if (leafDir.indexOf('tika_') === 0 || leafDir.indexOf('tippani_') === 0) {
       const layer = (entry.layers || []).find(l => l.folder === leafDir);
       dgeStitch = {
         role: 'tika', granthaRel: parent, granthaTitle: entry.title || '',
-        mulaSlug: parent + '/mula', layerLabel: layer ? layer.label : ''
+        mulaSlug: parent + '/' + spineDir, layerLabel: layer ? layer.label : ''
       };
     }
     return;
@@ -105,7 +117,7 @@ window.dgeApplyLayerStitching = async function(slug) {
   const layers = {};
   (entry.layers || []).forEach(l => {
     if (!l.matched) return; // ids don't join this grantha's mula — leave standalone
-    let key = l.folder.replace(/^tika_/, '');
+    let key = l.folder.replace(/^tika_/, '').replace(/^tippani_/, '');
     if (meta.availableCommentaries[key] && !layers[key]) key = 'layer_' + key;
     if (layers[key]) return;
     layers[key] = { folder: l.folder, label: l.label || key, author: l.author || '',
@@ -201,18 +213,29 @@ window.dgeEnsureStitchedLayers = function() {
 };
 
 function dgeMergeStitchedLayer(key, layer, data) {
-  const items = (data && Array.isArray(data.items)) ? data.items : [];
+  // grantha_layer_v2 layer files hold `units`, not `items` (see
+  // tools/build_layer_manifest.py's build_v2() docstring); everything else
+  // here is shape-compatible once that array is found.
+  const items = (data && Array.isArray(data.items)) ? data.items
+    : (data && Array.isArray(data.units)) ? data.units : [];
   let merged = 0, unmatched = 0;
   items.forEach(item => {
-    const n = dgeStitch.idMap[item.id] !== undefined
-      ? dgeStitch.idMap[item.id]
+    // v2 units carry an explicit `ref` — the SAME join key
+    // dgeNormalizeGranthaData's grantha_layer_v2 branch set as the spine's
+    // unitId — so it is tried first. Legacy items have no `ref` field and
+    // fall through to the id-based lookup unchanged.
+    const joinKey = item.ref || item.id;
+    const n = dgeStitch.idMap[joinKey] !== undefined
+      ? dgeStitch.idMap[joinKey]
       : dgeStitch.idMap[dgeStitchBaseId(item.id)];
     if (n === undefined) { unmatched++; return; }
     let text = item.sanskrit_text || item.text || '';
-    // Every tika item repeats the site's own layer heading as its first
-    // line ("परिमळ\n..."); the tab label already says it. Strip ONLY a
-    // short heading line that matches the label — never body text.
-    const nl = text.indexOf('\n');
+    // Every legacy tika item repeats the site's own layer heading as its
+    // first line ("परिमळ\n..."); the tab label already says it. Strip ONLY
+    // a short heading line that matches the label — never body text. v2
+    // units (item.ref present) were compiled as pure paragraph text with no
+    // such heading, so this heuristic never applies to them.
+    const nl = !item.ref ? text.indexOf('\n') : -1;
     if (nl > 0 && nl <= layer.label.length + 12) {
       const first = text.slice(0, nl).trim();
       if (first === layer.label || first.indexOf(layer.label) !== -1 || layer.label.indexOf(first) !== -1) {
