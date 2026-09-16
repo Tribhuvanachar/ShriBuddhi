@@ -1,0 +1,334 @@
+rules_version = '2';
+// DGE User Accounts, Roles & WhatsApp Consent — Firestore security rules.
+// Deploy: cd dge/firebase && firebase deploy --only firestore:rules
+// (or paste into Firebase Console → Firestore Database → Rules).
+// See ../FIREBASE_SETUP.md for the rest of the setup this depends on.
+//
+// This is the REAL enforcement layer. The client-side checks in
+// user-roles.js (is_superadmin in localStorage) are just UI convenience —
+// they decide whether to SHOW the Manage Users screen, not whether a
+// write is allowed. Someone bypassing the UI entirely and calling
+// Firestore directly is still bound by what's written here.
+//
+// Every rule below is exercised by ../tests/rules.test.js against the
+// real Firestore emulator — including the cases that must FAIL. If you
+// edit this file, run `npm run test:rules` in ../tests before deploying.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // Reads the CALLER's own role from their own profile doc — a
+    // standard Firestore-rules pattern for "is this person an admin"
+    // that doesn't require a separate custom-claims setup for a basic
+    // version. Costs one extra document read per rule evaluation, which
+    // is normal and expected for this pattern.
+    function callerRole() {
+      return isSignedIn()
+        ? get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role
+        : null;
+    }
+
+    // --- BOOTSTRAP ALLOWLIST ---------------------------------------------
+    //
+    // THE PROBLEM THIS SOLVES. A new account is created with role 'basic',
+    // and the rules below deliberately forbid changing your OWN role --
+    // that is what stops a visitor promoting themselves. Together those two
+    // facts mean the FIRST superadmin cannot be made from inside the app at
+    // all: to grant a role you must already have one. Until 10 Sep 2026 the
+    // only way out was editing users/<uid>.role by hand in the Firebase
+    // console, which is fine as a documented one-time step and confusing as
+    // an unexplained "Missing or insufficient permissions".
+    //
+    // WHY IT LIVES HERE, in the rules file, and not in a Firestore document
+    // an admin screen could edit: this list decides who may become the
+    // first superadmin. Anything editable from inside the app is editable
+    // by whoever already got in, which is precisely the trust this list is
+    // supposed to establish. Changing it takes console/repo access and a
+    // rules deploy, and that is the point, not an inconvenience.
+    //
+    // ---- FILL ONE OF THESE IN, THEN DEPLOY -------------------------------
+    // Prefer the UID: it is an opaque identifier rather than personal data,
+    // it cannot be spoofed by anyone who controls an email address, and it
+    // is safe to keep in a public repository. Find yours in the app under
+    // My Account (it has a Copy button), or in the Firebase console under
+    // Authentication → Users.
+    //
+    //   return ['jCjtKS2MaCPGeyGUSnqcxOuij...'];   <- your real uid
+    //
+    // Both lists are EMPTY on purpose. An empty allowlist grants nobody
+    // anything, so a fork or a fresh deployment of this repository starts
+    // closed rather than trusting whoever wrote this file.
+    function bootstrapUids() {
+      return [];
+    }
+    // The email alternative. Requires a VERIFIED email on the sign-in token
+    // (Google sign-in carries one; a phone-OTP account carries none), so an
+    // unverified or self-asserted address can never match. Note that an
+    // address written here is published wherever this repository is.
+    function bootstrapEmails() {
+      return [];
+    }
+    // The email claims are checked inline rather than through
+    // tokenEmailVerified() below, so this function does not depend on
+    // where in the file that one happens to be declared.
+    function isBootstrapAdmin() {
+      return isSignedIn()
+        && (request.auth.uid in bootstrapUids()
+            || (('email_verified' in request.auth.token)
+                && request.auth.token.email_verified == true
+                && ('email' in request.auth.token)
+                && request.auth.token.email in bootstrapEmails()));
+    }
+
+    // Bootstrap is checked FIRST in both of these, which also means the
+    // bootstrap account never pays for the callerRole() document read.
+    function isSuperadmin() {
+      return isBootstrapAdmin() || callerRole() == 'superadmin';
+    }
+
+    // Bootstrap counts as admin too, not only as superadmin. Without this a
+    // bootstrap account could change roles but could not READ the user list
+    // to find anyone to change -- the Manage Users screen would still be
+    // empty and still look broken.
+    function isAdmin() {
+      return isBootstrapAdmin() || callerRole() in ['admin', 'superadmin'];
+    }
+
+    // The fields a person is allowed to change on their OWN profile.
+    // Deliberately an allowlist, not a denylist: a field added to this
+    // app later is locked by default until someone decides otherwise,
+    // which is the right direction for a mistake to fall.
+    //
+    // Notably absent, and why:
+    //   role                  — elevation; only a superadmin, below.
+    //   whatsappCampaigns     — the record of which broadcasts were
+    //                           already delivered. Client-writable would
+    //                           let someone re-trigger paid messages.
+    //   whatsappUndeliverable — set by the sender after a hard bounce.
+    //   whatsappOptOutAt      — set by the webhook when a user texts
+    //                           STOP; a client that could clear it could
+    //                           undo an opt-out it doesn't own.
+    //   createdAt / lastLoginAt — server timestamps.
+    function selfEditableOnly() {
+      return request.resource.data.diff(resource.data).affectedKeys()
+        .hasOnly(['displayName', 'email', 'emailVerified', 'phoneNumber', 'whatsappOptIn', 'whatsappOptInAt', 'preferences', 'lastLoginAt']);
+    }
+
+    // Only a VERIFIED email may be stored, and only the one the sign-in
+    // provider vouches for (7 Sep 2026, the lead: "keep only verified
+    // emails"). Google sign-in tokens carry email_verified == true; a phone
+    // account has no email; a client cannot type in someone else's address
+    // or claim verification the token does not. An absent or empty email is
+    // always fine — it is the record of nothing.
+    function tokenEmailVerified() {
+      // Missing claims must read as "not verified", not as a rules error
+      // (a phone-OTP token carries no email claims at all).
+      return ('email_verified' in request.auth.token) && request.auth.token.email_verified == true
+        && ('email' in request.auth.token);
+    }
+    function emailOk() {
+      return !('email' in request.resource.data)
+        || request.resource.data.email == ''
+        || (tokenEmailVerified() && request.resource.data.email == request.auth.token.email);
+    }
+    function emailVerifiedFlagOk() {
+      return !('emailVerified' in request.resource.data)
+        || request.resource.data.emailVerified == false
+        || (request.resource.data.emailVerified == true && tokenEmailVerified()
+            && ('email' in request.resource.data) && request.resource.data.email == request.auth.token.email);
+    }
+    // On an update request.resource.data is the whole merged document, so
+    // the email checks apply only when the write actually touches the field.
+    function touches(k) {
+      return request.resource.data.diff(resource.data).affectedKeys().hasAny([k]);
+    }
+
+    match /users/{uid} {
+      // Profiles now hold phone numbers, so "any signed-in person can
+      // read any profile" is no longer acceptable — that would make the
+      // whole user base's contact details readable by anyone who signs
+      // in. Reads are the owner's own doc, or an admin's (the Manage
+      // Users screen, which is admin-gated anyway).
+      allow read: if isOwner(uid) || isAdmin();
+
+      // A user may create ONLY their own doc, and only with the default
+      // role — nobody can hand themselves "superadmin" (or any other
+      // tier) just by writing their own profile document on first
+      // sign-in. WhatsApp consent must start false: consent is recorded
+      // by an explicit later action, never assumed at sign-up.
+      allow create: if isOwner(uid)
+        && request.resource.data.role == 'basic'
+        && (!('whatsappOptIn' in request.resource.data) || request.resource.data.whatsappOptIn == false)
+        && emailOk() && emailVerifiedFlagOk();
+
+      // A user may update their own doc, but only the fields above, and
+      // the role must stay exactly what it already was — role changes
+      // never come from the person they apply to.
+      allow update: if isOwner(uid)
+        && request.resource.data.role == resource.data.role
+        && selfEditableOnly()
+        && (!touches('email') || emailOk())
+        && (!touches('emailVerified') || emailVerifiedFlagOk());
+
+      // A superadmin may update anyone ELSE's doc (role changes, from
+      // the Manage Users screen). Firestore OR-combines multiple `allow
+      // update` rules on the same match block, so this and the rule
+      // above cover "update your own non-role fields" and "a superadmin
+      // changes someone else's role" as two independent, non-overlapping
+      // permissions — neither one lets a person touch their own role.
+      allow update: if isSuperadmin() && !isOwner(uid);
+
+      // The one exception to "never your own role": a bootstrap-allowlisted
+      // account claiming superadmin for the first time. Narrow on purpose --
+      //   * only that account's OWN document,
+      //   * only the `role` field (hasOnly), so nothing else rides along,
+      //   * and only the value 'superadmin'.
+      // It is a one-way door out of the chicken-and-egg, not a self-service
+      // role switcher: this rule cannot be used to set any other role, and
+      // it cannot be used by anyone the allowlist does not name. With both
+      // lists empty -- how this repository ships -- it grants nobody
+      // anything at all.
+      allow update: if isBootstrapAdmin() && isOwner(uid)
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['role'])
+        && request.resource.data.role == 'superadmin';
+
+      // No client-side deletes in this basic version.
+      allow delete: if false;
+    }
+
+    // OTP challenges: salted code hashes, expiry, and attempt counters.
+    //
+    // Totally sealed off from every client, signed in or not. The Admin
+    // SDK inside Cloud Functions bypasses these rules, which is exactly
+    // how it should be — the only code that may read or write a
+    // challenge is the code that owns the OTP lifecycle. A client that
+    // could read this collection could read attempt counts (useful for
+    // timing a brute force); one that could write it could reset its own
+    // attempt counter and guess forever.
+    match /otp_challenges/{docId} {
+      allow read, write: if false;
+    }
+
+    // Broadcast campaigns. Admins compose and schedule them; the
+    // scheduled function (Admin SDK) does the sending and writes back
+    // the stats. No ordinary user has any business here — the audience
+    // and the send counts are operational data.
+    match /broadcasts/{campaignId} {
+      allow read: if isAdmin();
+      allow create, update: if isSuperadmin();
+      allow delete: if isSuperadmin();
+    }
+
+    // Who pressed which workflow button, when, and with what inputs.
+    //
+    // Written only by runWorkflow through the Admin SDK, which bypasses
+    // these rules. Readable by an admin because the panel shows nothing
+    // from it today but an audit trail nobody can read is not an audit
+    // trail; unwritable by every client, because a record of who
+    // republished the corpus is worth exactly as much as the fact that
+    // its subject could not have edited it.
+    match /workflow_dispatches/{dispatchId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+
+    // Role-based content gating (8 Sep 2026): which taxonomy path prefixes
+    // are restricted, and to which roles — read by every client (including
+    // signed-out visitors, so a gate applies site-wide, not only to people
+    // who happen to be signed in) so dge/js/library.js and dge/js/role-access.js
+    // can hide gated content in the reader. Public read is correct here in
+    // the same sense library-overrides.json's "hidden" list is: this is
+    // UI-level curation, not the storage of anything sensitive — the actual
+    // grantha text is a public static file either way (see role-access.js's
+    // own header for the caveat spelled out for whoever configures a gate).
+    // Writes are superadmin-only, from admin/access-control.html.
+    match /config/{docId} {
+      allow read: if true;
+      allow write: if isSuperadmin();
+    }
+
+    // Donations, payments, receipts, supporter entitlements (8 Sep 2026,
+    // Phase 1 foundation — see ../../PAYMENTS_SETUP.md). Every write in
+    // this whole feature goes through Cloud Functions using the Admin
+    // SDK, which bypasses these rules entirely — that is deliberate, not
+    // an oversight: `createDonation` and `paymentWebhook` are the only
+    // code that may ever set a donation's amount or move it to SUCCESS,
+    // and a client permitted to write here at all could set both for
+    // itself. Reads are scoped by how sensitive the collection is.
+    match /donors/{donorId} {
+      // Name, email, phone, PAN — this is the most sensitive PII in the
+      // whole feature. Superadmin only, not the broader admin tier the
+      // rest of this file's operational data uses.
+      allow read: if isSuperadmin();
+      allow write: if false;
+    }
+    match /donations/{donationId} {
+      // Amount, status, contribution type — no raw donor PII, since that
+      // lives only in donors/. Financial ops needs this to build a
+      // dashboard eventually (§21 of the spec this implements); the
+      // superadmin-only donors/ collection above already gates the PII.
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+    match /payments/{paymentId} {
+      // Gateway order/payment IDs, no PII.
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+    // Raw webhook audit trail. Sealed off from every client exactly like
+    // otp_challenges above — a client that could read this could infer
+    // webhook timing/shape; one that could write it could forge a
+    // "processed" event and skip the real gateway call entirely.
+    match /payment_events/{eventId} {
+      allow read, write: if false;
+    }
+    match /receipts/{donationId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+    // Internal sequence counters for receipt numbers. No client has any
+    // business reading or writing these directly.
+    match /receipt_counters/{year} {
+      allow read, write: if false;
+    }
+    // Supporter entitlements (Phase 4 — not granted by anything yet, see
+    // maybeGrantEntitlements in index.js). Admin-only for now because
+    // there is no owner-uid link from a donation back to a signed-in
+    // account until Phase 3 (magic-link supporter auth) exists; revisit
+    // this rule to `isOwner(donorId) || isAdmin()` once that link is real.
+    match /supporter_entitlements/{entitlementId} {
+      allow read: if isAdmin();
+      allow write: if false;
+    }
+    // The public Supporters Wall. Written only by index.js's
+    // onDonationSucceeded, and only for a donation whose donor opted
+    // into displayName — never containing email, phone, PAN, gateway
+    // IDs, or the raw donorId. Public read is the whole point of this
+    // collection existing separately from donations/ above.
+    match /public_supporters/{donationId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // (The द्वैतवेदान्तग्रन्थानुक्रमणी catalogue briefly had two collections
+    // here. It keeps its curated corrections in the repo instead —
+    // dge/data/catalogs/dvaita_grantha_anukramani.overrides.json, written
+    // through the GitHub API like the other admin pages — so that master
+    // data is reviewable in a diff rather than living only in Firestore.
+    // Those collections are gone; the catch-all below denies them.)
+
+    // Anything not matched above is denied by default. Stated explicitly
+    // so that adding a collection later is a conscious decision rather
+    // than something that silently inherits access from a broad rule.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

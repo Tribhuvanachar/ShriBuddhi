@@ -1,0 +1,774 @@
+{
+ "_readme": [
+  "The workflows the admin panel may start, and what each one accepts.",
+  "",
+  "Read by TWO things, which is the whole reason it is a file and not a",
+  "literal: firebase/functions/lib/workflows-core.js requires it (so the",
+  "Cloud Function will dispatch nothing that is not named here), and",
+  "admin/workflows.html fetches it (so the panel can list the buttons even",
+  "when the Function is not deployed and every button is a GitHub link).",
+  "Two copies of this list would drift, and the copy that drifted would be",
+  "the one deciding what a token is allowed to start.",
+  "",
+  "It lives inside functions/ because `firebase deploy` uploads that",
+  "directory and nothing above it; a copy in admin/config/ could not be",
+  "required at runtime.",
+  "",
+  "Adding an entry here makes a workflow clickable. That is a deliberate",
+  "act: the ref is always main and is never caller-supplied, and only the",
+  "inputs listed here are accepted.",
+  "",
+  "  writes: 'nothing'  — reads the outside world, writes a report",
+  "          'metadata' — rewrites generated status/tracker files",
+  "          'corpus'   — rewrites or republishes text people read",
+  "                       (superadmin only; see minRoleFor in workflows-core.js)",
+  "",
+  "  group    which accordion of admin/repo-map.html the card sits in (matches",
+  "           the workflow categories in admin/config/repo-map.json).",
+  "  site/url/source_ids/feeds/importer  only on 'source-sync' cards: the",
+  "           website the card watches, which registry ids it checks, what it",
+  "           fed in data, and the id of the card that re-imports it.",
+  "  inputs[].fixed  the panel shows the value but does not let it be edited",
+  "           (a syncer card is one site; changing `only` would make it another)."
+ ],
+ "workflows": [
+  {
+   "id": "check-sources",
+   "file": "check-sources.yml",
+   "name": "Check sources for updates",
+   "blurb": "Looks at all 17 outside sources and reports what moved. Opens an issue if anything did. Imports nothing.",
+   "writes": "nothing",
+   "inputs": [
+    {
+     "name": "only",
+     "type": "string",
+     "label": "Only these source ids (comma-separated; blank = all)",
+     "default": ""
+    },
+    {
+     "name": "remember",
+     "type": "boolean",
+     "label": "Record what was seen, so the next run reports only what is new",
+     "default": true
+    }
+   ],
+   "group": "source-sync"
+  },
+  {
+   "id": "sync-dvaitavedanta",
+   "file": "sync-dvaitavedanta.yml",
+   "writes": "admin/config/dv_sync.state.json (the remembered census)",
+   "inputs": [
+    {
+     "name": "sections",
+     "type": "string",
+     "label": "Only these section slugs (comma-separated; blank = all)",
+     "default": ""
+    },
+    {
+     "name": "drift_sample",
+     "type": "string",
+     "label": "Re-fetch N random imported pages and check the text still matches (0 = skip)",
+     "default": "40"
+    },
+    {
+     "name": "write_state",
+     "type": "boolean",
+     "label": "Record the census, so the next run reports only what is new",
+     "default": true
+    },
+    {
+     "name": "dispatch_extract",
+     "type": "boolean",
+     "label": "If granthas changed, dispatch the extractor for them right away",
+     "default": false
+    }
+   ],
+   "group": "source-sync"
+  },
+  {
+   "id": "kavya-tracker",
+   "file": "kavya-tracker.yml",
+   "name": "Kāvya tracker — refresh",
+   "blurb": "Re-counts every kāvya on disk and rewrites KAVYA_TRACKER.md and kavya-status.json.",
+   "writes": "metadata",
+   "inputs": [],
+   "group": "index-links"
+  },
+  {
+   "id": "reindex",
+   "file": "reindex.yml",
+   "name": "DGE re-index (search + library status)",
+   "blurb": "Rebuilds the search index and publishes it to the search-dist branch.",
+   "writes": "metadata",
+   "inputs": [
+    {
+     "name": "open_pr",
+     "type": "boolean",
+     "label": "Open a pull request with the refreshed index",
+     "default": true
+    },
+    {
+     "name": "include_kavya",
+     "type": "boolean",
+     "label": "Also index the Kāvya corpus",
+     "default": true
+    },
+    {
+     "name": "commentaries",
+     "type": "boolean",
+     "label": "Index the commentaries too (larger index)",
+     "default": false
+    }
+   ],
+   "group": "index-links"
+  },
+  {
+   "id": "import-kavya",
+   "file": "import-kavya.yml",
+   "name": "Import Kāvya corpus",
+   "blurb": "Fetches kāvya from GRETIL, Ambuda and Wikisource and republishes the corpus. Rewrites text people read — leave \"Probe only\" on unless you mean it.",
+   "writes": "corpus",
+   "inputs": [
+    {
+     "name": "works",
+     "type": "string",
+     "label": "Work ids, comma-separated, or \"all\"",
+     "default": "all",
+     "required": true
+    },
+    {
+     "name": "sources",
+     "type": "string",
+     "label": "Source keys (blank = every declared source)",
+     "default": ""
+    },
+    {
+     "name": "probe_only",
+     "type": "boolean",
+     "label": "Probe and report only — writes no data",
+     "default": true
+    },
+    {
+     "name": "open_pr",
+     "type": "boolean",
+     "label": "Open a pull request with the result",
+     "default": true
+    }
+   ],
+   "group": "content-import"
+  },
+  {
+   "id": "dhatu-lexicon",
+   "file": "gemini-dhatu-lexicon.yml",
+   "name": "Gemini dhātu lexicon — multilingual meanings",
+   "blurb": "AI-generated meanings (11 languages) + usage notes per dhātu, independently composed by Gemini — not copied from ashtadhyayi.com or any other source. Checkpointed: re-running only fills in roots without an entry yet.",
+   "writes": "corpus",
+   "inputs": [
+    {
+     "name": "dhatus",
+     "type": "string",
+     "label": "'all', a comma list of dhatu ids, or an id range 'lo-hi'",
+     "default": "all",
+     "required": true
+    },
+    {
+     "name": "model",
+     "type": "string",
+     "label": "Gemini model — gemini-flash-lite-latest (default, cheaper) or gemini-flash-latest",
+     "default": "gemini-flash-lite-latest",
+     "required": true
+    },
+    {
+     "name": "concurrency",
+     "type": "string",
+     "label": "Parallel in-flight requests",
+     "default": "5",
+     "required": true
+    },
+    {
+     "name": "limit",
+     "type": "string",
+     "label": "Generate at most N roots this run (blank = no limit) — start small",
+     "default": "50"
+    },
+    {
+     "name": "force",
+     "type": "boolean",
+     "label": "Re-generate roots that already have an entry",
+     "default": false
+    },
+    {
+     "name": "direct_push",
+     "type": "boolean",
+     "label": "Skip the review PR and push straight to main",
+     "default": false
+    }
+   ],
+   "group": "enrichment"
+  },
+  {
+   "id": "publish-wordnet",
+   "file": "publish-wordnet.yml",
+   "name": "Publish the Sanskrit WordNet",
+   "blurb": "Rebuilds the WordNet from the IndoWordNet dump and publishes it to the wordnet-dist branch.",
+   "writes": "corpus",
+   "inputs": [
+    {
+     "name": "languages",
+     "type": "string",
+     "label": "Other languages to carry equivalents from",
+     "default": "kannada"
+    },
+    {
+     "name": "examples",
+     "type": "boolean",
+     "label": "Include the usage sentences (24 MB with, 17 without)",
+     "default": true
+    },
+    {
+     "name": "dry_run",
+     "type": "boolean",
+     "label": "Build and report only — publish nothing",
+     "default": true
+    }
+   ],
+   "group": "index-links"
+  },
+  {
+   "id": "sync-sarvamulavani",
+   "file": "check-sources.yml",
+   "name": "Sarvamūlavāṇī — sarvamulavani.com",
+   "group": "source-sync",
+   "site": "sarvamulavani.com",
+   "url": "https://sarvamulavani.com/",
+   "source_ids": [
+    "sarvamulavani"
+   ],
+   "feeds": "Not imported yet — watch only. Reports when the site's database revision changes.",
+   "importer": null,
+   "blurb": "Watches the reader's database version stamp (version.json). Nothing here has been imported; a change is a note for the lead.",
+   "writes": "nothing",
+   "inputs": [
+    {
+     "name": "only",
+     "type": "string",
+     "label": "Source ids to check",
+     "default": "sarvamulavani",
+     "fixed": true
+    },
+    {
+     "name": "remember",
+     "type": "boolean",
+     "label": "Record what was seen, so the next run reports only what is new",
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "sync-setutila",
+   "file": "check-sources.yml",
+   "group": "source-sync",
+   "source_ids": [
+    "setutila"
+   ],
+   "feeds": "Tattvavada/SarvaMula — 47 granthas",
+   "importer": "extract-setutila",
+   "blurb": "Counts published posts and reads the newest modified date through the WordPress API. If it moved, run the SetuTila importer (delta sync).",
+   "writes": "nothing",
+   "inputs": [
+    {
+     "name": "only",
+     "type": "string",
+     "label": "Source ids to check",
+     "default": "setutila",
+     "fixed": true
+    },
+    {
+     "name": "remember",
+     "type": "boolean",
+     "label": "Record what was seen, so the next run reports only what is new",
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "sync-dvaitavedanta-quick",
+   "file": "check-sources.yml",
+   "group": "source-sync",
+   "source_ids": [
+    "dvaitavedanta"
+   ],
+   "feeds": "darshana/vedanta/dvaita/DvaitaVedantaIn — 699 granthas",
+   "importer": "sync-dvaitavedanta",
+   "blurb": "Cheap check: the union of grantha links found at one seed page per section. For a per-grantha census and text spot-checks use the precise sync check (the Import button here runs it).",
+   "writes": "nothing",
+   "inputs": [
+    {
+     "name": "only",
+     "type": "string",
+     "label": "Source ids to check",
+     "default": "dvaitavedanta",
+     "fixed": true
+    },
+    {
+     "name": "remember",
+     "type": "boolean",
+     "label": "Record what was seen, so the next run reports only what is new",
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "sync-anandamakaranda",
+   "file": "check-sources.yml",
+   "group": "source-sync",
+   "source_ids": [
+    "anandamakaranda"
+   ],
+   "feeds": "darshana/vedanta/dvaita/Anandamakaranda — 38 works, 127 files",
+   "importer": "import-anandamakaranda",
+   "blurb": "Reads the wiki's recent-changes list. The Import button checks every work's revision, merges what maps one-to-one, snapshots the rest with a block diff, and opens a pull request.",
+   "writes": "nothing",
+   "inputs": [
+    {
+     "name": "only",
+     "type": "string",
+     "label": "Source ids to check",
+     "default": "anandamakaranda",
+     "fixed": true
+    },
+    {
+     "name": "remember",
+     "type": "boolean",
+     "label": "Record what was seen, so the next run reports only what is new",
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "sync-srivaishnavan",
+   "file": "check-sources.yml",
+   "group": "source-sync",
+   "source_ids": [
+    "srivaishnavan_meghamala"
+   ],
+   "feeds": "darshana/vedanta/vishishtadvaita/RamanujaMeghamala",
+   "importer": "import-meghamala",
+   "blurb": "Reads the Meghamālā page's last-modified date through the WordPress API. The Import button fetches only the granthas whose posts changed and opens a pull request.",
+   "writes": "nothing",
+   "inputs": [
+    {
+     "name": "only",
+     "type": "string",
+     "label": "Source ids to check",
+     "default": "srivaishnavan_meghamala",
+     "fixed": true
+    },
+    {
+     "name": "remember",
+     "type": "boolean",
+     "label": "Record what was seen, so the next run reports only what is new",
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "sync-advaitasharada",
+   "file": "check-sources.yml",
+   "group": "source-sync",
+   "source_ids": [
+    "advaitasharada"
+   ],
+   "feeds": "darshana/vedanta/advaita — 51 files (prakaraṇa, siddhi, stotra, prasthāna ṭīkās)",
+   "importer": "import-advaitasharada",
+   "blurb": "Fingerprints the set of works the home page offers plus the site's build hash. If it moved, the Import button re-reads the site and opens a pull request.",
+   "writes": "nothing",
+   "inputs": [
+    {
+     "name": "only",
+     "type": "string",
+     "label": "Source ids to check",
+     "default": "advaitasharada",
+     "fixed": true
+    },
+    {
+     "name": "remember",
+     "type": "boolean",
+     "label": "Record what was seen, so the next run reports only what is new",
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "sync-kavya",
+   "file": "check-sources.yml",
+   "name": "Kāvya sources — GRETIL · sanskritsahitya · ambuda.org · sa.wikisource",
+   "group": "source-sync",
+   "site": "four sites",
+   "url": "https://ambuda.org/",
+   "source_ids": [
+    "gretil",
+    "sanskritsahitya",
+    "ambuda",
+    "sa_wikisource"
+   ],
+   "feeds": "kavya-dist branch (43 works) and kavya_alankara",
+   "importer": "import-kavya",
+   "blurb": "Checks all four Kāvya sources at once: GRETIL's file list, the sanskritsahitya-com commit, ambuda's export ETag, the 65 Wikisource page revisions. If any moved, run the Kāvya importer (probe first).",
+   "writes": "nothing",
+   "inputs": [
+    {
+     "name": "only",
+     "type": "string",
+     "label": "Source ids to check",
+     "default": "gretil,sanskritsahitya,ambuda,sa_wikisource",
+     "fixed": true
+    },
+    {
+     "name": "remember",
+     "type": "boolean",
+     "label": "Record what was seen, so the next run reports only what is new",
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "sync-ashtadhyayi",
+   "file": "check-sources.yml",
+   "name": "Aṣṭādhyāyī data — ashtadhyayi.com",
+   "group": "source-sync",
+   "site": "ashtadhyayi.com",
+   "url": "https://ashtadhyayi.com/",
+   "source_ids": [
+    "ashtadhyayi_com"
+   ],
+   "feeds": "vedanga/vyakarana/ashtadhyayi — sūtrapāṭha, Siddhānta-Kaumudī, Mahābhāṣya, Vasu",
+   "importer": "import-ashtadhyayi",
+   "blurb": "Watches the latest commit of github.com/ashtadhyayi-com/data, the repository the site is built from. The Import button re-imports from it (Siddhānta-Kaumudī excluded) and opens a pull request.",
+   "writes": "nothing",
+   "inputs": [
+    {
+     "name": "only",
+     "type": "string",
+     "label": "Source ids to check",
+     "default": "ashtadhyayi_com",
+     "fixed": true
+    },
+    {
+     "name": "remember",
+     "type": "boolean",
+     "label": "Record what was seen, so the next run reports only what is new",
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "sync-dasa-sahitya",
+   "file": "check-sources.yml",
+   "name": "Dāsa Sāhitya — madhwafestivals · dasasahitya.net · meerasubbarao",
+   "group": "source-sync",
+   "site": "three blogs",
+   "url": "https://dasasahitya.net/",
+   "source_ids": [
+    "madhwafestivals",
+    "dasasahitya_net",
+    "meerasubbarao"
+   ],
+   "feeds": "Tattvavada/Itara/DasaSahitya — 152 composers, 15,863 compositions",
+   "importer": "import-dasa-sahitya",
+   "blurb": "Reads the three blogs' RSS feeds for the newest post. If any moved, run the Dāsa Sāhitya importer.",
+   "writes": "nothing",
+   "inputs": [
+    {
+     "name": "only",
+     "type": "string",
+     "label": "Source ids to check",
+     "default": "madhwafestivals,dasasahitya_net,meerasubbarao",
+     "fixed": true
+    },
+    {
+     "name": "remember",
+     "type": "boolean",
+     "label": "Record what was seen, so the next run reports only what is new",
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "extract-setutila",
+   "file": "extract-setutila.yml",
+   "name": "SetuTila — import / delta sync",
+   "group": "content-import",
+   "blurb": "Pulls new or modified SetuTila posts (all, as a delta, or the slugs you name) and opens a pull request.",
+   "writes": "corpus",
+   "inputs": [
+    {
+     "name": "slugs",
+     "type": "string",
+     "label": "Post slugs, comma-separated (blank = delta since last sync)",
+     "default": ""
+    },
+    {
+     "name": "force",
+     "type": "boolean",
+     "label": "Re-import even if unchanged",
+     "default": false
+    }
+   ]
+  },
+  {
+   "id": "import-dasa-sahitya",
+   "file": "import-dasa-sahitya.yml",
+   "name": "Dāsa Sāhitya — import",
+   "group": "content-import",
+   "blurb": "Crawls the Haridāsa archives and opens a pull request with the corpus.",
+   "writes": "corpus",
+   "inputs": [
+    {
+     "name": "limit_per_index",
+     "type": "string",
+     "label": "Max compositions per source index (blank = all)",
+     "default": ""
+    },
+    {
+     "name": "delay",
+     "type": "string",
+     "label": "Seconds between requests",
+     "default": "1.0"
+    }
+   ]
+  },
+  {
+   "id": "import-advaitasharada",
+   "file": "sync-advaitasharada.yml",
+   "name": "Advaita Śāradā — re-read the site and open a PR",
+   "group": "content-import",
+   "writes": "corpus",
+   "inputs": [
+    {
+     "name": "works",
+     "type": "string",
+     "label": "Only these work slugs, comma-separated (blank = all 51)",
+     "default": ""
+    },
+    {
+     "name": "delay",
+     "type": "string",
+     "label": "Seconds between requests",
+     "default": "1.0"
+    },
+    {
+     "name": "open_pr",
+     "type": "boolean",
+     "label": "Open a pull request (off = report only)",
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "import-meghamala",
+   "file": "sync-meghamala.yml",
+   "name": "Śrī Rāmānuja Meghamālā — fetch changed granthas and open a PR",
+   "group": "content-import",
+   "writes": "corpus",
+   "inputs": [
+    {
+     "name": "all",
+     "type": "boolean",
+     "label": "Re-fetch every grantha, not only the changed ones",
+     "default": false
+    },
+    {
+     "name": "max_granthas",
+     "type": "string",
+     "label": "Cap on granthas re-fetched in one run",
+     "default": "60"
+    },
+    {
+     "name": "delay",
+     "type": "string",
+     "label": "Seconds between requests",
+     "default": "1.0"
+    },
+    {
+     "name": "open_pr",
+     "type": "boolean",
+     "label": "Open a pull request (off = report only)",
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "import-ashtadhyayi",
+   "file": "sync-ashtadhyayi.yml",
+   "name": "Aṣṭādhyāyī data — re-import from ashtadhyayi-com/data and open a PR",
+   "group": "content-import",
+   "writes": "corpus",
+   "blurb": "Stops at once if the upstream commit is the one we imported; otherwise refreshes the four ancillary corpora and the sūtra enrichment, Mahābhāṣya and Vasu layers (re-aligned), and opens a pull request.",
+   "inputs": [
+    {
+     "name": "force",
+     "type": "boolean",
+     "label": "Re-import even if the upstream commit is unchanged",
+     "default": false
+    },
+    {
+     "name": "layers",
+     "type": "boolean",
+     "label": "Also refresh the sūtra enrichment / Mahābhāṣya / Vasu layers",
+     "default": true
+    },
+    {
+     "name": "open_pr",
+     "type": "boolean",
+     "label": "Open a pull request (off = report only)",
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "import-anandamakaranda",
+   "file": "sync-anandamakaranda.yml",
+   "name": "Ānandamakaranda — merge changed works from the wiki and open a PR",
+   "group": "content-import",
+   "writes": "corpus",
+   "blurb": "Checks the wiki revision of all 47 works we hold; merges one-to-one layers in place, snapshots composite ones with a block-by-block diff, and opens a pull request.",
+   "inputs": [
+    {
+     "name": "titles",
+     "type": "string",
+     "label": "Only these wiki titles, comma-separated (blank = all)",
+     "default": ""
+    },
+    {
+     "name": "force",
+     "type": "boolean",
+     "label": "Re-sync even if the wiki revision is unchanged",
+     "default": false
+    },
+    {
+     "name": "open_pr",
+     "type": "boolean",
+     "label": "Open a pull request (off = report only)",
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "ocr-sarvam",
+   "file": "ocr-sarvam.yml",
+   "name": "OCR — Sarvam Document AI (layout kept)",
+   "group": "ocr",
+   "writes": "metadata",
+   "blurb": "Layout-preserving OCR of a PDF page range through Sarvam Document AI, staged to the ocr-staging/<work> branch for scholar review. Costs money per page; dry run by default.",
+   "inputs": [
+    {
+     "name": "pdf_url",
+     "type": "string",
+     "label": "Direct URL of the PDF",
+     "default": "",
+     "required": true
+    },
+    {
+     "name": "pages",
+     "type": "string",
+     "label": "Pages, e.g. 11-40",
+     "default": "",
+     "required": true
+    },
+    {
+     "name": "work_slug",
+     "type": "string",
+     "label": "Work slug (staging folder / branch)",
+     "default": "",
+     "required": true
+    },
+    {
+     "name": "language",
+     "type": "string",
+     "label": "Language code: sa-IN, kn-IN, hi-IN, en-IN",
+     "default": "sa-IN"
+    },
+    {
+     "name": "output_format",
+     "type": "string",
+     "label": "html (most layout), md, or json",
+     "default": "html"
+    },
+    {
+     "name": "dry_run",
+     "type": "boolean",
+     "label": "Count pages only — spend nothing",
+     "default": true
+    }
+   ]
+  },
+  {
+   "id": "ocr-review-merge",
+   "file": "ocr-review-merge.yml",
+   "name": "OCR review — merge approved text into a layer",
+   "group": "ocr",
+   "writes": "corpus",
+   "blurb": "Reads a scholar's saved decisions beside a staged OCR file, builds or updates the layer data.json, validates, and opens a pull request. Dispatched from admin/ocr-review.html's Finalise panel.",
+   "inputs": [
+    {
+     "name": "branch",
+     "type": "string",
+     "label": "Branch holding the staged file",
+     "default": "main",
+     "required": true
+    },
+    {
+     "name": "staged",
+     "type": "string",
+     "label": "Staged OCR file path",
+     "default": "",
+     "required": true
+    },
+    {
+     "name": "target",
+     "type": "string",
+     "label": "Target layer data.json (blank for a Gemini commentary file)",
+     "default": ""
+    },
+    {
+     "name": "sarga_dir",
+     "type": "string",
+     "label": "Sarga directory (Gemini commentary files only)",
+     "default": ""
+    },
+    {
+     "name": "schema",
+     "type": "string",
+     "label": "grantha_tippani_text | grantha_tika_text | grantha_mula_text",
+     "default": "grantha_tippani_text"
+    },
+    {
+     "name": "title",
+     "type": "string",
+     "label": "Layer title",
+     "default": ""
+    },
+    {
+     "name": "author",
+     "type": "string",
+     "label": "Author",
+     "default": ""
+    },
+    {
+     "name": "mode",
+     "type": "string",
+     "label": "append | replace",
+     "default": "append"
+    },
+    {
+     "name": "include_undecided",
+     "type": "boolean",
+     "label": "Also take undecided units",
+     "default": false
+    }
+   ]
+  }
+ ]
+}

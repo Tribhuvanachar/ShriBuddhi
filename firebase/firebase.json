@@ -1,0 +1,47 @@
+{
+  "//": "Firebase project config for DGE. See ../FIREBASE_SETUP.md. Hosting is",
+  "//2": "declared but NOT the live deployment target yet — the site still ships",
+  "//3": "from GitHub Pages. Deploying hosting from here is a deliberate, separate",
+  "//4": "decision (see FIREBASE_SETUP.md §9), not something that happens by",
+  "//5": "running `firebase deploy` casually.",
+
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs22",
+    "ignore": ["node_modules", ".git", "*.local"]
+  },
+
+  "hosting": {
+    "public": "../..",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/*.7z.*",
+      "**/*.zip",
+      "firebase/**",
+      "tools/**",
+      "importers/**"
+    ],
+    "cleanUrls": true,
+    "headers": [
+      {
+        "source": "**/*.@(json|js|css)",
+        "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }]
+      }
+    ]
+  },
+
+  "emulators": {
+    "auth": { "port": 9099 },
+    "firestore": { "port": 8080 },
+    "functions": { "port": 5001 },
+    "ui": { "enabled": false },
+    "singleProjectMode": true
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "indexes": [
+    {
+      "//": "Backs the scheduled broadcast's 'which campaigns are due' query (status == 'scheduled' AND sendAfter <= now). Firestore requires a composite index for an equality + range pair on different fields.",
+      "collectionGroup": "broadcasts",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "status", "order": "ASCENDING" },
+        { "fieldPath": "sendAfter", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "//": "Backs the workflow buttons' cooldown check (this caller's newest dispatch of this workflow). Two equalities plus a descending order needs a composite index.",
+      "collectionGroup": "workflow_dispatches",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "uid", "order": "ASCENDING" },
+        { "fieldPath": "workflow", "order": "ASCENDING" },
+        { "fieldPath": "at", "order": "DESCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

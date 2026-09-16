@@ -1,0 +1,6 @@
+{
+  "//": "Copy to .firebaserc and replace with your real project id (Firebase console → Project settings → Project ID). .firebaserc itself is gitignored so the repo never carries a specific project's identity.",
+  "projects": {
+    "default": "REPLACE_WITH_YOUR_FIREBASE_PROJECT_ID"
+  }
+}
