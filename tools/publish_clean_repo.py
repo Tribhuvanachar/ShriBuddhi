@@ -27,6 +27,7 @@ is not something any tool here can promise.
 from __future__ import annotations
 
 import argparse
+import fnmatch
 import os
 import re
 import shutil
@@ -49,12 +50,32 @@ EXCLUDE_DIRS = (".git", ".github", ".claude", "docs", "admin", "tools", "firebas
 EXCLUDE_FILES = ("CLAUDE.md", "PENDING.md", "HANDOFF.md", ".gitattributes",
                  "firebase-hosting.json")
 
+# In-browser test harnesses that live beside the code they test. No page loads
+# any of them -- they reference each other and nothing else does -- so they are
+# tooling that happens to sit in js/ rather than in tools/. A few comments in
+# js/ will name files that are no longer beside them; comments, not code.
+EXCLUDE_GLOBS = ("*.test.js", "test-*.js")
+
 # Words that name the private side of the project. A hit is not automatically
 # a leak -- parabuddhi matches a line of the Narada Purana, and bhumandala is
 # an ordinary Sanskrit word -- so this reports and never edits.
 PRIVATE_NAMES = ("ShriBuddhi", "BrahmaBuddhi", "ParaBuddhi",
                  "Tribhuvanachar/bhumandala", "ocr-staging", "gemini-enrich")
 TOOLING_NAMES = ("anthropic.com", "Claude Code", "claude-code")
+
+# Names of the repository and host the site USED to live at. Unlike the two
+# tuples above these need no judgement: a published release that still points
+# at the old repository both tells a reader where to go looking and sends real
+# traffic to a URL that will stop existing. They are reported separately and
+# loudly for exactly that reason.
+#
+# 16 Sep 2026: added after a scan reported the tree clean while sitemap.xml
+# carried 1,245 absolute URLs under the old name. The scanner only ever looked
+# for the PRIVATE side, so the repository's own former name walked straight
+# past it -- the commit that swept the old name out of 75 files had left the
+# generated files behind, and nothing was watching for the regression.
+STALE_NAMES = ("tribhuvanachar.github.io", "Tribhuvanachar/buddhi",
+               "Tribhuvanachar/bhumandala", "JagatTest", "/Buddhi/")
 
 TEXT_SUFFIXES = (".js", ".html", ".json", ".css", ".md", ".txt", ".xml", ".yml", ".yaml")
 
@@ -65,6 +86,8 @@ def walk(source: str):
         dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS]
         for name in files:
             if name in EXCLUDE_FILES:
+                continue
+            if any(fnmatch.fnmatch(name, g) for g in EXCLUDE_GLOBS):
                 continue
             full = os.path.join(root, name)
             yield full, os.path.relpath(full, source)
@@ -80,7 +103,7 @@ def scan(source: str) -> list[tuple[str, str, str]]:
             text = open(full, encoding="utf-8", errors="replace").read()
         except OSError:
             continue
-        for term in PRIVATE_NAMES + TOOLING_NAMES:
+        for term in PRIVATE_NAMES + TOOLING_NAMES + STALE_NAMES:
             for match in re.finditer(re.escape(term), text, re.I):
                 line_start = text.rfind("\n", 0, match.start()) + 1
                 line_end = text.find("\n", match.end())
@@ -129,19 +152,36 @@ def main(argv=None) -> int:
 
     files = list(walk(args.source))
     print("%d file(s) would be published from %s" % (len(files), args.source))
-    print("excluded: %s" % ", ".join(EXCLUDE_DIRS + EXCLUDE_FILES))
+    print("excluded: %s" % ", ".join(EXCLUDE_DIRS + EXCLUDE_FILES + EXCLUDE_GLOBS))
     print()
 
     hits = scan(args.source)
-    if hits:
+    stale = [h for h in hits if h[1] in STALE_NAMES]
+    private = [h for h in hits if h[1] not in STALE_NAMES]
+
+    if stale:
+        print("STOP. %d file(s) still name the old repository or host. These are not"
+              " judgement calls -- every one is wrong:" % len({h[0] for h in stale}))
+        for rel, term, line in stale[:40]:
+            print("  %-34s %-26s %s" % (rel[:34], term, line[:66]))
+        if len({h[0] for h in stale}) > 40:
+            print("  ... and %d more file(s)" % (len({h[0] for h in stale}) - 40))
+        print()
+
+    if private:
         print("%d file(s) name the private side of the project -- READ THESE, they are"
-              " not all leaks:" % len({h[0] for h in hits}))
-        for rel, term, line in hits[:40]:
+              " not all leaks:" % len({h[0] for h in private}))
+        for rel, term, line in private[:40]:
             print("  %-34s %-22s %s" % (rel[:34], term, line[:70]))
     else:
         print("nothing found naming the private side of the project.")
     if args.scan:
-        return 0
+        return 1 if stale else 0
+
+    if stale:
+        print("\nRefusing to build: fix the old-name references first, or this release"
+              "\npublishes them. Nothing has been written.", file=sys.stderr)
+        return 3
 
     if not (args.out and args.author and args.message):
         print("\n--out, --author and --message are all required to build.", file=sys.stderr)

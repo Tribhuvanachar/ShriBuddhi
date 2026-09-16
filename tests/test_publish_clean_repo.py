@@ -28,6 +28,9 @@ class Fixture(unittest.TestCase):
             ("firebase/functions/index.js", "exports.sendOtp = 1;"),
             ("firebase/functions/workflows.json", '{"workflows":[]}'),
             ("firebase-hosting.json", '{"hosting":{"public":"."}}'),
+            ("sitemap.xml", "<loc>https://tribhuvanachar.github.io/Buddhi/x.html</loc>"),
+            ("js/entity-linker.test.js", "assert(1)"),
+            ("js/test-parity.js", "assert(1)"),
         ):
             full = os.path.join(self.src, rel)
             os.makedirs(os.path.dirname(full), exist_ok=True)
@@ -58,8 +61,31 @@ class WhatGetsPublished(Fixture):
         published = {rel for _, rel in publish.walk(self.src)}
         for excluded in ("firebase/functions/index.js",
                          "firebase/functions/workflows.json",
-                         "firebase-hosting.json"):
+                         "firebase-hosting.json",
+                         "js/entity-linker.test.js", "js/test-parity.js"):
             self.assertNotIn(excluded, published, excluded)
+        # ...but js/ itself still publishes, the site runs on it
+        self.assertIn("js/app.js", published)
+
+    def test_the_old_repository_name_is_caught_and_stops_the_build(self):
+        """A release that still points at the old repository is simply wrong.
+
+        It tells a reader where to go looking and sends real traffic to a URL
+        that is about to stop existing. The first version of this scanner only
+        looked for the PRIVATE side, so the repository's own former name walked
+        past it while sitemap.xml carried 1,245 absolute URLs under it.
+        """
+        hits = publish.scan(self.src)
+        stale = [h for h in hits if h[1] in publish.STALE_NAMES]
+        self.assertTrue(any(h[0] == "sitemap.xml" for h in stale), stale)
+        # and --scan says so in its exit code, so a script cannot miss it
+        self.assertEqual(1, publish.main(["--source", self.src, "--scan"]))
+
+    def test_it_refuses_to_build_while_the_old_name_is_there(self):
+        self.assertEqual(3, publish.main(
+            ["--source", self.src, "--out", self.out,
+             "--author", "A Person <a@example.com>", "--message", "Release"]))
+        self.assertFalse(os.path.exists(self.out), "nothing should have been written")
 
     def test_the_scan_names_the_private_side_without_editing_it(self):
         hits = publish.scan(self.src)
