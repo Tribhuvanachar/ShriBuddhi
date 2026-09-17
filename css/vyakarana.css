@@ -1,0 +1,146 @@
+/* =========================================================================
+   The Vyakarana pages — Dhatupatha, and the derivation viewers that hang
+   off it (prakriya.html, krdanta.html).
+
+   A light, printed-page palette of its own, deliberately unlike the
+   reader's: this is a reference section rather than a text one. Lifted
+   out of dhatu.html unchanged so all three pages share one source.
+
+   Page chrome shared byte-for-byte with ashtadhyayi.css (reset, body font,
+   header, .ctl, .icon, the bare input/select look, .crumbs, .btn.ai,
+   .btn:hover, .spacer, .brand a/.brand span) now lives in
+   vyakarana-base.css, loaded before this file on every page that includes
+   it. Phase 6 of the frontend redesign: --bg/--panel/--panel2/--ink/
+   --muted/--line/--accent/--gold/--shadow/--radius (this page's own
+   copies of the bridged vocabulary) removed from the block below -- they
+   now resolve from tokens-vyakarana-bridge.css (loaded by
+   vyakarana-base.css), which was inert until this page's own duplicate
+   was deleted. --accent2/--p/--a/--u are genuinely page-local (not part
+   of the bridge) and stay here.
+   ========================================================================= */
+
+  :root{--accent2:#1f6f5c;
+    --p:#1d5fa8;--a:#9a3b1b;--u:#7a5a1b}
+  body.dark{--accent2:#5bb894;
+    --p:#5aa0e6;--a:#e0794b;--u:#c79a4a}
+  .bar{max-width:1100px;margin:0 auto;padding:9px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .search{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:7px 12px;color:var(--ink);font:inherit;font-size:14px;min-width:150px;flex:1}
+  main{max-width:1100px;margin:0 auto;padding:16px 14px 120px}
+  .hero{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);margin-bottom:14px}
+  .hero h1{margin:0 0 4px;font-size:clamp(22px,5vw,30px)}
+  .hero .sub{color:var(--muted);font-size:13px}
+  .src-toggle{border:1px solid var(--line);background:none;color:var(--muted);border-radius:999px;padding:1px 9px;font:inherit;font-size:11px;cursor:pointer;margin-left:8px;vertical-align:middle}
+  .src-toggle:hover{color:var(--ink);border-color:var(--accent)}
+  .src-details{margin:8px 2px 0;padding-top:8px;border-top:1px dashed var(--line);color:var(--muted);font-size:11.5px;line-height:1.6}
+  .filters-head{display:flex;align-items:center;gap:8px;margin:14px 2px 6px}
+  .filters-head .icon{min-width:30px;height:26px;padding:0 6px;font-size:12px}
+  .filters{display:flex;flex-direction:column;gap:10px;margin:6px 2px 14px}
+  .filters.collapsed{display:none}
+  .frow{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+  .flab{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-right:4px;min-width:44px}
+  .chip{border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;cursor:pointer;transition:.15s}
+  .chip:disabled{opacity:.45;cursor:not-allowed}
+  .chip.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .chip.pon{background:var(--p);color:#fff;border-color:var(--p)}
+  .chip.aon{background:var(--a);color:#fff;border-color:var(--a)}
+  .chip.uon{background:var(--u);color:#fff;border-color:var(--u)}
+  .sel{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:10px;padding:6px 10px;font:inherit;font-size:13px}
+  .count{color:var(--muted);font-size:13px;margin-left:auto}
+  .list{display:flex;flex-direction:column;gap:8px}
+  .row{background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;border-left:4px solid var(--tag,var(--line))}
+  .rhead{display:flex;align-items:center;gap:12px;padding:11px 14px;cursor:pointer}
+  .rcode{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:52px}
+  .rdha{font-weight:700;font-size:20px;min-width:0}
+  .rartha{color:var(--muted);font-size:14px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .rpada{font-size:11px;font-weight:700;border-radius:7px;padding:2px 8px;color:#fff;background:var(--tag,var(--muted))}
+  .rgana{font-size:11px;color:var(--muted);border:1px solid var(--line);border-radius:7px;padding:2px 8px;white-space:nowrap}
+  .rcaret{color:var(--muted);transition:.2s}.row.open .rcaret{transform:rotate(90deg)}
+  .rbody{display:none;padding:2px 14px 14px;border-top:1px dashed var(--line)}
+  .row.open .rbody{display:block}
+  .row.bookmarked{border-left-color:var(--gold)}
+  .row.bookmarked .rcode{color:var(--gold);font-weight:700}
+  .row.bookmarked .rdha{color:var(--gold)}
+  .kv{display:flex;gap:10px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:14px}
+  .kv:last-of-type{border-bottom:0}.kk{flex:0 0 150px;color:var(--muted);font-size:12.5px}.kvv{flex:1;min-width:0}
+  .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .btn{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:8px 13px;font:inherit;font-size:13.5px;cursor:pointer;color:var(--ink);display:inline-flex;gap:7px;align-items:center;text-decoration:none}
+  .btn[disabled]{opacity:.55;cursor:not-allowed}
+  .stage2{font-size:11.5px;color:var(--muted);margin-top:8px;font-style:italic}
+  .mdhv{margin-top:10px}
+  .mdhv-head{font-weight:700;color:var(--accent2);font-size:14px;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .mdhv-lic{font-size:10.5px;color:var(--muted);font-weight:400;border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+  .mdhv-text{max-height:340px;overflow:auto;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;line-height:1.85;font-size:15px;white-space:pre-wrap}
+  .mdhv-author{font-size:11.5px;font-weight:700;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:.03em}
+  .vrit-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+  .vrit-tab{border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;cursor:pointer}
+  .vrit-tab.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .more{margin:16px auto 0;display:block;border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:10px 18px;font:inherit;color:var(--ink);cursor:pointer}
+  .empty{color:var(--muted);font-style:italic;padding:30px;text-align:center;border:1.5px dashed var(--line);border-radius:14px}
+  .note{margin:22px 2px 0;color:var(--muted);font-size:12px;text-align:center;font-style:italic}
+
+/* dhatuvritti nodes: classified sections + relevant/full toggle */
+.vrit-modes{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
+.vrit-mode{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 12px;font:inherit;font-size:12.5px;cursor:pointer;color:var(--ink);min-height:34px}
+.vrit-mode.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.vrit-hidden{color:var(--muted);font-size:11.5px}
+.vrit-node{border-bottom:1px dashed var(--line);padding:8px 0;margin-bottom:6px}
+.vrit-node:last-child{border-bottom:0}
+.vrit-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:4px}
+.vrit-tag{font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:0 6px;line-height:1.7}
+.vrit-tag-r{color:var(--accent);border-color:var(--accent)}
+
+.muted{color:var(--muted)}
+
+/* AI multilingual meanings + pedagogy (tools/gemini_dhatu_lexicon.py) */
+.lex-head{font-weight:700;color:var(--accent2);font-size:14px;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.lex-ai-tag{font-size:10px;font-weight:400;color:var(--muted);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+.lex-langs{display:flex;flex-direction:column;gap:2px;margin-bottom:10px}
+.lex-row{display:flex;gap:8px;padding:4px 0;font-size:13px;border-bottom:1px dashed var(--line)}
+.lex-row:last-child{border-bottom:0}
+.lex-row b{flex:0 0 84px;color:var(--muted)}
+.lex-pedagogy{font-size:13.5px;line-height:1.6}
+.lex-pedagogy>p{margin:0 0 8px;color:var(--muted)}
+.lex-scenario{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px;font-size:13px}
+.lex-example{margin-top:4px;font-size:14.5px}
+.lex-example-en{color:var(--muted);font-size:12.5px;font-style:italic}
+.lex-sources{font-size:11px;margin-top:8px;line-height:1.5}
+
+/* DGE UI Contract retrofit (28 Aug 2026): contextual-actions.js's generic
+   menu (dgeOpenContextualMenu) needs .modal-overlay/.modal-content/
+   .ctx-menu-*/.btn-sm to exist -- see DGE_UI_CONTRACT.md Part I §1's
+   documented dependency. Ported from main.css, scoped to this cluster's
+   own bridged token names exactly like ashtadhyayi.css already does for
+   ashtadhyayi.html (see that file for the same block) -- dhatu.html and
+   shabda.html share this file, so one copy here covers both rather than
+   duplicating it a third time. */
+.modal-overlay{position:fixed;inset:0;background:rgba(20,14,6,.5);display:none;justify-content:center;align-items:center;z-index:11000;padding:18px}
+.modal-content{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);max-width:440px;width:100%;max-height:85vh;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+.modal-header-sticky{padding:14px 16px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-shrink:0}
+.modal-body{padding:14px 16px;overflow-y:auto;flex-grow:1}
+.btn-sm{border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:8px;padding:5px 10px;font:inherit;font-size:12px;cursor:pointer}
+.ctx-menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:8px}
+.ctx-action-btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;cursor:pointer;color:var(--ink);font:inherit;min-height:44px}
+.ctx-action-btn:hover,.ctx-action-btn:focus-visible{background:var(--card-active,var(--panel2));border-color:var(--accent);outline:none}
+.ctx-action-icon{font-size:19px;line-height:1}
+.ctx-action-label{font-size:11.5px;font-weight:600;text-align:center;line-height:1.3}
+
+/* 7 Sep 2026: corpus usage pill on dhātu rows (dhatu_prayoga manifest) */
+.rusage{margin-left:auto;font-size:11px;font-weight:700;color:var(--accent);background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:1px 7px;white-space:nowrap}
+/* A root attested ONLY by forms some other root can write too: the count is
+   0 and the pill should not read as confidently as an earned one. */
+.rusage-shared{color:var(--muted);font-weight:600}
+.rusage sup{font-size:9px;opacity:.8;margin-left:1px}
+
+/* 7 Sep 2026: any-stem declension generator (shabda-gen.js) */
+#sg-sec{margin:14px 0}
+.sg-title{margin:0 0 8px;font-size:clamp(18px,4.5vw,22px);color:var(--accent)}
+.sg-sub{font-size:13px;color:var(--muted);font-weight:400}
+.sg-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sg-row input{flex:1 1 220px;min-width:0;border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:10px;padding:9px 12px;font:inherit;font-size:17px}
+.sg-chips{display:flex;gap:4px}
+.sg-hint{font-size:12.5px;color:var(--muted);margin:6px 0 10px;line-height:1.5}
+.sg-head{margin:8px 0 4px}
+.sg-stem{font-size:22px;font-weight:700;color:var(--accent)}
+.sg-note{font-size:13.5px;margin:6px 0;padding:8px 12px;border-left:3px solid var(--accent);background:var(--panel2);border-radius:0 10px 10px 0}
+.sg-err{color:#b3261e;font-weight:600;margin:8px 0}
+.sg-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}

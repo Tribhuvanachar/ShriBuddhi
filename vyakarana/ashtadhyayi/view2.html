@@ -1,0 +1,1570 @@
+<!DOCTYPE html><html lang="sa"><head>
+<meta charset="UTF-8">
+<script src="../../js/vandana-guard.js?v=2"></script>
+<script src="../../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">  <!-- allow pinch-zoom -->
+<title>अष्टाध्यायी · Workbench · DGE</title>
+<!-- Indic transliteration, vendored (js/vendor/README.md): the reader's
+     script setting and the धातु/कोश word marking both depend on it, so it
+     must not be one CDN outage away from silently not working. -->
+<script src="../../js/vendor/sanscript-1.3.3.min.js?v=1.3.3"></script>
+<link rel="icon" type="image/png" sizes="48x48" href="../../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../../images/genie/apple-touch-icon.png">
+<style>
+  :root {
+    --bg: #faf9f6;
+    --surface: #ffffff;
+    --text: #1a1a1a;
+    --muted: #5c5c5c;
+    --faint: #8a8a8a;
+    --border: #e8e6e1;
+    --accent: #7c3a2d;
+    --accent-soft: #f3ebe7;
+    --badge: #2d5a3d;
+    --badge-bg: #e8f0eb;
+    --radius: 12px;
+    --chrome-h: 52px;
+    --nav-h: 56px;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --font-sa: "Noto Serif Devanagari", "Noto Sans Devanagari", "Siddhanta", serif;
+    --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --fs-sutra: clamp(1.55rem, 5.2vw, 2.1rem);
+    --fs-body: clamp(0.95rem, 2.8vw, 1.05rem);
+    --lh-sa: 1.55;
+    --max-w: 42rem;
+    --shadow: 0 4px 24px rgba(0,0,0,.08);
+  }
+  [data-theme="dark"] {
+    --bg: #121110;
+    --surface: #1c1b19;
+    --text: #f0ece6;
+    --muted: #a8a29a;
+    --faint: #78716c;
+    --border: #2e2c29;
+    --accent: #d4a59a;
+    --accent-soft: #2a221f;
+    --badge: #86b89a;
+    --badge-bg: #1e2a22;
+    --shadow: 0 4px 24px rgba(0,0,0,.4);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121110;
+      --surface: #1c1b19;
+      --text: #f0ece6;
+      --muted: #a8a29a;
+      --faint: #78716c;
+      --border: #2e2c29;
+      --accent: #d4a59a;
+      --accent-soft: #2a221f;
+      --badge: #86b89a;
+      --badge-bg: #1e2a22;
+      --shadow: 0 4px 24px rgba(0,0,0,.4);
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { height: 100%; -webkit-text-size-adjust: 100%; }
+  body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-ui);
+    font-size: var(--fs-body);
+    line-height: 1.5;
+    overscroll-behavior: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  #app {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    height: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  @media (min-width: 900px) {
+    #app { max-width: calc(var(--max-w) + 4rem); }
+  }
+
+  /* ── Chrome (hides on scroll down) ── */
+  #chrome {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: calc(var(--safe-top) + 6px) 12px 8px;
+    transition: transform .25s ease, opacity .25s ease;
+    will-change: transform;
+  }
+  #chrome.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+  }
+  #chrome dge-breadcrumb {
+    display: block;
+    font-size: 0.72rem;
+    margin-bottom: 6px;
+    color: var(--muted);
+  }
+  #chrome dge-breadcrumb a { color: var(--muted); text-decoration: none; }
+  #chrome dge-breadcrumb a:hover { color: var(--accent); }
+  .chrome-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 36px;
+  }
+  .order-pill {
+    display: inline-flex;
+    align-items: center;
+    background: var(--accent-soft);
+    border-radius: 999px;
+    padding: 2px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: .02em;
+    flex-shrink: 0;
+  }
+  .order-pill button {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    padding: 5px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    min-height: 28px;
+  }
+  .order-pill button[aria-pressed="true"] {
+    background: var(--surface);
+    color: var(--accent);
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  }
+  .identity {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.78rem;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: .01em;
+  }
+  .identity strong { color: var(--text); font-weight: 600; }
+  .icon-btn {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .icon-btn:hover, .icon-btn:focus-visible {
+    background: var(--accent-soft);
+    outline: none;
+  }
+  .icon-btn svg { width: 22px; height: 22px; }
+
+  /* ── Reader ── */
+  #reader {
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    padding: 12px 16px calc(var(--nav-h) + var(--safe-bottom) + 24px);
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #reader { scroll-behavior: auto; }
+    #chrome { transition: none; }
+  }
+  .sutra-card {
+    max-width: var(--max-w);
+    margin: 0 auto;
+  }
+  .sutra-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .sutra-text {
+    flex: 1;
+    font-family: var(--font-sa);
+    font-size: var(--fs-sutra);
+    line-height: var(--lh-sa);
+    font-weight: 600;
+    text-wrap: balance;
+    letter-spacing: .01em;
+    color: var(--text);
+  }
+  .sutra-text .iast {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 0.72em;
+    font-weight: 500;
+    color: var(--muted);
+    margin-top: 4px;
+    letter-spacing: .02em;
+  }
+  .more-btn {
+    width: 36px;
+    height: 36px;
+    margin-top: 4px;
+    border: 0;
+    background: transparent;
+    color: var(--faint);
+    border-radius: 8px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .more-btn:hover, .more-btn:focus-visible {
+    background: var(--accent-soft);
+    color: var(--accent);
+    outline: none;
+  }
+
+  /* Analysis strip → panel */
+  .analysis-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    padding: 8px 0 14px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 18px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .analysis-strip:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  .padaccheda {
+    font-family: var(--font-sa);
+    font-size: 0.95rem;
+    color: var(--muted);
+  }
+  .padaccheda span { margin-right: 6px; }
+  .type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    color: var(--badge);
+    background: var(--badge-bg);
+    padding: 3px 8px;
+    border-radius: 6px;
+  }
+  .expand-hint {
+    margin-left: auto;
+    font-size: 0.72rem;
+    color: var(--faint);
+  }
+  .analysis-panel {
+    display: none;
+    padding: 0 0 18px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    animation: fadeIn .2s ease;
+  }
+  .analysis-panel.open { display: block; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .analysis-panel { animation: none; }
+  }
+  .analysis-panel h3 {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--faint);
+    margin: 12px 0 4px;
+  }
+  .analysis-panel h3:first-child { margin-top: 0; }
+  .analysis-panel p, .analysis-panel ul {
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .analysis-panel .sa { font-family: var(--font-sa); }
+  .analysis-panel .none { color: var(--faint); font-style: italic; }
+  .anuvritti-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .anuvritti-list li.plain { color: var(--text); }
+  .anuvritti-list button {
+    background: none;
+    border: 0;
+    padding: 2px 0;
+    font: inherit;
+    color: var(--accent);
+    text-align: left;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .anuvritti-list button:hover { opacity: .85; }
+
+  /* Commentary layers */
+  .layers-stack {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .layer {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 120px;
+  }
+  .layer-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: color-mix(in srgb, var(--surface) 80%, var(--bg));
+    border-bottom: 1px solid var(--border);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: .02em;
+  }
+  .layer-header .source { color: var(--text); font-family: var(--font-sa); }
+  .layer-header .sub { color: var(--faint); font-weight: 500; }
+  .layer-body {
+    padding: 14px 16px 16px;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    font-family: var(--font-sa);
+  }
+  .layer-body[data-lang="en"] { font-family: var(--font-ui); }
+  .layer-body p + p { margin-top: 0.7em; }
+  .layer-body .ref {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+  }
+  .layer-body .layer-empty {
+    font-family: var(--font-ui);
+    font-style: italic;
+    color: var(--faint);
+    font-size: 0.88rem;
+  }
+  .layer-body .loading {
+    font-family: var(--font-ui);
+    color: var(--faint);
+    font-size: 0.88rem;
+  }
+  .layer.coming-soon {
+    opacity: 0.55;
+    border-style: dashed;
+  }
+  .layer.coming-soon .layer-body {
+    font-family: var(--font-ui);
+    font-style: italic;
+    color: var(--faint);
+    font-size: 0.88rem;
+  }
+
+  /* Compare mode (desktop / landscape) */
+  @media (min-width: 800px) and (orientation: landscape), (min-width: 1100px) {
+    body.compare-mode .layers-stack {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+  }
+
+  /* ── Footer nav ── */
+  #nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px calc(8px + var(--safe-bottom));
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+  }
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 14px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    border-radius: 10px;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .nav-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .nav-btn:not(:disabled):hover,
+  .nav-btn:not(:disabled):focus-visible {
+    border-color: var(--accent);
+    color: var(--accent);
+    outline: none;
+  }
+  .layers-fab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 0;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 999px;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+  }
+  .layers-fab:hover, .layers-fab:focus-visible {
+    filter: brightness(1.08);
+    outline: none;
+  }
+  [data-theme="dark"] .layers-fab { color: #1a1210; }
+
+  /* ── Dialogs / sheets ── */
+  dialog {
+    border: 0;
+    border-radius: 16px 16px 0 0;
+    padding: 0;
+    width: min(100%, 420px);
+    max-height: min(85dvh, 640px);
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: var(--shadow);
+    margin: auto auto 0;
+  }
+  @media (min-width: 600px) {
+    dialog {
+      border-radius: 16px;
+      margin: auto;
+      max-height: 80dvh;
+    }
+  }
+  dialog::backdrop {
+    background: rgba(0,0,0,.45);
+    backdrop-filter: blur(4px);
+  }
+  .sheet-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--surface);
+    z-index: 1;
+  }
+  .sheet-header h2 {
+    font-size: 1rem;
+    font-weight: 650;
+  }
+  .sheet-close {
+    width: 36px;
+    height: 36px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    border-radius: 8px;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+  .sheet-body {
+    padding: 12px 16px 24px;
+    overflow-y: auto;
+    max-height: calc(85dvh - 60px);
+  }
+  .sheet-body label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin: 12px 0 6px;
+  }
+  .sheet-body input[type="search"],
+  .sheet-body input[type="text"] {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 1rem;
+  }
+  .sheet-body input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .menu-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .menu-list button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 10px;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 0.95rem;
+    text-align: left;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  .menu-list button:hover,
+  .menu-list button:focus-visible {
+    background: var(--accent-soft);
+    outline: none;
+  }
+  .menu-list .hint {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: var(--faint);
+  }
+  .layer-group {
+    margin-bottom: 18px;
+  }
+  .layer-group h3 {
+    font-size: 0.72rem;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--faint);
+    margin-bottom: 8px;
+  }
+  .layer-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 4px;
+    border-radius: 8px;
+  }
+  .layer-row label {
+    flex: 1;
+    margin: 0;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .layer-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent);
+  }
+  .layer-row.coming label { color: var(--faint); font-style: italic; }
+  .prak-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+  .prak-list button {
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .prak-list button:hover,
+  .prak-list button:focus-visible {
+    background: var(--accent-soft);
+    outline: none;
+  }
+  .prak-list .name { font-family: var(--font-sa); }
+  .prak-list .range {
+    font-size: 0.75rem;
+    color: var(--faint);
+    flex-shrink: 0;
+    font-family: var(--font-ui);
+  }
+  .jump-results {
+    list-style: none;
+    margin-top: 10px;
+  }
+  .jump-results button {
+    width: 100%;
+    text-align: left;
+    padding: 10px 12px;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .jump-results button:hover,
+  .jump-results button:focus-visible {
+    background: var(--accent-soft);
+    outline: none;
+  }
+  .jump-results .sa { font-family: var(--font-sa); }
+
+  /* AI drawer */
+  #ai-drawer {
+    width: min(100%, 400px);
+  }
+  .ai-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 10px 0 14px;
+  }
+  .ai-presets button {
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    border-radius: 999px;
+    font: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+  }
+  .ai-presets button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  #ai-input {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    resize: vertical;
+  }
+  .ai-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .ai-actions button {
+    flex: 1;
+    min-height: 44px;
+    border: 0;
+    border-radius: 10px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .ai-actions .primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  [data-theme="dark"] .ai-actions .primary { color: #1a1210; }
+  .ai-actions .ghost {
+    background: var(--bg);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  #ai-output {
+    margin-top: 14px;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text);
+    white-space: pre-wrap;
+  }
+  #ai-output:empty { display: none; }
+  #ai-output .ai-hint { color: var(--muted); font-style: italic; }
+
+  /* Utility */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  }
+  .empty-state {
+    text-align: center;
+    padding: 32px 16px;
+    color: var(--faint);
+    font-size: 0.92rem;
+  }
+  .toast {
+    position: fixed;
+    bottom: calc(var(--nav-h) + var(--safe-bottom) + 16px);
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--text);
+    color: var(--bg);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s, transform .25s;
+    z-index: 100;
+    white-space: nowrap;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+</head>
+<!-- The page is the Aṣṭādhyāyī, so a bare "1.1.3" in a commentary is a sūtra,
+     not a verse number: intellisense.js links them without needing a cue word,
+     scanning the commentary stack and the analysis panel. -->
+<body data-grantha-slug="vedanga/vyakarana/ashtadhyayi"
+      data-intellisense-roots="#layers-stack,#analysis-panel">
+<div id="app">
+  <header id="chrome" role="banner">
+    <dge-breadcrumb label="अष्टाध्यायी" deva home-href="../index.html" class="brand"><a href="../index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span class="deva">अष्टाध्यायी</span></dge-breadcrumb>
+    <div class="chrome-row">
+      <div class="order-pill" role="group" aria-label="Reading order">
+        <button type="button" id="order-ak" aria-pressed="true">AK</button>
+        <button type="button" id="order-sk" aria-pressed="false">SK</button>
+      </div>
+      <div class="identity" id="identity" aria-live="polite">लोड्यते…</div>
+      <button type="button" class="icon-btn" id="menu-btn" aria-label="Menu" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="reader" role="main" tabindex="-1">
+    <article class="sutra-card" id="sutra-card">
+      <div class="sutra-header">
+        <div class="sutra-text" id="sutra-text" lang="sa"></div>
+        <button type="button" class="more-btn" id="more-btn" aria-label="More options for this sūtra" aria-haspopup="dialog">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="6" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="18" r="1.5"/></svg>
+        </button>
+      </div>
+      <div class="analysis-strip" id="analysis-strip" role="button" tabindex="0" aria-expanded="false" aria-controls="analysis-panel">
+        <div class="padaccheda" id="padaccheda"></div>
+        <span class="type-badge" id="type-badge"></span>
+        <span class="expand-hint" id="expand-hint">Tap for analysis</span>
+      </div>
+      <div class="analysis-panel" id="analysis-panel" hidden>
+        <h3>Anvaya</h3>
+        <p class="sa" id="anvaya"></p>
+        <h3>Anuvṛtti</h3>
+        <ul class="anuvritti-list" id="anuvritti"></ul>
+        <h3>Adhikāra</h3>
+        <p class="sa" id="adhikara"></p>
+      </div>
+    </article>
+
+    <section class="layers-stack" id="layers-stack" aria-label="Commentaries"></section>
+  </main>
+
+  <footer id="nav" role="navigation" aria-label="Sūtra navigation">
+    <button type="button" class="nav-btn" id="prev-btn" aria-label="Previous sūtra">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      Prev
+    </button>
+    <button type="button" class="layers-fab" id="layers-btn" aria-haspopup="dialog">
+      Layers <span id="layers-count">0</span>
+    </button>
+    <button type="button" class="nav-btn" id="next-btn" aria-label="Next sūtra">
+      Next
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </footer>
+</div>
+
+<!-- Jump dialog -->
+<dialog id="jump-dialog" aria-labelledby="jump-title">
+  <div class="sheet-header">
+    <h2 id="jump-title">Jump to</h2>
+    <button type="button" class="sheet-close" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body">
+    <label for="jump-input">Sūtra, SK number, or prakaraṇa</label>
+    <input type="search" id="jump-input" placeholder="1.1.1  ·  #405  ·  3.2  ·  संधि" autocomplete="off" enterkeyhint="go">
+    <ul class="jump-results" id="jump-results"></ul>
+    <label style="margin-top:18px">Prakaraṇa index</label>
+    <button type="button" class="nav-btn" id="open-prak" style="width:100%;justify-content:center;margin-top:4px">Open 70 chapters →</button>
+  </div>
+</dialog>
+
+<!-- Prakaraṇa index -->
+<dialog id="prak-dialog" aria-labelledby="prak-title">
+  <div class="sheet-header">
+    <h2 id="prak-title">Prakaraṇa (70)</h2>
+    <button type="button" class="sheet-close" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body">
+    <ul class="prak-list" id="prak-list"></ul>
+  </div>
+</dialog>
+
+<!-- Layers sheet -->
+<dialog id="layers-dialog" aria-labelledby="layers-title">
+  <div class="sheet-header">
+    <h2 id="layers-title">Commentary layers</h2>
+    <button type="button" class="sheet-close" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body" id="layers-body"></div>
+</dialog>
+
+<!-- Menu -->
+<dialog id="menu-dialog" aria-labelledby="menu-title">
+  <div class="sheet-header">
+    <h2 id="menu-title">Menu</h2>
+    <button type="button" class="sheet-close" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body">
+    <ul class="menu-list">
+      <li><button type="button" id="menu-jump"><span>Jump to sūtra</span><span class="hint">/</span></button></li>
+      <li><button type="button" id="menu-prak"><span>Prakaraṇa index</span></button></li>
+      <li><button type="button" id="menu-order"><span>Toggle order</span><span class="hint">g</span></button></li>
+      <li><button type="button" id="menu-compare"><span>Compare mode</span><span class="hint" id="compare-hint">Off</span></button></li>
+      <li><button type="button" id="menu-script"><span>Script</span><span class="hint" id="script-hint">Devanagari</span></button></li>
+      <li><button type="button" id="menu-theme"><span>Theme</span><span class="hint" id="theme-hint">System</span></button></li>
+      <li><button type="button" id="menu-fontsize"><span>Font size</span><span class="hint" id="fs-hint">Medium</span></button></li>
+      <li><button type="button" id="menu-ai"><span>Ask DGE AI</span></button></li>
+      <li><button type="button" id="menu-focus"><span>Focus mode</span></button></li>
+    </ul>
+  </div>
+</dialog>
+
+<!-- More (per-sūtra) -->
+<dialog id="more-dialog" aria-labelledby="more-title">
+  <div class="sheet-header">
+    <h2 id="more-title">This sūtra</h2>
+    <button type="button" class="sheet-close" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body">
+    <ul class="menu-list">
+      <li><button type="button" id="more-copy"><span>Copy deep link</span></button></li>
+      <li><button type="button" id="more-ai"><span>Ask AI about this sūtra</span></button></li>
+    </ul>
+  </div>
+</dialog>
+
+<!-- AI drawer -->
+<dialog id="ai-drawer" aria-labelledby="ai-title">
+  <div class="sheet-header">
+    <h2 id="ai-title">Ask DGE AI</h2>
+    <button type="button" class="sheet-close" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body">
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:8px">BYOK · grounded on the sūtra and your open commentary layers</p>
+    <div class="ai-presets">
+      <button type="button" data-preset="explain">Explain simply</button>
+      <button type="button" data-preset="compare">Compare commentaries</button>
+      <button type="button" data-preset="derive">Example derivation</button>
+    </div>
+    <textarea id="ai-input" placeholder="Ask about the current sūtra…"></textarea>
+    <div class="ai-actions">
+      <button type="button" class="ghost" data-close>Cancel</button>
+      <button type="button" class="primary" id="ai-send">Send</button>
+    </div>
+    <div id="ai-output" aria-live="polite"></div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<dge-footer class="site-footer-links"><a class="footer-link" href="../../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+
+<script src="../../js/gemini.js?v=1.2.1"></script>
+<script src="../../js/modals.js?v=1"></script>
+<script src="../../js/reader-state.js?v=1"></script>
+<script src="../../js/contextual-actions.js?v=1"></script>
+<script src="../../js/dge-shell.js?v=1"></script>
+<script src="../../js/dge-breadcrumb.js?v=1"></script>
+<script src="../../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="ashtadhyayi"></dge-nav-rail>
+<script src="../../js/ashtadhyayi-data.js?v=1"></script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   Aṣṭādhyāyī · Workbench view — renders the REAL corpus through
+   window.DGE_ASHTA (js/ashtadhyayi-data.js). No embedded mock
+   data: sūtras, commentary and prakaraṇa are all live.
+   ═══════════════════════════════════════════════════════════ */
+(function () {
+  "use strict";
+
+  var A = window.DGE_ASHTA;
+
+  /* Commentary layers. `folder` is a DGE_ASHTA.META key for live layers;
+     coming-soon rows have no folder and stay disabled. Group order matches
+     the mockup's three prasthānas. */
+  var LAYER_META = [
+    { key: "kashika",           folder: "kashika",           group: "sutra",   live: true },
+    { key: "mahabhashya",       folder: "mahabhashya",       group: "sutra",   live: true },
+    { key: "nyasa",             folder: "nyasa",             group: "sutra",   live: true },
+    { key: "padamanjari",       name: "Padamañjarī",         group: "sutra",   live: false },
+    { key: "siddhanta_kaumudi", folder: "siddhanta_kaumudi", group: "kaumudi", live: true },
+    { key: "balamanorama",      folder: "balamanorama",      group: "kaumudi", live: true },
+    { key: "tattvabodhini",     folder: "tattvabodhini",     group: "kaumudi", live: true },
+    { key: "praudha",           name: "Prauḍha-Manoramā",    group: "kaumudi", live: false },
+    { key: "laghu_ses",         name: "Laghu-Śabdenduśekhara", group: "kaumudi", live: false },
+    { key: "paribhasa",         name: "Paribhāṣenduśekhara", group: "kaumudi", live: false },
+    { key: "vasu",              folder: "vasu",              group: "english", live: true },
+    { key: "vasu_kaumudi",      folder: "vasu_kaumudi",      group: "english", live: true },
+    { key: "vakyapadiya",       name: "Vākyapadīya",         group: "english", live: false }
+  ];
+  var GROUP_LABELS = {
+    sutra: "Sūtra-prasthāna",
+    kaumudi: "Kaumudī-prasthāna",
+    english: "English & other"
+  };
+
+  function metaName(m) {
+    if (m.live && A.META[m.folder]) {
+      var M = A.META[m.folder];
+      return { title: M.t, sub: M.sub, lang: M.lang || null };
+    }
+    return { title: m.name || m.key, sub: "", lang: null };
+  }
+
+  /* ── State ── */
+  var state = {
+    order: "ak",
+    currentId: null,
+    analysisOpen: false,
+    openLayers: new Set(["kashika", "siddhanta_kaumudi", "vasu"]),
+    script: "dev",
+    theme: "system",
+    fontSize: 1,
+    compare: false,
+    focus: false,
+    layerText: {},   // folder -> loaded body text for current sūtra (AI grounding)
+    renderToken: 0
+  };
+
+  var db = null;
+  var skToId = {};   // kaumudiIndex -> sūtra id
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  function getSutra(id) { return db.byId[(id == null ? state.currentId : id)]; }
+  function orderArr() { return state.order === "ak" ? db.akOrder : db.skOrder; }
+  function currentIndex() { return orderArr().indexOf(state.currentId); }
+
+  function toScript(t) {
+    if (!t) return t;
+    return state.script === "iast" ? A.iast(t) : t;
+  }
+
+  /* ── Render: identity line ── */
+  function renderIdentity() {
+    var s = getSutra();
+    if (!s) return;
+    var k = A.kaumudiOf(s.id);
+    var line = "<strong>AK " + A.esc(s.id) + "</strong>";
+    if (k && k.kaumudiIndex != null) {
+      line += " · SK #" + k.kaumudiIndex;
+      var ch = A.chapterOf(k);
+      if (ch && ch.name) line += " · " + A.esc(ch.name);
+      if (k.laghu != null) line += " · LSK #" + k.laghu;
+    } else {
+      line += " · <em>कौमुद्यां नास्ति</em>";
+    }
+    $("identity").innerHTML = line;
+  }
+
+  /* ── Render: sūtra head + analysis ── */
+  function renderSutra() {
+    var s = getSutra();
+    if (!s) return;
+    state.layerText = {};
+
+    var dev = s.sanskrit_text || "";
+    var iast = A.iast(dev);
+    var textEl = $("sutra-text");
+    if (state.script === "dev") {
+      textEl.innerHTML = A.esc(dev) + (iast ? '<span class="iast">' + A.esc(iast) + "</span>" : "");
+    } else {
+      textEl.innerHTML = A.esc(iast || dev) + (dev ? '<span class="iast">' + A.esc(dev) + "</span>" : "");
+    }
+
+    // padaccheda — hyphen-joined tokens rendered as-is
+    var pada = s.padaccheda || [];
+    $("padaccheda").innerHTML = pada.length
+      ? pada.map(function (p) { return "<span>" + A.esc(toScript(p)) + "</span>"; }).join(" · ")
+      : '<span style="color:var(--faint)">—</span>';
+
+    // sūtra type badge (may be absent)
+    var badge = $("type-badge");
+    if (s.sutra_type) {
+      badge.hidden = false;
+      badge.textContent = state.script === "dev"
+        ? (s.sutra_type.label_dev || s.sutra_type.label || "")
+        : (s.sutra_type.label || s.sutra_type.label_dev || "");
+      badge.title = s.sutra_type.topic || "";
+    } else {
+      badge.hidden = true;
+      badge.textContent = "";
+      badge.title = "";
+    }
+
+    // anvaya (present on ~1549 only)
+    var anv = $("anvaya");
+    if (s.anvaya) { anv.textContent = toScript(s.anvaya); anv.className = "sa"; }
+    else { anv.textContent = "अनुपलब्धम् · not recorded for this sūtra"; anv.className = "none"; }
+
+    // anuvṛtti
+    var anu = $("anuvritti");
+    anu.innerHTML = "";
+    var list = s.anuvritti || [];
+    if (!list.length) {
+      var li0 = document.createElement("li");
+      li0.className = "none";
+      li0.textContent = "— none";
+      anu.appendChild(li0);
+    } else {
+      list.forEach(function (a) {
+        var li = document.createElement("li");
+        var word = toScript(a.word || "");
+        if (a.from && db.byId[a.from]) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.textContent = word + " ← " + a.from;
+          btn.addEventListener("click", function () { jumpTo(a.from); });
+          li.appendChild(btn);
+        } else {
+          li.className = "plain";
+          li.textContent = word + (a.from ? " ← " + a.from : "");
+        }
+        anu.appendChild(li);
+      });
+    }
+
+    // adhikāra (string, may be absent)
+    var adh = $("adhikara");
+    if (s.adhikara) { adh.textContent = toScript(s.adhikara); adh.className = "sa"; }
+    else { adh.textContent = "— none in force here"; adh.className = "none"; }
+
+    renderIdentity();
+    renderLayers();
+    updateNavButtons();
+  }
+
+  /* ── Render: commentary layer stack (lazy per layer) ── */
+  function bodyHTML(text, esc) {
+    var paras = String(text).split(/\n{2,}/).map(function (p) {
+      return "<p>" + esc(p).replace(/\n/g, " ") + "</p>";
+    });
+    return paras.join("");
+  }
+
+  function renderLayers() {
+    var stack = $("layers-stack");
+    stack.innerHTML = "";
+    var s = getSutra();
+    var count = 0;
+    var token = ++state.renderToken;
+
+    LAYER_META.forEach(function (meta) {
+      if (!state.openLayers.has(meta.key)) return;
+      count++;
+      var nm = metaName(meta);
+      var art = document.createElement("article");
+      art.className = "layer" + (meta.live ? "" : " coming-soon");
+      art.dataset.key = meta.key;
+
+      var header = document.createElement("div");
+      header.className = "layer-header";
+      header.innerHTML = '<span class="source">' + A.esc(nm.title) + "</span>" +
+        (nm.sub ? ' <span class="sub">· ' + A.esc(nm.sub) + "</span>" : "");
+      art.appendChild(header);
+
+      var body = document.createElement("div");
+      body.className = "layer-body";
+      if (nm.lang) body.dataset.lang = nm.lang;
+      art.appendChild(body);
+      stack.appendChild(art);
+
+      if (!meta.live) {
+        body.innerHTML = '<span class="layer-empty">Coming soon — this layer will appear once its corpus is loaded.</span>';
+        return;
+      }
+
+      body.innerHTML = '<span class="loading">लोड्यते…</span>';
+      A.ensureLayer(meta.folder).then(function (L) {
+        if (token !== state.renderToken) return; // stale — sūtra changed
+        var entry = L.byId[s.id];
+        if (entry && entry.sanskrit_text) {
+          state.layerText[meta.folder] = entry.sanskrit_text;
+          body.innerHTML = bodyHTML(entry.sanskrit_text, A.esc);
+        } else if (L.error) {
+          body.innerHTML = '<span class="layer-empty">Layer could not be loaded.</span>';
+        } else {
+          body.innerHTML = '<span class="layer-empty">' +
+            (nm.lang ? "No translation for this sūtra." : "अत्र न विद्यते · not covered for this sūtra.") +
+            "</span>";
+        }
+      });
+    });
+
+    $("layers-count").textContent = String(count);
+    if (count === 0) {
+      stack.innerHTML = '<div class="empty-state">No layers open. Tap "Layers" to choose commentaries.</div>';
+    }
+  }
+
+  function updateNavButtons() {
+    var order = orderArr();
+    var idx = currentIndex();
+    $("prev-btn").disabled = idx <= 0;
+    $("next-btn").disabled = idx < 0 || idx >= order.length - 1;
+  }
+
+  /* ── Layers sheet ── */
+  function renderLayersSheet() {
+    var body = $("layers-body");
+    body.innerHTML = "";
+    var groups = { sutra: [], kaumudi: [], english: [] };
+    LAYER_META.forEach(function (m) { groups[m.group].push(m); });
+
+    Object.keys(groups).forEach(function (g) {
+      var section = document.createElement("div");
+      section.className = "layer-group";
+      section.innerHTML = "<h3>" + GROUP_LABELS[g] + "</h3>";
+      groups[g].forEach(function (m) {
+        var nm = metaName(m);
+        var row = document.createElement("div");
+        row.className = "layer-row" + (m.live ? "" : " coming");
+        var id = "layer-" + m.key;
+        var label = A.esc(nm.title) + (nm.sub ? " · " + A.esc(nm.sub) : "") + (m.live ? "" : " · soon");
+        row.innerHTML =
+          '<input type="checkbox" id="' + id + '" ' +
+          (state.openLayers.has(m.key) ? "checked" : "") + " " +
+          (m.live ? "" : "disabled") + ">" +
+          '<label for="' + id + '">' + label + "</label>";
+        if (m.live) {
+          row.querySelector("input").addEventListener("change", function (e) {
+            if (e.target.checked) state.openLayers.add(m.key);
+            else state.openLayers.delete(m.key);
+            renderLayers();
+          });
+        }
+        section.appendChild(row);
+      });
+      body.appendChild(section);
+    });
+  }
+
+  /* ── Prakaraṇa index (real 70 chapters) ── */
+  function renderPrakList() {
+    var listEl = $("prak-list");
+    listEl.innerHTML = "";
+    (db.kaumudi.chapters || []).forEach(function (ch) {
+      var li = document.createElement("li");
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.innerHTML = '<span class="name">' + A.esc(ch.name) + "</span>" +
+        '<span class="range">SK ' + ch.from + "–" + ch.to + "</span>";
+      btn.addEventListener("click", function () {
+        var target = A.firstIdOfChapter(ch.n);
+        $("prak-dialog").close();
+        if (target) {
+          setOrder("sk");
+          jumpTo(target);
+        } else {
+          showToast("No sūtra found for this prakaraṇa");
+        }
+      });
+      li.appendChild(btn);
+      listEl.appendChild(li);
+    });
+  }
+
+  /* ── Navigation ── */
+  function jumpTo(id) {
+    if (!db.byId[id]) { showToast("Sūtra " + id + " not found"); return; }
+    state.currentId = id;
+    state.analysisOpen = false;
+    $("analysis-panel").classList.remove("open");
+    $("analysis-panel").hidden = true;
+    $("analysis-strip").setAttribute("aria-expanded", "false");
+    $("expand-hint").textContent = "Tap for analysis";
+    try { history.replaceState(null, "", "#" + id); } catch (e) {}
+    renderSutra();
+    $("reader").scrollTop = 0;
+    closeAllDialogs();
+  }
+
+  function goPrev() { var i = currentIndex(); if (i > 0) jumpTo(orderArr()[i - 1]); }
+  function goNext() { var o = orderArr(), i = currentIndex(); if (i > -1 && i < o.length - 1) jumpTo(o[i + 1]); }
+
+  function setOrder(which) {
+    state.order = which;
+    $("order-ak").setAttribute("aria-pressed", String(which === "ak"));
+    $("order-sk").setAttribute("aria-pressed", String(which === "sk"));
+    updateNavButtons();
+    renderIdentity();
+  }
+  function toggleOrder() {
+    setOrder(state.order === "ak" ? "sk" : "ak");
+    showToast(state.order === "ak" ? "Aṣṭādhyāyī order" : "Kaumudī order");
+  }
+
+  /* ── UI helpers ── */
+  function showToast(msg) {
+    var t = $("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(t._tid);
+    t._tid = setTimeout(function () { t.classList.remove("show"); }, 1800);
+  }
+  function closeAllDialogs() {
+    document.querySelectorAll("dialog[open]").forEach(function (d) { d.close(); });
+  }
+  function openDialog(id) {
+    var d = $(id);
+    if (d && typeof d.showModal === "function") d.showModal();
+    else if (d) d.setAttribute("open", "");
+  }
+
+  /* ── Jump search (sourced from db) ── */
+  function addJumpResult(id, labelHtml) {
+    var li = document.createElement("li");
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.innerHTML = labelHtml;
+    btn.addEventListener("click", function () { jumpTo(id); });
+    li.appendChild(btn);
+    $("jump-results").appendChild(li);
+  }
+
+  function runJumpSearch(raw) {
+    var results = $("jump-results");
+    results.innerHTML = "";
+    var q = raw.trim();
+    if (!q) return;
+
+    // exact sūtra id
+    if (/^\d+\.\d+\.\d+$/.test(q)) {
+      if (db.byId[q]) addJumpResult(q, "AK " + q + ' · <span class="sa">' + A.esc(db.byId[q].sanskrit_text) + "</span>");
+      else addJumpResult(q, "AK " + q + " (not found)"), results.lastChild.querySelector("button").disabled = true;
+      return;
+    }
+    // adhyāya.pāda
+    if (/^\d+\.\d+$/.test(q)) {
+      var pref = q + ".";
+      var n = 0;
+      db.akOrder.forEach(function (id) {
+        if (id.indexOf(pref) === 0 && n < 40) {
+          n++;
+          addJumpResult(id, "AK " + id + ' · <span class="sa">' + A.esc(db.byId[id].sanskrit_text) + "</span>");
+        }
+      });
+      if (!n) results.innerHTML = "";
+      return;
+    }
+    // SK number  (#405 or 405)
+    if (/^#?\d+$/.test(q)) {
+      var num = parseInt(q.replace("#", ""), 10);
+      var hit = skToId[num];
+      if (hit) addJumpResult(hit, "SK #" + num + " → AK " + hit + ' · <span class="sa">' + A.esc(db.byId[hit].sanskrit_text) + "</span>");
+      return;
+    }
+    // chapter-name search → first sūtra of chapter (SK order)
+    var lc = q.toLowerCase();
+    var chFound = 0;
+    (db.kaumudi.chapters || []).forEach(function (ch) {
+      if (chFound >= 12) return;
+      if (ch.name && ch.name.indexOf(q) !== -1) {
+        var fid = A.firstIdOfChapter(ch.n);
+        if (fid) { chFound++; addJumpResult(fid, '<span class="sa">' + A.esc(ch.name) + "</span> · prakaraṇa " + ch.n + " → AK " + fid); }
+      }
+    });
+    // sūtra text / IAST search
+    var n2 = 0;
+    for (var i = 0; i < db.sutras.length && n2 < 30; i++) {
+      var s = db.sutras[i];
+      var txt = s.sanskrit_text || "";
+      if (txt.indexOf(q) !== -1 || (A.iast(txt) || "").toLowerCase().indexOf(lc) !== -1) {
+        n2++;
+        addJumpResult(s.id, s.id + ' · <span class="sa">' + A.esc(txt) + "</span>");
+      }
+    }
+  }
+
+  /* ── AI drawer (BYOK, explicit action only) ── */
+  function aiOutput(html, hint) {
+    var el = $("ai-output");
+    el.innerHTML = hint ? '<span class="ai-hint">' + html + "</span>" : html;
+  }
+  function aiSend() {
+    var q = $("ai-input").value.trim();
+    if (!q) { showToast("Type a question first"); return; }
+    if (!window.DGEGemini) { aiOutput("AI module is not available on this page.", true); return; }
+    if (!DGEGemini.getKey || !DGEGemini.getKey()) {
+      aiOutput("No Gemini API key set. AI features use your own Google Gemini key, kept only in this browser — add a free key from aistudio.google.com/apikey in settings to turn this on.", true);
+      return;
+    }
+    var s = getSutra();
+    var ctx = "You are helping a student read Pāṇini's Aṣṭādhyāyī.\n\n";
+    ctx += "Sūtra " + s.id + ": " + (s.sanskrit_text || "") + "\n";
+    if (s.anvaya) ctx += "Anvaya: " + s.anvaya + "\n";
+    var open = Object.keys(state.layerText);
+    if (open.length) {
+      ctx += "\nOpen commentary layers:\n";
+      open.forEach(function (folder) {
+        var nm = A.META[folder];
+        ctx += "\n[" + (nm ? nm.sub : folder) + "]\n" + state.layerText[folder] + "\n";
+      });
+    }
+    ctx += "\nGround your answer strictly in the material above. Question: " + q;
+
+    aiOutput("Thinking…", true);
+    DGEGemini.generate({ prompt: ctx }).then(function (r) {
+      if (r.ok) {
+        aiOutput(A.esc(r.text), false);
+      } else {
+        var e = r.error || {};
+        aiOutput(A.esc((e.title || "AI error") + " — " + (e.message || "") + (e.action ? "\n→ " + e.action : "")), true);
+      }
+    });
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     WIRING
+     ═══════════════════════════════════════════════════════════ */
+  function wire() {
+    $("order-ak").addEventListener("click", function () { if (state.order !== "ak") toggleOrder(); });
+    $("order-sk").addEventListener("click", function () { if (state.order !== "sk") toggleOrder(); });
+    $("prev-btn").addEventListener("click", goPrev);
+    $("next-btn").addEventListener("click", goNext);
+
+    $("analysis-strip").addEventListener("click", toggleAnalysis);
+    $("analysis-strip").addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleAnalysis(); }
+    });
+
+    $("layers-btn").addEventListener("click", function () { renderLayersSheet(); openDialog("layers-dialog"); });
+    $("menu-btn").addEventListener("click", function () { openDialog("menu-dialog"); });
+    $("more-btn").addEventListener("click", function () { openDialog("more-dialog"); });
+
+    $("menu-jump").addEventListener("click", function () {
+      closeAllDialogs(); openDialog("jump-dialog");
+      setTimeout(function () { $("jump-input").focus(); }, 50);
+    });
+    $("menu-prak").addEventListener("click", function () { closeAllDialogs(); openDialog("prak-dialog"); });
+    $("open-prak").addEventListener("click", function () { $("jump-dialog").close(); openDialog("prak-dialog"); });
+    $("menu-order").addEventListener("click", function () { toggleOrder(); closeAllDialogs(); });
+
+    $("menu-compare").addEventListener("click", function () {
+      state.compare = !state.compare;
+      document.body.classList.toggle("compare-mode", state.compare);
+      $("compare-hint").textContent = state.compare ? "On" : "Off";
+      showToast(state.compare ? "Compare mode on" : "Compare mode off");
+    });
+    $("menu-script").addEventListener("click", function () {
+      state.script = state.script === "dev" ? "iast" : "dev";
+      $("script-hint").textContent = state.script === "dev" ? "Devanagari" : "IAST";
+      renderSutra();
+      showToast(state.script === "dev" ? "Devanagari" : "IAST");
+    });
+    $("menu-theme").addEventListener("click", function () {
+      var cycle = ["system", "light", "dark"];
+      var next = cycle[(cycle.indexOf(state.theme) + 1) % 3];
+      state.theme = next;
+      document.documentElement.removeAttribute("data-theme");
+      if (next !== "system") document.documentElement.setAttribute("data-theme", next);
+      $("theme-hint").textContent = next[0].toUpperCase() + next.slice(1);
+      showToast("Theme: " + next);
+    });
+    $("menu-fontsize").addEventListener("click", function () {
+      state.fontSize = (state.fontSize + 1) % 3;
+      var sizes = [0.9, 1, 1.15];
+      var labels = ["Small", "Medium", "Large"];
+      var f = sizes[state.fontSize];
+      document.documentElement.style.setProperty("--fs-sutra", "clamp(" + (1.35 * f) + "rem, 5.2vw, " + (2.1 * f) + "rem)");
+      document.documentElement.style.setProperty("--fs-body", "clamp(" + (0.88 * f) + "rem, 2.8vw, " + (1.05 * f) + "rem)");
+      $("fs-hint").textContent = labels[state.fontSize];
+      showToast(labels[state.fontSize]);
+    });
+    $("menu-ai").addEventListener("click", function () { closeAllDialogs(); openDialog("ai-drawer"); });
+    $("more-ai").addEventListener("click", function () { closeAllDialogs(); openDialog("ai-drawer"); });
+    $("more-copy").addEventListener("click", function () {
+      var url = location.href.split("#")[0] + "#" + state.currentId;
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { showToast("Link copied"); }, function () { showToast(url); });
+      else showToast(url);
+      closeAllDialogs();
+    });
+    $("menu-focus").addEventListener("click", function () {
+      state.focus = !state.focus;
+      $("nav").style.display = state.focus ? "none" : "";
+      $("chrome").classList.toggle("hidden", state.focus);
+      showToast(state.focus ? "Focus mode" : "Focus off");
+      closeAllDialogs();
+    });
+
+    $("ai-send").addEventListener("click", aiSend);
+    document.querySelectorAll("[data-preset]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var presets = {
+          explain: "Explain this sūtra simply in English.",
+          compare: "Compare the open commentaries on this sūtra.",
+          derive: "Give one example word and its full derivation using this sūtra."
+        };
+        $("ai-input").value = presets[btn.dataset.preset] || "";
+      });
+    });
+
+    $("jump-input").addEventListener("input", function (e) { runJumpSearch(e.target.value); });
+    $("jump-input").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        var first = document.querySelector("#jump-results button:not([disabled])");
+        if (first) first.click();
+      }
+    });
+
+    document.querySelectorAll("[data-close]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var dlg = btn.closest("dialog");
+        if (dlg) dlg.close();
+      });
+    });
+
+    // Chrome hide on scroll
+    var lastScroll = 0;
+    $("reader").addEventListener("scroll", function () {
+      var y = $("reader").scrollTop;
+      var chrome = $("chrome");
+      if (state.focus) return;
+      if (y > lastScroll && y > 60) chrome.classList.add("hidden");
+      else chrome.classList.remove("hidden");
+      lastScroll = y;
+    }, { passive: true });
+
+    // Swipe
+    var touchStartX = 0;
+    $("reader").addEventListener("touchstart", function (e) { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    $("reader").addEventListener("touchend", function (e) {
+      var dx = e.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(dx) > 60) { if (dx < 0) goNext(); else goPrev(); }
+    }, { passive: true });
+
+    // Keyboard
+    document.addEventListener("keydown", function (e) {
+      if (e.target.matches("input, textarea")) return;
+      if (e.key === "ArrowLeft" || e.key === "h") { e.preventDefault(); goPrev(); }
+      if (e.key === "ArrowRight" || e.key === "l") { e.preventDefault(); goNext(); }
+      if (e.key === "/") { e.preventDefault(); openDialog("jump-dialog"); setTimeout(function () { $("jump-input").focus(); }, 50); }
+      if (e.key === "g") { e.preventDefault(); toggleOrder(); }
+      if (e.key === "Escape") closeAllDialogs();
+    });
+  }
+
+  function toggleAnalysis() {
+    state.analysisOpen = !state.analysisOpen;
+    var panel = $("analysis-panel");
+    var strip = $("analysis-strip");
+    if (state.analysisOpen) {
+      panel.hidden = false;
+      panel.classList.add("open");
+      strip.setAttribute("aria-expanded", "true");
+      $("expand-hint").textContent = "Collapse";
+    } else {
+      panel.classList.remove("open");
+      panel.hidden = true;
+      strip.setAttribute("aria-expanded", "false");
+      $("expand-hint").textContent = "Tap for analysis";
+    }
+  }
+
+  /* ── Boot ── */
+  function fail(msg) {
+    $("identity").textContent = "";
+    $("sutra-text").textContent = msg;
+    $("layers-stack").innerHTML = '<div class="empty-state">' + A.esc(msg) + "</div>";
+  }
+
+  wire();
+  A.load().then(function (loaded) {
+    db = loaded;
+    // reverse SK-index map
+    Object.keys(db.kaumudi.byId).forEach(function (id) {
+      var k = db.kaumudi.byId[id];
+      if (k && k.kaumudiIndex != null) skToId[k.kaumudiIndex] = id;
+    });
+    // deep link #<id>, else first sūtra
+    var hash = decodeURIComponent((location.hash || "").replace(/^#/, ""));
+    state.currentId = (hash && db.byId[hash]) ? hash : db.akOrder[0];
+    renderPrakList();
+    renderSutra();
+  }).catch(function (e) {
+    fail("Could not load the Aṣṭādhyāyī corpus. " + (e && e.message ? e.message : ""));
+  });
+
+  window.addEventListener("hashchange", function () {
+    if (!db) return;
+    var h = decodeURIComponent((location.hash || "").replace(/^#/, ""));
+    if (h && db.byId[h] && h !== state.currentId) jumpTo(h);
+  });
+})();
+</script>
+
+<script src="../../js/intellisense.js?v=4.71.1"></script>
+<script src="../../js/entity-linker.js?v=1.0.0"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+/* =========================================================================
+   Styles for tirtha/index.html.
+
+   Lifted out of the page unchanged — same rules, same order, so it renders
+   exactly as before. Pages hold structure; their styles live here and their
+   words in content/.
+   ========================================================================= */
+
+/* --- DGE shared theme tokens (mirrored from css/main.css) so this section
+       themes natively with the rest of the site. Theme class is applied to
+       <html> by the small script in <head>, honoring app_theme. --- */
+:root{
+  --bg-main:#FAF3E6;--card-bg:#ffffff;--card-border:#E9DCC3;--card-active:#FCE9DE;
+  --text-primary:#2B2119;--text-sanskrit:#9A1B1B;--accent-red:#AE231F;--accent-gold:#B9821F;
+  --panel-bg:#ffffff;--muted-text:#8a7a63;--accent-glow:rgba(174,35,31,0.22);
+}
+:root.theme-traditional{--bg-main:#FAF3E6;--card-bg:#ffffff;--card-border:#E9DCC3;--card-active:#FCE9DE;--text-primary:#2B2119;--text-sanskrit:#9A1B1B;--accent-red:#AE231F;--accent-gold:#B9821F;--panel-bg:#ffffff;--muted-text:#8a7a63;--accent-glow:rgba(174,35,31,0.22);}
+:root.theme-vandana,:root.dark-mode{--bg-main:#0E0C0B;--card-bg:#201B17;--card-border:rgba(255,255,255,0.10);--card-active:rgba(232,160,80,0.14);--text-primary:#EDE2D3;--text-sanskrit:#E8A067;--accent-red:#E2664A;--accent-gold:#E8B24D;--panel-bg:#181411;--muted-text:#b6a892;--accent-glow:rgba(232,178,77,0.35);}
+
+  :root{
+    --bg:var(--bg-main); --panel:var(--card-bg); --panel2:var(--card-active); --line:var(--card-border);
+    --ink:var(--text-primary); --muted:var(--muted-text); --accent:var(--accent-gold);
+    --west:#4aa3df; --north:#8b7cf0; --east:#e0724d; --south:#3fb984;
+    --chip:var(--card-active);
+    /* Consumed by vyakarana-base.css's shared header/.ctl/.btn rules, now
+       loaded on this page too -- not otherwise used by tirtha.css's own
+       rules today. */
+    --gold:var(--accent-gold); --radius:14px; --shadow:0 1px 3px rgba(0,0,0,.08),0 6px 18px rgba(0,0,0,.05);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;line-height:1.5}
+  a{color:var(--west);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .page-head{padding:20px 16px 8px;max-width:1100px;margin:0 auto}
+  h1{font-size:1.5rem;margin:0 0 2px;letter-spacing:.2px}
+  h1 .om{color:var(--accent)}
+  .sub{color:var(--muted);font-size:.9rem;margin-bottom:2px}
+  .credit{color:var(--muted);font-size:.78rem}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 16px 60px}
+  .controls{position:sticky;top:0;z-index:20;background:linear-gradient(var(--bg),var(--bg) 82%,rgba(15,18,22,0));
+    padding:12px 0 10px;margin-top:8px}
+  .searchrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  input[type=search],select{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:10px;padding:10px 12px;font-size:.92rem;outline:none}
+  input[type=search]{flex:1 1 240px;min-width:180px}
+  input[type=search]:focus,select:focus{border-color:var(--accent)}
+  select{flex:0 0 auto}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .dirtabs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  .tab{cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--muted);
+    padding:7px 13px;border-radius:999px;font-size:.85rem;font-weight:600;user-select:none}
+  .tab[data-d="West"].on{background:var(--west);color:#04121c;border-color:var(--west)}
+  .tab[data-d="North"].on{background:var(--north);color:#0c0820;border-color:var(--north)}
+  .tab[data-d="East"].on{background:var(--east);color:#1c0a04;border-color:var(--east)}
+  .tab[data-d="South"].on{background:var(--south);color:#04160e;border-color:var(--south)}
+  .tab[data-d="all"].on{background:var(--accent);color:#20180a;border-color:var(--accent)}
+  .meta{color:var(--muted);font-size:.82rem;margin:12px 2px 4px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 15px;
+    border-left:4px solid var(--line);position:relative;overflow:hidden}
+  .card.West{border-left-color:var(--west)}
+  .card.North{border-left-color:var(--north)}
+  .card.East{border-left-color:var(--east)}
+  .card.South{border-left-color:var(--south)}
+  .card h3{margin:0 0 2px;font-size:1.06rem}
+  .aka{color:var(--muted);font-size:.8rem;margin-bottom:8px}
+  .row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:9px}
+  .chip{background:var(--chip);border:1px solid var(--line);border-radius:999px;
+    padding:3px 9px;font-size:.72rem;color:var(--muted);white-space:nowrap}
+  .chip.dir{font-weight:700}
+  .chip.verse{color:var(--accent);border-color:#4a3d1c;font-weight:700}
+  .chip.West{color:var(--west)} .chip.North{color:var(--north)}
+  .chip.East{color:var(--east)} .chip.South{color:var(--south)}
+  .chip.conf-high{color:var(--south)} .chip.conf-medium{color:var(--accent)} .chip.conf-low{color:var(--east)}
+  .field{font-size:.85rem;margin:7px 0}
+  .field b{color:var(--muted);font-weight:600}
+  .sig{font-size:.9rem;color:#dbe3ea}
+  .reach{font-size:.83rem;color:#c6d0da;background:var(--panel2);border:1px solid var(--line);
+    border-radius:10px;padding:9px 11px;margin-top:9px}
+  .reach .lab{color:var(--accent);font-weight:700;font-size:.72rem;letter-spacing:.4px;text-transform:uppercase}
+  .src{font-size:.76rem;margin-top:9px}
+  .src a{margin-right:8px}
+  .empty{text-align:center;color:var(--muted);padding:50px 10px}
+  .note{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;
+    font-size:.83rem;color:var(--muted);margin:14px 0}
+  .note b{color:var(--ink)}
+  details.about{margin:6px 0 0}
+  details.about summary{cursor:pointer;color:var(--accent);font-size:.85rem}
+  footer{color:var(--muted);font-size:.75rem;text-align:center;padding:24px 10px 0}
+  @media(max-width:520px){h1{font-size:1.25rem}.grid{grid-template-columns:1fr}}

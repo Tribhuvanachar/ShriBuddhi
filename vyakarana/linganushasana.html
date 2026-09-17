@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=2"></script>
+<script src="../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>लिङ्गानुशासनम् — DGE</title>
+<link rel="stylesheet" href="../css/vyakarana-base.css?v=1">
+<link rel="stylesheet" href="../css/vyakarana.css?v=1">
+<link rel="stylesheet" href="../css/rupasiddhi.css?v=1">
+<link rel="stylesheet" href="../css/vyakarana-corpus.css?v=1">
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+</head>
+<body>
+<header>
+  <div class="bar">
+    <dge-breadcrumb label="लिङ्गानुशासनम्" deva home-href="index.html" class="brand"><a href="index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span class="deva">लिङ्गानुशासनम्</span></dge-breadcrumb>
+    <div class="spacer"></div>
+    <button class="icon" id="themeBtn" title="Light / dark">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <h1 class="deva">लिङ्गानुशासनम्</h1>
+    <div class="sub">Pāṇinian gender rules — strīliṅga, puṁliṅga, napuṁsakaliṅga and the mixed adhikāras, with the gloss. Filter by adhikāra.</div>
+  </div>
+
+  <section class="rs-box vc-controls">
+    <input id="vc-q" type="search" class="deva" placeholder="अन्वेषणम् — sūtra number (42) or keyword…" aria-label="Search">
+    <div class="vc-row">
+      <span id="vc-scripts" class="vc-scripts">
+        <button class="chip on" data-script="deva">देवनागरी</button>
+        <button class="chip" data-script="iast">IAST</button>
+        <button class="chip" data-script="knda">ಕನ್ನಡ</button>
+      </span>
+      <span id="vc-count" class="df-note"></span>
+    </div>
+    <div class="vc-row" id="vc-filters"></div>
+  </section>
+
+  <div id="vc-list"></div>
+
+  <p class="df-note" id="vc-credit"></p>
+</main>
+
+<dge-footer class="site-footer-links"><a class="footer-link" href="../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+<!-- Indic transliteration, vendored (js/vendor/README.md): the reader's
+     script setting and the धातु/कोश word marking both depend on it, so it
+     must not be one CDN outage away from silently not working. -->
+<script src="../js/vendor/sanscript-1.3.3.min.js?v=1.3.3"></script>
+<script src="../js/dge-shell.js?v=1"></script>
+<script src="../js/dge-breadcrumb.js?v=1"></script>
+<script>window.CORPUS = "linganushasana";</script>
+<script src="../js/vyakarana-corpus.js?v=1" defer></script>
+<script src="../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="linganushasana"></dge-nav-rail>
+</body>
+</html>

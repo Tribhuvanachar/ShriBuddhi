@@ -1,0 +1,148 @@
+/* DGE — Kavya reader.  Same visual language as ashtadhyayi.css:
+   one accent, generous line-height for Devanagari, cards over chrome. */
+:root{
+  --bg:#fbf8f3; --panel:#fff; --ink:#241f1a; --muted:#6f6559;
+  --line:#e7ddcd; --accent:#8a2b06; --accent-soft:#f3e2d8;
+  --chip:#f2ece1; --ai:#6b4fa8; --ai-soft:#efeaf9;
+  --radius:14px; --shadow:0 1px 2px rgba(0,0,0,.05),0 6px 20px rgba(0,0,0,.04);
+  --fs:1.06rem;
+}
+[data-theme="dark"]{
+  --bg:#15130f; --panel:#1e1b16; --ink:#efe7da; --muted:#a1968a;
+  --line:#332d24; --accent:#e0855c; --accent-soft:#33221a;
+  --chip:#272219; --ai:#b6a2e6; --ai-soft:#241d33;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink); font-size:var(--fs);
+  font-family:"Noto Serif Devanagari","Noto Serif Kannada",Georgia,
+              "Times New Roman",serif;
+  line-height:1.75; -webkit-text-size-adjust:100%;
+}
+a{color:var(--accent)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 14px 96px}
+
+/* ---- top bar ---------------------------------------------------------- */
+header.top{
+  position:sticky;top:0;z-index:40;background:var(--bg);
+  border-bottom:1px solid var(--line);
+}
+.top .row{max-width:1180px;margin:0 auto;padding:10px 14px;
+  display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.brand{font-weight:700;letter-spacing:.02em;margin-right:auto;
+  display:flex;gap:8px;align-items:center}
+.brand small{font-weight:400;color:var(--muted);font-size:.72em}
+.brand a{text-decoration:none}
+.btn{
+  border:1px solid var(--line);background:var(--panel);color:var(--ink);
+  border-radius:999px;padding:6px 13px;font:inherit;font-size:.86rem;
+  cursor:pointer;white-space:nowrap;
+}
+.btn:hover{border-color:var(--accent)}
+.btn[aria-pressed="true"],.btn.on{
+  background:var(--accent);border-color:var(--accent);color:#fff}
+select.btn{border-radius:999px;padding-right:26px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;
+  overflow:hidden;background:var(--panel)}
+.seg button{border:0;background:transparent;color:var(--ink);
+  padding:6px 13px;font:inherit;font-size:.86rem;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+
+/* ---- pickers ---------------------------------------------------------- */
+.pickers{display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  padding:12px 0 4px}
+.layerbar{display:flex;gap:7px;flex-wrap:wrap;padding:10px 0 2px;
+  border-top:1px dashed var(--line);margin-top:8px}
+.chip{
+  border:1px solid var(--line);background:var(--chip);color:var(--ink);
+  border-radius:999px;padding:5px 12px;font-size:.84rem;cursor:pointer;
+  display:inline-flex;gap:6px;align-items:center;font-family:inherit;
+}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);
+  color:#fff}
+.chip .n{opacity:.65;font-size:.85em}
+.chip.ai{border-style:dashed}
+.chip.ai[aria-pressed="true"]{background:var(--ai);border-color:var(--ai)}
+
+/* ---- verse cards ------------------------------------------------------ */
+.verse{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  box-shadow:var(--shadow);margin:16px 0;overflow:hidden;
+}
+.verse > .head{
+  display:flex;gap:10px;align-items:baseline;padding:11px 16px;
+  border-bottom:1px solid var(--line);background:linear-gradient(
+    to bottom,var(--accent-soft),transparent);
+}
+.verse .ref{font-weight:700;color:var(--accent);font-size:.92rem;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.verse .meta{color:var(--muted);font-size:.8rem;margin-left:auto;
+  display:flex;gap:10px;flex-wrap:wrap}
+.mula{padding:14px 16px;font-size:1.16em;line-height:2.05;white-space:pre-wrap}
+.speaker{color:var(--muted);font-style:italic;font-size:.86em;
+  padding:0 16px;margin-top:-6px}
+
+.layers{padding:0 16px 12px}
+details.layer{border-top:1px solid var(--line);padding:9px 0}
+details.layer > summary{
+  cursor:pointer;list-style:none;display:flex;gap:8px;align-items:center;
+  font-size:.86rem;color:var(--muted);font-family:system-ui,sans-serif;
+}
+details.layer > summary::-webkit-details-marker{display:none}
+details.layer > summary::before{content:"▸";color:var(--accent);
+  transition:transform .15s}
+details.layer[open] > summary::before{transform:rotate(90deg)}
+details.layer .body{padding:8px 0 4px 16px;white-space:pre-wrap}
+.badge{font-size:.68rem;border:1px solid currentColor;border-radius:999px;
+  padding:0 6px;font-family:system-ui,sans-serif}
+.badge.ai{color:var(--ai);background:var(--ai-soft);border-color:transparent}
+.lang-en .body,.lang-hi .body{font-family:Georgia,serif;font-size:.97em}
+
+/* ---- padaccheda word chips ------------------------------------------- */
+.pc{display:flex;flex-wrap:wrap;gap:7px;padding:8px 0 4px 16px}
+.pc a{
+  display:inline-flex;flex-direction:column;gap:1px;text-decoration:none;
+  border:1px solid var(--line);border-radius:10px;padding:4px 9px;
+  background:var(--chip);color:var(--ink);line-height:1.35;
+}
+.pc a:hover{border-color:var(--accent)}
+.pc .w{font-size:.98em}
+.pc .g{font-size:.72em;color:var(--muted);font-family:system-ui,sans-serif}
+.pc .m{font-size:.66em;color:var(--accent);font-family:ui-monospace,monospace}
+
+/* ---- compare mode ----------------------------------------------------- */
+.compare .layers{display:grid;gap:0 18px;padding-bottom:16px;
+  grid-template-columns:repeat(var(--cols,2),minmax(0,1fr))}
+.compare details.layer{border-top:1px solid var(--line)}
+.compare details.layer .body{padding-left:0}
+.compare .pc{padding-left:0}
+@media (max-width:760px){
+  .compare .layers{grid-template-columns:1fr}
+  .brand small{display:none}
+}
+
+/* ---- misc ------------------------------------------------------------- */
+.empty{color:var(--muted);text-align:center;padding:48px 12px}
+.jump{display:flex;gap:8px;align-items:center;margin-left:auto}
+.jump input{width:88px;border:1px solid var(--line);border-radius:999px;
+  padding:6px 12px;background:var(--panel);color:var(--ink);font:inherit;
+  font-size:.86rem}
+footer.pager{position:fixed;left:0;right:0;bottom:0;background:var(--bg);
+  border-top:1px solid var(--line);padding:8px 14px;display:flex;gap:10px;
+  align-items:center;justify-content:center;z-index:30}
+footer.pager .unit{color:var(--muted);font-size:.86rem}
+.srcnote{color:var(--muted);font-size:.76rem;padding:6px 16px 14px;
+  font-family:system-ui,sans-serif;border-top:1px dashed var(--line)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.verse .meta .chandas-link{color:var(--accent);text-decoration:underline dotted;text-underline-offset:3px}
+
+/* site-footer.js's shared links row. Extra bottom margin so it clears
+   footer.pager, which is position:fixed and would otherwise sit on top of
+   it at the very bottom of the scroll. */
+.site-footer-links{margin:22px 16px 64px;padding-top:16px;border-top:1px solid var(--line);text-align:center}
+.footer-link{background:none;border:none;font:inherit;font-size:.8rem;color:var(--muted);
+  cursor:pointer;padding:4px 2px;text-decoration:underline;text-underline-offset:2px}
+.footer-link:hover{color:var(--accent)}
+.footer-sep{color:var(--line);font-size:.8rem;margin:0 2px}

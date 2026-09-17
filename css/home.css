@@ -1,0 +1,702 @@
+/* =========================================================================
+   The vandana gate — the landing page at the repository root.
+
+   Lifted out of index.html, where it was 608 lines of <style> above the
+   markup it styled. Nothing was changed in the move: the rules, their order
+   and the cascade are byte-identical, so the page renders exactly as before.
+   ========================================================================= */
+
+/* =========================================================================
+   SARVAMŪLA — landing page.
+
+   The vandana fills the first screen: the name of the library, what it is,
+   and his portrait at the centre. Nothing of the library is reachable until
+   respects have been paid.
+
+   Below it, one band per contributor. Each band says who and what; the long
+   detail — the acknowledgements especially — opens in a panel, so the page
+   itself stays readable.
+
+   Motion stays slow, 4s to 20s cycles, and switches off entirely under
+   prefers-reduced-motion.
+   ========================================================================= */
+
+:root {
+  --bg-deep:    #0B0907;
+  --bg-mid:     #171009;
+  --bg-warm:    #2A1608;
+  --bg-panel:   #14100C;
+
+  --saffron:    #F2820C;
+  --saffron-lt: #FFB24D;
+  --gold:       #E8B24D;
+  --gold-soft:  #D9B87A;
+
+  --text:       #F3E7D4;
+  --text-dim:   #C0AC90;
+  --text-faint: #8B7A63;
+
+  --hairline:   rgba(232,178,77,.22);
+  --hairline-2: rgba(232,178,77,.11);
+
+  --font-sa:    'Tiro Devanagari Sanskrit', 'Noto Serif Devanagari', 'Noto Sans Devanagari', serif;
+  --font-ui:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+
+  --ease:      cubic-bezier(.22,.61,.36,1);
+  --ease-soft: cubic-bezier(.4,0,.2,1);
+
+  --vh: 1vh;
+}
+@supports (height: 1dvh) { :root { --vh: 1dvh; } }
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-ui);
+  background:
+    radial-gradient(120% 60% at 50% 0%, var(--bg-warm) 0%, var(--bg-mid) 38%, var(--bg-deep) 72%),
+    var(--bg-deep);
+  color: var(--text);
+  overflow-x: hidden;
+}
+body.modal-open { overflow: hidden; }
+
+#veil {
+  position: fixed; inset: 0; z-index: 200; pointer-events: none;
+  background: var(--bg-deep); opacity: 0;
+  transition: opacity .7s var(--ease-soft);
+}
+body.leaving #veil { opacity: 1; }
+
+/* =========================================================================
+   1. HERO
+   ========================================================================= */
+
+.hero {
+  position: relative;
+  min-height: calc(100 * var(--vh));
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: clamp(8px, 1.25 * var(--vh), 15px);
+  padding: calc(20px + env(safe-area-inset-top)) 22px calc(30px + env(safe-area-inset-bottom));
+  overflow: hidden; text-align: center;
+}
+
+.mandala {
+  position: absolute; left: 50%; top: 44%;
+  width: min(150 * var(--vh), 150vw); aspect-ratio: 1;
+  transform: translate(-50%,-50%);
+  opacity: .055; pointer-events: none;
+  -webkit-mask-image: radial-gradient(closest-side, #000 30%, transparent 72%);
+          mask-image: radial-gradient(closest-side, #000 30%, transparent 72%);
+  animation: turn 150s linear infinite;
+}
+@keyframes turn { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+.vignette {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(115% 78% at 50% 44%, transparent 44%, rgba(0,0,0,.5) 84%, rgba(0,0,0,.8) 100%);
+}
+.smoke {
+  position: absolute; bottom: -12%; width: 34vmin; height: 90vmin;
+  pointer-events: none; opacity: .15; filter: blur(26px);
+  background: radial-gradient(closest-side, rgba(255,214,160,.55), transparent 70%);
+  animation: drift 19s var(--ease-soft) infinite;
+}
+.smoke.l { left: 4%; }
+.smoke.r { right: 4%; animation-duration: 23s; animation-delay: -8s; }
+@keyframes drift {
+  0%   { transform: translate3d(0,10%,0) scale(.9);    opacity: 0; }
+  30%  { opacity: .18; }
+  100% { transform: translate3d(4vmin,-40%,0) scale(1.35); opacity: 0; }
+}
+
+.masthead, .hero .om, .portrait-wrap, .guru-block, .hero-actions {
+  position: relative; z-index: 2;
+}
+
+/* --- masthead: the one and only place the library is named --- */
+.masthead { display: flex; flex-direction: column; align-items: center; gap: 5px; max-width: 900px; margin-top: auto; }
+.brand-latin {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.5vw, 46px); font-weight: 500;
+  color: var(--gold); letter-spacing: .04em; line-height: 1.1;
+  text-shadow: 0 0 40px rgba(232,178,77,.32);
+}
+.brand-tagline {
+  --tag-lines: 2;
+  margin: 5px auto 0; max-width: 72ch;
+  font-size: clamp(12px, 1.05vw, 13.5px); line-height: 1.62; color: var(--text-dim);
+  max-height: calc(var(--tag-lines) * 1.62em);
+  overflow: hidden;
+  transition: max-height .5s var(--ease);
+}
+.brand-tagline.open { max-height: 20em; }
+.tagline-more {
+  margin-top: 6px; padding: 0; border: 0; background: none; cursor: pointer;
+  font-family: var(--font-ui); font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--gold-soft); border-bottom: 1px solid rgba(232,178,77,.3); opacity: .85;
+  transition: color .3s var(--ease-soft), border-color .3s var(--ease-soft), opacity .3s var(--ease-soft);
+}
+.tagline-more:hover { opacity: 1; color: var(--saffron-lt); border-color: rgba(232,178,77,.75); }
+.tagline-more:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* --- portrait --- */
+.om {
+  font-family: var(--font-sa);
+  font-size: clamp(22px, 2.4vw, 30px); line-height: 1; color: var(--gold);
+  animation: pulse 6s var(--ease-soft) infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: .7; text-shadow: 0 0 18px rgba(232,178,77,.3); }
+  50%     { opacity: 1;  text-shadow: 0 0 34px rgba(232,178,77,.6); }
+}
+
+.portrait-wrap {
+  position: relative;
+  width: clamp(150px, 17.5 * var(--vh), 232px);
+  display: flex; align-items: flex-end; justify-content: center;
+}
+.halo {
+  position: absolute; left: 50%; top: 46%;
+  width: 180%; aspect-ratio: 1; transform: translate(-50%,-50%);
+  pointer-events: none; filter: blur(6px);
+  background:
+    radial-gradient(closest-side, rgba(255,178,77,.30), transparent 66%),
+    radial-gradient(closest-side, rgba(242,130,12,.22), transparent 78%);
+  animation: breathe 7s var(--ease-soft) infinite;
+}
+@keyframes breathe {
+  0%,100% { transform: translate(-50%,-50%) scale(1);    opacity: .8; }
+  50%     { transform: translate(-50%,-50%) scale(1.07); opacity: 1; }
+}
+.halo-ring {
+  position: absolute; inset: -6% -7% -5%;
+  border-radius: 50% 50% 18px 18px / 40% 40% 5% 5%;
+  border: 1px solid rgba(232,178,77,.28);
+  box-shadow: 0 0 60px rgba(242,130,12,.2);
+  pointer-events: none;
+  animation: breathe-ring 9s var(--ease-soft) infinite;
+}
+@keyframes breathe-ring {
+  0%,100% { transform: scale(1);     opacity: .55; }
+  50%     { transform: scale(1.025); opacity: .95; }
+}
+
+.frame {
+  position: relative; width: 100%; aspect-ratio: var(--frame-ratio, 2 / 3); cursor: pointer;
+  border-radius: 50% 50% 14px 14px / 40% 40% 5% 5%;
+  overflow: hidden;
+  background: linear-gradient(180deg, #241505, #120B04);
+  box-shadow:
+    0 0 0 1px rgba(232,178,77,.34),
+    0 0 0 7px rgba(232,178,77,.07),
+    0 30px 70px rgba(0,0,0,.6),
+    inset 0 0 60px rgba(0,0,0,.5);
+}
+.frame img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; display: block;
+  object-fit: cover; object-position: center 50%;
+  filter: saturate(1.06) contrast(1.04) brightness(1.02);
+  animation: kenburns 24s var(--ease-soft) infinite alternate;
+  -webkit-mask-image: linear-gradient(180deg, #000 88%, rgba(0,0,0,.86) 96%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 88%, rgba(0,0,0,.86) 96%, transparent 100%);
+}
+@keyframes kenburns {
+  from { transform: scale(1)     translateY(0); }
+  to   { transform: scale(1.055) translateY(-1.4%); }
+}
+/* Namaskāra's blessing video — sits in the exact same box as the photo
+   (not a popup) so a tap on "Offer Namaskāra" makes the portrait itself
+   appear to come alive. object-fit: cover crops it to the frame's own
+   2:3 shape the same way the photo is cropped; the clip's real ratio
+   (400x736) is taller/narrower than that, so a little is trimmed off the
+   top and bottom — the accepted tradeoff of matching the photo's frame
+   rather than showing the clip uncropped in a bigger box of its own.
+   z-index above the photo is deliberate, not decorative: Chromium
+   composites <video> on its own layer, which in practice can paint above
+   a plain sibling regardless of DOM order — being explicit here keeps
+   the crossfade direction correct rather than relying on that quirk by
+   accident. */
+.frame video {
+  position: absolute; inset: 0; z-index: 1;
+  width: 100%; height: 100%; display: block;
+  object-fit: cover; object-position: center 50%;
+  -webkit-mask-image: linear-gradient(180deg, #000 88%, rgba(0,0,0,.86) 96%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 88%, rgba(0,0,0,.86) 96%, transparent 100%);
+  background: #120B04;
+  opacity: 0; pointer-events: none;
+  transition: opacity .6s var(--ease-soft);
+}
+.frame.video-active video { opacity: 1; pointer-events: auto; }
+.frame::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(70% 46% at 46% 26%, rgba(255,196,120,.16), transparent 70%),
+    radial-gradient(95% 78% at 52% 52%, transparent 46%, rgba(11,9,7,.34) 78%, rgba(11,9,7,.72) 100%),
+    linear-gradient(180deg, rgba(11,9,7,.6) 0%, transparent 20%, transparent 88%, rgba(11,9,7,.55) 100%);
+}
+
+/* Where the offering lands — over the crown of his head. Positioned from
+   the top of the frame rather than the bottom, since that is what the
+   coordinates now describe. */
+.offer-zone {
+  position: absolute; left: var(--offer-x, 46%); top: var(--offer-y, 14%);
+  width: var(--offer-w, 52%); height: var(--offer-h, 64px);
+  transform: translate(-50%, -50%); cursor: pointer; z-index: 3;
+  border-radius: 50%;
+  background: radial-gradient(60% 100% at 50% 50%, rgba(242,130,12,.20), transparent 72%);
+  transition: background .4s var(--ease-soft);
+}
+.offer-zone:hover { background: radial-gradient(60% 100% at 50% 50%, rgba(255,178,77,.32), transparent 74%); }
+.offer-zone:focus-visible { outline: 2px solid var(--gold); outline-offset: 6px; border-radius: 999px; }
+
+.ripple {
+  position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px;
+  border-radius: 50%; border: 1px solid rgba(255,246,230,.8); pointer-events: none;
+  animation: ripple-out 1.5s var(--ease) forwards;
+}
+@keyframes ripple-out {
+  from { transform: scale(.4);  opacity: .9; }
+  to   { transform: scale(6.5); opacity: 0; }
+}
+
+/* Namaskāra. Several figures come down at the base of the portrait — where
+   one would actually prostrate — rather than rising past his head. They bow
+   in, rest a moment, and fade. */
+.pranam-row {
+  position: absolute; left: 50%; bottom: 2px;
+  transform: translateX(-50%);
+  display: flex; align-items: flex-end; justify-content: center; gap: 8px;
+  pointer-events: none; z-index: 4; min-height: 30px;
+}
+.pranam-mark {
+  color: var(--gold); line-height: 0; opacity: 0;
+  filter: drop-shadow(0 0 14px rgba(255,196,120,.65));
+  animation: pranam-bow 2.6s var(--ease) forwards;
+}
+@keyframes pranam-bow {
+  0%   { opacity: 0; transform: translateY(-14px) scaleY(.4); }
+  22%  { opacity: 1; transform: translateY(0) scaleY(1); }
+  70%  { opacity: 1; transform: translateY(0) scaleY(1); }
+  100% { opacity: 0; transform: translateY(3px) scaleY(.96); }
+}
+
+/* --- his name and the verse --- */
+.guru-block { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.guru-sa {
+  font-family: var(--font-sa);
+  font-size: clamp(19px, 1.95vw, 26px); line-height: 1.35;
+  color: var(--saffron-lt); text-shadow: 0 0 30px rgba(242,130,12,.35);
+}
+.guru-latin {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(14px, 1.4vw, 19px); color: var(--gold-soft); letter-spacing: .05em;
+}
+.guru-title {
+  font-size: clamp(9px, .9vw, 11px);
+  letter-spacing: .26em; text-transform: uppercase; color: var(--text-faint);
+}
+.verse {
+  font-family: var(--font-sa);
+  font-size: clamp(12.5px, 1.1vw, 15px); line-height: 1.8;
+  color: var(--text); max-width: 52ch; opacity: .94;
+}
+.verse-tr {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(11px, 1vw, 13.5px); color: var(--text-faint);
+  max-width: 58ch; margin-top: 3px; line-height: 1.5;
+}
+
+.rule { display: flex; align-items: center; justify-content: center; gap: 12px; width: min(300px, 66vw); margin: 3px 0; }
+.rule::before, .rule::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(232,178,77,.4), transparent); }
+.rule i { width: 6px; height: 6px; transform: rotate(45deg); background: var(--gold); opacity: .85; box-shadow: 0 0 12px rgba(232,178,77,.6); }
+
+/* A quiet text link, used under his name and inside each band. */
+.more-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: none; border: 0; cursor: pointer; padding: 3px 2px;
+  font-family: var(--font-ui); font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--gold-soft); border-bottom: 1px solid rgba(232,178,77,.3);
+  transition: color .3s var(--ease-soft), border-color .3s var(--ease-soft);
+}
+.more-link:hover { color: var(--saffron-lt); border-color: rgba(232,178,77,.75); }
+.more-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.more-link-sm { font-size: 9.5px; letter-spacing: .16em; gap: 4px; padding: 2px 1px; opacity: .8; }
+.more-link-sm:hover { opacity: 1; }
+.more-link .arrow { transition: transform .3s var(--ease); }
+.more-link:hover .arrow { transform: translateX(3px); }
+
+/* --- obeisance and entry --- */
+.hero-actions { display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 2px; }
+.hint { font-size: clamp(11px, 1.05vw, 13px); color: var(--text-faint); letter-spacing: .03em; }
+.act-row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+.btn {
+  font-family: var(--font-ui);
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px; border-radius: 999px;
+  font-size: clamp(11.5px, 1.05vw, 13.5px); font-weight: 500; letter-spacing: .04em;
+  cursor: pointer; color: var(--text);
+  border: 1px solid var(--hairline);
+  background: rgba(255,255,255,.035);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  transition: transform .3s var(--ease), background .3s var(--ease-soft),
+              border-color .3s var(--ease-soft), box-shadow .4s var(--ease-soft),
+              opacity .5s var(--ease-soft), color .3s var(--ease-soft);
+}
+.btn:hover  { transform: translateY(-2px); border-color: rgba(232,178,77,.55); background: rgba(255,255,255,.07); }
+.btn:active { transform: translateY(0) scale(.98); }
+.btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+
+.btn-obeisance {
+  border-color: rgba(242,130,12,.5);
+  background: linear-gradient(180deg, rgba(242,130,12,.2), rgba(196,71,26,.16));
+  color: #FFE6C4; box-shadow: 0 0 30px rgba(242,130,12,.16);
+}
+.btn-obeisance:hover { box-shadow: 0 0 44px rgba(242,130,12,.32); }
+
+/* Locked, the entry button says what to do rather than sitting mute — which
+   is why there is no separate explanatory line under it. */
+.btn-enter { padding: 14px 30px; font-size: clamp(12.5px, 1.15vw, 14.5px); opacity: .5; pointer-events: none; }
+.btn-enter.ready {
+  opacity: 1; pointer-events: auto;
+  border-color: rgba(232,178,77,.62);
+  background: linear-gradient(180deg, rgba(232,178,77,.2), rgba(242,130,12,.12));
+  color: #FFF1D8;
+  animation: arrive .9s var(--ease) both, glow 3.6s var(--ease-soft) 1s infinite;
+}
+@keyframes arrive { from { transform: translateY(10px) scale(.96); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes glow {
+  0%,100% { box-shadow: 0 0 22px rgba(232,178,77,.18); }
+  50%     { box-shadow: 0 0 46px rgba(232,178,77,.4); }
+}
+.btn-enter .arrow { transition: transform .3s var(--ease); }
+.btn-enter:hover .arrow { transform: translateX(4px); }
+
+
+/* --- the sections popover, reachable from the first screen --- */
+.cue {
+  position: relative; z-index: 2;
+  display: inline-flex; align-items: center; gap: 9px;
+  margin: auto auto 0; padding: 11px 22px;
+  border: 1px solid rgba(232,178,77,.4); border-radius: 999px;
+  background: rgba(255,255,255,.04);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  text-decoration: none;
+  font-family: var(--font-ui); font-size: clamp(11px, 1vw, 12.5px);
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--gold-soft);
+  transition: color .3s var(--ease-soft), border-color .3s var(--ease-soft),
+              background .3s var(--ease-soft), transform .3s var(--ease);
+}
+.cue:hover { color: #FFF1D8; border-color: rgba(232,178,77,.75); background: rgba(255,255,255,.08); transform: translateY(-2px); }
+.cue:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+.cue span:last-child { font-size: 15px; line-height: 1; animation: nudge 2.6s var(--ease-soft) infinite; }
+@keyframes nudge { 0%,100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+
+/* Flowers fall inside the hero, so a settled heap stays on his feet. */
+.petal-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 4; }
+.petal { position: absolute; will-change: transform, opacity; }
+.petal svg, .settled svg { display: block; filter: drop-shadow(0 2px 6px rgba(0,0,0,.5)); }
+.settled { position: absolute; z-index: 3; pointer-events: none; opacity: 0; animation: settle .7s var(--ease) forwards; }
+@keyframes settle {
+  from { opacity: 0; transform: translateY(-8px) scale(.85); }
+  to   { opacity: .92; transform: none; }
+}
+
+/* =========================================================================
+   2. CONTRIBUTOR BANDS
+   ========================================================================= */
+
+.band { position: relative; z-index: 2; padding: clamp(40px, 5.4vw, 72px) 22px; }
+.inner { max-width: 1120px; margin: 0 auto; }
+
+.person { border-top: 1px solid var(--hairline-2); }
+.person:nth-of-type(even) { background: rgba(255,255,255,.014); }
+
+.person-head { display: flex; align-items: flex-start; gap: clamp(14px, 2vw, 22px); }
+.person-icon {
+  flex: 0 0 auto; width: 60px; height: 60px; border-radius: 50%;
+  border: 1px solid rgba(232,178,77,.4);
+  display: grid; place-items: center; color: var(--gold);
+  box-shadow: inset 0 0 24px rgba(242,130,12,.14), 0 0 24px rgba(242,130,12,.1);
+}
+.person-eyebrow {
+  font-size: clamp(10.5px, 1vw, 12px); letter-spacing: .2em; text-transform: uppercase;
+  color: var(--text-faint); margin-bottom: 6px;
+}
+.person-name {
+  font-family: var(--font-serif);
+  font-size: clamp(21px, 2.4vw, 30px); font-weight: 600; color: var(--saffron-lt); line-height: 1.2;
+}
+.person-name span { font-family: var(--font-ui); font-size: .5em; font-weight: 400; color: var(--text-faint); letter-spacing: .04em; }
+.person-meta { margin-top: 7px; font-size: 12.5px; line-height: 1.65; color: var(--text-dim); }
+.person-blurb {
+  margin: 18px 0 0; font-size: clamp(13.5px, 1.25vw, 15px); line-height: 1.8; color: var(--text-dim);
+  max-width: 76ch;
+}
+.person-actions { margin-top: 16px; }
+
+.person-items { list-style: none; margin: 20px 0 0; padding: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.person-items li {
+  border: 1px solid var(--hairline-2); border-radius: 12px; padding: 14px 16px;
+  font-size: 13.5px; color: var(--text); background: rgba(255,255,255,.02);
+}
+.person-items li small { display: block; margin-top: 4px; font-size: 12px; color: var(--text-faint); line-height: 1.6; }
+
+.person-todo {
+  margin-top: 18px; font-size: 12px; line-height: 1.65; color: var(--text-faint);
+  border: 1px dashed rgba(232,178,77,.28); border-radius: 12px; padding: 12px 15px;
+}
+
+/* Tier heading -- Foundation / Scholarly Stewardship / Seva & Sustenance /
+   Participation -- shown above a band once contributors render grouped by
+   hierarchy rather than as equal-weight sections. */
+.tier-head { margin-bottom: 16px; }
+.tier-label {
+  font-family: var(--font-ui); font-size: 11px; font-weight: 700; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--saffron-lt);
+}
+
+/* Two or more sections sharing a tier that isn't the seva grid (not used
+   today, but a second contributor added to the same tier shouldn't need a
+   CSS change to render sanely) stack with a plain rule between them rather
+   than the section-level border-top, which only separates bands. */
+.tier-divider { border: none; border-top: 1px solid var(--hairline-2); margin: 30px 0; }
+
+/* Seva & Sustenance: Contributors and Key Sponsors side by side, so the
+   two aren't read as separate scrolling bands of equal weight. */
+.seva-grid {
+  display: grid; gap: clamp(28px, 4vw, 52px);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: 6px;
+}
+@media (min-width: 780px) {
+  .seva-col + .seva-col { border-left: 1px solid var(--hairline-2); padding-left: clamp(28px, 4vw, 52px); }
+}
+
+.tier-participation .person-name { margin-top: 2px; }
+
+/* --- footer --- */
+.site-foot { position: relative; z-index: 2; padding: 34px 22px calc(40px + env(safe-area-inset-bottom)); text-align: center; }
+.mantra {
+  font-family: var(--font-sa);
+  font-size: clamp(13px, 1.4vw, 18px); color: var(--gold);
+  letter-spacing: .04em; opacity: .92; line-height: 1.9;
+}
+.mantra.second { font-size: clamp(11.5px, 1.15vw, 15px); opacity: .8; margin-top: 9px; }
+.mantra-latin {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(10.5px, 1vw, 12.5px); color: var(--text-faint);
+  letter-spacing: .06em; margin-top: 4px;
+}
+
+/* site-footer.js's shared links row -- same class names as css/main.css's
+   copy (the reader), styled with this page's own --gold/--text-faint/--hairline
+   tokens rather than the reader's short-form vocabulary, since the two are
+   not yet unified (see the CSS consolidation task). */
+.site-footer-links { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--hairline-2); }
+.footer-link {
+  background: none; border: none; font: inherit; font-size: 12px; color: var(--text-faint);
+  cursor: pointer; padding: 4px 2px; text-decoration: underline; text-underline-offset: 2px;
+}
+.footer-link:hover { color: var(--gold); }
+.footer-sep { color: var(--hairline); font-size: 12px; margin: 0 2px; }
+
+/* =========================================================================
+   3. PANELS
+   ========================================================================= */
+
+.sheet-wrap {
+  position: fixed; inset: 0; z-index: 150;
+  display: grid; place-items: center; padding: 18px;
+  background: rgba(5,4,3,.8);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  opacity: 0; visibility: hidden;
+  transition: opacity .35s var(--ease-soft), visibility 0s linear .35s;
+}
+.sheet-wrap.open { opacity: 1; visibility: visible; transition-delay: 0s; }
+
+.sheet {
+  width: min(920px, 100%); max-height: calc(100 * var(--vh) - 36px);
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  border: 1px solid rgba(232,178,77,.28); border-radius: 20px;
+  background: linear-gradient(180deg, #1B1410, var(--bg-panel));
+  box-shadow: 0 40px 90px rgba(0,0,0,.7);
+  padding: clamp(20px, 2.8vw, 36px);
+  transform: translateY(18px) scale(.98);
+  transition: transform .4s var(--ease);
+}
+.sheet-wrap.open .sheet { transform: none; }
+
+.sheet-close {
+  position: sticky; top: 0; float: right;
+  width: 34px; height: 34px; border-radius: 50%; cursor: pointer;
+  border: 1px solid var(--hairline); background: rgba(20,16,12,.9);
+  color: var(--text-dim); font-size: 17px; line-height: 1;
+  display: grid; place-items: center;
+  transition: border-color .3s var(--ease-soft), color .3s var(--ease-soft);
+}
+.sheet-close:hover { border-color: rgba(232,178,77,.6); color: var(--text); }
+
+.sheet-eyebrow { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 8px; }
+.sheet h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(21px, 2.4vw, 29px); font-weight: 500; color: var(--gold); margin: 0 0 4px;
+}
+.sheet > p { font-size: 13.5px; line-height: 1.78; color: var(--text-dim); max-width: 80ch; }
+
+.reverence {
+  font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(13.5px, 1.35vw, 16.5px); line-height: 1.72; color: var(--gold-soft);
+  border-left: 2px solid rgba(232,178,77,.35); padding: 2px 0 2px 16px;
+  margin: 16px 0 24px; max-width: 80ch;
+}
+
+/* One acknowledgement group. */
+.ack { margin-top: 24px; }
+.ack-head { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
+.ack-head .ico { color: var(--gold); line-height: 0; flex: 0 0 auto; }
+.ack-head h4 {
+  font-family: var(--font-serif); font-weight: 600;
+  font-size: clamp(15px, 1.5vw, 18px); color: var(--saffron-lt); margin: 0;
+}
+.ack-head .line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(232,178,77,.28), transparent); }
+
+.ack-entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; grid-template-columns: repeat(auto-fit, minmax(268px, 1fr)); }
+.ack-entries li {
+  border: 1px solid var(--hairline-2); border-radius: 12px; padding: 12px 15px;
+  background: rgba(255,255,255,.022);
+}
+.ack-entries b { display: block; font-family: var(--font-serif); font-weight: 600; font-size: 15px; color: var(--text); letter-spacing: .01em; }
+.ack-body {
+  --ack-lines: 3;
+  max-height: calc(var(--ack-lines) * 1.6 * 12px);
+  min-height: calc(2 * 1.6 * 12px);
+  overflow: hidden;
+  transition: max-height .45s var(--ease);
+}
+.ack-body.open { max-height: 60em; }
+.ack-more {
+  margin-top: 8px; padding: 0; border: 0; background: none; cursor: pointer;
+  font-family: var(--font-ui); font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--gold-soft); border-bottom: 1px solid rgba(232,178,77,.3);
+  transition: color .3s var(--ease-soft), border-color .3s var(--ease-soft);
+}
+.ack-more:hover { color: var(--saffron-lt); border-color: rgba(232,178,77,.75); }
+.ack-more:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+.ack-entries small { display: block; margin-top: 4px; font-size: 12px; line-height: 1.6; color: var(--text-faint); }
+.ack-entries small.also {
+  margin-top: 7px; padding-top: 7px;
+  border-top: 1px solid var(--hairline-2);
+  font-size: 11.5px; opacity: .85;
+}
+
+/* A plain roll of names, where there is nothing to say beside each one. */
+.ack-names { display: flex; flex-wrap: wrap; gap: 8px; }
+.ack-names span {
+  border: 1px solid var(--hairline-2); border-radius: 999px; padding: 8px 15px;
+  font-size: 13px; color: var(--text); background: rgba(255,255,255,.022);
+}
+
+.closing {
+  display: flex; align-items: center; gap: 16px;
+  margin-top: 26px; padding: 18px 22px;
+  border: 1px solid rgba(232,178,77,.26); border-radius: 16px;
+  background: linear-gradient(180deg, rgba(242,130,12,.09), rgba(242,130,12,.03));
+}
+.closing .ico { color: var(--gold); line-height: 0; flex: 0 0 auto; opacity: .9; }
+.closing p {
+  margin: 0; font-family: var(--font-serif); font-style: italic;
+  font-size: clamp(14px, 1.4vw, 17.5px); line-height: 1.65; color: var(--gold-soft);
+}
+
+.sheet-todo {
+  margin-top: 20px; font-size: 12px; line-height: 1.65; color: var(--text-faint);
+  border: 1px dashed rgba(232,178,77,.28); border-radius: 12px; padding: 12px 15px;
+}
+
+/* =========================================================================
+   4. RESPONSIVE
+   ========================================================================= */
+
+@media (max-width: 900px) {
+  .person-head { flex-direction: column; align-items: center; text-align: center; }
+  .person-blurb { text-align: center; margin-left: auto; margin-right: auto; }
+  .person-actions { text-align: center; }
+  .ack-head { justify-content: center; }
+  .ack-head .line { display: none; }
+  .ack-names { justify-content: center; }
+  .closing { flex-direction: column; text-align: center; gap: 10px; }
+}
+
+@media (max-width: 700px) {
+  .hero { gap: clamp(8px, 1.3 * var(--vh), 16px); }
+  .brand-latin { font-size: clamp(24px, 6.4vw, 34px); }
+  .brand-tagline { font-size: 12px; line-height: 1.6; --tag-lines: 3; }
+  .verse { font-size: 13px; line-height: 1.85; }
+  .verse-tr { display: none; }
+  .btn { padding: 11px 16px; }
+  .btn-enter { padding: 12px 24px; }
+  .portrait-wrap { width: clamp(150px, 19 * var(--vh), 210px); }
+}
+@media (max-width: 700px) and (max-height: 720px) {
+  .brand-tagline, .tagline-more { display: none; }
+  .guru-title { display: none; }
+  .portrait-wrap { width: clamp(126px, 17 * var(--vh), 180px); }
+  .cue { padding: 9px 16px; font-size: 10px; letter-spacing: .14em; gap: 7px; }
+}
+
+/* A laptop is wide but often short — 1280x720 and the like. The vw-based
+   type stays large there while the height does not, so the entry button
+   slips under the fold unless this tier pulls it back. */
+@media (min-width: 900px) and (max-height: 820px) {
+  .hero { gap: 6px; padding-bottom: 20px; }
+  .brand-latin { font-size: 30px; }
+  .brand-tagline { font-size: 12px; max-width: 84ch; }
+  .portrait-wrap { width: clamp(128px, 15 * var(--vh), 190px); }
+  .verse { font-size: 13px; line-height: 1.7; }
+  .verse-tr { display: none; }
+}
+
+@media (max-width: 700px) and (max-height: 640px) {
+  .om { display: none; }
+  .portrait-wrap { width: clamp(110px, 15 * var(--vh), 150px); }
+  .verse { font-size: 12px; line-height: 1.6; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .mandala, .smoke, .om, .halo, .halo-ring, .frame img,
+  .btn-enter.ready, .cue span { animation: none !important; }
+  .petal, .ripple, .pranam-mark { display: none !important; }
+  .btn, .sheet, .sheet-wrap, .cue-pop, #veil, .frame video { transition-duration: .01ms !important; }
+}
+
+/* =========================================================================
+   When the text cannot be loaded.
+
+   The page has no words of its own (see the note at the top of index.html),
+   so there is nothing to fall back to and nothing to half-draw. It says what
+   happened and offers to try again — rather than showing an empty gate, or
+   letting anyone past a vandana it could not display.
+   ========================================================================= */
+.boot-fail {
+  margin: auto; max-width: 30rem; padding: 0 22px; text-align: center;
+  color: var(--text); font-family: var(--font-ui);
+}
+.boot-om {
+  font-family: var(--font-sa); font-size: 46px; color: var(--gold);
+  opacity: .5; margin-bottom: 14px;
+}
+.boot-fail p { margin: 0 0 8px; font-size: 15px; line-height: 1.6; }
+.boot-why {
+  font-size: 12px; color: var(--gold-soft); opacity: .8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  word-break: break-word; margin-bottom: 20px !important;
+}

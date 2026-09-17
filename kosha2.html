@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>कोश — DGE Dictionary Reader (v2 preview)</title>
+<!-- Kosha results v2: the mockup-review rebuild (native per-dictionary
+     layouts, typed reference chips, consensus digest, AI behind the
+     context menu, committed visibility tiers, A-Z browse). Lives beside
+     the existing overlay; replaces it only after project-lead sign-off. -->
+<script src="js/vandana-guard.js"></script>
+<script src="js/admin-remote.js?v=1"></script>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/kosha2.css?v=1.4">
+<!-- Indic transliteration, vendored (js/vendor/README.md): the reader's
+     script setting and the धातु/कोश word marking both depend on it, so it
+     must not be one CDN outage away from silently not working. -->
+<script src="js/vendor/sanscript-1.3.3.min.js?v=1.3.3"></script>
+<script src="js/config.js?v=4.75.10"></script>
+<script>
+// engine-only: kosha.js provides DGEKoshaEngine but builds no overlay UI here.
+window.DGE_KOSHA_ENGINE_ONLY = 1;
+// enriched render tree (kosha_r). Same base as the raw corpus until the
+// kosha-data dist build publishes the enriched twin; config can override.
+window.KOSHA_RENDER_BASE = window.KOSHA_RENDER_BASE ||
+  (window.appConfig && window.appConfig.koshaRenderBase) ||
+  ((window.KOSHA_DATA_BASE || 'data/kosha').replace(/\/koshas?$/, '') + '/koshas_r');
+</script>
+<script src="js/gemini.js"></script>
+<script src="js/kosha.js?v=2.1"></script>
+</head>
+<body class="kosha2">
+<div class="k2-top"><div class="k2-app"><div class="k2-top-in">
+  <div class="k2-search">
+    <input id="k2Input" autocomplete="off" spellcheck="false"
+           placeholder="Search Sanskrit, IAST, Kannada… (अब्ज, abja, ಅಬ್ಜ)" aria-label="Search dictionaries">
+    <button id="k2Clear" class="k2-clear" aria-label="Clear">×</button>
+    <div id="k2Sug" class="k2-sug" role="listbox" hidden></div>
+  </div>
+  <div class="k2-script" id="k2Script" role="group" aria-label="Display script" title="Display script">
+    <button data-script="deva" lang="sa">अ</button>
+    <button data-script="iast">A</button>
+    <button data-script="knda" lang="kn">ಅ</button>
+  </div>
+  <div class="k2-mode" id="k2Mode" role="tablist">
+    <button data-mode="search" class="active">Search</button>
+    <button data-mode="browse">Browse</button>
+    <button data-mode="gloss" title="Search inside the meanings/definitions" lang="sa">अर्थे</button>
+  </div>
+  <button class="k2-iconbtn" id="k2Cfg" title="Settings — script, history, pins" aria-label="Settings">⚙</button>
+  <a class="k2-iconbtn" href="index.html" title="Back to the library" style="display:grid;place-items:center;text-decoration:none">⌂</a>
+</div></div></div>
+<main class="k2-app" id="k2Main" aria-live="polite"></main>
+<div id="k2Back" class="k2-back" hidden></div>
+<div id="k2Pop" class="k2-pop" hidden></div>
+<div id="k2Toast" class="k2-toast" hidden></div>
+<script src="js/kosha2.js?v=1.4.1"></script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+/* vyakarana-corpus.css — the shared sutra-corpus viewer
+   (phitsutra / ganapatha / linganushasana / unadi). Cluster tokens only. */
+.vc-controls input { width: 100%; box-sizing: border-box; min-height: 42px;
+  padding: 8px 12px; border: 1px solid var(--line, #ccc); border-radius: 10px;
+  background: var(--bg, #fff); color: var(--ink, #222); font-size: 15px; }
+.vc-controls input:focus { outline: none; border-color: var(--accent, #8b3a2a); }
+.vc-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.vc-scripts { display: inline-flex; gap: 6px; }
+.chip.on { border-color: var(--accent, #8b3a2a); color: var(--accent, #8b3a2a); font-weight: 700; }
+.vc-item { margin-top: 10px; }
+.vc-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.vc-num { font-size: 12px; color: var(--accent, #8b3a2a); font-weight: 700;
+  min-width: 44px; font-variant-numeric: tabular-nums; }
+.vc-main { font-size: 18px; font-weight: 700; }
+.vc-badge { margin-left: auto; font-size: 12px; border: 1px solid var(--line, #ccc);
+  border-radius: 999px; padding: 2px 10px; color: var(--ink-muted, #777); }
+.vc-gloss { margin-top: 6px; font-size: 15px; line-height: 1.7; color: var(--ink, #333); }
+.vc-sutra { color: var(--accent, #8b3a2a); text-decoration: none;
+  border-bottom: 1px dotted var(--accent, #8b3a2a); }
+.vc-quote { color: var(--accent, #8b3a2a); font-style: italic; }

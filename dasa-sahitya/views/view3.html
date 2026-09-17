@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+  <meta charset="utf-8">
+  <script src="../../js/vandana-guard.js?v=2"></script>
+  <script src="../../js/admin-gate.js?v=1"></script>
+  <script src="../../js/contact-email.js?v=1"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ದಾಸ ಸಾಹಿತ್ಯ · Curated · DGE</title>
+  <link rel="icon" type="image/png" sizes="48x48" href="../../images/genie/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="../../images/genie/favicon-192.png">
+  <link rel="apple-touch-icon" href="../../images/genie/apple-touch-icon.png">
+  <style>
+    /* CSS Custom Properties & Theming — light default; prefers-color-scheme
+       dark for system pref; [data-theme] wins for the explicit toggle. */
+    :root {
+      --bg: #fcfbf9;
+      --surface: #ffffff;
+      --surface-elevated: #f4f2ee;
+      --text-main: #1a1917;
+      --text-muted: #66635b;
+      --accent: #9c4114;
+      --accent-hover: #7d3310;
+      --accent-light: #fbeee8;
+      --border: #e6e2da;
+      --border-subtle: #f0ece4;
+      --shadow: 0 4px 20px rgba(0,0,0,0.06);
+      --font-size-base: 18px;
+      --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --font-kannada: "Noto Serif Kannada", "Tunga", "Akshara", serif;
+      --transition-speed: 0.25s;
+
+      /* Aliases so the shared modules (contextual-actions.js composition menu,
+         dasa-data.js composer sheet) render themed without tokens.css. */
+      --card-bg: var(--surface);
+      --text-primary: var(--text-main);
+      --card-border: var(--border);
+      --card-active: var(--surface-elevated);
+      --bg-main: var(--bg);
+      --muted: var(--text-muted);
+      --muted-text: var(--text-muted);
+      --accent-red: var(--accent);
+      --shadow-lg: var(--shadow);
+      --font-ui: var(--font-family);
+      --radius-lg: 16px;
+      --radius-sm: 8px;
+      --radius-pill: 20px;
+    }
+
+    /* System dark preference (only when the toggle has not forced light) */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #121110;
+        --surface: #1c1a18;
+        --surface-elevated: #262421;
+        --text-main: #f0eee6;
+        --text-muted: #aba59c;
+        --accent: #d96b36;
+        --accent-hover: #e88351;
+        --accent-light: #331f17;
+        --border: #33302b;
+        --border-subtle: #24221f;
+        --shadow: 0 4px 20px rgba(0,0,0,0.3);
+      }
+    }
+    /* Explicit dark toggle wins in both directions */
+    :root[data-theme="dark"] {
+      --bg: #121110;
+      --surface: #1c1a18;
+      --surface-elevated: #262421;
+      --text-main: #f0eee6;
+      --text-muted: #aba59c;
+      --accent: #d96b36;
+      --accent-hover: #e88351;
+      --accent-light: #331f17;
+      --border: #33302b;
+      --border-subtle: #24221f;
+      --shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Reset & Base */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; scroll-behavior: smooth; overscroll-behavior-y: none; }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      line-height: 1.6;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color var(--transition-speed), color var(--transition-speed);
+    }
+
+    /* Utility / Accessibility */
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+    /* Breadcrumb bar */
+    .crumbbar { display:flex; align-items:center; gap:10px; padding:8px 1rem; background:var(--surface); border-bottom:1px solid var(--border-subtle); }
+    dge-breadcrumb.brand a { color:var(--accent); text-decoration:none; font-weight:600; }
+    dge-breadcrumb.brand span { color:var(--text-muted); }
+
+    /* Header & Minimal Chrome */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition-speed) ease;
+    }
+    header.hidden { transform: translateY(-100%); }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .app-brand {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-kannada);
+    }
+    .app-brand span { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; font-family: var(--font-family); }
+
+    .header-actions { display: flex; gap: 0.5rem; align-items: center; }
+    .icon-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background var(--transition-speed);
+    }
+    .icon-btn:hover { background: var(--surface-elevated); }
+
+    /* Active Filter Strip — the differentiator of this Curated view */
+    .active-filter-strip {
+      background: var(--surface-elevated);
+      padding: 0.4rem 1rem;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border-subtle);
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      gap: 0.75rem;
+    }
+    .filter-pills { display: flex; gap: 0.5rem; overflow-x: auto; white-space: nowrap; align-items: center; }
+    .pill {
+      background: var(--accent-light);
+      color: var(--accent);
+      padding: 0.15rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-weight: 500;
+    }
+    .pill button { background: none; border: none; color: inherit; cursor: pointer; font-size: 0.9rem; line-height:1; padding:0; }
+    .clear-filters { background: none; border: none; color: var(--text-muted); font-size: 0.8rem; cursor: pointer; text-decoration: underline; white-space:nowrap; }
+
+    /* Main Reading Area */
+    main {
+      flex: 1;
+      max-width: 72ch;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    /* Composition Card */
+    article.composition {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem 1.5rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      content-visibility: auto;
+      contain-intrinsic-size: 400px;
+      transition: border-color var(--transition-speed);
+    }
+    article.composition:hover { border-color: var(--accent); }
+
+    .comp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+      gap: 0.75rem;
+    }
+    .comp-titles h2 {
+      font-family: var(--font-kannada);
+      font-size: calc(var(--font-size-base) * 1.25);
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+    }
+    .comp-translit {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+    .state-badges { display:inline-flex; gap:0.25rem; margin-left:0.4rem; font-size:0.9rem; vertical-align:middle; }
+
+    .card-actions-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .card-actions-btn:hover { background: var(--surface-elevated); color: var(--text-main); }
+
+    /* Metadata Footer on Card */
+    .comp-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.25rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      font-weight: 600;
+    }
+    .comp-meta > span span { color: var(--accent); }
+    .composer-link {
+      background: none; border: none; padding: 0; margin: 0; cursor: pointer;
+      color: var(--accent); font: inherit; text-transform: inherit; letter-spacing: inherit;
+      text-decoration: underline; text-underline-offset: 2px;
+    }
+    .composer-link:hover { color: var(--accent-hover); }
+
+    /* Composition Stanzas */
+    .comp-text {
+      font-family: var(--font-kannada);
+      font-size: var(--font-size-base);
+      line-height: 1.9;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .stanza { display: flex; flex-direction: column; }
+    .line { white-space: pre-wrap; }
+    .dasa-word { cursor: pointer; border-radius: 3px; }
+    .dasa-word:hover { background: var(--accent-light); }
+    .rom { display:block; margin-top:0.35rem; font-family:var(--font-family); font-style:italic; font-size:0.8rem; color:var(--text-muted); white-space:pre-wrap; }
+    .comp-text.empty { font-family: var(--font-family); font-style: italic; color: var(--text-muted); font-size: 0.9rem; }
+
+    /* Meaning Gloss */
+    .comp-meaning {
+      margin-top: 1.25rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed var(--border);
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .comp-meaning summary { cursor: pointer; font-weight: 500; color: var(--accent); font-size: 0.85rem; }
+    .comp-meaning p { margin-top: 0.4rem; line-height: 1.5; }
+
+    /* Bottom App Bar (Thumb Reach) */
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 0.5rem 1rem env(safe-area-inset-bottom, 0.5rem);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 100;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
+      transition: transform var(--transition-speed) ease;
+    }
+    .bottom-bar.hidden { transform: translateY(100%); }
+
+    .bar-btn {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.15rem;
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      cursor: pointer;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      transition: color var(--transition-speed);
+    }
+    .bar-btn svg { width: 20px; height: 20px; fill: currentColor; }
+    .bar-btn.active, .bar-btn:hover { color: var(--accent); }
+
+    /* Bottom Sheets & Dialogs */
+    .sheet-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(2px);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-speed);
+    }
+    .sheet-backdrop.open { opacity: 1; pointer-events: auto; }
+
+    .bottom-sheet {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      padding: 1.5rem 1.25rem 2rem 1.25rem;
+      z-index: 201;
+      max-height: 85vh;
+      overflow-y: auto;
+      transform: translateY(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
+    }
+    .bottom-sheet.open { transform: translateY(0); }
+
+    .sheet-handle { width: 40px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 1.25rem auto; }
+
+    .sheet-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Sheet Form Controls */
+    .control-group { margin-bottom: 1.25rem; }
+    .control-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-muted); }
+    .control-group input, .control-group select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text-main);
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .chip-grid { display: flex; flex-wrap: wrap; gap: 0.4rem; max-height: 180px; overflow-y: auto; padding: 0.2rem; }
+    .filter-chip {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all var(--transition-speed);
+    }
+    .filter-chip.selected { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .filter-chip .n { opacity: 0.7; margin-left: 0.35rem; font-size: 0.78em; }
+
+    /* Real 152-composer searchable picker */
+    .composer-search { margin-bottom: 0.6rem; }
+    .composer-list { display: flex; flex-direction: column; gap: 2px; max-height: 46vh; overflow-y: auto; border: 1px solid var(--border); border-radius: 10px; padding: 4px; }
+    .composer-btn {
+      display: flex; align-items: center; gap: 0.5rem; width: 100%; text-align: left;
+      background: none; border: none; color: var(--text-main); cursor: pointer;
+      padding: 0.55rem 0.6rem; border-radius: 8px; font-size: 0.9rem; font-family: var(--font-kannada);
+    }
+    .composer-btn:hover { background: var(--surface-elevated); }
+    .composer-btn[aria-current="true"] { background: var(--accent-light); color: var(--accent); font-weight: 600; }
+    .composer-btn .name { flex: 1; }
+    .composer-btn .n { color: var(--text-muted); font-size: 0.8rem; font-family: var(--font-family); }
+    .composer-btn .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
+    .composer-btn .dot.loaded { background: #2e9e5b; }
+    .composer-btn .dot.err { background: #c0392b; }
+    .loadall-row { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.75rem; }
+    .loadall-btn {
+      flex: 1; padding: 0.7rem; border-radius: 8px; border: 1px solid var(--accent);
+      background: var(--accent); color: #fff; font-weight: 600; cursor: pointer; font-size: 0.9rem;
+    }
+    .loadall-btn:disabled { opacity: 0.6; cursor: default; }
+    .loadall-note { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* Font Size Slider */
+    .range-slider { display: flex; align-items: center; gap: 1rem; }
+    .range-slider input { flex: 1; accent-color: var(--accent); }
+
+    /* Empty state */
+    .empty-state { text-align: center; padding: 4rem 1rem; color: var(--text-muted); }
+    .empty-state h3 { font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--text-main); }
+
+    /* Modal styles for the shared composer sheet + contextual composition menu
+       (narrowly copied from dasa-sahitya.css; tokens aliased in :root above). */
+    body.modal-open { overflow: hidden !important; }
+    .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.55);
+      display: none; justify-content: center; align-items: center; z-index: 11000;
+      backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+    .modal-content { background: var(--card-bg); color: var(--text-primary); border-radius: var(--radius-lg);
+      width: 90%; max-width: 440px; border: 1px solid var(--card-border); max-height: 85vh;
+      box-shadow: var(--shadow-lg); display: flex; flex-direction: column; overflow: hidden; font-family: var(--font-ui); }
+    .modal-header-sticky { padding: 16px; background: var(--card-bg); z-index: 10;
+      border-bottom: 1px solid var(--card-border); display: flex; justify-content: space-between;
+      align-items: center; flex-shrink: 0; gap: 10px; }
+    .modal-body { padding: 16px; overflow-y: auto; flex-grow: 1; }
+    .btn-sm { background: var(--bg-main); border: 1px solid var(--card-border); border-radius: var(--radius-pill);
+      padding: 6px 10px; font-size: 11px; font-weight: 700; color: var(--text-primary); cursor: pointer;
+      white-space: nowrap; font-family: var(--font-ui); }
+    .btn-sm:active { transform: scale(0.95); }
+    .ctx-menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; }
+    .ctx-action-btn { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 8px;
+      background: var(--bg-main); border: 1px solid var(--card-border); border-radius: var(--radius-sm);
+      cursor: pointer; color: var(--text-primary); font-family: var(--font-ui); min-height: 44px; }
+    .ctx-action-btn:hover, .ctx-action-btn:focus-visible { background: var(--card-active); border-color: var(--accent-red); }
+    .ctx-action-icon { font-size: 20px; line-height: 1; }
+    .ctx-action-label { font-size: 11.5px; font-weight: 600; text-align: center; line-height: 1.3; }
+    .badge { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.4px; padding: 2px 8px;
+      border-radius: var(--radius-pill); border: 1px solid var(--card-border); display: inline-block; }
+    .tl { color: var(--muted); font-size: 0.82rem; }
+    .composer-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .composer-badges .badge { background: var(--bg-main); color: var(--text-primary); border-color: var(--card-border); }
+    .composer-note { font-size: 0.8rem; color: var(--muted-text, var(--muted)); line-height: 1.5; }
+
+    /* Responsive adjustments */
+    @media (min-width: 768px) {
+      .bottom-sheet { max-width: 500px; left: 50%; transform: translate(-50%, 100%); border-radius: 16px; bottom: 1.5rem; }
+      .bottom-sheet.open { transform: translate(-50%, 0); }
+      .bottom-bar { max-width: 600px; left: 50%; transform: translateX(-50%); border-radius: 16px 16px 0 0; }
+      .bottom-bar.hidden { transform: translate(-50%, 100%); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Breadcrumb -->
+  <div class="crumbbar">
+    <dge-breadcrumb label="Dāsa Sāhitya" home-href="../index.html" class="brand"><a href="../index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span>Dāsa Sāhitya</span></dge-breadcrumb>
+  </div>
+
+  <!-- Top Navigation & Header -->
+  <header id="site-header">
+    <div class="header-top">
+      <a href="index.html" class="app-brand">
+        ದಾಸ ಸಾಹಿತ್ಯ <span id="brand-count">…</span>
+      </a>
+      <div class="header-actions">
+        <button class="icon-btn" id="theme-toggle" aria-label="Toggle Theme">🌓</button>
+        <button class="icon-btn" id="open-search" aria-label="Search" data-action="search">🔍</button>
+        <button class="icon-btn" id="open-filters" aria-label="Filter & Controls" data-action="controls">⚙️</button>
+      </div>
+    </div>
+    <div class="active-filter-strip" id="active-filter-strip" style="display: none;">
+      <div class="filter-pills" id="filter-pills-container"></div>
+      <button class="clear-filters" id="clear-all-filters">Clear All</button>
+    </div>
+  </header>
+
+  <!-- Main Content Reading Column -->
+  <main id="composition-container"></main>
+
+  <!-- Bottom App Bar -->
+  <nav class="bottom-bar" id="bottom-bar">
+    <button class="bar-btn active" data-action="controls">
+      <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      Library
+    </button>
+    <button class="bar-btn" data-action="search">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      Search
+    </button>
+    <button class="bar-btn" data-action="script">
+      <svg viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
+      Script
+    </button>
+    <button class="bar-btn" data-action="controls">
+      <svg viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
+      Filters
+    </button>
+  </nav>
+
+  <!-- Slide-up Bottom Sheet & Backdrop -->
+  <div class="sheet-backdrop" id="sheet-backdrop"></div>
+  <div class="bottom-sheet" id="bottom-sheet">
+    <div class="sheet-handle"></div>
+    <div id="sheet-content"></div>
+  </div>
+
+  <dge-footer class="site-footer-links"><a class="footer-link" href="../../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+
+  <script src="../../js/modals.js?v=1"></script>
+  <script src="../../js/reader-state.js?v=1"></script>
+  <script src="../../js/dasa-data.js?v=1"></script>
+  <script src="../../js/kosha.js?v=3"></script>
+  <script src="../../js/contextual-actions.js?v=1"></script>
+  <script src="../../js/entity-linker.js?v=1"></script>
+  <script src="../../js/dge-shell.js?v=1"></script>
+  <script src="../../js/dge-breadcrumb.js?v=1"></script>
+  <script src="../../js/dge-nav-rail.js?v=5"></script>
+  <dge-nav-rail current="dasa-sahitya"></dge-nav-rail>
+  <script src="../../js/intellisense.js?v=4.71.1"></script>
+
+  <!-- View logic — reads live data through window.DGE_DASA -->
+  <script>
+  (function () {
+    "use strict";
+    var D = window.DGE_DASA;
+
+    var state = {
+      q: '',
+      form: 'all',
+      composerSlug: null,
+      composerName: null,
+      script: D.prefGet('script', 'kn'),   // 'kn' | 'iast' | 'devanagari'
+      fontSize: D.prefGet('fontsize', 18)
+    };
+
+    // ---- DOM refs --------------------------------------------------------
+    var container = document.getElementById('composition-container');
+    var header = document.getElementById('site-header');
+    var bottomBar = document.getElementById('bottom-bar');
+    var sheetBackdrop = document.getElementById('sheet-backdrop');
+    var bottomSheet = document.getElementById('bottom-sheet');
+    var sheetContent = document.getElementById('sheet-content');
+    var activeFilterStrip = document.getElementById('active-filter-strip');
+    var filterPillsContainer = document.getElementById('filter-pills-container');
+    var themeToggleBtn = document.getElementById('theme-toggle');
+    var brandCount = document.getElementById('brand-count');
+
+    // ---- Theme (light default, prefers-color-scheme dark, explicit toggle)
+    var THEME_KEY = 'dge_theme';
+    function currentTheme() {
+      var a = document.documentElement.getAttribute('data-theme');
+      if (a === 'dark' || a === 'light') return a;
+      return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    function updateThemeIcon() { themeToggleBtn.textContent = currentTheme() === 'dark' ? '☀️' : '🌓'; }
+    (function initTheme() {
+      try { var t = localStorage.getItem(THEME_KEY); if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+      updateThemeIcon();
+    })();
+    themeToggleBtn.addEventListener('click', function () {
+      var next = currentTheme() === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      try { localStorage.setItem(THEME_KEY, next); } catch (e) {}
+      updateThemeIcon();
+    });
+
+    // ---- Scroll chrome auto-hide ----------------------------------------
+    var lastScrollY = window.scrollY;
+    window.addEventListener('scroll', function () {
+      var y = window.scrollY;
+      if (y > lastScrollY && y > 60) { header.classList.add('hidden'); bottomBar.classList.add('hidden'); }
+      else { header.classList.remove('hidden'); bottomBar.classList.remove('hidden'); }
+      lastScrollY = y;
+    }, { passive: true });
+
+    // ---- Card rendering (real records; word-tap / composer-link / ⋯) -----
+    function anyLoaded() { return Object.keys(D.loaded).some(function (k) { return D.loaded[k] === 'ok'; }); }
+
+    function stateBadges(id) {
+      var s = D.compStateGet(id);
+      return [
+        s.fav ? '<span title="Favorite">⭐</span>' : '',
+        s.status === 'practice' ? '<span title="Needs practice">◐</span>' : '',
+        s.status === 'done' ? '<span title="Completed">✅</span>' : '',
+        s.doubt ? '<span title="Marked doubt">❓</span>' : ''
+      ].join('');
+    }
+
+    function cardHtml(r) {
+      var title = D.scriptTitle(r, state.script);
+      var il = r.title && r.title.iast;
+      var stz = D.stanzasFor(r, state.script);
+      var roman = (r.text && r.text.source_roman) || [];
+
+      var body = '';
+      (stz || []).forEach(function (st, i) {
+        body += '<div class="stanza">' + st.map(function (line) {
+          return '<span class="line">' + D.tokenizeLine(line) + '</span>';
+        }).join('');
+        if (state.script === 'kn' && roman[i]) {
+          body += '<span class="rom">' + roman[i].map(D.esc).join('\n') + '</span>';
+        }
+        body += '</div>';
+      });
+
+      var badges = stateBadges(r.id);
+      var composerBtn = r.composer
+        ? '<span>Composer: <button type="button" class="composer-link" data-composer="' + D.escAttr(r.composer) + '" data-slug="' + D.escAttr(r._slug || '') + '">' + D.esc(r.composer) + '</button></span>'
+        : '';
+      var meta = composerBtn
+        + (r.deity ? '<span>Deity: <span>' + D.esc(r.deity) + '</span></span>' : '')
+        + '<span>Form: <span>' + D.esc(D.FORM_LABELS[r.form] || r.form) + '</span></span>'
+        + (r.raga ? '<span>Rāga: <span>' + D.esc(r.raga) + '</span></span>' : '')
+        + (r.tala ? '<span>Tāla: <span>' + D.esc(r.tala) + '</span></span>' : '');
+
+      var meaning = r.meaning
+        ? '<details class="comp-meaning"><summary>ಅರ್ಥ / Meaning</summary><p>' + D.esc(r.meaning) + '</p></details>'
+        : '';
+
+      return '<article class="composition" data-cid="' + D.escAttr(r.id) + '" style="--font-size-base: ' + state.fontSize + 'px;">'
+        + '<div class="comp-header">'
+        +   '<div class="comp-titles">'
+        +     '<h2>' + D.esc(title) + (badges ? '<span class="state-badges">' + badges + '</span>' : '') + '</h2>'
+        +     (il && state.script !== 'iast' ? '<div class="comp-translit">' + D.esc(il) + '</div>' : '')
+        +   '</div>'
+        +   '<button type="button" class="card-actions-btn" data-cid="' + D.escAttr(r.id) + '" title="Composition actions" aria-label="Composition actions">⋯</button>'
+        + '</div>'
+        + '<div class="comp-meta">' + meta + '</div>'
+        + (body ? '<div class="comp-text">' + body + '</div>' : '<div class="comp-text empty">No verse text captured for this composition.</div>')
+        + meaning
+        + '</article>';
+    }
+
+    function render() {
+      var recs = D.records.filter(function (r) {
+        return D.matches(r, { form: state.form, q: state.q, script: state.script });
+      });
+      if (state.composerSlug) recs = recs.filter(function (r) { return r._slug === state.composerSlug; });
+      recs.sort(function (a, b) { return D.scriptTitle(a, state.script).localeCompare(D.scriptTitle(b, state.script), 'kn'); });
+
+      updateFilterStrip();
+
+      if (!recs.length) {
+        container.innerHTML = anyLoaded()
+          ? '<div class="empty-state"><h3>ಯಾವುದೇ ಪದ್ಯಗಳು ಕಂಡುಬಂದಿಲ್ಲ</h3><p>No compositions match your filters. Try clearing them.</p></div>'
+          : '<div class="empty-state"><h3>Pick a composer to begin</h3><p>Open <b>Filters</b> and choose one of the 152 composers, or press <b>Load all</b> to bring in the full corpus.</p></div>';
+        return;
+      }
+      container.innerHTML = recs.map(cardHtml).join('');
+      if (typeof window.dgeScanForEntities === 'function') { try { window.dgeScanForEntities(container); } catch (e) {} }
+    }
+
+    // ---- Active-filter pill strip (real filters) ------------------------
+    function updateFilterStrip() {
+      var pills = [];
+      if (state.form !== 'all') pills.push({ label: 'Form: ' + (D.FORM_LABELS[state.form] || state.form), key: 'form' });
+      if (state.composerSlug) pills.push({ label: 'Composer: ' + (state.composerName || state.composerSlug), key: 'composer' });
+      if (state.q !== '') pills.push({ label: 'Search: "' + state.q + '"', key: 'query' });
+      if (state.script !== 'kn') pills.push({ label: 'Script: ' + state.script.toUpperCase(), key: 'script' });
+
+      if (pills.length) {
+        activeFilterStrip.style.display = 'flex';
+        filterPillsContainer.innerHTML = pills.map(function (p) {
+          return '<span class="pill">' + D.esc(p.label) + ' <button data-clear="' + p.key + '" aria-label="Remove filter">✕</button></span>';
+        }).join('');
+      } else {
+        activeFilterStrip.style.display = 'none';
+      }
+    }
+    function clearFilter(key) {
+      if (key === 'form') state.form = 'all';
+      else if (key === 'composer') { state.composerSlug = null; state.composerName = null; }
+      else if (key === 'query') state.q = '';
+      else if (key === 'script') { state.script = 'kn'; D.prefSet('script', 'kn'); }
+      render();
+    }
+    filterPillsContainer.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-clear]'); if (b) clearFilter(b.getAttribute('data-clear'));
+    });
+    document.getElementById('clear-all-filters').addEventListener('click', function () {
+      state.form = 'all'; state.composerSlug = null; state.composerName = null; state.q = ''; state.script = 'kn';
+      D.prefSet('script', 'kn'); render();
+    });
+
+    // ---- Bottom sheet plumbing ------------------------------------------
+    function openSheet(html) { sheetContent.innerHTML = html; sheetBackdrop.classList.add('open'); bottomSheet.classList.add('open'); }
+    function closeSheet() { sheetBackdrop.classList.remove('open'); bottomSheet.classList.remove('open'); }
+    sheetBackdrop.addEventListener('click', closeSheet);
+
+    // ---- Search sheet ----------------------------------------------------
+    function openSearchSheet() {
+      openSheet('<div class="sheet-title">Search Compositions</div>'
+        + '<div class="control-group"><input type="text" id="sheet-search-input" placeholder="Title, composer, deity, first line…" value="' + D.escAttr(state.q) + '"></div>');
+      var input = document.getElementById('sheet-search-input');
+      input.focus();
+      input.addEventListener('input', function (e) { state.q = e.target.value.trim(); render(); });
+    }
+
+    // ---- Script + font-size sheet ---------------------------------------
+    function openScriptSheet() {
+      var opt = function (v, label) {
+        return '<button type="button" class="filter-chip ' + (state.script === v ? 'selected' : '') + '" data-script="' + v + '">' + label + '</button>';
+      };
+      openSheet('<div class="sheet-title">Script / ಲಿಪಿ</div>'
+        + '<div class="chip-grid">' + opt('kn', 'ಕನ್ನಡ (Kannada)') + opt('iast', 'IAST (Roman)') + opt('devanagari', 'देवनागरी') + '</div>'
+        + '<div class="control-group" style="margin-top:1.5rem;"><label>Reading font size (<span id="fs-val">' + state.fontSize + '</span>px)</label>'
+        + '<div class="range-slider"><span>A</span><input type="range" min="14" max="28" value="' + state.fontSize + '" id="fs-range"><span style="font-size:1.3rem;">A</span></div></div>');
+      sheetContent.querySelectorAll('[data-script]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          state.script = b.getAttribute('data-script'); D.prefSet('script', state.script);
+          sheetContent.querySelectorAll('[data-script]').forEach(function (x) { x.classList.toggle('selected', x === b); });
+          render();
+        });
+      });
+      var range = document.getElementById('fs-range'), fsVal = document.getElementById('fs-val');
+      range.addEventListener('input', function () {
+        state.fontSize = parseInt(range.value, 10); D.prefSet('fontsize', state.fontSize);
+        fsVal.textContent = state.fontSize; render();
+      });
+    }
+
+    // ---- Filters / controls sheet (forms + real 152-composer picker) ----
+    function formsHtml() {
+      var byForm = (D.manifest && D.manifest.counts_by_form) || {};
+      var total = (D.manifest && D.manifest.count_total) || 0;
+      var chip = function (f, label, n) {
+        return '<button type="button" class="filter-chip ' + (state.form === f ? 'selected' : '') + '" data-form="' + f + '">' + label + '<span class="n">' + n + '</span></button>';
+      };
+      var html = chip('all', 'All', total);
+      Object.keys(D.FORM_LABELS).filter(function (f) { return byForm[f]; }).forEach(function (f) {
+        html += chip(f, D.FORM_LABELS[f], byForm[f]);
+      });
+      return html;
+    }
+
+    function composerItems(filterText) {
+      var comps = ((D.manifest && D.manifest.composers) || []).slice().sort(function (a, b) {
+        return (a.composer || a.slug).localeCompare(b.composer || b.slug, 'kn');
+      });
+      var q = (filterText || '').trim().toLowerCase();
+      if (q) comps = comps.filter(function (c) {
+        return (c.composer || '').toLowerCase().indexOf(q) >= 0 || (c.slug || '').toLowerCase().indexOf(q) >= 0;
+      });
+      if (!comps.length) return '<div class="loadall-note" style="padding:0.6rem;">No composer matches "' + D.esc(filterText) + '".</div>';
+      return comps.map(function (c) {
+        var ld = D.loaded[c.slug];
+        var dot = ld === 'ok' ? 'loaded' : ld === 'err' ? 'err' : '';
+        return '<button type="button" class="composer-btn" data-slug="' + D.escAttr(c.slug) + '" data-name="' + D.escAttr(c.composer || c.slug) + '" aria-current="' + (state.composerSlug === c.slug) + '">'
+          + '<span class="dot ' + dot + '"></span>'
+          + '<span class="name">' + D.esc(c.composer || c.slug) + '</span>'
+          + '<span class="n">' + c.count + '</span></button>';
+      }).join('');
+    }
+
+    function openControlsSheet() {
+      var count = ((D.manifest && D.manifest.composers) || []).length;
+      openSheet('<div class="sheet-title">Filters &amp; Controls</div>'
+        + '<div class="control-group"><label>Composition form</label><div class="chip-grid" id="forms-grid">' + formsHtml() + '</div></div>'
+        + '<div class="control-group"><label>Composer / ದಾಸರು (' + count + ')</label>'
+        + '<input type="text" class="composer-search" id="composer-search" placeholder="Search ' + count + ' composers…">'
+        + '<div class="composer-list" id="composer-list">' + composerItems('') + '</div>'
+        + '<div class="loadall-row"><button type="button" class="loadall-btn" id="loadall-btn">Load all ' + count + ' composers</button><span class="loadall-note" id="loadall-note"></span></div>'
+        + '</div>');
+
+      // form chips
+      document.getElementById('forms-grid').addEventListener('click', function (e) {
+        var b = e.target.closest('[data-form]'); if (!b) return;
+        state.form = b.getAttribute('data-form');
+        this.querySelectorAll('[data-form]').forEach(function (x) { x.classList.toggle('selected', x.getAttribute('data-form') === state.form); });
+        render();
+      });
+
+      // composer search filter
+      var listEl = document.getElementById('composer-list');
+      document.getElementById('composer-search').addEventListener('input', function (e) {
+        listEl.innerHTML = composerItems(e.target.value);
+      });
+
+      // composer pick (lazy per-composer load)
+      listEl.addEventListener('click', function (e) {
+        var b = e.target.closest('.composer-btn'); if (!b) return;
+        var slug = b.getAttribute('data-slug'), name = b.getAttribute('data-name');
+        if (state.composerSlug === slug) { state.composerSlug = null; state.composerName = null; refreshComposerUI(listEl); render(); return; }
+        state.composerSlug = slug; state.composerName = name;
+        b.querySelector('.dot').textContent = '';
+        D.loadComposer(slug).then(function () { refreshComposerUI(listEl); render(); });
+        refreshComposerUI(listEl); render();
+      });
+
+      // load all
+      var loadBtn = document.getElementById('loadall-btn'), note = document.getElementById('loadall-note');
+      loadBtn.addEventListener('click', function () {
+        loadBtn.disabled = true;
+        var total = ((D.manifest && D.manifest.composers) || []).length, done = 0;
+        D.loadAll(function () { done++; note.textContent = done + ' / ' + total; refreshComposerUI(listEl); })
+          .then(function () { loadBtn.disabled = false; note.textContent = 'Loaded ' + D.records.length + ' compositions'; refreshComposerUI(listEl); render(); });
+      });
+    }
+
+    function refreshComposerUI(listEl) {
+      var search = document.getElementById('composer-search');
+      listEl.innerHTML = composerItems(search ? search.value : '');
+    }
+
+    // ---- Sheet routing (header + bottom bar) ----------------------------
+    function route(action) {
+      if (action === 'search') openSearchSheet();
+      else if (action === 'script') openScriptSheet();
+      else openControlsSheet(); // 'controls' / default
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('.bar-btn, #open-search, #open-filters'), function (btn) {
+      btn.addEventListener('click', function () { route(btn.getAttribute('data-action') || 'controls'); });
+    });
+
+    // ---- Boot ------------------------------------------------------------
+    D.attachListActions(container, {
+      script: function () { return state.script; },
+      onChange: render,
+      onWorks: function (slug, name) {
+        state.composerSlug = slug; state.composerName = name;
+        closeSheet();
+        D.loadComposer(slug).then(render);
+        render();
+      }
+    });
+
+    D.load().then(function (m) {
+      var total = (m.count_total || 0).toLocaleString('en-IN');
+      brandCount.textContent = total + ' ಪದ್ಯಗಳು';
+      var comps = m.composers || [];
+      if (comps.length <= 8) { D.loadAll().then(render); }
+      render();
+    }).catch(function () {
+      brandCount.textContent = '';
+      container.innerHTML = '<div class="empty-state"><h3>Corpus unavailable</h3><p>The Dāsa Sāhitya data could not be loaded. Please try again later.</p></div>';
+    });
+  })();
+  </script>
+</body>
+</html>

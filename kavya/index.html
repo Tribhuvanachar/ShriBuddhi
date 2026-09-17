@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="sa" data-theme="light">
+<head>
+<meta charset="utf-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=2"></script>
+<script src="../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>काव्यानि — DGE</title>
+<meta name="description" content="Layered Sanskrit kavya reader: mula, traditional tika, padaccheda, anvaya and translation, side by side.">
+<link rel="stylesheet" href="../css/kavya.css">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<body>
+
+<header class="top">
+  <div class="row">
+    <dge-breadcrumb label="काव्यानि" deva home-href="index.html" class="brand"><a href="index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span class="deva">काव्यानि</span></dge-breadcrumb><small id="totals" style="margin-left:6px;color:var(--muted)">…</small>
+
+    <nav class="seg" aria-label="Related tools">
+      <a class="btn" href="vyakarana/ashtadhyayi.html" style="border:0;border-radius:0">सूत्राणि</a>
+      <a class="btn" href="vyakarana/dhatu.html" style="border:0;border-radius:0">धातु</a>
+    </nav>
+
+    <div class="seg" role="group" aria-label="Script">
+      <button type="button" data-script="deva">देव</button>
+      <button type="button" data-script="iast">IAST</button>
+      <button type="button" data-script="kn">ಕನ್ನಡ</button>
+    </div>
+
+    <div class="seg" role="group" aria-label="Mode">
+      <button type="button" data-mode="read">पठनम् · Read</button>
+      <button type="button" data-mode="compare">तुलना · Compare</button>
+    </div>
+
+    <button class="btn" id="smaller" type="button" aria-label="Smaller text">A−</button>
+    <button class="btn" id="bigger"  type="button" aria-label="Larger text">A+</button>
+    <button class="btn" id="theme"   type="button" aria-label="Toggle dark mode">◐</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="pickers">
+    <label class="sr" for="workSel">Work</label>
+    <select class="btn" id="workSel" style="max-width:min(60vw,380px)"></select>
+
+    <label class="sr" for="unitSel">Sarga / Anka / Ullasa</label>
+    <select class="btn" id="unitSel" style="max-width:min(45vw,300px)"></select>
+
+    <form class="jump" id="jumpForm">
+      <label class="sr" for="jumpInput">Jump to verse</label>
+      <input id="jumpInput" placeholder="1.17  ( / )" inputmode="decimal">
+      <button class="btn" type="submit">→</button>
+    </form>
+  </div>
+
+  <div class="layerbar" id="layerBar" role="group" aria-label="Layers"></div>
+
+  <section id="verses"></section>
+</main>
+
+<footer class="pager">
+  <button class="btn" id="prev" type="button">← पूर्वम्</button>
+  <span class="unit" id="unitNow"></span>
+  <button class="btn" id="next" type="button">अग्रिमम् →</button>
+</footer>
+
+<!-- Phase 6 of the frontend redesign: <dge-footer> (dge-shell.js) -- same
+     link sets/behavior as site-footer.js, see that file's own header comment. -->
+<dge-footer class="site-footer-links"><a class="footer-link" href="../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+
+<script src="../js/dge-shell.js?v=1"></script>
+<script src="../js/dge-breadcrumb.js?v=1"></script>
+<script src="../js/kavya.js?v=4.67.0"></script>
+<!-- 7 Sep 2026: same reader copy/right-click guard as index.html (admins exempt). -->
+<script src="../js/copy-guard.js?v=2"></script>
+</body>
+</html>

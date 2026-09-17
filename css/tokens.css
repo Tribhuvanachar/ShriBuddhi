@@ -1,0 +1,113 @@
+/* =========================================================================
+   DGE Canonical Design Tokens
+   Phase 1 of the frontend redesign (see /root/.claude/plans -- this file's
+   values are a byte-for-byte hoist of what css/main.css previously
+   defined inline, wrapped in @layer tokens so later shell/component CSS
+   layers can predictably sit above it in the cascade. No visual change.
+
+   This is deliberately still just the reader's existing vocabulary and its
+   existing 5 themes (Vandana, Traditional, Minimal, Vibrant, Dark Glass) --
+   all 5 are live, user-selectable via the theme-swatch picker in main.css,
+   so none are dropped or renamed here. Consolidating down to a smaller,
+   rebranded theme set (as later proposed for the shared shell) is a
+   separate product decision, not bundled into this token-consolidation
+   pass.
+   ========================================================================= */
+
+@layer tokens {
+
+:root {
+  /* Shared, theme-agnostic tokens */
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+  --shadow-xs: 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-sm: 0 4px 14px rgba(0,0,0,0.07);
+  --shadow-md: 0 10px 30px rgba(0,0,0,0.12);
+  --shadow-lg: 0 20px 50px rgba(0,0,0,0.22);
+  --ease: cubic-bezier(.4,0,.2,1);
+  --t-fast: 0.15s;
+  --t-med: 0.25s;
+  --font-multiplier: 18px;
+  --font-sanskrit: 'Tiro Devanagari Sanskrit', 'Noto Sans Devanagari', 'Noto Serif Devanagari', serif;
+  --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Vandana palette — the default, and also the pre-JS fallback so the first
+     paint does not flash cream before restorePrefs() runs. */
+  --bg-main: #0B0907; --card-bg: rgba(32,27,23,0.55); --card-border: rgba(232,178,77,0.14);
+  --card-active: rgba(242,130,12,0.16); --text-primary: #F3E7D4; --text-sanskrit: #FFB24D;
+  --accent-red: #E2664A; --accent-gold: #E8B24D; --panel-bg: rgba(20,16,12,0.92);
+  --top-bar-bg: rgba(11,9,7,0.78); --top-bar-border: rgba(232,178,77,0.16);
+  --glass-blur: 18px; --accent-glow: rgba(232,178,77,0.34);
+  --muted-text: #8B7A63;
+  /* Word marks (highlight-words.js). Cool against a warm saffron ground, so
+     a marked word reads as a different KIND of thing from the accent colours
+     the page already spends on headings and the search hit — not as a louder
+     one. Tint plus an underline: the tint alone is too weak to see at reading
+     size on a phone, a full-strength fill would fight the Devanagari. */
+  --mark-dhatu-bg: rgba(90,190,140,0.18); --mark-dhatu-line: #5ABE8C;
+  --mark-kosha-bg: rgba(120,170,240,0.16); --mark-kosha-line: #78AAF0;
+  --mark-sutra-bg: rgba(214,150,240,0.16); --mark-sutra-line: #D696F0;
+  /* प्रतीक: the commentary quoting the verse. Warm, because it belongs to the
+     text rather than to the grammar tooling the two marks above serve. */
+  --pratika-text: #F0C674; --pratika-line: rgba(240,198,116,0.75);
+  --pratika-glow: rgba(240,198,116,0.14);
+}
+
+/* Each theme block below matches html.theme-X as well as body.theme-X so
+   js/theme-guard.js -- which sets the class on <html> before <body>
+   exists, to avoid the unscoped :root default flashing before restorePrefs()
+   applies the real theme to <body> -- resolves the correct variables from
+   first paint. Whichever element actually carries the class wins on itself;
+   inheritance carries that value down to descendants that don't yet have
+   their own matching rule. */
+
+/* --- Theme: Traditional (warm, refined) --- */
+html.theme-traditional, body.theme-traditional {
+  --bg-main: #FAF3E6; --card-bg: #ffffff; --card-border: #E9DCC3;
+  --card-active: #FCE9DE; --text-primary: #2B2119; --text-sanskrit: #9A1B1B;
+  --accent-red: #AE231F; --accent-gold: #B9821F; --panel-bg: #ffffff;
+  --top-bar-bg: rgba(255,253,249,0.90); --top-bar-border: #EEE3CB;
+  --glass-blur: 10px; --accent-glow: rgba(174,35,31,0.22);
+  --muted-text: #8a7a63;
+  --mark-dhatu-bg: rgba(31,111,92,0.13); --mark-dhatu-line: #1F6F5C;
+  --mark-kosha-bg: rgba(38,89,168,0.12); --mark-kosha-line: #2659A8;
+  --mark-sutra-bg: rgba(112,48,148,0.12); --mark-sutra-line: #703094;
+  --pratika-text: #8A5A00; --pratika-line: rgba(138,90,0,0.65);
+  --pratika-glow: rgba(138,90,0,0.10);
+}
+
+/* (7 Sep 2026: the Minimal, Vibrant and Dark Glass palettes were removed --
+   two themes only. .dark-mode is still added alongside .theme-vandana as an
+   alias for the few component rules keyed off it.) */
+
+/* --- Theme: Vandana (default) ---
+   The palette of the landing page, so crossing from the vandana into the
+   library is not a change of scenery. Warm near-black ground, saffron and
+   gold from the portrait itself; deliberately never pure black, which kills
+   the glow. Traditional (above) is the one light alternative, for anyone
+   who prefers to read on cream. */
+html.theme-vandana, body.theme-vandana {
+  --bg-main: #0B0907; --card-bg: rgba(32,27,23,0.55); --card-border: rgba(232,178,77,0.14);
+  --card-active: rgba(242,130,12,0.16); --text-primary: #F3E7D4; --text-sanskrit: #FFB24D;
+  --accent-red: #E2664A; --accent-gold: #E8B24D; --panel-bg: rgba(20,16,12,0.92);
+  --top-bar-bg: rgba(11,9,7,0.78); --top-bar-border: rgba(232,178,77,0.16);
+  --glass-blur: 18px; --accent-glow: rgba(232,178,77,0.34);
+  --muted-text: #8B7A63;
+  /* Word marks (highlight-words.js). Cool against a warm saffron ground, so
+     a marked word reads as a different KIND of thing from the accent colours
+     the page already spends on headings and the search hit — not as a louder
+     one. Tint plus an underline: the tint alone is too weak to see at reading
+     size on a phone, a full-strength fill would fight the Devanagari. */
+  --mark-dhatu-bg: rgba(90,190,140,0.18); --mark-dhatu-line: #5ABE8C;
+  --mark-kosha-bg: rgba(120,170,240,0.16); --mark-kosha-line: #78AAF0;
+  --mark-sutra-bg: rgba(214,150,240,0.16); --mark-sutra-line: #D696F0;
+  /* प्रतीक: the commentary quoting the verse. Warm, because it belongs to the
+     text rather than to the grammar tooling the two marks above serve. */
+  --pratika-text: #F0C674; --pratika-line: rgba(240,198,116,0.75);
+  --pratika-glow: rgba(240,198,116,0.14);
+}
+
+} /* @layer tokens */

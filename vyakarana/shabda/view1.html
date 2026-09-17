@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+<meta charset="UTF-8">
+<script src="../../js/vandana-guard.js?v=2"></script>
+<script src="../../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>शब्दपाठः · Workbench · DGE</title>
+<!-- Indic transliteration, vendored (js/vendor/README.md): the reader's
+     script setting and the धातु/कोश word marking both depend on it, so it
+     must not be one CDN outage away from silently not working. -->
+<script src="../../js/vendor/sanscript-1.3.3.min.js?v=1.3.3"></script>
+<link rel="icon" type="image/png" sizes="48x48" href="../../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../../images/genie/apple-touch-icon.png">
+<style>
+:root{
+ --bg:#f7f5f0;--surface:#fffdf9;--surface2:#efebe3;--ink:#24231f;--muted:#77736a;
+ --line:#ddd8ce;--accent:#985c25;--accent2:#5e432e;--reader:72ch;
+ --word:clamp(1.55rem,5vw,2.25rem);--form:clamp(1.08rem,3.4vw,1.45rem);
+ --body:16px;--shadow:0 8px 28px rgba(35,31,24,.07)
+}
+@media(prefers-color-scheme:dark){
+ :root:not([data-theme=light]){--bg:#151513;--surface:#1c1b18;--surface2:#27251f;--ink:#f2efe8;--muted:#aaa397;
+ --line:#39362f;--accent:#e0a05f;--accent2:#d7c2a8;--shadow:0 8px 28px rgba(0,0,0,.28)}
+}
+[data-theme=light]{--bg:#f7f5f0;--surface:#fffdf9;--surface2:#efebe3;--ink:#24231f;--muted:#77736a;--line:#ddd8ce;--accent:#985c25;--accent2:#5e432e}
+[data-theme=dark]{--bg:#151513;--surface:#1c1b18;--surface2:#27251f;--ink:#f2efe8;--muted:#aaa397;--line:#39362f;--accent:#e0a05f;--accent2:#d7c2a8;--shadow:0 8px 28px rgba(0,0,0,.28)}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);overflow-x:hidden}
+body{font:var(--body)/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overscroll-behavior-x:none}
+button,input,select{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 65%,transparent);outline-offset:2px}
+dge-breadcrumb.brand{display:flex;gap:6px;align-items:center;padding:8px max(10px,env(safe-area-inset-left));font-size:12px;color:var(--muted);border-bottom:1px solid var(--line);background:var(--surface)}
+dge-breadcrumb.brand a{color:var(--accent);text-decoration:none}
+dge-breadcrumb.brand .deva{color:var(--ink)}
+.topbar{height:56px;position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:7px;padding:5px max(10px,env(safe-area-inset-right)) 5px max(10px,env(safe-area-inset-left));
+background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);transition:transform .22s}
+.topbar.hide{transform:translateY(-100%)}
+.icon{width:44px;height:44px;border:0;border-radius:12px;background:transparent;cursor:pointer;display:grid;place-items:center;font-size:19px}
+.icon:hover{background:var(--surface2)}
+.brand-label{font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.search{margin-left:auto;display:flex;align-items:center;gap:5px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:2px 5px 2px 12px;max-width:235px}
+.search input{width:155px;min-width:0;border:0;outline:0;background:transparent}
+.search button{width:35px;height:35px;border:0;border-radius:50%;background:var(--surface2);cursor:pointer}
+main{width:min(100%,calc(var(--reader) + 28px));margin:auto;padding:12px 14px 70px}
+.filter-summary{display:none;align-items:center;gap:7px;color:var(--muted);font-size:12px;padding:5px 2px 9px;white-space:nowrap;overflow:hidden}
+.filter-summary.show{display:flex}
+.filter-summary span{overflow:hidden;text-overflow:ellipsis}
+.filter-summary button{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:17px}
+.results{display:grid;gap:10px}
+.word-card{content-visibility:auto;contain-intrinsic-size:150px;background:var(--surface);border:1px solid var(--line);border-radius:17px;padding:14px 15px;box-shadow:var(--shadow)}
+.word-head{display:flex;align-items:flex-start;gap:8px}
+.word-main{flex:1;min-width:0}
+.word{font-family:"Noto Serif Devanagari","Noto Sans Devanagari",serif;font-size:var(--word);line-height:1.45;text-wrap:balance}
+.word-iast{font:15px Georgia,serif;color:var(--muted)}
+.badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;background:var(--surface2);color:var(--accent2);font-size:11px;font-weight:700}
+.more{width:44px;height:44px;border:0;background:transparent;color:var(--muted);font-size:22px;border-radius:12px;cursor:pointer}
+.more:hover{background:var(--surface2)}
+.meanings{display:flex;flex-wrap:wrap;gap:5px 12px;margin:8px 0;color:var(--muted);font-size:13px}
+.paradigm{font-size:12px;color:var(--accent2)}
+.open-toggle{margin-top:7px;border:0;background:transparent;color:var(--accent);padding:4px 0;cursor:pointer;font-size:13px}
+.table-wrap{display:none;margin-top:14px;border-top:1px solid var(--line);padding-top:13px;overflow-x:auto;overscroll-behavior-x:contain}
+.word-card.open .table-wrap{display:block}
+/* --- real DGE_SHABDA.declTable output (.df-table) styled to match the mockup --- */
+.df-table{overflow-x:auto;overscroll-behavior-x:contain}
+.df-table table{width:100%;border-collapse:separate;border-spacing:0;min-width:520px;table-layout:fixed}
+.df-table th,.df-table td{border-bottom:1px solid var(--line);padding:8px 7px;text-align:center;font-family:"Noto Serif Devanagari","Noto Sans Devanagari",serif;font-size:var(--form);line-height:1.45}
+.df-table thead th{font-size:11px;color:var(--muted);font-weight:700}
+.df-table tbody th{font-size:12px;color:var(--muted);font-weight:650;text-align:left}
+.df-table th:first-child{width:84px;text-align:left}
+.df-table td[data-ci]{cursor:pointer;border-radius:9px}
+.df-table td[data-ci]:hover,.df-table td.sst-cell-on{background:var(--surface2)}
+.df-table td.df-hl{background:color-mix(in srgb,var(--accent) 22%,transparent)}
+.df-table td.quiz-hide{color:transparent;background:var(--surface2);border-radius:6px;user-select:none}
+.word-card.needs-practice{border-left:3px solid var(--accent)}
+.bookmark{display:inline-block;font-size:15px;margin-right:5px;color:var(--accent)}
+.empty{text-align:center;color:var(--muted);padding:40px 10px}
+.letter-rail{position:fixed;z-index:15;right:2px;top:50%;transform:translateY(-50%);display:grid;gap:0;padding:4px 2px;border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 92%,transparent);border-radius:13px;max-height:70dvh;overflow:auto;scroll-snap-type:y proximity}
+.letter-rail button{scroll-snap-align:center;width:27px;height:28px;border:0;background:transparent;border-radius:7px;font-size:12px;cursor:pointer}
+.letter-rail button:hover{background:var(--surface2)}
+.position{position:fixed;z-index:20;right:38px;bottom:18px;background:var(--ink);color:var(--surface);padding:7px 11px;border-radius:999px;font-size:12px;font-variant-numeric:tabular-nums;box-shadow:var(--shadow)}
+.bottom-fab{position:fixed;z-index:18;left:14px;bottom:15px;width:44px;height:44px;border:1px solid var(--line);border-radius:50%;background:var(--surface);cursor:pointer}
+dialog{border:0;padding:0;background:transparent;color:var(--ink);max-width:100vw;max-height:100dvh}
+dialog::backdrop{background:rgba(0,0,0,.42);backdrop-filter:blur(3px)}
+.sheetbox{width:min(690px,100vw);max-height:88dvh;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:24px 24px 0 0;padding:20px}
+dialog[open] .sheetbox{position:fixed;left:50%;bottom:0;transform:translateX(-50%)}
+.sheet-close{float:right;width:36px;height:36px;border:0;border-radius:50%;background:var(--surface2);cursor:pointer}
+.sheet h2{margin:0 0 16px;font-size:19px}
+.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.menu-item{min-height:55px;border:1px solid var(--line);border-radius:14px;background:transparent;text-align:left;padding:10px 12px;cursor:pointer}
+.menu-item small{display:block;color:var(--muted);margin-top:2px}
+.filter-section{margin:17px 0}.filter-section h3{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 8px}
+.option-row{display:flex;flex-wrap:wrap;gap:6px}
+.option{border:1px solid var(--line);background:transparent;border-radius:999px;padding:8px 10px;min-height:40px;cursor:pointer}
+.option.selected{background:var(--ink);color:var(--surface)}
+.apply{margin-top:8px;width:100%;border:0;background:var(--ink);color:var(--surface);padding:12px;border-radius:13px;cursor:pointer}
+.reverse input,.search-box input{width:100%;padding:12px;border:1px solid var(--line);border-radius:13px;background:var(--surface2);outline:0}
+.result-note{color:var(--muted);font-size:13px;margin-top:10px}
+.compare-list{display:grid;gap:12px}.compare-item{border:1px solid var(--line);border-radius:15px;padding:10px}
+.compare-head{display:flex;justify-content:space-between;align-items:center}
+.compare-grid{overflow-x:auto}.compare-grid table{min-width:620px}
+.quiz-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.primary{border:0;background:var(--ink);color:var(--surface);padding:10px 14px;border-radius:12px;cursor:pointer}
+.secondary{border:1px solid var(--line);background:transparent;padding:10px 14px;border-radius:12px;cursor:pointer}
+@media(min-width:800px){
+ .topbar{padding-inline:24px}.brand-label{font-size:14px}main{padding-top:26px}
+ .letter-rail{left:9px;right:auto}.position{right:22px;bottom:22px}
+ .bottom-fab{display:none}.compare-list{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:430px){
+ .brand-label{display:none}.search{max-width:175px}.search input{width:105px}
+ main{padding:7px 9px 60px}.word-card{padding:13px 12px;box-shadow:none}
+ .letter-rail{right:0}.position{right:35px;bottom:14px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<dge-breadcrumb label="शब्दपाठः" deva home-href="../index.html" class="brand"><a href="../index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span class="deva">शब्दपाठः</span></dge-breadcrumb>
+
+<header class="topbar" id="topbar">
+ <button class="icon" id="menuBtn" aria-label="Open menu">☰</button>
+ <div class="brand-label">DGE · Śabdapāṭha</div>
+ <div class="search" role="search">
+   <input id="searchInput" aria-label="Search Sanskrit word or meaning" placeholder="शब्द / राम">
+   <button id="searchGo" aria-label="Search">⌕</button>
+ </div>
+ <button class="icon" id="focusBtn" aria-label="Focus mode">⌁</button>
+</header>
+
+<main>
+ <div class="filter-summary" id="filterSummary">
+   <span id="filterText"></span><button id="clearFilters" aria-label="Clear filters">×</button>
+ </div>
+ <section class="results" id="results" aria-label="Śabdapāṭha words"></section>
+</main>
+
+<aside class="letter-rail" aria-label="Sanskrit alphabet">
+ <button data-letter="अ">अ</button><button data-letter="आ">आ</button><button data-letter="इ">इ</button>
+ <button data-letter="ई">ई</button><button data-letter="उ">उ</button><button data-letter="ऊ">ऊ</button>
+ <button data-letter="ऋ">ऋ</button><button data-letter="ए">ए</button><button data-letter="ऐ">ऐ</button>
+ <button data-letter="ओ">ओ</button><button data-letter="औ">औ</button><button data-letter="क">क</button>
+ <button data-letter="ख">ख</button><button data-letter="ग">ग</button><button data-letter="च">च</button>
+ <button data-letter="ज">ज</button><button data-letter="त">त</button><button data-letter="द">द</button>
+ <button data-letter="न">न</button><button data-letter="प">प</button><button data-letter="भ">भ</button>
+ <button data-letter="म">म</button><button data-letter="य">य</button><button data-letter="र">र</button>
+ <button data-letter="ल">ल</button><button data-letter="व">व</button><button data-letter="श">श</button>
+ <button data-letter="ष">ष</button><button data-letter="स">स</button><button data-letter="ह">ह</button>
+</aside>
+<div class="position" id="position">0 of 9,007</div>
+<button class="bottom-fab" id="bottomMenu" aria-label="Open menu">☰</button>
+
+<dialog id="menuSheet"><div class="sheetbox">
+ <button class="sheet-close" data-close="menuSheet">×</button><h2>Śabdapāṭha</h2>
+ <div class="menu-grid">
+  <button class="menu-item" id="filterOpen">Filters<small>Liṅga · antya · ādi · upadhā · pratyaya · like this</small></button>
+  <button class="menu-item" id="reverseOpen">Reverse lookup<small>Find stem from an inflected form</small></button>
+  <button class="menu-item" id="compareOpen">Compare<small>Pin 2–3 paradigms</small></button>
+  <button class="menu-item" id="quizOpen">Practice / quiz<small>Hide and check table cells</small></button>
+  <button class="menu-item" id="settingsOpen">Settings<small>Script · theme · text size</small></button>
+  <button class="menu-item" id="corpusStub">Corpus prayoga<small>Coming soon</small></button>
+  <button class="menu-item" id="koshaStub">Kosha cross-link<small>Coming soon</small></button>
+  <button class="menu-item" id="collectionsStub">Study lists<small>Export / share coming soon</small></button>
+  <button class="menu-item" id="aiStub">AI / help<small>Hidden utility affordance</small></button>
+  <button class="menu-item" id="sandhiStub">Sandhi-aware search<small>Coming soon</small></button>
+ </div>
+</div></dialog>
+
+<dialog id="filterSheet"><div class="sheetbox">
+ <button class="sheet-close" data-close="filterSheet">×</button><h2>Filters &amp; sort</h2>
+ <div class="filter-section"><h3>लिङ्ग · gender</h3><div class="option-row" data-filter="linga" id="lingaOptions"></div></div>
+ <div class="filter-section"><h3>अन्त्यः · stem final</h3><div class="option-row" data-filter="anta" id="antaOptions"></div></div>
+ <div class="filter-section"><h3>आदिः · initial</h3><div class="option-row" id="initialOptions"></div></div>
+ <div class="filter-section"><h3>उपधा · penultimate</h3><div class="option-row" id="upadhaOptions"></div></div>
+ <div class="filter-section"><h3>प्रत्ययान्तः · kṛt</h3><div class="option-row" id="suffixOptions"></div></div>
+ <div class="filter-section"><h3 id="bucketHead">समानरूपाः · words like this (liṅga + ending)</h3><div class="option-row" id="paradigmOptions"></div></div>
+ <div class="filter-section"><h3>Sort</h3><div class="option-row" data-filter="sort">
+  <button class="option selected" data-value="alpha">Sanskrit alphabetical</button><button class="option" data-value="relevance">Relevance</button>
+ </div></div>
+ <button class="apply" id="applyFilters">Apply filters</button>
+</div></dialog>
+
+<dialog id="reverseSheet"><div class="sheetbox reverse">
+ <button class="sheet-close" data-close="reverseSheet">×</button><h2>Reverse-form lookup</h2>
+ <input id="reverseInput" placeholder="रामेण / वाचि">
+ <div id="reverseResult" class="result-note">Type an exact inflected form to find its stem.</div>
+</div></dialog>
+
+<dialog id="compareSheet"><div class="sheetbox">
+ <button class="sheet-close" data-close="compareSheet">×</button><h2>Compare paradigms</h2>
+ <div id="compareList" class="compare-list"></div>
+ <div class="quiz-actions"><button class="primary" id="clearCompare">Clear pins</button><button class="secondary" data-close="compareSheet">Done</button></div>
+</div></dialog>
+
+<dialog id="quizSheet"><div class="sheetbox">
+ <button class="sheet-close" data-close="quizSheet">×</button><h2>Practice</h2>
+ <p style="color:var(--muted)">Hide the एकवचन column in the currently open table, then reveal to self-check.</p>
+ <div class="quiz-actions"><button class="primary" id="hideQuiz">Hide cells</button><button class="secondary" id="revealQuiz">Reveal</button><button class="secondary" id="needsPractice">Needs practice</button></div>
+ <div id="quizNote" class="result-note"></div>
+</div></dialog>
+
+<dialog id="settingsSheet"><div class="sheetbox">
+ <button class="sheet-close" data-close="settingsSheet">×</button><h2>Reading settings</h2>
+ <div class="filter-section"><h3>Script</h3><div class="option-row" id="scriptOptions">
+  <button class="option selected" data-script="dev">देवनागरी</button><button class="option" data-script="iast">IAST</button>
+  <button class="option" data-script="kn">ಕನ್ನಡ</button><button class="option" data-script="te">తెలుగు</button><button class="option" data-script="ta">தமிழ்</button>
+ </div></div>
+ <div class="filter-section"><h3>Theme</h3><div class="option-row" id="themeOptions"><button class="option selected" data-theme="auto">System</button><button class="option" data-theme="light">Light</button><button class="option" data-theme="dark">Dark</button></div></div>
+ <div class="filter-section"><h3>Text size</h3><input id="fontRange" type="range" min="90" max="120" value="100" style="width:100%"></div>
+</div></dialog>
+
+<dialog id="moreSheet"><div class="sheetbox">
+ <button class="sheet-close" data-close="moreSheet">×</button><h2 id="moreTitle">Word actions</h2>
+ <div class="menu-grid">
+  <button class="menu-item" id="bookmarkAction">Bookmark<small>Persist in this browser</small></button>
+  <button class="menu-item" id="likeThisAction">Words like this<small>Same liṅga + ending</small></button>
+  <button class="menu-item" id="wordCompareAction">Add to compare<small>Pin this paradigm</small></button>
+  <button class="menu-item" id="citeAction">Copy link<small>Deep link to this word</small></button>
+ </div>
+</div></dialog>
+
+<dge-footer class="site-footer-links"><a class="footer-link" href="../../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+<script src="../../js/subanta-steps.js?v=1"></script>
+<script src="../../js/modals.js?v=1"></script>
+<script src="../../js/reader-state.js?v=1"></script>
+<script src="../../js/contextual-actions.js?v=1"></script>
+<script src="../../js/dge-shell.js?v=1"></script>
+<script src="../../js/dge-breadcrumb.js?v=1"></script>
+<script src="../../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="shabda"></dge-nav-rail>
+<script src="../../js/shabda-data.js?v=1"></script>
+<script>
+/* Śabdapāṭha Workbench (view1) — control script rewired to window.DGE_SHABDA.
+   Runs after shabda-data.js; all data, transliteration, the 8×3 table, reverse
+   lookup and रूपसिद्धिः come from the shared module — no inline corpus. */
+(function(){
+  "use strict";
+  var $=function(s){return document.querySelector(s);};
+  var $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s));};
+
+  var SCRIPT_MAP={dev:"devanagari",iast:"iast",kn:"kannada",te:"telugu",ta:"tamil"};
+  var ANTA_DEVA={a:"अ",A:"आ",i:"इ",I:"ई",u:"उ",U:"ऊ",f:"ऋ",F:"ॠ",x:"ऌ",X:"ॡ",e:"ए",E:"ऐ",o:"ओ",O:"औ",H:"हलन्त"};
+  var PAGE=60;
+
+  var DB=null, FAC=null, byId=null;
+  var filtered=[], shown=PAGE, bucketLabels={};
+  var bookmarks;
+  try{ bookmarks=new Set(JSON.parse(localStorage.getItem("dge-shabda-bookmarks")||"[]")); }catch(e){ bookmarks=new Set(); }
+
+  var state={ query:"", filters:{linga:"all",anta:"all",adi:"all",up:"all",krt:"all",bucket:"all",sort:"alpha"},
+              script:"dev", theme:"auto", font:100, compare:[], open:null, moreId:null };
+
+  var esc=function(s){ return window.DGE_SHABDA?DGE_SHABDA.esc(s):String(s==null?"":s); };
+  function scr(){ return SCRIPT_MAP[state.script]||"devanagari"; }
+  function tl(t){ return DGE_SHABDA.tl(t, scr()); }
+  function iastOf(t){ return DGE_SHABDA.tl(t, "iast"); }
+  function slpDeva(c){
+    if(!c) return c;
+    if(window.Sanscript){ try{ return window.Sanscript.t(c,"slp1","devanagari"); }catch(e){} }
+    return c;
+  }
+  function antaLabel(c){ return c==="H" ? "हलन्त" : ((ANTA_DEVA[c]||c)+"कारान्तः"); }
+  function bucketKey(w){ return w.linga+"_"+(w._anta||""); }
+  function bucketLabel(w){
+    var l=(DGE_SHABDA.LINGA_SHORT[w.linga]||w.linga||"");
+    return l+" · "+antaLabel(w._anta||"");
+  }
+
+  /* ---------- filtering / sorting ---------- */
+  function matches(w){
+    var f=state.filters;
+    if(f.linga!=="all" && w.linga!==f.linga) return false;
+    if(f.anta!=="all" && (w._anta||"")!==f.anta) return false;
+    if(f.adi!=="all" && (w._adi||"")!==f.adi) return false;
+    if(f.up!=="all" && (w._up||"")!==f.up) return false;
+    if(f.krt!=="all" && (","+(w.krt||"")+",").indexOf(","+f.krt+",")<0) return false;
+    if(f.bucket!=="all" && bucketKey(w)!==f.bucket) return false;
+    if(state.query && w._hay.indexOf(state.query.toLowerCase())<0) return false;
+    return true;
+  }
+  function score(w,q){
+    return [w.word,w.artha,w.artha_hin||"",w.artha_eng||""].reduce(function(n,x){
+      x=(x||"").toLowerCase();
+      return n+(x.indexOf(q)===0?3:x.indexOf(q)>=0?1:0);
+    },0);
+  }
+  function recompute(){
+    var arr=DB.items.filter(matches);
+    if(state.filters.sort==="relevance" && state.query){
+      var q=state.query.toLowerCase();
+      arr.sort(function(a,b){ return score(b,q)-score(a,q) || a.word.localeCompare(b.word,"sa"); });
+    } else {
+      arr.sort(function(a,b){ return a.word.localeCompare(b.word,"sa"); });
+    }
+    filtered=arr;
+  }
+  function refresh(resetShown){
+    recompute();
+    if(resetShown) shown=PAGE;
+    if(shown>filtered.length) shown=filtered.length;
+    if(shown<PAGE) shown=Math.min(PAGE,filtered.length);
+    render();
+  }
+
+  /* ---------- rendering ---------- */
+  function cardHTML(w){
+    var open=state.open && state.open.id===w.id;
+    var mark=bookmarks.has(w.id)?"★":"";
+    var meanings=["<span>"+esc(w.artha)+"</span>"];
+    if(w.artha_hin) meanings.push("<span>"+esc(w.artha_hin)+"</span>");
+    if(w.artha_eng) meanings.push("<span>"+esc(w.artha_eng)+"</span>");
+    var table="";
+    if(open){
+      var hl=(state.open.cell!=null)?state.open.cell:null;
+      table='<div class="table-wrap">'+DGE_SHABDA.declTable(w.forms,{script:scr(),highlightIdx:hl})+"</div>";
+    }
+    return '<article class="word-card '+(open?"open":"")+'" id="word-'+esc(w.id)+'" data-id="'+esc(w.id)+'">'
+      +'<div class="word-head"><div class="word-main">'
+      +'<div class="word" lang="sa">'+esc(tl(w.word))+' <span class="badge">'+esc(w.linga_iast||"")+'</span></div>'
+      +'<div class="word-iast">'+esc(iastOf(w.word))+' · <span class="paradigm">'+esc(bucketLabel(w))+'</span></div>'
+      +'<div class="meanings">'+meanings.join("")+'</div>'
+      +'</div><button class="more" data-more="'+esc(w.id)+'" aria-label="More actions">⋯</button></div>'
+      +'<div><span class="bookmark">'+mark+'</span><button class="open-toggle" data-open="'+esc(w.id)+'">'+(open?"Collapse table":"Open 8×3 declension")+'</button></div>'
+      +table
+      +'</article>';
+  }
+  function render(){
+    document.body.dataset.theme=state.theme;
+    document.documentElement.style.setProperty("--body",(state.font/100)+"rem");
+    document.documentElement.style.setProperty("--form","clamp("+(1.08*state.font/100)+"rem,3.4vw,"+(1.45*state.font/100)+"rem)");
+    var res=$("#results");
+    if(!filtered.length){
+      res.innerHTML='<div class="empty">No words match these criteria.<br><small>The corpus contains '+DB.count.toLocaleString()+' stems.</small></div>';
+    } else {
+      var slice=filtered.slice(0,shown);
+      res.innerHTML=slice.map(cardHTML).join("");
+    }
+    var f=state.filters, active=[];
+    if(f.linga!=="all") active.push(DGE_SHABDA.LINGA_LABEL[f.linga]||f.linga);
+    if(f.anta!=="all") active.push(antaLabel(f.anta));
+    if(f.adi!=="all") active.push("आदि "+slpDeva(f.adi));
+    if(f.up!=="all") active.push("उपधा "+slpDeva(f.up));
+    if(f.krt!=="all") active.push(DGE_SHABDA.KRT_NAME[f.krt]||f.krt);
+    if(f.bucket!=="all") active.push(bucketLabels[f.bucket]||f.bucket);
+    $("#filterSummary").classList.toggle("show",active.length>0);
+    $("#filterText").textContent=active.length?active.join(" · ")+" · "+filtered.length.toLocaleString()+" matches":"";
+    var to=Math.min(shown,filtered.length);
+    $("#position").textContent=(filtered.length?1:0)+"–"+to.toLocaleString()+" of "+filtered.length.toLocaleString();
+    updateCompare();
+  }
+
+  /* ---------- open / more / cell derivation (event delegation) ---------- */
+  function toggleOpen(id){
+    if(state.open && state.open.id===id){ state.open=null; }
+    else { state.open={id:id, cell:null}; }
+    if(state.open) try{ location.hash=id; }catch(e){}
+    render();
+    if(state.open){
+      var el=document.getElementById("word-"+id);
+      if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
+    }
+  }
+  function openMore(id){
+    state.moreId=id;
+    var w=byId.get(id);
+    $("#moreTitle").textContent="Actions · "+(w?w.word:"");
+    openDlg("moreSheet");
+  }
+  function bindResults(){
+    $("#results").addEventListener("click",function(e){
+      var t=e.target;
+      var ob=t.closest("[data-open]"); if(ob){ toggleOpen(ob.getAttribute("data-open")); return; }
+      var mb=t.closest("[data-more]"); if(mb){ openMore(mb.getAttribute("data-more")); return; }
+      var td=t.closest("td[data-ci]");
+      if(td){
+        var card=td.closest(".word-card");
+        var w=card && byId.get(card.getAttribute("data-id"));
+        if(w) DGE_SHABDA.cellSteps(td,w);
+      }
+    });
+  }
+
+  /* ---------- filter option rows ---------- */
+  function fillRow(el, key, allLabel, opts){
+    el.dataset.filter=key;
+    var html='<button class="option selected" data-value="all">'+esc(allLabel)+'</button>';
+    html+=opts.map(function(o){ return '<button class="option" data-value="'+esc(o.value)+'">'+esc(o.label)+'</button>'; }).join("");
+    el.innerHTML=html;
+  }
+  function initFilters(){
+    fillRow($("#lingaOptions"),"linga","सर्वम्", FAC.lingas.map(function(c){ return {value:c,label:DGE_SHABDA.LINGA_SHORT[c]||c}; }));
+    fillRow($("#antaOptions"),"anta","सर्वे", FAC.antas.map(function(c){ return {value:c,label:(c==="H"?"हलन्त":(ANTA_DEVA[c]||c))}; }));
+    fillRow($("#initialOptions"),"adi","सर्वे", FAC.adis.map(function(c){ return {value:c,label:slpDeva(c)}; }));
+    fillRow($("#upadhaOptions"),"up","सर्वे", FAC.ups.map(function(c){ return {value:c,label:slpDeva(c)}; }));
+    fillRow($("#suffixOptions"),"krt","सर्वे", FAC.krts.map(function(k){ return {value:k,label:DGE_SHABDA.KRT_NAME[k]||k}; }));
+    // synthesized "words like this" buckets (liṅga + stem-final) actually present
+    var seen={}, buckets=[];
+    DB.items.forEach(function(w){ var k=bucketKey(w); if(!seen[k]){ seen[k]=1; buckets.push({linga:w.linga,anta:w._anta||"",key:k}); } });
+    var vo=DGE_SHABDA.VARNA_ORDER;
+    buckets.sort(function(a,b){ return ("PSNA".indexOf(a.linga)-"PSNA".indexOf(b.linga)) || (vo.indexOf(a.anta)-vo.indexOf(b.anta)); });
+    var bopts=buckets.map(function(b){
+      var lab=(DGE_SHABDA.LINGA_SHORT[b.linga]||b.linga)+" "+(b.anta==="H"?"हलन्त":antaLabel(b.anta));
+      bucketLabels[b.key]=lab;
+      return {value:b.key,label:lab};
+    });
+    fillRow($("#paradigmOptions"),"bucket","सर्वे", bopts);
+    // selection toggles for every filter row
+    $$(".option-row[data-filter]").forEach(function(row){
+      row.addEventListener("click",function(e){
+        var b=e.target.closest(".option"); if(!b) return;
+        row.querySelectorAll(".option").forEach(function(x){ x.classList.remove("selected"); });
+        b.classList.add("selected");
+      });
+    });
+  }
+  function syncFilters(){
+    $$(".option-row[data-filter]").forEach(function(row){
+      var key=row.dataset.filter, val=state.filters[key];
+      row.querySelectorAll(".option").forEach(function(b){ b.classList.toggle("selected", b.dataset.value===val); });
+    });
+  }
+  function applyFilters(){
+    $$(".option-row[data-filter]").forEach(function(row){
+      var b=row.querySelector(".option.selected");
+      if(b) state.filters[row.dataset.filter]=b.dataset.value;
+    });
+    closeAll();
+    refresh(true);
+  }
+
+  /* ---------- dialogs ---------- */
+  function openDlg(id){ var d=document.getElementById(id); if(d&&d.showModal) d.showModal(); }
+  function closeAll(){ $$("dialog[open]").forEach(function(x){ x.close(); }); }
+
+  /* ---------- compare ---------- */
+  function updateCompare(){
+    var el=$("#compareList"); if(!el) return;
+    el.innerHTML=state.compare.length?state.compare.map(function(id){
+      var w=byId.get(id); if(!w) return "";
+      return '<div class="compare-item"><div class="compare-head"><strong lang="sa">'+esc(tl(w.word))+'</strong>'
+        +'<button class="more" data-unpin="'+esc(id)+'" aria-label="Remove">×</button></div>'
+        +'<div class="compare-grid">'+DGE_SHABDA.declTable(w.forms,{script:scr()})+'</div></div>';
+    }).join(""):'<div class="empty">Pin words from ⋯ More. Compare up to 3 paradigms.</div>';
+    $$(".compare-item [data-unpin]").forEach(function(b){
+      b.onclick=function(){ state.compare=state.compare.filter(function(x){ return x!==b.getAttribute("data-unpin"); }); render(); };
+    });
+  }
+
+  /* ---------- misc ---------- */
+  function toast(t){ var x=$("#position"); x.textContent=t; clearTimeout(toast.t); toast.t=setTimeout(render,1300); }
+  function openWord(id, cell){
+    var idx=filtered.findIndex(function(w){ return w.id===id; });
+    if(idx<0){ // not in current filter — clear filters to reveal it
+      Object.keys(state.filters).forEach(function(k){ state.filters[k]=(k==="sort"?state.filters.sort:"all"); });
+      state.query=""; if($("#searchInput")) $("#searchInput").value="";
+      recompute();
+      idx=filtered.findIndex(function(w){ return w.id===id; });
+    }
+    if(idx<0) return false;
+    if(idx>=shown) shown=Math.min(filtered.length, idx+PAGE);
+    state.open={id:id, cell:(cell==null?null:cell)};
+    render();
+    setTimeout(function(){ var el=document.getElementById("word-"+id); if(el) el.scrollIntoView({block:"start"}); },30);
+    return true;
+  }
+
+  /* ---------- static wiring ---------- */
+  function wire(){
+    $("#menuBtn").onclick=function(){ openDlg("menuSheet"); };
+    $("#bottomMenu").onclick=function(){ openDlg("menuSheet"); };
+    $("#focusBtn").onclick=function(){
+      $("#topbar").classList.toggle("hide");
+      var r=$(".letter-rail"); r.style.display=(r.style.display==="none"?"grid":"none");
+    };
+    $("#searchGo").onclick=function(){ state.query=$("#searchInput").value.trim(); refresh(true); window.scrollTo({top:0,behavior:"smooth"}); };
+    $("#searchInput").onkeydown=function(e){ if(e.key==="Enter") $("#searchGo").click(); };
+    $("#filterOpen").onclick=function(){ closeAll(); syncFilters(); openDlg("filterSheet"); };
+    $("#reverseOpen").onclick=function(){ closeAll(); openDlg("reverseSheet"); $("#reverseInput").focus(); };
+    $("#compareOpen").onclick=function(){ closeAll(); openDlg("compareSheet"); updateCompare(); };
+    $("#quizOpen").onclick=function(){ closeAll(); openDlg("quizSheet"); };
+    $("#settingsOpen").onclick=function(){ closeAll(); openDlg("settingsSheet"); };
+    $("#applyFilters").onclick=applyFilters;
+    $("#clearFilters").onclick=function(){
+      Object.keys(state.filters).forEach(function(k){ if(k!=="sort") state.filters[k]="all"; });
+      syncFilters(); refresh(true);
+    };
+    $$("[data-close]").forEach(function(b){ b.onclick=function(){ document.getElementById(b.getAttribute("data-close")).close(); }; });
+
+    $("#reverseInput").oninput=function(e){
+      var q=e.target.value.trim();
+      var loc=q?DGE_SHABDA.findFormLocation(DB.items,q):null;
+      var box=$("#reverseResult");
+      if(loc){
+        var w=byId.get(loc.id);
+        var vb=Math.floor(loc.cellIndex/3), vc=loc.cellIndex%3;
+        box.innerHTML='<button class="primary" id="reverseHit">'+esc(tl(w.word))+' · '+esc(DGE_SHABDA.VIBHAKTI[vb])+' · '+esc(DGE_SHABDA.VACANA[vc])+'</button>';
+        $("#reverseHit").onclick=function(){ closeAll(); openWord(loc.id, loc.cellIndex); };
+      } else {
+        box.textContent=q?"No exact form match in the corpus.":"Type an exact inflected form to find its stem.";
+      }
+    };
+
+    $("#clearCompare").onclick=function(){ state.compare=[]; render(); };
+
+    $("#hideQuiz").onclick=function(){
+      if(!state.open){ toast("Open a word table first"); return; }
+      var card=document.getElementById("word-"+state.open.id);
+      if(!card){ toast("Open a word table first"); return; }
+      var cells=card.querySelectorAll(".df-table td[data-ci]");
+      if(!cells.length){ toast("Open a word table first"); return; }
+      cells.forEach(function(td){ if(parseInt(td.dataset.ci,10)%3===0) td.classList.add("quiz-hide"); });
+      $("#quizNote").textContent="The एकवचन column is hidden in the open table.";
+    };
+    $("#revealQuiz").onclick=function(){
+      var card=state.open&&document.getElementById("word-"+state.open.id);
+      if(card) card.querySelectorAll(".quiz-hide").forEach(function(td){ td.classList.remove("quiz-hide"); });
+      $("#quizNote").textContent="Revealed.";
+    };
+    $("#needsPractice").onclick=function(){
+      if(!state.open){ toast("Open a word first"); return; }
+      var card=document.getElementById("word-"+state.open.id);
+      if(card) card.classList.toggle("needs-practice");
+      var w=byId.get(state.open.id);
+      $("#quizNote").textContent=(w?w.word:"")+" marked for practice.";
+    };
+
+    $$("[data-script]").forEach(function(b){ b.onclick=function(){
+      state.script=b.getAttribute("data-script");
+      $$("[data-script]").forEach(function(x){ x.classList.toggle("selected", x===b); });
+      render();
+    }; });
+    $$("[data-theme]").forEach(function(b){ b.onclick=function(){
+      state.theme=b.getAttribute("data-theme");
+      $$("[data-theme]").forEach(function(x){ x.classList.toggle("selected", x===b); });
+      render();
+    }; });
+    $("#fontRange").oninput=function(e){ state.font=+e.target.value; render(); };
+
+    $("#bookmarkAction").onclick=function(){
+      var id=state.moreId; if(!id) return;
+      if(bookmarks.has(id)) bookmarks.delete(id); else bookmarks.add(id);
+      try{ localStorage.setItem("dge-shabda-bookmarks",JSON.stringify(Array.from(bookmarks))); }catch(e){}
+      closeAll(); render();
+    };
+    $("#likeThisAction").onclick=function(){
+      var w=byId.get(state.moreId); if(!w) return;
+      Object.keys(state.filters).forEach(function(k){ if(k!=="sort") state.filters[k]="all"; });
+      state.filters.bucket=bucketKey(w); state.query=""; if($("#searchInput")) $("#searchInput").value="";
+      closeAll(); refresh(true); window.scrollTo({top:0,behavior:"smooth"});
+    };
+    $("#wordCompareAction").onclick=function(){
+      var id=state.moreId;
+      if(state.compare.indexOf(id)<0){
+        if(state.compare.length>=3) toast("Compare is limited to 3");
+        else state.compare.push(id);
+      }
+      closeAll(); render();
+    };
+    $("#citeAction").onclick=function(){
+      var id=state.moreId;
+      var url=location.origin+location.pathname+"#"+id;
+      if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function(){ toast("Link copied"); },function(){ toast("Link: "+url); });
+      else toast("Link: "+url);
+      closeAll();
+    };
+    ["corpusStub","koshaStub","collectionsStub","aiStub","sandhiStub"].forEach(function(id){
+      $("#"+id).onclick=function(){ toast("Coming soon — affordance reserved"); };
+    });
+
+    $$(".letter-rail button").forEach(function(b){ b.onclick=function(){
+      var l=b.getAttribute("data-letter");
+      var idx=filtered.findIndex(function(w){ return w.word.indexOf(l)===0; });
+      if(idx<0){ toast("No word begins with "+l); return; }
+      if(idx>=shown){ shown=Math.min(filtered.length, idx+PAGE); render(); }
+      setTimeout(function(){ var el=document.getElementById("word-"+filtered[idx].id); if(el) el.scrollIntoView({behavior:"smooth",block:"start"}); },30);
+    }; });
+
+    var lastY=window.scrollY;
+    addEventListener("scroll",function(){
+      var y=window.scrollY;
+      if(y>lastY+7){ $("#topbar").classList.add("hide"); $("#bottomMenu").style.opacity=".15"; }
+      else if(y<lastY-7){ $("#topbar").classList.remove("hide"); $("#bottomMenu").style.opacity="1"; }
+      lastY=y;
+      if(shown<filtered.length && (window.innerHeight+window.scrollY)>=document.body.offsetHeight-600){
+        shown=Math.min(filtered.length, shown+PAGE); render();
+      }
+    },{passive:true});
+    addEventListener("keydown",function(e){
+      if(e.target.matches("input,select,textarea")) return;
+      if(e.key==="/"){ e.preventDefault(); $("#searchInput").focus(); }
+    });
+    addEventListener("hashchange",function(){ deepLink(); });
+  }
+
+  function deepLink(){
+    var params=new URLSearchParams(location.search);
+    var q=params.get("q");
+    if(q && !state.query){ state.query=q; if($("#searchInput")) $("#searchInput").value=q; }
+    var h=location.hash.slice(1);
+    if(h && byId.has(h)){ openWord(h, null); }
+    else { refresh(true); }
+  }
+
+  /* ---------- boot ---------- */
+  DGE_SHABDA.load().then(function(db){
+    DB=db; FAC=DGE_SHABDA.facets(db.items);
+    byId=new Map(); db.items.forEach(function(it){ byId.set(it.id,it); });
+    $("#position").textContent="0 of "+db.count.toLocaleString();
+    initFilters();
+    bindResults();
+    wire();
+    deepLink();
+  }).catch(function(err){
+    $("#results").innerHTML='<div class="empty">Could not load the Śabdapāṭha corpus.<br><small>'+esc(String(err&&err.message||err))+'</small></div>';
+  });
+})();
+</script>
+<script src="../../js/intellisense.js?v=4.71.1"></script>
+</body>
+</html>

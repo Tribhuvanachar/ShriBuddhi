@@ -1,0 +1,604 @@
+<!DOCTYPE html><html lang="sa"><head>
+<meta charset="UTF-8">
+<script src="../../js/vandana-guard.js?v=2"></script>
+<script src="../../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- allow pinch-zoom -->
+<title>धातुः · Split-pane · DGE</title>
+<!-- Indic transliteration, vendored (js/vendor/README.md): the reader's
+     script setting and the धातु/कोश word marking both depend on it, so it
+     must not be one CDN outage away from silently not working. -->
+<script src="../../js/vendor/sanscript-1.3.3.min.js?v=1.3.3"></script>
+<link rel="icon" type="image/png" sizes="48x48" href="../../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../../images/genie/apple-touch-icon.png">
+<style>
+/* ---------- tokens (light default) ---------- */
+:root{
+  --paper:#EEF0F2;      /* page ground */
+  --card:#FFFFFF;       /* explorer surface */
+  --ink:#14161C;
+  --muted:#5E6470;
+  --line:#DCDFE4;
+  --line-strong:#B9BEC7;
+  --kumkum:#8B1E3F;     /* accent: deep sindoor / wine */
+  --kumkum-soft:#F7E9EE;
+  --slate:#1E2128;      /* dark drawer surface */
+  --slate-2:#2A2E37;
+  --slate-text:#ECEAE2;
+  --slate-muted:#A7AAB3;
+  --hover:#FAFAFB;
+  /* system Devanāgarī fallback stack — no web font */
+  --dev:"Noto Serif Devanagari","Siddhanta","Adishila","Sanskrit 2003","Noto Sans Devanagari",serif;
+  --lat:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --r:14px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#0F1114; --card:#171A1F; --ink:#ECEAE4; --muted:#9AA0AB;
+    --line:#2A2E35; --line-strong:#3A3F49; --kumkum:#E6879F; --kumkum-soft:#31212A;
+    --slate:#0B0D10; --slate-2:#22262E; --slate-text:#ECEAE2; --slate-muted:#9AA0AB;
+    --hover:#1E222A;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0F1114; --card:#171A1F; --ink:#ECEAE4; --muted:#9AA0AB;
+  --line:#2A2E35; --line-strong:#3A3F49; --kumkum:#E6879F; --kumkum-soft:#31212A;
+  --slate:#0B0D10; --slate-2:#22262E; --slate-text:#ECEAE2; --slate-muted:#9AA0AB;
+  --hover:#1E222A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--lat);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.45;display:flex;flex-direction:column;min-height:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;border-radius:8px}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--kumkum);outline-offset:2px}
+.dev{font-family:var(--dev);font-weight:400}
+.num{font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- top breadcrumb bar ---------- */
+.topbar{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--card);flex-shrink:0}
+.brand a{color:var(--kumkum);text-decoration:none;font-weight:600}
+.brand span{color:var(--muted)}
+.brand .deva{font-family:var(--dev)}
+
+/* ---------- explorer (split-pane) ---------- */
+.dlg{flex:1;min-height:0;background:var(--card);display:flex;flex-direction:column;overflow:hidden;position:relative}
+
+/* header */
+.hd{display:grid;grid-template-columns:auto 1fr auto;gap:0 14px;align-items:start;padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+.root{font-family:var(--dev);font-size:44px;line-height:1;color:var(--kumkum);grid-column:1;grid-row:1/3;padding-top:2px}
+.root small{display:block;font-family:var(--lat);font-size:12px;color:var(--muted);letter-spacing:.02em;margin-top:6px;text-align:center}
+.gloss{grid-column:2;grid-row:1;font-size:15px;color:var(--ink);padding-top:6px}
+.gloss .en{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.meta{grid-column:2;grid-row:2;display:flex;flex-wrap:wrap;gap:4px 10px;list-style:none;margin-top:5px;font-size:12px;color:var(--muted)}
+.meta li{font-family:var(--dev);font-size:14px}
+.meta li i{font-family:var(--lat);font-style:normal;font-size:11.5px;color:var(--muted);margin-left:2px}
+.hd-actions{grid-column:3;grid-row:1/3;display:flex;gap:4px;margin-top:-2px}
+.ic{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;color:var(--muted)}
+.ic:hover{background:var(--paper);color:var(--ink)}
+.ic svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* lakāra tabs */
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;padding:0 10px;border-bottom:1px solid var(--line);flex-shrink:0}
+.tabs::-webkit-scrollbar{display:none}
+.tab{font-family:var(--dev);font-size:17px;padding:10px 9px 8px;border-radius:0;border-bottom:2px solid transparent;color:var(--muted);white-space:nowrap;position:relative}
+.tab small{display:block;font-family:var(--lat);font-size:9.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);line-height:1;margin-top:1px}
+.tab[aria-selected="true"]{color:var(--kumkum);border-bottom-color:var(--kumkum)}
+.tab[aria-selected="true"] small{color:var(--kumkum)}
+
+/* body columns */
+.bd{flex:1;overflow:auto;display:flex;flex-direction:column;position:relative;min-height:0}
+.forms{padding:14px 16px 6px}
+.forms .cap{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.forms .cap .dev{font-size:20px}
+.forms .cap span{font-size:12px;color:var(--muted)}
+table.tin{width:100%;border-collapse:collapse;table-layout:fixed}
+.tin th{font-family:var(--dev);font-weight:400;font-size:13px;color:var(--muted);padding:4px 0;text-align:center}
+.tin th.row{text-align:left;width:34px;padding-right:4px}
+.tin td{padding:3px;vertical-align:top}
+.cell{width:100%;padding:8px 4px 7px;border-radius:10px;border:1px solid var(--line);text-align:center;transition:background .15s,border-color .15s;line-height:1.1;min-height:52px}
+.cell .dev{font-size:21px;display:block}
+.cell .ia{display:block;font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.01em}
+.cell .alt{display:block;font-family:var(--dev);font-size:12px;color:var(--muted);margin-top:2px}
+.cell:hover{border-color:var(--line-strong);background:var(--hover)}
+.cell.on{background:var(--kumkum-soft);border-color:var(--kumkum);color:var(--kumkum)}
+.cell.on .ia{color:var(--kumkum);opacity:.85}
+.cell.empty{color:var(--muted);cursor:default}
+.cell.nostep{cursor:default}
+
+/* prakriyā ladder */
+.prak{padding:8px 16px 28px;border-top:1px solid var(--line);margin-top:6px}
+.prak .cap{display:flex;align-items:baseline;gap:8px;padding:10px 0 4px;flex-wrap:wrap}
+.prak .cap .t{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.prak .cap .dev{font-size:22px;color:var(--kumkum)}
+.prak .cap .where{font-family:var(--dev);font-size:13px;color:var(--muted);margin-left:auto}
+.prak .empty-note{color:var(--muted);font-size:14px;padding:10px 0;line-height:1.6}
+.pk-variant{margin-top:10px}
+.pk-variant .vh{font-family:var(--dev);font-size:15px;color:var(--muted);margin:12px 0 2px}
+
+/* canonical stepsHtml output */
+.pk-steps-block{margin-top:6px}
+.pk-steps-toggle{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);margin:4px 0 8px;cursor:pointer}
+.pk-steps{list-style:none;position:relative;margin:2px 0 0 0;padding-left:4px}
+.pk-steps::before{content:"";position:absolute;left:5px;top:8px;bottom:10px;width:1px;background:var(--line-strong)}
+.pk-steps li{position:relative;padding:4px 0 6px 22px;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.pk-steps li::before{content:"";position:absolute;left:2px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--card);border:1.5px solid var(--line-strong)}
+.pk-steps.pk-main-only .pk-step-same{display:none}
+.pk-step-same::before{background:transparent;border-style:dashed}
+.pk-code{font-family:var(--lat);font-size:11px;color:var(--kumkum);letter-spacing:.02em;background:var(--kumkum-soft);padding:2px 7px;border-radius:999px;flex-shrink:0}
+.pk-code-plain{color:var(--muted);background:var(--paper)}
+.dge-sutra-ref{cursor:pointer}
+.dge-sutra-ref:hover{text-decoration:underline}
+.pk-result{font-family:var(--dev);font-size:20px;line-height:1.25;word-spacing:2px}
+.pk-step-changed:last-child .pk-result{font-size:27px;color:var(--kumkum)}
+.pk-step-changed:last-child::before{background:var(--kumkum);border-color:var(--kumkum)}
+.pk-step-note{font-size:11px;color:var(--muted);font-style:italic;flex-basis:100%}
+
+/* sheets (search / more) */
+.sheet{position:absolute;z-index:20;transition:transform .3s var(--ease);will-change:transform;display:flex;flex-direction:column}
+.sheet-scrim{position:absolute;inset:0;background:rgba(20,22,28,.35);opacity:0;pointer-events:none;transition:opacity .25s;z-index:19}
+.dlg.search-open .sheet-scrim,.dlg.more-open .sheet-scrim{opacity:1;pointer-events:auto}
+
+/* search sheet — from bottom on phone, right on desktop */
+.search{left:0;right:0;bottom:0;max-height:82%;border-radius:18px 18px 0 0;background:var(--card);color:var(--ink);transform:translateY(105%);box-shadow:0 -8px 30px rgba(0,0,0,.25);border-top:1px solid var(--line)}
+.dlg.search-open .search{transform:none}
+.grip{width:36px;height:4px;border-radius:2px;background:var(--line-strong);margin:8px auto 0;flex-shrink:0}
+.sh-nav{display:flex;align-items:center;gap:6px;padding:8px 12px 0}
+.sh-nav .eyebrow{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);flex:1;padding-left:4px}
+.se-in{margin:8px 14px;display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;background:var(--paper)}
+.se-in input{flex:1;border:0;background:none;color:var(--ink);font-size:15px;outline:none}
+.se-in svg{width:16px;height:16px;stroke:var(--muted);fill:none;stroke-width:1.8}
+.se-body{overflow:auto;padding:0 8px 18px}
+.se-hit{width:100%;display:flex;align-items:baseline;gap:10px;padding:9px 10px;border-radius:10px;text-align:left}
+.se-hit:hover,.se-hit.on{background:var(--kumkum-soft)}
+.se-hit .d{font-family:var(--dev);font-size:20px;color:var(--kumkum);min-width:2.4em}
+.se-hit .g{font-family:var(--dev);font-size:14px;color:var(--ink);flex:1}
+.se-hit .g i{font-family:var(--lat);font-style:normal;font-size:11px;color:var(--muted);display:block}
+.se-hit .c{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* more sheet — drops from top */
+.more{left:0;right:0;top:0;max-height:88%;border-radius:0 0 18px 18px;transform:translateY(-105%);box-shadow:0 10px 30px rgba(0,0,0,.2);background:var(--card);border-bottom:1px solid var(--line)}
+.dlg.more-open .more{transform:none}
+.more .mh{display:flex;align-items:center;padding:12px 12px 6px 16px;gap:8px}
+.more .mh .dev{font-size:20px;flex:1}
+.more .mh span{font-size:12px;color:var(--muted)}
+.more .mb{overflow:auto;padding:0 16px 18px}
+.grp{margin-top:14px}
+.grp h3{font-family:var(--dev);font-weight:400;font-size:15px;color:var(--muted);margin-bottom:6px;display:flex;align-items:baseline;gap:8px}
+.grp h3 i{font-family:var(--lat);font-style:normal;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.wrap{display:flex;flex-wrap:wrap;gap:6px}
+.dchip{border:1px solid var(--line);border-radius:10px;padding:6px 10px 5px;text-align:left;line-height:1.1}
+.dchip .dev{font-size:19px;display:block}
+.dchip small{font-family:var(--dev);font-size:12px;color:var(--muted);display:block;margin-top:3px}
+.dchip:hover{border-color:var(--line-strong);background:var(--hover)}
+.dchip.on{background:var(--kumkum-soft);border-color:var(--kumkum);color:var(--kumkum)}
+.sec-para{margin-top:8px}
+.sec-para .lk{display:flex;gap:8px;padding:4px 0;border-top:1px solid var(--line);font-size:13px}
+.sec-para .lk b{font-family:var(--dev);font-weight:400;color:var(--muted);min-width:6.5em}
+.sec-para .lk .f{font-family:var(--dev);color:var(--ink)}
+.lex-row{display:flex;gap:8px;padding:3px 0;font-size:13px;flex-wrap:wrap}
+.lex-row b{font-weight:600;min-width:6em;color:var(--muted)}
+.lex-ped{font-size:13px;color:var(--ink);line-height:1.6;margin-top:6px}
+
+/* toast */
+.toast{position:absolute;left:50%;bottom:18px;transform:translate(-50%,10px);background:var(--slate);color:var(--slate-text);padding:8px 14px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:30}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* footer */
+.site-footer-links{display:block;text-align:center;padding:14px 16px;border-top:1px solid var(--line);background:var(--card);font-size:13px;flex-shrink:0}
+.site-footer-links a,.site-footer-links button{color:var(--muted);text-decoration:none}
+.site-footer-links .footer-sep{color:var(--line-strong);margin:0 6px}
+
+/* ---------- desktop split-pane ---------- */
+@media (min-width:760px){
+  .hd{padding:18px 22px 12px}
+  .tabs{padding:0 14px}
+  .bd{flex-direction:row;overflow:hidden}
+  .forms{width:430px;flex-shrink:0;overflow:auto;padding:18px 22px;border-right:1px solid var(--line)}
+  .prak{flex:1;overflow:auto;border-top:0;margin-top:0;padding:14px 26px 30px}
+  .search{left:auto;top:0;right:0;bottom:0;width:410px;max-height:none;border-radius:0;transform:translateX(105%);box-shadow:-8px 0 30px rgba(0,0,0,.25);border-top:0;border-left:1px solid var(--line)}
+  .grip{display:none}
+  .sheet-scrim{background:transparent}
+  .sh-nav{padding-top:14px}
+  .more{width:520px;left:auto;right:0;top:0;bottom:0;max-height:none;border-radius:0;transform:translateX(105%);border-bottom:0;border-left:1px solid var(--line)}
+  .dlg.more-open .more{transform:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head>
+<body>
+
+<div class="topbar">
+  <dge-breadcrumb label="धातुः" deva home-href="../index.html" class="brand"><a href="../index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span class="deva">धातुः</span></dge-breadcrumb>
+</div>
+
+<section class="dlg" id="dlg" aria-label="Dhātu explorer">
+  <header class="hd">
+    <div class="root" id="rootName">…</div>
+    <p class="gloss" id="gloss"></p>
+    <ul class="meta" id="meta"></ul>
+    <div class="hd-actions">
+      <button class="ic" title="Search / switch root" aria-label="Search root" onclick="dgeToggleSearch()">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </button>
+      <button class="ic" title="Other forms — kṛdanta, ṇic / san / yaṅ, meanings" aria-label="Other forms" onclick="dgeToggleMore()">
+        <svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Lakāra"></nav>
+
+  <div class="bd" id="bd">
+    <section class="forms" id="forms"></section>
+    <section class="prak" id="prak"></section>
+
+    <div class="sheet-scrim" onclick="dgeCloseSheets()"></div>
+
+    <aside class="sheet search" id="search" role="region" aria-label="Root search">
+      <div class="grip"></div>
+      <div class="sh-nav">
+        <span class="eyebrow">धातुसन्धानम् · search root</span>
+        <button class="ic" aria-label="Close search" onclick="dgeCloseSheets()">
+          <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="se-in">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="seInput" type="text" placeholder="धातु, meaning, IAST or code (e.g. भू / to be / bhū / 01.0001)" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="se-body" id="seBody"></div>
+    </aside>
+
+    <aside class="sheet more" id="more" role="region" aria-label="Other forms of the root">
+      <div class="mh"><span class="dev" id="moreTitle">अन्यानि रूपाणि</span><span>tap a kṛt form for its prakriyā</span>
+        <button class="ic" aria-label="Close" onclick="dgeCloseSheets()"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+      <div class="mb" id="moreBody"></div>
+    </aside>
+
+    <div class="toast" id="toast"></div>
+  </div>
+</section>
+
+<dge-footer class="site-footer-links"><a class="footer-link" href="../../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+
+<script src="../../js/dge-shell.js?v=1"></script>
+<script src="../../js/dge-breadcrumb.js?v=1"></script>
+<script src="../../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="dhatu"></dge-nav-rail>
+<script src="../../js/dhatu-data.js?v=1"></script>
+<script>
+/* =========================================================================
+   Split-pane dhātu explorer — view script.
+   ALL conjugations, prakriyā steps, kṛdanta and secondary paradigms come from
+   window.DGE_DHATU (the precomputed Vidyut corpus). Nothing is generated here.
+   ========================================================================= */
+(function(){
+  "use strict";
+  var DD = window.DGE_DHATU;
+  var esc = (DD && DD.esc) || function(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); };
+  var DEFAULT = "01.0001";
+  var $ = function(id){ return document.getElementById(id); };
+
+  var state = { code:null, lakara:"Lat", key:null, derived:null };
+  var cur = null;      // loaded root object (or null if no prakriya file)
+  var dp  = null;      // dhatupatha {items, byId, count}
+  var item = null;     // dhatupatha meta for current code
+  var lex = null;      // lexicon entry for current code
+  var forms2 = null;   // secondary paradigms for current code
+
+  function iast(s){
+    if(!s) return "";
+    try{ if(window.Sanscript) return window.Sanscript.t(String(s),"devanagari","iast"); }catch(e){}
+    return "";
+  }
+  function toast(m){ var t=$("toast"); if(!t)return; t.textContent=m; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(function(){t.classList.remove("show");},1800); }
+
+  /* ---------------- routing ---------------- */
+  function codeFromHash(){ var h=(location.hash||"").replace(/^#/,"").trim(); return /^\d{2}\.\d{4}$/.test(h)?h:DEFAULT; }
+
+  function boot(){
+    if(!DD){ $("gloss").textContent="dhatu-data.js failed to load."; return; }
+    DD.loadDhatupatha().then(function(d){ dp=d; buildSearch(); }).catch(function(){ dp=null; });
+    load(codeFromHash());
+    window.addEventListener("hashchange", function(){
+      var c=codeFromHash();
+      if(c!==state.code) load(c);
+    });
+    wireKeys();
+    wireSwipe();
+  }
+
+  function load(code){
+    state.code=code; state.key=null; state.derived=null;
+    cur=null; lex=null; forms2=null;
+    // meta first (from dhatupatha, if available)
+    ensureDp().then(function(){ item = dp ? dp.byId[code] : null; renderHeader(); });
+    DD.loadRoot(code).then(function(d){
+      cur=d;
+      var laks = DD.availableLakaras(d);
+      state.lakara = laks.indexOf(state.lakara)>=0 ? state.lakara : (laks[0]||"Lat");
+      renderHeader(); renderTabs(); renderGrid();
+      autoSelectFirst();
+      renderPrak();
+    }).catch(function(){
+      cur=null;
+      renderHeader(); renderTabs(); renderGrid(); renderPrak();
+    });
+    // lexicon (optional, for English gloss + meanings)
+    DD.lexiconFor(code).then(function(x){ lex=x; renderHeader(); }).catch(function(){});
+  }
+  function ensureDp(){ return dp ? Promise.resolve(dp) : DD.loadDhatupatha().then(function(d){dp=d;return d;}).catch(function(){return null;}); }
+
+  /* ---------------- header ---------------- */
+  function renderHeader(){
+    var dhatu = cur ? cur.dhatu : (item ? item.dhatu : state.code);
+    var artha = cur ? (cur.artha||"") : (item ? (item.artha||"") : "");
+    $("rootName").innerHTML = esc(dhatu||"—") + "<small>"+esc(iast(dhatu))+"</small>";
+    var en = (lex && lex.meanings && (lex.meanings.English||lex.meanings.english)) || "";
+    $("gloss").innerHTML = "<span class=\"dev\">"+esc(artha)+"</span>" + (en?"<span class=\"en\">"+esc(en)+"</span>":"");
+
+    var m = cur ? DD.meta(cur) : null;
+    var gana = m ? m.gana : (item?item.gana:null);
+    var ganaName = (DD.GANA && DD.GANA[gana]) || (m?m.ganaName:"") || "";
+    var pada = (m && m.pada) || (item?item.pada:"") || "";
+    var chips = [];
+    if(ganaName) chips.push("<li>"+esc(ganaName)+"<i>gaṇa "+esc(gana)+"</i></li>");
+    if(pada) chips.push("<li>"+esc(pada)+(item&&item.pada_iast?"<i>"+esc(item.pada_iast)+"</i>":"")+"</li>");
+    if(item && item.set) chips.push("<li>"+esc(item.set)+"</li>");
+    if(item && item.karma) chips.push("<li>"+esc(item.karma)+"</li>");
+    var dp_id = state.code ? esc(state.code) : "";
+    if((dhatu||artha)) chips.push("<li>"+esc(dhatu)+" "+esc(artha)+"<i>"+dp_id+"</i></li>");
+    $("meta").innerHTML = chips.join("");
+    $("moreTitle").textContent = (dhatu||"") + " — अन्यानि रूपाणि";
+  }
+
+  /* ---------------- lakāra tabs ---------------- */
+  function renderTabs(){
+    var tabs=$("tabs");
+    if(!cur){ tabs.innerHTML=""; return; }
+    var laks = DD.availableLakaras(cur);
+    tabs.innerHTML = laks.map(function(l){
+      var sel = (l===state.lakara);
+      return "<button class=\"tab\" role=\"tab\" aria-selected=\""+sel+"\" data-lak=\""+esc(l)+"\">"+
+        esc(DD.LAKARA[l]||l)+"<small>"+esc(DD.LAKARA_EN[l]||"")+"</small></button>";
+    }).join("");
+    Array.prototype.forEach.call(tabs.querySelectorAll(".tab"), function(b){
+      b.addEventListener("click", function(){ setLak(b.getAttribute("data-lak")); });
+    });
+    var on = tabs.querySelector('[aria-selected="true"]');
+    if(on) on.scrollIntoView({inline:"center",block:"nearest"});
+  }
+  function setLak(l){ if(l===state.lakara && !state.derived) return; state.lakara=l; state.key=null; state.derived=null; renderTabs(); renderGrid(); autoSelectFirst(); renderPrak(); }
+
+  /* ---------------- forms grid ---------------- */
+  function renderGrid(){
+    var host=$("forms");
+    if(!cur){
+      host.innerHTML = "<p class=\"empty-note\" style=\"padding:14px 2px;color:var(--muted)\">Step-by-step conjugation not generated for this root yet. Only 1,737 of 2,229 roots have full derivations; this root shows its dhātupāṭha meta above.</p>";
+      return;
+    }
+    var L=state.lakara;
+    var grid = DD.gridFor(cur, L);
+    var h = "<div class=\"cap\"><span class=\"dev\">"+esc(DD.LAKARA[L]||L)+"लकारः</span><span>"+
+      esc(DD.LAKARA_EN[L]||"")+" · "+esc((cur.pada||item&&item.pada||""))+"</span></div>"+
+      "<table class=\"tin\"><thead><tr><th class=\"row\"></th><th>एक.</th><th>द्वि.</th><th>बहु.</th></tr></thead><tbody>";
+    var rowLabel=["प्र.","म.","उ."];
+    for(var p=0;p<3;p++){
+      h += "<tr><th class=\"row\">"+rowLabel[p]+"</th>";
+      for(var v=0;v<3;v++){
+        var c=grid[p][v];
+        if(!c.forms){
+          h += "<td><div class=\"cell empty\">—</div></td>";
+          continue;
+        }
+        var on = (!state.derived && state.key===c.key) ? " on" : "";
+        var nostep = c.hasSteps ? "" : " nostep";
+        var main = c.forms[0];
+        var alt = c.forms.length>1 ? "<span class=\"alt\">"+esc(c.forms.slice(1).join(" · "))+"</span>" : "";
+        h += "<td><button class=\"cell"+on+nostep+"\" data-key=\""+esc(c.key)+"\" data-step=\""+(c.hasSteps?1:0)+"\" aria-label=\""+esc(DD.PURUSHA[p])+" "+esc(DD.VACANA[v])+"\">"+
+          "<span class=\"dev\">"+esc(main)+"</span><span class=\"ia\">"+esc(iast(main))+"</span>"+alt+"</button></td>";
+      }
+      h += "</tr>";
+    }
+    host.innerHTML = h+"</tbody></table>";
+    Array.prototype.forEach.call(host.querySelectorAll(".cell[data-key]"), function(b){
+      b.addEventListener("click", function(){
+        if(b.getAttribute("data-step")!=="1"){ toast("No derivation for this form"); return; }
+        pickCell(b.getAttribute("data-key"));
+      });
+    });
+  }
+  function autoSelectFirst(){
+    if(!cur){ state.key=null; return; }
+    var grid=DD.gridFor(cur,state.lakara);
+    for(var p=0;p<3;p++) for(var v=0;v<3;v++){ if(grid[p][v].hasSteps){ state.key=grid[p][v].key; state.derived=null; return; } }
+    state.key=null;
+  }
+  function pickCell(key){
+    state.key=key; state.derived=null; renderGrid(); renderPrak();
+    if(window.innerWidth<760) $("prak").scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  /* ---------------- prakriyā ladder ---------------- */
+  function pkKeyLabel(key){
+    var parts=key.split("."); var pv=parts[1]||"00";
+    var p=+pv[0], v=+pv[1];
+    return (DD.LAKARA[parts[0]]||parts[0])+" · "+(DD.PURUSHA[p]||"")+" · "+(DD.VACANA[v]||"");
+  }
+  function renderPrak(){
+    var host=$("prak");
+    if(state.derived){
+      var d=state.derived;
+      var head="<div class=\"cap\"><span class=\"t\">prakriyā</span><span class=\"dev\">"+esc(d.label)+"</span><span class=\"where\">"+esc(d.where)+"</span></div>";
+      host.innerHTML = head + DD.stepsHtml(d.s);
+      wireStepToggles(host); rescan(host);
+      return;
+    }
+    if(!cur || !state.key){
+      host.innerHTML = "<div class=\"cap\"><span class=\"t\">prakriyā</span></div>"+
+        (cur? "<p class=\"empty-note\">Tap a form in the grid to see its step-by-step derivation, each sūtra tappable.</p>"
+            : "<p class=\"empty-note\">step-by-step conjugation not generated for this root yet.</p>");
+      return;
+    }
+    var entries = DD.stepsFor(cur, state.key);
+    if(!entries || !entries.length){
+      host.innerHTML = "<div class=\"cap\"><span class=\"t\">prakriyā</span></div><p class=\"empty-note\">No derivation recorded for this form.</p>";
+      return;
+    }
+    var label = entries[0] && entries[0].t ? entries[0].t : "";
+    var out = "<div class=\"cap\"><span class=\"t\">prakriyā</span><span class=\"dev\">"+esc(label)+"</span><span class=\"where\">"+esc(pkKeyLabel(state.key))+"</span></div>";
+    entries.forEach(function(en, i){
+      if(entries.length>1) out += "<div class=\"pk-variant\"><div class=\"vh\">रूपम् "+(i+1)+" · "+esc(en.t||"")+"</div>"+DD.stepsHtml(en.s)+"</div>";
+      else out += DD.stepsHtml(en.s);
+    });
+    host.innerHTML = out;
+    wireStepToggles(host); rescan(host);
+  }
+  // wire the "show every step" checkbox stepsHtml emits
+  function wireStepToggles(host){
+    Array.prototype.forEach.call(host.querySelectorAll(".pk-all-steps"), function(cb){
+      cb.addEventListener("change", function(){
+        var block=cb.closest(".pk-steps-block"); if(!block) return;
+        var ol=block.querySelector(".pk-steps"); if(!ol) return;
+        if(cb.checked) ol.classList.remove("pk-main-only"); else ol.classList.add("pk-main-only");
+      });
+    });
+  }
+  // let intellisense.js (loaded after) upgrade freshly-inserted sūtra refs
+  function rescan(host){
+    try{
+      if(window.DGEIntellisense && typeof window.DGEIntellisense.scan==="function") window.DGEIntellisense.scan(host);
+    }catch(e){}
+  }
+
+  /* ---------------- search / switcher ---------------- */
+  var searchBuilt=false;
+  function buildSearch(){
+    if(searchBuilt || !dp) return; searchBuilt=true;
+    var input=$("seInput");
+    input.addEventListener("input", function(){ renderHits(input.value); });
+    renderHits("");
+  }
+  function renderHits(q){
+    if(!dp){ $("seBody").innerHTML="<p style=\"padding:12px;color:var(--muted)\">Root list unavailable.</p>"; return; }
+    q=(q||"").trim().toLowerCase();
+    var items=dp.items, out=[], LIM=60;
+    for(var i=0;i<items.length && out.length<LIM;i++){
+      var it=items[i];
+      if(q){
+        var hay=(it.dhatu+" "+(it.artha||"")+" "+it.id+" "+(it.pada_iast||"")+" "+iast(it.dhatu)+" "+iast(it.artha||"")).toLowerCase();
+        if(hay.indexOf(q)<0) continue;
+      }
+      out.push(it);
+    }
+    if(!out.length){ $("seBody").innerHTML="<p style=\"padding:12px;color:var(--muted)\">No roots match “"+esc(q)+"”.</p>"; return; }
+    $("seBody").innerHTML = out.map(function(it){
+      var on = (it.id===state.code)?" on":"";
+      return "<button class=\"se-hit"+on+"\" data-code=\""+esc(it.id)+"\">"+
+        "<span class=\"d\">"+esc(it.dhatu)+"</span>"+
+        "<span class=\"g\">"+esc(it.artha||"")+"<i>"+esc(iast(it.dhatu))+" · "+esc(DD.GANA[it.gana]||("gaṇa "+it.gana))+"</i></span>"+
+        "<span class=\"c\">"+esc(it.id)+"</span></button>";
+    }).join("");
+    Array.prototype.forEach.call($("seBody").querySelectorAll(".se-hit"), function(b){
+      b.addEventListener("click", function(){
+        var code=b.getAttribute("data-code");
+        dgeCloseSheets();
+        if(code!==state.code){ location.hash=code; } // hashchange -> load
+      });
+    });
+  }
+
+  /* ---------------- more sheet: kṛdanta / secondary / meanings ---------------- */
+  function openMore(){
+    renderMore();
+    // lazily load secondary paradigms + lexicon if not present
+    if(forms2===null){ DD.loadDhatuforms(state.code).then(function(x){ forms2=x||false; renderMore(); }).catch(function(){ forms2=false; }); }
+    if(lex===null){ DD.lexiconFor(state.code).then(function(x){ lex=x; renderMore(); }).catch(function(){}); }
+  }
+  var LAK_ABBR = { alat:"लट्", alit:"लिट्", alut:"लुट्", alrut:"लृट्", alot:"लोट्", alang:"लङ्", avidhiling:"विधिलिङ्", aashirling:"आशीर्लिङ्", alung:"लुङ्", alrung:"लृङ्" };
+  function renderMore(){
+    var html="";
+    // kṛdanta
+    var krt = cur ? DD.krtList(cur) : [];
+    if(krt && krt.length){
+      html += "<div class=\"grp\"><h3>कृदन्तानि<i>kṛt</i></h3><div class=\"wrap\">"+
+        krt.map(function(k,i){
+          var on = (state.derived && state.derived.tag==="krt"+i)?" on":"";
+          var label = DD.KRT[k.k] || k.k || "";
+          return "<button class=\"dchip"+on+"\" data-krt=\""+i+"\"><span class=\"dev\">"+esc(k.t||"")+"</span><small>"+esc(label)+"</small></button>";
+        }).join("")+"</div></div>";
+    }
+    // secondary paradigms (ṇic / san / yaṅ / yaṅluk / śuddha)
+    if(forms2 && forms2.forms){
+      var order=["nich","san","yang","yangluk","shuddha"];
+      order.forEach(function(pk){
+        var para=forms2.forms[pk]; if(!para) return;
+        var voice = para.kartari || para.karmani; if(!voice) return;
+        var vlabel = para.kartari ? "kartari" : "karmani";
+        var rows="";
+        Object.keys(voice).forEach(function(lk){
+          var joined=voice[lk]; if(!joined) return;
+          var f=String(joined).split(";");
+          rows += "<div class=\"lk\"><b>"+esc(LAK_ABBR[lk]||lk)+"</b><span class=\"f\">"+esc(f.slice(0,9).join(" · "))+"</span></div>";
+        });
+        if(rows) html += "<div class=\"grp sec-para\"><h3>"+esc(DD.SECONDARY[pk]||pk)+"<i>"+vlabel+"</i></h3>"+rows+"</div>";
+      });
+    } else if(forms2===null){
+      html += "<div class=\"grp\"><h3>सनाद्यन्ताः<i>ṇic / san / yaṅ</i></h3><small style=\"color:var(--muted)\">loading…</small></div>";
+    }
+    // multilingual meanings + pedagogy
+    if(lex){
+      var lm="";
+      if(lex.meanings){ Object.keys(lex.meanings).forEach(function(L){ lm += "<div class=\"lex-row\"><b>"+esc(L)+"</b><span>"+esc(lex.meanings[L])+"</span></div>"; }); }
+      var ped = lex.pedagogy && lex.pedagogy.concept ? "<p class=\"lex-ped\">"+esc(lex.pedagogy.concept)+"</p>" : "";
+      if(lm||ped) html += "<div class=\"grp\"><h3>अर्थाः<i>meanings</i></h3>"+lm+ped+"</div>";
+    }
+    if(!html) html = "<p style=\"padding:10px 0;color:var(--muted)\">No secondary forms for this root.</p>";
+    $("moreBody").innerHTML = html;
+    Array.prototype.forEach.call($("moreBody").querySelectorAll(".dchip[data-krt]"), function(b){
+      b.addEventListener("click", function(){ pickKrt(+b.getAttribute("data-krt")); });
+    });
+  }
+  function pickKrt(i){
+    var krt = cur ? DD.krtList(cur) : [];
+    var k = krt[i]; if(!k) return;
+    var label = DD.KRT[k.k]||k.k||"";
+    state.derived = { s:k.s, label:k.t||"", where:label+" · "+(DD.KRT_EN[k.k]||""), tag:"krt"+i };
+    state.key=null;
+    renderGrid(); renderMore(); renderPrak();
+    dgeCloseSheets();
+    if(window.innerWidth<760) $("prak").scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  /* ---------------- sheets open/close (globals for inline onclick) ---------------- */
+  window.dgeToggleSearch = function(){ var d=$("dlg"); d.classList.remove("more-open"); var opening=!d.classList.contains("search-open"); d.classList.toggle("search-open"); if(opening){ var inp=$("seInput"); if(inp){ setTimeout(function(){inp.focus();},60); } } };
+  window.dgeToggleMore = function(){ var d=$("dlg"); d.classList.remove("search-open"); if(!d.classList.contains("more-open")) openMore(); d.classList.toggle("more-open"); };
+  window.dgeCloseSheets = function(){ $("dlg").classList.remove("search-open","more-open"); };
+
+  /* ---------------- keyboard + swipe ---------------- */
+  function wireKeys(){
+    document.addEventListener("keydown", function(e){
+      var d=$("dlg");
+      if(e.key==="Escape"){ if(d.classList.contains("search-open")||d.classList.contains("more-open")) window.dgeCloseSheets(); return; }
+      var typing = e.target && (e.target.tagName==="INPUT"||e.target.tagName==="TEXTAREA");
+      if(typing) return;
+      if(d.classList.contains("search-open")||d.classList.contains("more-open")) return;
+      if(!cur) return;
+      var laks=DD.availableLakaras(cur), idx=laks.indexOf(state.lakara);
+      if(e.key==="ArrowLeft" && idx>0){ e.preventDefault(); setLak(laks[idx-1]); }
+      else if(e.key==="ArrowRight" && idx<laks.length-1){ e.preventDefault(); setLak(laks[idx+1]); }
+    });
+  }
+  function wireSwipe(){
+    var sh=$("search"); if(!sh) return; var y0=null;
+    sh.addEventListener("touchstart", function(e){ if($("seBody").scrollTop===0) y0=e.touches[0].clientY; }, {passive:true});
+    sh.addEventListener("touchend", function(e){ if(y0!==null && e.changedTouches[0].clientY-y0>70) window.dgeCloseSheets(); y0=null; });
+  }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded", boot); else boot();
+})();
+</script>
+<script src="../../js/intellisense.js?v=4.71.1"></script>
+</body>
+</html>

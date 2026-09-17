@@ -1,0 +1,184 @@
+/* =========================================================================
+   book-print.css — the typesetting for a prepared book.
+
+   WHY THE BROWSER IS THE TYPESETTER. Every JS PDF library in reach (jsPDF,
+   pdfmake) draws glyphs one code point at a time. Devanagari does not work
+   that way: क् + ष must become क्ष, र् before a consonant becomes a repha
+   riding the next letter, and every saṃyuktākṣara in the corpus depends on
+   shaping the browser does natively and those libraries do not do at all.
+   A book of Sumadhva Vijaya rendered by jsPDF would be visibly broken on
+   nearly every line. So the page is laid out in HTML, the browser shapes and
+   paginates it, and "Save as PDF" in the print dialog produces the file.
+   The same document later feeds a headless-Chromium render for a one-tap
+   download; nothing here is thrown away when that arrives.
+
+   This file is loaded ONLY by the generated document (js/book-builder.js
+   writes it into a new window), never by the reader — hence bare element
+   selectors and print units, which would be far too broad anywhere else.
+   ========================================================================= */
+
+/* --- Page geometry ------------------------------------------------------
+   A5 is the default because that is what a Sanskrit text is actually
+   printed as; A4 is offered for a reading copy. Mirrored margins (inner
+   larger than outer) so a bound copy does not swallow the gutter. */
+@page {
+  size: A5;
+  margin: 18mm 16mm 20mm 16mm;
+}
+@page :left  { margin-left: 16mm; margin-right: 20mm; }
+@page :right { margin-left: 20mm; margin-right: 16mm; }
+.dge-book-a4 { --book-measure: 150mm; }
+@media print { .dge-book-a4-page { size: A4; } }
+
+/* Every page but the cover carries the running foot. Named pages let the
+   cover drop it without a JS pass over the DOM. */
+@page cover { margin: 0; }
+.dge-cover { page: cover; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  color: #1a1512;
+  font-family: 'Tiro Devanagari Sanskrit', 'Noto Serif Devanagari', 'Noto Sans Devanagari', serif;
+  font-size: 11.5pt;
+  line-height: 1.62;
+  text-rendering: optimizeLegibility;
+}
+
+/* --- Cover --------------------------------------------------------------
+   A real title page: icon, title, subtitle, the texts it draws on, the
+   compiler, the date. Full-bleed so it prints edge to edge. */
+.dge-cover {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24mm 18mm;
+  box-sizing: border-box;
+  break-after: page;
+  background: #fffdf8;
+}
+.dge-cover-icon { width: 26mm; height: 26mm; margin-bottom: 10mm; }
+.dge-cover h1 { font-size: 26pt; line-height: 1.25; margin: 0 0 4mm; color: #8a1b1b; font-weight: 700; }
+.dge-cover h2 { font-size: 14pt; line-height: 1.35; margin: 0 0 10mm; font-weight: 400; color: #4a3f36; }
+.dge-cover .dge-cover-sources { font-size: 10.5pt; color: #6a5c4e; margin: 0 0 12mm; max-width: 110mm; }
+.dge-cover .dge-cover-compiler { font-size: 11pt; color: #4a3f36; margin: 0 0 2mm; }
+.dge-cover .dge-cover-imprint {
+  margin-top: auto;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 9pt;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: #8a7a63;
+}
+
+/* --- Front matter -------------------------------------------------------- */
+.dge-frontmatter { break-after: page; padding-top: 6mm; }
+.dge-frontmatter h3 { font-family: Inter, system-ui, sans-serif; font-size: 10pt; letter-spacing: .08em; text-transform: uppercase; color: #8a7a63; margin: 0 0 3mm; }
+.dge-dedication { font-style: italic; text-align: center; margin: 14mm auto; max-width: 100mm; color: #4a3f36; }
+
+.dge-toc { break-after: page; }
+.dge-toc ol { list-style: none; padding: 0; margin: 0; }
+.dge-toc li { display: flex; align-items: baseline; gap: 4px; padding: 1.6mm 0; border-bottom: 1px dotted #d8ccb8; }
+.dge-toc .dge-toc-label { flex: 1; }
+.dge-toc .dge-toc-count { font-family: Inter, system-ui, sans-serif; font-size: 9pt; color: #8a7a63; }
+
+/* --- Sections and verses ------------------------------------------------- */
+.dge-book-section { break-before: page; }
+.dge-book-section > h2 {
+  font-size: 16pt;
+  color: #8a1b1b;
+  text-align: center;
+  margin: 0 0 8mm;
+  padding-bottom: 3mm;
+  border-bottom: 1px solid #e0d4bd;
+}
+
+/* A verse and its number must never be split across a page, and a
+   commentary must never begin on the last line of one. */
+.dge-verse { break-inside: avoid; margin: 0 0 6mm; }
+.dge-verse-num {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 8.5pt;
+  color: #a08d72;
+  letter-spacing: .05em;
+  display: block;
+  margin-bottom: 1mm;
+}
+.dge-verse-text { white-space: pre-line; font-size: 12.5pt; color: #7a1616; margin: 0; }
+
+.dge-comm { margin: 3mm 0 0 0; padding-left: 4mm; border-left: 2px solid #e0c98d; break-inside: avoid-column; }
+.dge-comm-title { font-family: Inter, system-ui, sans-serif; font-size: 8.5pt; text-transform: uppercase; letter-spacing: .06em; color: #8a1b1b; margin: 0 0 1mm; }
+.dge-comm-body { font-size: 10.5pt; line-height: 1.6; margin: 0; text-align: justify; hyphens: none; }
+
+.dge-padaccheda { font-size: 9.5pt; color: #4a3f36; margin: 2mm 0 0; }
+.dge-padaccheda b { color: #6a5c4e; font-weight: 600; }
+
+/* --- Watermark ----------------------------------------------------------
+   Two modes, chosen per export. The footer imprint is always on: it is what
+   makes a loose page traceable back here. The diagonal is opt-in, because
+   it sits behind the text and a whole sarga read through it is tiring.
+   position:fixed inside @media print repeats on EVERY page in Chromium,
+   which is exactly what a watermark has to do. */
+.dge-watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-32deg);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 30pt;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: rgba(138, 27, 27, 0.07);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+}
+.dge-watermark-off { display: none; }
+/* Never across the title page. The cover already carries the imprint twice
+   over (icon and colophon); a diagonal band through it makes the one page
+   people judge the book by look like a draft. Opaque white, not
+   display:none, because the element is fixed and shared by every page. */
+.dge-cover { background: #fffdf8; position: relative; z-index: 2; }
+.dge-book-body { position: relative; z-index: 1; }
+
+.dge-runfoot {
+  position: fixed;
+  bottom: 6mm;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3mm;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 8pt;
+  color: #a08d72;
+}
+.dge-runfoot img { width: 4mm; height: 4mm; opacity: .8; }
+
+/* --- Screen preview -----------------------------------------------------
+   The same document is looked at on screen before it is printed, so it gets
+   a page-like frame there. None of this survives into print. */
+@media screen {
+  body { background: #6b6157; padding: 16px 0; }
+  .dge-book-body, .dge-cover {
+    background: #fff;
+    max-width: 148mm;
+    margin: 0 auto 16px;
+    padding: 18mm 16mm;
+    box-sizing: border-box;
+    box-shadow: 0 2px 18px rgba(0,0,0,.35);
+  }
+  .dge-cover { height: 210mm; }
+  .dge-runfoot { position: static; margin: 8px auto; }
+  .dge-watermark { position: absolute; }
+}
+
+@media print {
+  .dge-noprint { display: none !important; }
+  a { color: inherit; text-decoration: none; }
+}

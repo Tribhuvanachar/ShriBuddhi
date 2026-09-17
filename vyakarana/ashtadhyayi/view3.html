@@ -1,0 +1,1252 @@
+<!DOCTYPE html><html lang="sa" data-theme="dark"><head>
+<meta charset="UTF-8">
+<script src="../../js/vandana-guard.js?v=2"></script>
+<script src="../../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>अष्टाध्यायी · Study · DGE</title>
+<!-- Indic transliteration, vendored (js/vendor/README.md): the reader's
+     script setting and the धातु/कोश word marking both depend on it, so it
+     must not be one CDN outage away from silently not working. -->
+<script src="../../js/vendor/sanscript-1.3.3.min.js?v=1.3.3"></script>
+<link rel="icon" type="image/png" sizes="48x48" href="../../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../../images/genie/apple-touch-icon.png">
+<style>
+  /* ---- LIGHT is the default palette (bare :root), per the DGE theme rule ---- */
+  :root {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-surface: #f1f5f9;
+    --bg-surface-hover: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --accent: #2563eb;
+    --accent-glow: rgba(37, 99, 235, 0.1);
+    --border: #cbd5e1;
+    --badge-bg: #dbeafe;
+    --badge-text: #1d4ed8;
+    /* per-layer accents (mapped from DGE_ASHTA.META tag names) */
+    --k:  #b45309;  /* Kāśikā */
+    --sk: #7c3aed;  /* Siddhānta-Kaumudī */
+    --mb: #be123c;  /* Mahābhāṣya */
+    --b:  #0f766e;  /* Bālamanoramā */
+    --t:  #0369a1;  /* Tattvabodhinī */
+    --n:  #a16207;  /* Nyāsa */
+    --vs: #15803d;  /* Vasu (English) */
+    --font-sutra: 'Noto Serif Devanagari', 'Tiro Devanagari Sanskrit', serif;
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --header-height: 52px;
+    --bottom-bar-height: 56px;
+  }
+
+  /* ---- DARK palette: system preference (unless user forced light) + explicit toggle ---- */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg-primary: #0f1115;
+      --bg-secondary: #181b22;
+      --bg-surface: #212631;
+      --bg-surface-hover: #2a313d;
+      --text-primary: #f0f3f9;
+      --text-secondary: #949eb2;
+      --accent: #58a6ff;
+      --accent-glow: rgba(88, 166, 255, 0.15);
+      --border: #30363d;
+      --badge-bg: #1f2937;
+      --badge-text: #60a5fa;
+      --k:  #e0a458;
+      --sk: #b794f6;
+      --mb: #f87186;
+      --b:  #4fd1c5;
+      --t:  #63b3ed;
+      --n:  #e0b84f;
+      --vs: #68d391;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg-primary: #0f1115;
+    --bg-secondary: #181b22;
+    --bg-surface: #212631;
+    --bg-surface-hover: #2a313d;
+    --text-primary: #f0f3f9;
+    --text-secondary: #949eb2;
+    --accent: #58a6ff;
+    --accent-glow: rgba(88, 166, 255, 0.15);
+    --border: #30363d;
+    --badge-bg: #1f2937;
+    --badge-text: #60a5fa;
+    --k:  #e0a458;
+    --sk: #b794f6;
+    --mb: #f87186;
+    --b:  #4fd1c5;
+    --t:  #63b3ed;
+    --n:  #e0b84f;
+    --vs: #68d391;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior-y: none;
+  }
+
+  /* Header */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: var(--header-height);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    gap: 0.5rem;
+    z-index: 100;
+    transition: transform 0.3s ease;
+  }
+
+  header.hidden {
+    transform: translateY(-100%);
+  }
+
+  .header-left, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-width: 0;
+  }
+
+  dge-breadcrumb.brand { font-size: 0.85rem; display: flex; align-items: center; gap: 0.35rem; overflow: hidden; }
+  dge-breadcrumb.brand a { color: var(--accent); text-decoration: none; font-weight: 600; white-space: nowrap; }
+  dge-breadcrumb.brand span { color: var(--text-secondary); }
+  dge-breadcrumb.brand .deva { color: var(--text-primary); }
+  .deva { font-family: var(--font-sutra); }
+
+  .order-badge {
+    font-size: 0.7rem;
+    background: var(--accent-glow);
+    color: var(--accent);
+    padding: 0.2rem 0.5rem;
+    border-radius: 99px;
+    border: 1px solid var(--accent);
+    cursor: pointer;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .icon-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    flex: none;
+  }
+
+  .icon-btn:hover {
+    background: var(--bg-surface-hover);
+  }
+
+  /* Main Viewport */
+  main {
+    flex: 1;
+    margin-top: var(--header-height);
+    margin-bottom: var(--bottom-bar-height);
+    padding: 1.25rem 1rem;
+    max-width: 720px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    main.compare-mode {
+      max-width: 1300px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    main.compare-mode > .sutra-card { grid-column: 1 / -1; }
+  }
+
+  /* Sūtra Card */
+  .sutra-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+
+  .identity-line {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    font-family: var(--font-sans);
+  }
+
+  .sutra-main-text {
+    font-family: var(--font-sutra);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    line-height: 1.4;
+    text-align: center;
+    margin: 1rem 0;
+    text-wrap: balance;
+    color: var(--text-primary);
+  }
+
+  .sutra-translit {
+    text-align: center;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-style: italic;
+    min-height: 1.2em;
+  }
+
+  .sutra-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+  }
+
+  .padaccheda-list {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .pada-item {
+    background: var(--bg-surface);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-family: var(--font-sutra);
+  }
+
+  .badge-type {
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  /* Analysis Accordion */
+  .analysis-toggle-btn {
+    width: 100%;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .analysis-panel {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border);
+    font-size: 0.9rem;
+    flex-direction: column;
+    gap: 0.75rem;
+    display: flex;
+  }
+
+  .analysis-panel.collapsed {
+    display: none;
+  }
+
+  .analysis-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .analysis-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    font-weight: 700;
+  }
+
+  .analysis-body { font-family: var(--font-sutra); font-size: 1.02rem; line-height: 1.5; }
+  .analysis-body.english { font-family: var(--font-sans); font-size: 0.95rem; }
+  .empty-note { color: var(--text-secondary); font-size: 0.85rem; font-style: italic; }
+
+  .tappable-ref {
+    color: var(--accent);
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: var(--font-sutra);
+  }
+
+  /* Commentary Stack */
+  .commentary-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .commentary-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    border-left: 3px solid var(--accent);
+  }
+
+  .comm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    gap: 0.5rem;
+  }
+  .comm-header .comm-name { font-family: var(--font-sutra); }
+  .comm-header .comm-who { font-size: 0.7rem; font-weight: normal; color: var(--text-secondary); }
+
+  .comm-body {
+    font-family: var(--font-sutra);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-primary);
+    white-space: pre-wrap;
+  }
+
+  .comm-body.english {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+  }
+  .comm-body.loading, .comm-body.empty { color: var(--text-secondary); font-style: italic; font-family: var(--font-sans); font-size: 0.9rem; }
+
+  /* Bottom Bar */
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--bottom-bar-height);
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    gap: 0.5rem;
+    z-index: 100;
+    transition: transform 0.3s ease;
+  }
+
+  .bottom-bar.hidden {
+    transform: translateY(100%);
+  }
+
+  .nav-group, .action-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .position-label { font-size: 0.72rem; color: var(--text-secondary); white-space: nowrap; }
+
+  .nav-btn, .action-chip {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 0.5rem 0.85rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .nav-btn:hover, .action-chip:hover {
+    background: var(--bg-surface-hover);
+  }
+  .nav-btn:disabled { opacity: 0.4; cursor: default; }
+
+  /* Dialogs / Sheets / Modals */
+  dialog {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 16px 16px 0 0;
+    padding: 1.5rem;
+    width: 100%;
+    max-width: 600px;
+    max-height: 85vh;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    flex-direction: column;
+    gap: 1rem;
+    outline: none;
+  }
+  dialog[open] { display: flex; }
+
+  @media(min-width: 768px) {
+    dialog {
+      border-radius: 16px;
+      bottom: auto;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+  }
+
+  .dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .close-dialog {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.25rem;
+    cursor: pointer;
+  }
+
+  /* Prakaraṇa List / Jump */
+  .prakarana-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.5rem;
+    overflow-y: auto;
+    max-height: 50vh;
+    padding-right: 0.5rem;
+  }
+
+  .prakarana-item {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text-primary);
+  }
+  .prakarana-item:hover {
+    background: var(--bg-surface-hover);
+    border-color: var(--accent);
+  }
+  .prakarana-item b { display: block; font-family: var(--font-sutra); font-size: 0.95rem; }
+  .prakarana-item small { color: var(--text-secondary); }
+
+  /* Jump Input */
+  .jump-input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .jump-input {
+    flex: 1;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
+  }
+
+  /* Layers Sheet Custom */
+  .layer-section-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-top: 0.5rem;
+    font-weight: 700;
+  }
+  .layer-toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+    gap: 1rem;
+  }
+  .layer-toggle-row .layer-name { display: flex; flex-direction: column; gap: 0.1rem; }
+  .layer-toggle-row .layer-name b { font-family: var(--font-sutra); font-weight: 600; }
+  .layer-toggle-row .layer-name small { color: var(--text-secondary); font-size: 0.75rem; }
+  .coming-soon {
+    opacity: 0.5;
+  }
+
+  /* Toggle Switch */
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 22px;
+    flex: none;
+  }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .slider {
+    position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    transition: .3s;
+    border-radius: 22px;
+  }
+  .slider:before {
+    position: absolute; content: ""; height: 16px; width: 16px; left: 2px; bottom: 2px;
+    background-color: var(--text-secondary);
+    transition: .3s;
+    border-radius: 50%;
+  }
+  input:checked + .slider { background-color: var(--accent); border-color: var(--accent); }
+  input:checked + .slider:before { transform: translateX(18px); background-color: #fff; }
+
+  /* AI Drawer */
+  .ai-chat-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+  .ai-msg {
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+  .ai-msg.user { background: var(--bg-surface); align-self: flex-end; max-width: 85%; }
+  .ai-msg.assistant { background: var(--accent-glow); border: 1px solid var(--accent); align-self: flex-start; max-width: 85%; }
+  .ai-msg.note { background: transparent; border: 1px dashed var(--border); color: var(--text-secondary); align-self: stretch; font-size: 0.83rem; }
+  .ai-msg.note a { color: var(--accent); }
+
+  .preset-chips {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+  .preset-chip {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 0.3rem 0.6rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    cursor: pointer;
+    color: var(--accent);
+  }
+
+  /* Utility classes */
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+</style>
+</head>
+<body data-grantha-slug="vedanga/vyakarana/ashtadhyayi">
+
+  <!-- Early theme normalisation: honour a stored choice, else let the system
+       preference govern (bare :root is the light default). -->
+  <script>
+    (function(){
+      try {
+        var t = localStorage.getItem('dge-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+        else document.documentElement.removeAttribute('data-theme');
+      } catch(e) { document.documentElement.removeAttribute('data-theme'); }
+    })();
+  </script>
+
+  <!-- Header -->
+  <header id="main-header">
+    <div class="header-left">
+      <button class="icon-btn" id="menu-btn" aria-label="Open Menu">☰</button>
+      <dge-breadcrumb label="अष्टाध्यायी" deva home-href="../index.html" class="brand"><a href="../index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span class="deva">अष्टाध्यायी</span></dge-breadcrumb>
+      <span class="order-badge" id="order-toggle-badge" title="Toggle AK / SK reading order">AK Order</span>
+    </div>
+    <div class="header-right">
+      <button class="icon-btn" id="jump-btn" aria-label="Jump to Sūtra">⚡</button>
+    </div>
+  </header>
+
+  <!-- Main Content Viewport -->
+  <main id="main-viewport">
+    <!-- Sūtra Display Card -->
+    <section class="sutra-card" id="sutra-card-container">
+      <div class="identity-line" id="sutra-identity">
+        <span id="id-ak">AK —</span>
+        <span>·</span>
+        <span id="id-sk">SK —</span>
+        <span>·</span>
+        <span id="id-prakarana">—</span>
+        <span>·</span>
+        <span id="id-lsk">LSK —</span>
+      </div>
+
+      <h1 class="sutra-main-text" id="sutra-text">…</h1>
+      <div class="sutra-translit" id="sutra-translit"></div>
+
+      <div class="sutra-strip">
+        <div class="padaccheda-list" id="padaccheda-container"></div>
+        <span class="badge-type" id="sutra-type-badge"></span>
+      </div>
+
+      <button class="analysis-toggle-btn" id="analysis-toggle">
+        <span id="analysis-toggle-text">▾ Expand Linguistic Analysis (Anvaya, Anuvṛtti, Adhikāra)</span>
+      </button>
+
+      <div class="analysis-panel collapsed" id="analysis-panel">
+        <div class="analysis-row">
+          <span class="analysis-label">Anvaya (Prose Order)</span>
+          <span class="analysis-body" id="anvaya-text"></span>
+        </div>
+        <div class="analysis-row">
+          <span class="analysis-label">Anuvṛtti (Inherited Words)</span>
+          <div id="anuvritti-container" style="display:flex; gap:0.4rem; flex-wrap:wrap;"></div>
+        </div>
+        <div class="analysis-row">
+          <span class="analysis-label">Adhikāra (Governing Span)</span>
+          <span class="analysis-body" id="adhikara-text"></span>
+        </div>
+        <div class="analysis-row">
+          <span class="analysis-label">English Gloss (S.C. Vasu)</span>
+          <span class="analysis-body english" id="gloss-text"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Commentary Layers Stack -->
+    <section class="commentary-stack" id="commentary-stack">
+      <!-- Injected dynamically from open layers via DGE_ASHTA.ensureLayer -->
+    </section>
+  </main>
+
+  <!-- Bottom Bar -->
+  <nav class="bottom-bar" id="bottom-bar">
+    <div class="nav-group">
+      <button class="nav-btn" id="prev-btn">← Prev</button>
+      <button class="nav-btn" id="next-btn">Next →</button>
+    </div>
+    <span class="position-label" id="position-label"></span>
+    <div class="action-group">
+      <button class="action-chip" id="layers-btn">Layers (<span id="active-layers-count">0</span>)</button>
+      <button class="action-chip" id="ai-drawer-btn">✨ AI</button>
+    </div>
+  </nav>
+
+  <!-- Modals & Dialogs -->
+  <!-- 1. Jump Dialog -->
+  <dialog id="jump-dialog">
+    <div class="dialog-header">
+      <span>Jump to Sūtra / Prakaraṇa</span>
+      <button class="close-dialog" onclick="document.getElementById('jump-dialog').close()">✕</button>
+    </div>
+    <div class="jump-input-wrapper">
+      <input type="text" class="jump-input" id="jump-input-field" placeholder="e.g. 1.1.3, 2.2.30">
+      <button class="nav-btn" id="jump-go-btn">Go</button>
+    </div>
+    <div class="layer-section-title">Or choose a Prakaraṇa (<span id="prakarana-count">70</span> chapters, SK order)</div>
+    <div class="prakarana-grid" id="prakarana-grid-container"></div>
+  </dialog>
+
+  <!-- 2. Layers Sheet -->
+  <dialog id="layers-dialog">
+    <div class="dialog-header">
+      <span>Commentary Layers</span>
+      <button class="close-dialog" onclick="document.getElementById('layers-dialog').close()">✕</button>
+    </div>
+    <div style="overflow-y:auto; max-height:60vh; display:flex; flex-direction:column; gap:0.5rem; padding-right:0.25rem;" id="layers-list-container"></div>
+  </dialog>
+
+  <!-- 3. Main Menu (☰) -->
+  <dialog id="menu-dialog">
+    <div class="dialog-header">
+      <span>Study Settings</span>
+      <button class="close-dialog" onclick="document.getElementById('menu-dialog').close()">✕</button>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:1rem; font-size:0.95rem;">
+      <div class="layer-toggle-row">
+        <span>Reading Mode</span>
+        <select id="setting-mode" class="jump-input" style="padding:0.3rem; width:160px; flex:none;">
+          <option value="stacked">Stacked (Mobile)</option>
+          <option value="compare">Compare (Side-by-Side)</option>
+        </select>
+      </div>
+      <div class="layer-toggle-row">
+        <span>Script</span>
+        <select id="setting-script" class="jump-input" style="padding:0.3rem; width:160px; flex:none;">
+          <option value="devanagari">Devanāgarī (देवनागरी)</option>
+          <option value="iast">IAST (Roman)</option>
+          <option value="kannada">Kannada (ಕನ್ನಡ)</option>
+          <option value="telugu">Telugu (తెలుగు)</option>
+        </select>
+      </div>
+      <div class="layer-toggle-row">
+        <span>Theme</span>
+        <button class="nav-btn" id="theme-toggle-btn">Toggle Dark / Light</button>
+      </div>
+      <div class="layer-toggle-row">
+        <span>Gemini API key (BYOK)</span>
+        <button class="nav-btn" id="menu-key-btn">Set key</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 4. AI Drawer -->
+  <dialog id="ai-dialog">
+    <div class="dialog-header">
+      <span>✨ Ask DGE AI (Gemini · BYOK)</span>
+      <button class="close-dialog" onclick="document.getElementById('ai-dialog').close()">✕</button>
+    </div>
+    <div class="preset-chips">
+      <span class="preset-chip" data-preset="Explain this sūtra simply, in plain English.">Explain simply</span>
+      <span class="preset-chip" data-preset="Compare what the open commentaries say about this sūtra.">Compare commentaries</span>
+      <span class="preset-chip" data-preset="Derive an example word governed by this sūtra, step by step.">Derive example word</span>
+    </div>
+    <div class="ai-chat-box" id="ai-chat-box">
+      <div class="ai-msg assistant">Namaste! Ask about the current sūtra. Answers are grounded on the commentary layers you have open, using your own Gemini key.</div>
+    </div>
+    <div class="jump-input-wrapper">
+      <input type="text" class="jump-input" id="ai-input" placeholder="Ask about this sūtra…">
+      <button class="nav-btn" id="ai-send-btn">Send</button>
+    </div>
+  </dialog>
+
+<dge-footer class="site-footer-links"><a class="footer-link" href="../../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+
+<script src="../../js/gemini.js?v=1.2.1"></script>
+<script src="../../js/modals.js?v=1"></script>
+<script src="../../js/reader-state.js?v=1"></script>
+<script src="../../js/contextual-actions.js?v=1"></script>
+<script src="../../js/dge-shell.js?v=1"></script>
+<script src="../../js/dge-breadcrumb.js?v=1"></script>
+<script src="../../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="ashtadhyayi"></dge-nav-rail>
+<script src="../../js/ashtadhyayi-data.js?v=1"></script>
+<script>
+/* ==========================================================================
+ * Study skin — wired to the shared DGE_ASHTA data adapter. No mock data,
+ * no fake reverse() order toggle, no " (ಕನ್ನಡ)" string hack.
+ * ========================================================================== */
+(function () {
+  "use strict";
+  var A = window.DGE_ASHTA;
+
+  // ---- Layer registry, driven entirely by DGE_ASHTA.META (real folders) ----
+  // group: which section it sits under; on: default-open state.
+  var LAYERS = [
+    { folder: "kashika",           group: "sutra",   on: true  },
+    { folder: "mahabhashya",       group: "sutra",   on: true  },
+    { folder: "nyasa",             group: "sutra",   on: false },
+    { folder: "siddhanta_kaumudi", group: "kaumudi", on: true  },
+    { folder: "balamanorama",      group: "kaumudi", on: false },
+    { folder: "tattvabodhini",     group: "kaumudi", on: false },
+    { folder: "vasu_kaumudi",      group: "english", on: false },
+    { folder: "vasu",              group: "english", on: true  }
+  ];
+  var GROUP_TITLES = { sutra: "Sūtra-Prasthāna", kaumudi: "Kaumudī-Prasthāna", english: "English" };
+  // A few genuinely-not-yet-available layers, shown disabled for context.
+  var COMING_SOON = [
+    { name: "पदमञ्जरी", sub: "Padamañjarī · Haradatta" },
+    { name: "प्रौढमनोरमा", sub: "Prauḍha-manoramā · Bhaṭṭoji" },
+    { name: "शब्देन्दुशेखरः", sub: "Laghu-śabdenduśekhara" }
+  ];
+
+  // ---- State ----
+  var db = null;
+  var order = [];                 // active id order (akOrder or skOrder)
+  var activeOrder = "AK";         // 'AK' | 'SK'
+  var idx = 0;                    // index into `order`
+  var script = "devanagari";      // devanagari | iast | kannada | telugu
+  var openFolders = {};           // folder -> bool
+  LAYERS.forEach(function (l) { openFolders[l.folder] = l.on; });
+
+  // ---- DOM ----
+  var $ = function (id) { return document.getElementById(id); };
+  var els = {};
+  ["sutra-text","sutra-translit","id-ak","id-sk","id-prakarana","id-lsk",
+   "padaccheda-container","sutra-type-badge","anvaya-text","anuvritti-container",
+   "adhikara-text","gloss-text","commentary-stack","order-toggle-badge",
+   "active-layers-count","position-label"].forEach(function (id) {
+    els[id.replace(/-([a-z])/g, function (_, c) { return c.toUpperCase(); })] = $(id);
+  });
+
+  // ---- helpers ----
+  function currentId() { return order[idx]; }
+  function scriptText(dev) {
+    if (!dev) return "";
+    if (script === "devanagari") return dev;
+    if (script === "iast") return A.iast(dev) || dev;
+    return A.tl(dev, script) || dev; // kannada / telugu
+  }
+  function transliterationLine(dev) {
+    // secondary line: IAST beneath native scripts; Devanāgarī beneath IAST.
+    return script === "iast" ? dev : (A.iast(dev) || "");
+  }
+  function kOf(id) { return A.kaumudiOf(id); }
+  function prakaranaName(id) {
+    var k = kOf(id); if (!k) return null;
+    var ch = A.chapterOf(k); return ch ? ch.name : null;
+  }
+
+  // ---- rebuild order preserving current sūtra where possible ----
+  function setOrder(which) {
+    var keepId = order.length ? currentId() : null;
+    activeOrder = which;
+    order = which === "SK" ? db.skOrder.slice() : db.akOrder.slice();
+    els.orderToggleBadge.textContent = which + " Order";
+    var pos = keepId ? order.indexOf(keepId) : -1;
+    idx = pos >= 0 ? pos : 0;
+  }
+
+  function goToId(id) {
+    var pos = order.indexOf(id);
+    if (pos < 0) {
+      // absent from the active order (e.g. the one sūtra with no SK slot) —
+      // fall back to AK order, where every sūtra lives.
+      if (activeOrder !== "AK") { setOrder("AK"); pos = order.indexOf(id); }
+    }
+    if (pos >= 0) { idx = pos; render(); }
+  }
+
+  // ---- render ----
+  function render() {
+    var id = currentId();
+    var s = db.byId[id];
+    if (!s) return;
+
+    // deep link
+    try { history.replaceState(null, "", "#" + id); } catch (e) {}
+
+    // identity line
+    var k = kOf(id);
+    els.idAk.textContent = "AK " + s.reference;
+    els.idSk.textContent = (k && k.kaumudiIndex != null) ? ("SK #" + k.kaumudiIndex) : "कौमुद्यां नास्ति";
+    els.idLsk.textContent = (k && k.laghu != null) ? ("LSK #" + k.laghu) : "LSK —";
+    var pk = prakaranaName(id);
+    els.idPrakarana.textContent = pk ? pk : "—";
+
+    // main text + translit
+    els.sutraText.textContent = scriptText(s.sanskrit_text);
+    els.sutraTranslit.textContent = transliterationLine(s.sanskrit_text);
+
+    // padaccheda — render tokens as-is (hyphen-joined), transliterated to script
+    if (s.padaccheda && s.padaccheda.length) {
+      els.padacchedaContainer.innerHTML = s.padaccheda.map(function (p) {
+        return '<span class="pada-item">' + A.esc(scriptText(p)) + "</span>";
+      }).join("");
+    } else {
+      els.padacchedaContainer.innerHTML = '<span class="empty-note">पदच्छेदः नास्ति</span>';
+    }
+
+    // type badge
+    var st = s.sutra_type;
+    els.sutraTypeBadge.textContent = st ? (st.label_dev + " · " + st.label) : "";
+    els.sutraTypeBadge.style.display = st ? "" : "none";
+
+    // analysis: anvaya
+    if (s.anvaya) { els.anvayaText.textContent = scriptText(s.anvaya); els.anvayaText.className = "analysis-body"; }
+    else { els.anvayaText.textContent = "अन्वयः न प्राप्तः"; els.anvayaText.className = "analysis-body empty-note"; }
+
+    // anuvṛtti
+    if (s.anuvritti && s.anuvritti.length) {
+      els.anuvrittiContainer.innerHTML = s.anuvritti.map(function (a) {
+        var w = A.esc(scriptText(a.word));
+        return a.from
+          ? '<span class="tappable-ref" data-goto="' + A.esc(a.from) + '">' + w + " (" + A.esc(a.from) + ")</span>"
+          : '<span class="tappable-ref">' + w + "</span>";
+      }).join("");
+    } else {
+      els.anuvrittiContainer.innerHTML = '<span class="empty-note">अनुवृत्तिः नास्ति (प्रथमसूत्रम् वा)</span>';
+    }
+
+    // adhikāra
+    if (s.adhikara || (s.adhikara_refs && s.adhikara_refs.length)) {
+      var refs = s.adhikara_refs || [];
+      if (refs.length) {
+        els.adhikaraText.innerHTML = refs.map(function (r) {
+          var txt = A.esc(scriptText(r[0]));
+          return r[1]
+            ? '<span class="tappable-ref" data-goto="' + A.esc(r[1]) + '">' + txt + " (" + A.esc(r[1]) + ")</span>"
+            : txt;
+        }).join(" · ");
+        els.adhikaraText.className = "analysis-body";
+      } else {
+        els.adhikaraText.textContent = scriptText(s.adhikara);
+        els.adhikaraText.className = "analysis-body";
+      }
+    } else {
+      els.adhikaraText.textContent = "अधिकारः नास्ति";
+      els.adhikaraText.className = "analysis-body empty-note";
+    }
+
+    // English gloss = the Vasu layer body (there is no per-sūtra gloss field)
+    els.glossText.textContent = "loading…";
+    els.glossText.className = "analysis-body english empty-note";
+    A.ensureLayer("vasu").then(function (L) {
+      if (currentId() !== id) return; // moved on
+      var e = L.byId[id];
+      if (e && e.sanskrit_text) { els.glossText.textContent = e.sanskrit_text; els.glossText.className = "analysis-body english"; }
+      else { els.glossText.textContent = "Vasu gloss not available for this sūtra."; els.glossText.className = "analysis-body english empty-note"; }
+    });
+
+    // position + counts (bound to db.count)
+    els.positionLabel.textContent = (idx + 1) + " / " + order.length + " · corpus " + A.devnum(db.count);
+    $("prev-btn").disabled = idx <= 0;
+    $("next-btn").disabled = idx >= order.length - 1;
+
+    renderCommentaries(id);
+    if (window.DGEIntellisense && typeof window.DGEIntellisense.rescan === "function") {
+      try { window.DGEIntellisense.rescan(); } catch (e) {}
+    }
+  }
+
+  function renderCommentaries(id) {
+    var stack = els.commentaryStack;
+    stack.innerHTML = "";
+    var open = LAYERS.filter(function (l) { return openFolders[l.folder]; });
+    els.activeLayersCount.textContent = open.length;
+
+    open.forEach(function (l) {
+      var meta = A.META[l.folder];
+      var card = document.createElement("div");
+      card.className = "commentary-card";
+      card.style.borderLeftColor = meta.tag;
+      var isEnglish = meta.lang === "en";
+      card.innerHTML =
+        '<div class="comm-header">' +
+          '<span class="comm-name" style="color:' + meta.tag + '">' + A.esc(meta.t) + " · " + A.esc(meta.sub) + "</span>" +
+          '<span class="comm-who">' + A.esc(meta.who) + "</span>" +
+        "</div>" +
+        '<div class="comm-body ' + (isEnglish ? "english " : "") + 'loading">…loading…</div>';
+      stack.appendChild(card);
+      var bodyEl = card.querySelector(".comm-body");
+
+      A.ensureLayer(l.folder).then(function (L) {
+        if (!openFolders[l.folder] || currentId() !== id) return; // toggled off / navigated away
+        var e = L.byId[id];
+        if (e && e.sanskrit_text) {
+          bodyEl.className = "comm-body" + (isEnglish ? " english" : "");
+          bodyEl.textContent = e.sanskrit_text;
+        } else {
+          bodyEl.className = "comm-body empty";
+          bodyEl.textContent = L.error
+            ? "This layer could not be loaded."
+            : "अस्मिन् सूत्रे " + meta.t + " नास्ति.";
+        }
+      });
+    });
+
+    if (!open.length) {
+      var note = document.createElement("div");
+      note.className = "empty-note";
+      note.style.textAlign = "center";
+      note.textContent = "No commentary layers open — tap “Layers” to add some.";
+      stack.appendChild(note);
+    }
+  }
+
+  // ---- layers sheet ----
+  function renderLayersList() {
+    var c = $("layers-list-container");
+    var html = "";
+    ["sutra", "kaumudi", "english"].forEach(function (g) {
+      html += '<div class="layer-section-title">' + GROUP_TITLES[g] + "</div>";
+      LAYERS.filter(function (l) { return l.group === g; }).forEach(function (l) {
+        var m = A.META[l.folder];
+        html +=
+          '<div class="layer-toggle-row">' +
+            '<span class="layer-name"><b style="color:' + m.tag + '">' + A.esc(m.t) + "</b><small>" + A.esc(m.sub) + " · " + A.esc(m.who) + "</small></span>" +
+            '<label class="switch"><input type="checkbox" data-folder="' + l.folder + '"' + (openFolders[l.folder] ? " checked" : "") + '><span class="slider"></span></label>' +
+          "</div>";
+      });
+    });
+    html += '<div class="layer-section-title">Coming soon</div>';
+    COMING_SOON.forEach(function (cs) {
+      html +=
+        '<div class="layer-toggle-row coming-soon">' +
+          '<span class="layer-name"><b>' + A.esc(cs.name) + "</b><small>" + A.esc(cs.sub) + "</small></span>" +
+          '<label class="switch"><input type="checkbox" disabled><span class="slider"></span></label>' +
+        "</div>";
+    });
+    c.innerHTML = html;
+    c.querySelectorAll("input[data-folder]").forEach(function (inp) {
+      inp.addEventListener("change", function () {
+        openFolders[inp.getAttribute("data-folder")] = inp.checked;
+        renderCommentaries(currentId());
+      });
+    });
+  }
+
+  // ---- prakaraṇa grid (real 70 chapters; jump switches to SK order) ----
+  function renderPrakaranas() {
+    var grid = $("prakarana-grid-container");
+    var chapters = db.kaumudi.chapters || [];
+    $("prakarana-count").textContent = chapters.length;
+    grid.innerHTML = chapters.map(function (ch) {
+      return '<button class="prakarana-item" data-chapter="' + ch.n + '">' +
+        "<b>" + A.devnum(ch.n) + ". " + A.esc(ch.name) + "</b>" +
+        "<small>" + A.devnum(ch.count) + " सूत्राणि</small></button>";
+    }).join("");
+    grid.querySelectorAll("[data-chapter]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var n = parseInt(btn.getAttribute("data-chapter"), 10);
+        var first = A.firstIdOfChapter(n);
+        if (first) {
+          if (activeOrder !== "SK") setOrder("SK");
+          goToId(first);
+          $("jump-dialog").close();
+        }
+      });
+    });
+  }
+
+  // ---- navigation ----
+  function step(delta) {
+    var n = idx + delta;
+    if (n < 0 || n >= order.length) return;
+    idx = n; render();
+  }
+
+  // ---- AI (BYOK, explicit action only, grounded on open layers) ----
+  var aiBusy = false;
+  function appendMsg(cls, text, html) {
+    var box = $("ai-chat-box");
+    var m = document.createElement("div");
+    m.className = "ai-msg " + cls;
+    if (html) m.innerHTML = html; else m.textContent = text;
+    box.appendChild(m);
+    box.scrollTop = box.scrollHeight;
+    return m;
+  }
+
+  function gatherGrounding(id) {
+    var s = db.byId[id];
+    var parts = ["Sūtra " + s.reference + " (" + s.sanskrit_text + ")"];
+    if (s.anvaya) parts.push("Anvaya: " + s.anvaya);
+    if (s.padaccheda && s.padaccheda.length) parts.push("Padaccheda: " + s.padaccheda.join(" | "));
+    var promises = LAYERS.filter(function (l) { return openFolders[l.folder]; })
+      .map(function (l) {
+        return A.ensureLayer(l.folder).then(function (L) {
+          var e = L.byId[id];
+          if (e && e.sanskrit_text) parts.push("[" + A.META[l.folder].sub + "]\n" + e.sanskrit_text);
+        });
+      });
+    return Promise.all(promises).then(function () { return parts.join("\n\n"); });
+  }
+
+  function askAi(query) {
+    if (!query || aiBusy) return;
+    if (!window.DGEGemini) { appendMsg("note", "AI client not loaded."); return; }
+    appendMsg("user", query);
+    $("ai-input").value = "";
+
+    if (!window.DGEGemini.getKey()) {
+      appendMsg("note", null,
+        "Add your own free Google Gemini key to turn on AI — it stays in this browser only. " +
+        'Get one at <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a>, ' +
+        'then tap ☰ → “Set key”.');
+      return;
+    }
+
+    aiBusy = true;
+    var id = currentId();
+    var thinking = appendMsg("assistant", "…thinking…");
+    gatherGrounding(id).then(function (sources) {
+      return window.DGEGemini.generate({
+        system: "You are a careful Pāṇinian grammar tutor for the Aṣṭādhyāyī. " +
+                "Answer ONLY from the SOURCES provided (the sūtra and the commentary layers the reader has open). " +
+                "If the sources do not settle the question, say so plainly. Be concise. " +
+                "You may reply in English, Sanskrit, or the language the user writes in.",
+        prompt: query + "\n\n--- SOURCES (current sūtra + open layers) ---\n" + sources
+      });
+    }).then(function (res) {
+      aiBusy = false;
+      if (res.ok) {
+        thinking.textContent = res.text;
+        if (res.notice) appendMsg("note", res.notice);
+      } else {
+        thinking.remove();
+        var er = res.error || {};
+        appendMsg("note", (er.title ? er.title + " — " : "") + (er.message || "The AI request failed.") +
+          (er.action ? "\n→ " + er.action : ""));
+      }
+    });
+  }
+
+  // ---- jump parse (accepts a sūtra reference like 1.1.3 / 2.2.30) ----
+  function jumpFromInput() {
+    var val = ($("jump-input-field").value || "").trim();
+    if (!val) return;
+    var norm = val.replace(/^#/, "");
+    if (db.byId[norm]) { goToId(norm); $("jump-dialog").close(); return; }
+    // tolerate spaces / dashes
+    var alt = norm.replace(/[\s-]+/g, ".");
+    if (db.byId[alt]) { goToId(alt); $("jump-dialog").close(); return; }
+    $("jump-input-field").value = "";
+    $("jump-input-field").placeholder = 'Not found: "' + val + '" — try e.g. 1.1.3';
+  }
+
+  // ---- events ----
+  function wire() {
+    $("prev-btn").addEventListener("click", function () { step(-1); });
+    $("next-btn").addEventListener("click", function () { step(1); });
+
+    els.orderToggleBadge.addEventListener("click", function () {
+      setOrder(activeOrder === "AK" ? "SK" : "AK");
+      render();
+    });
+
+    // analysis accordion
+    var toggle = $("analysis-toggle"), panel = $("analysis-panel"), tText = $("analysis-toggle-text");
+    toggle.addEventListener("click", function () {
+      var collapsed = panel.classList.toggle("collapsed");
+      tText.textContent = collapsed
+        ? "▾ Expand Linguistic Analysis (Anvaya, Anuvṛtti, Adhikāra)"
+        : "▴ Collapse Linguistic Analysis";
+    });
+
+    // modal openers
+    $("jump-btn").addEventListener("click", function () { $("jump-dialog").showModal(); });
+    $("layers-btn").addEventListener("click", function () { $("layers-dialog").showModal(); });
+    $("menu-btn").addEventListener("click", function () { $("menu-dialog").showModal(); });
+    $("ai-drawer-btn").addEventListener("click", function () { $("ai-dialog").showModal(); });
+    $("jump-go-btn").addEventListener("click", jumpFromInput);
+    $("jump-input-field").addEventListener("keypress", function (e) { if (e.key === "Enter") jumpFromInput(); });
+
+    // delegated tappable refs (anuvṛtti / adhikāra deep-jumps)
+    document.addEventListener("click", function (e) {
+      var t = e.target.closest("[data-goto]");
+      if (t) { goToId(t.getAttribute("data-goto")); }
+    });
+
+    // settings
+    $("theme-toggle-btn").addEventListener("click", function () {
+      var root = document.documentElement;
+      var cur = root.getAttribute("data-theme");
+      if (!cur) { // currently following system → pick the opposite of what's shown
+        cur = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      var next = cur === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("dge-theme", next); } catch (e) {}
+    });
+    $("setting-script").addEventListener("change", function (e) { script = e.target.value; render(); });
+    $("setting-mode").addEventListener("change", function (e) {
+      $("main-viewport").classList.toggle("compare-mode", e.target.value === "compare");
+    });
+    $("menu-key-btn").addEventListener("click", function () {
+      if (!window.DGEGemini) return;
+      var cur = window.DGEGemini.getKey() || "";
+      var k = window.prompt("Paste your Google Gemini API key (stored only in this browser):", cur);
+      if (k != null) { window.DGEGemini.setKey(k.trim()); }
+    });
+
+    // AI
+    $("ai-send-btn").addEventListener("click", function () { askAi(($("ai-input").value || "").trim()); });
+    $("ai-input").addEventListener("keypress", function (e) { if (e.key === "Enter") askAi(($("ai-input").value || "").trim()); });
+    document.querySelectorAll(".preset-chip").forEach(function (chip) {
+      chip.addEventListener("click", function () { askAi(chip.getAttribute("data-preset")); });
+    });
+
+    // keyboard shortcuts
+    window.addEventListener("keydown", function (e) {
+      if (/^(INPUT|TEXTAREA|SELECT)$/.test((e.target && e.target.tagName) || "")) return;
+      if (document.querySelector("dialog[open]")) return;
+      if (e.key === "ArrowRight") step(1);
+      else if (e.key === "ArrowLeft") step(-1);
+      else if (e.key === "/") { e.preventDefault(); $("jump-dialog").showModal(); }
+      else if (e.key === "g") { els.orderToggleBadge.click(); }
+    });
+
+    // clean scroll-hide: hide chrome on scroll-down, reveal on scroll-up
+    var lastY = window.scrollY, header = $("main-header"), bar = $("bottom-bar");
+    window.addEventListener("scroll", function () {
+      var y = window.scrollY;
+      var down = y > lastY && y > 60;
+      header.classList.toggle("hidden", down);
+      bar.classList.toggle("hidden", down);
+      lastY = y;
+    }, { passive: true });
+
+    // respond to hash changes (deep links)
+    window.addEventListener("hashchange", function () {
+      var h = location.hash.replace(/^#/, "");
+      if (h && db.byId[h] && h !== currentId()) goToId(h);
+    });
+  }
+
+  // ---- boot ----
+  A.load().then(function (database) {
+    db = database;
+    setOrder("AK");
+    // honour an incoming deep link
+    var h = location.hash.replace(/^#/, "");
+    if (h && db.byId[h]) { var p = order.indexOf(h); idx = p >= 0 ? p : 0; }
+    renderPrakaranas();
+    renderLayersList();
+    wire();
+    render();
+  }).catch(function (e) {
+    var stack = $("commentary-stack");
+    if (stack) stack.innerHTML = '<div class="empty-note" style="text-align:center">Could not load the Aṣṭādhyāyī data. ' + A.esc(String(e && e.message || e)) + "</div>";
+  });
+})();
+</script>
+<script src="../../js/intellisense.js?v=4.71.1"></script>
+<script src="../../js/entity-linker.js?v=1.0.0"></script>
+</body>
+</html>

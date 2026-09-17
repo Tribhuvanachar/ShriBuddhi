@@ -1,0 +1,245 @@
+/* =========================================================================
+   Styles for ashtadhyayi.html.
+
+   Lifted out of the page unchanged — same rules, same order, so it renders
+   exactly as before. Pages hold structure; their styles live here and their
+   words in content/.
+
+   Page chrome shared byte-for-byte with vyakarana.css (reset, body font,
+   header, .ctl, .icon, the bare input/select look, .crumbs, .btn.ai,
+   .btn:hover, .spacer, .brand a/.brand span) now lives in
+   vyakarana-base.css, loaded before this file. This file's own leftover
+   .brand{font-weight:700}.brand small{...} below is dead CSS from an
+   earlier version of this page's markup, not currently referenced by any
+   element here -- left alone, out of scope for this pass.
+
+   Phase 6 of the frontend redesign: --bg/--panel/--panel2/--ink/--muted/
+   --line/--accent/--gold/--shadow/--radius (this page's own copies of the
+   bridged vocabulary) removed from the block below -- they now resolve
+   from tokens-vyakarana-bridge.css (loaded by vyakarana-base.css), which
+   was inert until this page's own duplicate was deleted. --accent2 and
+   the seven per-commentary-layer tag colors (--k/--b/--t/--n/--sk/--mb/
+   --vs, matching ashtadhyayi.js's META object) are genuinely page-local
+   (not part of the bridge) and stay here.
+   ========================================================================= */
+
+:root{--accent2:#1f6f5c;
+    --k:#9a3b1b;--b:#7a5a1b;--t:#1f6f5c;--n:#5b3a86;--sk:#1d5fa8;--mb:#a8321f;--vs:#556070}
+  body.dark{--accent2:#5bb894;--k:#e0794b;--b:#c79a4a;--t:#5bb894;--n:#a78bff;--sk:#5aa0e6;--mb:#e2795f;--vs:#9aa6b8}
+  .bar{max-width:1200px;margin:0 auto;padding:9px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .brand{font-weight:700}.brand small{color:var(--muted);font-weight:400}
+  .jump{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:6px 10px;color:var(--ink);font:inherit;font-size:13px;width:88px}
+  /* a reference the sutrapatha does not have: say so for a moment rather
+     than sit there looking broken */
+  .jump.miss{border-color:#b3462f;color:#b3462f}
+  main{max-width:1200px;margin:0 auto;padding:16px 14px 130px}
+  .hero{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--radius);padding:20px 18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  .hero:before{content:"";position:absolute;inset:0;background:radial-gradient(120% 70% at 100% 0,color-mix(in srgb,var(--gold) 16%,transparent),transparent 60%);pointer-events:none}
+  .sid{display:inline-flex;gap:8px;align-items:center;color:var(--muted);font-size:13px}
+  .sid .num{background:var(--accent);color:#fff;border-radius:8px;padding:2px 9px;font-weight:600}
+  .sutra{font-size:clamp(28px,6.5vw,42px);margin:12px 0 4px;font-weight:600}
+  .translit{color:var(--muted);font-style:italic;font-size:14px}
+  .heroactions{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}
+  .btn{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:8px 13px;font:inherit;font-size:14px;cursor:pointer;color:var(--ink);display:inline-flex;gap:7px;align-items:center}
+  /* ---- Commentary Navigator (DGE_UI_CONTRACT.md #2): replaces the old flat
+     .dge-chips pill row + "green=loaded/dashed=pending" legend. Separates
+     "which commentaries are available" (a plain-language summary line) from
+     "which are currently displayed" (a labeled list, toggle dot per row —
+     filled = displayed, hollow = available-not-displayed, dashed = still
+     loading). Rows are list items, not pills — a pill here would mean
+     "category/filter", not "toggle a whole content section" (component-
+     shape rule, DGE_UI_CONTRACT.md #5). ---- */
+  .cn-summary{display:flex;align-items:center;gap:10px;margin:18px 2px 8px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+  .cn-summary b{color:var(--ink);font-weight:600}
+  .cn-summary .cn-tools{margin-left:auto;display:flex;gap:6px}
+  .cn-tools button{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:5px 9px;cursor:pointer;color:var(--muted);font:inherit;font-size:12.5px;min-height:30px}
+  .cn-tools button:hover{color:var(--ink);border-color:var(--accent)}
+  .cn-list{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;background:var(--panel)}
+  .cn-row{display:flex;align-items:center;gap:11px;width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:transparent;color:var(--ink);font:inherit;font-size:14px;padding:10px 13px;cursor:pointer;min-height:44px}
+  .cn-row:last-child{border-bottom:0}
+  .cn-row:hover{background:var(--panel2)}
+  .cn-dot{flex:0 0 auto;width:13px;height:13px;border-radius:50%;border:2px solid var(--muted);background:transparent;transition:.15s}
+  .cn-row.displayed .cn-dot{background:var(--tag,var(--accent2));border-color:var(--tag,var(--accent2))}
+  .cn-row.pending .cn-dot{border-style:dashed}
+  .cn-label{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+  .cn-label .t{font-weight:700}
+  .cn-label .sub{color:var(--muted);font-size:12px}
+  .cn-status{flex:0 0 auto;font-size:11.5px;color:var(--muted)}
+  .cn-row.pending .cn-status{font-style:italic}
+  /* sutra analysis: padaccheda strip + toggle panel */
+  .sutrameta{margin:8px 0 2px;display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:15px}
+  .sutrameta:empty{display:none}
+  .pc-lbl{font-size:11px;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin-right:2px}
+  .pc-w{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:2px 9px;font-weight:600}
+  .pc-plus{color:var(--muted);font-size:12px;margin:0 1px}
+  .pc-type{margin-left:6px;font-size:12px;color:var(--accent2);border:1px solid var(--line);border-radius:999px;padding:2px 10px;background:var(--panel)}
+  .btn.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .analysis{display:none;margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:4px 14px;box-shadow:var(--shadow)}
+  .analysis.open{display:block}
+  .an-row{display:flex;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .an-row:last-child{border-bottom:0}
+  .an-k{flex:0 0 160px;color:var(--muted);font-size:12.5px;line-height:1.5}
+  .an-v{flex:1;min-width:0;font-size:15px;line-height:1.7}
+  .anu-w{font-weight:600}.anu-src{color:var(--muted);font-size:12px;margin-left:2px}
+  .an-empty{color:var(--muted);font-style:italic;padding:12px 0}
+  @media(max-width:560px){.an-row{flex-direction:column;gap:2px}.an-k{flex:none}}
+  .dge-layers{margin-top:12px;display:flex;gap:14px}
+  .dge-layers.read{flex-direction:column}
+  .dge-layers.compare{flex-direction:row;overflow-x:auto;padding-bottom:8px;align-items:stretch}
+  .dge-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden;border-top:3px solid var(--tag,#c9b79a)}
+  .dge-layers.compare .dge-card{flex:1 0 340px;min-width:320px;max-width:560px;display:flex;flex-direction:column}
+  .dge-head{display:flex;align-items:center;gap:10px;padding:12px 15px;cursor:pointer}
+  .dge-head .t{font-weight:700}.dge-head .sub{color:var(--muted);font-size:12px}
+  .dge-head .who{margin-left:auto;color:var(--muted);font-size:12px;font-style:italic}
+  .dge-copy{border:1px solid var(--line);background:var(--panel2);color:var(--muted);border-radius:7px;width:26px;height:24px;cursor:pointer;font-size:12px}
+  /* Named .dge-kebab (not .dge-more) — .dge-more already names the inline
+     "— no <layer> on this sutra —" text span below; reusing it for this
+     button would collide two unrelated things under one class. */
+  .dge-kebab{border:1px solid var(--line);background:var(--panel2);color:var(--muted);border-radius:7px;width:26px;height:24px;cursor:pointer;font-size:14px;line-height:1}
+  .dge-head .caret{color:var(--muted);transition:.2s}
+  .dge-card.collapsed .caret{transform:rotate(-90deg)}
+  .dge-body{padding:2px 15px 15px;line-height:1.75}
+  .dge-layers.compare .dge-body{overflow:auto}
+  .dge-card.collapsed .dge-body{display:none}
+  .dge-lic{display:block;margin-top:12px;font-size:11px;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+  .dge-more{color:var(--accent);font-style:italic}
+  .dge-skel{display:block;height:12px;margin:9px 0;border-radius:6px;background:linear-gradient(90deg,var(--panel2),var(--line),var(--panel2));background-size:200% 100%;animation:sk 1.2s infinite}
+  @keyframes sk{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  .dge-empty{color:var(--muted);font-style:italic;padding:26px;text-align:center;border:1.5px dashed var(--line);border-radius:14px}
+  .nav{max-width:1200px;margin:20px auto 0;display:flex;justify-content:space-between;gap:10px}
+  .nav button{flex:1;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 14px;font:inherit;font-size:14px;color:var(--ink);cursor:pointer}
+  .nav button small{display:block;color:var(--muted);font-size:12px}.nav button.next{text-align:right}
+  /* Pinned right under the sticky header, so Next/Previous never requires
+     scrolling past every open commentary layer to reach. Compact — the full
+     nav at the bottom of the page still carries the un-cropped preview. */
+  .nav-top{
+    position:sticky;top:var(--dge-header-h,60px);z-index:29;margin:0;padding:6px max(10px,env(safe-area-inset-left)) 6px max(10px,env(safe-area-inset-right));
+    background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(9px);
+    border-bottom:1px solid var(--line);gap:8px;
+  }
+  .nav-top button{padding:6px 10px;border-radius:10px;font-size:12.5px}
+  .nav-top button small{font-size:10.5px}
+  .nav-top button span{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:38vw}
+  .note{margin:24px 2px 0;color:var(--muted);font-size:12px;text-align:center;font-style:italic}
+  .backdrop{position:fixed;inset:0;background:rgba(30,20,6,.32);z-index:39;opacity:0;pointer-events:none;transition:.28s}
+  .backdrop.open{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;left:0;right:0;bottom:0;z-index:40;transform:translateY(110%);transition:.3s cubic-bezier(.2,.7,.2,1)}
+  .drawer.open{transform:none}
+  .drawer .inner{max-width:760px;margin:0 auto;background:var(--panel);border:1px solid var(--line);border-bottom:0;border-radius:16px 16px 0 0;box-shadow:0 -10px 34px rgba(70,45,15,.22);padding:16px 18px;position:relative}
+  .drawer h4{margin:2px 0 2px;display:flex;gap:8px;align-items:center}
+  .drawer .x{position:absolute;right:16px;top:14px;border:0;background:transparent;font-size:20px;color:var(--muted);cursor:pointer}
+  .drawer .q{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+  .drawer .q button{border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;cursor:pointer}
+  .drawer .q button.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .drawer .row{display:flex;gap:8px;margin:8px 0}
+  .drawer input,.drawer select{border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:10px;padding:9px 12px;font:inherit}
+  .drawer .row input{flex:1}
+  .drawer .ans{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:13px;font-size:14.5px;margin-top:6px;white-space:pre-wrap}
+  .modal{position:fixed;inset:0;z-index:41;display:none;align-items:center;justify-content:center;padding:18px}
+  .modal.open{display:flex}
+  .modal .box{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);max-width:460px;width:100%;padding:20px;position:relative}
+  .modal h4{margin:0 0 8px}.modal label{display:block;font-size:12.5px;color:var(--muted);margin:10px 0 4px}
+  .modal input,.modal select{width:100%;border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:10px;padding:9px 12px;font:inherit}
+  .modal .x{position:absolute;right:14px;top:12px;border:0;background:transparent;font-size:20px;color:var(--muted);cursor:pointer}
+  .modal .acts{display:flex;gap:8px;margin-top:16px}
+  @media(max-width:720px){.dge-layers.compare{flex-direction:column}}
+
+/* ---- dual navigation (Ashtadhyayi order · Kaumudi order) + prakarana drawer ---- */
+.dualnav{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0 2px}
+.dn-cluster{display:inline-flex;align-items:stretch;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--panel)}
+.dn-cluster.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.dn-cluster.dn-none{opacity:.55}
+/* 24 Aug 2026: .dn-arrow (each cluster's own prev/next pair -- a real
+   3rd/4th stepping control, redundant with nav-top/nav which already
+   step whichever order is active) removed per the project lead's direct
+   clutter report; .dn-label is now the only child of .dn-cluster, so its
+   left/right borders (previously separating it from the flanking arrows)
+   are gone too -- .dn-cluster's own border is enough on its own now. */
+.dn-label{border:0;background:transparent;color:var(--ink);font:inherit;font-size:13.5px;padding:8px 10px;cursor:pointer;min-height:44px;white-space:nowrap}
+.dn-cluster.on .dn-label{background:var(--accent);color:#fff}
+.dn-chapters{border:1px solid var(--line);background:var(--panel);border-radius:10px;color:var(--ink);font:inherit;font-size:13.5px;padding:8px 12px;cursor:pointer;min-height:44px}
+.chp-list{max-height:min(62vh,560px);overflow:auto;margin-top:8px;display:flex;flex-direction:column;gap:4px;-webkit-overflow-scrolling:touch}
+.chp-row{display:flex;gap:10px;align-items:center;border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:9px 12px;cursor:pointer;font:inherit;color:var(--ink);text-align:left;min-height:44px}
+.chp-row.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.chp-n{color:var(--muted);font-size:12px;min-width:2.2em}
+.chp-name{flex:1}
+.chp-range{color:var(--muted);font-size:12px;white-space:nowrap}
+#dge-chaptersModal .box{max-width:520px}
+
+/* tappable anuvritti/adhikara source references in the analysis panel */
+button.an-ref{border:0;background:transparent;padding:2px 4px;margin:0;font:inherit;cursor:pointer;color:var(--accent);text-decoration:underline dotted;text-underline-offset:3px;border-radius:6px}
+button.an-ref:active{background:var(--panel2)}
+.anu-cnt{color:var(--muted);font-size:12px}
+.adhi-item{white-space:nowrap}
+
+/* Kaumudi self-citations inside the SK layer text (were raw <{SK354}> markup) */
+button.sk-ref{border:0;background:transparent;padding:0 2px;font:inherit;font-size:.92em;cursor:pointer;color:var(--accent);text-decoration:underline dotted;text-underline-offset:3px;border-radius:4px}
+.sk-ref-plain{color:var(--muted);font-size:.92em}
+
+/* साहित्ये प्रयोगाः — corpus usages of a sutra */
+#dge-prayogaModal .box{max-width:640px;max-height:84vh;overflow:auto;-webkit-overflow-scrolling:touch}
+.pry-count{color:var(--muted);font-size:12.5px;margin:4px 0 8px}
+.pry-grp{font-weight:700;color:var(--accent);margin:12px 0 6px;font-size:14px}
+.pry-grp small{color:var(--muted);font-weight:400}
+.pry-row{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:9px 12px;margin-bottom:6px;cursor:pointer;font:inherit;color:var(--ink);min-height:44px}
+.pry-row:hover{border-color:var(--accent)}
+.pry-title{display:flex;gap:8px;align-items:baseline;font-weight:600;font-size:13.5px;flex-wrap:wrap}
+.pry-unit{color:var(--muted);font-weight:400;font-size:11.5px}
+.pry-kind{color:var(--accent);font-size:11px;border:1px solid var(--line);border-radius:6px;padding:0 5px}
+.pry-snip{display:block;margin-top:3px;font-size:13.5px;line-height:1.65;color:var(--muted)}
+
+/* ---- Shared generic contextual menu (js/contextual-actions.js's
+   dgeOpenContextualMenu) + modals.js's openModal()/closeModal(). This page
+   loads both scripts (see ashtadhyayi.html) but never loaded css/
+   main.css, where these classes are otherwise defined -- so the menu
+   existed in the DOM but was invisible and had no open/close behavior.
+   These rules give the SAME class names / markup contract main.css defines
+   a real presentation using THIS page's own token vars, rather than pulling
+   in the whole of main.css's separate design system wholesale (that full
+   unification is real follow-up work -- see DGE_UI_CONTRACT.md). ---- */
+body.modal-open{overflow:hidden}
+.modal-overlay{position:fixed;inset:0;background:rgba(20,14,6,.5);display:none;justify-content:center;align-items:center;z-index:11000;padding:18px}
+.modal-content{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);max-width:440px;width:100%;max-height:85vh;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
+.modal-header-sticky{padding:14px 16px;background:var(--panel);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-shrink:0}
+.modal-body{padding:14px 16px;overflow-y:auto;flex-grow:1}
+.btn-sm{border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:8px;padding:5px 10px;font:inherit;font-size:12px;cursor:pointer}
+.ctx-menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(108px,1fr));gap:8px}
+.ctx-action-btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 8px;background:var(--panel2);border:1px solid var(--line);border-radius:10px;cursor:pointer;color:var(--ink);font:inherit;min-height:44px}
+.ctx-action-btn:hover,.ctx-action-btn:focus-visible{background:var(--card-active,var(--panel2));border-color:var(--accent);outline:none}
+.ctx-action-icon{font-size:19px;line-height:1}
+.ctx-action-label{font-size:11.5px;font-weight:600;text-align:center;line-height:1.3}
+
+/* ---- Focus / reading mode (DGE_UI_CONTRACT.md #F, critique #30): collapses
+   the page to sūtra text + the Commentary Navigator + open commentaries.
+   Toggled by #dge-focusBtn (ashtadhyayi.js), persisted like every other
+   reader preference on this page. ---- */
+body.dge-focus .nav-top,
+body.dge-focus .crumbs,
+body.dge-focus .sid,
+body.dge-focus #dge-kaumudiBadge,
+body.dge-focus dge-footer{display:none}
+body.dge-focus main{padding-top:10px}
+
+/* ---- Compact previous/next on mobile (critique #15): the neighbouring
+   sūtra's full text is dead weight taking a full row on a small phone
+   before any commentary is visible; hide it by default under the mobile
+   breakpoint and reveal it only while a nav button is actually being
+   pressed/focused, so the tap that reveals it and the tap that navigates
+   are the same gesture rather than adding a second interaction step. ---- */
+@media(max-width:560px){
+  .nav-top button span.deva,.nav button span.deva{display:none}
+  .nav-top button:active span.deva,.nav-top button:focus-visible span.deva,
+  .nav button:active span.deva,.nav button:focus-visible span.deva{display:block;max-width:60vw}
+}
+
+/* ---- AI settings: privacy note demoted from a permanent paragraph to an
+   expandable info line (critique #8) ---- */
+.set-privacy{margin-top:8px}
+.set-privacy summary{cursor:pointer;font-size:12px;color:var(--muted);list-style:none}
+.set-privacy summary::-webkit-details-marker{display:none}
+.set-privacy summary:before{content:"ⓘ ";}
+.set-privacy p{font-size:12px;color:var(--muted);line-height:1.55;margin:6px 0 0}
+
+/* प्रकरणानि · Topics inline gloss (critique #17) */
+.dn-gloss{font-size:10.5px;color:var(--muted);margin-left:3px}
+.pry-snip mark{background:rgba(232,178,77,.4);color:var(--ink);border-radius:3px;padding:0 1px}

@@ -1,0 +1,306 @@
+/* kosha2.css — the Kosha results v2 page. Consumes tokens.css only.
+   Layout follows the adopted mockup verdicts: sticky search header,
+   headword digest with consensus senses, language lens chips, one card
+   per dictionary in that dictionary's own visual grammar, references as
+   tappable typed chips, AI strictly behind the ⋯ menu. */
+@layer kosha2 {
+  body.kosha2 { background: var(--bg-main); color: var(--text-primary);
+    font: 15px/1.6 var(--font-ui, system-ui, sans-serif); margin: 0; }
+  .k2-app { max-width: 980px; margin: 0 auto; padding: 0 14px 70px; }
+
+  /* header */
+  .k2-top { position: sticky; top: 0; z-index: 40; padding: 8px 0;
+    background: color-mix(in srgb, var(--bg-main) 92%, transparent);
+    backdrop-filter: blur(12px); border-bottom: 1px solid var(--card-border); }
+  .k2-top-in { display: flex; gap: 8px; align-items: center; }
+  .k2-search { flex: 1; min-width: 0; position: relative; }
+  .k2-search input { width: 100%; box-sizing: border-box; height: 44px;
+    padding: 0 40px 0 14px; border: 1px solid var(--card-border);
+    border-radius: 12px; background: var(--card-bg); color: var(--text-primary);
+    font: 17px/1 var(--font-sanskrit, serif); }
+  .k2-search input:focus { outline: 2px solid var(--accent-gold); border-color: var(--accent-gold); }
+  .k2-clear { position: absolute; right: 4px; top: 4px; width: 36px; height: 36px;
+    border: 0; background: transparent; color: var(--muted-text); font-size: 20px; cursor: pointer; }
+  .k2-iconbtn { width: 42px; height: 42px; border: 1px solid var(--card-border);
+    border-radius: 12px; background: var(--card-bg); color: var(--text-primary);
+    cursor: pointer; font-size: 17px; flex: 0 0 auto; }
+  .k2-iconbtn:hover { background: var(--panel-bg); }
+  .k2-mode { display: flex; gap: 2px; padding: 2px; border: 1px solid var(--card-border);
+    border-radius: 10px; background: var(--panel-bg); flex: 0 0 auto; }
+  .k2-mode button { border: 0; background: transparent; color: var(--muted-text);
+    padding: 7px 10px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 700; }
+  .k2-mode button.active { background: var(--card-bg); color: var(--text-primary);
+    box-shadow: 0 1px 4px rgba(0,0,0,.15); }
+
+  /* suggestions */
+  .k2-sug { position: absolute; left: 0; right: 0; top: 50px; z-index: 60;
+    background: var(--card-bg); border: 1px solid var(--card-border);
+    border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-lg, 0 12px 32px rgba(0,0,0,.3)); }
+  .k2-sug[hidden] { display: none; }
+  .k2-sug button { display: flex; justify-content: space-between; gap: 10px;
+    align-items: center; width: 100%; padding: 11px 13px; border: 0;
+    border-bottom: 1px solid var(--card-border); background: transparent;
+    color: var(--text-primary); text-align: left; cursor: pointer; }
+  .k2-sug button:last-child { border-bottom: 0; }
+  .k2-sug button:hover, .k2-sug button.active { background: var(--panel-bg); }
+  .k2-sug .w { font: 18px/1.2 var(--font-sanskrit, serif); font-weight: 700; }
+  .k2-sug .m { font-size: 11px; color: var(--muted-text); }
+
+  /* digest */
+  .k2-digest { margin: 14px 0 8px; border: 1px solid var(--card-border);
+    border-radius: 16px; background: var(--card-bg); padding: 16px 16px 12px; }
+  .k2-kicker { font-size: 10px; font-weight: 900; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--accent-gold); }
+  .k2-hw { font: 44px/1.05 var(--font-sanskrit, serif); margin: 2px 0 0; }
+  .k2-roman { font-size: 13px; color: var(--muted-text); font-style: italic; }
+  .k2-consensus { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 4px; }
+  .k2-consensus span { padding: 5px 10px; border-radius: 999px;
+    background: var(--card-active, var(--panel-bg)); border: 1px solid var(--card-border);
+    font-size: 13px; font-weight: 650; }
+  .k2-digest-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;
+    font-size: 11px; color: var(--muted-text); }
+
+  /* lens + count */
+  .k2-lens { display: flex; gap: 6px; overflow-x: auto; padding: 8px 0;
+    scrollbar-width: none; }
+  .k2-lens::-webkit-scrollbar { display: none; }
+  .k2-lens button { white-space: nowrap; min-height: 34px; padding: 0 12px;
+    border: 1px solid var(--card-border); border-radius: 999px;
+    background: var(--card-bg); color: var(--text-primary); font-size: 12px; cursor: pointer; }
+  .k2-lens button.active { background: var(--accent-red); border-color: var(--accent-red); color: #fff; }
+  .k2-lens .n { opacity: .7; font-size: 10px; }
+  .k2-countline { display: flex; justify-content: space-between; align-items: center;
+    font-size: 12px; color: var(--muted-text); padding: 0 2px 8px; }
+  .k2-countline .k2-pagebtns { display: flex; gap: 6px; }
+  .k2-textbtn { min-height: 32px; padding: 0 10px; border: 1px solid var(--card-border);
+    border-radius: 9px; background: var(--card-bg); color: var(--text-primary);
+    font-size: 12px; cursor: pointer; }
+  .k2-textbtn:hover { background: var(--panel-bg); }
+
+  /* cards */
+  .k2-card { border: 1px solid var(--card-border); border-radius: 15px;
+    background: var(--card-bg); margin: 0 0 11px; scroll-margin-top: 76px; }
+  .k2-card.pinned { border-color: color-mix(in srgb, var(--accent-gold) 55%, var(--card-border)); }
+  .k2-chead { display: flex; gap: 10px; align-items: center; padding: 11px 13px;
+    border-bottom: 1px solid var(--card-border); }
+  .k2-mark { width: 32px; height: 32px; display: grid; place-items: center;
+    border-radius: 9px; background: var(--panel-bg); font-size: 11px;
+    font-weight: 900; color: var(--accent-gold); flex: 0 0 auto; }
+  .k2-cname { flex: 1; min-width: 0; }
+  .k2-cname h2 { margin: 0; font-size: 15px; line-height: 1.25; }
+  .k2-cmeta { display: flex; flex-wrap: wrap; gap: 5px; font-size: 10.5px;
+    color: var(--muted-text); margin-top: 2px; align-items: center; }
+  .k2-lang { padding: 1px 7px; border-radius: 999px; background: var(--panel-bg);
+    font-weight: 700; }
+  .k2-cmenu button { width: 36px; height: 36px; border: 0; border-radius: 9px;
+    background: transparent; color: var(--muted-text); font-size: 18px; cursor: pointer; }
+  .k2-cmenu button:hover { background: var(--panel-bg); color: var(--text-primary); }
+  .k2-cbody { padding: 4px 14px 12px; }
+
+  /* native structures */
+  .k2-sense { position: relative; padding: 9px 0 8px 26px;
+    border-bottom: 1px solid var(--card-border); font-size: 15px; }
+  .k2-sense:last-child { border-bottom: 0; }
+  .k2-sense-no { position: absolute; left: 0; top: 9px; color: var(--accent-gold);
+    font-weight: 900; font-variant-numeric: tabular-nums; font-size: 13px; }
+  .k2-pos { display: inline-block; margin-left: 6px; padding: 1px 7px;
+    border-radius: 6px; background: var(--panel-bg); color: var(--muted-text);
+    font-size: 11.5px; font-family: var(--font-sanskrit, serif); }
+  .k2-sub { padding: 5px 0 4px 20px; position: relative; }
+  .k2-sub .k2-sense-no { left: 0; top: 5px; }
+  .k2-etym { margin: 7px 0 4px; padding: 7px 10px;
+    border-left: 3px solid var(--accent-gold); border-radius: 0 9px 9px 0;
+    background: var(--panel-bg); font-size: 13px; }
+  .k2-etym b { font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent-gold); display: block; margin-bottom: 2px; }
+  .k2-cites { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .k2-syns { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+  .k2-syn { min-height: 30px; padding: 2px 10px; border: 1px solid var(--card-border);
+    border-radius: 999px; background: transparent; color: var(--text-primary);
+    font: 13px/1.6 var(--font-sanskrit, serif); cursor: pointer; }
+  .k2-syn:hover { background: var(--panel-bg); }
+
+  /* typed reference spans */
+  .k2-ref { border: 0; padding: 0 2px; background: transparent; font: inherit;
+    cursor: pointer; border-radius: 4px; }
+  .k2-ref.sutra { color: var(--accent-gold); border-bottom: 1px solid var(--accent-gold);
+    text-decoration: none; }
+  .k2-ref.cite { color: var(--muted-text); background: var(--panel-bg);
+    border-left: 2px solid var(--accent-gold); padding: 0 5px; font-size: 12.5px; }
+  .k2-ref.src { color: var(--accent-red); font-weight: 650; font-size: 13px;
+    border-bottom: 1px dotted var(--accent-red); }
+  mark.k2-hit { background: color-mix(in srgb, var(--accent-gold) 38%, transparent);
+    color: inherit; border-radius: 3px; padding: 0 1px; }
+
+  /* browse mode */
+  .k2-pickfilter { width: 100%; box-sizing: border-box; margin: 10px 0 2px;
+    min-height: 40px; padding: 6px 12px; border: 1px solid var(--card-border);
+    border-radius: 11px; background: var(--card-bg); color: var(--text-primary);
+    font-family: var(--font-ui); font-size: 14px; }
+  .k2-pickfilter:focus { outline: none; border-color: var(--accent-gold); }
+  .k2-browse-pick { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px,1fr));
+    gap: 9px; margin-top: 12px; }
+  .k2-browse-pick button { text-align: left; padding: 12px; border: 1px solid var(--card-border);
+    border-radius: 13px; background: var(--card-bg); color: var(--text-primary); cursor: pointer; }
+  .k2-browse-pick button:hover { background: var(--panel-bg); }
+  .k2-browse-pick button.loading { border-color: var(--accent-gold);
+    background: var(--panel-bg); opacity: .75; }
+  .k2-browse-pick button.loading b::after { content: " · लोड…";
+    color: var(--accent-gold); font-weight: 400; font-size: 12px; }
+  .k2-browse-pick b { display: block; font-size: 14px; }
+  .k2-browse-pick .m { font-size: 11px; color: var(--muted-text); }
+  .k2-browse-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr));
+    gap: 4px; margin-top: 10px; }
+  .k2-browse-list button { padding: 8px 10px; border: 1px solid var(--card-border);
+    border-radius: 9px; background: var(--card-bg); color: var(--text-primary);
+    font: 15px/1.3 var(--font-sanskrit, serif); text-align: left; cursor: pointer; }
+  .k2-browse-list button:hover { background: var(--panel-bg); }
+  .k2-alpha { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 10px; }
+  .k2-alpha button { min-width: 34px; min-height: 32px; border: 1px solid var(--card-border);
+    border-radius: 8px; background: var(--card-bg); color: var(--text-primary);
+    font: 13px/1 var(--font-sanskrit, serif); cursor: pointer; }
+  .k2-alpha button.active { background: var(--accent-red); color: #fff; border-color: var(--accent-red); }
+
+  /* bottom sheet — ONE surface for every menu / reference popup, on every
+     viewport. The old anchored popover ran off-screen on mobile (the lead's
+     3 Sep report); a sheet from the bottom never obstructs the reading
+     column and always carries ✕ / back. */
+  .k2-back { position: fixed; inset: 0; z-index: 89; background: rgba(0,0,0,.45); }
+  .k2-back[hidden] { display: none; }
+  .k2-pop { position: fixed; z-index: 90; left: 50%; transform: translateX(-50%);
+    bottom: 0; top: auto; width: min(560px, 100vw); max-height: 74vh; overflow-y: auto;
+    border: 1px solid var(--card-border); border-bottom: 0;
+    border-radius: 18px 18px 0 0; background: var(--card-bg);
+    box-shadow: var(--shadow-lg, 0 -14px 40px rgba(0,0,0,.45)); padding: 0 14px 16px;
+    animation: k2SheetUp .18s ease-out; }
+  @keyframes k2SheetUp { from { transform: translate(-50%, 30px); opacity: .5; }
+    to { transform: translate(-50%, 0); opacity: 1; } }
+  .k2-pop[hidden] { display: none; }
+  .k2-sheet-bar { position: sticky; top: 0; display: flex; align-items: center;
+    justify-content: space-between; gap: 8px; padding: 10px 0 8px;
+    background: var(--card-bg); z-index: 2; }
+  .k2-sheet-bar::before { content: ""; position: absolute; top: 6px; left: 50%;
+    transform: translateX(-50%); width: 42px; height: 4px; border-radius: 4px;
+    background: var(--card-border); }
+  .k2-sheet-bar button { min-height: 34px; min-width: 34px; padding: 4px 12px;
+    border: 1px solid var(--card-border); border-radius: 999px;
+    background: var(--panel-bg); color: var(--text-primary); font-size: 12.5px;
+    cursor: pointer; }
+  .k2-sheet-bar button:hover { border-color: var(--accent-gold); }
+  .k2-pop h4 { margin: 0 0 6px; font-size: 12px; color: var(--muted-text);
+    letter-spacing: .06em; text-transform: uppercase; }
+  .k2-pop .body { font-size: 13.5px; }
+  .k2-pop .row { display: grid; gap: 6px; margin-top: 8px; }
+  .k2-pop .row a, .k2-pop .row button { display: block; width: 100%; box-sizing: border-box;
+    padding: 9px 10px; border: 1px solid var(--card-border); border-radius: 9px;
+    background: var(--panel-bg); color: var(--text-primary); font-size: 13px;
+    text-align: left; text-decoration: none; cursor: pointer; }
+  .k2-pop .row a:hover, .k2-pop .row button:hover { background: var(--card-bg); }
+
+  /* collapsible kosha cards */
+  .k2-chead { cursor: pointer; }
+  .k2-collbtn { background: none; border: 0; color: var(--muted-text); cursor: pointer;
+    font-size: 13px; min-width: 30px; min-height: 30px; transition: transform .15s; }
+  .k2-card.collapsed .k2-collbtn { transform: rotate(-90deg); }
+  .k2-card.collapsed .k2-cbody { display: none; }
+
+  /* reference buttons inside gloss text */
+  .k2-ref.dhatu, .k2-ref.unadi { background: none; border: 0; padding: 0;
+    color: var(--accent-gold); cursor: pointer; font: inherit;
+    border-bottom: 1px dotted var(--accent-gold); }
+  .k2-sutra-text { font-family: var(--font-sanskrit); font-size: 18px;
+    color: var(--accent-gold); margin: 4px 0 8px; }
+  .k2-dhatu-row { display: flex; gap: 10px; align-items: baseline; padding: 7px 2px;
+    border-bottom: 1px solid var(--card-border); font-family: var(--font-sanskrit); }
+  .k2-dhatu-row .g { margin-left: auto; color: var(--muted-text); font-size: 12px;
+    font-family: var(--font-ui); white-space: nowrap; }
+
+  /* ⚙ arrange rows */
+  .k2-arr-row { display: flex; align-items: center; gap: 8px; padding: 5px 2px;
+    border-bottom: 1px solid var(--card-border); font-size: 13px; }
+  .k2-arr-row span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .k2-arr-row button { min-width: 34px; min-height: 30px; border: 1px solid var(--card-border);
+    border-radius: 8px; background: var(--panel-bg); color: var(--text-primary); cursor: pointer; }
+
+  /* inline sense numerals injected when a paragraph entry is broken up */
+  .k2-inl-no { color: var(--accent-gold); font-weight: 700; margin-right: 4px; }
+
+  /* compact language filter in the countline */
+  .k2-lensel { min-height: 32px; border: 1px solid var(--card-border); border-radius: 9px;
+    background: var(--card-bg); color: var(--text-primary); font-size: 12.5px; padding: 2px 6px; }
+
+  /* digest: unique-meaning count + expandable chips */
+  .k2-morebtn { background: none; border: 1px dashed var(--card-border); border-radius: 999px;
+    color: var(--muted-text); cursor: pointer; font-size: 12px; padding: 4px 12px; }
+  .k2-morebtn:hover { border-color: var(--accent-gold); color: var(--text-primary); }
+
+  /* gloss (search-inside-meanings) results */
+  .k2-gloss-dict { margin: 14px 0 4px; font-weight: 700; color: var(--accent-gold); }
+  .k2-gloss-hits { display: flex; flex-wrap: wrap; gap: 7px; }
+  .k2-gloss-hits button { border: 1px solid var(--card-border); border-radius: 999px;
+    background: var(--card-bg); color: var(--text-primary); padding: 6px 13px;
+    font-family: var(--font-sanskrit); font-size: 14px; cursor: pointer; }
+  .k2-gloss-hits button:hover { border-color: var(--accent-gold); }
+  .k2-gloss-hits .n { font-size: 10.5px; color: var(--muted-text); margin-left: 4px; }
+
+  .k2-empty { padding: 40px 8px; text-align: center; color: var(--muted-text); }
+  .k2-toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%);
+    z-index: 120; padding: 9px 13px; border-radius: 11px; background: var(--text-primary);
+    color: var(--bg-main); font-size: 12.5px; }
+  .k2-toast[hidden] { display: none; }
+  .k2-note { font-size: 11px; color: var(--muted-text); }
+
+  /* display-script segmented control (deva | IAST | knda), in the header */
+  .k2-script { display: flex; border: 1px solid var(--card-border);
+    border-radius: 11px; overflow: hidden; height: 42px; flex: none; }
+  .k2-script button { width: 36px; border: 0; background: var(--card-bg);
+    color: var(--muted-text); font-size: 15px; cursor: pointer; }
+  .k2-script button + button { border-left: 1px solid var(--card-border); }
+  .k2-script button.active { background: var(--accent-gold);
+    color: var(--bg-main); font-weight: 700; }
+
+  /* kosha jump rail — one chip per dictionary, scrolls to its card */
+  .k2-jump { display: flex; gap: 6px; overflow-x: auto; padding: 0 0 8px;
+    scrollbar-width: none; }
+  .k2-jump::-webkit-scrollbar { display: none; }
+  .k2-jump button { white-space: nowrap; min-height: 30px; padding: 0 10px;
+    border: 1px dashed var(--card-border); border-radius: 999px;
+    background: transparent; color: var(--muted-text); font-size: 11.5px;
+    cursor: pointer; }
+  .k2-jump button:hover { color: var(--text-primary);
+    border-color: var(--accent-gold); }
+  .k2-card { scroll-margin-top: 66px; }
+
+  /* gender / pada-vibhaga consensus chips in the digest */
+  .k2-gender { display: flex; gap: 6px; flex-wrap: wrap; margin: 2px 0 4px; }
+  .k2-gchip { display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 9px; border-radius: 999px; font-size: 12px;
+    background: color-mix(in srgb, var(--accent-gold) 16%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent-gold) 45%, transparent);
+    color: var(--text-primary); font-family: var(--font-sanskrit); }
+  .k2-gchip .n { font-size: 10px; opacity: .65; }
+
+  /* ⚙ sheet rows reuse the popover button grid; mark the active choice */
+  .k2-pop .row button.on { background: var(--accent-gold);
+    color: var(--bg-main); border-color: var(--accent-gold); }
+
+  @media (max-width: 640px) {
+    .k2-app { padding: 0 9px 56px; }
+    .k2-hw { font-size: 36px; }
+    .k2-cbody { padding-inline: 11px; }
+    /* the search input owns its full first row; controls wrap below it —
+       otherwise the input collapses to a sliver between the buttons */
+    .k2-top-in { flex-wrap: wrap; row-gap: 7px; }
+    .k2-search { flex: 1 1 100%; order: -1; }
+    .k2-script { height: 38px; }
+    .k2-script button { width: 32px; font-size: 14px; }
+    .k2-mode { margin-left: auto; }
+    .k2-mode button { padding: 6px 8px; font-size: 11.5px; }
+    .k2-iconbtn { width: 38px; height: 38px; font-size: 15px; }
+    .k2-top-in { gap: 6px; }
+  }
+  @media print {
+    .k2-top, .k2-lens, .k2-jump, .k2-cmenu, .k2-mode { display: none !important; }
+    .k2-card { break-inside: avoid; }
+  }
+}

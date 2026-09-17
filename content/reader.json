@@ -1,0 +1,222 @@
+{
+  "_readme": [
+    "The reader's editorial text — what the Support and About panels say.",
+    "",
+    "Read by js/core.js at boot and editable in place on the page itself: unlock",
+    "super admin, press Edit text, tap a line. Site Settings edits the same file.",
+    "",
+    "  SPONSOR_CONFIG        the Support panel — its opening paragraph, what the",
+    "                        project spends month to month, and how to get in touch.",
+    "  CONTRIBUTORS_CONFIG   who has worked on it, and in what capacity.",
+    "  KEY_SPONSORS_CONFIG   who has supported it, and with what.",
+    "  about                 the About This Project panel's opening paragraph and",
+    "                        the \"Designed By\" line at its foot.",
+    "  ourStory              the Our Story panel — title/subtitle, sections[] (each",
+    "                        an optional heading + paragraphs[]), founder (the short",
+    "                        closing bio + its \"Meet the Founder\" link), hope (a",
+    "                        heading + lines[]), and the closing mantra.",
+    "",
+    "Each has an \"enabled\" flag; false hides that section entirely.",
+    "",
+    "These were constants in js/config.js, so changing a sentence about the",
+    "project meant editing source. They are content, not settings, which is why they",
+    "sit in content/ rather than config/."
+  ],
+  "SPONSOR_CONFIG": {
+    "enabled": true,
+    "introText": "This project runs independently, with no ads, and relies entirely on community support to keep going. Here's exactly where funds go, month to month — and where a contribution would help most.",
+    "currency": "₹",
+    "recurringExpenses": [
+      {
+        "label": "Claude Pro subscription (development)",
+        "amount": 2000,
+        "period": "month"
+      },
+      {
+        "label": "Server hosting (planned)",
+        "amount": 5000,
+        "period": "month"
+      },
+      {
+        "label": "Domain & hosting",
+        "amount": 1000,
+        "period": "year"
+      },
+      {
+        "label": "Content digitisation & proofreading",
+        "amount": 20000,
+        "period": "as needed"
+      }
+    ],
+    "sponsorCategories": [
+      {
+        "icon": "💻",
+        "label": "Backend / UI Development",
+        "description": "Support ongoing feature work, bug fixes, and infrastructure for this app.",
+        "enabled": true
+      },
+      {
+        "icon": "🕉️",
+        "label": "Acharya's Monthly Support",
+        "description": "Contribute toward the Acharya's monthly food and living expenses.",
+        "enabled": false
+      },
+      {
+        "icon": "🏫",
+        "label": "Gurukula & Goshala",
+        "description": "Support the Gurukula and the upcoming Goshala (cow shelter).",
+        "enabled": true
+      },
+      {
+        "icon": "📚",
+        "label": "Children's Education",
+        "description": "Support educational expenses for children at the Gurukula.",
+        "enabled": true
+      },
+      {
+        "icon": "🙏",
+        "label": "General Token of Appreciation",
+        "description": "An open contribution, undesignated, used wherever most needed.",
+        "enabled": true
+      }
+    ],
+    "contactForSponsorship": "sanatanavidyagurukulam@gmail.com"
+  },
+  "CONTRIBUTORS_CONFIG": {
+    "enabled": true,
+    "contributors": [
+      {
+        "name": "Sameer",
+        "role": "Content"
+      },
+      {
+        "name": "Anirudha",
+        "role": "Content"
+      },
+      {
+        "name": "Madhu",
+        "role": "Content"
+      },
+      {
+        "name": "Aruna",
+        "role": "Content"
+      }
+    ]
+  },
+  "KEY_SPONSORS_CONFIG": {
+    "enabled": true,
+    "sponsors": [
+      {
+        "name": "Adarsh",
+        "contribution": "Site Hosting And Key Subscriptions"
+      },
+      {
+        "name": "Aruna Guru",
+        "contribution": "Misc"
+      },
+      {
+        "name": "Aruna Bharadwaj",
+        "contribution": "TTS"
+      }
+    ]
+  },
+  "about": {
+    "intro": "This is part of the Sarvamoola Digitisation & Educational Project — a free, ad-free digital library of Sanskrit devotional and philosophical texts in the Madhva Sampradaya (Dvaita Vedanta) tradition, with transliteration, audio, and AI-assisted study tools, built for personal and community learning.",
+    "designedBy": "- 3BU1 -"
+  },
+  "ourStory": {
+    "title": "Our Story",
+    "subtitle": "How the Sarvamūla Digital Library Began",
+    "sections": [
+      {
+        "heading": "",
+        "paragraphs": [
+          "The Sarvamūla Digital Library began with a simple realization: our Śāstric heritage is vast, deeply interconnected, and dispersed across countless books, manuscripts, printed editions, digital texts, commentaries, repositories, and other sources.",
+          "For a student or researcher, finding a text is often only the beginning. A passage may lead to a commentary, a word to a Kośa, a philosophical argument to another Grantha, a Purāṇic account to an Itihāsa or related Purāṇa, and a grammatical form to the works of the Vyākaraṇa tradition.",
+          "The vision was therefore not merely to create another collection of digital books, but to gradually build a place where these scattered threads of Vidyā could be preserved, organized, connected, and studied together."
+        ]
+      },
+      {
+        "heading": "The Beginning — 2021",
+        "paragraphs": [
+          "The idea took definite shape in December 2021, initially around the Sarvamūla Granthas, Dvaita Vedānta, and Dāsa Sāhitya.",
+          "The intention was to make important texts easier to find, read, study, and connect with the wider Śāstric tradition.",
+          "As the work progressed, however, it became clear that the same approach could serve a much larger body of knowledge.",
+          "The vision expanded naturally from the Sarvamūla tradition to the broader heritage of:",
+          "Veda · Vedāṅga · Vedānta · Darśana · Itihāsa · Purāṇa · Jyotiṣa · Arthaśāstra · Kāmaśāstra · Nāṭyaśāstra · Kāvya · Stotra · Dāsa Sāhitya",
+          "and the many related disciplines, texts, commentaries, and auxiliary resources that form the wider landscape of Bhāratīya Vidyā."
+        ]
+      },
+      {
+        "heading": "From Digital Texts to Connected Knowledge",
+        "paragraphs": [
+          "A digital library need not remain merely a collection of files.",
+          "The project therefore began moving beyond individual texts toward an interconnected knowledge system — bringing together search, indexing, cross-references, metadata, dictionaries, audio, OCR, digitization, and study tools.",
+          "Texts available in digital form can be organized and enriched. Books that exist only as scans can be progressively digitized and OCR-processed. OCR output can be corrected and refined through proofreading. Related works can be linked, allowing a student to move from one source to another without losing the context of the tradition.",
+          "The aim is to make the experience of studying a text increasingly resemble the way traditional Śāstric learning itself unfolds: one Grantha leading naturally to another, one word opening another source, and one subject revealing its connections with many others."
+        ]
+      },
+      {
+        "heading": "Technology in the Service of Vidyā",
+        "paragraphs": [
+          "Modern technology provides possibilities that earlier generations could not have imagined.",
+          "Search and indexing can make large textual corpora discoverable. OCR can help recover texts from printed books and scans. Audio tools can preserve and present recitations. Computational tools can assist with structured data, cross-referencing, and specialized calculations. Carefully designed visualizations can help students explore subjects such as traditional cosmology, calendrical concepts, and astronomical descriptions.",
+          "Artificial intelligence and other modern tools may assist in these processes, but they are servants of the project, not authorities over the Śāstra.",
+          "The texts, their traditional interpretations, the Ācāryas, commentaries, and qualified scholarship remain central. Technology is simply being used to help preserve, organize, discover, and study what the tradition has transmitted."
+        ]
+      },
+      {
+        "heading": "A Growing Collaborative Corpus",
+        "paragraphs": [
+          "The library is being built from many streams of effort.",
+          "Digitized texts from legitimately accessible sources are collected and organized. Physical books and scans can be brought into digital form through OCR and manual correction. Volunteers can contribute digitization and organizational work. Scholars can review texts, correct errors, clarify sources, and help establish reliable editions and references.",
+          "This is therefore not intended to remain the work of one individual.",
+          "As the library grows, it is hoped that scholars, students, traditional teachers, researchers, volunteers, and well-wishers will contribute according to their abilities.",
+          "Every carefully digitized page, every corrected passage, every verified reference, and every useful connection adds another thread to the larger fabric of the repository."
+        ]
+      },
+      {
+        "heading": "What Sarvamūla Seeks to Become",
+        "paragraphs": [
+          "The long-term aspiration is a living digital knowledge ecosystem — one in which texts are not isolated, but connected to the people, traditions, subjects, commentaries, dictionaries, audio, references, and tools that help illuminate them.",
+          "The aim is not to claim completeness, nor to replace traditional study.",
+          "Rather, it is to make the enormous body of inherited Vidyā more discoverable, more accessible, and more interconnected, while remaining grounded in the authenticity and integrity of the sources.",
+          "The library will continue to grow as more texts are discovered, digitized, reviewed, connected, and made available for study."
+        ]
+      },
+      {
+        "heading": "A New Stage in an Ancient Tradition",
+        "paragraphs": [
+          "Sacred knowledge has travelled through many forms.",
+          "From oral transmission to manuscripts, from manuscripts to print, from print to digital text, and from isolated digital texts toward interconnected digital knowledge, every generation has found new ways to preserve and transmit what it has received.",
+          "The Sarvamūla Digital Library is a humble attempt to serve this next stage.",
+          "The knowledge does not belong to this library, nor to any individual who works on it. It belongs to the Guru Paramparā and to the traditions that have preserved it across generations.",
+          "This library is simply an offering in that continuing journey of transmission."
+        ]
+      }
+    ],
+    "founder": {
+      "heading": "🪷 The Person Behind the Library",
+      "paragraphs": [
+        "The Sarvamūla Digital Library was initiated, architected, and developed by Tribhuvan Achar (3BHU1), drawing upon his earlier experience as a software architect and his subsequent journey into Śāstric study, Adhyayana, and Adhyāpana.",
+        "The project grew from the meeting of these two paths: modern technology and a traditional pursuit of Vidyā.",
+        "What began as an individual effort is intended to grow beyond its founder — into a repository that can be strengthened by scholars, students, volunteers, and future generations."
+      ],
+      "meetFounderLabel": "Meet the Founder →",
+      "meetFounderPanel": "tribhuvan",
+      "gratitude": "To the Gurus, Ācāryas, teachers, family, well-wishers, and great souls whose grace and guidance have shaped this journey, this work is offered with gratitude and reverence.",
+      "names": "Śrī Śrīpādarāja · Śrī Bhūtarāja · Śrī Vādirāja"
+    },
+    "hope": {
+      "heading": "Our hope",
+      "lines": [
+        "That a student searching for one Grantha may discover ten more.",
+        "That a researcher seeking one reference may find its wider context.",
+        "That a text once hidden in a scan may become searchable.",
+        "That knowledge preserved for generations may become accessible to the next.",
+        "And that, through this small effort, Vidyā may continue to travel forward."
+      ]
+    },
+    "mantra": "॥ Dharmo Rakṣati Rakṣitaḥ ॥"
+  }
+}

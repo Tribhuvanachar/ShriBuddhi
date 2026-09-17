@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script src="../../js/vandana-guard.js?v=2"></script>
+<script src="../../js/admin-gate.js?v=1"></script>
+<script src="../../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>अष्टाध्यायी · choose a view · DGE</title>
+<link rel="icon" type="image/png" sizes="48x48" href="../../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../../images/genie/apple-touch-icon.png">
+<style>
+  :root{
+    --bg:#f7f5f0; --panel:#fffdf8; --border:#e3ddd0; --ink:#241d15; --muted:#6d6355;
+    --accent:#8b3a2a; --accent2:#a9772b; --shadow:0 2px 10px rgba(60,40,20,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#15120e; --panel:#1e1a14; --border:#332c22; --ink:#f2ebe0; --muted:#a99e8c;
+      --accent:#e0894f; --accent2:#e8c078; --shadow:0 2px 12px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#15120e; --panel:#1e1a14; --border:#332c22; --ink:#f2ebe0; --muted:#a99e8c;
+    --accent:#e0894f; --accent2:#e8c078; --shadow:0 2px 12px rgba(0,0,0,.4);
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Noto Serif","Georgia",serif; line-height:1.5; }
+  .deva{ font-family:"Noto Serif Devanagari","Noto Serif",serif; }
+  header .bar{ display:flex; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid var(--border); background:var(--panel); }
+  .brand a{ color:var(--accent); text-decoration:none; font-weight:600; }
+  .brand span{ color:var(--muted); }
+  .spacer{ flex:1; }
+  .wrap{ max-width:960px; margin:0 auto; padding:28px 18px 60px; }
+  h1{ margin:.2em 0 .1em; font-size:clamp(1.6rem,4vw,2.3rem); }
+  h1 .a{ color:var(--accent); }
+  .lede{ color:var(--muted); margin:0 0 22px; max-width:64ch; }
+  .grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+  a.card{ display:block; padding:18px; background:var(--panel); border:1px solid var(--border); border-radius:14px; text-decoration:none; color:var(--ink); box-shadow:var(--shadow); transition:transform .12s ease, border-color .12s ease; }
+  a.card:hover,a.card:focus-visible{ transform:translateY(-2px); border-color:var(--accent); outline:none; }
+  a.card .tag{ font-size:1.6rem; }
+  a.card b{ display:block; margin:6px 0 4px; font-size:1.15rem; color:var(--accent); }
+  a.card small{ display:block; color:var(--muted); font-size:.9rem; line-height:1.45; }
+  .classic{ margin-top:22px; font-size:.92rem; color:var(--muted); }
+  .classic a{ color:var(--accent); }
+  .site-footer-links a,.site-footer-links button{ color:var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <dge-breadcrumb label="अष्टाध्यायी" deva home-href="../index.html" class="brand"><a href="../index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span class="deva">अष्टाध्यायी</span></dge-breadcrumb>
+    <div class="spacer"></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <h1><span class="deva">अष्टाध्यायी</span> · <span class="a">choose a view</span></h1>
+  <p class="lede">One dataset — all 3,962 sūtras with padaccheda, anvaya, anuvṛtti and adhikāra, both the Aṣṭādhyāyī (AK) and Siddhānta-Kaumudī (SK) reading orders, the 70 prakaraṇas, and eight commentary/translation layers (Kāśikā, Siddhānta-Kaumudī, Mahābhāṣya, Bālamanoramā, Tattvabodhinī, Nyāsa, Vasu). Pick the layout that suits you.</p>
+
+  <div class="grid">
+    <a class="card" href="view1.html">
+      <span class="tag" aria-hidden="true">📖</span>
+      <b>Reading column</b>
+      <small>Dense content-first reader · desktop side-rail · AK/SK toggle · analysis strip · compare mode · commentary layers</small>
+    </a>
+    <a class="card" href="view2.html">
+      <span class="tag" aria-hidden="true">🛠️</span>
+      <b>Workbench</b>
+      <small>App-shell with fixed chrome · richest navigation & jump · live prakaraṇa search · anuvṛtti jumps · ref auto-linking</small>
+    </a>
+    <a class="card" href="view3.html">
+      <span class="tag" aria-hidden="true">🌘</span>
+      <b>Study skin</b>
+      <small>Finished visual layout · layer toggle switches · chat-style Ask-Ācārya (BYOK) · per-sūtra study card</small>
+    </a>
+  </div>
+
+  <p class="classic">Prefer the original reader? <a href="ashtadhyayi.html">Open the classic Aṣṭādhyāyī ↗</a></p>
+</div>
+
+<dge-footer class="site-footer-links"><a class="footer-link" href="../../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+
+<script src="../../js/dge-shell.js?v=1"></script>
+<script src="../../js/dge-breadcrumb.js?v=1"></script>
+<script src="../../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="ashtadhyayi"></dge-nav-rail>
+</body>
+</html>

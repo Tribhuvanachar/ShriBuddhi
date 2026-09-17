@@ -1,0 +1,658 @@
+<!DOCTYPE html><html lang="sa"><head>
+<meta charset="UTF-8">
+<script src="../../js/vandana-guard.js?v=2"></script>
+<script src="../../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- allow pinch-zoom -->
+<title>अष्टाध्यायी · Reading · DGE</title>
+<!-- Indic transliteration, vendored (js/vendor/README.md): the reader's
+     script setting and the धातु/कोश word marking both depend on it, so it
+     must not be one CDN outage away from silently not working. -->
+<script src="../../js/vendor/sanscript-1.3.3.min.js?v=1.3.3"></script>
+<link rel="icon" type="image/png" sizes="48x48" href="../../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../../images/genie/apple-touch-icon.png">
+<style>
+:root{
+  --bg:#f7f5f0; --surface:#fffdf9; --surface2:#f0ede6; --ink:#24231f;
+  --muted:#77736a; --line:#ddd8ce; --accent:#9a5c22; --accent2:#5d432e;
+  --shadow:0 8px 28px rgba(35,31,24,.07); --radius:18px;
+  --reader:70ch; --ui:14px; --sanskrit:clamp(2rem,6vw,3.25rem);
+  --body:clamp(1rem,1.6vw,1.08rem);
+  /* commentary-layer accents (referenced by DGE_ASHTA.META tags) */
+  --k:#9a5c22; --sk:#3f6f4e; --mb:#7a3b8f; --b:#b5852a; --t:#2f6f8f; --n:#8f4a3b; --vs:#556070;
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#151513;--surface:#1c1b18;--surface2:#26241f;--ink:#f2efe8;--muted:#aaa397;--line:#39362f;--accent:#e1a060;--accent2:#d6c1a7;--shadow:0 8px 28px rgba(0,0,0,.28);
+    --k:#e1a060;--sk:#79b98d;--mb:#c58fd6;--b:#e0c063;--t:#78b9d6;--n:#d99684;--vs:#a8b3c4}
+}
+:root[data-theme="light"]{--bg:#f7f5f0;--surface:#fffdf9;--surface2:#f0ede6;--ink:#24231f;--muted:#77736a;--line:#ddd8ce;--accent:#9a5c22;--accent2:#5d432e;
+  --k:#9a5c22;--sk:#3f6f4e;--mb:#7a3b8f;--b:#b5852a;--t:#2f6f8f;--n:#8f4a3b;--vs:#556070}
+:root[data-theme="dark"]{--bg:#151513;--surface:#1c1b18;--surface2:#26241f;--ink:#f2efe8;--muted:#aaa397;--line:#39362f;--accent:#e1a060;--accent2:#d6c1a7;
+  --k:#e1a060;--sk:#79b98d;--mb:#c58fd6;--b:#e0c063;--t:#78b9d6;--n:#d99684;--vs:#a8b3c4}
+*{box-sizing:border-box}
+html{background:var(--bg);color:var(--ink);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:var(--body);line-height:1.65;overscroll-behavior-x:none}
+button,input{font:inherit}
+button{color:inherit}
+button:focus-visible,input:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 65%,transparent);outline-offset:2px}
+.topbar{position:sticky;top:0;z-index:20;height:54px;padding:5px max(10px,env(safe-area-inset-right)) 5px max(10px,env(safe-area-inset-left));display:flex;align-items:center;gap:8px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent);transition:transform .22s ease}
+.topbar.hidden{transform:translateY(-100%)}
+.icon{width:44px;height:44px;border:0;background:transparent;border-radius:12px;display:grid;place-items:center;cursor:pointer;font-size:20px}
+.icon:hover{background:var(--surface2)}
+.brand{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+dge-breadcrumb.brand{display:flex;align-items:center;gap:6px;text-transform:none;letter-spacing:0;font-size:13px}
+dge-breadcrumb.brand a{color:var(--muted);text-decoration:none}
+dge-breadcrumb.brand a:hover{color:var(--ink)}
+dge-breadcrumb.brand .deva{color:var(--ink);font-family:"Noto Serif Devanagari","Noto Sans Devanagari",serif}
+.jump{margin-left:auto;display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:2px 6px 2px 12px;max-width:190px}
+.jump input{border:0;outline:0;background:transparent;color:var(--ink);width:120px;min-width:0}
+.jump button{border:0;background:var(--surface2);border-radius:999px;width:34px;height:34px;cursor:pointer}
+main{width:min(100%,calc(var(--reader) + 32px));margin:auto;padding:22px 16px 130px}
+.reader{display:grid;gap:28px}
+.sutra{content-visibility:auto;contain-intrinsic-size:500px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px 20px;box-shadow:var(--shadow)}
+.meta{font-size:12px;color:var(--muted);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:12px}
+.sutra-head{display:flex;gap:8px;align-items:flex-start}
+.sutra h1{font-family:"Noto Serif Devanagari","Noto Sans Devanagari",serif;font-size:var(--sanskrit);line-height:1.45;text-wrap:balance;font-weight:650;margin:0;flex:1}
+.translit{font-family:Georgia,serif;color:var(--muted);font-size:15px;margin:3px 0 14px}
+.more{border:0;background:transparent;color:var(--muted);font-size:22px;min-width:44px;height:44px;border-radius:12px;cursor:pointer}
+.more:hover{background:var(--surface2)}
+.strip{display:flex;flex-wrap:wrap;align-items:center;gap:8px;color:var(--muted);font-size:14px;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);cursor:pointer}
+.chip{display:inline-flex;align-items:center;min-height:28px;padding:2px 9px;border-radius:999px;background:var(--surface2);color:var(--accent2);font-size:12px;font-weight:650}
+.analysis{display:none;padding:15px 2px 2px}
+.sutra.expanded .analysis{display:block}
+.analysis-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.analysis h3{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 3px}
+.analysis p{margin:0}
+.analysis .empty{color:var(--muted);font-style:italic;opacity:.85}
+.ref{border:0;background:transparent;color:var(--accent);padding:0;text-decoration:underline;text-decoration-style:dotted;cursor:pointer;font:inherit}
+.commentaries{display:grid;gap:12px;margin-top:20px}
+.commentary{border-top:1px solid var(--line);padding-top:15px}
+.commentary header{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.commentary h2{font-family:Georgia,serif;font-size:17px;margin:0;color:var(--lc,var(--ink))}
+.commentary .who{font-size:12px;color:var(--muted);font-weight:400}
+.commentary p{margin:8px 0 0;white-space:pre-wrap}
+.commentary p.empty{color:var(--muted);font-style:italic;white-space:normal}
+.sanskrit-body{font-family:"Noto Serif Devanagari","Noto Sans Devanagari",serif;font-size:1.08em}
+.compare .commentaries{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+.compare .commentary{border:1px solid var(--line);border-radius:14px;padding:14px;border-top:3px solid var(--lc,var(--line))}
+.bottom{position:fixed;z-index:19;left:0;right:0;bottom:0;padding:7px max(8px,env(safe-area-inset-right)) max(7px,env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));display:flex;justify-content:center;transition:transform .22s ease}
+.bottom.hidden{transform:translateY(130%)}
+.navbar{width:min(100%,620px);display:grid;grid-template-columns:44px 1fr 44px;align-items:center;gap:6px;padding:4px;background:color-mix(in srgb,var(--surface) 94%,transparent);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);backdrop-filter:blur(14px)}
+.navbtn{min-height:44px;border:0;background:transparent;border-radius:13px;cursor:pointer}
+.navbtn:hover{background:var(--surface2)}
+.orderbtn{border:0;background:transparent;color:var(--muted);font-size:12px;cursor:pointer}
+.orderbtn strong{color:var(--ink)}
+.sheet{border:0;padding:0;background:transparent;max-width:100vw;max-height:100dvh;color:var(--ink)}
+.sheet::backdrop{background:rgba(0,0,0,.42);backdrop-filter:blur(3px)}
+.sheetbox{background:var(--surface);width:min(680px,100vw);max-height:88dvh;overflow:auto;border:1px solid var(--line);border-radius:24px 24px 0 0;padding:20px}
+.sheet[open] .sheetbox{position:fixed;left:50%;bottom:0;transform:translateX(-50%)}
+.sheet h2{font-size:18px;margin:0 0 16px}
+.sheet-close{float:right;border:0;background:var(--surface2);border-radius:999px;width:36px;height:36px;cursor:pointer}
+.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.menu-item{min-height:52px;border:1px solid var(--line);background:transparent;border-radius:14px;text-align:left;padding:10px 12px;cursor:pointer;color:inherit}
+.menu-item small{display:block;color:var(--muted)}
+.layer-group{margin:18px 0}.layer-group h3{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.layer-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.layer-row input{width:20px;height:20px;accent-color:var(--accent)}
+.layer-row span{flex:1}.layer-row small{color:var(--muted)}.soon{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:2px 6px;border-radius:999px}
+.layer-dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto}
+.index-list{display:grid;gap:6px}.index-item{display:flex;justify-content:space-between;gap:10px;border:1px solid var(--line);background:transparent;padding:9px 11px;border-radius:12px;cursor:pointer;text-align:left;color:inherit}
+.index-item small{color:var(--muted)}
+.index-item .cn{font-family:"Noto Serif Devanagari","Noto Sans Devanagari",serif}
+.ai-box textarea{width:100%;min-height:110px;border:1px solid var(--line);border-radius:14px;background:var(--surface2);color:var(--ink);padding:12px;resize:vertical}
+.preset-row{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.preset{border:1px solid var(--line);background:transparent;border-radius:999px;padding:7px 10px;cursor:pointer;color:inherit}
+.primary{border:0;background:var(--ink);color:var(--surface);padding:11px 15px;border-radius:12px;cursor:pointer}
+.primary[disabled]{opacity:.5;cursor:not-allowed}
+.ai-hint{border:1px solid var(--line);background:var(--surface2);border-radius:12px;padding:10px 12px;font-size:13px;color:var(--muted);margin:6px 0}
+.setting{display:grid;gap:8px;margin:15px 0}.setting select,.setting input[type=range],.setting input[type=text]{width:100%;padding:8px;border:1px solid var(--line);border-radius:10px;background:var(--surface2);color:var(--ink)}
+.toast{position:fixed;z-index:50;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--surface);padding:8px 13px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+.search-hit{display:block;width:100%;text-align:left;border:1px solid var(--line);background:transparent;color:inherit;border-radius:10px;padding:8px 10px;margin-bottom:6px;cursor:pointer}
+.search-hit .hid{color:var(--muted);font-size:12px}
+.search-hit .hsa{font-family:"Noto Serif Devanagari","Noto Sans Devanagari",serif}
+@media(min-width:800px){
+  .topbar{padding-inline:24px}.brand{font-size:14px}main{padding-top:36px}.sutra{padding:30px}
+  .bottom{display:none}.reader{gap:38px}.desktop-rail{display:block;position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:10}
+  .rail{display:grid;gap:6px;background:var(--surface);border:1px solid var(--line);padding:5px;border-radius:16px}
+  .rail button{width:42px;height:42px;border:0;background:transparent;border-radius:11px;cursor:pointer;color:inherit}.rail button:hover{background:var(--surface2)}
+}
+@media(max-width:799px){.desktop-rail{display:none}}
+@media(max-width:420px){
+  main{padding-inline:10px;padding-top:10px}.sutra{padding:19px 15px;border-radius:16px;box-shadow:none}
+  .brand{display:none}.jump{max-width:150px}.jump input{width:82px}.analysis-grid{grid-template-columns:1fr}
+  .compare .commentaries{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body data-grantha-slug="vedanga/vyakarana/ashtadhyayi">
+<header class="topbar" id="topbar">
+  <button class="icon" aria-label="Open menu" id="menuBtn">☰</button>
+  <dge-breadcrumb label="अष्टाध्यायी" deva home-href="../index.html" class="brand"><a href="../index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span class="deva">अष्टाध्यायी</span></dge-breadcrumb>
+  <div class="jump" role="search">
+    <input id="jumpInput" aria-label="Jump to sūtra, pāda or SK number" placeholder="1.1.1 / #405">
+    <button id="jumpBtn" aria-label="Go">↵</button>
+  </div>
+  <button class="icon" aria-label="Focus mode" id="focusBtn">⌁</button>
+</header>
+
+<main>
+  <section class="reader" id="reader" aria-label="Aṣṭādhyāyī reading surface"></section>
+</main>
+
+<aside class="desktop-rail" aria-label="Desktop reading controls">
+  <div class="rail">
+    <button id="railLayers" title="Layers">≡</button>
+    <button id="railOrder" title="Toggle order">↕</button>
+    <button id="railIndex" title="Prakaraṇa index">⌑</button>
+  </div>
+</aside>
+
+<footer class="bottom" id="bottomBar">
+  <nav class="navbar" aria-label="Reading navigation">
+    <button class="navbtn" id="prevBtn" aria-label="Previous sūtra">←</button>
+    <button class="orderbtn" id="orderBtn" aria-pressed="false">Following <strong id="orderLabel">Aṣṭādhyāyī</strong> · <span id="countLabel">— / —</span></button>
+    <button class="navbtn" id="nextBtn" aria-label="Next sūtra">→</button>
+  </nav>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<dialog class="sheet" id="menuSheet">
+  <div class="sheetbox">
+    <button class="sheet-close" data-close="menuSheet">×</button>
+    <h2>Workbench</h2>
+    <div class="menu-grid">
+      <button class="menu-item" id="compareBtn">Compare<small>Side-by-side commentaries</small></button>
+      <button class="menu-item" id="readBtn">Read<small>Stacked reading mode</small></button>
+      <button class="menu-item" id="layersBtn">Layers<small><span id="layerCount">3</span> open</small></button>
+      <button class="menu-item" id="indexBtn">Prakaraṇa index<small>70 topical chapters</small></button>
+      <button class="menu-item" id="settingsBtn">Settings<small>Script · type · theme</small></button>
+      <button class="menu-item" id="aiBtn">Ask DGE AI<small>BYOK · grounded on open layers</small></button>
+      <button class="menu-item" id="searchBtn">Corpus search<small>Search the sūtrapāṭha</small></button>
+      <button class="menu-item" id="focusFromMenu">Focus mode<small>Remove chrome</small></button>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="sheet" id="layersSheet">
+  <div class="sheetbox">
+    <button class="sheet-close" data-close="layersSheet">×</button>
+    <h2>Commentary layers</h2>
+    <div id="layerGroups"></div>
+    <div class="layer-group"><h3>Coming soon</h3>
+      <div class="layer-row"><span>Padamañjarī</span><span class="soon">soon</span></div>
+      <div class="layer-row"><span>Prauḍha-Manoramā</span><span class="soon">soon</span></div>
+      <div class="layer-row"><span>Laghu-Śabdenduśekhara</span><span class="soon">soon</span></div>
+      <div class="layer-row"><span>Paribhāṣenduśekhara</span><span class="soon">soon</span></div>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="sheet" id="indexSheet">
+  <div class="sheetbox">
+    <button class="sheet-close" data-close="indexSheet">×</button>
+    <h2>Prakaraṇa index</h2>
+    <div class="index-list" id="indexList"></div>
+  </div>
+</dialog>
+
+<dialog class="sheet" id="settingsSheet">
+  <div class="sheetbox">
+    <button class="sheet-close" data-close="settingsSheet">×</button>
+    <h2>Reading settings</h2>
+    <div class="setting"><label for="scriptSelect">Script</label><select id="scriptSelect"><option value="dev">Devanāgarī</option><option value="iast">IAST</option></select></div>
+    <div class="setting"><label for="fontRange">Text size</label><input id="fontRange" type="range" min="90" max="120" value="100"></div>
+    <div class="setting"><label for="themeSelect">Theme</label><select id="themeSelect"><option value="auto">System</option><option value="light">Light</option><option value="dark">Dark</option></select></div>
+  </div>
+</dialog>
+
+<dialog class="sheet" id="aiSheet">
+  <div class="sheetbox ai-box">
+    <button class="sheet-close" data-close="aiSheet">×</button>
+    <h2>Ask DGE AI</h2>
+    <div id="aiKeyHint" hidden class="ai-hint"></div>
+    <div class="preset-row">
+      <button class="preset">Explain simply</button><button class="preset">Compare commentaries</button><button class="preset">Example word + derivation</button>
+    </div>
+    <textarea id="aiPrompt" placeholder="Ask about the current sūtra…"></textarea>
+    <p id="aiReply" style="color:var(--muted)">Answers are generated from the sūtra and the commentary layers you have open. Nothing is sent until you press Ask.</p>
+    <button class="primary" id="askBtn">Ask</button>
+  </div>
+</dialog>
+
+<dialog class="sheet" id="searchSheet">
+  <div class="sheetbox">
+    <button class="sheet-close" data-close="searchSheet">×</button>
+    <h2>Corpus search</h2>
+    <input id="searchInput" style="width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--surface2);color:var(--ink)" placeholder="Search sūtra text or number…">
+    <div id="searchResults" style="margin-top:12px;color:var(--muted)"></div>
+  </div>
+</dialog>
+
+<dialog class="sheet" id="moreSheet">
+  <div class="sheetbox">
+    <button class="sheet-close" data-close="moreSheet">×</button>
+    <h2 id="moreTitle">More</h2>
+    <div class="menu-grid">
+      <button class="menu-item" id="moreExplains">What explains this sūtra?<small>Which layers cover it</small></button>
+      <button class="menu-item" id="moreCopyRef">Copy reference<small>AK · SK number</small></button>
+      <button class="menu-item" id="moreLink">Copy deep link<small>Shareable #id URL</small></button>
+    </div>
+  </div>
+</dialog>
+
+<dge-footer class="site-footer-links"><a class="footer-link" href="../../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+<script src="../../js/gemini.js?v=1.2.1"></script>
+<script src="../../js/modals.js?v=1"></script>
+<script src="../../js/reader-state.js?v=1"></script>
+<script src="../../js/contextual-actions.js?v=1"></script>
+<script src="../../js/dge-shell.js?v=1"></script>
+<script src="../../js/dge-breadcrumb.js?v=1"></script>
+<script src="../../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="ashtadhyayi"></dge-nav-rail>
+<script src="../../js/ashtadhyayi-data.js?v=1"></script>
+<script>
+/* ==== view1 control script — runs after ashtadhyayi-data.js ==============
+ * Renders the real Aṣṭādhyāyī corpus through window.DGE_ASHTA. No inline mock
+ * data lives here: sūtras come from db, commentary bodies from lazy layers. */
+(function(){
+  "use strict";
+  var A = window.DGE_ASHTA;
+  var $ = function(s){ return document.querySelector(s); };
+  var esc = A.esc;
+
+  // Layer groups (folder keys, in DGE_ASHTA.ORDER order within each group).
+  var GROUPS = [
+    { title:"Sūtra-prasthāna", folders:["kashika","mahabhashya","nyasa"] },
+    { title:"Kaumudī-prasthāna", folders:["siddhanta_kaumudi","balamanorama","tattvabodhini"] },
+    { title:"English", folders:["vasu","vasu_kaumudi"] }
+  ];
+  var DEFAULT_LAYERS = ["kashika","siddhanta_kaumudi","mahabhashya"];
+
+  var state = { id:null, order:"ak", compare:false, focus:false, script:"dev", font:100, theme:"auto" };
+  var active = new Set(DEFAULT_LAYERS);
+  var db = null;
+  var renderToken = 0;
+
+  function toast(t){ var x=$("#toast"); x.textContent=t; x.classList.add("show"); clearTimeout(toast.t); toast.t=setTimeout(function(){x.classList.remove("show");},1400); }
+  function openSheet(id){ var d=document.getElementById(id); if(d&&d.showModal) d.showModal(); }
+  function closeSheets(){ document.querySelectorAll("dialog[open]").forEach(function(d){ d.close(); }); }
+
+  // Devanāgarī -> current script (IAST toggle). tl() degrades to Devanāgarī.
+  function T(t){ if(t==null||t==="") return t; return state.script==="iast" ? A.tl(t,"iast") : t; }
+  function scriptClass(){ return state.script==="dev" ? "sanskrit-body" : ""; }
+
+  // ---- ordering / navigation --------------------------------------------
+  function orderArr(){ return state.order==="sk" ? db.skOrder : db.akOrder; }
+  function currentArr(){ // guard: sūtra without an SK slot falls back to AK for nav
+    var arr = orderArr();
+    return arr.indexOf(state.id)===-1 ? db.akOrder : arr;
+  }
+  function move(delta){
+    var arr = currentArr(), cur = arr.indexOf(state.id);
+    if(cur===-1) cur=0;
+    var next = (cur+delta+arr.length)%arr.length;
+    setId(arr[next], true);
+  }
+  function setId(id, scroll){
+    if(!db.byId[id]){ toast("No such sūtra"); return; }
+    state.id = id;
+    if(location.hash.slice(1)!==id){ history.replaceState(null,"","#"+id); }
+    render();
+    if(scroll) window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  // ---- analysis strip helpers -------------------------------------------
+  function anuvrittiHTML(list){
+    if(!list || !list.length) return '<span class="empty">— none carried into this sūtra —</span>';
+    return list.map(function(a){
+      var w = esc(T(a.word));
+      return a.from
+        ? '<button class="ref" data-jump="'+esc(a.from)+'">'+w+' ← '+esc(a.from)+'</button>'
+        : '<span>'+w+'</span>';
+    }).join(" · ");
+  }
+  function adhikaraHTML(d){
+    var refs = (d.adhikara_refs||[]).filter(function(r){ return r && r[1] && r[1]!==d.id; });
+    var into = db.adhikaraInto[d.id] || [];
+    if(!d.adhikara && !refs.length && !into.length) return '<span class="empty">— no governing adhikāra —</span>';
+    var parts = [];
+    if(d.adhikara) parts.push('<span>'+esc(T(d.adhikara))+'</span>');
+    if(refs.length) parts.push(refs.map(function(r){
+      return '<button class="ref" data-jump="'+esc(r[1])+'">'+esc(r[1])+'</button>';
+    }).join(" · "));
+    if(into.length) parts.push('<span class="empty">governs '+into.length+' sūtra'+(into.length>1?"s":"")+'</span>');
+    return parts.join(" &middot; ");
+  }
+  function typeHTML(d){
+    if(!d.sutra_type) return '<span class="empty">— untyped —</span>';
+    var st=d.sutra_type, bits=[];
+    if(st.label_dev) bits.push('<span class="'+scriptClass()+'">'+esc(st.label_dev)+'</span>');
+    if(st.label) bits.push(esc(st.label));
+    var line = bits.join(" · ") || "—";
+    if(st.topic) line += '<br><span class="empty '+scriptClass()+'">'+esc(st.topic)+'</span>';
+    return line;
+  }
+
+  // ---- main render -------------------------------------------------------
+  function render(){
+    var d = db.byId[state.id];
+    if(!d) return;
+    var tok = ++renderToken;
+    document.body.classList.toggle("compare", state.compare);
+    if(state.theme==="auto") document.documentElement.removeAttribute("data-theme");
+    else document.documentElement.setAttribute("data-theme", state.theme);
+    document.documentElement.style.setProperty("--body",(state.font/100)+"rem");
+
+    var kd = A.kaumudiOf(state.id);            // null-safe: no SK slot
+    var chap = kd ? A.chapterOf(kd) : null;
+    var metaBits = ["AK "+esc(d.id)];
+    if(kd){
+      metaBits.push("SK #"+A.devnum(kd.kaumudiIndex));
+      if(chap) metaBits.push('<span class="'+scriptClass()+'">'+esc(chap.name)+'</span>');
+      if(kd.laghu) metaBits.push("LSK #"+A.devnum(kd.laghu));
+    } else {
+      metaBits.push('<span class="'+scriptClass()+'">कौमुद्यां नास्ति</span>');
+    }
+
+    var pada = (d.padaccheda||[]).map(function(t){ return esc(T(t)); }).join(" · ") || "—";
+    var typeChip = (d.sutra_type && (d.sutra_type.label_dev||d.sutra_type.label))
+      ? '<span class="chip '+scriptClass()+'">'+esc(T(d.sutra_type.label_dev||"")||d.sutra_type.label)+'</span>' : "";
+    var anvaya = d.anvaya
+      ? '<p lang="sa" class="'+scriptClass()+'">'+esc(T(d.anvaya))+'</p>'
+      : '<p class="empty">— anvaya not yet added —</p>';
+
+    // commentary placeholders for active layers (filled async below)
+    var comHTML = A.ORDER.filter(function(f){ return active.has(f); }).map(function(f){
+      var m = A.META[f];
+      var slot = 'com-'+f+'-'+tok;
+      return '<article class="commentary" style="--lc:'+m.tag+'">'
+        + '<header><h2>'+esc(m.t)+' <span class="who">'+esc(m.sub||"")+'</span></h2>'
+        + '<button class="more" data-layeropt="'+esc(f)+'" aria-label="Options for '+esc(m.t)+'">⋯</button></header>'
+        + '<p id="'+slot+'" class="empty">…</p></article>';
+    }).join("") || '<p class="empty" style="margin-top:20px">No commentary layers selected — open some from Layers.</p>';
+
+    var iastLine = A.iast(d.sanskrit_text) || "";
+    $("#reader").innerHTML =
+      '<article class="sutra" id="sutra-'+d.id.split(".").join("-")+'">'
+      + '<div class="meta">'+metaBits.join(" · ")+'</div>'
+      + '<div class="sutra-head"><div style="flex:1">'
+        + '<h1 lang="sa" class="'+scriptClass()+'">'+esc(T(d.sanskrit_text))+'</h1>'
+        + (iastLine?'<div class="translit">'+esc(iastLine)+'</div>':'')
+      + '</div><button class="more" id="sutraMore" aria-label="More actions for this sūtra">⋯</button></div>'
+      + '<div class="strip" id="analysisToggle" role="button" tabindex="0" aria-expanded="false">'
+        + '<span class="'+scriptClass()+'">'+pada+'</span>'+typeChip+'<span>Tap for analysis</span>'
+      + '</div>'
+      + '<div class="analysis" id="analysisPanel"><div class="analysis-grid">'
+        + '<div><h3>Anvaya</h3>'+anvaya+'</div>'
+        + '<div><h3>Anuvṛtti</h3><p class="'+scriptClass()+'">'+anuvrittiHTML(d.anuvritti)+'</p></div>'
+        + '<div><h3>Adhikāra</h3><p class="'+scriptClass()+'">'+adhikaraHTML(d)+'</p></div>'
+        + '<div><h3>Sūtra type</h3><p>'+typeHTML(d)+'</p></div>'
+      + '</div></div>'
+      + '<section class="commentaries" aria-label="Commentary layers">'+comHTML+'</section>'
+      + '</article>';
+
+    // bottom bar / counts
+    var arr = currentArr(), pos = arr.indexOf(state.id);
+    $("#orderLabel").textContent = state.order==="ak" ? "Aṣṭādhyāyī" : "Kaumudī";
+    $("#countLabel").textContent = (pos>=0?(pos+1):"—")+" / "+arr.length + " · " + db.count + " sūtras";
+    $("#orderBtn").setAttribute("aria-pressed", state.order==="sk");
+    $("#layerCount").textContent = active.size;
+
+    // wire the freshly-rendered sūtra
+    $("#sutraMore").onclick = function(){ $("#moreTitle").textContent="More · "+d.id; openSheet("moreSheet"); };
+    $("#analysisToggle").onclick = toggleAnalysis;
+    $("#analysisToggle").onkeydown = function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); toggleAnalysis(); } };
+    document.querySelectorAll("#reader [data-jump]").forEach(function(b){ b.onclick=function(){ setId(b.dataset.jump,true); }; });
+    document.querySelectorAll("#reader [data-layeropt]").forEach(function(b){ b.onclick=function(){ closeSheets(); openSheet("layersSheet"); }; });
+
+    // lazy-load each active layer and fill its slot (guarded by render token)
+    A.ORDER.filter(function(f){ return active.has(f); }).forEach(function(f){
+      var slotId = 'com-'+f+'-'+tok;
+      A.ensureLayer(f).then(function(layer){
+        if(tok!==renderToken) return;              // navigated away
+        var el = document.getElementById(slotId);
+        if(!el) return;
+        var item = layer.byId[state.id];
+        var body = item && item.sanskrit_text;
+        if(body){
+          var isEn = A.META[f].lang==="en";
+          var txt = (!isEn && state.script==="iast") ? A.tl(body,"iast") : body;
+          el.className = isEn ? "" : scriptClass();
+          el.textContent = txt;
+        } else {
+          el.className = "empty";
+          el.textContent = "— no "+A.META[f].sub+" on this sūtra —";
+        }
+      });
+    });
+
+    // let intellisense re-scan the new commentary text for sūtra references
+    if(window.DGEIntellisense && window.DGEIntellisense.scan){ try{ window.DGEIntellisense.scan($("#reader")); }catch(e){} }
+  }
+
+  function toggleAnalysis(){
+    var s=document.querySelector(".sutra"), t=$("#analysisToggle");
+    if(!s) return;
+    s.classList.toggle("expanded");
+    t.setAttribute("aria-expanded", s.classList.contains("expanded"));
+  }
+  function toggleOrder(){
+    state.order = state.order==="ak" ? "sk" : "ak";
+    render();
+    toast(state.order==="ak" ? "Aṣṭādhyāyī order" : "Kaumudī order");
+  }
+
+  // ---- jump / deep links -------------------------------------------------
+  function jump(q){
+    q = (q||"").trim();
+    if(!q) return;
+    var id=null;
+    if(q.charAt(0)==="#"){
+      var n = parseInt(q.slice(1),10);
+      if(!isNaN(n) && db.skOrder[n-1]) id = db.skOrder[n-1];
+    } else if(/^\d+\.\d+\.\d+$/.test(q)){
+      if(db.byId[q]) id=q;
+    } else if(/^\d+\.\d+$/.test(q)){
+      id = db.akOrder.find(function(x){ return x.indexOf(q+".")===0; });
+    }
+    if(id){ setId(id,true); closeSheets(); toast("Jumped to "+id); }
+    else toast("No matching sūtra");
+  }
+
+  // ---- layers sheet ------------------------------------------------------
+  function buildLayers(){
+    $("#layerGroups").innerHTML = GROUPS.map(function(g){
+      return '<div class="layer-group"><h3>'+esc(g.title)+'</h3>'
+        + g.folders.map(function(f){
+            var m=A.META[f];
+            return '<label class="layer-row"><input type="checkbox" data-layer="'+esc(f)+'"'
+              + (active.has(f)?" checked":"")+'>'
+              + '<span class="layer-dot" style="background:'+m.tag+'"></span>'
+              + '<span>'+esc(m.t)+' <small>'+esc(m.sub||"")+'</small></span></label>';
+          }).join("")
+        + '</div>';
+    }).join("");
+    document.querySelectorAll("#layerGroups [data-layer]").forEach(function(c){
+      c.onchange = function(){
+        if(c.checked) active.add(c.dataset.layer); else active.delete(c.dataset.layer);
+        render();
+      };
+    });
+  }
+
+  // ---- prakaraṇa index (real 70 chapters) --------------------------------
+  function buildIndex(){
+    var chs = db.kaumudi.chapters||[];
+    $("#indexList").innerHTML = chs.map(function(c){
+      return '<button class="index-item" data-chap="'+c.n+'">'
+        + '<span class="cn">'+esc(c.name)+'</span>'
+        + '<small>SK '+A.devnum(c.from)+'–'+A.devnum(c.to)+' · '+c.count+'</small></button>';
+    }).join("");
+    document.querySelectorAll("#indexList [data-chap]").forEach(function(b){
+      b.onclick=function(){
+        var id = A.firstIdOfChapter(parseInt(b.dataset.chap,10));
+        if(!id){ toast("Chapter unavailable"); return; }
+        state.order="sk"; setId(id,true); closeSheets();
+      };
+    });
+  }
+
+  // ---- AI drawer (BYOK, explicit action only) ----------------------------
+  function refreshAiHint(){
+    var hint=$("#aiKeyHint"), btn=$("#askBtn");
+    var hasKey = window.DGEGemini && window.DGEGemini.getKey && window.DGEGemini.getKey();
+    if(!window.DGEGemini){
+      hint.hidden=false; hint.textContent="AI is unavailable on this page."; btn.disabled=true;
+    } else if(!hasKey){
+      hint.hidden=false;
+      hint.textContent="Add your own Google Gemini API key (free from aistudio.google.com/apikey) to enable AI. It is stored only in this browser.";
+      btn.disabled=false;
+    } else { hint.hidden=true; btn.disabled=false; }
+  }
+  function askAI(){
+    if(!window.DGEGemini){ refreshAiHint(); return; }
+    if(!window.DGEGemini.getKey()){ refreshAiHint(); return; }
+    var d=db.byId[state.id];
+    var q=$("#aiPrompt").value.trim();
+    if(!q){ toast("Type a question first"); return; }
+    var reply=$("#aiReply");
+    reply.style.color="var(--muted)"; reply.textContent="Thinking…";
+    // gather open-layer bodies for grounding (already-fetched via ensureLayer)
+    var jobs = A.ORDER.filter(function(f){ return active.has(f); }).map(function(f){
+      return A.ensureLayer(f).then(function(layer){
+        var it=layer.byId[state.id];
+        return it && it.sanskrit_text ? (A.META[f].sub+":\n"+it.sanskrit_text) : null;
+      });
+    });
+    Promise.all(jobs).then(function(ctx){
+      var ground = ["Sūtra "+d.id+": "+d.sanskrit_text];
+      if(d.anvaya) ground.push("Anvaya: "+d.anvaya);
+      ctx.filter(Boolean).forEach(function(c){ ground.push(c); });
+      var prompt = "You are helping a student read Pāṇini's Aṣṭādhyāyī. Use ONLY the "
+        + "material below; do not invent sūtras or citations. If the material does not "
+        + "answer the question, say so.\n\n=== MATERIAL ===\n"
+        + ground.join("\n\n").slice(0,12000)
+        + "\n\n=== QUESTION ===\n"+q;
+      return window.DGEGemini.generate({ prompt:prompt });
+    }).then(function(r){
+      if(r && r.ok){ reply.style.color="var(--ink)"; reply.textContent=r.text; }
+      else {
+        var e=(r&&r.error)||{};
+        reply.style.color="var(--ink)";
+        reply.textContent=(e.title||"AI request failed")+". "+(e.message||"")+(e.action?(" "+e.action):"");
+      }
+    });
+  }
+
+  // ---- corpus search (real sūtrapāṭha, no fetch) -------------------------
+  function runSearch(q){
+    var box=$("#searchResults");
+    q=(q||"").trim();
+    if(!q){ box.textContent="Search sūtra text or a reference like 6.1.77."; return; }
+    var ql=q.toLowerCase();
+    var hits=db.sutras.filter(function(s){
+      return s.id.indexOf(ql)===0
+        || (s.sanskrit_text&&s.sanskrit_text.indexOf(q)!==-1)
+        || (s.padaccheda&&s.padaccheda.join(" ").indexOf(q)!==-1);
+    }).slice(0,40);
+    if(!hits.length){ box.textContent="No matches."; return; }
+    box.innerHTML = hits.map(function(s){
+      return '<button class="search-hit" data-hit="'+esc(s.id)+'">'
+        + '<span class="hid">'+esc(s.id)+'</span> '
+        + '<span class="hsa">'+esc(s.sanskrit_text)+'</span></button>';
+    }).join("");
+    document.querySelectorAll("#searchResults [data-hit]").forEach(function(b){
+      b.onclick=function(){ setId(b.dataset.hit,true); closeSheets(); };
+    });
+  }
+
+  // ---- static wiring (independent of db) --------------------------------
+  $("#menuBtn").onclick=function(){ openSheet("menuSheet"); };
+  $("#prevBtn").onclick=function(){ move(-1); };
+  $("#nextBtn").onclick=function(){ move(1); };
+  $("#orderBtn").onclick=toggleOrder; $("#railOrder").onclick=toggleOrder;
+  $("#jumpBtn").onclick=function(){ jump($("#jumpInput").value); };
+  $("#jumpInput").addEventListener("keydown",function(e){ if(e.key==="Enter") jump(e.target.value); });
+  $("#focusBtn").onclick=function(){ state.focus=!state.focus; $("#topbar").classList.toggle("hidden",state.focus); $("#bottomBar").classList.toggle("hidden",state.focus); };
+  $("#focusFromMenu").onclick=function(){ $("#menuSheet").close(); $("#focusBtn").click(); };
+  $("#compareBtn").onclick=function(){ $("#menuSheet").close(); state.compare=true; render(); };
+  $("#readBtn").onclick=function(){ $("#menuSheet").close(); state.compare=false; render(); };
+  $("#layersBtn").onclick=function(){ closeSheets(); openSheet("layersSheet"); };
+  $("#railLayers").onclick=function(){ openSheet("layersSheet"); };
+  $("#indexBtn").onclick=function(){ closeSheets(); openSheet("indexSheet"); };
+  $("#railIndex").onclick=function(){ openSheet("indexSheet"); };
+  $("#settingsBtn").onclick=function(){ closeSheets(); openSheet("settingsSheet"); };
+  $("#aiBtn").onclick=function(){ closeSheets(); refreshAiHint(); openSheet("aiSheet"); };
+  $("#searchBtn").onclick=function(){ closeSheets(); openSheet("searchSheet"); };
+  document.querySelectorAll("[data-close]").forEach(function(b){ b.onclick=function(){ document.getElementById(b.dataset.close).close(); }; });
+  $("#scriptSelect").onchange=function(e){ state.script=e.target.value; render(); };
+  $("#fontRange").oninput=function(e){ state.font=+e.target.value; render(); };
+  $("#themeSelect").onchange=function(e){ state.theme=e.target.value; render(); };
+  document.querySelectorAll(".preset").forEach(function(p){ p.onclick=function(){ $("#aiPrompt").value=p.textContent+" — "+ (db?db.byId[state.id].sanskrit_text:""); }; });
+  $("#askBtn").onclick=askAI;
+  $("#searchInput").oninput=function(e){ runSearch(e.target.value); };
+  $("#moreExplains") && ($("#moreExplains").onclick=function(){
+    var have=A.ORDER.filter(function(f){ return active.has(f); });
+    toast(have.length? (have.length+" layer(s) open on "+state.id) : "Open layers to see coverage");
+  });
+  $("#moreCopyRef") && ($("#moreCopyRef").onclick=function(){
+    var kd=A.kaumudiOf(state.id);
+    var ref="AK "+state.id+(kd?(" · SK #"+kd.kaumudiIndex):"");
+    try{ navigator.clipboard.writeText(ref); toast("Copied "+ref); }catch(e){ toast(ref); }
+  });
+  $("#moreLink") && ($("#moreLink").onclick=function(){
+    var url=location.origin+location.pathname+"#"+state.id;
+    try{ navigator.clipboard.writeText(url); toast("Link copied"); }catch(e){ toast(url); }
+  });
+
+  // scroll auto-hide chrome
+  var lastY=window.scrollY;
+  addEventListener("scroll",function(){
+    if(state.focus) return;
+    var y=window.scrollY;
+    if(y>lastY+6){ $("#topbar").classList.add("hidden"); $("#bottomBar").classList.add("hidden"); }
+    else if(y<lastY-6){ $("#topbar").classList.remove("hidden"); $("#bottomBar").classList.remove("hidden"); }
+    lastY=y;
+  },{passive:true});
+  // swipe + keyboard nav
+  var sx=0;
+  addEventListener("touchstart",function(e){ sx=e.touches[0].clientX; },{passive:true});
+  addEventListener("touchend",function(e){ var dx=e.changedTouches[0].clientX-sx; if(Math.abs(dx)>70) move(dx<0?1:-1); },{passive:true});
+  addEventListener("keydown",function(e){
+    if(e.target.matches("input,textarea,select")) return;
+    if(e.key==="ArrowLeft") move(-1);
+    if(e.key==="ArrowRight") move(1);
+    if(e.key==="/"){ e.preventDefault(); $("#jumpInput").focus(); }
+    if(e.key.toLowerCase()==="g") toggleOrder();
+  });
+  addEventListener("hashchange",function(){
+    var h=location.hash.slice(1);
+    if(h && db && db.byId[h] && h!==state.id) setId(h,true);
+  });
+
+  // ---- boot: load real corpus, then first render ------------------------
+  $("#reader").innerHTML='<p class="empty" style="color:var(--muted);padding:40px 0;text-align:center">Loading the Aṣṭādhyāyī…</p>';
+  A.load().then(function(loaded){
+    db=loaded;
+    buildLayers();
+    buildIndex();
+    // initial sūtra: #hash, ?id=, ?q=, else first in AK order
+    var params=new URLSearchParams(location.search);
+    var start = location.hash.slice(1) || params.get("id");
+    var qparam = params.get("q");
+    if(start && db.byId[start]) state.id=start;
+    else state.id=db.akOrder[0];
+    render();
+    if(qparam) jump(qparam);
+  }).catch(function(err){
+    $("#reader").innerHTML='<p class="empty" style="color:var(--muted);padding:40px 0;text-align:center">Could not load the corpus. Please retry.</p>';
+    console.error("DGE_ASHTA.load failed",err);
+  });
+})();
+</script>
+<script src="../../js/intellisense.js?v=4.71.1"></script>
+<script src="../../js/entity-linker.js?v=1.0.0"></script>
+</body>
+</html>

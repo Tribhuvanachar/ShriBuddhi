@@ -1,0 +1,93 @@
+{
+ "_readme": [
+  "Which Ashtadhyayi commentary/translation layers, and which per-sutra",
+  "enrichment fields, are even OFFERED to readers at all -- a site-wide,",
+  "admin-level gate, distinct from a reader's own personal toggle of which",
+  "of the offered layers THEY want to see (that one is per-browser, in",
+  "js/ashtadhyayi.js's state.enabled/localStorage).",
+  "",
+  "Read live by js/ashtadhyayi.js on every load (fetch, no-cache) --",
+  "publishing a change here takes effect for every visitor immediately, no",
+  "code deploy needed. A layer/field with visible:false here never appears",
+  "in the reader's own toggle list at all, and its data.json is never",
+  "fetched -- this is a content-moderation gate, not just a UI hide.",
+  "",
+  "Edited from admin/ashtadhyayi.html (the eye-icon toggle next to each",
+  "layer), which writes back to this exact file via a direct GitHub",
+  "Contents API commit -- same mechanism js/content-inline.js uses for",
+  "prose fields, applied here to a boolean instead of a string.",
+  "",
+  "'fields' covers per-sutra enrichment keys that are not a separate",
+  "layer/data.json (currently just the removed 'english' gloss -- see the",
+  "note on it below and PENDING.md's 23 Aug entry). The underlying",
+  "data for a visible:false layer/field is NOT necessarily still published",
+  "-- for 'english' specifically the field was stripped from",
+  "data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json entirely,",
+  "since a public GitHub Pages repo serves that JSON as a static file",
+  "regardless of what this config or the UI does. Flipping visible back to",
+  "true for 'english' does nothing until the data is re-imported."
+ ],
+ "layers": {
+  "kashika": {
+   "visible": true
+  },
+  "siddhanta_kaumudi": {
+   "visible": true
+  },
+  "mahabhashya": {
+   "visible": true
+  },
+  "balamanorama": {
+   "visible": true
+  },
+  "tattvabodhini": {
+   "visible": true
+  },
+  "nyasa": {
+   "visible": true
+  },
+  "vasu": {
+   "visible": true
+  },
+  "vasu_kaumudi": {
+   "visible": true
+  },
+  "padamanjari": {
+   "visible": true
+  },
+  "laghu_kaumudi": {
+   "visible": true
+  },
+  "praudha_manorama": {
+   "visible": true
+  },
+  "laghu_shabdendushekhara": {
+   "visible": true
+  },
+  "prakriya_sarvasvam": {
+   "visible": true
+  },
+  "sudha": {
+   "visible": true
+  },
+  "sarala": {
+   "visible": true
+  },
+  "sutrartha": {
+   "visible": true
+  },
+  "vasu_summary": {
+   "visible": true
+  },
+  "sutrartha_english": {
+   "visible": true
+  }
+ },
+ "fields": {
+  "english": {
+   "visible": true,
+   "note": "Re-enabled 15 Sep 2026 on the project lead's decision. Disabled 23 Aug 2026 because the text was shown with no attribution and rested on an informal curator e-mail rather than stated terms. The source repository's README now states them — \"You are free to use this data in your own projects provided that appropriate credits are mentioned wherever applicable\" — and the credit is now carried on the data file itself, in the Credits modal and in the footer. The 2026 objection was the absence of attribution and of stated terms; neither is absent now. Note the layer is sparse: 838 of 3,983 sūtras upstream. Complete English coverage comes from the Vasu layers, not this one."
+  }
+ },
+ "updated": "2026-09-15"
+}

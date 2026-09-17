@@ -1,0 +1,205 @@
+/* =========================================================================
+   Styles for dasa-sahitya/index.html.
+
+   Pages hold structure; their styles live here and their words in
+   content/.
+
+   DGE UI Contract retrofit (29 Aug 2026): this file used to define its own
+   bespoke --bg/--ink/--accent/etc palette (a warm cream/maroon look picked
+   independently of the rest of DGE) alongside tokens.css's real vocabulary
+   — imported, but only ever consumed by the reader-redesign integration
+   section below (the modal/contextual-menu/composer-sheet rules, which
+   already used --card-bg/--text-primary/--accent-red directly). Everything
+   ELSE on the page — header, cards, chips, stats — rendered off the
+   bespoke set, so the page looked like a visually distinct island next to
+   the retrofitted Ashtadhyayi page: similar in hue by coincidence, not
+   because it shared a token system.
+
+   Fixed the same way DGE_UI_CONTRACT.md's Ashtadhyayi retrofit fixed the
+   Vyakarana cluster's own --bg/--panel/etc set (see
+   css/tokens-vyakarana-bridge.css): this page's local vocabulary is
+   kept (every rule below still reads --bg/--panel/--ink/etc, so the diff
+   for the rest of this file is small) but now ALIASES onto tokens.css's
+   real canonical variables instead of holding its own hardcoded hex
+   values. A theme change (or the reader-redesign section's own literal
+   --card-bg/--accent-red rules) and this page's own chrome now move
+   together, because they resolve to the same underlying values. The old
+   prefers-color-scheme override is gone with it — tokens.css's bare :root
+   (Vandana) is already the dark-first sitewide default, same as every
+   other un-themed page (Ashtadhyayi included: neither page loads
+   theme-guard.js, so both simply get Vandana, which IS the "same product"
+   identity this retrofit is about). --ok/--warn (the composer-list
+   loaded/error dot) aren't part of tokens.css's vocabulary and stay as
+   page-local extras, same as ashtadhyayi.css keeps its own --k/--b/--t/etc
+   layer-tag colors beside the bridge. */
+
+@import url("tokens.css");
+
+:root{
+    /* Same aliasing as tokens-vyakarana-bridge.css (--panel -> --panel-bg,
+       not --card-bg): --panel-bg is the more opaque of the two everywhere
+       tokens.css defines it, right for a page-level surface (header, side
+       rail, card body) that itself hosts smaller --card-bg-toned pieces
+       (the modal/contextual-menu markup below) without both stacking
+       translucency on translucency. */
+    --bg: var(--bg-main); --panel: var(--panel-bg); --ink: var(--text-primary);
+    --muted: var(--muted-text); --line: var(--card-border);
+    --accent: var(--accent-red); --accent2: var(--accent-gold);
+    --chip: var(--card-active); --chipOn: var(--accent-red);
+    --ok:#2f7d4f; --warn:#b3421a;
+    --shadow: var(--shadow-sm);
+    --radius: var(--radius-md);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Noto Sans Kannada','Noto Serif',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.5;-webkit-text-size-adjust:100%}
+  /* The sticky header now holds only the search/filter controls — the
+     title, stats and form chips scroll away normally in .intro above it,
+     so a reader is not permanently paying ~150px of screen for chrome. */
+  header{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,var(--panel),color-mix(in srgb,var(--panel) 92%,transparent));
+    backdrop-filter:blur(6px);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 14px}
+  /* Same class name (.brand) as every other page's DGE-home breadcrumb,
+     even though it lives outside the sticky header here on purpose -- see
+     that comment above header{}. */
+  .brand{padding:10px 0 0;font-size:.85rem;color:var(--muted)}
+  .brand a{color:var(--accent);text-decoration:none;font-weight:700}
+  .brand span{opacity:.6;margin:0 6px}
+  .brand span+span{opacity:1;margin:0;color:var(--ink)}
+  .intro{padding-bottom:2px}
+  .titrow{display:flex;align-items:baseline;gap:10px;padding:8px 0 6px;flex-wrap:wrap}
+  /* Type-scale pass: was a flat 1.35rem, weaker than the page's own card
+     titles below it once those also grew -- a page title should read
+     clearly heavier than any one card's title (contract's type-hierarchy
+     ask). clamp() so it doesn't overrun a narrow phone the way a bare
+     larger rem would. */
+  h1{font-size:clamp(1.3rem,4vw,1.7rem);font-weight:700;margin:0;letter-spacing:.2px}
+  h1 small{font-weight:400;color:var(--muted);font-size:.8rem}
+  .sub{color:var(--muted);font-size:.78rem;margin:0 0 8px}
+  .stats{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:8px}
+  .stat{background:var(--chip);border:1px solid var(--line);border-radius:var(--radius-xs);padding:5px 10px;font-size:.78rem}
+  .stat b{font-size:.95rem;color:var(--accent)}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;padding:8px 0;align-items:center}
+  input[type=search],select{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:9px;
+    background:var(--panel);color:var(--ink)}
+  input[type=search]{flex:1;min-width:180px}
+  .forms{display:flex;gap:6px;flex-wrap:wrap;padding-bottom:10px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line);background:var(--chip);color:var(--ink);
+    border-radius:999px;padding:5px 11px;font-size:.8rem;display:inline-flex;gap:6px;align-items:center}
+  .chip .n{background:rgba(0,0,0,.08);border-radius:999px;padding:0 7px;font-size:.72rem}
+  @media(prefers-color-scheme:dark){.chip .n{background:rgba(255,255,255,.1)}}
+  .chip[aria-pressed=true]{background:var(--chipOn);color:#fff;border-color:var(--chipOn)}
+  .chip[aria-pressed=true] .n{background:rgba(255,255,255,.25)}
+  main{max-width:1080px;margin:14px auto 60px;padding:0 14px;display:grid;grid-template-columns:250px 1fr;gap:18px}
+  @media(max-width:760px){main{grid-template-columns:1fr}.side{order:2}}
+  .side{position:sticky;top:64px;align-self:start;max-height:calc(100vh - 84px);overflow:auto;
+    border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:8px;box-shadow:var(--shadow)}
+  @media(max-width:760px){.side{position:static;max-height:none}}
+  .side h3{margin:6px 6px 8px;font-size:.82rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+  .authbtn{display:flex;justify-content:space-between;gap:8px;width:100%;text-align:left;cursor:pointer;
+    border:0;background:none;color:var(--ink);font:inherit;padding:7px 8px;border-radius:8px}
+  .authbtn:hover{background:var(--chip)}
+  .authbtn[aria-current=true]{background:var(--chip);font-weight:600}
+  .authbtn .n{color:var(--muted);font-size:.78rem;font-variant-numeric:tabular-nums}
+  .authbtn .dot{width:8px;height:8px;border-radius:50%;flex:0 0 auto;margin-top:6px;background:var(--line)}
+  .authbtn .dot.loaded{background:var(--ok)} .authbtn .dot.err{background:var(--warn)}
+  .grouphead{display:flex;align-items:center;gap:10px;margin:18px 0 8px}
+  .grouphead h2{font-size:1.05rem;margin:0}
+  .grouphead .n{color:var(--muted);font-size:.8rem}
+  /* Card hierarchy pass: was border-radius:12px/shadow:var(--shadow) --
+     identical presence to .stat/.side, so a card (a genuine unit of
+     content, per the contract's component-shape rule) didn't read as
+     more substantial than the chrome around it. Now var(--radius) (16px,
+     matching Ashtadhyayi's .dge-card) + --shadow-md, and the title bumped
+     from a flat 1rem/600 to something that actually outweighs the meta
+     text beside it. */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:10px 0;box-shadow:var(--shadow-md);overflow:hidden;transition:border-color .15s}
+  .card:hover{border-color:color-mix(in srgb,var(--accent) 35%,var(--line))}
+  .card>summary{cursor:pointer;list-style:none;padding:13px 16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .card>summary::-webkit-details-marker{display:none}
+  .card .t{font-weight:700;font-size:1.08rem;letter-spacing:.1px}
+  .card .tl{color:var(--muted);font-size:.82rem}
+  .badge{font-size:.68rem;text-transform:uppercase;letter-spacing:.4px;padding:2px 8px;border-radius:var(--radius-pill);
+    background:var(--chip);border:1px solid var(--line);color:var(--muted)}
+  .badge.form{color:#fff;background:var(--accent2);border-color:transparent}
+  .meta{color:var(--muted);font-size:.78rem;margin-left:auto}
+  .body{padding:0 14px 14px;border-top:1px dashed var(--line)}
+  .stanza{margin:12px 0;white-space:pre-wrap}
+  .stanza .rom{color:var(--muted);font-size:.85rem}
+  .meaning{margin-top:10px;padding:10px;background:var(--chip);border-radius:var(--radius-sm);font-size:.9rem}
+  .src{font-size:.76rem;margin-top:10px}
+  .src a{color:var(--accent)}
+  .empty{padding:40px 16px;text-align:center;color:var(--muted)}
+  .empty code{background:var(--chip);padding:2px 6px;border-radius:6px}
+  .adminbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:.78rem;color:var(--muted);
+    border:1px dashed var(--line);border-radius:var(--radius-sm);padding:8px 10px;margin:10px 0}
+  .bar{height:6px;border-radius:999px;background:var(--line);overflow:hidden;flex:1;min-width:120px}
+  .bar>i{display:block;height:100%;background:var(--ok);width:0}
+  button.mini{font:inherit;font-size:.78rem;cursor:pointer;border:1px solid var(--line);background:var(--panel);
+    color:var(--ink);border-radius:8px;padding:5px 10px}
+  button.mini:hover{border-color:var(--accent)}
+  .toast{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);
+    padding:8px 14px;border-radius:10px;font-size:.82rem;opacity:0;transition:.25s;pointer-events:none;z-index:40}
+  .toast.show{opacity:.95}
+
+  /* ---- Reader-redesign integration: word-tap-to-Kosha, composer profile
+     sheet, and the composition contextual menu (js/contextual-actions.js
+     + js/kosha.js + guru-parampara/data/people.json). ---- */
+
+  .card>summary{position:relative}
+  .state-badge{font-size:.82rem;line-height:1}
+  .composer-link{font:inherit;font-size:.78rem;color:var(--accent-red,var(--accent));
+    background:none;border:0;padding:0;cursor:pointer;text-decoration:underline;
+    text-underline-offset:2px;text-decoration-style:dotted}
+  .composer-link:hover,.composer-link:focus-visible{text-decoration-style:solid}
+  .card-actions-btn{margin-left:6px;flex:0 0 auto;font:inherit;font-size:.9rem;line-height:1;
+    background:none;border:1px solid var(--line);border-radius:8px;color:var(--muted);
+    cursor:pointer;padding:4px 8px;min-height:28px}
+  .card-actions-btn:hover,.card-actions-btn:focus-visible{border-color:var(--accent);color:var(--accent)}
+  .dasa-word{cursor:pointer;border-radius:3px;transition:background .12s}
+  .dasa-word:hover,.dasa-word:focus-visible{background:var(--chip);outline:none}
+
+  /* Shared bottom-sheet/dialog shell (same class names + behavior as
+     js/modals.js's openModal()/closeModal() and css/main.css's
+     .modal-overlay/.modal-content/.ctx-menu-*) — copied narrowly rather
+     than importing all of main.css, so this page's own distinct layout
+     (header/cards/chips above) isn't affected by main.css's global
+     element selectors. Keeps the actual JS behavior shared; only these
+     few rules are duplicated, and only using tokens.css variables so a
+     theme change there stays in sync automatically. */
+  body.modal-open{overflow:hidden !important}
+  .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.55);
+    display:none;justify-content:center;align-items:center;z-index:11000;
+    backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+  .modal-content{background:var(--card-bg);color:var(--text-primary);border-radius:var(--radius-lg);
+    width:90%;max-width:440px;border:1px solid var(--card-border);max-height:85vh;
+    box-shadow:var(--shadow-lg);display:flex;flex-direction:column;overflow:hidden;
+    font-family:var(--font-ui)}
+  .modal-header-sticky{padding:16px;background:var(--card-bg);z-index:10;
+    border-bottom:1px solid var(--card-border);display:flex;justify-content:space-between;
+    align-items:center;flex-shrink:0;gap:10px}
+  .modal-body{padding:16px;overflow-y:auto;flex-grow:1}
+  .btn-sm{background:var(--bg-main);border:1px solid var(--card-border);border-radius:var(--radius-pill);
+    padding:6px 10px;font-size:11px;font-weight:700;color:var(--text-primary);cursor:pointer;
+    white-space:nowrap;font-family:var(--font-ui)}
+  .btn-sm:active{transform:scale(.95)}
+  .ctx-menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+  .ctx-action-btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px;
+    background:var(--bg-main);border:1px solid var(--card-border);border-radius:var(--radius-sm);
+    cursor:pointer;color:var(--text-primary);font-family:var(--font-ui);min-height:44px}
+  .ctx-action-btn:hover,.ctx-action-btn:focus-visible{background:var(--card-active);border-color:var(--accent-red)}
+  .ctx-action-icon{font-size:20px;line-height:1}
+  .ctx-action-label{font-size:11.5px;font-weight:600;text-align:center;line-height:1.3}
+
+  /* Composer profile sheet content (fields sourced live from
+     guru-parampara/data/people.json — see dgeOpenComposerSheet()). */
+  .composer-badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+  .composer-badges .badge{background:var(--bg-main);color:var(--text-primary);border-color:var(--card-border)}
+  .composer-note{font-size:.8rem;color:var(--muted-text,var(--muted));line-height:1.5}
+
+  /* site-footer.js's shared links row. */
+  .site-footer-links{margin:22px 16px;padding:16px 0 40px;border-top:1px solid var(--line);text-align:center}
+  .footer-link{background:none;border:none;font:inherit;font-size:.78rem;color:var(--muted);
+    cursor:pointer;padding:4px 2px;text-decoration:underline;text-underline-offset:2px}
+  .footer-link:hover{color:var(--accent)}
+  .footer-sep{color:var(--line);font-size:.78rem;margin:0 2px}

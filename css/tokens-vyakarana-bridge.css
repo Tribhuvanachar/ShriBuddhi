@@ -1,0 +1,39 @@
+/* =========================================================================
+   Temporary bridge: aliases the Vyakarana tool-page cluster's token names
+   (--bg/--panel/--panel2/--ink/--muted/--line/--accent/--gold/--shadow/
+   --radius, assumed but not defined by vyakarana-base.css) onto the
+   canonical vocabulary in tokens.css.
+
+   INERT TODAY: each of the 7 cluster pages still defines --bg/--panel/etc
+   itself, in its own vyakarana.css/ashtadhyayi.css :root/body.dark block,
+   which cascades after this file and wins at equal specificity -- so this
+   bridge changes nothing yet. Its purpose is Phase 6 of the frontend
+   redesign: as each page's own duplicate token block is deleted, this
+   bridge is what keeps that page rendering correctly using tokens.css's
+   canonical values instead.
+
+   DELETION CRITERION: remove this file's @import from vyakarana-base.css
+   (and then this file itself) once every one of the 7 cluster pages has
+   had its own local token block removed -- grep vyakarana.css/
+   ashtadhyayi.css for a bare `--bg:`/`--panel:` definition; zero hits means
+   this bridge has no remaining importers to serve.
+   ========================================================================= */
+
+@import url("tokens.css");
+
+@layer tokens-bridge {
+
+:root {
+  --bg: var(--bg-main);
+  --panel: var(--panel-bg);
+  --panel2: var(--card-active);
+  --ink: var(--text-primary);
+  --muted: var(--muted-text);
+  --line: var(--card-border);
+  --accent: var(--accent-red);
+  --gold: var(--accent-gold);
+  --shadow: var(--shadow-sm);
+  --radius: var(--radius-md);
+}
+
+}

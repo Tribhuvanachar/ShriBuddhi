@@ -1,0 +1,403 @@
+{
+ "_readme": [
+  "Every word on the landing page — the vandana gate at the repository root.",
+  "",
+  "THIS FILE IS THE TEXT. index.html holds no prose of its own: change a word here",
+  "and the page says it. There is no second copy to keep in step.",
+  "",
+  "  brand.latin        the masthead",
+  "  brand.tagline      the line under it, clamped to two lines with a Read more",
+  "  guru               his name in Devanagari and Latin, his title, the Know More label",
+  "  vandana            the verse (HTML allowed, <br> for the line break) and its",
+  "                     transliteration",
+  "  labels             every button and hint on the first screen",
+  "  sections           the contributor bands, in the order they appear. Each has",
+  "                     id, tier, icon, eyebrow, name, sub, meta[], blurb, items[],",
+  "                     panel (which Know More sheet it opens), moreLabel, todo.",
+  "                     tier groups bands under one heading instead of each",
+  "                     rendering as an equal-weight section: \"foundation\",",
+  "                     \"stewardship\" or \"seva\" (see index.html's TIER_META).",
+  "                     The \"seva\" tier renders two-up alongside Key Sponsors",
+  "                     (from reader.json's KEY_SPONSORS_CONFIG, not this file).",
+  "                     A closing Participation band (Support This Project) is",
+  "                     built from reader.json's SPONSOR_CONFIG the same way --",
+  "                     neither needs an entry here.",
+  "                     ONE EXCEPTION: the section with panel:\"contributors\" has",
+  "                     no items[] here on purpose -- its list is read live from",
+  "                     content/reader.json's CONTRIBUTORS_CONFIG instead,",
+  "                     so there is one editable contributor list, not two that",
+  "                     can drift apart. Edit that list from the reader app's own",
+  "                     About panel, not here.",
+  "  panels             the Know More sheets, keyed by the name a section's",
+  "                     `panel` gives (except \"contributors\", see above). Each",
+  "                     has eyebrow, title, reverence, body,",
+  "                     groups[] (heading, icon, entries[] of name + note), closing",
+  "  footer.lines       the closing lines, each { sa, latin }",
+  "",
+  "  todo               on a section: a dashed placeholder shown in its place.",
+  "                     Delete the key once the real text is written.",
+  "",
+  "ICONS are drawn, not emoji — name one of: quill, book, people, seated, temple,",
+  "lotus, anjali, home, lamp, seed. An unknown name simply draws nothing.",
+  "",
+  "How the page behaves — where it leads, whether respects are required, where the",
+  "flowers land — is config/home.json, not this file."
+ ],
+ "brand": {
+  "latin": "Sarvamūla Digital Library",
+  "tagline": "Preserving Vidyā · Connecting Śāstra · Serving Paramparā."
+ },
+ "guru": {
+  "nameSanskrit": "श्री श्रीविश्वनन्दनतीर्थश्रीपादाः\n",
+  "nameLatin": "Śrī  ŚrīViśvanandana Tīrtha",
+  "title": "Paramapūjya Ācārya",
+  "moreLabel": "Know More"
+ },
+ "vandana": {
+  "sanskrit": "भागण्णार्य कृपापात्रं नित्यं भागवते रतम् ।<br>विश्वेशकरजं वंदे विश्वनंदनभिक्षुकम् ॥",
+  "transliteration": "bhāgaṇṇārya-kṛpāpātraṃ nityaṃ bhāgavate ratam · viśveśakarajaṃ vande viśvanandana-bhikṣukam"
+ },
+ "labels": {
+  "hint": "Tap the portrait, or a button below, to pay your respects",
+  "offerButton": "पुष्पाञ्जलि · Flowers",
+  "pranamButton": "नमस्काराः · Salutations",
+  "enterLocked": "Pay Respects to Enter the Library",
+  "enterReady": "Enter the Library",
+  "sectionsCue": "Meet The Founder",
+  "readMore": "Read more",
+  "readLess": "Read less"
+ },
+ "sections": [
+  {
+   "id": "architect",
+   "tier": "foundation",
+   "eyebrow": "Initiated, Architected & Developed by",
+   "icon": "quill",
+   "name": "Tribhuvan Achar",
+   "sub": "(3BHU1)",
+   "meta": [
+    "Sevak @ Śrīpādarājaru – Narasimha Tīrtha",
+    "Ex-Technical Architect, Accenture"
+   ],
+   "blurb": "The Sarvamūla Digital Library is a humble attempt to build a Kāmadhenu for scholars, researchers, students, and seekers of Śāstric knowledge — bringing scattered texts and sources together into an interconnected digital knowledge tradition.\nSacred knowledge has journeyed from oral tradition → manuscripts → print → digital text → interconnected digital knowledge.\nDGE is an attempt to serve that next transition responsibly, preserving the richness of the tradition while using modern technology to make it more accessible, discoverable, and interconnected.",
+   "moreLabel": "Know More",
+   "panel": "tribhuvan"
+  },
+  {
+   "id": "scholar",
+   "tier": "stewardship",
+   "eyebrow": "Content Contribution & Scholarly Lead",
+   "icon": "book",
+   "name": "Vid. Pradeepa Siṃhācārya",
+   "blurb": "Śāstra Vidvān and editor, twenty-five years in Śāstric research. Scholarly review, proofreading and corpus expansion — the authenticity of every text that enters the library, and the guidance of its growth.",
+   "moreLabel": "Know More",
+   "panel": "pradeep"
+  },
+  {
+   "id": "contributors",
+   "tier": "seva",
+   "eyebrow": "Contributors & Seva Support",
+   "icon": "people",
+   "name": "Aniruddha · Sameer",
+   "sub": "and other sevaks",
+   "blurb": "This library is kept alive by hands that rarely appear on any page. With gratitude to every sevak who has given time to it.",
+   "moreLabel": "Know More",
+   "panel": "contributors",
+   "todo": ""
+  }
+ ],
+ "panels": {
+  "swamiji": {
+   "eyebrow": "Paramapūjya Ācārya",
+   "title": "Śrī Viśvanandana Tīrtha",
+   "body": "Recipient of the grace of Śrī Bhāgaṇṇārya, ever devoted to the Bhāgavata, ordained by the hand of Śrī Viśveśa — I bow to the mendicant Śrī Viśvanandana. So the vandana above reads.",
+   "todo": "To fill in: his āśrama lineage, his maṭha, and a short account of his life and teaching."
+  },
+  "tribhuvan": {
+   "eyebrow": "I owe everything to..",
+   "title": "My Gurus, Blessers & Inspirers",
+   "reverence": "With gratitude and reverence to my Gurus and well-wishers who guided, inspired and strengthened my spiritual journey. I bow to them at whose feet this seva is offered.",
+   "groups": [
+    {
+     "icon": "home",
+     "heading": "Parents",
+     "entries": [
+      {
+       "name": "Smt. Nalini & Sri Raghavendra Rao",
+       "note": "To whom everything owes its beginning."
+      }
+     ]
+    },
+    {
+     "icon": "lotus",
+     "heading": "Brahmopadeṣṭā",
+     "entries": [
+      {
+       "name": "Shri 1008 Vidyādhīśa Tīrtharu",
+       "note": "Gāyatrī Mantra upadeśa"
+      }
+     ]
+    },
+    {
+     "icon": "seated",
+     "heading": "Vidyā Guru, Ācārya & Mantropadeṣṭā",
+     "entries": [
+      {
+       "name": "Shri Hanasoge Prathoshachar",
+       "note": "The central guiding light of my spiritual journey, under whom my ultimate studies take place. He initiated me into the Sarvamūla Granthas — the very core of my life's pursuit and the primary focus of this library. Under his direct, continuous guidance I am studying the entire Sarvamūla and the Ṛg Veda. Through his Mantropadeśa and profound teachings he steers my path, holding the highest and most central importance in my life and my highest calling."
+      }
+     ]
+    },
+    {
+     "icon": "book",
+     "heading": "Currently Studying Under",
+     "entries": [
+      {
+       "name": "Shri Badari Achar C.H.",
+       "note": "Śrīmad Bhāgavata, with the Vijayadhvajīya."
+      },
+      {
+       "name": "Shri Raghavendra Achar",
+       "note": "Dāsa Sāhitya, the Prameya granthas, and Purāṇas."
+      }
+     ]
+    },
+    {
+     "icon": "book",
+     "heading": "Under whose teaching I have studied",
+     "entries": [
+      {
+       "name": "Shri Nagarajachar",
+       "note": "The Veda Sūktas."
+      },
+      {
+       "name": "Shri Manojachar",
+       "note": "Māyāvāda Khaṇḍana and Viṣṇu Tattva Vinirṇaya."
+      },
+      {
+       "name": "Shri Padmanabhacharya Chittuguppa",
+       "note": "Tattva Saṅkhyāna, Tattva Viveka and Upādhi Khaṇḍana."
+      },
+      {
+       "name": "Shri Tulasi Kumar Joshi & Mayank Pandey",
+       "note": "Vyākaraṇa, through the Pañca Sandhyanta."
+      },
+      {
+       "name": "Shri Raghunandanachar",
+       "note": "Nyāyabodhinī and Vidyādharī."
+      },
+      {
+       "name": "Shrinidhi, Tilak Rao & Sachidananda Mishra",
+       "note": "Initiation into Nyāya and Vyākaraṇa."
+      },
+      {
+       "name": "Shri Gururaj Desai Avaru",
+       "note": "Initiation into the Harikathāmṛtasāra."
+      },
+      {
+       "name": "Veerasimha & Venkatanatha",
+       "note": "Śāstropakāra — steady help in the study of śāstra."
+      }
+     ]
+    },
+    {
+     "icon": "anjali",
+     "heading": "Mahat Sevā Bhāgya & Parama Guru",
+     "entries": [
+      {
+       "name": "Shri Vishwanandana Tīrtharu",
+       "note": "The ultimate fortune of serving a great soul. Through his dharma-dīkṣā my journey found its true elevation and divine refuge."
+      }
+     ]
+    },
+    {
+     "icon": "temple",
+     "heading": "Śikṣā Guru & Gṛhastha-Dharma-Upadeṣṭā — roots and foundation",
+     "entries": [
+      {
+       "name": "Shri Jalihal Sukeshachar",
+       "note": "He provided the essential structure to my early spiritual life, teaching the foundational texts — Śabda, Maṇimañjarī, Purāṇa. As my sahadharmacāriṇī-yojaka he took immense pains to orchestrate my marriage, ensuring I found a spouse who supported my strict orthodox practices, and firmly guided my entry into the Gṛhasthāśrama."
+      }
+     ]
+    },
+    {
+     "icon": "seed",
+     "heading": "Adhyātma-Jñānonmīlaka — the Awakener & Inspirer",
+     "entries": [
+      {
+       "name": "Shri Balagaru Shrinivasachar",
+       "note": "He awakened my spiritual journey, blessed my family through the Harivaṃśa Purāṇa, and gave me the conviction to leave the corporate world for my true svadharma. His posthumous grace through a profound svapna-darśana remains the quiet anchor of my daily sevā."
+      }
+     ]
+    },
+    {
+     "icon": "lamp",
+     "heading": "Special Blessings",
+     "names": [
+      "Shri Gangur Raghavendrachar",
+      "Shri Jalihal Keshavachar",
+      "Shri Vattangad Hayagrivachar",
+      "Shri Dwarakanathachar",
+      "Shri Balagaru Ruchirachar"
+     ]
+    }
+   ],
+   "closing": "Śrī Śrīpādarāja, Śrī Bhūtarāja & Śrī Vādirāja — my life and breath."
+  },
+  "pradeep": {
+   "eyebrow": "Content Contribution & Scholarly Lead",
+   "title": "Vid. Pradeepa Siṃhācārya Caturveda",
+   "reverence": "Scholarly review, proofreading and corpus expansion for this library — the authenticity of every text that enters it, and the guidance of its growth.",
+   "body": "Śāstra Vidvān, editor and researcher, with twenty-five years in Śāstric research and in reading palm-leaf manuscripts. He carries the title Caturveda, having studied all four Vedas; he has edited some forty books in Kannada and published over fifty titles in Sanskrit, among them the Ṛgbhāṣya with Kambālu Rāmacandra Tīrtha's Ṭippaṇī and the Sumadhva Vijaya sargas — the very text this library opens with.",
+   "groups": [
+    {
+     "icon": "seated",
+     "heading": "Veda Adhyayana",
+     "entries": [
+      {
+       "name": "Ṛgveda",
+       "note": "Under Vidvān Viṭṭhaladāsa Bhaṭṭa, Pūrṇaprajña Vidyāpīṭha, Bengaluru (1996)."
+      },
+      {
+       "name": "Yajurveda & Atharvaveda",
+       "note": "Under Śrī Viśvaprasanna Tīrtha Swāmījī, Adokṣaja Maṭha, Udupi (1997)."
+      },
+      {
+       "name": "Sāmaveda",
+       "note": "Under Śrī Viśvaprasanna Tīrtha Swāmījī, at Pejāvara Adokṣaja Maṭha, Udupi (2001)."
+      }
+     ]
+    },
+    {
+     "icon": "lotus",
+     "heading": "Śāstra Adhyayana",
+     "entries": [
+      {
+       "name": "Śāstra Vidvān",
+       "note": "Equivalent to an MA in Sanskrit — Pūrṇaprajña Vidyāpīṭha, Bengaluru (1990)."
+      },
+      {
+       "name": "Śrīman Nyāyasudhā",
+       "note": "Under Dr. Viśveśa Tīrtha Swāmījī, Pejāvara Adokṣaja Maṭha, Udupi (1999–2000)."
+      },
+      {
+       "name": "Tātparyacandrikā",
+       "note": "Under Dr. Viśveśa Tīrtha Swāmījī, Pejāvara Adokṣaja Maṭha, Udupi (2001)."
+      },
+      {
+       "name": "Śrīmad Bhāgavata",
+       "note": "Under Śrī Viśvanandana Tīrtha Swāmījī, Hanasoge Madhva Maṭha (2004–2010)."
+      }
+     ]
+    },
+    {
+     "icon": "book",
+     "heading": "Principal Editions",
+     "entries": [
+      {
+       "name": "Sumadhva Vijaya, sargas 1–7",
+       "note": "Seven volumes, 2024–2025 — the grantha with which this library opens."
+      },
+      {
+       "name": "Ṛgbhāṣya, parts 1 & 2",
+       "note": "With Kambālu Rāmacandra Tīrtha's Ṭippaṇī (2021, 2023), Śrī Vyāsatīrtha Saṃśodhana Pratiṣṭhāna."
+      },
+      {
+       "name": "Gītābhāṣya",
+       "note": "With Śrī Rāghavendra Tīrtha's Bhāvadīpa (2013), P.P.S.M."
+      },
+      {
+       "name": "Bhāgavata, volumes 1–4",
+       "note": "With the Bhāgavata Sudhāsaurabha (2018–2020)."
+      },
+      {
+       "name": "Mahābhārata — Sabhāparva & Vanaparva",
+       "note": "Eight volumes with Lakṣālaṅkāra and variant readings (2018–2022)."
+      },
+      {
+       "name": "Tantrasāra Saṅgraha",
+       "note": "With Vedavedya's disciple's ṭīkā (2000), Śyāmaprāsa Prakāśana."
+      }
+     ]
+    },
+    {
+     "icon": "book",
+     "heading": "Editorial Work",
+     "entries": [
+      {
+       "name": "Gurusārvabhauma",
+       "note": "Co-editor of the Sanskrit monthly, 2005–2017."
+      },
+      {
+       "name": "Tattvacandrikā",
+       "note": "Co-editor of the Kannada monthly, 2015–2017."
+      },
+      {
+       "name": "Śyāmaprāsa Granthamālā",
+       "note": "Series editor. Some forty books edited in Kannada to date."
+      },
+      {
+       "name": "Prauḍha Bhāgavata, parts 1 & 2",
+       "note": "Editor, published under the Hayagrīva Viṭṭhala Trust, Bengaluru."
+      }
+     ]
+    },
+    {
+     "icon": "lotus",
+     "heading": "Honours",
+     "entries": [
+      {
+       "name": "Mānya Vidyā Praśasti",
+       "note": "Putthige Maṭha, Udupi."
+      },
+      {
+       "name": "Rāja Vidyā Praśasti",
+       "note": "Bhaṇḍārakeri Maṭha, Udupi."
+      },
+      {
+       "name": "Viśvajña Yuva Vidvat Praśasti",
+       "note": "Hanasoge Madhva Maṭha."
+      },
+      {
+       "name": "Vyāsa Madhva Praśasti",
+       "note": "Gāyatrī Dharmopāyana Samiti."
+      }
+     ]
+    },
+    {
+     "icon": "book",
+     "heading": "Research",
+     "entries": [
+      {
+       "name": "Published papers",
+       "note": "On सृष्टिस्वरूपम्, भगवच्छास्त्रे दशविधहेतुनिरूपणम्, आत्मज्ञानविमर्शः and चतुर्दशमन्वन्तराणि, in Vishvavidya and the P.P.S.M. journals (2010–2025)."
+      },
+      {
+       "name": "Translations",
+       "note": "Śrīman Nyāyasudhā, fourth adhyāya (Pūrṇaprajña Pratiṣṭhāna); Tattvaprakāśikā (P.P.S.M.)."
+      },
+      {
+       "name": "Manuscripts",
+       "note": "Reads palm-leaf manuscripts in Sanskrit, Kannada and Nandināgarī — twenty-five years."
+      },
+      {
+       "name": "Languages",
+       "note": "Sanskrit, Kannada, Hindi, Telugu and Nandināgarī."
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "footer": {
+  "lines": [
+   {
+    "sa": "॥ हरिः सर्वोत्तमः · वायुः जीवोत्तमः ॥"
+   },
+   {
+    "sa": "प्रीतोऽस्तु कृष्णप्रभुः",
+    "latin": "Prītostu Kṛṣṇa Prabhuḥ"
+   }
+  ]
+ }
+}

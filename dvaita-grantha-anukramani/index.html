@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=2"></script>
+<script src="../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>द्वैतवेदान्तग्रन्थानुक्रमणी · DGE</title>
+<link rel="stylesheet" href="../css/vyakarana-base.css?v=1">
+<link rel="stylesheet" href="../css/dvaita-catalog.css?v=2">
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<body>
+<header>
+  <div class="bar">
+    <dge-breadcrumb label="ग्रन्थानुक्रमणी" deva home-href="index.html" class="brand"><a href="index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span class="deva">द्वैतवेदान्तग्रन्थानुक्रमणी</span></dge-breadcrumb>
+    <div class="spacer"></div>
+    <div class="dvc-seg" role="group" aria-label="Script">
+      <button class="dvc-scriptbtn on" data-script="deva">देव</button><button class="dvc-scriptbtn" data-script="iast">IAST</button>
+    </div>
+  </div>
+</header>
+
+<main class="dvc-wrap">
+  <div class="dvc-head">
+    <h1 class="deva">द्वैतवेदान्तग्रन्थानुक्रमणी</h1>
+    <p class="dvc-sub">Every known Dvaita Vedānta work catalogued so far — <span id="dvc-total">…</span> entries,
+      digitised or not — as a tree of mūla and the commentaries written on it. Browse, filter and export freely;
+      corrections stay in your browser until you sync them to the repository.</p>
+    <div class="dvc-syncbar">
+      <span id="dvc-editcount" class="dvc-muted">no corrections yet</span>
+      <span id="dvc-dirty" class="dvc-dirtydot" style="display:none">● unsynced</span>
+      <button class="dvc-btn" id="dvc-sync" disabled>⇡ Sync to GitHub</button>
+      <button class="dvc-btn" id="dvc-discard">Discard draft</button>
+      <span id="dvc-syncsay"></span>
+    </div>
+  </div>
+
+  <div class="dvc-tabs">
+    <button class="dvc-tab on" data-tab="catalogue">कोशः · Catalogue</button>
+    <button class="dvc-tab" data-tab="links">सम्बन्धाः · Links</button>
+    <button class="dvc-tab" data-tab="masters">मानसूची · Master lists</button>
+    <button class="dvc-tab" data-tab="duplicates">द्विरुक्तयः · Duplicates</button>
+    <button class="dvc-tab" data-tab="crosslinks">अनुबन्धाः · Cross-links</button>
+    <button class="dvc-tab" data-tab="reports">प्रतिवेदनानि · Reports</button>
+  </div>
+
+  <section id="dvc-panel-catalogue">
+    <div class="dvc-personbanner" id="dvc-personbanner" style="display:none"></div>
+    <div class="dvc-panel">
+      <div class="dvc-controls">
+        <div class="dvc-seg" role="group" aria-label="View">
+          <button class="dvc-viewbtn on" data-view="tree">🌳 वृक्षः · Tree</button>
+          <button class="dvc-viewbtn" data-view="table">▤ Table</button>
+          <button class="dvc-viewbtn" data-view="grid">▦ Excel grid</button>
+        </div>
+        <input type="search" id="dvc-search" placeholder="ग्रन्थ / कर्तृ / lineage — search Devanagari or IAST…">
+        <select id="dvc-sort" title="Sort order">
+          <option value="row">क्रमाङ्कः · sheet order</option>
+          <option value="title">ग्रन्थनाम · title (देवनागरी)</option>
+          <option value="titleRoman">title (A→Z roman)</option>
+          <option value="author">कर्तृ · author (देवनागरी)</option>
+          <option value="authorRoman">author (A→Z roman)</option>
+        </select>
+        <select id="dvc-onlyflag" title="Show only">
+          <option value="">सर्वाणि · all entries</option>
+          <option value="missingTags">missing all tags</option>
+          <option value="missingKarta">missing author</option>
+          <option value="noParent">no parent link</option>
+          <option value="unresolvedLink">broken link</option>
+          <option value="edited">edited by me</option>
+        </select>
+        <span id="dvc-treectl">
+          <button class="dvc-btn" id="dvc-expandall">⊞ expand all</button>
+          <button class="dvc-btn" id="dvc-collapseall">⊟ collapse</button>
+        </span>
+        <button class="dvc-btn" id="dvc-export">⬇ CSV</button>
+        <span class="dvc-count" id="dvc-count"></span>
+      </div>
+      <div id="dvc-alpha" class="dvc-alpha"></div>
+      <p class="dvc-hint dvc-chiphint">Every kind is shown by default. Click a chip to <b>hide</b> that kind — click it again to bring it back.</p>
+      <div class="dvc-frow"><span class="dvc-flab">विभागः</span><span id="dvc-chips-vibhaga"></span></div>
+      <div class="dvc-frow"><span class="dvc-flab">विषयविभागः</span><span id="dvc-chips-vishayaVibhaga"></span></div>
+      <div class="dvc-frow"><span class="dvc-flab">प्रस्थानम्</span><span id="dvc-chips-prasthana"></span></div>
+      <div class="dvc-frow"><span class="dvc-flab">अङ्कनानि · labels</span><span id="dvc-chips-labels"></span></div>
+    </div>
+
+    <div class="dvc-worksplit">
+      <div class="dvc-workmain">
+        <div id="dvc-tree" class="dvc-tree"></div>
+
+        <div id="dvc-tablewrap" class="dvc-tablewrap" style="display:none">
+          <table class="dvc-table">
+            <thead><tr><th>#</th><th>ग्रन्थः</th><th>कर्तृ</th><th>विभागः</th><th>विषयविभागः</th><th>प्रस्थानम्</th><th>उपलब्धता</th><th>स्थितिः</th></tr></thead>
+            <tbody id="dvc-tbody"></tbody>
+          </table>
+        </div>
+
+        <div id="dvc-gridwrap" class="dvc-tablewrap" style="display:none">
+          <p class="dvc-hint dvc-gridhint">Click a cell to select, double-click or just start typing to edit, Enter/Tab to move on, and paste tab-separated blocks straight out of a spreadsheet. Category and author cells suggest from the master lists. Every change is a draft in this browser until you sync.</p>
+          <table class="dvc-table dvc-grid">
+            <thead><tr><th>#</th><th>ग्रन्थः</th><th>कर्तृ</th><th>विभागः</th><th>विषयविभागः</th><th>प्रस्थानम्</th><th>उपलब्धता</th><th>स्थितिः</th><th>अङ्कनानि</th><th>टिप्पणम्</th><th>मूलम् · parent</th></tr></thead>
+            <tbody id="dvc-gbody"></tbody>
+          </table>
+        </div>
+
+        <button id="dvc-more" style="display:none"></button>
+      </div>
+      <aside id="dvc-detail" class="dvc-detail" style="display:none"></aside>
+    </div>
+  </section>
+
+  <section id="dvc-panel-links" class="dvc-panel" style="display:none"><div id="dvc-links-body"></div></section>
+
+  <section id="dvc-panel-masters" class="dvc-panel" style="display:none">
+    <p class="dvc-hint">One entry per term, with every spelling the sheet actually uses attached to it. Click a
+      spelling to make it the one shown everywhere — every row using any other spelling of that same term follows
+      immediately. This is what stops भाष्यम् and भाष्यम being two separate things.</p>
+    <div class="dvc-controls">
+      <input type="search" id="dvc-masters-q" placeholder="search a term…">
+      <label class="dvc-checklab"><input type="checkbox" id="dvc-masters-onlyvar" checked> only terms with more than one spelling</label>
+    </div>
+    <div id="dvc-masters-body"></div>
+  </section>
+
+  <section id="dvc-panel-duplicates" class="dvc-panel" style="display:none"><div id="dvc-dup-body"></div></section>
+  <section id="dvc-panel-crosslinks" class="dvc-panel" style="display:none"><div id="dvc-cross-body"></div></section>
+  <section id="dvc-panel-reports" class="dvc-panel" style="display:none"><div id="dvc-reports-body"></div></section>
+</main>
+
+<datalist id="dvc-dl-category"></datalist>
+<datalist id="dvc-dl-author"></datalist>
+
+<script src="../js/dge-breadcrumb.js?v=1"></script>
+<script src="../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="dvaita-grantha-anukramani"></dge-nav-rail>
+<script src="../js/config.js?v=1"></script>
+<script src="../js/dvaita-catalog.js?v=2"></script>
+</body>
+</html>

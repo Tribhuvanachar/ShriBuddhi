@@ -1,0 +1,71 @@
+/* =========================================================================
+   Shared base for the Vyakarana tool-page cluster: Ashtadhyayi, Shabda,
+   Dhatu, Dhatuforms, Rupasiddhi, Prakriya, Krdanta. These seven pages grew
+   vyakarana.css and ashtadhyayi.css independently, and ended up with this
+   page chrome -- reset, body font, header, the segmented .ctl control, the
+   .icon button, the bare input/textarea/select look, .crumbs, and the two
+   shared .btn states -- byte-for-byte identical in both files. Extracted
+   here so a change to any of it (a new header height, a different .icon
+   size) is made once instead of twice and kept in sync by hand.
+
+   Load this BEFORE the page's own vyakarana.css/ashtadhyayi.css, so that
+   sheet can still override anything here at equal specificity just by
+   coming later in the cascade -- nothing here uses a bare tag selector at
+   higher specificity than a page's own classes.
+
+   .brand a/.brand span (the "⌂ DGE › page name" breadcrumb) moved here from
+   vyakarana.css: ashtadhyayi.css never defined it at all, so
+   ashtadhyayi.html had been carrying the same styling as inline style=
+   attributes on its own brand markup instead -- now removed, it gets this
+   rule like every other page in the cluster.
+
+   NOT moved here, and still declared separately in each page's own
+   stylesheet: the --bg/--panel/.../--accent/--gold custom properties (the
+   two files' page-specific extra properties -- vyakarana.css's --p/--a/--u,
+   ashtadhyayi.css's --k/--b/--t/--n/--sk/--mb/--vs -- are interleaved into
+   the same :root/body.dark rule as the shared ones, so splitting them out
+   needs more careful surgery than this pass covers) and .hero (shares its
+   background/border/shadow with this cluster but each page tunes its own
+   padding and, for ashtadhyayi, position/overflow for its corner glow).
+   Both are candidates for a later pass of this same consolidation, not
+   skipped by oversight.
+   ========================================================================= */
+
+/* Phase 1 of the frontend redesign: this bridge aliases --bg/--panel/etc
+   onto tokens.css's canonical vocabulary. It is inert today (each page's
+   own vyakarana.css/ashtadhyayi.css still defines these itself, later in
+   the cascade, and wins) -- see tokens-vyakarana-bridge.css's own header
+   comment for why it's here now anyway and when it becomes load-bearing. */
+@import url("tokens-vyakarana-bridge.css");
+
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.55;
+  font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;transition:background .3s,color .3s}
+.deva{font-family:"Noto Serif Devanagari",serif}
+header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(9px);border-bottom:1px solid var(--line)}
+.spacer{flex:1}
+.brand a{color:var(--accent);text-decoration:none;font-weight:700}.brand span{color:var(--muted);margin:0 6px}
+.ctl{display:flex;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px;font-size:13px}
+.ctl button{border:0;background:transparent;color:var(--muted);padding:6px 10px;border-radius:999px;cursor:pointer;font:inherit;font-size:13px}
+.ctl button.on{background:var(--panel);color:var(--ink);box-shadow:var(--shadow)}
+.icon{border:1px solid var(--line);background:var(--panel);border-radius:10px;min-width:36px;height:34px;padding:0 8px;cursor:pointer;color:var(--ink);font-size:14px}
+/* Base look for any text box that doesn't already carry its own class —
+   without this it falls back to raw OS-default input/select chrome.
+   Bare tag selectors, deliberately low specificity: a page's own more
+   specific class (.search/.sel/.jump/etc.) keeps winning over this. */
+input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),
+textarea,select{font:inherit;font-size:13px;padding:7px 10px;border:1px solid var(--line);
+  border-radius:10px;background:var(--panel);color:var(--ink)}
+input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]):focus,
+textarea:focus,select:focus{outline:none;border-color:var(--accent)}
+.crumbs{color:var(--muted);font-size:13px;margin:4px 2px 12px}.crumbs b{color:var(--accent)}
+.btn.ai{background:linear-gradient(90deg,color-mix(in srgb,var(--gold) 22%,var(--panel)),var(--panel));border-color:var(--gold)}
+.btn:hover{box-shadow:var(--shadow)}
+
+/* site-footer.js's shared links row -- same visual treatment as the
+   landing page's/reader's/kavya's/dasa-sahitya's own copies of this rule,
+   just using this cluster's own token names. */
+.site-footer-links{text-align:center;padding:22px 10px 40px;margin-top:20px;border-top:1px solid var(--line)}
+.footer-link{background:none;border:none;font:inherit;font-size:12px;color:var(--muted);cursor:pointer;padding:4px 2px;text-decoration:underline;text-underline-offset:2px}
+.footer-link:hover{color:var(--accent)}
+.footer-sep{color:var(--line);font-size:12px;margin:0 2px}

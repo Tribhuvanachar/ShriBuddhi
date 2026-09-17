@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0B0907">
+<title>Sarvamūla Digital Library</title>
+<meta name="description" content="Sarvamūla Digital Library. Pay your respects at the feet of Śrī Viśvanandana Tīrtha before entering.">
+
+<!-- Link previews (WhatsApp, Telegram, X) show the portrait. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sarvamūla Digital Library">
+<meta property="og:description" content="A digital initiative to preserve, organize and present the complete heritage of our Śāstra, Itihāsa, Purāṇa, Stotra and Kāvya.">
+<!-- The one place on this site that needs a fully-qualified URL: preview
+     crawlers don't run JavaScript, so this cannot be resolved at runtime.
+     Managed from config/site.config.json — don't hand-edit the origin
+     `python3 tools/set_site_url.py` after changing siteOrigin there. -->
+<!-- site-url: images/guru/guruji.jpg -->
+<meta property="og:image" content="https://sarvamula.org/images/guru/guruji.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<script>
+/* Short URLs (7 Sep 2026): https://sarvamula.org/?rv1.1.3 → the reader, which resolves the token (js/shortcuts.js).
+   Only a bare <letters><digits[.digits]> token is forwarded; ?next=… and every other query stay on this page. */
+(function () {
+  var q = location.search.replace(/^\?/, '');
+  if (q && q.indexOf('&') < 0 && /^[A-Za-z]{1,4}=?\d[\d.]*$/.test(q)) location.replace('render.html?' + q + location.hash);
+})();
+</script>
+<link rel="preload" as="image" href="images/guru/guruji.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/home.css?v=2">
+<!-- In-place editing of content/home.json, for a signed-in super
+     admin. Inert for everyone else — it checks before it draws anything. -->
+<link rel="stylesheet" href="css/content-inline.css?v=1">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="images/genie/apple-touch-icon.png">
+</head>
+<body data-content-file="content/home.json">
+
+<div id="veil"></div>
+
+<noscript>
+  <div style="padding:26px;text-align:center;font-family:Georgia,serif;color:#F3E7D4;">
+    This page needs JavaScript to display the vandana.
+    <a href="render.html" style="color:#E8B24D;">Continue to the library</a>
+  </div>
+</noscript>
+
+<!-- =====================================================================
+     HERO
+     ===================================================================== -->
+<header class="hero" id="hero">
+  <svg class="mandala" viewBox="0 0 400 400" aria-hidden="true">
+    <g fill="none" stroke="#E8B24D" stroke-width=".6">
+      <circle cx="200" cy="200" r="60"/><circle cx="200" cy="200" r="96"/>
+      <circle cx="200" cy="200" r="132"/><circle cx="200" cy="200" r="168"/>
+      <g id="spokes"></g>
+    </g>
+  </svg>
+  <div class="smoke l" aria-hidden="true"></div>
+  <div class="smoke r" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="petal-layer" id="petals" aria-hidden="true"></div>
+
+  <div class="masthead">
+    <h1  class="brand-latin"   id="brandLatin" data-edit="brand.latin"></h1>
+    <p   class="brand-tagline" id="brandTagline" data-edit="brand.tagline"></p>
+    <button class="tagline-more" id="taglineMore" hidden></button>
+  </div>
+
+  <div class="om" aria-hidden="true">ॐ</div>
+
+  <div class="portrait-wrap">
+    <div class="halo" aria-hidden="true"></div>
+    <div class="halo-ring" aria-hidden="true"></div>
+    <div class="frame">
+      <img id="photo" src="" alt="">
+      <!-- Namaskāra's blessing video (see showPranamGif() below) — plays
+           right in the same frame as the photo, not a separate popup, so
+           the portrait itself appears to "come alive" on click. Sits
+           invisibly over the photo (.frame.video-active crossfades it in)
+           until then. Preloaded from page load so playback starts the
+           instant "Offer Namaskāra" is tapped, with sound, rather than a
+           beat of buffering — no poster needed, since the photo beneath
+           it already fills that role. -->
+      <video id="pranamGifVideo" preload="auto" playsinline webkit-playsinline="true"
+             aria-label="Namaskāra — a devotee's salutations at the Guru's feet">
+        <source src="images/guru/pranam-blessing.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="offer-zone" id="offerZone" role="button" tabindex="0"
+         aria-label="Offer flowers to the Guru"></div>
+    <div class="pranam-row" id="pranamRow" aria-hidden="true"></div>
+  </div>
+
+  <div class="guru-block">
+    <div class="guru-sa"    id="guruSa" data-edit="guru.nameSanskrit"></div>
+    <div class="guru-latin" id="guruLatin" data-edit="guru.nameLatin"></div>
+    <div class="guru-title" id="guruTitle" data-edit="guru.title"></div>
+    <div class="rule" aria-hidden="true"><i></i></div>
+    <div class="verse"    id="verse" data-edit="vandana.sanskrit" data-edit-quiet="1"></div>
+    <div class="verse-tr" id="verseTr" data-edit="vandana.transliteration" data-edit-quiet="1"></div>
+    <button class="more-link more-link-sm" id="guruMore" data-panel="swamiji">
+      <span id="guruMoreLabel" data-edit="guru.moreLabel"></span><span class="arrow" aria-hidden="true">→</span>
+    </button>
+  </div>
+
+  <div class="hero-actions">
+    <div class="hint" id="hint" data-edit="labels.hint"></div>
+    <div class="act-row">
+      <button class="btn btn-obeisance" id="offerBtn" aria-label="Offer flowers to the Guru">
+        <span id="offerIcon" aria-hidden="true"></span><span id="offerLabel" data-edit="labels.offerButton"></span>
+      </button>
+      <button class="btn btn-obeisance" id="pranamBtn" aria-label="Offer salutations to the Guru">
+        <span id="pranamIcon" aria-hidden="true"></span><span id="pranamLabel" data-edit="labels.pranamButton"></span>
+      </button>
+    </div>
+    <div class="act-row">
+      <button class="btn btn-enter" id="enterBtn" aria-disabled="true">
+        <span id="enterLabel" data-edit="labels.enterLocked"></span><span class="arrow" aria-hidden="true">→</span>
+      </button>
+    </div>
+  </div>
+
+  <a class="cue" id="cueBtn" href="#architect">
+    <span id="cueLabel" data-edit="labels.sectionsCue"></span><span aria-hidden="true">⌄</span>
+  </a>
+</header>
+
+<!-- One band per contributor, rendered from SITE_CONFIG.sections -->
+<div id="sections"></div>
+
+<footer class="site-foot">
+  <div class="rule" style="margin:0 auto 16px;" aria-hidden="true"><i></i></div>
+  <div id="mantras"></div>
+  <!-- Phase 6 of the frontend redesign: <dge-footer> (dge-shell.js) -- same
+       link sets/behavior as site-footer.js, see that file's own header comment. -->
+  <dge-footer class="site-footer-links"><a class="footer-link" href="index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+</footer>
+
+<div class="sheet-wrap" id="sheetWrap" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="sheet" id="sheet"></div>
+</div>
+
+<script>
+/* =========================================================================
+   This page carries no words of its own.
+
+   Everything it says is content/home.json, and everything it does is
+   config/home.json — one file an editor changes, one an operator
+   changes, neither of them this file. There is deliberately no fallback copy
+   here: a second copy of the text is a second thing to keep in step, and it
+   is always the stale one that ends up on screen.
+
+   The cost of that is honest: if the content file cannot be read, the page
+   says so and offers to retry rather than showing a half-built gate or, worse,
+   letting people past a vandana it could not draw. tools/check_content.py
+   fails the build if either file is missing a key this page needs, so a
+   broken deploy is caught before it ships rather than by a visitor.
+   ========================================================================= */
+let SITE_CONFIG = null;
+
+/* ========================================================================= */
+(function () {
+  'use strict';
+
+  let cfg = null;
+  const $ = (id) => document.getElementById(id);
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const esc = (s) => String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const pick = (a) => a[Math.floor(Math.random() * a.length)];
+
+  let offerings = 0;
+
+  /* Line icons, drawn rather than borrowed from the emoji font. Colour emoji
+     bring their own palette and fight the gold line-work; these inherit
+     currentColor and match the hairline weight used everywhere else. */
+  const ICONS = {
+    quill:  '<path d="M4.6 20.4 3.6 16.9 15.4 5.1a1.9 1.9 0 0 1 2.7 0l1.4 1.4a1.9 1.9 0 0 1 0 2.7L7.9 21.2Z"/><path d="m14.3 6.2 4.1 4.1"/>',
+    book:   '<path d="M3 6c3-1.6 6-1.6 9 0 3-1.6 6-1.6 9 0v12c-3-1.6-6-1.6-9 0-3-1.6-6-1.6-9 0Z"/><path d="M12 6v12"/>',
+    people: '<circle cx="9.2" cy="8.8" r="3"/><circle cx="17" cy="10" r="2.2"/><path d="M3.2 19.6c0-3.4 2.7-5.6 6-5.6s6 2.2 6 5.6"/><path d="M17 15.2c2.3 0 3.8 1.7 3.8 4"/>',
+    seated: '<circle cx="12" cy="6.4" r="2.7"/><path d="M6.6 19.4c0-4 2.4-7 5.4-7s5.4 3 5.4 7Z"/><path d="M4 19.4h16"/>',
+    temple: '<path d="M3 9.2 12 4.2l9 5"/><path d="M5 9.6v8.6M9.4 9.6v8.6M14.6 9.6v8.6M19 9.6v8.6"/><path d="M3.4 18.6h17.2"/>',
+    lotus:  '<path d="M12 20.2c-2.5-2.1-3.8-4.4-3.8-6.8 0-2.3 1.2-4.4 3.8-6.3 2.6 1.9 3.8 4 3.8 6.3 0 2.4-1.3 4.7-3.8 6.8Z"/><path d="M12 20.2c-4.2 0-7.3-1.8-9-5.1 2.7-1.6 5.6-1.3 8.2.9"/><path d="M12 20.2c4.2 0 7.3-1.8 9-5.1-2.7-1.6-5.6-1.3-8.2.9"/>',
+    anjali: '<path d="M12 20.4c-2.9 0-4.9-2-4.9-4.7 0-3.1 2-6.8 4.9-10.1v14.8Z"/><path d="M12 20.4c2.9 0 4.9-2 4.9-4.7 0-3.1-2-6.8-4.9-10.1v14.8Z"/><path d="M7.4 13.2 4.6 15.5"/><path d="m16.6 13.2 2.8 2.3"/>',
+    home:   '<path d="M3.4 10.8 12 4.1l8.6 6.7"/><path d="M5.8 10v9.8h12.4V10"/><path d="M9.9 19.8v-5.2h4.2v5.2"/>',
+    lamp:   '<path d="M3.8 14.2h16.4c0 3.4-3.7 5.7-8.2 5.7s-8.2-2.3-8.2-5.7Z"/><path d="M12 13.8c-1.7-1.9-2.5-3.4-2.5-4.8 0-1.7 1-3 2.5-4.2 1.5 1.2 2.5 2.5 2.5 4.2 0 1.4-.8 2.9-2.5 4.8Z"/>',
+    seed:   '<path d="M12 21c0-4.6 1.4-7.6 4.2-9 .4 4.8-.9 7.8-4.2 9Z"/><path d="M12 21c0-4.6-1.4-7.6-4.2-9-.4 4.8.9 7.8 4.2 9Z"/><path d="M12 21v-4"/><path d="M12 12.6c0-3.4.9-6 2.6-7.8"/>'
+  };
+  /* Śāṣṭāṅga namaskāra — the full prostration, eight limbs to the ground,
+     arms reaching past the head with the palms joined. Its own function
+     because it is a wide figure, not a 24x24 glyph like the rest. */
+  function sashtanga(height) {
+    const w = Math.round(height * (120 / 46));
+    return '<svg viewBox="0 0 120 46" width="' + w + '" height="' + height + '" fill="none" ' +
+           'stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" ' +
+           'aria-hidden="true">' +
+           '<path d="M6 36h108"/><path d="M14 32c4-1.6 7.6-1.2 10.8.6"/><path d="M24.8 32.6 40 33"/>' +
+           '<circle cx="48" cy="29.5" r="5"/><path d="M53 31c7 1 13 1.6 20 1.6"/>' +
+           '<path d="M53 27.4c8-2.4 15-2.6 22 1"/><path d="M75 33c8 0 14-1 20-3.4"/>' +
+           '<path d="M95 29.6c5-1.8 9-2 14 .4"/><path d="M109 30v6"/></svg>';
+  }
+
+  function icon(name, size) {
+    const d = ICONS[name];
+    if (!d) return '';
+    return '<svg viewBox="0 0 24 24" width="' + size + '" height="' + size + '" fill="none" ' +
+           'stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" ' +
+           'aria-hidden="true">' + d + '</svg>';
+  }
+
+  /* A pārijāta blossom: five white petals around a saffron tube. Drawn rather
+     than a single petal shape, because pārijāta falls whole. */
+  function flowerSvg(size) {
+    const petal = pick(cfg.flowers.petalColors);
+    const heart = pick(cfg.flowers.heartColors);
+    let g = '';
+    for (let i = 0; i < 5; i++) {
+      g += `<ellipse cx="12" cy="7" rx="3.3" ry="5.2" fill="${petal}"
+             transform="rotate(${i * 72} 12 12)"/>`;
+    }
+    return `<svg width="${size}" height="${size}" viewBox="0 0 24 24">
+      <g opacity=".97">${g}</g>
+      <circle cx="12" cy="12" r="2.5" fill="${heart}"/>
+      <circle cx="12" cy="12" r="1.1" fill="${petal}" opacity=".5"/>
+    </svg>`;
+  }
+
+  /* ---------------------------------------------------------- render ---- */
+  function render() {
+    $('brandLatin').textContent   = cfg.brand.latin;
+    $('brandTagline').textContent = cfg.brand.tagline;
+    // Only offer the toggle if the clamp is actually hiding something.
+    requestAnimationFrame(function () {
+      const t = $('brandTagline'), btn = $('taglineMore');
+      if (t.scrollHeight <= t.clientHeight + 2) return;
+      btn.hidden = false;
+      btn.textContent = t.classList.contains('open') ? cfg.labels.readLess : cfg.labels.readMore;
+      // render() runs a second time when config/home.json lands, so
+      // the listener is attached once and reads cfg fresh on every click.
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = '1';
+      btn.addEventListener('click', function () {
+        const open = t.classList.toggle('open');
+        btn.textContent = open ? cfg.labels.readLess : cfg.labels.readMore;
+      });
+    });
+
+    const photo = $('photo');
+    photo.src = cfg.photo.src;
+    photo.alt = cfg.photo.alt || '';
+    photo.style.objectPosition = cfg.photo.objectPosition || 'center 50%';
+    document.querySelector('.frame').style.setProperty('--frame-ratio', cfg.photo.frameRatio || '2 / 3');
+    const zone = $('offerZone');
+    zone.style.setProperty('--offer-x', cfg.photo.offerX || '50%');
+    zone.style.setProperty('--offer-y', cfg.photo.offerY || '14%');
+    zone.style.setProperty('--offer-w', cfg.photo.offerW || '54%');
+    zone.style.setProperty('--offer-h', cfg.photo.offerH || '62px');
+
+    $('guruSa').textContent        = cfg.guru.nameSanskrit;
+    $('guruLatin').textContent     = cfg.guru.nameLatin;
+    $('guruTitle').textContent     = cfg.guru.title;
+    $('guruMoreLabel').textContent = cfg.guru.moreLabel;
+    $('verse').innerHTML           = cfg.vandana.sanskrit;
+    $('verseTr').textContent       = cfg.vandana.transliteration;
+
+    $('hint').textContent        = cfg.labels.hint;
+    $('offerIcon').innerHTML     = flowerSvg(15);
+    $('offerLabel').textContent  = cfg.labels.offerButton;
+    $('pranamIcon').innerHTML     = sashtanga(15);
+    $('pranamLabel').textContent  = cfg.labels.pranamButton;
+    $('enterLabel').textContent  = cfg.labels.enterLocked;
+    $('cueLabel').textContent    = cfg.labels.sectionsCue;
+
+    $('mantras').innerHTML = cfg.footer.lines.map(function (l, i) {
+      return `<div class="mantra${i ? ' second' : ''}" data-edit="footer.lines.${i}.sa" data-edit-quiet="1">${esc(l.sa)}</div>` +
+             (l.latin ? `<div class="mantra-latin" data-edit="footer.lines.${i}.latin" data-edit-quiet="1">${esc(l.latin)}</div>` : '');
+    }).join('');
+
+    // Mandala spokes, drawn rather than written into the markup. Cleared
+    // first so a second render() does not stack a duplicate path on top.
+    $('spokes').innerHTML = '';
+    let d = '';
+    for (let i = 0; i < 24; i++) {
+      const a = (i / 24) * Math.PI * 2;
+      d += `M${200 + Math.cos(a) * 60} ${200 + Math.sin(a) * 60}L${200 + Math.cos(a) * 168} ${200 + Math.sin(a) * 168}`;
+    }
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', d);
+    $('spokes').appendChild(path);
+
+    renderSections();
+    if (!cfg.requireOffering) unlock();
+  }
+
+  // Groups home.json's sections{} into named bands (see that file's own
+  // _readme) instead of every contributor rendering as an equal-weight
+  // section -- per the project lead's own structural call: Founder, Scholar
+  // and Contributors/Sponsors read at three different levels of the site's
+  // hierarchy, not four identical biography cards in a row. A section with
+  // no tier, or one this map doesn't recognise, still gets its own
+  // standalone band keyed by its own id -- exactly the old behaviour --
+  // so a new contributor never *requires* a tier to render correctly.
+  const TIER_META = {
+    foundation:  { label: 'Foundation' },
+    stewardship: { label: 'Scholarly Stewardship' },
+    seva:        { label: 'Seva & Sustenance' }
+  };
+
+  // The per-section body -- person-head, blurb, the contributors list
+  // exception, the Know More action, todo -- unchanged from what
+  // renderSections() used to build inline; pulled out so both a normal
+  // tier band and the seva tier's left grid column can call it.
+  function personBlockHtml(sec, si) {
+    const at = (k) => ' data-edit="sections.' + si + '.' + k + '"';
+    const meta = (sec.meta || []).map((m, mi) =>
+      `<span data-edit="sections.${si}.meta.${mi}">${esc(m)}</span>`).join('<br>');
+
+    let html = `<div class="person-head">
+        <div class="person-icon" aria-hidden="true">${icon(sec.icon, 28)}</div>
+        <div>
+          <div class="person-eyebrow"${at('eyebrow')}>${esc(sec.eyebrow)}</div>
+          <div class="person-name"${at('name')}>${esc(sec.name)}${sec.sub ? ` <span${at('sub')}>${esc(sec.sub)}</span>` : ''}</div>
+          ${meta ? `<div class="person-meta">${meta}</div>` : ''}
+        </div>
+      </div>
+      ${[].concat(sec.blurb).map((t, bi) => `<p class="person-blurb" data-edit="sections.${si}.blurb${Array.isArray(sec.blurb) ? '.' + bi : ''}">${esc(t)}</p>`).join('')}`;
+
+    if (sec.panel === 'contributors') {
+      // Sourced live from content/reader.json's CONTRIBUTORS_CONFIG
+      // (see the boot fetch) rather than a second copy in this file —
+      // view-only here since that file's own edit tool already covers it
+      // (render.html's About panel).
+      const rc = window.READER_CONTENT;
+      const contrib = (rc && rc.CONTRIBUTORS_CONFIG && rc.CONTRIBUTORS_CONFIG.enabled &&
+                        rc.CONTRIBUTORS_CONFIG.contributors) || [];
+      if (contrib.length) {
+        html += '<ul class="person-items">' + contrib.map(function (c) {
+          return `<li><span>${esc(c.name)}</span>${c.role ? `<small>${esc(c.role)}</small>` : ''}</li>`;
+        }).join('') + '</ul>';
+      }
+    } else if (sec.items) {
+      html += '<ul class="person-items">' + sec.items.map(function (i, ii) {
+        const ip = 'sections.' + si + '.items.' + ii + '.';
+        return `<li><span data-edit="${ip}name">${esc(i.name)}</span>` +
+               `${i.note ? `<small data-edit="${ip}note">${esc(i.note)}</small>` : ''}</li>`;
+      }).join('') + '</ul>';
+    }
+
+    if (sec.panel) {
+      html += `<div class="person-actions">
+        <button class="more-link" data-panel="${esc(sec.panel)}">
+          ${esc(sec.moreLabel || 'Know More')} <span class="arrow" aria-hidden="true">→</span>
+        </button></div>`;
+    }
+
+    if (sec.todo) html += `<p class="person-todo"${at('todo')}>${esc(sec.todo)}</p>`;
+    return html;
+  }
+
+  // The seva tier's right-hand column -- Key Sponsors, read live from
+  // reader.json's KEY_SPONSORS_CONFIG the same way the Contributors list
+  // already is above, so there is one editable sponsor list (the reader
+  // app's own About panel), not a second copy hand-maintained here.
+  function sponsorColumnHtml() {
+    const rc = window.READER_CONTENT;
+    const sponsors = (rc && rc.KEY_SPONSORS_CONFIG && rc.KEY_SPONSORS_CONFIG.enabled &&
+                       rc.KEY_SPONSORS_CONFIG.sponsors) || [];
+    if (!sponsors.length) return '';
+    return `<div class="seva-col">
+      <div class="person-head">
+        <div class="person-icon" aria-hidden="true">${icon('lamp', 28)}</div>
+        <div>
+          <div class="person-eyebrow">Sustaining This Library</div>
+          <div class="person-name">Key Sponsors</div>
+        </div>
+      </div>
+      <ul class="person-items">${sponsors.map(function (s) {
+        return `<li><span>${esc(s.name)}</span>${s.contribution ? `<small>${esc(s.contribution)}</small>` : ''}</li>`;
+      }).join('')}</ul>
+    </div>`;
+  }
+
+  // Closing Participation band -- reader.json's SPONSOR_CONFIG already
+  // carries real, admin-edited copy for this (introText, a contact
+  // address) for the reader app's own Sponsor modal; reused verbatim here
+  // rather than a second hand-written pitch that could drift from it.
+  // Renders nothing if that config is off or has no contact set, rather
+  // than showing a dead-end band.
+  function participationHtml() {
+    const rc = window.READER_CONTENT;
+    const sc = rc && rc.SPONSOR_CONFIG;
+    if (!sc || !sc.enabled || !sc.contactForSponsorship) return '';
+    return `<section class="band person tier-participation" id="participation"><div class="inner">
+      <div class="tier-head"><span class="tier-label">Participation</span></div>
+      <div class="person-name">Help Sustain This Library</div>
+      <p class="person-blurb">${esc(sc.introText || '')}</p>
+      <div class="person-actions">
+        <a class="more-link" href="mailto:${esc(sc.contactForSponsorship)}">
+          Get in Touch <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div></section>`;
+  }
+
+  function renderSections() {
+    // The index is part of the path, so an edit lands on the right band even
+    // after one is reordered or removed in the JSON.
+    const groups = {}, order = [];
+    cfg.sections.forEach(function (sec, si) {
+      const t = TIER_META[sec.tier] ? sec.tier : sec.id;
+      if (!groups[t]) { groups[t] = []; order.push(t); }
+      groups[t].push({ sec: sec, si: si });
+    });
+
+    $('sections').innerHTML = order.map(function (t) {
+      const entries = groups[t];
+      const meta = TIER_META[t];
+      const headHtml = meta ? `<div class="tier-head"><span class="tier-label">${esc(meta.label)}</span></div>` : '';
+      const bandId = esc(entries[0].sec.id);
+
+      if (t === 'seva') {
+        const left = entries.map(function (e) {
+          return `<div class="seva-col">${personBlockHtml(e.sec, e.si)}</div>`;
+        }).join('');
+        const right = sponsorColumnHtml();
+        return `<section class="band person tier-seva" id="${bandId}"><div class="inner">${headHtml}<div class="seva-grid">${left}${right}</div></div></section>`;
+      }
+
+      const body = entries.map(function (e) { return personBlockHtml(e.sec, e.si); }).join('<hr class="tier-divider">');
+      const cls = meta ? ' tier-' + esc(t) : '';
+      return `<section class="band person${cls}" id="${bandId}"><div class="inner">${headHtml}${body}</div></section>`;
+    }).join('') + participationHtml();
+  }
+
+  /* ----------------------------------------------------------- panels --- */
+  function panelHtml(key) {
+    const p = cfg.panels[key];
+    if (!p) return '';
+    const pt = (k) => ' data-edit="panels.' + key + '.' + k + '"';
+
+    let html = `<button class="sheet-close" data-close aria-label="Close">✕</button>
+      <div class="sheet-eyebrow"${pt('eyebrow')}>${esc(p.eyebrow)}</div>
+      <h3 id="sheetTitle"${pt('title')}>${esc(p.title)}</h3>`;
+
+    if (p.reverence) html += `<div class="reverence"${pt('reverence')}>${esc(p.reverence)}</div>`;
+    if (p.body)      html += `<p${pt('body')}>${esc(p.body)}</p>`;
+
+    (p.groups || []).forEach(function (g, gi) {
+      const gp = 'panels.' + key + '.groups.' + gi + '.';
+      html += `<div class="ack">
+        <div class="ack-head">
+          <span class="ico">${icon(g.icon, 22)}</span>
+          <h4 data-edit="${gp}heading">${esc(g.heading)}</h4>
+          <span class="line" aria-hidden="true"></span>
+        </div>`;
+
+      if (g.entries) {
+        html += '<ul class="ack-entries">' + g.entries.map(function (e, ei) {
+          const ep = gp + 'entries.' + ei + '.';
+          return `<li><b data-edit="${ep}name">${esc(e.name)}</b><div class="ack-body">` +
+                 (e.note ? `<small data-edit="${ep}note">${esc(e.note)}</small>` : '') +
+                 (e.also ? `<small class="also" data-edit="${ep}also">${esc(e.also)}</small>` : '') +
+                 '</div></li>';
+        }).join('') + '</ul>';
+      }
+      if (g.names) {
+        html += '<div class="ack-names">' + g.names.map(n => `<span>${esc(n)}</span>`).join('') + '</div>';
+      }
+      html += '</div>';
+    });
+
+    return html;
+  }
+
+  /* The "Contributors & Seva Support" Know More sheet — same visual shape
+     as panelHtml()'s groups/entries, but sourced from content/
+     reader.json (window.READER_CONTENT, see the boot fetch) rather than
+     home.json's panels{}, and view-only here: that file's own edit tool
+     already lives on the reader app's About panel, so this is not a
+     second, independently-editable copy of the same list. */
+  function contributorsPanelHtml() {
+    const rc = window.READER_CONTENT;
+    let html = '<button class="sheet-close" data-close aria-label="Close">✕</button>';
+    if (!rc) {
+      html += '<p style="padding:30px 0; color:var(--text-dim);">Could not load contributor data.</p>';
+      return html;
+    }
+    html += `<div class="sheet-eyebrow">Seva &amp; Support</div><h3 id="sheetTitle">Contributors &amp; Sponsors</h3>`;
+    const contrib = (rc.CONTRIBUTORS_CONFIG && rc.CONTRIBUTORS_CONFIG.enabled && rc.CONTRIBUTORS_CONFIG.contributors) || [];
+    const sponsors = (rc.KEY_SPONSORS_CONFIG && rc.KEY_SPONSORS_CONFIG.enabled && rc.KEY_SPONSORS_CONFIG.sponsors) || [];
+    function group(heading, iconName, entries) {
+      if (!entries.length) return '';
+      return `<div class="ack"><div class="ack-head"><span class="ico">${icon(iconName, 22)}</span>` +
+        `<h4>${esc(heading)}</h4><span class="line" aria-hidden="true"></span></div>` +
+        '<ul class="ack-entries">' + entries.map(function (e) {
+          return `<li><b>${esc(e.name)}</b>${e.note ? `<div class="ack-body"><small>${esc(e.note)}</small></div>` : ''}</li>`;
+        }).join('') + '</ul></div>';
+    }
+    html += group('Contributors', 'people', contrib.map(c => ({ name: c.name, note: c.role })));
+    html += group('Key Sponsors', 'lamp', sponsors.map(s => ({ name: s.name, note: s.contribution })));
+    return html;
+  }
+
+  /* These notes vary from four words to a paragraph, which left the cards
+     at wildly different heights. Each is clamped to a few lines and given a
+     "Read more" — but only where there is genuinely something hidden, so a
+     one-line note never grows a pointless control. Measured after the panel
+     is on screen, since a collapsed element has no height to measure. */
+  function applyReadMore(root) {
+    root.querySelectorAll('.ack-body').forEach(function (body) {
+      if (body.scrollHeight <= body.clientHeight + 2) return;
+      const btn = document.createElement('button');
+      btn.className = 'ack-more';
+      btn.type = 'button';
+      btn.textContent = cfg.labels.readMore;
+      btn.addEventListener('click', function () {
+        const open = body.classList.toggle('open');
+        btn.textContent = open ? cfg.labels.readLess : cfg.labels.readMore;
+      });
+      body.after(btn);
+    });
+  }
+
+  function panelTail(key, p, html) {
+    if (p.closing) {
+      html += `<div class="closing">
+        <span class="ico" aria-hidden="true">${icon('lotus', 26)}</span>
+        <p data-edit="panels.${key}.closing">${esc(p.closing)}</p>
+      </div>`;
+    }
+    if (p.todo) html += `<p class="sheet-todo">${esc(p.todo)}</p>`;
+    return html;
+  }
+
+  let lastFocus = null;
+  function openPanel(key) {
+    // 'contributors' has no home.json panels{} entry -- its sheet is built
+    // straight from reader.json instead (see contributorsPanelHtml()).
+    const html = key === 'contributors' ? contributorsPanelHtml() : panelTail(key, cfg.panels[key], panelHtml(key));
+    if (!html) return;
+    lastFocus = document.activeElement;
+    $('sheet').setAttribute('data-panel-key', key);
+    $('sheet').innerHTML = html;
+    $('sheet').scrollTop = 0;
+    $('sheetWrap').classList.add('open');
+    document.body.classList.add('modal-open');
+    applyReadMore($('sheet'));
+    const close = $('sheet').querySelector('[data-close]');
+    if (close) close.focus({ preventScroll: true });
+  }
+  function closePanel() {
+    $('sheetWrap').classList.remove('open');
+    document.body.classList.remove('modal-open');
+    if (lastFocus) lastFocus.focus({ preventScroll: true });
+  }
+
+  /* ---------------------------------------------------------- flowers --- */
+  // Coordinates stay relative to the hero, not the viewport, so a settled
+  // heap stays on his feet once the page is scrolled.
+  function heroPoint(clientX, clientY) {
+    const h = $('hero').getBoundingClientRect();
+    return { x: clientX - h.left, y: clientY - h.top };
+  }
+
+  function offer() {
+    const r = $('offerZone').getBoundingClientRect();
+    const f = document.querySelector('.frame').getBoundingClientRect();
+    const target = heroPoint(r.left + r.width / 2, r.top + r.height / 2);
+    // Always from above the arch, whatever released them.
+    const origin = heroPoint(f.left + f.width / 2, f.top - 40);
+
+    offerings++;
+    ripple();
+
+    if (!reduced) {
+      const n = cfg.flowers.countPerOffering;
+      for (let i = 0; i < n; i++) rainFlower(origin, target, i, n, r.width);
+    }
+    if (cfg.requireOffering && offerings >= cfg.minOfferings) unlock();
+  }
+
+  // Namaskāra's blessing video, played right in the portrait frame (not a
+  // popup) so the photo itself appears to come alive. Preloaded from page
+  // load (see the markup comment above), so this just rewinds and plays —
+  // no fetch, no buffering wait. Sound plays too: this call only ever
+  // runs from the pranamBtn click handler, and a real click is the user
+  // gesture browsers require before they'll allow unmuted playback.
+  // Reverts to the static photo on the video's own 'ended' event (wired
+  // in bind()) rather than a hand-tuned timer, so it always tracks the
+  // real clip length; the fallback timer here only guards a
+  // stalled/broken load.
+  let pranamVideoFallbackTimer = null;
+  function showPranamGif() {
+    const frame = document.querySelector('.frame'), video = $('pranamGifVideo');
+    if (pranamVideoFallbackTimer) clearTimeout(pranamVideoFallbackTimer);
+    frame.classList.add('video-active');
+    video.currentTime = 0;
+    const playPromise = video.play();
+    if (playPromise && playPromise.catch) playPromise.catch(function () {});
+    pranamVideoFallbackTimer = setTimeout(hidePranamGif, 12000);
+  }
+  function hidePranamGif() {
+    if (pranamVideoFallbackTimer) { clearTimeout(pranamVideoFallbackTimer); pranamVideoFallbackTimer = null; }
+    const frame = document.querySelector('.frame'), video = $('pranamGifVideo');
+    frame.classList.remove('video-active');
+    video.pause();
+    video.currentTime = 0; // stays preloaded — next tap replays from frame one instantly
+  }
+
+  function pranam() {
+    offerings++;
+    ripple();
+    showPranamGif();
+    if (!reduced) {
+      const n = cfg.pranam.count;
+      const row = $('pranamRow');
+      const arch = document.querySelector('.frame').getBoundingClientRect().width;
+      const base = Math.max(13, Math.min(22, Math.round(arch / 11)));
+      for (let i = 0; i < n; i++) {
+        const g = document.createElement('div');
+        g.className = 'pranam-mark';
+        g.innerHTML = sashtanga(base + (i === 1 ? 2 : 0));
+        g.style.animationDelay = (i * 140) + 'ms';
+        row.appendChild(g);
+        setTimeout(() => g.remove(), 3200 + i * 140);
+      }
+    }
+    if (cfg.requireOffering && offerings >= cfg.minOfferings) unlock();
+  }
+
+  function rainFlower(origin, target, i, n, padaW) {
+    const size = 11 + Math.random() * 10;
+
+    const outer = document.createElement('div');
+    outer.className = 'petal';
+    const inner = document.createElement('div');
+    inner.innerHTML = flowerSvg(size);
+    outer.appendChild(inner);
+
+    // Fan out, so a burst reads as a handful released together rather than a
+    // vertical column.
+    const spread = (i / n - 0.5) * 120;
+    const sx = origin.x + spread + (Math.random() - 0.5) * 40;
+    const sy = origin.y - 20 - Math.random() * 70;
+    const ex = target.x + (Math.random() - 0.5) * Math.max(80, padaW * 0.8);
+    const ey = target.y + (Math.random() - 0.5) * 16;
+
+    outer.style.left = sx + 'px';
+    outer.style.top  = sy + 'px';
+    $('petals').appendChild(outer);
+
+    const dur = 1500 + Math.random() * 1400;
+    const delay = i * 44 + Math.random() * 170;
+
+    outer.animate([
+      { transform: 'translate(0,0)', opacity: 0 },
+      { transform: `translate(${(ex - sx) * .45}px, ${(ey - sy) * .40}px)`, opacity: 1, offset: .30 },
+      { transform: `translate(${(ex - sx) * .82}px, ${(ey - sy) * .80}px)`, opacity: 1, offset: .75 },
+      { transform: `translate(${ex - sx}px, ${ey - sy}px)`, opacity: .95 }
+    ], { duration: dur, delay, easing: 'cubic-bezier(.35,.05,.5,1)', fill: 'forwards' });
+
+    inner.animate([
+      { transform: 'translateX(0) rotate(0deg)' },
+      { transform: `translateX(${(Math.random() > .5 ? 1 : -1) * (14 + Math.random() * 20)}px) rotate(${100 + Math.random() * 140}deg)` },
+      { transform: `translateX(0) rotate(${220 + Math.random() * 220}deg)` }
+    ], { duration: dur, delay, easing: 'ease-in-out', fill: 'forwards' });
+
+    setTimeout(function () {
+      outer.remove();
+      settle(ex, ey, size);
+    }, dur + delay);
+  }
+
+  function settle(x, y, size) {
+    const s = document.createElement('div');
+    s.className = 'settled';
+    s.style.left = x + 'px';
+    s.style.top  = y + 'px';
+    s.innerHTML  = flowerSvg(size * .9);
+    s.firstChild.style.transform = `rotate(${Math.random() * 360}deg)`;
+    $('petals').appendChild(s);
+    const all = $('petals').querySelectorAll('.settled');
+    if (all.length > cfg.flowers.maxSettled) all[0].remove();
+  }
+
+  function ripple() {
+    if (reduced) return;
+    const r = document.createElement('div');
+    r.className = 'ripple';
+    $('offerZone').appendChild(r);
+    setTimeout(() => r.remove(), 1600);
+  }
+
+  /* ------------------------------------------------------------ gate ---- */
+  function unlock() {
+    const btn = $('enterBtn');
+    if (btn.classList.contains('ready')) return;
+    btn.classList.add('ready');
+    btn.setAttribute('aria-disabled', 'false');
+    $('enterLabel').textContent = cfg.labels.enterReady;
+  }
+
+  function destination() {
+    const fallback = cfg.enterUrl || '';
+    let next;
+    try { next = new URLSearchParams(location.search).get('next'); } catch (e) { return fallback; }
+    if (!next) return fallback;
+    let url;
+    try { url = new URL(next, location.href); } catch (e) { return fallback; }
+    // Same-origin only. An absolute URL elsewhere, or //elsewhere, is someone
+    // trying to use this page as an open redirect.
+    if (url.origin !== location.origin) return fallback;
+    if (url.pathname === location.pathname) return fallback;
+    return url.pathname + url.search + url.hash;
+  }
+
+  function markPassed() {
+    try { sessionStorage.setItem(cfg.passKey, String(Date.now())); } catch (e) {}
+    // Once a day per device (js/vandana-guard.js reads this), cleared again by a sign-in.
+    try {
+      const d = new Date(), m = d.getMonth() + 1, day = d.getDate();
+      localStorage.setItem('dge_vandana_day', d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day);
+    } catch (e) {}
+  }
+
+  function enter() {
+    if (cfg.requireOffering && offerings < cfg.minOfferings) return;
+    hidePranamGif();
+    markPassed();
+    document.body.classList.add('leaving');
+    const target = destination();
+    if (target) setTimeout(function () { window.location.href = target; }, 620);
+  }
+
+  /* ------------------------------------------------------------ bind ---- */
+  function bind() {
+    $('offerBtn').addEventListener('click', offer);
+    $('pranamBtn').addEventListener('click', pranam);
+    $('offerZone').addEventListener('click', offer);
+    // "Tap the portrait" means the whole portrait, not only the small offer zone above it (7 Sep 2026 report).
+    document.querySelector('.frame').addEventListener('click', function () {
+      if (document.querySelector('.frame').classList.contains('video-active')) return;
+      offer();
+    });
+    $('offerZone').addEventListener('keydown', function (ev) {
+      if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); offer(); }
+    });
+    $('enterBtn').addEventListener('click', enter);
+
+    document.addEventListener('click', function (ev) {
+      const opener = ev.target.closest('[data-panel]');
+      if (opener) openPanel(opener.getAttribute('data-panel'));
+    });
+
+    $('sheetWrap').addEventListener('click', function (ev) {
+      if (ev.target === $('sheetWrap') || ev.target.closest('[data-close]')) closePanel();
+    });
+    $('pranamGifVideo').addEventListener('ended', hidePranamGif);
+    document.addEventListener('keydown', function (ev) {
+      if (ev.key !== 'Escape') return;
+      if ($('sheetWrap').classList.contains('open')) closePanel();
+      // Lets a visitor skip the blessing video early and return to the
+      // static photo, the same way Escape already closed the old popup.
+      if (document.querySelector('.frame').classList.contains('video-active')) hidePranamGif();
+    });
+  }
+
+  /* --------------------------------------------------------- boot ------- */
+  /* The words and the mechanics arrive as two files, and the page draws only
+     once both are in hand. Nothing is rendered from a placeholder first: a
+     flash of English defaults under a Sanskrit masthead is worse than a
+     moment of nothing, and there are no defaults here to flash. */
+  function fail(reason) {
+    const hero = $('hero');
+    if (!hero) return;
+    hero.innerHTML =
+      '<div class="boot-fail">' +
+      '<div class="boot-om" aria-hidden="true">ॐ</div>' +
+      '<p>The page could not load its text.</p>' +
+      '<p class="boot-why">' + esc(reason) + '</p>' +
+      '<button class="btn btn-enter" onclick="location.reload()">' +
+      '<span>Try again</span></button></div>';
+    console.error('[Landing]', reason);
+  }
+
+  function get(rel) {
+    return fetch(rel + '?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) {
+        if (!r.ok) throw new Error(rel + ' returned ' + r.status);
+        return r.json();
+      });
+  }
+
+  Promise.all([
+      get('content/home.json'),
+      get('config/home.json'),
+      // The Contributors & Seva Support section reads its list from here —
+      // the SAME file the reader app's own About panel already edits —
+      // rather than home.json keeping a second, separately hand-maintained
+      // copy that can silently drift out of sync with it. Non-fatal: a
+      // missing/unreachable reader.json just means that one section's list
+      // stays empty, not that the whole vandana gate fails to load.
+      get('content/reader.json').catch(function () { return null; })
+    ])
+    .then(function (all) {
+      const content = all[0], conf = all[1];
+      window.READER_CONTENT = all[2];
+      // The _readme keys are for whoever edits the files; they are not page data.
+      delete content._readme; delete conf._readme;
+      cfg = Object.assign({}, conf, content);
+      SITE_CONFIG = cfg;
+      window.SITE_CONFIG = cfg;
+
+      // Named so a missing one is reported as itself rather than as a
+      // TypeError halfway through render().
+      const need = ['brand', 'guru', 'vandana', 'labels', 'sections', 'panels', 'footer',
+                    'enterUrl', 'photo', 'flowers', 'pranam'];
+      const absent = need.filter(function (k) { return cfg[k] == null; });
+      if (absent.length) throw new Error('missing: ' + absent.join(', '));
+
+      render();
+      bind();
+    })
+    .catch(function (e) { fail(e && e.message ? e.message : String(e)); });
+
+  /* content-inline.js stages an edit into SITE_CONFIG and calls this, so the
+     change appears in the real layout rather than in a preview pane. */
+  window.dgeContentRerender = function () {
+    if (!cfg) return;
+    render();
+    if ($('sheetWrap').classList.contains('open')) {
+      const open = $('sheet').getAttribute('data-panel-key');
+      if (open) openPanel(open);
+    }
+  };
+
+  window.dgeVandana = { openPanel, closePanel, enter, get offerings() { return offerings; } };
+})();
+</script>
+<script src="js/contact-email.js?v=1"></script>
+<script src="js/content-inline.js?v=2"></script>
+<script src="js/dge-shell.js?v=1"></script>
+</body>
+</html>

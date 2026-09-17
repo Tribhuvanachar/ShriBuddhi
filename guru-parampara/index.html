@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=2"></script>
+<script src="../js/admin-gate.js?v=1"></script>
+<script src="../js/admin-remote.js?v=1"></script>
+<script src="../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Guru Parampara — Madhva (Dvaita) Lineage · DGE</title>
+<link rel="stylesheet" href="../css/vyakarana-base.css?v=1">
+<link rel="stylesheet" href="../css/guru-parampara.css?v=1">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<body>
+<header>
+  <div class="bar">
+    <dge-breadcrumb home-href="index.html" label="Guru Parampara" class="brand"><a href="index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span>Guru Parampara</span></dge-breadcrumb>
+    <div class="spacer"></div>
+  </div>
+</header>
+<div class="wrap">
+  <h1>Guru Parampara · <span class="a">Madhva (Dvaita Vedanta) Lineage</span></h1>
+  <p class="lede">The apostolic lineage of the Madhva sampradaya — from the eternal parampara (Narayana → Brahma → … → Madhvacharya) through the four Vedanta-peetha successors and every major matha's succession: Uttaradi, Raghavendra (Mantralaya), Vyasaraja, Sripadaraja, the Udupi Ashta Mathas, the GSB Kashi &amp; Gokarna maths, the early mathas, and the Dāsa Paramparā (Haridāsa) lineage — Sripadaraja &amp; Vyasatirtha through Purandara &amp; Kanaka Dasa to the 18th-c. Dasakuta of Vijaya, Gopala and Jagannatha Dasa. Each figure carries dates, Brindavana, works, contribution, and auto-computed contemporaries.</p>
+  <div>
+    <span class="stat">215 figures</span>
+    <span class="stat">20 lineages · incl. Dāsa Paramparā</span>
+    <span class="stat">non-commercial · sourced</span>
+  </div>
+
+  <div class="grid" style="margin-top:16px">
+    <!-- Three interchangeable reader layouts, one CENTRAL data store
+         (data/parampara.json via guru-data.js) — the lead's 3 Sep 2026
+         ask: keep each mockup's unique UI, let the visitor pick. -->
+    <a class="card" href="guru1.html">
+      <b>Explorer view</b>
+      <small>Amber timeline rail · filter by maṭha &amp; era · metro-map dialog · search · expand-all bios</small>
+    </a>
+    <a class="card" href="guru2.html">
+      <b>Metro view</b>
+      <small>Metro-map overview ⇄ per-line walk · ↑guru ↓śiṣya keys · era lens · confidence dots · light/dark/system</small>
+    </a>
+    <a class="card" href="guru3.html">
+      <b>Trunk &amp; Lines view</b>
+      <small>One-trunk hero · station grid · every line with counts · era slider · cross-line jumps with toasts</small>
+    </a>
+    <!-- 31 Aug 2026, project-lead call: the 3D showcase card (and
+         lineage-3d.html itself) removed — "not impressive, get rid of
+         it". The 2D tree is the one lineage view, pending its own
+         mobile-first overhaul. -->
+    <a class="card" href="lineage-2d.html">
+      <div class="ic">🌳</div><h3>Lineage Tree</h3>
+      <p>Collapsible guru→disciple tree. Click to expand a branch, tap a name for the full detail card, search to jump to anyone.</p>
+    </a>
+    <a class="card" href="tracker.html" data-admin-only>
+      <div class="ic">📊</div><h3>Completeness Tracker</h3>
+      <p>What's filled and what's missing — per field, per matha, per saint — with fill percentages. The live to-do list for extending the data.</p>
+    </a>
+  </div>
+
+  <!-- Data-source path, developer handoff notes, and curation links are
+       operational notes for whoever maintains this page, not for a reader —
+       confined to admins (see js/admin-gate.js). -->
+  <div class="meta" data-admin-only>
+    Data: <code>data/parampara.json</code> (single source). Views are self-contained (no external libraries / CDNs).
+    <div class="links" style="margin-top:8px">
+      <a href="reference.md">Reference (tables &amp; caveats)</a>
+      <a href="brindavana_image_manifest.md">Brindavana image manifest</a>
+      <a href="guruparampara.md">Developer / handoff notes</a>
+      <a href="javascript:void(0)" onclick="window.dgeOpenBrahmaBuddhiPage && window.dgeOpenBrahmaBuddhiPage('bbHolyPlacesManagerItem')">Holy-places curation (admin)</a>
+    </div>
+    <div style="margin-top:10px">Primary reference: B.N.K. Sharma, <em>History of the Dvaita School of Vedanta and Its Literature</em>; Narayana Panditacharya, <em>Sumadhva Vijaya</em>; the mathas' official succession records.</div>
+  </div>
+</div>
+
+<!-- Phase 6 of the frontend redesign: <dge-footer> (dge-shell.js) -- same
+     link sets/behavior as site-footer.js, see that file's own header comment. -->
+<dge-footer class="site-footer-links"><a class="footer-link" href="../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+<script src="../js/dge-shell.js?v=1"></script>
+<script src="../js/dge-breadcrumb.js?v=1"></script>
+<script src="../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="guru-parampara"></dge-nav-rail>
+<!-- 7 Sep 2026: same reader copy/right-click guard as index.html (admins exempt). -->
+<script src="../js/copy-guard.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=2"></script>
+<script src="../js/admin-gate.js?v=1"></script>
+<script src="../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>अष्टाध्यायी · DGE व्याकरणम्</title>
+<!-- Indic transliteration, vendored (js/vendor/README.md): the reader's
+     script setting and the धातु/कोश word marking both depend on it, so it
+     must not be one CDN outage away from silently not working. -->
+<script src="../js/vendor/sanscript-1.3.3.min.js?v=1.3.3"></script>
+<link rel="stylesheet" href="../css/vyakarana-base.css?v=1">
+<link rel="stylesheet" href="../css/ashtadhyayi.css?v=5">
+<link rel="stylesheet" href="../css/intellisense.css?v=2">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<!-- The page is the Ashtadhyayi, so a bare "1.1.3" in a commentary is a
+     sutra and not a verse number: intellisense links them without needing a
+     cue word. It scans the commentary panel and the padaccheda panel. -->
+<body data-grantha-slug="vedanga/vyakarana/ashtadhyayi"
+      data-intellisense-roots="#dge-layers,#dge-analysis">
+<!-- 24 Aug 2026: header consolidated per the project lead's direct
+     clutter report ("the Ashtadhyayi page... upper navigation, lot of
+     unwanted stuff appearing... screen should be minimal") -- on a
+     narrow phone the six controls this used to hold (Read/Compare,
+     6-script selector, font +/-, theme, gear) wrapped across 3-4 lines
+     before any sutra content appeared at all. All six are settings a
+     reader sets once and rarely revisits per-sutra, not per-sutra
+     actions -- reusing this exact reasoning and this file's OWN existing
+     .drawer/.backdrop bottom-sheet system (already used for the AI tutor
+     drawer just below) rather than importing index.html's separate
+     drawer-right pattern, since this page has its own established one.
+     Only the jump-to-sutra input (constant, primary navigation) and the
+     new ☰ menu button stay in the header; every id below is unchanged
+     from before, only relocated into #dge-menuDrawer, so none of their
+     own click handlers in ashtadhyayi.js needed touching. -->
+<header>
+  <div class="bar">
+    <!-- 29 Aug 2026: real taxonomy ancestors added (वेदाङ्गानि, व्याकरणम्) as
+         actual links, not just "Home > leaf" -- the reader's whole
+         vedanga/vyakarana/ashtadhyayi path, matching the depth
+         layer-stitch.js's lineage strip and global-search.js's per-hit
+         crumbs now show elsewhere. Each ancestor opens the Library browser
+         drilled to that node (?libraryPath=, see library.js's
+         dgeOpenLibraryToPath / core.js's handling); अष्टाध्यायी itself stays
+         a plain span -- it's the current page, same "you are here"
+         convention as every other breadcrumb in this pass. dge-breadcrumb.js's
+         own connectedCallback() leaves pre-built children exactly as
+         authored (see that file's header comment), so no JS change was
+         needed to support this depth. -->
+    <dge-breadcrumb label="अष्टाध्यायी" deva home-href="index.html" class="brand"><a href="index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><a href="index.html?libraryPath=vedanga" class="deva">वेदाङ्गानि</a><span aria-hidden="true">›</span><a href="index.html?libraryPath=vedanga/vyakarana" class="deva">व्याकरणम्</a><span aria-hidden="true">›</span><span class="deva">अष्टाध्यायी</span></dge-breadcrumb>
+    <div class="spacer"></div>
+    <input class="jump" id="dge-jump" placeholder="1.1.1" list="dge-sutralist" title="jump to sutra">
+    <datalist id="dge-sutralist"></datalist>
+    <button class="icon" id="dge-focusBtn" title="Focus mode: hide extra chrome, show the sūtra and open commentaries only" aria-label="Toggle focus reading mode" aria-pressed="false">🎯</button>
+    <button class="icon" id="dge-menuBtn" title="Menu: view, script, size, theme, search, AI settings" aria-label="Open menu">☰</button>
+  </div>
+</header>
+
+<div class="drawer" id="dge-menuDrawer">
+  <div class="inner">
+    <button class="x" id="dge-menuClose">×</button>
+    <h4>☰ Menu</h4>
+    <div style="margin-top:6px;font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.4px;">View</div>
+    <div class="ctl" id="dge-modeSeg"><button data-m="read" class="on">☰ Read</button><button data-m="compare">▥ Compare</button></div>
+    <div style="margin-top:12px;font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.4px;">Script</div>
+    <div class="ctl" id="dge-scriptSeg">
+      <button data-s="devanagari" class="on">देव</button><button data-s="iast">IAST</button>
+      <button data-s="kannada">ಕ</button><button data-s="telugu">తె</button><button data-s="tamil">த</button><button data-s="malayalam">മ</button>
+    </div>
+    <div style="margin-top:12px;font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.4px;">Size &amp; theme</div>
+    <div class="q">
+      <button id="dge-fontDn" title="smaller">A−</button>
+      <button id="dge-fontUp" title="larger">A+</button>
+      <button id="dge-themeBtn" title="Light / Dark">◐ Light/Dark</button>
+    </div>
+    <div style="margin-top:12px;font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.4px;">Other</div>
+    <div class="q">
+      <button id="dge-menuSearchBtn" title="Search the whole DGE corpus">🔍 Search the corpus</button>
+      <button id="dge-gear" title="AI settings">⚙ AI settings</button>
+    </div>
+    <div style="margin-top:12px;font-size:11px;opacity:.6;text-transform:uppercase;letter-spacing:.4px;">Commentaries</div>
+    <div class="q">
+      <button data-cn-action="expand">⤢ Expand all</button>
+      <button data-cn-action="collapse">⤡ Collapse all</button>
+    </div>
+  </div>
+</div>
+
+<!-- Pinned just below the header rather than only at the very bottom of the
+     page, after every commentary layer — a reader had to scroll past all of
+     them to find Next/Previous, which on a long sutra with several layers
+     open meant scrolling past a lot of text just to move on. -->
+<nav class="nav nav-top">
+  <button id="dge-prevBtnTop"><small>‹ previous (←)</small><span class="deva" id="dge-prevTTop"></span></button>
+  <button class="next" id="dge-nextBtnTop"><small>next (→) ›</small><span class="deva" id="dge-nextTTop"></span></button>
+</nav>
+
+<main>
+  <div class="crumbs deva">अध्याय <span id="dge-a"></span> · पाद <span id="dge-p"></span> · सूत्र <span id="dge-s"></span> &nbsp;›&nbsp; <b>पाणिनीयम्</b></div>
+
+  <section class="hero">
+    <div class="sid"><span class="num" id="dge-hnum"></span> · <span id="dge-hpos"></span> of <span id="dge-htotal"></span> sutras</div>
+    <!-- Both orders at once: the Ashtadhyayi's own 1.1.1 sequence and the
+         Siddhanta Kaumudi's reading order, each with its own previous/next.
+         Tapping a cluster's label makes that order the one the big
+         Previous/Next buttons and arrow keys follow. -->
+    <div class="dualnav" id="dge-dualnav"></div>
+    <div class="deva" id="dge-kaumudiBadge" style="display:none;font-size:12px;color:var(--muted);margin:2px 0 0" title="This sutra's position in the Siddhanta Kaumudi's reading order, its prakarana, and (when the sutra is part of the Laghu-Siddhanta-Kaumudi) its position there"></div>
+    <div class="sutra deva" id="dge-hsutra">लोड्यते…</div>
+    <div class="translit" id="dge-hsutraIt"></div>
+    <div class="sutrameta" id="dge-sutrameta"></div>
+    <div class="heroactions">
+      <button class="btn" id="dge-pcBtn">॥ पदच्छेद / विश्लेषण ॥</button>
+      <button class="btn ai" id="dge-aiBtn">✦ Ask DGE AI</button>
+      <button class="btn" id="dge-sutraMoreBtn" title="More: what explains this sūtra, corpus usage, suggest a correction" aria-label="More sūtra tools">⋯ More</button>
+    </div>
+    <div class="analysis" id="dge-analysis"></div>
+  </section>
+
+  <div class="cn-summary" id="dge-cnSummary" aria-live="polite"></div>
+  <div class="cn-list" id="dge-cnList" role="list" aria-label="Commentary navigator — tap a commentary to show or hide it"></div>
+
+  <div class="dge-layers read" id="dge-layers"></div>
+  <p class="note">Ashtadhyayi corpus · DGE · 7 layers (Kāśikā · Siddhānta-Kaumudī · Mahābhāṣya · Bālamanoramā · Tattvabodhinī · Nyāsa · Vasu Eng). Layers load on demand.<span data-admin-only> Licence: verify before public launch — see admin.</span></p>
+
+  <nav class="nav">
+    <button id="dge-prevBtn"><small>‹ previous (←)</small><span class="deva" id="dge-prevT"></span></button>
+    <button class="next" id="dge-nextBtn"><small>next (→) ›</small><span class="deva" id="dge-nextT"></span></button>
+  </nav>
+</main>
+
+<!-- Phase 6 of the frontend redesign: <dge-footer> (dge-shell.js) --
+     same link sets/behavior as site-footer.js, see that file's own
+     header comment. -->
+<dge-footer class="site-footer-links"><a class="footer-link" href="../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+
+<div class="backdrop" id="dge-backdrop"></div>
+
+<div class="drawer" id="dge-drawer">
+  <div class="inner">
+    <button class="x" id="dge-aiClose">×</button>
+    <h4>✦ Ask DGE AI <span style="font-size:12px;color:var(--muted);font-weight:400">· Gemini (your key)</span></h4>
+    <div style="color:var(--muted);font-size:13px">Grounded on the layers you have open — quotes them, won't invent.</div>
+    <div class="q" style="margin-top:8px">
+      <span style="font-size:12px;color:var(--muted);align-self:center">reply in:</span>
+      <button data-lang="en" class="on">English</button><button data-lang="kn">ಕನ್ನಡ</button><button data-lang="sa">संस्कृत</button>
+    </div>
+    <div class="q">
+      <button data-preset="Explain this sutra simply for a beginner.">Explain simply</button>
+      <button data-preset="Compare what the open commentaries say and where they differ.">Compare commentaries</button>
+      <button data-preset="Give one example word where this rule applies, with the derivation.">Example word</button>
+      <button data-preset="Rewrite the commentary as a clear, modern paraphrase.">Improve / paraphrase</button>
+    </div>
+    <div class="row"><input id="dge-aiInput" placeholder="Ask anything about this sutra…"><button class="btn ai" id="dge-aiSend">Send</button></div>
+    <div class="ans deva" id="dge-aiAns">Pick a prompt or type a question. Add your Gemini key via the ⚙ button (stored only in your browser).</div>
+  </div>
+</div>
+
+<div class="modal" id="dge-prayogaModal">
+  <div class="box">
+    <button class="x" id="dge-prayogaClose">×</button>
+    <div id="dge-prayogaBody"></div>
+  </div>
+</div>
+
+<div class="modal" id="dge-chaptersModal">
+  <div class="box">
+    <button class="x" id="dge-chaptersClose">×</button>
+    <div id="dge-chaptersBody"></div>
+  </div>
+</div>
+
+<div class="modal" id="dge-settings">
+  <div class="box">
+    <button class="x" id="dge-setClose">×</button>
+    <h4>AI settings</h4>
+    <label>Gemini API key</label>
+    <input id="dge-keyInput" type="password" placeholder="AIza…">
+    <label>Model</label>
+    <!-- Options are filled in from DGEGemini.MODELS at runtime; this one is
+         only what shows if that script fails to load. Do not add pinned model
+         ids here -- the list that was here went stale and broke the page's AI
+         for every new key. -->
+    <select id="dge-modelSel">
+      <option value="gemini-flash-latest">Flash — fast, recommended</option>
+    </select>
+    <details class="set-privacy">
+      <summary>Where does my key go?</summary>
+      <p>Bring your own Gemini key — it is stored only in this browser (localStorage) and sent directly to Google, never to DGE. Free key: aistudio.google.com/apikey</p>
+    </details>
+    <div class="acts">
+      <button class="btn ai" id="dge-keySave" style="flex:1;justify-content:center">Save</button>
+      <button class="btn" id="dge-keyClear">Clear</button>
+    </div>
+  </div>
+</div>
+
+<script src="../js/gemini.js?v=1.2.1"></script>
+<!-- Reader redesign / DGE UI Contract retrofit: this page previously had no
+     way to open contextual-actions.js's generic per-object-type menu even
+     after loading that script, because that menu's markup (.modal-overlay
+     etc.) is only shown/hidden via modals.js's openModal()/closeModal(),
+     which this page never loaded either. Load order matches render.html
+     (see DGE_UI_CONTRACT.md): modals.js, reader-state.js,
+     contextual-actions.js, all before the page's own module. -->
+<script src="../js/modals.js?v=1"></script>
+<script src="../js/reader-state.js?v=1"></script>
+<script src="../js/contextual-actions.js?v=1"></script>
+<script src="../js/dge-shell.js?v=1"></script>
+<script src="../js/dge-breadcrumb.js?v=1"></script>
+<script src="../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="ashtadhyayi"></dge-nav-rail>
+<script src="../js/ashtadhyayi.js?v=1.8.1"></script>
+<script>
+/* populate the sutra jump datalist once data is present */
+(function(){ function fill(){ var dl=document.getElementById('dge-sutralist'); if(!dl) return;
+  /* the module owns state; expose a light hook */ }
+})();
+</script>
+<!-- Sutra intellisense: makes references inside the commentaries tappable,
+     and double-tapping any word says what it is. -->
+<script src="../js/intellisense.js?v=4.71.1"></script>
+<script src="../js/entity-linker.js?v=1.0.0"></script>
+<!-- Corpus-wide search, for the 🔍 प्रयोगाः button (where is this sutra
+     cited across the whole library) and the floating search button. -->
+<script src="../js/dge-search.js?v=4.70.0" defer></script>
+<!-- role-access.js before global-search.js: search hands it the go-live shelf. -->
+<script src="../js/role-access.js?v=1.3.0"></script>
+<script src="../js/global-search.js?v=4.82.0" defer></script>
+</body>
+</html>

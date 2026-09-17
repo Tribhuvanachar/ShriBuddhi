@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="js/vandana-guard.js?v=1"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sarvamoola Digital Library — App layout</title>
+<!-- 7 Sep 2026: thin entry page for the App layout of the reader. The
+     reader itself is render.html (one page, one code base); this page
+     only gives the App layout its own address to link and bookmark, then
+     hands over with ?layout=app plus whatever ?path=... it was opened with.
+     The layout is still a single body class switch (render.js
+     dgeSetLayoutMode), which is why nothing is duplicated here. -->
+<script>
+(function () {
+  var q = new URLSearchParams(window.location.search);
+  q.set('layout', 'app');
+  window.location.replace('index.html?' + q.toString() + window.location.hash);
+})();
+</script>
+</head>
+<body style="margin:0;background:#0B0907;color:#F3E7D4;font-family:system-ui,sans-serif;">
+<p style="padding:24px;">Opening the App layout… <a href="index.html?layout=app" style="color:#E8B24D;">Continue</a></p>
+</body>
+</html>

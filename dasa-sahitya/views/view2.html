@@ -1,0 +1,439 @@
+<!DOCTYPE html><html lang="kn"><head>
+<meta charset="utf-8">
+<script src="../../js/vandana-guard.js?v=2"></script>
+<script src="../../js/admin-gate.js?v=1"></script>
+<script src="../../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">  <!-- allow pinch-zoom -->
+<title>ದಾಸ ಸಾಹಿತ್ಯ · Browse · DGE</title>
+<link rel="icon" type="image/png" sizes="48x48" href="../../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../../images/genie/apple-touch-icon.png">
+<style>
+:root{
+  --bg:#f7f3eb;--paper:#fbf9f4;--ink:#29261f;--muted:#716b60;--hair:#d9d2c5;
+  --accent:#6d4d2e;--accent2:#8d6842;--focus:#1559a6;--sheet:#fffdf8;
+  --serif:ui-serif,Georgia,"Noto Serif Kannada","Noto Serif",serif;
+  --sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --reader:clamp(1.28rem,4.9vw,1.72rem);
+  --lh:1.78;--measure:70ch;--bar:52px;
+  color-scheme:light;
+}
+@media(prefers-color-scheme:dark){
+ :root:not([data-theme="light"]){--bg:#171612;--paper:#1b1915;--ink:#eee9df;--muted:#aaa295;--hair:#3a352d;
+ --accent:#d2a675;--accent2:#b98957;--focus:#83b7ff;--sheet:#24211c;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#171612;--paper:#1b1915;--ink:#eee9df;--muted:#aaa295;--hair:#3a352d;
+ --accent:#d2a675;--accent2:#b98957;--focus:#83b7ff;--sheet:#24211c;color-scheme:dark}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth;overscroll-behavior-y:none}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);overflow-x:hidden}
+button,input,select{font:inherit}
+button{color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.skip{position:fixed;left:8px;top:8px;z-index:100;padding:10px;background:var(--sheet);border:1px solid var(--hair);border-radius:8px;transform:translateY(-150%)}
+.skip:focus{transform:none}
+.topline{position:sticky;top:0;z-index:20;height:34px;display:flex;align-items:center;justify-content:center;
+ background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);font:600 .68rem var(--sans);
+ letter-spacing:.12em;text-transform:uppercase;color:var(--muted);transition:transform .22s,opacity .22s}
+.topline.hidden{transform:translateY(-100%);opacity:0;pointer-events:none}
+.topline dge-breadcrumb{font:inherit;letter-spacing:inherit}
+.topline dge-breadcrumb a{color:var(--muted);text-decoration:none}
+.context{position:sticky;top:0;z-index:19;min-height:28px;display:none;align-items:center;justify-content:center;
+ padding:2px 48px;background:var(--accent);color:#fff;font-size:.73rem;line-height:1.2}
+.context.show{display:flex}
+.context button{border:0;background:none;color:inherit;min-width:44px;min-height:44px;margin-left:auto;cursor:pointer}
+main{width:min(100%,var(--measure));margin:auto;padding:12px 18px 90px}
+.reading-header{min-height:38px;display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--muted);font-size:.76rem;padding:4px 0}
+.reading-header strong{color:var(--ink);font-weight:650}
+.reading-header .count{text-align:right;line-height:1.35}
+.reader{font-family:var(--serif)}
+.group-head{font-family:var(--sans);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2);
+ font-weight:700;padding:22px 0 6px;border-bottom:2px solid var(--hair);margin:6px 0 4px;position:sticky;top:34px;
+ background:color-mix(in srgb,var(--bg) 92%,transparent);z-index:5;backdrop-filter:blur(6px)}
+.group-head .gcount{color:var(--muted);font-weight:600;text-transform:none;letter-spacing:0;margin-left:6px}
+.composition{content-visibility:auto;contain-intrinsic-size:520px;position:relative;padding:24px 0 40px;border-bottom:1px solid var(--hair)}
+.composition h2{font-size:clamp(1.05rem,3.5vw,1.3rem);font-weight:650;margin:0 44px 5px 0;line-height:1.35}
+.composition .tl{font-family:var(--serif);font-size:.85rem;color:var(--muted);margin:0 44px 4px 0;font-style:italic}
+.meta{font-family:var(--sans);font-size:.68rem;letter-spacing:.06em;color:var(--muted);margin:0 38px 18px 0;
+ display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.meta .form-tag{text-transform:uppercase;letter-spacing:.09em;color:var(--accent2);font-weight:700}
+.composer-link{border:0;background:none;color:var(--accent);cursor:pointer;padding:0;font:inherit;text-decoration:underline;text-underline-offset:2px}
+.state-badge{font-size:.9rem;letter-spacing:0}
+.stanza{font-size:var(--reader);line-height:var(--lh);margin:0 0 1.35em;white-space:pre-wrap}
+.stanza .rom{display:block;font-size:calc(var(--reader)*.72);color:var(--muted);margin-top:.35em;white-space:pre-wrap}
+.dasa-word{cursor:pointer;border-radius:3px;transition:background .1s}
+.dasa-word:hover{background:color-mix(in srgb,var(--accent) 14%,transparent)}
+.card-actions-btn{position:absolute;right:-2px;top:18px;width:44px;height:44px;border:0;background:transparent;color:var(--muted);
+ border-radius:50%;font-size:1.15rem;cursor:pointer}
+.card-actions-btn:active{background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.meaning{font-family:var(--sans);font-size:.85rem;line-height:1.6;margin-top:12px;color:var(--ink)}
+.meaning b{color:var(--accent)}
+.loadhint{text-align:center;color:var(--muted);font-size:.75rem;padding:26px}
+.empty{text-align:center;color:var(--muted);font-size:.9rem;padding:48px 12px}
+.bottom{position:fixed;z-index:30;left:0;right:0;bottom:0;min-height:var(--bar);padding:4px 10px calc(4px + env(safe-area-inset-bottom));
+display:flex;justify-content:center;background:color-mix(in srgb,var(--bg) 91%,transparent);backdrop-filter:blur(14px);
+border-top:1px solid var(--hair);transition:transform .22s,opacity .22s}
+.bottom.hidden{transform:translateY(110%);opacity:0;pointer-events:none}
+.bottom-inner{width:min(520px,100%);display:flex;justify-content:space-between}
+.tool{min-width:44px;min-height:44px;border:0;background:none;border-radius:12px;cursor:pointer;display:grid;place-items:center;font-size:1.15rem}
+.tool span{display:block;font-size:.55rem;margin-top:-4px;color:var(--muted)}
+dialog{border:0;padding:0;margin:0;max-width:none;width:100%;height:auto;max-height:min(88dvh,760px);position:fixed;bottom:0;
+border-radius:22px 22px 0 0;background:var(--sheet);color:var(--ink);box-shadow:0 -12px 40px #0003}
+dialog::backdrop{background:#0007}
+.sheet{padding:10px 18px calc(18px + env(safe-area-inset-bottom));max-height:88dvh;overflow:auto}
+.grab{width:42px;height:4px;border-radius:4px;background:var(--hair);margin:2px auto 12px}
+.sheet h2{font-size:1rem;margin:4px 0 12px}
+.field{display:grid;gap:5px;margin:9px 0}
+label{font-size:.72rem;color:var(--muted)}
+input,select{min-height:44px;border:1px solid var(--hair);border-radius:10px;background:var(--paper);color:var(--ink);padding:8px 10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.choice{min-height:44px;border:1px solid var(--hair);background:var(--paper);border-radius:10px;cursor:pointer;padding:5px;font-size:.72rem;color:var(--ink)}
+.choice small{display:block;color:var(--muted);font-size:.62rem}
+.choice[aria-pressed=true]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);color:var(--accent)}
+.choice[aria-pressed=true] small{color:var(--accent)}
+.sheet-actions{display:flex;gap:8px;position:sticky;bottom:-18px;background:var(--sheet);padding:10px 0 2px}
+.primary,.secondary{min-height:46px;border-radius:11px;padding:0 16px;cursor:pointer}
+.primary{background:var(--accent);color:#fff;border:1px solid var(--accent);flex:1}
+.secondary{background:transparent;border:1px solid var(--hair)}
+.list{border:1px solid var(--hair);border-radius:12px;overflow:hidden;max-height:42dvh;overflow:auto}
+.composer-row{display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:48px;padding:5px 10px;border:0;border-bottom:1px solid var(--hair);
+width:100%;background:var(--paper);text-align:left;cursor:pointer;color:var(--ink)}
+.composer-row:last-child{border:0}
+.composer-row[aria-pressed=true]{color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.composer-row .nm{font-family:var(--serif)}
+.small{font-size:.7rem;color:var(--muted)}
+.loadall-row{display:flex;gap:8px;margin:10px 0 2px}
+.toast{position:fixed;z-index:60;left:50%;bottom:calc(62px + env(safe-area-inset-bottom));transform:translateX(-50%);
+background:var(--ink);color:var(--bg);padding:9px 14px;border-radius:999px;font-size:.75rem;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+.desktop-rail{display:none}
+@media(min-width:900px){
+ main{padding-left:40px;padding-right:40px}
+ .bottom{display:none}
+ .desktop-rail{display:flex;position:fixed;left:16px;top:50%;transform:translateY(-50%);z-index:25;flex-direction:column;gap:4px}
+ .desktop-rail button{width:44px;height:44px;border:1px solid var(--hair);background:var(--sheet);border-radius:50%;cursor:pointer;color:var(--ink)}
+ .topline{justify-content:flex-start;padding-left:calc((100% - var(--measure))/2)}
+ .group-head{top:34px}
+}
+@media(prefers-reduced-motion:reduce){
+ *{scroll-behavior:auto!important;transition:none!important}
+}
+@supports not (color:color-mix(in srgb,red,blue)){
+ .topline,.bottom,.group-head{background:var(--bg)}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to reading</a>
+<header class="topline" id="topline">
+ <dge-breadcrumb label="Dāsa Sāhitya" home-href="../index.html" class="brand"><a href="../index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span>Dāsa Sāhitya</span></dge-breadcrumb>
+</header>
+<div class="context" id="context" aria-live="polite"><span id="summaryText"></span><button id="clearSummary" aria-label="Clear active filters">×</button></div>
+
+<main id="content">
+  <div class="reading-header"><strong>ದಾಸ ಸಾಹಿತ್ಯ</strong><span class="count" id="countLabel">Loading…</span></div>
+  <section id="reader" class="reader" aria-label="Compositions"></section>
+  <div id="loadhint" class="loadhint">Loading compositions…</div>
+</main>
+
+<aside class="desktop-rail" aria-label="Reading controls">
+  <button data-open="controls" aria-label="Open filters">☰</button>
+  <button data-open="composers" aria-label="Browse composers">♙</button>
+  <button id="desktopFont" aria-label="Increase reader text size">A+</button>
+</aside>
+
+<nav class="bottom" id="bottomBar" aria-label="Reading controls">
+ <div class="bottom-inner">
+  <button class="tool" data-open="controls" aria-label="Search and filters">⌕<span>Find</span></button>
+  <button class="tool" data-open="composers" aria-label="Browse composers">♙<span>Composers</span></button>
+  <button class="tool" id="fontBtn" aria-label="Adjust text size">A<span>Type</span></button>
+  <button class="tool" id="themeBtn" aria-label="Toggle light and dark theme">◐<span>Theme</span></button>
+ </div>
+</nav>
+
+<dialog id="controlsDialog" aria-labelledby="controlsTitle">
+ <div class="sheet">
+  <div class="grab"></div><h2 id="controlsTitle">Find &amp; shape the reading</h2>
+  <div class="field"><label for="search">Search title · composer · deity · first line · tags</label><input id="search" type="search" placeholder="e.g. Viṭṭhala, ಅಪರಾಧಿ…" autocomplete="off"></div>
+  <div class="field"><label>Form</label><div class="form-grid" id="formGrid"></div></div>
+  <div class="grid">
+   <div class="field"><label for="group">Group by</label><select id="group"><option value="none">Ungrouped</option><option value="composer">Composer</option><option value="deity">Deity</option><option value="form">Form</option><option value="alpha">A–Z (title)</option></select></div>
+   <div class="field"><label for="sort">Sort</label><select id="sort"><option value="az">A → Z</option><option value="za">Z → A</option></select></div>
+  </div>
+  <div class="field"><label for="script">Script</label><select id="script"><option value="kn">ಕನ್ನಡ</option><option value="iast">IAST</option><option value="devanagari">देवनागरी</option></select></div>
+  <div class="field"><label for="fontSize">Reader size</label><input id="fontSize" type="range" min="1.05" max="1.75" step=".05" value="1.28"></div>
+  <div class="sheet-actions"><button class="secondary" id="reset">Reset</button><button class="primary" id="apply">Apply</button></div>
+ </div>
+</dialog>
+
+<dialog id="composerDialog" aria-labelledby="composerTitle">
+ <div class="sheet"><div class="grab"></div><h2 id="composerTitle">Composers</h2>
+  <div class="field"><label for="composerSearch">Find a composer</label><input id="composerSearch" type="search" placeholder="Search composers…"></div>
+  <div class="loadall-row"><button class="secondary" id="allComposers" style="flex:1">All 152 composers</button><button class="secondary" id="loadAllBtn" style="flex:1">Load all works</button></div>
+  <div class="list" id="composerList"></div>
+ </div>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<dge-footer class="site-footer-links"><a class="footer-link" href="../../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+
+<script src="../../js/modals.js?v=1"></script>
+<script src="../../js/reader-state.js?v=1"></script>
+<script src="../../js/dasa-data.js?v=1"></script>
+<script src="../../js/kosha.js?v=3"></script>
+<script src="../../js/contextual-actions.js?v=1"></script>
+<script src="../../js/entity-linker.js?v=1"></script>
+<script src="../../js/dge-shell.js?v=1"></script>
+<script src="../../js/dge-breadcrumb.js?v=1"></script>
+<script src="../../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="dasa-sahitya"></dge-nav-rail>
+<script src="../../js/intellisense.js?v=4.71.1"></script>
+<script>
+(function(){
+ "use strict";
+ var D = window.DGE_DASA;
+ var reader=document.getElementById("reader"), context=document.getElementById("context"), summaryText=document.getElementById("summaryText");
+ var controls=document.getElementById("controlsDialog"), composersDlg=document.getElementById("composerDialog");
+ var toast=document.getElementById("toast"), countLabel=document.getElementById("countLabel"), loadhint=document.getElementById("loadhint");
+
+ var state={search:"",form:"all",composer:"all",group:"none",sort:"az",script:"kn"};
+ var manifest=null, composerList=[], batch=6, shown=0, ordCache=[], nextIdx=0, loadingMore=false, lastY=0;
+
+ function esc(s){ return D.esc(String(s==null?"":s)); }
+ function fmt(n){ return (n||0).toLocaleString("en-IN"); }
+ function curScript(){ return state.script; }
+
+ // ---------- data helpers ----------
+ function passComposer(r){ return state.composer==="all" || r._slug===state.composer; }
+ function passFilter(r){ return passComposer(r) && D.matches(r,{form:state.form,q:state.search.trim(),script:state.script}); }
+ function ordered(){
+   var recs=D.records.filter(passFilter);
+   var dir=state.sort==="za"?-1:1, sc=state.script;
+   if(state.group==="none"){
+     recs.sort(function(x,y){ return dir*D.scriptTitle(x,sc).localeCompare(D.scriptTitle(y,sc)); });
+   }else{
+     recs.sort(function(x,y){
+       var g=dir*String(D.groupKey(x,state.group,sc)).localeCompare(String(D.groupKey(y,state.group,sc)));
+       return g || dir*D.scriptTitle(x,sc).localeCompare(D.scriptTitle(y,sc));
+     });
+   }
+   return recs;
+ }
+ function groupLabel(gk){
+   if(state.group==="deity" && gk==="—") return "— · no deity recorded";
+   return gk;
+ }
+
+ // ---------- card markup ----------
+ function cardEl(r){
+   var el=document.createElement("article"); el.className="composition"; el.setAttribute("data-cid",r.id); el.id=r.id;
+   var title=D.scriptTitle(r,state.script), il=r.title&&r.title.iast;
+   var stz=D.stanzasFor(r,state.script), roman=(r.text&&r.text.source_roman)||[];
+   var cst=D.compStateGet(r.id);
+   var badges=[
+     cst.fav?'<span class="state-badge" title="Favorite">⭐</span>':'',
+     cst.status==="practice"?'<span class="state-badge" title="Needs practice">◐</span>':'',
+     cst.status==="done"?'<span class="state-badge" title="Completed">✅</span>':'',
+     cst.doubt?'<span class="state-badge" title="Marked doubt">❓</span>':''
+   ].join("");
+   var body="";
+   stz.forEach(function(st,i){
+     body+='<p class="stanza" lang="'+(state.script==="kn"?"kn":state.script)+'">'+st.map(D.tokenizeLine).join("\n");
+     if(state.script==="kn" && roman[i] && roman[i].length) body+='\n<span class="rom">'+roman[i].map(esc).join("\n")+'</span>';
+     body+='</p>';
+   });
+   if(!body) body='<p class="stanza tl">No verse text captured.</p>';
+   if(r.meaning) body+='<div class="meaning"><b>ಅರ್ಥ / Meaning</b><br>'+esc(r.meaning)+'</div>';
+   var composerBtn=r.composer?'<button type="button" class="composer-link" data-composer="'+D.escAttr(r.composer)+'" data-slug="'+D.escAttr(r._slug||"")+'">'+esc(r.composer)+'</button>':'';
+   var extras=[];
+   if(r.raga) extras.push(esc(r.raga));
+   if(r.tala) extras.push(esc(r.tala));
+   el.innerHTML=
+     '<button type="button" class="card-actions-btn" data-cid="'+D.escAttr(r.id)+'" title="Composition actions" aria-label="Actions for '+D.escAttr(title)+'">⋯</button>'+
+     '<h2>'+esc(title)+'</h2>'+
+     (il && state.script!=="iast" ? '<p class="tl">'+esc(il)+'</p>' : '')+
+     '<p class="meta"><span class="form-tag">'+esc(D.FORM_LABELS[r.form]||r.form)+'</span>'+
+       (badges?' '+badges:'')+
+       (composerBtn?' · '+composerBtn:'')+
+       (r.deity?' · '+esc(r.deity):'')+
+       (extras.length?' · '+extras.join(" · "):'')+'</p>'+
+     body;
+   return el;
+ }
+
+ // ---------- render ----------
+ function render(){
+   var a=ordCache, frag=document.createDocumentFragment(), lastGK=null;
+   reader.innerHTML="";
+   var end=Math.min(shown,a.length);
+   for(var i=0;i<end;i++){
+     var r=a[i];
+     if(state.group!=="none"){
+       var gk=String(D.groupKey(r,state.group,state.script));
+       if(gk!==lastGK){
+         var count=0; for(var j=i;j<a.length && String(D.groupKey(a[j],state.group,state.script))===gk;j++) count++;
+         var h=document.createElement("h3"); h.className="group-head";
+         h.innerHTML=esc(groupLabel(gk))+'<span class="gcount">'+fmt(count)+'</span>';
+         frag.appendChild(h); lastGK=gk;
+       }
+     }
+     frag.appendChild(cardEl(r));
+   }
+   reader.appendChild(frag);
+   if(typeof window.dgeScanForEntities==="function"){ try{ window.dgeScanForEntities(reader); }catch(e){} }
+   updateHint(); updateSummary();
+ }
+ function recompute(reset){ ordCache=ordered(); if(reset) shown=batch; if(shown<batch) shown=batch; render(); }
+
+ function updateHint(){
+   var total=ordCache.length, allLoaded=nextIdx>=composerList.length;
+   if(shown<total){ loadhint.textContent="Loading more compositions as you read…"; }
+   else if(!allLoaded && state.composer==="all"){ loadhint.textContent="Scroll to load more composers · "+fmt(nextIdx)+" of "+fmt(composerList.length)+" loaded"; }
+   else if(total===0){ loadhint.textContent=""; }
+   else { loadhint.textContent="End of "+(state.composer==="all"?"loaded compositions":"this composer"); }
+   if(total===0 && D.records.length){ reader.innerHTML='<p class="empty">No compositions match these filters.</p>'; }
+ }
+ function updateSummary(){
+   var bits=[];
+   if(state.form!=="all") bits.push(D.FORM_LABELS[state.form]||state.form);
+   if(state.composer!=="all"){ var c=composerList.find(function(x){return x.slug===state.composer;}); bits.push(c?c.composer:state.composer); }
+   if(state.search) bits.push('“'+state.search+'”');
+   if(state.group!=="none") bits.push("by "+state.group);
+   var active = state.form!=="all"||state.composer!=="all"||!!state.search||state.group!=="none";
+   context.classList.toggle("show",active);
+   summaryText.textContent=bits.join(" · ");
+   var total=state.form==="all"&&!state.search&&state.composer==="all" ? (manifest?manifest.count_total:0) : ordCache.length;
+   countLabel.innerHTML=fmt(ordCache.length)+" shown · "+(manifest?fmt(manifest.count_total):"—")+" total · "+(manifest?fmt(composerList.length):"—")+" composers";
+ }
+
+ // ---------- lazy composer loading ----------
+ function loadNext(){
+   if(loadingMore || nextIdx>=composerList.length) return Promise.resolve(false);
+   loadingMore=true;
+   var slug=composerList[nextIdx].slug;
+   return D.loadComposer(slug).then(function(){ nextIdx++; loadingMore=false; return true; });
+ }
+ function ensureContent(){
+   // keep loading composers until we have enough filtered records for a screenful or run out
+   if(loadingMore) return;
+   if(ordCache.length>=shown+batch) return;
+   if(nextIdx>=composerList.length || state.composer!=="all") return;
+   loadNext().then(function(did){ if(did){ recompute(false); if(ordCache.length<shown+batch) ensureContent(); } });
+ }
+ function loadAllWorks(){
+   if(nextIdx>=composerList.length){ toast_("All works already loaded."); return; }
+   toast_("Loading all 15,863 compositions…");
+   D.loadAll(function(){ /* progress */ }).then(function(){ nextIdx=composerList.length; recompute(false); toast_("All compositions loaded."); });
+ }
+
+ // ---------- dialogs ----------
+ function showDialog(d){ if(d.showModal){ try{d.showModal();}catch(e){d.setAttribute("open","");} } else d.setAttribute("open",""); }
+ function closeDialog(d){ if(d.close) d.close(); else d.removeAttribute("open"); }
+ function buildFormChips(){
+   var g=document.getElementById("formGrid"); g.innerHTML="";
+   var cbf=(manifest&&manifest.counts_by_form)||{};
+   var forms=["all"].concat(Object.keys(cbf).sort(function(a,b){return cbf[b]-cbf[a];}));
+   forms.forEach(function(f){
+     var b=document.createElement("button"); b.className="choice"; b.dataset.form=f;
+     b.setAttribute("aria-pressed",String(f===state.form));
+     var label=f==="all"?"All":(D.FORM_LABELS[f]||f);
+     var n=f==="all"?(manifest?manifest.count_total:0):(cbf[f]||0);
+     b.innerHTML=esc(label)+'<small>'+fmt(n)+'</small>';
+     g.appendChild(b);
+   });
+ }
+ function openControls(){
+   document.getElementById("search").value=state.search;
+   document.getElementById("group").value=state.group;
+   document.getElementById("sort").value=state.sort;
+   document.getElementById("script").value=state.script;
+   document.getElementById("fontSize").value=parseFloat(localStorage.getItem("readerScale")||"1.28");
+   buildFormChips();
+   showDialog(controls); setTimeout(function(){document.getElementById("search").focus();},80);
+ }
+ function renderComposerList(q){
+   q=(q||"").toLowerCase();
+   var rows=composerList.filter(function(c){ return !q || (c.composer||"").toLowerCase().indexOf(q)>=0 || (c.slug||"").indexOf(q)>=0; });
+   document.getElementById("composerList").innerHTML=rows.map(function(c){
+     return '<button class="composer-row" data-slug="'+D.escAttr(c.slug)+'" aria-pressed="'+String(c.slug===state.composer)+'">'+
+       '<span class="nm">'+esc(c.composer)+'</span><span class="small">'+fmt(c.count)+'</span></button>';
+   }).join("");
+ }
+ function openComposers(){ renderComposerList(""); document.getElementById("composerSearch").value=""; showDialog(composersDlg); setTimeout(function(){document.getElementById("composerSearch").focus();},80); }
+
+ // ---------- misc ui ----------
+ function applyScale(){ var s=localStorage.getItem("readerScale"); if(s){ document.documentElement.style.setProperty("--reader","clamp("+s+"rem,4.9vw,"+(Math.min(1.95,parseFloat(s)+.44))+"rem)"); } }
+ function toast_(t){ toast.textContent=t; toast.classList.add("show"); clearTimeout(window._dtt); window._dtt=setTimeout(function(){toast.classList.remove("show");},1800); }
+ window.dgeDasaToast=toast_; window.showToast=window.showToast||toast_;
+
+ // ---------- wire controls ----------
+ document.querySelectorAll("[data-open=controls]").forEach(function(b){ b.addEventListener("click",openControls); });
+ document.querySelectorAll("[data-open=composers]").forEach(function(b){ b.addEventListener("click",openComposers); });
+ document.getElementById("formGrid").addEventListener("click",function(e){
+   var b=e.target.closest(".choice"); if(!b) return;
+   document.querySelectorAll("#formGrid .choice").forEach(function(x){x.setAttribute("aria-pressed","false");});
+   b.setAttribute("aria-pressed","true"); state.form=b.dataset.form;
+ });
+ document.getElementById("apply").onclick=function(){
+   state.search=document.getElementById("search").value;
+   state.group=document.getElementById("group").value;
+   state.sort=document.getElementById("sort").value;
+   state.script=document.getElementById("script").value;
+   localStorage.setItem("readerScale",document.getElementById("fontSize").value); applyScale();
+   recompute(true); ensureContent(); closeDialog(controls);
+ };
+ document.getElementById("reset").onclick=function(){
+   state={search:"",form:"all",composer:"all",group:"none",sort:"az",script:"kn"};
+   document.getElementById("search").value=""; recompute(true); ensureContent(); closeDialog(controls);
+ };
+ document.getElementById("clearSummary").onclick=function(){
+   state.search=""; state.form="all"; state.composer="all"; state.group="none"; recompute(true); ensureContent();
+ };
+ document.getElementById("composerList").addEventListener("click",function(e){
+   var b=e.target.closest("[data-slug]"); if(!b) return;
+   var slug=b.dataset.slug; state.composer=slug;
+   closeDialog(composersDlg);
+   D.loadComposer(slug).then(function(){ recompute(true); });
+ });
+ document.getElementById("allComposers").onclick=function(){ state.composer="all"; renderComposerList(document.getElementById("composerSearch").value); recompute(true); ensureContent(); closeDialog(composersDlg); };
+ document.getElementById("loadAllBtn").onclick=function(){ closeDialog(composersDlg); loadAllWorks(); };
+ document.getElementById("composerSearch").addEventListener("input",function(e){ renderComposerList(e.target.value); });
+ document.getElementById("fontBtn").onclick=openControls;
+ document.getElementById("desktopFont").onclick=function(){ var s=parseFloat(localStorage.getItem("readerScale")||"1.28"); s=Math.min(1.75,s+.1); localStorage.setItem("readerScale",s); applyScale(); };
+ document.getElementById("themeBtn").onclick=function(){ var cur=document.documentElement.dataset.theme==="dark"?"light":"dark"; document.documentElement.dataset.theme=cur; document.documentElement.style.colorScheme=cur; };
+ document.addEventListener("keydown",function(e){ if(e.key==="Escape"){ [controls,composersDlg].forEach(closeDialog); } });
+
+ // scroll: hide/show chrome + infinite scroll
+ var ticking=false;
+ window.addEventListener("scroll",function(){ if(ticking) return; ticking=true; requestAnimationFrame(function(){
+   var y=window.scrollY, down=y>lastY+6;
+   document.getElementById("bottomBar").classList.toggle("hidden",down&&y>80);
+   document.getElementById("topline").classList.toggle("hidden",down&&y>80);
+   lastY=y; ticking=false;
+ }); },{passive:true});
+ window.addEventListener("scroll",function(){
+   if(innerHeight+scrollY>document.documentElement.scrollHeight-900){
+     if(shown<ordCache.length){ shown+=batch; render(); }
+     ensureContent();
+   }
+ },{passive:true});
+
+ // ---------- boot ----------
+ applyScale();
+ D.attachListActions(reader,{ script:curScript, onChange:function(){ render(); }, onWorks:function(slug){ state.composer=slug; D.loadComposer(slug).then(function(){ recompute(true); }); } });
+ D.load().then(function(m){
+   manifest=m; composerList=(m.composers||[]).slice();
+   shown=batch;
+   updateSummary();
+   // 152 composers > 8 -> lazy per-composer + a Load-all control
+   return loadNext();
+ }).then(function(){
+   recompute(true); ensureContent();
+ }).catch(function(err){
+   loadhint.textContent="Could not load the Dāsa Sāhitya corpus."; console.error(err);
+ });
+})();
+</script>
+</body>
+</html>

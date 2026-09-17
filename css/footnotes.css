@@ -1,0 +1,80 @@
+/* =========================================================================
+   Gemini-enrichment footnotes (js/footnote-engine.js).
+
+   Confidence-tiered by design (see PENDING.md, "Reference Resolution
+   Engine") — verified/possible/unresolved get distinct, at-a-glance colors
+   rather than a single generic footnote style, since an unresolved
+   citation is Gemini's guess pending human review, not a confirmed fact.
+   ========================================================================= */
+.dge-fn-mark {
+  cursor: default;
+  font-size: 0.72em;
+  margin-left: 1px;
+  font-weight: 700;
+  color: var(--accent-gold, #E8B24D);
+}
+.dge-fn-mark.dge-fn-unresolved { color: var(--muted-text, #8B7A63); }
+.dge-fn-mark.dge-fn-possible { color: var(--accent-gold, #E8B24D); opacity: .75; }
+
+.dge-fn-block {
+  margin: 4px 0 2px;
+  padding: 8px 10px;
+  border: 1px solid var(--card-border, rgba(232,178,77,.15));
+  border-radius: 8px;
+  background: none;
+}
+.dge-fn-list {
+  margin: 0; padding-left: 18px;
+  font-family: var(--font-ui, inherit);
+  font-size: 12px; line-height: 1.6;
+  color: var(--muted-text, #8B7A63);
+}
+.dge-fn-item { margin-bottom: 4px; }
+.dge-fn-item:last-child { margin-bottom: 0; }
+.dge-fn-num { color: var(--muted-text, #8B7A63); }
+.dge-fn-quote {
+  font-family: var(--font-sanskrit, serif);
+  color: var(--text-sanskrit, inherit);
+}
+.dge-fn-target {
+  color: var(--accent-gold, #E8B24D);
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+}
+.dge-fn-target:hover, .dge-fn-target:focus-visible { outline: none; opacity: .8; }
+.dge-fn-target-guess { font-style: italic; }
+.dge-fn-status {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  margin-left: 4px;
+}
+.dge-fn-item.dge-fn-verified .dge-fn-status { color: #4a9d5f; }
+.dge-fn-item.dge-fn-possible .dge-fn-status { color: var(--accent-gold, #E8B24D); }
+.dge-fn-item.dge-fn-unresolved .dge-fn-status { color: var(--muted-text, #8B7A63); }
+
+/* =========================================================================
+   AI-generated-content badge — a small, scannable "AI" pill shown next to
+   any commentary block or footnote entry an AI pipeline wrote (see
+   dgeIsAiGeneratedCommentaryKey in core.js for the naming convention this
+   marks). Deliberately terse (an icon-style badge, not prose) so it reads
+   at a glance rather than relying on a reader parsing a label's text —
+   "not author-verified" is the point, and a badge says that faster than
+   words buried in a title.
+   ========================================================================= */
+.dge-ai-badge {
+  display: inline-block;
+  font-family: var(--font-ui, inherit);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: .03em;
+  line-height: 1;
+  padding: 2px 5px;
+  margin-left: 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+  color: #fff;
+  background: var(--accent-gold, #E8B24D);
+  opacity: .85;
+  cursor: default;
+}

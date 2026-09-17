@@ -1,0 +1,53 @@
+/* छन्दोविश्लेषणम् — builds on vyakarana.css + rs-box from rupasiddhi.css. */
+#ch-input{width:100%;border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:12px;padding:12px 14px;font:inherit;font-size:17px;line-height:1.8;resize:vertical}
+.ch-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
+.ch-actions .btn{min-height:44px}
+.ch-id h2{margin:4px 0 6px;font-size:clamp(20px,5vw,26px);color:var(--accent)}
+.ch-kind{color:var(--muted);font-size:13px}
+.ch-kind small{font-size:11px}
+.ch-meta{color:var(--muted);font-size:13.5px;margin-top:4px}
+.ch-lak{margin-top:10px;padding:10px 14px;border-left:3px solid var(--accent);background:var(--panel2);border-radius:0 10px 10px 0;font-size:15.5px;line-height:1.9}
+.ch-padah{color:var(--muted);font-size:13px;margin-bottom:8px}
+.ch-pat{letter-spacing:2px}
+.ch-grid{display:grid;gap:2px 0;overflow-x:auto;padding-bottom:4px;-webkit-overflow-scrolling:touch}
+.ch-n{color:var(--muted);font-size:11px;text-align:center;padding:2px 4px}
+.ch-s{text-align:center;font-size:18px;padding:6px 4px;border-radius:8px}
+.ch-s.ch-guru{color:var(--accent);font-weight:700;background:var(--panel2)}
+.ch-m{text-align:center;color:var(--muted);font-size:15px;padding:2px 4px}
+.ch-yati{box-shadow:inset -2px 0 0 var(--accent)}
+
+/* 7 Sep 2026: vṛtta reports (js/chandas-page.js) */
+.cr-section{margin-top:16px}
+.cr-section h2{margin:0 0 10px;font-size:clamp(18px,4.5vw,22px);color:var(--accent)}
+.cr-sub{font-size:13px;color:var(--muted);font-weight:400}
+.cr-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 10px}
+.cr-row input{flex:1 1 260px;min-width:0;border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:10px;padding:9px 12px;font:inherit;font-size:15px}
+.cr-row .btn,.cr-row .btn-sm{min-height:40px}
+.cr-out{font-size:14px;line-height:1.5}
+.cr-head{margin:6px 0 8px}
+.cr-stats{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.cr-stat{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:8px 12px;min-width:92px}
+.cr-num{font-size:20px;font-weight:700;color:var(--accent)}
+.cr-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.cr-table{width:100%;border-collapse:collapse;margin:6px 0 10px;font-size:13.5px}
+.cr-table th,.cr-table td{padding:5px 6px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.cr-table th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.cr-table .r{text-align:right;white-space:nowrap}
+.cr-table .small,.small{font-size:12px}
+.cr-two{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.cr-two h4,.cr-out h4{margin:10px 0 4px;font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.cr-ol{margin:0;padding-left:22px}
+.cr-ol li{padding:2px 0}
+.cr-ref{display:inline-block;padding:1px 7px;border:1px solid var(--line);border-radius:999px;font-size:12px;margin:2px 0;text-decoration:none;color:var(--ink);background:var(--panel2)}
+a.cr-ref:hover{border-color:var(--accent);color:var(--accent)}
+.cr-examples{display:flex;flex-wrap:wrap;gap:4px}
+.cr-wrap{line-height:2}
+.cr-prog{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:8px 0;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--panel2)}
+.cr-bar{flex:1 1 220px;height:10px;border-radius:999px;background:var(--line);overflow:hidden}
+.cr-fill{height:100%;width:0;background:var(--accent);transition:width .25s ease}
+.cr-prog-text{font-variant-numeric:tabular-nums;font-size:12.5px;color:var(--muted);white-space:nowrap}
+.cr-err{color:#b3261e;font-weight:600}
+#cr-admin-sec select{font:inherit;padding:3px 6px;border-radius:6px;border:1px solid var(--line);background:var(--panel2);color:var(--ink)}
+@media (max-width:600px){.cr-table{display:block;overflow-x:auto}}
+.cr-out a{color:var(--accent)}
+.cr-out a.cr-ref{color:var(--ink)}

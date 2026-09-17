@@ -1,0 +1,1061 @@
+<!DOCTYPE html><html lang="kn"><head>
+<meta charset="utf-8">
+<script src="../../js/vandana-guard.js?v=2"></script>
+<script src="../../js/admin-gate.js?v=1"></script>
+<script src="../../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">  <!-- allow pinch-zoom -->
+<meta name="color-scheme" content="light dark">
+<title>ದಾಸ ಸಾಹಿತ್ಯ · Reading · DGE</title>
+<link rel="icon" type="image/png" sizes="48x48" href="../../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../../images/genie/apple-touch-icon.png">
+<style>
+/* ─── Design tokens ─────────────────────────────────────────── */
+:root {
+  --bg: #f7f4ef;
+  --bg-elev: #ffffff;
+  --text: #1a1714;
+  --text-muted: #5c564e;
+  --text-faint: #8a8278;
+  --accent: #8b4513;
+  --accent-soft: #c4a484;
+  --border: #e5dfd4;
+  --shadow: 0 4px 24px rgba(26,23,20,.12);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-t: env(safe-area-inset-top, 0px);
+  --font-kn: "Noto Serif Kannada", "Noto Sans Kannada", "Mandali", "Tunga", serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fs-body: clamp(1.05rem, 0.95rem + 0.4vw, 1.2rem);
+  --fs-title: clamp(1.25rem, 1.1rem + 0.6vw, 1.55rem);
+  --lh: 1.75;
+  --measure: 70ch;
+  --chrome-h: 48px;
+  --fab-size: 52px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #161412;
+    --bg-elev: #221f1b;
+    --text: #f0ebe3;
+    --text-muted: #b0a89e;
+    --text-faint: #7a736a;
+    --accent: #d4a574;
+    --accent-soft: #8b6b4a;
+    --border: #3a342e;
+    --shadow: 0 4px 28px rgba(0,0,0,.45);
+  }
+}
+
+/* ─── Reset & base ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
+body {
+  font-family: var(--font-ui);
+  background: var(--bg);
+  color: var(--text);
+  line-height: var(--lh);
+  min-height: 100dvh;
+  padding-bottom: calc(var(--fab-size) + 24px + var(--safe-b));
+  overscroll-behavior-y: contain;
+  -webkit-font-smoothing: antialiased;
+}
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* ─── Breadcrumb ────────────────────────────────────────────── */
+dge-breadcrumb.brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px calc(8px);
+  padding-top: calc(8px + var(--safe-t));
+  font-size: .78rem;
+  color: var(--text-muted);
+}
+dge-breadcrumb.brand a { color: var(--accent); text-decoration: none; }
+dge-breadcrumb.brand span[aria-hidden] { color: var(--text-faint); }
+
+/* ─── Top chrome (hides on scroll-down) ─────────────────────── */
+#topbar {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--chrome-h);
+  padding: 0 16px;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: transform .25s ease, border-color .2s;
+}
+#topbar.hidden { transform: translateY(-100%); }
+#topbar.scrolled { border-bottom-color: var(--border); }
+#topbar h1 {
+  font-size: .95rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--text);
+}
+#topbar .count {
+  font-size: .75rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ─── Filter summary strip ──────────────────────────────────── */
+#filter-summary {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: var(--bg-elev);
+  border-bottom: 1px solid var(--border);
+  font-size: .8rem;
+  color: var(--text-muted);
+}
+#filter-summary.visible { display: flex; }
+#filter-summary .tags { flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+#filter-summary button {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* ─── Reading column ────────────────────────────────────────── */
+#reader {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 12px 18px 32px;
+}
+.composition {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 280px;
+  padding: 1.6rem 0 1.8rem;
+  border-bottom: 1px solid var(--border);
+}
+.composition:last-child { border-bottom: none; }
+
+.comp-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: .55rem;
+}
+.comp-meta {
+  flex: 1;
+  min-width: 0;
+}
+.comp-form {
+  display: inline-block;
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: .15rem;
+}
+.comp-title {
+  font-family: var(--font-kn);
+  font-size: var(--fs-title);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+}
+.comp-tl {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: .82rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-top: .1rem;
+}
+.comp-caption {
+  font-size: .78rem;
+  color: var(--text-muted);
+  margin-top: .3rem;
+  letter-spacing: .01em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 6px;
+}
+.comp-caption .dot { color: var(--text-faint); }
+.composer-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--accent);
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--accent-soft);
+  text-underline-offset: 2px;
+}
+.composer-link:hover, .composer-link:focus-visible { text-decoration-color: var(--accent); }
+
+.comp-actions {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--text-faint);
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: .55;
+  transition: opacity .15s, background .15s;
+}
+.comp-actions:hover, .comp-actions:focus-visible { opacity: 1; background: var(--border); }
+
+.comp-text {
+  font-family: var(--font-kn);
+  font-size: var(--fs-body);
+  line-height: var(--lh);
+  color: var(--text);
+  margin-top: .7rem;
+}
+.comp-text .stanza {
+  margin-bottom: 1.1em;
+  white-space: pre-wrap;
+}
+.comp-text .stanza:last-child { margin-bottom: 0; }
+.comp-text .line { display: block; }
+.comp-text .rom {
+  display: block;
+  margin-top: .35em;
+  font-family: var(--font-ui);
+  font-size: .8em;
+  color: var(--text-faint);
+  white-space: pre-wrap;
+}
+.dasa-word { cursor: pointer; border-radius: 3px; transition: background .12s; }
+.dasa-word:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+
+.comp-badges { margin-left: 6px; font-size: .85em; white-space: nowrap; }
+.state-badge { margin-left: 2px; }
+
+.comp-meaning {
+  margin-top: 1rem;
+  font-size: .88rem;
+  color: var(--text-muted);
+  border-left: 3px solid var(--accent-soft);
+  padding-left: 12px;
+}
+.comp-meaning summary {
+  cursor: pointer;
+  font-weight: 500;
+  list-style: none;
+  color: var(--text-muted);
+}
+.comp-meaning summary::-webkit-details-marker { display: none; }
+.comp-meaning[open] summary { margin-bottom: .4rem; }
+.comp-meaning p { margin-top: .3rem; }
+
+/* Group heading */
+.group-head {
+  font-size: .8rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin: 1.8rem 0 .4rem;
+  font-weight: 600;
+}
+
+/* Empty / loading states */
+#empty, #loading {
+  display: none;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  color: var(--text-muted);
+}
+#empty.visible, #loading.visible { display: block; }
+#empty .hint { margin-top: .5rem; font-size: .9rem; }
+
+/* ─── FAB ───────────────────────────────────────────────────── */
+#fab {
+  position: fixed;
+  right: 18px;
+  bottom: calc(18px + var(--safe-b));
+  z-index: 50;
+  width: var(--fab-size);
+  height: var(--fab-size);
+  border-radius: 50%;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1.35rem;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .2s, background .15s;
+}
+#fab:active { transform: scale(.94); }
+#fab:focus-visible { outline-offset: 4px; }
+
+/* ─── Bottom sheets (dialog) ────────────────────────────────── */
+dialog.sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: auto;
+  margin: 0;
+  width: 100%;
+  max-width: 480px;
+  margin-inline: auto;
+  max-height: min(88dvh, 720px);
+  border: none;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: var(--bg-elev);
+  color: var(--text);
+  padding: 0;
+  box-shadow: var(--shadow);
+  overscroll-behavior: contain;
+}
+dialog.sheet::backdrop {
+  background: rgba(0,0,0,.45);
+  backdrop-filter: blur(2px);
+}
+.sheet-handle {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 4px;
+}
+.sheet-handle span {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+}
+.sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 16px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.sheet-header h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.sheet-close {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px;
+  min-width: 44px;
+  min-height: 44px;
+}
+.sheet-body {
+  padding: 12px 16px 24px;
+  overflow-y: auto;
+  max-height: calc(88dvh - 80px);
+  padding-bottom: calc(24px + var(--safe-b));
+}
+.sheet-stats {
+  font-size: .78rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Controls inside sheet */
+.ctrl-group { margin-bottom: 1.4rem; }
+.ctrl-group:last-child { margin-bottom: 0; }
+.ctrl-label {
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: .55rem;
+}
+.search-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 48px;
+}
+.search-input:focus { border-color: var(--accent); outline: none; }
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  font-size: .85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  min-height: 40px;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.chip .chip-cnt { font-size: .8em; opacity: .7; }
+.chip[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.seg {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.seg button {
+  flex: 1;
+  padding: 10px 8px;
+  font-size: .85rem;
+  border: none;
+  background: var(--bg);
+  color: var(--text-muted);
+  cursor: pointer;
+  min-height: 44px;
+}
+.seg button[aria-pressed="true"] {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 500;
+}
+.seg button + button { border-left: 1px solid var(--border); }
+
+.composer-list {
+  max-height: 240px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.composer-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  font-size: .9rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border);
+  min-height: 44px;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  color: var(--text);
+  font-family: inherit;
+}
+.composer-item:last-child { border-bottom: none; }
+.composer-item[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  color: var(--accent);
+  font-weight: 500;
+}
+.composer-item .cnt { color: var(--text-faint); font-size: .8rem; flex-shrink: 0; }
+.composer-item .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.load-all-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  font-size: .9rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--accent);
+  cursor: pointer;
+  min-height: 46px;
+}
+.load-all-btn[disabled] { opacity: .6; cursor: default; }
+
+.fs-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.fs-control input[type="range"] {
+  flex: 1;
+  accent-color: var(--accent);
+}
+
+/* Toast */
+#toast {
+  position: fixed;
+  bottom: calc(var(--fab-size) + 36px + var(--safe-b));
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--text);
+  color: var(--bg);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: .85rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s;
+  z-index: 60;
+  white-space: nowrap;
+  max-width: 90vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Desktop refinements */
+@media (min-width: 720px) {
+  #reader { padding: 24px 32px 48px; }
+  #fab { right: max(24px, calc(50% - 360px)); }
+  dialog.sheet { border-radius: var(--radius); bottom: 24px; max-height: 80vh; }
+}
+</style>
+</head>
+<body>
+
+<dge-breadcrumb label="Dāsa Sāhitya" home-href="../index.html" class="brand"><a href="../index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span>Dāsa Sāhitya</span></dge-breadcrumb>
+
+<!-- Top bar -->
+<header id="topbar" role="banner">
+  <h1>Dāsa Sāhitya</h1>
+  <span class="count" id="live-count">Loading…</span>
+</header>
+
+<!-- Active filter summary -->
+<div id="filter-summary" role="status" aria-live="polite">
+  <span class="tags" id="filter-tags"></span>
+  <button type="button" id="clear-filters" aria-label="Clear all filters">✕</button>
+</div>
+
+<!-- Reading column -->
+<main id="reader" role="main" aria-label="Compositions">
+  <!-- compositions injected by JS -->
+</main>
+
+<div id="loading" role="status">
+  <p>Loading compositions…</p>
+</div>
+
+<div id="empty" role="status">
+  <p>No compositions match the current filters.</p>
+  <p class="hint">Open the menu to choose a composer or load the full corpus.</p>
+</div>
+
+<!-- FAB -->
+<button type="button" id="fab" aria-label="Open filters and settings" aria-haspopup="dialog" aria-controls="ctrl-sheet">
+  ☰
+</button>
+
+<!-- Controls bottom sheet -->
+<dialog id="ctrl-sheet" class="sheet" aria-labelledby="ctrl-title">
+  <div class="sheet-handle"><span></span></div>
+  <div class="sheet-header">
+    <h2 id="ctrl-title">Browse &amp; Filter</h2>
+    <button type="button" class="sheet-close" data-close aria-label="Close">×</button>
+  </div>
+  <div class="sheet-body">
+    <div class="sheet-stats" id="sheet-stats"></div>
+
+    <!-- Search -->
+    <div class="ctrl-group">
+      <label class="ctrl-label" for="search">Search</label>
+      <input type="search" id="search" class="search-input" placeholder="Title, composer, deity…" autocomplete="off">
+    </div>
+
+    <!-- Forms -->
+    <div class="ctrl-group">
+      <div class="ctrl-label">Form</div>
+      <div class="chip-row" id="form-chips" role="group" aria-label="Form filters"></div>
+    </div>
+
+    <!-- Script -->
+    <div class="ctrl-group">
+      <div class="ctrl-label">Script</div>
+      <div class="seg" role="group" aria-label="Script" id="script-seg">
+        <button type="button" data-script="kn" aria-pressed="true">ಕನ್ನಡ</button>
+        <button type="button" data-script="iast" aria-pressed="false">IAST</button>
+        <button type="button" data-script="devanagari" aria-pressed="false">देवनागरी</button>
+      </div>
+    </div>
+
+    <!-- Group & Sort -->
+    <div class="ctrl-group">
+      <div class="ctrl-label">Group by</div>
+      <div class="seg" role="group" aria-label="Group by" id="group-seg">
+        <button type="button" data-group="none" aria-pressed="true">None</button>
+        <button type="button" data-group="composer" aria-pressed="false">Composer</button>
+        <button type="button" data-group="deity" aria-pressed="false">Deity</button>
+        <button type="button" data-group="form" aria-pressed="false">Form</button>
+      </div>
+    </div>
+    <div class="ctrl-group">
+      <div class="ctrl-label">Sort</div>
+      <div class="seg" role="group" aria-label="Sort" id="sort-seg">
+        <button type="button" data-sort="az" aria-pressed="true">A → Z</button>
+        <button type="button" data-sort="za" aria-pressed="false">Z → A</button>
+      </div>
+    </div>
+
+    <!-- Composer picker -->
+    <div class="ctrl-group">
+      <div class="ctrl-label">Composer</div>
+      <input type="search" id="composer-search" class="search-input" placeholder="Filter composers…" style="margin-bottom:8px" autocomplete="off">
+      <div class="composer-list" id="composer-list" role="listbox" aria-label="Composers"></div>
+      <button type="button" class="load-all-btn" id="load-all">Load all composers</button>
+    </div>
+
+    <!-- Font size -->
+    <div class="ctrl-group">
+      <div class="ctrl-label">Text size</div>
+      <div class="fs-control">
+        <span style="font-size:.85rem">A</span>
+        <input type="range" id="fs-range" min="90" max="140" value="100" aria-label="Font size percent">
+        <span style="font-size:1.15rem">A</span>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<dge-footer class="site-footer-links"><a class="footer-link" href="../../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+<script src="../../js/modals.js?v=1"></script>
+<script src="../../js/reader-state.js?v=1"></script>
+<script src="../../js/dasa-data.js?v=1"></script>
+<script src="../../js/kosha.js?v=3"></script>
+<script src="../../js/contextual-actions.js?v=1"></script>
+<script src="../../js/entity-linker.js?v=1"></script>
+<script src="../../js/dge-shell.js?v=1"></script>
+<script src="../../js/dge-breadcrumb.js?v=1"></script>
+<script src="../../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="dasa-sahitya"></dge-nav-rail>
+<script src="../../js/intellisense.js?v=4.71.1"></script>
+<script>
+/* ══════════════════════════════════════════════════════════════
+   Dāsa Sāhitya · Reading view — wired to the real corpus through
+   window.DGE_DASA (js/dasa-data.js). No mock data lives here.
+   ══════════════════════════════════════════════════════════════ */
+(function () {
+  "use strict";
+  var D = window.DGE_DASA;
+  var $ = function (s, ctx) { return (ctx || document).querySelector(s); };
+  var $$ = function (s, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(s)); };
+
+  var state = {
+    script: "kn",           // kn | iast | devanagari
+    forms: new Set(),       // empty = all forms
+    composerSlug: null,     // null = every loaded record; slug = one composer
+    search: "",
+    group: "none",
+    sort: "az",
+    lastScrollY: 0
+  };
+
+  var manifest = null;
+  var reader = $("#reader");
+  var topbar = $("#topbar");
+  var filterSummary = $("#filter-summary");
+  var filterTags = $("#filter-tags");
+  var emptyEl = $("#empty");
+  var loadingEl = $("#loading");
+  var liveCount = $("#live-count");
+  var ctrlSheet = $("#ctrl-sheet");
+  var toastEl = $("#toast");
+  var composerNames = {}; // slug -> display name
+
+  /* ─── Toast (also used by dasa-data.js contextual actions) ─── */
+  var toastTimer;
+  function showToast(msg) {
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toastEl.classList.remove("show"); }, 2200);
+  }
+  window.showToast = showToast;
+  window.dgeDasaToast = showToast;
+
+  var currentScript = function () { return state.script; };
+
+  /* ─── Filtering / grouping over loaded records ─────────────── */
+  function getFiltered() {
+    var recs = D.records;
+    var out = [];
+    for (var i = 0; i < recs.length; i++) {
+      var r = recs[i];
+      if (state.composerSlug && r._slug !== state.composerSlug) continue;
+      if (state.forms.size && !state.forms.has(r.form)) continue;
+      if (!D.matches(r, { q: state.search, script: state.script })) continue;
+      out.push(r);
+    }
+    out.sort(function (a, b) {
+      var ta = D.scriptTitle(a, state.script).toLowerCase();
+      var tb = D.scriptTitle(b, state.script).toLowerCase();
+      return state.sort === "az" ? ta.localeCompare(tb) : tb.localeCompare(ta);
+    });
+    return out;
+  }
+
+  /* ─── Card markup (carries data-cid, .composer-link, .card-actions-btn) ── */
+  function cardHtml(r) {
+    var title = D.scriptTitle(r, state.script);
+    var il = r.title && r.title.iast;
+    var stz = D.stanzasFor(r, state.script);
+    var roman = (r.text && r.text.source_roman) || [];
+    var body = "";
+    for (var i = 0; i < stz.length; i++) {
+      var lines = stz[i] || [];
+      var lineHtml = "";
+      for (var j = 0; j < lines.length; j++) {
+        lineHtml += '<span class="line">' + D.tokenizeLine(lines[j]) + '</span>';
+      }
+      body += '<div class="stanza">' + lineHtml;
+      if (state.script === "kn" && roman[i] && roman[i].length) {
+        body += '<span class="rom">' + roman[i].map(D.esc).join("\n") + '</span>';
+      }
+      body += '</div>';
+    }
+    if (!body) body = '<div class="stanza"><span class="line">' + D.esc("(no verse text captured)") + '</span></div>';
+
+    var cst = D.compStateGet(r.id);
+    var badges = [
+      cst.fav ? '<span class="state-badge" title="Favorite">⭐</span>' : "",
+      cst.status === "practice" ? '<span class="state-badge" title="Needs practice">◐</span>' : "",
+      cst.status === "done" ? '<span class="state-badge" title="Completed">✅</span>' : "",
+      cst.doubt ? '<span class="state-badge" title="Marked doubt">❓</span>' : ""
+    ].join("");
+    var badgeWrap = badges ? '<span class="comp-badges">' + badges + '</span>' : "";
+
+    var composerBtn = r.composer
+      ? '<button type="button" class="composer-link" data-composer="' + D.escAttr(r.composer) +
+        '" data-slug="' + D.escAttr(r._slug || "") + '">' + D.esc(r.composer) + '</button>'
+      : "";
+    var extras = [];
+    if (r.deity) extras.push(r.deity);
+    if (r.raga) extras.push(r.raga);
+    if (r.tala) extras.push(r.tala);
+    var caption = composerBtn;
+    for (var k = 0; k < extras.length; k++) {
+      caption += '<span class="dot" aria-hidden="true">·</span><span>' + D.esc(extras[k]) + '</span>';
+    }
+
+    var tl = (il && state.script !== "iast") ? '<span class="comp-tl">' + D.esc(il) + '</span>' : "";
+    var formLabel = D.FORM_LABELS[r.form] || r.form;
+
+    return '' +
+      '<article class="composition" data-cid="' + D.escAttr(r.id) + '" lang="' + (state.script === "kn" ? "kn" : "en") + '">' +
+        '<div class="comp-header">' +
+          '<div class="comp-meta">' +
+            '<div class="comp-form">' + D.esc(formLabel) + '</div>' +
+            '<h2 class="comp-title">' + D.esc(title) + badgeWrap + tl + '</h2>' +
+            (caption ? '<div class="comp-caption">' + caption + '</div>' : "") +
+          '</div>' +
+          '<button type="button" class="comp-actions card-actions-btn" data-cid="' + D.escAttr(r.id) +
+            '" title="Composition actions" aria-label="Actions for ' + D.escAttr(title) + '">⋯</button>' +
+        '</div>' +
+        '<div class="comp-text">' + body + '</div>' +
+        (r.meaning ? '<details class="comp-meaning"><summary>ಅರ್ಥ / Meaning</summary><p>' + D.esc(r.meaning) + '</p></details>' : "") +
+      '</article>';
+  }
+
+  /* ─── Render list ──────────────────────────────────────────── */
+  function render() {
+    var list = getFiltered();
+    var total = (manifest && manifest.count_total) || D.records.length;
+    liveCount.textContent = list.length.toLocaleString() + " of " + total.toLocaleString();
+
+    if (!D.records.length) {
+      reader.innerHTML = "";
+      emptyEl.classList.remove("visible");
+      loadingEl.classList.add("visible");
+      updateFilterSummary();
+      return;
+    }
+    loadingEl.classList.remove("visible");
+
+    if (!list.length) {
+      reader.innerHTML = "";
+      emptyEl.classList.add("visible");
+      updateFilterSummary();
+      return;
+    }
+    emptyEl.classList.remove("visible");
+
+    var html;
+    if (state.group === "none") {
+      html = list.map(cardHtml).join("");
+    } else {
+      var groups = {};
+      var order = [];
+      list.forEach(function (r) {
+        var key = D.groupKey(r, state.group, state.script);
+        if (!groups[key]) { groups[key] = []; order.push(key); }
+        groups[key].push(r);
+      });
+      order.sort(function (a, b) { return state.sort === "az" ? a.localeCompare(b) : b.localeCompare(a); });
+      html = order.map(function (key) {
+        return '<section><h3 class="group-head">' + D.esc(key) + '</h3>' +
+          groups[key].map(cardHtml).join("") + '</section>';
+      }).join("");
+    }
+    reader.innerHTML = html;
+    updateFilterSummary();
+  }
+
+  function updateFilterSummary() {
+    var parts = [];
+    if (state.forms.size) {
+      parts.push(Array.prototype.map.call(state.forms, function (f) { return D.FORM_LABELS[f] || f; }).join(", "));
+    }
+    if (state.composerSlug) parts.push(composerNames[state.composerSlug] || state.composerSlug);
+    if (state.search.trim()) parts.push('“' + state.search.trim() + '”');
+    if (state.script !== "kn") parts.push(state.script === "iast" ? "IAST" : "देवनागरी");
+    if (parts.length) {
+      filterTags.textContent = parts.join(" · ");
+      filterSummary.classList.add("visible");
+    } else {
+      filterSummary.classList.remove("visible");
+    }
+  }
+
+  /* ─── Composer loading ─────────────────────────────────────── */
+  function loadComposerAndShow(slug, name) {
+    if (!slug) { state.composerSlug = null; render(); return; }
+    liveCount.textContent = "Loading " + (name || slug) + "…";
+    D.loadComposer(slug).then(function () {
+      state.composerSlug = slug;
+      reflectComposerSelection();
+      render();
+      if (ctrlSheet.open) closeSheet(ctrlSheet);
+    });
+  }
+
+  /* ─── Build controls from the manifest ─────────────────────── */
+  function buildStats() {
+    $("#sheet-stats").textContent =
+      manifest.composers.length.toLocaleString() + " composers · " +
+      manifest.count_total.toLocaleString() + " compositions";
+  }
+
+  function buildFormChips() {
+    var counts = manifest.counts_by_form || {};
+    var forms = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; });
+    var row = $("#form-chips");
+    row.innerHTML = forms.map(function (f) {
+      return '<button type="button" class="chip" data-form="' + D.escAttr(f) + '" aria-pressed="false">' +
+        D.esc(D.FORM_LABELS[f] || f) + '<span class="chip-cnt">' + counts[f].toLocaleString() + '</span></button>';
+    }).join("");
+    row.addEventListener("click", function (e) {
+      var btn = e.target.closest("[data-form]");
+      if (!btn) return;
+      var f = btn.dataset.form;
+      if (state.forms.has(f)) state.forms.delete(f); else state.forms.add(f);
+      btn.setAttribute("aria-pressed", state.forms.has(f) ? "true" : "false");
+      render();
+    });
+  }
+
+  function buildComposerList() {
+    var comps = manifest.composers || [];
+    comps.forEach(function (c) { composerNames[c.slug] = c.composer; });
+    var listEl = $("#composer-list");
+    function draw(filter) {
+      var q = (filter || "").toLowerCase();
+      var items = comps.filter(function (c) {
+        return !q || (c.composer || "").toLowerCase().indexOf(q) >= 0 || (c.slug || "").toLowerCase().indexOf(q) >= 0;
+      });
+      var loadedTotal = D.records.length;
+      var html = '<button type="button" class="composer-item" data-slug="" role="option" aria-pressed="' +
+        (state.composerSlug ? "false" : "true") + '"><span class="nm">All loaded</span>' +
+        '<span class="cnt">' + loadedTotal.toLocaleString() + '</span></button>';
+      html += items.map(function (c) {
+        return '<button type="button" class="composer-item" data-slug="' + D.escAttr(c.slug) +
+          '" data-name="' + D.escAttr(c.composer) + '" role="option" aria-pressed="' +
+          (state.composerSlug === c.slug ? "true" : "false") + '"><span class="nm">' + D.esc(c.composer) +
+          '</span><span class="cnt">' + (c.count != null ? c.count.toLocaleString() : "—") + '</span></button>';
+      }).join("");
+      listEl.innerHTML = html;
+    }
+    draw("");
+    listEl.__draw = draw;
+    listEl.addEventListener("click", function (e) {
+      var item = e.target.closest("[data-slug]");
+      if (!item) return;
+      loadComposerAndShow(item.dataset.slug || null, item.dataset.name || "");
+    });
+    $("#composer-search").addEventListener("input", function (e) { draw(e.target.value); });
+  }
+
+  function reflectComposerSelection() {
+    var listEl = $("#composer-list");
+    if (listEl.__draw) listEl.__draw($("#composer-search").value);
+  }
+
+  /* ─── Segmented controls ───────────────────────────────────── */
+  function wireSeg(id, dataAttr, stateKey, onSet) {
+    var cont = $(id);
+    cont.addEventListener("click", function (e) {
+      var btn = e.target.closest("button[data-" + dataAttr + "]");
+      if (!btn) return;
+      $$("button[data-" + dataAttr + "]", cont).forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+      btn.setAttribute("aria-pressed", "true");
+      state[stateKey] = btn.dataset[dataAttr];
+      if (onSet) onSet();
+      render();
+    });
+  }
+
+  /* ─── Sheet helpers ────────────────────────────────────────── */
+  function openSheet(dlg) { if (typeof dlg.showModal === "function") dlg.showModal(); else dlg.setAttribute("open", ""); }
+  function closeSheet(dlg) { if (typeof dlg.close === "function") dlg.close(); else dlg.removeAttribute("open"); }
+
+  /* ─── Boot ─────────────────────────────────────────────────── */
+  D.load().then(function (m) {
+    manifest = m;
+    buildStats();
+    buildFormChips();
+    buildComposerList();
+
+    // Delegated actions on the reading column: word-tap -> Kosha,
+    // composer-link -> real people.json sheet, ⋯ -> composition menu.
+    D.attachListActions(reader, {
+      script: currentScript,
+      onChange: render,
+      onWorks: loadComposerAndShow
+    });
+
+    // Static controls
+    wireSeg("#script-seg", "script", "script");
+    wireSeg("#group-seg", "group", "group");
+    wireSeg("#sort-seg", "sort", "sort");
+
+    $("#search").addEventListener("input", function (e) { state.search = e.target.value; render(); });
+
+    $("#fs-range").addEventListener("input", function (e) {
+      var pct = e.target.value;
+      document.documentElement.style.setProperty("--fs-body",
+        "clamp(" + (1.05 * pct / 100) + "rem, " + (0.95 * pct / 100) + "rem + 0.4vw, " + (1.2 * pct / 100) + "rem)");
+      document.documentElement.style.setProperty("--fs-title",
+        "clamp(" + (1.25 * pct / 100) + "rem, " + (1.1 * pct / 100) + "rem + 0.6vw, " + (1.55 * pct / 100) + "rem)");
+    });
+
+    $("#clear-filters").addEventListener("click", function () {
+      state.forms.clear();
+      state.composerSlug = null;
+      state.search = "";
+      $("#search").value = "";
+      $$("#form-chips .chip").forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
+      reflectComposerSelection();
+      render();
+    });
+
+    var loadAllBtn = $("#load-all");
+    if (manifest.composers.length <= 8) {
+      // Small corpus: just load everything up front.
+      loadAllBtn.style.display = "none";
+      D.loadAll().then(function () { state.composerSlug = null; reflectComposerSelection(); render(); });
+    } else {
+      loadAllBtn.addEventListener("click", function () {
+        loadAllBtn.disabled = true;
+        var done = 0, tot = manifest.composers.length;
+        D.loadAll(function () {
+          done++;
+          loadAllBtn.textContent = "Loading… " + done + " / " + tot;
+          if (done % 12 === 0) render();
+        }).then(function () {
+          loadAllBtn.textContent = "All composers loaded";
+          state.composerSlug = null;
+          reflectComposerSelection();
+          render();
+        });
+      });
+      // Give the reader immediate real content: load the first composer.
+      var first = manifest.composers[0];
+      if (first) {
+        loadComposerAndShow(first.slug, first.composer);
+      } else {
+        render();
+      }
+    }
+
+    // Deep link: #<record id> -> ensure its composer is loaded, then scroll.
+    if (location.hash.length > 1) {
+      var wantId = decodeURIComponent(location.hash.slice(1));
+      var slug = wantId.indexOf("__") >= 0 ? wantId.slice(0, wantId.indexOf("__")) : null;
+      var hasSlug = slug && manifest.composers.some(function (c) { return c.slug === slug; });
+      var afterLoad = function () {
+        render();
+        var el = document.querySelector('[data-cid="' + (window.CSS && CSS.escape ? CSS.escape(wantId) : wantId) + '"]');
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      };
+      if (hasSlug) { state.composerSlug = slug; D.loadComposer(slug).then(afterLoad); }
+    }
+
+    render();
+  }).catch(function (err) {
+    loadingEl.classList.remove("visible");
+    liveCount.textContent = "Failed to load";
+    reader.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:3rem 1rem">' +
+      'Could not load the Dāsa Sāhitya corpus. ' + D.esc(String(err && err.message || err)) + '</p>';
+  });
+
+  /* ─── FAB + sheet open/close + backdrop + Escape ───────────── */
+  $("#fab").addEventListener("click", function () { openSheet(ctrlSheet); });
+  $$("[data-close]").forEach(function (b) { b.addEventListener("click", function () { closeSheet(b.closest("dialog")); }); });
+  ctrlSheet.addEventListener("click", function (e) { if (e.target === ctrlSheet) closeSheet(ctrlSheet); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && ctrlSheet.open) closeSheet(ctrlSheet); });
+
+  /* ─── Scroll behaviour — hide topbar on down, show on up ───── */
+  var ticking = false;
+  window.addEventListener("scroll", function () {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var y = window.scrollY;
+      if (y > state.lastScrollY + 8 && y > 60) topbar.classList.add("hidden");
+      else if (y < state.lastScrollY - 8) topbar.classList.remove("hidden");
+      topbar.classList.toggle("scrolled", y > 4);
+      state.lastScrollY = y;
+      ticking = false;
+    });
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>

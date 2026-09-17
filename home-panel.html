@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Know More — Sarvamūla Digital Library</title>
+<link rel="stylesheet" href="css/home.css?v=1">
+<link rel="stylesheet" href="css/content-inline.css?v=1">
+<style>
+  /* Just enough page chrome to hold one panel full-screen — the panel's
+     own markup/classes (.sheet-eyebrow, .ack, etc.) are unchanged from
+     the sheet it renders inside on index.html, so home.css styles it
+     identically without a second stylesheet. */
+  body{background:var(--bg,#0B0907);color:var(--ink,#F3E7D4);min-height:100vh;margin:0}
+  .panel-page{max-width:640px;margin:0 auto;padding:24px 18px 60px}
+  .panel-back{display:inline-flex;align-items:center;gap:6px;color:var(--muted-text,#8a7a63);
+    text-decoration:none;font-size:12.5px;margin-bottom:18px}
+  .panel-back:hover{color:var(--accent-red,#c0392b)}
+  .panel-empty{padding:40px 10px;text-align:center;color:var(--muted-text,#8a7a63)}
+</style>
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="images/genie/apple-touch-icon.png">
+</head>
+<body data-content-file="content/home.json">
+
+<div class="panel-page">
+  <a class="panel-back" href="index.html">← Back to Sarvamūla Digital Library</a>
+  <div id="panelRoot" class="panel-empty">Loading…</div>
+</div>
+
+<script>
+(function () {
+  var esc = function (s) { return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+
+  // Same icon set as index.html's own (kept in sync by hand — both are
+  // small, static line-icon defs unlikely to need frequent edits). See
+  // index.html's own ICONS/icon() for the canonical copy.
+  var ICONS = {
+    quill:  '<path d="M4.6 20.4 3.6 16.9 15.4 5.1a1.9 1.9 0 0 1 2.7 0l1.4 1.4a1.9 1.9 0 0 1 0 2.7L7.9 21.2Z"/><path d="m14.3 6.2 4.1 4.1"/>',
+    book:   '<path d="M3 6c3-1.6 6-1.6 9 0 3-1.6 6-1.6 9 0v12c-3-1.6-6-1.6-9 0-3-1.6-6-1.6-9 0Z"/><path d="M12 6v12"/>',
+    people: '<circle cx="9.2" cy="8.8" r="3"/><circle cx="17" cy="10" r="2.2"/><path d="M3.2 19.6c0-3.4 2.7-5.6 6-5.6s6 2.2 6 5.6"/><path d="M17 15.2c2.3 0 3.8 1.7 3.8 4"/>',
+    seated: '<circle cx="12" cy="6.4" r="2.7"/><path d="M6.6 19.4c0-4 2.4-7 5.4-7s5.4 3 5.4 7Z"/><path d="M4 19.4h16"/>',
+    temple: '<path d="M3 9.2 12 4.2l9 5"/><path d="M5 9.6v8.6M9.4 9.6v8.6M14.6 9.6v8.6M19 9.6v8.6"/><path d="M3.4 18.6h17.2"/>',
+    lotus:  '<path d="M12 20.2c-2.5-2.1-3.8-4.4-3.8-6.8 0-2.3 1.2-4.4 3.8-6.3 2.6 1.9 3.8 4 3.8 6.3 0 2.4-1.3 4.7-3.8 6.8Z"/><path d="M12 20.2c-4.2 0-7.3-1.8-9-5.1 2.7-1.6 5.6-1.3 8.2.9"/><path d="M12 20.2c4.2 0 7.3-1.8 9-5.1-2.7-1.6-5.6-1.3-8.2.9"/>',
+    anjali: '<path d="M12 20.4c-2.9 0-4.9-2-4.9-4.7 0-3.1 2-6.8 4.9-10.1v14.8Z"/><path d="M12 20.4c2.9 0 4.9-2 4.9-4.7 0-3.1-2-6.8-4.9-10.1v14.8Z"/><path d="M7.4 13.2 4.6 15.5"/><path d="m16.6 13.2 2.8 2.3"/>',
+    home:   '<path d="M3.4 10.8 12 4.1l8.6 6.7"/><path d="M5.8 10v9.8h12.4V10"/><path d="M9.9 19.8v-5.2h4.2v5.2"/>',
+    lamp:   '<path d="M3.8 14.2h16.4c0 3.4-3.7 5.7-8.2 5.7s-8.2-2.3-8.2-5.7Z"/><path d="M12 13.8c-1.7-1.9-2.5-3.4-2.5-4.8 0-1.7 1-3 2.5-4.2 1.5 1.2 2.5 2.5 2.5 4.2 0 1.4-.8 2.9-2.5 4.8Z"/>',
+    seed:   '<path d="M12 21c0-4.6 1.4-7.6 4.2-9 .4 4.8-.9 7.8-4.2 9Z"/><path d="M12 21c0-4.6-1.4-7.6-4.2-9-.4 4.8.9 7.8 4.2 9Z"/><path d="M12 21v-4"/><path d="M12 12.6c0-3.4.9-6 2.6-7.8"/>'
+  };
+  function icon(name, size) {
+    var d = ICONS[name]; if (!d) return '';
+    return '<svg viewBox="0 0 24 24" width="' + size + '" height="' + size + '" fill="none" ' +
+      'stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>';
+  }
+
+  // Identical in shape to index.html's own panelHtml(key) — same
+  // data-edit paths, so a super-admin editing here or in the modal on
+  // index.html stages against the same panels.<key>.* keys either way.
+  function panelHtml(cfg, key) {
+    var p = cfg.panels && cfg.panels[key];
+    if (!p) return null;
+    var pt = function (k) { return ' data-edit="panels.' + key + '.' + k + '"'; };
+    var html = '<div class="sheet-eyebrow"' + pt('eyebrow') + '>' + esc(p.eyebrow) + '</div>' +
+      '<h1 id="panelTitle"' + pt('title') + '>' + esc(p.title) + '</h1>';
+    if (p.reverence) html += '<div class="reverence"' + pt('reverence') + '>' + esc(p.reverence) + '</div>';
+    if (p.body) html += '<p' + pt('body') + '>' + esc(p.body) + '</p>';
+    (p.groups || []).forEach(function (g, gi) {
+      var gp = 'panels.' + key + '.groups.' + gi + '.';
+      html += '<div class="ack"><div class="ack-head"><span class="ico">' + icon(g.icon, 22) + '</span>' +
+        '<h4 data-edit="' + gp + 'heading">' + esc(g.heading) + '</h4><span class="line" aria-hidden="true"></span></div>';
+      if (g.entries) {
+        html += '<ul class="ack-entries">' + g.entries.map(function (e, ei) {
+          var ep = gp + 'entries.' + ei + '.';
+          return '<li><b data-edit="' + ep + 'name">' + esc(e.name) + '</b><div class="ack-body">' +
+            (e.note ? '<small data-edit="' + ep + 'note">' + esc(e.note) + '</small>' : '') +
+            (e.also ? '<small class="also" data-edit="' + ep + 'also">' + esc(e.also) + '</small>' : '') +
+            '</div></li>';
+        }).join('') + '</ul>';
+      }
+      if (g.names) html += '<div class="ack-names">' + g.names.map(function (n) { return '<span>' + esc(n) + '</span>'; }).join('') + '</div>';
+      html += '</div>';
+    });
+    if (p.closing) html += '<div class="closing"><span class="ico" aria-hidden="true">' + icon('lotus', 26) + '</span>' +
+      '<p data-edit="panels.' + key + '.closing">' + esc(p.closing) + '</p></div>';
+    if (p.todo) html += '<p class="sheet-todo">' + esc(p.todo) + '</p>';
+    return html;
+  }
+
+  function get(rel) {
+    return fetch(rel + '?t=' + Date.now(), { cache: 'no-store' }).then(function (r) {
+      if (!r.ok) throw new Error(rel + ' returned ' + r.status);
+      return r.json();
+    });
+  }
+
+  var key = new URLSearchParams(location.search).get('panel') || '';
+  var root = document.getElementById('panelRoot');
+
+  Promise.all([get('content/home.json'), get('config/home.json')])
+    .then(function (both) {
+      var cfg = Object.assign({}, both[1], both[0]);
+      window.SITE_CONFIG = cfg; // content-inline.js edits this object in place
+      var html = panelHtml(cfg, key);
+      if (!html) {
+        root.className = 'panel-empty';
+        root.textContent = key ? 'No "' + key + '" panel in content/home.json.' : 'Add ?panel=<key> to the URL — e.g. ?panel=tribhuvan';
+        return;
+      }
+      root.className = '';
+      root.innerHTML = html;
+      document.title = (cfg.panels[key].title || 'Know More') + ' — Sarvamūla Digital Library';
+      if (typeof window.dgeContentInlineReady !== 'undefined') {
+        window.dgeContentInlineReady.then(function () {
+          if (typeof window.dgeContentRerender === 'function') { /* no-op: this page rebuilds via location.reload after a save */ }
+        });
+      }
+    })
+    .catch(function (e) {
+      root.className = 'panel-empty';
+      root.textContent = 'Could not load this panel (' + e.message + ').';
+    });
+
+  // content-inline.js calls window.dgeContentRerender() after every staged
+  // edit so the page reflects it immediately; simplest correct
+  // implementation here is just re-running the same render against the
+  // now-patched SITE_CONFIG object content-inline.js already mutated.
+  window.dgeContentRerender = function () {
+    var cfg = window.SITE_CONFIG;
+    if (!cfg) return;
+    var html = panelHtml(cfg, key);
+    if (html) root.innerHTML = html;
+  };
+})();
+</script>
+<script src="js/content-inline.js?v=1"></script>
+</body>
+</html>

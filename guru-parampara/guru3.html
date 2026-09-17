@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="../js/vandana-guard.js?v=2"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f7f5ef">
+<title>Guru Paramparā · Trunk & Lines view · DGE</title>
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<!--
+Chosen visual form: metro-map overview ⇄ vertical succession rails with in-place expanding cards.
+Why: the source brief describes one trunk, one major branch point, and mostly-linear succession chains,
+so a metro/rail model preserves sequence and cross-links without implying a bushy family tree.
+Layout: slim control bar; overview map; per-maṭha vertical rail; saint cards; bottom-sheet controls.
+Estimated content-to-chrome ratio: ~94% content on the primary mobile rail.
+-->
+<style>
+:root{
+  --bg:#f7f5ef;--surface:#fffdf8;--ink:#20221f;--muted:#686a63;--line:#d9d5cb;
+  --accent:#8b4a2f;--focus:#245ea8;--shadow:0 8px 24px #0001;--radius:18px;
+  --rail:3px;--max:760px;
+}
+@media(prefers-color-scheme:dark){
+ :root{--bg:#171816;--surface:#20211e;--ink:#f2f0e8;--muted:#aaa99f;--line:#3a3b36;--accent:#d18b62;--focus:#75aef0;--shadow:0 8px 24px #0005}
+}
+*{box-sizing:border-box}
+html{background:var(--bg);color:var(--ink);scroll-behavior:smooth}
+body{margin:0;font:16px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);overscroll-behavior-x:none}
+button,input{font:inherit}
+button{color:inherit}
+button:focus-visible,input:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.app{min-height:100dvh}
+.topbar{position:sticky;top:0;z-index:20;padding:8px max(10px,env(safe-area-inset-left)) 8px max(10px,env(safe-area-inset-right));background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar{max-width:var(--max);margin:auto;display:flex;gap:7px;align-items:center}
+.brand{font-weight:800;letter-spacing:-.02em;white-space:nowrap;margin-right:auto}
+.iconbtn,.chipbtn{min-width:44px;min-height:44px;border:1px solid var(--line);background:var(--surface);border-radius:14px;display:grid;place-items:center;cursor:pointer}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 10px;margin:6px 4px 0 0}
+.chip button{border:0;background:none;cursor:pointer;padding:0;min-width:24px;min-height:24px}
+main{max-width:var(--max);margin:auto;padding:12px 12px calc(72px + env(safe-area-inset-bottom))}
+.view{display:none}.view.active{display:block}
+.hero{padding:10px 2px 14px}.eyebrow{text-transform:uppercase;font-size:11px;letter-spacing:.12em;color:var(--muted);font-weight:750}
+h1{font-size:clamp(24px,7vw,40px);line-height:1.05;margin:4px 0}
+.lede{color:var(--muted);margin:5px 0}
+.map-wrap{overflow:auto;border:1px solid var(--line);border-radius:22px;background:var(--surface);box-shadow:var(--shadow);touch-action:pan-x pan-y pinch-zoom}
+.map{min-width:720px;padding:24px 18px 30px;position:relative}
+.map svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.map-grid{position:relative;display:grid;grid-template-columns:130px repeat(4,145px);gap:18px;align-items:start}
+.trunk{grid-column:1;display:flex;flex-direction:column;align-items:center;gap:10px}
+.branch{grid-column:2 / 6;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.mapline{position:relative;padding-top:34px}
+.mapline h3{font-size:13px;margin:0 0 8px}
+.station{min-height:46px;min-width:44px;border:2px solid var(--c);background:var(--surface);border-radius:14px;padding:7px 8px;text-align:left;cursor:pointer;position:relative}
+.station:before{content:"";position:absolute;width:13px;height:13px;border-radius:50%;background:var(--c);left:-8px;top:14px;box-shadow:0 0 0 3px var(--surface)}
+.madhva{border:3px solid var(--accent);padding:12px;border-radius:18px;text-align:center;background:var(--surface);font-weight:800;cursor:pointer}
+.line-0{--c:#a54b3d}.line-1{--c:#416b9c}.line-2{--c:#708f43}.line-3{--c:#7b5a99}
+.line-4{--c:#b27638}.line-5{--c:#3d887d}.line-6{--c:#a15d82}.line-7{--c:#596f98}
+.line-8{--c:#8b7040}.line-9{--c:#4d858f}.line-10{--c:#a25d49}.line-11{--c:#6c7c47}
+.line-12{--c:#795a8e}.line-13{--c:#3f6e8b}.line-14{--c:#9a713e}.line-15{--c:#527c61}
+.lines-list{display:grid;gap:8px;margin-top:16px}
+.line-row{border:1px solid var(--line);background:var(--surface);border-radius:16px;padding:12px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--c);flex:0 0 auto}.line-row b{display:block}.line-row small{color:var(--muted)}
+.rail-head{padding:4px 2px 12px;position:sticky;top:61px;z-index:10;background:linear-gradient(var(--bg) 80%,transparent)}
+.back{border:0;background:none;padding:8px 0;cursor:pointer;color:var(--muted);min-height:44px}
+.rail-title{display:flex;align-items:end;justify-content:space-between;gap:8px}
+.rail-title h2{margin:0;font-size:clamp(24px,7vw,34px);line-height:1.05}
+.position{font-size:12px;color:var(--muted);text-align:right}
+.lens-chip{margin:0 0 10px}
+.rail{position:relative;padding:4px 0 40px}
+.rail:before{content:"";position:absolute;left:18px;top:0;bottom:0;width:var(--rail);background:var(--c,var(--accent));opacity:.5}
+.saint{position:relative;margin:0 0 12px 0;padding-left:42px;content-visibility:auto;contain-intrinsic-size:120px}
+.saint:before{content:"";position:absolute;left:11px;top:24px;width:16px;height:16px;border-radius:50%;background:var(--surface);border:4px solid var(--c,var(--accent));z-index:2}
+.node{width:100%;min-height:76px;border:1px solid var(--line);border-radius:17px;background:var(--surface);box-shadow:0 3px 10px #00000008;padding:12px;text-align:left;cursor:pointer;transition:transform .2s,box-shadow .2s,opacity .2s}
+.node:hover{box-shadow:var(--shadow)}
+.node-head{display:flex;gap:8px;align-items:start}.node-name{font-weight:800;font-size:17px;line-height:1.18}.caret{margin-left:auto;opacity:.55}
+.place{font-size:13px;color:var(--muted);margin-top:4px}
+.badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}.badge{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:2px 7px;color:var(--muted)}
+.card{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}.card>div{overflow:hidden}.saint.expanded .card{grid-template-rows:1fr}.detail{margin-top:8px;border:1px solid var(--line);border-radius:17px;background:var(--surface);padding:12px;box-shadow:var(--shadow)}
+.photo{width:100%;aspect-ratio:16/8;border-radius:12px;background:repeating-linear-gradient(135deg,#e7e1d4 0 14px,#d8d0c0 14px 28px);display:grid;place-items:center;text-align:center;color:#625c50;margin-bottom:10px}
+.photo svg{width:80px;height:70px}.detail h4{margin:10px 0 2px}.detail p{margin:3px 0;color:var(--muted)}.detail ul{margin:5px 0 8px;padding-left:20px}
+.links{display:flex;flex-wrap:wrap;gap:6px}.linkbtn{min-height:44px;border:1px solid var(--line);background:none;border-radius:12px;padding:7px 10px;cursor:pointer}
+.dim{opacity:.22}.highlight .node{box-shadow:0 0 0 4px var(--c),var(--shadow);animation:pulse 1.4s ease-out 2}
+@keyframes pulse{50%{transform:scale(1.015)}}
+.search-result{padding:10px;border-bottom:1px solid var(--line);cursor:pointer}.search-result:last-child{border:0}
+dialog{border:0;border-radius:22px;background:var(--surface);color:var(--ink);width:min(92vw,520px);max-height:85dvh;padding:0;box-shadow:0 20px 60px #0006}
+dialog::backdrop{background:#0008}.sheet{padding:16px}.sheet-head{display:flex;align-items:center;justify-content:space-between}.sheet h3{margin:0}.close{min-width:44px;min-height:44px;border:0;background:none;font-size:22px;cursor:pointer}.field{width:100%;min-height:48px;border:1px solid var(--line);border-radius:14px;background:var(--bg);color:var(--ink);padding:10px 12px;margin:10px 0}
+.era{width:100%}.era-row{display:flex;justify-content:space-between;color:var(--muted);font-size:13px}
+.key{display:grid;grid-template-columns:1fr 1fr;gap:6px}.key span{display:flex;gap:7px;align-items:center;font-size:13px}
+.bottom{position:fixed;z-index:30;bottom:0;left:0;right:0;padding:7px max(10px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(14px);border-top:1px solid var(--line)}
+.bottom-inner{max-width:var(--max);margin:auto;display:flex;gap:8px}.bottom button{flex:1;min-height:46px;border:1px solid var(--line);border-radius:14px;background:var(--surface);cursor:pointer;font-weight:700}
+.toast{position:fixed;left:50%;bottom:78px;transform:translateX(-50%);z-index:50;background:var(--ink);color:var(--bg);padding:9px 13px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s}.toast.show{opacity:1}
+@media(min-width:800px){
+ .topbar{position:sticky}.bottom{display:none}main{padding-bottom:40px}.desktop-grid{display:grid;grid-template-columns:minmax(420px,1fr) 340px;gap:18px;align-items:start}
+ .rail-panel{position:sticky;top:74px;max-height:calc(100dvh - 90px);overflow:auto;padding-right:4px}
+ .rail-head{position:sticky;top:0}.map-wrap{max-height:calc(100dvh - 140px);overflow:auto}
+}
+@media(max-width:420px){.brand{font-size:14px}.map-wrap{margin-inline:-4px}.hero{padding-top:3px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar"><div class="bar">
+ <div class="brand">Guru Paramparā</div>
+ <button class="iconbtn" id="searchBtn" aria-label="Search saints">⌕</button>
+ <button class="iconbtn" id="menuBtn" aria-label="Open controls">☰</button>
+</div></header>
+
+<main>
+<section id="overview" class="view active" aria-labelledby="overviewTitle">
+ <div class="hero"><div class="eyebrow">Mādhva lineage explorer</div><h1 id="overviewTitle">One trunk. Many lines.</h1><p class="lede">A succession map designed for walking a guru line, not untangling a family tree.</p><div id="chips"></div></div>
+ <div class="map-wrap" aria-label="Metro map of the lineage">
+  <div class="map" id="map"></div>
+ </div>
+ <div class="hero"><div class="eyebrow">Dive into a line</div><div class="lines-list" id="lineList"></div></div>
+</section>
+
+<section id="lineView" class="view" aria-labelledby="lineTitle">
+ <div class="rail-head">
+  <button class="back" id="backBtn">← Whole lineage</button>
+  <div class="rail-title"><h2 id="lineTitle"></h2><div class="position" id="lineMeta"></div></div>
+  <div id="lineChips"></div>
+ </div>
+ <div id="rail" class="rail" role="list" aria-label="Succession line"></div>
+</section>
+</main>
+
+<nav class="bottom" aria-label="Explorer controls"><div class="bottom-inner">
+ <button id="overviewBtn">Map</button><button id="lineBtn">Current line</button><button id="controlsBtn">Controls</button>
+</div></nav>
+
+<dialog id="sheet"><div class="sheet"><div class="sheet-head"><h3>Explore</h3><button class="close" onclick="closeDialog('sheet')" aria-label="Close">×</button></div>
+ <p class="lede">Search, filter the era, or inspect the line key.</p>
+ <button class="chipbtn" style="width:100%;margin:8px 0" id="sheetSearch">Search a saint</button>
+ <div class="era-row"><span>Era lens</span><span id="eraText">All eras</span></div>
+ <input class="era" id="era" type="range" min="0" max="5" step="1" value="0" aria-label="Era lens">
+ <div id="key" class="key" style="margin-top:10px"></div>
+</div></dialog>
+
+<dialog id="searchDialog"><div class="sheet"><div class="sheet-head"><h3>Find a saint</h3><button class="close" onclick="closeDialog('searchDialog')" aria-label="Close">×</button></div>
+ <input id="searchInput" class="field" autocomplete="off" placeholder="Name, title, pūrvāśrama, place…" aria-label="Search">
+ <div id="results" role="listbox"></div>
+</div></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+</div>
+
+<script src="guru-data.js?v=2"></script>
+<script>
+/* guru3 — the Trunk-and-Lines layout, fed from the CENTRAL parampara store.
+   Every real line with true counts; era slider; bottom nav; toasts. */
+let G = null, lines = [];
+const eras = ["All eras", "Before 1300", "1300s", "1400s", "1500s", "1600s – today"];
+let currentLine = null, currentId = null, eraIndex = 0;
+const esc = s => window.DGE_GURU.esc(s);
+
+function lineName(id) {
+  const l = lines.find(x => x.id === id);
+  return l ? l.name : (G.mathaLabels[id] || "Mūla Paramparā");
+}
+function lineOfNode(n) {
+  return G.udupiAshta.indexOf(n.matha) >= 0 ? "udupi" : n.matha;
+}
+function lineageList(line) { return G.succession(line).map(id => G.byId[id]).filter(Boolean); }
+function successors(id) { return (G.children[id] || []).map(c => G.byId[c]); }
+function photoSVG(name) {
+  return `<svg viewBox="0 0 100 80" aria-hidden="true"><circle cx="50" cy="27" r="17" fill="none" stroke="currentColor" stroke-width="3"/><path d="M25 69c5-22 45-22 50 0M35 18l15-8 15 8" fill="none" stroke="currentColor" stroke-width="3"/></svg><span>Brindavana placeholder<br><small>${esc(name)}</small></span>`;
+}
+function renderMap() {
+  const majors = lines.filter(l => l.n >= 8).slice(0, 4);
+  const others = lines.filter(l => majors.indexOf(l) < 0);
+  const madhvaId = G.byId.madhva ? "madhva" : "madhvacharya";
+  const branch = majors.map(l =>
+    `<div class="mapline" style="--c:${l.color}"><h3>${esc(l.name)}</h3>
+     <button class="station" style="border-color:${l.color}" onclick="openLine('${l.id}')">${l.n} saints</button></div>`).join("");
+  document.getElementById("map").innerHTML =
+    `<div class="map-grid"><div class="trunk"><div class="eyebrow">One trunk · ${G.nodes.length} figures</div>
+      <button class="madhva" onclick="focusSaint('${madhvaId}')">Madhvācārya<br><small>branch point</small></button></div>
+      <div class="branch">${branch}</div></div>
+     <div style="margin-top:22px"><div class="eyebrow">Other succession routes</div>
+      <div class="map-grid" style="grid-template-columns:repeat(4,1fr);margin-top:8px">
+      ${others.map(l => `<div class="mapline" style="--c:${l.color}"><h3>${esc(l.name)}</h3>
+        <button class="station" style="border-color:${l.color}" onclick="openLine('${l.id}')">${l.n || "—"} saints</button></div>`).join("")}
+      </div></div>`;
+  document.getElementById("lineList").innerHTML = lines.map(l =>
+    `<button class="line-row" style="--c:${l.color}" onclick="openLine('${l.id}')"><span class="dot"></span>
+     <span><b>${esc(l.name)}</b><small>${l.n} figures · tap to walk</small></span>
+     <span style="margin-left:auto">›</span></button>`).join("");
+  document.getElementById("key").innerHTML = lines.map(l =>
+    `<span><i class="dot" style="--c:${l.color};background:${l.color}"></i>${esc(l.name)}</span>`).join("");
+}
+function eraMatch(p) {
+  if (!eraIndex) return true;
+  if (p.b == null && p.d == null) return true;
+  const y = p.b != null ? p.b : p.d;
+  if (eraIndex === 1) return y < 1300;
+  if (eraIndex === 2) return y >= 1300 && y < 1400;
+  if (eraIndex === 3) return y >= 1400 && y < 1500;
+  if (eraIndex === 4) return y >= 1500 && y < 1600;
+  return y >= 1600;
+}
+function renderLine() {
+  const l = lines.find(x => x.id === currentLine);
+  if (!l) return;
+  const list = lineageList(currentLine);
+  document.getElementById("lineTitle").textContent = l.name;
+  document.getElementById("lineMeta").textContent = `${list.length} figures · vertical succession`;
+  const railEl = document.getElementById("rail");
+  railEl.style.setProperty("--c", l.color);
+  railEl.innerHTML = list.map((p, i) => card(p, i, list, l)).join("");
+  applyLens();
+  if (currentId) setTimeout(() => scrollToSaint(currentId), 50);
+}
+function card(p, i, list, l) {
+  const expanded = currentId === p.id;
+  const prev = list[i - 1], next = list[i + 1];
+  const maps = G.mapsLink(p.id);
+  const img = G.images[p.id];
+  return `<article class="saint ${expanded ? "expanded" : ""} ${eraMatch(p) ? "" : "dim"}" id="saint-${p.id}" role="listitem" data-id="${p.id}">
+ <button class="node" aria-expanded="${expanded}" onclick="toggleSaint('${p.id}')" style="--c:${l.color}">
+  <span class="node-head"><span><span class="node-name">${esc(p.name)}${G.draftIds[p.id] ? " ✏️" : ""}</span><br>
+  <span class="place">${esc(p.brindavana || p.place || "—")}</span></span><span class="caret">${expanded ? "⌃" : "⌄"}</span></span>
+  <span class="badges"><span class="badge">${i + 1} / ${list.length}</span><span class="badge">${esc(p.period || (p.b ? "c." + p.b : "—"))}</span>
+  ${p.confidence ? `<span class="badge">${esc(p.confidence)}</span>` : ""}</span>
+ </button>
+ <div class="card"><div><div class="detail">
+  <div class="photo" role="img" aria-label="Brindavana of ${esc(p.name)}">${photoSVG(p.name)}</div>
+  ${(p.titles || []).length || p.purva ? `<h4>Titles & pūrvāśrama</h4><p>${esc([...(p.titles || []), p.purva].filter(Boolean).join(" · "))}</p>` : ""}
+  <h4>Period</h4><p>${esc(p.period || "—")}</p>
+  ${p.brindavana ? `<h4>Brindavana</h4><p><b>${esc(p.brindavana)}</b>${p.place ? " · " + esc(p.place) : ""}
+    ${maps ? ` · <a href="${esc(maps)}" target="_blank" rel="noopener">map ↗</a>` : ""}
+    ${img && img.commons_search ? ` · <a href="${esc(img.commons_search)}" target="_blank" rel="noopener">images ↗</a>` : ""}</p>` : ""}
+  ${(p.works || []).length ? `<h4>Works</h4><ul>${p.works.map(w => `<li>${esc(w)}</li>`).join("")}</ul>` : ""}
+  ${p.contrib ? `<h4>Contribution</h4><p>${esc(p.contrib)}</p>` : ""}
+  ${(p.sources || []).length ? `<h4>Sources</h4><p style="font-size:13px">${esc(p.sources.join(" · "))}</p>` : ""}
+  <div class="links">
+   ${prev ? `<button class="linkbtn" onclick="walkTo('${prev.id}')">↑ Guru · ${esc(prev.name)}</button>` : ""}
+   ${next ? `<button class="linkbtn" onclick="walkTo('${next.id}')">↓ Śiṣya · ${esc(next.name)}</button>` : ""}
+   ${successors(p.id).filter(x => lineOfNode(x) !== currentLine).slice(0, 4).map(x =>
+     `<button class="linkbtn" onclick="crossJump('${x.id}')">Cross-link · ${esc(x.name)}</button>`).join("")}
+   ${(p.contemporaries || []).filter(c => G.byId[c]).slice(0, 4).map(c =>
+     `<button class="linkbtn" onclick="crossJump('${c}')">Contemporary · ${esc(G.byId[c].name.split(" ")[0])}</button>`).join("")}
+  </div>
+  ${window.DGE_GURU.bioHtml(p)}
+ </div></div></div>
+ </article>`;
+}
+function show(id) { document.getElementById(id).classList.add("active"); }
+function hide(id) { document.getElementById(id).classList.remove("active"); }
+function openLine(line) {
+  currentLine = line; currentId = null;
+  hide("overview"); show("lineView"); renderLine();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  history.replaceState(null, "", "#line=" + line);
+}
+function toggleSaint(id) {
+  currentId = currentId === id ? null : id; renderLine();
+  if (currentId) history.replaceState(null, "", "#" + id);
+}
+function focusSaint(id) {
+  const p = G.byId[id]; if (!p) return;
+  currentLine = p.matha === "mula" || p.matha === "core" ? (lines[0] && lines[0].id) : lineOfNode(p);
+  if (p.matha === "mula" || p.matha === "core") currentLine = "mula";
+  currentId = id;
+  hide("overview"); show("lineView"); renderLine();
+  history.replaceState(null, "", "#" + id);
+}
+function scrollToSaint(id) {
+  document.getElementById("saint-" + id)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  highlight(id);
+}
+function walkTo(id) { currentId = id; renderLine(); history.replaceState(null, "", "#" + id); }
+function crossJump(id) {
+  const p = G.byId[id]; if (!p) return;
+  currentLine = lineOfNode(p) === "mula" ? "mula" : lineOfNode(p);
+  currentId = id; renderLine();
+  setTimeout(() => { scrollToSaint(id); toast(`Jumped to ${p.name} · ${lineName(currentLine)}`); }, 80);
+  history.replaceState(null, "", "#" + id);
+}
+function highlight(id) {
+  document.querySelectorAll(".highlight").forEach(x => x.classList.remove("highlight"));
+  document.getElementById("saint-" + id)?.classList.add("highlight");
+}
+function applyLens() {
+  document.querySelectorAll(".saint").forEach(el =>
+    el.classList.toggle("dim", !eraMatch(G.byId[el.dataset.id])));
+  const chip = document.getElementById("lineChips");
+  chip.innerHTML = eraIndex ? `<span class="chip lens-chip">Era · ${eras[eraIndex]} <button onclick="setEra(0)" aria-label="Clear era">×</button></span>` : "";
+  document.getElementById("eraText").textContent = eras[eraIndex];
+}
+function setEra(i) { eraIndex = i; document.getElementById("era").value = i; applyLens(); if (currentLine) renderLine(); }
+function openDialog(id) { const d = document.getElementById(id); d.showModal ? d.showModal() : d.setAttribute("open", ""); }
+function closeDialog(id) { document.getElementById(id).close?.(); }
+function toast(t) {
+  const e = document.getElementById("toast");
+  e.textContent = t; e.classList.add("show");
+  setTimeout(() => e.classList.remove("show"), 1800);
+}
+function goOverview() {
+  hide("lineView"); show("overview");
+  history.replaceState(null, "", "#overview");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+function search(q) {
+  const terms = q.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  const found = G.nodes.filter(p => {
+    const s = [p.name, ...(p.titles || []), p.purva, p.place, p.brindavana, p.contrib, ...(p.works || [])].join(" ").toLowerCase();
+    return terms.every(t => s.includes(t));
+  }).slice(0, 16);
+  document.getElementById("results").innerHTML = found.length ? found.map(p =>
+    `<div class="search-result" role="option" onclick="selectSearch('${p.id}')"><b>${esc(p.name)}</b><br>
+     <small>${esc(lineName(lineOfNode(p)))} · ${esc(p.place || p.brindavana || "")}</small></div>`).join("")
+    : `<p class="lede">No matching saint.</p>`;
+}
+function selectSearch(id) {
+  closeDialog("searchDialog"); focusSaint(id);
+  setTimeout(() => toast(`${G.byId[id].name} · ${lineName(lineOfNode(G.byId[id]))}`), 100);
+}
+document.getElementById("backBtn").onclick = goOverview;
+document.getElementById("overviewBtn").onclick = goOverview;
+document.getElementById("lineBtn").onclick = () => { if (currentLine) { show("lineView"); hide("overview"); renderLine(); } else toast("Pick a line first"); };
+document.getElementById("controlsBtn").onclick = () => openDialog("sheet");
+document.getElementById("menuBtn").onclick = () => openDialog("sheet");
+document.getElementById("searchBtn").onclick = () => { openDialog("searchDialog"); setTimeout(() => document.getElementById("searchInput").focus(), 50); };
+document.getElementById("sheetSearch").onclick = () => { closeDialog("sheet"); openDialog("searchDialog"); setTimeout(() => document.getElementById("searchInput").focus(), 50); };
+document.getElementById("searchInput").oninput = e => search(e.target.value);
+document.getElementById("era").oninput = e => setEra(+e.target.value);
+document.addEventListener("keydown", e => {
+  if (e.key === "/" && !["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) {
+    e.preventDefault(); openDialog("searchDialog");
+    setTimeout(() => document.getElementById("searchInput").focus(), 50);
+  }
+  if (!document.getElementById("lineView").classList.contains("active") || !currentId) return;
+  const list = lineageList(currentLine), i = list.findIndex(x => x.id === currentId);
+  if (e.key === "Enter") { e.preventDefault(); toggleSaint(currentId); }
+  if (e.key === "ArrowUp" && list[i - 1]) { e.preventDefault(); walkTo(list[i - 1].id); setTimeout(() => scrollToSaint(list[i - 1].id), 20); }
+  if (e.key === "ArrowDown" && list[i + 1]) { e.preventDefault(); walkTo(list[i + 1].id); setTimeout(() => scrollToSaint(list[i + 1].id), 20); }
+});
+window.addEventListener("hashchange", () => loadHash());
+function loadHash() {
+  const h = location.hash.slice(1);
+  if (h.startsWith("line=")) { openLine(h.slice(5)); return; }
+  if (G.byId[h]) focusSaint(h);
+}
+window.DGE_GURU.load().then(g => {
+  G = g;
+  const counts = {};
+  g.nodes.forEach(n => { counts[n.matha] = (counts[n.matha] || 0) + 1; });
+  lines = [{ id: "mula", name: "Mūla Paramparā", color: g.colorOf("mula"), n: (counts.mula || 0) }];
+  lines.push({ id: "udupi", name: "Udupi Aṣṭa Maṭhas", color: g.colorOf("sode"),
+    n: g.udupiAshta.reduce((s, k) => s + (counts[k] || 0), 0) });
+  Object.keys(g.mathaLabels).forEach(k => {
+    if (k === "mula" || g.udupiAshta.indexOf(k) >= 0 || !counts[k]) return;
+    lines.push({ id: k, name: g.mathaLabels[k], color: g.colorOf(k), n: counts[k] });
+  });
+  lines.sort((a, b) => b.n - a.n);
+  renderMap(); loadHash();
+}).catch(e => {
+  document.getElementById("map").innerHTML = '<p class="lede">Could not load the parampara data (' + esc(String(e.message || e)) + ').</p>';
+});
+</script>
+</body>
+</html>

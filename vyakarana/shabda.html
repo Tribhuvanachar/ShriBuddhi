@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=2"></script>
+<script src="../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>शब्दपाठः · DGE व्याकरणम्</title>
+<!-- Indic transliteration, vendored (js/vendor/README.md): the reader's
+     script setting and the धातु/कोश word marking both depend on it, so it
+     must not be one CDN outage away from silently not working. -->
+<script src="../js/vendor/sanscript-1.3.3.min.js?v=1.3.3"></script>
+<link rel="stylesheet" href="../css/vyakarana-base.css?v=1">
+<link rel="stylesheet" href="../css/vyakarana.css?v=1">
+<link rel="stylesheet" href="../css/dhatuforms.css?v=1">
+<link rel="stylesheet" href="../css/intellisense.css?v=2">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<body>
+<header>
+  <div class="bar">
+    <dge-breadcrumb label="शब्दपाठः" deva home-href="index.html" class="brand"><a href="index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span class="deva">शब्दपाठः</span></dge-breadcrumb>
+    <div class="spacer"></div>
+    <input class="search" id="sh-search" placeholder="search शब्द / artha / roman…" autocomplete="off">
+    <div class="ctl" id="sh-scriptSeg">
+      <button data-s="devanagari" class="on">देव</button><button data-s="iast">IAST</button>
+    </div>
+    <button class="icon" id="sh-theme" title="Light / Dark">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="crumbs deva">DGE › व्याकरणम् › <b>शब्दपाठः</b></div>
+  <section class="hero">
+    <h1 class="deva">शब्दपाठः</h1>
+    <div class="sub">Nominal declension browser · <span id="sh-total">…</span> words</div>
+  </section>
+
+  <div class="filters">
+    <div class="frow"><span class="flab">लिङ्ग</span>
+      <button class="chip" data-l="">सर्वे · all</button>
+      <button class="chip" data-l="P">पुंल्लिङ्गम्</button>
+      <button class="chip" data-l="S">स्त्रीलिङ्गम्</button>
+      <button class="chip" data-l="N">नपुंसकलिङ्गम्</button>
+      <button class="chip" data-l="A">अव्ययम्</button>
+      <span class="count" id="sh-count"></span>
+    </div>
+    <div class="frow"><span class="flab deva">अन्त्यः</span><!-- अ आदि chips below; advanced rows render into #sh-adv -->
+      <button class="chip" data-a="">सर्वे</button>
+      <button class="chip deva" data-a="a">अ</button>
+      <button class="chip deva" data-a="A">आ</button>
+      <button class="chip deva" data-a="i">इ</button>
+      <button class="chip deva" data-a="I">ई</button>
+      <button class="chip deva" data-a="u">उ</button>
+      <button class="chip deva" data-a="U">ऊ</button>
+      <button class="chip deva" data-a="f">ऋ</button>
+      <button class="chip deva" data-a="H">हलन्तः</button>
+    </div>
+    <div id="sh-adv"></div>
+  </div>
+
+  <!-- 7 Sep 2026: declension of ANY stem (js/shabda-gen.js, vidyut-prakriya in the browser). -->
+  <section class="rs-box" id="sg-sec">
+    <h2 class="deva sg-title">नूतनशब्दरूपाणि <span class="sg-sub">· declension table for any prātipadika</span></h2>
+    <div class="sg-row">
+      <input id="sg-stem" class="deva" placeholder="प्रातिपदिकम् — e.g. राघवेन्द्र, सरस्वती, जगत्" autocomplete="off" spellcheck="false">
+      <span class="sg-chips"><button type="button" class="chip on" data-sg-l="P">पुं</button><button type="button" class="chip" data-sg-l="S">स्त्री</button><button type="button" class="chip" data-sg-l="N">नपुं</button></span>
+      <button type="button" class="btn ai" id="sg-go">Derive</button>
+    </div>
+    <div class="sg-hint">Not on the list? Every word still gets a table: the same Pāṇinian engine that shows रूपसिद्धिः per cell derives all 24 forms here, names the listed paradigm it declines like, and opens any cell's derivation on tap.</div>
+    <div id="sg-out"></div>
+  </section>
+
+  <div class="pager" id="sh-pagerTop" style="display:none; align-items:center; justify-content:center; gap:8px; margin:10px 0 4px; flex-wrap:wrap;">
+    <button class="more" id="sh-prevTop">‹ Prev</button>
+    <span id="sh-pageInfoTop" style="font-size:12px; opacity:.75; padding:0 4px;"></span>
+    <button class="more" id="sh-nextTop">Next ›</button>
+  </div>
+
+  <div class="list" id="sh-list"></div>
+  <div class="pager" id="sh-pager" style="display:none; align-items:center; justify-content:center; gap:8px; margin-top:16px; flex-wrap:wrap;">
+    <button class="more" id="sh-prev">‹ Prev</button>
+    <span id="sh-pageInfo" style="font-size:12px; opacity:.75; padding:0 4px;"></span>
+    <button class="more" id="sh-next">Next ›</button>
+    <button class="more" id="sh-toTop" title="Back to top of page">↑ Top</button>
+    <button class="more" id="sh-toBottom" title="Jump down to this pager">↓ Bottom</button>
+  </div>
+  <p class="note">शब्दपाठः · DGE · click a शब्द to expand its full 8×3 (विभक्ति × वचन) declension table — then tap any form for its step-by-step रूपसिद्धिः (sūtra-by-sūtra derivation).</p>
+  <p class="note" style="opacity:.6;">Data sources are credited on the Credits page, linked in the footer.</p>
+</main>
+
+<!-- Phase 6 of the frontend redesign: <dge-footer> (dge-shell.js) --
+     same link sets/behavior as site-footer.js, see that file's own
+     header comment. -->
+<dge-footer class="site-footer-links"><a class="footer-link" href="../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+
+<script src="../js/subanta-steps.js?v=1"></script>
+<!-- DGE UI Contract retrofit (28 Aug 2026): modals.js + reader-state.js +
+     contextual-actions.js, same load order as render.html/
+     ashtadhyayi.html/dhatu.html (see DGE_UI_CONTRACT.md). -->
+<script src="../js/modals.js?v=1"></script>
+<script src="../js/reader-state.js?v=1"></script>
+<script src="../js/contextual-actions.js?v=1"></script>
+<script src="../js/dge-shell.js?v=1"></script>
+<script src="../js/dge-breadcrumb.js?v=1"></script>
+<script src="../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="shabda"></dge-nav-rail>
+<script src="../js/shabda.js?v=4"></script>
+<script src="../js/shabda-gen.js?v=1"></script>
+<!-- Sūtra-reference popovers for the रूपसिद्धिः derivation steps
+     (subanta-steps.js renders .dge-sutra-ref spans; this owns the click
+     handler and the sūtra data). Same include as dhatu.html/ashtadhyayi.html. -->
+<script src="../js/intellisense.js?v=4.71.1"></script>
+</body>
+</html>

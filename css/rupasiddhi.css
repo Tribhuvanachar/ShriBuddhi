@@ -1,0 +1,79 @@
+/* रूपसिद्धिः — derivation workbench. Builds on vyakarana.css (hero, chip),
+   prakriya.css (pk-grid) and dhatuforms.css (df-table). Mobile-first:
+   44px touch targets, no horizontal page scroll (wide tables scroll in
+   their own boxes). */
+
+.rs-pick{margin-top:10px}
+.rs-pick input{width:100%;max-width:480px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:10px;padding:11px 14px;font:inherit;font-size:15px}
+
+.rs-box{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius,14px);box-shadow:var(--shadow);padding:14px 16px;margin:0 0 14px}
+.rs-boxhead{font-weight:700;margin-bottom:10px}
+.rs-boxhead small{color:var(--muted);font-weight:400;font-size:12px}
+.rs-status{color:var(--muted);font-size:12px;font-weight:400;margin-left:8px}
+
+/* upasarga builder */
+.rs-builder{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rs-upa{border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:10px;padding:10px 8px;font:inherit;font-size:15px;min-height:44px}
+.rs-plus2{color:var(--muted);font-weight:700}
+.rs-root{font-size:19px;font-weight:700;padding:0 4px}
+.rs-clear{border:1px solid var(--line);background:var(--panel2);color:var(--muted);border-radius:10px;min-width:44px;min-height:44px;cursor:pointer;font-size:15px}
+.rs-combo{margin-top:8px;color:var(--accent);font-weight:600}
+
+/* modes */
+.rs-modes{display:flex;flex-direction:column;gap:10px}
+.rs-modegrp{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.rs-lab{color:var(--muted);font-size:12.5px;min-width:64px}
+.rs-modegrp .chip{min-height:40px}
+
+/* lakara row + paradigm */
+.rs-lak{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.rs-lak .chip{min-height:40px}
+.rs-grid td{padding:0}
+.rs-cell{width:100%;border:0;background:transparent;color:var(--ink);font:inherit;font-size:15.5px;padding:10px 6px;cursor:pointer;border-radius:8px;min-height:44px}
+.rs-cell:not(:disabled):hover{background:var(--panel2)}
+.rs-cell:disabled{color:var(--muted);cursor:default}
+
+/* kridanta chips */
+.rs-krtgrp{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;flex-wrap:wrap}
+.rs-krtgrp>.rs-lab{padding-top:10px}
+.rs-krtrow{display:flex;flex-wrap:wrap;gap:8px;flex:1;min-width:min(100%,260px)}
+.rs-krt{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:12px;background:var(--panel2);overflow:hidden}
+.rs-krtform{border:0;background:transparent;color:var(--ink);font:inherit;font-size:15px;font-weight:600;padding:10px 10px;cursor:pointer;min-height:44px}
+.rs-krtname{color:var(--muted);font-size:11.5px;padding-right:8px;border-right:1px solid var(--line);margin-right:0;padding-left:2px;align-self:center}
+.rs-krtdecl{border:0;border-left:0;background:transparent;color:var(--accent);font-size:15px;cursor:pointer;min-width:40px;min-height:44px}
+.rs-krtnone{opacity:.45}
+.rs-krtnone .rs-krtform,.rs-krtnone .rs-krtdecl{cursor:default}
+.rs-declhead{font-weight:700;margin:14px 0 4px}
+.rs-declh{margin:14px 0 6px;color:var(--accent)}
+
+/* documented upasarga meanings */
+.rs-upalist{display:flex;flex-direction:column;gap:6px}
+.rs-uparow{display:flex;justify-content:space-between;gap:12px;border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:10px 12px;font:inherit;color:var(--ink);cursor:pointer;text-align:left;min-height:44px;align-items:center}
+.rs-uparow:hover{border-color:var(--accent)}
+.rs-upaname{font-weight:600}
+.rs-upahi{color:var(--muted);font-size:13px;text-align:right}
+
+/* derivation drawer (bottom sheet on phones, side panel on wide screens) */
+.rs-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:60;display:none}
+.rs-backdrop.open{display:block}
+.rs-drawer{position:fixed;left:0;right:0;bottom:0;max-height:82vh;background:var(--panel);border-top:1px solid var(--line);border-radius:16px 16px 0 0;box-shadow:0 -12px 40px rgba(0,0,0,.25);z-index:61;transform:translateY(105%);transition:transform .22s ease}
+.rs-drawer.open{transform:none}
+.rs-drawerin{padding:16px 18px;overflow:auto;max-height:82vh;-webkit-overflow-scrolling:touch}
+.rs-drawer h3{margin:0 34px 10px 0;font-size:19px}
+.rs-drawer h3 small{display:block;color:var(--muted);font-size:12px;font-weight:400;margin-top:2px}
+.rs-x{position:absolute;right:10px;top:8px;border:0;background:transparent;font-size:22px;color:var(--muted);cursor:pointer;min-width:44px;min-height:44px}
+.rs-alt{margin:14px 0 4px;color:var(--accent)}
+.rs-steps{list-style:none;margin:0;padding:0}
+.rs-steps li{display:flex;gap:10px;align-items:baseline;padding:7px 0;border-bottom:1px dashed var(--line)}
+.rs-steps li:last-child{border-bottom:0}
+.rs-code{flex:0 0 auto;font-size:12.5px;min-width:64px}
+.rs-code-plain{color:var(--muted)}
+.rs-terms{flex:1;font-size:16px;line-height:1.65}
+.rs-t-chg{color:var(--accent);font-weight:700}
+.rs-plus{color:var(--muted);margin:0 5px;font-size:13px}
+.rs-note{color:var(--muted);font-size:13.5px}
+@media(min-width:900px){
+  .rs-drawer{left:auto;top:0;bottom:0;width:520px;max-height:none;border-radius:0;border-left:1px solid var(--line);transform:translateX(105%)}
+  .rs-drawer.open{transform:none}
+  .rs-drawerin{max-height:100vh}
+}

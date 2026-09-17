@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="sa">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ग्रन्थः · DGE Reader v2 (preview)</title>
+<!-- The work.json-aware reader for grantha_work_v2 families
+     (tools/reports/grantha_data_architecture.md). Lives beside the classic
+     reader; replaces nothing until the project lead signs off. -->
+<script src="js/vandana-guard.js"></script>
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/grantha-reader.css?v=1.4">
+<link rel="icon" type="image/png" sizes="48x48" href="images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/genie/favicon-192.png">
+</head>
+<body class="grantha2">
+<div class="g2-top"><div class="g2-app"><div class="g2-top-in">
+  <div id="g2Title" lang="sa">ग्रन्थः</div>
+  <div class="g2-nav">
+    <button id="g2Drawer" title="Sūtra list (filterable)">☰</button>
+    <button id="g2Prev" title="Previous pāda">‹</button>
+    <select id="g2Pada" aria-label="adhyāya · pāda"></select>
+    <select id="g2Adhik" aria-label="adhikaraṇa" lang="sa"></select>
+    <button id="g2Next" title="Next pāda">›</button>
+    <button id="g2Cfg" title="Reader settings">⚙</button>
+  </div>
+  <a class="g2-home" href="index.html" title="Back to the library">⌂</a>
+</div>
+<div class="g2-chips" id="g2Layers"></div>
+</div></div>
+<div class="g2-app"><aside id="g2Side" class="g2-side" hidden></aside></div>
+<main class="g2-app" id="g2Main" aria-live="polite"></main>
+<dialog id="g2CfgDlg" class="g2-dlg"></dialog>
+<div id="g2Toast" class="g2-toast" hidden></div>
+<script src="js/grantha-reader.js?v=1.4"></script>
+<!-- 7 Sep 2026: same reader copy/right-click guard as index.html (admins exempt). -->
+<script src="js/copy-guard.js?v=2"></script>
+</body>
+</html>

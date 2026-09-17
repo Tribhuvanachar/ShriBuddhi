@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="sa" data-theme="light" data-script="deva">
+<head>
+<meta charset="UTF-8">
+<script src="../../js/vandana-guard.js?v=2"></script>
+<script src="../../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>शब्दपाठः · Reader · DGE</title>
+<!-- Indic transliteration, vendored (js/vendor/README.md): the reader's
+     script setting and the धातु/कोश word marking both depend on it, so it
+     must not be one CDN outage away from silently not working. -->
+<script src="../../js/vendor/sanscript-1.3.3.min.js?v=1.3.3"></script>
+<link rel="icon" type="image/png" sizes="48x48" href="../../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../../images/genie/apple-touch-icon.png">
+<style>
+/* ===== Design tokens ===== */
+:root {
+  --bg: #f7f5f0;
+  --bg-elev: #fffef9;
+  --fg: #1a1814;
+  --fg-muted: #5c574e;
+  --accent: #8b4513;
+  --accent-soft: #c4a574;
+  --border: #e0d9cc;
+  --row-hover: #f0ebe0;
+  --cell-tap: #f5e6d3;
+  --highlight: #ffe08a;
+  --badge-p: #3d5a80;
+  --badge-s: #9b2226;
+  --badge-n: #2a9d8f;
+  --badge-a: #6c757d;
+  --shadow: 0 4px 24px rgba(26,24,20,.12);
+  --radius: 12px;
+  --bar-h: 48px;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+  --safe-t: env(safe-area-inset-top, 0px);
+  --font-sa: "Noto Serif Devanagari", "Noto Sans Devanagari", "Sanskrit Text", "Devanagari MT", serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --ch: 72ch;
+}
+[data-theme="dark"] {
+  --bg: #1c1a17;
+  --bg-elev: #2a2722;
+  --fg: #f0ebe3;
+  --fg-muted: #a8a095;
+  --accent: #d4a574;
+  --accent-soft: #8b7355;
+  --border: #3d3830;
+  --row-hover: #332f28;
+  --cell-tap: #3d3228;
+  --highlight: #5c4a1e;
+  --shadow: 0 4px 24px rgba(0,0,0,.4);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1c1a17; --bg-elev: #2a2722; --fg: #f0ebe3; --fg-muted: #a8a095;
+    --accent: #d4a574; --accent-soft: #8b7355; --border: #3d3830;
+    --row-hover: #332f28; --cell-tap: #3d3228; --highlight: #5c4a1e;
+    --shadow: 0 4px 24px rgba(0,0,0,.4);
+  }
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+body {
+  font-family: var(--font-ui);
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.45;
+  min-height: 100dvh;
+  padding-top: calc(var(--bar-h) + var(--safe-t));
+  padding-bottom: var(--safe-b);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+body.bar-hidden { padding-top: var(--safe-t); }
+/* ===== Slim top bar ===== */
+#topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: calc(var(--bar-h) + var(--safe-t));
+  padding-top: var(--safe-t);
+  background: color-mix(in srgb, var(--bg-elev) 92%, transparent);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; gap: .5rem;
+  padding-inline: .75rem;
+  transition: transform .25s ease;
+}
+body.bar-hidden #topbar { transform: translateY(-100%); }
+#topbar h1 {
+  font-size: clamp(.95rem, 2.8vw, 1.1rem);
+  font-weight: 600; letter-spacing: .02em;
+  white-space: nowrap; flex-shrink: 0;
+}
+#topbar h1 span { color: var(--accent); font-family: var(--font-sa); }
+.bar-actions { margin-left: auto; display: flex; gap: .25rem; align-items: center; }
+.icon-btn {
+  width: 44px; height: 44px; border: none; background: transparent;
+  color: var(--fg); border-radius: 50%; cursor: pointer;
+  display: grid; place-items: center; font-size: 1.25rem;
+}
+.icon-btn:hover, .icon-btn:focus-visible { background: var(--row-hover); outline: none; }
+.icon-btn:focus-visible { box-shadow: 0 0 0 2px var(--accent); }
+/* ===== Filter summary line ===== */
+#filter-summary {
+  display: none; align-items: center; gap: .5rem;
+  padding: .4rem .75rem; background: var(--bg-elev);
+  border-bottom: 1px solid var(--border); font-size: .85rem;
+  color: var(--fg-muted); position: sticky; top: 0; z-index: 50;
+}
+#filter-summary.visible { display: flex; }
+#filter-summary .count { font-variant-numeric: tabular-nums; color: var(--accent); font-weight: 600; }
+#filter-summary button {
+  margin-left: auto; border: none; background: none; color: var(--accent);
+  font-size: .9rem; cursor: pointer; padding: .25rem .5rem; min-height: 44px;
+}
+/* ===== Main layout ===== */
+main {
+  max-width: var(--ch); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr;
+}
+@media (min-width: 900px) {
+  main { grid-template-columns: 40px 1fr; gap: 0; }
+}
+/* Letter rail */
+#letter-rail {
+  display: none; position: sticky; top: calc(var(--bar-h) + var(--safe-t) + 4px);
+  height: calc(100dvh - var(--bar-h) - var(--safe-t) - 8px);
+  flex-direction: column; justify-content: space-evenly;
+  padding: .25rem 0; font-size: .7rem; color: var(--fg-muted);
+  user-select: none; overflow-y: auto; scroll-snap-type: y mandatory;
+  overscroll-behavior: contain;
+}
+@media (min-width: 900px) {
+  #letter-rail { display: flex; }
+}
+#letter-rail button {
+  border: none; background: none; color: inherit; cursor: pointer;
+  padding: .15rem 0; scroll-snap-align: center; min-height: 22px;
+  font-family: var(--font-sa); writing-mode: horizontal-tb;
+}
+#letter-rail button:hover, #letter-rail button:focus-visible { color: var(--accent); }
+/* Word list */
+#word-list {
+  list-style: none; content-visibility: auto; contain-intrinsic-size: auto 72px;
+}
+.word-row {
+  border-bottom: 1px solid var(--border);
+  content-visibility: auto; contain-intrinsic-size: auto 64px;
+}
+.word-row-header {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .7rem .9rem; min-height: 56px; cursor: pointer;
+  transition: background .15s;
+}
+.word-row-header:hover, .word-row-header:focus-visible { background: var(--row-hover); outline: none; }
+.word-row.bookmarked .word-row-header::before {
+  content: "★"; color: var(--accent); font-size: .85rem; margin-right: -.3rem;
+}
+.word-stem {
+  font-family: var(--font-sa); font-size: 1.25rem; font-weight: 600;
+  line-height: 1.3; flex: 1; min-width: 0;
+}
+[data-script="iast"] .word-stem { font-family: var(--font-ui); font-size: 1.1rem; }
+.gender-badge {
+  font-size: .65rem; font-weight: 600; letter-spacing: .04em;
+  padding: .15rem .4rem; border-radius: 4px; color: #fff; flex-shrink: 0;
+  text-transform: uppercase; font-family: var(--font-sa);
+}
+.gender-badge.P { background: var(--badge-p); }
+.gender-badge.S { background: var(--badge-s); }
+.gender-badge.N { background: var(--badge-n); }
+.gender-badge.A { background: var(--badge-a); }
+.artha-preview {
+  font-size: .8rem; color: var(--fg-muted); max-width: 40%;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.more-btn {
+  width: 40px; height: 40px; border: none; background: transparent;
+  color: var(--fg-muted); border-radius: 50%; cursor: pointer;
+  font-size: 1.2rem; flex-shrink: 0;
+}
+.more-btn:hover, .more-btn:focus-visible { background: var(--row-hover); color: var(--fg); outline: none; }
+/* Expanded panel */
+.expand-panel {
+  display: none; padding: .5rem .75rem 1rem;
+  background: var(--bg-elev); border-top: 1px solid var(--border);
+}
+.word-row.open .expand-panel { display: block; }
+.meanings {
+  font-size: .9rem; margin-bottom: .75rem; color: var(--fg-muted);
+  display: flex; flex-wrap: wrap; gap: .4rem .8rem;
+}
+.meanings strong { color: var(--fg); font-weight: 500; }
+.paradigm-tag {
+  display: inline-block; font-size: .75rem; padding: .2rem .5rem;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  color: var(--accent); border-radius: 6px; cursor: pointer;
+  margin-bottom: .5rem;
+}
+/* Declension table (rendered by DGE_SHABDA.declTable → .df-table) */
+.table-wrap {
+  overflow-x: auto; overscroll-behavior-x: contain;
+  border-radius: var(--radius); border: 1px solid var(--border);
+  background: var(--bg);
+  container-type: inline-size;
+}
+.df-table { background: var(--bg); }
+.df-table table {
+  width: 100%; border-collapse: collapse;
+  font-family: var(--font-sa); font-size: clamp(.95rem, 2.6cqi, 1.15rem);
+  table-layout: fixed;
+}
+.df-table th, .df-table td {
+  border: 1px solid var(--border); padding: .45rem .35rem;
+  text-align: center; vertical-align: middle; line-height: 1.35;
+}
+.df-table th {
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg));
+  font-weight: 600; font-size: .7em; color: var(--fg-muted);
+  font-family: var(--font-ui); letter-spacing: .02em;
+}
+.df-table th:first-child, .df-table td:first-child {
+  text-align: left; padding-inline-start: .5rem;
+}
+.df-table td[data-ci] { cursor: pointer; transition: background .12s; }
+.df-table td[data-ci]:hover, .df-table td[data-ci]:focus-visible { background: var(--cell-tap); outline: none; }
+.df-table td.df-hl { background: var(--highlight); }
+.df-table td.sst-cell-on { background: var(--cell-tap); }
+.df-table td.df-quiz-hidden { color: transparent; user-select: none; position: relative; }
+.df-table td.df-quiz-hidden::after {
+  content: "· · ·"; color: var(--fg-muted); position: absolute;
+  inset: 0; display: grid; place-items: center;
+}
+[data-script="iast"] .df-table table { font-family: var(--font-ui); font-size: clamp(.85rem, 2.4cqi, 1rem); }
+/* Position pill */
+#pos-pill {
+  position: fixed; bottom: calc(1rem + var(--safe-b)); left: 50%;
+  transform: translateX(-50%); z-index: 90;
+  background: var(--bg-elev); color: var(--fg-muted);
+  font-size: .75rem; font-variant-numeric: tabular-nums;
+  padding: .35rem .85rem; border-radius: 999px;
+  border: 1px solid var(--border); box-shadow: var(--shadow);
+  pointer-events: none; opacity: 0; transition: opacity .2s;
+}
+#pos-pill.visible { opacity: 1; }
+/* Bottom sheet (filter / search / menus) */
+dialog.sheet {
+  position: fixed; margin: 0; inset: auto 0 0 0;
+  width: 100%; max-width: 480px; margin-inline: auto;
+  max-height: 85dvh; border: none; border-radius: 16px 16px 0 0;
+  background: var(--bg-elev); color: var(--fg);
+  box-shadow: var(--shadow); padding: 0;
+  overscroll-behavior: contain;
+}
+dialog.sheet::backdrop { background: rgba(0,0,0,.4); }
+.sheet-handle {
+  width: 36px; height: 4px; background: var(--border);
+  border-radius: 2px; margin: .6rem auto .4rem;
+}
+.sheet-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .25rem 1rem .75rem; border-bottom: 1px solid var(--border);
+}
+.sheet-header h2 { font-size: 1.05rem; font-weight: 600; }
+.sheet-body { padding: 1rem; overflow-y: auto; max-height: calc(85dvh - 60px); }
+.sheet-close {
+  width: 40px; height: 40px; border: none; background: transparent;
+  color: var(--fg-muted); font-size: 1.4rem; cursor: pointer; border-radius: 50%;
+}
+.filter-group { margin-bottom: 1.25rem; }
+.filter-group h3 {
+  font-size: .75rem; text-transform: uppercase; letter-spacing: .06em;
+  color: var(--fg-muted); margin-bottom: .5rem;
+}
+.chip-row { display: flex; flex-wrap: wrap; gap: .4rem; }
+.chip {
+  border: 1px solid var(--border); background: var(--bg);
+  color: var(--fg); padding: .4rem .75rem; border-radius: 999px;
+  font-size: .85rem; cursor: pointer; min-height: 40px;
+  font-family: var(--font-sa);
+}
+.chip.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* Search */
+#search-input {
+  width: 100%; padding: .75rem 1rem; font-size: 1.05rem;
+  border: 1px solid var(--border); border-radius: 10px;
+  background: var(--bg); color: var(--fg); font-family: var(--font-sa);
+}
+#search-input:focus { outline: 2px solid var(--accent); border-color: transparent; }
+.search-hint { font-size: .8rem; color: var(--fg-muted); margin-top: .5rem; }
+/* Compare mode */
+#compare-bar {
+  display: none; position: sticky; bottom: 0; z-index: 80;
+  background: var(--bg-elev); border-top: 1px solid var(--border);
+  padding: .6rem .75rem; gap: .5rem; align-items: center;
+  flex-wrap: wrap;
+}
+#compare-bar.visible { display: flex; }
+.compare-chip {
+  font-family: var(--font-sa); font-size: .9rem;
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  padding: .3rem .6rem; border-radius: 6px;
+}
+/* Context menu (fallback when dgeOpenContextualMenu is unavailable) */
+#ctx-menu {
+  position: fixed; z-index: 200; min-width: 180px;
+  background: var(--bg-elev); border: 1px solid var(--border);
+  border-radius: 10px; box-shadow: var(--shadow); padding: .35rem 0;
+  display: none;
+}
+#ctx-menu.open { display: block; }
+#ctx-menu button {
+  display: block; width: 100%; text-align: left; padding: .65rem 1rem;
+  border: none; background: none; color: var(--fg); font-size: .9rem;
+  cursor: pointer; min-height: 44px;
+}
+#ctx-menu button:hover, #ctx-menu button:focus-visible { background: var(--row-hover); outline: none; }
+/* Utilities */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+.fab {
+  position: fixed; bottom: calc(1.25rem + var(--safe-b)); right: 1rem;
+  width: 52px; height: 52px; border-radius: 50%; border: none;
+  background: var(--accent); color: #fff; font-size: 1.4rem;
+  box-shadow: var(--shadow); cursor: pointer; z-index: 85;
+  display: grid; place-items: center;
+}
+.fab:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.empty-state {
+  text-align: center; padding: 3rem 1.5rem; color: var(--fg-muted);
+}
+/* Desktop compare side-by-side */
+@media (min-width: 900px) {
+  .compare-tables { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+}
+</style>
+</head>
+<body>
+<!--
+LAYOUT STRUCTURE (wired to the real 9,007-stem corpus via window.DGE_SHABDA)
+- Fixed slim topbar (title + search + filter + theme/script icons). Auto-hides on scroll-down.
+- Sticky filter-summary line (only when filters active).
+- Main: optional letter-rail (desktop left) + word-list.
+- Per-word expand → meanings + "words like this" tag + 8×3 table (DGE_SHABDA.declTable).
+- Cell tap → real रूपसिद्धिः panel rendered inline by DGE_SHABDA.cellSteps.
+- FAB opens filter/search sheet; ⋯ routes to dgeOpenContextualMenu (fallback ctx-menu).
+- Compare bar sticky bottom when pins active. Position pill bottom-center.
+-->
+
+<header id="topbar" role="banner">
+  <h1><span>शब्दपाठ</span></h1>
+  <div class="bar-actions">
+    <button class="icon-btn" id="btn-search" aria-label="Search" title="Search (/)">⌕</button>
+    <button class="icon-btn" id="btn-filter" aria-label="Filters" title="Filters">☰</button>
+    <button class="icon-btn" id="btn-script" aria-label="Toggle script" title="देव / IAST">अ</button>
+    <button class="icon-btn" id="btn-theme" aria-label="Toggle theme" title="Theme">◐</button>
+  </div>
+</header>
+
+<div id="filter-summary" role="status">
+  <span id="summary-text"></span>
+  <span class="count" id="summary-count"></span>
+  <button type="button" id="clear-filters">✕ Clear</button>
+</div>
+
+<main>
+  <nav id="letter-rail" aria-label="Jump to letter"></nav>
+  <div>
+    <ul id="word-list" role="list"></ul>
+    <div class="empty-state" id="empty" hidden>No matching stems.</div>
+  </div>
+</main>
+
+<div id="pos-pill" aria-live="polite">… of 9,007</div>
+
+<button class="fab" id="fab-filter" aria-label="Open filters">☰</button>
+
+<div id="compare-bar" role="region" aria-label="Compare mode">
+  <span style="font-size:.85rem;color:var(--fg-muted)">Compare:</span>
+  <div id="compare-chips"></div>
+  <button type="button" id="btn-run-compare" style="margin-left:auto;padding:.4rem .8rem;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer;min-height:40px">Show tables</button>
+  <button type="button" id="btn-clear-compare" style="padding:.4rem .6rem;border:none;background:none;color:var(--fg-muted);cursor:pointer">Clear</button>
+</div>
+
+<dialog class="sheet" id="filter-sheet" aria-labelledby="filter-title">
+  <div class="sheet-handle"></div>
+  <div class="sheet-header">
+    <h2 id="filter-title">Filter &amp; Search</h2>
+    <button class="sheet-close" data-close aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body">
+    <div class="filter-group">
+      <label for="search-input" class="sr-only">Search</label>
+      <input type="search" id="search-input" placeholder="राम · rāma · रामेण · Rama…" autocomplete="off" enterkeyhint="search">
+      <p class="search-hint">Matches stem, meanings (Skt/Hi/En) &amp; IAST. An exact inflected form jumps to its cell. <em>Sandhi-aware search — coming soon.</em></p>
+    </div>
+    <div class="filter-group">
+      <h3>लिङ्गम्</h3>
+      <div class="chip-row" data-axis="linga">
+        <button class="chip active" data-val="">All</button>
+        <button class="chip" data-val="P">पुं</button>
+        <button class="chip" data-val="S">स्त्री</button>
+        <button class="chip" data-val="N">नपुं</button>
+        <button class="chip" data-val="A">अव्यय</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <h3>अन्त्यः</h3>
+      <div class="chip-row" data-axis="antya">
+        <button class="chip active" data-val="">All</button>
+        <button class="chip" data-val="a">अ</button>
+        <button class="chip" data-val="A">आ</button>
+        <button class="chip" data-val="i">इ</button>
+        <button class="chip" data-val="I">ई</button>
+        <button class="chip" data-val="u">उ</button>
+        <button class="chip" data-val="U">ऊ</button>
+        <button class="chip" data-val="f">ऋ</button>
+        <button class="chip" data-val="H">हलन्त</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <h3>आदिः</h3>
+      <div class="chip-row" data-axis="adi" id="adi-chips">
+        <button class="chip active" data-val="">All</button>
+      </div>
+    </div>
+    <div class="filter-group">
+      <h3>प्रत्ययान्तः</h3>
+      <div class="chip-row" data-axis="krt" id="krt-chips">
+        <button class="chip active" data-val="">All</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<div id="ctx-menu" role="menu"></div>
+
+<dge-footer class="site-footer-links"><a class="footer-link" href="../../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+<script src="../../js/subanta-steps.js?v=1"></script>
+<script src="../../js/modals.js?v=1"></script>
+<script src="../../js/reader-state.js?v=1"></script>
+<script src="../../js/contextual-actions.js?v=1"></script>
+<script src="../../js/dge-shell.js?v=1"></script>
+<script src="../../js/dge-breadcrumb.js?v=1"></script>
+<script src="../../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="shabda"></dge-nav-rail>
+<script src="../../js/shabda-data.js?v=1"></script>
+<script>
+/* ============================================================================
+ * Śabdapāṭha · Reader (view2) — view-control script.
+ * Reads the real corpus through window.DGE_SHABDA (shabda-data.js). No mock
+ * data, no local transliteration, no mock sūtras: every correctness-critical
+ * bit is delegated to the shared module.
+ * ========================================================================== */
+(function () {
+  "use strict";
+
+  var D = window.DGE_SHABDA;
+  var LETTERS = "अआइईउऊऋएऐओऔकखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसह".split("");
+  var LINGA_LONG = { P: "पुंल्लिङ्गम्", S: "स्त्रीलिङ्गम्", N: "नपुंसकलिङ्गम्", A: "अव्ययम्" };
+  var ANTA_LABEL = { a: "अ", A: "आ", i: "इ", I: "ई", u: "उ", U: "ऊ", f: "ऋ", F: "ॠ",
+                     e: "ए", E: "ऐ", o: "ओ", O: "औ", H: "हलन्त" };
+
+  // ---- state -------------------------------------------------------------
+  var state = {
+    filters: { linga: "", antya: "", adi: "", krt: "", para: "" },
+    query: "",
+    bookmarks: new Set(readBookmarks()),
+    compare: [],
+    quizHidden: {},            // id -> Set of hidden cell indices (computed ONCE)
+    script: "devanagari",      // 'devanagari' | 'iast'
+    theme: localStorage.getItem("dge.shabda.theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"),
+    lastScroll: 0,
+    openId: null
+  };
+  var db = { items: [], count: 0 };
+  var allSorted = [];
+  var byId = {};
+
+  document.documentElement.dataset.theme = state.theme;
+  document.documentElement.dataset.script = "deva";
+
+  // ---- small helpers -----------------------------------------------------
+  function esc(s) { return D.esc(s); }
+  function readBookmarks() { try { return JSON.parse(localStorage.getItem("dge.shabda.bookmarks") || "[]"); } catch (e) { return []; } }
+  function saveBookmarks() { try { localStorage.setItem("dge.shabda.bookmarks", JSON.stringify([].concat(Array.from(state.bookmarks)))); } catch (e) {} }
+  function displayWord(it) { return state.script === "iast" ? D.tl(it.word, "iast") : it.word; }
+  function iastOf(it) { return D.tl(it.word, "iast"); }
+  function slpToDeva(s) {
+    if (!s) return "";
+    if (ANTA_LABEL[s]) return ANTA_LABEL[s];
+    if (window.Sanscript) { try { return window.Sanscript.t(s, "slp1", "devanagari"); } catch (e) {} }
+    return s;
+  }
+  function selById(id) { return document.querySelector('#word-list li[data-id="' + CSS.escape(id) + '"]'); }
+
+  // ---- filtering ---------------------------------------------------------
+  function filtered() {
+    var f = state.filters;
+    var q = state.query.trim();
+    var ql = q.toLowerCase();
+    var list;
+    if (q) {
+      // 1) exact inflected-form reverse lookup (Devanāgarī surface)
+      var loc = D.findFormLocation(allSorted, q);
+      if (loc && byId[loc.id]) {
+        var hit = Object.assign({}, byId[loc.id], { _revIdx: loc.cellIndex });
+        list = [hit];
+      } else {
+        list = allSorted.filter(function (it) {
+          return it._hay.indexOf(ql) >= 0 || iastOf(it).toLowerCase().indexOf(ql) >= 0;
+        });
+      }
+    } else {
+      list = allSorted;
+    }
+    if (f.linga) list = list.filter(function (it) { return it.linga === f.linga; });
+    if (f.antya) list = list.filter(function (it) { return it._anta === f.antya; });
+    if (f.adi) list = list.filter(function (it) { return it._adi === f.adi; });
+    if (f.krt) list = list.filter(function (it) { return ("," + (it.krt || "") + ",").indexOf("," + f.krt + ",") >= 0; });
+    if (f.para) list = list.filter(function (it) { return (it.linga + "_" + it._anta) === f.para; });
+    if (q && list.length > 1) {
+      list = list.slice().sort(function (a, b) {
+        var as = a.word.indexOf(q) === 0 ? 0 : 1;
+        var bs = b.word.indexOf(q) === 0 ? 0 : 1;
+        return as - bs || a.word.localeCompare(b.word, "sa");
+      });
+    }
+    return list;
+  }
+
+  // ---- rendering ---------------------------------------------------------
+  function headerHtml(it) {
+    var cls = "word-row" + (state.bookmarks.has(it.id) ? " bookmarked" : "") + (state.openId === it.id ? " open" : "");
+    var badge = D.LINGA_SHORT[it.linga] || "";
+    var prev = esc(it.artha_eng || it.artha || "");
+    return '<li class="' + cls + '" data-id="' + esc(it.id) + '">' +
+      '<div class="word-row-header" role="button" tabindex="0" aria-expanded="' + (state.openId === it.id ? "true" : "false") + '">' +
+        '<span class="word-stem">' + esc(displayWord(it)) + '</span>' +
+        '<span class="gender-badge ' + esc(it.linga) + '">' + esc(badge) + '</span>' +
+        '<span class="artha-preview">' + prev + '</span>' +
+        '<button class="more-btn" aria-label="More actions" data-more>⋯</button>' +
+      '</div>' +
+      '<div class="expand-panel"></div>' +
+    '</li>';
+  }
+
+  function renderList() {
+    var list = filtered();
+    var ul = document.getElementById("word-list");
+    var empty = document.getElementById("empty");
+    // auto-open reverse-lookup single hit
+    if (list.length === 1 && list[0]._revIdx != null) { state.openId = list[0].id; }
+    // if the open word fell out of the filtered set, close it
+    if (state.openId && !list.some(function (it) { return it.id === state.openId; })) state.openId = null;
+
+    if (!list.length) {
+      ul.innerHTML = "";
+      empty.hidden = false;
+      updateSummary(0);
+      updatePosPill(0);
+      return;
+    }
+    empty.hidden = true;
+    var parts = new Array(list.length);
+    for (var i = 0; i < list.length; i++) parts[i] = headerHtml(list[i]);
+    ul.innerHTML = parts.join("");
+
+    if (state.openId) {
+      var it = byId[state.openId];
+      var revIdx = (list.length === 1 && list[0]._revIdx != null) ? list[0]._revIdx : null;
+      var li = selById(state.openId);
+      if (it && li) {
+        populatePanel(it, li, revIdx);
+        if (revIdx != null) { setTimeout(function () { var c = li.querySelector("#df-hl-cell"); if (c) c.focus(); }, 60); }
+      }
+    }
+    updateSummary(list.length);
+    updatePosPill(list.length);
+  }
+
+  function tableHtml(it, highlightIdx) {
+    return D.declTable(it.forms, { script: state.script, highlightIdx: (highlightIdx == null ? null : highlightIdx) });
+  }
+
+  function populatePanel(it, li, highlightIdx) {
+    var panel = li.querySelector(".expand-panel");
+    if (!panel) return;
+    var paraKey = it.linga + "_" + it._anta;
+    var paraLbl = "words like this · " + (D.LINGA_SHORT[it.linga] || "") + " + " + (ANTA_LABEL[it._anta] || slpToDeva(it._anta) || "?");
+    var quizOn = !!state.quizHidden[it.id];
+    var h = '' +
+      '<div class="meanings">' +
+        '<span><strong>सं</strong> ' + esc(it.artha || "—") + '</span>' +
+        (it.artha_hin ? '<span><strong>हि</strong> ' + esc(it.artha_hin) + '</span>' : '') +
+        (it.artha_eng ? '<span><strong>En</strong> ' + esc(it.artha_eng) + '</span>' : '') +
+      '</div>' +
+      '<span class="paradigm-tag" data-para="' + esc(paraKey) + '" title="Same liṅga + ending">' + esc(paraLbl) + '</span>' +
+      '<div class="table-wrap">' + tableHtml(it, highlightIdx) + '</div>' +
+      '<div style="margin-top:.6rem;display:flex;gap:.5rem;flex-wrap:wrap">' +
+        '<button type="button" class="chip" data-quiz style="font-size:.8rem">' + (quizOn ? "Reveal all" : "Practice / Quiz") + '</button>' +
+        '<button type="button" class="chip" data-stub style="font-size:.8rem;opacity:.6" title="Coming soon">Corpus prayoga ↗</button>' +
+        '<button type="button" class="chip" data-stub style="font-size:.8rem;opacity:.6" title="Coming soon">Kośa ↗</button>' +
+      '</div>';
+    panel.innerHTML = h;
+    applyQuiz(it, li);
+    li.querySelectorAll("td[data-ci]").forEach(function (td) { td.tabIndex = 0; });
+  }
+
+  // ---- quiz (hidden set computed ONCE; buildTable only READS it) ----------
+  function computeQuizHidden(it) {
+    var cells = String(it.forms || "").split(";");
+    var candidates = [];
+    for (var i = 0; i < cells.length && i < 24; i++) { if ((cells[i] || "").trim()) candidates.push(i); }
+    var hidden = new Set();
+    candidates.forEach(function (i) { if (Math.random() > 0.45) hidden.add(i); });
+    // ensure at least one is hidden so the quiz has something to do
+    if (!hidden.size && candidates.length) hidden.add(candidates[Math.floor(Math.random() * candidates.length)]);
+    return hidden;
+  }
+  function applyQuiz(it, li) {
+    var set = state.quizHidden[it.id];
+    if (!set) return;
+    li.querySelectorAll("td[data-ci]").forEach(function (td) {
+      if (set.has(parseInt(td.dataset.ci, 10))) td.classList.add("df-quiz-hidden");
+    });
+  }
+  function toggleQuiz(it, li) {
+    if (state.quizHidden[it.id]) delete state.quizHidden[it.id];   // Reveal all
+    else state.quizHidden[it.id] = computeQuizHidden(it);
+    populatePanel(it, li, null);
+  }
+
+  // ---- expand / collapse -------------------------------------------------
+  function toggleExpand(id) {
+    var it = byId[id];
+    if (!it) return;
+    if (state.openId === id) {
+      var openLi = selById(id);
+      if (openLi) { openLi.classList.remove("open"); openLi.querySelector(".expand-panel").innerHTML = ""; openLi.querySelector(".word-row-header").setAttribute("aria-expanded", "false"); }
+      state.openId = null;
+      history.replaceState(null, "", location.pathname + location.search);
+      return;
+    }
+    if (state.openId) {
+      var prev = selById(state.openId);
+      if (prev) { prev.classList.remove("open"); prev.querySelector(".expand-panel").innerHTML = ""; prev.querySelector(".word-row-header").setAttribute("aria-expanded", "false"); }
+    }
+    state.openId = id;
+    var li = selById(id);
+    if (li) {
+      li.classList.add("open");
+      li.querySelector(".word-row-header").setAttribute("aria-expanded", "true");
+      populatePanel(it, li, null);
+      li.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+    history.replaceState(null, "", "#" + id);
+  }
+
+  // ---- summary + pill ----------------------------------------------------
+  function fmt(n) { return n.toLocaleString("en-IN"); }
+  function updateSummary(n) {
+    var active = Object.keys(state.filters).filter(function (k) { return state.filters[k]; });
+    var sum = document.getElementById("filter-summary");
+    if (!active.length && !state.query) { sum.classList.remove("visible"); return; }
+    sum.classList.add("visible");
+    var parts = active.map(function (k) {
+      var v = state.filters[k];
+      if (k === "linga") return LINGA_LONG[v] || v;
+      if (k === "antya") return "-" + (ANTA_LABEL[v] || slpToDeva(v));
+      if (k === "adi") return slpToDeva(v) + "…";
+      if (k === "krt") return D.KRT_NAME[v] || v;
+      if (k === "para") { var p = v.split("_"); return (D.LINGA_SHORT[p[0]] || "") + " + " + (ANTA_LABEL[p[1]] || slpToDeva(p[1])); }
+      return v;
+    });
+    if (state.query) parts.unshift("“" + state.query + "”");
+    document.getElementById("summary-text").textContent = parts.join(" · ") + " · ";
+    document.getElementById("summary-count").textContent = fmt(n) + " of " + fmt(db.count);
+  }
+  function updatePosPill(n) {
+    var pill = document.getElementById("pos-pill");
+    pill.textContent = fmt(n) + " of " + fmt(db.count);
+    pill.classList.add("visible");
+    clearTimeout(pill._t);
+    pill._t = setTimeout(function () { pill.classList.remove("visible"); }, 1800);
+  }
+
+  // ---- per-word "more" ---------------------------------------------------
+  function openMore(id, btn) {
+    var it = byId[id];
+    if (!it) return;
+    if (typeof window.dgeOpenContextualMenu === "function") {
+      window.dgeOpenContextualMenu("subantaWord", { id: id, label: D.tl(it.word) + (it.artha ? " — " + it.artha : "") });
+      return;
+    }
+    openCtxMenuFallback(id, btn);
+  }
+  function openCtxMenuFallback(id, btn) {
+    var menu = document.getElementById("ctx-menu");
+    var it = byId[id];
+    var isBm = state.bookmarks.has(id);
+    var inCmp = state.compare.indexOf(id) >= 0;
+    menu.innerHTML =
+      '<button role="menuitem" data-act="bm">' + (isBm ? "★ Unbookmark" : "☆ Bookmark") + '</button>' +
+      '<button role="menuitem" data-act="compare">' + (inCmp ? "Unpin from compare" : "Pin to compare") + '</button>' +
+      '<button role="menuitem" data-act="share">Share / Cite</button>';
+    menu.querySelectorAll("button").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var act = b.dataset.act;
+        if (act === "bm") { toggleBookmark(id); }
+        else if (act === "compare") {
+          if (inCmp) state.compare = state.compare.filter(function (x) { return x !== id; });
+          else if (state.compare.length < 3) state.compare.push(id);
+          updateCompareBar();
+        } else if (act === "share") {
+          var url = location.origin + location.pathname + "#" + id;
+          if (navigator.share) navigator.share({ title: it.word, url: url });
+          else if (navigator.clipboard) { navigator.clipboard.writeText(url); alert("Link copied:\n" + url); }
+          else alert(url);
+        }
+        menu.classList.remove("open");
+      });
+    });
+    var r = btn.getBoundingClientRect();
+    menu.style.top = Math.min(r.bottom + 4, window.innerHeight - 180) + "px";
+    menu.style.left = Math.min(r.left, window.innerWidth - 200) + "px";
+    menu.classList.add("open");
+  }
+  function toggleBookmark(id) {
+    if (state.bookmarks.has(id)) state.bookmarks.delete(id); else state.bookmarks.add(id);
+    saveBookmarks();
+    var li = selById(id);
+    if (li) li.classList.toggle("bookmarked", state.bookmarks.has(id));
+  }
+
+  // ---- compare -----------------------------------------------------------
+  function updateCompareBar() {
+    var bar = document.getElementById("compare-bar");
+    var chips = document.getElementById("compare-chips");
+    if (!state.compare.length) { bar.classList.remove("visible"); return; }
+    bar.classList.add("visible");
+    chips.innerHTML = state.compare.map(function (id) {
+      var it = byId[id];
+      return '<span class="compare-chip">' + esc(it ? displayWord(it) : id) + '</span>';
+    }).join("");
+  }
+
+  // ---- init after data loads --------------------------------------------
+  function buildFacetChips() {
+    var f = D.facets(db.items);
+    var adiRow = document.getElementById("adi-chips");
+    f.adis.forEach(function (a) {
+      var b = document.createElement("button");
+      b.className = "chip"; b.dataset.val = a; b.textContent = slpToDeva(a);
+      adiRow.appendChild(b);
+    });
+    var krtRow = document.getElementById("krt-chips");
+    f.krts.forEach(function (k) {
+      var b = document.createElement("button");
+      b.className = "chip"; b.dataset.val = k; b.textContent = D.KRT_NAME[k] || k;
+      krtRow.appendChild(b);
+    });
+  }
+
+  function buildLetterRail() {
+    var rail = document.getElementById("letter-rail");
+    LETTERS.forEach(function (l) {
+      var b = document.createElement("button");
+      b.textContent = l;
+      b.addEventListener("click", function () {
+        var list = filtered();
+        var target = null;
+        for (var i = 0; i < list.length; i++) { if (list[i].word.indexOf(l) === 0) { target = list[i]; break; } }
+        if (target) { var el = selById(target.id); if (el) el.scrollIntoView({ behavior: "smooth", block: "start" }); }
+      });
+      rail.appendChild(b);
+    });
+  }
+
+  function wireList() {
+    var ul = document.getElementById("word-list");
+    ul.addEventListener("click", function (e) {
+      var moreBtn = e.target.closest("[data-more]");
+      if (moreBtn) { e.stopPropagation(); var li0 = moreBtn.closest(".word-row"); openMore(li0.dataset.id, moreBtn); return; }
+      var td = e.target.closest("td[data-ci]");
+      if (td) {
+        var li1 = td.closest(".word-row");
+        var it1 = byId[li1.dataset.id];
+        if (td.classList.contains("df-quiz-hidden")) {   // reveal one quiz cell (mutates the stored set; no re-randomize)
+          td.classList.remove("df-quiz-hidden");
+          var set = state.quizHidden[it1.id];
+          if (set) set.delete(parseInt(td.dataset.ci, 10));
+          return;
+        }
+        D.cellSteps(td, it1);
+        return;
+      }
+      var para = e.target.closest(".paradigm-tag");
+      if (para) {
+        state.filters.para = para.dataset.para;
+        renderList();
+        return;
+      }
+      var quizBtn = e.target.closest("[data-quiz]");
+      if (quizBtn) { var li2 = quizBtn.closest(".word-row"); toggleQuiz(byId[li2.dataset.id], li2); return; }
+      if (e.target.closest("[data-stub]")) { return; }
+      var header = e.target.closest(".word-row-header");
+      if (header) { toggleExpand(header.closest(".word-row").dataset.id); }
+    });
+    ul.addEventListener("keydown", function (e) {
+      var td = e.target.closest("td[data-ci]");
+      if (td) {
+        var ci = parseInt(td.dataset.ci, 10);
+        var table = td.closest(".df-table");
+        var next = -1;
+        if (e.key === "ArrowRight") next = ci + 1;
+        else if (e.key === "ArrowLeft") next = ci - 1;
+        else if (e.key === "ArrowDown") next = ci + 3;
+        else if (e.key === "ArrowUp") next = ci - 3;
+        else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); td.click(); return; }
+        if (next >= 0 && next < 24) {
+          var t = table.querySelector('td[data-ci="' + next + '"]');
+          if (t) { e.preventDefault(); t.focus(); }
+        }
+        return;
+      }
+      var header = e.target.closest(".word-row-header");
+      if (header && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); toggleExpand(header.closest(".word-row").dataset.id); }
+    });
+  }
+
+  function wireChrome() {
+    var filterSheet = document.getElementById("filter-sheet");
+    function openFilter() { if (!filterSheet.open) filterSheet.showModal(); setTimeout(function () { document.getElementById("search-input").focus(); }, 30); }
+    document.getElementById("btn-filter").addEventListener("click", openFilter);
+    document.getElementById("fab-filter").addEventListener("click", openFilter);
+    document.getElementById("btn-search").addEventListener("click", openFilter);
+    filterSheet.querySelectorAll("[data-close]").forEach(function (b) { b.addEventListener("click", function () { filterSheet.close(); }); });
+    filterSheet.addEventListener("click", function (e) { if (e.target === filterSheet) filterSheet.close(); });
+
+    document.querySelectorAll(".chip-row").forEach(function (row) {
+      row.addEventListener("click", function (e) {
+        var chip = e.target.closest(".chip");
+        if (!chip) return;
+        var axis = row.dataset.axis;
+        row.querySelectorAll(".chip").forEach(function (c) { c.classList.remove("active"); });
+        chip.classList.add("active");
+        state.filters[axis] = chip.dataset.val;
+        renderList();
+      });
+    });
+
+    var searchInput = document.getElementById("search-input");
+    var deb;
+    searchInput.addEventListener("input", function (e) {
+      clearTimeout(deb);
+      var v = e.target.value;
+      deb = setTimeout(function () { state.query = v; renderList(); }, 120);
+    });
+    searchInput.addEventListener("keydown", function (e) { if (e.key === "Enter") filterSheet.close(); });
+
+    document.getElementById("clear-filters").addEventListener("click", function () {
+      state.filters = { linga: "", antya: "", adi: "", krt: "", para: "" };
+      state.query = "";
+      searchInput.value = "";
+      document.querySelectorAll(".chip-row").forEach(function (row) {
+        row.querySelectorAll(".chip").forEach(function (c) { c.classList.toggle("active", c.dataset.val === ""); });
+      });
+      renderList();
+    });
+
+    document.getElementById("btn-clear-compare").addEventListener("click", function () { state.compare = []; updateCompareBar(); });
+    document.getElementById("btn-run-compare").addEventListener("click", function () {
+      if (state.compare.length < 2) { alert("Pin at least 2 words to compare."); return; }
+      var words = state.compare.map(function (id) { return byId[id]; }).filter(Boolean);
+      var dlg = document.createElement("dialog");
+      dlg.className = "sheet";
+      dlg.innerHTML = '<div class="sheet-handle"></div>' +
+        '<div class="sheet-header"><h2>Compare</h2><button class="sheet-close" data-close>✕</button></div>' +
+        '<div class="sheet-body compare-tables">' +
+          words.map(function (w) { return '<div><h3 style="font-family:var(--font-sa);margin-bottom:.4rem">' + esc(displayWord(w)) + '</h3>' + D.declTable(w.forms, { script: state.script }) + '</div>'; }).join("") +
+        '</div>';
+      document.body.appendChild(dlg);
+      dlg.showModal();
+      dlg.querySelector("[data-close]").onclick = function () { dlg.close(); dlg.remove(); };
+      dlg.addEventListener("click", function (e) { if (e.target === dlg) { dlg.close(); dlg.remove(); } });
+    });
+
+    // topbar auto-hide
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var y = window.scrollY;
+        if (y > state.lastScroll && y > 60) document.body.classList.add("bar-hidden");
+        else document.body.classList.remove("bar-hidden");
+        state.lastScroll = y;
+        ticking = false;
+      });
+    }, { passive: true });
+
+    // script + theme
+    document.getElementById("btn-script").addEventListener("click", function () {
+      state.script = state.script === "devanagari" ? "iast" : "devanagari";
+      document.documentElement.dataset.script = state.script === "devanagari" ? "deva" : "iast";
+      document.getElementById("btn-script").textContent = state.script === "devanagari" ? "अ" : "A";
+      renderList();
+    });
+    document.getElementById("btn-theme").addEventListener("click", function () {
+      state.theme = state.theme === "light" ? "dark" : "light";
+      document.documentElement.dataset.theme = state.theme;
+      try { localStorage.setItem("dge.shabda.theme", state.theme); } catch (e) {}
+    });
+
+    // global keyboard
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "/" && !/^(input|textarea)$/i.test(e.target.tagName)) { e.preventDefault(); openFilter(); }
+      if (e.key === "Escape") { if (filterSheet.open) filterSheet.close(); document.getElementById("ctx-menu").classList.remove("open"); }
+    });
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest("#ctx-menu") && !e.target.closest("[data-more]")) document.getElementById("ctx-menu").classList.remove("open");
+    });
+  }
+
+  // ---- deep links --------------------------------------------------------
+  function applyDeepLinks() {
+    var params = new URLSearchParams(location.search);
+    var q = params.get("q");
+    if (q) { state.query = q; var si = document.getElementById("search-input"); if (si) si.value = q; }
+    renderList();
+    var hash = location.hash.slice(1);
+    if (hash && byId[hash]) {
+      state.openId = hash;
+      renderList();
+      setTimeout(function () { var li = selById(hash); if (li) li.scrollIntoView({ behavior: "smooth", block: "start" }); }, 120);
+    }
+    window.addEventListener("hashchange", function () {
+      var h = location.hash.slice(1);
+      if (h && byId[h] && h !== state.openId) toggleExpand(h);
+    });
+  }
+
+  // ---- boot --------------------------------------------------------------
+  function boot() {
+    if (!D || typeof D.load !== "function") { console.error("DGE_SHABDA not available"); return; }
+    document.getElementById("btn-script").textContent = "अ";
+    D.load().then(function (data) {
+      db = data;
+      allSorted = data.items.slice().sort(function (a, b) { return a.word.localeCompare(b.word, "sa"); });
+      byId = {};
+      allSorted.forEach(function (it) { byId[it.id] = it; });
+      buildFacetChips();
+      buildLetterRail();
+      wireList();
+      wireChrome();
+      applyDeepLinks();
+    }).catch(function (err) {
+      console.error("shabda load failed", err);
+      document.getElementById("empty").hidden = false;
+      document.getElementById("empty").textContent = "Could not load the corpus.";
+    });
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+  else boot();
+})();
+</script>
+<script src="../../js/intellisense.js?v=4.71.1"></script>
+</body>
+</html>

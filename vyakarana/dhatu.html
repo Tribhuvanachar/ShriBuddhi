@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=2"></script>
+<script src="../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>धातुपाठः · DGE व्याकरणम्</title>
+<!-- Indic transliteration, vendored (js/vendor/README.md): the reader's
+     script setting and the धातु/कोश word marking both depend on it, so it
+     must not be one CDN outage away from silently not working. -->
+<script src="../js/vendor/sanscript-1.3.3.min.js?v=1.3.3"></script>
+<link rel="stylesheet" href="../css/vyakarana-base.css?v=1">
+<link rel="stylesheet" href="../css/vyakarana.css?v=1">
+<link rel="stylesheet" href="../css/intellisense.css?v=2">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<!-- The vrttis quote sutras by number; those become tappable here for the
+     same reason they do on the Ashtadhyayi page. Double-tapping a word in a
+     gloss analyses it. -->
+<body data-grantha-slug="vedanga/vyakarana/dhatupatha"
+      data-intellisense-roots="#dh-list"
+      data-intellisense-search="#dh-search">
+<header>
+  <div class="bar">
+    <dge-breadcrumb label="धातुपाठः" deva home-href="index.html" class="brand"><a href="index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span class="deva">धातुपाठः</span></dge-breadcrumb>
+    <div class="spacer"></div>
+    <input class="search" id="dh-search" placeholder="search धातु / artha / roman…" autocomplete="off">
+    <div class="ctl" id="dh-scriptSeg">
+      <button data-s="devanagari" class="on">देव</button><button data-s="iast">IAST</button>
+      <button data-s="kannada">ಕ</button><button data-s="telugu">తె</button><button data-s="tamil">த</button><button data-s="malayalam">മ</button>
+    </div>
+    <button class="icon" id="dh-fontDn" title="smaller">A−</button>
+    <button class="icon" id="dh-fontUp" title="larger">A+</button>
+    <button class="icon" id="dh-theme" title="Light / Dark">◐</button>
+  </div>
+</header>
+
+<main>
+  <div class="crumbs deva">DGE › व्याकरणम् › <b>पाणिनीय धातुपाठः</b></div>
+  <section class="hero">
+    <h1 class="deva">धातुपाठः</h1>
+    <div class="sub">Pāṇinīya Dhātupāṭha · <span id="dh-total">…</span> roots across 10 gaṇas
+      <button class="src-toggle" id="dh-srcToggle" type="button" aria-expanded="false">ⓘ sources</button>
+    </div>
+    <div class="src-details" id="dh-srcDetails" hidden>
+      pada: derived from the upadeśa's own accent (Aṣṭādhyāyī 1.3.12 / 1.3.72 / 1.3.78).
+      Every data source this page draws on is credited on the Credits page, linked in the footer.
+    </div>
+  </section>
+
+  <div class="filters-head">
+    <span class="flab">फ़िल्टर्स · filters</span>
+    <button class="icon" id="dh-filtersToggle" title="Collapse / expand filters" aria-expanded="true">▾</button>
+  </div>
+  <div class="filters" id="dh-filters">
+    <div class="frow"><span class="flab">गण</span><span id="dh-ganaChips"></span></div>
+    <div class="frow"><span class="flab">पद</span>
+      <button class="chip" data-p="" >सर्वे · all</button>
+      <button class="chip" data-p="P">परस्मैपदी</button>
+      <button class="chip" data-p="A">आत्मनेपदी</button>
+      <button class="chip" data-p="U">उभयपदी</button>
+      <span class="flab" style="margin-left:10px">क्रम</span>
+      <select class="sel" id="dh-sort">
+        <option value="code">gaṇa order (क्रमेण)</option>
+        <option value="dhatu">धातु (a→z)</option>
+        <option value="gana">गण then धातु</option>
+        <option value="usage">most used in the library</option>
+      </select>
+      <span class="count" id="dh-count"></span>
+    </div>
+    <div class="frow"><span class="flab">सेट्</span>
+      <button class="chip" data-set="">सर्वे · all</button>
+      <button class="chip" data-set="seṭ">सेट् (seṭ)</button>
+      <button class="chip" data-set="aniṭ">अनिट् (aniṭ)</button>
+      <button class="chip" data-set="veṭ">वेट् (veṭ)</button>
+    </div>
+    <div class="frow"><span class="flab">कर्म</span>
+      <button class="chip" data-karma="">सर्वे · all</button>
+      <button class="chip" data-karma="सकर्मक">सकर्मक</button>
+      <button class="chip" data-karma="अकर्मक">अकर्मक</button>
+      <button class="chip" data-karma="द्विकर्मक">द्विकर्मक</button>
+    </div>
+  </div>
+
+  <div class="list" id="dh-list"></div>
+  <button class="more" id="dh-more" style="display:none">show more ▾</button>
+  <p class="note">धातुपाठः · DGE · click a root to expand — प्रक्रिया opens its step-by-step derivation, and 🔍 corpus occurrences finds every place it appears in the library. Each root is deep-linkable via <code>#code</code>.</p>
+</main>
+
+<!-- Phase 6 of the frontend redesign: <dge-footer> (dge-shell.js) --
+     same link sets/behavior as site-footer.js, see that file's own
+     header comment. -->
+<dge-footer class="site-footer-links"><a class="footer-link" href="../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+
+<script src="../js/dge-normalize.js?v=1"></script>
+<script src="../js/dge-search.js?v=4.70.0"></script>
+<!-- role-access.js before global-search.js: search hands it the go-live shelf. -->
+<script src="../js/role-access.js?v=1.3.0"></script>
+<script src="../js/global-search.js?v=4.82.0"></script>
+<!-- DGE UI Contract retrofit (28 Aug 2026): modals.js + reader-state.js +
+     contextual-actions.js, load order matches render.html/
+     ashtadhyayi.html (see DGE_UI_CONTRACT.md) -- all before dge-shell.js
+     and this page's own module. -->
+<script src="../js/modals.js?v=1"></script>
+<script src="../js/reader-state.js?v=1"></script>
+<script src="../js/contextual-actions.js?v=1"></script>
+<script src="../js/dge-shell.js?v=1"></script>
+<script src="../js/dge-breadcrumb.js?v=1"></script>
+<script src="../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="dhatu"></dge-nav-rail>
+<script src="../js/dhatu.js?v=8.1.2.0"></script>
+<script src="../js/intellisense.js?v=4.71.1"></script>
+<script src="../js/entity-linker.js?v=1.0.0"></script>
+</body>
+</html>

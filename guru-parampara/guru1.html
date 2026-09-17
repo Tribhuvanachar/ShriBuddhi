@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<script src="../js/vandana-guard.js?v=2"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<title>Guru Paramparā · Explorer view · DGE</title>
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<!-- guru1: the Explorer layout (amber timeline rail + dialogs). Fed from the
+     CENTRAL parampara store via guru-data.js — never from inline data. -->
+<style>
+  :root {
+    --bg-primary: #0f1115;
+    --bg-secondary: #181b22;
+    --bg-surface: #212631;
+    --bg-surface-hover: #2a313d;
+    --text-primary: #f0f3f9;
+    --text-secondary: #949eb2;
+    --accent: #f59e0b;
+    --accent-glow: rgba(245, 158, 11, 0.18);
+    --border: #30363d;
+    --badge-bg: #1f2937;
+    --badge-text: #fbbf24;
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --header-height: 52px;
+    
+    --color-mula: #ef4444;
+    --color-uttaradi: #3b82f6;
+    --color-raghavendra: #10b981;
+    --color-vyasaraja: #8b5cf6;
+    --color-udupi: #06b6d4;
+    --color-dasa: #ec4899;
+  }
+
+  [data-theme="light"] {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-surface: #f1f5f9;
+    --bg-surface-hover: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --accent: #d97706;
+    --accent-glow: rgba(217, 119, 6, 0.15);
+    --border: #cbd5e1;
+    --badge-bg: #fef3c7;
+    --badge-text: #b45309;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    z-index: 100;
+    transition: transform 0.25s ease;
+  }
+
+  header.hidden {
+    transform: translateY(-100%);
+  }
+
+  .header-left, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .logo-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .icon-btn {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .icon-btn:hover {
+    background: var(--bg-surface-hover);
+    border-color: var(--accent);
+  }
+
+  /* Active Filter Summary Bar */
+  .filter-summary-bar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background: var(--accent-glow);
+    border-bottom: 1px solid var(--accent);
+    padding: 0.45rem 1rem;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 90;
+  }
+  .filter-summary-bar.hidden { display: none; }
+  .dismiss-filter { 
+    background: none; 
+    border: none; 
+    color: var(--accent); 
+    cursor: pointer; 
+    font-weight: 700;
+    font-size: 0.8rem; 
+  }
+
+  /* Main Viewport & Timeline Rail */
+  main {
+    flex: 1;
+    margin-top: calc(var(--header-height) + var(--filter-bar-offset, 0px));
+    padding: 1.25rem 1rem 5rem;
+    max-width: 680px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+  }
+
+  .rail-container {
+    position: relative;
+    padding-left: 2.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .rail-container::before {
+    content: '';
+    position: absolute;
+    left: 0.85rem;
+    top: 0.75rem;
+    bottom: 0.75rem;
+    width: 3px;
+    background: var(--border);
+    border-radius: 99px;
+  }
+
+  /* Saint Node */
+  .saint-node {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.1rem;
+    position: relative;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .saint-node:hover { 
+    border-color: var(--accent); 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .saint-node.highlighted {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px var(--accent-glow);
+    animation: pulseHighlight 1.5s ease-in-out infinite;
+  }
+
+  @keyframes pulseHighlight {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.015); }
+    100% { transform: scale(1); }
+  }
+
+  /* Connector Dot on Rail */
+  .saint-node::before {
+    content: '';
+    position: absolute;
+    left: -1.7rem;
+    top: 1.35rem;
+    width: 14px;
+    height: 14px;
+    background: var(--bg-primary);
+    border: 3px solid var(--accent);
+    border-radius: 50%;
+    z-index: 2;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .saint-node:hover::before {
+    transform: scale(1.25);
+    background: var(--accent);
+  }
+
+  .saint-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .saint-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .saint-name {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+  }
+
+  .saint-place {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .saint-badges {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .matha-badge {
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  .expand-indicator {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    transition: transform 0.25s ease;
+  }
+  .saint-node.expanded .expand-indicator {
+    transform: rotate(180deg);
+  }
+
+  /* Expanded Card Details */
+  .expanded-details {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border);
+    font-size: 0.88rem;
+    line-height: 1.55;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .saint-node.expanded .expanded-details {
+    display: flex;
+  }
+
+  .brindavana-img-placeholder {
+    width: 100%;
+    height: 120px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    gap: 0.4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .detail-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .chip-link {
+    display: inline-block;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    padding: 0.25rem 0.55rem;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 0.4rem;
+    margin-top: 0.3rem;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .chip-link:hover {
+    background: var(--bg-surface-hover);
+    border-color: var(--accent);
+  }
+
+  /* Floating Position Pill */
+  .position-pill {
+    position: fixed;
+    bottom: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 0.4rem 1.1rem;
+    border-radius: 99px;
+    font-size: 0.76rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-secondary);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    z-index: 80;
+    pointer-events: none;
+  }
+
+  /* Critical Native Dialog Rules: MUST NOT BE DISPLAY: FLEX WHEN CLOSED */
+  dialog:not([open]) {
+    display: none !important;
+  }
+
+  dialog[open] {
+    display: flex !important;
+  }
+
+  dialog {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: 20px 20px 0 0;
+    padding: 1.25rem;
+    width: 100%;
+    max-width: 620px;
+    max-height: 85vh;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    flex-direction: column;
+    gap: 1rem;
+    outline: none;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  @media(min-width: 768px) {
+    dialog {
+      border-radius: 16px;
+      bottom: auto;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  dialog::backdrop {
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  .dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+  }
+
+  .close-dialog {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  .close-dialog:hover { color: var(--text-primary); background: var(--bg-surface-hover); }
+
+  /* Metro Map Container */
+  .metro-svg-container {
+    width: 100%;
+    background: var(--bg-surface);
+    border-radius: 10px;
+    overflow: auto;
+    border: 1px solid var(--border);
+    padding: 0.5rem;
+  }
+
+  /* Search & Inputs */
+  .search-input {
+    width: 100%;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    outline: none;
+  }
+  .search-input:focus { border-color: var(--accent); }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .filter-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .filter-chip {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: all 0.15s ease;
+  }
+  .filter-chip:hover { border-color: var(--accent); }
+  .filter-chip.active {
+    background: var(--accent-glow);
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Side Drawer / Menu Dialog */
+  #menu-drawer {
+    left: 0;
+    bottom: 0;
+    top: 0;
+    width: 320px;
+    max-width: 85vw;
+    height: 100dvh;
+    max-height: 100dvh;
+    transform: none;
+    border-radius: 0 16px 16px 0;
+    border-left: none;
+    box-shadow: 10px 0 40px rgba(0,0,0,0.5);
+  }
+
+  .drawer-menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow-y: auto;
+  }
+
+  .drawer-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-align: left;
+    width: 100%;
+    transition: background 0.15s;
+  }
+  .drawer-btn:hover {
+    background: var(--bg-surface-hover);
+    border-color: var(--accent);
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #111827;
+    font-weight: 700;
+    border: none;
+    padding: 0.6rem 1.25rem;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+
+  .btn-secondary {
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .btn-secondary:hover { background: var(--bg-surface-hover); }
+</style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="main-header">
+    <div class="header-left">
+      <button class="icon-btn" id="menu-btn" aria-label="Open Navigation Menu" title="Menu">☰</button>
+      <div class="logo-title">
+        <span>Guru Paramparā</span>
+        <span class="matha-badge" id="current-line-badge">ALL LINES</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <a class="icon-btn" href="index.html" title="Guru Parampara home" style="text-decoration:none">⌂</a>
+      <button class="icon-btn" id="theme-btn" aria-label="Toggle Theme" title="Switch Light/Dark Mode">🌓</button>
+      <button class="icon-btn" id="metro-btn" aria-label="Metro Map Overview" title="Metro Map">🗺️</button>
+      <button class="icon-btn" id="search-btn" aria-label="Search Saints" title="Search">🔍</button>
+      <button class="icon-btn" id="filter-btn" aria-label="Filter Era & Matha" title="Filter">⚡</button>
+    </div>
+  </header>
+
+  <!-- Active Filter Summary Bar -->
+  <div class="filter-summary-bar hidden" id="filter-summary-bar">
+    <span id="filter-summary-text">Active Filter: All Lines</span>
+    <button class="dismiss-filter" id="dismiss-filter-btn">✕ Reset Filter</button>
+  </div>
+
+  <!-- Main Viewport (Succession Rail) -->
+  <main id="main-viewport">
+    <div class="rail-container" id="rail-container">
+      <!-- Injected dynamically via JS -->
+    </div>
+  </main>
+
+  <!-- Floating Position Pill -->
+  <div class="position-pill" id="position-pill">Loading sampradāya figures...</div>
+
+  <!-- MODALS & DIALOGS -->
+
+  <!-- 0. Menu Drawer Dialog (☰) -->
+  <dialog id="menu-drawer">
+    <div class="dialog-header">
+      <span>Menu & Features</span>
+      <button class="close-dialog" onclick="document.getElementById('menu-drawer').close()">✕</button>
+    </div>
+    <div class="drawer-menu-list">
+      <button class="drawer-btn" onclick="openAndClose('metro-dialog', 'menu-drawer')">
+        <span>🗺️</span>
+        <span>Metro Map Overview</span>
+      </button>
+      <button class="drawer-btn" onclick="openAndClose('search-dialog', 'menu-drawer')">
+        <span>🔍</span>
+        <span>Search Saints, Titles & Works</span>
+      </button>
+      <button class="drawer-btn" onclick="openAndClose('filter-dialog', 'menu-drawer')">
+        <span>⚡</span>
+        <span>Filter by Maṭha & Century Era</span>
+      </button>
+      <button class="drawer-btn" id="toggle-all-cards-btn">
+        <span>↕️</span>
+        <span id="toggle-cards-text">Expand All Bios</span>
+      </button>
+      <button class="drawer-btn" id="menu-theme-btn">
+        <span>🌓</span>
+        <span>Toggle Light / Dark Theme</span>
+      </button>
+
+      <div style="margin-top:0.75rem; padding-top:0.75rem; border-top:1px solid var(--border);">
+        <span class="filter-label" style="display:block; margin-bottom:0.5rem;">Direct Jump to Key Ācāryas</span>
+        <div style="display:flex; flex-direction:column; gap:0.35rem;" id="jump-list"></div>
+        </div>
+    </div>
+  </dialog>
+
+  <!-- 1. Metro-Map Overview Dialog -->
+  <dialog id="metro-dialog">
+    <div class="dialog-header">
+      <span>Sampradāya Metro Map</span>
+      <button class="close-dialog" onclick="document.getElementById('metro-dialog').close()">✕</button>
+    </div>
+    <p style="font-size:0.82rem; color:var(--text-secondary);">
+      Interactive overview of the eternal Mūla trunk, the primary branch point, and successor maṭhas. Tap any station to filter or jump.
+    </p>
+    <div class="metro-svg-container" id="metro-svg-box"></div>
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <button class="btn-secondary" onclick="selectLineAndClose('all')">Reset to All Lines</button>
+      <span style="font-size:0.75rem; color:var(--text-secondary);">Tap any line above to filter</span>
+    </div>
+  </dialog>
+
+  <!-- 2. Search Dialog -->
+  <dialog id="search-dialog">
+    <div class="dialog-header">
+      <span>Search Sampradāya</span>
+      <button class="close-dialog" onclick="document.getElementById('search-dialog').close()">✕</button>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:0.75rem;">
+      <input type="text" id="search-input-field" class="search-input" placeholder="Search by name, pūrva name, work, or place (e.g., Mantralaya, Sudha)..." autofocus>
+      <div id="search-results-list" style="display:flex; flex-direction:column; gap:0.5rem; max-height:48vh; overflow-y:auto; padding-right:0.25rem;">
+        <!-- Populated via JS -->
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 3. Filter / Era Lens Dialog -->
+  <dialog id="filter-dialog">
+    <div class="dialog-header">
+      <span>Era Lens & Line Filter</span>
+      <button class="close-dialog" onclick="document.getElementById('filter-dialog').close()">✕</button>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:1.25rem;">
+      <div class="filter-group">
+        <span class="filter-label">Filter by Maṭha / Tradition</span>
+        <div class="filter-chips" id="matha-filter-chips"></div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Era Lens (Chronology)</span>
+        <div class="filter-chips" id="era-filter-chips"></div>
+      </div>
+    </div>
+    <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border); padding-top:0.75rem;">
+      <button class="btn-secondary" id="reset-filters-btn">Reset</button>
+      <button class="btn-primary" id="apply-filters-btn">Apply Filter</button>
+    </div>
+  </dialog>
+
+<script src="guru-data.js?v=2"></script>
+<script>
+  let G = null;                     // central data (DGE_GURU.load())
+  let currentLine = 'all';
+  let activeEra = 'all';
+  let searchTerm = '';
+  let allCardsExpanded = false;
+
+  const railContainer = document.getElementById('rail-container');
+  const positionPill = document.getElementById('position-pill');
+  const filterSummaryBar = document.getElementById('filter-summary-bar');
+  const filterSummaryText = document.getElementById('filter-summary-text');
+  const currentLineBadge = document.getElementById('current-line-badge');
+  const toggleCardsText = document.getElementById('toggle-cards-text');
+  const esc = (s) => window.DGE_GURU.esc(s);
+
+  function initExplorer() {
+    window.DGE_GURU.load().then(g => {
+      G = g;
+      buildFilterChips();
+      renderRail();
+      setupEventListeners();
+      setupDialogBackdropAutoClose();
+      initTheme();
+      checkUrlHash();
+      if (g.hasDraft) {
+        positionPill.textContent = 'Admin draft overlay active';
+      }
+    }).catch(e => {
+      railContainer.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--text-secondary)">Could not load the parampara data (' + esc(String(e.message || e)) + ').</div>';
+    });
+  }
+
+  function mathaCounts() {
+    const c = {};
+    G.nodes.forEach(n => { c[n.matha] = (c[n.matha] || 0) + 1; });
+    return c;
+  }
+
+  function buildFilterChips() {
+    // matha chips straight from the CENTRAL matha_labels — every line, real counts
+    const counts = mathaCounts();
+    const box = document.getElementById('matha-filter-chips');
+    let html = '<span class="filter-chip active" data-val="all">All Lines (' + G.nodes.length + ')</span>' +
+      '<span class="filter-chip" data-val="udupi">Udupi Aṣṭa (' +
+        G.udupiAshta.reduce((n, k) => n + (counts[k] || 0), 0) + ')</span>';
+    Object.keys(G.mathaLabels).forEach(k => {
+      if (!counts[k]) return;
+      html += '<span class="filter-chip" data-val="' + esc(k) + '">' +
+        esc(G.mathaLabels[k].replace(/\s*\(.*\)$/, '')) + ' (' + counts[k] + ')</span>';
+    });
+    box.innerHTML = html;
+
+    // era chips from the centuries actually present
+    const eras = {};
+    G.nodes.forEach(n => { eras[G.centuryOf(n)] = 1; });
+    const ebox = document.getElementById('era-filter-chips');
+    let eh = '<span class="filter-chip active" data-val="all">All Eras</span>' +
+      '<span class="filter-chip" data-val="timeless">Primordial / Timeless</span>';
+    Object.keys(eras).filter(x => x !== 'timeless').map(Number).sort((a, b) => a - b).forEach(c => {
+      eh += '<span class="filter-chip" data-val="' + c + '">' + c + 's</span>';
+    });
+    ebox.innerHTML = eh;
+
+    // metro dialog: generated from the real lines (major lines + Udupi bundle)
+    buildMetro();
+    // jump menu: founders & key acharyas by tag
+    const jumps = ['madhvacharya', 'madhva', 'jayatirtha', 'vyasatirtha', 'vyasaraja',
+                   'vadiraja', 'raghavendra', 'purandaradasa', 'purandara', 'sripadaraja']
+      .filter(id => G.byId[id]);
+    document.getElementById('jump-list').innerHTML = jumps.map(id =>
+      '<button class="drawer-btn" style="padding:0.45rem 0.75rem; font-size:0.82rem;" onclick="jumpFromMenu(\'' + id + '\')">' +
+      esc(G.byId[id].name) + '</button>').join('');
+  }
+
+  function buildMetro() {
+    const counts = mathaCounts();
+    const major = Object.keys(G.mathaLabels).filter(k =>
+      counts[k] >= 10 && ['mula', 'core'].indexOf(k) < 0);
+    const rows = major.map(k => ({ key: k, label: G.mathaLabels[k].replace(/\s*\(.*\)$/, ''), n: counts[k] }));
+    rows.push({ key: 'udupi', label: 'Udupi Aṣṭa Maṭhas', n: G.udupiAshta.reduce((n, k) => n + (counts[k] || 0), 0) });
+    const H = 60 + rows.length * 46;
+    let svg = '<svg viewBox="0 0 740 ' + H + '" width="100%" style="font-family:system-ui,sans-serif;font-size:12px;">';
+    svg += '<line x1="40" y1="' + (H / 2) + '" x2="280" y2="' + (H / 2) + '" stroke="var(--color-mula)" stroke-width="4" stroke-linecap="round"/>';
+    [['narayana', 60, 'Nārāyaṇa'], ['vedavyasa', 160, 'Vedavyāsa']].forEach(([id, x, lb]) => {
+      const t = G.byId[id] ? id : null;
+      svg += '<g style="cursor:pointer" onclick="jumpAndClose(\'' + (t || 'madhva') + '\')">' +
+        '<circle cx="' + x + '" cy="' + (H / 2) + '" r="7" fill="var(--color-mula)" stroke="var(--bg-secondary)" stroke-width="2"/>' +
+        '<text x="' + x + '" y="' + (H / 2 - 14) + '" fill="var(--text-primary)" text-anchor="middle" font-weight="600">' + lb + '</text></g>';
+    });
+    const madhvaId = G.byId.madhvacharya ? 'madhvacharya' : 'madhva';
+    svg += '<g style="cursor:pointer" onclick="jumpAndClose(\'' + madhvaId + '\')">' +
+      '<circle cx="280" cy="' + (H / 2) + '" r="10" fill="var(--accent)" stroke="var(--bg-secondary)" stroke-width="3"/>' +
+      '<text x="280" y="' + (H / 2 + 26) + '" fill="var(--accent)" text-anchor="middle" font-weight="800">Madhvācārya</text></g>';
+    rows.forEach((r, i) => {
+      const y = 34 + i * 46;
+      const col = window.DGE_GURU.colorOf(r.key === 'udupi' ? 'sode' : r.key);
+      svg += '<path d="M 280 ' + (H / 2) + ' Q 380 ' + (H / 2) + ' 430 ' + y + ' L 560 ' + y + '" fill="none" stroke="' + col + '" stroke-width="3"/>';
+      svg += '<g style="cursor:pointer" onclick="selectLineAndClose(\'' + r.key + '\')">' +
+        '<circle cx="560" cy="' + y + '" r="6" fill="' + col + '"/>' +
+        '<text x="575" y="' + (y + 4) + '" fill="' + col + '" font-weight="700">' + esc(r.label) + ' · ' + r.n + ' →</text></g>';
+    });
+    svg += '</svg>';
+    document.getElementById('metro-svg-box').innerHTML = svg;
+  }
+
+  function nodesForLine(line) {
+    if (line === 'all') return G.nodes;
+    const keys = line === 'udupi' ? G.udupiAshta : [line];
+    return G.nodes.filter(n => keys.indexOf(n.matha) >= 0 || n.matha === 'mula');
+  }
+
+  function renderRail() {
+    railContainer.innerHTML = '';
+    let filtered = nodesForLine(currentLine);
+    if (activeEra !== 'all') {
+      filtered = filtered.filter(n => String(G.centuryOf(n)) === String(activeEra) || n.matha === 'mula');
+    }
+    if (searchTerm) {
+      const q = searchTerm.toLowerCase().trim();
+      filtered = filtered.filter(n =>
+        [n.name, n.purva, n.place, n.brindavana, n.contrib,
+         ...(n.titles || []), ...(n.works || [])].join(' ').toLowerCase().includes(q));
+    }
+    if (filtered.length === 0) {
+      railContainer.innerHTML = '<div style="text-align:center; padding:3.5rem 1rem; color:var(--text-secondary); background:var(--bg-secondary); border-radius:12px; border:1px dashed var(--border);"><div style="font-size:2rem; margin-bottom:0.5rem;">🔍</div><strong>No figures matched the current filter.</strong><div style="margin-top:0.75rem;"><button class="btn-primary" onclick="resetAllFilters()">Clear All Filters</button></div></div>';
+      positionPill.textContent = '0 figures visible';
+      return;
+    }
+    filtered.forEach(s => {
+      const node = document.createElement('div');
+      node.className = 'saint-node' + (allCardsExpanded ? ' expanded' : '');
+      node.id = 'saint-' + s.id;
+      const col = window.DGE_GURU.colorOf(s.matha);
+      const img = G.images[s.id];
+      const maps = G.mapsLink(s.id);
+      node.innerHTML =
+        '<div class="saint-header" onclick="toggleCard(\'' + s.id + '\')">' +
+          '<div class="saint-title-group"><span class="saint-name">' + esc(s.name) +
+          (G.draftIds[s.id] ? ' <span class="matha-badge" style="background:#7a4a9a;color:#fff">DRAFT</span>' : '') + '</span>' +
+          '<span class="saint-place">📍 ' + esc(s.brindavana || s.place || '—') +
+          (s.place && s.brindavana ? ' <span style="opacity:0.6">(' + esc(s.place) + ')</span>' : '') + '</span></div>' +
+          '<div class="saint-badges"><span class="matha-badge" style="border-left:3px solid ' + col + ';">' +
+          esc((G.mathaLabels[s.matha] || s.matha).replace(/\s*\(.*\)$/, '')) + '</span>' +
+          '<span class="expand-indicator">▼</span></div></div>' +
+        '<div class="expanded-details">' +
+          '<div class="brindavana-img-placeholder"><span style="font-size:1.5rem;">🏛️</span>' +
+            '<span>' + esc(s.brindavana || 'Brindavana / sthala') + '</span>' +
+            (img && img.commons_search ? '<a class="chip-link" href="' + esc(img.commons_search) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">🖼️ Find images (Commons)</a>' : '') +
+            (maps ? '<a class="chip-link" href="' + esc(maps) + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">🗺️ Open in Maps</a>' : '') +
+          '</div>' +
+          '<div class="detail-row"><span class="detail-label">Period / Pontificate</span><span><strong>' + esc(s.period || '—') + '</strong></span></div>' +
+          (s.purva || (s.titles || []).length ? '<div class="detail-row"><span class="detail-label">Pūrvāśrama & Titles</span><span>' + esc(s.purva || '') + (s.titles && s.titles.length ? ' — <em>' + esc(s.titles.join(', ')) + '</em>' : '') + '</span></div>' : '') +
+          (s.contrib ? '<div class="detail-row"><span class="detail-label">Contribution</span><span>' + esc(s.contrib) + '</span></div>' : '') +
+          ((s.works || []).length ? '<div class="detail-row"><span class="detail-label">Works</span><div>' + s.works.map(w => '<span class="chip-link" onclick="event.stopPropagation(); filterByWork(\'' + esc(w).replace(/'/g, "\\'") + '\')">📖 ' + esc(w) + '</span>').join('') + '</div></div>' : '') +
+          catalogueWorksHtml(s) +
+          (s.guru && G.byId[s.guru] ? '<div class="detail-row"><span class="detail-label">Guru</span><span class="chip-link" onclick="event.stopPropagation(); jumpToSaint(\'' + s.guru + '\')">↑ ' + esc(G.byId[s.guru].name) + '</span></div>' : '') +
+          ((G.children[s.id] || []).length ? '<div class="detail-row"><span class="detail-label">Śiṣyas</span><div>' + G.children[s.id].map(c => '<span class="chip-link" onclick="event.stopPropagation(); jumpToSaint(\'' + c + '\')">↓ ' + esc(G.byId[c].name) + '</span>').join('') + '</div></div>' : '') +
+          ((s.contemporaries || []).length ? '<div class="detail-row"><span class="detail-label">Contemporaries</span><div>' + s.contemporaries.filter(c => G.byId[c]).map(c => '<span class="chip-link" onclick="event.stopPropagation(); jumpToSaint(\'' + c + '\')">🔗 ' + esc(G.byId[c].name) + '</span>').join('') + '</div></div>' : '') +
+          ((s.sources || []).length ? '<div class="detail-row"><span class="detail-label">Sources (tracking)</span><span style="font-size:0.78rem;color:var(--text-secondary)">' + esc(s.sources.join(' · ')) + (s.confidence ? ' — confidence: ' + esc(s.confidence) : '') + '</span></div>' : '') +
+          window.DGE_GURU.bioHtml(s) +
+        '</div>';
+      railContainer.appendChild(node);
+    });
+    positionPill.textContent = 'Showing ' + filtered.length + ' of ' + G.nodes.length + ' figures';
+  }
+
+  function toggleCard(id) {
+    const node = document.getElementById('saint-' + id);
+    if (!node) return;
+    if (node.classList.toggle('expanded')) history.replaceState(null, null, '#' + id);
+  }
+
+  function jumpToSaint(id) {
+    let node = document.getElementById('saint-' + id);
+    if (!node) {
+      currentLine = 'all'; activeEra = 'all'; searchTerm = '';
+      updateFilterSummaryUI(); renderRail();
+      node = document.getElementById('saint-' + id);
+    }
+    if (node) {
+      node.classList.add('expanded', 'highlighted');
+      node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => node.classList.remove('highlighted'), 2500);
+      history.replaceState(null, null, '#' + id);
+    }
+  }
+  function jumpAndClose(id) { document.getElementById('metro-dialog').close(); setTimeout(() => jumpToSaint(id), 150); }
+  function jumpFromMenu(id) { document.getElementById('menu-drawer').close(); setTimeout(() => jumpToSaint(id), 150); }
+  function openAndClose(a, b) { document.getElementById(b).close(); setTimeout(() => document.getElementById(a).showModal(), 150); }
+  function selectLineAndClose(k) {
+    currentLine = k;
+    document.querySelectorAll('#matha-filter-chips .filter-chip').forEach(c =>
+      c.classList.toggle('active', c.getAttribute('data-val') === k));
+    updateFilterSummaryUI(); renderRail();
+    document.getElementById('metro-dialog').close();
+  }
+  function filterByWork(w) {
+    searchTerm = w;
+    document.getElementById('search-input-field').value = w;
+    updateFilterSummaryUI(); renderRail();
+  }
+
+  // Works this ācārya has in the द्वैतवेदान्तग्रन्थानुक्रमणी catalogue
+  // (guru-data.js attaches them from data/catalogs/author_works_index.json).
+  // Kept separate from the hand-written English "Works" row above: these are
+  // the bibliography's own Devanagari titles, and a commentary is shown with
+  // the mūla it was written on, which is what distinguishes one जयतीर्थीय-टीका
+  // from the nine others.
+  function catalogueWorksHtml(s) {
+    const works = s.catalogueWorks || [];
+    if (!works.length) return '';
+    const meta = s.catalogueWorksMeta || {};
+    const SHOWN = 12;
+    const chips = works.slice(0, SHOWN).map(w =>
+      '<span class="chip-link" title="' + esc(w.parent ? 'on ' + w.parent : w.category || '') +
+      '" onclick="event.stopPropagation(); openCatalogue(\'' + esc(w.id) + '\')">📜 ' + esc(w.title) +
+      (w.parent ? ' <em style="opacity:.65">on ' + esc(w.parent) + '</em>' : '') +
+      (w.digitised ? ' ✓' : '') + '</span>').join('');
+    const more = works.length > SHOWN
+      ? '<span class="chip-link" onclick="event.stopPropagation(); openCatalogueAuthor(\'' + esc(s.id) + '\')">… all ' + works.length + ' →</span>'
+      : '';
+    return '<div class="detail-row"><span class="detail-label">Catalogued works</span><div>' +
+      chips + more +
+      '<div style="font-size:0.74rem;color:var(--text-secondary);margin-top:4px">' +
+      works.length + ' in the ग्रन्थानुक्रमणी' +
+      (meta.digitised ? ' · ' + meta.digitised + ' already digitised (✓)' : '') +
+      ' · matched ' + esc(meta.matchedVia || 'automatically') + '</div></div></div>';
+  }
+  function openCatalogue(rowId) {
+    window.open('../dvaita-grantha-anukramani/index.html#entry=' + encodeURIComponent(rowId), '_blank');
+  }
+  function openCatalogueAuthor(personId) {
+    window.open('../dvaita-grantha-anukramani/index.html#person=' + encodeURIComponent(personId), '_blank');
+  }
+  function updateFilterSummaryUI() {
+    currentLineBadge.textContent = currentLine === 'all' ? 'ALL LINES' : currentLine.toUpperCase();
+    if (currentLine !== 'all' || activeEra !== 'all' || searchTerm) {
+      const parts = [];
+      if (currentLine !== 'all') parts.push('Line: ' + (G.mathaLabels[currentLine] || currentLine));
+      if (activeEra !== 'all') parts.push('Era: ' + activeEra);
+      if (searchTerm) parts.push('Query: "' + searchTerm + '"');
+      filterSummaryText.textContent = 'Active: ' + parts.join(' | ');
+      filterSummaryBar.classList.remove('hidden');
+      document.documentElement.style.setProperty('--filter-bar-offset', '36px');
+    } else {
+      filterSummaryBar.classList.add('hidden');
+      document.documentElement.style.setProperty('--filter-bar-offset', '0px');
+    }
+  }
+  function resetAllFilters() {
+    currentLine = 'all'; activeEra = 'all'; searchTerm = '';
+    document.getElementById('search-input-field').value = '';
+    document.querySelectorAll('.filter-chips .filter-chip').forEach(c =>
+      c.classList.toggle('active', c.getAttribute('data-val') === 'all'));
+    updateFilterSummaryUI(); renderRail();
+  }
+
+  function setupEventListeners() {
+    document.getElementById('menu-btn').addEventListener('click', () => document.getElementById('menu-drawer').showModal());
+    document.getElementById('metro-btn').addEventListener('click', () => document.getElementById('metro-dialog').showModal());
+    document.getElementById('search-btn').addEventListener('click', () => {
+      document.getElementById('search-dialog').showModal();
+      document.getElementById('search-input-field').focus();
+    });
+    document.getElementById('filter-btn').addEventListener('click', () => document.getElementById('filter-dialog').showModal());
+    document.getElementById('dismiss-filter-btn').addEventListener('click', resetAllFilters);
+    document.getElementById('reset-filters-btn').addEventListener('click', () => {
+      resetAllFilters(); document.getElementById('filter-dialog').close();
+    });
+    document.getElementById('toggle-all-cards-btn').addEventListener('click', () => {
+      allCardsExpanded = !allCardsExpanded;
+      toggleCardsText.textContent = allCardsExpanded ? 'Collapse All Bios' : 'Expand All Bios';
+      document.querySelectorAll('.saint-node').forEach(n => n.classList.toggle('expanded', allCardsExpanded));
+      document.getElementById('menu-drawer').close();
+    });
+    document.getElementById('apply-filters-btn').addEventListener('click', () => {
+      const am = document.querySelector('#matha-filter-chips .filter-chip.active');
+      const ae = document.querySelector('#era-filter-chips .filter-chip.active');
+      currentLine = am ? am.getAttribute('data-val') : 'all';
+      activeEra = ae ? ae.getAttribute('data-val') : 'all';
+      updateFilterSummaryUI(); renderRail();
+      document.getElementById('filter-dialog').close();
+    });
+    document.querySelectorAll('.filter-chips').forEach(c => {
+      c.addEventListener('click', e => {
+        if (e.target.classList.contains('filter-chip')) {
+          c.querySelectorAll('.filter-chip').forEach(x => x.classList.remove('active'));
+          e.target.classList.add('active');
+        }
+      });
+    });
+    const searchInput = document.getElementById('search-input-field');
+    const searchResults = document.getElementById('search-results-list');
+    searchInput.addEventListener('input', e => {
+      const q = e.target.value.toLowerCase().trim();
+      searchTerm = q; renderRail();
+      if (!q) { searchResults.innerHTML = ''; return; }
+      const matches = G.nodes.filter(n =>
+        [n.name, n.purva, n.place, n.brindavana, ...(n.works || []), ...(n.titles || [])]
+          .join(' ').toLowerCase().includes(q)).slice(0, 20);
+      searchResults.innerHTML = matches.length ? matches.map(m =>
+        '<div style="background:var(--bg-surface); border:1px solid var(--border); padding:0.75rem; border-radius:8px; cursor:pointer; display:flex; justify-content:space-between; align-items:center;" onclick="executeSearchJump(\'' + m.id + '\')">' +
+        '<div><strong style="color:var(--text-primary);">' + esc(m.name) + '</strong>' +
+        '<div style="font-size:0.78rem; color:var(--text-secondary);">📍 ' + esc(m.brindavana || m.place || '—') + '</div></div>' +
+        '<span class="matha-badge">' + esc((G.mathaLabels[m.matha] || m.matha).replace(/\s*\(.*\)$/, '')) + '</span></div>').join('')
+        : '<div style="padding:1rem; text-align:center; color:var(--text-secondary);">No matching figures.</div>';
+    });
+    document.getElementById('theme-btn').addEventListener('click', toggleTheme);
+    document.getElementById('menu-theme-btn').addEventListener('click', () => {
+      toggleTheme(); document.getElementById('menu-drawer').close();
+    });
+    let lastY = window.scrollY;
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      header.classList.toggle('hidden', y > lastY && y > 60);
+      lastY = y;
+    }, { passive: true });
+  }
+  function executeSearchJump(id) { document.getElementById('search-dialog').close(); jumpToSaint(id); }
+  function setupDialogBackdropAutoClose() {
+    document.querySelectorAll('dialog').forEach(d => {
+      d.addEventListener('click', e => {
+        const r = d.getBoundingClientRect();
+        if (!(r.top <= e.clientY && e.clientY <= r.top + r.height && r.left <= e.clientX && e.clientX <= r.left + r.width)) d.close();
+      });
+    });
+  }
+  function initTheme() {
+    document.documentElement.setAttribute('data-theme', localStorage.getItem('guru_explorer_theme') || 'dark');
+  }
+  function toggleTheme() {
+    const c = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', c);
+    localStorage.setItem('guru_explorer_theme', c);
+  }
+  function checkUrlHash() {
+    const h = location.hash.replace('#', '');
+    if (h) setTimeout(() => jumpToSaint(h), 250);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initExplorer);
+  else initExplorer();
+</script>
+</body>
+</html>

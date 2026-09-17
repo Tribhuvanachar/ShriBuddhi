@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+<meta charset="utf-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=2"></script>
+<script src="../js/admin-gate.js?v=1"></script>
+<script src="../js/contact-email.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ದಾಸ ಸಾಹಿತ್ಯ · Dāsa Sāhitya — DGE</title>
+<link rel="stylesheet" href="../css/dasa-sahitya.css?v=1">
+<!-- Genie favicon -- the round Brahmana murti (gopichandana urdhvapundra, angara, akshata), cropped from the Genie avatar itself; project-lead ask. Root /favicon.ico covers auto-discovery. -->
+<link rel="icon" type="image/png" sizes="48x48" href="../images/genie/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/genie/favicon-192.png">
+<link rel="apple-touch-icon" href="../images/genie/apple-touch-icon.png">
+</head>
+<body>
+<!-- Only the search/group/sort/script controls stay pinned while scrolling
+     (below) — the title, stats and form chips used to be sticky too, which
+     pinned ~150px of chrome across the top of every phone screen before a
+     single dasarapada was visible. Those now scroll away normally, inside
+     .intro, so the actual content starts much higher up. -->
+<div class="wrap">
+  <dge-breadcrumb label="Dāsa Sāhitya" home-href="index.html" class="brand"><a href="index.html" title="DGE Home">⌂ DGE</a><span aria-hidden="true">›</span><span>Dāsa Sāhitya</span></dge-breadcrumb>
+</div>
+<div class="wrap intro">
+  <div class="titrow">
+    <h1>ದಾಸ ಸಾಹಿತ್ಯ <small>Dāsa Sāhitya · Dasara Padagalu</small></h1>
+  </div>
+  <p class="sub">Haridasa padas, suladis &amp; ugabhogas · non-commercial · dharma-prachara / education / research</p>
+  <div class="stats" id="stats"></div>
+  <!-- Names the external sites this corpus was compiled from — admin-only
+       (licenses are procured) and collapsed by default even for an admin. -->
+  <details class="sources-detail" id="sourcesDetail" data-admin-only></details>
+  <div class="forms" id="forms"></div>
+</div>
+
+<header>
+  <div class="wrap">
+    <div class="controls">
+      <input type="search" id="q" placeholder="Search title, composer, deity, first line…" autocomplete="off">
+      <select id="groupby" title="Group by">
+        <option value="composer">Group: Composer</option>
+        <option value="deity">Group: Deity</option>
+        <option value="form">Group: Form</option>
+        <option value="alpha">Group: A–Z (title)</option>
+      </select>
+      <select id="sort" title="Sort">
+        <option value="az">Sort: A→Z</option>
+        <option value="za">Sort: Z→A</option>
+      </select>
+      <select id="script" title="Script">
+        <option value="kn">ಕನ್ನಡ</option>
+        <option value="iast">IAST</option>
+        <option value="devanagari">देवनागरी</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<main>
+  <aside class="side">
+    <div class="adminbar" id="admin">
+      <span id="adminlbl">Loading…</span>
+      <span class="bar"><i id="adminbar"></i></span>
+      <button class="mini" id="loadall">Load all</button>
+    </div>
+    <h3>Composers</h3>
+    <div id="authlist"></div>
+  </aside>
+  <section id="list"><div class="empty">Loading corpus…</div></section>
+</main>
+<div class="toast" id="toast"></div>
+
+<!-- Phase 6 of the frontend redesign: <dge-footer> (dge-shell.js) -- same
+     link sets/behavior as site-footer.js, see that file's own header comment. -->
+<dge-footer class="site-footer-links"><a class="footer-link" href="../index.html#architect">About Us</a><span class="footer-sep">·</span><a class="footer-link" href="mailto:sanatanavidyagurukulam@gmail.com">Contact Us</a><span class="footer-sep">·</span><a class="footer-link" href="https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE" target="_blank" rel="noopener">License</a><span class="footer-sep">·</span><button class="footer-link" onclick="window.dgeShowTermsNotice()">Terms &amp; Conditions</button></dge-footer>
+
+<script src="../js/dge-shell.js?v=1"></script>
+<script src="../js/dge-breadcrumb.js?v=1"></script>
+<script src="../js/dge-nav-rail.js?v=5"></script>
+<dge-nav-rail current="dasa-sahitya"></dge-nav-rail>
+<!-- Reader-redesign integration: this page used to be a fully standalone
+     mini-app with no cross-reference linking and no reachable word/composer
+     detail. These are the same shared modules the main DGE reader loads
+     (render.html) and in the same order (modals.js before
+     contextual-actions.js, which dispatches through window.openModal/
+     closeModal; kosha.js/entity-linker.js self-fetch their own data
+     relative to their own script src, so the page's own depth doesn't
+     matter). Nothing here is a second bottom-sheet/toast system — the
+     composer sheet and composition menu below reuse this exact modal
+     shell (see dasa-sahitya.css's narrowly-copied .modal-overlay rules). -->
+<script src="../js/modals.js?v=1"></script>
+<script src="../js/reader-state.js?v=1"></script>
+<!-- kosha.js's own data-base default ("data/kosha") is a plain relative
+     string resolved against the PAGE's URL, correct only one level under
+     the repo root (render.html). This page sits one level deeper
+     (dasa-sahitya/), so it needs kosha.js's own documented override
+     point (see that file's KOSHA_DATA_BASE comment) rather than a patch to
+     the shared file. Set before kosha.js loads. -->
+<script>window.KOSHA_DATA_BASE = '../data/kosha';</script>
+<script src="../js/kosha.js?v=3"></script>
+<script src="../js/contextual-actions.js?v=1"></script>
+<script src="../js/entity-linker.js?v=1"></script>
+<!-- 29 Aug 2026, real gap found auditing Kosha's sutra-backlink coverage
+     (DGE_UI_CONTRACT.md Part IV-D): kosha.js's openEntry() already guards
+     its dgeScanForSutras() call with `typeof window.dgeScanForSutras ===
+     'function'`, which silently no-opped on this exact page -- this script
+     tag was never here, confirmed by reading this file's own script list,
+     not assumed. Self-contained (fetches its own sutra index relative to
+     its own script src -- see that file's own header comment), so adding
+     it costs nothing else on the page and needs no data-* config here. -->
+<script src="../js/intellisense.js?v=4.71.1"></script>
+<script>
+"use strict";
+const BASE = (window.DASA_DATA_BASE || "../data/Tattvavada/Itara/DasaSahitya").replace(/\/$/,"");
+const FORM_LABELS = {pada:"Pada",suladi:"Suladi",ugabhoga:"Ugabhoga",devaranama:"Devaranama",
+  aarati:"Aarati",mangala:"Mangala",kolu:"Kolu",shobhane:"Shobhane",laali:"Laali",
+  dashavatara:"Dashavatara",sampradaya:"Sampradaya",kavya:"Kavya",
+  mundige:"Mundige",dandaka:"Dandaka",other:"Other"};
+
+const state={manifest:null,records:[],loaded:{},form:"all",q:"",group:"composer",sort:"az",script:"kn",author:null};
+
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');
+  clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('show'),1600);}
+function prefGet(k,d){try{return JSON.parse(localStorage.getItem('dasa_'+k))??d}catch(e){return d}}
+function prefSet(k,v){try{localStorage.setItem('dasa_'+k,JSON.stringify(v))}catch(e){}}
+
+// --- per-composition reading state (Favorite/Needs practice/Completed/Mark
+// doubt) --------------------------------------------------------------
+// Deliberately its OWN small localStorage-backed store, same prefGet/
+// prefSet this page already uses for script/group prefs, rather than
+// forced onto js/reader-state.js's dgeStudyState(id). That accessor's
+// whole shape (window.marks[id]) is keyed by a numeric shlokaId inside one
+// grantha; a composition here is identified by a corpus-wide string id
+// ("vijayadasaru__dasa1_10969") with no shlokaId or grantha at all, so
+// reusing it would mean distorting reader-state.js's contract rather than
+// extending it honestly. reader-state.js is still loaded (see script tags
+// above) for the interaction-model consistency it gives everything else
+// this page now wires in (contextual-actions.js, kosha.js); this one piece
+// of state just isn't a fit for it, and that's a deliberate call, not an
+// oversight — see the integration report for the alternative considered.
+function compStateGet(id){ return prefGet('compstate_'+id, {fav:false,status:null,doubt:false}); }
+function compStateSet(id,patch){ const s=compStateGet(id); Object.assign(s,patch); prefSet('compstate_'+id,s); return s; }
+
+function escAttr(s){return esc(s).replace(/"/g,'&quot;');}
+// Wraps every non-whitespace run in a tappable span (word-tap -> Kosha,
+// the mockup's acceptance behavior) while ESCAPING the line for the first
+// time -- cardHtml() used to splice raw stanza text into innerHTML
+// unescaped. Whitespace between words is left as literal characters from
+// the source line, so .stanza's existing white-space:pre-wrap still
+// reproduces line breaks/spacing exactly as before.
+function tokenizeLine(line){
+  return (line||"").replace(/(\S+)/g,function(w){return '<span class="dasa-word" data-w="'+escAttr(w)+'">'+esc(w)+'</span>';});
+}
+
+async function boot(){
+  state.script=prefGet('script','kn'); document.getElementById('script').value=state.script;
+  state.group=prefGet('group','composer'); document.getElementById('groupby').value=state.group;
+  let man;
+  try{ man=await (await fetch(BASE+"/index.json",{cache:"no-store"})).json(); }
+  catch(e){ return showMissing(); }
+  state.manifest=man;
+  renderStats(); renderForms(); renderAuthors();
+  // auto-load composer files (respect small corpora fully; large ones lazy on click + Load all)
+  const comps=man.composers||[];
+  if(comps.length<=8){ await loadAll(); }
+  else { updateAdmin(); document.getElementById('list').innerHTML=
+    '<div class="empty">Pick a composer on the left, or press <b>Load all</b> to load the full corpus.</div>'; }
+}
+
+function showMissing(){
+  document.getElementById('stats').innerHTML='';
+  document.getElementById('admin').style.display='none';
+  document.getElementById('list').innerHTML=
+    '<div class="empty">No corpus found at <code>'+BASE+'/index.json</code>.<br><br>'+
+    'Run the Dasa Sahitya importer (Colab notebook or the GitHub Action) to generate it, '+
+    'then reload this page.</div>';
+}
+
+function renderStats(){
+  const m=state.manifest, byForm=m.counts_by_form||{}, bySrc=m.counts_by_source||{};
+  const parts=[`<span class="stat"><b>${m.count_total||0}</b> compositions</span>`,
+    `<span class="stat"><b>${(m.composers||[]).length}</b> composers</span>`];
+  if(m.dedup && m.dedup.duplicates_merged)
+    parts.push(`<span class="stat" title="cross-source duplicates merged">deduped −<b>${m.dedup.duplicates_merged}</b></span>`);
+  document.getElementById('stats').innerHTML=parts.join("");
+
+  // Per-source breakdown names the external sites this was compiled from —
+  // kept out of #stats itself so it stays behind admin-gate.js's hiding
+  // rule, and left collapsed (a <details>) even for an admin who does see it.
+  const srcParts=Object.entries(bySrc).map(([s,n])=>
+    `<span class="stat">${s.replace(/\.(com|net|org)$/,'')}: <b>${n}</b></span>`);
+  const detail=document.getElementById('sourcesDetail');
+  detail.innerHTML = srcParts.length
+    ? '<summary>Sources (' + srcParts.length + ')</summary><div class="stats" style="margin-top:6px">' + srcParts.join('') + '</div>'
+    : '';
+  window._byFormManifest=byForm;
+}
+
+function renderForms(){
+  const byForm=state.manifest.counts_by_form||{};
+  const forms=Object.keys(FORM_LABELS).filter(f=>byForm[f]);
+  const total=state.manifest.count_total||0;
+  const chip=(f,lbl,n)=>`<button class="chip" data-form="${f}" aria-pressed="${state.form===f}">`+
+    `${lbl}<span class="n">${n}</span></button>`;
+  let html=chip("all","All",total);
+  forms.forEach(f=>html+=chip(f,FORM_LABELS[f],byForm[f]));
+  const el=document.getElementById('forms'); el.innerHTML=html;
+  el.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{state.form=c.dataset.form;renderForms();render();});
+}
+
+function renderAuthors(){
+  const comps=[...(state.manifest.composers||[])].sort((a,b)=>
+    (a.composer||a.slug).localeCompare(b.composer||b.slug));
+  const el=document.getElementById('authlist');
+  el.innerHTML=comps.map(c=>{
+    const ld=state.loaded[c.slug];
+    const dot=ld==="ok"?"loaded":ld==="err"?"err":"";
+    return `<button class="authbtn" data-slug="${c.slug}" aria-current="${state.author===c.slug}">`+
+      `<span class="dot ${dot}"></span>`+
+      `<span style="flex:1">${c.composer||c.slug}</span><span class="n">${c.count}</span></button>`;
+  }).join("");
+  el.querySelectorAll('.authbtn').forEach(b=>b.onclick=async()=>{
+    state.author = state.author===b.dataset.slug ? null : b.dataset.slug;
+    if(state.author) await loadComposer(state.author);
+    renderAuthors(); render();
+  });
+}
+
+async function loadComposer(slug){
+  if(state.loaded[slug]==="ok") return;
+  const entry=(state.manifest.composers||[]).find(c=>c.slug===slug);
+  if(!entry) return;
+  try{
+    const data=await (await fetch(BASE+"/"+entry.file,{cache:"no-store"})).json();
+    const recs=(data.items||data.compositions||[]).map(r=>({...r,_slug:slug}));
+    // replace any existing records for this slug
+    state.records=state.records.filter(r=>r._slug!==slug).concat(recs);
+    state.loaded[slug]="ok";
+  }catch(e){ state.loaded[slug]="err"; toast("Failed: "+slug); }
+  updateAdmin();
+}
+
+async function loadAll(){
+  const comps=state.manifest.composers||[];
+  document.getElementById('loadall').disabled=true;
+  for(const c of comps){ await loadComposer(c.slug); renderAuthors(); }
+  document.getElementById('loadall').disabled=false;
+  render(); toast("Loaded "+state.records.length+" compositions");
+}
+
+function updateAdmin(){
+  const comps=state.manifest.composers||[];
+  const okCount=comps.filter(c=>state.loaded[c.slug]==="ok").length;
+  const loadedComps=comps.filter(c=>state.loaded[c.slug]==="ok");
+  const compsExpected=loadedComps.reduce((s,c)=>s+c.count,0);
+  const pct=comps.length? Math.round(okCount/comps.length*100):0;
+  document.getElementById('adminbar').style.width=pct+"%";
+  document.getElementById('adminlbl').textContent=
+    `${okCount}/${comps.length} files · ${state.records.length} loaded`;
+}
+
+// --- rendering the composition list ---
+function scriptTitle(r){
+  const t=r.title||{};
+  if(state.script==="iast") return t.iast||t.latin||t.kn||"(untitled)";
+  if(state.script==="devanagari") return t.devanagari||t.kn||t.latin||"(untitled)";
+  return t.kn||t.latin||"(untitled)";
+}
+function firstLine(r){const k=(r.text&&r.text.kannada)||[];return (k[0]&&k[0][0])||"";}
+function stanzasFor(r){
+  const T=r.text||{};
+  if(state.script==="iast" && (T.iast||[]).some(s=>s.length)) return T.iast;
+  if(state.script==="devanagari" && (T.devanagari||[]).some(s=>s.length)) return T.devanagari;
+  return T.kannada||[];
+}
+
+function matches(r){
+  if(state.form!=="all" && r.form!==state.form) return false;
+  if(state.q){
+    const q=state.q.toLowerCase();
+    const hay=[scriptTitle(r),r.composer,r.deity,(r.title&&r.title.iast),firstLine(r),
+      (r.tags||[]).join(" ")].join(" ").toLowerCase();
+    if(!hay.includes(q)) return false;
+  }
+  return true;
+}
+
+function groupKey(r){
+  if(state.group==="deity") return r.deity||"—";
+  if(state.group==="form") return FORM_LABELS[r.form]||r.form;
+  if(state.group==="alpha"){const t=scriptTitle(r);return (t[0]||"#").toUpperCase();}
+  return r.composer||"—";
+}
+
+function render(){
+  const list=document.getElementById('list');
+  let recs=state.records.filter(matches);
+  if(state.author) recs=recs.filter(r=>r._slug===state.author);
+  const dir=state.sort==="za"?-1:1;
+  recs.sort((a,b)=>dir*scriptTitle(a).localeCompare(scriptTitle(b),'kn'));
+
+  if(!recs.length){
+    const loadedAny=Object.values(state.loaded).includes("ok");
+    list.innerHTML='<div class="empty">'+(loadedAny?
+      'No compositions match your filters.':
+      'Nothing loaded yet — pick a composer or press <b>Load all</b>.')+'</div>';
+    return;
+  }
+  const groups={};
+  recs.forEach(r=>{(groups[groupKey(r)] ||= []).push(r);});
+  const keys=Object.keys(groups).sort((a,b)=>dir*a.localeCompare(b,'kn'));
+  let html="";
+  keys.forEach(k=>{
+    html+=`<div class="grouphead"><h2>${k}</h2><span class="n">${groups[k].length}</span></div>`;
+    groups[k].forEach(r=>html+=cardHtml(r));
+  });
+  list.innerHTML=html;
+
+  // Cross-reference detection over the freshly rendered cards -- same call
+  // js/render.js makes for the main reader (dge_entities.json is a
+  // registry of citable WORKS only; this Kannada devotional corpus rarely
+  // names one in citation form, so this will realistically find zero
+  // matches on most compositions today. Wired anyway for when it does, and
+  // so this page stays on the one real registry rather than growing its
+  // own). Deity/concept references (e.g. ಧನ್ವಂತರಿ) are NOT covered -- see
+  // the integration report.
+  if(typeof window.dgeScanForEntities==='function'){ try{ window.dgeScanForEntities(list); }catch(e){} }
+}
+
+function cardHtml(r){
+  const title=scriptTitle(r), il=r.title&&r.title.iast;
+  const stz=stanzasFor(r), roman=(r.text&&r.text.source_roman)||[];
+  let body="";
+  stz.forEach((st,i)=>{
+    body+='<div class="stanza">'+st.map(tokenizeLine).join("\n");
+    if(state.script==="kn" && roman[i]) body+='\n<span class="rom">'+roman[i].map(esc).join("\n")+'</span>';
+    body+='</div>';
+  });
+  if(r.meaning) body+='<div class="meaning"><b>ಅರ್ಥ / Meaning</b><br>'+esc(r.meaning)+'</div>';
+  const src=r.source||{};
+  // Licenses are procured, so the raw external link is admin-only curation
+  // detail, not something a reader needs per composition. Cards render
+  // long after admin-gate.js's one-time DOMContentLoaded pass, so checking
+  // isAdmin() directly here (rather than relying on its attribute-removal)
+  // is what actually applies to content created this late.
+  const isAdminCard = window.DGEAdminGate && window.DGEAdminGate.isAdmin();
+  if(src.url && isAdminCard) body+='<div class="src">Source: <a href="'+src.url+'" target="_blank" rel="noopener">'+
+    (src.site||src.url)+'</a></div>';
+  const cst=compStateGet(r.id);
+  const badges=[
+    cst.fav?'<span class="state-badge" title="Favorite">⭐</span>':'',
+    cst.status==='practice'?'<span class="state-badge" title="Needs practice">◐</span>':'',
+    cst.status==='done'?'<span class="state-badge" title="Completed">✅</span>':'',
+    cst.doubt?'<span class="state-badge" title="Marked doubt">❓</span>':''
+  ].join('');
+  const composerBtn=r.composer?
+    `<button type="button" class="composer-link" data-composer="${escAttr(r.composer)}" data-slug="${escAttr(r._slug||'')}">${esc(r.composer)}</button>`:'';
+  return `<details class="card" data-cid="${escAttr(r.id)}"><summary>`+
+    `<span class="badge form">${FORM_LABELS[r.form]||r.form}</span>`+
+    badges+
+    `<span class="t">${esc(title)}</span>`+
+    (il&&state.script!=="iast"?`<span class="tl">${esc(il)}</span>`:"")+
+    `<span class="meta">${composerBtn}${r.deity?" · "+esc(r.deity):""}</span>`+
+    `<button type="button" class="card-actions-btn" data-cid="${escAttr(r.id)}" title="Composition actions" aria-label="Composition actions">⋯</button>`+
+    `</summary><div class="body">${body||'<p class="tl">No verse text captured.</p>'}</div></details>`;
+}
+function esc(s){return (s||"").replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+
+// wire controls
+document.getElementById('q').oninput=e=>{state.q=e.target.value.trim();render();};
+document.getElementById('groupby').onchange=e=>{state.group=e.target.value;prefSet('group',state.group);render();};
+document.getElementById('sort').onchange=e=>{state.sort=e.target.value;render();};
+document.getElementById('script').onchange=e=>{state.script=e.target.value;prefSet('script',state.script);renderAuthors();render();};
+document.getElementById('loadall').onclick=loadAll;
+
+// --- word-tap -> Kosha / composer-tap -> profile sheet / "⋯" -> composition
+// menu. One delegated listener on the (static) #list container, same
+// pattern as authlist/forms above, so it costs nothing when nothing is
+// rendered yet and survives every render() replacing #list's innerHTML. ---
+document.getElementById('list').addEventListener('click',function(e){
+  const actBtn=e.target.closest('.card-actions-btn');
+  if(actBtn){
+    e.preventDefault(); e.stopPropagation(); // don't also toggle the <details> open/closed
+    const rec=state.records.find(r=>r.id===actBtn.dataset.cid);
+    if(rec) dgeOpenCompositionMenu(rec);
+    return;
+  }
+  const compBtn=e.target.closest('.composer-link');
+  if(compBtn){
+    e.preventDefault(); e.stopPropagation();
+    dgeOpenComposerSheet(compBtn.dataset.composer, compBtn.dataset.slug);
+    return;
+  }
+  const wordEl=e.target.closest('.dasa-word');
+  if(wordEl){
+    const sel=window.getSelection();
+    if(sel && sel.toString().trim().length>0) return; // a drag-selection's mouseup also fires click
+    if(typeof window.dgeOpenKosha==='function') window.dgeOpenKosha(wordEl.dataset.w);
+    else toast('Kosha lookup is not available on this page yet.');
+  }
+});
+
+// --- composition-level contextual menu (Favorite/Needs practice/Completed/
+// Mark doubt/Play/References/Share), via js/contextual-actions.js's
+// registry + config/contextual-actions.json's "composition" entry --
+// not a second bespoke action sheet. ---------------------------------
+window.dgeOpenCompositionMenu=function(rec){
+  if(typeof window.dgeOpenContextualMenu!=='function'){ toast('Actions menu is not available on this page yet.'); return; }
+  window.dgeOpenContextualMenu('composition',{id:rec.id,rec:rec,label:scriptTitle(rec)});
+};
+function compCitation(rec){
+  return scriptTitle(rec)+' — '+(rec.composer||'ದಾಸ ಸಾಹಿತ್ಯ')+' · DGE Dāsa Sāhitya ('+rec.id+')';
+}
+async function copyToClipboard(text){
+  try{
+    if(navigator.clipboard && window.isSecureContext){ await navigator.clipboard.writeText(text); }
+    else{
+      const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.left='-9999px';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    }
+    toast('Copied.');
+  }catch(e){ toast('Could not copy — select and copy manually.'); }
+}
+window.dgeCtxCompFavorite=function(ctx){
+  const was=compStateGet(ctx.id).fav; compStateSet(ctx.id,{fav:!was});
+  toast(was?'Removed from favorites.':'Added to favorites.'); render();
+};
+window.dgeCtxCompPractice=function(ctx){
+  const cur=compStateGet(ctx.id).status; const next=cur==='practice'?null:'practice';
+  compStateSet(ctx.id,{status:next}); toast(next?'Marked needs practice.':'Cleared status.'); render();
+};
+window.dgeCtxCompCompleted=function(ctx){
+  const cur=compStateGet(ctx.id).status; const next=cur==='done'?null:'done';
+  compStateSet(ctx.id,{status:next}); toast(next?'Marked completed.':'Cleared status.'); render();
+};
+window.dgeCtxCompDoubt=function(ctx){
+  const was=compStateGet(ctx.id).doubt; compStateSet(ctx.id,{doubt:!was});
+  toast(was?'Doubt cleared.':'Marked doubt.'); render();
+};
+// No composition in this corpus carries an audio field today (checked the
+// schema directly) -- explicit-tap-only stays honest rather than pretending
+// to play something that doesn't exist, matching the explicit-play-only
+// fix already shipped elsewhere for the main reader.
+window.dgeCtxCompPlay=function(){ toast('No audio recording is linked to this composition yet.'); };
+window.dgeCtxShowCompReferences=function(ctx){
+  const card=document.querySelector('.card[data-cid="'+CSS.escape(ctx.id)+'"]');
+  const ref=card && card.querySelector('.dge-entity-ref, .dge-sutra-ref');
+  if(ref){ ref.click(); return; }
+  toast('No recognized cross-references in this composition yet.');
+};
+window.dgeCtxCompShare=function(ctx){
+  const rec=ctx.rec; if(!rec) return;
+  const text=compCitation(rec), url=location.href.split('#')[0]+'#'+encodeURIComponent(rec.id);
+  if(navigator.share){ navigator.share({title:scriptTitle(rec),text:text,url:url}).catch(()=>{}); return; }
+  copyToClipboard(text+'\n'+url);
+};
+
+// --- composer profile sheet: real fields only, live from
+// guru-parampara/data/people.json (the real person-entity store —
+// NOT data/dge_entities.json, which is scoped to citable works, see
+// its own _readme). No invented birth name/birthplace/parents/guru --
+// this repo's person records don't carry those fields yet. -------------
+let peoplePromise=null;
+function loadPeople(){
+  if(!peoplePromise) peoplePromise=fetch('../guru-parampara/data/people.json',{cache:'no-store'})
+    .then(r=>r.ok?r.json():null).then(d=>(d&&d.people)||[]).catch(()=>[]);
+  return peoplePromise;
+}
+function normName(s){ return (s||'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z]/g,''); }
+function normComposer(s){ return normName(s).replace(/dasaru$/,'dasa'); }
+function matchPerson(people,composer){
+  const key=normComposer(composer);
+  if(!key) return null;
+  return people.find(p=>normComposer(p.name)===key || normComposer(p.id)===key) || null;
+}
+function ensureComposerSheetEl(){
+  let el=document.getElementById('dasaComposerSheet');
+  if(el) return el;
+  el=document.createElement('div');
+  el.className='modal-overlay'; el.id='dasaComposerSheet';
+  el.innerHTML='<div class="modal-content"><div class="modal-header-sticky">'+
+    '<h4 id="dasaComposerSheetTitle" style="margin:0;color:var(--accent-red);font-size:15px;"></h4>'+
+    '<button class="btn-sm" onclick="window.closeModal(\'dasaComposerSheet\')">✖ Close</button></div>'+
+    '<div class="modal-body" id="dasaComposerSheetBody"></div></div>';
+  document.body.appendChild(el);
+  el.addEventListener('click',e=>{ if(e.target===el && typeof window.closeModal==='function') window.closeModal('dasaComposerSheet'); });
+  el.addEventListener('click',e=>{
+    const btn=e.target.closest('[data-works-slug]'); if(!btn) return;
+    const slug=btn.dataset.worksSlug, name=btn.dataset.worksName;
+    (async()=>{
+      if(slug){ state.author=slug; await loadComposer(slug); }
+      renderAuthors(); render();
+      if(typeof window.closeModal==='function') window.closeModal('dasaComposerSheet');
+      toast('Showing works by '+name);
+    })();
+  });
+  return el;
+}
+window.dgeOpenComposerSheet=function(composer,slug){
+  if(!composer){ toast('No composer on this composition.'); return; }
+  ensureComposerSheetEl();
+  const titleEl=document.getElementById('dasaComposerSheetTitle'), bodyEl=document.getElementById('dasaComposerSheetBody');
+  titleEl.textContent=composer;
+  bodyEl.innerHTML='<p class="tl">Loading…</p>';
+  if(typeof window.openModal==='function') window.openModal('dasaComposerSheet');
+  const manifestEntry=(state.manifest.composers||[]).find(c=>c.slug===slug);
+  const worksCount=manifestEntry?manifestEntry.count:'—';
+  loadPeople().then(people=>{
+    const p=matchPerson(people,composer);
+    let html='';
+    if(p){
+      html+='<div class="composer-badges">'+
+        (p.period?`<span class="badge">${esc(p.period)}</span>`:'')+
+        (p.matha?`<span class="badge">${esc(p.matha)} matha</span>`:'')+
+        (p.confidence?`<span class="badge">confidence: ${esc(p.confidence)}</span>`:'')+
+        '</div>';
+      if(p.titles && p.titles.length) html+=`<p class="tl"><b>Titles:</b> ${p.titles.map(esc).join(', ')}</p>`;
+      html+='<p class="composer-note">This is the real guru-paramparā record for this composer — only the fields DGE currently has are shown. Fuller biographical detail (birth name, birthplace, parents, guru) is not yet digitized for this person.</p>';
+    }else{
+      html+=`<p class="composer-note">No linked guru-paramparā profile found yet for "${esc(composer)}" — this composer may not be in the person registry yet, or the name doesn't match closely enough to auto-link.</p>`;
+    }
+    html+=`<button type="button" class="btn-sm" style="margin-top:12px;width:100%;padding:10px;" data-works-slug="${escAttr(slug||'')}" data-works-name="${escAttr(composer)}">📖 See this composer's works (${worksCount})</button>`;
+    bodyEl.innerHTML=html;
+  });
+};
+
+boot();
+</script>
+<!-- 7 Sep 2026: same reader copy/right-click guard as index.html (admins exempt). -->
+<script src="../js/copy-guard.js?v=2"></script>
+</body>
+</html>
