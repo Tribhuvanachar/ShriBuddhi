@@ -147,6 +147,16 @@ jobs:
         # switch to --strict once the HARD findings it lists are fixed.
         run: python3 tools/audit_names.py
 
+      - name: Enrichment sidecars name a live grantha (check_sidecars.py)
+        # Every enrichment layer is a file named after the grantha's PATH.
+        # Move a work, and the sidecar keeps the old name, the reader's fetch
+        # 404s, and the feature switches itself off with no error anywhere.
+        # Two restructures did exactly that: citation references and commentary
+        # sandhi sat at 0% live coverage holding 3,665 units of good data,
+        # while the tools that built them had long since been updated to the
+        # new paths. Nothing noticed, because nothing was looking.
+        run: python3 tools/check_sidecars.py
+
       - name: Repo inventory drift gate (build_repo_inventory.py)
         # Every workflow file must have a classified entry in
         # admin/config/repo-map.json, and the generated fields (inputs,
