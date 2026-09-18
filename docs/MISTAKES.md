@@ -229,3 +229,35 @@ plans from it, so a plan cannot be typed from memory.
 
 **Second rule.** A source is confirmed by a number, not by a title. Match the page count
 against what is already staged, and account for every page of any difference.
+
+## 15. I dispatched 4,606 pages at an empty account and read 32 green checks as success
+
+I queued the Sarvam batch, watched all 32 runs go green, and reported the batch
+healthy. Every one of the 4,606 pages had come back `HTTP 402 Payment Required`. The
+prepaid balance had run out roughly twenty minutes before I dispatched, during the tail
+of the previous batch.
+
+Nothing was billed -- there was nothing to bill against -- but nothing was OCRed either,
+and I had already told the lead the batch was running clean, because I was reading the
+workflow's exit code instead of its output. `sarvam_docai.py` ended with an
+unconditional `return 0`. A run that OCRed zero pages and a run that OCRed every page
+were indistinguishable from outside.
+
+Worse, it had been happening before I arrived. The same silent success hid 596 pages
+lost to 402 in the earlier batch and 140 pages lost to transient Sarvam 500s across
+twelve works, all of which are recorded in staged files as `"ok": false` under a green
+check. Those works look complete in every view the project has.
+
+Two separate faults, and I should name both. The exit code lied, and the run kept
+calling a paid API after it had been told the account was empty -- fifteen more slices
+per chunk, thirty-two chunks, each with a seven-second courtesy sleep, all of it
+guaranteed to fail.
+
+**Rule.** A paid run reports what it produced, not whether it reached the end of its own
+code. `sarvam_docai.py` now exits non-zero whenever any page failed, and abandons the
+chunk on the first 402 rather than asking an empty account thirty more times.
+
+**Second rule.** Verify a batch by opening its output, not by counting green checks. I
+had the staged files the whole time; `usage.pages_succeeded` was zero in all 32 of them.
+The check that caught this took one command, and I ran it only because I went looking
+for something else.

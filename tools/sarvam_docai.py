@@ -399,6 +399,23 @@ def main() -> int:
             log(f"  failed: {exc}")
             result["usage"]["pages_failed"] += len(sl)
             result["pages"].extend({"page": p, "ok": False, "error": str(exc)[:200]} for p in sl)
+            # A 402 is the prepaid balance being empty. It will not come back
+            # between one slice and the next, so carrying on only turns one
+            # dead run into a whole dead batch: on 18 Sep 2026 every slice of
+            # all 32 chunks kept calling, and 4,606 pages came back 402 while
+            # the runs reported success.
+            if "402" in str(exc):
+                remaining = [p for later in slices[i:] for p in later]
+                if remaining:
+                    log(f"  402 Payment Required - the Sarvam balance is empty. "
+                        f"Abandoning the remaining {len(remaining)} page(s) of this chunk.")
+                    result["usage"]["pages_failed"] += len(remaining)
+                    result["pages"].extend(
+                        {"page": p, "ok": False,
+                         "error": "not attempted: the Sarvam balance was empty earlier in this run"}
+                        for p in remaining)
+                result["aborted"] = "402 Payment Required - top up at dashboard.sarvam.ai"
+                break
         if i < len(slices):
             time.sleep(7)  # 10 requests a minute, and each job is ≥2 requests
 
@@ -409,12 +426,28 @@ def main() -> int:
         json.dump(result, fh, ensure_ascii=False, indent=1)
         fh.write("\n")
     log(f"wrote {outp}: {result['usage']}")
+    # The file is written either way -- the evidence of what happened is worth
+    # keeping. The EXIT CODE is what must tell the truth: a run that OCRed
+    # nothing is not a success, however calmly it ends. All 32 chunks of the
+    # 18 Sep 2026 batch returned 0 here with pages_succeeded == 0, so GitHub
+    # showed 32 green checks for an empty account and nobody looked again.
+    ok, failed = result["usage"]["pages_succeeded"], result["usage"]["pages_failed"]
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
     if summary:
         with open(summary, "a", encoding="utf-8") as fh:
             fh.write(f"## Sarvam Document AI\n\n`{outp}` — pages sent **{result['usage']['pages_total']}**, "
                      f"succeeded {result['usage']['pages_succeeded']}, failed {result['usage']['pages_failed']}, "
                      f"jobs {result['usage']['jobs']}. Sarvam bills per page from the prepaid balance.\n")
+            if failed:
+                fh.write(f"\n**{failed} page(s) did not OCR.** "
+                         f"{result.get('aborted', 'See the staged file for the per-page error.')}\n")
+    if ok == 0:
+        log(f"FAILED: {failed} page(s) attempted, none succeeded. Nothing was staged that is worth reviewing.")
+        return 1
+    if failed:
+        log(f"FAILED: {ok} page(s) succeeded but {failed} did not. "
+            f"Re-run the missing range once the cause is fixed.")
+        return 1
     return 0
 
 
