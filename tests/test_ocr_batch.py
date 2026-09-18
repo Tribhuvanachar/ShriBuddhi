@@ -109,3 +109,28 @@ class TheOtherBill(unittest.TestCase):
         rows = B.read_plan(plan(self.tmp, ("w", "http://a.pdf", "1-100")))
         self.assertFalse([p for p in B.preflight(rows, "sarvam", TODAY, ROOT)
                           if "GitHub Actions minutes" in p])
+
+
+class WhereItRuns(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+
+    def test_a_public_runner_makes_the_minute_budget_a_note_not_a_wall(self):
+        """Actions is free and unlimited on a public repository.
+
+        The same 74-run batch that must be refused on a private runner is fine on a
+        public one. Where it runs is an input, not an assumption.
+        """
+        rows = B.read_plan(plan(self.tmp, *[(("w%d" % i), "http://a%d.pdf" % i, "1-100")
+                                            for i in range(150)]))
+        priv = B.preflight(rows, "sarvam", TODAY, ROOT, runner="private")
+        pub = B.preflight(rows, "sarvam", TODAY, ROOT, runner="public")
+        self.assertTrue(any("GitHub Actions minutes" in p for p in priv))
+        self.assertFalse([p for p in pub if "GitHub Actions minutes" in p])
+
+    def test_it_defaults_to_private(self):
+        """The default is the answer that costs money if you get it wrong."""
+        rows = B.read_plan(plan(self.tmp, *[(("w%d" % i), "http://a%d.pdf" % i, "1-100")
+                                            for i in range(150)]))
+        self.assertTrue(any("GitHub Actions minutes" in p
+                            for p in B.preflight(rows, "sarvam", TODAY, ROOT)))

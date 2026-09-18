@@ -102,7 +102,7 @@ def load_receipts():
                 "pilots": []}
 
 
-def preflight(rows, engine, today=None, repo_root="."):
+def preflight(rows, engine, today=None, repo_root=".", runner="private"):
     """[] when it is safe to spend money, else the reasons it is not."""
     problems = []
     today = today or datetime.date.today().isoformat()
@@ -147,8 +147,12 @@ def preflight(rows, engine, today=None, repo_root="."):
             if needle not in text:
                 problems.append("%s: %s\n      %s" % (path, what, why))
 
+    # Actions is free and unlimited on a PUBLIC repository. Where the batch will run
+    # decides whether the minute budget is a wall or a note, so it is an input rather
+    # than an assumption -- and it defaults to private, the answer that costs money if
+    # you get it wrong.
     minutes = len(rows) * MINUTES_PER_RUN
-    if minutes > FREE_PRIVATE_MINUTES * 0.10:
+    if runner == "private" and minutes > FREE_PRIVATE_MINUTES * 0.10:
         problems.append(
             "this batch is %d runs, about %.0f GitHub Actions minutes. A private repo gets "
             "%d free minutes a MONTH and then every workflow in the account stops -- OCR, "
@@ -198,6 +202,8 @@ def main(argv=None) -> int:
     ap.add_argument("--record-pilot", default="")
     ap.add_argument("--reconcile", action="store_true")
     ap.add_argument("--staged", default="", help="TSV: slug<TAB>first-last, what actually landed")
+    ap.add_argument("--runner", default="private", choices=["private", "public"],
+                    help="where the batch runs. public = Actions is free and unlimited.")
     args = ap.parse_args(argv)
 
     if args.record_pilot:
@@ -215,7 +221,7 @@ def main(argv=None) -> int:
         if not args.plan:
             print("--preflight needs --plan", file=sys.stderr)
             return 2
-        problems = preflight(read_plan(args.plan), args.engine)
+        problems = preflight(read_plan(args.plan), args.engine, runner=args.runner)
         if problems:
             print("REFUSING TO DISPATCH — %d problem(s):" % len(problems))
             for p in problems:
@@ -227,8 +233,11 @@ def main(argv=None) -> int:
               % (len(rows), sum(r["last"] - r["first"] + 1 for r in rows), args.engine))
         print("  cost to state to the lead BEFORE dispatch:")
         print("    %d OCR pages billed by %s" % (sum(r["last"] - r["first"] + 1 for r in rows), args.engine))
-        print("    ~%.0f GitHub Actions minutes = %.0f%% of a private repo's %d free minutes/month"
-              % (mins, 100.0 * mins / FREE_PRIVATE_MINUTES, FREE_PRIVATE_MINUTES))
+        if args.runner == "public":
+            print("    ~%.0f GitHub Actions minutes — free, the runner is a public repo" % mins)
+        else:
+            print("    ~%.0f GitHub Actions minutes = %.0f%% of a private repo's %d free minutes/month"
+                  % (mins, 100.0 * mins / FREE_PRIVATE_MINUTES, FREE_PRIVATE_MINUTES))
         return 0
 
     if args.reconcile:
