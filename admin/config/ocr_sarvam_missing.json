@@ -1,0 +1,597 @@
+{
+ "_readme": [
+  "Sarvam pages that were requested and did not come back. Re-dispatch these",
+  "ranges once the prepaid balance at dashboard.sarvam.ai is topped up.",
+  "Generated 2026-09-18 from the staged sarvam_*.json files themselves, not from",
+  "workflow exit codes -- all of these sit under runs that reported success."
+ ],
+ "total_pages_missing": 5342,
+ "works": {
+  "aitereya_upanisad_bh__ommentary_bhagavantaraya": [
+   {
+    "file": "sarvam_pages210-409.json",
+    "pages": 10,
+    "ranges": [
+     "300-309"
+    ],
+    "url": "https://archive.org/download/aitereya-upanisad-bhashaya-of-madhvacharya-with-bhavapradipa-commentary-of-bhagavantaraya/SRIMANMAHAITAREYOPANISHADBHASHYAM-%20BHAVAPRADIPA%20TIPPANI-PPVP.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 500: Internal Server Er"
+   }
+  ],
+  "bhagavata_purnana_sk__guru_murthy_acharya_k_r": [
+   {
+    "file": "sarvam_pages404-522.json",
+    "pages": 10,
+    "ranges": [
+     "404-413"
+    ],
+    "url": "https://archive.org/download/bhagavata-purnana-skanda-11-vyakhya-of-yadavendra-yati-ed.-guru-murthy-acharya-k.-r./Bhagavata%20Purnana%20Skanda%2011%20Vyakhya%20of%20Yadavendra%20Yati%20Ed.%20Guru%20Murthy%20Acharya%20K.R..pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 500: Internal Server Er"
+   }
+  ],
+  "bhagavata_saroddhara": [
+   {
+    "file": "sarvam_pages1-96.json",
+    "pages": 96,
+    "ranges": [
+     "1-96"
+    ],
+    "url": "https://archive.org/download/bhagavatasarodharawithcommentary_-_Sri_Vishnutirtha_madanoorBalagaruRuchiracharya/Bhagavata%20Sarodhara%20with%20commentary%20-%20Sri%20Vishnu%20Tirtha%20%28Madanoor%29.pdf",
+    "language": "kn-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages279-459.json",
+    "pages": 181,
+    "ranges": [
+     "279-459"
+    ],
+    "url": "https://archive.org/download/bhagavatasarodharawithcommentary_-_Sri_Vishnutirtha_madanoorBalagaruRuchiracharya/Bhagavata%20Sarodhara%20with%20commentary%20-%20Sri%20Vishnu%20Tirtha%20%28Madanoor%29.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages97-278.json",
+    "pages": 182,
+    "ranges": [
+     "97-278"
+    ],
+    "url": "https://archive.org/download/bhagavatasarodharawithcommentary_-_Sri_Vishnutirtha_madanoorBalagaruRuchiracharya/Bhagavata%20Sarodhara%20with%20commentary%20-%20Sri%20Vishnu%20Tirtha%20%28Madanoor%29.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ],
+  "brahma_sutra_dipika_jagannatha_tirtha_panchamukhi": [
+   {
+    "file": "sarvam_pages225-238.json",
+    "pages": 4,
+    "ranges": [
+     "235-238"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=1_tY2-eCjIXrO_J2oa4BAO5dUAq7RpYZj",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages25-224.json",
+    "pages": 170,
+    "ranges": [
+     "55-224"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=1_tY2-eCjIXrO_J2oa4BAO5dUAq7RpYZj",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ],
+  "giia_vyakhyana_sangr__ntaries_on_bhagavad_gita_v1": [
+   {
+    "file": "sarvam_pages404-603.json",
+    "pages": 10,
+    "ranges": [
+     "554-563"
+    ],
+    "url": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-1.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 500: Internal Server Er"
+   }
+  ],
+  "giia_vyakhyana_sangr__ntaries_on_bhagavad_gita_v3": [
+   {
+    "file": "sarvam_pages205-404.json",
+    "pages": 10,
+    "ranges": [
+     "325-334"
+    ],
+    "url": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-3.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 500: Internal Server Er"
+   }
+  ],
+  "hks__11_hks": [
+   {
+    "file": "sarvam_pages1-200.json",
+    "pages": 10,
+    "ranges": [
+     "181-190"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=1g-MhNPIE3GXC8I5TlNNd5_FENHdBEr37",
+    "language": "sa-IN",
+    "why": "HTTP Error 500: Internal Server Er"
+   }
+  ],
+  "hks__12_hks": [
+   {
+    "file": "sarvam_pages3-202.json",
+    "pages": 10,
+    "ranges": [
+     "23-32"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=17QatIPxIAUmFp-GrAAIf9q7x6c9jAvkV",
+    "language": "sa-IN",
+    "why": "HTTP Error 500: Internal Server Er"
+   }
+  ],
+  "hks__1_hks": [
+   {
+    "file": "sarvam_pages6-156.json",
+    "pages": 10,
+    "ranges": [
+     "116-125"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=1aaR0djuV8hO8hcCC6qFP2ykeAwoW9BBE",
+    "language": "sa-IN",
+    "why": "HTTP Error 500: Internal Server Er"
+   }
+  ],
+  "isha_upanishad_bhashya_tippani": [
+   {
+    "file": "sarvam_pages1-146.json",
+    "pages": 146,
+    "ranges": [
+     "1-146"
+    ],
+    "url": "https://archive.org/download/ishavasya-upanishad-with-13-commentaries/ISHAVASYOPANISHADBHASHYAM-%2013%20VYAKHYANA-UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages147-292.json",
+    "pages": 146,
+    "ranges": [
+     "147-292"
+    ],
+    "url": "https://archive.org/download/ishavasya-upanishad-with-13-commentaries/ISHAVASYOPANISHADBHASHYAM-%2013%20VYAKHYANA-UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ],
+  "katha_upanishad_bhashya_tippani": [
+   {
+    "file": "sarvam_pages1-12.json",
+    "pages": 12,
+    "ranges": [
+     "1-12"
+    ],
+    "url": "https://archive.org/download/katha-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/KATHAKOPANISHAT%206%20TIPPANI-%20UM.pdf",
+    "language": "kn-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages13-171.json",
+    "pages": 159,
+    "ranges": [
+     "13-171"
+    ],
+    "url": "https://archive.org/download/katha-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/KATHAKOPANISHAT%206%20TIPPANI-%20UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages172-329.json",
+    "pages": 158,
+    "ranges": [
+     "172-329"
+    ],
+    "url": "https://archive.org/download/katha-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/KATHAKOPANISHAT%206%20TIPPANI-%20UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages330-418.json",
+    "pages": 89,
+    "ranges": [
+     "330-418"
+    ],
+    "url": "https://archive.org/download/katha-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/KATHAKOPANISHAT%206%20TIPPANI-%20UM.pdf",
+    "language": "kn-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages419-438.json",
+    "pages": 20,
+    "ranges": [
+     "419-438"
+    ],
+    "url": "https://archive.org/download/katha-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/KATHAKOPANISHAT%206%20TIPPANI-%20UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ],
+  "kena_upanishad_bhashya_tippani": [
+   {
+    "file": "sarvam_pages1-29.json",
+    "pages": 29,
+    "ranges": [
+     "1-29"
+    ],
+    "url": "https://archive.org/download/talavakara-kena-upanishad-madhvacharya-bhashya-with-8-sub-commentaries/TALAVAKAROPANISHAT-8%20TIPPANI-%20UM.pdf",
+    "language": "kn-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages30-122.json",
+    "pages": 93,
+    "ranges": [
+     "30-122"
+    ],
+    "url": "https://archive.org/download/talavakara-kena-upanishad-madhvacharya-bhashya-with-8-sub-commentaries/TALAVAKAROPANISHAT-8%20TIPPANI-%20UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ],
+  "mahabharata_virata_p__amahabharata_virata_parv": [
+   {
+    "file": "sarvam_pages613-702.json",
+    "pages": 20,
+    "ranges": [
+     "643-652",
+     "683-692"
+    ],
+    "url": "https://archive.org/download/mahabharata-virata-parva-ed.-vyasanakere-prabhanjanacaryamahabharata-virata-parv/Mahabharata%20Virata%20Parva%20Ed.%20Vyasanakere%20Prabhanjanacarya.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 500: Internal Server Er"
+   }
+  ],
+  "mandukya_upanishad_bhashya_tippani": [
+   {
+    "file": "sarvam_pages1-109.json",
+    "pages": 109,
+    "ranges": [
+     "1-109"
+    ],
+    "url": "https://archive.org/download/mandukya-upanishad-madhvacharya-bhashya-with-7-sub-commentaries/MANDUKOPANISHADBHASHYAM-%207VYAKHYANA-UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages110-218.json",
+    "pages": 109,
+    "ranges": [
+     "110-218"
+    ],
+    "url": "https://archive.org/download/mandukya-upanishad-madhvacharya-bhashya-with-7-sub-commentaries/MANDUKOPANISHADBHASHYAM-%207VYAKHYANA-UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ],
+  "mundaka_upanishad_bhashya_tippani": [
+   {
+    "file": "sarvam_pages1-139.json",
+    "pages": 139,
+    "ranges": [
+     "1-139"
+    ],
+    "url": "https://archive.org/download/atharvana-upanishad-with-13-commentaries/ATHARVANOPANISHADBHASHYAM-%2012%20VYAKHYANA-UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages140-278.json",
+    "pages": 139,
+    "ranges": [
+     "140-278"
+    ],
+    "url": "https://archive.org/download/atharvana-upanishad-with-13-commentaries/ATHARVANOPANISHADBHASHYAM-%2012%20VYAKHYANA-UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages279-417.json",
+    "pages": 139,
+    "ranges": [
+     "279-417"
+    ],
+    "url": "https://archive.org/download/atharvana-upanishad-with-13-commentaries/ATHARVANOPANISHADBHASHYAM-%2012%20VYAKHYANA-UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ],
+  "prashna_upanishad_bhashya_tippani": [
+   {
+    "file": "sarvam_pages1-144.json",
+    "pages": 144,
+    "ranges": [
+     "1-144"
+    ],
+    "url": "https://archive.org/download/prashna-upanishad-madhvacharya-bhasya-with-13-sub-commentaries/SHATPRASHNOPANISHAT%2013%20TIPPANI-%20UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages145-287.json",
+    "pages": 143,
+    "ranges": [
+     "145-287"
+    ],
+    "url": "https://archive.org/download/prashna-upanishad-madhvacharya-bhasya-with-13-sub-commentaries/SHATPRASHNOPANISHAT%2013%20TIPPANI-%20UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ],
+  "rukminisha_vijaya": [
+   {
+    "file": "sarvam_pages19-192.json",
+    "pages": 174,
+    "ranges": [
+     "19-192"
+    ],
+    "url": "https://archive.org/download/sri-rugminisha-vijaya-of-vadiraja-tirtha-with-the-commentary-gurubhavaprakashika/RUGMINISHAVIJAYA-%20GURUBHAVA%20PRAKASHIKA%20TIKA.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages193-366.json",
+    "pages": 174,
+    "ranges": [
+     "193-366"
+    ],
+    "url": "https://archive.org/download/sri-rugminisha-vijaya-of-vadiraja-tirtha-with-the-commentary-gurubhavaprakashika/RUGMINISHAVIJAYA-%20GURUBHAVA%20PRAKASHIKA%20TIKA.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages367-540.json",
+    "pages": 174,
+    "ranges": [
+     "367-540"
+    ],
+    "url": "https://archive.org/download/sri-rugminisha-vijaya-of-vadiraja-tirtha-with-the-commentary-gurubhavaprakashika/RUGMINISHAVIJAYA-%20GURUBHAVA%20PRAKASHIKA%20TIKA.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages541-712.json",
+    "pages": 172,
+    "ranges": [
+     "541-712"
+    ],
+    "url": "https://archive.org/download/sri-rugminisha-vijaya-of-vadiraja-tirtha-with-the-commentary-gurubhavaprakashika/RUGMINISHAVIJAYA-%20GURUBHAVA%20PRAKASHIKA%20TIKA.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ],
+  "ruksamhita__ruksamhita_9_vyakhyanagalu_bhaga_2": [
+   {
+    "file": "sarvam_pages204-403.json",
+    "pages": 10,
+    "ranges": [
+     "274-283"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=1MjRvomgvHK82nza4pyZfx3DfgDHU-_qs",
+    "language": "sa-IN",
+    "why": "HTTP Error 500: Internal Server Er"
+   }
+  ],
+  "ruksamhita__ruksamhita_9_vyakhyanagalu_bhaga_4": [
+   {
+    "file": "sarvam_pages4-203.json",
+    "pages": 10,
+    "ranges": [
+     "154-163"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=1TGVfmj1bl1nxFzNMREaGnaumKnW5-CYG",
+    "language": "sa-IN",
+    "why": "HTTP Error 500: Internal Server Er"
+   }
+  ],
+  "ruksamhita__ruksamhita_9_vyakhyanagalu_bhaga_5": [
+   {
+    "file": "sarvam_pages4-203.json",
+    "pages": 10,
+    "ranges": [
+     "114-123"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=1RDuWVhbFG_3Gw6qmLNu8sdFIkDlrvy50",
+    "language": "sa-IN",
+    "why": "HTTP Error 500: Internal Server Er"
+   }
+  ],
+  "sangraha_ramayanam_n__mentaries_bhavartha_dipi_v2": [
+   {
+    "file": "sarvam_pages5-204.json",
+    "pages": 20,
+    "ranges": [
+     "35-44",
+     "65-74"
+    ],
+    "url": "https://archive.org/download/sangraha-ramayanam-by-sri-narayana-panditacarya-with-commentaries-bhavartha-dipi/SANGRAHA-RAMAYANAVol2.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 500: Internal Server Er"
+   }
+  ],
+  "taittiriya_upanishad_bhashya_tippani": [
+   {
+    "file": "sarvam_pages1-182.json",
+    "pages": 182,
+    "ranges": [
+     "1-182"
+    ],
+    "url": "https://archive.org/download/taittariya-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/TAITTARIYOPANISHAT%206%20TIPPANI-UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages183-364.json",
+    "pages": 182,
+    "ranges": [
+     "183-364"
+    ],
+    "url": "https://archive.org/download/taittariya-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/TAITTARIYOPANISHAT%206%20TIPPANI-UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages365-546.json",
+    "pages": 182,
+    "ranges": [
+     "365-546"
+    ],
+    "url": "https://archive.org/download/taittariya-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/TAITTARIYOPANISHAT%206%20TIPPANI-UM.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ],
+  "tantrasara_sangraha_tippani_a": [
+   {
+    "file": "sarvam_pages1-189.json",
+    "pages": 189,
+    "ranges": [
+     "1-189"
+    ],
+    "url": "https://archive.org/download/tantrasarasangraha-of-sri-anandatirtha-with-the-commentaries-of-tantrasararthasa/TANTRASARA%20SANGRAHA%20-%202017%20EDITION-%20PRALHADACHARYA%20JOSHI-4%20TIPPANI.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages190-378.json",
+    "pages": 189,
+    "ranges": [
+     "190-378"
+    ],
+    "url": "https://archive.org/download/tantrasarasangraha-of-sri-anandatirtha-with-the-commentaries-of-tantrasararthasa/TANTRASARA%20SANGRAHA%20-%202017%20EDITION-%20PRALHADACHARYA%20JOSHI-4%20TIPPANI.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages379-566.json",
+    "pages": 188,
+    "ranges": [
+     "379-566"
+    ],
+    "url": "https://archive.org/download/tantrasarasangraha-of-sri-anandatirtha-with-the-commentaries-of-tantrasararthasa/TANTRASARA%20SANGRAHA%20-%202017%20EDITION-%20PRALHADACHARYA%20JOSHI-4%20TIPPANI.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ],
+  "tantrasara_sangraha_tippani_b": [
+   {
+    "file": "sarvam_pages567-755.json",
+    "pages": 189,
+    "ranges": [
+     "567-755"
+    ],
+    "url": "https://archive.org/download/tantrasarasangraha-of-sri-anandatirtha-with-the-commentaries-of-tantrasararthasa/TANTRASARA%20SANGRAHA%20-%202017%20EDITION-%20PRALHADACHARYA%20JOSHI-4%20TIPPANI.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages756-944.json",
+    "pages": 189,
+    "ranges": [
+     "756-944"
+    ],
+    "url": "https://archive.org/download/tantrasarasangraha-of-sri-anandatirtha-with-the-commentaries-of-tantrasararthasa/TANTRASARA%20SANGRAHA%20-%202017%20EDITION-%20PRALHADACHARYA%20JOSHI-4%20TIPPANI.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages945-1133.json",
+    "pages": 189,
+    "ranges": [
+     "945-1133"
+    ],
+    "url": "https://archive.org/download/tantrasarasangraha-of-sri-anandatirtha-with-the-commentaries-of-tantrasararthasa/TANTRASARA%20SANGRAHA%20-%202017%20EDITION-%20PRALHADACHARYA%20JOSHI-4%20TIPPANI.pdf",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ],
+  "vaidika_svara_prakaranam_prabhakara_adiga_kadri": [
+   {
+    "file": "sarvam_pages5-112.json",
+    "pages": 108,
+    "ranges": [
+     "5-112"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=11pQh5q3yxC53XjoDIH6_4lZQUOAysAYG",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ],
+  "venkatesha__venkatesha_mahatmya_moola": [
+   {
+    "file": "sarvam_pages3-202.json",
+    "pages": 10,
+    "ranges": [
+     "193-202"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=1pc1i4tmluV10jH43I8K5OaY9PdTv84wD",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ],
+  "venkatesha__venkatesha_mahatmya_vyakyana_sahita": [
+   {
+    "file": "sarvam_pages203-402.json",
+    "pages": 40,
+    "ranges": [
+     "363-402"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=1gMdXtQZNxVyevdwLCaCOY91S9bJ4UxFg",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages3-202.json",
+    "pages": 40,
+    "ranges": [
+     "163-202"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=1gMdXtQZNxVyevdwLCaCOY91S9bJ4UxFg",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages403-602.json",
+    "pages": 70,
+    "ranges": [
+     "533-602"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=1gMdXtQZNxVyevdwLCaCOY91S9bJ4UxFg",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages603-802.json",
+    "pages": 150,
+    "ranges": [
+     "653-802"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=1gMdXtQZNxVyevdwLCaCOY91S9bJ4UxFg",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   },
+   {
+    "file": "sarvam_pages803-856.json",
+    "pages": 4,
+    "ranges": [
+     "853-856"
+    ],
+    "url": "https://drive.google.com/uc?export=download&id=1gMdXtQZNxVyevdwLCaCOY91S9bJ4UxFg",
+    "language": "sa-IN",
+    "why": "HTTP Error 402: Payment Required"
+   }
+  ]
+ }
+}
