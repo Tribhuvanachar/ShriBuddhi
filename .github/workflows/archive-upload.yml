@@ -32,6 +32,10 @@ on:
         description: "Folder inside that repo to upload"
         required: true
         default: smv_audio
+      source_ref:
+        description: "Branch/tag in the source repo. Leave empty for its default branch."
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -116,10 +120,16 @@ jobs:
 
       - name: Fetch the audio
         if: inputs.mode == 'upload'
+        # BUDDHI_TOKEN is not set in this repository, so a private sibling repo
+        # cannot be checked out here. github.token reaches THIS repo, which is
+        # enough when the audio is staged on a branch of it -- and staging it
+        # here is better than minting a cross-repo PAT for a one-off upload.
+        # source_ref lets that branch be named; it is ignored for a public repo.
         uses: actions/checkout@v4
         with:
           repository: ${{ inputs.source_repo }}
-          token: ${{ secrets.BUDDHI_TOKEN }}
+          ref: ${{ inputs.source_ref }}
+          token: ${{ secrets.BUDDHI_TOKEN || github.token }}
           path: _audio
 
       - name: Upload to archive.org
