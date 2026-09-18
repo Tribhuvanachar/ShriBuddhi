@@ -47,10 +47,46 @@ jobs:
           python-version: "3.11"
       - run: pip install pymupdf
       - name: Download the PDF
+        # `file` reads the magic bytes and nothing else, so a TRUNCATED download
+        # passes it happily -- and then PyMuPDF opens a document with zero pages
+        # and render() dies on "page 1 not in document", which reads like a bug in
+        # the page range rather than a broken file. That cost five runs of a
+        # 51-volume batch on 18 Sep 2026. The real check is whether the parser
+        # that is about to use the file can count its pages, so that is the check.
         run: |
           set -euo pipefail
-          curl -sS -L --max-time 600 -o source.pdf "${{ inputs.pdf_url }}"
-          file source.pdf | grep -qi pdf || { echo "::error::Downloaded file is not a PDF (is the link public?)"; head -c 400 source.pdf; exit 1; }
+          for attempt in 1 2 3; do
+            curl -sS -L --max-time 900 --retry 3 --retry-delay 5 -o source.pdf "${{ inputs.pdf_url }}" || true
+            if ! file source.pdf | grep -qi pdf; then
+              echo "attempt $attempt: not a PDF at all"
+              head -c 300 source.pdf || true
+              sleep 10; continue
+            fi
+            PAGES=$(python3 -c "
+          import sys, fitz
+          try:
+              print(fitz.open('source.pdf').page_count)
+          except Exception as e:
+              print(0)
+          " 2>/dev/null || echo 0)
+            SIZE=$(stat -c%s source.pdf)
+            if [ "${PAGES:-0}" -gt 0 ]; then
+              echo "downloaded $SIZE bytes, $PAGES page(s) — usable"
+              echo "PDF_PAGES=$PAGES" >> "$GITHUB_ENV"
+              break
+            fi
+            echo "attempt $attempt: $SIZE bytes but PyMuPDF counts 0 pages — truncated, retrying"
+            sleep 10
+          done
+          [ "${PDF_PAGES:-0}" != "0" ] || PDF_PAGES=$(python3 -c "
+          import fitz
+          try: print(fitz.open('source.pdf').page_count)
+          except Exception: print(0)
+          ")
+          if [ "${PDF_PAGES:-0}" -eq 0 ]; then
+            echo "::error::Could not get a readable PDF from that URL after 3 attempts."
+            exit 1
+          fi
       - name: Vision OCR
         env:
           VISION_API_KEY: ${{ secrets.VISION_API_KEY }}
