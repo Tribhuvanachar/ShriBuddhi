@@ -46,12 +46,20 @@ DANDA = re.compile(r"[।॥]")
 # Length survives the script change. Front matter is short by nature -- a title, a
 # dedication, an imprint, a contents line -- and body pages are full. Measured:
 # Pasandakhandanam front matter 215-312 characters, body 1,000-1,400; the 108
-# Upanishad body 1,400-1,700. A danda still has to appear somewhere on the page,
-# which rules out a full page of Latin-script preface, but its DENSITY is not asked
-# to carry the decision.
+# Upanishad body 1,400-1,700.
 MIN_CHARS = 700
-# At least one danda on the page. Not a density -- that is what broke.
-MIN_DANDA = 1
+# What the danda requirement was actually FOR was excluding a page of roman-script
+# preface. It did that, and it also excluded Kannada. The Harikathamrtasara volumes
+# are Haridasa prose and barely punctuate: page 20 of hks__32 is 1,206 Kannada
+# characters with ZERO dandas, page 200 is 863 with zero. Requiring one danda threw
+# away three hundred pages of real text and put the start of the book on page 310
+# of 315.
+#
+# Script proportion does that job without asking punctuation to do it. An English
+# introduction is mostly Latin; a page of the edition, in any Indian language, is
+# mostly Indic. That holds for Sanskrit verse, for Kannada commentary, and for the
+# mixed pages where one glosses the other.
+MIN_INDIC_SHARE = 0.55
 # How many consecutive qualifying pages make it a body rather than a stray
 # contents line that happens to print a verse number.
 # Two consecutive full pages, not three. The cost of starting one page early is one
@@ -72,9 +80,11 @@ def find_start(pages: dict) -> tuple[int | None, list]:
     stats = []
     for n in sorted(pages):
         deva, danda, density = page_stats(pages[n])
-        ok = deva >= MIN_CHARS and danda >= MIN_DANDA
+        share = deva / len(pages[n]) if pages[n] else 0.0
+        ok = deva >= MIN_CHARS and share >= MIN_INDIC_SHARE
         stats.append({"page": n, "deva": deva, "danda": danda,
-                      "density": round(density, 5), "body": ok})
+                      "density": round(density, 5),
+                      "indic_share": round(share, 3), "body": ok})
     run = 0
     for s in stats:
         if s["body"]:

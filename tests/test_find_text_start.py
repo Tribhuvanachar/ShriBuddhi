@@ -26,10 +26,22 @@ class LengthNotPunctuation(unittest.TestCase):
         pages = {1: TITLE, 2: TITLE, 3: TITLE, 4: LONG_SA, 5: LONG_SA}
         self.assertEqual(4, F.find_start(pages)[0])
 
-    def test_a_long_page_with_no_danda_at_all_is_not_body(self):
-        """Rules out a full page of roman-script preface."""
+    def test_a_roman_script_introduction_is_not_body(self):
+        """What the old danda requirement was for, done by script instead."""
         pages = {1: "Introduction " * 200, 2: "Introduction " * 200,
                  3: LONG_SA, 4: LONG_SA}
+        self.assertEqual(3, F.find_start(pages)[0])
+
+    def test_kannada_prose_with_no_dandas_at_all_is_body(self):
+        """The Harikathamrtasara volumes barely punctuate.
+
+        Page 20 of hks__32 is 1,206 Kannada characters with ZERO dandas and
+        page 200 is 863 with zero. Requiring one danda -- which was only ever
+        meant to exclude roman-script prefaces -- threw away three hundred
+        pages and put the start of that book on page 310 of 315.
+        """
+        no_danda = LONG_KN.replace("।", "")
+        pages = {1: TITLE, 2: TITLE, 3: no_danda, 4: no_danda, 5: no_danda}
         self.assertEqual(3, F.find_start(pages)[0])
 
     def test_one_stray_full_page_does_not_start_the_book(self):
