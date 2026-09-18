@@ -147,6 +147,14 @@ jobs:
         # switch to --strict once the HARD findings it lists are fixed.
         run: python3 tools/audit_names.py
 
+      - name: Corpus is Unicode NFC (normalize_nfc.py)
+        # Kannada vowel signs were stored decomposed -- the same syllable as
+        # three codepoints instead of one. Identical on screen, different
+        # bytes, so search missed, dedup missed, and diffs between editions
+        # showed changes that were not there. 67,841 items, mostly itihasa.
+        # NFC is canonical: Unicode requires the two to render identically.
+        run: python3 tools/normalize_nfc.py --check
+
       - name: Enrichment sidecars name a live grantha (check_sidecars.py)
         # Every enrichment layer is a file named after the grantha's PATH.
         # Move a work, and the sidecar keeps the old name, the reader's fetch
