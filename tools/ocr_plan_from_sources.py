@@ -24,6 +24,32 @@ SOURCES = "admin/config/ocr_sources.json"
 CAP = {"sarvam": 200, "vision": 2000}
 
 
+def segments(w: dict):
+    """The work's page range split where the dominant script changes.
+
+    Sarvam takes one language per request. The Kannada in these books is a
+    front-matter preface or a back-matter appendix -- contiguous, never
+    interleaved -- so a chunk can respect it exactly. Sending those ~205 pages
+    as sa-IN would make Sarvam disagree with Vision on every one of them, and
+    the conflict router would forward the lot to Gemini as if the OCR were bad.
+    """
+    first, last = w["ocr_range"]
+    default = w.get("default_language", "sa-IN")
+    blocks = sorted((max(first, b["pages"][0]), min(last, b["pages"][1]), b["language"])
+                    for b in w.get("language_blocks", []))
+    out, cur = [], first
+    for start, end, lang in blocks:
+        if start > cur:
+            out.append((cur, start - 1, default))
+        out.append((start, end, lang))
+        cur = end + 1
+    if cur <= last:
+        out.append((cur, last, default))
+    covered = sum(b - a + 1 for a, b, _ in out)
+    assert covered == last - first + 1, covered
+    return out
+
+
 def chunks(first: int, last: int, cap: int):
     """Even chunks no larger than cap.
 
@@ -45,6 +71,9 @@ def main(argv=None) -> int:
     ap.add_argument("--engine", required=True, choices=sorted(CAP))
     ap.add_argument("--works", nargs="*", help="work slugs; default every work in the manifest")
     ap.add_argument("--sources", default=SOURCES)
+    ap.add_argument("--with-language", action="store_true",
+                    help="add a 4th column, the language to dispatch that chunk with "
+                         "(ocr_batch.py --preflight wants the plain 3-column form)")
     args = ap.parse_args(argv)
 
     works = json.load(open(args.sources))["works"]
@@ -59,8 +88,14 @@ def main(argv=None) -> int:
         w = works[slug]
         first, last = w["ocr_range"]
         pages += last - first + 1
-        for a, b in chunks(first, last, CAP[args.engine]):
-            rows.append("%s\t%s\t%d-%d" % (slug, w["pdf_url"], a, b))
+        seen = set()
+        for lo, hi, lang in segments(w):
+            for a, b in chunks(lo, hi, CAP[args.engine]):
+                assert not (seen & set(range(a, b + 1))), "%s: %d-%d overlaps" % (slug, a, b)
+                seen |= set(range(a, b + 1))
+                row = "%s\t%s\t%d-%d" % (slug, w["pdf_url"], a, b)
+                rows.append(row + ("\t" + lang if args.with_language else ""))
+        assert seen == set(range(first, last + 1)), "%s: chunks do not cover the range" % slug
     print("\n".join(rows))
     print("%d work(s), %d chunk(s), %d page(s)" % (len(wanted), len(rows), pages), file=sys.stderr)
     return 0

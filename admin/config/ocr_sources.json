@@ -16,7 +16,14 @@
   "the same work (560 pages, Gajendragada Shyamaraya) and would have produced a",
   "Sarvam run that silently disagreed with Vision on every single page.",
   "",
-  "pdf_url is built as archive.org/download/<item>/<url-quoted file>."
+  "pdf_url is built as archive.org/download/<item>/<url-quoted file>.",
+  "",
+  "language_blocks: page ranges whose dominant script is NOT the work's default,",
+  "measured from the Vision output (Devanagari vs Kannada codepoint share per page).",
+  "Sarvam takes one language per request, so a chunk must not straddle a block.",
+  "These are contiguous front-matter prefaces and back-matter appendices, never",
+  "interleaved. Sending them as sa-IN would make Sarvam disagree with Vision across",
+  "~205 pages and push all of them to Gemini as if the OCR were bad."
  ],
  "verified_on": "2026-09-18",
  "works": {
@@ -31,7 +38,8 @@
    ],
    "verified_by": "page-count",
    "verified_on": "2026-09-18",
-   "note": "vision 19-712; 713-725 is the back-matter verse index, deliberately not OCRed"
+   "note": "vision 19-712; 713-725 is the back-matter verse index, deliberately not OCRed",
+   "default_language": "sa-IN"
   },
   "tantrasara_sangraha_tippani_a": {
    "archive_item": "tantrasarasangraha-of-sri-anandatirtha-with-the-commentaries-of-tantrasararthasa",
@@ -44,7 +52,8 @@
    ],
    "verified_by": "page-count",
    "verified_on": "2026-09-18",
-   "note": "first half of one 1133-page PDF; _b is the second half"
+   "note": "first half of one 1133-page PDF; _b is the second half",
+   "default_language": "sa-IN"
   },
   "tantrasara_sangraha_tippani_b": {
    "archive_item": "tantrasarasangraha-of-sri-anandatirtha-with-the-commentaries-of-tantrasararthasa",
@@ -57,7 +66,8 @@
    ],
    "verified_by": "page-count",
    "verified_on": "2026-09-18",
-   "note": "second half of the same PDF as _a"
+   "note": "second half of the same PDF as _a",
+   "default_language": "sa-IN"
   },
   "taittiriya_upanishad_bhashya_tippani": {
    "archive_item": "taittariya-upanishad-madhvacharya-bhasya-with-6-sub-commentaries",
@@ -69,7 +79,8 @@
     546
    ],
    "verified_by": "page-count",
-   "verified_on": "2026-09-18"
+   "verified_on": "2026-09-18",
+   "default_language": "sa-IN"
   },
   "bhagavata_saroddhara": {
    "archive_item": "bhagavatasarodharawithcommentary_-_Sri_Vishnutirtha_madanoorBalagaruRuchiracharya",
@@ -82,7 +93,17 @@
    ],
    "verified_by": "page-count",
    "verified_on": "2026-09-18",
-   "note": "Balagaru Ruchiracharya ed. NOT the 560-page Gajendragada Shyamaraya ed., which is a different edition of the same work"
+   "note": "Balagaru Ruchiracharya ed. NOT the 560-page Gajendragada Shyamaraya ed., which is a different edition of the same work",
+   "default_language": "sa-IN",
+   "language_blocks": [
+    {
+     "pages": [
+      1,
+      96
+     ],
+     "language": "kn-IN"
+    }
+   ]
   },
   "katha_upanishad_bhashya_tippani": {
    "archive_item": "katha-upanishad-madhvacharya-bhasya-with-6-sub-commentaries",
@@ -94,7 +115,24 @@
     438
    ],
    "verified_by": "page-count",
-   "verified_on": "2026-09-18"
+   "verified_on": "2026-09-18",
+   "default_language": "sa-IN",
+   "language_blocks": [
+    {
+     "pages": [
+      1,
+      12
+     ],
+     "language": "kn-IN"
+    },
+    {
+     "pages": [
+      330,
+      418
+     ],
+     "language": "kn-IN"
+    }
+   ]
   },
   "mundaka_upanishad_bhashya_tippani": {
    "archive_item": "atharvana-upanishad-with-13-commentaries",
@@ -107,7 +145,8 @@
    ],
    "verified_by": "page-count",
    "verified_on": "2026-09-18",
-   "note": "item title says 13, the book and its own title page say 12"
+   "note": "item title says 13, the book and its own title page say 12",
+   "default_language": "sa-IN"
   },
   "isha_upanishad_bhashya_tippani": {
    "archive_item": "ishavasya-upanishad-with-13-commentaries",
@@ -119,7 +158,8 @@
     292
    ],
    "verified_by": "page-count",
-   "verified_on": "2026-09-18"
+   "verified_on": "2026-09-18",
+   "default_language": "sa-IN"
   },
   "prashna_upanishad_bhashya_tippani": {
    "archive_item": "prashna-upanishad-madhvacharya-bhasya-with-13-sub-commentaries",
@@ -131,7 +171,8 @@
     287
    ],
    "verified_by": "page-count",
-   "verified_on": "2026-09-18"
+   "verified_on": "2026-09-18",
+   "default_language": "sa-IN"
   },
   "mandukya_upanishad_bhashya_tippani": {
    "archive_item": "mandukya-upanishad-madhvacharya-bhashya-with-7-sub-commentaries",
@@ -143,7 +184,8 @@
     218
    ],
    "verified_by": "page-count",
-   "verified_on": "2026-09-18"
+   "verified_on": "2026-09-18",
+   "default_language": "sa-IN"
   },
   "kena_upanishad_bhashya_tippani": {
    "archive_item": "talavakara-kena-upanishad-madhvacharya-bhashya-with-8-sub-commentaries",
@@ -155,7 +197,17 @@
     122
    ],
    "verified_by": "page-count",
-   "verified_on": "2026-09-18"
+   "verified_on": "2026-09-18",
+   "default_language": "sa-IN",
+   "language_blocks": [
+    {
+     "pages": [
+      1,
+      29
+     ],
+     "language": "kn-IN"
+    }
+   ]
   }
  }
 }
