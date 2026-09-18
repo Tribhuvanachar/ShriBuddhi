@@ -42,6 +42,13 @@ all three the same staging branch.
   lose the second one's paid work
 * a pilot receipt for today exists (phase 3)
 
+**Both costs are stated before dispatch, never one of them.** A batch has a price in the
+paid API and a price in the compute that calls it. GitHub Actions is free and unlimited
+on public repositories and capped at 2,000 minutes a month on private ones; at about six
+billable minutes per run, 330 runs exhausts a month and stops every workflow in the
+account. In September 230 runs took ~1,370 of those minutes and the lead learned of it
+from an error that reads like a failed payment.
+
 ### 3 · Pilot (costs one small volume)
 
 One real run, smallest volume, `mode=real-run`. It passes only when the staged file is

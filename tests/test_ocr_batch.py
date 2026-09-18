@@ -8,7 +8,7 @@ ROOT = os.path.join(os.path.dirname(__file__), "..")
 TODAY = datetime.date.today().isoformat()
 
 
-def plan(tmp, rows):
+def plan(tmp, *rows):
     p = os.path.join(tmp, "plan.tsv")
     io.open(p, "w", encoding="utf-8").write("".join("%s\t%s\t%s\n" % r for r in rows))
     return p
@@ -19,7 +19,7 @@ class Preflight(unittest.TestCase):
         self.tmp = tempfile.mkdtemp()
 
     def rows(self, *r):
-        return B.read_plan(plan(self.tmp, r))
+        return B.read_plan(plan(self.tmp, *r))
 
     def test_two_works_sharing_a_slug_is_refused(self):
         """They would share one staging branch and overwrite each other.
@@ -73,14 +73,14 @@ class Reconcile(unittest.TestCase):
         Counting runs would have said 42% and counting conclusions would have
         said nothing about how many pages were actually readable.
         """
-        rows = B.read_plan(plan(self.tmp, (("w", "u", "1-100"), ("w", "u", "101-200"))))
+        rows = B.read_plan(plan(self.tmp, ("w", "u", "1-100"), ("w", "u", "101-200")))
         out = B.reconcile(rows, {"w": set(range(1, 101))})
         self.assertEqual(200, out["requested"])
         self.assertEqual(100, out["staged"])
         self.assertEqual(100, out["missing"])
 
     def test_a_complete_batch_reports_nothing_incomplete(self):
-        rows = B.read_plan(plan(self.tmp, (("w", "u", "1-50"),)))
+        rows = B.read_plan(plan(self.tmp, ("w", "u", "1-50")))
         out = B.reconcile(rows, {"w": set(range(1, 51))})
         self.assertEqual([], out["incomplete"])
         self.assertEqual(0, out["missing"])
@@ -88,3 +88,24 @@ class Reconcile(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TheOtherBill(unittest.TestCase):
+    """GitHub Actions minutes, which I costed at zero and should not have."""
+
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+
+    def test_a_big_batch_warns_about_actions_minutes(self):
+        """230 runs consumed ~1,370 of 2,000 free private-repo minutes in September
+        and stopped every workflow in the account. Sarvam pages were costed; these
+        were not. One multiplication, now done before the batch instead of after."""
+        rows = B.read_plan(plan(self.tmp, *[(("w%d" % i), "http://a%d.pdf" % i, "1-100")
+                                            for i in range(150)]))
+        bad = B.preflight(rows, "sarvam", TODAY, ROOT)
+        self.assertTrue(any("GitHub Actions minutes" in p for p in bad), bad)
+
+    def test_a_small_batch_is_not_nagged(self):
+        rows = B.read_plan(plan(self.tmp, ("w", "http://a.pdf", "1-100")))
+        self.assertFalse([p for p in B.preflight(rows, "sarvam", TODAY, ROOT)
+                          if "GitHub Actions minutes" in p])

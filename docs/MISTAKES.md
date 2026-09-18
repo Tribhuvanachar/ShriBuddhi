@@ -166,3 +166,29 @@ duration tells you queue time, not work done.
 **Second rule.** Overstating what a mistake cost is its own error. It sends the lead
 looking at the wrong balance and makes the real cause -- here, a GitHub billing
 limit that will block every future run -- harder to see.
+
+## 13. I costed the paid API and treated the machine it ran on as free
+
+I gave the lead a page count and a billing warning for Sarvam, Vision and Gemini, and
+said nothing at all about GitHub. 230 runs in September consumed roughly 1,370 of the
+2,000 Actions minutes a private repository gets free per month, and every workflow in
+the account stopped -- OCR, deploys, nightly sync. The lead found out from an error
+message that reads like a failed payment.
+
+Nothing was actually charged. Metered usage and included usage were both $85.27, next
+payment due "-". $72.63 of that is Actions on a PUBLIC repo, which is free and
+unlimited; the binding number was $11.68 of a $12.00 private-repo allowance.
+
+Why I missed it: I checked the cost I was thinking about. "GitHub is free" is true for
+public repositories and false for private ones, and I never converted "130 jobs" into
+"1,300 minutes of a 2,000-minute budget" -- one multiplication, available before
+dispatch, done only afterwards from a billing screenshot.
+
+**Rule.** Price the whole run, not the part with an invoice attached. Every batch has a
+cost in the paid API AND a cost in the compute that calls it, and a free tier is a
+budget like any other. `ocr_batch.py --preflight` now states both before any dispatch
+and refuses when the minutes exceed a tenth of the monthly allowance.
+
+**The lever worth knowing:** Actions on a public repository is free and unlimited. A
+workflow that fetches a public PDF, calls an API and pushes text into a private repo
+does not itself need to live in the private one.

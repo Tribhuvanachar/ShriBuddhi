@@ -29,6 +29,20 @@ import sys
 PAGE_CAP = {"sarvam": 200, "vision": 2000}
 RECEIPTS = "admin/config/ocr_pilot_receipts.json"
 
+# GitHub Actions is FREE AND UNLIMITED on public repositories and metered on private
+# ones: 2,000 minutes a month on GitHub Free, then it stops (a free account's spending
+# limit is $0, so it blocks rather than bills). Measured on this project, one OCR run
+# costs about six billable minutes whatever the engine, since the time goes on checkout,
+# apt, the download and the commit rather than on the pages.
+#
+# This is here because I costed Sarvam per page, Vision per page and Gemini per token,
+# and treated CI as free because "GitHub is free" -- true for public repos, false for
+# private. 230 runs in September consumed about 1,370 of the 2,000 minutes and stopped
+# every workflow in the account: OCR, deploys, nightly sync. The arithmetic that would
+# have caught it is one multiplication, and it now happens before every batch.
+MINUTES_PER_RUN = 6.0
+FREE_PRIVATE_MINUTES = 2000
+
 # Faults that have already cost money once. Each is a property of the workflow file
 # rather than of the batch, so each is checked against the file itself.
 WORKFLOW_REQUIREMENTS = {
@@ -133,6 +147,17 @@ def preflight(rows, engine, today=None, repo_root="."):
             if needle not in text:
                 problems.append("%s: %s\n      %s" % (path, what, why))
 
+    minutes = len(rows) * MINUTES_PER_RUN
+    if minutes > FREE_PRIVATE_MINUTES * 0.10:
+        problems.append(
+            "this batch is %d runs, about %.0f GitHub Actions minutes. A private repo gets "
+            "%d free minutes a MONTH and then every workflow in the account stops -- OCR, "
+            "deploys, nightly sync. This batch alone is %.0f%% of that.\n"
+            "      Tell the lead the minute cost before dispatching, not only the page cost. "
+            "Actions on a PUBLIC repo is free and unlimited; a private repo is not."
+            % (len(rows), minutes, FREE_PRIVATE_MINUTES,
+               100.0 * minutes / FREE_PRIVATE_MINUTES))
+
     pilots = load_receipts().get("pilots", [])
     if not any(p.get("date") == today and p.get("engine") == engine for p in pilots):
         problems.append(
@@ -197,8 +222,13 @@ def main(argv=None) -> int:
                 print("  * %s" % p)
             return 1
         rows = read_plan(args.plan)
+        mins = len(rows) * MINUTES_PER_RUN
         print("preflight clear: %d chunk(s), %d page(s), engine %s"
               % (len(rows), sum(r["last"] - r["first"] + 1 for r in rows), args.engine))
+        print("  cost to state to the lead BEFORE dispatch:")
+        print("    %d OCR pages billed by %s" % (sum(r["last"] - r["first"] + 1 for r in rows), args.engine))
+        print("    ~%.0f GitHub Actions minutes = %.0f%% of a private repo's %d free minutes/month"
+              % (mins, 100.0 * mins / FREE_PRIVATE_MINUTES, FREE_PRIVATE_MINUTES))
         return 0
 
     if args.reconcile:
