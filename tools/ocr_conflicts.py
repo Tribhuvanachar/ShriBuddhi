@@ -74,11 +74,29 @@ def load_pages(path: str) -> dict:
 
 
 def find(work_dir: str):
-    """(sarvam file, vision file) inside a staging folder."""
-    def pick(pattern):
-        hits = sorted(glob.glob(os.path.join(work_dir, pattern)))
-        return hits[0] if hits else None
-    return pick("sarvam_pages*.json"), pick("vision_pages*.json")
+    """(sarvam files, vision files) inside a staging folder -- ALL of them.
+
+    A work is OCRed in chunks: Sarvam caps a request at 200 pages, so a
+    700-page book arrives as four files. This used to take the first file it
+    found and compare that alone, which meant every page outside that one chunk
+    had nothing to compare against and was reported as a conflict. On the
+    Harikathamrutasara that turned a genuine ~6% disagreement into 50%, and the
+    whole point of this tool is to keep pages away from a paid model.
+    """
+    return (sorted(glob.glob(os.path.join(work_dir, "sarvam_pages*.json"))),
+            sorted(glob.glob(os.path.join(work_dir, "vision_pages*.json"))))
+
+
+def load_all(paths):
+    """Every chunk of one engine, merged into one page -> text map."""
+    merged = {}
+    for p in paths:
+        for n, t in load_pages(p).items():
+            # A page that appears twice with text in only one copy keeps the
+            # text: a re-run of a failed chunk sits beside the failure.
+            if t.strip() or n not in merged:
+                merged[n] = t
+    return merged
 
 
 def compare(sarvam: dict, vision: dict, threshold: float):
@@ -90,14 +108,23 @@ def compare(sarvam: dict, vision: dict, threshold: float):
         if not na and not nb:
             continue
         if not na or not nb:
-            # One engine produced nothing. Not a disagreement about content —
-            # a failure — but it still needs the other engine's reading checked,
-            # so it goes in the file flagged for what it is.
+            # One engine has nothing for this page. That is a gap in coverage,
+            # not a disagreement, and it must not be priced as one: paying a
+            # third model to arbitrate between a reading and a blank buys
+            # nothing. Counted and reported, kept out of `conflicts`.
             only_one += 1
-            conflicts.append({"page": n, "reason": "one engine returned nothing",
-                              "ratio": 0.0, "sarvam": a, "vision": b})
             continue
-        ratio = difflib.SequenceMatcher(None, na, nb).ratio()
+        # autojunk=False is not a tuning knob here, it is the difference
+        # between this tool working and not working. SequenceMatcher's default
+        # treats any element occurring in more than 1% of a sequence longer
+        # than 200 as junk and ignores it -- a heuristic meant for source code,
+        # where that catches blank lines. In Devanagari or Kannada prose it
+        # catches the space and every common letter, so two readings of one
+        # page that differ in a single digit scored 0.0018 instead of 0.9921
+        # and were billed to Gemini as a total disagreement. Every test fixture
+        # was under 200 characters, which is exactly where the heuristic is
+        # switched off, so nothing caught it.
+        ratio = difflib.SequenceMatcher(None, na, nb, autojunk=False).ratio()
         if ratio >= threshold:
             agreed += 1
         else:
@@ -114,14 +141,17 @@ def main(argv=None) -> int:
     ap.add_argument("--out", default="", help="where to write the conflicts file")
     args = ap.parse_args(argv)
 
-    s_path, v_path = find(args.work)
-    if not s_path or not v_path:
-        print("need both engines' output in %s (found sarvam=%s vision=%s)"
-              % (args.work, bool(s_path), bool(v_path)), file=sys.stderr)
+    s_paths, v_paths = find(args.work)
+    if not s_paths or not v_paths:
+        print("need both engines' output in %s (found sarvam=%d file(s) vision=%d)"
+              % (args.work, len(s_paths), len(v_paths)), file=sys.stderr)
         return 2
 
-    sarvam, vision = load_pages(s_path), load_pages(v_path)
+    sarvam, vision = load_all(s_paths), load_all(v_paths)
     conflicts, agreed, only_one = compare(sarvam, vision, args.threshold)
+    # Pages only one engine covered are NOT part of the comparison: the
+    # percentage below is out of pages that were actually compared, so a work
+    # half-OCRed by one engine cannot masquerade as a work full of conflicts.
     total = agreed + len(conflicts)
 
     out = args.out or os.path.join(args.work, "conflicts.json")
@@ -130,13 +160,14 @@ def main(argv=None) -> int:
                    "reading; where the two agreed, that agreement is the evidence. "
                    "Consumed by the Gemini reconciliation step.",
         "work": os.path.basename(args.work.rstrip("/")),
-        "sarvam_file": os.path.basename(s_path),
-        "vision_file": os.path.basename(v_path),
+        "sarvam_files": [os.path.basename(p) for p in s_paths],
+        "vision_files": [os.path.basename(p) for p in v_paths],
         "threshold": args.threshold,
         "pages_total": total,
         "pages_agreed": agreed,
         "pages_conflicting": len(conflicts),
-        "pages_one_engine_empty": only_one,
+        "pages_only_one_engine": only_one,
+        "conflict_chars": sum(len(c["sarvam"]) + len(c["vision"]) for c in conflicts),
         "conflicts": conflicts,
     }
     with open(out, "w", encoding="utf-8") as fh:
