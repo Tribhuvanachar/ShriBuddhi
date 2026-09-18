@@ -58,6 +58,59 @@ the thing this note exists to prevent.
 session's allowed set. That is a grant a person makes once, not a per-task
 interruption. Say plainly that you hit it and which repo; do not work around it.
 
+## Before you tell the lead you cannot do something
+
+`docs/MISTAKES.md` is the full record of what has gone wrong here and the rule
+each failure produced. Read it before a batch operation, before reporting a
+capability as unavailable, and before editing corpus files. The headlines:
+
+This section exists because I cost the lead a week of running workflows by
+hand, having told him I was not allowed to dispatch them. I was wrong. Read
+this before reporting ANY capability as unavailable.
+
+**You CAN dispatch workflows.** Use `tools/dispatch_workflow.py <file.yml>
+--repo Tribhuvanachar/<Repo> -f key=value`. A raw curl needs
+`Content-Type: application/json`; without it GitHub answers **415** with a
+message naming the header. That is a malformed request, NOT a permission
+denial. A 422 naming a missing input is GitHub accepting the call and
+validating it — also not a denial.
+
+The general rule: **read the error text before classifying it.** "Not
+permitted", "415", "403" and "422" mean four different things. Reproduce a
+failure with the fault corrected before you conclude it is a wall. If it
+really is a wall, say exactly which call failed and how, so the lead can
+judge it too.
+
+**You do not need OCR keys in your session.** `SARVAM_API_KEY` and the Vision
+credentials are Actions secrets, injected into workflow runs. That is why OCR
+runs as a workflow. Their absence from `env` is the design, not a blocker.
+
+**Check what you already know before asserting a negative.** I reported that
+a repository had zero Actions secrets configured, when a workflow log I had
+read minutes earlier showed `SARVAM_API_KEY: ***`. Listing secrets through
+the proxy can fail or return empty; a run log proving one exists outranks it.
+
+## Limits to read before a batch
+
+* `tools/sarvam_docai.py` caps at **200 pages** per run unless `--max-pages`
+  is raised deliberately. I dispatched 41 jobs with `pages=1-2000`; 40 failed.
+* Sarvam **bills per page**. Always `mode=dry-run` first, quote the page
+  total to the lead, and wait. 41 volumes measured 22,746 pages.
+* Before running anything that calls the Gemini API, give a cost estimate
+  and wait for the go-ahead.
+
+## Editing data files
+
+Never `json.load` then `json.dump` a `data/*.json`. Use raw string
+replacement, or `tools/format_data_json.canonical()`. Reformatting reflows
+one-unit-per-line files: two separate attempts here produced a 26,611-line
+diff and a 3.7-million-insertion diff, both burying the real change. Verify
+line counts are unchanged before committing.
+
+When a `--fix` writes a derived field, MERGE with what is there. `derive_source`
+replaced instead, deleting `source_url` from 214 entries and `licence` from
+197, CC-BY 4.0 among them, and reported it as "234 sources synced".
+
 ## Never publish provenance
 
 No `source_url`, no `source` dict, no `source_html`, no origin `breadcrumb`, no
