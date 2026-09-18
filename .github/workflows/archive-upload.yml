@@ -97,8 +97,14 @@ jobs:
           python3 - <<'PY'
           import json
           d = json.load(open("/tmp/auth.json"))
-          if d.get("success"):
-              print("authenticated as:", d.get("username"), "|", d.get("email", ""))
+          # archive.org answers {"authorized": true, "username": ..., "screenname": ...}.
+          # The first version of this check looked for "success", which that payload does
+          # not carry, so a perfectly good key pair was reported as rejected -- while the
+          # error message itself printed authorized: True. Read the payload, not the shape
+          # you expected. `success` is kept only in case the endpoint ever returns it.
+          if d.get("authorized") or d.get("success"):
+              print("authenticated as:", d.get("screenname") or d.get("username"))
+              print("item owner:", d.get("itemname", "?"))
           else:
               print("::error::archive.org rejected these keys:", d.get("error") or d)
               raise SystemExit(1)
