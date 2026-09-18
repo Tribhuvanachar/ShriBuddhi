@@ -131,3 +131,38 @@ point of failure. Retry it, and say in the error what was spent if it still
 fails. And never verify a batch by counting successes: count the units of work
 that actually landed. 55 of 130 runs succeeding was 47% of the pages, and only
 the page diff said so.
+
+## 12. I diagnosed a failure by mechanism instead of by evidence
+
+Correction to entry 11. I reported that 35 runs "were billed and lost" to a push
+race, and told the lead I had wasted 3,474 pages of his Sarvam balance.
+
+That was wrong. All 35 carry the same annotation:
+
+    The job was not started because recent account payments have failed
+    or your spending limit needs to be increased.
+
+**The jobs never started.** Nothing reached Sarvam; no OCR money was spent. The
+12-minute durations I read as "it did real work before failing" were queue time.
+
+How I got there: GitHub's log blobs were unreachable through this session's proxy
+all day -- every `/logs` fetch returned BlobNotFound or an empty archive. Unable to
+read a log, I reasoned from the code instead: the commit step had no push retry, two
+chunks of a book could finish together, therefore a push race. The mechanism was
+real, the failure was not.
+
+What I never tried until the pilot failed: the **check-run annotations API**, which
+was available the whole time and states the cause in one line. I had one diagnostic
+channel blocked and concluded the evidence was unavailable, instead of looking for
+another channel.
+
+**Rule.** A plausible mechanism is not a diagnosis. Before naming a cause -- and
+absolutely before telling someone what it cost them -- get a statement from the
+system itself. When one channel is blocked, that is a reason to find another, not a
+licence to infer. For GitHub Actions specifically: annotations
+(`/check-runs/<job id>/annotations`) survive when `/logs` does not, and a job's
+duration tells you queue time, not work done.
+
+**Second rule.** Overstating what a mistake cost is its own error. It sends the lead
+looking at the wrong balance and makes the real cause -- here, a GitHub billing
+limit that will block every future run -- harder to see.
