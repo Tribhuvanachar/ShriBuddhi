@@ -31,7 +31,7 @@ const appConfig = {
   // Deploy with tools/kamadhenu/space/build_space.sh, then set "https://sarvamulaorg-kamadhenu.hf.space" (HF user SarvamulaOrg).
   kamadhenuSpaceUrl: "https://sarvamulaorg-kamadhenu.hf.space",   // live since 6 Sep 2026, 7:35 pm IST (ZeroGPU, PRO account)
   // Full ~1.65M-headword, 63-dictionary Kosha corpus, built and published
-  // to the "dist" branch of the separate Tribhuvanachar/bhumandala-kosha-data
+  // to the "dist" branch of the separate Tribhuvanachar/Kosha
   // repo (too large for this repo's 1GB budget). Served over jsDelivr's
   // GitHub CDN, which mirrors the branch with permissive CORS. kosha.js
   // only ever fetches manifest.json plus small per-bucket/per-entry shards
@@ -44,10 +44,10 @@ const appConfig = {
   // breaks search entirely for those users. A SHA ref is immutable and
   // always internally consistent. After each kosha-data build, update
   // this SHA (git ls-remote <data-repo> dist) and bump config.js's ?v=.
-  koshaDataBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala-kosha-data@54072a8d40d4907df588d722b3796afe06ec2568/data/koshas",
+  koshaDataBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/Kosha@54072a8d40d4907df588d722b3796afe06ec2568/data/koshas",
   // The enriched render tree (koshas_r) that kosha2.html displays —
   // built by the same Action from tools/kosha_enrich.py; same SHA.
-  koshaRenderBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala-kosha-data@54072a8d40d4907df588d722b3796afe06ec2568/data/koshas_r",
+  koshaRenderBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/Kosha@54072a8d40d4907df588d722b3796afe06ec2568/data/koshas_r",
   // The Sanskrit WordNet lookup tree that js/intellisense.js reads for the
   // अर्थः section of the word popover, built by tools/build_wordnet.py and
   // published to this repo's own "wordnet-dist" branch — data only, no

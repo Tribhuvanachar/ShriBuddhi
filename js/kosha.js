@@ -730,7 +730,7 @@
           // bare "७.१.१८" right after the headword with nothing "sūtra-ish"
           // in between, so the cue window never sees a cue and every single
           // citation from these three was going unlinked. Verified against
-          // the real corpus (github.com/Tribhuvanachar/bhumandala-kosha-data,
+          // the real corpus (github.com/Tribhuvanachar/Kosha,
           // dist branch): 100% of their citations look like this. Scoped to
           // just these slugs, not every kosha, because some others mix real
           // Ashtadhyayi references with a different corpus's numbering that
