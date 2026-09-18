@@ -78,12 +78,58 @@ def parse_pages(spec: str, total: int | None) -> list[int]:
 
 
 def pdf_page_count(pdf: str) -> int | None:
+    """Page count via whichever of poppler / qpdf / PyMuPDF this box has.
+
+    download_pdf() blocks a billed run on this answer, so it must not report
+    "unreadable" merely because one tool is missing: poppler-utils is absent
+    on some machines the pipeline is tested from, and pdfinfo was the only
+    thing this asked.
+    """
     try:
         info = subprocess.check_output(["pdfinfo", pdf], text=True, stderr=subprocess.DEVNULL)
         m = re.search(r"^Pages:\s+(\d+)", info, re.M)
-        return int(m.group(1)) if m else None
+        if m:
+            return int(m.group(1))
+    except Exception:  # noqa: BLE001
+        pass
+    try:
+        out = subprocess.check_output(["qpdf", "--show-npages", pdf], text=True,
+                                      stderr=subprocess.DEVNULL)
+        return int(out.strip())
+    except Exception:  # noqa: BLE001
+        pass
+    try:
+        import pymupdf  # noqa: PLC0415
+        return pymupdf.open(pdf).page_count
     except Exception:  # noqa: BLE001
         return None
+
+
+def download_pdf(url: str, dest: str, attempts: int = 5) -> None:
+    """Fetch the source PDF, and do not return until it is one.
+
+    A bare urlretrieve lost Sarvam run #24 on JagatTest: archive.org answered
+    a redirect with HTTP 500, the traceback surfaced as a plain exit 1, and
+    the whole chunk had to be dispatched again. archive.org's 500s and resets
+    are transient, so retry them; a file that downloads but does not parse is
+    the same failure wearing a different hat, so check that too -- and check
+    it HERE, before the first billed page, not after.
+    """
+    last = None
+    for n in range(1, attempts + 1):
+        try:
+            urllib.request.urlretrieve(url, dest)
+            pages = pdf_page_count(dest)
+            if pages:
+                log(f"downloaded {dest} ({pages} pages) on attempt {n}")
+                return
+            last = "downloaded, but pdfinfo counts 0 pages"
+        except Exception as e:  # noqa: BLE001
+            last = f"{type(e).__name__}: {e}"
+        log(f"attempt {n}/{attempts} failed -- {last}")
+        if n < attempts:
+            time.sleep(2 ** n)
+    raise SystemExit(f"no readable PDF after {attempts} attempts: {url} ({last})")
 
 
 def slice_pdf(pdf: str, first: int, last: int, out: str) -> None:
@@ -303,7 +349,7 @@ def main() -> int:
     if args.pdf_url:
         pdf = os.path.join(tmpdir, "source.pdf")
         log(f"downloading {args.pdf_url}")
-        urllib.request.urlretrieve(args.pdf_url, pdf)
+        download_pdf(args.pdf_url, pdf)
     total = pdf_page_count(pdf)
     pages = parse_pages(args.pages, total)
     if not pages:

@@ -192,3 +192,40 @@ and refuses when the minutes exceed a tenth of the monthly allowance.
 **The lever worth knowing:** Actions on a public repository is free and unlimited. A
 workflow that fetches a public PDF, calls an API and pushes text into a private repo
 does not itself need to live in the private one.
+
+## 14. I staged OCR output for eleven works without recording where any of it came from
+
+Asked to run Sarvam over 4,606 pages that Vision had already read, I could not start.
+Eleven works sat in `data/ocr_staging/`, complete and committed, and no repository said
+which PDF any of them had been OCRed from. Not the staging JSON, which records the
+engine, the DPI and the language hints but not the source. Not
+`data/ocr_staging/index.json`, which records path, work, shape, engine, pages and bytes.
+Not the branch commit messages. Not ParaBuddhi -- the repository whose entire stated job
+is to hold the source of truth, so that any output can be rebuilt from its input.
+
+The URLs had lived in a chat transcript from an earlier session, and that session was
+gone. I recovered them by reading the scanned title pages of the staged output and
+searching archive.org for a book matching the title, the editor and the number of
+sub-commentaries.
+
+That recovery nearly introduced a worse error than the one it fixed. Nine of eleven
+matched on title convincingly. Bhāgavata Sāroddhāra matched a 560-page archive.org item
+by title and author -- and it is a different edition, Gajendragada Shyamaraya's, against
+the staged 459 pages of Bāḷagāru Rucirācārya's. Sarvam run on it would have disagreed
+with Vision on every page of the book. The conflict router would have read that as OCR
+so bad the entire work needed Gemini, and billed accordingly.
+
+What caught it was not judgement. It was downloading each PDF and comparing its page
+count against the pages already staged: eight exact matches, and two that did not match
+for reasons I then had to explain individually. Rukmiṇīśa Vijaya's 725 against 712 is the
+back-matter verse index, correctly excluded. Sāroddhāra's 560 against 459 was the wrong
+book.
+
+**Rule.** Provenance is written at staging time or it is lost. Output that cannot name
+its input is not reproducible, and re-deriving the input means re-billing the work.
+`admin/config/ocr_sources.json` now holds one row per work -- item, file, URL, the PDF's
+own page count, the OCRed range -- and `tools/ocr_plan_from_sources.py` builds batch
+plans from it, so a plan cannot be typed from memory.
+
+**Second rule.** A source is confirmed by a number, not by a title. Match the page count
+against what is already staged, and account for every page of any difference.

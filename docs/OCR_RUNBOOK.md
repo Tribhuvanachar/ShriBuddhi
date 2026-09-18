@@ -26,6 +26,21 @@ API and does not commit. One real, small, complete run. Then the batch.
 Every source resolves to a URL that downloads a readable PDF, with a page count taken
 from the file itself. `mode=dry-run` reports the count and spends nothing.
 
+**The source of a batch is `admin/config/ocr_sources.json`, not the session's memory.**
+Build the plan with `tools/ocr_plan_from_sources.py --engine <engine>`; do not type page
+ranges by hand. On 18 Sep 2026 a batch of 11 works could not be dispatched at all,
+because no repo recorded which PDF any of them had been OCRed from — not the staging
+JSON, not `data/ocr_staging/index.json`, not the branch commits, not ParaBuddhi. The
+URLs had to be re-derived from the scanned title pages.
+
+A source is not confirmed until its **page count matches what is already staged**. Title
+matching is not enough: the obvious archive.org hit for Bhāgavata Sāroddhāra is a
+different edition of the same work, 560 pages against the staged 459. Running Sarvam on
+it would have produced a file that disagreed with Vision on every page, and the conflict
+router would have sent the whole book to Gemini as if the OCR were bad. Re-OCRing a work
+means re-billing it, so record the source at staging time, and never stage without a row
+in `ocr_sources.json`.
+
 Slugs must be unique across the batch, derived from the **distinguishing** part of an
 identifier. Three Aitareya Upaniṣad items share a 44-character prefix; truncation gave
 all three the same staging branch.
