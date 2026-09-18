@@ -104,3 +104,30 @@ settled it. It was missing from every private repository — a stronger and
 more urgent fact that I only established on the second pass.
 
 **Rule.** "Is this backed up anywhere?" is a question about everywhere.
+
+## 11. A batch that reported 55 successes and had run 47% of the work
+
+The first real Sarvam batch: 130 runs, 21,187 pages. 55 succeeded, 39 were
+cancelled, 35 failed. Two faults of mine, and they are different in kind.
+
+**The cancellations cost nothing and hid the problem.** Every chunk of one book
+went into `concurrency.group: ocr-sarvam-<work_slug>`, and GitHub keeps at most
+ONE pending run per group -- so queuing chunk 3 cancelled chunk 2 while it
+waited. 7,800 pages never ran. Cancelled-while-queued never starts a job, so no
+money moved, but the batch looked dispatched when a third of it was gone.
+
+**The failures cost real money.** The commit step fetched the branch, committed,
+and pushed with no conflict handling. Two chunks of one book finishing close
+together both fetch, both commit, and the second push is a non-fast-forward:
+rejected, job fails, and the pages it had already paid Sarvam for are discarded.
+3,474 billed pages, no text.
+
+The step's own comment already recorded the same shape of loss on 13 Sep --
+"which is exactly what happened on 13 Sep, after the OCR had already been paid
+for". A note describing how work got lost is not a fix for it.
+
+**Rule.** When a step runs AFTER money has been spent, it may not have a single
+point of failure. Retry it, and say in the error what was spent if it still
+fails. And never verify a batch by counting successes: count the units of work
+that actually landed. 55 of 130 runs succeeding was 47% of the pages, and only
+the page diff said so.
