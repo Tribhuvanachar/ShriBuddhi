@@ -1,0 +1,138 @@
+name: Archive.org — verify credentials, then upload audio
+
+# Puts a recording set on archive.org and points the corpus at it.
+#
+# WHY. Audio is served today from a private GitHub repository through jsDelivr,
+# which only serves PUBLIC repos — so every Sumadhva Vijaya track 404s for
+# readers. Renaming that repo twice broke the URL twice. archive.org is the
+# durable home for this: `rgv_audio` already lives there, and js/config.js's
+# dgeApplyAudioBaseUrlOverride swaps the host at runtime, so once a set is an
+# archive.org item a future move costs one config line rather than sixteen
+# data-file edits.
+#
+# mode=check verifies the credentials and uploads NOTHING. Run it first.
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "check verifies the keys and uploads nothing. upload sends the files."
+        type: choice
+        options: [check, upload]
+        default: check
+      identifier:
+        description: "archive.org item identifier, e.g. smv_audio (must match the folder name the corpus stores)"
+        required: true
+        default: smv_audio
+      source_repo:
+        description: "Private repo holding the audio"
+        required: true
+        default: Tribhuvanachar/Dhvani
+      source_dir:
+        description: "Folder inside that repo to upload"
+        required: true
+        default: smv_audio
+
+permissions:
+  contents: read
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Which archive.org secret names are set
+        # Prints NAMES only, never a value — same discipline as the Firebase
+        # deploy workflows. The lead said "keys added to repo" and this session
+        # cannot list secrets (the proxy blocks that path, correctly), so this
+        # step is how we find out which names were actually used.
+        env:
+          A1: ${{ secrets.IA_ACCESS_KEY }}
+          S1: ${{ secrets.IA_SECRET_KEY }}
+          A2: ${{ secrets.ARCHIVE_ACCESS_KEY }}
+          S2: ${{ secrets.ARCHIVE_SECRET_KEY }}
+          A3: ${{ secrets.IAS3_ACCESS_KEY }}
+          S3: ${{ secrets.IAS3_SECRET_KEY }}
+          A4: ${{ secrets.INTERNETARCHIVE_ACCESS_KEY }}
+          S4: ${{ secrets.INTERNETARCHIVE_SECRET_KEY }}
+        run: |
+          found=""
+          for n in IA ARCHIVE IAS3 INTERNETARCHIVE; do :; done
+          i=1
+          for pair in "IA_ACCESS_KEY:$A1:IA_SECRET_KEY:$S1" \
+                      "ARCHIVE_ACCESS_KEY:$A2:ARCHIVE_SECRET_KEY:$S2" \
+                      "IAS3_ACCESS_KEY:$A3:IAS3_SECRET_KEY:$S3" \
+                      "INTERNETARCHIVE_ACCESS_KEY:$A4:INTERNETARCHIVE_SECRET_KEY:$S4"; do
+            an=$(echo "$pair" | cut -d: -f1); av=$(echo "$pair" | cut -d: -f2)
+            sn=$(echo "$pair" | cut -d: -f3); sv=$(echo "$pair" | cut -d: -f4)
+            if [ -n "$av" ] && [ -n "$sv" ]; then
+              echo "found the pair $an / $sn"
+              echo "IA_A=$av" >> "$GITHUB_ENV"
+              echo "IA_S=$sv" >> "$GITHUB_ENV"
+              found=1
+              break
+            elif [ -n "$av" ] || [ -n "$sv" ]; then
+              echo "::warning::$an / $sn — only one of the pair is set"
+            fi
+          done
+          if [ -z "$found" ]; then
+            echo "::error::No complete archive.org key pair found. Expected one of:"
+            echo "  IA_ACCESS_KEY / IA_SECRET_KEY"
+            echo "  ARCHIVE_ACCESS_KEY / ARCHIVE_SECRET_KEY"
+            echo "  IAS3_ACCESS_KEY / IAS3_SECRET_KEY"
+            echo "  INTERNETARCHIVE_ACCESS_KEY / INTERNETARCHIVE_SECRET_KEY"
+            echo "Get them at https://archive.org/account/s3.php"
+            exit 1
+          fi
+
+      - name: Do the keys actually work
+        # archive.org's own auth probe. Answers without uploading anything.
+        run: |
+          CODE=$(curl -sS -o /tmp/auth.json -w "%{http_code}" \
+            "https://s3.us.archive.org/?check_auth=1" \
+            -H "Authorization: LOW ${IA_A}:${IA_S}")
+          echo "check_auth HTTP $CODE"
+          python3 - <<'PY'
+          import json
+          d = json.load(open("/tmp/auth.json"))
+          if d.get("success"):
+              print("authenticated as:", d.get("username"), "|", d.get("email", ""))
+          else:
+              print("::error::archive.org rejected these keys:", d.get("error") or d)
+              raise SystemExit(1)
+          PY
+
+      - name: Stop here if this is only a check
+        if: inputs.mode == 'check'
+        run: echo "::notice::Credentials verified. Nothing uploaded. Re-run with mode=upload to send the files."
+
+      - name: Fetch the audio
+        if: inputs.mode == 'upload'
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.source_repo }}
+          token: ${{ secrets.BUDDHI_TOKEN }}
+          path: _audio
+
+      - name: Upload to archive.org
+        if: inputs.mode == 'upload'
+        env:
+          IDENT: ${{ inputs.identifier }}
+          SRCDIR: ${{ inputs.source_dir }}
+        run: |
+          pip install --quiet internetarchive
+          mkdir -p ~/.config/internetarchive
+          printf '[s3]\naccess = %s\nsecret = %s\n' "$IA_A" "$IA_S" > ~/.config/ia.ini
+          DIR="_audio/$SRCDIR"
+          [ -d "$DIR" ] || { echo "::error::$DIR not found in ${{ inputs.source_repo }}"; exit 1; }
+          echo "uploading $(find "$DIR" -type f | wc -l) file(s) from $DIR to item $IDENT"
+          ia --config-file ~/.config/ia.ini upload "$IDENT" "$DIR"/* \
+            --metadata="mediatype:audio" \
+            --metadata="collection:opensource_audio" \
+            --metadata="title:Sumadhva Vijaya — recited" \
+            --metadata="language:san" \
+            --retries=5
+          echo "::notice::https://archive.org/details/$IDENT"
+          echo "Once derivation finishes, set archiveBaseUrl to https://archive.org/download/$IDENT/ in the sixteen Sumadhva data files and the CDN dependency is gone."
