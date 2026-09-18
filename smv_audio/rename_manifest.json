@@ -1,0 +1,7316 @@
+{
+ "source": "sumadhvijaya_sarga_audio_mapping.json (user-supplied, derived from indplaylist.txt, the original app's own playback list)",
+ "note": "Supersedes the earlier heuristic-based renaming. verse_no and track_type are authoritative, taken directly from the app's playlist rather than inferred from filename gaps.",
+ "manifest": [
+  {
+   "sarga": 1,
+   "verse_no": "",
+   "track_type": "intro/special",
+   "new_name": "smv1.0a.mp3",
+   "original": "001000.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": "",
+   "track_type": "intro/special",
+   "new_name": "smv1.0b.mp3",
+   "original": "001001.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": "",
+   "track_type": "intro/special",
+   "new_name": "smv1.0c.mp3",
+   "original": "001002.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": "",
+   "track_type": "intro/special",
+   "new_name": "smv1.0d.mp3",
+   "original": "001003.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv1.1.mp3",
+   "original": "101001.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv1.2.mp3",
+   "original": "101002.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv1.3.mp3",
+   "original": "101003.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv1.4.mp3",
+   "original": "101004.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv1.5.mp3",
+   "original": "101005.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv1.6.mp3",
+   "original": "101006.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv1.7.mp3",
+   "original": "101007.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv1.8.mp3",
+   "original": "101008.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv1.9.mp3",
+   "original": "101009.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv1.10.mp3",
+   "original": "101010.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv1.11.mp3",
+   "original": "101011.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv1.12.mp3",
+   "original": "101012.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv1.13.mp3",
+   "original": "101013.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv1.14.mp3",
+   "original": "101014.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv1.15.mp3",
+   "original": "101015.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv1.16.mp3",
+   "original": "101016.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv1.17.mp3",
+   "original": "101017.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv1.18.mp3",
+   "original": "101018.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv1.19.mp3",
+   "original": "101019.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv1.20.mp3",
+   "original": "101020.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv1.21.mp3",
+   "original": "101021.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv1.22.mp3",
+   "original": "101022.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv1.23.mp3",
+   "original": "101023.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv1.24.mp3",
+   "original": "101024.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv1.25.mp3",
+   "original": "101025.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv1.26.mp3",
+   "original": "101026.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv1.27.mp3",
+   "original": "101027.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv1.28.mp3",
+   "original": "101028.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv1.29.mp3",
+   "original": "101029.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv1.30.mp3",
+   "original": "101030.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv1.31.mp3",
+   "original": "101031.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv1.32.mp3",
+   "original": "101032.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv1.33.mp3",
+   "original": "101033.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv1.34.mp3",
+   "original": "101034.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv1.35.mp3",
+   "original": "101035.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv1.36.mp3",
+   "original": "101036.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv1.37.mp3",
+   "original": "101037.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv1.38.mp3",
+   "original": "101038.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv1.39.mp3",
+   "original": "101039.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv1.40.mp3",
+   "original": "101040.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv1.41.mp3",
+   "original": "101041.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv1.42.mp3",
+   "original": "101042.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv1.43.mp3",
+   "original": "101043.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv1.44.mp3",
+   "original": "101044.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv1.45.mp3",
+   "original": "101045.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv1.46.mp3",
+   "original": "101046.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv1.47.mp3",
+   "original": "101047.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv1.48.mp3",
+   "original": "101048.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv1.49.mp3",
+   "original": "101049.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv1.50.mp3",
+   "original": "101050.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv1.51.mp3",
+   "original": "101051.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv1.52.mp3",
+   "original": "101052.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv1.53.mp3",
+   "original": "101053.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv1.54.mp3",
+   "original": "101054.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": 55,
+   "track_type": "verse-audio",
+   "new_name": "smv1.55.mp3",
+   "original": "101055.mp3"
+  },
+  {
+   "sarga": 1,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv1.end.mp3",
+   "original": "101555.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv2.0.mp3",
+   "original": "102000.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv2.1.mp3",
+   "original": "102001.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv2.2.mp3",
+   "original": "102002.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv2.3.mp3",
+   "original": "102003.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv2.4.mp3",
+   "original": "102004.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv2.5.mp3",
+   "original": "102005.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv2.6.mp3",
+   "original": "102006.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv2.7.mp3",
+   "original": "102007.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv2.8.mp3",
+   "original": "102008.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv2.9.mp3",
+   "original": "102009.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv2.10.mp3",
+   "original": "102010.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv2.11.mp3",
+   "original": "102011.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv2.12.mp3",
+   "original": "102012.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv2.13.mp3",
+   "original": "102013.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv2.14.mp3",
+   "original": "102014.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv2.15.mp3",
+   "original": "102015.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv2.16.mp3",
+   "original": "102016.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv2.17.mp3",
+   "original": "102017.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv2.18.mp3",
+   "original": "102018.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv2.19.mp3",
+   "original": "102019.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv2.20.mp3",
+   "original": "102020.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv2.21.mp3",
+   "original": "102021.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv2.22.mp3",
+   "original": "102022.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv2.23.mp3",
+   "original": "102023.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv2.24.mp3",
+   "original": "102024.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv2.25.mp3",
+   "original": "102025.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv2.26.mp3",
+   "original": "102026.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv2.27.mp3",
+   "original": "102027.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv2.28.mp3",
+   "original": "102028.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv2.29.mp3",
+   "original": "102029.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv2.30.mp3",
+   "original": "102030.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv2.31.mp3",
+   "original": "102031.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv2.32.mp3",
+   "original": "102032.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv2.33.mp3",
+   "original": "102033.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv2.34.mp3",
+   "original": "102034.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv2.35.mp3",
+   "original": "102035.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv2.36.mp3",
+   "original": "102036.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv2.37.mp3",
+   "original": "102037.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv2.38.mp3",
+   "original": "102038.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv2.39.mp3",
+   "original": "102039.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv2.40.mp3",
+   "original": "102040.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv2.41.mp3",
+   "original": "102041.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv2.42.mp3",
+   "original": "102042.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv2.43.mp3",
+   "original": "102043.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv2.44.mp3",
+   "original": "102044.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv2.45.mp3",
+   "original": "102045.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv2.46.mp3",
+   "original": "102046.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv2.47.mp3",
+   "original": "102047.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv2.48.mp3",
+   "original": "102048.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv2.49.mp3",
+   "original": "102049.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv2.50.mp3",
+   "original": "102050.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv2.51.mp3",
+   "original": "102051.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv2.52.mp3",
+   "original": "102052.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv2.53.mp3",
+   "original": "102053.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv2.54.mp3",
+   "original": "102054.mp3"
+  },
+  {
+   "sarga": 2,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv2.end.mp3",
+   "original": "102554.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv3.0.mp3",
+   "original": "103000.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv3.1.mp3",
+   "original": "103001.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv3.2.mp3",
+   "original": "103002.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv3.3.mp3",
+   "original": "103003.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv3.4.mp3",
+   "original": "103004.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv3.5.mp3",
+   "original": "103005.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv3.6.mp3",
+   "original": "103006.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv3.7.mp3",
+   "original": "103007.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv3.8.mp3",
+   "original": "103008.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv3.9.mp3",
+   "original": "103009.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv3.10.mp3",
+   "original": "103010.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv3.11.mp3",
+   "original": "103011.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv3.12.mp3",
+   "original": "103012.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv3.13.mp3",
+   "original": "103013.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv3.14.mp3",
+   "original": "103014.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv3.15.mp3",
+   "original": "103015.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv3.16.mp3",
+   "original": "103016.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv3.17.mp3",
+   "original": "103017.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv3.18.mp3",
+   "original": "103018.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv3.19.mp3",
+   "original": "103019.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv3.20.mp3",
+   "original": "103020.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv3.21.mp3",
+   "original": "103021.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv3.22.mp3",
+   "original": "103022.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv3.23.mp3",
+   "original": "103023.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv3.24.mp3",
+   "original": "103024.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv3.25.mp3",
+   "original": "103025.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv3.26.mp3",
+   "original": "103026.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv3.27.mp3",
+   "original": "103027.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv3.28.mp3",
+   "original": "103028.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv3.29.mp3",
+   "original": "103029.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv3.30.mp3",
+   "original": "103030.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv3.31.mp3",
+   "original": "103031.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv3.32.mp3",
+   "original": "103032.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv3.33.mp3",
+   "original": "103033.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv3.34.mp3",
+   "original": "103034.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv3.35.mp3",
+   "original": "103035.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv3.36.mp3",
+   "original": "103036.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv3.37.mp3",
+   "original": "103037.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv3.38.mp3",
+   "original": "103038.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv3.39.mp3",
+   "original": "103039.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv3.40.mp3",
+   "original": "103040.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv3.41.mp3",
+   "original": "103041.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv3.42.mp3",
+   "original": "103042.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv3.43.mp3",
+   "original": "103043.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv3.44.mp3",
+   "original": "103044.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv3.45.mp3",
+   "original": "103045.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv3.46.mp3",
+   "original": "103046.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv3.47.mp3",
+   "original": "103047.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv3.48.mp3",
+   "original": "103048.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv3.49.mp3",
+   "original": "103049.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv3.50.mp3",
+   "original": "103050.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv3.51.mp3",
+   "original": "103051.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv3.52.mp3",
+   "original": "103052.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv3.53.mp3",
+   "original": "103053.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv3.54.mp3",
+   "original": "103054.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 55,
+   "track_type": "verse-audio",
+   "new_name": "smv3.55.mp3",
+   "original": "103055.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": 56,
+   "track_type": "verse-audio",
+   "new_name": "smv3.56.mp3",
+   "original": "103056.mp3"
+  },
+  {
+   "sarga": 3,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv3.end.mp3",
+   "original": "103556.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv4.0.mp3",
+   "original": "104000.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv4.1.mp3",
+   "original": "104001.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv4.2.mp3",
+   "original": "104002.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv4.3.mp3",
+   "original": "104003.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv4.4.mp3",
+   "original": "104004.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv4.5.mp3",
+   "original": "104005.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv4.6.mp3",
+   "original": "104006.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv4.7.mp3",
+   "original": "104007.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv4.8.mp3",
+   "original": "104008.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv4.9.mp3",
+   "original": "104009.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv4.10.mp3",
+   "original": "104010.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv4.11.mp3",
+   "original": "104011.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv4.12.mp3",
+   "original": "104012.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv4.13.mp3",
+   "original": "104013.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv4.14.mp3",
+   "original": "104014.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv4.15.mp3",
+   "original": "104015.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv4.16.mp3",
+   "original": "104016.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv4.17.mp3",
+   "original": "104017.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv4.18.mp3",
+   "original": "104018.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv4.19.mp3",
+   "original": "104019.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv4.20.mp3",
+   "original": "104020.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv4.21.mp3",
+   "original": "104021.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv4.22.mp3",
+   "original": "104022.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv4.23.mp3",
+   "original": "104023.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv4.24.mp3",
+   "original": "104024.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv4.25.mp3",
+   "original": "104025.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv4.26.mp3",
+   "original": "104026.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv4.27.mp3",
+   "original": "104027.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv4.28.mp3",
+   "original": "104028.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv4.29.mp3",
+   "original": "104029.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv4.30.mp3",
+   "original": "104030.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv4.31.mp3",
+   "original": "104031.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv4.32.mp3",
+   "original": "104032.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv4.33.mp3",
+   "original": "104033.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv4.34.mp3",
+   "original": "104034.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv4.35.mp3",
+   "original": "104035.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv4.36.mp3",
+   "original": "104036.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv4.37.mp3",
+   "original": "104037.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv4.38.mp3",
+   "original": "104038.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv4.39.mp3",
+   "original": "104039.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv4.40.mp3",
+   "original": "104040.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv4.41.mp3",
+   "original": "104041.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv4.42.mp3",
+   "original": "104042.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv4.43.mp3",
+   "original": "104043.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv4.44.mp3",
+   "original": "104044.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv4.45.mp3",
+   "original": "104045.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv4.46.mp3",
+   "original": "104046.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv4.47.mp3",
+   "original": "104047.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv4.48.mp3",
+   "original": "104048.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv4.49.mp3",
+   "original": "104049.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv4.50.mp3",
+   "original": "104050.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv4.51.mp3",
+   "original": "104051.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv4.52.mp3",
+   "original": "104052.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv4.53.mp3",
+   "original": "104053.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv4.54.mp3",
+   "original": "104054.mp3"
+  },
+  {
+   "sarga": 4,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv4.end.mp3",
+   "original": "104554.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv5.0.mp3",
+   "original": "105000.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv5.1.mp3",
+   "original": "105001.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv5.2.mp3",
+   "original": "105002.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv5.3.mp3",
+   "original": "105003.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv5.4.mp3",
+   "original": "105004.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv5.5.mp3",
+   "original": "105005.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv5.6.mp3",
+   "original": "105006.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv5.7.mp3",
+   "original": "105007.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv5.9.mp3",
+   "original": "105009.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv5.10.mp3",
+   "original": "105010.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv5.11.mp3",
+   "original": "105011.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv5.12.mp3",
+   "original": "105012.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv5.13.mp3",
+   "original": "105013.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv5.15.mp3",
+   "original": "105015.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv5.17.mp3",
+   "original": "105017.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv5.18.mp3",
+   "original": "105018.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv5.19.mp3",
+   "original": "105019.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv5.20.mp3",
+   "original": "105020.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv5.21.mp3",
+   "original": "105021.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv5.22.mp3",
+   "original": "105022.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv5.23.mp3",
+   "original": "105023.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv5.24.mp3",
+   "original": "105024.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv5.25.mp3",
+   "original": "105025.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv5.26.mp3",
+   "original": "105026.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv5.27.mp3",
+   "original": "105027.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv5.28.mp3",
+   "original": "105028.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv5.29.mp3",
+   "original": "105029.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv5.30.mp3",
+   "original": "105030.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv5.31.mp3",
+   "original": "105031.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv5.32.mp3",
+   "original": "105032.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv5.33.mp3",
+   "original": "105033.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv5.34.mp3",
+   "original": "105034.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv5.35.mp3",
+   "original": "105035.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv5.36.mp3",
+   "original": "105036.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv5.37.mp3",
+   "original": "105037.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv5.38.mp3",
+   "original": "105038.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv5.39.mp3",
+   "original": "105039.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv5.40.mp3",
+   "original": "105040.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv5.41.mp3",
+   "original": "105041.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv5.42.mp3",
+   "original": "105042.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv5.43.mp3",
+   "original": "105043.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv5.44.mp3",
+   "original": "105044.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv5.45.mp3",
+   "original": "105045.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv5.46.mp3",
+   "original": "105046.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv5.47.mp3",
+   "original": "105047.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv5.48.mp3",
+   "original": "105048.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv5.49.mp3",
+   "original": "105049.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv5.50.mp3",
+   "original": "105050.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv5.51.mp3",
+   "original": "105051.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv5.52.mp3",
+   "original": "105052.mp3"
+  },
+  {
+   "sarga": 5,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv5.end.mp3",
+   "original": "105552.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv6.0.mp3",
+   "original": "106000.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv6.1.mp3",
+   "original": "106001.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv6.2.mp3",
+   "original": "106002.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv6.3.mp3",
+   "original": "106003.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv6.4.mp3",
+   "original": "106004.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv6.5.mp3",
+   "original": "106005.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv6.6.mp3",
+   "original": "106006.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv6.7.mp3",
+   "original": "106007.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv6.8.mp3",
+   "original": "106008.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv6.9.mp3",
+   "original": "106009.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv6.10.mp3",
+   "original": "106010.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv6.11.mp3",
+   "original": "106011.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv6.12.mp3",
+   "original": "106012.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv6.13.mp3",
+   "original": "106013.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv6.14.mp3",
+   "original": "106014.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv6.15.mp3",
+   "original": "106015.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv6.16.mp3",
+   "original": "106016.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv6.17.mp3",
+   "original": "106017.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv6.18.mp3",
+   "original": "106018.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv6.19.mp3",
+   "original": "106019.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv6.20.mp3",
+   "original": "106020.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv6.21.mp3",
+   "original": "106021.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv6.22.mp3",
+   "original": "106022.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv6.23.mp3",
+   "original": "106023.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv6.24.mp3",
+   "original": "106024.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv6.25.mp3",
+   "original": "106025.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv6.26.mp3",
+   "original": "106026.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv6.27.mp3",
+   "original": "106027.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv6.28.mp3",
+   "original": "106028.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv6.29.mp3",
+   "original": "106029.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv6.30.mp3",
+   "original": "106030.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv6.31.mp3",
+   "original": "106031.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv6.32.mp3",
+   "original": "106032.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv6.33.mp3",
+   "original": "106033.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv6.34.mp3",
+   "original": "106034.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv6.35.mp3",
+   "original": "106035.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv6.36.mp3",
+   "original": "106036.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv6.37.mp3",
+   "original": "106037.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv6.38.mp3",
+   "original": "106038.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv6.39.mp3",
+   "original": "106039.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv6.40.mp3",
+   "original": "106040.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv6.41.mp3",
+   "original": "106041.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv6.42.mp3",
+   "original": "106042.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv6.43.mp3",
+   "original": "106043.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv6.44.mp3",
+   "original": "106044.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv6.45.mp3",
+   "original": "106045.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv6.46.mp3",
+   "original": "106046.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv6.47.mp3",
+   "original": "106047.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv6.48.mp3",
+   "original": "106048.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv6.49.mp3",
+   "original": "106049.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv6.50.mp3",
+   "original": "106050.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv6.51.mp3",
+   "original": "106051.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv6.52.mp3",
+   "original": "106052.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv6.53.mp3",
+   "original": "106053.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv6.54.mp3",
+   "original": "106054.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 55,
+   "track_type": "verse-audio",
+   "new_name": "smv6.55.mp3",
+   "original": "106055.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 56,
+   "track_type": "verse-audio",
+   "new_name": "smv6.56.mp3",
+   "original": "106056.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": 57,
+   "track_type": "verse-audio",
+   "new_name": "smv6.57.mp3",
+   "original": "106057.mp3"
+  },
+  {
+   "sarga": 6,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv6.end.mp3",
+   "original": "106557.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv7.0.mp3",
+   "original": "107000.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv7.1.mp3",
+   "original": "107001.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv7.2.mp3",
+   "original": "107002.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv7.3.mp3",
+   "original": "107003.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv7.4.mp3",
+   "original": "107004.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv7.5.mp3",
+   "original": "107005.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv7.6.mp3",
+   "original": "107006.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv7.7.mp3",
+   "original": "107007.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv7.8.mp3",
+   "original": "107008.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv7.9.mp3",
+   "original": "107009.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv7.10.mp3",
+   "original": "107010.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv7.11.mp3",
+   "original": "107011.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv7.12.mp3",
+   "original": "107012.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv7.13.mp3",
+   "original": "107013.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv7.14.mp3",
+   "original": "107014.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv7.15.mp3",
+   "original": "107015.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv7.16.mp3",
+   "original": "107016.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv7.17.mp3",
+   "original": "107017.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv7.18.mp3",
+   "original": "107018.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv7.19.mp3",
+   "original": "107019.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv7.20.mp3",
+   "original": "107020.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv7.21.mp3",
+   "original": "107021.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv7.22.mp3",
+   "original": "107022.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv7.23.mp3",
+   "original": "107023.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv7.24.mp3",
+   "original": "107024.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv7.25.mp3",
+   "original": "107025.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv7.26.mp3",
+   "original": "107026.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv7.27.mp3",
+   "original": "107027.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv7.28.mp3",
+   "original": "107028.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv7.29.mp3",
+   "original": "107029.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv7.30.mp3",
+   "original": "107030.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv7.31.mp3",
+   "original": "107031.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv7.32.mp3",
+   "original": "107032.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv7.33.mp3",
+   "original": "107033.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv7.34.mp3",
+   "original": "107034.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv7.35.mp3",
+   "original": "107035.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv7.36.mp3",
+   "original": "107036.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv7.37.mp3",
+   "original": "107037.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv7.38.mp3",
+   "original": "107038.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv7.39.mp3",
+   "original": "107039.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv7.40.mp3",
+   "original": "107040.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv7.41.mp3",
+   "original": "107041.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv7.42.mp3",
+   "original": "107042.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv7.43.mp3",
+   "original": "107043.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv7.44.mp3",
+   "original": "107044.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv7.45.mp3",
+   "original": "107045.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv7.46.mp3",
+   "original": "107046.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv7.47.mp3",
+   "original": "107047.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv7.48.mp3",
+   "original": "107048.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv7.49.mp3",
+   "original": "107049.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv7.50.mp3",
+   "original": "107050.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv7.51.mp3",
+   "original": "107051.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv7.52.mp3",
+   "original": "107052.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv7.53.mp3",
+   "original": "107053.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv7.54.mp3",
+   "original": "107054.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 55,
+   "track_type": "verse-audio",
+   "new_name": "smv7.55.mp3",
+   "original": "107055.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 56,
+   "track_type": "verse-audio",
+   "new_name": "smv7.56.mp3",
+   "original": "107056.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 57,
+   "track_type": "verse-audio",
+   "new_name": "smv7.57.mp3",
+   "original": "107057.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 58,
+   "track_type": "verse-audio",
+   "new_name": "smv7.58.mp3",
+   "original": "107058.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": 59,
+   "track_type": "verse-audio",
+   "new_name": "smv7.59.mp3",
+   "original": "107059.mp3"
+  },
+  {
+   "sarga": 7,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv7.end.mp3",
+   "original": "107559.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv8.0.mp3",
+   "original": "108000.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv8.1.mp3",
+   "original": "108001.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv8.2.mp3",
+   "original": "108002.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv8.3.mp3",
+   "original": "108003.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv8.4.mp3",
+   "original": "108004.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv8.5.mp3",
+   "original": "108005.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv8.6.mp3",
+   "original": "108006.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv8.7.mp3",
+   "original": "108007.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv8.8.mp3",
+   "original": "108008.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv8.9.mp3",
+   "original": "108009.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv8.10.mp3",
+   "original": "108010.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv8.11.mp3",
+   "original": "108011.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv8.12.mp3",
+   "original": "108012.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv8.13.mp3",
+   "original": "108013.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv8.14.mp3",
+   "original": "108014.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv8.15.mp3",
+   "original": "108015.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv8.16.mp3",
+   "original": "108016.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv8.17.mp3",
+   "original": "108017.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv8.18.mp3",
+   "original": "108018.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv8.19.mp3",
+   "original": "108019.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv8.20.mp3",
+   "original": "108020.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv8.21.mp3",
+   "original": "108021.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv8.22.mp3",
+   "original": "108022.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv8.23.mp3",
+   "original": "108023.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv8.24.mp3",
+   "original": "108024.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv8.25.mp3",
+   "original": "108025.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv8.26.mp3",
+   "original": "108026.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv8.27.mp3",
+   "original": "108027.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv8.28.mp3",
+   "original": "108028.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv8.29.mp3",
+   "original": "108029.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv8.30.mp3",
+   "original": "108030.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv8.31.mp3",
+   "original": "108031.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv8.32.mp3",
+   "original": "108032.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv8.33.mp3",
+   "original": "108033.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv8.34.mp3",
+   "original": "108034.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv8.35.mp3",
+   "original": "108035.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv8.36.mp3",
+   "original": "108036.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv8.37.mp3",
+   "original": "108037.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv8.38.mp3",
+   "original": "108038.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv8.39.mp3",
+   "original": "108039.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv8.40.mp3",
+   "original": "108040.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv8.41.mp3",
+   "original": "108041.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv8.42.mp3",
+   "original": "108042.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv8.43.mp3",
+   "original": "108043.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv8.44.mp3",
+   "original": "108044.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv8.45.mp3",
+   "original": "108045.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv8.46.mp3",
+   "original": "108046.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv8.47.mp3",
+   "original": "108047.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv8.48.mp3",
+   "original": "108048.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv8.49.mp3",
+   "original": "108049.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv8.50.mp3",
+   "original": "108050.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv8.51.mp3",
+   "original": "108051.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv8.52.mp3",
+   "original": "108052.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv8.53.mp3",
+   "original": "108053.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv8.54.mp3",
+   "original": "108054.mp3"
+  },
+  {
+   "sarga": 8,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv8.end.mp3",
+   "original": "108554.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv9.0.mp3",
+   "original": "109000.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv9.1.mp3",
+   "original": "109001.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv9.2.mp3",
+   "original": "109002.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv9.3.mp3",
+   "original": "109003.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv9.4.mp3",
+   "original": "109004.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv9.5.mp3",
+   "original": "109005.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv9.6.mp3",
+   "original": "109006.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv9.7.mp3",
+   "original": "109007.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv9.8.mp3",
+   "original": "109008.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv9.9.mp3",
+   "original": "109009.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv9.10.mp3",
+   "original": "109010.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv9.11.mp3",
+   "original": "109011.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv9.12.mp3",
+   "original": "109012.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv9.13.mp3",
+   "original": "109013.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv9.14.mp3",
+   "original": "109014.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv9.15.mp3",
+   "original": "109015.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv9.16.mp3",
+   "original": "109016.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv9.17.mp3",
+   "original": "109017.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv9.18.mp3",
+   "original": "109018.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv9.19.mp3",
+   "original": "109019.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv9.20.mp3",
+   "original": "109020.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv9.21.mp3",
+   "original": "109021.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv9.22.mp3",
+   "original": "109022.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv9.23.mp3",
+   "original": "109023.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv9.24.mp3",
+   "original": "109024.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv9.25.mp3",
+   "original": "109025.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv9.26.mp3",
+   "original": "109026.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv9.27.mp3",
+   "original": "109027.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv9.28.mp3",
+   "original": "109028.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv9.29.mp3",
+   "original": "109029.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv9.30.mp3",
+   "original": "109030.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv9.31.mp3",
+   "original": "109031.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv9.32.mp3",
+   "original": "109032.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv9.33.mp3",
+   "original": "109033.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv9.34.mp3",
+   "original": "109034.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv9.35.mp3",
+   "original": "109035.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv9.36.mp3",
+   "original": "109036.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv9.37.mp3",
+   "original": "109037.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv9.38.mp3",
+   "original": "109038.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv9.39.mp3",
+   "original": "109039.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv9.40.mp3",
+   "original": "109040.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv9.41.mp3",
+   "original": "109041.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv9.42.mp3",
+   "original": "109042.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv9.43.mp3",
+   "original": "109043.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv9.44.mp3",
+   "original": "109044.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv9.45.mp3",
+   "original": "109045.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv9.46.mp3",
+   "original": "109046.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv9.47.mp3",
+   "original": "109047.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv9.48.mp3",
+   "original": "109048.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv9.49.mp3",
+   "original": "109049.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv9.50.mp3",
+   "original": "109050.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv9.51.mp3",
+   "original": "109051.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv9.52.mp3",
+   "original": "109052.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv9.53.mp3",
+   "original": "109053.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv9.54.mp3",
+   "original": "109054.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": 55,
+   "track_type": "verse-audio",
+   "new_name": "smv9.55.mp3",
+   "original": "109055.mp3"
+  },
+  {
+   "sarga": 9,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv9.end.mp3",
+   "original": "109555.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv10.0.mp3",
+   "original": "110000.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv10.1.mp3",
+   "original": "110001.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv10.2.mp3",
+   "original": "110002.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv10.3.mp3",
+   "original": "110003.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv10.4.mp3",
+   "original": "110004.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv10.5.mp3",
+   "original": "110005.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv10.6.mp3",
+   "original": "110006.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv10.7.mp3",
+   "original": "110007.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv10.8.mp3",
+   "original": "110008.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv10.9.mp3",
+   "original": "110009.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv10.10.mp3",
+   "original": "110010.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv10.11.mp3",
+   "original": "110011.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv10.12.mp3",
+   "original": "110012.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv10.13.mp3",
+   "original": "110013.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv10.14.mp3",
+   "original": "110014.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv10.15.mp3",
+   "original": "110015.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv10.16.mp3",
+   "original": "110016.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv10.17.mp3",
+   "original": "110017.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv10.18.mp3",
+   "original": "110018.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv10.19.mp3",
+   "original": "110019.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv10.20.mp3",
+   "original": "110020.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv10.21.mp3",
+   "original": "110021.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv10.22.mp3",
+   "original": "110022.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv10.23.mp3",
+   "original": "110023.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv10.24.mp3",
+   "original": "110024.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv10.25.mp3",
+   "original": "110025.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv10.26.mp3",
+   "original": "110026.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv10.27.mp3",
+   "original": "110027.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv10.28.mp3",
+   "original": "110028.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv10.29.mp3",
+   "original": "110029.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv10.30.mp3",
+   "original": "110030.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv10.31.mp3",
+   "original": "110031.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv10.32.mp3",
+   "original": "110032.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv10.33.mp3",
+   "original": "110033.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv10.34.mp3",
+   "original": "110034.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv10.35.mp3",
+   "original": "110035.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv10.36.mp3",
+   "original": "110036.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv10.37.mp3",
+   "original": "110037.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv10.38.mp3",
+   "original": "110038.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv10.39.mp3",
+   "original": "110039.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv10.40.mp3",
+   "original": "110040.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv10.41.mp3",
+   "original": "110041.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv10.42.mp3",
+   "original": "110042.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv10.43.mp3",
+   "original": "110043.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv10.44.mp3",
+   "original": "110044.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv10.45.mp3",
+   "original": "110045.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv10.46.mp3",
+   "original": "110046.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv10.47.mp3",
+   "original": "110047.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv10.48.mp3",
+   "original": "110048.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv10.49.mp3",
+   "original": "110049.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv10.50.mp3",
+   "original": "110050.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv10.51.mp3",
+   "original": "110051.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv10.52.mp3",
+   "original": "110052.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv10.53.mp3",
+   "original": "110053.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv10.54.mp3",
+   "original": "110054.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 55,
+   "track_type": "verse-audio",
+   "new_name": "smv10.55.mp3",
+   "original": "110055.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": 56,
+   "track_type": "verse-audio",
+   "new_name": "smv10.56.mp3",
+   "original": "110056.mp3"
+  },
+  {
+   "sarga": 10,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv10.end.mp3",
+   "original": "110556.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv11.0.mp3",
+   "original": "111000.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv11.1.mp3",
+   "original": "111001.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv11.2.mp3",
+   "original": "111002.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv11.3.mp3",
+   "original": "111003.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv11.4.mp3",
+   "original": "111004.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv11.5.mp3",
+   "original": "111005.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv11.6.mp3",
+   "original": "111006.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv11.7.mp3",
+   "original": "111007.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv11.8.mp3",
+   "original": "111008.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv11.9.mp3",
+   "original": "111009.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv11.10.mp3",
+   "original": "111010.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv11.11.mp3",
+   "original": "111011.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv11.12.mp3",
+   "original": "111012.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv11.13.mp3",
+   "original": "111013.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv11.14.mp3",
+   "original": "111014.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv11.15.mp3",
+   "original": "111015.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv11.16.mp3",
+   "original": "111016.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv11.17.mp3",
+   "original": "111017.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv11.18.mp3",
+   "original": "111018.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv11.19.mp3",
+   "original": "111019.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv11.20.mp3",
+   "original": "111020.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv11.21.mp3",
+   "original": "111021.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv11.22.mp3",
+   "original": "111022.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv11.23.mp3",
+   "original": "111023.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv11.24.mp3",
+   "original": "111024.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv11.25.mp3",
+   "original": "111025.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv11.26.mp3",
+   "original": "111026.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv11.27.mp3",
+   "original": "111027.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv11.28.mp3",
+   "original": "111028.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv11.29.mp3",
+   "original": "111029.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv11.30.mp3",
+   "original": "111030.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv11.31.mp3",
+   "original": "111031.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv11.32.mp3",
+   "original": "111032.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv11.33.mp3",
+   "original": "111033.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv11.34.mp3",
+   "original": "111034.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv11.35.mp3",
+   "original": "111035.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv11.36.mp3",
+   "original": "111036.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv11.37.mp3",
+   "original": "111037.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv11.38.mp3",
+   "original": "111038.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv11.39.mp3",
+   "original": "111039.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv11.40.mp3",
+   "original": "111040.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv11.41.mp3",
+   "original": "111041.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv11.42.mp3",
+   "original": "111042.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv11.43.mp3",
+   "original": "111043.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv11.44.mp3",
+   "original": "111044.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv11.45.mp3",
+   "original": "111045.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv11.46.mp3",
+   "original": "111046.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv11.47.mp3",
+   "original": "111047.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv11.48.mp3",
+   "original": "111048.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv11.49.mp3",
+   "original": "111049.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv11.50.mp3",
+   "original": "111050.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv11.51.mp3",
+   "original": "111051.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv11.52.mp3",
+   "original": "111052.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv11.53.mp3",
+   "original": "111053.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv11.54.mp3",
+   "original": "111054.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 55,
+   "track_type": "verse-audio",
+   "new_name": "smv11.55.mp3",
+   "original": "111055.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 56,
+   "track_type": "verse-audio",
+   "new_name": "smv11.56.mp3",
+   "original": "111056.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 57,
+   "track_type": "verse-audio",
+   "new_name": "smv11.57.mp3",
+   "original": "111057.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 58,
+   "track_type": "verse-audio",
+   "new_name": "smv11.58.mp3",
+   "original": "111058.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 59,
+   "track_type": "verse-audio",
+   "new_name": "smv11.59.mp3",
+   "original": "111059.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 60,
+   "track_type": "verse-audio",
+   "new_name": "smv11.60.mp3",
+   "original": "111060.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 61,
+   "track_type": "verse-audio",
+   "new_name": "smv11.61.mp3",
+   "original": "111061.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 62,
+   "track_type": "verse-audio",
+   "new_name": "smv11.62.mp3",
+   "original": "111062.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 63,
+   "track_type": "verse-audio",
+   "new_name": "smv11.63.mp3",
+   "original": "111063.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 64,
+   "track_type": "verse-audio",
+   "new_name": "smv11.64.mp3",
+   "original": "111064.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 65,
+   "track_type": "verse-audio",
+   "new_name": "smv11.65.mp3",
+   "original": "111065.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 66,
+   "track_type": "verse-audio",
+   "new_name": "smv11.66.mp3",
+   "original": "111066.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 67,
+   "track_type": "verse-audio",
+   "new_name": "smv11.67.mp3",
+   "original": "111067.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 68,
+   "track_type": "verse-audio",
+   "new_name": "smv11.68.mp3",
+   "original": "111068.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 69,
+   "track_type": "verse-audio",
+   "new_name": "smv11.69.mp3",
+   "original": "111069.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 70,
+   "track_type": "verse-audio",
+   "new_name": "smv11.70.mp3",
+   "original": "111070.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 71,
+   "track_type": "verse-audio",
+   "new_name": "smv11.71.mp3",
+   "original": "111071.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 72,
+   "track_type": "verse-audio",
+   "new_name": "smv11.72.mp3",
+   "original": "111072.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 73,
+   "track_type": "verse-audio",
+   "new_name": "smv11.73.mp3",
+   "original": "111073.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 74,
+   "track_type": "verse-audio",
+   "new_name": "smv11.74.mp3",
+   "original": "111074.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 75,
+   "track_type": "verse-audio",
+   "new_name": "smv11.75.mp3",
+   "original": "111075.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 76,
+   "track_type": "verse-audio",
+   "new_name": "smv11.76.mp3",
+   "original": "111076.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 77,
+   "track_type": "verse-audio",
+   "new_name": "smv11.77.mp3",
+   "original": "111077.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 78,
+   "track_type": "verse-audio",
+   "new_name": "smv11.78.mp3",
+   "original": "111078.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": 79,
+   "track_type": "verse-audio",
+   "new_name": "smv11.79.mp3",
+   "original": "111079.mp3"
+  },
+  {
+   "sarga": 11,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv11.end.mp3",
+   "original": "111579.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv12.0.mp3",
+   "original": "112000.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv12.1.mp3",
+   "original": "112001.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv12.2.mp3",
+   "original": "112002.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv12.3.mp3",
+   "original": "112003.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv12.4.mp3",
+   "original": "112004.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv12.5.mp3",
+   "original": "112005.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv12.6.mp3",
+   "original": "112006.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv12.7.mp3",
+   "original": "112007.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv12.8.mp3",
+   "original": "112008.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv12.9.mp3",
+   "original": "112009.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv12.10.mp3",
+   "original": "112010.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv12.11.mp3",
+   "original": "112011.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv12.12.mp3",
+   "original": "112012.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv12.13.mp3",
+   "original": "112013.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv12.14.mp3",
+   "original": "112014.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv12.15.mp3",
+   "original": "112015.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv12.16.mp3",
+   "original": "112016.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv12.17.mp3",
+   "original": "112017.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv12.18.mp3",
+   "original": "112018.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv12.19.mp3",
+   "original": "112019.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv12.20.mp3",
+   "original": "112020.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv12.21.mp3",
+   "original": "112021.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv12.22.mp3",
+   "original": "112022.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv12.23.mp3",
+   "original": "112023.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv12.24.mp3",
+   "original": "112024.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv12.25.mp3",
+   "original": "112025.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv12.26.mp3",
+   "original": "112026.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv12.27.mp3",
+   "original": "112027.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv12.28.mp3",
+   "original": "112028.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv12.29.mp3",
+   "original": "112029.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv12.30.mp3",
+   "original": "112030.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv12.31.mp3",
+   "original": "112031.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv12.32.mp3",
+   "original": "112032.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv12.33.mp3",
+   "original": "112033.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv12.34.mp3",
+   "original": "112034.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv12.35.mp3",
+   "original": "112035.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv12.36.mp3",
+   "original": "112036.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv12.37.mp3",
+   "original": "112037.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv12.38.mp3",
+   "original": "112038.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv12.39.mp3",
+   "original": "112039.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv12.40.mp3",
+   "original": "112040.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv12.41.mp3",
+   "original": "112041.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv12.42.mp3",
+   "original": "112042.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv12.43.mp3",
+   "original": "112043.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv12.44.mp3",
+   "original": "112044.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv12.45.mp3",
+   "original": "112045.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv12.46.mp3",
+   "original": "112046.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv12.47.mp3",
+   "original": "112047.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv12.48.mp3",
+   "original": "112048.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv12.49.mp3",
+   "original": "112049.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv12.50.mp3",
+   "original": "112050.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv12.51.mp3",
+   "original": "112051.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv12.52.mp3",
+   "original": "112052.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv12.53.mp3",
+   "original": "112053.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv12.54.mp3",
+   "original": "112054.mp3"
+  },
+  {
+   "sarga": 12,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv12.end.mp3",
+   "original": "112554.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv13.0.mp3",
+   "original": "113000.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv13.1.mp3",
+   "original": "113001.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv13.2.mp3",
+   "original": "113002.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv13.3.mp3",
+   "original": "113003.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv13.4.mp3",
+   "original": "113004.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv13.5.mp3",
+   "original": "113005.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv13.6.mp3",
+   "original": "113006.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv13.7.mp3",
+   "original": "113007.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv13.8.mp3",
+   "original": "113008.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv13.9.mp3",
+   "original": "113009.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv13.10.mp3",
+   "original": "113010.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv13.11.mp3",
+   "original": "113011.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv13.12.mp3",
+   "original": "113012.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv13.13.mp3",
+   "original": "113013.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv13.14.mp3",
+   "original": "113014.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv13.15.mp3",
+   "original": "113015.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv13.16.mp3",
+   "original": "113016.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv13.17.mp3",
+   "original": "113017.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv13.18.mp3",
+   "original": "113018.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv13.19.mp3",
+   "original": "113019.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv13.20.mp3",
+   "original": "113020.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv13.21.mp3",
+   "original": "113021.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv13.22.mp3",
+   "original": "113022.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv13.23.mp3",
+   "original": "113023.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv13.24.mp3",
+   "original": "113024.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv13.25.mp3",
+   "original": "113025.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv13.26.mp3",
+   "original": "113026.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv13.27.mp3",
+   "original": "113027.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv13.28.mp3",
+   "original": "113028.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv13.29.mp3",
+   "original": "113029.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv13.30.mp3",
+   "original": "113030.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv13.31.mp3",
+   "original": "113031.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv13.32.mp3",
+   "original": "113032.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv13.33.mp3",
+   "original": "113033.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv13.34.mp3",
+   "original": "113034.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv13.35.mp3",
+   "original": "113035.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv13.36.mp3",
+   "original": "113036.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv13.37.mp3",
+   "original": "113037.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv13.38.mp3",
+   "original": "113038.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv13.39.mp3",
+   "original": "113039.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv13.40.mp3",
+   "original": "113040.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv13.41.mp3",
+   "original": "113041.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv13.42.mp3",
+   "original": "113042.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv13.43.mp3",
+   "original": "113043.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv13.44.mp3",
+   "original": "113044.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv13.45.mp3",
+   "original": "113045.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv13.46.mp3",
+   "original": "113046.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv13.47.mp3",
+   "original": "113047.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv13.48.mp3",
+   "original": "113048.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv13.49.mp3",
+   "original": "113049.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv13.50.mp3",
+   "original": "113050.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv13.51.mp3",
+   "original": "113051.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv13.52.mp3",
+   "original": "113052.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv13.53.mp3",
+   "original": "113053.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv13.54.mp3",
+   "original": "113054.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 55,
+   "track_type": "verse-audio",
+   "new_name": "smv13.55.mp3",
+   "original": "113055.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 56,
+   "track_type": "verse-audio",
+   "new_name": "smv13.56.mp3",
+   "original": "113056.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 57,
+   "track_type": "verse-audio",
+   "new_name": "smv13.57.mp3",
+   "original": "113057.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 58,
+   "track_type": "verse-audio",
+   "new_name": "smv13.58.mp3",
+   "original": "113058.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 59,
+   "track_type": "verse-audio",
+   "new_name": "smv13.59.mp3",
+   "original": "113059.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 60,
+   "track_type": "verse-audio",
+   "new_name": "smv13.60.mp3",
+   "original": "113060.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 61,
+   "track_type": "verse-audio",
+   "new_name": "smv13.61.mp3",
+   "original": "113061.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 62,
+   "track_type": "verse-audio",
+   "new_name": "smv13.62.mp3",
+   "original": "113062.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 63,
+   "track_type": "verse-audio",
+   "new_name": "smv13.63.mp3",
+   "original": "113063.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 64,
+   "track_type": "verse-audio",
+   "new_name": "smv13.64.mp3",
+   "original": "113064.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 65,
+   "track_type": "verse-audio",
+   "new_name": "smv13.65.mp3",
+   "original": "113065.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 66,
+   "track_type": "verse-audio",
+   "new_name": "smv13.66.mp3",
+   "original": "113066.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 67,
+   "track_type": "verse-audio",
+   "new_name": "smv13.67.mp3",
+   "original": "113067.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 68,
+   "track_type": "verse-audio",
+   "new_name": "smv13.68.mp3",
+   "original": "113068.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": 69,
+   "track_type": "verse-audio",
+   "new_name": "smv13.69.mp3",
+   "original": "113069.mp3"
+  },
+  {
+   "sarga": 13,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv13.end.mp3",
+   "original": "113569.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv14.0.mp3",
+   "original": "114000.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv14.1.mp3",
+   "original": "114001.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv14.2.mp3",
+   "original": "114002.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv14.3.mp3",
+   "original": "114003.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv14.4.mp3",
+   "original": "114004.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv14.5.mp3",
+   "original": "114005.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv14.6.mp3",
+   "original": "114006.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv14.7.mp3",
+   "original": "114007.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv14.8.mp3",
+   "original": "114008.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv14.9.mp3",
+   "original": "114009.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv14.10.mp3",
+   "original": "114010.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv14.11.mp3",
+   "original": "114011.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv14.12.mp3",
+   "original": "114012.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv14.13.mp3",
+   "original": "114013.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv14.14.mp3",
+   "original": "114014.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv14.15.mp3",
+   "original": "114015.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv14.16.mp3",
+   "original": "114016.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv14.17.mp3",
+   "original": "114017.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv14.18.mp3",
+   "original": "114018.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv14.19.mp3",
+   "original": "114019.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv14.20.mp3",
+   "original": "114020.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv14.21.mp3",
+   "original": "114021.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv14.22.mp3",
+   "original": "114022.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv14.23.mp3",
+   "original": "114023.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv14.24.mp3",
+   "original": "114024.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv14.25.mp3",
+   "original": "114025.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv14.26.mp3",
+   "original": "114026.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv14.27.mp3",
+   "original": "114027.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv14.28.mp3",
+   "original": "114028.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv14.29.mp3",
+   "original": "114029.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv14.30.mp3",
+   "original": "114030.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv14.31.mp3",
+   "original": "114031.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv14.32.mp3",
+   "original": "114032.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv14.33.mp3",
+   "original": "114033.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv14.34.mp3",
+   "original": "114034.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv14.35.mp3",
+   "original": "114035.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv14.36.mp3",
+   "original": "114036.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv14.37.mp3",
+   "original": "114037.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv14.38.mp3",
+   "original": "114038.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv14.39.mp3",
+   "original": "114039.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv14.40.mp3",
+   "original": "114040.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv14.41.mp3",
+   "original": "114041.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv14.42.mp3",
+   "original": "114042.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv14.43.mp3",
+   "original": "114043.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv14.44.mp3",
+   "original": "114044.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv14.45.mp3",
+   "original": "114045.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv14.46.mp3",
+   "original": "114046.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv14.47.mp3",
+   "original": "114047.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv14.48.mp3",
+   "original": "114048.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv14.49.mp3",
+   "original": "114049.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv14.50.mp3",
+   "original": "114050.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv14.51.mp3",
+   "original": "114051.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv14.52.mp3",
+   "original": "114052.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv14.53.mp3",
+   "original": "114053.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv14.54.mp3",
+   "original": "114054.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": 55,
+   "track_type": "verse-audio",
+   "new_name": "smv14.55.mp3",
+   "original": "114055.mp3"
+  },
+  {
+   "sarga": 14,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv14.end.mp3",
+   "original": "114555.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv15.0.mp3",
+   "original": "115000.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv15.1.mp3",
+   "original": "115001.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv15.2.mp3",
+   "original": "115002.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv15.3.mp3",
+   "original": "115003.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv15.4.mp3",
+   "original": "115004.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv15.5.mp3",
+   "original": "115005.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv15.6.mp3",
+   "original": "115006.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv15.7.mp3",
+   "original": "115007.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv15.8.mp3",
+   "original": "115008.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv15.9.mp3",
+   "original": "115009.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv15.10.mp3",
+   "original": "115010.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv15.11.mp3",
+   "original": "115011.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv15.12.mp3",
+   "original": "115012.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv15.13.mp3",
+   "original": "115013.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv15.14.mp3",
+   "original": "115014.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv15.15.mp3",
+   "original": "115015.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv15.16.mp3",
+   "original": "115016.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv15.17.mp3",
+   "original": "115017.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv15.18.mp3",
+   "original": "115018.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv15.19.mp3",
+   "original": "115019.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv15.20.mp3",
+   "original": "115020.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv15.21.mp3",
+   "original": "115021.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv15.22.mp3",
+   "original": "115022.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv15.23.mp3",
+   "original": "115023.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv15.24.mp3",
+   "original": "115024.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv15.25.mp3",
+   "original": "115025.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv15.26.mp3",
+   "original": "115026.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv15.27.mp3",
+   "original": "115027.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv15.28.mp3",
+   "original": "115028.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv15.29.mp3",
+   "original": "115029.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv15.30.mp3",
+   "original": "115030.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv15.31.mp3",
+   "original": "115031.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv15.32.mp3",
+   "original": "115032.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv15.33.mp3",
+   "original": "115033.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv15.34.mp3",
+   "original": "115034.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv15.35.mp3",
+   "original": "115035.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv15.36.mp3",
+   "original": "115036.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv15.37.mp3",
+   "original": "115037.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv15.38.mp3",
+   "original": "115038.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv15.39.mp3",
+   "original": "115039.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv15.40.mp3",
+   "original": "115040.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv15.41.mp3",
+   "original": "115041.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv15.42.mp3",
+   "original": "115042.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv15.43.mp3",
+   "original": "115043.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv15.44.mp3",
+   "original": "115044.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv15.45.mp3",
+   "original": "115045.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv15.46.mp3",
+   "original": "115046.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv15.47.mp3",
+   "original": "115047.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv15.48.mp3",
+   "original": "115048.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv15.49.mp3",
+   "original": "115049.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv15.50.mp3",
+   "original": "115050.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv15.51.mp3",
+   "original": "115051.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv15.52.mp3",
+   "original": "115052.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv15.53.mp3",
+   "original": "115053.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv15.54.mp3",
+   "original": "115054.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 55,
+   "track_type": "verse-audio",
+   "new_name": "smv15.55.mp3",
+   "original": "115055.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 56,
+   "track_type": "verse-audio",
+   "new_name": "smv15.56.mp3",
+   "original": "115056.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 57,
+   "track_type": "verse-audio",
+   "new_name": "smv15.57.mp3",
+   "original": "115057.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 58,
+   "track_type": "verse-audio",
+   "new_name": "smv15.58.mp3",
+   "original": "115058.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 59,
+   "track_type": "verse-audio",
+   "new_name": "smv15.59.mp3",
+   "original": "115059.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 60,
+   "track_type": "verse-audio",
+   "new_name": "smv15.60.mp3",
+   "original": "115060.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 61,
+   "track_type": "verse-audio",
+   "new_name": "smv15.61.mp3",
+   "original": "115061.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 62,
+   "track_type": "verse-audio",
+   "new_name": "smv15.62.mp3",
+   "original": "115062.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 63,
+   "track_type": "verse-audio",
+   "new_name": "smv15.63.mp3",
+   "original": "115063.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 64,
+   "track_type": "verse-audio",
+   "new_name": "smv15.64.mp3",
+   "original": "115064.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 65,
+   "track_type": "verse-audio",
+   "new_name": "smv15.65.mp3",
+   "original": "115065.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 66,
+   "track_type": "verse-audio",
+   "new_name": "smv15.66.mp3",
+   "original": "115066.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 67,
+   "track_type": "verse-audio",
+   "new_name": "smv15.67.mp3",
+   "original": "115067.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 68,
+   "track_type": "verse-audio",
+   "new_name": "smv15.68.mp3",
+   "original": "115068.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 69,
+   "track_type": "verse-audio",
+   "new_name": "smv15.69.mp3",
+   "original": "115069.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 70,
+   "track_type": "verse-audio",
+   "new_name": "smv15.70.mp3",
+   "original": "115070.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 71,
+   "track_type": "verse-audio",
+   "new_name": "smv15.71.mp3",
+   "original": "115071.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 72,
+   "track_type": "verse-audio",
+   "new_name": "smv15.72.mp3",
+   "original": "115072.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 73,
+   "track_type": "verse-audio",
+   "new_name": "smv15.73.mp3",
+   "original": "115073.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 74,
+   "track_type": "verse-audio",
+   "new_name": "smv15.74.mp3",
+   "original": "115074.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 75,
+   "track_type": "verse-audio",
+   "new_name": "smv15.75.mp3",
+   "original": "115075.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 76,
+   "track_type": "verse-audio",
+   "new_name": "smv15.76.mp3",
+   "original": "115076.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 77,
+   "track_type": "verse-audio",
+   "new_name": "smv15.77.mp3",
+   "original": "115077.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 78,
+   "track_type": "verse-audio",
+   "new_name": "smv15.78.mp3",
+   "original": "115078.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 79,
+   "track_type": "verse-audio",
+   "new_name": "smv15.79.mp3",
+   "original": "115079.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 80,
+   "track_type": "verse-audio",
+   "new_name": "smv15.80.mp3",
+   "original": "115080.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 81,
+   "track_type": "verse-audio",
+   "new_name": "smv15.81.mp3",
+   "original": "115081.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 82,
+   "track_type": "verse-audio",
+   "new_name": "smv15.82.mp3",
+   "original": "115082.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 83,
+   "track_type": "verse-audio",
+   "new_name": "smv15.83.mp3",
+   "original": "115083.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 84,
+   "track_type": "verse-audio",
+   "new_name": "smv15.84.mp3",
+   "original": "115084.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 85,
+   "track_type": "verse-audio",
+   "new_name": "smv15.85.mp3",
+   "original": "115085.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 86,
+   "track_type": "verse-audio",
+   "new_name": "smv15.86.mp3",
+   "original": "115086.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 87,
+   "track_type": "verse-audio",
+   "new_name": "smv15.87.mp3",
+   "original": "115087.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 88,
+   "track_type": "verse-audio",
+   "new_name": "smv15.88.mp3",
+   "original": "115088.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 89,
+   "track_type": "verse-audio",
+   "new_name": "smv15.89.mp3",
+   "original": "115089.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 90,
+   "track_type": "verse-audio",
+   "new_name": "smv15.90.mp3",
+   "original": "115090.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 91,
+   "track_type": "verse-audio",
+   "new_name": "smv15.91.mp3",
+   "original": "115091.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 92,
+   "track_type": "verse-audio",
+   "new_name": "smv15.92.mp3",
+   "original": "115092.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 93,
+   "track_type": "verse-audio",
+   "new_name": "smv15.93.mp3",
+   "original": "115093.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 94,
+   "track_type": "verse-audio",
+   "new_name": "smv15.94.mp3",
+   "original": "115094.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 95,
+   "track_type": "verse-audio",
+   "new_name": "smv15.95.mp3",
+   "original": "115095.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 96,
+   "track_type": "verse-audio",
+   "new_name": "smv15.96.mp3",
+   "original": "115096.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 97,
+   "track_type": "verse-audio",
+   "new_name": "smv15.97.mp3",
+   "original": "115097.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 98,
+   "track_type": "verse-audio",
+   "new_name": "smv15.98.mp3",
+   "original": "115098.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 99,
+   "track_type": "verse-audio",
+   "new_name": "smv15.99.mp3",
+   "original": "115099.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 100,
+   "track_type": "verse-audio",
+   "new_name": "smv15.100.mp3",
+   "original": "115100.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 101,
+   "track_type": "verse-audio",
+   "new_name": "smv15.101.mp3",
+   "original": "115101.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 102,
+   "track_type": "verse-audio",
+   "new_name": "smv15.102.mp3",
+   "original": "115102.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 103,
+   "track_type": "verse-audio",
+   "new_name": "smv15.103.mp3",
+   "original": "115103.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 104,
+   "track_type": "verse-audio",
+   "new_name": "smv15.104.mp3",
+   "original": "115104.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 105,
+   "track_type": "verse-audio",
+   "new_name": "smv15.105.mp3",
+   "original": "115105.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 106,
+   "track_type": "verse-audio",
+   "new_name": "smv15.106.mp3",
+   "original": "115106.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 107,
+   "track_type": "verse-audio",
+   "new_name": "smv15.107.mp3",
+   "original": "115107.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 108,
+   "track_type": "verse-audio",
+   "new_name": "smv15.108.mp3",
+   "original": "115108.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 109,
+   "track_type": "verse-audio",
+   "new_name": "smv15.109.mp3",
+   "original": "115109.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 110,
+   "track_type": "verse-audio",
+   "new_name": "smv15.110.mp3",
+   "original": "115110.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 111,
+   "track_type": "verse-audio",
+   "new_name": "smv15.111.mp3",
+   "original": "115111.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 112,
+   "track_type": "verse-audio",
+   "new_name": "smv15.112.mp3",
+   "original": "115112.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 113,
+   "track_type": "verse-audio",
+   "new_name": "smv15.113.mp3",
+   "original": "115113.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 114,
+   "track_type": "verse-audio",
+   "new_name": "smv15.114.mp3",
+   "original": "115114.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 115,
+   "track_type": "verse-audio",
+   "new_name": "smv15.115.mp3",
+   "original": "115115.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 116,
+   "track_type": "verse-audio",
+   "new_name": "smv15.116.mp3",
+   "original": "115116.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 117,
+   "track_type": "verse-audio",
+   "new_name": "smv15.117.mp3",
+   "original": "115117.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 118,
+   "track_type": "verse-audio",
+   "new_name": "smv15.118.mp3",
+   "original": "115118.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 119,
+   "track_type": "verse-audio",
+   "new_name": "smv15.119.mp3",
+   "original": "115119.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 120,
+   "track_type": "verse-audio",
+   "new_name": "smv15.120.mp3",
+   "original": "115120.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 121,
+   "track_type": "verse-audio",
+   "new_name": "smv15.121.mp3",
+   "original": "115121.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 122,
+   "track_type": "verse-audio",
+   "new_name": "smv15.122.mp3",
+   "original": "115122.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 123,
+   "track_type": "verse-audio",
+   "new_name": "smv15.123.mp3",
+   "original": "115123.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 124,
+   "track_type": "verse-audio",
+   "new_name": "smv15.124.mp3",
+   "original": "115124.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 125,
+   "track_type": "verse-audio",
+   "new_name": "smv15.125.mp3",
+   "original": "115125.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 126,
+   "track_type": "verse-audio",
+   "new_name": "smv15.126.mp3",
+   "original": "115126.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 127,
+   "track_type": "verse-audio",
+   "new_name": "smv15.127.mp3",
+   "original": "115127.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 128,
+   "track_type": "verse-audio",
+   "new_name": "smv15.128.mp3",
+   "original": "115128.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 129,
+   "track_type": "verse-audio",
+   "new_name": "smv15.129.mp3",
+   "original": "115129.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 130,
+   "track_type": "verse-audio",
+   "new_name": "smv15.130.mp3",
+   "original": "115130.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 131,
+   "track_type": "verse-audio",
+   "new_name": "smv15.131.mp3",
+   "original": "115131.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 132,
+   "track_type": "verse-audio",
+   "new_name": "smv15.132.mp3",
+   "original": "115132.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 133,
+   "track_type": "verse-audio",
+   "new_name": "smv15.133.mp3",
+   "original": "115133.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 134,
+   "track_type": "verse-audio",
+   "new_name": "smv15.134.mp3",
+   "original": "115134.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 135,
+   "track_type": "verse-audio",
+   "new_name": "smv15.135.mp3",
+   "original": "115135.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 136,
+   "track_type": "verse-audio",
+   "new_name": "smv15.136.mp3",
+   "original": "115136.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 137,
+   "track_type": "verse-audio",
+   "new_name": "smv15.137.mp3",
+   "original": "115137.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 138,
+   "track_type": "verse-audio",
+   "new_name": "smv15.138.mp3",
+   "original": "115138.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 139,
+   "track_type": "verse-audio",
+   "new_name": "smv15.139.mp3",
+   "original": "115139.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 140,
+   "track_type": "verse-audio",
+   "new_name": "smv15.140.mp3",
+   "original": "115140.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": 141,
+   "track_type": "verse-audio",
+   "new_name": "smv15.141.mp3",
+   "original": "115141.mp3"
+  },
+  {
+   "sarga": 15,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv15.end.mp3",
+   "original": "115541.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": "",
+   "track_type": "sarga-intro",
+   "new_name": "smv16.0.mp3",
+   "original": "116000.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 1,
+   "track_type": "verse-audio",
+   "new_name": "smv16.1.mp3",
+   "original": "116001.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 2,
+   "track_type": "verse-audio",
+   "new_name": "smv16.2.mp3",
+   "original": "116002.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 3,
+   "track_type": "verse-audio",
+   "new_name": "smv16.3.mp3",
+   "original": "116003.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 4,
+   "track_type": "verse-audio",
+   "new_name": "smv16.4.mp3",
+   "original": "116004.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 5,
+   "track_type": "verse-audio",
+   "new_name": "smv16.5.mp3",
+   "original": "116005.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 6,
+   "track_type": "verse-audio",
+   "new_name": "smv16.6.mp3",
+   "original": "116006.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 7,
+   "track_type": "verse-audio",
+   "new_name": "smv16.7.mp3",
+   "original": "116007.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "new_name": "smv16.8.mp3",
+   "original": "116008.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 9,
+   "track_type": "verse-audio",
+   "new_name": "smv16.9.mp3",
+   "original": "116009.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 10,
+   "track_type": "verse-audio",
+   "new_name": "smv16.10.mp3",
+   "original": "116010.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 11,
+   "track_type": "verse-audio",
+   "new_name": "smv16.11.mp3",
+   "original": "116011.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 12,
+   "track_type": "verse-audio",
+   "new_name": "smv16.12.mp3",
+   "original": "116012.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 13,
+   "track_type": "verse-audio",
+   "new_name": "smv16.13.mp3",
+   "original": "116013.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "new_name": "smv16.14.mp3",
+   "original": "116014.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 15,
+   "track_type": "verse-audio",
+   "new_name": "smv16.15.mp3",
+   "original": "116015.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "new_name": "smv16.16.mp3",
+   "original": "116016.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 17,
+   "track_type": "verse-audio",
+   "new_name": "smv16.17.mp3",
+   "original": "116017.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 18,
+   "track_type": "verse-audio",
+   "new_name": "smv16.18.mp3",
+   "original": "116018.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 19,
+   "track_type": "verse-audio",
+   "new_name": "smv16.19.mp3",
+   "original": "116019.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 20,
+   "track_type": "verse-audio",
+   "new_name": "smv16.20.mp3",
+   "original": "116020.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 21,
+   "track_type": "verse-audio",
+   "new_name": "smv16.21.mp3",
+   "original": "116021.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 22,
+   "track_type": "verse-audio",
+   "new_name": "smv16.22.mp3",
+   "original": "116022.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 23,
+   "track_type": "verse-audio",
+   "new_name": "smv16.23.mp3",
+   "original": "116023.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 24,
+   "track_type": "verse-audio",
+   "new_name": "smv16.24.mp3",
+   "original": "116024.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 25,
+   "track_type": "verse-audio",
+   "new_name": "smv16.25.mp3",
+   "original": "116025.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 26,
+   "track_type": "verse-audio",
+   "new_name": "smv16.26.mp3",
+   "original": "116026.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 27,
+   "track_type": "verse-audio",
+   "new_name": "smv16.27.mp3",
+   "original": "116027.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 28,
+   "track_type": "verse-audio",
+   "new_name": "smv16.28.mp3",
+   "original": "116028.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 29,
+   "track_type": "verse-audio",
+   "new_name": "smv16.29.mp3",
+   "original": "116029.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 30,
+   "track_type": "verse-audio",
+   "new_name": "smv16.30.mp3",
+   "original": "116030.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 31,
+   "track_type": "verse-audio",
+   "new_name": "smv16.31.mp3",
+   "original": "116031.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 32,
+   "track_type": "verse-audio",
+   "new_name": "smv16.32.mp3",
+   "original": "116032.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 33,
+   "track_type": "verse-audio",
+   "new_name": "smv16.33.mp3",
+   "original": "116033.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 34,
+   "track_type": "verse-audio",
+   "new_name": "smv16.34.mp3",
+   "original": "116034.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 35,
+   "track_type": "verse-audio",
+   "new_name": "smv16.35.mp3",
+   "original": "116035.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 36,
+   "track_type": "verse-audio",
+   "new_name": "smv16.36.mp3",
+   "original": "116036.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 37,
+   "track_type": "verse-audio",
+   "new_name": "smv16.37.mp3",
+   "original": "116037.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 38,
+   "track_type": "verse-audio",
+   "new_name": "smv16.38.mp3",
+   "original": "116038.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 39,
+   "track_type": "verse-audio",
+   "new_name": "smv16.39.mp3",
+   "original": "116039.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 40,
+   "track_type": "verse-audio",
+   "new_name": "smv16.40.mp3",
+   "original": "116040.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 41,
+   "track_type": "verse-audio",
+   "new_name": "smv16.41.mp3",
+   "original": "116041.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 42,
+   "track_type": "verse-audio",
+   "new_name": "smv16.42.mp3",
+   "original": "116042.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 43,
+   "track_type": "verse-audio",
+   "new_name": "smv16.43.mp3",
+   "original": "116043.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 44,
+   "track_type": "verse-audio",
+   "new_name": "smv16.44.mp3",
+   "original": "116044.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 45,
+   "track_type": "verse-audio",
+   "new_name": "smv16.45.mp3",
+   "original": "116045.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 46,
+   "track_type": "verse-audio",
+   "new_name": "smv16.46.mp3",
+   "original": "116046.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 47,
+   "track_type": "verse-audio",
+   "new_name": "smv16.47.mp3",
+   "original": "116047.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 48,
+   "track_type": "verse-audio",
+   "new_name": "smv16.48.mp3",
+   "original": "116048.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 49,
+   "track_type": "verse-audio",
+   "new_name": "smv16.49.mp3",
+   "original": "116049.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 50,
+   "track_type": "verse-audio",
+   "new_name": "smv16.50.mp3",
+   "original": "116050.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 51,
+   "track_type": "verse-audio",
+   "new_name": "smv16.51.mp3",
+   "original": "116051.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 52,
+   "track_type": "verse-audio",
+   "new_name": "smv16.52.mp3",
+   "original": "116052.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 53,
+   "track_type": "verse-audio",
+   "new_name": "smv16.53.mp3",
+   "original": "116053.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 54,
+   "track_type": "verse-audio",
+   "new_name": "smv16.54.mp3",
+   "original": "116054.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 55,
+   "track_type": "verse-audio",
+   "new_name": "smv16.55.mp3",
+   "original": "116055.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 56,
+   "track_type": "verse-audio",
+   "new_name": "smv16.56.mp3",
+   "original": "116056.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 57,
+   "track_type": "verse-audio",
+   "new_name": "smv16.57.mp3",
+   "original": "116057.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": 58,
+   "track_type": "verse-audio",
+   "new_name": "smv16.58.mp3",
+   "original": "116058.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv16.end.mp3",
+   "original": "116558.mp3"
+  },
+  {
+   "sarga": 16,
+   "verse_no": "",
+   "track_type": "sarga-ending/special",
+   "new_name": "smv16.end2.mp3",
+   "original": "116559.mp3"
+  }
+ ],
+ "missing_from_source_archive": [
+  {
+   "sarga": 5,
+   "verse_no": 8,
+   "track_type": "verse-audio",
+   "original": "105008.mp3",
+   "note": "Listed in the app's own playlist (indplaylist.txt) but no corresponding audio file was found in the extracted archive -- a real gap in the source, not a processing error."
+  },
+  {
+   "sarga": 5,
+   "verse_no": 14,
+   "track_type": "verse-audio",
+   "original": "105014.mp3",
+   "note": "Listed in the app's own playlist (indplaylist.txt) but no corresponding audio file was found in the extracted archive -- a real gap in the source, not a processing error."
+  },
+  {
+   "sarga": 5,
+   "verse_no": 16,
+   "track_type": "verse-audio",
+   "original": "105016.mp3",
+   "note": "Listed in the app's own playlist (indplaylist.txt) but no corresponding audio file was found in the extracted archive -- a real gap in the source, not a processing error."
+  }
+ ]
+}
