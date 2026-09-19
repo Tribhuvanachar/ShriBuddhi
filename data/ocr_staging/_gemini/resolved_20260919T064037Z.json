@@ -1,0 +1,357 @@
+{
+ "_readme": "Gemini's reading of the pages where Sarvam and Vision disagreed. Staged for review; merges nothing.",
+ "model_requested": "gemini-2.5-flash",
+ "model_served": "gemini-flash-lite-latest",
+ "model": "gemini-2.5-flash",
+ "generated_at": "2026-09-19T06:38:17Z",
+ "budget_inr": 100.0,
+ "spent_inr": 1.63,
+ "usage": {
+  "calls": 11,
+  "prompt_tokens": 68053,
+  "output_tokens": 29327,
+  "thoughts_tokens": 0,
+  "total_tokens": 97380,
+  "model_version": "gemini-3.5-flash-lite"
+ },
+ "price_per_m_usd": {
+  "in": 0.1,
+  "out": 0.4
+ },
+ "inr_per_usd": 88.0,
+ "calls": 11,
+ "pages_resolved": 41,
+ "pages_this_run": 41,
+ "inr_per_page_this_run": 0.0398,
+ "stopped_on_budget": false,
+ "pages": [
+  {
+   "work": "hks__29_30_hks",
+   "page": 8,
+   "text": "ಶ್ರೀಃ ಹರಿ ಓಂ ॥\nಬಹೂನಾಂ ಜನ್ಮನಾಮಂತೇ ಜ್ಞಾನವಾನ್ ಮಾಂ ಪ್ರಪದ್ಯತೇ |\nವಾಸುದೇವಃ ಸರ್ವಮಿತಿ ಸಮಹಾತ್ಮಾ ಸುದುರ್ಲಭಃ ||\n-ಗೀತಾವಾಕ್ಯ (ಅಧ್ಯಾಯ-7, ಶ್ಲೋಕ-19)\nWith best compliments from :\nKirloskar INVESTMENTS AND FINANCE Ltd.\nRegd. Office :\nUnity Buildings, II Floor, C-Block\nJ.C. Road, Bangalore-560 002",
+   "confidence": 0.8,
+   "note": "Engine A followed largely, combined with clean text from B.",
+   "ratio": 0.868
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 9,
+   "text": "ತಪ್ಪು-ಸರಿ\nಕ್ರಮ ಸಂಖ್ಯೆ ಪುಟ ಸಂಖ್ಯೆ ಸಾಲಿನ ಸಂಖ್ಯೆ ತಪ್ಪಾಗಿರುವುದು ಸರಿಯಾಗಿರಬೇಕಾದದ್ದು\n1 1 ಪದ್ಯ-1 ನೆಯ ಸಾಲು ಭಾರತೀಗಳಧರ್ಮ ಭಾರತೀಗಳಧರ್ಮ\n2 2 1 ಷಣ್ಮಹಿಷಯರ ಷಣ್ಮಹಿಷಿಯರ\n3 4 1 ವಿಸ್ತಾರ ಮಾಡಿರುವುದರಿಂದ ವಿಸ್ತಾರ ಮಾಡಿರುವುದರಿಂದ\n4 4 12 ವಿಷಯದ ವಿಷಯದ\n5 5 13 ಲಕ್ಷ್ಮಿಯು ಲಕ್ಷ್ಮಿಯ\n6 6 6 ಪ್ರಕ್ಷತ ವೃಷತ್\n7 6 19 ನಾಭಿಕಮಲ ನಾಭಿಕಮಲ\n8 7 3 ವಾಗಾಭಿಮಾನಿಗಳಾದ ವಾಗಾಭಿಮಾನಿಗಳಾದ\n9 7 14 ಮಿತ್ರ ಎಂದು ಮಿತ್ರದಿಂದಾ\n10 7 21 ಪ್ರವಿಷ್ಟನು ಪ್ರವಿಷ್ಟನು.\n11 8 1 ಪ್ರವಿಷ್ಠ ಪ್ರವಿಷ್ಠಳು.\n12 11 1 ಸುಭಾರ್ಯಕಾಃ ಸಭಾರ್ಯಕಾಃ\n13 12 18 ತ್ವಗಾಭಿನಿಯಾದ ತ್ವಗಭಿಮಾನಿಯಾದ\n14 12 20 ರಕ್ಷಾಪನ್ನನು ಕಕ್ಷಾಪನ್ನನು\n15 13 11 ಸ್ವಾಯಂಭಾವಮನು ಸ್ವಾಯಂಭುವಮನು\n16 13 ಮೊದಲನೆಯ ಸಾಲು ದಿನಾಕರ ದಿವಾಕರ",
+   "confidence": 0.85,
+   "note": "Engine A table format followed.",
+   "ratio": 0.277
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 10,
+   "text": "ಕ್ರಮ ಸಂಖ್ಯೆ ಪುಟ ಸಂಖ್ಯೆ ಸಾಲಿನ ಸಂಖ್ಯೆ ತಪ್ಪಾಗಿರುವುದು. ಸರಿಯಾಗಿರಬೇಕಾದದ್ದು\n17 14 6 ಕೋಣವ ಕೋಣಪ\n18 20 ಪದ್ಯ-4 6ನೆಯ ಸಾಲು ಬಿತ್ತರಿಪನು ಬಿತ್ತರಿಪೆನು\n19 20 8 ಪ್ರವಾಯವಾಯುದಿನ ಪ್ರವಹವಾಯುವಿನ\n20 23 7 ರೋಣಾಧಿಪತಿ ಕೋಣಾಧಿಪತಿ\n21 25 3 ಇಂಟರು ಇಬ್ಬರು\n22 25 4 2 + 5 2 x 5\n23 25 6 ಭೃಹಸ್ಪತ್ಸಾಚಾರ್ಯರು ಬೃಹಸ್ಪತ್ಸಾಚಾರ್ಯರು\n24 25 10 ಋಭುತ್ಯ ಋಭು.\n25 26 ಶೀರ್ಷಿಕೆ ಶ್ರೀವ್ಯಾಸದಾಸಸಿದ್ದಾಂತ ಶ್ರೀವ್ಯಾಸದಾಸ ಸಿದ್ಧಾಂತ\nಕಾಮುದೀ ಕೌಮುದೀ\n26 28 11 ವಿಶ್ವ ದೇವರು ವಿಶ್ವೇದೇವತೆಗಳು.\n30 31 4 ಶೇಷಶಯಸ್ಥರೆನಿಸುವ ಶೇಷಶತಸ್ಥರೆನಿಸುವ\n31 32 14 1 ಬೃಹಸ್ಪತೀ ಸಾಲು ಕೊನೆಯ ಕಾಲಮ್ಮಿನಲ್ಲಿ 6 ಅದು-ಇರಬೇಕು.",
+   "confidence": 0.85,
+   "note": "Engine A table format followed.",
+   "ratio": 0.248
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 11,
+   "text": "ತಪ್ಪೋಲೆ\nದೈತ್ಯತಾರತಮ್ಯ ಸಂಧಿ (ಸಂಧಿ-30)\nಕ್ರಮ ಸಂಖ್ಯೆ ಪುಟ ಸಂಖ್ಯೆ ಸಾಲಿನ ಸಂಖ್ಯೆ ತಪ್ಪಾಗಿರುವುದು. ಸರಿಯಾಗಿರಬೇಕಾದದ್ದು.\n1 2 16 ನಾಗೆಯಲಿಯ ನಾಲಿಗೆಯ\n2 2 18 ಬ್ರಹ್ಮದೇವರು ಬ್ರಹ್ಮದೇವರು\n3 3 4 ಭಾವಿಬ್ರಹ್ಮನಾದ ಭಾವೀಬ್ರಹ್ಮನಾದ\n4 3 14 ನುಡಿಯವರಾದರು ನುಡಿಯುವವರಾದರು\n5 4 1 ಜ್ಞಾನಗಳಿರುವುವೊ ಜ್ಞಾನಗಳಿರುವುವೋ\n6 4 21 ಕರೋಮ್ಯಂಹಂ ಕರೋಮ್ಯಹಂ\n7 7 1 ಇವೆಯೇ ಇವೆಯೋ\n8 7 11 ದೇವತಾಶ್ರೇಷ್ಠನಾದ್ದರಿಂದ ದೇವತಾಶ್ರೇಷ್ಠನಾದ್ದರಿಂದ\n9 7 15 ವಾಸುದೇವರೂಪಿ ವಾಸುದೇವರೂಪೀ\n10 7 ಕೊನೆಯ ಸಾಲು ಬ್ರಹ್ಮದವರ ಬ್ರಹ್ಮದೇವರ\n11 8 11 ವನನ್ನೂ ವವನೂ\n12 9 2 ಪ್ರಭೂ ಪ್ರಭೋ\n13 9 13 ಬ್ರಹ್ಮದೇವರಿಗೂ ಬ್ರಹ್ಮದೇವರಿಗೂ\n14 9 ಕೊನೆಯ ಸಾಲು ದೂಷನು ತ್ತಿರುವುದ ದೂಷಿಸುತ್ತಿರುವುದು\n15 13 4 ಕುರಿತ ಕುರಿತು\n16 14 17 ರಾಕ್ಷಸನನ್ನು ರಾಕ್ಷಸನನ್ನು\n17 14 19 ಹೇಡುಕುವಂತೆ ಹುಡುಕುವವನಂತೆ\n18 15 13 ಅಭೇದ್ಯವಾಗುಯೂ ಅಭೇದ್ಯವಾಗಿಯೂ\n19 16 8 ಗೊತ್ತಿಲ್ಲದೆ ಗೊತ್ತಿಲ್ಲದೇ",
+   "confidence": 0.88,
+   "note": "Engine A table format followed.",
+   "ratio": 0.271
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 12,
+   "text": "<p data-layout=\"table\" data-confidence=\"0.95\">&lt;table&gt;<br>&lt;thead&gt;<br>&lt;tr&gt;<br>&lt;th&gt;ಕ್ರಮ&lt;br/&gt;ಸಂಖ್ಯೆ&lt;/th&gt;<br>&lt;th&gt;ಪುಟ ಸಂಖ್ಯೆ&lt;/th&gt;<br>&lt;th&gt;ಸಾಲಿನ ಸಂಖ್ಯೆ&lt;/th&gt;<br>&lt;th&gt;ತಪ್ಪಾಗಿರುವುದು.&lt;/th&gt;<br>&lt;th&gt;ಸರಿಯಾಗಿರಬೇಕಾದದ್ದು.&lt;/th&gt;<br>&lt;/tr&gt;<br>&lt;/thead&gt;<br>&lt;tbody&gt;<br>&lt;tr&gt;<br>&lt;td&gt;20&lt;/td&gt;<br>&lt;td&gt;17&lt;/td&gt;<br>&lt;td&gt;16&lt;/td&gt;<br>&lt;td&gt;ಹೇಳುವವನು&lt;/td&gt;<br>&lt;td&gt;ಹೇಳುವವನು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;21&lt;/td&gt;<br>&lt;td&gt;19&lt;/td&gt;<br>&lt;td&gt;9&lt;/td&gt;<br>&lt;td&gt;ಶ್ರೀಲಕ್ಷ್ಮಿಯಿಂದ&lt;/td&gt;<br>&lt;td&gt;ಶ್ರೀಲಕ್ಷ್ಮಿಯಿಂದ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;22&lt;/td&gt;<br>&lt;td&gt;19&lt;/td&gt;<br>&lt;td&gt;11&lt;/td&gt;<br>&lt;td&gt;ಅಚೈದ್ಯವೂ&lt;/td&gt;<br>&lt;td&gt;ಅಚೈದ್ಯವೂ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;21&lt;/td&gt;<br>&lt;td&gt;20&lt;/td&gt;<br>&lt;td&gt;6&lt;/td&gt;<br>&lt;td&gt;ರಕ್ಷಿತ್&lt;/td&gt;<br>&lt;td&gt;ಕ್ವಚಿತ್&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;22&lt;/td&gt;<br>&lt;td&gt;21&lt;/td&gt;<br>&lt;td&gt;13&lt;/td&gt;<br>&lt;td&gt;ಕ್ಷುರಾಯುದ್ಧದಿಂದ&lt;/td&gt;<br>&lt;td&gt;ಕ್ಷುರಾಯುಧದಿಂದ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;23&lt;/td&gt;<br>&lt;td&gt;23&lt;/td&gt;<br>&lt;td&gt;19&lt;/td&gt;<br>&lt;td&gt;ಯಕಶ್ಚಿತ&lt;/td&gt;<br>&lt;td&gt;ಯಕಶ್ಚಿತ್&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;24&lt;/td&gt;<br>&lt;td&gt;24&lt;/td&gt;<br>&lt;td&gt;1&lt;/td&gt;<br>&lt;td&gt;ಅಪವಾದಗಳಲ್ಲಿ&lt;/td&gt;<br>&lt;td&gt;ಅವತಾರಗಳಲ್ಲಿ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;25&lt;/td&gt;<br>&lt;td&gt;24&lt;/td&gt;<br>&lt;td&gt;6&lt;/td&gt;<br>&lt;td&gt;ಕ್ಷುರದಿಂದ&lt;/td&gt;<br>&lt;td&gt;ಕ್ಷೂರದಿಂದ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;26&lt;/td&gt;<br>&lt;td&gt;24&lt;/td&gt;<br>&lt;td&gt;7&lt;/td&gt;<br>&lt;td&gt;ಅಚ್ಛೇದ್ಯವೇ&lt;/td&gt;<br>&lt;td&gt;ಅಚ್ಛೇದ್ಯವೇ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;27&lt;/td&gt;<br>&lt;td&gt;26&lt;/td&gt;<br>&lt;td&gt;2&lt;/td&gt;<br>&lt;td&gt;ಚಂದ್ರ ದೇವರು&lt;/td&gt;<br>&lt;td&gt;ಚಂದ್ರದೇವರು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;28&lt;/td&gt;<br>&lt;td&gt;26&lt;/td&gt;<br>&lt;td&gt;6&lt;/td&gt;<br>&lt;td&gt;ವನಾದ್ದೆ&lt;/td&gt;<br>&lt;td&gt;ನಾನಿದ್ದ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;29&lt;/td&gt;<br>&lt;td&gt;27&lt;/td&gt;<br>&lt;td&gt;19&lt;/td&gt;<br>&lt;td&gt;ರೂಪೇಷು&lt;/td&gt;<br>&lt;td&gt;ರೂಪೇಷು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;30&lt;/td&gt;<br>&lt;td&gt;29&lt;/td&gt;<br>&lt;td&gt;10&lt;/td&gt;<br>&lt;td&gt;ಮರ್ವ&lt;/td&gt;<br>&lt;td&gt;ಮರ್ಮ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;31&lt;/td&gt;<br>&lt;td&gt;30&lt;/td&gt;<br>&lt;td&gt;9&lt;/td&gt;<br>&lt;td&gt;ಸತ್ತಿರ್ಥಗಳೆಂದು&lt;/td&gt;<br>&lt;td&gt;ಸತ್ತೀರ್ಥಗಳೆಂದು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;32&lt;/td&gt;<br>&lt;td&gt;30&lt;/td&gt;<br>&lt;td&gt;14&lt;/td&gt;<br>&lt;td&gt;ವವದ್ರೂಪನಾದ&lt;/td&gt;<br>&lt;td&gt;ಭಗವದ್ರೂಪಕನಾದ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;33&lt;/td&gt;<br>&lt;td&gt;37&lt;/td&gt;<br>&lt;td&gt;6&lt;/td&gt;<br>&lt;td&gt;ಮನಸ್ಟೀನಿಂದ&lt;/td&gt;<br>&lt;td&gt;ಮನಸ್ವೀ ನಿಂದಾ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;34&lt;/td&gt;<br>&lt;td&gt;39&lt;/td&gt;<br>&lt;td&gt;16&lt;/td&gt;<br>&lt;td&gt;ಮುಕ್ತಿಯೋಗ್ಯರಾಗತಾನೆ&lt;/td&gt;<br>&lt;td&gt;ಮುಕ್ತಿಯೋಗ್ಯನಾಗತಾನೆ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;35&lt;/td&gt;<br>&lt;td&gt;40&lt;/td&gt;<br>&lt;td&gt;11&lt;/td&gt;<br>&lt;td&gt;ಇದದೇ&lt;/td&gt;<br>&lt;td&gt;ಇಡದೇ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;36&lt;/td&gt;<br>&lt;td&gt;41&lt;/td&gt;<br>&lt;td&gt;13&lt;/td&gt;<br>&lt;td&gt;ಅರ್ಥಪೇಕ್ಷಿಯಾಗಲೀ&lt;/td&gt;<br>&lt;td&gt;ಅರ್ಥಾಪೇಕ್ಷೆಯಾಗಲೀ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;37&lt;/td&gt;<br>&lt;td&gt;42&lt;/td&gt;<br>&lt;td&gt;ಪದ್ಯ-7&lt;/td&gt;<br>&lt;td&gt;ವಂದಿಸದೆ&lt;/td&gt;<br>&lt;td&gt;ವಂದಿಸಿ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;&lt;/td&gt;<br>&lt;td&gt;&lt;/td&gt;<br>&lt;td&gt;6ನೆಯ ಸಾಲು&lt;/td&gt;<br>&lt;td&gt;&lt;/td&gt;<br>&lt;td&gt;&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;38&lt;/td&gt;<br>&lt;td&gt;45&lt;/td&gt;<br>&lt;td&gt;1&lt;/td&gt;<br>&lt;td&gt;ಸರ್ವೆದಾ&lt;/td&gt;<br>&lt;td&gt;ಸರ್ವದಾ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;39&lt;/td&gt;<br>&lt;td&gt;45&lt;/td&gt;<br>&lt;td&gt;6&lt;/td&gt;<br>&lt;td&gt;ಸರ್ವೇ&lt;/td&gt;<br>&lt;td&gt;ಸರ್ವೇ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;40&lt;/td&gt;<br>&lt;td&gt;45&lt;/td&gt;<br>&lt;td&gt;13&lt;/td&gt;<br>&lt;td&gt;ಅಶ್ವತ್ಥ ತಳಸೀ .&lt;/td&gt;<br>&lt;td&gt;ಅಶ್ವತ್ಥ ತುಲಸೀ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "confidence": 0.95,
+   "note": "Followed Engine A for layout and table structure.",
+   "ratio": 0.261
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 13,
+   "text": "<p data-layout=\"table\" data-confidence=\"0.73\">&lt;table&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;47&lt;/td&gt;<br>      &lt;td&gt;2&lt;/td&gt;<br>      &lt;td&gt;ವಿತತವಮಿಹನನ್ನು&lt;/td&gt;<br>      &lt;td&gt;ವಿತತ ಮಹಿಮನನ್ನು&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;47&lt;/td&gt;<br>      &lt;td&gt;9&lt;/td&gt;<br>      &lt;td&gt;ಶರಾಕ್ತನಾಗಿರುವನು&lt;/td&gt;<br>      &lt;td&gt;ಶರಾಕ್ತನಾಗಿರುವನು&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;47&lt;/td&gt;<br>      &lt;td&gt;10&lt;/td&gt;<br>      &lt;td&gt;ದಾನವರೇಣ್ಯರು&lt;/td&gt;<br>      &lt;td&gt;ದಾಸವರೇಣ್ಯರು&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;47&lt;/td&gt;<br>      &lt;td&gt;ಪದ್ಯ-8&lt;/td&gt;<br>      &lt;td&gt;ಪೃಂ&lt;/td&gt;<br>      &lt;td&gt;ವೃಂ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td colspan=\"3\"&gt;ಎರಡನೆಯ ಸಾಲು&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;48&lt;/td&gt;<br>      &lt;td&gt;12&lt;/td&gt;<br>      &lt;td&gt;ಭಕ್ತಪುರಸ್ಸರವಾಗಿ&lt;/td&gt;<br>      &lt;td&gt;ಭಕ್ತಪುರಸ್ಸರವಾಗಿ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;49&lt;/td&gt;<br>      &lt;td&gt;10&lt;/td&gt;<br>      &lt;td&gt;ಪೂಜಿತವಾದ&lt;/td&gt;<br>      &lt;td&gt;ಪೂಜಿತವಾದ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;50&lt;/td&gt;<br>      &lt;td&gt;2&lt;/td&gt;<br>      &lt;td&gt;ಅಸುರಾಜ್ಞೆಯೂ&lt;/td&gt;<br>      &lt;td&gt;ಅಸುರಾಜ್ಞೆಯೂ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;52&lt;/td&gt;<br>      &lt;td&gt;2&lt;/td&gt;<br>      &lt;td&gt;ಪೊರೈಸುವುದು&lt;/td&gt;<br>      &lt;td&gt;ಪೂರೈಸುವುದು&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;52&lt;/td&gt;<br>      &lt;td&gt;5&lt;/td&gt;<br>      &lt;td&gt;ಪೋಜಿಸುವರು&lt;/td&gt;<br>      &lt;td&gt;ಪೂಜಿಸುವರು&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;53&lt;/td&gt;<br>      &lt;td&gt;ಪದ್ಯ-9&lt;/td&gt;<br>      &lt;td&gt;ಶತಾಯುಷ್ಯಳ್ಳವನು&lt;/td&gt;<br>      &lt;td&gt;ಶತಾಯುಷ್ಯ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td colspan=\"3\"&gt;ಮನೆಯ ಸಾಲು&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;58&lt;/td&gt;<br>      &lt;td&gt;4&lt;/td&gt;<br>      &lt;td&gt;ತಪೋಯೋಗ್ಯ&lt;/td&gt;<br>      &lt;td&gt;ತಮೋಯೋಗ್ಯ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;59&lt;/td&gt;<br>      &lt;td&gt;5&lt;/td&gt;<br>      &lt;td&gt;ಒಬ್ಬನೆ&lt;/td&gt;<br>      &lt;td&gt;ಒಬ್ಬನೇ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;61&lt;/td&gt;<br>      &lt;td&gt;6&lt;/td&gt;<br>      &lt;td&gt;ದೈತ್ಯರಿದ್ದಾರೆ&lt;/td&gt;<br>      &lt;td&gt;ದೈತ್ಯರಿದ್ದಾರೆ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;61&lt;/td&gt;<br>      &lt;td&gt;13&lt;/td&gt;<br>      &lt;td&gt;ಕಲೇಮಾತರಗಂ&lt;/td&gt;<br>      &lt;td&gt;ಕಲೇಮಾರ್ಗಂತಂ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;61&lt;/td&gt;<br>      &lt;td&gt;14&lt;/td&gt;<br>      &lt;td&gt;ಸಾಧನ್ಯೆ&lt;/td&gt;<br>      &lt;td&gt;ಸಾಧನ್ಯೇ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;62&lt;/td&gt;<br>      &lt;td&gt;2&lt;/td&gt;<br>      &lt;td&gt;ಸಾಭನೈಶ್ಚ&lt;/td&gt;<br>      &lt;td&gt;ಸಾಧನೈಶ್ಚ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;62&lt;/td&gt;<br>      &lt;td&gt;10&lt;/td&gt;<br>      &lt;td&gt;ವಾಯುದಾಸರಿಂದ&lt;/td&gt;<br>      &lt;td&gt;ವಾಯುದೇವರಿಂದ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;62&lt;/td&gt;<br>      &lt;td&gt;15&lt;/td&gt;<br>      &lt;td&gt;ಒಬ್ಬನೆ&lt;/td&gt;<br>      &lt;td&gt;ಒಬ್ಬನೇ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;63&lt;/td&gt;<br>      &lt;td&gt;8&lt;/td&gt;<br>      &lt;td&gt;ಇವರ&lt;/td&gt;<br>      &lt;td&gt;ಇತರ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;63&lt;/td&gt;<br>      &lt;td&gt;18&lt;/td&gt;<br>      &lt;td&gt;ತಪೋ&lt;/td&gt;<br>      &lt;td&gt;ತಮೋ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;69&lt;/td&gt;<br>      &lt;td&gt;8&lt;/td&gt;<br>      &lt;td&gt;ಸತ್ಪಾಧನಾರೂಪ&lt;/td&gt;<br>      &lt;td&gt;ಸತ್ಪಾಧನಾರೂಪ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;70&lt;/td&gt;<br>      &lt;td&gt;ಓವೆಯ ಸಾಲು&lt;/td&gt;<br>      &lt;td&gt;ಕಲಗಿದ&lt;/td&gt;<br>      &lt;td&gt;ಕಲಿಗಿದ್ದ&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "confidence": 0.73,
+   "note": "Followed Engine A for layout.",
+   "ratio": 0.249
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 14,
+   "text": "<p data-layout=\"table\" data-confidence=\"0.90\">&lt;table&gt;<br>&lt;thead&gt;<br>&lt;tr&gt;<br>&lt;th&gt;ಸಂಖ್ಯೆ&lt;/th&gt;<br>&lt;th&gt;ಸಂಖ್ಯೆ&lt;/th&gt;<br>&lt;th&gt;ಸಂಖ್ಯೆ&lt;/th&gt;<br>&lt;th&gt;&lt;/th&gt;<br>&lt;/tr&gt;<br>&lt;/thead&gt;<br>&lt;tbody&gt;<br>&lt;tr&gt;<br>&lt;td&gt;63&lt;/td&gt;<br>&lt;td&gt;71&lt;/td&gt;<br>&lt;td&gt;2&lt;/td&gt;<br>&lt;td&gt;ಜೀವಾರ್ಧಮನಾದ ಜೀವಾಧಮನಾದ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;64&lt;/td&gt;<br>&lt;td&gt;71&lt;/td&gt;<br>&lt;td&gt;14&lt;/td&gt;<br>&lt;td&gt;ಸದೃಶ್ಯವಾದ ಸದೃಶವಾದ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;65&lt;/td&gt;<br>&lt;td&gt;73&lt;/td&gt;<br>&lt;td&gt;3&lt;/td&gt;<br>&lt;td&gt;ಏವೊಕ್ತಃ ಏವೋಕ್ತ :&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;66&lt;/td&gt;<br>&lt;td&gt;73&lt;/td&gt;<br>&lt;td&gt;7&lt;/td&gt;<br>&lt;td&gt;ಶೋನಃ ನ್ಯೂನಃ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;67&lt;/td&gt;<br>&lt;td&gt;73&lt;/td&gt;<br>&lt;td&gt;7&lt;/td&gt;<br>&lt;td&gt;ಮಾಹೆ ಮಾಹೇ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;68&lt;/td&gt;<br>&lt;td&gt;73&lt;/td&gt;<br>&lt;td&gt;8&lt;/td&gt;<br>&lt;td&gt;ಸಜ್ಞಾನ ಸುಜ್ಞಾನ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;69&lt;/td&gt;<br>&lt;td&gt;73&lt;/td&gt;<br>&lt;td&gt;13&lt;/td&gt;<br>&lt;td&gt;ಅಲಕ್ಷಿ ಅಲಕ್ಷೀ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;70&lt;/td&gt;<br>&lt;td&gt;76&lt;/td&gt;<br>&lt;td&gt;15&lt;/td&gt;<br>&lt;td&gt;ಹಿರಣ್ಯ ಕಶಿಪುವು ಹಿರಣ್ಯಕಶಿಪು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;71&lt;/td&gt;<br>&lt;td&gt;82&lt;/td&gt;<br>&lt;td&gt;1&lt;/td&gt;<br>&lt;td&gt;ವರಹಾವತಾರವನ್ನು ವರಹಾವತಾರವನ್ನು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;72&lt;/td&gt;<br>&lt;td&gt;82&lt;/td&gt;<br>&lt;td&gt;11&lt;/td&gt;<br>&lt;td&gt;ಬೇಗ ಮಗ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;73&lt;/td&gt;<br>&lt;td&gt;87&lt;/td&gt;<br>&lt;td&gt;5&lt;/td&gt;<br>&lt;td&gt;ಹಿರಣ್ಯಕಶಿವುವಿಗಿತ ಹಿರಣ್ಯಕಶಿವಿಗಿಂತ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;74&lt;/td&gt;<br>&lt;td&gt;89&lt;/td&gt;<br>&lt;td&gt;4&lt;/td&gt;<br>&lt;td&gt;ಮೀನಸ್ಸು ಮೀನನ್ನು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;75&lt;/td&gt;<br>&lt;td&gt;89&lt;/td&gt;<br>&lt;td&gt;8&lt;/td&gt;<br>&lt;td&gt;ನಾರವ ಮುನಿಗಳು ನಾರದಮುನಿಗಳು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;76&lt;/td&gt;<br>&lt;td&gt;89&lt;/td&gt;<br>&lt;td&gt;13&lt;/td&gt;<br>&lt;td&gt;ರಕ್ಷಾಪನ್ನನು ರಕ್ಷಾಪನ್ನನು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;77&lt;/td&gt;<br>&lt;td&gt;90&lt;/td&gt;<br>&lt;td&gt;9&lt;/td&gt;<br>&lt;td&gt;ಸಮರಕ್ಷಾ ಸಮರಿಕ್ಷು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;78&lt;/td&gt;<br>&lt;td&gt;91&lt;/td&gt;<br>&lt;td&gt;15&lt;/td&gt;<br>&lt;td&gt;ಸುಮಾರು ಸಮಾನರು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;79&lt;/td&gt;<br>&lt;td&gt;92&lt;/td&gt;<br>&lt;td&gt;3&lt;/td&gt;<br>&lt;td&gt;ಶಬರನು ಶಂಬರನು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;80&lt;/td&gt;<br>&lt;td&gt;92&lt;/td&gt;<br>&lt;td&gt;12&lt;/td&gt;<br>&lt;td&gt;ಶಂಬಕಾಸುರನು ಶಂಬರಾಸುರನು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;81&lt;/td&gt;<br>&lt;td&gt;92&lt;/td&gt;<br>&lt;td&gt;14&lt;/td&gt;<br>&lt;td&gt;ಸಮೋಜ್ಞೇಯೋ ಸಮಾಜ್ಞೇಯೋ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;82&lt;/td&gt;<br>&lt;td&gt;92&lt;/td&gt;<br>&lt;td&gt;15&lt;/td&gt;<br>&lt;td&gt;ಸಂರಕ್ಷಾ ರ್ರಶಗುಣೈ ಸಂಕರಾಶ್ವರ್ದಶಗುಣೈ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;83&lt;/td&gt;<br>&lt;td&gt;93&lt;/td&gt;<br>&lt;td&gt;8&lt;/td&gt;<br>&lt;td&gt;ಪಟ್ಟಾಭಿಷೇಕ ಪಟ್ಟಾಭಿಷೇಕ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;84&lt;/td&gt;<br>&lt;td&gt;93&lt;/td&gt;<br>&lt;td&gt;15&lt;/td&gt;<br>&lt;td&gt;ನಿಜಘನಶಂಬರು: ನಿಜಘ ಶಂಬರ:&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;85&lt;/td&gt;<br>&lt;td&gt;94&lt;/td&gt;<br>&lt;td&gt;2&lt;/td&gt;<br>&lt;td&gt;ಮ್ಯುತನಾದ ಮೃತನಾದ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;86&lt;/td&gt;<br>&lt;td&gt;94&lt;/td&gt;<br>&lt;td&gt;12&lt;/td&gt;<br>&lt;td&gt;ತವ್ಯವ ತವ್ಯೇವ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "confidence": 0.9,
+   "note": "Followed Engine A for layout.",
+   "ratio": 0.239
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 15,
+   "text": "<div data-layout=\"page-number\" data-confidence=\"0.59\">10</div>\n<p data-layout=\"table\" data-confidence=\"0.93\">&lt;table&gt;<br>&lt;thead&gt;<br>&lt;tr&gt;<br>&lt;th&gt;ಪುಟ&lt;br/&gt;ಸಂಖ್ಯೆ&lt;/th&gt;<br>&lt;th&gt;ಸಾಲಿನ&lt;br/&gt;ಸಂಖ್ಯೆ&lt;/th&gt;<br>&lt;th&gt;ತಪ್ಪಾಗಿರುವುದು.&lt;/th&gt;<br>&lt;th&gt;ಸರಿಯಾಗಿರಬೇಕಾದದ್ದು.&lt;/th&gt;<br>&lt;/tr&gt;<br>&lt;/thead&gt;<br>&lt;tbody&gt;<br>&lt;tr&gt;<br>&lt;td&gt;96&lt;/td&gt;<br>&lt;td&gt;1&lt;/td&gt;<br>&lt;td&gt;ಸಮೋಜ್ನೆಯಃ&lt;/td&gt;<br>&lt;td&gt;ಸಮೋಜ್ನೆಯಃ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;96&lt;/td&gt;<br>&lt;td&gt;2&lt;/td&gt;<br>&lt;td&gt;ಗುಣೈಷಡ್ಡಿ:&lt;/td&gt;<br>&lt;td&gt;ಗುಣೈಷಿಡ್ಡಿ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;98&lt;/td&gt;<br>&lt;td&gt;3&lt;/td&gt;<br>&lt;td&gt;ವಜೇಣ&lt;/td&gt;<br>&lt;td&gt;ವಜೇಣ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;98&lt;/td&gt;<br>&lt;td&gt;17&lt;/td&gt;<br>&lt;td&gt;ಸುರಂತೆ&lt;/td&gt;<br>&lt;td&gt;ಸುರನಂತೆ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;99&lt;/td&gt;<br>&lt;td&gt;3&lt;/td&gt;<br>&lt;td&gt;ಉಕ್ಷೆಯನ್ನೂ&lt;/td&gt;<br>&lt;td&gt;ಉಕ್ಷೇಯನ್ನು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;99&lt;/td&gt;<br>&lt;td&gt;4&lt;/td&gt;<br>&lt;td&gt;ಕೊಂದುಹೋಗಿ&lt;/td&gt;<br>&lt;td&gt;ಕೊಂಡುಹೋಗಿ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;107&lt;/td&gt;<br>&lt;td&gt;15&lt;/td&gt;<br>&lt;td&gt;ಅಧಿಷ್ಠನಾಗಿ&lt;/td&gt;<br>&lt;td&gt;ಅಧಿಷ್ಠಿತನಾಗಿ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;109&lt;/td&gt;<br>&lt;td&gt;ಪದ್ಯ-17&lt;br/&gt;3ನೆಯ ಸಾಲು&lt;/td&gt;<br>&lt;td&gt;ನೀಚಾರಿಷ್ಠ ನಾಮಕ&lt;/td&gt;<br>&lt;td&gt;ನೀಚಾರಿಷ್ಠ ನಾಮಕ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;109&lt;/td&gt;<br>&lt;td&gt;5ನೆಯ ಸಾಲು&lt;/td&gt;<br>&lt;td&gt;ಒಂಭತ್ತು&lt;/td&gt;<br>&lt;td&gt;ಎಂಭತ್ತು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;111&lt;/td&gt;<br>&lt;td&gt;13&lt;/td&gt;<br>&lt;td&gt;ತೃಣಾವರ್ಶ&lt;/td&gt;<br>&lt;td&gt;ತೃಣಾವರ್ತ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;111&lt;/td&gt;<br>&lt;td&gt;18&lt;/td&gt;<br>&lt;td&gt;ಪಾವೋವೇನಃ&lt;/td&gt;<br>&lt;td&gt;ಪಾವೋವೇನಃ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;112&lt;/td&gt;<br>&lt;td&gt;15&lt;/td&gt;<br>&lt;td&gt;ಸಾಧ್ಯವೆಂದು&lt;/td&gt;<br>&lt;td&gt;ಸಾಧುವೆಂದು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;113&lt;/td&gt;<br>&lt;td&gt;7&lt;/td&gt;<br>&lt;td&gt;ಸಮುನ&lt;/td&gt;<br>&lt;td&gt;ಸಮನು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;114&lt;/td&gt;<br>&lt;td&gt;9&lt;/td&gt;<br>&lt;td&gt;ಪೀಡಿತನಾಗಿದ್ದ&lt;/td&gt;<br>&lt;td&gt;ಪೀಡಕನಾಗಿದ್ದ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;116&lt;/td&gt;<br>&lt;td&gt;6&lt;/td&gt;<br>&lt;td&gt;ಪುಸ್ತಕ&lt;/td&gt;<br>&lt;td&gt;ಪ್ರಸಕ್ತ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;116&lt;/td&gt;<br>&lt;td&gt;ಪದ್ಯಸಾಲು&lt;br/&gt;ಕೊನೆಯ ಸಾಲು&lt;/td&gt;<br>&lt;td&gt;ಶತದನ್ನ&lt;/td&gt;<br>&lt;td&gt;ಶತಧನ್ವಿ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;117&lt;/td&gt;<br>&lt;td&gt;12&lt;/td&gt;<br>&lt;td&gt;ಶತಧನ್ವ&lt;/td&gt;<br>&lt;td&gt;ಶತಧನ್ವಿ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;119&lt;/td&gt;<br>&lt;td&gt;4&lt;/td&gt;<br>&lt;td&gt;ಕನಡಾರ್ಥ&lt;/td&gt;<br>&lt;td&gt;ಕನ್ನಡಾರ್ಥ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;121&lt;/td&gt;<br>&lt;td&gt;3&lt;/td&gt;<br>&lt;td&gt;ಬೃಹಪ್ರಥನು&lt;/td&gt;<br>&lt;td&gt;ಬೃಹದ್ರಥನು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;121&lt;/td&gt;<br>&lt;td&gt;9&lt;/td&gt;<br>&lt;td&gt;ಮಹಾಪರಾಮಶಾಲಿ&lt;/td&gt;<br>&lt;td&gt;ಮಹಾಪರಾಕ್ರಮಶಾಲಿ&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;tr&gt;<br>&lt;td&gt;123&lt;/td&gt;<br>&lt;td&gt;ಪದ್ಯ-19&lt;br/&gt;2ನೆಯಸಾಲು&lt;/td&gt;<br>&lt;td&gt;ಗೆಧಮರೆನಿಪರು&lt;/td&gt;<br>&lt;td&gt;ಗಮಧಮರೆನಿಪರು&lt;/td&gt;<br>&lt;/tr&gt;<br>&lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "confidence": 0.93,
+   "note": "Followed Engine A for layout and table structure.",
+   "ratio": 0.271
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 16,
+   "text": "<table><thead><tr><th>ಕ್ರಮ<br/>ಸಂಖ್ಯೆ</th><th>ಪುಟ ಸಂಖ್ಯೆ</th><th>ಸಾಲಿನ<br/>ಸಂಖ್ಯೆ</th><th>ತಪ್ಪಾಗಿರುವುದು. ಸರಿಯಾಗಿರಬೇಕಾದ್ದ</th></tr></thead><tbody><tr><td>108</td><td>125</td><td>3</td><td>ಕಿಮಿಗಳು ಕಿವಿಗಳು</td></tr><tr><td>109</td><td>127</td><td>18</td><td>ಶಿಶ್ಯಮಾನ್ಯ ಶಿಶ್ನಮಾನ್ಯ</td></tr><tr><td>110</td><td>129</td><td>3</td><td>ಅಮೃತಮಲ್ಯವಾದುದು ಅಮೃತಮಲ್ಯವಾದುದು</td></tr><tr><td>111</td><td>130</td><td>2</td><td>ಶೋಷಿಷಲಾಗಿ ಶೋಷಿತವಾಗಿ</td></tr><tr><td>112</td><td>130</td><td>2</td><td>ಕಾಲಕೇಯಠರು ಕಾಲಕೇಯರು</td></tr><tr><td>113</td><td>134</td><td>18</td><td>ಪ್ರೇರಿತವಾಗಿ ಪ್ರೀರಿತರಾಗಿ</td></tr><tr><td>114</td><td>135</td><td>1</td><td>ವಿರುದ್ಧವಾದುದನ್ನು ವಿರುದ್ಧವಾದುದನ್ನು</td></tr><tr><td>115</td><td>135</td><td>6</td><td>ರೆದಿಸಿದವು ಅಚ್ಚನ್ನರೆಂದಿನಿಸಿದವು</td></tr><tr><td>116</td><td>135</td><td>7</td><td>ಜಾನ ಜ್ಞಾನ</td></tr><tr><td>117</td><td>136</td><td>15</td><td>ಮಾಡುತ್ತಾರೋ ಮಾಡುತ್ತಾರೋ</td></tr><tr><td>118</td><td>136</td><td>15</td><td>ಪ್ರೇರಿತಾಃ ಪ್ರೇರಿತಾಃ</td></tr><tr><td>119</td><td>136</td><td>19</td><td>ನಾಭಿಕಮಲ ನಾಭೀಕಮಲ</td></tr><tr><td>120</td><td>138</td><td>3</td><td>ವೇಶಯವರು ವೇಶಯುತರು</td></tr><tr><td>121</td><td>142</td><td>14</td><td>ಭಿನ್ನಭಕ್ತರು ಭಿನ್ನಭಕ್ತರು</td></tr><tr><td>122</td><td>144</td><td>3</td><td>ಏತಾದ್ಯಶೋಪ್ಯಹಂ ಏತಾದ್ಯಶೋಽಪ್ಯಹಂ</td></tr><tr><td>123</td><td>170</td><td>8</td><td>ಭಾಗವರ ಚತುರ್ಥಸ್ಕಂಧಿ ಭಾಗವಚತುರ್ಥಸ್ಕಂಧ</td></tr><tr><td>124</td><td>170</td><td>11</td><td>ಭೃಗು ಭೃಗು</td></tr><tr><td>125</td><td>170</td><td>15</td><td>ಧಾರ್ಗವೀದೇವಿಯೂ ಧಾರ್ಗವೀದೇವಿಯ</td></tr><tr><td>126</td><td>172</td><td>9</td><td>ಶ್ರೀ ಲಕ್ಷ್ಮೀದೇವಿಯೇ ಶ್ರೀಲಕ್ಷ್ಮೀದೇವಿಯೇ</td></tr><tr><td>127</td><td>173</td><td>15</td><td>ಗುಣೀ ಗುಣೀ</td></tr></tbody></table><br/>॥ ಮಧ್ಯಾರ್ಪಣಮಸ್ತು ॥<br/>॥ ಶ್ರೀ ಹರಿ ಓಂ ॥",
+   "confidence": 0.9,
+   "note": "Followed Engine A for the table layout and complete text, as Engine B had truncated OCR.",
+   "ratio": 0.314
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 17,
+   "text": "॥ ಶ್ರೀಃ ಹರಿಃ ಓಂ ॥<br/>॥ ಶ್ರೀ ಗರುಡವಾಹನ ಲಕ್ಷ್ಮೀನಾರಸಿಂಹಾಭಿನ್ನ<br/>ಶ್ರೀ ಜಗನ್ನಾಥವಿಠಲಾಯನಮಃ ॥<br/>ಅಮೃತಾರತಮ್ಯ ಸಂಧಿ<br/>ಸಂಧಿ-೨೯<br/>ಪಲ್ಲವಿ :<br/>ಹರಿಕಥಾಮೃತಸಾರ ಗುರುಗ |<br/>ಕರುಣದಿಂದಾಪನಿತು ಪೇಳುವೆ |<br/>ಹರಮ ಭಗವದ್ಭಕ್ತರಿದನಾದರದಿ ಕೇರುವುದು || ೫ ||<br/>ಪದ್ಯ ೧<br/>ಮೂಲ :<br/>ವಿಷ್ಣು ಸರ್ವೋತ್ತಮನು ಪ್ರಕೃತಿ ಕ ।<br/>ನಿಷ್ಠೆನಿವಳನಂತಗುಣ ಪರ ।<br/>ಮೇಘಿ ಪವನರು ಕಡಿಮೆ ವಾಣೀ ಭಾರತಿಗಳ ಧರ್ಮ ||<br/>ವಿಷ್ಣುವಾಹ ಫಣೀಂದ್ರ, ಮೃಡರಿಗೆ ।<br/>ಕೃಷ್ಣಮಹಿಷಿಯರಧಮರಿವರೊಳು |<br/>ಶ್ರೇಷ್ಠಳಿನಿಹರು ಜಾಂಬವತಿಯಾನೇಶಬಲದಿಂದ || ೧ ||",
+   "confidence": 0.85,
+   "note": "Followed Engine A for better line preservation.",
+   "ratio": 0.909
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 32,
+   "text": "ಶ್ರೀಮದ್ಧರಿ ಕಥಾಮೃತಸಾರ<br/>ಹತಾ ನಾರಮರು ಕಮ್ಮಿ ಎನಿಸುವರು ಅಗ್ನಿ, ಪ್ರಸೂತಿ ಎಂಬ ದಕ್ಷ<br/>ವೈಭವದನುತಲಿ, ಭೃಗು ಋಷಿಗಳು, ಇವರ ಮೂವರೂ ಸಮರು .<br/>ಮತ್ತು ನಾರಮರಂತಲೂ ಅಧಮರು, ಬ್ರಹ್ಮದೇವರ ಮಕ್ಕಳಾದ ಮರೀಚಿ,<br>ಅಗ್ನಿ, ಅಗು, ಪುಲಸ್ಯ, ಪುಲಹ, ಕ್ರತು, ವಶಿಷ್ಠ ಇವರೇಳು ಋಷಿಗಳು ;<br>ವಿಶ್ವಾಮಿತ್ರ, ವೈವಸ್ವತ ಮನು ಇವರೆಲ್ಲರೂ ಸಮರು. ಅಗ್ನಿ<br>ತೋರಾದಾನಕೆಂತಲೂ ಅಧಮರು, ಅಣುತಾರತಮ್ಯವಾಕ್ಯಃ ಸೌಪರ್ಣಿ<br>ತೋರಾದಾನಕೆಂತಲೂ ತನಯಾಚೇಂದ್ರ, ಕಾಮಾವಥಾಸ್ಮಾನ್ ಪ್ರಾಣೋ<br>ತೋದೋನಿರುದ್ಗೊರತಿ ಮನುಗುರವೋ ದಕ್ಷಶಚಾಪಾಂತು ॥ ತ್ರಾಯಂ<br>ತಾರಮವೈತ ಪ್ರವಹ ಉತ್ತಮೌ ಮನವೀ ಚಂದ್ರಸೂರ್ಯೌಚಾಪೋ<br>ತೋ ಶರದೋಥೋ ಧೃಗುರನಿಲ ಕುಲೇಂದ್ರ ಪ್ರಸೂತಿಶ್ಚ ನಿತ್ಯಂ ॥<br>ವಿಶ್ವಾಮಿತ್ರೋಮರೀಚಿ ಪ್ರಮುಖ ವಿಧಿಸುತಾಃ ಸಪ್ತವೈವಸಾಖ್ಯಃ ಎಂಬ<br>ಶ್ಲೋಕದವರೆಗೂ ಹೇಳಿದ ಅರ್ಥವನ್ನೇ ದಾಸಾರ್ಯರು ಮೂರು ಪದ್ಯ<br>ಗಳಿಂದ ಹೇಳಿರುತ್ತಾರೆ. ॥ ೩ ॥<br/>೨. ವ್ಯಾಸದಾಸ ಸಿದ್ಧಾಂತ ಕಾಮುದೀ<br>\"ತತೋಯಮ ಸೂರ್ಯೇಂದೂಮಾನವೀ ಚ ಸಮಾಸ್ತಥಾ ॥<br>ಪರಸ್ಪರಂ ಪ್ರವಹತಃ ನ್ಯೂನಾಃ ಸೂರ್ಯಾದ್ಯಮಾದಯಃ ॥ ತತಃ ನಾರದ<br>ಯೋಗೀ ಚ ತತೋಗ್ನ್ಯಾದಿತ್ತಿಕಂ ತಥಾ ॥ ಸಮಂ ಸ್ಟೇಷ್ವಜಿ ಪುತ್ರಾಶ್ಚ<br>ಸಪ್ತ ವೈವಸ್ವತೋ ಮನುಃ ॥ ವಿಶ್ವಾಮಿತ್ರೋನಲಾಗ್ನೀಚಾಃ\" ಇತ್ಯುಕ್ತ<br>ಮಾಹ - \"ಯಮ\" ಇತಿ ॥ ೩ ॥<br/>ಕನ್ನಡಾರ್ಥ<br>\"ಪ್ರವಹನಾಯುವಿಗಿಂತ-ಯಮ, ಸೂರ್ಯ, ಚಂದ್ರ, ತತರೂಪಾ<br>(ಮನುಪತ್ನೀ) ಇವರು ಕಡಿಮೆಯವರು. ಇವರು ಪರಸ್ಪರ ಸಮರು.",
+   "confidence": 0.9,
+   "note": "Followed Engine A for reliable Sanskrit/Kannada transliteration.",
+   "ratio": 0.889
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 38,
+   "text": "ಶ್ರೀಮದ್ದರಕಥಾಮೃತಸಾರ<br/>೨. ಭಾವಪ್ರಕಾರಿಕೆ<br/>ಅಣುತಾರತಮ್ಯ ಸ್ತೋತ್ರದಲ್ಲಿ \"ಚೈವಂ ವೈಮಿತ್ರತಾರೇನರ ನಿರು<br>ಋತಿ ನಾಮಪ್ರಾವಹೀಚ ಪ್ರಸನ್ನಾಃ ॥ ವಿಶ್ವಕ್ಕೇನೋಶ್ವಿನ್ ತೌ ಗಣಪತಿ<br>ಉಕ್ತಶೇಷಾಃ ಶತಸ್ಥಾಃ\" ಇಲ್ಲಿಯವರೆಗೂ ಹೇಳಿರುವ ತಾರತಮ್ಯ<br>ವನ್ನು ಈ ಪದ್ಯದಿಂದ ಹೇಳಿರುತ್ತಾರೆ : ಮಿತ್ರನೆಂಬ ಸೂರ್ಯ, ಬೃಹಸ್ಪತಿಯ<br>ಹೆಂಡತಿ ತಾರೆ, ದಿಕ್ಷಾಲಕನಾದ ನಿಯಮತಿ ಪ್ರವಹವಾಯುವಿನ ಹೆಂಡತಿ<br>ಪ್ರಾವಹೀ ಈ ನಾಲ್ವರೂ ಸಮರು. ವಿಶ್ವಮಿತ್ರಾದಿಗಳಿಗಿಂತಲೂ<br>ಅಧಮರು. ವಿಷ್ಣುಕ್ಸನ, ವಿಶ್ವೇಶ, ಕುಬೇರ, ಅಶ್ವಿನೀದೇವತೆಗಳು ಇವರ<br>ಸಮರು, ಮಿತ್ರ ಮೊದಲಾದವರಕಿಂತಲೂ ಅಧಮರು ಇನ್ನು ಮುಂದಿ :<br>ಪದ್ಯದಲ್ಲಿ ಉಕ್ತ ಶೇಷಶತಸ್ಥರನ್ನು ಹೇಳುವುದಕ್ಕಾಗಿ ೧೦೦ ದೇವತೆಗಳ<br>ಗುಂಪುಗಳ ಹೆಸರುಗಳನ್ನು ಹೇಳುವನು. ॥೪॥<br/>೪. ಶ್ರೀವ್ಯಾಸದಾಸ ಸಿದ್ಧಾಂತ ಕಾಮುದೀ<br>\"ಪ್ರವಹಸ್ಯಸತೀ ತತಃ (ತಥಾ)\" ಮಿತ್ರತ್ರಿಕಂ ಸಮಂ ವಿಶ್ವಾಮಿತ್ರಾ<br>ನ್ಯೂನಂ ಮತಂ ಸತಾಮ್ \"ಮಿತ್ರಾದೇಃ ವಾಯುಜೋದಿತ್ತಗಣನಾಥೌ<br>ತಥಾಶ್ವಿತ್ (ಸೌ)\" ಸಮಾಃ ಸ್ವೇಷ್ವಮಾಃ ಜ್ಞೇಯಾಃ ಕೀರ್ತಿತಾ,<br>ಬುಧ್ಯೈಃ ॥\" ಇತ್ಯಕ್ತಂ ಬ್ರೂತೇ \"ಮಿತ್ರ\" ಇತಿ ॥ ೪ ॥<br/>ಕನ್ನಡಾರ್ಥ<br>ಪ್ರವಹ ವಾಯುಪತ್ನಿ (ಪ್ರಾಪಹೀದೇವಿ) ಮಿತ್ರ, ತಾರಾ, ನಿರಯತಿ-<br>ಇವರು ಪರಸ್ಪರ ಸಮರಾಗಿದ್ದು, ವಿಶ್ವಾಮಿತ್ರನಿಗಿಂತ ಕಡಿಮೆಯವರೆಂಬುದು<br>ಪ್ರಮಾಣ ಪ್ರಮಿತ. ಮಿತ್ರ ಮುಂತಾದವರಿಗಿಂತ ಕುಬೇರ ಗಣೇಶ. ಅಶ್ವಿನಿ<br>ದೇವತೆಗಳು, ಕಡಿಮೆಯಾದವರು. ಮತ್ತು ಇವರು ಪರಸ್ಪರ ಸಮರೆಂಬು<br>ದನ್ನು ಬುಧರು ಹೇಳುತ್ತಾರೆ” ಈ ವಿಷಯ ಸಂಗ್ರಹವನ್ನು “ಮಿತ್ರ” ಈ<br>ಪದ್ಯದಿಂದ ಹೇಳುತ್ತಾರೆ. ॥ ೪ ॥",
+   "confidence": 0.9,
+   "note": "Followed Engine A for better readable Sanskrit and Kannada text.",
+   "ratio": 0.916
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 45,
+   "text": "ಅಣುತಾರತಮ್ಯ ಸಂಧಿ\n೬. ಗುರು-ಸುರಗುರುಗಳಾದ ಬೃಹಸ್ಪತ್ಯಾಚಾರ್ಯರು.\n೭. ಪಿತೃತ್ರಯ-ಪಿತೃ ದೇವತಾವರ್ಗ = ಮೂರು (ತ್ರಯ).\nತಂದೆಯ ಕಡೆ ಪಿತೃ-ಪಿತಾಮಹ-ಪ್ರಪಿತಾಮಹ ಇವರಿಗೆ ಅಭಿಮಾನಿ ಪಿತೃ\nದೇವತೆಗಳು ಮೂರು ಮಂದಿ. ಮಾತೃವಿನ ಕಡೆ-ತಾಯಿ-ಅವರ ಅತ್ತೆ-ಅತ್ತೆ\nಯವರ ಅತ್ತೆ-ಮೂರು ಮಂದಿ.\n೮. ಅಷ್ಟವಸುಗಳು-ಎಂಟು ಮಂದಿ ವಸುವರ್ಗ.\n೯. ಭರತ-ಪ್ರಧಾನ ವಾಯುದೇವರು\n೧೦. ಭಾರತೀ-ವಾಯುಪತ್ನೀ ಶ್ರೀ ಭಾರತೀದೇವಿ.\n೧೧. ಪೃಥ್ವೀ-ಭೂತತ್ವಾಭಿಮಾನಿ\n೧೨. ಋಭು-ಋಭು ಎಂಬ ದೇವತೆ\nಅಲ್ಲಿಗೆ ಶತಸ್ಥರ ಸಂಖ್ಯೆ ೧೦೦ ಆಗುವುದು. ಈ ಶತಸ್ಥರೆಲ್ಲರೂ\nಯಜ್ಞಯಾಗಾದಿಗಳಲ್ಲಿ ಸೋಮರಸವೆಂಬ ಹವಿಸ್ಸನ್ನು ಪಾನಮಾಡುವ\nಅಧಿಕಾರಿಗಳು.\nಸಂಖ್ಯಾ ವಿವರ\n<table>\n  <tbody>\n    <tr>\n      <td>1.</td>\n      <td>ಮರುತ್ತಗಳು</td>\n      <td>= ೪೯</td>\n    </tr>\n    <tr>\n      <td>2.</td>\n      <td>ಅಶ್ವಿನೀದೇವತೆಗಳು</td>\n      <td>= ೨</td>\n    </tr>\n    <tr>\n      <td>3.</td>\n      <td>ವಿಶ್ವೇದೇವತೆಗಳು</td>\n      <td>= ೧೦</td>\n    </tr>\n    <tr>\n      <td>4.</td>\n      <td>ರುದ್ರಗಣ</td>\n      <td>= ೧೧</td>\n    </tr>\n    <tr>\n      <td>5.</td>\n      <td>ಆದಿತ್ಯವರ್ಗ</td>\n      <td>= ೧೨</td>\n    </tr>\n    <tr>\n      <td>6.</td>\n      <td>ಬೃಹಸ್ಪತ್ಯಾಚಾರ್ಯರು</td>\n      <td>= ೧</td>\n    </tr>\n    <tr>\n      <td>7.</td>\n      <td>ಪಿತೃದೇವತೆಗಳು</td>\n      <td>= ೩</td>\n    </tr>\n    <tr>\n      <td>8.</td>\n      <td>ವಸುವರ್ಗ</td>\n      <td>= ೮</td>\n    </tr>\n    <tr>\n      <td>9.</td>\n      <td>ಪ್ರಧಾನ ವಾಯುದೇವರು</td>\n      <td>= ೧</td>\n    </tr>\n    <tr>\n      <td>10.</td>\n      <td>ಭಾರತೀ</td>\n      <td>= ೧</td>\n    </tr>\n  </tbody>\n</table>",
+   "confidence": 0.85,
+   "note": "Followed Engine A primarily for structure and Sarvam's table layout, integrating clearer text from both engines where necessary.",
+   "ratio": 0.525
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 46,
+   "text": "ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ\n11. ಪೃಥ್ವಿ ೧\n12. ಋಭು 1\nಒಟ್ಟು ಶತಸ್ಥರ ಸಂಖ್ಯೆ - ೧೦೦\nವಿಶೇಷಾಂಕ :\n10ನೆಯ ಕ್ರಮ ಸಂಖ್ಯಾಗತ ಭಾರತಿಯನ್ನು ದ್ಯಾವಾ-ಎಂತಲೂ\nಇದರಿಂದ ದ್ಯಾವಾ-ಪೃಥಿವೀ ಎಂದು ಎರಡು ದೇವತಾವರ್ಗ.\nದ್ಯಾವ್ಯಾ-ಸ್ವರ್ಗಾಭಿಮಾನಿ ದೇವತಾ (ಭಾರತೀ) ಮತ್ತು ಪೃಥ್ವಿ-ಭೂ\nತತ್ವಾಭಿಮಾನಿ ದೇವತೆ (ಇದರಲ್ಲಿ ರಮಾವೇಶ ಬಂದು ಭೂರೂಪ) ರಜೋ\nಗಣಾಭಿಮಾನಿ ಭೂರೂಪ ಬೇರೆ,\nಪದ್ಯ-೬\nಮೂಲ :—\nಈ ದಿವೌಕಸರೊಳಗೆ ಉಕ್ತರು |\nಐದಧಿಕದಶ ಉಳಿದ ಎಂಬ |\nತ್ತೈದು ಶೇಷರಿಗೆಣೆಯಿನಿಸುವರು ಧನಪ ವಿನಾಯಕರು |\nಸಾಧು ವೈವಸ್ವತ ಸ್ವಯಂಭುವ |\nಶ್ರೀದ ತಾಪಸರುಳಿದು ಮನು ಏ |\nಕಾದಶರು ವಿಘ್ನೇಶರಿಗಿಂತಲು ನೀಚರೆನಿಸುವರು ||೬||\nಅವತರಣಿಕೆ :—\n೨೦೦ ಮಂದಿ ಶೇಷಸ್ಥರ ಪೈಕಿ ೮೫ ಮಂದಿ ಶೇಷಶತಸ್ಥರ ಮತ್ತು\nವೈವಸ್ವಾದಿ ಕರ್ಮಜರ ವಿಚಾರವನ್ನು ಹೇಳುತ್ತಾರೆ ॥೬॥\nಪ್ರತಿಪದಾರ್ಥ\nಈ ದಿವೌಕಸರೊಳಗೆನಯ ಕಕ್ಷಾಪನ್ನರಾದ - 100 ಮಂದಿ",
+   "confidence": 0.8,
+   "note": "Followed Engine A for correct layout and Engine B for some uncorrupted letters.",
+   "ratio": 0.909
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 48,
+   "text": "ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ\nಹದಿನೆಂಟನೇ ಕಕ್ಷಕ್ಕೆ ಕಡಿಮೆ ಆದವರು, ಎಂಭತ್ತ ಮೂರು ಮಂದಿ ಸಮಕ\nದವರು ಎಂದರೆ ಹದಿನೆಂಟನೇ ಕಕ್ಷದವರು ಅಂತು ಎಂಭತ್ತೈದು ಮಂ\nನೂರು ಮಂದಿಯಲ್ಲಿ ಉತ್ತಮ ಕಕ್ಷಕ್ಕೆ ಸೇರಿದ ಹದಿನೈದು ಮಂದಿ, ಅವ\nಕಕ್ಷಕ್ಕೆ ಸೇರಿದ ಎರಡು ಮಂದಿ ಹೋಗತಾ ಉಳಿದವರು ಎಂಭತ್ತ ಮೂ\nಮಂದಿ ಅವಶಿಷ್ಟರಾದ ಎಂಭತ್ತು ಮೂರು ಜನಕ್ಕೆ ಕುಬೇರ, ವಿನಾಯಕ,\nವಿಷ್ಟಕ್ಕೇನಾದಿಗಳು ಸಮಾನರೆನಿಸುವರು.\nಶತಸ್ಥರ ಕನ್ನಡ ವಿವರ\n<table>\n  <thead>\n    <tr>\n      <th>ಸತಸ್ಥರ ಮೊತ್ತ ಸಂಖ್ಯಾ</th>\n      <th>ಉತ್ತಮ ಪಕ್ಷದವರು</th>\n      <th>ಅವರಕಕ್ಷ</th>\n      <th>ಸಮಕ್ಷ</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>೪೯ಮಂದಿ ಮರುತರು</td>\n      <td>೨</td>\n      <td>-</td>\n      <td>೪೭</td>\n    </tr>\n    <tr>\n      <td>೩ಮಂದಿ ಅಶ್ವಿನಿದೇವತೆಗಳು</td>\n      <td>-</td>\n      <td>-</td>\n      <td>೨</td>\n    </tr>\n    <tr>\n      <td>೧೦ಮಂದಿ ವಿಶ್ವೇದೇವತೆಗಳು</td>\n      <td>-</td>\n      <td>-</td>\n      <td>೧೦</td>\n    </tr>\n    <tr>\n      <td>೧೧ದುಂದಿ ರುದ್ರರು</td>\n      <td>೧</td>\n      <td>-</td>\n      <td>೧೧</td>\n    </tr>\n    <tr>\n      <td>೧೨ ಮಂದಿ ಆದಿತ್ಯರು</td>\n      <td>೫</td>\n      <td>೧</td>\n      <td>೬</td>\n    </tr>\n    <tr>\n      <td>೧ ಬೃಹಸ್ಪತಿ</td>\n      <td>೧</td>\n      <td>-</td>\n      <td>೬</td>\n    </tr>\n    <tr>\n      <td>೩ಮಂದಿ ಪಿತೃಗಳು</td>\n      <td>೨</td>\n      <td>-</td>\n      <td>-</td>\n    </tr>\n    <tr>\n      <td>೮ಮಂದಿ ವಸುಗಳು</td>\n      <td>೧</td>\n      <td>-</td>\n      <td>೭</td>\n    </tr>\n    <tr>\n      <td>೧ ಭರತ(ಪ್ರಧಾನವಾಯು)</td>\n      <td>೧</td>\n      <td>-</td>\n      <td>-</td>\n    </tr>\n    <tr>\n      <td>೧ಭಾರತಿ (ದ್ಯುಲೋಕಾಭಿ<br/>ಮಾನಿದ್ಯಾವಾ)</td>\n      <td>೧</td>\n      <td>-</td>\n      <td>-</td>\n    </tr>\n    <tr>\n      <td>೨ಪೃಥ್ವಿ, ಋಭು</td>\n      <td>೧</td>\n      <td>-</td>\n      <td>-</td>\n    </tr>\n    <tr>\n      <td>೧೦೦ಮಂದಿ</td>\n      <td>೧೫ ಮಂದಿ</td>\n      <td>೨ ಮಂದಿ</td>\n      <td>೮೩ ಮಂದಿ</td>\n    </tr>\n    <tr>\n      <td>ಅಂತೂ ೧೫ನೇ ಪಕ್ಷದವರು</td>\n      <td>೮೩ ಮಂದಿ</td>\n      <td>ಶೇಷಶತಸ್ಥರು, ಧನಪಾದಿಗಳು ೨</td>\n      <td></td>\n    </tr>\n  </tbody>\n</table>",
+   "confidence": 0.82,
+   "note": "Combined table structure from Engine A with visible text corrections.",
+   "ratio": 0.424
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 49,
+   "text": "ಅಣುತಾರತಮ್ಯ ಸಂಧಿ\n33\nಮಂದಿ ಅಂತು, ೮ ಮಂದಿ ಸಮಾನರು.\nಹದಿನೈದು ಮಂದಿ ಉತ್ತಮ ಕಕ್ಷದವರ ವಿವರ\n<table>\n  <thead>\n    <tr>\n      <th>ನಾಮ</th>\n      <th>ಸಂಖ್ಯಾ</th>\n      <th>ಕಕ್ಷಸಂಖ್ಯೆ</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>ಏಕಾದಶರುದ್ರರಲ್ಲಿ ಪಾರ್ವತೀಪತಿ</td>\n      <td>೧</td>\n      <td>೫</td>\n    </tr>\n    <tr>\n      <td>ರುದ್ರದೇವರು.</td>\n      <td>೧</td>\n      <td>೧೫</td>\n    </tr>\n    <tr>\n      <td>ಅಷ್ಟವಸುಗಳಲ್ಲಿ ಪ್ರಧಾನ ಅಗ್ನಿದೇವರು</td>\n      <td>೧</td>\n      <td>೧೫</td>\n    </tr>\n    <tr>\n      <td>ದ್ವಾದಶಾದಿತ್ಯರಲ್ಲಿ ಐದುಮಂದಿ</td>\n      <td></td>\n      <td></td>\n    </tr>\n    <tr>\n      <td>೧. ಉರುಕ್ರಮನಾಮ ಸೂರ</td>\n      <td>೧</td>\n      <td>೧</td>\n    </tr>\n    <tr>\n      <td>(ಸಾಕ್ಷಾತ್ ನಾರಾಯಣ)</td>\n      <td></td>\n      <td></td>\n    </tr>\n    <tr>\n      <td>೩. ವಿವಸ್ವಾನ್‌ನಾಮಕ ಸೂರ</td>\n      <td>೧</td>\n      <td>೨</td>\n    </tr>\n    <tr>\n      <td>೪. ವರುಣನಾಮಕ ಸೂರ</td>\n      <td>೧</td>\n      <td>೩</td>\n    </tr>\n    <tr>\n      <td>೫. ಮಿತ್ರನಾಮಕ ಸೂರ</td>\n      <td>೧</td>\n      <td>೭</td>\n    </tr>\n    <tr>\n      <td>ಪಿತೃತ್ರಯರಲ್ಲಿ ಎರಡು ಮಂದಿ :-</td>\n      <td></td>\n      <td></td>\n    </tr>\n    <tr>\n      <td>೧. ಯಮದೇವರು</td>\n      <td>೧</td>\n      <td>೧೨</td>\n    </tr>\n    <tr>\n      <td>೨. ಚಂದ್ರದೇವರು</td>\n      <td>೧</td>\n      <td></td>\n    </tr>\n    <tr>\n      <td>ಗುರು-(ಬೃಹಸ್ಪತ್ಯಾಚಾರರು)</td>\n      <td>೧</td>\n      <td></td>\n    </tr>\n    <tr>\n      <td>೪೭ ಮಂದಿ ಮರುತ್ತರಲ್ಲಿ ಎರಡು<br/>ಮಂದಿ:-</td>\n      <td></td>\n      <td></td>\n    </tr>\n    <tr>\n      <td>೧. ಆಹಂಕಾರಿಕ ಪ್ರಾಣದೇವರು</td>\n      <td>೧</td>\n      <td>೯</td>\n    </tr>\n    <tr>\n      <td>೨. ಪ್ರವಹವಾಯುದೇವರು</td>\n      <td>೧</td>\n      <td>೧೧</td>\n    </tr>\n    <tr>\n      <td>ಪ್ರಧಾನ ವಾಯುದೇವರು</td>\n      <td>೧</td>\n      <td>೩</td>\n    </tr>\n    <tr>\n      <td>ದ್ಯುಲೋಕಾಭಿಮಾನಿ ದ್ವಾವಾ</td>\n      <td>೧</td>\n      <td>೪</td>\n    </tr>\n    <tr>\n      <td>(ಭಾರತೀದೇವರು:)</td>\n      <td></td>\n      <td></td>\n    </tr>\n    <tr>\n      <td>ಪೃಥ್ವಿಸಾಂಕಿತರಾದ ಭೂದೇವರು</td>\n      <td>೧</td>\n      <td>೨</td>\n    </tr>\n    <tr>\n      <td>(ಸಾಕ್ಷಾತ್ ರಮಾದೇವರು)</td>\n      <td></td>\n      <td></td>\n    </tr>\n    <tr>\n      <td>ಅಂತಃ</td>\n      <td>೧೫ ಮಂದಿ</td>\n      <td></td>\n    </tr>\n  </tbody>\n</table>",
+   "confidence": 0.81,
+   "note": "Used Engine A's table structure as primary reference.",
+   "ratio": 0.321
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 50,
+   "text": "ಶ್ರೀಮದ್ದ ಕಥಾಮೃ\nಅವರರ ಕಕ್ಷದವರವಿವರ\n<table>\n  <thead>\n    <tr>\n      <th>ನಾಮ</th>\n      <th>ಸಂಖ್ಯಾ</th>\n      <th>ಕ್ಷಕ್ಷ ಸಂಖ್ಯಾ</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>ಪರ್ಜನ್ಯನಾಮಕ ಸೂರ</td>\n      <td>೧</td>\n      <td>೨೦</td>\n    </tr>\n    <tr>\n      <td>ಕವ್ಯಹಾ ಪಿತೃ (ಪಿತೃಕ್ಷ<br/>ದಲ್ಲಿದ್ದಾನೆ)</td>\n      <td>೧</td>\n      <td>೧೯</td>\n    </tr>\n  </tbody>\n</table>\nಉಳಿದ ೩ ಮಂದಿ ಗಸಯ ಕದ್ದದವರು. ೧೪ ಮಂದಿ ಸರಿಯಾಂ:\nಈ ಶತಸ್ಥರ ಒಳಗೆ ಉಕ್ತರು, ಉಕ್ತೇತರರು ಇವರ ವಿವಿಕ್ಷಾ\nಬೇಧದಿಂದ ಬೇಧ ಬೇಧವಾಗಿ ಇರೋದಾಗಿ ಅದೆ. ಹತ್ತೊಂಬತ್ತನೇ\nಕರಜರು,೧೧ ಮನುಗಳು (ಮನುಗಳ ಮೊತ್ತ ೧೪) ಇವರೊಳಗೆ ಉತ\nಕಕ್ಷದವರು ದಾರೆಂದರೆ ಹದಿನಾರನೇ ಕಕ್ಷದ ಭಗವದ್ಭಕ್ತನಾದ ಸಾಧು\nಸ್ವತ ಮನು ಒಂದು, ಹತ್ತನೇ ಕಕ್ಷದವನಾದ ಸ್ವಾಯಂಭುವ\nಒಂದು. ಒಂದನೇ ಕಕ್ಷದವನಾದ ಮಂಗಳ ಕೊಡತಕ್ಕ ತಾಪಸ\nಸಾಕ್ಷಾತ್ ಪರಮಾತ್ಮನು ಒಂದು; ಅಂತು ಮೂರು ಮಂದಿ ಹೋ\nಉಳಿದ ಹನ್ನೊಂದು ಮಂದಿ ಮನುಗಳು ಹತ್ತೊಂಬತ್ತನೇ ಕಕ್ಷದ\nಈ ಮೂರು ಮಂದಿಗಳನ್ನುಳಿದು, ಅವಶಿಷ್ಟರಾದ ಏಕಾದಶವನು\nವಿಘ್ನಶಾದಿಗಳಿಗಿಂತಲೂ ಕಡಿಮೆಯಾದವರು ಎಂತ ಎನಿಸತಾರೆ.\nಹತ್ತೊಂಬತ್ತನೇ ಕಕ್ಷದವರಾದ ಕರಜರ ವಿಚಾರ ಮುಂದೆ ಹೇಳುತ್ತಾರೆ.\nಭಾವಪ್ರಕಾಶಕ\n“ದೇವಾಶ್ಲೋಕ್ತೆತರಾಯೇತದವರ ಮನಸಃ” ಎಂಬ ಆಣು ತಾರ\nವಾಕ್ಯದರ್ಥವನ್ನು ಈ ಪದ್ಯದಲ್ಲಿ ಸೂಚಿಸಿರುತ್ತಾರೆ. ಮೇಲಿನ ಪರ",
+   "confidence": 0.85,
+   "note": "Followed Engine A for the table layout and paragraph text, correcting minor OCR errors where possible using both engines.",
+   "ratio": 0.751
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 52,
+   "text": "ಶ್ರೀಮಧ್ವರಿಕಥಾಮೃತಸಾರ\nವಿಘ್ನೇಶ್ವರ ಸಹ ಸ್ವಾಯಂಭುವಮನು. ವೈವಸ್ವತ ಮನು ಶ್ರೀಧನೆಂಬ\nನಾರಾಯಣರೂಪನಾದ ತಾಪಸಮನು ಸಹ ೩ ಮನುಗಳು ಹೋಗಲಾಗಿ\nಉಳಿದ 11 ಜನ ಮನುಗಳು ವಿಘ್ನೇಶ್ವರನಿಗಿಂತ ಕಡಿಮೆ ॥೬॥\nಸರ್ವವ್ಯಾಖ್ಯಾನಸಾರ ಸಂಗ್ರಹ\nಶತಸ್ಥದೇವತೆಗಳ ಸಂಖ್ಯೆ-100. ಈ 100 ಮಂದಿಗಳ ಪೈಕಿ\n15 ಮಂದಿ ಉತ್ತಮ ಕಕ್ಷದವರು. ಈ ಈ ಸಂಖ್ಯೆಯನ್ನು ದಾಸರಾಯರು\nಐದಧಿಕ ದಶ-ಎಂದಿದ್ದಾರೆ. ಅಂದರೆ, ಹತ್ತರ ಮೇಲೆ ಐದು=10+5\n=15 ಈ 15 ಮಂದಿ ಉತ್ತಮ ಪಕ್ಷಕ್ಕೆ ಸೇರಿದವರ ವಿವರ ಇಂತಿದೆ.\n1. ಮರುದ್ದಣಗಳ ಪೈಕಿ=೨\n2. ದ್ವಾರಕಾದಿತ್ಯರ ಪೈಕಿ = ೫\n3. ಏಕಾಕ್ಷರುದ್ಧರ ಪೈಕಿ ೧\n4. ಬೃಹಸ್ಪತಿ ೧\n5. ಪಿತೃಗಣಗಳಲ್ಲಿ ೨\n6. ಅಷ್ಟವಸುಗಳಲ್ಲಿ ೧\n7. ಭರತ (ಪ್ರಧಾನವಾಯು) ೧\n8. ಭಾರತೀ (ದ್ಯುಲೋಕಾಭಿಮಾನಿ<br>-ದ್ಯಾವ್ಯಾ) ೧\n9. ಶುಭ್ರ ೧\nಒಟ್ಟು ೧೫\nಈ ೧೫ ಮಂದಿ ೧೦೦ ಮಂದಿ ಶತಸ್ಥರ ಪೈಕಿ ಉತ್ತಮ ಕಕ್ಷಕ್ಕೆ\nಸೇರಿದವರು. ಇವರನ್ನುಳಿದು, ಶತಸ್ಥರ ಸಂಖ್ಯೆ-೧೦೦ಕಡಿಮೆ 15=೮೫",
+   "confidence": 0.88,
+   "note": "Reconciled Engine A and Engine B for accurate list of numbers.",
+   "ratio": 0.902
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 54,
+   "text": "ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ\nಅವತರಣಿಕೆ:\n೧೯ನೆಯ ಕಕ್ಷಾಪನ್ನರಾದವರ ತಾರತಮ್ಯವಿಚಾರವನ್ನು ತಿಳಿಸು\nತ್ತಾರೆ. ॥೭॥\nಪ್ರತಿಪದಾರ್ಥ:\nಚ್ಯವನನಂದನ ಕವಿ—ಚ್ಯವನಋಷಿಗಳ ಪುತ್ರರಾದ ಕವಿ\nಎಂಬಾತನು, ಬೃಹಸ್ಪತಿ ಅವರನುಚಥ್ಯಮುನಿ—ಬೃಹಸ್ಪತ್ಯಾಚಾರ್ಯರ\nತಮ್ಮನಾದ ಉಚಥ್ಯ ಋಷಿಗಳು. ಪಾವಕ — ಅಗ್ನಿಪುತ್ರ ಪಾವಕನು, ಧ್ರುವ\n—ಧ್ರುವರಾಜರು; ನಹುಷ — ನಹುಷ ಚಕ್ರವರ್ತಿ, ಶಶಿಬಿಂದು—ಶಶಿಬಿಂದು\nಎಂಬ ರಾಜನು, ಪ್ರಿಯವ್ರತನು—ಪ್ರಿಯವ್ರತನೆಂಬ ದೊರೆ, ಪ್ರಹ್ಲಾದ\nಪ್ರಹ್ಲಾದರಾಜರು, ಕುವಲಯವರು—ಇತ್ಯಾದಿ ಭೂಪಾಲಕರು. (ಅವರ\nಸಮಾನರಾದ ಇತರ ಕರ್ಮಜರು). ಉಕ್ತೇತರಿಂದಲಿ — 18ನೆಯ ಕಕ್ಷಾದಲ್ಲಿ\n100 ಮಂದಿಯ ಪೈಕಿ ಉತ್ತಮ ಕಕ್ಷಾದಲ್ಲಿ ಹೇಳಲ್ಪಟ್ಟವರು, ಅವರ—\nಅವರರು. ರೋಹಿಣೀ—೨೦ನೆಯ ಕಕ್ಷಾಪನ್ನರಾದ ಚಂದ್ರನ ಮಡದಿ\nಶ್ರೀ ರೋಹಿಣಿದೇವಿ, ಶಾಮಲಾ—ಯಮದೇವರ ಪತ್ನಿ ಶಾಮಲಾದೇವಿ.\nಜಾಹ್ನವೀ = ವರುಣಪತ್ನಿ ಶ್ರೀಗಂಗಾದೇವಿ. ಪರ್ಜನ್ಯ — ಪರ್ಜನ್ಯ\nನಾಮಕ ಸೂರ್ಯದೇವರು. ಸಂಜ್ಞಾದೇವಿಯರು — ಸೂರ್ಯಪತ್ನಿ\nಶ್ರೀಸಂಜ್ಞಾದೇವಿ, ಅಧಮ— ೧೯ನೆಯ ಕಕ್ಷಾಪನ್ನರಾದ ಕರ್ಮಜರಿಗಿಂತ\nಕನಿಷ್ಠರು. ||೭||\nವ್ಯಾಖ್ಯಾನಗಳು\n೧. ಶ್ರೀ ಸಂಕರ್ಷಣ ಒಡೆಯರ ವ್ಯಾಖ್ಯಾನ\nಹತ್ತೊಂಭತ್ತನೇ ಕಕ್ಷದವರು ಮ್ಯಾಲೆ ಹೇಳಿದವರು ಹೋಗತಾ ಅವ",
+   "confidence": 0.85,
+   "note": "Used Engine A as the primary source, fixing obvious OCR gaps with Engine B.",
+   "ratio": 0.919
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 57,
+   "text": "ಅಣುತಾರತಮ್ಯ ಸಂಧಿ\n೪. ಧ್ರುವ- ಸ್ವಾಯಂಭುವ ಮನುವಿನ ಮೊಮ್ಮಗನು ಉತ್ತಾನಪಾತ\nರಾಜನು. ರಾಜನಿಗೆ ಸುನೀತಿಯಲ್ಲಿ ಜನಿಸಿದವನೇ ಧ್ರುವನು. ಚಿಕ್ಕಂದಿ\nನಲ್ಲಿಯೇ ಘೋರ ತಪವನ್ನಾಚರಿಸಿ, ಶ್ರೀಮನ್ನಾರಾಯಣನನ್ನು ಪ್ರತ್ಯಕ್ಷೀ\nರಿಸಿಕೊಂಡ ಭಾಗವತ್ತೋತ್ತಮನು.\n೫. ನಹುಷ:\nಚಂದ್ರವಂಶದ ಅರಸು. ಊರ್ವಶೀ ಪುರೂರವನ ಪುತ್ರನಾದ ಆಯು\nರಾಜನಿಂದ ಸ್ವರ್ಭಾನವಿಯಲ್ಲಿ ಜನಿಸಿದವನು. ಪಿತೃದೇವತೆಗಳ ಕನ್ಯೆ ವಿರಜೆ\nನಹುಷ ರಾಜನ ಪತ್ನಿ. ಈತನಿಗೆ ಯಯಾತಿ ಇತ್ಯಾದಿ ಆರು ಮಂದಿ\nಪುತ್ರರು, ವೃತ್ರಾಸುರರ ವಧೆಯಿಂದಾಗಿ ಇಂದ್ರನಿಗೆ ಬ್ರಹ್ಮಹತ್ಯಾಪಾತಕವು\nಬಂದಿತು. ಆಗ ದೇವತೆಗಳ ಪ್ರಾರ್ಥನೆಯಂತೆ ನಹುಷನು ಇಂದ್ರನಾಗಿ\nಪದವಿಯನ್ನು ಆಳಿದನು. ಅಗಸ್ತ್ಯರ ಶಾಪದಿಂದ ಅಜಗರನಾದ ಭೀಮಸೇನ\nನನ್ನ ಹೆಬ್ಬಾವು ಸುತ್ತಿಕೊಳ್ಳಲು, ಧರ್ಮರಾಯನು ಅಜಗರನ ಪ್ರಶ್ನೆಗಳಿಗೆ\nಸಮರ್ಪಕ ಉತ್ತರಗಳನ್ನು ಕೊಟ್ಟನು. ಆಗ ಅಜಗರವು ಭೀಮನನ್ನು\nಬಿಟ್ಟಿತು. ಶಾಪ ವಿಮೋಚನೆ ಹೊಂದಿ ನಿಜರೂಪ ಧಾರಣೆ ಮಾಡಿದ\nಪ್ರಸಂಗ.\n೬. ಶಶಿಬಿಂದು.\nಯದುವಂಶದ ಒಬ್ಬ ರಾಜರ್ಷಿ. ದೃಷ್ಟಿಮಠದ ಚಿತ್ರರಥನ ಪುತ್ರ.\nಇವನಿಗೆ ಲಕ್ಷಮಂದಿ ಪತ್ನಿಯರು. ಈತನ ಪುತ್ರಿ ಬಿಂದುಮತಿಯು ಮಾಂಧಾತ\nಚಕ್ರವರ್ತಿಯ ಹೆಂಡತಿ. ಚಿತ್ರರಥನೆಂದು ಇವನಿಗೆ ನಾಮಾಂತರ ಉಂಟು.\n೭. ಪ್ರಿಯವ್ರತನು\nಸ್ವಾಯಂಭುವಮನುವಿನಿಂದ ಶತರೂಪಾದೇವಿಯಲ್ಲಿ ಜನಿಸಿದ\nಪತ್ರ, ಉತ್ತಾನಪಾದರ ಅಣ್ಣ. ವಿಶ್ವಕರ್ಮನ ಪುತ್ರಿ, ವಿಶ್ವಮ್ಮತಿ\nಈತನ ಪತ್ನಿ. ಆಕೆಯಲ್ಲಿ ಅಗ್ನಿಬ್ರ ಇತ್ಯಾದಿ ಹತ್ತುಪುತ್ರರನ್ನು ಪಡೆದ.\nಊರ್ಜಸ್ಪತಿ ಎಂಬ ಮಾತ್ರ ಪತ್ರಿ.",
+   "confidence": 0.89,
+   "note": "Combined Engine A and Engine B for correct prose flow.",
+   "ratio": 0.882
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 60,
+   "text": "ನೀಚನು - ಬುಧನಿಗಿಂತ ಕಡಿಮೆಯಾದವಳು. ಶನಿ-೨೬ನೆಯ ಕಕ್ಷದ\nಶನಿಯು (ಸೂರ್ಯಪುತ್ರ) ಕಡಿಮೆ - ಉಷಾದೇವಿಗಿಂತಲೂ ಕನಿಷ್ಠನು\nಸೂರ್ಯನಂದನಗೆ = ಸೂರ್ಯಪುತ್ರನಾದ ಶನಿರಾಯನಿಗೆ. ಸದ್ದಿನುತ -\nಸಜ್ಜನರಿಂದ ಸ್ತುತ್ಯನಾದ. ಕರ್ಮಾಧಿಪತಿ - ಕರ್ಮಾಭಿಮಾನಿಯಾದ\nಪುಷ್ಕರ-೨೬ನೆಯ ಕಕ್ಷದ ಪುಷ್ಕರನು. ನೀಚನೆನಿಸುವ = ಕನಿಷ್ಠನೆಂದೇ\nಕರೆಯಿಸುವನು ॥೮॥\nವ್ಯಾಖ್ಯಾನಗಳು\n೧. ಶ್ರೀ ಸಂಕರ್ಷಣ ಒಡೆಯರ ವ್ಯಾಖ್ಯಾನ\nಅನಭಿಮಾನಿ ದೇವತಾರಭ್ಯ ಪುಷ್ಕರಾಂತ ತಾರತಮ್ಯ ಹೇಳತಾರೆ\nಇಪ್ಪತ್ತನೇ ಕಕ್ಷದವರಾದ ತತ್ವಾಭಿಮಾನಿಗಳಲ್ಲದ ದೇವತೆಗಳು\nಕಡಿಮೆ ಎಂತ ಕರೆಸುತ್ತಾರೆ. ಇಪ್ಪತ್ತೆರಡನೇ ಕಕ್ಷದ ಕೇಚನ ಮುನಿಗಳು\nಅನಭಿಮಾನಿ ದೇವತೆಗಳಿಗಿಂತ ಕಡಿಮೆ ಎಂತ ಕರೆಸುತ್ತಾರೆ. ಈ ಕೇಚನ\nಮುನಿಗಳಿಗೆ ಇಪ್ಪತ್ತಮೂರನೇ ಕಕ್ಷದವರಾದ ಅಗ್ನಿಪತ್ನಿ ಸ್ವಾಹಾದೇವೀರು,\nಇಪ್ಪತ್ತನಾಲ್ಕನೇ ಕಕ್ಷದ ಬುಧ, ಈ ಸ್ವಾಹಾ ದೇವರಿಗಿಂತಲೂ ಕಡಿಮೆ\nಎಂತ ಕರೆಸೋವನಾಗತಾರೆ. ಇಪ್ಪತ್ತೈದನೇ ಕಕ್ಷದ ಅಶ್ವಿನೀ ಭಾರ್ಯಾ\nಉಷಾದೇವಿ ನೀಚಳು ಬುಧನಿಗಿಂತಲೂ ಎಂತ ತಾತ್ಪರ. ಇಪ್ಪತ್ತಾರನೇ\nಕಕ್ಷದ ಶನಿರಾಯ ಉಷಾದೇವಿಗಿಂತಲೂ ಆವರನಾದವ. ಸೂರ್ಯಪುತ್ರನಾದ\nಶನಿರಾಯನಿಗೆ ಸಜ್ಜನರಿಂದ ಸ್ತುತ್ಯನಾದ ಕರ್ಮಾಭಿಮಾನಿಯಾದ ಇಪ್ಪತ್ತೇಳನೆ\nಕಕ್ಷದವನಾದ ಪುಷ್ಕರ ಕಡಿಮೆ ಎಂತ ಕರಸತಾನಂತ ತಾತ್ಪರ ॥೮॥\n೨. ಭಾವಪ್ರಕಾಶಿಕೆ :\nಗಂಗೆ ಮೊದಲಾದದರಕಿಂತಲೂ, ಯಾವ ವಿಧವಾದ ಅಧಿಕಾರವೂ\nಇಲ್ಲದ ಅಪ್ರಸಿದ್ಧರಾದ ದೇವತೆಗಳ ಪೈಕಿ ಕೆಲವರು ನೀಚರೆನಿಸುವರು. ಅವರ",
+   "confidence": 0.95,
+   "note": "Combined best readings from Engine A and Engine B, correcting obvious OCR errors.",
+   "ratio": 0.882
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 65,
+   "text": "ಅಣುತಾರತಮ್ಯ ಸಂಧಿ\n49\n೭. ಸೂರ್ಯನಂದನನಾದ ಶನಿರಾಯನು ಉಷಾದೇವಿಗಿಂತ ತಾರತಮ್ಯದಲ್ಲಿ\nಕನಿಷ್ಠನು:-೨೬ನೆಯ ಕಕ್ಷೆ.\n೮. ಕರ್ಮಾಭಿಮಾನಿ ಪುಷ್ಕರನು ಶನಿಗಿಂತಲೂ ಕಡಿಮೆ-೨೭ನೆಯ ಕಕ್ಷೆ.\nಪ್ರಮಾಣ :\n“ವಿಭ್ಯೋನೇ ಚಾಗ್ನಿ ಜಾಯಾ ಚ ಜಲಮಯ ಬುಧಶ್ಚಾಪಿ |\nನಾಮಾತ್ಮಿಕಾ ಉಷಾ ಚೈವಂ ಭೂಮೋತ್ತರಾತ್ಮಾ ಶನಿರಪಿ ಕಥಿತಃ |\nಪುಷ್ಕರ? ಕರ್ಮವೋಪಿ”\n-ಕಾರತಮ್ಯ = ಸ್ತೋತ್ರ ವಾಕ್ಯ\nಪದ್ಯ-೯\nಮೂಲ: ಕೊರತೆಯೆನಿಪರಶೀತಿ ಋಷಿ ಪು |\nಷ್ಕರಗೆ ಊರ್ವಶಿ ಮುಖ್ಯ ಶತ ಅ |\nಪ್ಸರರು ತುಂಬುರಮುಖರು ಆಜಾನಜರೆನಿಸುತಿಹರು ||\nಕರೆಸುವುದು ಅನಲಗಣ ನಾಲ್ವ |\nತ್ತರೆ ಚತುರ್ದಶ ದ್ವಷ್ಟ ಸಾವಿರ |\nಹರಿಮಡದಿಯರು ಸಮರೆನಿಸುವರು; ಪಂತೆ ಪೇಳ್ದರಿಗೆ ||೯||\nಅವತರಣಿಕೆ :\nಅಖ್ಯಾತ = ಅಜಾನಜ ದೇವತೆಗಳ ವಿಚಾರವನ್ನು ತಿಳಿಸುತ್ತಾರೆ. ॥೯॥\nಪ್ರತಿಪದಾರ್ಥ :\nಅಶೀತಿ ಋಷಿ = ೨೮ನೆಯ ಕಕ್ಷಕ್ಕೆ ಸೇರಿದ ೮೦ ಮಂದಿ ಋಷಿಗಳು,\nಕೊರತೆಯೆನಿಪರು = ಪುಷ್ಕರನಿಗಿಂತಲೂ ಕಡಿಮೆ ಎಂತ ಕರೆಯಿಸುವರು",
+   "confidence": 0.92,
+   "note": "Reconciled Engine A and Engine B for accurate word and verse restoration.",
+   "ratio": 0.9
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 66,
+   "text": "ಅಣುತಾರತಮ್ಯ ಸಂಧಿ\n50\nಪುಷ್ಕರಗೆ = ಪುಷ್ಕರನಿಗಿಂತಲೂ, ಊರ್ವಶೀ ಮುಖ್ಯ = ೨೯ನೆಯ ಕಕ್ಷಾ\nಪನ್ನರಾದ ಊರ್ವಶೀ - ಮೊದಲಾದ. ಶತ = ಅಪ್ಸರರು = ನೂರುಮಂದಿ\nಅಪ್ಸರಸ್ತ್ರೀಯರು (ಇವರಲ್ಲಿ ಕೆಲವರು ಕರ್ಮಜರಲ್ಲಿ ಸೇರಿದ್ದಾರೆ.) ತುಂ\nಬುರ ಮುಖರು = ತುಂಬುರನೇ ಮೊದಲಾದ ದೇವಗಂಧರ್ವರು. ಇವ\nರಲ್ಲೂ ಕೆಲವರು ಸೇರಿದ್ದಾರೆ. ನಾಲ್ವತ್ತು ಅರೆ = ನಾಲ್ವತ್ತರಲ್ಲಿ ಅರ್ಧಭಾಗಿ\nಎಂದರೆ ಇಪ್ಪತ್ತು. ಚತುರ್ದಶಿ = ನಲವತ್ತರ, ದ್ವಿ ಅಷ್ಟ ಸಾವಿರ :-\n೨X೮X೧೦೦೦ = ೧೬,೦೦೦ (ದ್ವಿ-೨. ಅಷ್ಟ-೮. ಅಂದರೆ ದ್ವಷ್ಟ್ಯ = ೨X೮ =\n೧೬). ಅಲ್ಲಿಗೆ - ೧೬೦೦೦ + ೪೦ + ೨೦ + ೪೦ = ೧೬,೦೦೦ ಮಂದಿ\nಹರಿ ಮಡದಿಯರು - ಶ್ರೀ ಕೃಷ್ಣನ ಪತ್ನಿಯರು, ಈ ಅನಲಗಣ - ಈ\n೧೬,೦೦೦ ಮಂದಿ ಅಗ್ನಿಪುತ್ರಿಯರ ಸಮೂಹ, ಪಿಂತೆ ಪೇಳ್ದರಿಗೆ-ಹಿಂದೆ\nಹೇಳಿದ ಊರ್ವಶ್ಯಾದಿಗಳಿಗೆ, ತುಂಬುರಾದಿಗಳಿಗೆ. ಸಮರೆನಿಸುವರು-ಸಮಾ\nನರು ಎನಿಸುತ್ತಾರೆ. ಈ ಸಮೂಹ ೨೮ನೆಯ ಕಕ್ಷಾಪನ್ನರಾದ ೮೦ ಮಂದಿ\nಋಷಿಗಳಿಗಿಂತ ತಾರತಮ್ಯದಲ್ಲಿ ಕಡಿಮೆ ಅಜಾನಜರೆನಿಸುವರು-೨೮ ಮತ್ತು\n೨೯ನೆಯ ಕಕ್ಷಕ್ಕೆ ಸೇರಿದ ಇವರೆಲ್ಲರೂ \"ಅಜಾನಜರು\"-ಎಂತ ಕರೆಯಿಸುವನ\nರಾಗುತ್ತಾರೆ. ॥೯॥\nವ್ಯಾಖ್ಯಾನಗಳು\n೧. ಶ್ರೀಸಂಕರ್ಷಣ ಒಡೆಯರ ವ್ಯಾಖ್ಯಾನ - ೧\nಅಖ್ಯಾತ ಅಜಾನಜರ ತಾರತಮ್ಯವನ್ನು ಹೇಳುತ್ತಾನೆ.\nಇಪ್ಪತ್ತೆಂಟನೇ ಕಕ್ಷದವರು - ಎಂಭತ್ತು ಋಷಿಗಳು, ಪುಷ್ಕರಗೆ ಕಡಿಮೆ\nಎಂತೆನಿಸುತ್ತಾರೆ. ಪುಷ್ಕರನಿಗಿಂತಲೂ ದಾರು ಕಡಿಮಿ ಎಂದರೆ, ಇಪ್ಪತ್ತೊಂಭ\n-ತ್ತನೇ ಕಕ್ಷದ ಊರ್ವಶೀ ಮೊದಲಾದ ನೂರಾರು ಮಂದಿ. ಇವರಲ್ಲಿ ಕೆಲ\nವರು ಕರ್ಮಜರು ಸೇರಿದ್ದಾರೆ. ತುಂಬುರನೇ ಮೊದಲಾದ ಗಂಧರ್ವರು,\nಇವರಲ್ಲಿ ಕೆಲವರು ಕರ್ಮಜರು ಸೇರಿದ್ದಾರೆ. ನಾಲ್ವತ್ತು ಅರೆ ಎಂದರೆ,",
+   "confidence": 0.94,
+   "note": "Used Engine A layout with targeted Engine B corrections where readable.",
+   "ratio": 0.896
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 70,
+   "text": "54\nಶ್ರೀಮದ್ದರಿಕಥಾಮೃತಸಾಗರ\n೪. ಅನಿಲ ಗಣ\nಅಗ್ನಿಪುತ್ರರ ಸಮೂಹ ತ್ರೇತಾಯುಗದಲ್ಲಿ ಶ್ರೀರಾಮನ ಅಂಗ ಸಂಗ\nವನ್ನು ಹೊಂದಬೇಕೆಂಬ ಅಪೇಕ್ಷೆಯಿಂದ, ಶ್ರೀರಾಮನನ್ನು ಪ್ರಾರ್ಥಿಸಲಾಗಿ\nಶ್ರೀಕೃಷ್ಣಾವತಾರದಲ್ಲಿ ಆ ಋಷಿಗಳೆಲ್ಲರೂ ಸ್ತ್ರೀತ್ವವನ್ನು ಹೊಂದಿ ಅಗ್ನಿ\nಪುತ್ರಿಯರಾಗಿ ಜನಿಸುವಂತೆ ಪರವಿತ್ತನು. ಅವರ ಸಂಖ್ಯೆ ೧೬,೦೦೦ ಅಗ್ನಿ\nಪ್ರಧಾನ ಪುತ್ರನಾದ ಪಾವಕನನ್ನು ಬಿಟ್ಟು ಉಳಿದವರು.\n೫. ನಾಲ್ವತ್ತರ ಚತುರ್ದಶಿ ದ್ವಿ ಅಷ್ಟ ಸಾವಿರ\n೫. ನಾಲ್ವತ್ತರ ಅರ್ಧ = ೨೦. ಚತುರ್ದಶ = ೪X೨೦\n೪೦ ದ್ವಿ ಅಷ್ಟ = ೨X೮=೧೬ ಸಾವಿರ. ಅಂದರೆ ನಾಲ್ವತ್ತು, ನಾಲ್ವತ್ತು,\nಅರೆ+ಚತುರ್ದಶ+ದ್ವಿ ಅಷ್ಟ ಸಾವಿರ = ೪೦+೨೦+೪೦+೧೬,೦೦೦\n- ೧೬,೦೦೦ ಮಂದಿ ಎಂದರ್ಥ.\nಈ ಹದಿನಾರು ಸಾವಿರ ನೂರ ಒಂದು ಸಂಖ್ಯಾಕವಾದ ಶ್ರೀಕೃಷ್ಣ\nಪತ್ನಿಯರು (ಹರಿ ಮಡದಿಯರು).\nಇವರು ಸಹ ಅಜಾನಜ ದೇವತಾ ವರ್ಗದಲ್ಲಿಯೇ ಸೇರಿದ್ದಾರೆ. ಇವರು\n೨೯ = ೨೯ನೆಯ ಕಕ್ಷಾಪನ್ನರು ॥೯॥\nಕಾರಣಕ್ರಮ\n೧. ವಿಶ್ವಾಮಿತ್ರ ಬ್ರಹ್ಮ ಮಾನಸಪುತ್ರರಾದ ಸಪ್ತರ್ಷಿಗಳು ಉಚಥ್ಯಮುನಿ\nಕೇಚನಮುನಿ ಇವರನ್ನು ಬಿಟ್ಟು ಉಳಿದ ೮೦ ಮಂದಿ ಋಷಿವರ್ಗ ಪುಷ್ಕರನಿ\nಗಿಂತ ಕಡಿಮೆ ೨೮ ನೆಯ ಕಕ್ಷೆ.\n೨. ಊರ್ವಶೀ ಮುಖ್ಯರಾದ ೧೦೦ ಮಂದಿ ಅಪ್ಸರ ಸ್ತ್ರೀಯರು ತುಂಬು\nರರು ಮೊದಲಾಗಿ ೧೦೦ ಮಂದಿ ದೇವ ಗಂಧರ್ವ ವರ್ಗ ೧೬,೧೦೦ ಮಂದಿ\nಅಗ್ನಿ ಪುತ್ರಿಯರಾದ ಶ್ರೀಕೃಷ್ಣನ ಮಡದಿಯರು ಇವರೆಲ್ಲರಿಗೂ \"ಅಜಾನಜ\nದೇವತೆಗಳೆಂದು\" ಹೆಸರು.",
+   "confidence": 0.93,
+   "note": "Combined numbers and text from engines to preserve exact layout and printing.",
+   "ratio": 0.87
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 80,
+   "text": "64\nಶ್ರೀಮದ್ದ ಕಥಾಮೃತಸಾರ\nತನುಃ ಗೋಗ್ಯರ ಭೃತ್ಯರಧಮರು |\nಅಮರುಷಾದ್ಯಭಿಮಾನಿ ದೈತ್ಯರು |\nನಮುಚಿ ಮೊದಲಾದವರಿಗಿಂತಲಿ ವಿಪ್ರಚಿತಿ ನೀಚ ||೧೨||\nಅವತರಣಿಕೆ :\nಲತಾ ತೃಣರೂಪರಾದಸ್ಥಾವರ ಜೀವರುಗಳತಾರತಮ್ಯ ಹಾಗೂ ತಮ್ಮ\nಯೋಗ್ಯರುವಾ ದೈತ್ಯರ ತಾರತಮ್ಯ ವಿಚಾರವನ್ನು ತಿಳಿಸುತ್ತಾರೆ. ॥ ೧೨ ॥\nಪ್ರತಿಪದಾರ್ಥ;\nದ್ರುಮ - ವೃಕ್ಷರೂಪದಲ್ಲಿರುವ ಜೀವರು. ಲತಾ = ಬಳ್ಳಿ ಜೀವರು\nತೃಣ = ಹುಲ್ಲುರೂಪದಲ್ಲಿರುವ ಜೀವವರ್ಗ, ಗುಲ್ಮಜೀವರು = ಪೊದೆರೂಪ\nವಾಗಿರುವ ಜೀವರು. ಈ ಜೀವವರ್ಗವೆಲ್ಲಾ ಸ್ಥಾವರ ಜೀವರನಿಸುವರು.\nಇವರು ಮಾನುಷೋತ್ತಮಾ ನಂತರ ೩೬ನೆಯಕಕ್ಷದವರು. ಕ್ರಮದಿ\nನೀಚರು = ಜೀವರು ತ್ವಣಾಂತ ಕ್ರಮಕ್ರಮವಾಗಿ ತಾರತಮ್ಯದಲ್ಲಿ ಕಡಿಮೆ.\nಇವರಿಗಿಂತ ನಿತ್ಯಬದ್ಧ = ಅನಾದಿಯಿಂದ ಸ್ವರೂಪತಃ ಸುಖದುಃಖ\nಮಿಶ್ರವಾದ ನಿತ್ಯಸಂಸಾರಿ ಜೀವರು (ರಜೋಜೀವರು) ೩೭ನೆಯ ಕಕ್ಷದವರು\nಅಧಮರೆನಿಸುವರು = ಕಡಿಮೆ ಎಂದು ಕರೆಯಿಸುತ್ತಾರೆ. ಅಜ್ಞಾನಿ\nನಿತ್ಯಸಂಸಾರಿಗಳಿಗಿಂತಲೂ, ಭಗವದ್ಜ್ಞಾನಶೂನ್ಯರಾದ, ತಮಸ್ಸಿಗೆಯೋಗ್ಯರ\n= ೩೮ನೆಯ ಕಕ್ಷದ, ತಮೋಯೋಗ್ಯರಾದ ತಾಮಸ ಜೀವರು, ಭೃತ್ಯರು\nಅಧಮರು = ೩೯ನೆಯ ಕಕ್ಷದವರೆಗೆ ದೈತ್ಯರು ಅಧಮರು. ಅಮರುಷಾದಿ\n= ಕಾಮ, ಕ್ರೋಧಾದಿಗಳಿಗೆ ಅಭಿಮಾನಿ = ಅಭಿಮಾನಿಗಳಾದ ದೈತ್ಯರು\nದೈತ್ಯರಾದ, ನಮುಚಿ ಮೊದಲಾದವರಿಗಿಂತಲಿ = ೪೦ನೆಯಕಕ್ಷದ ನಮೂಲಿ\nಮೊದಲಾದ ದೈತ್ಯವರ್ಗ ೩೯ನೆಯ ಕಕ್ಷದವರೆಗೆ ಅಧಮರು = ಕ್ರಮಕ್ರಮ\nವಾಗಿ ನೀಚರು. ವಿಪ್ರಜಿತಿ = ನಮುಚಿ ಮೊದಲಾದ ದೈತ್ಯರಿಗಿಂತಲೂ\nವಿಪ್ರಚಿತ್ತಿ ಎಂಬ ದೈತ್ಯನು ನೀಚ = ಕಡಿಮೆ ಯಾದವನು. ॥೧೨॥",
+   "confidence": 0.9,
+   "note": "Engine A followed largely, combining structure and missing text correction from Engine B where necessary.",
+   "ratio": 0.901
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 91,
+   "text": "ಅಣುತಾರತಮ್ಯ ಸಂಧಿ\n75\nಮಾನಿಯು ಬ್ರಹ್ಮದೇವರು, ನಿತ್ಯಬದ್ಧರೇದರೆ-ನಿತ್ಯಸಂಸಾರಿ- ಜೀವರು\nಮನುಷ್ಯನೆಂದರ್ಥ, ಇವರಿಗಭಿಮಾನಿಯು ಪುರಂಜನನೆಂಬ ರಾಜನು.\nದೈತ್ಯಜೀವ ಸಮುದಾಯಾಧಿಪತಿಯು -ಕಲಿ ಎನಿಸುವನು. ಭಗವದಾಜ್ಞೆ\nಪ್ರಕಾರ, ಭಗವತ್ಪ್ರತಿ- ಗೋಸ್ಕರವಾಗಿಯೇ ವಾಯುದೇವರು: ಪುರಂಜನ,\nಕಲಿ ಮೊದಲಾದವರಲ್ಲಿ ಇದ್ದ; ಅವರು ಜೀವರಿಂದ ಮಾಡಿಸಬೇಕಾದ ಕಾರ್ಯ\nಗಳನ್ನು ತಾವು ಮಾಡಿ, ಅವರಿಂದಲೂ ಮಾಡಿಸುವರು. ॥೧೪।\n೪. ಶ್ರೀವ್ಯಾಸದಾಸ ಸಿದ್ಧಾಂತ ಕಾಮುದೀ -:\n\"ತ್ರಿಪ್ರಾಪ್ತ ಸಾತ್ವಿಕಾಃ ಪ್ರಃಕಾಃ ತಾತ್ವಿಕಾ ಇತಿ ಭಾಹಿತಮ್॥ ದೇವ\nಜೀವಾಭಿಮಾನೀತು ಬ್ರಹ್ಮವತು ಚತುರ್ಮುಖಃ॥ ಮಾನುಷ್ಠಾಣಾಂತು\nಜೀವಾನಾಂ ಅಭಿಮಾನಿಃ ಪುರಂಜನಃ॥ ಸತುರಾಜಾ ಹರೇಃ ಪುತ್ರಃತು ಅಸು\nರಾಣಾಂ ಕಲಿಃ ಸ್ವಯಮ್॥ ಇತ್ಯುಕ್ತಂ ಬ್ರೂತೇ-\"ಸತ್ವ\" ಇತಿ\" ಮಾಡಿ-\nಕರ್ಮ. ೧೦೪॥\nಕನ್ನಡಾರ್ಥ\nತಾತ್ವಿಕರು ಸಾತ್ವಿಕರೆಂದು ಹೇಳಲಾಗಿದೆ. ದೇವಜೀವರಿಗೆ ಚತು\nರ್ಮುಖ ಬ್ರಹ್ಮನೇ ಅಭಿಮಾನಿಯು. ಮನುಷ್ಯ ಜೀವರಿಗೆ ಪುರಂಜನನು\nಅಭಿಮಾನಿಯು. ಅಸುರ ಜೀವರಿಗೆ ಸ್ವತಃ ಕಲಿಯು ಅಭಿಮಾನಿಯು, ಈ\nವಿಷಯವನ್ನು-“ಸತ್ವ” ಈ ಪದ್ಯದಿಂದ ಹೇಳುತ್ತಾರೆ, \"ಮಾಡಿ\"-ಕರ್ಮ\nಮಾಡಿ. ॥೧೪॥\n೫, ಶ್ರೀಗುರು ಹೃದಯ ಪ್ರಕಾಶಿಕೆ:\nಸಾತ್ವಿಕ ಜೀವರಿಗಲ್ಲ ಅಭಿಮಾನಿ ಬ್ರಹ್ಮದೇವರು. ನಿತ್ಯಬದ್ಧ ಜೀವ\nರಿಗೆ ಅಭಿಮಾನಿ ಪುರಂಜನನೆಂಬ ಜೀವನು. ತಮೋಯೋಗ್ಯ ದೈತ್ಯ ಜೀವ\nರಿಗೆಲ್ಲ ಅಭಿಮಾನಿ ಕಲಿ ಎನಿಸಿಕೊಳ್ಳುವನು. ಈ ತ್ರಿವಿಧ ಜೀವರಲ್ಲೂ ಪವ\nಮಾನನೆಂಬ ಪ್ರಾಣದೇವರು ತತ್ತದ್ಯೋಗ್ಯ ಕರ್ಮಕ್ಕೆ ಪ್ರವರ್ತಕಕಿಂದಕಿ ಪ್ರೇರಕ\nರಾಗಿ, ಶ್ರೀಪುರುಷೋತ್ತಮನೆಂಬ ನಾರಾಯಣನ ಪ್ರೀತ್ಯರ್ಥವಾಗಿ ಕರ್ಮಗಳ\nವ್ಯಕ್ತಿ ಮಾಡಿ ಮಾಡಿಸುವರು ॥೧೪॥",
+   "confidence": 0.92,
+   "note": "Followed Engine A for better accuracy, incorporating minor clear readings from B.",
+   "ratio": 0.91
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 112,
+   "text": "ಪುರಾಣದಲ್ಲಿರುವ ಪ್ರಮಾಣ :-\n\"ವಾಯೋರ್ವಮಾಂತರಂನಾಸ್ತಿ ಹಂತತ್ತ್ವನ್ಯನಿರ್ಣಯೇ ॥\nಅವತಾರೇಮ ವಾಯೋಸ್ತು ಹ್ಯಂತರಯೇ ವಿದು : ಪ್ರಭೂ ।\nಶೇರಧಂತನು : ಪ್ರವಿಶ್ಯಂತಿ ದೈತ್ಯಾಸ್ತು ನಚತೇಸುರಾ ॥\nವಿಂದಾಯುರ್ವಂತಿ ಯೇವಿಹ್ಲೋರ್ಜಿಹ್ವಾಂ ಛೇದಂಕರೋಮ್ಯಹಮ್-\nಪ್ರಾರ್ಥನೆ :-\n(1) ನನಗೂ ವಾಯುದೇವರಿಗೂ ಯಾವ ಅಂತರವೂ ಇಲ್ಲ. ಹರಿ\nನಿರ್ಣಯವಿಷಯದಲ್ಲಿ ಭಕ್ತಿ ಜ್ಞಾನವಿಷಯಗಳಲ್ಲಿ ಭೇದವಿಲ್ಲ.\nಯಾರು ಅವತಾರಗಳಲ್ಲಿ ವಾಯುದೇವರ ಮೂಲರೂಪಕ್ಕೂ ಅವರ\nನು ಭೀಮ ಮಧ್ವಾದಿ ಅವತಾರರೂಪಗಳಿಗೂ ಭೇದವೆಸಗುವರೋ,\nನು ಸ್ವಭಾವದವರಲ್ಲಿ ದೈತ್ಯನೇ ಆಗಿರುತ್ತಾನೆ. ಅಂತಹ ದೈತ್ಯನು ನಿತ್ಯ\nರೂಪನಾದ ಅಂಧಂತಮಸ್ಸನ್ನು ಹೊಂದುವನು. ಇದರಲ್ಲಿ ಸಂಶಯವೇ\n(3) ಹೇ ವಿಷ್ಣು ! ನಿನ್ನನ್ನು ಯಾರು ನಿಂದಾಮಾಡುವರೆ?\nಅವರ ನಾಲಿಗೆಯ ತುದಿಯನ್ನು ಕತ್ತರಿಸಿ ಹಾಕುತ್ತೇನೆ.\nರ ಸ್ವಭಾವಲಕ್ಷಣಗಳು :-\n(1) ಬ್ರಹ್ಮದ ವರಿಗೂ ಮತ್ತು ಮಯುವೇಮಗೂ ಭೇದ\nವುದು.\n(2) ಶ್ರೀ ಮಯದೇವರ ಮೂಲರೂಪಕ್ಕೆ ಮತ್ತು ಹನುಮ ಭೀಮ\nಅವತಾರ ರೂಪಗಳಿಗೆ ಪರಸ್ಪರ ಭೇದ ಹೇಳುವುದು.\n(3) ಶ್ರೀಹರಿಯನ್ನು ದ್ವೇಷನಿವೇದಸವಾದೂಷಿಸು ತ್ತಿರುವುದ",
+   "confidence": 0.85,
+   "note": "Engine A chosen for text flow, corrected where B helped with fragments.",
+   "ratio": 0.918
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 114,
+   "text": "ದೃಶ್ಯತಾರತಮ್ಯ ಸಂಧಿ\n11\nವಿದೆ-ಎಂದು ಹೇಳತಕ್ಕದ ದೈತ್ಯ. ಶ್ರೀನಿತಂಬಿನಿಗೀಶಗೆ = ಶ್ರೀಲಕ್ಷ್ಮಿ\nದೇವಿಯರಿಗೂ ಮತ್ತು ಶ್ರೀಪರಮಾತ್ಮನಿಗೂ, ವಿಯೋಗಾನುಚಿಂತನೆ =\nವಿಯೋಗ ಉಂಟು- ಎಂತ ಹೇಳಿ, ಚಿಂತನೆ ಮಾಡುವನು ದೈತ್ಯ. ಭೇದ-\nಭೇದವಿಹೀನದೇಹಗೆ = ಭೇದ ಭೇದದಿಂದ ರಹಿತವಾದ ದೇಹಯುಕ್ತನಾದ\nಶ್ರೀಪರಮಾತ್ಮನಿಗೂ, ಅವನ ದೇಹಕ್ಕೂ ಅತ್ಯಂತ ಅಭೇದವು. ನಖ\nರೋಮಾದಿಗಳು ಸರ್ವವೂ ಪರಿಪೂರ್ಣವು. ಭೇದ ಭೇದ ರಹಿತಗಳು ಇಂತಹ\nಶ್ರೀಗುಣಪೂರ್ಣನಾದ ಶ್ರೀಮನ್ನಾರಾಯಣದೇವರಿಗೂ ಮತ್ತು ಅವನ\nಅನಂತಾನಂತ ಅವತಾರಗಳಿಗೂ, ರೂಪಗಳಿಗೂ, ಶಸ್ತ್ರಗಳ ಭಯ\nಪೇಳುವವ = ಅಸ್ತ್ರ ಶಸ್ತ್ರಗಳಿಂದ ಭೇದ ಭೇವಾದಿ ಭಯಗಳ ಹೇಳುವವನು...\nದೈತ್ಯ = ಪೂರ್ವೋಕ್ತ ಜ್ಞಾನವನ್ನು ಉಳ್ಳವನೂ ಮತ್ತು ಅದನ್ನು ಹರ\nದಿಂದ ಪ್ರತಿಪಾದನೆ ಮಾಡುವವನೂ ದೈತ್ಯನು. ॥2॥\nವ್ಯಾಖ್ಯಾನಗಳು\n೧. ಶ್ರೀಸಂಕರ್ಷಣಒಡೆಯರ ವ್ಯಾಖ್ಯಾನ :-\nದೈತ್ಯರ ಸ್ವಭಾವವನ್ನೇ ಹೇಳುತ್ತಾರೆ.\nಜ್ಞಾನವೇನು, ಬಲವೇನು, ಸುಖವೇನು-ಇವುಗಳು ಪೂರ್ಣವಾಗುಳ್ಳ\nವ್ಯಾಪ್ತನಾದ ಶ್ರೀಪರಮಾತ್ಮಗೆ ಗುಣಶೂನ್ಯ ಅಥವಾ ಅಲ್ಪಗುಣದಿಂದ\nಯುಕ್ತನಾದವನು-ಎಂತ ಅನ್ನತಕ್ಕವನು ದೈತ್ಯ ಮತ್ತು ಸರ್ವೋತ್ತಮನಾದ\nಶ್ರೀಪರಮಾತ್ಮನೇ ನಾನು-ಎಂತ ಅನ್ನತಕ್ಕವನು ದೈತ್ಯ ಮತ್ತು ನಿರ್ಮಟ್ಟವಾದ\nಜ್ಞಾನವೇ, ಸಂತೋಷವೇ ಶರೀರವಾಳ್ಳಂಥ ಶ್ರೀನಾರಾಯಣಗೆ ಜನನವೆಂತ\nಹೇಳತಕ್ಕವನು ದೈತ್ಯ. ಮತ್ತು ಶ್ರೀಲಕ್ಷ್ಮೀದೇವರಿಗೂ ಶ್ರೀಪರಮಾತ್ಮಗೂ\nವಿಯೋಗವುಂಟು ಎಂತ-ಹೇಳಿ ಚಿಂತನಿ ಮಾಡುವ ದೈತ್ಯ. ಭೇದ ಭೇದ\nದಿಂದ ರಹಿತವಾದ ದೇಹಯುಕ್ತನಾದ ಶ್ರೀಪರಮನು ಅವನ ದೇಹಕ್ಕೂ\nತ್ಯಂತಅ ಅಭೇದವು. ನಖ ರೋಮಾದಿ ಗಳು ಸರ್ವವೂ ಪೂರ್ಣವು. ಭೇದ",
+   "confidence": 0.88,
+   "note": "Engine A followed for coherent text blocks.",
+   "ratio": 0.903
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 118,
+   "text": "ದೃಶ್ಯತಾರತಮ್ಯ ಸಂಧಿ\nಮಣಿಮಂಜರಿಯಲ್ಲಿ :-\n-\"ನಿತ್ಯಂ ಪಶ್ಯನ್ನಿಜಾಂ ದೇವೀಂ ಪೂರ್ಣ ಸಂತೋಷ ಸಂಭೃತಃ ॥\nರಾಮೋ ನ ದೃಶ್ಯತಃ ಸೀತೇನ್ಯ ಭೂತ್ಸಂಕಟವಾನಿವ ॥\"-\nಶ್ರೀರಾಮನು ನಿತ್ಯದಲ್ಲೂ ತನ್ನ ಸಮೀಪದಲ್ಲಿ : ವಾಸಮಾಡದ\nಸೀಶೆಯನ್ನು ನೋಡುತ್ತಾ, ಪೂರ್ಣವಾದ ಸಂತೋಷದಿಂದ ಕೂಡಿದ್ದರೂ,\nಹೆಂಡತಿಯನ್ನು ಕಳೆದುಕೊಂಡು ದುಃಖಪಡುವವನಂತೆ, ತಾನೂ ಸಹ ಸೀತೆ\nಯನ್ನು ಕಾಣನೆಂದು, ವ್ಯಸನ ಪಡುವವನಂತೆ ವಿಡಂಬನೆ ಮಾಡಿದನು. ಇದರ\nಕಾರಣನೇನೆಂದರೆ-\nರಾವಣನ ಸಂಹಾರವು ಸೀತಾ ನಿಮಿತ್ತದಿಂದಲೇ ಆಗಬೇಕಾಗಿದ್ದುದರಿಂದ\nನೋಡಿದವರಿಗೆ ಹಾಗೆ ತೋರಿದನೆಂಬ ಭಾವ. ರಾವಣನು ಅಪಹಾರ ಮಾಡಿ\nದುದು ಮಾಯಾ ಸೀತೆಯನ್ನು-ಅಂದರೆ, ಸೀತೆಯನ್ನು ಆಕೃತಿಯುಳ್ಳ, ಅಗ್ನಿ\nಯಿಂದ ನಿರ್ಮಿತವಾದ ಪ್ರತಿಮಾ ಇಂದ್ರನಿಂದ ಪ್ರವಿಷ್ಟವಾದುದು. ಸೀತೆಯ\nಆವೇಶ ಮಾತ್ರ ಉಳ್ಳದೆಂದೂ ರಾಮಾಯಣ ವಾಕ್ಯದಿಂದಲೂ, ನಿರ್ಣಯ\nವಾಕ್ಯದಿಂದಲೂ ಸಿದ್ಧವಾಗುವುದು. ಅಭೇದ್ಯವಾಗಿಯೂ, ಅಭೇದ್ಯವಾಗಿಯೂ,\nಇರುವ ಪರಮಾತ್ಮನ ದೇಹಕ್ಕೆ ಆಯುಧಗಳಿಂದ ಭೇದ, ಭೇದಗಳನ್ನು ಹೇಳು\nವವನೂ ದೈತ್ಯನು. ಒಟ್ಟು ಈ ಪದ್ಯದಲ್ಲಿ ಹೇಳಿರುವಂತೆ, ಚಿಂತಿಸುವವನು\nದೈತ್ಯನೆಂಬ ವಿಷಯದಲ್ಲಿ ನಿರ್ಣಯ ಪ್ರಥಮಾಧ್ಯಾಯದಲ್ಲಿ ಪ್ರಮಾಣ\nವಾಕ್ಯ :-\n-\"ಅವತಾರೇಷು ಯತ್ಕಿಂಚಿದ್ದರ್ಶಯೇನ್ನವರತದ್ಧರಿಃ \"॥\nತಚ್ಚಾ ಸುರಾಣಾಂ ಮೋಹಾಯ ದೋಷಾ ವಿಷ್ಣೋರ್ನಹಿ ಕ್ವಚಿತ್\n॥27॥",
+   "confidence": 0.88,
+   "note": "Used Engine A as primary layout and text, verified with Engine B where needed.",
+   "ratio": 0.911
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 148,
+   "text": "ಕನ್ನಡ ಸಂಧಿ\nಅತ ಪಾರ್ಥಿಕ್ಯನಮನಂ ಯೇ ಕುರ್ವಂತಿ ಚ ಸರ್ವೆದಾ |\nಈ ಸರ್ವೇ ಅಸುರಾಜ್ಞೇಯಾಃ ನ ತತ್ರ ಹರಿಸಂಸ್ಥಿತಃ ॥\nಎಂಬ ಗರುಡಪುರಾಣದ ಬ್ರಹ್ಮಕಾಂಡದ ವಚನವು ಇದಕ್ಕೆ ಆಧಾರ\nವಾಗಿರುವುದು. || ೭ ||\n1. ಶ್ರೀವ್ಯಾಸದಾಸ ಸಿದ್ಧಾಂತ ಕಾಮುದೀ :-\nಸ್ವಯಂವ್ಯಕ್ತೇಷು, ಲಿಂಗೇಷು ಹ್ಯಶ್ಚತ್ತೇ ತುಳಸೀಷು ಚ ॥ ಶಾಲ\nತ್ರೀಂ ವಿಹಾಯೈವ ನಮನಂ ಯೇ ಪ್ರಕುರ್ವತೇ ॥ ತೇ ಸರ್ವೇ ಹರಿ\nಪವಾಯಾಂ ಅಧಿಕಾರಿಣಂವಹಿ ॥ ಮೋಕ್ಷಾಧಿಕಾರಿಣೋ ಯೇ ತುಹ್ಯಜ್ಞಾ\nತ್ ಪರಮೇಶ್ವರಮ್ ॥ ಪಾರ್ಣಕ್ಯನಮನಂ ಯೇಷು ಕುರ್ವಂತಿ ಯದಿವಾ\nಪ್ರಭೋ ॥ ತರ್ಹಿತೇಽವೀಹ ಲೋಕೇಷು ದುಃಖಂ ಯಾಂತಿ ನಸಂಶಯಃ ॥\nಸೂರ್ಯೋದಯೋಽಖಿಲಾಃ ವಿನಾ ವಿಷ್ಣು ಸ್ವಾಂತರಸ್ಥಂ ಸ್ವಾಂಶ್ಚ ಪೂಜ\nಯತೋಗನಾನ್ ॥ ತೇನ್ ಅರ್ಧಃಪಾತಯಂತ್ಯದ್ದಾ - ಇತಿವಾಗರ್ಥಂ ದ್ವಿಪ್ಯದಾ\nನ್ಯಾಂ ಆಹ-“ನೇಮ”- ಇತಿ. ॥ ೭ ॥\nಕನ್ನಡಾರ್ಥ\nಸ್ವಯಂವ್ಯಕ್ತಲಿಂಗಗಳಲ್ಲಿಯೂ, ಅಶ್ವತ್ಥತ ಳಸೀಗಳಲ್ಲಿಯೂ, ಶಾಲಿ\nಗ್ರಾಮವನ್ನು ಬಿಟ್ಟು, ಅವುಗಳನ್ನು ನಮಿಸುವವರು- ಹರಿನಿಂದೆಯಲ್ಲಿ ಅಧಿಕಾರಿ\nಗಳು. ಮೋಕ್ಷಾಧಿಕಾರಿಗಳು ಅಜ್ಞಾನದಿಂದ ಹೀಗೆ ಪ್ರಥಕ್ ಪ್ರಣಾಮ\nಮಾಡಿದರೆ, ಅವರಿಗೆ ಇಹದಲ್ಲಿ ದುಃಖವಾಗುವುದು. ಸೂರ್ಯದೇವತೆ\nಗಳೆಲ್ಲರೂ, ತಮ್ಮ ಅಂತಸ್ಥನಾದ ಶ್ರೀಹರಿಯನ್ನು ಬಿಟ್ಟು, ತಮ್ಮನ್ನು ಪೂಜಿ\nಸುವ ಜನರನ್ನು ಅಧಃಪತನ ಮಾಡಿಸುವರು\"- ಈ ಪ್ರಮಾಣ ವಾಕ್ಯದ ಅರ್ಥ\nವನ್ನು ಈ ಎರಡು ಪದ್ಯಗಳಿಂದ ಹೇಳುತ್ತಾರೆ. ॥೭॥",
+   "confidence": 0.85,
+   "note": "Reconciled Engine A and Engine B for standard Sanskrit and Kannada prose.",
+   "ratio": 0.916
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 159,
+   "text": "ಶ್ರೀಮದ್ದ ರಥಾಮೃತಹಾರ\nಸಮವಾದ 100 ವರ್ಷ ಆಯುಸ್ಸುಳ್ಳವನು. ಮಿಕ್ಕವರೆಲ್ಲರೂ ಬ್ರಹ್ಮದೇವಗೆ\nದಿನ ಕಲ್ಪದವರೆಗೂ ಆಯುಸ್ಸುಳ್ಳವರು. ಕಲಿ-ಎಂಬ ಹೆಸರುಳ್ಳ ದೈತ್ಯರು\nಮತ್ತೆ ಕೆಲವರುಂಟು. ಅವರು ಮಹಾ ಕಲಿಪುರುಷನಿಗೆ ಸಮರಲ್ಲ,\nಕಲಿಯೊಬ್ಬನೇ ವಿಷ್ಣುದ್ದೇಷದಲ್ಲೂ, ಅವರ ಭಕ್ತರನ್ನು ದ್ವೇಷ ಮಾಡು\nವುದರಲ್ಲೂ ಉತ್ತಮೋತ್ತಮನು. ಹರಿದ್ವೇಷದಲ್ಲಿ ಆತನಿಗೆ ಸಮರು\nಮತ್ತಾರೂ ಇಲ್ಲ ಎಂದು ಹೇಳಿರುವರು. ಅದೇ ಅರ್ಥವನ್ನೇ ದಾಸರಾಯರು\nಈ ಪದ್ಯದಲ್ಲಿ ಹೇಳಿರುವರು. ॥9॥\n೪. ಶ್ರೀವ್ಯಾಸದಾಸಸಿದ್ಧಾಂತ ಕೌಮುದೀ :-\n- \"ಯೇ ಕಲ್ಯಾದ್ಯಾ ಮಮಷ್ಯಾತಾಃ ತೇ ಜ್ಞೇಯಾಃ ಬ್ರಹ್ಮವದ್ಗಣಾ\nಇತ್ಯುಕ್ತಮಾಹ\" - \"ಕಮಲ\"-ಇತಿ. ॥9॥\nಕನ್ನಡಾರ್ಥ\nಕಲಿಯಿಂದ ಆರಂಭಿಸಿ, ಮನುಷ್ಯರವರೆಗಿರುವ ಜೀವರಲ್ಲಿಯೂ ಬ್ರಹ್ಮಾದಿ\nಸಾತ್ವಿಕ, ಗಣಗಳಲ್ಲಿರುವಂತೆ, ತದ್ವತ್ ಪದವಿಯೋಗ್ಯ ಜೀವಗಣಗಳು ಇರುವ\nರೆಂದು ತಿಳಿಯಬೇಕು. ಎಂಬ ಸಂಗತಿಯನ್ನು—“ಕಮಲಸಂಭವ”-ಪದ್ಯದಿಂದ\nಹೇಳುತ್ತಾರೆ. ॥9॥\n೫. ಶ್ರೀಗುರುಹೃದಯ ಪ್ರಕಾಶಿಕೆ :-\nಕಮಲಸಂಭವವೆಂಬ ಬ್ರಹ್ಮ ಮೊದಲು ಮನುಷೋತ್ತಮ ಪರಿಯಂತ,\nಮುಕ್ತರಾಗುವವರ ಸಮಾನವಾಗಿ, ಬ್ರಹ್ಮನ ಹಾಗೆ ಬ್ರಹ್ಮನ ನೂರುವರ್ಷ\nಪರಿಯಂತ ಆಯುಸ್ಸು ಉಳ್ಳವನು ಕಲಿಯು. ನರಾಧಮರನ್ನು ಮೊದಲು\nಮಾಡಿ, ಕಲಿ ಪರಿಯಂತ ಅಸುರರು ತಾರತಮ್ಯಕ್ರಮವಾಗಿ ನೀಚರು. ಕಲಿ\nಪತ್ನಿ ಕುಲಕ್ಷ್ಮಿ-ಕಲಿ ಇವರಿಬ್ಬರೂ ಅಸುರರೊಳಗೆ ದೇವರ ದ್ವೇಷಾದಿ ದುರ್ಗುಣ\nಗಳಿಂದ ಅಸದೃಶರೆಂದು ಕರೆಸುವರು. ॥9॥",
+   "confidence": 0.9,
+   "note": "Engine A selected for cleaner prose structure.",
+   "ratio": 0.813
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 173,
+   "text": "ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ\nಪದ್ಯ-೧೨\nಮೂಲ :-\nಜ್ಞಾನವೆಂಬುದು ಮಿಥ್ಯವಸಮೀ |\nಚೀನ ದುಃಖತರಂಗವೆ ಸಮೀ |\nಚೀನಬುದ್ಧಿ ನಿರಂತರದಿ ಕಲಿಗಿಹುದು ದೈತ್ಯರೊಳು ||\nಹೀನಳೆನಿಪಳು ಶತಗುಣದಿ ಕಲಿ |\nಮಾನಿನಿಗೆ ಶತವಿಪ್ರಚಿತ್ತಿಗೆ |\nಊನಶತಗುಣ ಕಾಲನೇಮಿಯೆ ಕಂಸನೆನಿಸಿದನು ||೧೨||\nಅವತರಣಿಕೆ :-\nಕಲಿ ಆರಂಭಮಾಡಿಕೊಂಡು, ಕಾಲನೇಮಿ - ಪರ್ಯಂತ ತಾರತಮ್ಯವನ್ನು\nಹೇಳುತ್ತಾರೆ. ||೧೨||\nಪ್ರತಿಪದಾರ್ಥ :-\nಜ್ಞಾನವೆಂಬುದು = ದೈತ್ಯರಿಗೆ ಜ್ಞಾನವೆಂಬುದು, ಮಿಥ್ಯವು =\nಮಿಥ್ಯಾಜ್ಞಾನರೂಪವು, ಅಸಮೀಚೀನ = ಅಸಮೀಚೀನಜ್ಞಾವುಳ್ಳ\nವರು. ದೈತ್ಯರ ಜ್ಞಾನ ಸುಜ್ಞಾನವಲ್ಲ, ದುಃಖತರಂತವೇ = ಸಾಗರಕ್ಕೆ\nಸದೃಶರಾದ ದುಃಖಸ್ವರೂಪರು, ಅಲೆಗಳಂತೆ ಒಂದಾದರ ಮೇಲೊಂದು\nದುಃಖಪ್ರಾಪ್ತಿ ದೈತ್ಯರಿಗೆ, ಸಮಾಚೀನಬುದ್ಧಿ = ಮಿಥ್ಯಾಜ್ಞಾನವುಳ್ಳವ\nನಾದರೂ, ಅದೇ ಸರಿಯೆಂದು ತಿಳಿದ ಸ್ವರೂಪಜ್ಞಾನವುಳ್ಳವನು,\nದೈತ್ಯರೊಳು = ಸಮಸ್ತದೈತ್ಯವರ್ಗದಲ್ಲಿ, ಕಲಿಗಿಹುದು = ಅಂತಹ\nಮಿಥ್ಯಾಜ್ಞಾನದ ಪರಮಾವಧಿಯು ಕಲಿಮಹಾಪುರುಷನಿಗಿರುವುದು.\nನಿರಂತರದಿ = ಸದಾಕಾಲಕ್ಕೂ ಕಲಗಿದ ಸ್ಥಿತಿ ರೇಖಾದಲ್ಲಿ ಮತ್ತು ಲಿಂಗ",
+   "confidence": 0.82,
+   "note": "Engine A preferred for readable poetic layout.",
+   "ratio": 0.887
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 181,
+   "text": "78\n8. ಹಿರಣ್ಯಕಶಿಪು 100 ಗುಣ ಕಡಿಮಿ. ಇಷ್ಟು ಗುಣದಿಂದ ಒಬ್ಬರಿಂದೊಬ್ಬರು ಅಧಮರೆಂತ ತಾತ್ಪರ್ಯ ॥13॥\n೨. ಭಾವಪ್ರಕಾಶ :-\nಕಾಲನೇಮಿಗಿಂತಲೂ ಮಧುಕೈಟಭರು ಐದುಗುಣಗಳಿಂದ ಅಧಮರು.\nಅವರೇ ಹಂಸ-ಡಿಭಿಕರೆಂದು ಸಾಲ್ವ ದೇಶಾಧಿಪತಿಗಳಾಗಿ ಹುಟ್ಟಿದರು.\nಭೂಮಿಯ ಮಗನಾದ ನರಕಾಸುರನು ವಿಪ್ರಚಿತ್ತಿಗೆ ಸಮನು ವಿಪ್ರಚಿತ್ತಿಯೇ\nಜರಾಸಂಧನು. ನರಕಾಸುರನಿಗಿಂತಲೂ ಹಿರಣ್ಯಕಶಿಪುವಿನ ಒಳಗೆ ಪ್ರವಿಷ್ಠನಾದ\nಆದಿಹಿರಣ್ಯನು 100 ಗುಣಗಳಿಂದ ಅಧಮನು.\n-\"ತಸ್ಮಾತ್ಪಂಚ ಗುಣೈರ್ಹಿನ್ಸೌ ಮಧುಕೈಟಭ ಸಂಜ್ಞಕೌ ॥\nತಾವೇವ ಹಂಸಡಿಭಿಕೌ ವಿಪ್ರಚಿತ್ತಿ ಸಮೋಜ್ಞೇಯೋ ಭಾಮಾವ್ಯ\nಭೂತಲೇ ಸ್ಮತಃ ॥\nತತ್ವಾಶ್ಚತ ಗುಣೈರ್ಹೀನೋ ಹಿರಣ್ಯಕಶಿಪುಃ ಸ್ಮೃತಃ ॥\"-\n—ಎಂಬ ಗರುಡಪುರಾಣದ ವಚನವಿದೆ. ॥13॥\n೪. ಶ್ರೀವ್ಯಾಸದಾಸಸಿದ್ಧಾಂತ ಕೌಮುದೀ :-\nತಸ್ಮಾತ್ ಪಂಚಗುಣೈ ಹೀನೌ ಮಧುಕೈಟಭ ಸಂಜ್ಞಕೌ || ತಾವೇವ\nಹಂಸಡಿಭಿಕೌ ಜ್ಞೇಯೌ ತಾ ಚ ಜನಾರ್ದನ\" ||-ಇತ್ಯುಕ್ತಮಾಹ -“ಕಾಲ”-\nಇತಿ || ವಿಪ್ರಚಿತ್ತಿ ಸಮೋಜ್ಞೇಯೋ ಭೌಮೋ ವೈ ಭೂತಲೇ ಸ್ಮೃತಃ |\nತಸ್ಮಾತ್ ಶತಗುಣೈರೂನೋ ಹಿರಣ್ಯಕಶಿಪುಃ ಸ್ಮೃತಃ || ಇತ್ಯುಕ್ತಮಾಹ\n-\"ಜಲ\"-ಇತಿ || ಭೂಪುತ್ರ, -\"ಆಳು\"-ಪುರುಷ. ॥13॥",
+   "confidence": 0.92,
+   "note": "Engine A followed primarily, with corrections from B for clearer Sanskrit verses.",
+   "ratio": 0.869
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 186,
+   "text": "89\nಪದ್ಯ-೧೪\nಮೂಲ :\nಗುಣಗಳ ತ್ರಯ ನೀಚನೆನಿಸುವ |\nಕನಕಕಶಿಪುವಿಗೆ ಹಾಟಕಾಂಬಕ |\nಎಣೆಯೆನಿಪ ಮಣಿಮಂತಗಿಂತಲಿ ಕಿಂಚಿದೂನ ಬಕ ||\nದನುಜವರ ತಾರಕನು ವಿಶಂತಿ |\nಗುಣದಿ ನೀಚನು ಲೋಕಕಂಟಕ |\nನೆನಿಪ ಶಂಬರ ತಾರಕಾಸುರಗಧಮ ಷಡ್ಗುಣದಿ || ೧೪||\nಅವತರಣಿಕೆ :-\nಹಿರಣ್ಯಾಕ್ಷನನ್ನು ಆರಂಭಿಸಿಕೊಂಡು, ಶಂಬರಾಸುರನ ಪರ್ಯಂತ ತಾರತಮ್ಯಕ್ರಮವನ್ನು ತಿಳಿಸುತ್ತಾರೆ. ॥14॥\nಪ್ರತಿಪದಾರ್ಥ :-\nಕನಕಕಶಿಪುವಿಗೆ = ಹಿರಣ್ಯಕಶಿಪುವಿಗಿಂತಲೂ, ಹಾಟಕಾಂಬಕ =\nಹಿರಣ್ಯಾಕ್ಷನಾಮಕನಾದ ದೈತ್ಯನು, ಗುಣಗಳತ್ರಯ ನೀಚನೆನಿಸುವ =\nಮೂರು ಗುಣಗಳಿಂದ ಕಡಿಮೆ ಎಂದು ಕರೆಯಿಸುವನು. ಎಣೆಯೆನಿಪ =\nಹಿರಣ್ಯಾಕ್ಷನಿಗೆ ಸಮಾನನೆನಿಸುವನು. ಮಣಿಮಂತನೆಂಬ = ದೈತ್ಯನು,\nಮಣಿಮಂತಗಿಂತಲಿ= ಮಣಿಮಂತನೆಂಬ ದೈತ್ಯನಿಗಿಂತಲೂ, ಬಕ =\nಬಕಾಸುರನು, ಕಿಂಚಿದೂನ = ವೀಸಗುಣದಿಂದ ಕಡಿಮೆಯಾದವನು.\nದನುಜವರ = ದೈತ್ಯಶ್ರೇಷ್ಠನಾದ, ತಾರಕನು = ತಾರಕಾಸುರನು,",
+   "confidence": 0.9,
+   "note": "Engine A followed for layout and text flow.",
+   "ratio": 0.912
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 204,
+   "text": "101\nಪದ್ಯ-೧೬\nನಮುಚಿ ಇಲ್ವಲ ಪಾಕನಾಮಕ |\nಸಮರು ಬಾಣಾದ್ಯರಿಗೆ ದಶಗುಣ |\nನಮುಚಿ ನೀಚನು ನೂರು ಗುಣದಿಂಧಮ ವಾತಾಪಿ ||\nಕುಮತಿ ಧೇನುಕ ನೂರು ಗುಣದಿಂ |\nದಮರರಿಪು ವಾತಾಪಿಗಧಮನು |\nವಮನ ಧೇನುಕನಿಂದಲರ್ಧಗುಣಾಧಮನು ಕೇಶಿ || ೧೬||\nಅವತರಣಿಕೆ :\nನಮುಚಿ-ಎಂಬ ದೈತ್ಯನಿಂದಾರಂಭಿಸಿ, ಕೇಶಿ-ಎಂಬ ದೈತ್ಯನ ಪರ್ಯಂತ\nತಾರತಮ್ಯವಿಚಾರವನ್ನು ಹೇಳುತ್ತಾರೆ. ॥16॥\nಪ್ರತಿಪದಾರ್ಥ :-\nಬಾಣಾದ್ಯರಿಗೆ = ಬಾಣಾದಿ ನಾಲ್ಕು ಮಂದಿಗಿಂತಲೂ, ನಮುಚಿ\n= ಅವರರಾದವರು-ನಮುಚಿ ಎಂಬ ದೈತ್ಯ, ಇಲ್ವಲ = ಇಲ್ವಲನಾಮಕ\nದೈತ್ಯ, ಪಾಕನಾಮಕ = ಪಾಕ ಎಂಬ ಹೆಸರಿನ ದೈತ್ಯ, ಸಮರು =\nಈ ಮೂರುಮಂದಿ ಸಮಾನರು. ದಶಗುಣ = ಈ ಮೂವರೂ ಬಾಣಾದ್ಯ\nರಿಗಿಂತ ಹತ್ತು ಗುಣಗಳಿಂದ ನೀಚರು. ವಾತಾಪಿ = ವಾತಾಪಿ-ಎಂಬ ಹೆಸ-\nರಿಗೆ ದೈತ್ಯನು, ನಮುಚಿ = ನಮುಚ್ಯಾದಿಗಳಿಗಿಂತ, ನೂರುಗುಣದಿಂಧಮ\n= ನೂರು ಗುಣಗಳಿಂದ ಅಧಮನಾದವನು. ಅಮರರಿಪು = ದೇವತೆಗಳಿಗೆ\nಶತ್ರುವಾದ, ಕುಮತಿ = ದುಷ್ಟಬುದ್ಧಿಯುಳ್ಳ, ಧೇನುಕ =",
+   "confidence": 0.91,
+   "note": "Engine A followed.",
+   "ratio": 0.915
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 209,
+   "text": "106\nಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ\nಇಲ್ವಲನು ವಾತಾಪಿಯನ್ನು ಮೇಕೆಯನ್ನಾಗಿ ಮಾಡಿ, ಅದನ್ನು ಕೊಂದು,\nಆ ಮೇಕೆಯ ಮಾಂಸವನ್ನು ಅಡಿಗೆ ಮಾಡಿ, ವಿಪ್ರರಿಗೆ ಬಡಿಸಿ, ಅವರ\nಭೋಜನವಾದ ಬಳಿಕ. “ಹೇ ವಾತಾಪಿ, ಹೊರಗೆ ಬಾ”-ಎಂದು ಕರೆ\nಯುತ್ತಿದ್ದನು. ಆಗ ವಾತಾಪಿಯು ವಿಪ್ರರ ಹೊಟ್ಟೆಯನ್ನು ಸೀಳಿಕೊಂಡು,\nಹೊರಗೆ ಬರುತ್ತಿದ್ದನು. ಈ ರೀತಿ, ಅನೇಕ ವಿಪ್ರವರೇಣ್ಯರು ಮರಣಹೊಂದಿ\nದರು.\nಒಮ್ಮೆ ಅಗಸ್ತ್ಯ ಮಹಾಮುನಿಗಳು ಧನಾಪೇಕ್ಷೆಯಿಂದ ಒಂದು\nಯೋಗಾರ್ಥವಾಗಿ ಇಲ್ವಲನಲ್ಲಿಗೆ ಬಂದರು. ಹಿಂದಿನಂತೆಯೇ ಇಲ್ವಲನು\nಅಗಸ್ತ್ಯರಿಗೆ ಆಡುಗೆ ಮಾಡಿ, ಬಡಿಸಿದನು. ಅಗಸ್ತ್ಯಮುನಿಗಳು ಇಲ್ವಲನ\nಕುತಂತ್ರವನ್ನು ಜ್ಞಾನಾವೃಷ್ಟಿಯಿಂದ ತಿಳಿದು, -“ಹೇ ವಾತಾಪಿ, ನನ್ನ\nಹೊಟ್ಟೆಯಲ್ಲಿಯೇ ಜೀರ್ಣವಾಗಿ ಬಿಡು”-ಎಂದರು. ಆಗ ವಾತಾಪಿಯು ಆಗ\nಸ್ವರ ಜಠರಾಗ್ನಿಯಲ್ಲಿ ಜೀರ್ಣವಾಗಿ ಸತ್ತು, ಇದರಿಂದ-“ವಾತಾಪಿ\nಜೀರ್ಣೋಭವ”-ಎಂಬ ನುಡಿ ಬಂದಿತು. ಇಲ್ವಲನ ಮಗನಾದ ಬಲ್ವನನ್ನು\nಬಲರಾಮನು ಸಂಹರಿಸಿದನು.\n3. ಪಾಕನಾಯಕ ದೈತ್ಯನು :-\nಪಾಕನೆಂಬ ದೈತ್ಯನು ಮಹಾಪರಾಕ್ರಮಶಾಲಿ. ಇವನು ಅಮರಾವತಿ\nಯನ್ನು ಮತ್ತು ದೇವತೆಗಳನ್ನು ಪೀಡಿಸತೊಡಗಿದನು. ಆಗ ಇಂದ್ರದೇವರು\nವಜ್ರಾಯುಧದಿಂದ ಪಾಕಾಸುರನನ್ನು ಸಂಹರಿಸಿದರು. ಅಂದಿನಿಂದ, ಇಂದ್ರನಿಗೆ\n-ಪಾಕಶಾಸನ-ಎಂಬ ಹೆಸರು ಬಂದಿತು.\n4. ನಮುಚೀ-ಇಲ್ವಲ-ಪಾಕ-ಈ ಮೂವರು ದೈತ್ಯರು ಸಮಾನರು. ಬಾಣಾ\nಸುರ-ಮೊದಲಾದವರಿಗಿಂತ ಹತ್ತು ಗುಣಗಳಿಂದ ಅಧಮರು.",
+   "confidence": 0.94,
+   "note": "Engine A followed.",
+   "ratio": 0.825
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 220,
+   "text": "ದೃಶ್ಯಕಾರಕವ್ಯಸಂಧಿ\n117\nಅನತರಗಣೆ ೭\nದುಶ್ಯಾಸನನಿಂದ ಆರಂಭಿಸಿ, ಕಿರ್ಮೀರನ ಪರ್ಯಂತ ತಾರತಮ್ಯ-\nವನ್ನು ಹೇಳುತ್ತಾರೆ. ॥18॥\nಪ್ರತಿಪದಾರ್ಥ :\nಈಶನೇ ನಾನೆಂಬ = ಸರ್ವೆಶ್ವರನಾದ ಶ್ರೀಪರಮಾತ್ಮನೇ ನಾನು\nಎಂಬುವ (ಜೀವೇಶ್ವರ ಐಕ್ಯ), ಖಳ= ಮಹಾದೈತ್ಯನಾದ, ದುಶ್ಯಾಸನಾ\n= ದುರ್ಯೋಧನನ ತಮ್ಮನಾದ ದುಶ್ಯಾಸನನು, ವೃಷಸೇನ = ವೃಷಸೇನ\nನೆಂಬ ದೈತ್ಯ, ದೈತ್ಯಾಗ್ರೇಸರ = ಅಸುರರಲ್ಲಿ ಅಗ್ರಗಣ್ಯನಾದ, ಜರಾ-\nಸಂಧ = ಜರಾಸಂಧ, ಸಮ = ಈ ಮೂವರೂ-ಅಂದರೆ, ದುಶ್ಯಾಸನ-\nವೃಷಸೇನ-ಜರಾಸಂಧ-ಸಮಾನರು. ಪಾಪಿಗಳೊಳು= ಪಾಪಿಷ್ಠರೊಳಗೆ,\nಅತ್ಯಧಿಕ = ಅತ್ಯಂತ ಶ್ರೇಷ್ಠರಾದ, ಕಂಸ = ಕಂಸಾಸುರ, ಕೂಪವಿಕರ್ಣ\n= ಕೂಪವಿಕರ್ಣನೆಂಬ ದೈತ್ಯನು, ರುಗ್ಮಿ = ರುಗ್ಮಿ, ಸರಿ = ಈ\nಮೂವರೂ ಸಮಾನರು (ಕಂಸ-ಕೂಪವಿಕರ್ಣ-ರುಗ್ಮಿ), ರುಗ್ಮಿಗಿಂತ =\nರುಗ್ಮಿಗಿಂತಲೂ, ಮಹಾಸುರನು= ಶ್ರೇಷ್ಠನಾದ ದೈತ್ಯ, ಶತಧನ್ವ =\nಶತಧನ್ವಿ ಎಂಬುವನು, ಕಿರ್ಮೀರ = ಕಿರ್ಮಿರನೆಂಬ ಅಸುರ, ಈ\nಮೂವರೂ ಸಮಾನರು. ಶತಾಧಮರು= ರುಗ್ಮಿಗಿಂತ ನೀಚತ್ವದಲ್ಲಿ ನೂರ\nಗುಣಗಳಿಂದ ಅಧಮರೆಂದು ತಾತ್ಪರ್ಯ. ॥18॥\nವ್ಯಾಖ್ಯಾನಗಳು\n೧. ಶ್ರೀಸಂಕರ್ಷಣ ಒಡೆಯರ ವ್ಯಾಖ್ಯಾನ :-\nದುಶ್ಯಾಸನನ ಆರಂಭಮಾಡಿ, ಕಿರ್ಮಿರನ ಪರಿಯಂತ, ತಾರತಮ್ಯ ಹೇಳ\nತಾರೆ. ವೇನಾದಿಗಳಿಗಿಂತ ಅಧಮರು ದಾರೆಂದರೆ—",
+   "confidence": 0.92,
+   "note": "Followed Engine A for most text as it is much cleaner and complete than Engine B's garbled output.",
+   "ratio": 0.862
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 231,
+   "text": "128\nಶ್ರೀಮದ್ಧರಿ ಕಥಾಮೃತಸಾರ\nಕನ್ನಡಾರ್ಥ\n—“ಕಾಲಿಕೇಯರು ವೇನನಿಗೆ ಸಮಾನರು. ಅಧಮ ದೈತ್ಯರಿಗೆ ಉತ್ತಮ\nದೈತ್ಯರೊಡನೆ ಒಮ್ಮೊಮ್ಮೆ ಸಾಮ್ಯವು ಹೇಳಲ್ಪಡುತ್ತದೆ. ಇದು ದೇವತೆಗಳ\nಆವೇಶ ಮೂಲಕವಾದದ್ದು ಎಂದು ತಿಳಿಯಬೇಕು. ಕಾಲಿಕೇಯರಿಂದ ನೂರು\nಗುಣ ಕಡಿಮೆಯವನು ಚಿತ್ತಾಭಿಮಾನಿ ಅಸುರನು. ಅವನಿಗಿಂತ ಶರೀರಾಭಿ\nಮಾನಿಯು ನೂರುಗುಣ ಕಡಿಮೆಯವನು. ಹಸ್ತಾಭಿಮಾನಿ ಅಸುರನು ಶರೀರಾ\nಭಿಮಾನಿಯಿಂದ ಹತ್ತು ಗುಣ ಕಡಿಮೆಯವನು. ಅವನಿಗಿಂತ ಪಾದಾಭಿ\nಮಾನಿಯು ನೂರುಗುಣ ಕಡಿಮೆಯವನು. ಅವನಿಗಿಂತ ನೂರುಗುಣ ಕಡಿಮೆ\nಯವನು- ಶ್ರೋತ್ರೇಂದ್ರಿಯಾಭಿಮಾನಿ ದೈತ್ಯನು. ಅವನಿಗಿಂತ ನೂರುಗುಣ\nಕಡಿಮೆಯವನು.—ನೇತ್ರಾಭಿಮಾನಿ ಅಸುರನು, ಸ್ಪರ್ಶಾಭಿಮಾನಿ ದೈತ್ಯನು\nಅವನಿಗಿಂತ ನೂರುಗುಣ ಕಡಿಮೆಯವನು. ವಾಗಾಭಿಮಾನಿ ಅಸುರನು\nಸ್ಪರ್ಶಾಭಿಮಾನಿಗಿಂತ ನೂರುಗುಣ ಕಡಿಮೆಯವನು. ಅವನಿಗಿಂತ ಕಾಮಾಭಿ\nಮಾನಿಯು ನೂರುಗುಣ ಕಡಿಮೆಯವನು. ಈ ವಿಷಯವನ್ನು—“ಮದಿರೆ”-\nಈ ಪದ್ಯದಿಂದ ತಿಳಿಸುತ್ತಾರೆ. ॥19॥\n೫. ಶ್ರೀ ಗುರುಹೃದಯಪ್ರಕಾಶಿಕೆ :-\nಮದ್ಯಪಾನಿ ದೈತ್ಯರೊಳಗೆಲ್ಲ ಅಧಮರು ಕಾಲಿಕೇಯರೆಂಬ ಅಸುರರು.\nದೇವಾವೇಶಬಲದಿಂದ ಅಧಿಕದೈತ್ಯರಿಗೆ ಸಮಾನ ದುರ್ಗುಣ ಉಳ್ಳವರು.\nವದನವೆಂಬ ವಾಕ್ಕು, ಪಾಣಿಯೆಂಬ ಕೈ, ಪಾದ, ಶೋತ್ರವೆಂಬ ಕಿವಿ, ಗುದ,\nಉಪಸ್ಥ, ಫ್ರಾಣವೆಂಬ ಮೂಗು, ತ್ವಕ್ಕೆಂಬ ಚರ್ಮ, ರಸನವೆಂಬ ನಾಲಿಗೆ- ಈ\nಇಂದ್ರಿಯಾಭಿಮಾನಿ ದೈತ್ಯರು, ಕಾಲಿಕೇಯರಿಗಿಂತ ದುರ್ಗುಣದಲ್ಲಿ ಕಡಿಮೆ\nಎನಿಸುವರು. ॥19॥",
+   "confidence": 0.95,
+   "note": "Followed Engine A as it has proper formatting and fewer OCR errors.",
+   "ratio": 0.883
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 249,
+   "text": "146\nಶ್ರೀಮದ್ಧರಕಥಾಮೃತಸಾರ\nವಿಲ್ಲ. ಶುದ್ಧ ಭಾಗವತಧರ್ಮನಿರತರು. ಅತಿರೋಹಿತ ವಿಮಲವಿಜ್ಞಾನಿ-\nಗಳು. ಬ್ರಹ್ಮ-ವಾಯುಗಳು ಅಖಣಾಶ್ಮಸಮರು. ಅವರ ಮೇಲೆ ಎರಗಿದ\nಕಲ್ಯಾದಿ ಅಸುರರಿಗೆ ಹಾನಿಯೇ ಹೊರತು, ಅವರು ನಿರ್ಬಾಧಿತರಾಗಿ-\nರುವರು.\nಶ್ರೀಲಕ್ಷ್ಮೀದೇವಿ-ಬ್ರಹ್ಮವಾಯುಗಳು-ಶ್ರೀಸರಸ್ವತೀ-ಭಾರತೀ- ಈ\nಮೂರು ವರ್ಗದವರು ಪರಶುಕ್ಲತ್ರಯರು. ಶ್ರೀಹರಿಯ ಅವಿಚ್ಛಿನ್ನ-\nಭಕ್ತರು. ಪ್ರಳಯಕಾಲದಲ್ಲೂ ಸಹ ಅಜ್ಞಾನವಿಲ್ಲ. ಸದಾ ಜಾಗ್ರತರಾಗಿ-\nರುವರು. ತಿರೋಹಿತ ಜ್ಞಾನವಿಲ್ಲದಿರುವರು. ಈ ಕಾರಣದಿಂದಲೇ,\nಶ್ರೀಭೀಮಸೇನದೇವರಿಗೆ-\n- \"ಶುದ್ಧೇ ಭಾಗವತೇ ಧರ್ಮೇ ನಿರತೋದದ್ವಕೋದರಃ\" :-\n—ಎಂದು ನಿರ್ಣಯವಾಕ್ಯ ಪ್ರಮಾಣವಿದೆ.\nಈ ವಿಷಯದಲ್ಲಿ ವಿಸ್ತಾರವಾದ ವಿವರಣೆಯನ್ನು ಭಾವಪ್ರಕಾಶಿಕಾ-\nವ್ಯಾಖ್ಯಾನದಲ್ಲಿ ನೋಡಬಹುದು.\n4. ಶ್ರೀಬ್ರಹ್ಮದೇವರು ಶ್ರೀಹರಿಗೆ ಸಮ್ಮುಖವಾಗಿ ನಿಂತು, ಎರಡು\nಕೈಗಳನ್ನೂ ಜೋಡಿಸಿಕೊಂಡು, (ಕೃತಪುಟಾಂಜಲಿಯಿಂದ), ಸಜ್ಜನರಿಗೆ\nಆಗಿಂದಾಗ್ಗೆ ಒದಗುವ ಅಸುರಾವೇಶ ಮತ್ತು ಹಿಂಸೆಗಳನ್ನು ಪರಿಹರಿಸಿ, ರಕ್ಷಿಸ-\nಬೇಕೆಂದು ಪ್ರಾರ್ಥಿಸುತ್ತಾರೆ.\nಹಾಗೆಯೇ, ಶ್ರೀವಾಯುದೇವರು ಮೂಲೇಶನ ಪಾದದಡಿಯಲ್ಲಿ ಅವನಿಗೆ\nಶೃದ್ಧಾಜಲಿಯಿಂದ ನಮಸ್ಕರಿಸಿ, ಸಜ್ಜೀವರ ರಕ್ಷಣೆಗಾಗಿ ಬಿನ್ನವಿಸಿಕೊಳ್ಳು-\nವರು. ಬ್ರಹ್ಮ-ಸರಸ್ವತಿಗಳಿಗೆ ಅವತಾರವಿಲ್ಲ. ಶ್ರೀವಾಯುದೇವರಿಗೆ ಅವ-\nತಾರಗಳೆಲ್ಲಾ ಕಲ್ಯಾವೇಶವಿಲ್ಲ. ॥21॥",
+   "confidence": 0.94,
+   "note": "Followed Engine A for correct layout and readable continuous text.",
+   "ratio": 0.879
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 252,
+   "text": "ಕೃಷ್ಣದೇವರಾಯ\n149\nತೋಂಧಂ ಪ್ರವಿಶತ್ಯೇತೇ ತಾರತಮ್ಯೇನ ಸರ್ವಶಃ |\nಕರ್ವೇಷಾಮುತ್ತಮೋ ಜ್ಞೇಯಃ ಕಲಿರೇವ ನ ಸಂಶಯಃ ||3||\nದೂಷಣೇ ವಿಷ್ಣುಭಕ್ತಾನಾಂ ತತ್ಸಮೋನ್ತಾ ಸರ್ವದಾ |\nಹಂಸಾರೇಹ್ಯಂಧತಮಸಿ ಸರ್ವದಾ ಹರಿದೂಷಕಃ ||4||\nಮಿಥ್ಯಾಜ್ಞಾನೇ ಜ್ಞಾನಬುದ್ಧಿಃ ದುಃಖೇ ಚ ಸುಖಬುದ್ಧಿಮಾನ್ |\nತಸ್ಮಾತ್ಕಲಿಸಮೋ ಲೋಕೇ ವಿಷ್ಣು ದ್ವೇಷೀ ನ ಕುತ್ರಚಿತ್ ||5||\nದುರ್ಯೋಧನಸ್ತು ಸೈವೋಕ್ತಃ ದುಃಖಾನಂತಸ್ವರೂಪವಾನ್ |\nತಸ್ಮಾತ್ ಶತಗುಣಾಂಶೋನಾ ಕಲಿಭಾರ್ಯಾ ಚ ಸರ್ವದಾ ||6||\nಅಲಕ್ಷ್ಮೀರಿತಿ ವಿಖ್ಯಾತಾ ಸಾ ಲೋಕೇ ಮಂಥರಾ ಸ್ಮೃತಾ |\nತಸ್ಮಾದ್ದಶಗುಣಾಂಶೋನೋ ವಿಪ್ರಚಿತ್ತಿಸ್ತು ಸರ್ವದಾ ||7||\nಜರಾಸಂಧಸ್ತಥೈವೋಕ್ತಃ ಕಾಲನೇಮೀಸ್ತತಃ ಪರಂ |\nತಸ್ಮಾತ್ ಶತಗುಣಾಂಶೋನೋ ಸೈವ ಕಂಸಸ್ತು ವಿಶ್ರುತಃ ||೪||\nತಸ್ಮಾತ್ಪಂಚಗುಣೈರ್ಹಿನ್ ಮೌಢುಕೃಟಭ ಸಂಜ್ಞರೌ |\nತಾವೇತ್ ಹಂಸಡಿಭಿಕೌ ಜ್ಞೇಯೌ ಚ ಜನಾರ್ದನ ||೨||\nವಿಪ್ರಚಿತ್ತಿಸಮ ಜ್ಞೇಯಃ ಭೌಮೋ ವೈಭೂತಲೇ ಸ್ಮೃತಃ |\nತಸ್ಮಾದಷ್ಟಗುಣೈರುಚ್ಚೋ ಹಿರಣ್ಯಕಶಿಪುಃ ಸ್ಮೃತಃ || 10||\nತಸ್ಮಾತ್ತು ತ್ರಿಗುಣೈರ್ಹಿನೋ ಹಿರಣ್ಯಾಕ್ಷೋ ಮಹಾಸುರಃ |\nಮಣಿಮಾನ್ ತತ್ಸನೋ ಜ್ಞೇಯಃ ಕಿಂಚಿದೂನೋ ಬಕಸ್ತತಃ ||11||\nತಸ್ಮಾದಿಂತದ್ದು ಷ್ಟೈರ್ಹೀನೋ ತಾರಕಾಖ್ಯೋ ಮಹಾಸುರಃ |\nತಸ್ಮಾತ್ತು ಷಡ್ಗುಣೈನ್ರ್ಯುನೋ ಶಂಬರೋ ಲೋಕಕಂಟಕ || 12||",
+   "confidence": 0.92,
+   "note": "Followed Engine A primarily for verse readability.",
+   "ratio": 0.912
+  },
+  {
+   "work": "hks__29_30_hks",
+   "page": 258,
+   "text": "ದೈತ್ಯತಾರತಮ್ಯ ಸಂಧಿ\n155\n-ಗರುಡಪುರಾಣದ ಇತರ ಪ್ರಮಾಣ ಶ್ಲೋಕಗಳನ್ನು ಶ್ರೀಸಂಕರ್ಷಣ\nಒಡೆಯರ ವ್ಯಾಖ್ಯಾನದಲ್ಲಿ ವಿಸ್ತಾರವಾಗಿ ಕೊಟ್ಟಿದೆ. ಅಲ್ಲಿ ನೋಡುವುದು.\nಮೂಲ :-\nಪದ್ಯ-೨೩\nಜಾಲಿ ನೆಗ್ಗಿಲು ಕ್ಷುದ್ರಶಿಲೆ ಬರಿ |\nಗಾಲ ಪುರುಷನ ಬಾಧಿಪುವು ಚ |\nಮೋಳಗೆಯ ಮೆಟ್ಟಿದವಗುಂಟೇ ಕಂಟಕಗಳ ಭಯ ||\nಚೇಳು ಸರ್ಪವ ಕೊಂದ ವಾರ್ತೆಯ |\nಕೇಳಿ ಮೋದಿಪಗಿಲ್ಲವಘ ಯಮ |\nನಾಳುಗಳ ಭಯವಿಲ್ಲ ದೈತ್ಯರ ನಿಂದಿಸುವ ನರಗೆ || ೨೩||\nಅವತರಣಿಕೆ :-\nದೈತ್ಯರನ್ನು ನಿಂದಿಸುವವರಿಗೂ ಮತ್ತು ದುಷ್ಟಜಂತುಗಳ ಸಂಹಾರದಿಂದ\nಯಮದೇವರ ಭಯವಿಲ್ಲವೆಂದು ಹೇಳುತ್ತಾರೆ. ||೨೩||\nಪ್ರತಿಪದಾರ್ಥ :-\nಜಾಲಿ := ಜಾಲಿಮರದ ಮುಳ್ಳು, ನೆಗ್ಗಿಲು = ನೆಗ್ಗಿಲು ಮುಳ್ಳು,\nಕ್ಷುದ್ರಶಿಲೆ = ಮುಳ್ಳುಗಳಂತೆ ಚೂಪಾಗಿರುವ ಸಣ್ಣ ಸಣ್ಣ ಕಲ್ಲುಗಳು, ಬರಿ\nಗಾಲ ಪುರುಷನ = ಪಾದರಕ್ಷೆ ಇಲ್ಲದೆ ಬರಿಗಾಲಿನಿಂದ ನಡೆಯುವ ಪುರುಷ-\nನನ್ನು, ಬಾಧಿಪುವು - ಬಾಧಿಸಿ, ನೋವನ್ನುಂಟುಮಾಡುವುವು.",
+   "confidence": 0.85,
+   "note": "Combined engine A layout and better readings with Engine B corrections where appropriate.",
+   "ratio": 0.915
+  }
+ ]
+}
