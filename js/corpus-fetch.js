@@ -115,6 +115,42 @@ window.DGE_VERSIONS['corpus-fetch.js'] = 'v1.0 (11 Sep 2026: corpusBase switch �
    * private, so a conditional request is both fresher and cheaper than a URL
    * the browser has never seen.
    */
+  /**
+   * Resolves a grantha_layer_v2_index — a layer split into scholar-sized
+   * part files by tools/split_grantha_layer.py, see that tool's docstring.
+   * `data` is whatever was just fetched from `url`; if it isn't an index
+   * (the ordinary, unsplit case — still the large majority of the corpus),
+   * it is returned unchanged, so every existing caller of this file's own
+   * fetch stays correct with no branching of its own. When it IS an index,
+   * every part it names is fetched (through dgeFetchCorpus, so the
+   * authenticated-proxy path covers parts too) and their `units` arrays are
+   * concatenated in the index's own listed order — which is reading order,
+   * since split_grantha_layer.py numbers parts sequentially and never
+   * reorders units — into one ordinary grantha_layer_v2 object, so nothing
+   * downstream (dgeNormalizeGranthaData, layer-stitch.js's merge) needs to
+   * know a layer was ever split.
+   */
+  window.dgeResolveLayerV2Parts = async function (url, data) {
+    if (!data || data.schema !== 'grantha_layer_v2_index' ||
+        !Array.isArray(data.parts) || !data.parts.length) {
+      return data;
+    }
+    const dir = String(url).replace(/[^/]*$/, '');
+    const fetchOne = window.dgeFetchCorpus || ((u) => fetch(u));
+    const parts = await Promise.all(data.parts.map(name =>
+      Promise.resolve(fetchOne(dir + name)).then(res => {
+        if (!res.ok) throw new Error(`Could not load ${dir}${name} (HTTP ${res.status})`);
+        return res.json();
+      })
+    ));
+    const units = [];
+    parts.forEach(part => { if (part && Array.isArray(part.units)) units.push(...part.units); });
+    if (units.length !== data.units_total) {
+      console.warn(`[Corpus] ${url}: index promised ${data.units_total} units, parts delivered ${units.length}`);
+    }
+    return { schema: 'grantha_layer_v2', work: data.work, layer: data.layer, units };
+  };
+
   window.dgeFetchCorpus = async function (url, opts) {
     const options = opts || {};
     const base = corpusBase();

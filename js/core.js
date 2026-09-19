@@ -1197,6 +1197,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchGranthaData(0)
       .then(async data => {
+        // A layer split into scholar-sized parts (tools/split_grantha_layer.py)
+        // fetches at this exact path as a small grantha_layer_v2_index
+        // instead of the full unit list; resolved transparently here, once,
+        // before anything below (or dgeNormalizeGranthaData) sees it, so a
+        // split grantha and an unsplit one are indistinguishable downstream.
+        if (typeof window.dgeResolveLayerV2Parts === 'function') {
+          data = await window.dgeResolveLayerV2Parts(window.jsonFileName, data);
+        }
         // Logged BEFORE normalization so the raw file shape is visible —
         // if this doesn't match what you just uploaded, the problem is
         // the fetch (stale cache, wrong path), not the rendering.

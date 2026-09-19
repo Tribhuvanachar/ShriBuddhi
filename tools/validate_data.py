@@ -31,10 +31,12 @@ for fp in sorted(glob.glob(os.path.join(DATA, '**', 'data.json'), recursive=True
     if not isinstance(d, dict):
         errors.append(f"{fp}: top-level is not an object"); continue
     if 'items' not in d:
-        if d.get('schema') in ('grantha_layer_v2', 'grantha_work_v2'):
+        if d.get('schema') in ('grantha_layer_v2', 'grantha_work_v2', 'grantha_layer_v2_index'):
             # the v2 architecture (tools/reports/grantha_data_architecture.md)
-            # keeps paragraph units under 'units'; its own deep validator is
-            # tools/validate_grantha.py
+            # keeps paragraph units under 'units'; a layer split into
+            # scholar-sized parts (tools/split_grantha_layer.py) instead
+            # points at them from an index with no 'items'/'units' of its
+            # own. Either way, its own deep validator is tools/validate_grantha.py
             legacy += 1
         # legacy stotra-viewer shape or an empty placeholder -> skip, don't fail
         elif 'metadata' in d or 'shlokas' in d:

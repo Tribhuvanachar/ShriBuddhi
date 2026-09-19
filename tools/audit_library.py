@@ -45,6 +45,12 @@ def item_count(payload):
     generations; the legacy shape uses a dict keyed by verse number."""
     if not isinstance(payload, dict):
         return 0
+    # A layer split into scholar-sized parts (tools/split_grantha_layer.py)
+    # carries no 'units' of its own at this path any more -- just a pointer
+    # to its part files -- but it declares the true total right on the
+    # index, cheaper than opening every part to re-count.
+    if payload.get("schema") == "grantha_layer_v2_index":
+        return payload.get("units_total", 0)
     for key in ("items", "shlokas", "compositions", "entries", "units"):
         value = payload.get(key)
         if isinstance(value, list):

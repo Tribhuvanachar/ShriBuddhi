@@ -201,6 +201,12 @@ window.dgeEnsureStitchedLayers = function() {
     const url = 'data/' + dgeStitch.granthaRel + '/' + layer.folder + '/data.json?t=' + Date.now();
     fetch(url)
       .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+      // A split layer (tools/split_grantha_layer.py) fetches here as a small
+      // grantha_layer_v2_index instead of its full unit list; resolved
+      // transparently (see corpus-fetch.js's own comment) before the merge
+      // below, which never needs to know the layer was split.
+      .then(data => (typeof window.dgeResolveLayerV2Parts === 'function')
+        ? window.dgeResolveLayerV2Parts(url, data) : data)
       .then(data => { dgeMergeStitchedLayer(key, layer, data); })
       .catch(err => {
         console.error(`[Stitch] failed to load ${layer.folder}:`, err);

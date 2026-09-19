@@ -32,6 +32,11 @@ NOT_A_GRANTHA = {
 
 
 def item_count(data):
+    # A layer split into scholar-sized parts (tools/split_grantha_layer.py)
+    # has no 'items'/'units' of its own at this path -- see audit_library.py's
+    # item_count() for the same check.
+    if data.get('schema') == 'grantha_layer_v2_index':
+        return data.get('units_total', 0)
     items = data.get('items', [])
     if items and isinstance(items[0], dict) and isinstance(items[0].get('shlokas'), list):
         return sum(len(it.get('shlokas', [])) for it in items)

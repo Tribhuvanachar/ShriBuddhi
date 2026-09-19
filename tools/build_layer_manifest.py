@@ -155,6 +155,21 @@ def load_units(path: Path):
     except (OSError, json.JSONDecodeError) as exc:
         print(f"  WARN unreadable {path}: {exc}", file=sys.stderr)
         return None, []
+    # A layer split into scholar-sized parts (tools/split_grantha_layer.py)
+    # has no 'units' at this path any more, only a pointer to its part
+    # files -- resolved here so build_v2()'s ref-overlap counting sees the
+    # real unit list either way, split or not.
+    if data.get("schema") == "grantha_layer_v2_index":
+        units: list = []
+        for name in data.get("parts") or []:
+            try:
+                part = json.loads((path.parent / name).read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError) as exc:
+                print(f"  WARN unreadable {path.parent / name}: {exc}", file=sys.stderr)
+                continue
+            if isinstance(part.get("units"), list):
+                units.extend(part["units"])
+        return data, units
     units = data.get("units")
     return data, units if isinstance(units, list) else []
 
