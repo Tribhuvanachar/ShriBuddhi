@@ -132,8 +132,12 @@ class BuiltOutput(unittest.TestCase):
         cls.files = sorted(out.glob('*.json')) if out.exists() else []
 
     def test_the_index_was_built_for_sumadhva_vijaya(self):
+        # kavya_alankara/sumadhva_vijaya was the pre-rename taxonomy path
+        # (commit 87381577d, "Rename the top-level DvaitaVedanta shelf to
+        # Tattvavada", 14 Sep 2026); the built shards already carry the new
+        # name, this assertion's literal just never followed them over.
         names = {f.name for f in self.files}
-        self.assertIn('kavya_alankara__sumadhva_vijaya__sarga_1.json', names,
+        self.assertIn('Tattvavada__Itara__Kavya__sumadhva_vijaya__sarga_1.json', names,
                       'run tools/build_padaccheda.py --commentary Tattvavada/Itara/Kavya/sumadhva_vijaya')
 
     def test_every_row_is_a_two_piece_split_of_its_own_token(self):
