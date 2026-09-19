@@ -130,11 +130,9 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--border
     &mdash; the code's own naming (<code>pubba</code>, <code>makha</code>,
     <code>sapthami</code>) matches Karnataka panchanga usage, so that's a
     near-certain read. Say so if you meant something else.<br><br>
-    2. I couldn't place &ldquo;FMRA&rdquo; exactly. My two best guesses are
-    <code>rma</code> (a code variable &mdash; see the table near the bottom)
-    or &ldquo;ephemeris&rdquo; (a term from our last conversation &mdash;
-    see the last section). Both are covered below. Tell me exactly where
-    you saw it and I'll add the real one.<br><br>
+    2. &ldquo;FMRA&rdquo; was &ldquo;ephemeris&rdquo; &mdash; see the
+    entry at the top of the last section, expanded now that it's
+    confirmed.<br><br>
     These Sanskrit and Kannada renderings are my best effort, not a
     pandit's or a linguist's. The common sastric terms (tithi, nakshatra,
     ayanamsha, ekadashi, and so on) are standard and I'm confident in them;
@@ -320,7 +318,7 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--border
         <tr><td><code>m</code></td><td class="sa-cell">Ahargaṇa</td><td>Elapsed days &mdash; the only real input.</td></tr>
         <tr><td><code>rm</code>, <code>rm1</code></td><td class="sa-cell">Ravi Madhya</td><td>Sun's mean longitude.</td></tr>
         <tr><td><code>rmc</code>, <code>rmc1</code></td><td class="sa-cell">Ravi Kendra</td><td>Sun's anomaly (angle from apogee).</td></tr>
-        <tr><td><code>rma</code></td><td class="unresolved">(kendra, folded)</td><td>Sun's anomaly folded into the first quadrant, for the sine-table lookup. <em>My best guess for &ldquo;FMRA.&rdquo;</em></td></tr>
+        <tr><td><code>rma</code></td><td class="unresolved">(kendra, folded)</td><td>Sun's anomaly folded into the first quadrant, for the sine-table lookup.</td></tr>
         <tr><td><code>rmp</code>, <code>rmp1</code></td><td class="sa-cell">Ravi Mandaphala</td><td>Sun's equation-of-center correction.</td></tr>
         <tr><td><code>msr</code>, <code>msr1</code></td><td class="sa-cell">Manda-sphuṭa Ravi</td><td>Sun's corrected ("true") longitude.</td></tr>
         <tr><td><code>rg</code></td><td class="sa-cell">Ravi Gati</td><td>Sun's daily motion.</td></tr>
@@ -354,8 +352,8 @@ footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--border
     <table>
       <thead><tr><th>Term</th><th>Plain-language meaning</th></tr></thead>
       <tbody>
-        <tr><td>Ephemeris</td><td>A table (traditionally) or a piece of software (today) that tells you exactly where a planet or the Moon was, is, or will be, at any given moment. <em>My other best guess for &ldquo;FMRA.&rdquo;</em></td></tr>
-        <tr><td>Swiss Ephemeris</td><td>The specific modern software library this project now uses to get accurate Sun/Moon positions, replacing the old code's approximation tables.</td></tr>
+        <tr><td>Ephemeris</td><td>A table (traditionally, printed in books for astronomers and astrologers) or a piece of software (today) that tells you exactly where a planet or the Moon was, is, or will be, at any given moment &mdash; you give it a date and place, it gives you a position. <code>EXP.C</code>'s <code>jya</code>/manda-phala sine tables and its hand-fit &ldquo;deemed correction&rdquo; constants are effectively a tiny, hand-built, low-accuracy ephemeris baked directly into the code, calibrated to one unstated era and place; a real ephemeris library replaces all of that with a general-purpose, much more accurate calculation.</td></tr>
+        <tr><td>Swiss Ephemeris</td><td>The specific modern software library (<code>pyswisseph</code> in <code>panchanga/ephemeris.py</code>) this project now uses to get accurate Sun/Moon positions, replacing the old code's approximation tables.</td></tr>
         <tr><td>Sidereal / Tropical</td><td>Same distinction as Nirayana/Sayana above, just the English astronomy names for it.</td></tr>
         <tr><td>Julian Day</td><td>A single running day-count astronomers use, similar in spirit to Ahargana but starting from a different (more recent) point.</td></tr>
         <tr><td>Elongation</td><td>The angular distance between two bodies &mdash; here, Moon minus Sun &mdash; the one number that determines the tithi.</td></tr>
