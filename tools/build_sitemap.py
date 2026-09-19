@@ -58,6 +58,9 @@ from set_site_url import load_config, build_url, SiteUrlError  # noqa: E402
 REPO_ROOT = Path(__file__).resolve().parent.parent
 LIBRARY_JSON = REPO_ROOT / "data" / "library.json"
 OVERRIDES_JSON = REPO_ROOT / "admin" / "config" / "library-overrides.json"
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from unpublished_trees import excludes_slug
 SITEMAP_PATH = REPO_ROOT / "sitemap.xml"
 ROBOTS_PATH = REPO_ROOT / "robots.txt"
 
@@ -138,6 +141,14 @@ def load_populated_granthas():
             continue
         slug = grantha_slug(g["path"])
         if is_hidden_path(slug, hidden_prefixes):
+            continue
+        # Trees that do not publish at all (tools/unpublished_trees.py). This
+        # is NOT the same test as is_hidden_path above: hidden is curation and
+        # the file still ships, so a hidden slug in the sitemap would merely be
+        # untidy. One of these in the sitemap is a link to a file that is not
+        # there, spelling out the website the text came from. Different problem,
+        # separate test, deliberately not folded into the hidden list.
+        if excludes_slug(slug):
             continue
         out.append((slug, g))
     return out
