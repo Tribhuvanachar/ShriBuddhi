@@ -291,3 +291,28 @@ about how you are calling it. The stub must go UNDERNEATH the real code: here
 that meant stubbing the HTTP post and letting the genuine `call_gemini` build
 the request, which is what finally exercised the signature, the schema and the
 token ceiling together.
+
+## 17. A network timeout threw away work that had already been paid for
+
+A five-work Gemini batch resolved 117 pages, billed Rs6.19, and then call 34
+timed out reading the response. The script exited 1. The workflow's push step
+was gated on that step succeeding, so it was skipped, and everything already
+resolved existed only inside the run artifact -- recoverable, but only because
+the artifact upload happened to carry `if: always()` while the push did not.
+
+Two faults, and the second is the one that matters.
+
+The script treated every exception alike. A read timeout is not a bad request;
+it is the network, and it clears on a retry. Retrying transient failures three
+times with backoff, and stopping cleanly rather than crashing when they
+persist, would have finished the batch.
+
+But the real fault is the workflow: a step that persists PAID work must never
+be conditional on the rest of the run going well. That is the same lesson as
+the Sarvam commit step, written down on 13 Sep and again on 18 Sep, and I
+built a new workflow this week with the same shape. Knowing a rule is not the
+same as applying it to the next thing you write.
+
+**Rule.** Any step that saves billed output runs on `always()`. The question to
+ask of every new workflow is not "does this work" but "if this dies halfway,
+what has been bought and where does it live".

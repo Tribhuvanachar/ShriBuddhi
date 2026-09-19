@@ -305,12 +305,31 @@ def main(argv=None) -> int:
             print("stopping: Rs%.2f spent, next call ~Rs%.2f, budget Rs%.2f"
                   % (spent, per_call_inr, args.budget_inr))
             break
-        try:
-            pages = ask(batch, args.model, api_key, usage, args.max_output_tokens)
-        except Exception as exc:  # noqa: BLE001
-            print("  call failed: %s" % str(exc)[:160])
-            save()
-            return 1
+        # A transient network fault must not end a run that has already been
+        # billed for. Call 34 of a 5-work batch timed out on 19 Sep 2026 and
+        # took the whole run down after 117 pages and Rs6.19 of paid work.
+        pages, err = None, None
+        for attempt in range(1, 4):
+            try:
+                pages = ask(batch, args.model, api_key, usage, args.max_output_tokens)
+                break
+            except Exception as exc:  # noqa: BLE001
+                err = exc
+                transient = any(w in str(exc).lower() for w in
+                                ("timed out", "timeout", "connection", "reset",
+                                 "temporarily", "503", "502", "500", "429"))
+                if not transient or attempt == 3:
+                    break
+                print("  attempt %d failed (%s) -- retrying" % (attempt, str(exc)[:70]))
+                time.sleep(5 * attempt)
+        if pages is None:
+            # Stop cleanly rather than crashing: everything resolved so far is
+            # already written, and the run must still reach the step that
+            # pushes it.
+            print("  call failed after retries: %s" % str(err)[:160])
+            print("  stopping here; %d page(s) already resolved are kept." % this_run)
+            result["stopped_early"] = str(err)[:200]
+            break
         calls += 1
         # Priced against what was SERVED, not what was asked for.
         spent = cost_inr(usage, served_model(usage, args.model), args.inr_per_usd)
