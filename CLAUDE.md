@@ -1,16 +1,28 @@
 # Working notes for Claude — ShriBuddhi
 
-## Read this first: this repository cannot run as a website
+## Read this first: this repository IS the site, and you can serve it
 
-There is no `index.html` here. No `css/`, no `vyakarana/`, no `guru-parampara/`,
-no `config/`, no `content/`, no `wasm/`. This repo holds `js/` and `data/` — the
-engine and the fuel — and nothing that loads them.
+```bash
+cd shribuddhi && python3 -m http.server 8901
+# then open http://localhost:8901/index.html
+```
 
-So: **you cannot browser-test a front-end change from this repository.** Serving
-it 404s at the front door. If you have changed `js/` and want to see it work,
-you need the site tree as well (see *Working across repositories* below). A
-session that assumes otherwise will report a feature as done when no reader can
-reach it. That has already happened once.
+Every route works from here: `/`, `index.html`, `render.html?path=<grantha>`,
+`css/`, `js/core.js`, `data/library.json`, `admin/*.html`. Verified 19 Sep 2026
+by serving the repository and requesting each one.
+
+**This note used to say the opposite**, and said it for weeks after it stopped
+being true. It was written when the repo held only `js/` and `data/`; the commit
+"Bring the site itself into the repository that is meant to be its source" then
+moved the whole front end here, and nobody came back to the note. At least one
+session read it, believed it, and built an elaborate two-repository splice --
+clone bhumandala, delete its `data/` and `js/`, graft ShriBuddhi's in, serve
+that -- to accomplish what `python3 -m http.server` does from this directory.
+
+The lesson is not about this file. An orientation note that describes a layout
+is a claim that expires the moment someone changes the layout, and a stale one
+costs more than no note at all, because it is believed. If you change what this
+repository contains, change this paragraph in the same commit.
 
 ## The four repositories, and which way work flows
 
