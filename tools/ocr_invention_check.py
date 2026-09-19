@@ -78,6 +78,16 @@ def longest_novel_run(out: str, have: set, n: int) -> str:
     return best
 
 
+def declared(page) -> str:
+    """Everything the model said it changed, as one blob to match against.
+
+    A declared emendation is a decision with a warrant; an undeclared departure
+    is an invention. The only difference the machine can see is whether the
+    novel stretch turns up in `emendations`, so that is what it checks.
+    """
+    return "".join(indic(e.get("to", "")) for e in (page.get("emendations") or []))
+
+
 def check(resolved, sources, n=4, max_novel=0.03, min_run=8):
     rows = []
     for p in resolved.get("pages", []):
@@ -90,15 +100,20 @@ def check(resolved, sources, n=4, max_novel=0.03, min_run=8):
         out = grams(out_s, n)
         if len(out) < 20:
             continue
-        novel = out - have
-        run = longest_novel_run(out_s, have, n)
+        # A stretch the model declared as an emendation is not novel text --
+        # it is a change it owned up to, with a warrant, for a human to judge.
+        have_declared = have | grams(declared(p), n)
+        run = longest_novel_run(out_s, have_declared, n)
         prose = is_prose(run)
+        novel = out - have_declared
         rows.append({
             "work": key[0], "page": key[1],
             "novel_share": len(novel) / len(out),
             "longest_novel_run": run,
             "run_len": len(run),
             "confidence": p.get("confidence"),
+            "emendations": len(p.get("emendations") or []),
+            "suspects": len(p.get("suspects") or []),
             "prose_run": prose,
             # Only a novel run of pure letters is reported as invention.
             "flagged": prose and len(run) >= min_run,

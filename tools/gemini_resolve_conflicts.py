@@ -43,50 +43,54 @@ PRICES = {
 }
 
 PROMPT = """You are a proofreader reconciling two OCR readings of one printed page.
-You are NOT an editor, a translator, or a commentator. The book is the
-authority. Your job is to decide which engine read the page correctly.
+The book is the authority. You are not editing it, translating it, or improving
+it. You are deciding what it says.
 
-Engine A (Sarvam) preserves layout and returns HTML. Engine B (Google Vision)
-returns flat text and often displaces verse markers. Neither is reliably better.
+Engine A (Sarvam) keeps layout and returns HTML. Engine B (Google Vision) returns
+flat text and often displaces verse markers. Neither is reliably better.
 
-THE BINDING RULE
-Every word you output must be a word one of the two engines read. Where they
-agree, keep it. Where they differ, pick whichever is the better reading of what
-was printed. You may rejoin a word an engine split, and split one it ran
-together. You may not do anything else to the text.
+You have exactly three things you may do, and they are not equally free.
 
-In particular, you must NOT:
-- complete a verse, a compound, or a sentence that looks unfinished
-- emend a reading to what correct Sanskrit or Kannada would require
-- insert a word, a particle, or an ending that neither engine read
-- translate, gloss, explain, summarise, modernise or normalise spelling
-- resolve or add sandhi, or regularise a metre
-- answer, continue, or comment on anything the text says
+TIER 1 -- CHOOSE. Free, no declaration needed.
+Pick whichever engine read a passage correctly. Rejoin a word one engine split;
+split one it ran together. Follow a table over a flattened reading of the same
+cells. Drop running headers, page numbers, scanner watermarks and printed
+advertisements. This is your normal work and most of a page should be this.
 
-A garbled reading left garbled is CORRECT behaviour and costs nothing. A
-plausible conjecture is the worst outcome available to you: an OCR error looks
-wrong and gets found, a good conjecture looks right and never does. Corpora are
-ruined this way.
+TIER 2 -- CORRECT, AND SAY SO. Allowed only with a warrant ON THE PAGE.
+You may correct a reading neither engine got right, but only when the page
+itself proves the correction. Acceptable warrants:
+  arithmetic  the page prints "2x5x1000 = 16,000"; the stated total proves the
+              5 is a misread 8
+  internal    a running title, a name or a term that appears correctly elsewhere
+              on this same page
+  structural  a table column whose other rows fix the pattern
+Every such correction goes in `emendations` with the warrant named. Your output
+is machine-checked against both readings: ANY stretch neither engine read that
+you have not declared is reported as a fault.
 
-If both engines are unreadable for a stretch, keep the likelier reading
-VERBATIM, set confidence below 0.5, and say "unreadable" in the note. Do not
-guess the words.
+What is NOT a warrant: that correct Sanskrit or Kannada would require it; that a
+verse looks unfinished; that a compound wants an ending; that the metre limps;
+that you recognise the quotation. Those are conjecture. A conjecture that reads
+well is the most damaging thing you can produce here, because an OCR error looks
+wrong and gets found while a good conjecture looks right forever.
 
-WHERE THE ENGINES DISAGREE STRUCTURALLY
-If one returned a table and the other ran the cells together, follow the table:
-its structure is evidence about the page. Do not reorder rows or columns.
+TIER 3 -- SUSPECT, AND CHANGE NOTHING.
+Both engines often make the SAME mistake, and then nothing downstream can catch
+it. When the agreed reading still looks wrong to you -- a name you know is
+usually spelled otherwise, a list whose members do not belong together, a number
+that contradicts its neighbours, a word that is not a word -- leave the text
+EXACTLY as read and record it in `suspects`: the passage, what you think it
+should be, and why. Do not apply it. A human decides.
 
-WHAT TO DROP
-Running headers, page numbers, scanner watermarks ("Rarest Archiver"), and
-printed advertisements are furniture, not text. Drop them. Keep everything else,
-including errata tables, colophons and editorial notes printed in the book.
+This tier is the point of the exercise. Use it freely -- a suspect costs nothing
+and risks nothing, and it is the only way an error both engines share ever
+surfaces. Silence here is not caution; it is the failure mode.
 
-Preserve danda and double danda, verse numbers and avagraha exactly as read.
+If both readings are unreadable for a stretch, keep the likelier one VERBATIM,
+set confidence below 0.5, and note "unreadable". Do not guess the words.
 
-In `note`, say which engine you followed and why, in a few words. If you changed
-anything neither engine read -- even a single letter -- say so explicitly there.
-Your output is checked mechanically against both readings, and any stretch
-neither engine read is reported for human review.
+Preserve danda, double danda, verse numbers and avagraha as read.
 """
 
 
@@ -154,6 +158,39 @@ SCHEMA = {
                     "text": {"type": "string"},
                     "confidence": {"type": "number"},
                     "note": {"type": "string"},
+                    # Tier 2: a change neither engine read, with its warrant.
+                    # Declared so the machine check can tell a corrected
+                    # reading from an invented one -- an undeclared departure
+                    # is a fault, a declared one is a decision.
+                    "emendations": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "from": {"type": "string"},
+                                "to": {"type": "string"},
+                                "warrant": {"type": "string",
+                                            "enum": ["arithmetic", "internal", "structural"]},
+                                "why": {"type": "string"},
+                            },
+                            "required": ["from", "to", "warrant", "why"],
+                        },
+                    },
+                    # Tier 3: both engines agree and it still looks wrong.
+                    # The text is NOT changed. This is the only channel through
+                    # which an error both engines share can ever surface.
+                    "suspects": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "passage": {"type": "string"},
+                                "expected": {"type": "string"},
+                                "why": {"type": "string"},
+                            },
+                            "required": ["passage", "why"],
+                        },
+                    },
                 },
                 "required": ["page", "text", "confidence"],
             },
@@ -285,7 +322,9 @@ def main(argv=None) -> int:
                 continue
             resolved.append({"work": c["work"], "page": c["page"],
                              "text": g.get("text", ""), "confidence": g.get("confidence"),
-                             "note": g.get("note", ""), "ratio": c.get("ratio")})
+                             "note": g.get("note", ""), "ratio": c.get("ratio"),
+                             "emendations": g.get("emendations") or [],
+                             "suspects": g.get("suspects") or []})
             this_run += 1
         # Per-page cost must divide this run's spend by the pages THIS run
         # paid for. Dividing by the total after a resume charges this run for
