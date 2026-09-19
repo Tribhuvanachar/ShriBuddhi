@@ -70,9 +70,10 @@
    "Tattvavada/Itara/Kavya/sumadhva_vijaya",
    "Tattvavada/Itara/Kavya/mani_manjari",
    "Tattvavada/Itara/Kavya/raghavendra_vijaya",
-   "Tattvavada/Itara/Kavya/tirtha_prabandha"
+   "Tattvavada/Itara/Kavya/tirtha_prabandha",
+   "darshana/vedanta/dvaita/DvaitaVedantaIn"
   ],
-  "_notAllowedOnPurpose": "Mani Manjari is listed above before its data exists -- an allow entry for a path with no grantha under it costs nothing and means loading it is a data commit with no config change. The wider SarvaMula shelf, DvaitaVedanta and SetuTila are deliberately NOT here (lead's choice, 10 Sep 2026); adding 'SarvaMula' to `allow` opens the whole Sarvamula section in one edit.",
+  "_notAllowedOnPurpose": "Mani Manjari is listed above before its data exists -- an allow entry for a path with no grantha under it costs nothing and means loading it is a data commit with no config change. The wider SarvaMula shelf and SetuTila are deliberately NOT here (lead's choice, 10 Sep 2026). DvaitaVedantaIn was added 20 Sep 2026 (lead's direction: in ShriBuddhi, an admin tests and admins already bypass this shelf regardless of `allow` -- see dgeIsOffShelf's dgeIsAdmin() check in js/role-access.js -- so the shelf only needs to widen here, not for a public visitor; the admin/non-admin distinction this file exists for starts mattering once content moves to BrahmaBuddhi). Adding 'SarvaMula' to `allow` opens the whole Sarvamula section in one edit.",
   "openToRoles": []
  }
 }
