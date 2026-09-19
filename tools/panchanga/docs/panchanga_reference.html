@@ -1,0 +1,540 @@
+<title>Panchanga Reference</title>
+<style>
+:root {
+  --bg: #EDE3CE; --surface: #FBF6EC; --surface-2: #E4D7BB; --border: #C9B98F;
+  --text: #2A2013; --text-muted: #6B5D42;
+  --sa: #A0341F; --sa-bg: #F7E4DD; --ka: #274B7A; --ka-bg: #DFE7F2;
+  --code-bg: #221B10; --code-text: #EDE3CE; --code-accent: #E0B863; --code-border: #3A2F1C;
+  --ok: #3F7A4E; --ok-bg: #E4EFE3; --bug: #A0341F; --bug-bg: #F7E4DD; --missing-bg: #E4D7BB;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1B1710; --surface: #241F16; --surface-2: #322A1B; --border: #4A3F29;
+    --text: #EFE6D3; --text-muted: #B8A987;
+    --sa: #E08A6E; --sa-bg: #3A2119; --ka: #86A9DD; --ka-bg: #1C2A3D;
+    --code-bg: #0D0B06; --code-text: #EFE6D3; --code-accent: #E0B863; --code-border: #2A2213;
+    --ok: #7FCB9C; --ok-bg: #16281C; --bug: #E08A6E; --bug-bg: #3A2119; --missing-bg: #322A1B;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1B1710; --surface: #241F16; --surface-2: #322A1B; --border: #4A3F29;
+  --text: #EFE6D3; --text-muted: #B8A987;
+  --sa: #E08A6E; --sa-bg: #3A2119; --ka: #86A9DD; --ka-bg: #1C2A3D;
+  --code-bg: #0D0B06; --code-text: #EFE6D3; --code-accent: #E0B863; --code-border: #2A2213;
+  --ok: #7FCB9C; --ok-bg: #16281C; --bug: #E08A6E; --bug-bg: #3A2119; --missing-bg: #322A1B;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); padding-inline: 16px;
+  font-family: "Source Serif 4", Georgia, serif; }
+.wrap { max-width: 960px; margin: 0 auto; padding-block: 20px 90px; }
+
+h1 { font-family: "Fraunces", Georgia, serif; font-weight: 600; letter-spacing: -0.01em;
+  font-size: clamp(1.6rem, 5vw, 2.3rem); margin: 10px 0 6px; text-wrap: balance; }
+h2 { font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 1.25rem;
+  margin: 40px 0 6px; padding-top: 10px; border-top: 2px solid var(--border); }
+p { line-height: 1.65; max-width: 70ch; }
+.lede { color: var(--text-muted); font-size: 1.02rem; margin-top: 0; }
+
+/* language toggle + tabs */
+.controls { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--bg); padding-block: 10px 8px; margin-bottom: 4px;
+  border-bottom: 1px solid var(--border); }
+.rowflex { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.langbtn, .tabbtn {
+  font-family: "JetBrains Mono", monospace; font-size: 0.82rem; padding: 7px 14px;
+  border-radius: 999px; border: 1px solid var(--border); background: var(--surface);
+  color: var(--text); cursor: pointer;
+}
+.langbtn.active, .tabbtn.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+.tabbtn { border-radius: 8px; font-family: "Fraunces", serif; font-size: 0.92rem; padding: 8px 16px; }
+
+/* language-visibility: default group hides sa/kn; toggled per data-lang on #page */
+#page[data-lang="en"] .sa, #page[data-lang="en"] .kn { display: none; }
+#page[data-lang="sa"] .en, #page[data-lang="sa"] .kn { display: none; }
+#page[data-lang="kn"] .en, #page[data-lang="kn"] .sa { display: none; }
+.sa { font-family: "Noto Serif Devanagari", "Source Serif 4", serif; }
+.kn { font-family: "Noto Serif Kannada", "Source Serif 4", serif; }
+
+.notice { background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 14px 16px; margin: 18px 0; font-size: 0.9rem; line-height: 1.6; }
+.notice b { color: var(--sa); }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; margin-top: 14px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px 16px; }
+.card .term { font-family: "JetBrains Mono", monospace; font-size: 0.68rem; letter-spacing: 0.03em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+.card .en-name { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.02rem; margin-bottom: 8px; }
+.lang-row { display: grid; grid-template-columns: 30px 1fr; gap: 8px; align-items: baseline; margin-bottom: 5px; }
+.lang-tag { font-family: "JetBrains Mono", monospace; font-size: 0.65rem; font-weight: 700;
+  border-radius: 5px; text-align: center; padding: 2px 0; align-self: start; margin-top: 3px; }
+.lang-tag.sa { background: var(--sa-bg); color: var(--sa); }
+.lang-tag.ka { background: var(--ka-bg); color: var(--ka); }
+.sa-text { font-family: "Noto Serif Devanagari", serif; font-size: 1.1rem; color: var(--sa); }
+.sa-iast { font-family: "Source Serif 4", serif; font-style: italic; font-size: 0.85rem; color: var(--text-muted); margin-left: 6px; }
+.ka-text { font-family: "Noto Serif Kannada", serif; font-size: 1.05rem; color: var(--ka); }
+.meaning { font-size: 0.9rem; margin-top: 8px; line-height: 1.55; }
+
+.table-wrap { overflow-x: auto; margin: 16px 0 8px; border: 1px solid var(--border); border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; min-width: 600px; font-size: 0.87rem; }
+thead th { text-align: left; padding: 9px 13px; background: var(--surface-2);
+  font-family: "Fraunces", serif; font-weight: 600; font-size: 0.8rem; }
+tbody td { padding: 8px 13px; border-top: 1px solid var(--border); vertical-align: top; }
+tbody code { font-family: "JetBrains Mono", monospace; background: var(--code-bg); color: var(--code-accent);
+  padding: 1px 6px; border-radius: 5px; font-size: 0.85em; }
+.sa-cell { color: var(--sa); }
+
+.reading-order { display: grid; gap: 5px; margin: 14px 0 26px; font-size: 0.9rem; }
+.reading-order div { display: grid; grid-template-columns: 100px 1fr; gap: 12px; padding: 5px 0; border-bottom: 1px dotted var(--border); }
+.reading-order .tag { font-family: "JetBrains Mono", monospace; font-size: 0.72rem; color: var(--sa); }
+
+pre.code-block { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 12px;
+  padding: 16px 0; overflow-x: auto; margin: 12px 0 30px; color: var(--code-text);
+  font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.6; }
+.cline { display: block; padding: 0 16px 0 52px; position: relative; white-space: pre; }
+.cln { position: absolute; left: 0; width: 40px; text-align: right; color: var(--text-muted); opacity: 0.5; font-size: 10.5px; }
+
+.note { background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 12px 16px; margin: 10px 0; }
+.note-lines { font-family: "JetBrains Mono", monospace; font-size: 0.7rem; color: var(--text-muted);
+  text-transform: uppercase; letter-spacing: 0.04em; }
+.note-title { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.02rem; margin: 3px 0 6px; }
+.note-text { font-size: 0.92rem; line-height: 1.6; }
+
+.finding { border-radius: 10px; padding: 13px 16px; margin: 10px 0; border: 1px solid var(--border); }
+.finding.ok { background: var(--ok-bg); }
+.finding.bug { background: var(--bug-bg); }
+.finding.missing { background: var(--missing-bg); }
+.finding b { display: block; margin-bottom: 5px; }
+.finding p { margin: 0; font-size: 0.93rem; }
+
+footer { margin-top: 50px; padding-top: 16px; border-top: 1px solid var(--border);
+  color: var(--text-muted); font-size: 0.84rem; line-height: 1.6; }
+code.inline { font-family: "JetBrains Mono", monospace; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; font-size: 0.9em; }
+[hidden] { display: none !important; }
+</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&family=Noto+Serif+Devanagari:wght@400;600&family=Noto+Serif+Kannada:wght@400;600&display=swap">
+
+<div class="wrap" id="page" data-lang="en">
+  <div class="controls">
+    <div class="rowflex">
+      <button class="langbtn active" data-lang="en">English</button>
+      <button class="langbtn" data-lang="sa">&#2360;&#2306;&#2360;&#2381;&#2325;&#2371;&#2340;&#2350;&#2381;</button>
+      <button class="langbtn" data-lang="kn">&#3221;&#3240;&#3277;&#3277;&#3260;</button>
+      <span style="flex:1"></span>
+      <button class="tabbtn active" data-tab="code"><span class="en">Source &amp; Commentary</span><span class="sa">मूलं व्याख्या च</span><span class="kn">ಮೂಲ ಮತ್ತು ವ್ಯಾಖ್ಯಾನ</span></button>
+      <button class="tabbtn" data-tab="gloss"><span class="en">Glossary</span><span class="sa">शब्दकोशः</span><span class="kn">ಪದಕೋಶ</span></button>
+    </div>
+  </div>
+
+  <h1><span class="en">Panchanga Reference</span><span class="sa">पञ्चाङ्गसन्दर्भः</span><span class="kn">ಪಂಚಾಂಗ ಉಲ್ಲೇಖ</span></h1>
+  <p class="lede"><span class="en">The EXP.C source with commentary, and a glossary of every term used in it. Term names always show in all three languages; the explanations follow whichever language you pick above.</span><span class="sa">टिप्पणीसहितः EXP.C इति मूलपाठः, तत्र प्रयुक्तानां सर्वशब्दानां कोशश्च। शब्दनामानि सर्वदा त्रिषु भाषासु दृश्यन्ते; व्याख्यानानि तु उपरि चितायाः भाषायाः अनुसारेण भवन्ति।</span><span class="kn">ವ್ಯಾಖ್ಯಾನ ಸಹಿತ EXP.C ಮೂಲಕೋಡ್ ಮತ್ತು ಅದರಲ್ಲಿ ಬಳಸಿದ ಎಲ್ಲಾ ಪದಗಳ ಪದಕೋಶ. ಪದಗಳ ಹೆಸರುಗಳು ಯಾವಾಗಲೂ ಮೂರೂ ಭಾಷೆಗಳಲ್ಲಿ ಕಾಣಿಸುತ್ತವೆ; ವಿವರಣೆಗಳು ಮಾತ್ರ ಮೇಲೆ ನೀವು ಆರಿಸಿದ ಭಾಷೆಯನ್ನು ಅನುಸರಿಸುತ್ತವೆ.</span></p>
+  <div class="notice"><span class="en">Term names always appear in all three languages; only the explanations switch with the toggle above. These Sanskrit and Kannada translations are my best effort, not a scholar's &mdash; modern computing words ("ephemeris", "bug", "array") have no classical equivalent, so I've used loanwords or short descriptive phrases instead of inventing false Sanskrit roots. Have a qualified reader check anything here before you teach or publish from it.</span><span class="sa">शब्दनामानि सर्वदा त्रिषु भाषासु दृश्यन्ते; उपरि दत्तेन विकल्पेन केवलं व्याख्यानानि परिवर्तन्ते। एतानि संस्कृत-कन्नड-भाषान्तराणि मम प्रयत्नमात्रम्, न विदुषः कार्यम् &mdash; आधुनिकसङ्गणकशब्दानां ("ephemeris", "bug", "array") प्राचीनसंस्कृते समानशब्दाः न सन्ति; अतः कल्पितमूलानि न रचयित्वा आगतशब्दाः वा लघुवर्णनानि वा प्रयुक्तानि। शिक्षण-प्रकाशनात् पूर्वं कृपया योग्येन पण्डितेन इदं पुनः परीक्ष्यताम्।</span><span class="kn">ಪದಗಳ ಹೆಸರುಗಳು ಯಾವಾಗಲೂ ಮೂರೂ ಭಾಷೆಗಳಲ್ಲಿ ಕಾಣಿಸುತ್ತವೆ; ಮೇಲಿನ ಆಯ್ಕೆಯಿಂದ ವಿವರಣೆಗಳು ಮಾತ್ರ ಬದಲಾಗುತ್ತವೆ. ಈ ಸಂಸ್ಕೃತ ಮತ್ತು ಕನ್ನಡ ಅನುವಾದಗಳು ನನ್ನ ಪ್ರಾಮಾಣಿಕ ಪ್ರಯತ್ನ ಮಾತ್ರ, ಪಂಡಿತರ ಕೆಲಸವಲ್ಲ &mdash; "ಎಫೆಮೆರಿಸ್", "ಬಗ್", "ಅರೇ" ನಂತಹ ಆಧುನಿಕ ಕಂಪ್ಯೂಟರ್ ಪದಗಳಿಗೆ ಸಂಸ್ಕೃತದಲ್ಲಿ ಸಿದ್ಧ ಪದವಿಲ್ಲದ ಕಾರಣ ಸುಳ್ಳು ಪದ ಸೃಷ್ಟಿಸುವ ಬದಲು ಎರವಲು ಪದ ಅಥವಾ ಸಣ್ಣ ವಿವರಣೆ ಬಳಸಿದ್ದೇನೆ. ಕಲಿಸಲು ಅಥವಾ ಪ್ರಕಟಿಸಲು ಬಳಸುವ ಮೊದಲು ದಯವಿಟ್ಟು ತಜ್ಞರಿಂದ ಪರಿಶೀಲಿಸಿ.</span></div>
+
+  <section id="panel-code">
+    <h2><span class="en">What this program computes</span><span class="sa">इदं प्रोग्राम् किं गणयति</span><span class="kn">ಈ ಪ್ರೋಗ್ರಾಂ ಏನನ್ನು ಲೆಕ್ಕಿಸುತ್ತದೆ</span></h2>
+    <p><span class="en">Given m (Ahargana &mdash; days elapsed from an epoch, hardcoded below instead of taken as input), the program computes the Sun's and Moon's longitude from a handful of terms of a traditional trigonometric table, finds their angular separation, and prints which of the 30 tithis is current &mdash; including both s.ekadashi and k.ekadashi &mdash; plus how much of it remains, and the same for the current nakshatra. It does not compute sunrise, and takes no location input at all.</span><span class="sa">m (अहर्गणः, अर्थात् एकस्मात् आरम्भबिन्दोः गताः दिनाः, अत्र उपयोक्त्रा न दत्तः अपि तु सङ्केते एव स्थापितः) दत्ते सति, इदं प्रोग्राम् पारम्परिकज्याकोष्ठकस्य किञ्चित्पदैः रवेः चन्द्रस्य च रेखांशौ गणयति, तयोः कोणान्तरं निश्चित्य, वर्तमानां त्रिंशत्तिथिषु काम् (s.ekadashi, k.ekadashi इत्यादिसहितम्) इति, तस्याः शेषकालं च, तथैव वर्तमानं नक्षत्रं तस्य च शेषकालं मुद्रयति। सूर्योदयस्य गणना अत्र नास्ति, स्थानस्य अपि कोऽपि निवेशः नास्ति।</span><span class="kn">m (ಅಹರ್ಗಣ &mdash; ಒಂದು ಆರಂಭಬಿಂದುವಿನಿಂದ ಕಳೆದ ದಿನಗಳ ಸಂಖ್ಯೆ, ಇಲ್ಲಿ ಬಳಕೆದಾರರಿಂದ ಪಡೆಯದೆ ಕೋಡ್‌ನಲ್ಲೇ ಸ್ಥಿರವಾಗಿ ಬರೆಯಲಾಗಿದೆ) ಕೊಟ್ಟಾಗ, ಈ ಪ್ರೋಗ್ರಾಂ ಸಾಂಪ್ರದಾಯಿಕ ಜ್ಯಾ-ಕೋಷ್ಟಕದ ಕೆಲವು ಪದಗಳಿಂದ ರವಿ ಮತ್ತು ಚಂದ್ರರ ರೇಖಾಂಶವನ್ನು ಲೆಕ್ಕಿಸಿ, ಅವುಗಳ ನಡುವಿನ ಕೋನಾಂತರವನ್ನು ಕಂಡುಹಿಡಿದು, 30 ತಿಥಿಗಳಲ್ಲಿ ಯಾವುದು ಈಗ ನಡೆಯುತ್ತಿದೆ ಎಂಬುದನ್ನು (s.ekadashi ಮತ್ತು k.ekadashi ಸೇರಿದಂತೆ) ಮತ್ತು ಅದು ಎಷ್ಟು ಬಾಕಿ ಇದೆ ಎಂಬುದನ್ನು, ಹಾಗೆಯೇ ಪ್ರಸ್ತುತ ನಕ್ಷತ್ರವನ್ನೂ ಮುದ್ರಿಸುತ್ತದೆ. ಇದು ಸೂರ್ಯೋದಯವನ್ನು ಲೆಕ್ಕಿಸುವುದಿಲ್ಲ, ಸ್ಥಳದ ಯಾವುದೇ ಇನ್‌ಪುಟ್ ಅನ್ನೂ ತೆಗೆದುಕೊಳ್ಳುವುದಿಲ್ಲ.</span></p>
+
+    <h2><span class="en">Reading order</span><span class="sa">पठनक्रमः</span><span class="kn">ಓದುವ ಕ್ರಮ</span></h2>
+    <div class="reading-order"><div><span class="tag">SECTION 1</span><span><span class="en">Ayanamsha &mdash; sidereal/tropical precession offset, via a 9-segment sine-table interpolation</span><span class="sa">अयनांशः — निरयण-सायनयोः अन्तरम्, नवखण्डज्यासारण्या गणितम्</span><span class="kn">ಅಯನಾಂಶ — ನಿರಯಣ ಮತ್ತು ಸಾಯನ ರಾಶಿಚಕ್ರಗಳ ವ್ಯತ್ಯಾಸ, 9-ಭಾಗಗಳ ಜ್ಯಾ-ಕೋಷ್ಟಕದಿಂದ ಲೆಕ್ಕ</span></span></div>
+<div><span class="tag">SECTION 2</span><span><span class="en">Ravi (Sun) mean &rarr; true longitude, and its daily motion (ravi gati)</span><span class="sa">रवेः मध्यरेखांशात् स्फुटरेखांशं प्रति, तथा रविगतिः</span><span class="kn">ರವಿಯ ಮಧ್ಯ ರೇಖಾಂಶದಿಂದ ಸ್ಫುಟ ರೇಖಾಂಶಕ್ಕೆ, ಮತ್ತು ರವಿಗತಿ</span></span></div>
+<div><span class="tag">SECTION 3</span><span><span class="en">Chandra (Moon) mean, apogee, true longitude, and its daily motion (chandra gati)</span><span class="sa">चन्द्रस्य मध्यरेखांशः, उच्चः, स्फुटरेखांशः, चन्द्रगतिश्च</span><span class="kn">ಚಂದ್ರನ ಮಧ್ಯ, ಉಚ್ಚ, ಸ್ಫುಟ ರೇಖಾಂಶ, ಮತ್ತು ಚಂದ್ರಗತಿ</span></span></div>
+<div><span class="tag">SECTION 4</span><span><span class="en">Tropical Sun, the latitude-dependent chara-khanda correction, final apparent positions</span><span class="sa">सायनरविः, अक्षांशाश्रितः चरखण्डसंस्कारः, अन्तिमे स्फुटस्थाने</span><span class="kn">ಸಾಯನ ರವಿ, ಅಕ್ಷಾಂಶ-ಆಧಾರಿತ ಚರಖಂಡ ತಿದ್ದುಪಡಿ, ಅಂತಿಮ ಸ್ಫುಟ ಸ್ಥಾನಗಳು</span></span></div>
+<div><span class="tag">SECTION 5</span><span><span class="en">Tithi: elongation &rarr; index &rarr; time remaining &rarr; next tithi</span><span class="sa">तिथिः: वियोगकोणात् तिथिसङ्ख्या, शेषकालः, अग्रिमतिथिश्च</span><span class="kn">ತಿಥಿ: ವಿಯೋಗ ಕೋನದಿಂದ ತಿಥಿ ಸಂಖ್ಯೆ, ಬಾಕಿ ಸಮಯ, ಮುಂದಿನ ತಿಥಿ</span></span></div>
+<div><span class="tag">SECTION 6</span><span><span class="en">Nakshatra: Moon longitude &rarr; index &rarr; time remaining &mdash; where the bug lives</span><span class="sa">नक्षत्रम्: चन्द्ररेखांशात् नक्षत्रसङ्ख्या, शेषकालः — अत्रैव दोषः वर्तते</span><span class="kn">ನಕ್ಷತ್ರ: ಚಂದ್ರನ ರೇಖಾಂಶದಿಂದ ನಕ್ಷತ್ರ ಸಂಖ್ಯೆ, ಬಾಕಿ ಸಮಯ — ಇಲ್ಲಿಯೇ ದೋಷವಿದೆ</span></span></div></div>
+
+    <h2><span class="en">Source (unmodified)</span><span class="sa">मूलपाठः (अपरिवर्तितः)</span><span class="kn">ಮೂಲ (ಬದಲಾವಣೆ ಇಲ್ಲದ)</span></h2>
+    <pre class="code-block"><span class="cline"><span class="cln">1</span>#include&lt;stdio.h&gt;</span>
+<span class="cline"><span class="cln">2</span>#include&lt;conio.h&gt;</span>
+<span class="cline"><span class="cln">3</span>#include&lt;math.h&gt;</span>
+<span class="cline"><span class="cln">4</span>double check(double rmc1)</span>
+<span class="cline"><span class="cln">5</span>      {</span>
+<span class="cline"><span class="cln">6</span>      int rmci;double rma1;</span>
+<span class="cline"><span class="cln">7</span>&nbsp;</span>
+<span class="cline"><span class="cln">8</span>      if(rmc1&gt;9)</span>
+<span class="cline"><span class="cln">9</span>      rma1=12-rmc1;</span>
+<span class="cline"><span class="cln">10</span>      else if(rmc1&gt;6)</span>
+<span class="cline"><span class="cln">11</span>      rma1=rmc1-6;</span>
+<span class="cline"><span class="cln">12</span>      else if(rmc1&gt;3)</span>
+<span class="cline"><span class="cln">13</span>      rma1=6-rmc1;</span>
+<span class="cline"><span class="cln">14</span>      else</span>
+<span class="cline"><span class="cln">15</span>      rma1=rmc1;</span>
+<span class="cline"><span class="cln">16</span>      return rma1;</span>
+<span class="cline"><span class="cln">17</span>      }</span>
+<span class="cline"><span class="cln">18</span>&nbsp;</span>
+<span class="cline"><span class="cln">19</span>void main()</span>
+<span class="cline"><span class="cln">20</span>{</span>
+<span class="cline"><span class="cln">21</span>int cnt=0;</span>
+<span class="cline"><span class="cln">22</span>float m=702;double ay;</span>
+<span class="cline"><span class="cln">23</span>double rm,rm1,rmr,rm_frac,integer,rmk,rmc,rma,theeta,rmc1,bp,cmc1,cma,cmpa,cmp;</span>
+<span class="cline"><span class="cln">24</span>double rmp,rmpa,rmp1,r,a,msr,msr1,rg,ssr,cm_frac,cmk,cm1,cu,cu1,msc1,msc,no_naks;</span>
+<span class="cline"><span class="cln">25</span>double ayx,ayf,ayi,jya,ssrf,ssrii,ssrc,chk,rs,cm,scm1,scm,a1,b,cuk,cu1_frac,mscx,x,x_frac,no_tithi,tithi;</span>
+<span class="cline"><span class="cln">26</span>double cg,cs,vya,vyg,thi,esh,drv,thig,nak,nakg,drvn,csa,upthi,chkr,chkc,tithi_fraction,rm_fraction,upg,th;</span>
+<span class="cline"><span class="cln">27</span>char th_name[30][15]={&quot;s.paadya&quot;,&quot;s.dwiteeya&quot;,&quot;s.triteeya&quot;,&quot;s.chaturti&quot;,&quot;s.panchami&quot;,&quot;s.shashti&quot;,&quot;s.sapthami&quot;,&quot;s.ashtami&quot;,</span>
+<span class="cline"><span class="cln">28</span>		     &quot;s.navami&quot;,&quot;s.dashami&quot;,&quot;s.ekadashi&quot;,&quot;s.dwadashi&quot;,&quot;s.trayodashi&quot;,&quot;s.chaturdashi&quot;,&quot;poornima&quot;,</span>
+<span class="cline"><span class="cln">29</span>		     &quot;k.paadya&quot;,&quot;k.dwiteeya&quot;,&quot;k.triteeya&quot;,&quot;k.chaturti&quot;,&quot;k.panchami&quot;,&quot;k.shashti&quot;,&quot;k.sapthami&quot;,&quot;k.ashtami&quot;,</span>
+<span class="cline"><span class="cln">30</span>		     &quot;k.navami&quot;,&quot;k.dashami&quot;,&quot;k.ekadashi&quot;,&quot;k.dwadashi&quot;,&quot;k.trayodashi&quot;,&quot;k.chaturdashi&quot;,&quot;amavaasya&quot;};</span>
+<span class="cline"><span class="cln">31</span>char nk_name[27][15]={&quot;ashwini&quot;,&quot;bharani&quot;,&quot;krithika&quot;,&quot;rohini&quot;,&quot;mrugashira&quot;,&quot;aardra&quot;,&quot;punarvasu&quot;,&quot;pushyaa&quot;,</span>
+<span class="cline"><span class="cln">32</span>		     &quot;aashlesha&quot;,&quot;makha&quot;,&quot;pubba&quot;,&quot;uttara&quot;,&quot;hasta&quot;,&quot;chitta&quot;,&quot;swathi&quot;,</span>
+<span class="cline"><span class="cln">33</span>		     &quot;vishaka&quot;,&quot;anuradha&quot;,&quot;jyeshta&quot;,&quot;moola&quot;,&quot;poorvaashada&quot;,&quot;uttaraashada&quot;,&quot;shravana&quot;,&quot;dhanishta&quot;,</span>
+<span class="cline"><span class="cln">34</span>		     &quot;shatabisha&quot;,&quot;poorvabhadra&quot;,&quot;uttarabhadra&quot;,&quot;revathi&quot;};</span>
+<span class="cline"><span class="cln">35</span>clrscr();</span>
+<span class="cline"><span class="cln">36</span>rmr=m*31/11323;//rm rashyadi</span>
+<span class="cline"><span class="cln">37</span>rm_frac=modf(rmr,&amp;integer);</span>
+<span class="cline"><span class="cln">38</span>printf(&quot;int=%lf&quot;,integer);</span>
+<span class="cline"><span class="cln">39</span>ayx=(integer+5114)/615;</span>
+<span class="cline"><span class="cln">40</span>ayx=check(ayx);</span>
+<span class="cline"><span class="cln">41</span>ayx=ayx*3;</span>
+<span class="cline"><span class="cln">42</span>ayf=modf(ayx,&amp;ayi);</span>
+<span class="cline"><span class="cln">43</span>if(ayi&lt;1)</span>
+<span class="cline"><span class="cln">44</span>jya=242*ayf;</span>
+<span class="cline"><span class="cln">45</span>else</span>
+<span class="cline"><span class="cln">46</span>if(ayi&lt;2)</span>
+<span class="cline"><span class="cln">47</span>jya=242+(237*ayf);</span>
+<span class="cline"><span class="cln">48</span>else</span>
+<span class="cline"><span class="cln">49</span>if(ayi&lt;3)</span>
+<span class="cline"><span class="cln">50</span>jya=479+(224*ayf);</span>
+<span class="cline"><span class="cln">51</span>else</span>
+<span class="cline"><span class="cln">52</span>if(ayi&lt;4)</span>
+<span class="cline"><span class="cln">53</span>jya=703+(205*ayf);</span>
+<span class="cline"><span class="cln">54</span>else</span>
+<span class="cline"><span class="cln">55</span>if(ayi&lt;5)</span>
+<span class="cline"><span class="cln">56</span>jya=908+(180*ayf);</span>
+<span class="cline"><span class="cln">57</span>else</span>
+<span class="cline"><span class="cln">58</span>if(ayi&lt;6)</span>
+<span class="cline"><span class="cln">59</span>jya=1088+(149*ayf);</span>
+<span class="cline"><span class="cln">60</span>else</span>
+<span class="cline"><span class="cln">61</span>if(ayi&lt;7)</span>
+<span class="cline"><span class="cln">62</span>jya=1237+(110*ayf);</span>
+<span class="cline"><span class="cln">63</span>else</span>
+<span class="cline"><span class="cln">64</span>if(ayi&lt;8)</span>
+<span class="cline"><span class="cln">65</span>jya=1347+(69*ayf);</span>
+<span class="cline"><span class="cln">66</span>else</span>
+<span class="cline"><span class="cln">67</span>if(ayi&lt;9)</span>
+<span class="cline"><span class="cln">68</span>jya=1416+(24*ayf);</span>
+<span class="cline"><span class="cln">69</span>ay=jya/1800;</span>
+<span class="cline"><span class="cln">70</span>printf(&quot;ayanamsha=%lf&quot;,ay);</span>
+<span class="cline"><span class="cln">71</span>rmk=m/18047400;//m*3/30079-kalaadi</span>
+<span class="cline"><span class="cln">72</span>rm=rm_frac*12-rmk;    //chakradi is converted rashyadi</span>
+<span class="cline"><span class="cln">73</span>rm1=rm=rm+11.937748;</span>
+<span class="cline"><span class="cln">74</span>L1: if(rm&gt;12)</span>
+<span class="cline"><span class="cln">75</span>rm=rm-12;</span>
+<span class="cline"><span class="cln">76</span>printf(&quot;rm=%lf&quot;,rm);</span>
+<span class="cline"><span class="cln">77</span> if(rm&lt;2.6)</span>
+<span class="cline"><span class="cln">78</span>      rmc=rm+9.4;</span>
+<span class="cline"><span class="cln">79</span>      else</span>
+<span class="cline"><span class="cln">80</span>      rmc=rm-2.6;</span>
+<span class="cline"><span class="cln">81</span>  //    printf(&quot;\nrmc=%lf&quot;,rmc);</span>
+<span class="cline"><span class="cln">82</span>      if(cnt==0)</span>
+<span class="cline"><span class="cln">83</span>      rmc1=rmc;</span>
+<span class="cline"><span class="cln">84</span>      rma=check(rmc);</span>
+<span class="cline"><span class="cln">85</span>       printf(&quot;\nrma=%lf&quot;,rma);</span>
+<span class="cline"><span class="cln">86</span>       //mandaphala calculation</span>
+<span class="cline"><span class="cln">87</span>      rmpa=3438*sin(11*rma/21);   //30*rma*22/(7*180)in radians</span>
+<span class="cline"><span class="cln">88</span>      rmp=rmpa*3/80;</span>
+<span class="cline"><span class="cln">89</span>      if(cnt==0)</span>
+<span class="cline"><span class="cln">90</span>      rmp1=rmp;  printf(&quot;rmp1=%lf&quot;,rmp1);</span>
+<span class="cline"><span class="cln">91</span>    //  printf(&quot;\nrmp=%lf&quot;,rmp);</span>
+<span class="cline"><span class="cln">92</span>      bp=(rmp/360)+rmp;        //rmp/6*60 convert to vikale</span>
+<span class="cline"><span class="cln">93</span>      printf(&quot;bp=%lf&quot;,bp);</span>
+<span class="cline"><span class="cln">94</span>       if(rmc&lt;6)</span>
+<span class="cline"><span class="cln">95</span>      msr=rm-(bp/1800);</span>
+<span class="cline"><span class="cln">96</span>      else</span>
+<span class="cline"><span class="cln">97</span>      msr=rm+(bp/1800);</span>
+<span class="cline"><span class="cln">98</span>      if(cnt==0)msr1=msr;printf(&quot;msr1=%lf&quot;,msr1);</span>
+<span class="cline"><span class="cln">99</span>      printf(&quot;msr=%lf&quot;,msr);cnt++;</span>
+<span class="cline"><span class="cln">100</span>      rm=rm1+0.0328534;</span>
+<span class="cline"><span class="cln">101</span>      if(cnt==1)goto L1;</span>
+<span class="cline"><span class="cln">102</span>      if(msr1&gt;msr)</span>
+<span class="cline"><span class="cln">103</span>      rg=msr+12-msr1;</span>
+<span class="cline"><span class="cln">104</span>      else</span>
+<span class="cline"><span class="cln">105</span>      rg=msr-msr1;</span>
+<span class="cline"><span class="cln">106</span>      printf(&quot;rg=%lf&quot;,rg);</span>
+<span class="cline"><span class="cln">107</span>    //  printf(&quot;\nint=%ld&quot;,(long)integer);</span>
+<span class="cline"><span class="cln">108</span>      cnt=0;</span>
+<span class="cline"><span class="cln">109</span>      //calcn of chandra mahya</span>
+<span class="cline"><span class="cln">110</span>cm=m*600/16393;//cm rashyadi</span>
+<span class="cline"><span class="cln">111</span>cm_frac=modf(cm,&amp;r);</span>
+<span class="cline"><span class="cln">112</span>//cmk=m/5256240;   //m*15/43802 kalaadi</span>
+<span class="cline"><span class="cln">113</span>cmk=(m*7)/36781200;//corrected factor printf(&quot;\n cmk=%lf&quot;,cmk);</span>
+<span class="cline"><span class="cln">114</span>cm=cm_frac*12-cmk;    //chakradi is converted rashyadi</span>
+<span class="cline"><span class="cln">115</span>cm1=cm=cm+1.303107;//-0.000833;deemed correction for tithinirnaya</span>
+<span class="cline"><span class="cln">116</span>if(cm&gt;12)</span>
+<span class="cline"><span class="cln">117</span>cm=cm-12;</span>
+<span class="cline"><span class="cln">118</span>printf(&quot;\n cm=%lf&quot;,cm);</span>
+<span class="cline"><span class="cln">119</span>a1=rmp1/49200;  //rmp1*3/82 kala convtd to rashi</span>
+<span class="cline"><span class="cln">120</span>if(rmc1&lt;6)</span>
+<span class="cline"><span class="cln">121</span>scm1=cm-a1;</span>
+<span class="cline"><span class="cln">122</span>else</span>
+<span class="cline"><span class="cln">123</span>scm1=cm+a1;</span>
+<span class="cline"><span class="cln">124</span>if(scm1&gt;12)</span>
+<span class="cline"><span class="cln">125</span>scm1=scm1-12;</span>
+<span class="cline"><span class="cln">126</span> printf(&quot;scm1=%lf&quot;,scm1);</span>
+<span class="cline"><span class="cln">127</span> cm=cm1+0.439212;</span>
+<span class="cline"><span class="cln">128</span> if(cm&gt;12)</span>
+<span class="cline"><span class="cln">129</span>cm=cm-12;</span>
+<span class="cline"><span class="cln">130</span>a=rmp/49200;  //rmp1*3/82 kala convtd to rashi</span>
+<span class="cline"><span class="cln">131</span>if(rmc&lt;6)</span>
+<span class="cline"><span class="cln">132</span>scm=cm-a;</span>
+<span class="cline"><span class="cln">133</span>else</span>
+<span class="cline"><span class="cln">134</span>scm=cm+a;</span>
+<span class="cline"><span class="cln">135</span>if(scm&gt;12)</span>
+<span class="cline"><span class="cln">136</span>scm=scm-12;</span>
+<span class="cline"><span class="cln">137</span> printf(&quot;scm=%lf&quot;,scm);</span>
+<span class="cline"><span class="cln">138</span> //calcn of chandra uchha</span>
+<span class="cline"><span class="cln">139</span>cu1=m/3232;// printf(&quot;\ncu1=%lf&quot;,cu1);</span>
+<span class="cline"><span class="cln">140</span>cu1_frac=modf(cu1,&amp;b);           //  printf(&quot;\ncu1_frac=%lf&quot;,cu1_frac);</span>
+<span class="cline"><span class="cln">141</span>//cuk=m/1383210;// printf(&quot;\ncuk=%lf&quot;,cuk); //m*40/30738 kala convtd to rashi</span>
+<span class="cline"><span class="cln">142</span>cuk=(m*7)/9338400;//corrected factor</span>
+<span class="cline"><span class="cln">143</span>cu1=cu1_frac*12-cuk;  //    printf(&quot;\ncu1=%lf&quot;,cu1);</span>
+<span class="cline"><span class="cln">144</span>cu1=cu1+2.009663;//-0.006935;deemed correction</span>
+<span class="cline"><span class="cln">145</span>//printf(&quot;\ncu1=%lf&quot;,cu1);</span>
+<span class="cline"><span class="cln">146</span>if(cu1&gt;12)</span>
+<span class="cline"><span class="cln">147</span>cu1=cu1-12;</span>
+<span class="cline"><span class="cln">148</span>cu=cu1+0.003712;</span>
+<span class="cline"><span class="cln">149</span>if(cu&gt;12)</span>
+<span class="cline"><span class="cln">150</span>cu=cu-12;</span>
+<span class="cline"><span class="cln">151</span>L2:if(cu1&gt;scm1)</span>
+<span class="cline"><span class="cln">152</span>cmc1=scm1+12-cu1;</span>
+<span class="cline"><span class="cln">153</span>else</span>
+<span class="cline"><span class="cln">154</span>cmc1=scm1-cu1;</span>
+<span class="cline"><span class="cln">155</span>//printf(&quot;\ncmc1=%lf&quot;,cmc1);</span>
+<span class="cline"><span class="cln">156</span>cma=check(cmc1);</span>
+<span class="cline"><span class="cln">157</span>&nbsp;</span>
+<span class="cline"><span class="cln">158</span> //mandaphala calculation</span>
+<span class="cline"><span class="cln">159</span>  cmpa=3438*sin(11*cma/21);   //30*rma*22/(7*180)in radians</span>
+<span class="cline"><span class="cln">160</span>     cmp=cmpa*7/80;</span>
+<span class="cline"><span class="cln">161</span>  if(cmc1&lt;6)</span>
+<span class="cline"><span class="cln">162</span>      mscx=scm1-(cmp/1800);</span>
+<span class="cline"><span class="cln">163</span>      else</span>
+<span class="cline"><span class="cln">164</span>      mscx=scm1+(cmp/1800);</span>
+<span class="cline"><span class="cln">165</span>   if(mscx&lt;0)</span>
+<span class="cline"><span class="cln">166</span>   mscx=mscx+12.0;</span>
+<span class="cline"><span class="cln">167</span>   if(cnt==0)</span>
+<span class="cline"><span class="cln">168</span>      msc1=mscx;</span>
+<span class="cline"><span class="cln">169</span>      printf(&quot;msc1=%lf&quot;,msc1);</span>
+<span class="cline"><span class="cln">170</span>   cnt++;cu1=cu;scm1=scm;msc=mscx;</span>
+<span class="cline"><span class="cln">171</span>   if(cnt==1)</span>
+<span class="cline"><span class="cln">172</span>   goto L2;</span>
+<span class="cline"><span class="cln">173</span>   printf(&quot;msc=%lf&quot;,msc);</span>
+<span class="cline"><span class="cln">174</span> if(msc1&gt;msc)</span>
+<span class="cline"><span class="cln">175</span> cg=msc+12-msc1;</span>
+<span class="cline"><span class="cln">176</span> else</span>
+<span class="cline"><span class="cln">177</span> cg=msc-msc1;printf(&quot;cg=%lf&quot;,cg);</span>
+<span class="cline"><span class="cln">178</span>&nbsp;</span>
+<span class="cline"><span class="cln">179</span> ssr=msr1+ay; printf(&quot;\nssr=%lf&quot;,ssr);</span>
+<span class="cline"><span class="cln">180</span> if(ssr&gt;12)</span>
+<span class="cline"><span class="cln">181</span> ssrf=ssr=ssr-12;</span>
+<span class="cline"><span class="cln">182</span> else</span>
+<span class="cline"><span class="cln">183</span> ssrf=ssr; printf(&quot;\nssrf=%lf&quot;,ssrf);</span>
+<span class="cline"><span class="cln">184</span> ssr=check(ssr);</span>
+<span class="cline"><span class="cln">185</span>ssr=ssr*30;</span>
+<span class="cline"><span class="cln">186</span>// printf(&quot;\nssr=%lf&quot;,ssr);</span>
+<span class="cline"><span class="cln">187</span> if(ssr&lt;=10)</span>
+<span class="cline"><span class="cln">188</span> chk=102*ssr;</span>
+<span class="cline"><span class="cln">189</span> else if(ssr&lt;=20)</span>
+<span class="cline"><span class="cln">190</span> chk=1020+((ssr-10)*99.9);</span>
+<span class="cline"><span class="cln">191</span> else if(ssr&lt;=30)</span>
+<span class="cline"><span class="cln">192</span> chk=2019+((ssr-20)*97.8);</span>
+<span class="cline"><span class="cln">193</span>  else if(ssr&lt;=40)</span>
+<span class="cline"><span class="cln">194</span> chk=2997+((ssr-30)*91.7);</span>
+<span class="cline"><span class="cln">195</span>  else if(ssr&lt;=50)</span>
+<span class="cline"><span class="cln">196</span> chk=3914+((ssr-40)*79.9);</span>
+<span class="cline"><span class="cln">197</span>  else if(ssr&lt;=60)</span>
+<span class="cline"><span class="cln">198</span> chk=4713+((ssr-50)*67.8);</span>
+<span class="cline"><span class="cln">199</span>  else if(ssr&lt;=70)</span>
+<span class="cline"><span class="cln">200</span> chk=5391+((ssr-60)*54.7);</span>
+<span class="cline"><span class="cln">201</span>  else if(ssr&lt;=80)</span>
+<span class="cline"><span class="cln">202</span> chk=5938+((ssr-70)*33.3);</span>
+<span class="cline"><span class="cln">203</span>  else if(ssr&lt;=90)</span>
+<span class="cline"><span class="cln">204</span> chk=6271+((ssr-80)*11.9);//in vikale</span>
+<span class="cline"><span class="cln">205</span> chk=chk/2;  //charaardha in vikale</span>
+<span class="cline"><span class="cln">206</span> chkr=chk*rg/2;  //charaardha*rg/3600 in vikale</span>
+<span class="cline"><span class="cln">207</span> chkc=chk*cg/2;  //-------------&quot;-------------</span>
+<span class="cline"><span class="cln">208</span>  printf(&quot;\nchkc=%lf&quot;,chkc);</span>
+<span class="cline"><span class="cln">209</span>  printf(&quot;\nchkr=%lf&quot;,chkr);</span>
+<span class="cline"><span class="cln">210</span> if(ssrf&lt;6)</span>
+<span class="cline"><span class="cln">211</span>{ rs=msr1-chkr/108000;</span>
+<span class="cline"><span class="cln">212</span> cs=msc1-chkc/108000;}</span>
+<span class="cline"><span class="cln">213</span> else</span>
+<span class="cline"><span class="cln">214</span> { rs=msr1+chkr/108000;</span>
+<span class="cline"><span class="cln">215</span> cs=msc1+chkc/108000;}</span>
+<span class="cline"><span class="cln">216</span> printf(&quot;\nrs=%lf&quot;,rs);</span>
+<span class="cline"><span class="cln">217</span> printf(&quot;\ncs=%lf&quot;,cs);</span>
+<span class="cline"><span class="cln">218</span> if(rs&gt;cs)</span>
+<span class="cline"><span class="cln">219</span> vya=cs+12-rs;</span>
+<span class="cline"><span class="cln">220</span> else</span>
+<span class="cline"><span class="cln">221</span> vya=cs-rs;</span>
+<span class="cline"><span class="cln">222</span>  printf(&quot;\nvya=%lf&quot;,vya);</span>
+<span class="cline"><span class="cln">223</span> vyg=cg-rg;//in rashi</span>
+<span class="cline"><span class="cln">224</span>  printf(&quot;\nvyg=%lf&quot;,vyg);</span>
+<span class="cline"><span class="cln">225</span> x=vya*2.5;</span>
+<span class="cline"><span class="cln">226</span> x_frac=modf(x,&amp;no_tithi);</span>
+<span class="cline"><span class="cln">227</span> no_tithi+=1;</span>
+<span class="cline"><span class="cln">228</span>// printf(&quot;\n\nno_tithi=%lf&quot;,no_tithi);</span>
+<span class="cline"><span class="cln">229</span>printf(&quot;\n\ntithi=%s&quot;,th_name[no_tithi-1]);</span>
+<span class="cline"><span class="cln">230</span> esh=0.4*(1.0-x_frac);//in  rashi</span>
+<span class="cline"><span class="cln">231</span> tithi=esh*60/vyg; //printf(&quot;\ntithi=%lf&quot;,tithi);</span>
+<span class="cline"><span class="cln">232</span> tithi_fraction=modf(tithi,&amp;integer);</span>
+<span class="cline"><span class="cln">233</span>      thig=ceil(tithi_fraction*60);// printf(&quot;\nthig=%lf&quot;,thig);//conversion to galige</span>
+<span class="cline"><span class="cln">234</span>      th=(long)tithi; //printf(&quot;\ntithi=%lf&quot;,th);</span>
+<span class="cline"><span class="cln">235</span>      if((esh+0.4)&lt;vyg)</span>
+<span class="cline"><span class="cln">236</span>      {upthi=24/vyg;  //60*720/vyg in kale convtd to rashi</span>
+<span class="cline"><span class="cln">237</span>      rm_fraction=modf(upthi,&amp;integer);</span>
+<span class="cline"><span class="cln">238</span>      upg=ceil(rm_fraction*60);printf(&quot;\nuparitithi=%s&quot;,th_name[no_tithi]);</span>
+<span class="cline"><span class="cln">239</span>      printf(&quot;\n\nuparitithi=%ld-%ld&quot;,(long)upthi,(long)upg);}</span>
+<span class="cline"><span class="cln">240</span>      printf(&quot;\ntithi=%ld-%ld&quot;,(long)th,(long)thig);</span>
+<span class="cline"><span class="cln">241</span>      x=cs*2.25;</span>
+<span class="cline"><span class="cln">242</span>      x_frac=modf(x,&amp;no_naks);</span>
+<span class="cline"><span class="cln">243</span>      no_naks+=1;</span>
+<span class="cline"><span class="cln">244</span>  printf(&quot;\n\nnakshatra=%s&quot;,nk_name[no_naks-1]);</span>
+<span class="cline"><span class="cln">245</span>      esh=4*(1-x_frac)/9;</span>
+<span class="cline"><span class="cln">246</span>      nak=esh*60/cg;</span>
+<span class="cline"><span class="cln">247</span>       rm_fraction=modf(nak,&amp;integer);</span>
+<span class="cline"><span class="cln">248</span>      nakg=ceil(rm_fraction*60);</span>
+<span class="cline"><span class="cln">249</span>      printf(&quot;\nnakshatra=%ld-%ld&quot;,(long)nak,(long)nakg);</span>
+<span class="cline"><span class="cln">250</span>       getch();</span>
+<span class="cline"><span class="cln">251</span>&nbsp;</span>
+<span class="cline"><span class="cln">252</span>    }</span>
+<span class="cline"><span class="cln">253</span>&nbsp;</span></pre>
+
+    <h2><span class="en">Commentary</span><span class="sa">व्याख्या</span><span class="kn">ವ್ಯಾಖ್ಯಾನ</span></h2>
+    <div class="note"><div class="note-lines">Lines 1&ndash;3</div><div class="note-title"><span class="en">DOS-only headers</span><span class="sa">केवलं DOS-हेतवे शीर्षिकाः</span><span class="kn">DOS-ಗೆ ಮಾತ್ರ ಸೀಮಿತ ಹೆಡರ್‌ಗಳು</span></div><div class="note-text"><span class="en">conio.h is DOS-only (clrscr/getch below); not available on a modern compiler. Stub it out to build and run this today.</span><span class="sa">conio.h इति केवलं DOS-प्रणाल्यां उपलभ्यते (अधः clrscr, getch); आधुनिकसङ्कलके नोपलभ्यते। अद्य सङ्कलनार्थं तस्य स्थाने कृत्रिमं लेखनीयम्।</span><span class="kn">conio.h ಎಂಬುದು DOS-ಗೆ ಮಾತ್ರ ಸೀಮಿತ (ಕೆಳಗಿನ clrscr, getch); ಆಧುನಿಕ ಕಂಪೈಲರ್‌ನಲ್ಲಿ ಲಭ್ಯವಿಲ್ಲ. ಇಂದು ಕಂಪೈಲ್ ಮಾಡಲು ಅದರ ಬದಲಿಗೆ ಖಾಲಿ ಆವೃತ್ತಿ ಬರೆಯಬೇಕು.</span></div></div>
+<div class="note"><div class="note-lines">Lines 4&ndash;17</div><div class="note-title"><span class="en">check() &mdash; fold into the first quadrant</span><span class="sa">check() — प्रथमपादे स्थापनम्</span><span class="kn">check() — ಮೊದಲ ಪಾದಕ್ಕೆ ಮಡಚುವುದು</span></div><div class="note-text"><span class="en">Folds an angle in rashi units (0-12) into the first quadrant [0,3] rashi, the standard trick for reusing a quarter-sine table across all four quadrants. It assumes its argument is already wrapped into [0,12) &mdash; a call site later in this file forgets to (see the nakshatra bug below).</span><span class="sa">राशिमानेन (0-12) दत्तं कोणं प्रथमे पादे [0,3] राशौ स्थापयति; इदं चतुर्णां पादानां कृते एकस्याः चतुर्थांशज्यासारण्याः पुनरुपयोगाय प्रचलितः उपायः। इदं गृह्णाति यत् निवेशः पूर्वमेव [0,12) मध्ये स्थापितः; अस्यां सञ्चिकायां एकस्मिन् स्थाने इदं विस्मृतम् (अधः नक्षत्रदोषं पश्यतु)।</span><span class="kn">ರಾಶಿ ಘಟಕದಲ್ಲಿ (0-12) ಇರುವ ಕೋನವನ್ನು ಮೊದಲ ಪಾದಕ್ಕೆ [0,3] ರಾಶಿಗೆ ಮಡಚುತ್ತದೆ — ಒಂದೇ ಕಾಲು-ಜ್ಯಾ-ಕೋಷ್ಟಕವನ್ನು ನಾಲ್ಕೂ ಪಾದಗಳಿಗೆ ಮರುಬಳಕೆ ಮಾಡುವ ಸಾಮಾನ್ಯ ವಿಧಾನ. ಇದು ಇನ್‌ಪುಟ್ ಈಗಾಗಲೇ [0,12) ವ್ಯಾಪ್ತಿಯಲ್ಲಿದೆ ಎಂದು ಭಾವಿಸುತ್ತದೆ — ಈ ಫೈಲಿನಲ್ಲಿ ಒಂದು ಕಡೆ ಅದನ್ನು ಮರೆಯಲಾಗಿದೆ (ಕೆಳಗಿನ ನಕ್ಷತ್ರ ದೋಷ ನೋಡಿ).</span></div></div>
+<div class="note"><div class="note-lines">Line 21</div><div class="note-title"><span class="en">m &mdash; the one real input, hardcoded</span><span class="sa">m — एकः वास्तविकः निवेशः, सङ्केते स्थिरीकृतः</span><span class="kn">m — ನಿಜವಾದ ಒಂದೇ ಇನ್‌ಪುಟ್, ಕೋಡ್‌ನಲ್ಲೇ ಸ್ಥಿರ</span></div><div class="note-text"><span class="en">m is the Ahargana, the single input this whole calculation depends on, hardcoded here instead of read from the user or derived from a calendar date. 702 is right at the Kali Yuga epoch &mdash; not a real target date, almost certainly leftover from testing the ayanamsha subroutine in isolation. There is no Gregorian-date-to-Ahargana converter anywhere in this codebase.</span><span class="sa">m इति अहर्गणः, अस्याः सम्पूर्णगणनायाः एकः आधारभूतः निवेशः, यः अत्र उपयोक्तुः न गृहीतः अपि तु सङ्केते एव स्थिरीकृतः। 702 इति सङ्ख्या कलियुगस्य आरम्भसमीपे एव वर्तते — न कोऽपि वास्तविकः लक्ष्यदिनः, प्रायः अयनांश-उपगणनायाः केवलपरीक्षणात् अवशिष्टं मूल्यम्। अस्मिन् सम्पूर्णे कोडे ग्रेगोरी-दिनात् अहर्गणं गणयितुं कोऽपि उपायः नास्ति।</span><span class="kn">m ಎಂದರೆ ಅಹರ್ಗಣ — ಈ ಇಡೀ ಲೆಕ್ಕಾಚಾರ ಅವಲಂಬಿಸಿರುವ ಏಕೈಕ ಇನ್‌ಪುಟ್ — ಇದನ್ನು ಬಳಕೆದಾರರಿಂದ ಪಡೆಯದೆ ಅಥವಾ ಕ್ಯಾಲೆಂಡರ್ ದಿನಾಂಕದಿಂದ ಲೆಕ್ಕಿಸದೆ, ಇಲ್ಲಿ ಕೋಡ್‌ನಲ್ಲೇ ಸ್ಥಿರವಾಗಿ ಬರೆಯಲಾಗಿದೆ. 702 ಎಂಬ ಸಂಖ್ಯೆ ಕಲಿಯುಗದ ಆರಂಭದ ಸಮೀಪದಲ್ಲೇ ಇದೆ — ಇದು ನಿಜವಾದ ಗುರಿ ದಿನಾಂಕವಲ್ಲ, ಬಹುಶಃ ಅಯನಾಂಶ ಉಪಗಣನೆಯನ್ನು ಪ್ರತ್ಯೇಕವಾಗಿ ಪರೀಕ್ಷಿಸುವಾಗ ಉಳಿದ ಮೌಲ್ಯ. ಈ ಇಡೀ ಕೋಡ್‌ನಲ್ಲಿ ಗ್ರೆಗೋರಿಯನ್ ದಿನಾಂಕದಿಂದ ಅಹರ್ಗಣಕ್ಕೆ ಪರಿವರ್ತಿಸುವ ಯಾವುದೇ ಸಾಧನವಿಲ್ಲ.</span></div></div>
+<div class="note"><div class="note-lines">Lines 22&ndash;26</div><div class="note-title"><span class="en">drv/drvn &mdash; unused here, meaningful elsewhere</span><span class="sa">drv/drvn — अत्र अनुपयुक्ते, अन्यत्र सार्थके</span><span class="kn">drv/drvn — ಇಲ್ಲಿ ಬಳಕೆಯಿಲ್ಲ, ಬೇರೆಡೆ ಅರ್ಥಪೂರ್ಣ</span></div><div class="note-text"><span class="en">Declared but never used anywhere in this file. In the sibling program EKADHASI.C they are used, as hand-picked target elongation values for finding the exact crossing time of a chosen tithi/nakshatra boundary (confirmed: drv=4.0 is exactly the Ekadashi-onset boundary, drv=4.4 is exactly the Ekadashi-end boundary). This file replaced that hand-picked-target approach with the generic no_tithi calculation further down.</span><span class="sa">इमे अत्र घोषिते किन्तु कुत्रापि अस्यां सञ्चिकायां न प्रयुक्ते। सहोदरसञ्चिकायां EKADHASI.C इमे प्रयुज्येते — हस्तचितानि लक्ष्य-वियोगमानानि, यैः निश्चितस्य तिथि/नक्षत्र-सीमायाः यथार्थकालः ज्ञायते (सिद्धम्: drv=4.0 इति एकादश्याः आरम्भसीमा एव, drv=4.4 इति एकादश्याः समाप्तिसीमा एव)। अस्यां सञ्चिकायां तत् हस्तचयनं त्यक्त्वा अधः सामान्यं no_tithi-गणनं कृतम्।</span><span class="kn">ಇವನ್ನು ಘೋಷಿಸಲಾಗಿದೆ ಆದರೆ ಈ ಫೈಲಿನಲ್ಲಿ ಎಲ್ಲಿಯೂ ಬಳಸಿಲ್ಲ. ಸಹೋದರ ಪ್ರೋಗ್ರಾಂ EKADHASI.C ನಲ್ಲಿ ಇವನ್ನು ಬಳಸಲಾಗಿದೆ — ಆಯ್ದ ತಿಥಿ/ನಕ್ಷತ್ರ ಗಡಿಯ ನಿಖರ ಸಮಯ ಕಂಡುಹಿಡಿಯಲು ಕೈಯಾರೆ ಆರಿಸಿದ ಗುರಿ-ವಿಯೋಗ ಮೌಲ್ಯಗಳಾಗಿ (ಖಚಿತ: drv=4.0 ಎಂದರೆ ನಿಖರವಾಗಿ ಏಕಾದಶಿ ಆರಂಭದ ಗಡಿ, drv=4.4 ಎಂದರೆ ನಿಖರವಾಗಿ ಏಕಾದಶಿ ಅಂತ್ಯದ ಗಡಿ). ಈ ಫೈಲ್ ಆ ಕೈಯಾರೆ-ಆಯ್ಕೆಯ ವಿಧಾನವನ್ನು ಬಿಟ್ಟು ಕೆಳಗೆ ಸಾಮಾನ್ಯ no_tithi ಲೆಕ್ಕಾಚಾರವನ್ನು ಬಳಸುತ್ತದೆ.</span></div></div>
+<div class="note"><div class="note-lines">Lines 27&ndash;34</div><div class="note-title"><span class="en">th_name / nk_name &mdash; generic Ekadashi identification</span><span class="sa">th_name / nk_name — सामान्यरूपेण एकादशी-निर्णयः</span><span class="kn">th_name / nk_name — ಸಾಮಾನ್ಯ ಏಕಾದಶಿ ಗುರುತಿಸುವಿಕೆ</span></div><div class="note-text"><span class="en">The 30 tithi names (Shukla paksha first, then Krishna), and the 27 nakshatra names. Index 10 (0-based) is s.ekadashi; index 25 is k.ekadashi &mdash; this table is what lets the program name any tithi, Ekadashi included, generically, with no Ekadashi-specific logic anywhere.</span><span class="sa">त्रिंशत् तिथिनामानि (प्रथमं शुक्लपक्षः, ततः कृष्णपक्षः), सप्तविंशति नक्षत्रनामानि च। सूचिः 10 (शून्यारभ्य) इति s.ekadashi; सूचिः 25 इति k.ekadashi — अनया सारण्या एव प्रोग्राम् कामपि तिथिं, एकादशीमपि, सामान्यरूपेण नामयति; एकादशी-विशिष्टः कोऽपि तर्कः कुत्रापि नास्ति।</span><span class="kn">30 ತಿಥಿಗಳ ಹೆಸರುಗಳು (ಮೊದಲು ಶುಕ್ಲ ಪಕ್ಷ, ನಂತರ ಕೃಷ್ಣ), ಮತ್ತು 27 ನಕ್ಷತ್ರಗಳ ಹೆಸರುಗಳು. ಸೂಚಿ 10 (ಸೊನ್ನೆಯಿಂದ ಎಣಿಸಿ) ಎಂದರೆ s.ekadashi; ಸೂಚಿ 25 ಎಂದರೆ k.ekadashi — ಈ ಪಟ್ಟಿಯ ಮೂಲಕವೇ ಪ್ರೋಗ್ರಾಂ ಯಾವುದೇ ತಿಥಿಯನ್ನು, ಏಕಾದಶಿ ಸೇರಿದಂತೆ, ಸಾಮಾನ್ಯವಾಗಿ ಹೆಸರಿಸುತ್ತದೆ — ಏಕಾದಶಿಗೆ ಪ್ರತ್ಯೇಕವಾದ ತರ್ಕ ಎಲ್ಲಿಯೂ ಇಲ್ಲ.</span></div></div>
+<div class="note"><div class="note-lines">Lines 36&ndash;70 &middot; SECTION 1</div><div class="note-title"><span class="en">Ayanamsha via a sine-table</span><span class="sa">ज्यासारण्या अयनांशगणना</span><span class="kn">ಜ್ಯಾ-ಕೋಷ್ಟಕದ ಮೂಲಕ ಅಯನಾಂಶ</span></div><div class="note-text"><span class="en">The jya table is a 9-segment piecewise-linear approximation of a quarter sine curve (values 242, 237, 224... are consecutive differences of a sine curve sampled every 10 degrees, in arcminutes, on the classical 3438-trijya radius). Deriving ayanamsha analytically this way, instead of a hardcoded per-decade constant like the sibling files use, is the single biggest functional improvement EXP.C has over them.</span><span class="sa">jya सारणी इति चतुर्थांशज्यावक्रस्य नवखण्डात्मकं रेखीयसन्निकटनम् (242, 237, 224... इत्यादि मूल्यानि दशांशान्तरे गृहीतस्य ज्यावक्रस्य क्रमिकान्तराणि, विकलामानेन, पारम्परिके 3438 त्रिज्यामाने)। अनेन प्रकारेण अयनांशस्य विश्लेषणात्मकं गणनं — सहोदरसञ्चिकासु यथा प्रतिदशकं स्थिरं मूल्यं तथा न कृत्वा — EXP.C इत्यस्य ताभ्यः महत्तमः कार्यात्मकः सुधारः।</span><span class="kn">jya ಕೋಷ್ಟಕವು ಕಾಲು-ಜ್ಯಾ ವಕ್ರರೇಖೆಯ 9-ಭಾಗಗಳ ರೇಖೀಯ ಅಂದಾಜು (242, 237, 224... ಮೌಲ್ಯಗಳು ಪ್ರತಿ 10 ಡಿಗ್ರಿಗೆ ತೆಗೆದ ಜ್ಯಾ ವಕ್ರರೇಖೆಯ ಸತತ ವ್ಯತ್ಯಾಸಗಳು, ಆರ್ಕ್‌ಮಿನಿಟ್‌ಗಳಲ್ಲಿ, ಸಾಂಪ್ರದಾಯಿಕ 3438 ತ್ರಿಜ್ಯಾ ಪ್ರಮಾಣದಲ್ಲಿ). ಸಹೋದರ ಫೈಲುಗಳಂತೆ ಪ್ರತಿ ದಶಕಕ್ಕೆ ಸ್ಥಿರ ಮೌಲ್ಯ ಬಳಸುವ ಬದಲು ಈ ರೀತಿ ಅಯನಾಂಶವನ್ನು ಗಣಿತೀಯವಾಗಿ ಲೆಕ್ಕಿಸುವುದು EXP.C ನ ಅತಿದೊಡ್ಡ ಸುಧಾರಣೆ.</span></div></div>
+<div class="note"><div class="note-lines">Lines 74&ndash;118 &middot; SECTION 2</div><div class="note-title"><span class="en">Ravi madhya to sphuta, and ravi gati</span><span class="sa">रविमध्यात् रविस्फुटं यावत्, रविगतिश्च</span><span class="kn">ರವಿ ಮಧ್ಯದಿಂದ ಸ್ಫುಟಕ್ಕೆ, ಮತ್ತು ರವಿಗತಿ</span></div><div class="note-text"><span class="en">The Sun's true (manda-corrected) longitude is computed twice, at rm1 and at rm1+0.0328534 (a small time-step ahead); differencing the two (rg) gives the Sun's instantaneous daily motion by finite difference, not an analytical rate formula. The epoch-offset constant added to rm (11.937748) differs from the sibling files' 11.949898, with no derivation given anywhere.</span><span class="sa">रवेः स्फुटरेखांशः द्विवारं गण्यते, rm1 इत्यत्र, तथा rm1+0.0328534 इत्यत्र (किञ्चित्कालान्तरे)। तयोः अन्तरेण (rg) रवेः तात्कालिकी दैनन्दिनगतिः प्राप्यते, न तु विश्लेषणात्मकसूत्रेण। rm इत्यस्मिन् योजितः कालारम्भ-संस्कारः (11.937748) सहोदरसञ्चिकानां 11.949898 इत्यस्मात् भिन्नः, कस्यापि व्युत्पत्तिः न दत्ता।</span><span class="kn">ಸೂರ್ಯನ ನಿಜವಾದ (ಮಂದ-ತಿದ್ದುಪಡಿ ಮಾಡಿದ) ರೇಖಾಂಶವನ್ನು ಎರಡು ಬಾರಿ ಲೆಕ್ಕಿಸಲಾಗುತ್ತದೆ, rm1 ನಲ್ಲಿ ಮತ್ತು rm1+0.0328534 ನಲ್ಲಿ; ಇವೆರಡರ ವ್ಯತ್ಯಾಸ (rg) ಸೂರ್ಯನ ತತ್‌ಕ್ಷಣದ ದೈನಂದಿನ ಚಲನೆಯನ್ನು ಸೂತ್ರದಿಂದಲ್ಲ, ಫಿನೈಟ್-ಡಿಫರೆನ್ಸ್ ವಿಧಾನದಿಂದ ನೀಡುತ್ತದೆ. rm ಗೆ ಸೇರಿಸಿದ ಯುಗ-ಸರಿಪಡಿಕೆ ಸ್ಥಿರಾಂಕ (11.937748) ಸಹೋದರ ಫೈಲುಗಳ 11.949898 ಗಿಂತ ಭಿನ್ನವಾಗಿದೆ, ಯಾವುದಕ್ಕೂ ಮೂಲ ವಿವರಣೆ ಇಲ್ಲ.</span></div></div>
+<div class="note"><div class="note-lines">Lines 119&ndash;177 &middot; SECTION 3</div><div class="note-title"><span class="en">Chandra madhya, uchcha, sphuta, and chandra gati</span><span class="sa">चन्द्रमध्यः, उच्चः, स्फुटः, चन्द्रगतिश्च</span><span class="kn">ಚಂದ್ರ ಮಧ್ಯ, ಉಚ್ಚ, ಸ್ಫುಟ, ಮತ್ತು ಚಂದ್ರಗತಿ</span></div><div class="note-text"><span class="en">Same pattern as the Sun: mean longitude, apogee, manda-phala correction, true longitude, and daily motion (cg) by the same two-evaluations method. Every epoch-offset constant here is again a different hand-fit value from the sibling files, and one code comment explicitly admits it was tuned "for tithinirnaya" &mdash; calibrated against observed tithi timings, not derived from first principles.</span><span class="sa">रविवत् एव क्रमः: मध्यरेखांशः, उच्चः, मन्दफलसंस्कारः, स्फुटरेखांशः, तथा द्विमूल्यान्तरेण (cg) दैनन्दिनगतिः। अत्रापि प्रत्येकः कालारम्भ-संस्कारः सहोदरसञ्चिकाभ्यः भिन्नः हस्तसमायोजितः, एकत्र टिप्पण्यां स्पष्टमेव लिखितम् यत् "तिथिनिर्णयार्थम्" समायोजितम् — अर्थात् निरीक्षित-तिथिकालानुसारेण, न तु मूलसिद्धान्तात्।</span><span class="kn">ಸೂರ್ಯನಂತೆಯೇ ಕ್ರಮ: ಮಧ್ಯ ರೇಖಾಂಶ, ಉಚ್ಚ, ಮಂದಫಲ ತಿದ್ದುಪಡಿ, ಸ್ಫುಟ ರೇಖಾಂಶ, ಮತ್ತು ಅದೇ ಎರಡು-ಮೌಲ್ಯ ವಿಧಾನದಿಂದ ದೈನಂದಿನ ಚಲನೆ (cg). ಇಲ್ಲಿಯೂ ಪ್ರತಿ ಯುಗ-ಸ್ಥಿರಾಂಕ ಸಹೋದರ ಫೈಲುಗಳಿಗಿಂತ ಭಿನ್ನವಾದ ಕೈಯಾರೆ ಹೊಂದಿಸಿದ ಮೌಲ್ಯ; ಒಂದು ಕಾಮೆಂಟ್‌ನಲ್ಲಿ ಇದನ್ನು "ತಿಥಿನಿರ್ಣಯಕ್ಕಾಗಿ" ಹೊಂದಿಸಲಾಗಿದೆ ಎಂದು ಸ್ಪಷ್ಟವಾಗಿ ಬರೆಯಲಾಗಿದೆ — ಗಮನಿಸಿದ ತಿಥಿ ಸಮಯಗಳಿಗೆ ಹೊಂದಿಸಲಾಗಿದೆ, ಮೂಲ ಸಿದ್ಧಾಂತದಿಂದ ಪಡೆದಿದ್ದಲ್ಲ.</span></div></div>
+<div class="note"><div class="note-lines">Lines 180&ndash;217 &middot; SECTION 4</div><div class="note-title"><span class="en">Chara-khanda, and the ssr bug-fix</span><span class="sa">चरखण्डः, ssr-दोषस्य समाधानं च</span><span class="kn">ಚರಖಂಡ, ಮತ್ತು ssr ದೋಷ-ಪರಿಹಾರ</span></div><div class="note-text"><span class="en">ssr is wrapped into [0,12) before check() is called on it &mdash; this wrap IS present here, and confirmed missing in the sibling file EKADHASI.C, where its absence produces a negative, nonsensical chara-khanda when actually run. The chara-khanda coefficients themselves (102, 99.9, 97.8...) differ from TITHI-NI.C's (111, 108.7, 106.5...) for the same role, suggesting the two files assume two different locations &mdash; neither states which.</span><span class="sa">check() इति आह्वानात् पूर्वं ssr इति [0,12) मध्ये स्थापितम् — इदं स्थापनं अत्र वर्तते, किन्तु सहोदरसञ्चिकायां EKADHASI.C अनुपस्थितम् इति सिद्धम्, यत्र वास्तविकचालने ऋणात्मकः निरर्थकः चरखण्डः जायते। चरखण्डस्य गुणाङ्काः (102, 99.9, 97.8...) TITHI-NI.C इत्यस्याः (111, 108.7, 106.5...) भिन्नाः, अतः द्वयोः सञ्चिकयोः भिन्नस्थानयोः कल्पना सूच्यते — कापि सञ्चिका स्थानं न वदति।</span><span class="kn">check() ಅನ್ನು ಕರೆಯುವ ಮೊದಲು ssr ಅನ್ನು [0,12) ವ್ಯಾಪ್ತಿಗೆ ಮಡಚಲಾಗಿದೆ — ಈ ಮಡಚುವಿಕೆ ಇಲ್ಲಿ ಇದೆ, ಆದರೆ ಸಹೋದರ ಫೈಲ್ EKADHASI.C ನಲ್ಲಿ ಇಲ್ಲ ಎಂದು ಖಚಿತಪಡಿಸಲಾಗಿದೆ — ಅಲ್ಲಿ ಅದು ಇಲ್ಲದಿರುವುದರಿಂದ ನಿಜವಾಗಿ ಚಲಾಯಿಸಿದಾಗ ಋಣಾತ್ಮಕ, ಅರ್ಥಹೀನ ಚರಖಂಡ ಬರುತ್ತದೆ. ಚರಖಂಡದ ಗುಣಾಂಕಗಳು (102, 99.9, 97.8...) TITHI-NI.C ನ (111, 108.7, 106.5...) ಗಿಂತ ಭಿನ್ನವಾಗಿವೆ — ಇದು ಎರಡು ಫೈಲುಗಳು ಎರಡು ಬೇರೆ ಸ್ಥಳಗಳನ್ನು ಊಹಿಸಿವೆ ಎಂದು ಸೂಚಿಸುತ್ತದೆ.</span></div></div>
+<div class="note"><div class="note-lines">Lines 218&ndash;240 &middot; SECTION 5</div><div class="note-title"><span class="en">Elongation to tithi, and time remaining</span><span class="sa">वियोगकोणात् तिथिः, शेषकालश्च</span><span class="kn">ವಿಯೋಗದಿಂದ ತಿಥಿಗೆ, ಬಾಕಿ ಸಮಯ</span></div><div class="note-text"><span class="en">x = vya * 2.5 converts elongation (in rashi) directly into a tithi count, since one tithi is 0.4 rashi and there are 30 tithis in 12 rashi. This is the key line &mdash; and where s.ekadashi/k.ekadashi print generically, with no Ekadashi-specific code anywhere. The upcoming tithi is printed only when the current tithi is short enough for a second boundary to fall in the same window &mdash; exactly the tithi-kshaya situation, though the program never computes sunrise to know whether that shortness actually matters for a real civil day.</span><span class="sa">x = vya * 2.5 इति सूत्रेण वियोगकोणः (राशिमानेन) साक्षात् तिथिसङ्ख्यायां परिवर्तितः, यतः एका तिथिः 0.4 राशिः, द्वादशराशिषु च त्रिंशत् तिथयः। इयमेव मुख्यपङ्क्तिः — अत्रैव s.ekadashi/k.ekadashi सामान्यरूपेण मुद्रितं भवति। अग्रिमा तिथिः तदैव मुद्रिता यदा वर्तमाना तिथिः एतावती लघुः यत् द्वितीया सीमा अपि तस्मिन्नेव कालखण्डे पतति — इयमेव "तिथिक्षयः", यद्यपि प्रोग्राम् सूर्योदयं कदापि न गणयति।</span><span class="kn">x = vya * 2.5 ಎಂಬ ಸೂತ್ರವು ವಿಯೋಗ ಕೋನವನ್ನು (ರಾಶಿಯಲ್ಲಿ) ನೇರವಾಗಿ ತಿಥಿ ಸಂಖ್ಯೆಗೆ ಪರಿವರ್ತಿಸುತ್ತದೆ, ಏಕೆಂದರೆ ಒಂದು ತಿಥಿ 0.4 ರಾಶಿ, ಮತ್ತು 12 ರಾಶಿಗಳಲ್ಲಿ 30 ತಿಥಿಗಳಿವೆ. ಇದೇ ಪ್ರಮುಖ ಸಾಲು — ಇಲ್ಲಿಯೇ s.ekadashi/k.ekadashi ಸಾಮಾನ್ಯವಾಗಿ ಮುದ್ರಿತವಾಗುತ್ತದೆ. ಮುಂದಿನ ತಿಥಿ ಪ್ರಸ್ತುತ ತಿಥಿ ಎಷ್ಟು ಚಿಕ್ಕದೆಂದರೆ ಎರಡನೇ ಗಡಿಯೂ ಅದೇ ಸಮಯ ವ್ಯಾಪ್ತಿಯಲ್ಲಿ ಬರುತ್ತದೆಯೋ ಆಗ ಮಾತ್ರ ಮುದ್ರಿತವಾಗುತ್ತದೆ — ಇದೇ "ತಿಥಿ ಕ್ಷಯ" ಪರಿಸ್ಥಿತಿ, ಆದರೂ ಈ ಪ್ರೋಗ್ರಾಂ ಸೂರ್ಯೋದಯವನ್ನು ಎಂದೂ ಲೆಕ್ಕಿಸುವುದಿಲ್ಲ.</span></div></div>
+<div class="note"><div class="note-lines">Lines 241&ndash;249 &middot; SECTION 6</div><div class="note-title"><span class="en">BUG: nakshatra index out of bounds</span><span class="sa">दोषः: नक्षत्रसूचिः सीमातिक्रान्ता</span><span class="kn">ದೋಷ: ನಕ್ಷತ್ರ ಸೂಚಿ ಗಡಿ ಮೀರಿದೆ</span></div><div class="note-text"><span class="en">cs is used directly here without wrapping it into [0,12) first, unlike vya above which was correctly wrapped. When cs drifts to 12 or beyond, the resulting nakshatra index exceeds 27 and reads past the end of the 27-entry nk_name array &mdash; confirmed live: running the sibling file TITHI-NI.C produced cs=12.125991, giving index 28 and a visibly corrupted nakshatra name. EXP.C has this exact same unguarded cs and would hit the identical bug for any m where cs drifts past 12 &mdash; it simply didn't happen to for m=702.</span><span class="sa">अत्र cs इति साक्षात् उपयुज्यते, [0,12) मध्ये अस्थापितमेव, यद्यपि उपरि vya इति सम्यक् स्थापितम् आसीत्। यदा cs इति 12 वा अधिकं गच्छति, तदा नक्षत्रसूचिः 27 अतिक्रामति, तथा nk_name-सारण्याः सीमातः परं पठति — प्रत्यक्षतः सिद्धम्: सहोदरसञ्चिकायाः TITHI-NI.C चालने cs=12.125991 इति जातम्, सूचिः 28 अभवत्, नक्षत्रनाम च दृश्यतः विकृतम्। EXP.C इत्यस्मिन्नपि एतावानेव अस्थापितः cs वर्तते।</span><span class="kn">ಇಲ್ಲಿ cs ಅನ್ನು [0,12) ಗೆ ಮೊದಲು ಮಡಚದೆ ನೇರವಾಗಿ ಬಳಸಲಾಗಿದೆ, ಮೇಲಿನ vya ಸರಿಯಾಗಿ ಮಡಚಿದ್ದಕ್ಕಿಂತ ಭಿನ್ನವಾಗಿ. cs 12 ಅಥವಾ ಅದಕ್ಕಿಂತ ಹೆಚ್ಚಾದಾಗ, ನಕ್ಷತ್ರ ಸೂಚಿ 27 ಮೀರುತ್ತದೆ, nk_name ಪಟ್ಟಿಯ ಕೊನೆ ಮೀರಿ ಓದುತ್ತದೆ — ನೇರವಾಗಿ ಖಚಿತಪಡಿಸಲಾಗಿದೆ: TITHI-NI.C ಚಲಾಯಿಸಿದಾಗ cs=12.125991 ಬಂತು, ಸೂಚಿ 28 ಆಯಿತು, ಹೆಸರು ಸ್ಪಷ್ಟವಾಗಿ ಹಾಳಾಯಿತು. EXP.C ನಲ್ಲಿಯೂ ಇದೇ ರಕ್ಷಣೆಯಿಲ್ಲದ cs ಇದೆ.</span></div></div>
+<div class="note"><div class="note-lines">General</div><div class="note-title"><span class="en">Portability: float array subscripts</span><span class="sa">पोर्टेबिलिटी: द्विगुणसङ्ख्यया सारणीसूचीकरणम्</span><span class="kn">ಪೋರ್ಟಬಿಲಿಟಿ: ಡಬಲ್ ಮೂಲಕ ಅರೇ ಸೂಚಿ</span></div><div class="note-text"><span class="en">th_name[no_tithi-1] and nk_name[no_naks-1] index with a double (no_tithi, no_naks are declared double). Turbo C tolerated this; standard C does not &mdash; a modern compiler rejects it as a type error, and it must be cast to int to build at all today.</span><span class="sa">th_name[no_tithi-1], nk_name[no_naks-1] इत्यत्र double-प्रकारेण सूचीकरणं कृतम्। Turbo C इदं सहते, किन्तु मानक-C न सहते — आधुनिकसङ्कलकः इदं प्रकारदोषरूपेण अस्वीकरोति; अद्य सङ्कलनार्थं int-प्रकारे परिवर्तनीयम्।</span><span class="kn">th_name[no_tithi-1], nk_name[no_naks-1] ಇಲ್ಲಿ double ಮೂಲಕ ಸೂಚಿಸಲಾಗಿದೆ. Turbo C ಇದನ್ನು ಸಹಿಸುತ್ತಿತ್ತು; ಸ್ಟ್ಯಾಂಡರ್ಡ್ C ಸಹಿಸುವುದಿಲ್ಲ — ಆಧುನಿಕ ಕಂಪೈಲರ್ ಇದನ್ನು ಟೈಪ್ ದೋಷವೆಂದು ತಿರಸ್ಕರಿಸುತ್ತದೆ.</span></div></div>
+
+    <h2><span class="en">Findings</span><span class="sa">निष्कर्षाः</span><span class="kn">ಸಂಶೋಧನೆಗಳು</span></h2>
+    <div class="finding ok"><b><span class="en">Solid: generic tithi identification</span><span class="sa">सम्यक्: सामान्यतिथि-निर्णयः</span><span class="kn">ಸರಿಯಾಗಿದೆ: ಸಾಮಾನ್ಯ ತಿಥಿ ಗುರುತಿಸುವಿಕೆ</span></b><p><span class="en">Elongation-based tithi lookup is structurally correct and verified by running the program &mdash; the index advances correctly across consecutive days, and Ekadashi falls out of the same generic th_name[] lookup as every other tithi.</span><span class="sa">वियोगकोणाधारितः तिथिनिर्णयः सङ्रचनया सम्यक् वर्तते, चालनेन सत्यापितः — क्रमिकदिनेषु सूचिः सम्यक् वर्धते, एकादशी च अन्यासां तिथीनामिव तस्यैव सामान्यायाः th_name[] सार्ण्याः फलम्।</span><span class="kn">ವಿಯೋಗ-ಆಧಾರಿತ ತಿಥಿ ಲೆಕ್ಕಾಚಾರ ರಚನಾತ್ಮಕವಾಗಿ ಸರಿಯಾಗಿದೆ, ಪ್ರೋಗ್ರಾಂ ಚಲಾಯಿಸಿ ಖಚಿತಪಡಿಸಲಾಗಿದೆ — ಸತತ ದಿನಗಳಲ್ಲಿ ಸೂಚಿ ಸರಿಯಾಗಿ ಮುಂದುವರಿಯುತ್ತದೆ, ಏಕಾದಶಿ ಇತರ ಎಲ್ಲಾ ತಿಥಿಗಳಂತೆಯೇ ಅದೇ ಸಾಮಾನ್ಯ th_name[] ಪಟ್ಟಿಯ ಫಲಿತಾಂಶ.</span></p></div>
+<div class="finding ok"><b><span class="en">Solid: ayanamsha, and the sayana-Sun wrap</span><span class="sa">सम्यक्: अयनांशः, सायनरवि-स्थापनं च</span><span class="kn">ಸರಿಯಾಗಿದೆ: ಅಯನಾಂಶ, ಮತ್ತು ಸಾಯನ-ರವಿ ಮಡಚುವಿಕೆ</span></b><p><span class="en">The sine-table ayanamsha calculation is the one real improvement over the sibling files (which hardcode a linear drift rate admitted to need manual re-tuning "every ten years"). Its ssr wrap before check() is present here and confirmed missing in EKADHASI.C.</span><span class="sa">ज्यासारण्या अयनांशगणना सहोदरसञ्चिकाभ्यः एकः वास्तविकः सुधारः। ssr-स्थापनं check() इत्यस्य पूर्वं अत्र वर्तते, EKADHASI.C इत्यत्र अनुपस्थितम् इति सिद्धम्।</span><span class="kn">ಜ್ಯಾ-ಕೋಷ್ಟಕದ ಅಯನಾಂಶ ಲೆಕ್ಕಾಚಾರವು ಸಹೋದರ ಫೈಲುಗಳಿಗಿಂತ ನಿಜವಾದ ಸುಧಾರಣೆ. check() ಮೊದಲು ssr ಮಡಚುವಿಕೆ ಇಲ್ಲಿ ಇದೆ, EKADHASI.C ನಲ್ಲಿ ಇಲ್ಲ ಎಂದು ಖಚಿತವಾಗಿದೆ.</span></p></div>
+<div class="finding bug"><b><span class="en">Bug: nakshatra index out-of-bounds read</span><span class="sa">दोषः: नक्षत्रसूचिः सीमातिक्रान्ता</span><span class="kn">ದೋಷ: ನಕ್ಷತ್ರ ಸೂಚಿ ಗಡಿ ಮೀರಿದೆ</span></b><p><span class="en">cs is never wrapped into [0,12) before x=cs*2.25. When cs drifts to &ge;12, the index exceeds 27 and reads past the end of nk_name &mdash; confirmed live via TITHI-NI.C, which produced cs=12.125991 and a visibly corrupted name.</span><span class="sa">x=cs*2.25 इत्यस्य पूर्वं cs कदापि [0,12) मध्ये न स्थाप्यते। यदा cs &ge;12 भवति, सूचिः 27 अतिक्रामति, nk_name-सीमातः परं पठ्यते — TITHI-NI.C इत्यनेन प्रत्यक्षतः सिद्धम्।</span><span class="kn">x=cs*2.25 ಗಿಂತ ಮೊದಲು cs ಅನ್ನು ಎಂದೂ [0,12) ಗೆ ಮಡಚುವುದಿಲ್ಲ. cs &ge;12 ಆದಾಗ, ಸೂಚಿ 27 ಮೀರುತ್ತದೆ, nk_name ಪಟ್ಟಿಯ ಕೊನೆ ಮೀರಿ ಓದುತ್ತದೆ — TITHI-NI.C ಮೂಲಕ ನೇರವಾಗಿ ಖಚಿತಪಡಿಸಲಾಗಿದೆ.</span></p></div>
+<div class="finding bug"><b><span class="en">Portability: float array subscripts</span><span class="sa">पोर्टेबिलिटी: द्विगुणसङ्ख्या-सूचीकरणम्</span><span class="kn">ಪೋರ್ಟಬಿಲಿಟಿ: ಡಬಲ್ ಮೂಲಕ ಅರೇ ಸೂಚಿ</span></b><p><span class="en">th_name[no_tithi-1] indexes with a double. Turbo C tolerated this; standard C does not &mdash; a modern compiler rejects it outright.</span><span class="sa">th_name[no_tithi-1] इति double-प्रकारेण सूचितम्। Turbo C सहते, मानक-C न सहते — आधुनिकसङ्कलकः सर्वथा अस्वीकरोति।</span><span class="kn">th_name[no_tithi-1] ಅನ್ನು double ಮೂಲಕ ಸೂಚಿಸಲಾಗಿದೆ. Turbo C ಸಹಿಸುತ್ತಿತ್ತು; ಸ್ಟ್ಯಾಂಡರ್ಡ್ C ಸಹಿಸುವುದಿಲ್ಲ — ಆಧುನಿಕ ಕಂಪೈಲರ್ ಸಂಪೂರ್ಣ ತಿರಸ್ಕರಿಸುತ್ತದೆ.</span></p></div>
+<div class="finding missing"><b><span class="en">Missing: sunrise, location, and a real date input</span><span class="sa">अभावः: सूर्योदयः, स्थानम्, वास्तविकदिन-निवेशश्च</span><span class="kn">ಕೊರತೆ: ಸೂರ್ಯೋದಯ, ಸ್ಥಳ, ಮತ್ತು ನಿಜವಾದ ದಿನಾಂಕ ಇನ್‌ಪುಟ್</span></b><p><span class="en">No sunrise/sunset/moonrise/moonset calculation and no latitude or longitude anywhere &mdash; confirmed by exhaustive search across every file in both uploaded archives. Every "time remaining" figure was compared against sunrise by hand, outside the program. There is also no Gregorian-date-to-Ahargana converter.</span><span class="sa">सूर्योदय-सूर्यास्त-चन्द्रोदय-चन्द्रास्तानां गणना कुत्रापि नास्ति, अक्षांश-रेखांशौ अपि न कुत्रापि — उभयोः सञ्चयोः सर्वासु सञ्चिकासु विस्तृतान्वेषणेन सिद्धम्। प्रत्येकं "शेषकालः" इति मूल्यं हस्तेन सूर्योदयेन सह तुलितम्, प्रोग्रामात् बहिः।</span><span class="kn">ಸೂರ್ಯೋದಯ/ಸೂರ್ಯಾಸ್ತ/ಚಂದ್ರೋದಯ/ಚಂದ್ರಾಸ್ತದ ಲೆಕ್ಕಾಚಾರ ಎಲ್ಲಿಯೂ ಇಲ್ಲ, ಅಕ್ಷಾಂಶ-ರೇಖಾಂಶವೂ ಎಲ್ಲಿಯೂ ಇಲ್ಲ — ಎರಡೂ ಆರ್ಕೈವ್‌ಗಳ ಎಲ್ಲಾ ಫೈಲುಗಳ ಸಂಪೂರ್ಣ ಹುಡುಕಾಟದಿಂದ ಖಚಿತಪಡಿಸಲಾಗಿದೆ. ಪ್ರತಿ "ಬಾಕಿ ಸಮಯ" ಅಂಕಿಯನ್ನು ಪ್ರೋಗ್ರಾಂನ ಹೊರಗೆ ಕೈಯಾರೆ ಸೂರ್ಯೋದಯದೊಂದಿಗೆ ಹೋಲಿಸಲಾಗುತ್ತಿತ್ತು.</span></p></div>
+<div class="finding missing"><b><span class="en">Missing: sampradaya-specific vrata rules</span><span class="sa">अभावः: सम्प्रदायानुसारि-व्रतनियमाः</span><span class="kn">ಕೊರತೆ: ಸಂಪ್ರದಾಯ-ನಿರ್ದಿಷ್ಟ ವ್ರತ ನಿಯಮಗಳು</span></b><p><span class="en">This file identifies which tithi is active &mdash; it does not decide which civil day a tradition (Smarta, Vaishnava, ...) observes as "Ekadashi" when a tithi is unusually short or long (viddha).</span><span class="sa">इयं सञ्चिका वर्तमानां तिथिं ज्ञापयति — किन्तु यदा तिथिः असामान्यतया लघुः दीर्घा वा (विद्धा) भवति, तदा कः सम्प्रदायः कं दिनं "एकादशी" इति मन्यते इति न निर्णयति।</span><span class="kn">ಈ ಫೈಲ್ ಈಗ ಯಾವ ತಿಥಿ ಇದೆ ಎಂದು ಗುರುತಿಸುತ್ತದೆ — ಆದರೆ ತಿಥಿ ಅಸಾಮಾನ್ಯವಾಗಿ ಚಿಕ್ಕದು ಅಥವಾ ದೊಡ್ಡದು (ವಿದ್ಧ) ಆದಾಗ ಯಾವ ಸಂಪ್ರದಾಯ ಯಾವ ದಿನವನ್ನು "ಏಕಾದಶಿ" ಎಂದು ಆಚರಿಸುತ್ತದೆ ಎಂದು ನಿರ್ಧರಿಸುವುದಿಲ್ಲ.</span></p></div>
+  </section>
+
+  <section id="panel-gloss" hidden>
+    <h2><span class="en">Core concepts</span><span class="sa">मूलतत्त्वानि</span><span class="kn">ಮೂಲ ಪರಿಕಲ್ಪನೆಗಳು</span></h2>
+    <div class="cards"><div class="card"><div class="term">day-count</div><div class="en-name">Ahargana</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">अहर्गण</span><span class="sa-iast">ahargaṇa</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಅಹರ್ಗಣ</span></div><div class="meaning"><span class="en">"Count of days" &mdash; days elapsed since a fixed starting point, used instead of a calendar date. The one number this whole calculation runs on.</span><span class="sa">"दिनगणना" — स्थिरारम्भबिन्दोः गताः दिनाः, पञ्चाङ्गदिनस्य स्थाने प्रयुज्यते। अस्याः सम्पूर्णगणनायाः एकः आधारः।</span><span class="kn">"ದಿನಗಳ ಎಣಿಕೆ" — ಒಂದು ಸ್ಥಿರ ಆರಂಭ ಬಿಂದುವಿನಿಂದ ಕಳೆದ ದಿನಗಳು, ಕ್ಯಾಲೆಂಡರ್ ದಿನಾಂಕದ ಬದಲಿಗೆ ಬಳಸಲಾಗುತ್ತದೆ. ಈ ಇಡೀ ಲೆಕ್ಕಾಚಾರ ಅವಲಂಬಿಸಿರುವ ಏಕೈಕ ಸಂಖ್ಯೆ.</span></div></div>
+<div class="card"><div class="term">lunar day</div><div class="en-name">Tithi</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">तिथि</span><span class="sa-iast">tithi</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ತಿಥಿ</span></div><div class="meaning"><span class="en">One of 30 tithis in a lunar month &mdash; each a 12-degree step of the Moon getting ahead of the Sun. Ekadashi is tithi #11 and #26.</span><span class="sa">चान्द्रमासे त्रिंशत् तिथिषु एका — प्रत्येकं चन्द्रस्य रविं प्रति द्वादशांशगत्या अग्रे गमनम्। एकादशी इति ११ तमी २६ तमी च तिथिः।</span><span class="kn">ಚಾಂದ್ರಮಾಸದಲ್ಲಿ 30 ತಿಥಿಗಳಲ್ಲಿ ಒಂದು — ಪ್ರತಿಯೊಂದೂ ಚಂದ್ರ ಸೂರ್ಯನಿಗಿಂತ 12 ಡಿಗ್ರಿ ಮುಂದೆ ಹೋಗುವ ಹೆಜ್ಜೆ. ಏಕಾದಶಿ ಎಂದರೆ 11ನೇ ಮತ್ತು 26ನೇ ತಿಥಿ.</span></div></div>
+<div class="card"><div class="term">lunar mansion</div><div class="en-name">Nakshatra</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">नक्षत्र</span><span class="sa-iast">nakṣatra</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ನಕ್ಷತ್ರ</span></div><div class="meaning"><span class="en">One of 27 equal slices of sky the Moon passes through, about one per day.</span><span class="sa">आकाशस्य सप्तविंशति समभागेषु एकः, यत्र चन्द्रः प्रतिदिनं प्रायः एकम् अतिक्रामति।</span><span class="kn">ಆಕಾಶದ 27 ಸಮಾನ ಭಾಗಗಳಲ್ಲಿ ಒಂದು, ಚಂದ್ರ ಪ್ರತಿದಿನ ಸುಮಾರು ಒಂದನ್ನು ದಾಟುತ್ತಾನೆ.</span></div></div>
+<div class="card"><div class="term">zodiac sign</div><div class="en-name">Rashi</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">राशि</span><span class="sa-iast">rāśi</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ರಾಶಿ</span></div><div class="meaning"><span class="en">One of 12 equal 30-degree slices of the sky. In the code, also used loosely as a unit of angle ("in rashi units").</span><span class="sa">आकाशस्य द्वादश त्रिंशदंशसमभागेषु एकः। कोडे च कोणमानरूपेण अपि शिथिलतया प्रयुक्तः ("राशिमानेन")।</span><span class="kn">ಆಕಾಶದ 12 ಸಮಾನ 30-ಡಿಗ್ರಿ ಭಾಗಗಳಲ್ಲಿ ಒಂದು. ಕೋಡ್‌ನಲ್ಲಿ ಕೋನದ ಒಂದು ಘಟಕವಾಗಿಯೂ ಸಡಿಲವಾಗಿ ಬಳಸಲಾಗಿದೆ.</span></div></div>
+<div class="card"><div class="term">Sun / Moon</div><div class="en-name">Ravi &amp; Chandra</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">रवि / चन्द्र</span><span class="sa-iast">ravi / candra</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ರವಿ / ಚಂದ್ರ</span></div><div class="meaning"><span class="en">The two bodies this whole calculation tracks &mdash; the tithi is defined entirely by the angle between them.</span><span class="sa">एतौ द्वौ ग्रहौ, यौ इयं सम्पूर्णा गणना अनुसरति — तिथिः पूर्णतया तयोः मध्यकोणेन एव निर्धार्यते।</span><span class="kn">ಈ ಇಡೀ ಲೆಕ್ಕಾಚಾರ ಗಮನಿಸುವ ಎರಡು ಗ್ರಹಗಳು — ತಿಥಿಯನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ಅವೆರಡರ ನಡುವಿನ ಕೋನದಿಂದ ನಿರ್ಧರಿಸಲಾಗುತ್ತದೆ.</span></div></div>
+<div class="card"><div class="term">fortnight</div><div class="en-name">Paksha</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">पक्ष</span><span class="sa-iast">pakṣa</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಪಕ್ಷ</span></div><div class="meaning"><span class="en">Half a lunar month. Shukla = waxing/bright fortnight. Krishna = waning/dark fortnight &mdash; hence "s.ekadashi" vs "k.ekadashi" in the code.</span><span class="sa">चान्द्रमासस्य अर्धः। शुक्लः इति वर्धमानपक्षः, कृष्णः इति क्षीयमाणपक्षः — अत एव कोडे "s.ekadashi" "k.ekadashi" इति भेदः।</span><span class="kn">ಚಾಂದ್ರಮಾಸದ ಅರ್ಧ. ಶುಕ್ಲ ಎಂದರೆ ಬೆಳೆಯುವ/ಬೆಳಕಿನ ಪಕ್ಷ. ಕೃಷ್ಣ ಎಂದರೆ ಕ್ಷೀಣಿಸುವ/ಕತ್ತಲಿನ ಪಕ್ಷ — ಆದ್ದರಿಂದ ಕೋಡ್‌ನಲ್ಲಿ "s.ekadashi" ಮತ್ತು "k.ekadashi" ಎಂಬ ವ್ಯತ್ಯಾಸ.</span></div></div>
+<div class="card"><div class="term">tithi #11</div><div class="en-name">Ekadashi</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">एकादशी</span><span class="sa-iast">ekādaśī</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಏಕಾದಶಿ</span></div><div class="meaning"><span class="en">"The eleventh" &mdash; occurs twice a month, once per paksha. The observance this whole project is ultimately about.</span><span class="sa">"एकादशी" — मासे द्विवारं भवति, प्रतिपक्षं एकवारम्। इदमेव व्रतं, यदर्थं इदं सम्पूर्णं कार्यं कृतम्।</span><span class="kn">"ಹನ್ನೊಂದನೆಯದು" — ತಿಂಗಳಿಗೆ ಎರಡು ಬಾರಿ, ಪ್ರತಿ ಪಕ್ಷಕ್ಕೆ ಒಮ್ಮೆ ಬರುತ್ತದೆ. ಈ ಇಡೀ ಯೋಜನೆ ಕೊನೆಗೆ ಇದೇ ವ್ರತದ ಬಗ್ಗೆ.</span></div></div>
+<div class="card"><div class="term">tithi #10 / #12</div><div class="en-name">Dashami &amp; Dwadashi</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">दशमी / द्वादशी</span><span class="sa-iast">daśamī / dvādaśī</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ದಶಮಿ / ದ್ವಾದಶಿ</span></div><div class="meaning"><span class="en">The tithis just before and just after Ekadashi &mdash; whether either one overlaps sunrise is what the observance-day rules turn on.</span><span class="sa">एकादश्याः ठीक् पूर्वं परं च तिथी — अनयोः कापि सूर्योदयेन सह अतिच्छादः वर्तते वा इति एव व्रतदिन-नियमानां आधारः।</span><span class="kn">ಏಕಾದಶಿಗೆ ಸ್ವಲ್ಪ ಮೊದಲು ಮತ್ತು ಸ್ವಲ್ಪ ನಂತರ ಬರುವ ತಿಥಿಗಳು — ಇವೆರಡರಲ್ಲಿ ಯಾವುದಾದರೂ ಸೂರ್ಯೋದಯದೊಂದಿಗೆ ಅತಿಕ್ರಮಿಸುತ್ತದೆಯೇ ಎಂಬುದೇ ವ್ರತ ದಿನದ ನಿಯಮಗಳ ಆಧಾರ.</span></div></div>
+<div class="card"><div class="term">new / full moon</div><div class="en-name">Amavasya &amp; Purnima</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">अमावास्या / पूर्णिमा</span><span class="sa-iast">amāvāsyā / pūrṇimā</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಅಮಾವಾಸ್ಯೆ / ಹುಣ್ಣಿಮೆ</span></div><div class="meaning"><span class="en">Tithi #30 and #15. Kannada everyday speech mostly uses its own colloquial words here (amavasye, hunnime) rather than the Sanskrit form directly.</span><span class="sa">तिथिः ३० तथा १५। कन्नडभाषायां प्रतिदिनव्यवहारे प्रायः स्वकीयौ शब्दौ प्रयुज्येते, न तु संस्कृतरूपं साक्षात्।</span><span class="kn">30ನೇ ಮತ್ತು 15ನೇ ತಿಥಿ. ಕನ್ನಡ ದೈನಂದಿನ ಮಾತಿನಲ್ಲಿ ಸಂಸ್ಕೃತ ರೂಪಕ್ಕಿಂತ ಹೆಚ್ಚಾಗಿ ತನ್ನದೇ ಆಡುಮಾತಿನ ಪದಗಳನ್ನು ಬಳಸಲಾಗುತ್ತದೆ.</span></div></div>
+<div class="card"><div class="term">time units</div><div class="en-name">Ghatika &amp; Vighatika</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">घटिका / विघटिका</span><span class="sa-iast">ghaṭikā / vighaṭikā</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಘಳಿಗೆ / ಗಳಿಗೆ</span></div><div class="meaning"><span class="en">Traditional time units: 60 ghatika = 1 day (~24 min each); 60 vighatika = 1 ghatika (~24 sec each). The code calls vighatika "galige."</span><span class="sa">पारम्परिके कालमाने: ६० घटिकाः = १ दिनम्; ६० विघटिकाः = १ घटिका। कोडे विघटिका "galige" इति उक्ता।</span><span class="kn">ಸಾಂಪ್ರದಾಯಿಕ ಸಮಯ ಘಟಕಗಳು: 60 ಘಟಿಕೆ = 1 ದಿನ; 60 ವಿಘಟಿಕೆ = 1 ಘಟಿಕೆ. ಕೋಡ್‌ನಲ್ಲಿ ವಿಘಟಿಕೆಯನ್ನು "ಗಳಿಗೆ" ಎಂದು ಕರೆಯಲಾಗಿದೆ.</span></div></div>
+<div class="card"><div class="term">precession offset</div><div class="en-name">Ayanamsha</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">अयनांश</span><span class="sa-iast">ayanāṃśa</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಅಯನಾಂಶ</span></div><div class="meaning"><span class="en">The gap between the tropical zodiac (tied to the seasons) and the sidereal zodiac (tied to the fixed stars) &mdash; it grows slowly over centuries.</span><span class="sa">साधनराशिचक्रस्य (ऋतुभिः सम्बद्धस्य) निरयणराशिचक्रस्य (स्थिरनक्षत्रैः सम्बद्धस्य) च अन्तरम् — शताब्दीक्रमेण मन्दं मन्दं वर्धते।</span><span class="kn">ಸಾಯನ ರಾಶಿಚಕ್ರ (ಋತುಗಳಿಗೆ ಬದ್ಧ) ಮತ್ತು ನಿರಯಣ ರಾಶಿಚಕ್ರ (ಸ್ಥಿರ ನಕ್ಷತ್ರಗಳಿಗೆ ಬದ್ಧ) ನಡುವಿನ ಅಂತರ — ಶತಮಾನಗಳ ಕ್ರಮದಲ್ಲಿ ನಿಧಾನವಾಗಿ ಬೆಳೆಯುತ್ತದೆ.</span></div></div>
+<div class="card"><div class="term">tropical / sidereal</div><div class="en-name">Sayana &amp; Nirayana</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">सायन / निरयण</span><span class="sa-iast">sāyana / nirayaṇa</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಸಾಯನ / ನಿರಯಣ</span></div><div class="meaning"><span class="en">Sayana = "with ayana [added]" = tropical. Nirayana = "without ayana" = sidereal. This is exactly what the code's ssr (sayana-spashta-ravi) variable name is built from.</span><span class="sa">सायनः = "अयनेन सह" = साधनराशिचक्रम्। निरयणः = "अयनं विना" = स्थिरराशिचक्रम्। कोडस्य ssr इति नाम अनयोरेव शब्दयोः निर्मितम्।</span><span class="kn">ಸಾಯನ = "ಅಯನ ಸೇರಿಸಿ" = ಸಾಯನ ರಾಶಿಚಕ್ರ. ನಿರಯಣ = "ಅಯನ ಇಲ್ಲದೆ" = ಸ್ಥಿರ ರಾಶಿಚಕ್ರ. ಕೋಡ್‌ನ ssr ಎಂಬ ಹೆಸರು ಇವೆರಡೇ ಪದಗಳಿಂದ ಮಾಡಲ್ಪಟ್ಟಿದೆ.</span></div></div></div>
+
+    <h2><span class="en">How the position gets corrected</span><span class="sa">स्थानसंस्कारप्रक्रिया</span><span class="kn">ಸ್ಥಾನ ತಿದ್ದುಪಡಿಯಾಗುವ ಕ್ರಮ</span></h2>
+    <div class="cards"><div class="card"><div class="term">mean position</div><div class="en-name">Madhya</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">मध्य</span><span class="sa-iast">madhya</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಮಧ್ಯ</span></div><div class="meaning"><span class="en">"Mean/average" &mdash; a body's position assuming perfectly uniform motion, before any correction is applied.</span><span class="sa">"मध्यमम्" — ग्रहस्य स्थानं पूर्णतया समगत्या कल्पितम्, कस्यापि संस्कारात् पूर्वम्।</span><span class="kn">"ಸರಾಸರಿ" — ಯಾವುದೇ ತಿದ್ದುಪಡಿ ಮಾಡುವ ಮೊದಲು, ಗ್ರಹ ಸಂಪೂರ್ಣ ಏಕರೂಪ ವೇಗದಲ್ಲಿ ಚಲಿಸುತ್ತದೆ ಎಂದು ಭಾವಿಸಿ ಕಂಡುಹಿಡಿದ ಸ್ಥಾನ.</span></div></div>
+<div class="card"><div class="term">anomaly</div><div class="en-name">Kendra</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">केन्द्र</span><span class="sa-iast">kendra</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಕೇಂದ್ರ</span></div><div class="meaning"><span class="en">The angle between a body and its apogee (the point where it moves slowest) &mdash; this angle decides how big the next correction needs to be.</span><span class="sa">ग्रहस्य तस्य उच्चस्य च मध्ये कोणः — अयमेव कोणः अग्रिमसंस्कारस्य परिमाणं निर्धारयति।</span><span class="kn">ಗ್ರಹ ಮತ್ತು ಅದರ ಉಚ್ಚ ನಡುವಿನ ಕೋನ — ಈ ಕೋನವೇ ಮುಂದಿನ ತಿದ್ದುಪಡಿ ಎಷ್ಟು ದೊಡ್ಡದಿರಬೇಕು ಎಂದು ನಿರ್ಧರಿಸುತ್ತದೆ.</span></div></div>
+<div class="card"><div class="term">correction</div><div class="en-name">Manda-phala</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">मन्दफल</span><span class="sa-iast">mandaphala</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಮಂದಫಲ</span></div><div class="meaning"><span class="en">"Slow[-motion] result" &mdash; the equation-of-center correction that accounts for a body's real, non-circular orbit.</span><span class="sa">"मन्दफलम्" — ग्रहस्य वास्तविकस्य अवृत्ताकारकक्ष्यायाः कृते कृतः संस्कारः।</span><span class="kn">"ಮಂದ ಫಲ" — ಗ್ರಹದ ನಿಜವಾದ, ವೃತ್ತಾಕಾರವಲ್ಲದ ಕಕ್ಷೆಗೆ ಸರಿಹೊಂದಿಸುವ ತಿದ್ದುಪಡಿ.</span></div></div>
+<div class="card"><div class="term">true position</div><div class="en-name">Sphuta</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">स्फुट</span><span class="sa-iast">sphuṭa</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಸ್ಫುಟ</span></div><div class="meaning"><span class="en">"True/manifest" &mdash; the corrected, real position, after the manda-phala has been applied. (Also spelled "sputa" in the code.)</span><span class="sa">"स्फुटम्" — मन्दफलसंस्कारात् परं प्राप्तं संशोधितं वास्तविकं स्थानम्।</span><span class="kn">"ನಿಜ/ಸ್ಪಷ್ಟ" — ಮಂದಫಲ ತಿದ್ದುಪಡಿಯ ನಂತರ ಪಡೆದ ಸರಿಪಡಿಸಿದ, ನಿಜವಾದ ಸ್ಥಾನ.</span></div></div>
+<div class="card"><div class="term">apogee</div><div class="en-name">Uchcha</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">उच्च</span><span class="sa-iast">ucca</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಉಚ್ಚ</span></div><div class="meaning"><span class="en">The point in a body's orbit where it moves slowest. For the Moon, this point itself slowly drifts over time.</span><span class="sa">ग्रहस्य कक्ष्यायां यत्र स्थाने सः मन्दतमं गच्छति। चन्द्रस्य कृते इदं स्थानमपि कालक्रमेण मन्दं गच्छति।</span><span class="kn">ಗ್ರಹದ ಕಕ್ಷೆಯಲ್ಲಿ ಅದು ಅತ್ಯಂತ ನಿಧಾನವಾಗಿ ಚಲಿಸುವ ಬಿಂದು. ಚಂದ್ರನಿಗೆ, ಈ ಬಿಂದುವೂ ಕಾಲಕ್ರಮೇಣ ನಿಧಾನವಾಗಿ ಜಾರುತ್ತದೆ.</span></div></div>
+<div class="card"><div class="term">daily motion</div><div class="en-name">Gati</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">गति</span><span class="sa-iast">gati</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಗತಿ</span></div><div class="meaning"><span class="en">Daily motion / speed &mdash; used to convert a remaining angular distance into a remaining amount of time.</span><span class="sa">दैनन्दिनगतिः / वेगः — शेषकोणदूरतां शेषकालमानेन परिवर्तयितुं प्रयुज्यते।</span><span class="kn">ದೈನಂದಿನ ಚಲನೆ / ವೇಗ — ಬಾಕಿ ಇರುವ ಕೋನದ ದೂರವನ್ನು ಬಾಕಿ ಇರುವ ಸಮಯಕ್ಕೆ ಪರಿವರ್ತಿಸಲು ಬಳಸಲಾಗುತ್ತದೆ.</span></div></div>
+<div class="card"><div class="term">latitude correction</div><div class="en-name">Chara-khanda</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">चरखण्ड</span><span class="sa-iast">carakhaṇḍa</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಚರಖಂಡ</span></div><div class="meaning"><span class="en">"Variable segment" &mdash; corrects for how the ecliptic rises at different rates at different latitudes. Depends on where you are; the code never says what location it assumed.</span><span class="sa">"चरखण्डः" — क्रान्तिवृत्तस्य भिन्नाक्षांशेषु भिन्नवेगेन उदयस्य संस्कारः। स्थानाश्रितः; कोडे कदापि स्थानं न उक्तम्।</span><span class="kn">"ಚರ ಖಂಡ" — ಕ್ರಾಂತಿವೃತ್ತ ಬೇರೆ ಬೇರೆ ಅಕ್ಷಾಂಶಗಳಲ್ಲಿ ಬೇರೆ ವೇಗದಲ್ಲಿ ಉದಯಿಸುವುದಕ್ಕೆ ತಿದ್ದುಪಡಿ. ಸ್ಥಳವನ್ನು ಅವಲಂಬಿಸಿದೆ; ಕೋಡ್‌ನಲ್ಲಿ ಎಲ್ಲಿಯೂ ಹೇಳಿಲ್ಲ.</span></div></div>
+<div class="card"><div class="term">sine-table value</div><div class="en-name">Jya</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">ज्या</span><span class="sa-iast">jyā</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಜ್ಯಾ</span></div><div class="meaning"><span class="en">"Chord" &mdash; the traditional term for a value looked up from a sine table, the ancient equivalent of calling sin().</span><span class="sa">"ज्या" — ज्यासारण्यातः प्राप्तस्य मूल्यस्य पारम्परिकः शब्दः, प्राचीनकाले sin() इति आह्वानस्य तुल्यः।</span><span class="kn">"ಜ್ಯಾ" — ಜ್ಯಾ-ಕೋಷ್ಟಕದಿಂದ ಪಡೆದ ಮೌಲ್ಯದ ಸಾಂಪ್ರದಾಯಿಕ ಪದ, ಪುರಾತನ ಕಾಲದ sin() ಕರೆಗೆ ಸಮಾನ.</span></div></div>
+<div class="card"><div class="term">arcminute/second</div><div class="en-name">Kala &amp; Vikala</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">कला / विकला</span><span class="sa-iast">kalā / vikalā</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಕಲಾ / ವಿಕಲಾ</span></div><div class="meaning"><span class="en">Sub-units of angle: 60 vikala = 1 kala = 1 arcminute (1/60 of a degree).</span><span class="sa">कोणस्य उपमानौ: ६० विकलाः = १ कला = १ अंशकला।</span><span class="kn">ಕೋನದ ಉಪ-ಘಟಕಗಳು: 60 ವಿಕಲಾ = 1 ಕಲಾ = 1 ಆರ್ಕ್‌ಮಿನಿಟ್.</span></div></div>
+<div class="card"><div class="term">remainder</div><div class="en-name">Shesha</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">शेष</span><span class="sa-iast">śeṣa</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಶೇಷ</span></div><div class="meaning"><span class="en">How much of the current tithi or nakshatra is left to go &mdash; the code's esh variable is this word, abbreviated.</span><span class="sa">वर्तमानायाः तिथेः नक्षत्रस्य वा कियत् अवशिष्टम् इति — कोडस्य esh इति चरं अस्यैव शब्दस्य सङ्क्षेपः।</span><span class="kn">ಪ್ರಸ್ತುತ ತಿಥಿ ಅಥವಾ ನಕ್ಷತ್ರ ಎಷ್ಟು ಬಾಕಿ ಇದೆ ಎಂಬುದು — ಕೋಡ್‌ನ esh ಎಂಬ ವೇರಿಯೇಬಲ್ ಈ ಪದದ ಸಂಕ್ಷಿಪ್ತ ರೂಪ.</span></div></div></div>
+
+    <h2><span class="en">Observance &amp; tradition</span><span class="sa">व्रतं सम्प्रदायश्च</span><span class="kn">ಆಚರಣೆ ಮತ್ತು ಸಂಪ್ರದಾಯ</span></h2>
+    <div class="cards"><div class="card"><div class="term">vow / fast</div><div class="en-name">Vrata</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">व्रत</span><span class="sa-iast">vrata</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ವ್ರತ</span></div><div class="meaning"><span class="en">A vow or observance &mdash; in this context, the Ekadashi fast itself.</span><span class="sa">प्रतिज्ञा व्रतं वा — अत्र सन्दर्भे एकादशी-उपवासः एव।</span><span class="kn">ಒಂದು ಪ್ರತಿಜ್ಞೆ ಅಥವಾ ಆಚರಣೆ — ಈ ಸಂದರ್ಭದಲ್ಲಿ ಏಕಾದಶಿ ಉಪವಾಸವೇ.</span></div></div>
+<div class="card"><div class="term">the hard case</div><div class="en-name">Viddha</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">विद्ध</span><span class="sa-iast">viddha</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ವಿದ್ಧ</span></div><div class="meaning"><span class="en">"Pierced/touched" &mdash; when a tithi is touched by its neighbor right at sunrise. This is exactly the situation the observance-day rules exist to resolve, and why Ekadashi dates sometimes differ between traditions.</span><span class="sa">"विद्धम्" — यदा तिथिः सूर्योदयसमये एव समीपवर्तिन्या तिथ्या स्पृष्टा भवति। इयमेव सा स्थितिः, यस्याः निवारणाय व्रतदिन-नियमाः सन्ति।</span><span class="kn">"ಸ್ಪರ್ಶಿಸಿದ" — ಒಂದು ತಿಥಿಯನ್ನು ಸೂರ್ಯೋದಯದ ಸಮಯದಲ್ಲೇ ಅದರ ನೆರೆಯ ತಿಥಿ ಸ್ಪರ್ಶಿಸಿದಾಗ. ಇದೇ ಪರಿಸ್ಥಿತಿಯನ್ನು ಪರಿಹರಿಸಲು ವ್ರತ ದಿನದ ನಿಯಮಗಳಿವೆ.</span></div></div>
+<div class="card"><div class="term">breaking the fast</div><div class="en-name">Parana</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">पारणा</span><span class="sa-iast">pāraṇā</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಪಾರಣೆ</span></div><div class="meaning"><span class="en">The act, and the time window, for ending an Ekadashi fast.</span><span class="sa">एकादशी-उपवासस्य समापनक्रिया, तस्याः च कालावधिः।</span><span class="kn">ಏಕಾದಶಿ ಉಪವಾಸವನ್ನು ಮುಗಿಸುವ ಕ್ರಿಯೆ, ಮತ್ತು ಅದಕ್ಕಿರುವ ಸಮಯ ಮಿತಿ.</span></div></div>
+<div class="card"><div class="term">tradition</div><div class="en-name">Sampradaya</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">सम्प्रदाय</span><span class="sa-iast">sampradāya</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಸಂಪ್ರದಾಯ</span></div><div class="meaning"><span class="en">A named lineage of practice &mdash; e.g. Smarta or Vaishnava &mdash; each of which can apply its own viddha rule to the same underlying tithi timing.</span><span class="sa">आचारस्य नामाङ्कितः परम्परा — यथा स्मार्तः वैष्णवः वा — प्रत्येकः स्वकीयं विद्ध-नियमं तस्मै एव तिथिकालाय प्रयुङ्क्ते।</span><span class="kn">ಆಚರಣೆಯ ಹೆಸರಿನ ಪರಂಪರೆ — ಉದಾಹರಣೆಗೆ ಸ್ಮಾರ್ತ ಅಥವಾ ವೈಷ್ಣವ — ಪ್ರತಿಯೊಂದೂ ಅದೇ ತಿಥಿ ಸಮಯಕ್ಕೆ ತನ್ನದೇ ವಿದ್ಧ ನಿಯಮವನ್ನು ಅನ್ವಯಿಸಬಹುದು.</span></div></div>
+<div class="card"><div class="term">combination</div><div class="en-name">Yoga</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">योग</span><span class="sa-iast">yoga</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಯೋಗ</span></div><div class="meaning"><span class="en">A named coincidence of conditions, e.g. Guru Pushya Yoga = Thursday falling on Pushya nakshatra.</span><span class="sa">नामाङ्कितः परिस्थितीनां सुयोगः, यथा गुरुपुष्ययोगः = गुरुवासरः पुष्यनक्षत्रेण सह।</span><span class="kn">ಷರತ್ತುಗಳ ಹೆಸರಿನ ಕಾಕತಾಳೀಯ, ಉದಾಹರಣೆಗೆ ಗುರು ಪುಷ್ಯ ಯೋಗ = ಗುರುವಾರ ಪುಷ್ಯ ನಕ್ಷತ್ರದೊಂದಿಗೆ ಬರುವುದು.</span></div></div>
+<div class="card"><div class="term">solar transit</div><div class="en-name">Sankranti</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">सङ्क्रान्ति</span><span class="sa-iast">saṅkrānti</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಸಂಕ್ರಾಂತಿ</span></div><div class="meaning"><span class="en">The Sun's move from one rashi into the next.</span><span class="sa">रवेः एकस्माद् राशेः अन्यं राशिं प्रति गमनम्।</span><span class="kn">ಸೂರ್ಯ ಒಂದು ರಾಶಿಯಿಂದ ಇನ್ನೊಂದು ರಾಶಿಗೆ ಚಲಿಸುವುದು.</span></div></div>
+<div class="card"><div class="term">solstice / equinox</div><div class="en-name">Ayana &amp; Vishuva</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">अयन / विषुव</span><span class="sa-iast">ayana / viṣuva</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಅಯನ / ವಿಷುವ</span></div><div class="meaning"><span class="en">Ayana = the Sun's northward/southward turning point (solstice). Vishuva = day and night of equal length (equinox).</span><span class="sa">अयनम् = रवेः उत्तर-दक्षिण-परावर्तनबिन्दुः। विषुवम् = समरात्रिन्दिवम्।</span><span class="kn">ಅಯನ = ಸೂರ್ಯ ಉತ್ತರ/ದಕ್ಷಿಣಕ್ಕೆ ತಿರುಗುವ ಬಿಂದು. ವಿಷುವ = ಹಗಲು-ರಾತ್ರಿ ಸಮಾನ ಉದ್ದವಿರುವ ದಿನ.</span></div></div>
+<div class="card"><div class="term">eclipse</div><div class="en-name">Grahana</div><div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">ग्रहण</span><span class="sa-iast">grahaṇa</span></span></div><div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಗ್ರಹಣ</span></div><div class="meaning"><span class="en">A solar or lunar eclipse &mdash; not yet computed anywhere in this project.</span><span class="sa">सूर्यग्रहणं चन्द्रग्रहणं वा — अस्मिन् प्रकल्पे अद्यापि कुत्रापि न गणितम्।</span><span class="kn">ಸೂರ್ಯ ಅಥವಾ ಚಂದ್ರ ಗ್ರಹಣ — ಈ ಯೋಜನೆಯಲ್ಲಿ ಇನ್ನೂ ಎಲ್ಲಿಯೂ ಲೆಕ್ಕಿಸಿಲ್ಲ.</span></div></div></div>
+
+    <h2><span class="en">Code variable &rarr; term, direct</span><span class="sa">कोडचरात् शब्दं प्रति, साक्षात्</span><span class="kn">ಕೋಡ್ ವೇರಿಯೇಬಲ್ &rarr; ಪದ, ನೇರವಾಗಿ</span></h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th><span class="en">In the code</span><span class="sa">कोडे</span><span class="kn">ಕೋಡ್‌ನಲ್ಲಿ</span></th><th><span class="en">Sanskrit term</span><span class="sa">संस्कृतशब्दः</span><span class="kn">ಸಂಸ್ಕೃತ ಪದ</span></th><th><span class="en">What it is</span><span class="sa">किमेतत्</span><span class="kn">ಇದು ಏನು</span></th></tr></thead>
+      <tbody><tr><td><code>m</code></td><td class="sa-cell">Ahargaṇa</td><td><span class="en">Elapsed days &mdash; the only real input.</span><span class="sa">गताः दिनाः — एकः वास्तविकः निवेशः।</span><span class="kn">ಕಳೆದ ದಿನಗಳು — ನಿಜವಾದ ಒಂದೇ ಇನ್‌ಪುಟ್.</span></td></tr>
+<tr><td><code>rm, rm1</code></td><td class="sa-cell">Ravi Madhya</td><td><span class="en">Sun's mean longitude.</span><span class="sa">रवेः मध्यरेखांशः।</span><span class="kn">ಸೂರ್ಯನ ಸರಾಸರಿ ರೇಖಾಂಶ.</span></td></tr>
+<tr><td><code>rmc, rmc1</code></td><td class="sa-cell">Ravi Kendra</td><td><span class="en">Sun's anomaly (angle from apogee).</span><span class="sa">रवेः केन्द्रम् (उच्चात् कोणः)।</span><span class="kn">ಸೂರ್ಯನ ಅನಾಮಲಿ (ಉಚ್ಚದಿಂದ ಕೋನ).</span></td></tr>
+<tr><td><code>rma</code></td><td class="sa-cell">(kendra, folded)</td><td><span class="en">Sun's anomaly folded into the first quadrant, for the sine-table lookup.</span><span class="sa">ज्यासारणीलेखनार्थं प्रथमपादे स्थापितं रविकेन्द्रम्।</span><span class="kn">ಜ್ಯಾ-ಕೋಷ್ಟಕ ಲುಕಪ್‌ಗಾಗಿ ಮೊದಲ ಪಾದಕ್ಕೆ ಮಡಚಿದ ಸೂರ್ಯನ ಅನಾಮಲಿ.</span></td></tr>
+<tr><td><code>rmp, rmp1</code></td><td class="sa-cell">Ravi Mandaphala</td><td><span class="en">Sun's equation-of-center correction.</span><span class="sa">रवेः मन्दफलसंस्कारः।</span><span class="kn">ಸೂರ್ಯನ ಮಂದಫಲ ತಿದ್ದುಪಡಿ.</span></td></tr>
+<tr><td><code>msr, msr1</code></td><td class="sa-cell">Manda-sphuta Ravi</td><td><span class="en">Sun's corrected ("true") longitude.</span><span class="sa">रवेः संशोधितः ("स्फुटः") रेखांशः।</span><span class="kn">ಸೂರ್ಯನ ತಿದ್ದುಪಡಿ ಮಾಡಿದ ("ನಿಜ") ರೇಖಾಂಶ.</span></td></tr>
+<tr><td><code>rg</code></td><td class="sa-cell">Ravi Gati</td><td><span class="en">Sun's daily motion.</span><span class="sa">रवेः दैनन्दिनगतिः।</span><span class="kn">ಸೂರ್ಯನ ದೈನಂದಿನ ಚಲನೆ.</span></td></tr>
+<tr><td><code>ay</code></td><td class="sa-cell">Ayanāṃśa</td><td><span class="en">The precession offset.</span><span class="sa">अयनांशः।</span><span class="kn">ಅಯನಾಂಶ.</span></td></tr>
+<tr><td><code>cm, cm1</code></td><td class="sa-cell">Chandra Madhya</td><td><span class="en">Moon's mean longitude.</span><span class="sa">चन्द्रस्य मध्यरेखांशः।</span><span class="kn">ಚಂದ್ರನ ಸರಾಸರಿ ರೇಖಾಂಶ.</span></td></tr>
+<tr><td><code>cu, cu1</code></td><td class="sa-cell">Chandra Uchcha</td><td><span class="en">Moon's apogee.</span><span class="sa">चन्द्रस्य उच्चः।</span><span class="kn">ಚಂದ್ರನ ಉಚ್ಚ.</span></td></tr>
+<tr><td><code>cmc1</code></td><td class="sa-cell">Chandra Kendra</td><td><span class="en">Moon's anomaly.</span><span class="sa">चन्द्रस्य केन्द्रम्।</span><span class="kn">ಚಂದ್ರನ ಅನಾಮಲಿ.</span></td></tr>
+<tr><td><code>cma</code></td><td class="sa-cell">(kendra, folded)</td><td><span class="en">Moon's anomaly folded into the first quadrant.</span><span class="sa">प्रथमपादे स्थापितं चन्द्रकेन्द्रम्।</span><span class="kn">ಮೊದಲ ಪಾದಕ್ಕೆ ಮಡಚಿದ ಚಂದ್ರನ ಅನಾಮಲಿ.</span></td></tr>
+<tr><td><code>cmp, cmpa</code></td><td class="sa-cell">Chandra Mandaphala</td><td><span class="en">Moon's equation-of-center correction.</span><span class="sa">चन्द्रस्य मन्दफलसंस्कारः।</span><span class="kn">ಚಂದ್ರನ ಮಂದಫಲ ತಿದ್ದುಪಡಿ.</span></td></tr>
+<tr><td><code>msc, msc1</code></td><td class="sa-cell">Manda-sphuta Chandra</td><td><span class="en">Moon's corrected longitude.</span><span class="sa">चन्द्रस्य संशोधितः रेखांशः।</span><span class="kn">ಚಂದ್ರನ ತಿದ್ದುಪಡಿ ಮಾಡಿದ ರೇಖಾಂಶ.</span></td></tr>
+<tr><td><code>cg</code></td><td class="sa-cell">Chandra Gati</td><td><span class="en">Moon's daily motion.</span><span class="sa">चन्द्रस्य दैनन्दिनगतिः।</span><span class="kn">ಚಂದ್ರನ ದೈನಂದಿನ ಚಲನೆ.</span></td></tr>
+<tr><td><code>ssr</code></td><td class="sa-cell">Sāyana-sphuṭa Ravi</td><td><span class="en">Sun's tropical true longitude.</span><span class="sa">रवेः साधनस्फुटरेखांशः।</span><span class="kn">ಸೂರ್ಯನ ಸಾಯನ ನಿಜ ರೇಖಾಂಶ.</span></td></tr>
+<tr><td><code>chk, chkr, chkc</code></td><td class="sa-cell">Cara-khaṇḍa</td><td><span class="en">The latitude-dependent time correction, and its Sun/Moon longitude equivalents.</span><span class="sa">अक्षांशाश्रितः कालसंस्कारः, तस्य रवि-चन्द्र-रेखांशसमतुल्यौ च।</span><span class="kn">ಅಕ್ಷಾಂಶ-ಆಧಾರಿತ ಸಮಯ ತಿದ್ದುಪಡಿ, ಮತ್ತು ಅದರ ಸೂರ್ಯ/ಚಂದ್ರ ರೇಖಾಂಶ ಸಮಾನಗಳು.</span></td></tr>
+<tr><td><code>rs</code></td><td class="sa-cell">Ravi Sphuṭa</td><td><span class="en">Sun's final apparent longitude.</span><span class="sa">रवेः अन्तिमः दृश्यरेखांशः।</span><span class="kn">ಸೂರ್ಯನ ಅಂತಿಮ ಸ್ಫುಟ ರೇಖಾಂಶ.</span></td></tr>
+<tr><td><code>cs</code></td><td class="sa-cell">Chandra Sphuṭa</td><td><span class="en">Moon's final apparent longitude &mdash; the variable at the center of the nakshatra out-of-bounds bug.</span><span class="sa">चन्द्रस्य अन्तिमः दृश्यरेखांशः — नक्षत्रदोषस्य केन्द्रस्थं चरम्।</span><span class="kn">ಚಂದ್ರನ ಅಂತಿಮ ಸ್ಫುಟ ರೇಖಾಂಶ — ನಕ್ಷತ್ರ ದೋಷದ ಕೇಂದ್ರದಲ್ಲಿರುವ ವೇರಿಯೇಬಲ್.</span></td></tr>
+<tr><td><code>vya</code></td><td class="sa-cell">not a standard term</td><td><span class="en">Elongation (Moon minus Sun longitude). Looks like the author's own shorthand, not classical vocabulary.</span><span class="sa">वियोगकोणः। लेखकस्य स्वकीयः सङ्क्षेपः प्रतीयते, न तु शास्त्रीयशब्दः।</span><span class="kn">ವಿಯೋಗ (ಚಂದ್ರನ ರೇಖಾಂಶ ಮೈನಸ್ ಸೂರ್ಯನ ರೇಖಾಂಶ). ಇದು ಲೇಖಕರ ಸ್ವಂತ ಸಂಕ್ಷಿಪ್ತ ರೂಪ, ಶಾಸ್ತ್ರೀಯ ಪದವಲ್ಲ.</span></td></tr>
+<tr><td><code>vyg</code></td><td class="sa-cell">not a standard term</td><td><span class="en">Relative daily motion (Moon's gati minus Sun's gati).</span><span class="sa">सापेक्षा दैनन्दिनगतिः (चन्द्रगतेः रविगतेः अन्तरम्)।</span><span class="kn">ಸಾಪೇಕ್ಷ ದೈನಂದಿನ ಚಲನೆ (ಚಂದ್ರಗತಿ ಮೈನಸ್ ರವಿಗತಿ).</span></td></tr>
+<tr><td><code>esh</code></td><td class="sa-cell">Śeṣa</td><td><span class="en">Remaining amount (of the current tithi or nakshatra).</span><span class="sa">शेषमात्रा।</span><span class="kn">ಬಾಕಿ ಇರುವ ಪ್ರಮಾಣ.</span></td></tr>
+<tr><td><code>no_tithi</code></td><td class="sa-cell">&mdash;</td><td><span class="en">Tithi index, 1-30.</span><span class="sa">तिथिसूचिः, १-३०।</span><span class="kn">ತಿಥಿ ಸೂಚಿ, 1-30.</span></td></tr>
+<tr><td><code>th, thig</code></td><td class="sa-cell">&mdash;</td><td><span class="en">Remaining tithi time, in ghatika / vighatika.</span><span class="sa">शेषतिथिकालः, घटिका/विघटिकामाने।</span><span class="kn">ಬಾಕಿ ತಿಥಿ ಸಮಯ, ಘಟಿಕಾ/ವಿಘಟಿಕಾದಲ್ಲಿ.</span></td></tr>
+<tr><td><code>upthi</code></td><td class="sa-cell">Upa-tithi</td><td><span class="en">The next tithi's duration, reported when relevant.</span><span class="sa">अग्रिमायाः तिथेः कालावधिः।</span><span class="kn">ಮುಂದಿನ ತಿಥಿಯ ಅವಧಿ.</span></td></tr>
+<tr><td><code>no_naks</code></td><td class="sa-cell">&mdash;</td><td><span class="en">Nakshatra index, 1-27.</span><span class="sa">नक्षत्रसूचिः, १-२७।</span><span class="kn">ನಕ್ಷತ್ರ ಸೂಚಿ, 1-27.</span></td></tr>
+<tr><td><code>nak, nakg</code></td><td class="sa-cell">&mdash;</td><td><span class="en">Remaining nakshatra time, in ghatika / vighatika.</span><span class="sa">शेषनक्षत्रकालः, घटिका/विघटिकामाने।</span><span class="kn">ಬಾಕಿ ನಕ್ಷತ್ರ ಸಮಯ, ಘಟಿಕಾ/ವಿಘಟಿಕಾದಲ್ಲಿ.</span></td></tr>
+<tr><td><code>drv, drvn</code></td><td class="sa-cell">not a standard term</td><td><span class="en">Unused in EXP.C. In EKADHASI.C, hand-picked target elongation values &mdash; author's own shorthand, not classical vocabulary.</span><span class="sa">EXP.C इत्यत्र अनुपयुक्तम्। EKADHASI.C इत्यत्र हस्तचितानि लक्ष्यवियोगमूल्यानि।</span><span class="kn">EXP.C ನಲ್ಲಿ ಬಳಕೆಯಿಲ್ಲ. EKADHASI.C ನಲ್ಲಿ, ಕೈಯಾರೆ ಆಯ್ಕೆ ಮಾಡಿದ ಗುರಿ ವಿಯೋಗ ಮೌಲ್ಯಗಳು.</span></td></tr></tbody>
+    </table></div>
+
+    <h2><span class="en">Modern engineering terms</span><span class="sa">आधुनिक-अभियान्त्रिकीशब्दाः</span><span class="kn">ಆಧುನಿಕ ಎಂಜಿನಿಯರಿಂಗ್ ಪದಗಳು</span></h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th><span class="en">Sanskrit term</span><span class="sa">संस्कृतशब्दः</span><span class="kn">ಸಂಸ್ಕೃತ ಪದ</span></th><th><span class="en">Plain-language meaning</span><span class="sa">सरलार्थः</span><span class="kn">ಸರಳ ಅರ್ಥ</span></th></tr></thead>
+      <tbody><tr><td>Ephemeris</td><td><span class="en">A table (traditionally) or software (today) that tells you exactly where a planet or the Moon was, is, or will be, at any given moment. EXP.C's jya/manda-phala tables and hand-fit constants are effectively a tiny, low-accuracy ephemeris baked into the code, calibrated to one unstated era and place; a real ephemeris library replaces all of that.</span><span class="sa">पारम्परिकरूपेण सारणी, अद्यत्वे सॉफ्ट्वेयर् — यत् कस्मिन्नपि क्षणे ग्रहस्य चन्द्रस्य वा स्थानं यथार्थतया ज्ञापयति। EXP.C इत्यस्य jya/मन्दफलसारण्यः तथा हस्तसमायोजिताः स्थिराङ्काः वस्तुतः लघु, न्यूनयथार्थतासम्पन्नं कोडे एव निबद्धं एकम् एफेमेरिस्; वास्तविकं एफेमेरिस्-पुस्तकालयं सर्वम् एतत् प्रतिस्थापयति।</span><span class="kn">ಒಂದು ಗ್ರಹ ಅಥವಾ ಚಂದ್ರ ಯಾವಾಗ ಎಲ್ಲಿತ್ತು/ಇದೆ/ಇರುತ್ತದೆ ಎಂದು ನಿಖರವಾಗಿ ಹೇಳುವ ಕೋಷ್ಟಕ ಅಥವಾ ಸಾಫ್ಟ್‌ವೇರ್. EXP.C ನ jya/ಮಂದಫಲ ಕೋಷ್ಟಕಗಳು ಮತ್ತು ಕೈಯಾರೆ ಹೊಂದಿಸಿದ ಸ್ಥಿರಾಂಕಗಳು ವಾಸ್ತವವಾಗಿ ಒಂದು ಸಣ್ಣ, ಕಡಿಮೆ-ನಿಖರತೆಯ, ಕೋಡ್‌ನಲ್ಲೇ ಹುದುಗಿಸಿದ ಎಫೆಮೆರಿಸ್; ನಿಜವಾದ ಎಫೆಮೆರಿಸ್ ಲೈಬ್ರರಿ ಇದೆಲ್ಲವನ್ನೂ ಬದಲಾಯಿಸುತ್ತದೆ.</span></td></tr>
+<tr><td>Swiss Ephemeris</td><td><span class="en">The specific modern software library (pyswisseph) this project now uses to get accurate Sun/Moon positions, replacing the old code's approximation tables.</span><span class="sa">अस्मिन् प्रकल्पे अधुना प्रयुक्तः विशिष्टः आधुनिकः सॉफ्ट्वेयर्-पुस्तकालयः (pyswisseph), यः यथार्थं रवि-चन्द्रस्थानं ददाति।</span><span class="kn">ಈ ಯೋಜನೆಯಲ್ಲಿ ಈಗ ಬಳಸುತ್ತಿರುವ ನಿರ್ದಿಷ್ಟ ಆಧುನಿಕ ಸಾಫ್ಟ್‌ವೇರ್ ಲೈಬ್ರರಿ (pyswisseph), ಇದು ಹಳೆಯ ಕೋಡ್‌ನ ಬದಲಿಗೆ ನಿಖರವಾದ ಸೂರ್ಯ/ಚಂದ್ರ ಸ್ಥಾನಗಳನ್ನು ನೀಡುತ್ತದೆ.</span></td></tr>
+<tr><td>Sidereal / Tropical</td><td><span class="en">Same distinction as Nirayana/Sayana above, just the English astronomy names for it.</span><span class="sa">उपरि उक्तयोः निरयण-सायनयोः एव भेदः, केवलं आङ्ग्लखगोलशास्त्रस्य नाम्ना।</span><span class="kn">ಮೇಲೆ ಹೇಳಿದ ನಿರಯಣ/ಸಾಯನದ ಅದೇ ವ್ಯತ್ಯಾಸ, ಕೇವಲ ಇಂಗ್ಲಿಷ್ ಖಗೋಳಶಾಸ್ತ್ರದ ಹೆಸರಿನಲ್ಲಿ.</span></td></tr>
+<tr><td>Julian Day</td><td><span class="en">A single running day-count astronomers use, similar in spirit to Ahargana but starting from a different (more recent) point.</span><span class="sa">खगोलज्ञैः प्रयुक्ता एका सतता दिनगणना, अहर्गणस्य समानभावेन किन्तु अन्यस्मात् बिन्दोः आरब्धा।</span><span class="kn">ಖಗೋಳಶಾಸ್ತ್ರಜ್ಞರು ಬಳಸುವ ಒಂದು ನಿರಂತರ ದಿನಗಳ ಎಣಿಕೆ, ಅಹರ್ಗಣದಂತೆಯೇ ಆದರೆ ಬೇರೆ ಬಿಂದುವಿನಿಂದ ಆರಂಭವಾಗುತ್ತದೆ.</span></td></tr>
+<tr><td>Elongation</td><td><span class="en">The angular distance between two bodies &mdash; here, Moon minus Sun &mdash; the one number that determines the tithi.</span><span class="sa">द्वयोः ग्रहयोः मध्ये कोणदूरता — तिथिं निर्धारयति यत् एकं मानम्।</span><span class="kn">ಎರಡು ಗ್ರಹಗಳ ನಡುವಿನ ಕೋನದ ಅಂತರ — ತಿಥಿಯನ್ನು ನಿರ್ಧರಿಸುವ ಒಂದೇ ಸಂಖ್ಯೆ.</span></td></tr>
+<tr><td>Bisection</td><td><span class="en">A simple way to pin down the exact moment something happens (like a tithi boundary) by repeatedly narrowing a time window in half.</span><span class="sa">कस्यचित् घटनायाः यथार्थक्षणं ज्ञातुं सरलः उपायः — कालखण्डं पुनः पुनः अर्धीकृत्य सङ्कोचयति।</span><span class="kn">ಯಾವುದೋ ಘಟನೆ ನಿಖರವಾಗಿ ಯಾವಾಗ ಸಂಭವಿಸುತ್ತದೆ ಎಂದು ಕಂಡುಹಿಡಿಯುವ ಸರಳ ವಿಧಾನ — ಸಮಯದ ವ್ಯಾಪ್ತಿಯನ್ನು ಮತ್ತೆ ಮತ್ತೆ ಅರ್ಧಕ್ಕೆ ಇಳಿಸುತ್ತಾ ಹೋಗುವುದು.</span></td></tr>
+<tr><td>API / CLI</td><td><span class="en">Ways of operating a program. An API is how one program asks another to do something; a CLI ("command-line interface") is how a person types a command to run a program directly.</span><span class="sa">प्रोग्राम् चालनस्य उपायौ। API इति एकः प्रोग्राम् अन्यं किमपि कर्तुं याचते इति रीतिः; CLI इति मनुष्यः स्वयं आदेशं टङ्कयित्वा प्रोग्राम् साक्षात् चालयति इति रीतिः।</span><span class="kn">ಒಂದು ಪ್ರೋಗ್ರಾಂ ಅನ್ನು ಕಾರ್ಯಗತಗೊಳಿಸುವ ವಿಧಾನಗಳು. API ಎಂದರೆ ಒಂದು ಪ್ರೋಗ್ರಾಂ ಇನ್ನೊಂದನ್ನು ಏನಾದರೂ ಮಾಡಲು ಕೇಳುವ ವಿಧಾನ; CLI ಎಂದರೆ ವ್ಯಕ್ತಿ ಸ್ವತಃ ಆಜ್ಞೆ ಟೈಪ್ ಮಾಡಿ ಪ್ರೋಗ್ರಾಂ ಚಲಾಯಿಸುವ ವಿಧಾನ.</span></td></tr>
+<tr><td>Lahiri (ayanamsha)</td><td><span class="en">One specific, government-adopted value for the ayanamsha &mdash; there are a few competing ones, and which is used changes some dates slightly.</span><span class="sa">अयनांशस्य एकः विशिष्टः, शासनेन स्वीकृतः मान्यता — अन्ये स्पर्धमानाः अपि सन्ति।</span><span class="kn">ಅಯನಾಂಶಕ್ಕಾಗಿ ಸರ್ಕಾರ ಅಂಗೀಕರಿಸಿದ ಒಂದು ನಿರ್ದಿಷ್ಟ ಮೌಲ್ಯ — ಸ್ಪರ್ಧಿಸುವ ಇನ್ನೂ ಕೆಲವು ಇವೆ.</span></td></tr></tbody>
+    </table></div>
+  </section>
+
+  <footer><span class="en">Companion files in the ShriBuddhi repository, branch claude/ekadashi-tithi-code-analysis-mmqm89: tools/panchanga/docs/annotated_exp_c.md and SPEC.md.</span><span class="sa">ShriBuddhi सङ्ग्रहे (शाखा: claude/ekadashi-tithi-code-analysis-mmqm89) सहायकसञ्चिकाः: tools/panchanga/docs/annotated_exp_c.md तथा SPEC.md</span><span class="kn">ShriBuddhi ರೆಪೊಸಿಟರಿಯಲ್ಲಿ (branch: claude/ekadashi-tithi-code-analysis-mmqm89) ಸಹಾಯಕ ಫೈಲುಗಳು: tools/panchanga/docs/annotated_exp_c.md ಮತ್ತು SPEC.md</span></footer>
+</div>
+
+<script>
+(function() {
+  var page = document.getElementById('page');
+  var langBtns = document.querySelectorAll('.langbtn');
+  var tabBtns = document.querySelectorAll('.tabbtn');
+  var panelCode = document.getElementById('panel-code');
+  var panelGloss = document.getElementById('panel-gloss');
+
+  function setLang(lang) {
+    page.setAttribute('data-lang', lang);
+    langBtns.forEach(function(b) { b.classList.toggle('active', b.dataset.lang === lang); });
+    try { localStorage.setItem('panchanga-ref-lang', lang); } catch (e) {}
+  }
+  function setTab(tab) {
+    tabBtns.forEach(function(b) { b.classList.toggle('active', b.dataset.tab === tab); });
+    panelCode.hidden = (tab !== 'code');
+    panelGloss.hidden = (tab !== 'gloss');
+    try { localStorage.setItem('panchanga-ref-tab', tab); } catch (e) {}
+  }
+  langBtns.forEach(function(b) { b.addEventListener('click', function() { setLang(b.dataset.lang); }); });
+  tabBtns.forEach(function(b) { b.addEventListener('click', function() { setTab(b.dataset.tab); }); });
+
+  try {
+    var savedLang = localStorage.getItem('panchanga-ref-lang');
+    if (savedLang) setLang(savedLang);
+    var savedTab = localStorage.getItem('panchanga-ref-tab');
+    if (savedTab) setTab(savedTab);
+  } catch (e) {}
+})();
+</script>
