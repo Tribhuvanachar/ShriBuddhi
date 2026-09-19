@@ -79,6 +79,33 @@ def longest_novel_run(out: str, have: set, n: int) -> str:
     return best
 
 
+FORBIDDEN_REASONS = ("metre", "meter", "metri", "chandas", "छन्द",
+                     "rhyme", "scans", "syllable count")
+
+
+def bad_emendations(page):
+    """Emendations that fail on their own terms, before anyone reads the text.
+
+    Two kinds, both found in the 19 Sep 2026 run:
+
+    no-op     `from` and `to` identical -- a change declared where nothing
+              changed. Harmless to the text, but it inflates the count a
+              reviewer is budgeting against and hides among real ones.
+    forbidden the stated reason cites metre, which the prompt lists as NOT a
+              warrant precisely because "the metre wants a syllable here" is
+              how a plausible conjecture gets written into scripture.
+    """
+    out = []
+    for e in (page.get("emendations") or []):
+        frm, to = (e.get("from") or "").strip(), (e.get("to") or "").strip()
+        why = (e.get("why") or "").lower()
+        if frm == to:
+            out.append(("no-op", e))
+        elif any(w in why for w in FORBIDDEN_REASONS):
+            out.append(("reason is metre", e))
+    return out
+
+
 def declared(page) -> str:
     """Everything the model said it changed, as one blob to match against.
 
@@ -115,6 +142,8 @@ def check(resolved, sources, n=4, max_novel=0.03, min_run=8):
             "confidence": p.get("confidence"),
             "emendations": len(p.get("emendations") or []),
             "warrants": [e.get("warrant") for e in (p.get("emendations") or [])],
+            "bad_emendations": [(k, e.get("from"), e.get("to"))
+                                for k, e in bad_emendations(p)],
             "suspects": len(p.get("suspects") or []),
             "prose_run": prose,
             # Only a novel run of pure letters is reported as invention.
@@ -167,6 +196,13 @@ def main(argv=None) -> int:
             print("%-30s %6s %6.1f%% %5s  %s"
                   % (r["work"][:30], r["page"], 100 * r["novel_share"],
                      r["confidence"], r["longest_novel_run"][:40]))
+    bad = [(r["work"], r["page"], k, f, t)
+           for r in rows for (k, f, t) in r.get("bad_emendations") or []]
+    if bad:
+        print("\n%d emendation(s) fail on their own terms:" % len(bad))
+        for work, page, kind, f, t in bad[:12]:
+            print("  %-24s p%-5s %-16s %s -> %s"
+                  % (str(work)[:24], page, kind, (f or "")[:20], (t or "")[:20]))
     if warrants:
         # Printed by kind, because the mix is the signal. A run that is all
         # `internal` is not a careful run -- it is a run with nowhere else to
