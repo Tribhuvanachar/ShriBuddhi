@@ -1,0 +1,376 @@
+<title>Panchanga Glossary</title>
+<style>
+:root {
+  --bg: #EDE3CE;
+  --surface: #FBF6EC;
+  --surface-2: #E4D7BB;
+  --border: #C9B98F;
+  --text: #2A2013;
+  --text-muted: #6B5D42;
+  --sa: #A0341F;      /* Sanskrit accent -- manuscript rubrication red */
+  --sa-bg: #F7E4DD;
+  --ka: #274B7A;      /* Kannada accent -- indigo */
+  --ka-bg: #DFE7F2;
+  --code-bg: #2A2013;
+  --code-text: #EDE3CE;
+  --code-accent: #E0B863;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1B1710;
+    --surface: #241F16;
+    --surface-2: #322A1B;
+    --border: #4A3F29;
+    --text: #EFE6D3;
+    --text-muted: #B8A987;
+    --sa: #E08A6E;
+    --sa-bg: #3A2119;
+    --ka: #86A9DD;
+    --ka-bg: #1C2A3D;
+    --code-bg: #0F0D08;
+    --code-text: #EFE6D3;
+    --code-accent: #E0B863;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1B1710;
+  --surface: #241F16;
+  --surface-2: #322A1B;
+  --border: #4A3F29;
+  --text: #EFE6D3;
+  --text-muted: #B8A987;
+  --sa: #E08A6E;
+  --sa-bg: #3A2119;
+  --ka: #86A9DD;
+  --ka-bg: #1C2A3D;
+  --code-bg: #0F0D08;
+  --code-text: #EFE6D3;
+  --code-accent: #E0B863;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); padding-inline: 16px;
+  font-family: "Source Serif 4", Georgia, serif; }
+.wrap { max-width: 900px; margin: 0 auto; padding-block: 40px 90px; }
+
+h1 { font-family: "Fraunces", Georgia, serif; font-weight: 600; letter-spacing: -0.01em;
+  font-size: clamp(1.7rem, 5vw, 2.5rem); margin: 0 0 8px; text-wrap: balance; }
+h2 { font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 1.3rem;
+  margin: 46px 0 6px; padding-top: 10px; border-top: 2px solid var(--border); }
+h2 small { display: block; font-family: "Source Serif 4", serif; font-weight: 400;
+  font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+p { line-height: 1.65; max-width: 68ch; }
+.lede { color: var(--text-muted); font-size: 1.05rem; margin-top: 0; }
+
+.notice {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  padding: 16px 18px; margin: 22px 0; font-size: 0.92rem; line-height: 1.6;
+}
+.notice b { color: var(--sa); }
+.notice code { font-family: "JetBrains Mono", monospace; background: var(--surface-2);
+  padding: 1px 5px; border-radius: 4px; font-size: 0.88em; }
+
+.key {
+  display: flex; gap: 18px; flex-wrap: wrap; margin: 14px 0 8px; font-size: 0.85rem;
+}
+.key span { display: inline-flex; align-items: center; gap: 6px; }
+.key i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 16px; }
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 14px 16px 16px;
+}
+.card .term {
+  font-family: "JetBrains Mono", monospace; font-size: 0.72rem; letter-spacing: 0.03em;
+  text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px;
+}
+.card .en { font-family: "Fraunces", serif; font-weight: 600; font-size: 1.05rem; margin-bottom: 10px; }
+.lang-row { display: grid; grid-template-columns: 34px 1fr; gap: 8px; align-items: baseline; margin-bottom: 6px; }
+.lang-tag {
+  font-family: "JetBrains Mono", monospace; font-size: 0.68rem; font-weight: 700;
+  border-radius: 5px; text-align: center; padding: 2px 0; align-self: start; margin-top: 3px;
+}
+.lang-tag.sa { background: var(--sa-bg); color: var(--sa); }
+.lang-tag.ka { background: var(--ka-bg); color: var(--ka); }
+.sa-text { font-family: "Noto Serif Devanagari", "Source Serif 4", serif; font-size: 1.15rem; color: var(--sa); }
+.sa-iast { font-family: "Source Serif 4", serif; font-style: italic; font-size: 0.88rem; color: var(--text-muted); margin-left: 6px; }
+.ka-text { font-family: "Noto Serif Kannada", "Source Serif 4", serif; font-size: 1.1rem; color: var(--ka); }
+.meaning { font-size: 0.92rem; margin-top: 8px; line-height: 1.55; }
+.meaning.flagged { color: var(--text-muted); font-style: italic; }
+
+.table-wrap { overflow-x: auto; margin: 18px 0 8px; border: 1px solid var(--border); border-radius: 12px; }
+table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 0.88rem; }
+thead th {
+  text-align: left; padding: 10px 14px; background: var(--surface-2);
+  font-family: "Fraunces", serif; font-weight: 600; font-size: 0.82rem;
+}
+tbody td { padding: 9px 14px; border-top: 1px solid var(--border); vertical-align: top; }
+tbody code { font-family: "JetBrains Mono", monospace; background: var(--code-bg); color: var(--code-accent);
+  padding: 1px 6px; border-radius: 5px; font-size: 0.85em; }
+tbody tr:hover { background: var(--surface); }
+.sa-cell { color: var(--sa); }
+.unresolved { color: var(--text-muted); font-style: italic; }
+
+footer { margin-top: 56px; padding-top: 18px; border-top: 1px solid var(--border);
+  color: var(--text-muted); font-size: 0.85rem; line-height: 1.6; }
+</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&family=Noto+Serif+Devanagari:wght@400;600&family=Noto+Serif+Kannada:wght@400;600&display=swap">
+
+<div class="wrap">
+  <h1>Panchanga Glossary</h1>
+  <p class="lede">Every Sanskrit term, code abbreviation, and modern
+  astronomy word used across the EXP.C annotation and the panchanga
+  engine &mdash; in English, Sanskrit (Devan&#257;gar&#299; + IAST), and
+  Kannada.</p>
+
+  <div class="notice">
+    <b>Two things before you rely on this:</b><br><br>
+    1. I read &ldquo;Canada language&rdquo; as <b>Kannada (&#3221;&#3240;&#3277;&#3277;&#3260;)</b>
+    &mdash; the code's own naming (<code>pubba</code>, <code>makha</code>,
+    <code>sapthami</code>) matches Karnataka panchanga usage, so that's a
+    near-certain read. Say so if you meant something else.<br><br>
+    2. I couldn't place &ldquo;FMRA&rdquo; exactly. My two best guesses are
+    <code>rma</code> (a code variable &mdash; see the table near the bottom)
+    or &ldquo;ephemeris&rdquo; (a term from our last conversation &mdash;
+    see the last section). Both are covered below. Tell me exactly where
+    you saw it and I'll add the real one.<br><br>
+    These Sanskrit and Kannada renderings are my best effort, not a
+    pandit's or a linguist's. The common sastric terms (tithi, nakshatra,
+    ayanamsha, ekadashi, and so on) are standard and I'm confident in them;
+    a few code-only abbreviations have no real Sanskrit source at all, and
+    I've marked those honestly rather than inventing one.
+  </div>
+
+  <div class="key">
+    <span><i style="background:var(--sa-bg);border:1px solid var(--sa)"></i> Sanskrit</span>
+    <span><i style="background:var(--ka-bg);border:1px solid var(--ka)"></i> Kannada</span>
+  </div>
+
+  <h2>Core concepts<small>the vocabulary everything else is built from</small></h2>
+  <div class="cards">
+
+    <div class="card"><div class="term">day-count</div><div class="en">Ahargaṇa</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">अहर्गण</span><span class="sa-iast">ahargaṇa</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಅಹರ್ಗಣ</span></div>
+      <div class="meaning">&ldquo;Count of days&rdquo; &mdash; days elapsed since a fixed starting point, used instead of a calendar date. The one number this whole calculation runs on.</div></div>
+
+    <div class="card"><div class="term">lunar day</div><div class="en">Tithi</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">तिथि</span><span class="sa-iast">tithi</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ತಿಥಿ</span></div>
+      <div class="meaning">One of 30 tithis in a lunar month &mdash; each a 12&deg; step of the Moon getting ahead of the Sun. Ekadashi is tithi #11 and #26.</div></div>
+
+    <div class="card"><div class="term">lunar mansion</div><div class="en">Nakshatra</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">नक्षत्र</span><span class="sa-iast">nakṣatra</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ನಕ್ಷತ್ರ</span></div>
+      <div class="meaning">One of 27 equal slices of sky the Moon passes through, about one per day.</div></div>
+
+    <div class="card"><div class="term">zodiac sign</div><div class="en">Rashi</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">राशि</span><span class="sa-iast">rāśi</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ರಾಶಿ</span></div>
+      <div class="meaning">One of 12 equal 30&deg; slices of the sky. In the code, also used loosely as a unit of angle (&ldquo;in rashi units&rdquo;).</div></div>
+
+    <div class="card"><div class="term">Sun / Moon</div><div class="en">Ravi &amp; Chandra</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">रवि / चन्द्र</span><span class="sa-iast">ravi / candra</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ರವಿ / ಚಂದ್ರ</span></div>
+      <div class="meaning">The two bodies this whole calculation tracks &mdash; the tithi is defined entirely by the angle between them.</div></div>
+
+    <div class="card"><div class="term">fortnight</div><div class="en">Paksha</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">पक्ष</span><span class="sa-iast">pakṣa</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಪಕ್ಷ</span></div>
+      <div class="meaning">Half a lunar month. Shukla/Śukla (शुक्ल, ಶುಕ್ಲ) = waxing/bright fortnight. Krishna/Kṛṣṇa (कृष्ण, ಕೃಷ್ಣ) = waning/dark fortnight &mdash; hence &ldquo;s.ekadashi&rdquo; vs &ldquo;k.ekadashi&rdquo; in the code.</div></div>
+
+    <div class="card"><div class="term">tithi #11</div><div class="en">Ekadashi</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">एकादशी</span><span class="sa-iast">ekādaśī</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಏಕಾದಶಿ</span></div>
+      <div class="meaning">&ldquo;The eleventh&rdquo; &mdash; occurs twice a month, once per paksha. The observance this whole project is ultimately about.</div></div>
+
+    <div class="card"><div class="term">tithi #10 / #12</div><div class="en">Dashami &amp; Dwadashi</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">दशमी / द्वादशी</span><span class="sa-iast">daśamī / dvādaśī</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ದಶಮಿ / ದ್ವಾದಶಿ</span></div>
+      <div class="meaning">The tithis just before and just after Ekadashi &mdash; whether either one overlaps sunrise is what the observance-day rules turn on.</div></div>
+
+    <div class="card"><div class="term">new / full moon</div><div class="en">Amavasya &amp; Purnima</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">अमावास्या / पूर्णिमा</span><span class="sa-iast">amāvāsyā / pūrṇimā</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಅಮಾವಾಸ್ಯೆ / ಹುಣ್ಣಿಮೆ</span></div>
+      <div class="meaning">Tithi #30 and #15. Kannada everyday speech mostly uses its own colloquial words here (amāvāsye, huṇṇime) rather than the Sanskrit form directly.</div></div>
+
+    <div class="card"><div class="term">time units</div><div class="en">Ghatika &amp; Vighatika</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">घटिका / विघटिका</span><span class="sa-iast">ghaṭikā / vighaṭikā</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಘಳಿಗೆ / ಗಳಿಗೆ</span></div>
+      <div class="meaning">Traditional time units: 60 ghatika = 1 day (&asymp;24 min each); 60 vighatika = 1 ghatika (&asymp;24 sec each). The code calls vighatika &ldquo;galige.&rdquo;</div></div>
+
+    <div class="card"><div class="term">precession offset</div><div class="en">Ayanamsha</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">अयनांश</span><span class="sa-iast">ayanāṃśa</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಅಯನಾಂಶ</span></div>
+      <div class="meaning">The gap between the tropical zodiac (tied to the seasons) and the sidereal zodiac (tied to the fixed stars) &mdash; it grows slowly over centuries.</div></div>
+
+    <div class="card"><div class="term">tropical / sidereal</div><div class="en">Sayana &amp; Nirayana</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">सायन / निरयण</span><span class="sa-iast">sāyana / nirayaṇa</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಸಾಯನ / ನಿರಯಣ</span></div>
+      <div class="meaning">Sāyana = &ldquo;with ayana [added]&rdquo; = tropical. Nirayaṇa = &ldquo;without ayana&rdquo; = sidereal. This is exactly what the code's <code>ssr</code> (sāyana-spashṭa-ravi) variable name is built from.</div></div>
+
+  </div>
+
+  <h2>How the position gets corrected<small>the calculation-stage vocabulary</small></h2>
+  <div class="cards">
+
+    <div class="card"><div class="term">mean position</div><div class="en">Madhya</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">मध्य</span><span class="sa-iast">madhya</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಮಧ್ಯ</span></div>
+      <div class="meaning">&ldquo;Mean/average&rdquo; &mdash; a body's position assuming perfectly uniform motion, before any correction is applied.</div></div>
+
+    <div class="card"><div class="term">anomaly</div><div class="en">Kendra</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">केन्द्र</span><span class="sa-iast">kendra</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಕೇಂದ್ರ</span></div>
+      <div class="meaning">The angle between a body and its apogee (the point where it moves slowest) &mdash; this angle is what decides how big the next correction needs to be.</div></div>
+
+    <div class="card"><div class="term">correction</div><div class="en">Manda-phala</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">मन्दफल</span><span class="sa-iast">mandaphala</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಮಂದಫಲ</span></div>
+      <div class="meaning">&ldquo;Slow[-motion] result&rdquo; &mdash; the equation-of-center correction that accounts for a body's real, non-circular orbit.</div></div>
+
+    <div class="card"><div class="term">true position</div><div class="en">Sphuta</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">स्फुट</span><span class="sa-iast">sphuṭa</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಸ್ಫುಟ</span></div>
+      <div class="meaning">&ldquo;True/manifest&rdquo; &mdash; the corrected, real position, after the manda-phala has been applied. (Also spelled &ldquo;sputa&rdquo; in the code.)</div></div>
+
+    <div class="card"><div class="term">apogee</div><div class="en">Uchcha</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">उच्च</span><span class="sa-iast">ucca</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಉಚ್ಚ</span></div>
+      <div class="meaning">The point in a body's orbit where it moves slowest. For the Moon, this point itself slowly drifts over time.</div></div>
+
+    <div class="card"><div class="term">daily motion</div><div class="en">Gati</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">गति</span><span class="sa-iast">gati</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಗತಿ</span></div>
+      <div class="meaning">How fast a body moves per day &mdash; used to convert a remaining angular distance into a remaining amount of time.</div></div>
+
+    <div class="card"><div class="term">latitude correction</div><div class="en">Chara-khanda</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">चरखण्ड</span><span class="sa-iast">carakhaṇḍa</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಚರಖಂಡ</span></div>
+      <div class="meaning">&ldquo;Variable segment&rdquo; &mdash; corrects for how the ecliptic rises at different rates at different latitudes. Depends on where you are; the code never says what location it assumed.</div></div>
+
+    <div class="card"><div class="term">sine-table value</div><div class="en">Jya</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">ज्या</span><span class="sa-iast">jyā</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಜ್ಯಾ</span></div>
+      <div class="meaning">&ldquo;Chord&rdquo; &mdash; the traditional term for a value looked up from a sine table, the ancient equivalent of calling <code>sin()</code>.</div></div>
+
+    <div class="card"><div class="term">arcminute/second</div><div class="en">Kala &amp; Vikala</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">कला / विकला</span><span class="sa-iast">kalā / vikalā</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಕಲಾ / ವಿಕಲಾ</span></div>
+      <div class="meaning">Sub-units of angle: 60 vikala = 1 kala = 1 arcminute (1/60 of a degree).</div></div>
+
+    <div class="card"><div class="term">remainder</div><div class="en">Shesha</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">शेष</span><span class="sa-iast">śeṣa</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಶೇಷ</span></div>
+      <div class="meaning">How much of the current tithi or nakshatra is left to go &mdash; the code's <code>esh</code> variable is this word, abbreviated.</div></div>
+
+  </div>
+
+  <h2>Observance &amp; tradition<small>the vocabulary the code does <em>not</em> implement yet</small></h2>
+  <div class="cards">
+
+    <div class="card"><div class="term">vow / fast</div><div class="en">Vrata</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">व्रत</span><span class="sa-iast">vrata</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ವ್ರತ</span></div>
+      <div class="meaning">A vow or observance &mdash; in this context, the Ekadashi fast itself.</div></div>
+
+    <div class="card"><div class="term">the hard case</div><div class="en">Viddha</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">विद्ध</span><span class="sa-iast">viddha</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ವಿದ್ಧ</span></div>
+      <div class="meaning">&ldquo;Pierced/touched&rdquo; &mdash; when a tithi is touched by its neighbor right at sunrise. This is the exact situation the observance-day rules exist to resolve, and it's why Ekadashi dates sometimes differ between traditions.</div></div>
+
+    <div class="card"><div class="term">breaking the fast</div><div class="en">Parana</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">पारणा</span><span class="sa-iast">pāraṇā</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಪಾರಣೆ</span></div>
+      <div class="meaning">The act, and the time window, for ending an Ekadashi fast.</div></div>
+
+    <div class="card"><div class="term">tradition</div><div class="en">Sampradaya</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">सम्प्रदाय</span><span class="sa-iast">sampradāya</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಸಂಪ್ರದಾಯ</span></div>
+      <div class="meaning">A named lineage of practice &mdash; e.g. Smarta (स्मार्त, ಸ್ಮಾರ್ತ) or Vaishnava (वैष्णव, ವೈಷ್ಣವ) &mdash; each of which can apply its own viddha rule to the same underlying tithi timing.</div></div>
+
+    <div class="card"><div class="term">combination</div><div class="en">Yoga</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">योग</span><span class="sa-iast">yoga</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಯೋಗ</span></div>
+      <div class="meaning">A named coincidence of conditions, e.g. Guru Pushya Yoga = Thursday falling on Pushya nakshatra.</div></div>
+
+    <div class="card"><div class="term">solar transit</div><div class="en">Sankranti</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">सङ्क्रान्ति</span><span class="sa-iast">saṅkrānti</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಸಂಕ್ರಾಂತಿ</span></div>
+      <div class="meaning">The Sun's move from one rashi into the next.</div></div>
+
+    <div class="card"><div class="term">solstice / equinox</div><div class="en">Ayana &amp; Vishuva</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">अयन / विषुव</span><span class="sa-iast">ayana / viṣuva</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಅಯನ / ವಿಷುವ</span></div>
+      <div class="meaning">Ayana = the Sun's northward/southward turning point (solstice). Vishuva = day and night of equal length (equinox).</div></div>
+
+    <div class="card"><div class="term">eclipse</div><div class="en">Grahana</div>
+      <div class="lang-row"><span class="lang-tag sa">sa</span><span><span class="sa-text">ग्रहण</span><span class="sa-iast">grahaṇa</span></span></div>
+      <div class="lang-row"><span class="lang-tag ka">ka</span><span class="ka-text">ಗ್ರಹಣ</span></div>
+      <div class="meaning">A solar or lunar eclipse &mdash; not yet computed anywhere in this project.</div></div>
+
+  </div>
+
+  <h2>Code variable &rarr; term, direct<small>what each abbreviation in EXP.C actually stands for</small></h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>In the code</th><th>Sanskrit term</th><th>What it is</th></tr></thead>
+      <tbody>
+        <tr><td><code>m</code></td><td class="sa-cell">Ahargaṇa</td><td>Elapsed days &mdash; the only real input.</td></tr>
+        <tr><td><code>rm</code>, <code>rm1</code></td><td class="sa-cell">Ravi Madhya</td><td>Sun's mean longitude.</td></tr>
+        <tr><td><code>rmc</code>, <code>rmc1</code></td><td class="sa-cell">Ravi Kendra</td><td>Sun's anomaly (angle from apogee).</td></tr>
+        <tr><td><code>rma</code></td><td class="unresolved">(kendra, folded)</td><td>Sun's anomaly folded into the first quadrant, for the sine-table lookup. <em>My best guess for &ldquo;FMRA.&rdquo;</em></td></tr>
+        <tr><td><code>rmp</code>, <code>rmp1</code></td><td class="sa-cell">Ravi Mandaphala</td><td>Sun's equation-of-center correction.</td></tr>
+        <tr><td><code>msr</code>, <code>msr1</code></td><td class="sa-cell">Manda-sphuṭa Ravi</td><td>Sun's corrected ("true") longitude.</td></tr>
+        <tr><td><code>rg</code></td><td class="sa-cell">Ravi Gati</td><td>Sun's daily motion.</td></tr>
+        <tr><td><code>ay</code></td><td class="sa-cell">Ayanāṃśa</td><td>The precession offset.</td></tr>
+        <tr><td><code>cm</code>, <code>cm1</code></td><td class="sa-cell">Chandra Madhya</td><td>Moon's mean longitude.</td></tr>
+        <tr><td><code>cu</code>, <code>cu1</code></td><td class="sa-cell">Chandra Ucca</td><td>Moon's apogee.</td></tr>
+        <tr><td><code>cmc1</code></td><td class="sa-cell">Chandra Kendra</td><td>Moon's anomaly.</td></tr>
+        <tr><td><code>cma</code></td><td class="unresolved">(kendra, folded)</td><td>Moon's anomaly folded into the first quadrant.</td></tr>
+        <tr><td><code>cmp</code>, <code>cmpa</code></td><td class="sa-cell">Chandra Mandaphala</td><td>Moon's equation-of-center correction.</td></tr>
+        <tr><td><code>msc</code>, <code>msc1</code></td><td class="sa-cell">Manda-sphuṭa Chandra</td><td>Moon's corrected longitude.</td></tr>
+        <tr><td><code>cg</code></td><td class="sa-cell">Chandra Gati</td><td>Moon's daily motion.</td></tr>
+        <tr><td><code>ssr</code></td><td class="sa-cell">Sāyana-sphuṭa Ravi</td><td>Sun's tropical true longitude.</td></tr>
+        <tr><td><code>chk</code>, <code>chkr</code>, <code>chkc</code></td><td class="sa-cell">Cara-khaṇḍa</td><td>The latitude-dependent time correction, and its Sun/Moon longitude equivalents.</td></tr>
+        <tr><td><code>rs</code></td><td class="sa-cell">Ravi Sphuṭa</td><td>Sun's final apparent longitude.</td></tr>
+        <tr><td><code>cs</code></td><td class="sa-cell">Chandra Sphuṭa</td><td>Moon's final apparent longitude &mdash; the variable at the center of the nakshatra out-of-bounds bug.</td></tr>
+        <tr><td><code>vya</code></td><td class="unresolved">not a standard term</td><td>Elongation (Moon minus Sun longitude). Looks like the author's own shorthand, not classical vocabulary &mdash; I won't invent a fake derivation for it.</td></tr>
+        <tr><td><code>vyg</code></td><td class="unresolved">not a standard term</td><td>Relative daily motion (Moon's gati minus Sun's gati).</td></tr>
+        <tr><td><code>esh</code></td><td class="sa-cell">Śeṣa</td><td>Remaining amount (of the current tithi or nakshatra).</td></tr>
+        <tr><td><code>no_tithi</code></td><td>&mdash;</td><td>Tithi index, 1&ndash;30.</td></tr>
+        <tr><td><code>th</code>, <code>thig</code></td><td>&mdash;</td><td>Remaining tithi time, in ghatika / vighatika.</td></tr>
+        <tr><td><code>upthi</code></td><td class="sa-cell">Upa-tithi</td><td>The <em>next</em> tithi's duration, reported when relevant.</td></tr>
+        <tr><td><code>no_naks</code></td><td>&mdash;</td><td>Nakshatra index, 1&ndash;27.</td></tr>
+        <tr><td><code>nak</code>, <code>nakg</code></td><td>&mdash;</td><td>Remaining nakshatra time, in ghatika / vighatika.</td></tr>
+        <tr><td><code>drv</code>, <code>drvn</code></td><td class="unresolved">not a standard term</td><td>Unused in EXP.C. In the sibling file EKADHASI.C, hand-picked target elongation values &mdash; author's own shorthand, not classical vocabulary.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Modern engineering terms<small>from the parts of our conversation that weren't about the old code</small></h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Term</th><th>Plain-language meaning</th></tr></thead>
+      <tbody>
+        <tr><td>Ephemeris</td><td>A table (traditionally) or a piece of software (today) that tells you exactly where a planet or the Moon was, is, or will be, at any given moment. <em>My other best guess for &ldquo;FMRA.&rdquo;</em></td></tr>
+        <tr><td>Swiss Ephemeris</td><td>The specific modern software library this project now uses to get accurate Sun/Moon positions, replacing the old code's approximation tables.</td></tr>
+        <tr><td>Sidereal / Tropical</td><td>Same distinction as Nirayana/Sayana above, just the English astronomy names for it.</td></tr>
+        <tr><td>Julian Day</td><td>A single running day-count astronomers use, similar in spirit to Ahargana but starting from a different (more recent) point.</td></tr>
+        <tr><td>Elongation</td><td>The angular distance between two bodies &mdash; here, Moon minus Sun &mdash; the one number that determines the tithi.</td></tr>
+        <tr><td>Bisection</td><td>A simple way to pin down the exact moment something happens (like a tithi boundary) by repeatedly narrowing a time window in half.</td></tr>
+        <tr><td>API / CLI</td><td>Ways of operating a program. An API is how one program asks another to do something; a CLI (&ldquo;command-line interface&rdquo;) is how a person types a command to run a program directly.</td></tr>
+        <tr><td>Lahiri (ayanamsha)</td><td>One specific, government-adopted value for the ayanamsha &mdash; there are a few competing ones, and which is used changes some dates slightly.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    Companion documents in the same project: <code>tools/panchanga/docs/annotated_exp_c.md</code>
+    (the line-by-line reading this glossary supports) and
+    <code>tools/panchanga/docs/SPEC.md</code> (the full engineering
+    write-up), both on branch <code>claude/ekadashi-tithi-code-analysis-mmqm89</code>
+    of the ShriBuddhi repository.
+  </footer>
+</div>
