@@ -1,0 +1,801 @@
+{
+ "_readme": [
+  "Character confusions measured in THIS corpus. Feeds suspicion, never",
+  "substitution: several of these forms are real words that appear",
+  "correctly far more often than they appear as errors.",
+  "",
+  "undirected: the two engines read this pair differently on the same",
+  "  page. Evidence the pair is confusable; no claim about which is right.",
+  "directed: a third reading adjudicated and rejected `misread` in favour",
+  "  of `reading`. Stronger, and far rarer."
+ ],
+ "pages_compared": 1501,
+ "by_script": {
+  "kannada": 4103,
+  "devanagari": 3341
+ },
+ "undirected": [
+  {
+   "a": "।।",
+   "b": "॥",
+   "count": 620
+  },
+  {
+   "a": "ಿ",
+   "b": "ೀ",
+   "count": 163
+  },
+  {
+   "a": "ब",
+   "b": "व",
+   "count": 122
+  },
+  {
+   "a": "ದ",
+   "b": "ಧ",
+   "count": 97
+  },
+  {
+   "a": "ನ",
+   "b": "ವ",
+   "count": 91
+  },
+  {
+   "a": "ಅ",
+   "b": "ಆ",
+   "count": 74
+  },
+  {
+   "a": "ಪ",
+   "b": "ಸ",
+   "count": 72
+  },
+  {
+   "a": "ಪ",
+   "b": "ವ",
+   "count": 68
+  },
+  {
+   "a": "च",
+   "b": "व",
+   "count": 65
+  },
+  {
+   "a": "ಮ",
+   "b": "ವ",
+   "count": 65
+  },
+  {
+   "a": "ದ",
+   "b": "ವ",
+   "count": 64
+  },
+  {
+   "a": "ತ",
+   "b": "ರ",
+   "count": 60
+  },
+  {
+   "a": "न",
+   "b": "र",
+   "count": 60
+  },
+  {
+   "a": "ಕ",
+   "b": "ತ",
+   "count": 55
+  },
+  {
+   "a": "।",
+   "b": "॥",
+   "count": 54
+  },
+  {
+   "a": "ಪ",
+   "b": "ಷ",
+   "count": 54
+  },
+  {
+   "a": "ತ",
+   "b": "ಶ",
+   "count": 47
+  },
+  {
+   "a": "॥",
+   "b": "೧",
+   "count": 47
+  },
+  {
+   "a": "प",
+   "b": "ष",
+   "count": 45
+  },
+  {
+   "a": "१",
+   "b": "९",
+   "count": 42
+  },
+  {
+   "a": "ನ",
+   "b": "ಸ",
+   "count": 41
+  },
+  {
+   "a": "ಮ",
+   "b": "ಯ",
+   "count": 41
+  },
+  {
+   "a": "े",
+   "b": "ै",
+   "count": 41
+  },
+  {
+   "a": "ಯ",
+   "b": "ವ",
+   "count": 40
+  },
+  {
+   "a": "ಪ",
+   "b": "ಹ",
+   "count": 40
+  },
+  {
+   "a": "ೆ",
+   "b": "ೇ",
+   "count": 40
+  },
+  {
+   "a": "ಕ",
+   "b": "ಶ",
+   "count": 38
+  },
+  {
+   "a": "ೊ",
+   "b": "ೋ",
+   "count": 37
+  },
+  {
+   "a": "ನ",
+   "b": "ಮ",
+   "count": 36
+  },
+  {
+   "a": "ಪು",
+   "b": "ಮ",
+   "count": 36
+  },
+  {
+   "a": "ञ",
+   "b": "श",
+   "count": 33
+  },
+  {
+   "a": "ತ್ವ",
+   "b": "ಯ",
+   "count": 33
+  },
+  {
+   "a": "र",
+   "b": "२",
+   "count": 32
+  },
+  {
+   "a": "घ",
+   "b": "ध",
+   "count": 31
+  },
+  {
+   "a": "ಂ",
+   "b": "೦",
+   "count": 31
+  },
+  {
+   "a": "०",
+   "b": "॰",
+   "count": 30
+  },
+  {
+   "a": "क",
+   "b": "त",
+   "count": 27
+  },
+  {
+   "a": "ಿ",
+   "b": "ೆ",
+   "count": 27
+  },
+  {
+   "a": "थ",
+   "b": "ध",
+   "count": 23
+  },
+  {
+   "a": "त",
+   "b": "न",
+   "count": 23
+  },
+  {
+   "a": "ನ",
+   "b": "ಭ",
+   "count": 23
+  },
+  {
+   "a": "ಚ",
+   "b": "ಜ",
+   "count": 22
+  },
+  {
+   "a": "ೀ",
+   "b": "ೇ",
+   "count": 21
+  },
+  {
+   "a": "ತ",
+   "b": "ಸ",
+   "count": 21
+  },
+  {
+   "a": "र",
+   "b": "व",
+   "count": 21
+  },
+  {
+   "a": "ಕ",
+   "b": "ಥ",
+   "count": 20
+  },
+  {
+   "a": "ೌ",
+   "b": "್",
+   "count": 20
+  },
+  {
+   "a": "ಟ",
+   "b": "ಠ",
+   "count": 20
+  },
+  {
+   "a": "ी",
+   "b": "ो",
+   "count": 20
+  },
+  {
+   "a": "य",
+   "b": "व",
+   "count": 20
+  },
+  {
+   "a": "ರ",
+   "b": "ಶ",
+   "count": 20
+  },
+  {
+   "a": "ि",
+   "b": "े",
+   "count": 19
+  },
+  {
+   "a": "ಶ",
+   "b": "ಷ",
+   "count": 19
+  },
+  {
+   "a": "ಗ",
+   "b": "ದ",
+   "count": 18
+  },
+  {
+   "a": "ಚ",
+   "b": "ಟ",
+   "count": 18
+  },
+  {
+   "a": "थ",
+   "b": "य",
+   "count": 18
+  },
+  {
+   "a": "र",
+   "b": "स्",
+   "count": 18
+  },
+  {
+   "a": "ಪ",
+   "b": "ಶ",
+   "count": 17
+  },
+  {
+   "a": "ा",
+   "b": "ो",
+   "count": 17
+  },
+  {
+   "a": "त्र",
+   "b": "व",
+   "count": 17
+  },
+  {
+   "a": "ी",
+   "b": "ौ",
+   "count": 17
+  },
+  {
+   "a": "ದ",
+   "b": "ರ",
+   "count": 16
+  },
+  {
+   "a": "ध",
+   "b": "भ",
+   "count": 16
+  },
+  {
+   "a": "ಅ",
+   "b": "ಕ",
+   "count": 16
+  },
+  {
+   "a": "े॑",
+   "b": "ै",
+   "count": 16
+  },
+  {
+   "a": "ದ",
+   "b": "ನ",
+   "count": 15
+  },
+  {
+   "a": "ग",
+   "b": "म",
+   "count": 15
+  },
+  {
+   "a": "ं",
+   "b": "े",
+   "count": 15
+  },
+  {
+   "a": "ಬ",
+   "b": "ಭ",
+   "count": 15
+  },
+  {
+   "a": "ಷ",
+   "b": "ಸ",
+   "count": 15
+  },
+  {
+   "a": "ಕ",
+   "b": "ಸ",
+   "count": 15
+  },
+  {
+   "a": "ೈ",
+   "b": "್ಯ",
+   "count": 14
+  },
+  {
+   "a": "ಕ",
+   "b": "ಯ",
+   "count": 14
+  },
+  {
+   "a": "ಧ",
+   "b": "ಭ",
+   "count": 14
+  },
+  {
+   "a": "ಥ",
+   "b": "ಧ",
+   "count": 14
+  },
+  {
+   "a": "ತ",
+   "b": "ನ",
+   "count": 14
+  },
+  {
+   "a": "ट",
+   "b": "ठ",
+   "count": 14
+  },
+  {
+   "a": "ु",
+   "b": "ू",
+   "count": 14
+  },
+  {
+   "a": "ತ",
+   "b": "ವ",
+   "count": 14
+  },
+  {
+   "a": "ಶ",
+   "b": "ಸ",
+   "count": 13
+  },
+  {
+   "a": "ಟ",
+   "b": "ವ",
+   "count": 13
+  },
+  {
+   "a": "ಯ",
+   "b": "ರ",
+   "count": 13
+  },
+  {
+   "a": "न",
+   "b": "व",
+   "count": 13
+  },
+  {
+   "a": "ग",
+   "b": "र",
+   "count": 13
+  },
+  {
+   "a": "ो",
+   "b": "ौ",
+   "count": 13
+  },
+  {
+   "a": "पु",
+   "b": "५",
+   "count": 13
+  },
+  {
+   "a": "प",
+   "b": "य",
+   "count": 13
+  },
+  {
+   "a": "ಚ",
+   "b": "ವ",
+   "count": 13
+  },
+  {
+   "a": "ಡ",
+   "b": "ದ",
+   "count": 12
+  },
+  {
+   "a": "ಟ",
+   "b": "ಣ",
+   "count": 12
+  },
+  {
+   "a": "२",
+   "b": "३",
+   "count": 12
+  },
+  {
+   "a": "ू",
+   "b": "ृ",
+   "count": 12
+  },
+  {
+   "a": "ದ",
+   "b": "ಪ",
+   "count": 12
+  },
+  {
+   "a": "ೃ",
+   "b": "್ಯ",
+   "count": 12
+  },
+  {
+   "a": "ಏ",
+   "b": "ವಿ",
+   "count": 12
+  },
+  {
+   "a": "ಾ",
+   "b": "ೌ",
+   "count": 12
+  },
+  {
+   "a": "म",
+   "b": "स",
+   "count": 11
+  },
+  {
+   "a": "ण",
+   "b": "र",
+   "count": 11
+  },
+  {
+   "a": "१",
+   "b": "६",
+   "count": 11
+  },
+  {
+   "a": "ಂ",
+   "b": "ು",
+   "count": 11
+  },
+  {
+   "a": "ಿ",
+   "b": "ೂ",
+   "count": 11
+  },
+  {
+   "a": "ರ",
+   "b": "ವ",
+   "count": 11
+  },
+  {
+   "a": "ತ",
+   "b": "ಷ",
+   "count": 11
+  },
+  {
+   "a": "ೂ",
+   "b": "ೊ",
+   "count": 11
+  },
+  {
+   "a": "ಋ",
+   "b": "ಯ",
+   "count": 11
+  },
+  {
+   "a": "ಘ",
+   "b": "ಶ",
+   "count": 11
+  },
+  {
+   "a": "ು",
+   "b": "್ರ",
+   "count": 11
+  },
+  {
+   "a": "ದ",
+   "b": "ಮ",
+   "count": 11
+  },
+  {
+   "a": "ನ",
+   "b": "ಯ",
+   "count": 10
+  },
+  {
+   "a": "ां",
+   "b": "ो",
+   "count": 10
+  },
+  {
+   "a": "ನ",
+   "b": "ಲ",
+   "count": 10
+  },
+  {
+   "a": "ಷ",
+   "b": "ಹ",
+   "count": 10
+  },
+  {
+   "a": "१",
+   "b": "५",
+   "count": 10
+  }
+ ],
+ "directed": [
+  {
+   "misread": "ಯಥ",
+   "reading": "ಋಭ",
+   "count": 2
+  },
+  {
+   "misread": "स",
+   "reading": "प्त",
+   "count": 2
+  },
+  {
+   "misread": "ಪ",
+   "reading": "ಷ",
+   "count": 1
+  },
+  {
+   "misread": "ದ",
+   "reading": "ಸ",
+   "count": 1
+  },
+  {
+   "misread": "ಯಮ",
+   "reading": "ಋಭ",
+   "count": 1
+  },
+  {
+   "misread": "ೂಲ",
+   "reading": "ುಚ",
+   "count": 1
+  },
+  {
+   "misread": "ನ",
+   "reading": "ವ",
+   "count": 1
+  },
+  {
+   "misread": "ೃಶ",
+   "reading": "ೈತ",
+   "count": 1
+  },
+  {
+   "misread": "ಕ",
+   "reading": "ತ",
+   "count": 1
+  },
+  {
+   "misread": "ಕವ",
+   "reading": "ತಮ",
+   "count": 1
+  },
+  {
+   "misread": "ನ",
+   "reading": "ಂ",
+   "count": 1
+  },
+  {
+   "misread": "ಣ",
+   "reading": "ಂಡ",
+   "count": 1
+  },
+  {
+   "misread": "ದ್ವಕ",
+   "reading": "ರ",
+   "count": 1
+  },
+  {
+   "misread": "ತೋ",
+   "reading": "ಅ",
+   "count": 1
+  },
+  {
+   "misread": "ಹ",
+   "reading": "ಸ",
+   "count": 1
+  },
+  {
+   "misread": "ख",
+   "reading": "क्ष",
+   "count": 1
+  },
+  {
+   "misread": "द",
+   "reading": "ङ",
+   "count": 1
+  },
+  {
+   "misread": "२",
+   "reading": "र",
+   "count": 1
+  },
+  {
+   "misread": "घ",
+   "reading": "ध",
+   "count": 1
+  },
+  {
+   "misread": "घच",
+   "reading": "ख्य",
+   "count": 1
+  },
+  {
+   "misread": "र",
+   "reading": "न",
+   "count": 1
+  },
+  {
+   "misread": "व",
+   "reading": "ग्र",
+   "count": 1
+  },
+  {
+   "misread": "े",
+   "reading": "ै",
+   "count": 1
+  },
+  {
+   "misread": "व",
+   "reading": "च",
+   "count": 1
+  },
+  {
+   "misread": "ह",
+   "reading": "ङ",
+   "count": 1
+  },
+  {
+   "misread": "व",
+   "reading": "ख",
+   "count": 1
+  },
+  {
+   "misread": "च",
+   "reading": "ङ्ख्य",
+   "count": 1
+  },
+  {
+   "misread": "ु",
+   "reading": "ृ",
+   "count": 1
+  },
+  {
+   "misread": "ै",
+   "reading": "ा",
+   "count": 1
+  },
+  {
+   "misread": "व्य",
+   "reading": "पि",
+   "count": 1
+  },
+  {
+   "misread": "ण",
+   "reading": "पा",
+   "count": 1
+  },
+  {
+   "misread": "ग",
+   "reading": "म",
+   "count": 1
+  },
+  {
+   "misread": "ो",
+   "reading": "ौ",
+   "count": 1
+  },
+  {
+   "misread": "त",
+   "reading": "ग्न",
+   "count": 1
+  },
+  {
+   "misread": "ध",
+   "reading": "द्य",
+   "count": 1
+  },
+  {
+   "misread": "ौ",
+   "reading": "ो",
+   "count": 1
+  },
+  {
+   "misread": "ाड",
+   "reading": "ोऽ",
+   "count": 1
+  },
+  {
+   "misread": "ो",
+   "reading": "ा",
+   "count": 1
+  },
+  {
+   "misread": "ा",
+   "reading": "ो",
+   "count": 1
+  },
+  {
+   "misread": "ङ्घ",
+   "reading": "ा",
+   "count": 1
+  },
+  {
+   "misread": "्च",
+   "reading": "ं",
+   "count": 1
+  },
+  {
+   "misread": "ग",
+   "reading": "क्ष",
+   "count": 1
+  },
+  {
+   "misread": "ಸ",
+   "reading": "ಪ",
+   "count": 1
+  }
+ ]
+}
