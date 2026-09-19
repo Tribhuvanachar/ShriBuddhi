@@ -27,6 +27,7 @@ Exits non-zero when any page exceeds the threshold, so it can gate a merge.
 from __future__ import annotations
 
 import argparse
+import collections
 import glob
 import json
 import re
@@ -113,6 +114,7 @@ def check(resolved, sources, n=4, max_novel=0.03, min_run=8):
             "run_len": len(run),
             "confidence": p.get("confidence"),
             "emendations": len(p.get("emendations") or []),
+            "warrants": [e.get("warrant") for e in (p.get("emendations") or [])],
             "suspects": len(p.get("suspects") or []),
             "prose_run": prose,
             # Only a novel run of pure letters is reported as invention.
@@ -149,6 +151,7 @@ def main(argv=None) -> int:
         return 2
 
     flagged = [r for r in rows if r["flagged"]]
+    warrants = collections.Counter(w for r in rows for w in r.get("warrants") or [])
     rows.sort(key=lambda r: -r["run_len"])
     print("%d page(s) checked, %d flagged (%.1f%%)"
           % (len(rows), len(flagged), 100 * len(flagged) / len(rows)))
@@ -164,8 +167,19 @@ def main(argv=None) -> int:
             print("%-30s %6s %6.1f%% %5s  %s"
                   % (r["work"][:30], r["page"], 100 * r["novel_share"],
                      r["confidence"], r["longest_novel_run"][:40]))
+    if warrants:
+        # Printed by kind, because the mix is the signal. A run that is all
+        # `internal` is not a careful run -- it is a run with nowhere else to
+        # file a grammatical correction, which is what happened before
+        # `grammatical` and `script` existed.
+        print("\nemendations by warrant: %s"
+              % ", ".join("%s %d" % kv for kv in warrants.most_common()))
+        soft = warrants.get("grammatical", 0) + warrants.get("internal", 0)
+        if soft:
+            print("  %d rest on judgement (internal/grammatical) -- read these" % soft)
     if args.out:
-        json.dump({"checked": len(rows), "flagged": len(flagged), "pages": rows},
+        json.dump({"checked": len(rows), "flagged": len(flagged),
+                   "warrants": dict(warrants), "pages": rows},
                   open(args.out, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     return 1 if flagged else 0
 

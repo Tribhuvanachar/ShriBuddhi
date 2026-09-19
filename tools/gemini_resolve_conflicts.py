@@ -65,13 +65,31 @@ itself proves the correction. Acceptable warrants:
   internal    a running title, a name or a term that appears correctly elsewhere
               on this same page
   structural  a table column whose other rows fix the pattern
-Every such correction goes in `emendations` with the warrant named. Your output
+  script      a character from the WRONG SCRIPT sits inside a word -- a Bengali
+              digit in a Devanagari reference, a Kannada letter in a Devanagari
+              block. The script itself is the proof; no judgement is involved
+  grammatical the form is not a possible word, and the correct one follows from
+              morphology alone: uttva for uktva, yavanti for cyavanti,
+              bhattya for bhaktya. Use this ONLY where the printed form cannot
+              exist in the language, never where it merely reads oddly, and
+              never to complete or improve something that is already a word
+Every such correction goes in `emendations` with the warrant named.
+
+Name the warrant you ACTUALLY used. The earlier version of these rules offered
+only the first three, so corrections resting on grammar were filed as
+"internal" with a `why` that said "grammar requires it" -- which made the
+honest internal ones untrustworthy too. A truthful `grammatical` is reviewed
+and often kept. A `grammatical` dressed as `internal` is a finding about you,
+not about the page. Your output
 is machine-checked against both readings: ANY stretch neither engine read that
 you have not declared is reported as a fault.
 
-What is NOT a warrant: that correct Sanskrit or Kannada would require it; that a
-verse looks unfinished; that a compound wants an ending; that the metre limps;
-that you recognise the quotation. Those are conjecture. A conjecture that reads
+What is NOT a warrant, even now that `grammatical` exists: that a verse looks
+unfinished; that a compound wants an ending; that the metre limps; that you
+recognise the quotation and can supply the rest. `grammatical` covers a form
+that CANNOT EXIST, never a form that exists but reads oddly, and never adding
+something absent. Adding a final -m to a word that is already a word is not a
+correction, it is an edit. Those are conjecture. A conjecture that reads
 well is the most damaging thing you can produce here, because an OCR error looks
 wrong and gets found while a good conjecture looks right forever.
 
@@ -170,7 +188,9 @@ SCHEMA = {
                                 "from": {"type": "string"},
                                 "to": {"type": "string"},
                                 "warrant": {"type": "string",
-                                            "enum": ["arithmetic", "internal", "structural"]},
+                                            "enum": ["arithmetic", "internal",
+                                                     "structural", "script",
+                                                     "grammatical"]},
                                 "why": {"type": "string"},
                             },
                             "required": ["from", "to", "warrant", "why"],
