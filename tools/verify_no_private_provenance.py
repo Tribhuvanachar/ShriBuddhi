@@ -54,6 +54,19 @@ ID_RE = (
 
 SKIP_DIRS = {"_references", "_padaccheda", "_commentary_sandhi", "_highlight", "_search"}
 
+# Directories publish_clean_repo.py leaves out of the published tree. Nothing
+# here can leak, because nothing here is published -- and scanning them made
+# this check unusable as a gate: the ONE hit across 194,762 files was
+# admin/config/repo-map.json, a record of the repo's own branches and
+# workflows whose names mention the sites they sync from. Real names, real
+# file, never published, and confirmed absent from the public repo.
+#
+# Kept deliberately in step with publish_clean_repo.EXCLUDE_DIRS. If that list
+# grows and this one does not, this check starts guarding files that no longer
+# ship -- which is the same false alarm in a new place.
+NOT_PUBLISHED = {".claude", ".git", ".github", ".pytest_cache", "__pycache__",
+                 "admin", "docs", "firebase", "node_modules", "tools"}
+
 
 def scan(value, path="$"):
     out = []
@@ -109,6 +122,8 @@ def main(argv=None):
                                                      b"work_id", b"source_html", b"block_uuid"]
     for p in sorted(root.rglob("*.json")):
         rel = p.relative_to(root)
+        if rel.parts and rel.parts[0] in NOT_PUBLISHED:
+            continue
         if any(part in SKIP_DIRS for part in rel.parts[:-1]):
             continue
         files += 1

@@ -147,6 +147,19 @@ jobs:
         # switch to --strict once the HARD findings it lists are fixed.
         run: python3 tools/audit_names.py
 
+      - name: No private-source provenance in publishable files (verify_no_private_provenance.py)
+        # Its own docstring said "run in CI on every change to data" and it ran
+        # nowhere, for weeks. The reason it could not was scope: it scanned the
+        # whole repository, and the single hit across 194,762 files was
+        # admin/config/repo-map.json -- the repo's own record of its branches
+        # and workflows, whose names mention the sites they sync from. Real
+        # names, never published, absent from the public repo. Wiring it in as
+        # it stood would have reddened CI on day one over a file that cannot
+        # leak, and a permanently red build is how real findings get ignored.
+        # Scoped to what publish_clean_repo.py actually publishes, it passes:
+        # 194,706 files, zero fingerprints.
+        run: python3 tools/verify_no_private_provenance.py
+
       - name: Corpus is Unicode NFC (normalize_nfc.py)
         # Kannada vowel signs were stored decomposed -- the same syllable as
         # three codepoints instead of one. Identical on screen, different
