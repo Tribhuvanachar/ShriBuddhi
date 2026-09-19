@@ -116,13 +116,28 @@ def declared(page) -> str:
     return "".join(indic(e.get("to", "")) for e in (page.get("emendations") or []))
 
 
-def check(resolved, sources, n=4, max_novel=0.03, min_run=8):
+# Below this, the two engines barely agree on anything, so there is little
+# for a third reading to weigh and a great deal of room to fill in. Measured
+# over the whole backlog these are 34 of 1,501 pages -- 2.3% -- so treating
+# every one as needing human eyes costs almost nothing.
+#
+# The case that set it: Chandogya p931, similarity 0.088. The model correctly
+# restored viShNave where one engine read visro and the other viSlave, and on
+# the same page wrote mokShapradAya where both engines point at bhagavate sadA.
+# One good restoration and one likely invention, from the same page, at the
+# same confidence. Novel-text measurement cannot separate those; a person can.
+GARBLED_FLOOR = 0.20
+
+
+def check(resolved, sources, ratios=None, n=4, max_novel=0.03, min_run=8):
     rows = []
+    ratios = ratios or {}
     for p in resolved.get("pages", []):
         key = (p.get("work"), p.get("page"))
         if key not in sources:
             continue
         a, b = sources[key]
+        ratio = ratios.get(key)
         have = grams(indic(a), n) | grams(indic(b), n)
         out_s = indic(p.get("text"))
         out = grams(out_s, n)
@@ -147,6 +162,10 @@ def check(resolved, sources, n=4, max_novel=0.03, min_run=8):
             "suspects": len(p.get("suspects") or []),
             "prose_run": prose,
             # Only a novel run of pure letters is reported as invention.
+            "engine_similarity": ratio,
+            # Independent of anything measured about the output: if the inputs
+            # disagreed this badly, the page needs reading whatever came back.
+            "needs_human": ratio is not None and ratio < GARBLED_FLOOR,
             "flagged": prose and len(run) >= min_run,
         })
     return rows
@@ -164,7 +183,7 @@ def main(argv=None) -> int:
     ap.add_argument("--out", default="")
     args = ap.parse_args(argv)
 
-    sources = {}
+    sources, ratios = {}, {}
     files = []
     for pat in args.conflicts:
         files.extend(sorted(glob.glob(pat)) or [pat])
@@ -172,9 +191,10 @@ def main(argv=None) -> int:
         c = json.load(open(f, encoding="utf-8"))
         for x in c.get("conflicts", []):
             sources[(c.get("work"), x["page"])] = (x.get("sarvam", ""), x.get("vision", ""))
+            ratios[(c.get("work"), x["page"])] = x.get("ratio")
 
     rows = check(json.load(open(args.resolved, encoding="utf-8")), sources,
-                 args.n, args.max_novel, args.min_run)
+                 ratios, args.n, args.max_novel, args.min_run)
     if not rows:
         print("nothing to check -- no page matched a source reading", file=sys.stderr)
         return 2
@@ -196,6 +216,14 @@ def main(argv=None) -> int:
             print("%-30s %6s %6.1f%% %5s  %s"
                   % (r["work"][:30], r["page"], 100 * r["novel_share"],
                      r["confidence"], r["longest_novel_run"][:40]))
+    garbled = [r for r in rows if r.get("needs_human")]
+    if garbled:
+        print("\n%d page(s) where the two engines barely agreed (<%.2f) -- read these"
+              % (len(garbled), GARBLED_FLOOR))
+        for r in sorted(garbled, key=lambda x: x["engine_similarity"])[:10]:
+            print("  %-26s p%-5s similarity %.3f  confidence %s"
+                  % (str(r["work"])[:26], r["page"], r["engine_similarity"],
+                     r["confidence"]))
     bad = [(r["work"], r["page"], k, f, t)
            for r in rows for (k, f, t) in r.get("bad_emendations") or []]
     if bad:
