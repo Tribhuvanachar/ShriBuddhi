@@ -96,25 +96,45 @@ def batches(conflicts, per_call, char_cap):
         yield cur
 
 
-def ask(batch, model, api_key, usage):
-    body = {
-        "contents": [{"parts": [{"text": PROMPT + "\n\n" + json.dumps(
-            [{"page": c["page"], "engine_a_sarvam": c.get("sarvam", ""),
-              "engine_b_vision": c.get("vision", "")} for c in batch],
-            ensure_ascii=False)}]}],
-        "generationConfig": {"temperature": 0, "responseMimeType": "application/json"},
-    }
-    payload = call_gemini(body=body, api_key=api_key, model=model, usage_totals=usage)
-    text = ""
-    for cand in payload.get("candidates") or []:
-        for part in (cand.get("content") or {}).get("parts") or []:
-            text += part.get("text") or ""
-    if not text.strip():
-        return []
-    try:
-        return (json.loads(text) or {}).get("pages") or []
-    except json.JSONDecodeError:
-        return []
+# Gemini's structured-output schema. Declared rather than left to prose,
+# because a reply that drifts from the shape is a page silently lost.
+SCHEMA = {
+    "type": "object",
+    "properties": {
+        "pages": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "page": {"type": "integer"},
+                    "text": {"type": "string"},
+                    "confidence": {"type": "number"},
+                    "note": {"type": "string"},
+                },
+                "required": ["page", "text", "confidence"],
+            },
+        }
+    },
+    "required": ["pages"],
+}
+
+
+def ask(batch, model, api_key, usage, max_output_tokens):
+    payload = json.dumps(
+        [{"page": c["page"], "engine_a_sarvam": c.get("sarvam", ""),
+          "engine_b_vision": c.get("vision", "")} for c in batch],
+        ensure_ascii=False)
+    out = call_gemini(
+        system_instruction=PROMPT,
+        prompt=payload,
+        response_schema=SCHEMA,
+        api_key=api_key,
+        model=model,
+        temperature=0,
+        max_output_tokens=max_output_tokens,
+        usage_totals=usage,
+    )
+    return (out or {}).get("pages") or []
 
 
 def main(argv=None) -> int:
@@ -127,6 +147,9 @@ def main(argv=None) -> int:
     ap.add_argument("--inr-per-usd", type=float, default=88.0)
     ap.add_argument("--pages-per-call", type=int, default=4)
     ap.add_argument("--char-cap", type=int, default=24000)
+    ap.add_argument("--max-output-tokens", type=int, default=32768,
+                    help="the client defaults to 4096, which truncates a "
+                         "multi-page reply and loses pages without saying so")
     ap.add_argument("--max-ratio", type=float, default=0.92,
                     help="only pages BELOW this similarity (the conflicts)")
     ap.add_argument("--dry-run", action="store_true",
@@ -200,7 +223,7 @@ def main(argv=None) -> int:
                   % (spent, per_call_inr, args.budget_inr))
             break
         try:
-            pages = ask(batch, args.model, api_key, usage)
+            pages = ask(batch, args.model, api_key, usage, args.max_output_tokens)
         except Exception as exc:  # noqa: BLE001
             print("  call failed: %s" % str(exc)[:160])
             save()

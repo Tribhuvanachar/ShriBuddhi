@@ -261,3 +261,33 @@ chunk on the first 402 rather than asking an empty account thirty more times.
 had the staged files the whole time; `usage.pages_succeeded` was zero in all 32 of them.
 The check that caught this took one command, and I ran it only because I went looking
 for something else.
+
+## 16. I shipped code twice against an interface I had not read
+
+Two runs of the Gemini resolver failed before a single page was billed. The
+first died on `ModuleNotFoundError: gemini_client` -- I copied the resolver to
+the public repo without the client it imports. The second died on
+`call_gemini() got an unexpected keyword argument 'body'` -- I had written the
+call from what I assumed the signature was, having never opened the file.
+
+Neither cost money, because both failed on the first call. Both cost a
+twenty-minute round trip each: clone the private repo, regenerate the
+conflicts, reach the paid step, fall over. With a budget already approved and a
+person waiting for a number.
+
+Reading the signature took one command and would have caught both. It also
+turned up something I would otherwise have shipped and not noticed:
+`max_output_tokens` defaults to 4096, which silently truncates a reply covering
+four pages of commentary. The pages inside the truncation do not error -- they
+simply do not come back, under a run that reports success.
+
+**Rule.** Before calling into a module, open it and read the signature. "It
+probably takes a body dict" is not knowledge, and the cost of being wrong is
+paid in full round trips through a pipeline that takes twenty minutes to reach
+the interesting part.
+
+**Second rule.** A test that stubs the function you are calling proves nothing
+about how you are calling it. The stub must go UNDERNEATH the real code: here
+that meant stubbing the HTTP post and letting the genuine `call_gemini` build
+the request, which is what finally exercised the signature, the schema and the
+token ceiling together.
