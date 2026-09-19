@@ -71,6 +71,24 @@ def price(model):
     return PRICES[model]
 
 
+def served_model(usage, requested):
+    """What actually ran, which is not always what was asked for.
+
+    gemini_client falls back to FALLBACK_MODEL on quota, model_missing or
+    overloaded, and says so only in usageMetadata's modelVersion. The
+    calibration run asked for gemini-2.5-flash and was served
+    gemini-3.5-flash-lite -- priced at the requested model it read Rs14.14,
+    priced at the one that ran, Rs2.95. A ledger that records the request
+    rather than the service is wrong by 5x and gives no hint of it.
+    """
+    v = (usage or {}).get("model_version") or ""
+    if not v:
+        return requested
+    if "lite" in v:
+        return "gemini-flash-lite-latest" if v not in PRICES else v
+    return v if v in PRICES else requested
+
+
 def cost_inr(usage, model, inr_per_usd):
     pin, pout = price(model)
     return ((usage.get("prompt_tokens", 0) / 1e6) * pin
@@ -198,11 +216,13 @@ def main(argv=None) -> int:
     per_call_inr = None
 
     def save():
-        pin, pout = price(args.model)
+        pin, pout = price(served_model(usage, args.model))
         with open(args.out, "w", encoding="utf-8") as fh:
             json.dump({
                 "_readme": "Gemini's reading of the pages where Sarvam and Vision "
                            "disagreed. Staged for review; merges nothing.",
+                "model_requested": args.model,
+                "model_served": served_model(usage, args.model),
                 "model": args.model, "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                 "budget_inr": args.budget_inr, "spent_inr": round(spent, 2),
                 "usage": usage, "price_per_m_usd": {"in": pin, "out": pout},
@@ -229,7 +249,8 @@ def main(argv=None) -> int:
             save()
             return 1
         calls += 1
-        spent = cost_inr(usage, args.model, args.inr_per_usd)
+        # Priced against what was SERVED, not what was asked for.
+        spent = cost_inr(usage, served_model(usage, args.model), args.inr_per_usd)
         per_call_inr = spent / calls
         by_page = {p.get("page"): p for p in pages if isinstance(p, dict)}
         for c in batch:
