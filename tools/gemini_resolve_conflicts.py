@@ -42,25 +42,51 @@ PRICES = {
     "gemini-flash-lite-latest": (0.10, 0.40),
 }
 
-PROMPT = """You are proofreading Sanskrit/Kannada text scanned from a printed book.
+PROMPT = """You are a proofreader reconciling two OCR readings of one printed page.
+You are NOT an editor, a translator, or a commentator. The book is the
+authority. Your job is to decide which engine read the page correctly.
 
-Two OCR engines read the same page and disagree. Engine A (Sarvam) preserves
-layout and returns HTML. Engine B (Google Vision) returns flat text and often
-reorders verse markers. Neither is reliably better.
+Engine A (Sarvam) preserves layout and returns HTML. Engine B (Google Vision)
+returns flat text and often displaces verse markers. Neither is reliably better.
 
-For each page, return the correct reading. Rules:
-- Where the engines agree, keep that reading.
-- Where they differ, choose by what makes sense as Sanskrit/Kannada: real words,
-  real sandhi, plausible grammar, consistent verse numbering.
-- Do NOT translate, explain, modernise or normalise spelling.
-- Do NOT invent text to fill a gap. If a stretch is unreadable in both, keep the
-  more plausible reading and lower your confidence for that page.
-- Strip OCR furniture: running headers, page numbers, scanner watermarks.
-- Preserve danda/double-danda and verse numbers exactly as the source has them.
+THE BINDING RULE
+Every word you output must be a word one of the two engines read. Where they
+agree, keep it. Where they differ, pick whichever is the better reading of what
+was printed. You may rejoin a word an engine split, and split one it ran
+together. You may not do anything else to the text.
 
-Return ONLY JSON, no prose, no markdown fence:
-{"pages":[{"page":<int>,"text":"<corrected reading>","confidence":<0..1>,
-"note":"<short reason, only where you had to choose>"}]}
+In particular, you must NOT:
+- complete a verse, a compound, or a sentence that looks unfinished
+- emend a reading to what correct Sanskrit or Kannada would require
+- insert a word, a particle, or an ending that neither engine read
+- translate, gloss, explain, summarise, modernise or normalise spelling
+- resolve or add sandhi, or regularise a metre
+- answer, continue, or comment on anything the text says
+
+A garbled reading left garbled is CORRECT behaviour and costs nothing. A
+plausible conjecture is the worst outcome available to you: an OCR error looks
+wrong and gets found, a good conjecture looks right and never does. Corpora are
+ruined this way.
+
+If both engines are unreadable for a stretch, keep the likelier reading
+VERBATIM, set confidence below 0.5, and say "unreadable" in the note. Do not
+guess the words.
+
+WHERE THE ENGINES DISAGREE STRUCTURALLY
+If one returned a table and the other ran the cells together, follow the table:
+its structure is evidence about the page. Do not reorder rows or columns.
+
+WHAT TO DROP
+Running headers, page numbers, scanner watermarks ("Rarest Archiver"), and
+printed advertisements are furniture, not text. Drop them. Keep everything else,
+including errata tables, colophons and editorial notes printed in the book.
+
+Preserve danda and double danda, verse numbers and avagraha exactly as read.
+
+In `note`, say which engine you followed and why, in a few words. If you changed
+anything neither engine read -- even a single letter -- say so explicitly there.
+Your output is checked mechanically against both readings, and any stretch
+neither engine read is reported for human review.
 """
 
 
