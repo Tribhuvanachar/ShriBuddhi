@@ -36,6 +36,21 @@ def validate_work(work_dir: Path, quiet: bool) -> list[str]:
             continue
         d = json.loads(p.read_text(encoding="utf-8"))
         units = d.get("units", [])
+        # A layer's data.json may be a POINTER: the units live in part files
+        # beside it and data.json carries only {"parts": [...]}. Nyaya Sudha's
+        # tika is 6.5 MB in one piece, which is neither servable nor openable,
+        # so it is cut at verse boundaries into ~500KB-1MB parts.
+        #
+        # Reading only data.json in that case finds zero units and reports the
+        # layer as empty against a work.json that correctly says 7,826 -- eight
+        # errors on a tree where nothing is wrong. This validator gates CI, so
+        # it has to understand the shape the corpus is actually stored in.
+        for part in d.get("parts", []):
+            pp = p.parent / part
+            if not pp.exists():
+                errs.append(f"{slug}: data.json lists {part}, which is missing")
+                continue
+            units = units + json.loads(pp.read_text(encoding="utf-8")).get("units", [])
         units_by_layer[slug] = units
         if L.get("units") != len(units):
             errs.append(f"{slug}: work.json says {L.get('units')} units, file has {len(units)}")
