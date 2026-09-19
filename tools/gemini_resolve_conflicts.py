@@ -49,6 +49,14 @@ it. You are deciding what it says.
 Engine A (Sarvam) keeps layout and returns HTML. Engine B (Google Vision) returns
 flat text and often displaces verse markers. Neither is reliably better.
 
+Each page also carries `context_previous_page_end` and `context_next_page_start`:
+the settled text of the pages either side, where the two engines already agreed.
+READ them -- a sentence or a commentary running across a page break is exactly
+where a reading is hardest to judge, and this is what tells you what it was
+saying. DO NOT return them, do not correct them, and do not let text from them
+leak into the page you return. Your output covers THIS page only. The context
+may be empty when a neighbour is missing or was itself in dispute.
+
 You have exactly three things you may do, and they are not equally free.
 
 TIER 1 -- CHOOSE. Free, no declaration needed.
@@ -222,8 +230,14 @@ SCHEMA = {
 
 def ask(batch, model, api_key, usage, max_output_tokens):
     payload = json.dumps(
-        [{"page": c["page"], "engine_a_sarvam": c.get("sarvam", ""),
-          "engine_b_vision": c.get("vision", "")} for c in batch],
+        [{"page": c["page"],
+          # The settled text of the pages either side, so a passage running
+          # across a page break can be judged. Read-only: see the prompt.
+          "context_previous_page_end": c.get("context_before", ""),
+          "engine_a_sarvam": c.get("sarvam", ""),
+          "engine_b_vision": c.get("vision", ""),
+          "context_next_page_start": c.get("context_after", "")}
+         for c in batch],
         ensure_ascii=False)
     out = call_gemini(
         system_instruction=PROMPT,

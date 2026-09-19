@@ -99,8 +99,32 @@ def load_all(paths):
     return merged
 
 
+CONTEXT_CHARS = 700
+
+
+def tail(s: str, n: int) -> str:
+    return s[-n:] if len(s) > n else s
+
+
+def normalise_ws(s: str) -> str:
+    """Neighbour text is context, not output -- strip its markup and collapse
+    whitespace so it costs as few tokens as it can while still reading."""
+    return WS.sub(" ", TAG.sub(" ", s or "")).strip()
+
+
 def compare(sarvam: dict, vision: dict, threshold: float):
-    """Pages needing a third opinion, with both readings and why."""
+    """Pages needing a third opinion, with both readings, why, and neighbours.
+
+    Only pages in conflict are sent on, so a disputed page arrives with no idea
+    what sentence was running into it or out of it -- and a commentary crossing
+    a page break is exactly where a reading is hardest to judge. The pages
+    either side usually AGREED, which means their text is settled and free: we
+    already have it, it costs one extra fetch of nothing, and it is the context
+    a human proofreader would reach for first.
+
+    Carried as `context_before`/`context_after` and marked in the prompt as
+    read-only. The model must not return them or correct them.
+    """
     conflicts, agreed, only_one = [], 0, 0
     for n in sorted(set(sarvam) | set(vision)):
         a, b = sarvam.get(n, ""), vision.get(n, "")
@@ -128,8 +152,14 @@ def compare(sarvam: dict, vision: dict, threshold: float):
         if ratio >= threshold:
             agreed += 1
         else:
+            # Prefer Sarvam for the neighbour text (it keeps layout), falling
+            # back to Vision where Sarvam has nothing for that page.
+            before = sarvam.get(n - 1) or vision.get(n - 1) or ""
+            after = sarvam.get(n + 1) or vision.get(n + 1) or ""
             conflicts.append({"page": n, "reason": "readings differ",
-                              "ratio": round(ratio, 3), "sarvam": a, "vision": b})
+                              "ratio": round(ratio, 3), "sarvam": a, "vision": b,
+                              "context_before": tail(normalise_ws(before), CONTEXT_CHARS),
+                              "context_after": normalise_ws(after)[:CONTEXT_CHARS]})
     return conflicts, agreed, only_one
 
 
