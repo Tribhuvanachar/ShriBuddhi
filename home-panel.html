@@ -2,6 +2,12 @@
 <html lang="sa">
 <head>
 <meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here.
+     This page is in sitemap.xml and is reachable on its own, so it is
+     gated like every other page -- it was missed when the site moved into
+     this repository, and CI caught it once CI was revived. -->
+<script src="js/vandana-guard.js?v=2"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Know More — Sarvamūla Digital Library</title>
 <link rel="stylesheet" href="css/home.css?v=1">
