@@ -1,0 +1,197 @@
+{
+ "_readme": "Layout-preserving OCR from Sarvam Document AI (tools/sarvam_docai.py). Review in admin/ocr-review.html; nothing here reaches the library until approved.",
+ "source": {
+  "pdf": "https://drive.google.com/uc?export=download&id=1bb22akEx5yJHLmYznV5h5RUagb23GZb7",
+  "pages": [
+   13,
+   32,
+   41,
+   46,
+   92,
+   122,
+   138,
+   145,
+   151,
+   171,
+   172,
+   192,
+   204,
+   253,
+   256,
+   276
+  ],
+  "pdf_pages": 307
+ },
+ "engine": "sarvam-docai",
+ "language": "kn-IN",
+ "format": "html",
+ "generated_at": "2026-09-20T14:23:02Z",
+ "usage": {
+  "pages_total": 16,
+  "pages_succeeded": 16,
+  "pages_failed": 0,
+  "jobs": 15
+ },
+ "pages": [
+  {
+   "page": 13,
+   "ok": true,
+   "blocks_count": 13,
+   "html": "<p data-layout=\"paragraph\" data-confidence=\"0.44\">॥ ಶ್ರೀಃ ಹರಿಃ ಓಂ ॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.27\">॥ ಶ್ರೀಗರುಡವಾಹನ ಲಕ್ಷ್ಮೀನರಸಿಂಹ ಪ್ರಸೀದ ॥<br><br>॥ ಶ್ರೀಜಗನ್ನಾಥವಿಠಲಾಯನಮಃ ॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.42\">ಸಂಧಿ ೮</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.43\">ಮಾತೃಕಾಸಂಧಿ</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.37\">ಹರಿಕಥಾಮೃತಸಾರ ಗುರುಗಳ |<br>ಕರುಣದಿಂದಾಪನಿತು ಪೇಳುವೆ |<br>ಪರಮ ಭಗವದ್ಭಕ್ತರಿದನಾದರದಿ ಕೇಳುವುದು ||ಪ||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.60\">ಪದ್ಯ (೧)</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.65\">ಮೂಲ :—</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.64\">ಪಾದಮಾನಿ ಜಯಂತನೊಳು ಸು |</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.58\">ಮೇಧ ನಾಮಕನಿಪ್ಪ ದಕ್ಷಿಣ |</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.64\">ಸಾದದುಂಗಟದಲ್ಲಿ ಪವನನು ಭಾರಭ್ಯದ್ರೂಪ ||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.67\">ಕಾದುಕೊಂಡಿಹ ಟಂಕಿ ತರ ಮೊದ |</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.68\">ಲಾದ ನಾಮದಿ ಸಂಧಿಗಳಲೀ |</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.68\">ರೈದು ರೂಪದಲಿದ್ದು ಸಂತತ ನಡೆದು ನಡೆಸುತ್ತಲಿ ॥ ||೧||</p>",
+   "image_size": [
+    3391,
+    4900
+   ]
+  },
+  {
+   "page": 32,
+   "ok": true,
+   "blocks_count": 4,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.70\">32</div>\n<h4 data-layout=\"header\" data-confidence=\"0.83\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<p data-layout=\"table\" data-confidence=\"0.93\">&lt;table&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td colspan=\"4\"&gt;ಎಡಹಸ್ತ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೬.&lt;/td&gt;<br>      &lt;td&gt;ಭುಜದಕೀಲು&lt;/td&gt;<br>      &lt;td&gt;ಚ&lt;/td&gt;<br>      &lt;td&gt;ಚಾರ್ವಾಂಗ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೭.&lt;/td&gt;<br>      &lt;td&gt;ಮೊಣಕೈಕೀಲು&lt;/td&gt;<br>      &lt;td&gt;ಛ&lt;/td&gt;<br>      &lt;td&gt;ಛಂದೋಗಮ್ಯ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೮.&lt;/td&gt;<br>      &lt;td&gt;ಮಣಿಗಂಟು&lt;/td&gt;<br>      &lt;td&gt;ಜ&lt;/td&gt;<br>      &lt;td&gt;ಜನಾರ್ದನ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೯.&lt;/td&gt;<br>      &lt;td&gt;ಅಂಗೈಕೀಲು&lt;/td&gt;<br>      &lt;td&gt;ಝು&lt;/td&gt;<br>      &lt;td&gt;ಝೂಟಿತಾರಿ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೦.&lt;/td&gt;<br>      &lt;td&gt;ಬೆರಳುಗಳಕೀಲುಗಳು&lt;/td&gt;<br>      &lt;td&gt;ಞ್&lt;/td&gt;<br>      &lt;td&gt;ಇಮ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td colspan=\"4\"&gt;ಉಭಯಪಾರ್ಶ್ವ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೧.&lt;/td&gt;<br>      &lt;td&gt;ಬಲಭಾಗದಲ್ಲಿ&lt;/td&gt;<br>      &lt;td&gt;ಪ&lt;/td&gt;<br>      &lt;td&gt;ಪರ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೨.&lt;/td&gt;<br>      &lt;td&gt;ಎಡಭಾಗದಲ್ಲಿ&lt;/td&gt;<br>      &lt;td&gt;ಫ&lt;/td&gt;<br>      &lt;td&gt;ಫಲೀ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td colspan=\"4\"&gt;ಕರ್ಮೇಂದ್ರಿಯಗಳಲ್ಲಿ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೩.&lt;/td&gt;<br>      &lt;td&gt;ಗುದದಲ್ಲಿ&lt;/td&gt;<br>      &lt;td&gt;ಬ&lt;/td&gt;<br>      &lt;td&gt;ಬಲೀ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೪.&lt;/td&gt;<br>      &lt;td&gt;ಉಪಸ್ಥದಲ್ಲಿ&lt;/td&gt;<br>      &lt;td&gt;ಭ&lt;/td&gt;<br>      &lt;td&gt;ಭಗ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td colspan=\"4\"&gt;ನಾಭಿಯ ತಳ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೫.&lt;/td&gt;<br>      &lt;td&gt;ತುಂಡಿಯಲ್ಲಿ&lt;/td&gt;<br>      &lt;td&gt;ಮ&lt;/td&gt;<br>      &lt;td&gt;ಮನ&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.77\">೭. ಇಂತು ಸಾಧನಶರೀರವೆಂದೆನಿಪ ಈ ಸ್ಕೂಲಶರೀರಗತ ತತ್ತಸ್ಥಾನ<br>ಗಳಲ್ಲಿ ವಿದ್ಯಮಾನನಾಗಿರುವ ವರ್ಣವಾಚ್ಯ ಭಗವದ್ರೂಪಗಳನ್ನು ಮಾತೃಕಾ<br>ನ್ಯಾಸವಿಧಿಯಂತೆ ಚಿಂತಿಸುವ ಭಗವದ್ಭಕ್ತರನ್ನು ಶರಣಾಗತವತ್ಸಲನು ಕೃಪಾ<br>ದೃಷ್ಟಿಯಿಂದ ನಿರಂತರದಲ್ಲಿ ಸಂರಕ್ಷಿಸುವನು. ॥೨॥</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 41,
+   "ok": true,
+   "blocks_count": 9,
+   "html": "<h4 data-layout=\"header\" data-confidence=\"0.76\">ಮಾತೃಕಾಸಂಧಿ</h4>\n<div data-layout=\"page-number\" data-confidence=\"0.77\">41</div>\n<p data-layout=\"paragraph\" data-confidence=\"0.90\">ಮಾತ್ಮನಿದ್ದು, ಅವರವರ ಕರ್ಮಾನುಸಾರವಾಗಿ ಜೀವರನ್ನು ಗರ್ಭಕ್ಕೆ ತಂದು,<br>ಹುಟ್ಟಿಸಿ, ಅನಾದಿಕರ್ಮಗಳನ್ನು ಮೀರದೆ ಕರ್ಮಗಳನ್ನು ಮಾಡಿ ಮಾಡಿಸು<br>ತಿರುವನು. ॥೩॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.65\">೩. ಭಾವದರ್ಪಣಟೀಕಾ ವ್ಯಾಖ್ಯಾನ</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.86\">ಈಗ ತತಃ ಸುಷುಮ್ಮಾ ಸಂಸಕ್ತಾ ನಾಭಿಸಂಸ್ಥೇಷು ಪಂಚಸು |<br>ಷಟ್ಡಳಾರುಣಪತ್ರೇಷು ಅನಿರುದ್ಧಾದಿಕಾ ಸ್ಮರೇತ್ ||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.85\">ಎಂತ ಮಾನಸಸ್ಮೃತ್ಯಾನುಸಾರ ಷಟ್ಡಳ ಉಳ್ಳ ಐದು ಪದ್ಮಗಳು<br>ನಾಭಿಯಲ್ಲಿ ಅವೆ ಎಂದು ಹೇಳುತ್ತಾರೆ. ॥೩॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.67\">೪. ಶ್ರೀವ್ಯಾಸಸಿದ್ಧಾಂತಕೌಮುದೀ (ಸಂಸ್ಕೃತ ಮೂಲ)</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.92\">ಐದು-ಇತಿ॥ ಪಂಚನಾಡೀಸ್ಥಂ ಪದ್ಮಪಂಚಕಮ್॥ ಮೂಲಾಧಾರಂ<br>ಸಮಾರಭ್ಯ ತ್ವಾಮೂರ್ಧಾನಂ ಋಜುಸ್ಥಿತಾ। ಮಧ್ಯೇ ಸುಷುಮ್ನಾ ವಿಜ್ಞೇಯ<br>ವಜ್ರಕಾರ್ಯಾ ಪ್ರಕಾಶಿನೀ॥ ವೈದ್ಯುತಾ ಬ್ರಹ್ಮನಾಡೀತಿ ಸೈವ ಪಂಚಪ್ರಭೇ<br>ದಿನೀ॥ ಪೃಷ್ಠ ವಾಮಾಗ್ರ ದಕ್ಷಾಂತರ್ಭೇದಾಃ ತೇಷು ಕ್ರಮೇಣ ತು। ಹರಿ<br>ನ್ನೀಲಃ ಸಿತಃ ಪಿಂಗಃ ಲೋಹಿತಾಶ್ಚಸ್ಯ ಕೇಶವಃ॥ ಪ್ರದ್ಯುಮ್ನಾದಿ ಸ್ವರೂ<br>ಪೇಣ ಧೈಯಃ ಸಿದ್ಧಿಮಭೀಪಿಸ್ತಮ್॥ ಇತಿ ಸಾರಸಂಗ್ರಹೇ॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.94\">ಮೂಲೇ ಚ ನಾಭೌ ಹೃದಯೇಂದ್ರಯೋನಿಃ ಭ್ರೂಮಧ್ಯೆ-<br>ಇತ್ಯುಕ್ತ್ವಾ, ಪದ್ಮೇಷು ಇತಿ ಚ ಉಕ್ತಮ್॥ ಐದಿಸುತ ಇತಿ | ಅನಿರುದ್ಧಾ<br>ಶ್ರಯತ್ವಾತ್ ಗರ್ಭಾಣಾಂ ಪಿತುಃ ಶರೀರಾತ್ ಅನ್ಯತ್ರ ಪ್ರತಿಹೃತಾಃ ಅಪಿನ<br>ವಿನಶ್ಯಂತಿ ವರ್ಧಂತೈ ಚ ತತ್ರೈವ॥ ಧಾತಾ ಗರ್ಭಾಂ ದಧಾತು-ಇತಿ ಶ್ರುತೇ॥<br>ಧಾತಾಹಿ ಭಗವಾನ್ ಅನಿರುದ್ಧಃ ॥ಯೋಗಿ ಕ್ಲೃಪ್ತಿಃ ವಾಸುದೇವಾತ್ ರೂಪಂ<br>ಸಂಕರ್ಷಣಾತ್ ಚ ಧಾರಣಮ್॥ ಇತಿ ಛಾಂದೋಗ್ಯೇ॥ ಭೃಗ್ವಿಂದ್ರದ್ಯುಮ್ನ<br>ಸಂವಾದೇ ವಿಷ್ಣುರಹಸ್ಯೆ ಕರ್ಮಾದಿ ನಿರೂಪಣ ಪ್ರಕರಣೇ॥ ಯದೇಶ್ವರಃ<br>ಪ್ರಾಣಯುತಃ ಪಿತರಿ ಸ್ಥಾಪಯತ್ಯಮುಮ್॥ ತದಾಪ್ರಭೃತಿ ತದ್ದೇಹಸ್ಥಿತೋ</p>",
+   "image_size": [
+    3391,
+    4900
+   ]
+  },
+  {
+   "page": 46,
+   "ok": true,
+   "blocks_count": 37,
+   "html": "<pre data-layout=\"formula\" data-confidence=\"0.43\">ಶ್ರೀ<br>ರಾಮ<br>ಚಂದ್ರ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.88\">ಬೆಳಗಾವಿ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.75\">ಬಸವಣ್ಣನವರು</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.73\">ಬೆಂಗಳೂರು</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.81\">ಬಸವಲಿಂಗ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.72\">ಬೆಂಗಳೂರು</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.81\">ಶ್ರೀ<br>ರಾಮ<br>ಚಂದ್ರ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.73\">ಕನ್ನಡ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.71\">ನವಜಾತ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.67\">84<br>12<br>0R</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.66\">ಶ್ರೀ<br>ರಾಮ<br>ಚಂದ್ರ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.75\">೩೦೦</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.76\">ਰ<br>ਰ<br>ਰ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.85\">ಶ್ರೀ<br>ದ<br>ತ್ತ<br>ೆ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.69\">ಬೊಮ್ಮ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.72\">ಬಳ್ಳಾರಿ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.75\">ಬ೦೮</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.80\">ಬಳ್ಳಾರಿ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.81\">ഒപ്പ്</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.85\">ಶ್ರೀ<br>ಬಸವ<br>ಪೀಠ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.71\">ಬೆಂಗಳೂರು</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.85\">ಓಂ<br>ಹರಿ<br>ನಮಃ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.84\">ഭ<br>ള<br>ക<br>ൾ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.81\">പ<br>ള്ള<br>ള</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.35\">ಕನ್ನಡ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.73\">ಕನ್ನಡ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.47\">ಶ್ರೀರಾಮಚಂದ್ರ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.51\">(೨೦೧೮)</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.41\">(ಪಿಂಗಾಣಿ)</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.76\">ഭജ<br>ദ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.36\">(ಇ)</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.82\">ಸಂಜೆ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.74\">ಂ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.75\">୭</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.74\">ள்</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.70\">ഒ</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.69\">ಶ್ರೀ</pre>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 92,
+   "ok": true,
+   "blocks_count": 9,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.73\">92</div>\n<h4 data-layout=\"header\" data-confidence=\"0.86\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<h2 data-layout=\"section-title\" data-confidence=\"0.42\">೩. ಭಾವದರ್ಪಣಟೀಕಾ ವ್ಯಾಖ್ಯಾನ</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.36\">ಸ್ತಂಭೇತಿ॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.75\">ದಕ್ಷಿಣಾಕ್ಷಿಸ್ಥಿತೋ ವಿಷ್ಣುಃ ಸ್ತಂಭರೂಪೋ ರಮಾಸ್ವಯಂ|<br>ರಜ್ಜು ರೂಪಾ ತಯಾ ಬದ್ಧಂ ವಾಯುಂ ಗೋವತ್ಸರೂಪಿಣಂ||<br>ಶ್ವೇತತಾರಾಸ್ಥಿತಶ್ಚಂದ್ರೋ ವಸಿಷ್ಠಾಖ್ಯ ಸುರೇಶ್ವರಃ |<br>ನಯನೋ ರಕ್ತ ರಾಜಿಸ್ಥೋ ರುದ್ರೋ ಗೌತುಮನಾಮಿಕಃ||<br>ಕೃಷ್ಣತಾರಾಸ್ಥಿತೋ ವರ್ಹಿರ್ಜಮದಗ್ನಿರಿತಿಸ್ಮೃತಃ |<br>ಕನನೀಯಾದಿತ್ಯಸಂಸ್ಥೋ ವಿಶ್ವಾಮಿತ್ರಾಭಿಧಃ ಸ್ಥಿತಃ||<br>ವಾರಿಗೋ ವರುಣಃ ಸಾಕ್ಷಾದ್ದಾರದ್ವಾ ಜಾಭಿಧಸ್ತಯಾ|<br>ಅಧರಾವರ್ತಿನೀ ಸಂಸ್ಥಾಪೃಥ್ವೀ ಕಶ್ಯಪನಾಮಿಕಾ||<br>ಉತ್ತರಾಯಾಂ ಧ್ಯುನಾಮ್ಮಿಯಾಂ ಭಾರತೀ ಹ್ಯಾತ್ರಿನಾಮಿಕಾ|<br>ಏತೇ ಹ್ಯಕ್ಷಿಣಮನಸಃ ಸಪ್ತದೇವಾ ಉಪಾಸತಿ ಇತಿ||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.27\">— ಇತಿ ಮಾನಸಸ್ಯ ತುಕ್ಕೇಃ ||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.67\">ನೇತ್ರೇತಿ ಎಂಬ ಪದ್ಯಕ್ಕೆ ಇದೇ ಪ್ರಮಾಣ ಇಟ್ಟುಕೊಳ್ಳಬೇಕು. ಪತ್ರತಾಪಕ-<br>ರುದ್ರನಾಮ. ॥೯॥</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.79\">೪. ಶ್ರೀವ್ಯಾಸದಾಸಸಿದ್ಧಾಂತಕೌಮುದೀ (ಸಂಸ್ಕೃತಮೂಲ)</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.94\">ಸ್ತಂಭರೂಪದಲಿ-ಇತಿ|| ಪ್ರಾಣೋ ನಾರಾಯಣಃ ಸ್ತೂಣೌ॥ ವಾಯುಃ<br>ಗೋವತ್ಸ ರೂಪೇಣ ಸರ್ವಪ್ರಾಣಿಷು ಸಂಸ್ಥಿತಃ॥ ಅನ್ನಂ ದಾಮಾತ್ಮಕಂ ತಸ್ಯ<br>ಸ್ತೂಣಾ ತು ಭಗವಾನ್ ಹರಿಃ॥ ಧ್ಯಾಯತ್ಯೇವಂ ಹಿ ಯೋ ವಾಯುಂ<br>ಶ್ರೋತ್ರಾದೀನ್ ಮನಸಾ ಸಹ॥ಬುದ್ಧಿಂ ಚ ಸಪ್ತ ಶತ್ವೂಂಶ್ಚ ವಿಷಯೇಶ್ವಭಿ<br>ಧಾವತಃ॥ ಅಸುರಾನ್ ಸ ನಿರುಧ್ಯೈವ ವೇತ್ತಿ ನಾರಾಯಣಂ ಪರಮ್॥<br>ದಕ್ಷಿಣಾಕ್ಷಿಸ್ಥಿತಂ ವಾಯುಂ ಸಪ್ತದೇವಾಃ ಉಪಾಸತೇ॥ಅಕ್ಷೀಣ ಜ್ಞಾನ ಮನಸಃ<br>ಸದಾಶಿವ ಪುರಸ್ಸರಾಃ॥ ಉಪಾಸ್ಯಮಾನಂ ತೈಃ ದೇವೈಃ ಮೋಕ್ಷಾರ್ಥಂ<br>ವಾಯುಮೀಶ್ವರಮ್॥ ಸ್ತೂಣಯಾ ವಿಷ್ಣುನಾ ಸಾರ್ಥಂ ಯೋವಿದ್ಯಾತ್</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 122,
+   "ok": true,
+   "blocks_count": 12,
+   "html": "<h4 data-layout=\"header\" data-confidence=\"0.37\">122</h4>\n<h4 data-layout=\"header\" data-confidence=\"0.62\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<p data-layout=\"paragraph\" data-confidence=\"0.55\">ಪ್ರಮಾಣ</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.77\">೧. ಚಕ್ಷುಸ್ಥಃ ಕಪಿಲೋ ವಿಷ್ಣುರಿತಿ|| -ಐತರೇಯಭಾಷ್ಯ.</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.30\">೨. ಏವಮಧೃತರೂಪೋಽಸೌ ತ್ವಷ್ಠದಿಕ್ಪಾಲಸೇವಿತಃ॥<br>-ಇತಿ ಮಾನಸಸ್ಮೃತಿ.</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.83\">೩. ಅಷ್ಟಾದಶ ಮುಖಾನ್ಯಸ್ಯ ಪುಮಾಕಾರಾಣಿ ಸರ್ವಶಃ |<br>ಮಧ್ಯಮಂತು ಗಜಾಕಾರಶ್ಚ ತುರ್ಬಾಹು ಪರಃ ಪುಮಾನ್ ||<br>ಪಾದೌ ಹಸ್ತಿಕರೌ ಹಸ್ತ ಇತಿ ಸಪ್ತಾಂಗ ಈರಿತ ಇತಿ||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.63\">-ಮಾಂಡೂಕಭಾಷ್ಯ,</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.80\">ವಿಶ್ವನ ಸಪ್ತಾಂಗಗಳು</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.75\">1. ನಾಲ್ಕು ಪುರುಷಾಕಾರದ ಬಾಹುಗಳು 2. ಎರಡು ಪಾದಗಳು<br>ಮತ್ತು 3. ಮಧ್ಯ, ಆನೆಯ ಸೊಂಡಿಲು (ಹಸ್ತಿಕರ) ॥೧೧॥</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.45\">ಪದ್ಯ ೧೨</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.51\">ಮೂಲ</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.26\">ನೆಲಸಿಹರು ದಿಗ್ದೇವತೆಗಳಿ |<br>ಕ್ಕೈಲದಿ ಕರ್ಣಂಗಳಲಿ ತೀರ್ಥಂ |<br>ಗಳಿಗೆ ಮಾನಿಗಳಾದ ಸುರನದಿಮುಖ್ಯನಿರ್ಜರರು||<br>ಬಲದ ಕಿವಿಯಲಿ ಇರುತಿಹರು ಬಾಂ |<br>ಬೊಳೆಯಜನಕ ತ್ರಿವಿಕ್ರಮನು ನಿ |<br>ರ್ಮಲಿರನು ಮಾಡುವನು ಈ ಪರಿ ಚಿಂತಿಸುವ ಜನರ || ||೧೨||</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 138,
+   "ok": true,
+   "blocks_count": 16,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.72\">138</div>\n<h4 data-layout=\"header\" data-confidence=\"0.82\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<p data-layout=\"paragraph\" data-confidence=\"0.92\">ವಸ್ಥಾ ಪ್ರೇರಕರೂಪಗಳು, ಗಜಮುಖದ ಎಡಪಾರ್ಶ್ವಕ್ಕೆ ೯ ಮುಖಗಳು<br>ಸ್ತ್ರೀಚೇತನರಲ್ಲಿ ವಿದ್ಯಮಾನರಾದ ತ್ರಿವಿಧಚೇತನರಿಗೆ ಸ್ವಪ್ನಾವಸ್ಥಾಪ್ರೇರಕ<br>ರೂಪಗಳು.</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.72\">ಪ್ರಮಾಣ</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.31\">೧. ಚಿತ್ತಜೇಂದ್ರೌ ಚ ಮನಸೀತಿ<br>-ಇತಿ ಸಾರಸಂಗ್ರಹೇ॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.64\">೨. ಬುದ್ಧೌ ಉಮಾಂಹಕೃತೌ ಚ ರುದ್ರಶ್ಚಿತ್ತೇ ಖಗೇಶ್ವರಃ |<br>ಶೇಷೋಸ್ತಿ ಚೇತನೇ ಸರ್ವಮನೋವೃತ್ತಿಂ ಪ್ರವರ್ತಯನ್ನಿತಿ||<br>-ಇತಿ ತತ್ತ್ವಕೌಸ್ತುಭೇ</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.32\">೩. ಏಕೋನವಿಂಶತಿ ಮುಖೌ ವಿಶ್ವತೈಜಸನಾಮಕೌ |<br>ಸವ್ಯಾಪಸವ್ಯಗಾನ್ಯೇವ ಪುರುಷಸ್ಯಾನಿ ಮಧ್ಯಗೇ||<br>ಗಜಸ್ಯಂತು ತಯೋರ್ಮಧ್ಯೆ ಮುಖಾನಾಂ ಕೃತ್ಯಮಪ್ಯುತೇತಿ॥<br>-ಇತಿ ಪ್ರಕಾಶಸಂಹಿತಾಯಾಂ ||೦೩||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.57\">-ಇತಿ ಪ್ರಕಾಶಸಂಹಿತಾಯಾಂ ||೧೩||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.70\">ಪದ್ಯ ೧೪</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.69\">ಮೂಲ</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.71\">ಜ್ಞಾನಮಯತೈಜಸನು ಹೃದಯ।</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.70\">ಸ್ಥಾನಯ್ಯದಿಸಿ ಪ್ರಾಜ್ಞನೆಂಬಭಿ।</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.72\">ಧಾನದಿಂ ಕರೆಸುತ್ತ ಚಿತ್ತು ಖವ್ಯಕ್ತಿಯನೆ ಕೊಡುತ॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.70\">ಆನಶೇಷ್ಟಪ್ರದನು ಆನುಸಂ|</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.73\">ಧಾನವೀಯದೆ ಸುಪ್ತಿಯೈದಿಸಿ |</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.73\">ತಾನೆ ಪುನರಪಿ ಸ್ವಪ್ನ ಜಾಗ್ರತೆಯೀವ ಚೇತನಕೆ॥ ||೧೪||</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 145,
+   "ok": true,
+   "blocks_count": 10,
+   "html": "<h1 data-layout=\"headline\" data-confidence=\"0.50\">ಮಾತೃಕಾಸಂಧಿ</h1>\n<div data-layout=\"page-number\" data-confidence=\"0.67\">145</div>\n<p data-layout=\"paragraph\" data-confidence=\"0.54\">ಉಕ್ತಂ ಚ ಗಾರುಡೇಃ</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.80\">ಸೃಜತ್ಯನಿತ್ಯ ಸೌಖ್ಯಂತು ಸ್ವ ಸಂಗಾತ್ತಾಮುನೇಷ್ವಜಃ |<br>ಸುಪ್ತಿಕಾಲೇತು ಭಗವಾನ್ ತತ್ಸುಖಂ ಪ್ರಾಕೃತಂ ಸ್ಮೃತಮಿತಿ||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.83\">ಸುಪ್ತ್ಯನಂತರ ಪುನಃ ಸ್ವಪ್ನ-ಅನಂತರ ಜಾಗೃತಿ ಆಗುತ್ತದೆ. ಇದೇ<br>ನೇಮವಾದದ್ದು.</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.44\">ಪ್ರಮಾಣ</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.77\">ಪುನಸ್ಮೈಜಸ ಸಂಯುಕ್ತೋ ವಿಷ್ಣುರ್ಜೀವ ಕಲಾವೃತಃ |<br>ಕಂಠಂ ಸಮಾಗತೇ ಸ್ವಪ್ನಃ ಪುನರ್ಭವತಿ ತತ್ರಹಿ ||<br>ವಿಹಾಯ ತೈಜಸಂ ವಿಶ್ವೇ ಪುನಶ್ಚಕ್ಷೋಃ ಸಮಾಗತೇ |<br>ತದಾ ಜಾಗ್ರದವಸ್ಥಾಸ್ತ್ಯಾದೇವಂ ವಿಜ್ಞೇಯಮಂಜನೇತಿ ||<br>—ಇತಿ ಮಾನಸಸ್ಮೃತ್ಯುಕ್ತೇಃ ||೧೪||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.66\">೪. ಶ್ರೀವ್ಯಾಸದಾಸಸಿದ್ಧಾಂತಕಾಮುದೀ (ಸಂಸ್ಕೃತಮೂಲ)</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.94\">ಜ್ಞಾನಮಯ-ಇತಿ! ಯತ್ರ ಸುಪ್ತಃ ನ ಕಂಪಿನ ಕಾಮಂ ಕಾಮಯತೇ<br>ನ ಕಂಚಸಿ ಸ್ವಪ್ನಂ ಪಶ್ಯತಿ ತತ್ ಸುಷುಪ್ತಮ್ || ಸುಷುಪ್ತಸ್ಥಾನ ಏಕೀಭೂತಃ<br>ಪ್ರಜ್ಞಾನಘನ ಏವ ಆನಂದಮಯಃ ಹ್ಯಾನಂದಭುಕ್ ಚೇತೋಮುಖಂ<br>ಪ್ರಾಜ್ಞಃ ತೃತೀಯಃ ಪಾದಃ|| ಆನಂದಭೂತ್ ತಥಾ ಪ್ರಾಜ್ಞಃ ತ್ರಿಧಾ<br>ಭೋಗಂ ನಿಬೋಧತ॥ ಸುಷುಪ್ತಂ ತು ತಮೋಜ್ಞೇಯಂ ಹರಿಂ ಪ್ರಾಪ್ಯ<br>ತದಾವೃತಃ|| ನ ಕಾಮಯೇತ್ ನೈವ ಪಶ್ಯೇತ್ ಜೀವಃ ಸ್ವಾತ್ಮತಮೋವಿನಾ||<br>ಕಾಲಂ ಚ ತಸ್ಯ ಸ್ಥಾನಸ್ಯ ಪತಿಃ ಪ್ರಾಜ್ಞೋ ಹರಿಃ ಸ್ವಯಮ್|| ಸ್ವಪ್ನ ಕೃತ್ವಾ<br>ಚ್ಚಿತ್ತಗತ್ವಾತ್ ತೈಜಸಃ|| ಬಾಹ್ಯಾಜ್ಞಾಪಕತ್ವಾತ್ ಪ್ರಾಜ್ಞಃ|| ||೧೪||</p>\n<div data-layout=\"page-number\" data-confidence=\"0.78\">10</div>",
+   "image_size": [
+    3391,
+    4900
+   ]
+  },
+  {
+   "page": 151,
+   "ok": true,
+   "blocks_count": 1,
+   "html": "<p data-layout=\"table\" data-confidence=\"0.87\">&lt;table&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ಕ್ರ.&lt;/td&gt;<br>      &lt;td&gt;ಭಗವ&lt;br/&gt;ದೂಷ&lt;/td&gt;<br>      &lt;td&gt;ವಾಚ್ಯತ್ವ&lt;/td&gt;<br>      &lt;td&gt;ಸ್ಥಾನ&lt;/td&gt;<br>      &lt;td&gt;ರಸಾನುಭವ&lt;/td&gt;<br>      &lt;td&gt;ಕ್ರಿಯಾವೃತ್ತಿ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧.&lt;/td&gt;<br>      &lt;td&gt;ವಿಶ್ವ&lt;/td&gt;<br>      &lt;td&gt;ಅ-ಕಾರವಾಚ್ಯ&lt;/td&gt;<br>      &lt;td&gt;ಜೇವರ&lt;/td&gt;<br>      &lt;td&gt;ಸೂಲವಿಷಯಾ&lt;br/&gt;ನುಭವ&lt;/td&gt;<br>      &lt;td&gt;ಜಾಗ್ರದವಸ್ಥೆ&lt;br/&gt;(ಎಚ್ಚರಿಕೆಯಸ್ಥಿತಿ)&lt;br/&gt;(ಸತ್ಯಗುಣಪ್ರವರ್ತನ)&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೨.&lt;/td&gt;<br>      &lt;td&gt;ತೈಜಸ&lt;/td&gt;<br>      &lt;td&gt;ಉ-ಕಾರವಾಚ್ಯ&lt;/td&gt;<br>      &lt;td&gt;ಜೇವರ&lt;br/&gt;ಕಂಠಸ್ಥಾನ&lt;/td&gt;<br>      &lt;td&gt;ಪ್ರವಿವಿಕ್ತ&lt;br/&gt;ರಸಾನುಭವ&lt;/td&gt;<br>      &lt;td&gt;ಸ್ವಪ್ನಾವಸ್ಥೆ ಮನೋ&lt;br/&gt;ವ್ಯಾಪಾರ ವಾಸನಾಮಯ&lt;br/&gt;ವಿಶೇಷ (ರಟೋಗುಣ&lt;br/&gt;ಪ್ರವರ್ತನ)&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೩.&lt;/td&gt;<br>      &lt;td&gt;ಪ್ರಾಜ್ಞ&lt;/td&gt;<br>      &lt;td&gt;ಮ-ಕಾರವಾಚ್ಯ&lt;/td&gt;<br>      &lt;td&gt;ಜೇವರ&lt;br/&gt;ಹೃದಯದಲ್ಲಿ&lt;/td&gt;<br>      &lt;td&gt;ಆನಂದರಸ&lt;br/&gt;ಅನುಭವ&lt;/td&gt;<br>      &lt;td&gt;ಸುಷುಪ್ತ ಸ್ಥಿತಿ (ಗಾಢ&lt;br/&gt;ನಿದ್ರಾವಸ್ಥೆ) ಸರ್ವೇಂದ್ರಿಯ&lt;br/&gt;ಗಳೂ ಉದರಸ್ಥಿತಿ (ತಮೋ&lt;br/&gt;ಗುಣ ಪ್ರವರ್ತನ)&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "image_size": [
+    3391,
+    4900
+   ]
+  },
+  {
+   "page": 171,
+   "ok": true,
+   "blocks_count": 1,
+   "html": "<p data-layout=\"table\" data-confidence=\"0.80\">&lt;table&gt;<br>  &lt;thead&gt;<br>    &lt;tr&gt;<br>      &lt;th&gt;ಕ್ರಮ ಸಂಖ್ಯೆ&lt;/th&gt;<br>      &lt;th&gt;ವರ್ಣ ವಾಚ್ಯ&lt;/th&gt;<br>      &lt;th&gt;ಭಗವ ದ್ರೂಪ&lt;/th&gt;<br>      &lt;th&gt;ಚಿಂತಿಸಬೇಕಾದ ಸ್ಥಾನ&lt;/th&gt;<br>      &lt;th&gt;ಅರ್ಥವಿವರಣೆ&lt;/th&gt;<br>    &lt;/tr&gt;<br>  &lt;/thead&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧.&lt;/td&gt;<br>      &lt;td&gt;ಅ&lt;/td&gt;<br>      &lt;td&gt;ಅಜ ಶಿರಸ್ಸು&lt;/td&gt;<br>      &lt;td&gt;ಜನನರಹಿತನು.&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೨.&lt;/td&gt;<br>      &lt;td&gt;ಆ&lt;/td&gt;<br>      &lt;td&gt;ಆನಂದ ಮುಖ&lt;/td&gt;<br>      &lt;td&gt;ಆನಂದಸ್ವರೂಪಿಯು.&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೩.&lt;/td&gt;<br>      &lt;td&gt;ಇ&lt;/td&gt;<br>      &lt;td&gt;ಬಲಗಣ್ಣ ಬಲಗಣ್ಣು&lt;/td&gt;<br>      &lt;td&gt;ಪರಮೇಶ್ವರ್ಯಸಂಪನ್ನ.&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೪.&lt;/td&gt;<br>      &lt;td&gt;ಈ&lt;/td&gt;<br>      &lt;td&gt;ಎಡಗಣ್ಣು ಎಡಗವಿ&lt;/td&gt;<br>      &lt;td&gt;ಮಹಾಲಕ್ಷ್ಮಿಗೂ ಮುಖ್ಯ ನಿಯಾಮಕನು.&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೫.&lt;/td&gt;<br>      &lt;td&gt;ಉ&lt;/td&gt;<br>      &lt;td&gt;ಉಗ್ರ ಬಲಗವಿ&lt;/td&gt;<br>      &lt;td&gt;ರುದ್ರ ಸಂಹಾರಕ. ಪಾಪಿಗಳಿಗೆ ಕ್ರೂರನು.&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೬.&lt;/td&gt;<br>      &lt;td&gt;ಊ&lt;/td&gt;<br>      &lt;td&gt;ಉಜ್ಜ ಎಡಗವಿ&lt;/td&gt;<br>      &lt;td&gt;ನಿಸ್ಸೀಮನಾದ ಬಲಕ್ರಿಯಾವಂತನು.&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೭.&lt;/td&gt;<br>      &lt;td&gt;ಋ&lt;/td&gt;<br>      &lt;td&gt;ಋತಂಭರ ಬಲಮೂಗಿನ ಹೊಳ್ಳಿ&lt;/td&gt;<br>      &lt;td&gt;ಸತ್ಯ ಜಗದಾಧಾರ ಹಾಗೂ ಪೋಷಕ.&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೮.&lt;/td&gt;<br>      &lt;td&gt;ೞ&lt;/td&gt;<br>      &lt;td&gt;ಋಘ ಎಡಮೂಗಿನ ಹೊಳ್ಳಿ&lt;/td&gt;<br>      &lt;td&gt;ದಾನವರಿಗೆ ಕ್ಷೇಶದಾಯಕ.&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "image_size": [
+    3391,
+    4900
+   ]
+  },
+  {
+   "page": 172,
+   "ok": true,
+   "blocks_count": 1,
+   "html": "<p data-layout=\"table\" data-confidence=\"0.72\">&lt;table&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೯.&lt;/td&gt;<br>      &lt;td&gt;ವೃ&lt;/td&gt;<br>      &lt;td&gt;ಲಕ್ಷ&lt;/td&gt;<br>      &lt;td&gt;ಬಲಗನ್ನ&lt;/td&gt;<br>      &lt;td&gt;ದೇವಮಾತೆಯಾದ ಅದಿತಿಗೆ ಸುಖಪ್ರದನು.&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೦.&lt;/td&gt;<br>      &lt;td&gt;ಲು&lt;/td&gt;<br>      &lt;td&gt;ಲ್ಯೂಶ&lt;/td&gt;<br>      &lt;td&gt;ಎಡಗನ್ನ&lt;/td&gt;<br>      &lt;td&gt;ದಿತಿದೇವಿಗೆ ವಿಷಾದಕ.&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೧.&lt;/td&gt;<br>      &lt;td&gt;ಏ&lt;/td&gt;<br>      &lt;td&gt;ಏಕಾತ್ಮ&lt;/td&gt;<br>      &lt;td&gt;ಮೇಲ್ತುಟಿ&lt;/td&gt;<br>      &lt;td&gt;ಮುಖ್ಯಪ್ರಭುವು.&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೨.&lt;/td&gt;<br>      &lt;td&gt;ಐ&lt;/td&gt;<br>      &lt;td&gt;ಐರ&lt;/td&gt;<br>      &lt;td&gt;ಕೆಳತುಟಿ&lt;/td&gt;<br>      &lt;td&gt;ರುದ್ರನಿಗೆ ಸುಖಪ್ರದನು.&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೩.&lt;/td&gt;<br>      &lt;td&gt;ಓ&lt;/td&gt;<br>      &lt;td&gt;ಓಜೋಭೃತ್&lt;/td&gt;<br>      &lt;td&gt;ಮೇಲಿನ ದಂತಪಂಕ್ತಿ&lt;/td&gt;<br>      &lt;td&gt;ನಿರತಿಶಯವಾದ ಸಾಮರ್ಥವಂತ.&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೪.&lt;/td&gt;<br>      &lt;td&gt;ಔ&lt;/td&gt;<br>      &lt;td&gt;ಔರಸ&lt;/td&gt;<br>      &lt;td&gt;ಕೆಳಗಿನ ದಂತಪಂಕ್ತಿ&lt;/td&gt;<br>      &lt;td&gt;ಬ್ರಹ್ಮನನ್ನೇ ಜ್ಯೇಷ್ಠ ಪುತ್ರನಾಗಿ ಉಳ್ಳವನು.&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೫.&lt;/td&gt;<br>      &lt;td&gt;ಅಂ&lt;/td&gt;<br>      &lt;td&gt;ಅಂತ&lt;/td&gt;<br>      &lt;td&gt;ತಲೆಯಮೇಲ್ಲಾಗ&lt;/td&gt;<br>      &lt;td&gt;ಪ್ರಳಯಕಾಲದಲ್ಲಿ ಸರ್ವಜಗದ್ಬುಕ್.&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೬.&lt;/td&gt;<br>      &lt;td&gt;ಆಃ&lt;/td&gt;<br>      &lt;td&gt;ಅರ್ಧಗರ್ಭ&lt;/td&gt;<br>      &lt;td&gt;ಕಿರುನಾಲಿಗೆ&lt;/td&gt;<br>      &lt;td&gt;ಬ್ರಹ್ಮಾಂಡಗಳನ್ನು ಉದರದಲ್ಲಿ&lt;br/&gt;ಧರಿಸಿರುವವನು.&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 192,
+   "ok": true,
+   "blocks_count": 1,
+   "html": "<p data-layout=\"table\" data-confidence=\"0.93\">&lt;table&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ಕ್ರಮ ಸಂಖ್ಯೆ&lt;/td&gt;<br>      &lt;td&gt;ದ್ವಾದಶ ನಾಡಿಗಳು&lt;/td&gt;<br>      &lt;td&gt;ದ್ವಾದಶ ನದಿಗಳು&lt;/td&gt;<br>      &lt;td&gt;ದ್ವಾದಶ ಭಗವದ್ರೂಪಗಳು&lt;/td&gt;<br>      &lt;td&gt;ದ್ವಾದಶ ಕರಣಗಳು&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧.&lt;/td&gt;<br>      &lt;td&gt;ಇಡಾ&lt;/td&gt;<br>      &lt;td&gt;ಗಂಗಾ&lt;/td&gt;<br>      &lt;td&gt;ಕೇಶವ&lt;/td&gt;<br>      &lt;td&gt;ವಾಮನಾಸಾಪುಟ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೨.&lt;/td&gt;<br>      &lt;td&gt;ಪಿಂಗಳ&lt;/td&gt;<br>      &lt;td&gt;ಯಮುನೆ&lt;/td&gt;<br>      &lt;td&gt;ನಾರಾಯಣ&lt;/td&gt;<br>      &lt;td&gt;ದಕ್ಷಿಣಾಸಾಪುಟ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೩.&lt;/td&gt;<br>      &lt;td&gt;ಗಾಂಧಾರೀ&lt;/td&gt;<br>      &lt;td&gt;ಕಾವೇರಿ&lt;/td&gt;<br>      &lt;td&gt;ಮಾಧವ&lt;/td&gt;<br>      &lt;td&gt;ದಕ್ಷಿಣಕರ್ಣ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೪.&lt;/td&gt;<br>      &lt;td&gt;ಹಸ್ತಿನೀ&lt;/td&gt;<br>      &lt;td&gt;ಸಿಂಧು&lt;/td&gt;<br>      &lt;td&gt;ಗೋವಿಂದ&lt;/td&gt;<br>      &lt;td&gt;ವಾಮಕರ್ಣ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೫,&lt;/td&gt;<br>      &lt;td&gt;ಲಂಬುಸೀ&lt;/td&gt;<br>      &lt;td&gt;ತಾಮ್ರಪರ್ಣಿ&lt;/td&gt;<br>      &lt;td&gt;ವಿಷ್ಣು&lt;/td&gt;<br>      &lt;td&gt;ದಕ್ಷಿಣಚಕ್ಷು&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೬.&lt;/td&gt;<br>      &lt;td&gt;ಮಧ್ಯನಾಡಿ&lt;/td&gt;<br>      &lt;td&gt;ಗೋಮತೀ&lt;/td&gt;<br>      &lt;td&gt;ಮಧುಸೂದನ&lt;/td&gt;<br>      &lt;td&gt;ಬ್ರಹ್ಮರಂದ್ರ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೭.&lt;/td&gt;<br>      &lt;td&gt;ಸರಸ್ವತಿ&lt;/td&gt;<br>      &lt;td&gt;ಗಂಡಕೀ&lt;/td&gt;<br>      &lt;td&gt;ತ್ರಿವಿಕ್ರಮ&lt;/td&gt;<br>      &lt;td&gt;ಜಿಹ್ವೆ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೮,&lt;/td&gt;<br>      &lt;td&gt;ನಂದಾ&lt;/td&gt;<br>      &lt;td&gt;ಕೃಷ್ಣವೇಣಿ&lt;/td&gt;<br>      &lt;td&gt;ನಾಮನ&lt;/td&gt;<br>      &lt;td&gt;ಲಿಂಗಮೂಲ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೯.&lt;/td&gt;<br>      &lt;td&gt;ಕುಹು&lt;/td&gt;<br>      &lt;td&gt;ಕಾಳಿಂದೀ&lt;/td&gt;<br>      &lt;td&gt;ಶ್ರೀಧರ&lt;/td&gt;<br>      &lt;td&gt;ಗದ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೦.&lt;/td&gt;<br>      &lt;td&gt;ಶಂಖವೀಣಿ&lt;/td&gt;<br>      &lt;td&gt;ತಪತೀ&lt;/td&gt;<br>      &lt;td&gt;ಹೃಷಿಕೇಶ&lt;/td&gt;<br>      &lt;td&gt;ಲಿಂಗ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೧.&lt;/td&gt;<br>      &lt;td&gt;ವಾರುಣೀ&lt;/td&gt;<br>      &lt;td&gt;ಗೋದಾವರೀ&lt;/td&gt;<br>      &lt;td&gt;ಪದ್ಮನಾಭ&lt;/td&gt;<br>      &lt;td&gt;ಶಿರಸೋಪರಿ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೨.&lt;/td&gt;<br>      &lt;td&gt;ಪೂರ್ಣಾ&lt;/td&gt;<br>      &lt;td&gt;ಪಯಸ್ಸಿನೀ&lt;/td&gt;<br>      &lt;td&gt;ದಾಮೋದರ&lt;/td&gt;<br>      &lt;td&gt;ವಾಮಚಕ್ಷು&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 204,
+   "ok": true,
+   "blocks_count": 7,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.77\">204</div>\n<h4 data-layout=\"header\" data-confidence=\"0.74\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<p data-layout=\"paragraph\" data-confidence=\"0.92\">ಮಾಡತಕ್ಕ ಭಕ್ತರಿಗೆ ದೇವರು ಲಭ್ಯನಾಗತಾನೆ. ಇದರಿಂದ ಆಯುಸ್ಸು<br>ಸಾರ್ಥಕವಾಗುತ್ತದೆ. ಕರ್ಮವೂ ಸಾರ್ಥಕವಾಗುತ್ತದೆ. ಆದಕಡಿಯಿಂದ ಈ<br>ರೀತ್ಯಾ ತಿಳಿಯಬೇಕಂತ ತಾತ್ಪರ್ಯ ॥೨೦॥</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.74\">(೨) ಭಾವಪ್ರಕಾಶಿಕೆ-ವ್ಯಾಖ್ಯಾನ-</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.95\">ಅಬ್ದಾದಿಗತ ಭಗವದ್ರೂಪಗಳ ಚಿಂತನಾಪ್ರಕಾರವನ್ನು ಹೇಳುತ್ತಾರೆ.<br>ವರ್ಷ-೧, ಅಯನಗಳು-೨, ಜುತುಗಳು-೬, ಮಾಸಗಳು-೧೨ ಮತ್ತು<br>ಪಕ್ಷಗಳು-೨೪. ಅಂತು ೪೫ರೂಪಗಳು. ಕರುಣಾಸಮುದ್ರನಾದ ಶ್ರೀಹರಿಯು<br>೪೫ರೂಪಗಳಿಂದ ಮೇಲೆ ಹೇಳಿದ ಸಂವತ್ಸರಾದಿಗಳಲ್ಲಿ ಸಂವತ್ಸರಾದಿ ಶಬ್ದ<br>ವಾಚ್ಯನಾಗಿ ವ್ಯಾಪ್ತನಾಗಿರುವನು. ಇಂತಹ ೪೫ ರೂಪಗಳನ್ನು ತಿಳಿದು,<br>ಯಾರು ಪರಮಾತ್ಮನನ್ನು ಧೇನಿಸುವರೋ, ಅಂತಹ ಭಕ್ತರಿಗೆ ಅದರಂತೆ<br>ಧ್ಯಾನಗೋಚರನಾಗುವನು. ॥೨೦॥</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.83\">(೩) ಶ್ರೀ ವ್ಯಾಸದಾಸ ಸಿದ್ಧಾಂತ ಕೌಮುದೀ(ಸಂಸ್ಕೃತ ಮೂಲ) :</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.96\">“ಅಬ್ದಯನ- ಇತಿ|| ವತ್ಸರಃ|| ಅಬ್ದಃ ಮೇಘಃ | ಉಭಯತ್ರ<br>ಮಾಸಂ ತು “ಮೇಘಸ್ಥೋ ಜಲದಾತೃತ್ವಾತ್ ಅಬ್ದಃ || (ವಾಯುಗಃ) ||<br>ಸರ್ವಾಶ್ರಯತ್ವಾತ್ ಅಯನಮ್ || ಋತುಗತತ್ವಾತ್ ಋತುಃ ||ಮಾಂ ಸುಶ್ರಿ<br>ಯಂ ಯೋಗ್ಯೇಭ್ಯಃ ತನೋತಿ ಇತಿ ಮಾಸಃ || ಪಾತಿ ಇತಿ ಪಃ || ಕ್ಷಿಣೋತಿ<br>ಪಾಪಂ ಪಕ್ಷಃ || ಋತು ಸಂಸ್ಥೋ ಜನಾರ್ದನಃ | ಮೋಕ್ಷಾದೀನ್ ಕಲ್ಪತೇ |<br>ಆಮುಷ್ಯ ಹಿ | ಋತುನಾಮಾನಂ ಋತುಗಂ ಋತುತ್ವಾತ್ ಋತು ನಾಮ<br>ಕಮ್ || ಇತ್ಯುಪಾಸೀತ ಯೋ ವಿಷ್ಣುಂ ಪಂಚಾತ್ಮಾನಂ”—ಇತ್ಯನಂತರಂ-<br>“ವಾಸಸ್ಯ ಸುಖಕಾರಿತ್ವಾತ್ ಪುರುಷೋತ್ತಮಃ | ನೀರಾದೇಃ ಗಿರಿಣಾತ್<br>ಭೀಷ್ಮಃ ವರ್ಷಣಾತ್ ವರ್ಷ ಉಚ್ಯತೇ | ಶಂ ರಾತೀತಿ ಶರತ್ಪ್ರೋಕ್ತಃ<br>ಹೇಮಂತಃ ಹಿಮಕಾರಣಾತ್ | ಇತಿ ಚ | ನಿಲೇತ್ಯತ್ರ ಶುಕ್ಲಂ ತು ವಾಸು<br>ದೇವಾಖ್ಯಂ ಅನಿರುದ್ಧಂ ತು ನೀಲಕಮ್ | ಸಂಕರ್ಷಣಂ ಪಿಂಗಲಂ ಚ</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 253,
+   "ok": true,
+   "blocks_count": 11,
+   "html": "<h4 data-layout=\"header\" data-confidence=\"0.80\">ಮಾತೃಕಾಸಂಧಿ</h4>\n<div data-layout=\"page-number\" data-confidence=\"0.82\">253</div>\n<p data-layout=\"paragraph\" data-confidence=\"0.90\">“ಮರೀಚಿರತ್ಯಂಗೀರಸಃ ಪುಲಸ್ತ್ಯಃ ಪುಲಹಃ ಕ್ರತುಃ | ಭೃಗುರ್ಪ<br>ಸಿಷ್ಠೋ ದಕ್ಷಶ್ಚೇತ್ಯುಕ್ತೇಃ||”</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.82\">ಮರುತ್ತುಗಳ ನಾಮ ಹೇಳುತ್ತಾರೆ</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.90\">“ಸಜೂರಿಂದ್ರೇಣ ಪಂಚಾಶದೇವಾಸ್ತೇ ಮರುತೋsಭವತ್” ||<br>- ಎಂಬ ಷಷ್ಠಸ್ಕಂಧೋಕ್ತರೀತ್ಯಾ ಇಂದ್ರನಿಂದ ಕೂಡಿ ಪಂಚಾಶನ್ಮರುತ್ತ<br>ಗಳೆಂದು ಹೇಳಿದ ಕಾರಣ ೫೦ ಮಂದಿ ಮರುತ್ತಗಳೇ ಸಿದ್ಧ. ಇವರೆಲ್ಲಾ<br>ಒಟ್ಟಿಗೇ ಗಣನೆ ಮಾಡೋದರಲ್ಲಿ ೯೧ ಮಂದಿ ಆಗುತ್ತಾರೆ. ತೊಂಭತ್ತೇ<br>ಜನರು ಹೇಗೆ ಆಸುತಾರೆಂದರೆ ಸಮಾಧಾನ-</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.76\">“ಚತುರ್ಭಿಃ ಸಾಕಂ ನವಂತಿಂ ಚ ನಾಮಭಿಃ ||”</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.48\">-ಎಂಬ ಶ್ರುತಿವ್ಯಾಖ್ಯಾನಾವಸರದಲಿ ಶರ್ಕರಾ ಶ್ರೀನಿವಾಸತೀರ್ಥರಿಂದ<br>“॥ಅತ್ರಾಶ್ವಿನೋರೇಕತ್ವಂ ಬೋಧ್ಯಮ್ ॥”</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.68\">ಎಂತ ಹೇಳಲ್ಪಟ್ಟಿರುವುದರಿಂದ ಇಲ್ಲೀನೂ ಅಶ್ವಿನಿದೇವತೆಗಳು ಒಬ್ಬ<br>ರಂತೇ ಗ್ರಹಿಸಬೇಕು ॥೨೭॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.55\">(೩) ವ್ಯಾಸದಾಸ ಸಿದ್ಧಾಂತ ಕೌಮುದೀ (ಸಂಸ್ಕೃತಮೂಲ)<br><br>“ವಸ್ವೇತಿ”॥ “ಚತುರ್ಭಿಃ ಸಾಕಂ ನವಂತಿ ಚ”- ಇತಿ ಶ್ರುತೇಃ॥<br>“ಬ್ರಹ್ಮಾದಿ ದಶೈವಂ ಶತಾತ್ಮಾ”-ಇತಿ ತಾತ್ಪರ್ಯೆ ॥೨೭॥</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.79\">ಕನ್ನಡಾರ್ಥ:</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.93\">ವಸು ಮೊದಲಾದ ೯೦ ದೇವತೆಗಳಲ್ಲಿ (ನವಂತಿ) ಇರುವ ಭಗವದ್ರೂಪ<br>ಗಳಿಗೆ ಚತುರ್ಭಿಃ ಎಂಬ ಶ್ರುತಿಯು ಆಧಾರವಾಗಿದೆ. ವಸುಗಳು (೮) ಆದಿ<br>ತ್ಯರು (೧೧) ರುದ್ರಗಣ (೧೧), ಪ್ರಜಾಪತಿಗಳು (೯) ಮರುತ್ತರು ಹಾಗೂ<br>ವಾಯು (೫೦) ಮತ್ತು ಅಶ್ವಿನೀದೇವತೆಗಳು (೧) ಹೀಗೆ ಒಟ್ಟು ೯೦ ದೇವತೆ</p>",
+   "image_size": [
+    3391,
+    4900
+   ]
+  },
+  {
+   "page": 256,
+   "ok": true,
+   "blocks_count": 9,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.69\">.256</div>\n<h4 data-layout=\"header\" data-confidence=\"0.86\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<p data-layout=\"paragraph\" data-confidence=\"0.68\">ಪ್ರಮಾಣ</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.90\">“ಮರೀಚಿರತ್ಯಂಗೀರಸಃ ಪುಲಸ್ತ್ಯಃ ಪುಲಹಃ ಕ್ರತುಃ | ಭೃಗು<br>ರ್ವಸಿಷ್ಠೋ ದಕ್ಷಶ್ಚೇತ್ಯುಕ್ತೇಃ||”</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.81\">೩. ಶ್ವಾಸನಗಣವೈವತ್ತು</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.93\">ಮರುರಗಣಗಳ ಸಂಖ್ಯೆ ೪೯. ಇಂದ್ರದೇವರು ದಿತಿಯ ಗರ್ಭವನ್ನು<br>ಮೊದಲು ಏಳು ತದನಂತರ ಏಳು ತುಂಡುಗಳಾಗಿ ವಿಭಾಗಿಸಿದಾಗ, ಉತ್ಪನ್ನ<br>ರಾದವರೇ ೪೯ ಮಂದಿ ಮರುತ್ತುಗಳು, ಇವರಿಗೆ ಶ್ವಸನಗಣವೆಂತಲೂ<br>ಹೆಸರು. ಈ ೪೯ ಮಂದಿ ಮರದ್ದಣಗಳ ಹೆಸರು ಇಂತಿದೆ.</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.95\">೧. ಪ್ರಾಣ ೨. ಅಪಾನ ೩. ವ್ಯಾನ ೪. ಉದಾನ ೫. ಸಮಾನ<br>೬. ನಾಗ ೭. ಕೃಕಲ ೮. ಕೂರ್ಮ ೯. ದೇವದತ್ತ ೧೦. ಧನಂ<br>ಜಯ ೧೧. ಆವಹ ೧೨, ಪರಾವಹ ೧೩. ಉದ್ವಹ ೧೪. ಸಂವಹ<br>೧೫. ಸಂಯುವ ೧೬, ವಿವಹ ೧೭. ಶಂಕು ೧೮. ಕಾಲ ೧೯, ಶ್ವಾಸ<br>೨೦. ನಿಲ ೨೧, ನಲ ೨೨. ಪ್ರತಿಭವ ೨೩. ಕುಮುದ ೨೪. ಕಾಂತ<br>೨೫. ಶಚಿ ೨೬. ಸ್ವೇದ ೨೭. ಜಿತ ೨೮. ಗುರು ೨೯. ಜಂದು<br>೩೦. ಸಂವರ್ತ ೩೧. ಕೀಲಹ ೩೨. ಶತ ೩೩, ಸೌಮ್ಯ ೩೪. ಕವಿ<br>೩೫. ಜಡ ೩೬. ಮಂಡೂಕ ೩೭. ಸಂಹುತ ೩೮, ಸಿಂದು ೩೯, ರಕ್ತ<br>ನಾಮಾ ೪೦, ಕೃಷ್ಣ ೪೧. ಕಪಿ ೪೨. ಶುಕ ೪೩. ಯತಿ ೪೩. ಭೀವ<br>೪೫, ಹನೂಹ ೪೬. ಪಿಂಗಳ ೪೭, ಕಪನ ೪೮. ಪ್ರವಹ ವಾಯು<br>ಮತ್ತು ೪೯. ಅಹಂಕಾರಿಕ ಪ್ರಾಣ</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.90\">ಪೂರ್ವೋಕ್ತ ೪೯ ಮಂದಿ ಮರುತ್ತುಗಳೊಡನೆ ಇಂದ್ರನೂ ಸೇರಿದರೆ<br>೫೦ ಆಗುವುದು. ಈ ಸಂಖ್ಯೆಯನ್ನೇ ದಾಸರಾಯರ ಶ್ವಸನಗಣವೈವತ್ತು<br>ಎಂದಿದ್ದಾರೆ.</p>\n<div data-layout=\"page-number\" data-confidence=\"0.52\">৩</div>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 276,
+   "ok": true,
+   "blocks_count": 7,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.62\">276</div>\n<h4 data-layout=\"header\" data-confidence=\"0.63\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<p data-layout=\"paragraph\" data-confidence=\"0.69\">ದಲ್ಲಿ ಕೂತಂತವನೆಂತಲೂನೂ ಹೀಗೆ ಇವರೆಲ್ಲ ಅನಿಸುತ್ತಾರೆಂದು ತಾತ್ಪರ್ಯ<br>॥ ೨೯ ॥</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.76\">(೪) ಶ್ರೀವ್ಯಾಸದಾಸಸಿದ್ಧಾಂತ ಕೌಮುದೀ</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.96\">“ತನುವೆ”—ಇತಿ || ವಾಙ್ಮನೀ ಉಮಾ || ಪಾಶಪಾಣಿಃ ಯಮಃ<br>ಇನಃ ಸೂರ್ಯಃ | ಅನಳಲೋಚನಃ ರುದ್ರಃ || ಪ್ರಾಣಃ ತರ್ಗೋ ಹರಿ<br>ಶ್ಚೇತಿ ಜ್ಞೇಯಮ್ | “ಅಥ ದೇಹರಥಃ ಸತ್ಯವಾಗುದ್ಧಿಃ | ಶ್ರೋತ್ರೇ<br>ಪಕ್ಷಸೀ | ಚಕ್ಷುಷೀ ಸಂಯುಕ್ತೇ | ಮನಃ ಸಂಗೃಹೀತಾ ||” ಇತ್ಯುಕ್ತಶ್ಚ |<br>ಯುಜೋ ಯುಕ್ತಾ ಅಭಿಯತ್ ಸಂವಹಂತಿ | ಇತಿ|| ತದ್ಧಾಷ್ಯೇ “ಯತ್<br>ಸ್ಯಂದನಂ ವಹಂತ್ಯೇತೇ ದೇವಾಭಾರ್ಯಾ ಸಮನ್ವಿತಾಃ || ಅಧಿದೈವೇ ತಥಾ<br>ಧ್ಯಾತ್ಮೇ ಜೀವದೇಹಾತ್ಮಕಂ ರಥಮ್ | ನ ಸೂರ್ಯಃ ಸೂರ್ಯ ಭಾರ್ಯಾ<br>ಚ ಚಕ್ಷುರ್ದ್ವಯ ಸಮಾಶ್ರಿತ್ || ವಹತೋsಶ್ವಾತ್ಮಕಂ | ದೇಹಂ ನಾರಾ<br>ಯಣ ರಥಾತ್ಮಕಮ್ || ಸೋಮಶ್ಚ ರೋಹಿಣಿ ಚೈವ ದಕ್ಷವಾಮಶ್ರುತಿ<br>ಸ್ಥಿತೌ ಉಭಯೋಃ ಪಕ್ಷಯೋಃ ವಹತೋsಶ್ವಾತ್ಮಕಂ ತಯೋಃ || ಉದ್ದಾ<br>ರಣಾರ್ಥಂ ಏತೇಷಾಂ ಉಮಾ ವಾಚಿಸಮಸ್ಥಿತಾ | ನಾಗಾಕಾರೈವ ರಶ್ಮಿತ್ವಂ<br>ಆಗಮತ್ ವೈಷ್ಣವೇ ರಥೇ| ಮನಃಸ್ಥಿತಃ ಶಿವಸ್ವಾಮಿ ಮನೋನಾಮಾ<br>ಮಹಾಬಲಃ || ಅಭವತ್ ಸಾರಥಿಃ ವಿಷ್ಣೋ ವಿಷ್ಣುರ್ವಾಯುಶ್ಚ ತಂ<br>ರಥಮ್ || ಪ್ರಕೃಷ್ಟಾನಂದ ರೂಪತ್ವಾತ್ ಪ್ರಾಣಾಖ್ಯವಧಿ ತಿಷ್ಠತು” |ಇತಿ||<br>||೨೯||</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.80\">ಕನ್ನಡಾರ್ಥ</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.94\">ಶರೀರಾಖ್ಯ ರಥವನ್ನು ತಿಳಿಸುತ್ತಾರೆ- “ತನುವೆ”-ಎಂಬ ಪದ್ಯದಿಂದ,<br>ವಾಕ್ = ವಾಗಭಿಮಾನಿ ಉಮಾದೇವಿಯು (ಪಾರ್ವತೀ), ಇನ=ಸೂರ್ಯ<br>ಅನಳಲೋಚನ=ರುದ್ರ, ಪ್ರಾಣ ಎಂಬ ಶಬ್ದವು ಮುಖ್ಯ ಪ್ರಾಣದೇವರು<br>ಹಾಗೂ ಅವನಂತರ್ಯಾಮಿ ಪರಮಾತ್ಮ ಇಬ್ಬರಿಗೂ ಅನ್ವಯಿಸುವುದು.<br>ಐತರೇಯ ಉಪನಿಷತ್ತಿನಲ್ಲಿ ಈ ದೇಹಾಖ್ಯರಥದ ವಿವರಣೆ ಉಕ್ತವಾಗಿದೆ.</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  }
+ ]
+}
