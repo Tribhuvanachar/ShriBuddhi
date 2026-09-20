@@ -267,6 +267,9 @@ def main(argv=None) -> int:
                          "multi-page reply and loses pages without saying so")
     ap.add_argument("--max-ratio", type=float, default=0.92,
                     help="only pages BELOW this similarity (the conflicts)")
+    ap.add_argument("--already", action="append", default=[], metavar="GLOB",
+                    help="resolved-*.json from earlier runs: treated as done, "
+                         "never re-sent, never copied into --out")
     ap.add_argument("--dry-run", action="store_true",
                     help="count what would be sent and stop; calls nothing")
     args = ap.parse_args(argv)
@@ -283,6 +286,30 @@ def main(argv=None) -> int:
         prev = json.load(open(args.out))
         done = {(p["work"], p["page"]): p for p in prev.get("pages", [])}
         print("resuming: %d page(s) already resolved" % len(done))
+
+    # Pages resolved by EARLIER runs, living in their own files. They count as
+    # done -- so they are neither re-sent nor re-billed -- but they are NOT
+    # copied into this run's output, which stays a record of what this run
+    # bought.
+    #
+    # Without this, --out is a fresh temp file on every workflow dispatch and
+    # `done` starts empty, so every dispatch re-sends and re-pays for every
+    # conflict in the works it names. Re-running twelve HKS volumes to pick up
+    # 27 stragglers would have cost about Rs11 instead of Rs1.
+    already = 0
+    for pat in args.already or []:
+        for f in sorted(glob.glob(pat)):
+            try:
+                prev = json.load(open(f))
+            except Exception:
+                continue
+            for q in prev.get("pages", []):
+                key = (q.get("work"), q.get("page"))
+                if key not in done:
+                    done[key] = None          # known, but not ours to re-emit
+                    already += 1
+    if already:
+        print("%d page(s) already resolved by earlier runs -- not re-sent" % already)
 
     todo = []
     for f in files:
@@ -307,7 +334,8 @@ def main(argv=None) -> int:
 
     usage = {}
     spent = 0.0
-    resolved = list(done.values())
+    resolved = [v for v in done.values() if v is not None]
+    dropped = []
     this_run = 0          # pages resolved by THIS run, not counting a resume
     calls = stopped = 0
     per_call_inr = None
@@ -372,6 +400,17 @@ def main(argv=None) -> int:
         for c in batch:
             g = by_page.get(c["page"])
             if not g:
+                # The model answered the call but left this page out of its
+                # reply. It used to vanish here in silence: the page was
+                # never resolved, never retried, and the run still reported
+                # "resolved N" as though N were everything asked for. 27 HKS
+                # pages accumulated this way across five runs before anyone
+                # noticed, and only because a separate count disagreed.
+                #
+                # Not retried here -- the page costs nothing to leave for the
+                # next run, which skips what is already in --out and will pick
+                # this up. What matters is that it is now COUNTED and named.
+                dropped.append((c["work"], c["page"]))
                 continue
             resolved.append({"work": c["work"], "page": c["page"],
                              "text": g.get("text", ""), "confidence": g.get("confidence"),
@@ -392,6 +431,19 @@ def main(argv=None) -> int:
     print("\nresolved %d page(s) in %d call(s); Rs%.2f of Rs%.2f%s"
           % (len(resolved), calls, spent, args.budget_inr,
              " -- STOPPED ON BUDGET" if stopped else ""))
+    if dropped:
+        # Paid for and not returned. Say so: a run that reports only what came
+        # back reads as complete, and these pages sat unresolved across five
+        # runs precisely because nothing counted them.
+        print("%d page(s) were sent and NOT returned by the model, so they are"
+              " still unresolved:" % len(dropped))
+        by_work = {}
+        for w, n in dropped:
+            by_work.setdefault(w, []).append(n)
+        for w in sorted(by_work):
+            ns = sorted(by_work[w])
+            print("    %-24s %s%s" % (w, ns[:12], " ..." if len(ns) > 12 else ""))
+        print("  Re-run to pick them up: pages already in --out are skipped.")
     if this_run:
         print("actual cost per page THIS RUN: Rs%.3f  (%d page(s) paid for here)"
               % (spent / this_run, this_run))
