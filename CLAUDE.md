@@ -142,7 +142,10 @@ day fields when that crosses midnight.
 
 ## Tests
 
-`./run_tests.sh` — pytest over `tests/`, 867 of them. It does not run
+`./run_tests.sh` — pytest over `tests/`, 979 of them. Two browser suites sit
+beside it and are NOT part of it: `tools/e2e/opaque_ids_e2e.py` (19 checks) and
+`tools/e2e/admin_token_e2e.py` (8), which need two local servers and Chromium.
+See `tools/e2e/README.md`. It does not run
 `firebase/tests/` (22 Node files, needing node and the Firebase emulators).
 
 ## Costs

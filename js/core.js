@@ -556,9 +556,37 @@ function dgeSanitizeVedicAccents(text) {
 // which is an acceptable cost for what should be a rare, deliberate
 // research toggle rather than a startup-time architecture change.
 const DGE_COPYRIGHT_GATED_COMMENTARY_KEYS = { kannada: true };
+
+// 20 Sep 2026, the lead: a gated commentary "will only be shown to a user who
+// has access to the GitHub token -- that is super admin."
+//
+// The config flag stays: it is the site-wide switch, and flipping it publishes
+// this material to everyone deliberately. What is new is that a super admin
+// sees it whatever the flag says, because they are the person who has to READ
+// it to prepare it. Holding the private-repo token counts as being that
+// person -- it is the same credential that reaches the private corpus at all,
+// and it is what the lead means by "has access to the GitHub token".
+//
+// Not access control, and worth being plain about: this decides what a
+// NORMALIZED grantha object exposes to the rest of the app. The text is in
+// the data.json either way, and for the 18 works that carry it -- 84,138
+// units of the Kannada Mahabharata -- those files publish. What stops a
+// determined reader is licensing, not this function.
+function dgeGatedCommentaryViewer() {
+  if (window.appConfig && window.appConfig.showCopyrightGatedCommentaries) return true;
+  try {
+    // The private-repo token. Its presence is the strongest signal available
+    // in the browser that this is the lead and not a reader.
+    if (window.localStorage && window.localStorage.getItem('brahmabuddhi_pat')) return true;
+  } catch (e) { /* private mode: fall through to the gate below */ }
+  try {
+    return !!(window.DGEAdminGate && window.DGEAdminGate.isSuperAdmin());
+  } catch (e) { return false; }
+}
+
 function dgeVisibleCommentaries(commentaries) {
   if (!commentaries) return commentaries;
-  if (window.appConfig && window.appConfig.showCopyrightGatedCommentaries) return commentaries;
+  if (dgeGatedCommentaryViewer()) return commentaries;
   const out = {};
   Object.keys(commentaries).forEach((k) => {
     if (!DGE_COPYRIGHT_GATED_COMMENTARY_KEYS[k]) out[k] = commentaries[k];
@@ -743,7 +771,7 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
           // the flat-items branch below), kept here defensively so a future
           // bhashya[] source naming a commentator this key would slugify to
           // "kannada" can't slip through un-gated.
-          if (DGE_COPYRIGHT_GATED_COMMENTARY_KEYS[key] && !(window.appConfig && window.appConfig.showCopyrightGatedCommentaries)) return;
+          if (DGE_COPYRIGHT_GATED_COMMENTARY_KEYS[key] && !dgeGatedCommentaryViewer()) return;
           commentaries[key] = b.text;
           availableCommentaries[key] = b.commentator || KNOWN_COMMENTARY_LABELS[key] ||
             (key.charAt(0).toUpperCase() + key.slice(1));
@@ -864,6 +892,12 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
       Object.keys(commentaries).forEach(key => {
         if (!availableCommentaries[key]) {
           availableCommentaries[key] = KNOWN_COMMENTARY_LABELS[key] || (key.charAt(0).toUpperCase() + key.slice(1));
+          // Say so, on the picker itself. An admin reading a gated layer
+          // should not have to remember which of the layers in front of
+          // them is the one a reader cannot see.
+          if (DGE_COPYRIGHT_GATED_COMMENTARY_KEYS[key]) {
+            availableCommentaries[key] += ' \u2014 \u0905\u0927\u093F\u0915\u0943\u0924\u092E\u0947\u0935 (admin only)';
+          }
         }
       });
       shlokas[n] = {

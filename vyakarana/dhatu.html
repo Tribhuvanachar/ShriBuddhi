@@ -106,6 +106,11 @@
      title instead of a bare id, and turns the id back into a path for
      an admin. See js/opaque-resolve.js. -->
 <script src="../js/private-names.js?v=1"></script>
+<!-- Owns the private-repo token. opaque-resolve.js needs it to turn an
+     id back into a path on the PUBLISHED site, where the id map is not
+     a file but a GitHub API call. Defines functions only at load; its
+     admin menu opens from a control, not on its own. -->
+<script src="../js/admin-remote.js?v=1"></script>
 <script src="../js/opaque-resolve.js?v=1"></script>
 <script src="../js/global-search.js?v=4.82.0"></script>
 <!-- DGE UI Contract retrofit (28 Aug 2026): modals.js + reader-state.js +
