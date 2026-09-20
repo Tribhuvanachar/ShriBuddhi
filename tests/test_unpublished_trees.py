@@ -230,3 +230,34 @@ def test_no_published_js_names_a_private_tree():
                     bad.append((rel, n))
                     break
     assert bad == [], "bare private names in published js: %s" % bad[:5]
+
+
+def test_the_id_map_is_not_in_the_published_config_allowlist():
+    """The published site pulls a handful of files out of admin/config/ --
+    home.json, menu.json, seo.json -- and js/admin-remote.js's
+    LEGACY_PUBLIC_CONFIG is the list of which. opaque_ids.json in that list
+    would put the whole id-to-path map on the public site, and every id would
+    resolve to its real path for anybody who asked.
+
+    Found by doing the naive thing while smoke-testing: copying
+    admin/config/*.json into the staged site's config/ takes the map along.
+    """
+    src = open(os.path.join(ROOT, "js", "admin-remote.js"), encoding="utf-8").read()
+    m = re.search(r"var LEGACY_PUBLIC_CONFIG = \[(.*?)\];", src, re.S)
+    assert m, "LEGACY_PUBLIC_CONFIG not found -- has admin-remote.js moved?"
+    names = [x.strip().strip("'\"") for x in m.group(1).replace("\n", " ").split(",") if x.strip()]
+    assert names, "the allowlist parsed empty"
+    assert os.path.basename(opaque_ids.MAP_PATH) not in names
+
+
+def test_the_rewriter_refuses_a_staged_tree_holding_the_map(tmp_path):
+    import subprocess
+    site = tmp_path / "site"
+    (site / "config").mkdir(parents=True)
+    (site / "config" / "opaque_ids.json").write_text(
+        json.dumps({"by_id": {"abc": "data/x"}, "by_path": {"data/x": "abc"}}), encoding="utf-8")
+    r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "publish_opaque_rewrite.py"),
+                        "--staged", str(site), "--root", ROOT],
+                       capture_output=True, text=True)
+    assert r.returncode != 0
+    assert "id-to-path map" in r.stdout

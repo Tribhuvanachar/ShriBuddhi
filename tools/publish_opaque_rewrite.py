@@ -41,7 +41,8 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from opaque_ids import STRUCTURE_PRIVATE, load as load_ids, needs_id  # noqa: E402
+from opaque_ids import (MAP_PATH, STRUCTURE_PRIVATE, load as load_ids,  # noqa: E402
+                        needs_id)
 
 TEXT_SUFFIXES = (".json", ".xml", ".js", ".html", ".css", ".txt", ".md")
 ID_PREFIX = "id:"
@@ -225,6 +226,36 @@ def main(argv=None) -> int:
         f.write("\n")
     print("wrote data/display.json -- %d work(s) addressable by id"
           % len(display["works"]))
+
+    # The map itself must not be anywhere in what ships, under any name.
+    #
+    # This is not hypothetical. The published site needs several files that
+    # live in admin/config/ -- home.json, menu.json, seo.json and the rest --
+    # and the obvious way to get them there is to copy admin/config/*.json to
+    # the site's config/. That copies opaque_ids.json with them, and every id
+    # on the site resolves to its real path for anybody who fetches it. The
+    # allowlist for that copy is LEGACY_PUBLIC_CONFIG in js/admin-remote.js;
+    # this is the backstop for the day someone does not use it.
+    stray = []
+    for dirpath, _, files in os.walk(args.staged):
+        for name in files:
+            if name == os.path.basename(MAP_PATH):
+                stray.append(os.path.relpath(os.path.join(dirpath, name), args.staged))
+            elif name.endswith(".json"):
+                full = os.path.join(dirpath, name)
+                try:
+                    head = open(full, encoding="utf-8").read(4096)
+                except (OSError, UnicodeDecodeError):
+                    continue
+                if '"by_id"' in head and '"by_path"' in head:
+                    stray.append(os.path.relpath(full, args.staged) + " (looks like the id map)")
+    if stray:
+        print("\nSTOP. the id-to-path map is in the staged tree:")
+        for f in stray[:10]:
+            print("    %s" % f)
+        print("  Every opaque id on the site resolves to its real path for anyone"
+              "\n  who fetches this. Nothing else about the scheme matters if it ships.")
+        return 1
 
     left = []
     names = [t.rsplit("/", 1)[-1] for t in STRUCTURE_PRIVATE]
