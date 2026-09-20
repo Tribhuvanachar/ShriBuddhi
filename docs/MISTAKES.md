@@ -362,3 +362,41 @@ reporting that something needs the lead, name the exact call you would make,
 make it, and quote what came back. "`gh` is missing" is a statement about one
 binary; "`POST /dispatches` returned 403 and here is the body" is a statement
 about the capability.
+
+## 19. Making the workshop public published the workshop
+
+**What happened.** ShriBuddhi's Actions had been failing on "Repository is
+disabled. Please ask the owner to check their account." The repository was
+switched from private to public, which fixed it -- public repositories get
+Actions free, so the account state stopped mattering. Actions ran again.
+
+It also put the whole workshop on the open web. Verified by unauthenticated
+fetch on 20 Sep 2026:
+
+| what | where | status |
+|---|---|---|
+| `admin/config/opaque_ids.json` -- all 625 id->path pairs | github.io **and** raw.githubusercontent | 200 |
+| the three structure-private trees, 625 `data.json` files at their full readable paths | both | 200 |
+| `js/private-names.js` | raw.githubusercontent | 200 |
+| `data/library.json` with 611 occurrences of the three tree names | github.io | 200 |
+
+`js/private-names.js` was in `EXCLUDE_GLOBS` so it could never reach a
+published build. That was never protection against the repository itself
+being readable, and the distinction had not been thought about.
+
+**Why it was not obvious.** The opaque-id work does its rewriting at PUBLISH
+time, on the way to BrahmaBuddhi and Jagat, on purpose: the workshop keeps
+readable paths because that is what makes it editable, and the lead asked for
+exactly that ("the way you place the folders in GitHub versus how you display
+will change"). So ShriBuddhi's tree is unrewritten BY DESIGN. Every safeguard
+built for this -- the opaque ids, the publish rewrite, the backstop that
+refuses to build if the map is in the staged tree -- guards the published
+artifact. None of them guards the repository, because the repository was
+private and the threat model said it always would be.
+
+**Rule.** A repository's visibility is part of its threat model, not a
+deployment detail. When a private repository holds material that is private
+only because the repository is, flipping it public is a publication event --
+review it as one, before the flip, not after. And when a safeguard is written,
+write down what it does NOT cover: "EXCLUDE_GLOBS keeps this out of the build"
+should have carried "and does nothing if the repo is public".
