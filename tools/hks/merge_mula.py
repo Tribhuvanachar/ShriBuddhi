@@ -37,6 +37,7 @@ import collections
 import json
 import os
 import re
+import sys
 
 WORK = "data/Tattvavada/Itara/DasaSahitya/harikathamrutasara/data.json"
 ANKITA = ("ಜಗನ್ನಾಥವಿಠಲ", "ಜಗನ್ನಾಥವಿಠ್ಠಲ")
@@ -140,10 +141,17 @@ def main(argv=None) -> int:
                 "complete in the printed mula, ending on the ankita"),
         "tool": "tools/hks/merge_mula.py",
     }
+    # Written through format_data_json, not json.dump. Every data.json in the
+    # corpus is held to one canonical shape and a test walks all of them to
+    # prove it; a file written by hand here fails that test the moment it
+    # lands, which is exactly what happened the first time.
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    import format_data_json as F
     path = os.path.join(args.root, WORK)
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(cur, f, ensure_ascii=False, indent=1)
-        f.write("\n")
+    text = F.canonical(cur)
+    if text is None:
+        raise SystemExit("format_data_json will not canonicalise this shape")
+    open(path, "w", encoding="utf-8").write(text)
     print("wrote %s" % WORK)
     return 0
 
