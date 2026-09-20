@@ -72,6 +72,16 @@ VERSE_END = re.compile(r"[|।॥]{1,2}\s*[0-9೦-೯]{1,3}\s*[|।॥]{1,2}")
 # prints "ಅಣುತಾರತಮ್ಯ ಸಂಧಿ (ಸಂಧಿ-30)" while the book's own contents page makes
 # Anutaratamya the twenty-ninth and Daityataratamya the thirtieth. Where the
 # two disagree the title decides, because a title cannot be off by one.
+# A section heading with neither number nor dandas, as the internal title
+# pages of the multi-sandhi volumes print it:
+#     ಅವರೋಹಣತಾರತಮ್ಯ ಸಂಧಿ
+# The number, when it appears at all, sits on the following line as
+# `(ಸಂಧಿ - ೨೬)`, which is why the one-line patterns never saw it. Matched
+# against the book's own table of contents, never counted.
+SANDHI_HEAD_BARE = re.compile(
+    r"^\s*([\u0C80-\u0CFF][\u0C80-\u0CFF\s]{3,34}?)\s*ಸಂ[ಧದ]ಿ\s*$")
+
+
 SANDHI_TAIL = re.compile(
     r"^\s*[\"\u201c\u201d(]*\s*([\u0C80-\u0CFF][\u0C80-\u0CFF\s]{3,34}?)\s*ಸಂ[ಧದ]ಿ"
     r"[\"\u201c\u201d\s:,.\-–()]*(?:ಸಂ[ಧದ]ಿ\s*[-–:]?\s*)?([0-9೦-೯]{1,2})\s*[).]*\s*$")
@@ -268,6 +278,31 @@ def segment(work_dir: str, name: str, gemini_dir: str = GEMINI_DIR) -> dict:
             if m:
                 n = kn(m.group(1)) if m.re is SANDHI_HEAD else toc_number(m.group(1))
                 if n and n in sandhis:
+                    close(pno)
+                    open_block, buf = None, []
+                    cur_sandhi = n
+                    continue
+            # A bare title line -- no dandas, no number -- which is how the
+            # multi-sandhi volumes open each section and then repeat as the
+            # running head. SANDHI_HEAD_NONUM will not do: it requires
+            # `|| title sandhi ||`, and these internal title pages print the
+            # heading unadorned. hks__25_26_27_hks sets sandhi 26 on page 131
+            # as `Avarohanataratamya sandhi` over `(sandhi - 26)` on the NEXT
+            # line, and 27 the same way on page 168; neither matched anything,
+            # so cur_sandhi sat on 25 for all 209 pages, every block came out
+            # labelled 25, and the 26 and 27 blocks collided with padya numbers
+            # 1-7 and 1-5 already taken. The dedup below then discarded all
+            # thirteen as an appended work. Those two sandhis reached the
+            # reader with no commentary at all -- the only two in the book.
+            #
+            # Resolved through the TOC, so a line only moves the pointer when
+            # it names a sandhi THIS volume claims, and the n != cur_sandhi
+            # guard makes the running head a no-op on every page after the
+            # first rather than closing the open block.
+            mb = SANDHI_HEAD_BARE.match(line)
+            if mb and seen_a_padya:
+                n = toc_number(mb.group(1))
+                if n and n in sandhis and n != cur_sandhi:
                     close(pno)
                     open_block, buf = None, []
                     cur_sandhi = n

@@ -89,21 +89,27 @@ def test_no_commentary_is_empty(items):
     assert empty == []
 
 
-def test_sandhis_with_no_scanned_volume_stay_empty(by_sandhi):
-    """Commentary may only appear where a volume was actually scanned.
+def test_no_sandhi_is_entirely_without_commentary(by_sandhi):
+    """Every sandhi the project holds a volume for carries some commentary.
 
-    This used to name sandhis 2-9, whose eight volumes had never been
-    uploaded. They were uploaded and OCR'd on 20 Sep 2026 and now run 94-100%,
-    so the test failed -- correctly, guarding a fact that had changed.
+    This test used to assert the opposite for 26 and 27 -- that they must stay
+    empty, because "their volume IS scanned and simply does not carry them,"
+    each padya scoring 0.38-0.65 against its best block. That reasoning was
+    drawn from the bug's own symptom. The volume is hks__25_26_27_hks, and its
+    publisher's preface on page 3 says what it holds: Arohana 25 (19 padyas),
+    Avarohana 26 (7), Anukramanika 27 (5). Internal title pages announce 26 on
+    page 131 and 27 on page 168, each printing the number on the line BELOW the
+    title, where no pattern was looking for it. cur_sandhi therefore sat on 25
+    for all 209 pages, every block came out labelled 25, and the 26 and 27
+    blocks were dropped as duplicate padya numbers. The 0.38-0.65 scores were
+    against sandhi-25 blocks, because the real ones had never reached the file.
 
-    What remains true is 26 and 27: their volume IS scanned and simply does
-    not carry them. Each of those 12 padyas scores 0.38-0.65 against its best
-    block among all 935, and those blocks belong to unrelated sandhis. Text
-    appearing there would mean a verse matched something it should not have.
+    They score 0.93-0.99 now, 1:1 onto their own padyas. Guarding the positive
+    fact instead: a sandhi with nothing at all is the shape that bug had.
     """
-    for n in (26, 27):
-        got = [i["id"] for i in by_sandhi[n] if i.get("commentaries")]
-        assert got == [], "sandhi %d has commentary from nowhere: %s" % (n, got[:3])
+    bare = [n for n, rows in sorted(by_sandhi.items())
+            if rows and not any(i.get("commentaries") for i in rows)]
+    assert bare == [], "sandhi(s) with no commentary whatsoever: %s" % bare
 
 
 def test_commentary_coverage_holds_after_the_2_to_9_import(items):
