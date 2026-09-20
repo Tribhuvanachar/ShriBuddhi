@@ -168,6 +168,27 @@ def dangling_private_refs(source: str) -> list[tuple[str, str, str]]:
     return hits
 
 
+def dangling_private_refs_in(root: str) -> list[tuple[str, str, str]]:
+    """The same question asked of an already-staged tree, which has no
+    EXCLUDE rules left to apply -- everything in it is going out."""
+    names = [t.rsplit("/", 1)[-1] for t in PRIVATE_TREES]
+    hits = []
+    for dirpath, _, files in os.walk(root):
+        for name in files:
+            if not name.endswith(TEXT_SUFFIXES):
+                continue
+            full = os.path.join(dirpath, name)
+            try:
+                text = open(full, encoding="utf-8", errors="replace").read()
+            except OSError:
+                continue
+            for n in names:
+                if n in text:
+                    hits.append((os.path.relpath(full, root), n, ""))
+                    break
+    return hits
+
+
 def stage(source: str, out: str) -> int:
     """Copy the publishable tree to a clean directory with no .git."""
     if os.path.exists(out):
@@ -232,14 +253,15 @@ def main(argv=None) -> int:
         print("nothing found naming the private side of the project.")
     dangling = dangling_private_refs(args.source)
     if dangling:
-        print("\nSTOP. %d published file(s) still name a tree that no longer ships."
-              "\nThe files are gone; these entries are dead links that go on naming"
-              "\nthe source. Re-run the generator that writes each one:"
+        print("\n%d file(s) name a tree that publishes only by opaque id."
+              "\nThese are expected here: the private checkout keeps readable"
+              "\npaths on purpose. publish_opaque_rewrite.py swaps them for ids"
+              "\nin the STAGED copy below, and the build refuses if any survive."
               % len({h[0] for h in dangling}))
-        for rel, name, line in dangling[:40]:
-            print("  %-34s %-20s %s" % (rel[:34], name, line[:60]))
-        if len({h[0] for h in dangling}) > 40:
-            print("  ... and %d more file(s)" % (len({h[0] for h in dangling}) - 40))
+        for rel, name, line in dangling[:8]:
+            print("  %-34s %-20s %s" % (rel[:34], name, line[:52]))
+        if len({h[0] for h in dangling}) > 8:
+            print("  ... and %d more file(s)" % (len({h[0] for h in dangling}) - 8))
 
     undecided_on_disk = [t for t in UNDECIDED_TREES
                          if os.path.isdir(os.path.join(args.source, t))]
@@ -251,12 +273,7 @@ def main(argv=None) -> int:
         print("  Classify each in tools/unpublished_trees.py. Not a blocker.")
 
     if args.scan:
-        return 1 if (stale or dangling) else 0
-
-    if dangling:
-        print("\nRefusing to build: a release now would ship dead links that name the"
-              "\nsource. Nothing has been written.", file=sys.stderr)
-        return 4
+        return 1 if stale else 0
 
     if stale:
         print("\nRefusing to build: fix the old-name references first, or this release"
@@ -269,6 +286,29 @@ def main(argv=None) -> int:
 
     print()
     n = stage(args.source, args.out)
+
+    # The order matters and is the whole reason this is here rather than in
+    # the generators: stage the real tree, rewrite the staged COPY, then
+    # check the copy. Checking the source instead would refuse every build
+    # forever, because the source is meant to carry readable paths.
+    rc = subprocess.run([sys.executable,
+                         os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                      "publish_opaque_rewrite.py"),
+                         "--staged", args.out, "--root", args.source],
+                        text=True).returncode
+    if rc != 0:
+        print("\nRefusing to build: the staged tree still names a private shelf"
+              "\nafter the rewrite. Nothing has been committed.", file=sys.stderr)
+        return 4
+
+    left = dangling_private_refs_in(args.out)
+    if left:
+        print("\nRefusing to build: %d staged file(s) still name a private shelf."
+              % len({h[0] for h in left}), file=sys.stderr)
+        for rel, name, _ in left[:10]:
+            print("    %-40s %s" % (rel[:40], name), file=sys.stderr)
+        return 5
+
     sha = commit(args.out, args.author, args.message)
     print("staged %d file(s) and made ONE commit with no parent: %s" % (n, sha[:12]))
     print("\nto publish, from %s:" % args.out)
