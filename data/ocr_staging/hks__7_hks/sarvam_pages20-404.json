@@ -1,0 +1,208 @@
+{
+ "_readme": "Layout-preserving OCR from Sarvam Document AI (tools/sarvam_docai.py). Review in admin/ocr-review.html; nothing here reaches the library until approved.",
+ "source": {
+  "pdf": "https://drive.google.com/uc?export=download&id=1L-8Dbr3Q2Mb2NDovmXZely0QwHqT92Lz",
+  "pages": [
+   20,
+   39,
+   44,
+   45,
+   55,
+   56,
+   80,
+   150,
+   154,
+   159,
+   203,
+   213,
+   236,
+   308,
+   376,
+   403,
+   404
+  ],
+  "pdf_pages": 411
+ },
+ "engine": "sarvam-docai",
+ "language": "kn-IN",
+ "format": "html",
+ "generated_at": "2026-09-20T14:23:31Z",
+ "usage": {
+  "pages_total": 17,
+  "pages_succeeded": 17,
+  "pages_failed": 0,
+  "jobs": 14
+ },
+ "pages": [
+  {
+   "page": 20,
+   "ok": true,
+   "blocks_count": 19,
+   "html": "<p data-layout=\"paragraph\" data-confidence=\"0.45\">॥ ಶ್ರೀಃ ಹರಿಃ ಓಂ ॥ .</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.40\">॥ ಶ್ರೀ ಗರುಡವಾಹನ ಲಕ್ಷ್ಮೀನಾರಸಿಂಹಾಯ ನಮಃ ॥<br>॥ ಶ್ರೀ ಜಗನ್ನಾಥವಿಠಲಾಯ ನಮಃ ॥</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.40\">ಸಂಧಿ (೨)</h2>\n<h2 data-layout=\"section-title\" data-confidence=\"0.47\">“ಪಂಚತನ್ಮಾತ್ರಾ ಸಂಧಿ” - ಪ್ರಾರಂಭ</h2>\n<h2 data-layout=\"section-title\" data-confidence=\"0.42\">*</h2>\n<h2 data-layout=\"section-title\" data-confidence=\"0.35\">ಹರಿಕಥಾಮೃತಸಾರ ಗುರುಗಳ |</h2>\n<h2 data-layout=\"section-title\" data-confidence=\"0.30\">ಕರುಣದಿಂದಾಪನಿತು ಪೇಳುವೆ |</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.49\">ಪರಮ ಭಗವದ್ಭಕ್ತರಿದನಾದರದಿ ಕೇಳುವುದು ||ಪಲ್ಲ||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.68\">***</p>\n<p data-layout=\"image\" data-confidence=\"0.45\">ಪದ್ಯ</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.60\">(౧)</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.50\">ಮೂಲ :-</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.74\">ಭೂ ಸಲಿಲ ಶಿಖಿ ಪವನ ಭೂತಾ |</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.73\">ಕಾಶದೊಳಗೈದ್ಯದು ತನ್ಮಾ |</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.70\">ತತ್ತ್ವ ಸಹಿತ ಒಂದಧಿಕ ಪಂಚಾಶದ್ವರ್ಣ ವೇದ್ಯ ||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.66\">ಈ ಶರೀರದಿ ವ್ಯಾಪಿಸಿದ್ದು ಸು |</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.74\">ರಾಸುರರಿಗೆ ನಿರಂತರದಲಿ ಸು |</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.77\">ತಾಸುಖಪ್ರದನಾಗಿ ಆಡುವ ದ್ವೇಷಪರ ಬಡಿವ ||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.54\">||೦||</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 39,
+   "ok": true,
+   "blocks_count": 1,
+   "html": "<p data-layout=\"table\" data-confidence=\"0.92\">&lt;table&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೦&lt;/td&gt;<br>      &lt;td&gt;ಏಕಾತ್ಮ&lt;/td&gt;<br>      &lt;td&gt;ಮುಖ್ಯಪ್ರಭುವ&lt;/td&gt;<br>      &lt;td&gt;ಮೇಲುಟಿ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೨&lt;/td&gt;<br>      &lt;td&gt;ಐರ&lt;/td&gt;<br>      &lt;td&gt;ರುದ್ರನಿಗೆ ಸುಖಪ್ರದನು&lt;/td&gt;<br>      &lt;td&gt;ಕೆಳತುಟಿ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೩&lt;/td&gt;<br>      &lt;td&gt;ಓಜೋಭ್ರತ್&lt;/td&gt;<br>      &lt;td&gt;ನಿರತಿಶಯವಾದ ಸಾಮರ್ಥ್ಯವಂತ&lt;/td&gt;<br>      &lt;td&gt;ಮೇಲಿನ ದಂತ ಪಂಕ್ತಿ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೪&lt;/td&gt;<br>      &lt;td&gt;ಔರಸ&lt;/td&gt;<br>      &lt;td&gt;ಬ್ರಹ್ಮನನ್ನೇ ಜ್ಯೇಷ್ಠ ಪುತ್ರನಾಗಿ ಉಳ್ಳವನು&lt;/td&gt;<br>      &lt;td&gt;ಕೆಳಗಿನ ದಂತ ಪಂಕ್ತಿ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೫&lt;/td&gt;<br>      &lt;td&gt;ಅಂ&lt;/td&gt;<br>      &lt;td&gt;ಪ್ರಳಯ ಕಾಲದಲ್ಲಿ ಸರ್ವ ಜಗತ್ತನ್ನೂ&lt;br/&gt;ಸಂಹರಿಸುವವನು&lt;/td&gt;<br>      &lt;td&gt;ತಲೆಯ ಮೇಲ್ಪಾಗ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧೬&lt;/td&gt;<br>      &lt;td&gt;ಅರ್ಧಗರ್ಭ&lt;/td&gt;<br>      &lt;td&gt;ಬ್ರಹ್ಮಾಂಡಗಳನ್ನು ಉದರದಲ್ಲಿ&lt;br/&gt;ಧರಿಸಿರುವವನು&lt;/td&gt;<br>      &lt;td&gt;ನಾಲಿಗೆ&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "image_size": [
+    3391,
+    4900
+   ]
+  },
+  {
+   "page": 44,
+   "ok": true,
+   "blocks_count": 4,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.72\">44</div>\n<p data-layout=\"image-caption\" data-confidence=\"0.66\">(೩) ಪ-ವರ್ಗ ಪಂಚಕ-ವ್ಯಂಜನಾಕ್ಷರಗಳು-೫</p>\n<h4 data-layout=\"header\" data-confidence=\"0.49\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<p data-layout=\"table\" data-confidence=\"0.85\">&lt;table&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೩೭&lt;/td&gt;<br>      &lt;td&gt;ಹ&lt;/td&gt;<br>      &lt;td&gt;ಪರ&lt;/td&gt;<br>      &lt;td&gt;ಗುಣಪೂರ್ಣನು, ಸರ್ವೋತ್ತಮನು&lt;/td&gt;<br>      &lt;td&gt;ಬಲಹೊಟ್ಟೆಯ&lt;br/&gt;ಪಾರ್ಶ್ವ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೩೮&lt;/td&gt;<br>      &lt;td&gt;ಇ&lt;/td&gt;<br>      &lt;td&gt;ಫಲೀ&lt;/td&gt;<br>      &lt;td&gt;ಫಲದಾಯಕನು&lt;/td&gt;<br>      &lt;td&gt;ಎಡಹೊಟ್ಟೆಯ&lt;br/&gt;ಪಾರ್ಶ್ವ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೩೯&lt;/td&gt;<br>      &lt;td&gt;ಬ&lt;/td&gt;<br>      &lt;td&gt;ಬಲೀ&lt;/td&gt;<br>      &lt;td&gt;ಅಮಿತ ಬಲವುಳ್ಳವನು&lt;/td&gt;<br>      &lt;td&gt;ಪೃಷ್ಠ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೪೦&lt;/td&gt;<br>      &lt;td&gt;ಭ&lt;/td&gt;<br>      &lt;td&gt;ಭಗ&lt;/td&gt;<br>      &lt;td&gt;ಪೂರ್ಣಜ್ಞಾನಾದಿ ಷಡ್ಗುಣೈಶ್ವರ್ಯ&lt;br/&gt;ಸಂಪನ್ನನು&lt;/td&gt;<br>      &lt;td&gt;ಗುಹತಿ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೪೧&lt;/td&gt;<br>      &lt;td&gt;ಮ&lt;/td&gt;<br>      &lt;td&gt;ಮನ&lt;/td&gt;<br>      &lt;td&gt;ಪೂರ್ಣಜ್ಞಾ ನರೂಪಿಯು&lt;/td&gt;<br>      &lt;td&gt;ಹೊಟ್ಟೆಯ ತಲ&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 45,
+   "ok": true,
+   "blocks_count": 3,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.26\">45</div>\n<p data-layout=\"image-caption\" data-confidence=\"0.75\">(೭) ಅಗ್ನಿಪಥ<br>(೮) ಅಗ್ನಿಪಥ</p>\n<p data-layout=\"table\" data-confidence=\"0.87\">&lt;table&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೪೨&lt;/td&gt;<br>      &lt;td&gt;ಯ&lt;/td&gt;<br>      &lt;td&gt;ಯಜ್ಞ&lt;/td&gt;<br>      &lt;td&gt;ಎಲ್ಲರಿಂದಲೂ ಪೂಜ್ಯನು&lt;/td&gt;<br>      &lt;td&gt;ಹೃದಯ (ಎದೆ)&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೪೩&lt;/td&gt;<br>      &lt;td&gt;ರ&lt;/td&gt;<br>      &lt;td&gt;ರಾಮ&lt;/td&gt;<br>      &lt;td&gt;ಅಮಿತವಾದ ರಮಣವುಳ್ಳವನು&lt;br/&gt;(ಕ್ರೀಡಾಸುಖ) ಭಕ್ತರಿಗೆ ಸುಖ&lt;br/&gt;ಪ್ರದಾಯಕ&lt;/td&gt;<br>      &lt;td&gt;ತೃಗಿಂದ್ರಿಯ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೪೪&lt;/td&gt;<br>      &lt;td&gt;ಲ&lt;/td&gt;<br>      &lt;td&gt;ಲಕ್ಷ್ಮೀಪತಿ&lt;/td&gt;<br>      &lt;td&gt;ಶ್ರೀ ರಮಾರಮಣನು&lt;/td&gt;<br>      &lt;td&gt;ಚರ್ಮ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೪೫&lt;/td&gt;<br>      &lt;td&gt;ವ&lt;/td&gt;<br>      &lt;td&gt;ವರ&lt;/td&gt;<br>      &lt;td&gt;ಸರ್ವರಿಂದಲೂ ಮೋಕ್ಷಕ್ಕಾಗಿ&lt;br/&gt;ಧರಿಸಲ್ಪಡುವವನು&lt;/td&gt;<br>      &lt;td&gt;ಮಾಂಸ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೪೬&lt;/td&gt;<br>      &lt;td&gt;ಪ&lt;/td&gt;<br>      &lt;td&gt;ಶಾಂತಸಂವಿತ್&lt;/td&gt;<br>      &lt;td&gt;ಸುಖರೂಪವಾದ ಬುದ್ಧಿಯುಳ್ಳವನು&lt;/td&gt;<br>      &lt;td&gt;ರಕ್ತ&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೪೭&lt;/td&gt;<br>      &lt;td&gt;ಷ&lt;/td&gt;<br>      &lt;td&gt;ಷಡ್ಗುಣಾತ್ಮ&lt;/td&gt;<br>      &lt;td&gt;ಷಡು ಷ್ಟರ್ಯ ಸಂಪನ್ನನಾದ&lt;br/&gt;ಭಗವಂತನು&lt;/td&gt;<br>      &lt;td&gt;ಮೇದಸ್ಸು&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "image_size": [
+    3391,
+    4900
+   ]
+  },
+  {
+   "page": 55,
+   "ok": true,
+   "blocks_count": 13,
+   "html": "<h4 data-layout=\"header\" data-confidence=\"0.79\">ಪಂಚತನ್ಮಾತ್ರಾ ಸಂಧಿ</h4>\n<div data-layout=\"page-number\" data-confidence=\"0.81\">55</div>\n<p data-layout=\"paragraph\" data-confidence=\"0.58\">(೩) “ಭಾವದರ್ಪಣಟೀಕಾ - ವ್ಯಾಖ್ಯಾನ” :-</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.88\">ಅಧ್ಯಾತ್ಮ, ಅಧಿಭೂತ ಮತ್ತು ಅಧಿದೈವ - ಈ ಮೂರು ಅಧಿಷ್ಠಾನ<br>ದಲ್ಲಿ ವ್ಯಾಪ್ತವಾದ ಶ್ರೀ ಹರಿ ರೂಪಕ್ಕೆ “ತ್ರಿವೃತ್” - ಎಂತ ಹೇಳುತ್ತಾರೆ.<br>“ಪ್ರಣವೇತಿ”</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.69\">ಪ್ರಮಾಣ :-</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.86\">“ತ್ರಿವಿಧೋ ಹ್ಯನಿರುದ್ಧೋಸಾವಧ್ಯಾತ್ಮಾದಿ ವಿಭೇದತಃ |<br>ಅತಸ್ತ್ರಿನ್ಯದಿತಿಪ್ರೋಕ್ತ || ”</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.80\">-ಇತಿ ಶ್ರೀ ವಿಷ್ಣು ರಹಸ್ಯೋಕ್ತೇಃ</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.87\">ಅಥವಾ ಶ್ವೇತದ್ವೀಪ, ಅನಂತಾಸನ. ವೈಕುಂಠಸ್ಥಿತ ಭಗವದೂಪಕ್ಕೂ<br>“ತ್ರಿವೃತ್” - ಎಂತ ಹೆಸರು.</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.87\">ಅಥವಾ ಋಗ್ಯಜುರ್ಸಾಮ ವೇದಗಳಲ್ಲಿದಂಥ ಭಗವದ್ರೂಪಕ್ಕೂ<br>“ತ್ರಿವೃತ್” - ಎಂದು ಹೇಳುತ್ತಾರೆ.</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.79\">ಉಕ್ತಂಚ ಮಧ್ವಮಂತ್ರಾರ್ಥಮಂಜಯಾರ್ಣ :-</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.90\">“ತ್ರಿಷು ಶ್ವೇತದ್ವೀಪ ಅನಂತಾಸನ ವೈಕುಂಠೇಷು ವರ್ತತೇ<br>ತದ್ಬ್ರಹ್ಮ ತ್ರಿವೃದಿತಿ || ”</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.89\">ಅಥವಾ “ತ್ರಿಷು ವೇದೇಷು ವರ್ತಮಾನಂ ತತ್ತಾತ್ಪರ್ಯ<br>ವಿಷಯೀ ಭೂತಂ ಚೇತಿ || ”</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.88\">ಅಥವಾ ಅಕಾರ, ಉಕಾರ ಮತ್ತು ಮಕಾರ ಎಂಬೋ ತ್ರಿವರ್ಣ<br>ಗಳಿಂದ ಪ್ರತಿಪಾದ್ಯನಾದ್ದರಿಂದ “ತ್ರಿವೃತ್” ಎಂಬ ನಾಮ.</p>",
+   "image_size": [
+    3391,
+    4900
+   ]
+  },
+  {
+   "page": 56,
+   "ok": true,
+   "blocks_count": 9,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.76\">56</div>\n<h4 data-layout=\"header\" data-confidence=\"0.84\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<p data-layout=\"paragraph\" data-confidence=\"0.69\">ತದುಕ್ತಂ ಚತುರ್ಥಸ್ಕಂಧ ವಿಜಯಧ್ವಜ ವ್ಯಾಖ್ಯಾನೇ :-</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.86\">“ತ್ರಿಭಿಃ ಅಕಾರಾದಿವರ್ಣೈಃ ವೃಣೋತಿ ಪ್ರತಿಪಾದ್ಯತ ಇತಿ<br>ತ್ರಿವೃತ್ || ”</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.95\">ಈ ತ್ರಿವನ್ನಾಮದಿಂದ ತನುವಿನೊಳು ತ್ರಿಸ್ಥಾನ - ಎಂದರೆ, ನೇತ್ರ, ಕಂಠ<br>ಮತ್ತು ಹೃದಯ - ಈ ತ್ರಿಸ್ಥಾನಗಳಲ್ಲಿದ್ದು, ವಿಶ್ವ ತೈಜಸ ಪ್ರಜ್ಞಾತ್ಮಕ<br>ಅನಿರುದ್ಧನು ಹದಿನೈದು ರೂಪ, ಎಂದೆನಿಸಿದ್ದಾನೆ ಎಂಬರ್ಥ. “ತ್ರಿಪಂಚ<br>ತೀತಿ” “ತಥಾ ಪಂಚದಶಾತ್ಮಕೇತಿ” ವಿಷ್ಣು ರಹಸ್ಯವಚನಾತ್ ಏಕವಿಂಶ<br>ತೀತಿ. ದಶಕರಣ, ಪಂಚಭೂತ, ಪಂಚತನ್ಮಾತ್ರಾ, ಮನಸ್ಸು ಇವು ಸೇರಿ<br>ಏಕವಿಂಶತಿ ಎಂಬರ್ಥ, “ಚತುರ್ವಿಂಶತೀತಿ” - ಮಹತ್ತತ್ವ, ಅಹಂಕಾರ<br>ತತ್ತ್ವ ಮತ್ತು ಅವ್ಯಕ್ತತತ್ತ್ವ ಇವು ಮೂರು ಮತ್ತು ಹಿಂದಿಂದು ೨೧, ಅಂತು<br>೨೪ ತತ್ತ್ವಗಳಲ್ಲಿ “ಗ” - ಎಂದರೆ, ಇದ್ದವನೆಂದೆನಿಸಿ ಮತ್ತು ದ್ವಿಸಪ್ತತಿ<br>ಸಹಸ್ರ ನಾಡ್ಯಭಿಮಾನಿ ದೇವತೆಗಳಿಗೂ ನಿಯಮನ ಮಾಡುತ್ತಾ “ಇನಗಭಸ್ತಿ”<br>ಎಂದರೆ ಸೂರ್ಯನ ಕಿರಣ ಎಂಬರ್ಥ.</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.89\">“ಕಿರಣೋsಸ್ರಮಯೂಖಾಂಶು ಗಭಸ್ತಿ ಫೃಣೀ ಫೃಷ್ಠಯ<br>ಇತ್ಯೆಮರಃ ” - ಎಂದು ಅಮರಕೋಶರೀತ್ಯಾ.</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.88\">ಇದರಲ್ಲಿ ಸಹ “ಗ” - ಎಂದರೆ, ಇದ್ದವನೆಂರ್ಥ. ಹೀಂಗೆ ವ್ಯಾಪ್ತ<br>ನಾಗಿ ಸರ್ವತ್ರ ಪ್ರಕಾಶಿಸುವನೆಂದು ತಾತ್ಪರ್ಯ. ॥೨॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.55\">(೪) ಶ್ರೀ ವ್ಯಾಸದಾಸ ಸಿದ್ಧಾಂತ ಕೌಮುದೀ (ಸಂಸ್ಕೃತ ಮೂಲ) :-</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.93\">ಮಹತರೇಯೋಪನಿಷದರ್ಥಮಾಹ - “ಪ್ರಣವ” - ಇತಿ॥ “ಓಂ<br>ಯದೇ ತನ್ಮಹದುಕ್ತಂ ತದೇತತ್ ಪಂಚವಿಧಂ ತ್ರಿವೃತ್ ಪಂಚದಶಂ ಸಪ್ತ<br>ದಶಂ ಏಕವಿಂಶಂ ಪಂಚವಿಂಶಮ್” ಇತಿ॥ ತದ್ಭಾಷ್ಯಂ ಚ- “ಅನ್ಯತ್ವಾತ್<br>ಸರ್ವಜೀವೇಭ್ಯಃ ಜಡೇಭ್ಯಃ ಚ ಸದ್ವೈವಹಿ॥ ಸರ್ವದೋಷೋಜ್ಜಿ ತತ್ಚಾಶ್ಚ</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 80,
+   "ok": true,
+   "blocks_count": 1,
+   "html": "<p data-layout=\"paragraph\" data-confidence=\"0.32\">80 ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ<br><br>(1) ದಶೇಂದ್ರಿಯಗಳು = ೧೦<br>(2) ತನಾತ್ರಾ ಸಹಿತ<br>ಭೂತಪಂಚಕಗಳು = ೫<br>(೩) ಮನಸ್ಸು = ೧<br>(೪) ಮಹತ್ತತ್ವ = ೧<br>(೫) ಅಹಂಕಾರತತ್ವ = ೧<br>(೬) ಅವ್ಯಕ್ತ ತತ್ವ = ೧<br>ಒಟ್ಟು = ೧೯ ರೂಪಗಳು.<br><br>ಇದು ಶ್ರೀ ಸಂಕರ್ಷಣ ಒದೆಯರ ವ್ಯಾಖ್ಯಾನದ ಪ್ರಕಾರ ವಿವರಣೆ.<br><br>ಪುನಃ ತನುಚತುಷ್ಟಯಗಳು = ೪<br>ಪಂಚಭೂತ = ೫<br>ಪಂಚ ಜ್ಞಾನೇಂದ್ರಿಯಗಳು = ೫<br>ಪಂಚ ಕರ್ಮೇಂದ್ರಿಯಗಳು = ೫<br>ಅಂತು = ೧೯ ರೂಪಗಳು.<br><br>ಇದು ಭಾವಪ್ರಕಾಶಿಕಾಕಾರರ ವಿವರಣೆ.<br><br>ಅಲ್ಲದೆ ವಿಶ್ವಾದಿ ಅಷ್ಟ ರೂಪಗಳು = ೮<br>ಹಯಗ್ರೀವರೂಪ = ೧<br>ಮೂಲೇಶ, ಪ್ರಾದೇಶ- ಆಗ್ರೇಶ = ೩<br>ಅಚ್ಯುತಾನಂತ ಗೋವಿಂದ = ೩<br>ಅನಿರುದ್ಧಾದಿ ವಾಸುದೇವ = ೪<br>ಅಂತು = ೧೯</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 150,
+   "ok": true,
+   "blocks_count": 8,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.67\">150</div>\n<h4 data-layout=\"header\" data-confidence=\"0.82\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<h1 data-layout=\"headline\" data-confidence=\"0.65\">ಪದ (೯)</h1>\n<h2 data-layout=\"section-title\" data-confidence=\"0.47\">ಮೂಲ 8-</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.34\">ಐದುನೂರೆಪ್ಪತ್ತನಾಲಕು |<br>ಆಧಿ ಭೌತಿಕದಲಿ ತಿಳಿವುದು |<br>ಐದೆರಡುಶತಏಕವಿಂಶತಿ ರೂಪವಧ್ಯಾತ್ಮ ||<br>ಭೇದಗಳಲಿನ್ನೂರ ಮೂವ |<br>ತ್ತಾದ ಮೇಲೊಂದಧಿಕ ಮೂರ್ತಿಗ |<br>ಳಾದರದಲಧಿದೈವದೊಳು ಚಿಂತಿಪುದು ಭೂಸುರರು ||೯||</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.50\">ಅವತರಣಿಕೆ :-</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.94\">ಆಧಿ ಭೌತಿಕ, ಅಧ್ಯಾತ್ಮಿಕ ಮತ್ತು ಆಧಿ ದೈವಿಕ ಎಂಬ ಅಧಿಷ್ಠಾನ<br>ತ್ರಯಗತ ಭಗವದ್ರೂಪಗಳ ಸಂಖ್ಯಾವಿವರ ಮತ್ತು ರೂಪೋಪಾಸನಾ<br>ಕ್ರಮವನ್ನು ತಿಳಿಸುತ್ತಾರೆ. “ಐದುನೂರಿಪ್ಪತ್ತನಾಲಕು” -ಎಂಬ ಪ್ರಸಕ್ತ<br>ಸಂಧಿಗತ ೯ ನೆಯ ಈ ಪದ್ಯದಿಂದ.</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.96\">ಆದಿಭೌತಿಕಗತ ಭಗವದ್ರೂಪಗಳ ಅಕ್ಷರ ಸಾಂಕೇತ ಭಗವದ್ರೂಪಗಳು<br>೫೭೪. ಆಧ್ಯಾತ್ಮಿಕಗತ ಭಗವದ್ರೂಪಗಳು ೭೨೧ (ಐದೆರಡು=೫+೨=7,<br>ಏಕವಿಂಶತಿ = ೨೧ ಅಲ್ಲಿಗೆ ೭೨೧ ರೂಪಗಳು). ಆಧಿ ದೈವಿಕಗತ ಭಗವದ್ರೂಪ<br>ಗಳ ಸಂಖ್ಯಾ ೨೩೧. ಇಂತು. ಅಧಿಷ್ಠಾನತ್ರಯಗತ ಫೃಣೀ, ಸೂರ್ಯ<br>ಮತ್ತು ಆದಿತ್ಯ ಶಬ್ದ ವಾಚ್ಯ ಭಗವದ್ರೂಪಗಳ ಒಟ್ಟು ಸಂಖ್ಯಾ=೫೭೪+<br>೭೨೧+೨೩೧=೧೫೨೬ ಅಂದರೆ ಒಂದು ಸಾವಿರದ ಐನೂರ ಇಪ್ಪತ್ತಾರು<br>ಭಗವದ್ರೂಪಗಳನ್ನು ಜ್ಞಾನಿಗಳಾದ ವಿಪ್ರೋತ್ತಮರು ಚಿಂತಿಸುವರು ॥೯॥</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 154,
+   "ok": true,
+   "blocks_count": 10,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.79\">154</div>\n<h4 data-layout=\"header\" data-confidence=\"0.86\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<p data-layout=\"paragraph\" data-confidence=\"0.96\">೫ ದಿಕ್ಕುಗಳಲ್ಲಿ, ದಿಕ್ಕೊಂದಕ್ಕೆ ಎರಡು ಶತ, ೨೦೦ ರಂತೆ ೫ ದಿಕ್ಕು<br>ಗಳಲ್ಲಿ ಐದೆರಡು ಶತ, ೫ x ೨=೧೦ ನೂರು. ಅಂದರೆ, ೧೦೦೦ ರಶ್ಮಿ<br>ಗಳೆಂದೂ, ಶತ ಏಕವಿಂಶತಿ ಅಂದರೆ, ೧೨೧ ಎಂದೂ ಅರ್ಥಮಾಡಿ, ಈ<br>ಪದ್ಯಕ್ಕೆ ಫೃಣಿ, ಸೂರ್ಯ, ಆದಿತ್ಯ-ಎಂಬ ಪರ್ಯಾಯ ಪದವನ್ನು<br>ಕಲ್ಪಿಸಿ, ಆ=೧ ರ=೨, ಕ=೧, ಅಂತು ಏಕವಿಂಶತಿ=೧೨೧<br>ರೂಪಗಳು. ಅಧ್ಯಾತ್ಮದಲ್ಲಿ ತಿಳಿಯಬೇಕೆಂದು ಅರ್ಥಮಾಡಿರುವರು. ಇದ<br>ರಲ್ಲಿ ಸಾಧುಗಳು ಯಾವ ಅರ್ಥವನ್ನಾದರೂ ಗ್ರಹಿಸಬಹುದು. ಇದರಂತೆ,<br>ಅಧಿದೈವವಾದ ತತ್ತ್ವದೇವತೆಗಳಲ್ಲಿ ಆದಿತ್ಯ, ಆ=೧, ದಿ = ೩, ತ್ಯ=೨,<br>ವಾಮಾಂಕದಿಂದ ೨೩೧ ರೂಪಗಳನ್ನು ಚಿಂತಿಸಬೇಕೆಂದು ತಾತ್ಪರ್ಯವು.<br>॥೯॥</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.73\">(೩) “ಭಾವದರ್ಪಣ ಟೀಕಾ” - ವ್ಯಾಖ್ಯಾನ :-</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.89\">“ಘೃಣೀಃ”, -ಎಂಬೋದಕ್ಕೆ ವಾಮಾಂಕದಿಂದ ಆಗತಕ್ಕ ಭಗವದ್ರೂಪ<br>ಗಳು = ೫೭೪</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.89\">“ಸೂರ್ಯ”—ಎಂಬೋದಕ್ಕೆ ಸಂಖ್ಯಾಂಕದಿಂದ ಆಗತಕ್ಕ ಭಗವದ್ರೂಪ<br>ಗಳು = ೭೨೧.</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.89\">“ಆದಿತ್ಯ”—ಎಂಬೋದಕ್ಕೆ ಸಂಖ್ಯಾಂಕದಿಂದ ಆಗತಕ್ಕ ಭಗವದ್ರೂಪ<br>ಗಳು = ೨೩೧.</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.90\">ಏತಾದೃಶ ಭಗವದ್ರೂಪಗಳು ಅಧಿಭೌತಿಕಾದಿ ತಾಪತ್ರಯಗಳಲ್ಲಿ<br>ಚಿಂತಿಸಬೇಕೆಂದು ಹೇಳುತ್ತಾರೆ. ॥೯॥</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.72\">(೮) ಶ್ರೀ ವ್ಯಾಸದಾಸ ಸಿದ್ಧಾಂತ ಕೌಮುದೀ :-</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.93\">“ಐದು”— ಇತಿ॥ ಅಧಿಭೂತೇ ಪಂಚಯುಕ್ತ ವಿಂಶತಿಂ ಶತಪಂಚಕಂ ॥<br>ಹರಿಃ ಪ್ರಾಪ ಶತಾನಾಂ ತು ಸಪ್ತಕಂ ಚೈಕವಿಂಶತಿಮ್ ॥ ಅಧ್ಯಾತ್ಮ ಗತಃ<br>ಶತದ್ವಂದ್ವಂ ಏಕತ್ರಿಂಶಚ್ಚ ದೇವಗಃ ॥೯॥</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 159,
+   "ok": true,
+   "blocks_count": 3,
+   "html": "<h4 data-layout=\"header\" data-confidence=\"0.75\">ಪಂಚತನ್ಮಾತ್ರಾ ಸಂಧಿ</h4>\n<div data-layout=\"page-number\" data-confidence=\"0.76\">159</div>\n<p data-layout=\"table\" data-confidence=\"0.93\">&lt;table&gt;<br>  &lt;thead&gt;<br>    &lt;tr&gt;<br>      &lt;th rowspan=\"2\"&gt;ಕ್ರಮ ಸಂಖ್ಯೆ&lt;/th&gt;<br>      &lt;th&gt;ಅಧಿಷ್ಠಾನ&lt;/th&gt;<br>      &lt;th&gt;ತತ್ತ್ವಗಳು&lt;/th&gt;<br>      &lt;th&gt;ಶಬ್ದ ವಾಚ್ಯರೂಪ&lt;/th&gt;<br>      &lt;th&gt;ಅಪರ ಸ್ಥಾನ&lt;/th&gt;<br>      &lt;th&gt;ವಾಮಾಂಕ&lt;/th&gt;<br>      &lt;th&gt;ಭಗವದ್ಮೂಗಳ ಸಂಖ್ಯೆ&lt;/th&gt;<br>    &lt;/tr&gt;<br>  &lt;/thead&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೧&lt;/td&gt;<br>      &lt;td&gt;ಆದಿಭೌತಿಕ&lt;/td&gt;<br>      &lt;td&gt;ಪಂಚತನ್ಮಾತ್ರಾ ಸಹಿತ ಭೂತ ಪಂಚಕಗಳು&lt;/td&gt;<br>      &lt;td&gt;ಸ್ಫುಣೀ&lt;/td&gt;<br>      &lt;td&gt;ಋ ೭&lt;/td&gt;<br>      &lt;td&gt;೪&lt;/td&gt;<br>      &lt;td&gt;೫೭೪&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೨&lt;/td&gt;<br>      &lt;td&gt;ಆಧ್ಯಾತ್ಮಿಕ&lt;/td&gt;<br>      &lt;td&gt;ಮನಸ್ತಪ್ತಿ&lt;/td&gt;<br>      &lt;td&gt;ಸೂರ್ಯ&lt;/td&gt;<br>      &lt;td&gt;ಯ ೧&lt;/td&gt;<br>      &lt;td&gt;ವಾಮಾಂಕ&lt;/td&gt;<br>      &lt;td&gt;೭೨೧&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;೩&lt;/td&gt;<br>      &lt;td&gt;ಆದಿದೈವಿಕ&lt;/td&gt;<br>      &lt;td&gt;ದಶೇಂದ್ರಿಯಗಳು&lt;/td&gt;<br>      &lt;td&gt;ಆದಿತ್ಯ ದಿ ೩ ತೃ ೨&lt;/td&gt;<br>      &lt;td&gt;ಅ&lt;/td&gt;<br>      &lt;td&gt;೨೩೧&lt;/td&gt;<br>      &lt;td&gt;೨೩೧&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "image_size": [
+    3391,
+    4900
+   ]
+  },
+  {
+   "page": 203,
+   "ok": true,
+   "blocks_count": 20,
+   "html": "<h4 data-layout=\"header\" data-confidence=\"0.86\">ಪಂಚತನ್ಮಾತ್ರಾ ಸಂಧಿ</h4>\n<div data-layout=\"page-number\" data-confidence=\"0.84\">203</div>\n<p data-layout=\"paragraph\" data-confidence=\"0.90\">ಭಾರಭ್ಯನ್ನಾಮಕನಾದ ಶ್ರೀ ಪರಮಾತ್ಮನ ಅಕ್ಷರ ಸಾಂಕೇತ ಭಗವ<br>ದ್ರೂಪಗಳ ವಿವರ ಇಂತಿದೆ.</p>\n<pre data-layout=\"formula\" data-confidence=\"0.81\">(1) ಭಾ = ಪ-ವರ್ಗ ಪಂಚಕ-ವ್ಯಂಜನಾಕ್ಷರ = ೪</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.82\">(2) ರ = ಅವರ್ಗೀಯ ವ್ಯಂಜನಾಕ್ಷರ = ೨</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.78\">(3) ಭೃ = ಭ+ರ ೪+೨ = ೬</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.76\">ತ್ = ತ_ವರ್ಗ ಪಂಚಕ-ವ್ಯಂಜನಾಕ್ಷರ = ೧</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.76\">ವಾಮಾಂಕ ಗತಿಯಿಂದ ಭಾರಭೃತ್ ಶಬ್ದ ವಾಚ್ಯ ರೂಪಗಳು = ೧೬೨೪</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.83\">(೨) “ಆಧಾರ”-ಶಬ್ದ ವಾಚ್ಯ ಅಕ್ಷರ ಸಾಂಕೇತ ಭಗವದ್ರೂಪಗಳ ವಿವರ.</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.72\">(1) ಆ = ಸ್ವರಾಕ್ಷರ = ೨</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.81\">(2) ಧಾ = ತ-ವರ್ಗ ಪಂಚಕ-ವ್ಯಂಜನಾಕ್ಷರ = ೪</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.81\">(3) ರ = ಅವರ್ಪೀಯ ವ್ಯಂಜನಾಕ್ಷರ = ೨.</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.84\">ವಾಮಾಂಕ ರೀತ್ಯಾ ಆಧಾರ ಶಬ್ದ ವಾಚ್ಯ ರೂಪಗಳು = ೨೪೨.</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.77\">(೩) “ಆಧೇಯ” ಶಬ್ದ ವಾಚ್ಯ ಅಕ್ಷರ ಸಾಂಕೇತ ಭಗವದ್ರೂಪಗಳ ವಿವರ.</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.65\">(1) ಆ = ಸ್ವರಾಕ್ಷರ = ೨</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.81\">(2) ಧೇ = ತ-ವರ್ಗ ಪಂಚಕ-ವ್ಯಂಜನಾಕ್ಷರ = ೪</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.71\">(3) ಯ = ಅವರ್ಗೀಯ ವ್ಯಂಜನಾಕ್ಷರ = ೦</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.79\">ವಾಮಾಂಕ ಗತಿಯಿಂದ ಆಧೇಯ ಶಬ್ದ ವಾಚ್ಯ ಭಗವದ್ರೂಪಗಳು = ೧೪೨</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.81\">(೪) ಅಂತು, ಭಾರಭೃತ್ ಶಬ್ದ ವಾಚ್ಯ ಭಗವದ್ರೂಪಗಳು = ೧೬೨೪<br>ಆಧಾರ ಶಬ್ದ ವಾಚ್ಯ ಭಗವದ್ರೂಪಗಳು = ೨೪೨<br>ಆಧೇಯ ಶಬ್ದ ವಾಚ್ಯ ಭಗವದ್ರೂಪಗಳು = ೧೪೨</pre>\n<pre data-layout=\"formula\" data-confidence=\"0.66\">ಒಟ್ಟು ಭಗವದ್ರೂಪಗಳ ಸಂಖ್ಯೆ = ೨೦೦೮</pre>",
+   "image_size": [
+    3391,
+    4900
+   ]
+  },
+  {
+   "page": 213,
+   "ok": true,
+   "blocks_count": 5,
+   "html": "<h4 data-layout=\"header\" data-confidence=\"0.81\">ಪಂಚತನ್ಮಾತ್ರಾ ಸಂಧಿ</h4>\n<div data-layout=\"page-number\" data-confidence=\"0.79\">213</div>\n<p data-layout=\"paragraph\" data-confidence=\"0.95\">“ಜ್ವರ”ದಲ್ಲಿ ಅಕ್ಷರ ಸಾಂಕೇತ ೨೭ ರೂಪಗಳಿಂದ ಇದ್ದಾನೆ (ಜ್ವ=<br>ಜ+ವ=೩+೪=೭. ರ=೨. ವಾಮಾಂಕದಿಂದ ೨೭). “ಹರ”<br>ಶಬ್ದವಾಚ್ಯನಾಗಿ ೨೮ ಭಗವದ್ರೂಪಗಳು (ಹ=೮, ರ=೨. ವಾಮಾಂಕ<br>ದಿಂದ ೨೮) ಇವೆರಡನ್ನೂ ಕೂಡಿಸಿದಾಗ “ಜ್ವರಹರ” ಶಬ್ದವಾಚ್ಯ ವರ್ಣ<br>ಸಾಂಕೇತ ರೂಪಗಳು ೨೮೨೭. (ಜ್ವ=೭, ರ=೨, ಹ=೮, ರ=೨<br>ವಾಮಾಂಕಗತಿಯಿಂದ ೨೮೨೭). ಇಷ್ಟು ರೂಪಗಳಿಂದ ವಿದ್ಯಮಾನನಾಗಿ<br>ಶ್ರೀಲಕ್ಷ್ಮೀನರಸಿಂಹದೇವರು “ಜ್ವರಹರ” ನಾಮಕನಾಗಿದ್ದಾರೆ. ಏತಾ<br>ದೃಶಮಹಿಮೊಪೇತನಾದ ನಾರಸಿಂಹನ ಸ್ಮರಣೆ ಮಾತ್ರದಿಂದ ಸಮಸ್ತದುರಿತ<br>ರಾಶಿಗಳು. ಬಿಸಿಲಿನ ತಾಪಕ್ಕೆ ಕರಗುವ ಹಿಮದಂತೆ ಪರಿಹಾರವಾಗುವುವು<br>ಎಂದು ತಿಳಿಸುತ್ತಾರೆ. ॥೧೯॥</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.72\">ಪ್ರತಿಪದಾರ್ಥ :-</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.95\">ಜ್ವರನೊಳು = ಮಹೇಶ್ವರನಿಂದ ಉತ್ಪನ್ನವಾದ ಜ್ವರದೊಳಗೆ,<br>ಅಂದರೆ, ಜ್ವರಾಭಿಮಾನಿ ದೇವತೆಯಲ್ಲಿ ಇಪ್ಪತ್ತೇಳು=೨೪ ಅಕ್ಷರ ಸಾಂಕೇತ<br>ರೂಪಗಳಿಂದಲೂ (ಜ್ವ=ಜ+ವ=೩+೪=೭, ರ=೨. ವಾಮಾಂಕ<br>ದಿಂದ ೨೭ರೂಷಗಳು) ಹರನೊಳಗೆ=ಜ್ವರವನ್ನು ಸೃಷ್ಟಿಸಿದ ಹರನಲ್ಲಿ,<br>ಅಥವಾ ಜ್ವರ ಪರಿಹಾರ ಮಾಡತಕ್ಕ ದೇವತೆಗಳಲ್ಲಿ ಇಪ್ಪತ್ತೆಂಟು ರೂಪದಿ<br>=\"ಹರ” ಶಬ್ದವಾಚ್ಯನಾಗಿ ೨೮ ವರ್ಣಸಾಂಕೇತ ರೂಪಗಳಿಂದಲೂ<br>(ಹ=೮, ರ=೨. ವಾಮಾಂಕದಿಂದ ೨೮ ರೂಪಗಳು) ವಿದ್ಯಮಾನ<br>ನಾಗಿದ್ದಾನೆ. ಎರಡುಸಾವಿರದೆಂಟುನೂರಿಪ್ಪತ್ತರೇಳೆನಿಪ=೨೮೨೭ ರೂಪ<br>ಗಳಿಂದ ಜ್ವರಹರಾಯ್ವಯ=“ಜ್ವರಹರ”-ನೆಂಬ ಹೆಸರುಳ್ಳ (ಜ್ವ=೭,<br>ರ=೨, ಹ=೮, ರ=೨. ವಾಮಾಂಕದಿಂದ ಜ್ವರಹರ ಶಬ್ದವಾಚ್ಯ<br>ರೂಪಗಳು ೨೮೨೭) ನಾರಸಿಂಹನ=ಶ್ರೀಲಕ್ಷ್ಮೀನರಸಿಂಹ ನಾಮಕ<br>ಶ್ರೀಪರಮಾತ್ಮನ ಸ್ಮರಣೆಮಾತ್ರದಿ=ಭಕ್ತಿಪೂರ್ವಕ ಸ್ಮರಣೆಮಾಡಿದ<br>ಮಾತ್ರಕ್ಕೆ ದುರಿತರಾಶಿಗಳು=ಪಾಪ ಸಮೂಹಗಳು ತರಣಿಬಿಂಬವ=<br>ಸೂರ್ಯಮಂಡಲವನ್ನು ಕಂಡ=ನೋಡಿದ ಹಿಮದಂತೆ=ಮಂಜಿನೋ</p>",
+   "image_size": [
+    3391,
+    4900
+   ]
+  },
+  {
+   "page": 236,
+   "ok": true,
+   "blocks_count": 7,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.79\">236</div>\n<h4 data-layout=\"header\" data-confidence=\"0.86\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<p data-layout=\"paragraph\" data-confidence=\"0.91\">ಪ್ರದ್ಯುಮ್ನನು ಸರಸ್ವತಿಯಲ್ಲಿ ೨೫ ರೂಪದಿಂದ, ಅನಿರುದ್ಧನು ಭಾರತಿಯಲ್ಲಿ<br>೧೮ ರೂಪದಿಂದ ಇದ್ದಾನೆಂದು ತಿಳಿಯತಕ್ಕದ್ದು. ಸುತರೊಳು-ಸರಸ್ವತೀ<br>ಭಾರತೀ ಪ್ರದ್ಯುಮ್ನನ ಮಕ್ಕಳೆಂಬೋ ವಿಷಯದಲ್ಲಿ ಪ್ರಮಾಣ:-</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.87\">“ಪ್ರದ್ಯುಮ್ನತಃ ಕೃತ್ ಜಜ್ಞೇ ಕನ್ಯಾನಾಂತು ಚತುಷ್ಟಯಂ |<br>ಗಾಯತ್ರೀ ಚೈವ ಸಾವಿತ್ರಿಶ್ರದ್ಧಾ ಚೈವ ಸರಸ್ವತೀತಿ” ||<br>-ವರಾಹಪುರಾಣೋಕ್ತೇಃ ||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.93\">ವತ್ಸರಶತೇತಿ- ಮನುಷ್ಯರು ನರದೇಹದಲ್ಲಿ ನೂರುವರ್ಷ ಇರೋಣವೇ<br>ಪರಮ ದುರ್ಲಭತರ. ಇಂಥಾದ್ದರಲ್ಲಿ ಶತಸಂತ್ಸರ ಉಪಾಸನೆ ಮಾಡೆಂದು<br>ದಾಸಾರ್ಯರು ಹ್ಯಾಗೆ ಹೇಳಿದರು ಅಂದರೆ-ಉಷಾಸನೆಯ ಉಪಾಯವನ್ನು<br>ಇದರ ಮುಂದಿನ ಪದ್ಯದಲ್ಲಿ ಸುಲಭವಾಗಿ ತೋರಿಸುತ್ತಾರೆ- ಅವಲೋಕನ<br>ಮಾಡತಕ್ಕದ್ದು. ॥೧೮॥</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.78\">(೪) ಶ್ರೀ ವ್ಯಾಸದಾಸಸಿದ್ಧಾಂತ ಕೌಮುದೀ (ಸಂಸ್ಕೃತ ಮೂಲ) :-</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.95\">“ಚತುರ”—ಇತಿ || ತ್ರಿಂಶದಾತ್ಮಾ ವಿರುದ್ಧೋs ಜೇ ಸಪ್ತವಿಂಶತಿ<br>ಮಾರುತೇ || ಕೃತೀಶ ಪುತ್ರ್ಯಾಂ ಬ್ರಹ್ಮಾಣ್ಯಾಂ ಭಾರತ್ಯಾಂ ಪಂಚವಿಂಶತಿಃ||<br>ಅತುಲೋಷ್ಟಾ ದಶಾತ್ಮೇತಿ ಚ || ಓಮ್ || ಗಧಿ ಪ್ರೀಯಃ ಸತ್ರಾದಪ<br>ಗೋಹ್ಯ ಗಿರಿರ್ನವಿಶ್ವತಃ ಪೃಥುಃ ಪತಿರ್ದಿವಃ || ಅಭೀಹಿ ಸತ್ಯಸೋಮಪಾ<br>ಉಭೀ ಬಭೂವ ರೋದಸೀ || ಜಮ್ || ಸಮುಚ್ಛ್ರಾ: ಪರ್ವತಾಃ||<br>ಚಿತ್ತಯಃ ದತ್ವದುಚ್ಛ್ರಯವತ್ವಾತ್ ಚತುಮೂರ್ತಿಃ || ಓಮ್|| ಸೋಮಂ<br>ವೀರಾಯ ಶಕ್ರಾಯುಧಿರಾ ಪಿಬನ್ನರ್ಯಾಯ ಯೋವರಿಷ್ಟೋ<br>ಅನ್ಯ ಧಿಷ್ಟತ್ವಾವಂತಂ ಜರಿತೃಭ್ಯಃ ವಾಜಂ ಸ್ತೋತ್ರಭ್ಯೋ ಗೋಮಂತಮ್||<br>||ಓಮ್|| ಇಂದ್ರಾವಾಹಾ ವಚೋಯುಜಾ ತ್ವಂ ನ ಇಂದ್ರಾ ಭರಂ ಓಜೋ<br>ನೃಮ್ಮಂ ಶತಕೃತೋ ವಿಚರ್ಮಣೇ || ಆ ವೀರಂ ಪ್ರತನಾಷಹಮ್ ||</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 308,
+   "ok": true,
+   "blocks_count": 4,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.75\">308</div>\n<h4 data-layout=\"header\" data-confidence=\"0.84\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<p data-layout=\"paragraph\" data-confidence=\"0.56\">ಬ್ರಹ್ಮಾಂಡಮೇಕಂ ಜಾನಂತಿ ಯತ್ರ ಜಾತಾಸ್ತಥಾ ಜನಾಃ |<br>ಮಶಕಾಶ್ಚ ಯಥಾಂತಸ್ಥಾ ಔದುಂಬರ ಫಲೇಷು ವೈ ||೨೮||</p>\n<p data-layout=\"table\" data-confidence=\"0.64\">&lt;table&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ಶ್ರೀ ವಿಷ್ಣು ರುವಾಚ ||&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ಯಸ್ಮಿನ್ನಂಡೇ ಪ್ರಶ್ರಗರ್ಭೋSವತಾ ರೋಭೂತ್ಸನಾತನಃ |&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ತ್ರಿವಿಕ್ರಮ ನಖೋದ್ಧಿನ್ನೇ ತಸ್ಮಿನ್ನಂಡೇ ಸ್ಥಿತಾವಯಮ್ ||೩೦||&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ಬ್ರಹ್ಮಾವೈವರ್ತಪುರಾಣೇ ಅಷ್ಟಾದಶೋಧ್ಯಾಯಃ ||೧೮||&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ಸೋಪಿ ಪುನರ್ನಮಶ್ಚಕ್ರೇ ತಸ್ಮೈ ವಟುವರಾಯಚ |&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ಉವಾಚ ತೇ ವಚೋ ರೂಪಂ ದರ್ಶಯಸ್ವ ಸ್ವಕಂ ಮಮ ||೪೧||&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ವಟುರೂಪಂ ತು ಸಂತ್ಯಕ್ತ್ವಾ ನಿಜರೂಪಂ ಪರಂ ದಧೇ |&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ಮಹಾಮಕರತಪ್ರಖ್ಯಂ ಕೌಸ್ತುಭಾಧೈರ್ವಿಭೂಷಿತಂ ||೪೨||&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ಋಷಿ ಸಂಘೈರ್ದೇವಸಂಘೈಃ ಸೇವ್ಯಮಾನಂ ಮುದಾಸೆದಾ |&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ನಖಪ್ರಭಾಂ ತಸ್ಯ ದಿವ್ಯಾಂ ಪ್ರಥಮಂ ಸ ವ್ಯಲೋಕಯತ್ ||೪೩||&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ಅನೇಕ ಪ್ರೌಢಿಮಾದಿತ್ಯ ಪ್ರಭಾಸಂಖ್ಯಾಧಿಕಾಮಿನ |&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ತಸ್ಮಿನ್ನಖೇ ವಿಶ್ವಮಿದಂ ಸೊpಪಶ್ಯಜ್ಜನ ಸಂವೃತಂ ||೪೪||&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ಸತ್ಯಃ ಸ್ವರ್ಗೋ ಮಹರ್ಲೋಕಃ ಪಾತಾಳೋ ದ್ವಿಪಸಪ್ತಮಃ |&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ತತ್ರ ಕ್ಷೀರಾಬ್ಧಿಶೇಷೇ ತು ಶಯಾನಂ ಪುರುಷೋತ್ತಮಂ ||೪೫||&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ಮಹಾಕಾಯಂ ಮಹಾದಿತ್ಯಂ ಉತ್ಪ್ರೆಕ್ಷ್ಯಂ ಸವ್ಯಲೋಕಯತ್ |&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ತಸ್ಯ ರೋಮೇಷು ಸರ್ವೆಷು ಭುವನಾನಿ ಬಹೂನಿ ಚ ||೪೬||&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 376,
+   "ok": true,
+   "blocks_count": 11,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.79\">376</div>\n<h4 data-layout=\"header\" data-confidence=\"0.87\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<p data-layout=\"paragraph\" data-confidence=\"0.93\">ಬಲ್ಲರು. ಆ ಗುಣಗಳು ಎಂತಹವೆಂದರೆ, ಶ್ರೀವತ್ಸದಲ್ಲಿ ಶ್ರೀ ಲಕ್ಷ್ಮೀ<br>ದೇವಿಯರನ್ನು ಧರಿಸಿರುವನು. ಸರ್ವಸದ್ಗುಣಪೂರ್ಣನೂ ದುರಿತ ಹರ<br>ನಾದುದರಿಂದ, “ಹರಿ” ಶಬ್ದ ವಾಚ್ಯನು. ಇಂತಹ ಪರಮಾತ್ಮನೊಬ್ಬನೇ<br>ಸಕಲ ಜನರಿಂದಲೂ ಉಪಾಸ್ಯನು ಎಂಬ ಇವೇ ಮೊದಲಾದುವು. ॥೩೦॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.49\">(೩) “ಭಾವದರ್ಪಟೀಕಾ” ವ್ಯಾಖ್ಯಾನ :-</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.66\">ಆದಿತೇಯೋತಿ ॥ ಉಕ್ತಂಚ ಶ್ರೀಮದ್ಭಗವದ್ವಾದ್ಯ :-</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.76\">“ಗಿರಿಶೋ ಗರುಡಶ್ಚ ನ ತನೋಮಾತ್ರಗತಂ ಹರಿಮ್ |<br>ಪಶ್ಯೇದ್ವಿಶೇಷಾನಪಿಹಿ ವಾಣೀ ದೃಷ್ಟ್ವಾ ನ ಪಶ್ಯತೀತಿ ||”</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.76\">ವೇದೇತಿ | “ಪಶ್ಯಂತಿ ನ ತಯಾ ವಾಣಿ ವಿಶೇಷಾಂಸ್ತಾವತ<br>ಇತ್ಯುಕ್ತೇಃ ||” ಬೋಮೇತಿ ||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.72\">“ನ ರಮಾ ತದ್ವಿಶೇಷಾಣಾಂ ದರ್ಶನಂ ಶಕ್ನುಯತ್ಕಿಂಚಿದಿತಿ ”<br>—ವಚನಾಜ್ಞೇಯಂ || ||೩೦||</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.84\">(೪) ಶ್ರೀ ವ್ಯಾಸದಾಸ ಸಿದ್ಧಾಂತ ಕೌಮುದೀ (ಸಂಸ್ಕೃತಮೂಲ) :-<br>“ಆದಿತೇಯ- ” ಇತಿ ॥ ಆದಿತೇಯಾಃ ದೇವಾಃ ॥ ವೇಧ=ಬಹ್ಮಾ ॥<br>ಶ್ರೀಧರಃ- “ಓಂ ಗವ್ಯಗ್ರೇ ಮಥೀನಾಂ ವಿತತ್ತ ಇಂದ್ರವೀರ್ಯಂ ಗೋಭಿ<br>ರ್ಗಣಂತಿ ಕಾರವ ॥ ತೇ ಸ್ತೋಭಂತ ಊರ್ಜಮಾವನ್ ಧೃತ ಶ್ರುತಮ್<br>ಓಂ”- ॥ ಶ್ರಯತೇ ಇತಿ ಶ್ರೀಃ ವೀರ್ಯಮ್ ॥ ತದ್ ಧರತಿ ಇತಿ<br>ತಥೋಕ್ತಃ ॥ ॥೩೦॥</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.72\">ಕನ್ನಡಾರ್ಥ :</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.94\">ಸರಸ್ವತಿಯವರು ತಮಗಿಂತಲೂ ಕಡಿಮೆಯಾದವರಿಗಿಂತ ಅಧಿಕವಾಗಿ<br>ಶ್ರೀ ಪರಮಾತ್ಮನ ಗುಣಗಳನ್ನು ತಿಳಿದಿರುತ್ತಾರೆ. ಅವರಿಗಿಂತಲೂ ಅಧಿಕ<br>ವಾಗಿ ಬ್ರಹ್ಮದೇವರು ತಿಳಿದಿರುತ್ತಾರೆ. ಶ್ರೀ ಲಕ್ಷ್ಮೀದೇವಿಯಾದರೋ ಆ<br>ಬ್ರಹ್ಮದೇವರಿಗಿಂತ ಅತಿಶಯವಾಗಿ ಭಗವಂತನ ಗುಣಗಳನ್ನು ಬಲ್ಲರು.</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  },
+  {
+   "page": 403,
+   "ok": true,
+   "blocks_count": 8,
+   "html": "<h4 data-layout=\"header\" data-confidence=\"0.78\">ಪಂಚತನ್ನಾತ್ರ ಸಂಧಿ</h4>\n<div data-layout=\"page-number\" data-confidence=\"0.82\">403</div>\n<p data-layout=\"paragraph\" data-confidence=\"0.90\">ಪತಿಯು. ಜ್ಞಾನಿಗಳಿಂದ ಪ್ರಾಪ್ಯನು. ಗಯಾಸುರಮರ್ದನನು. ಮನನ<br>ಶೀಲರಾದವರಿಂದ ಮಾನ್ಯನು. ಕಂಸ ನಾಶಕನು. ಭಕ್ತಜನ ಕಲ್ಪತರುವು.<br>ಮಧುಮಥನನು. ಶ್ರೀ ಲಕ್ಷ್ಮಿಗೂ ಮುಖ್ಯ ಪ್ರಾಣನಿಗೂ ಇಷ್ಟದನು.<br>ಹೀಗೆ ತಿಳಿದವರನ್ನು ಸಂರಕ್ಷಿಸುವನು. ॥೩೩॥</p>\n<h1 data-layout=\"headline\" data-confidence=\"0.61\">|| ಇತಿ ಶ್ರೀಮತ್ಕವಿಕುಲತಿಲಕ ಶ್ರೀಮಜ್ಜಗನ್ನಾಥದಾಸರಾಜ<br>ವಿರಚಿತ ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರಸ್ಯ<br>ಭಾವದರ್ಪಣ ಟೀಕಾಯಾಂ</h1>\n<p data-layout=\"paragraph\" data-confidence=\"0.68\">ಕಮಲಾಪತಿದಾಸ ಹೃದ್ಗತೇನ ಶ್ರೀಹರಿಣಾಕೃತಾಯಾಂ<br>ಪಂಚತನ್ಮಾತ್ರಾಸಂಧಿಃ ಸಮಾಪ್ತಃ॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.79\">॥ ಶ್ರೀಕೃಷ್ಣಾರ್ಪಣಮಸ್ತು ॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.79\">(೪) ಶ್ರೀ ವ್ಯಾಸದಾಸ ಸಿದ್ಧಾಂತ ಕೌಮುದೀ (ಸಂಸ್ಕೃತಮೂಲ):-</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.95\">|| ಶ್ರೀನಿಕೇತನ “-ಇತಿ || ಸಾತ್ವತಾಂಪತಿ-॥ಓಂ ॥ ಯದಿಂದ್ರ ಪ್ರಾಗ<br>ಪಾಗುವ ಜ್ಞಾನ್ಯಗ್ವಾ ಹೂಯಸೇನೃಭಿಃ || ಸಿಮಾ ಪುರೂ ನೃಪತೋ<br>ಅಸ್ಯಾನವೇಸಿ ಪ್ರಶರ್ಭತುರ್ವತೇ ॥ಓಂ॥ ಸತ್ವಂ-ಬಲಮ್ | ತದ್ವಂತಃ<br>ಯಾದವಾಃ ಸಾತ್ವತಾಃ | ತತ್ಪತಿಃ || ಜ್ಞಾನಗಮ್ಯ- ॥ಓಂ॥ ಪ್ರಪಥೇ<br>ಸತ್ಯಃ ಸೋ ಆಸ್ಯಮಹಿಮಾ ಗೃಣೇ ಶವೋ ಯಜ್ಞೇಷು ವಿಪ್ರರಾಜ್ಯೇ ||<br>ಇಂದ್ರಮಿದ್ದೇವತಾತಯ ಇಂದ್ರಂ ಪ್ರಯತ್ಯಧ್ವರೇ ||ಓಂ॥ ಜ್ಞಾನಂ ಜ್ಞಾನಾ<br>ನಂದಾದಿ ಮಹಾತ್ಮ್ಯಮ್ | ತೇನ ಗಮ್ಯೋಯುಕ್ತಃ ಅಬಾಧಿತ ಮಹಾತ್ಮ್ಯಃ<br>ಮಾನದ- ಓಂ॥ ಸ್ತುವತೋ ಅದ್ರಿವಃ | ಋತಾದಿಯರ್ಮಿ ತೇ ಧಿಯಮ್<br>ಮನೋಯುಜಂ ಈ ಹತ್ಯಾ ಸಧಮದ್ಯಾಯು ಜಾನಃ ಸೋಮಃ ಪೀತಯೇ</p>",
+   "image_size": [
+    3391,
+    4900
+   ]
+  },
+  {
+   "page": 404,
+   "ok": true,
+   "blocks_count": 7,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.38\">404</div>\n<h4 data-layout=\"header\" data-confidence=\"0.83\">ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ</h4>\n<p data-layout=\"paragraph\" data-confidence=\"0.92\">ಹರೀ ಇಂದ್ರಃ ॥ಓಮ್॥ ಮಾನಂ ಜ್ಞಾನಂ ದದಾತಿ ಇತಿ ಮಾನದಃ ॥<br>ಮಾನ್ಯಃ- ॥ಓಮ್॥ ಪ್ರತದ್ವಸು ಅಭಿಸ್ವರ ಅಭಿಸ್ವರಂತು ಯೇ ತವ<br>ರುದ್ರಾಸಃ ಸಕ್ಷತ ಶ್ರಿಯಂ ಉತೋ ಮರುತ್ವತೀರ್ವಿಶೋ ಅಭಿಪ್ರಿಯಃ<br>॥ಓಮ್॥ ವಾಯ್ವಾಧಿಭಿಃ ಮಾನ್ಯತೇ ಇತಿ ಮಾನ್ಯಃ ॥ ಮಾನ-ಪೂಜಾ<br>ಯಾಮ್ ॥ ಪ್ರಾಣದಃ-॥ಓಮ್॥ ಅಧೀಭಿ ಶುವಂ ದಧಿ ಯುಗೋ ರನ್ನಪಃ<br>ನ್ಯರ್ಬುದಸ್ಯ ವಿಷ್ಟನಂ ವರ್ಷಾಣಂ ಬೃಹತಸ್ತಿಯ ಸ್ಕೃಷೇ ತದಿಂದ್ರ ಪೌಲ<br>ಸ್ಯಮ್ ॥ಓಮ್॥ ಪ್ರಕೃಷ್ಟಮನೋನನಂ ಗಮನಂ-ನದ್ಯಾದೀನಾಂ ಸಮುದ್ರ<br>ಗಮನಂ- ತದ್ ದದಾತಿ ಇತಿ ॥ ಯದ್ವಾ ಬಹು ಸಂಖ್ಯಾಕ ಯೋನಿಷು<br>ಗಮನಂ ಪ್ರಾಣಃ॥ ತತ್‌ದ್ಯತಿ ಖಂಡಯತಿ ಇತಿ ತಥೋಕ್ತಃ ॥ಓಮ್॥೩೩॥</p>\n<h1 data-layout=\"headline\" data-confidence=\"0.32\">|| ಇತಿ ಶ್ರೀಮದ್ವಿದ್ವಚ್ಚಕ್ರವರ್ತಿ ಶ್ರೀಮಜ್ಜಗನ್ನಾಥದಾಸ ವಿರಚಿತ<br>ಹರಿಕಥಾಮೃತಸಾರ ಟೀಕಾಯಾಂ ಸೋದಾಧಿಪಾನುಗ್ರಹಿ<br>ಶ್ರೀನಿವಾಸಾರ್ಯಸುತ ವಾದಿರಾಜ ವಿರಚಿತಾಯಾಂ<br>ವ್ಯಾಸದಾಸಸಿದ್ಧಾಂತ ಕೌಮುದ್ಯಾಂ<br>ಪಂಚತನ್ಮಾತ್ರಾಸಂಧಿಃ ಸಮಾಪ್ತಃ ||</h1>\n<p data-layout=\"paragraph\" data-confidence=\"0.74\">॥ ಶ್ರೀ ಹಯಗ್ರೀವಾರ್ಪಣಮಸ್ತು ॥</p>\n<h2 data-layout=\"section-title\" data-confidence=\"0.68\">ಕನ್ನಡಾರ್ಥ :</h2>\n<p data-layout=\"paragraph\" data-confidence=\"0.91\">ಮುಕ್ತಾಮುಕ್ತನಿಯಾಮಕನೂ, ಜ್ಞಾನಗಮ್ಯನೂ ಆದ ಶ್ರೀ ಜಗ<br>ನ್ನಾಥವಿಠಲರೂಪಿ ಶ್ರೀಹರಿಯನ್ನು—“ನೀನೇ ಗತಿ”—ಎಂದು ನಂಬಿ ಭಜಿಸುವ<br>ವರನ್ನು ಆ ಭಗವಂತನು ಸದಾ ಸರ್ವರೀತಿಗಳಲ್ಲಿಯೂ ಸಂರಕ್ಷಿಸುವನು.</p>",
+   "image_size": [
+    3440,
+    4842
+   ]
+  }
+ ]
+}
