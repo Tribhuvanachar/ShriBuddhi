@@ -31,6 +31,7 @@ from __future__ import annotations
 import argparse
 import collections
 import glob
+import html
 import json
 import os
 import re
@@ -40,10 +41,19 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from segment_mula import (KN, SANDHI_HEAD, SANDHI_HEAD_NONUM, TAG,  # noqa: E402
                           RUNNING_HEAD, kn, toc_number)
 
-# `ಪದ್ಯ ೧`, `ಪದ್ಯ (೧)`, `ಪದ್ಯ - 1.` -- the header sits alone on its line, and
-# that is what keeps it apart from the word ಪದ್ಯ inside the commentary prose,
-# which is frequent.
-PADYA_HEAD = re.compile(r"^\s*ಪದ್ಯ\s*[-–:]?\s*[\(\[]?\s*([0-9೦-೯]{1,3})\s*[\)\]]?\s*[.।]?\s*$")
+# `ಪದ್ಯ ೧`, `ಪದ್ಯ (೧)`, `ಪದ್ಯ - 1.`, `ಪದ್ಯ—೨`, `ಸಂಧಿಸೂಚನೆ + ಪದ್ಯ ೧`.
+#
+# The em dash is not decoration: volume 14 sets every one of its headers as
+# `ಪದ್ಯ—೨`, and a pattern allowing only hyphen and en dash found 8 headers in
+# that volume where there are 37.
+#
+# The header must sit alone on its line and ಪದ್ಯ must be followed by a
+# separator or space and then a digit. That is what keeps the word out of the
+# commentary prose, where it is constant -- ಪದ್ಯದಿಂದ, ಪದ್ಯದ ಭಾವ, ಈ ಪದ್ಯದಲ್ಲಿ
+# all continue in Kannada letters rather than digits and none of them match.
+PADYA_HEAD = re.compile(
+    r"^\s*(?:ಸಂಧಿಸೂಚನೆ\s*[+]\s*)?ಪದ್ಯ\s*[-–—:.]?\s*[\(\[]?\s*"
+    r"([0-9೦-೯]{1,3})\s*[\)\]]?\s*[.।:：]?\s*$")
 PRATIPADARTHA = re.compile(r"ಪ್ರತಿ\s*ಪದಾರ್ಥ\s*[:：-]?")
 VERSE_END = re.compile(r"[|।॥]{1,2}\s*[0-9೦-೯]{1,3}\s*[|।॥]{1,2}")
 
@@ -80,7 +90,12 @@ def read_pages(work_dir: str) -> dict:
                 pages[int(p["page"])] = t
     for f in sorted(glob.glob(os.path.join(work_dir, "sarvam_*.json"))):
         for p in (json.load(open(f, encoding="utf-8")).get("pages") or []):
-            t = TAG.sub("\n", str(p.get("html") or ""))
+            # Unescape BEFORE stripping tags. Sarvam sometimes returns a table
+            # whose own markup is entity-escaped inside the html field, so the
+            # page arrives carrying literal `&lt;td&gt;ಪದ್ಯ-೧&lt;/td&gt;`.
+            # Strip tags first and that header survives wrapped in text that
+            # stops it ever matching.
+            t = TAG.sub("\n", html.unescape(str(p.get("html") or "")))
             if t.strip():
                 pages[int(p["page"])] = t          # Sarvam wins where both exist
     return pages

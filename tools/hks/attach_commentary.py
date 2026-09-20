@@ -118,7 +118,14 @@ def match(doc, blocks, threshold, shortlist=25):
     for b in blocks:
         verse = bare(b.get("verse"))
         if len(verse) < MIN_VERSE:
-            skipped.append((b, "quoted verse too short to identify a padya"))
+            # The verse is split off at the closing `||n||`, and where the
+            # scan lost those dandas the whole block lands in `vyakhyana`
+            # instead. The padya still opens the block, so the head of it is
+            # the same evidence in a less tidy wrapper. Matching is on the
+            # text either way, so a fallback here costs nothing in rigour.
+            verse = bare(b.get("vyakhyana"))[:240]
+        if len(verse) < MIN_VERSE:
+            skipped.append((b, "no text long enough to identify a padya"))
             continue
         # Shortlist by shared 4-grams, then score only those properly. Every
         # padya in the work is a candidate: the two editions do not agree on
@@ -201,6 +208,13 @@ def main(argv=None) -> int:
 
     n = 0
     for it in doc["items"]:
+        # Clear first. Without this the write is additive: a re-run with a
+        # better matcher leaves every attachment the OLD matcher made sitting
+        # where it was, including the ones the new pass decided against. The
+        # count then climbs on each run and the file accumulates exactly the
+        # matches that were re-examined and rejected.
+        it.pop("commentaries", None)
+        it.pop("commentary_source", None)
         b = decided.get(it["id"])
         if not b:
             continue
