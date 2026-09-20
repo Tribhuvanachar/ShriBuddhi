@@ -13,8 +13,8 @@ which page each padya came from and which engine read it.
 
 ## The commentary is segmented but NOT attached
 
-`commentary_segmented.json` — 621 blocks from 22 volumes, **554 of them
-keyed to a padya the mula has (55% of the work)**.
+`commentary_segmented.json` — 634 blocks from 22 volumes, **575 of them
+keyed to a padya the mula has (57% of the work)**.
 
 The edition is the ಸರ್ವವ್ಯಾಖ್ಯಾನಸಾರಸಂಗ್ರಹ and lives up to the name: six
 separate commentaries run under each padya, announced by numbered headings.
@@ -42,9 +42,18 @@ otherwise.
 failure — those eight volumes were never scanned. Nothing in this repository
 can fix that; the PDFs have to be found and OCR'd.
 
-**Sandhis 26, 27 and 30 come out at 0%** because they share a volume with
-another sandhi (`hks__25_26_27_hks`, `hks__29_30_hks`) and the pointer does
-not advance past the first. That one is a bug and is fixable.
+**Sandhis 26 and 27 come out at 0%** because they share a volume with
+sandhi 25 and nothing inside it marks where one ends and the next begins.
+Sandhi 30 had the same problem and is now fixed: those volumes write the
+heading with the number AFTER the title (`ದೈತ್ಯತಾರತಮ್ಯ ಸಂಧಿ (ಸಂಧಿ-30)`) and
+run it as a page header through the section, which states on every page
+which sandhi the page belongs to. 26 and 27 are 12 padyas between them and
+are still open.
+
+The printed number is read but not trusted. The cover of `hks__29_30_hks`
+prints "ಅಣುತಾರತಮ್ಯ ಸಂಧಿ (ಸಂಧಿ-30)" while the book's own contents page makes
+Anutaratamya the twenty-ninth. Where they disagree the title decides,
+because a title cannot be off by one.
 
 ## The appended works
 

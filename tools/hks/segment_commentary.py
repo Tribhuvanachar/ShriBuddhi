@@ -48,6 +48,23 @@ PRATIPADARTHA = re.compile(r"ಪ್ರತಿ\s*ಪದಾರ್ಥ\s*[:：-]?")
 VERSE_END = re.compile(r"[|।॥]{1,2}\s*[0-9೦-೯]{1,3}\s*[|।॥]{1,2}")
 
 
+# A heading that puts the number AFTER the title, which is how the
+# multi-sandhi volumes write it:
+#     ಅವರೋಹಣತಾರತಮ್ಯ ಸಂಧಿ : ೨೬
+#     ದೈತ್ಯತಾರತಮ್ಯ ಸಂಧಿ (ಸಂಧಿ-30)
+# The second form also runs as a page header through that whole section,
+# which is useful rather than noisy: it states, on every page, which sandhi
+# the page belongs to.
+#
+# The printed number is read but NOT trusted. The cover of hks__29_30_hks
+# prints "ಅಣುತಾರತಮ್ಯ ಸಂಧಿ (ಸಂಧಿ-30)" while the book's own contents page makes
+# Anutaratamya the twenty-ninth and Daityataratamya the thirtieth. Where the
+# two disagree the title decides, because a title cannot be off by one.
+SANDHI_TAIL = re.compile(
+    r"^\s*[\"\u201c\u201d(]*\s*([\u0C80-\u0CFF][\u0C80-\u0CFF\s]{3,34}?)\s*ಸಂ[ಧದ]ಿ"
+    r"[\"\u201c\u201d\s:,.\-–()]*(?:ಸಂ[ಧದ]ಿ\s*[-–:]?\s*)?([0-9೦-೯]{1,2})\s*[).]*\s*$")
+
+
 def volume_sandhis(name: str) -> list[int]:
     """`hks__29_30_hks` -> [29, 30]. `hks__hks` -> [] (that is the mula)."""
     core = name.replace("hks__", "").replace("_hks", "")
@@ -147,6 +164,7 @@ def segment(work_dir: str, name: str) -> dict:
     pages = read_pages(work_dir)
     blocks, notes = [], []
     open_block, buf = None, []
+    seen_a_padya = False
 
     def close(page):
         if open_block is None:
@@ -172,9 +190,21 @@ def segment(work_dir: str, name: str) -> dict:
                     open_block, buf = None, []
                     cur_sandhi = n
                     continue
+            mt = SANDHI_TAIL.match(line)
+            if mt and seen_a_padya:
+                # Title decides, not the printed number. Only after the first
+                # padya header, so the front matter -- which lists every
+                # sandhi in the volume -- cannot move the pointer.
+                n = toc_number(mt.group(1))
+                if n and n in sandhis and n != cur_sandhi:
+                    close(pno)
+                    open_block, buf = None, []
+                    cur_sandhi = n
+                    continue
             pm = PADYA_HEAD.match(line)
             if pm:
                 close(pno)
+                seen_a_padya = True
                 open_block = (cur_sandhi, kn(pm.group(1)), pno)
                 buf = []
                 continue
