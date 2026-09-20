@@ -39,7 +39,9 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from segment_mula import (KN, SANDHI_HEAD, SANDHI_HEAD_NONUM, TAG,  # noqa: E402
-                          RUNNING_HEAD, kn, toc_number)
+                          RUNNING_HEAD, kn, load_resolved, toc_number)
+
+GEMINI_DIR = os.path.join("data", "ocr_staging", "_gemini")
 
 # `ಪದ್ಯ ೧`, `ಪದ್ಯ (೧)`, `ಪದ್ಯ - 1.`, `ಪದ್ಯ—೨`, `ಸಂಧಿಸೂಚನೆ + ಪದ್ಯ ೧`.
 #
@@ -81,7 +83,8 @@ def volume_sandhis(name: str) -> list[int]:
     return [int(x) for x in core.split("_") if x.isdigit()]
 
 
-def read_pages(work_dir: str) -> dict:
+def read_pages(work_dir: str, resolved: dict | None = None) -> dict:
+    resolved = resolved or {}
     pages = {}
     for f in sorted(glob.glob(os.path.join(work_dir, "vision_*.json"))):
         for p in (json.load(open(f, encoding="utf-8")).get("pages") or []):
@@ -98,6 +101,14 @@ def read_pages(work_dir: str) -> dict:
             t = TAG.sub("\n", html.unescape(str(p.get("html") or "")))
             if t.strip():
                 pages[int(p["page"])] = t          # Sarvam wins where both exist
+
+    # And the pages Gemini has already adjudicated win over both, which is the
+    # whole point of having paid for them. segment_mula.py has read these from
+    # the start; this did not, so every proofread commentary page was being
+    # thrown away in favour of the raw reading it was bought to correct.
+    for n, text in resolved.items():
+        if str(text or "").strip():
+            pages[int(n)] = text
     return pages
 
 
@@ -173,10 +184,10 @@ def split_block(lines: list[str]) -> dict:
     return out
 
 
-def segment(work_dir: str, name: str) -> dict:
+def segment(work_dir: str, name: str, gemini_dir: str = GEMINI_DIR) -> dict:
     sandhis = volume_sandhis(name)
     cur_sandhi = sandhis[0] if sandhis else None
-    pages = read_pages(work_dir)
+    pages = read_pages(work_dir, load_resolved(gemini_dir, name))
     blocks, notes = [], []
     open_block, buf = None, []
     seen_a_padya = False
@@ -256,6 +267,8 @@ def segment(work_dir: str, name: str) -> dict:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n", 2)[1])
     ap.add_argument("--staging", required=True, help="folder holding the hks__* volumes")
+    ap.add_argument("--gemini-dir", default=GEMINI_DIR,
+                    help="where the adjudicated pages live")
     ap.add_argument("--out", default="")
     args = ap.parse_args(argv)
 
@@ -264,7 +277,7 @@ def main(argv=None) -> int:
         name = os.path.basename(d)
         if not volume_sandhis(name):
             continue                                   # the mula volume
-        r = segment(d, name)
+        r = segment(d, name, args.gemini_dir)
         total += len(r["blocks"])
         out.append(r)
         got = collections.Counter(b["sandhi"] for b in r["blocks"])
