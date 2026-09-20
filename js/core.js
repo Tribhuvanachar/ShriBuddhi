@@ -659,7 +659,20 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
     // first-pass for a vetted commentary.
     gemini_padaccheda: 'AI Padaccheda (Gemini, unreviewed)',
     gemini_anvaya: 'AI Anvaya (Gemini, unreviewed)',
-    gemini_summary: 'AI Summary (Gemini, unreviewed)'
+    gemini_summary: 'AI Summary (Gemini, unreviewed)',
+    // Harikathamrtasara's commentary layers (tools/hks/). The printed
+    // volumes announce each one by its Kannada name, so the label is that
+    // name -- the ASCII keys are only what the JSON can hold. Without
+    // these the picker showed 'Guruhrdaya_prakashika', which is neither
+    // the work's name nor a word in any language.
+    vyakhyana: '\u0CB5\u0CCD\u0CAF\u0CBE\u0C96\u0CCD\u0CAF\u0CBE\u0CA8 \u2014 Vy\u0101khy\u0101na',
+    pratipadartha: '\u0CAA\u0CCD\u0CB0\u0CA4\u0CBF\u0CAA\u0CA6\u0CBE\u0CB0\u0CCD\u0CA5 \u2014 Pratipad\u0101rtha',
+    bhavaprakashika: '\u0CAD\u0CBE\u0CB5\u0CAA\u0CCD\u0CB0\u0C95\u0CBE\u0CB6\u0CBF\u0C95\u0CC6 \u2014 Bh\u0101vaprak\u0101\u015Bik\u0101',
+    bhavadarpana: '\u0CAD\u0CBE\u0CB5\u0CA6\u0CB0\u0CCD\u0CAA\u0CA3 \u2014 Bh\u0101vadarpa\u1E47a',
+    bhavadarshana: '\u0CAD\u0CBE\u0CB5\u0CA6\u0CB0\u0CCD\u0CB6\u0CA8 \u2014 Bh\u0101vadar\u015Bana',
+    guruhrdaya_prakashika: '\u0CB6\u0CCD\u0CB0\u0CC0\u0C97\u0CC1\u0CB0\u0CC1\u0CB9\u0CC3\u0CA6\u0CAF\u0CAA\u0CCD\u0CB0\u0C95\u0CBE\u0CB6\u0CBF\u0C95\u0CC6 \u2014 Guruh\u1E5Bdayaprak\u0101\u015Bik\u0101',
+    sankarshana_odeyara_vyakhyana: '\u0CB6\u0CCD\u0CB0\u0CC0 \u0CB8\u0C82\u0C95\u0CB0\u0CCD\u0CB7\u0CA3 \u0C92\u0CA1\u0CC6\u0CAF\u0CB0 \u0CB5\u0CCD\u0CAF\u0CBE\u0C96\u0CCD\u0CAF\u0CBE\u0CA8 \u2014 \u015Ar\u012B Sa\u1E45kar\u1E63a\u1E47a O\u1E0Deyar',
+    vyasadasa_siddhanta_kaumudi: '\u0CB6\u0CCD\u0CB0\u0CC0 \u0CB5\u0CCD\u0CAF\u0CBE\u0CB8\u0CA6\u0CBE\u0CB8 \u0CB8\u0CBF\u0CA6\u0CCD\u0CA7\u0CBE\u0C82\u0CA4 \u0C95\u0CCC\u0CAE\u0CC1\u0CA6\u0CC0 \u2014 Vy\u0101sad\u0101sa Siddh\u0101nta Kaumud\u012B'
   };
 
   // dasa_pada_text schema (see data/schemas.json): each item is one
