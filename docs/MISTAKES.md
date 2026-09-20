@@ -316,3 +316,49 @@ same as applying it to the next thing you write.
 **Rule.** Any step that saves billed output runs on `always()`. The question to
 ask of every new workflow is not "does this work" but "if this dies halfway,
 what has been bought and where does it live".
+
+---
+
+## 18. "`gh` isn't installed, so you'll have to trigger the workflow" — 20 Sep 2026
+
+Batch 2 of the HKS proofreading failed at 14:59 on 19 Sep. I did not notice for
+nineteen hours, and told the lead twice that it "either is still running or
+failed" and that triggering the next batch was something they would have to do,
+because `gh` — the GitHub CLI — is not installed in this container.
+
+`gh` is a convenience wrapper over the REST API. Its absence says nothing about
+whether the API is reachable. `GH_TOKEN` was in the environment the whole time,
+`tools/dispatch_workflow.py` exists for exactly this, and **CLAUDE.md already
+says "You CAN dispatch workflows", in a section that begins by explaining it was
+written because I once cost the lead a week by claiming otherwise.** I read past
+it and made the same mistake in the same project.
+
+What the capability actually was, measured rather than assumed:
+
+| | |
+|---|---|
+| `GET /user`, run lists, job logs, artifacts | works |
+| `POST .../workflows/<file>/dispatches` | works — HTTP 204 |
+| `PUT .../contents/<path>` | **403 at the proxy**, write not permitted |
+| `git push` over HTTPS | works |
+
+So: reading and dispatching are available; the contents API is not, and the way
+to change a file in another repository is the same `git push` used all session.
+
+What the nineteen hours cost. Nothing in money — run 10 had called Gemini zero
+times. It died on `fatal: shallow file has changed since we read it`, a git
+race: the workflow fetches each work into one shallow clone, every `--depth`
+fetch rewrites `.git/shallow`, and I was pushing to ShriBuddhi all afternoon.
+What it cost was a day. Reading the log took ninety seconds once I tried.
+
+It also surfaced a second fault. The push step's error reads "The work is DONE
+and BILLED; it is in the run artifact" — printed unconditionally, whatever went
+wrong before it. It said that on a run where nothing had been spent and no
+artifact existed. A message that asserts a cost must be reachable only when the
+cost was incurred, or the next person reading it budgets for money nobody spent.
+
+**Rule.** The absence of a tool is not the absence of a capability. Before
+reporting that something needs the lead, name the exact call you would make,
+make it, and quote what came back. "`gh` is missing" is a statement about one
+binary; "`POST /dispatches` returned 403 and here is the body" is a statement
+about the capability.
