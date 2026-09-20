@@ -73,3 +73,36 @@ def test_sandhi_24_is_the_one_recovered_from_the_scan(by_sandhi):
     the app resources alone, sandhi 24 silently vanishes again."""
     assert len(by_sandhi[24]) == 63
     assert all(i.get("text_source") for i in by_sandhi[24])
+
+
+# --- the commentary, keyed by the verse it quotes ---------------------------
+
+def test_most_padyas_carry_commentary(items):
+    with_c = [i for i in items if i.get("commentaries")]
+    assert len(with_c) >= 600, "commentary coverage fell to %d padyas" % len(with_c)
+
+
+def test_no_commentary_is_empty(items):
+    empty = [i["id"] for i in items
+             for k, v in (i.get("commentaries") or {}).items()
+             if not str(v).strip()]
+    assert empty == []
+
+
+def test_sandhis_with_no_scanned_volume_stay_empty(by_sandhi):
+    """Sandhis 2-9 have no commentary volume in staging -- those eight were
+    never scanned. If commentary appears there, something matched a verse it
+    should not have."""
+    for n in range(2, 10):
+        got = [i["id"] for i in by_sandhi[n] if i.get("commentaries")]
+        assert got == [], "sandhi %d has commentary from nowhere: %s" % (n, got[:3])
+
+
+def test_commentary_records_where_it_came_from(items):
+    """Every attached block keeps its volume, its page and the padya number
+    the book printed -- which is often NOT the padya it was attached to, and
+    a reader checking against the printed edition needs both."""
+    for i in items:
+        if i.get("commentaries"):
+            src = i.get("commentary_source")
+            assert src and src.get("page"), "%s has commentary with no source" % i["id"]
