@@ -90,12 +90,27 @@ def test_no_commentary_is_empty(items):
 
 
 def test_sandhis_with_no_scanned_volume_stay_empty(by_sandhi):
-    """Sandhis 2-9 have no commentary volume in staging -- those eight were
-    never scanned. If commentary appears there, something matched a verse it
-    should not have."""
-    for n in range(2, 10):
+    """Commentary may only appear where a volume was actually scanned.
+
+    This used to name sandhis 2-9, whose eight volumes had never been
+    uploaded. They were uploaded and OCR'd on 20 Sep 2026 and now run 94-100%,
+    so the test failed -- correctly, guarding a fact that had changed.
+
+    What remains true is 26 and 27: their volume IS scanned and simply does
+    not carry them. Each of those 12 padyas scores 0.38-0.65 against its best
+    block among all 935, and those blocks belong to unrelated sandhis. Text
+    appearing there would mean a verse matched something it should not have.
+    """
+    for n in (26, 27):
         got = [i["id"] for i in by_sandhi[n] if i.get("commentaries")]
         assert got == [], "sandhi %d has commentary from nowhere: %s" % (n, got[:3])
+
+
+def test_commentary_coverage_holds_after_the_2_to_9_import(items):
+    """643 padyas before those eight volumes, 925 after. A drop below this
+    means a regression in segmentation or matching, not a content decision."""
+    with_c = [i for i in items if i.get("commentaries")]
+    assert len(with_c) >= 900, "coverage fell to %d padyas" % len(with_c)
 
 
 def test_commentary_records_where_it_came_from(items):
