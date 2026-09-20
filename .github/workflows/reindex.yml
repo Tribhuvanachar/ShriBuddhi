@@ -165,6 +165,16 @@ jobs:
       # then immutable by construction: no staleness, and no pin to bump --
       # the config points at the new prefix as part of the build.
       - name: Assemble the service-account key from the repository secrets
+        # NOT fatal. This step and the Cloud Storage publish under it are one
+        # optional half of the job; the other half -- the refreshed backlinks
+        # and library-status that go to BrahmaBuddhi as a PR -- is the half
+        # that carries reviewable content, and it does not need a storage
+        # credential to do its work. On 20 Sep 2026 this step exited 1 on
+        # "FIREBASE_PROJECT_ID secret is not set", which aborted the job after
+        # the index had already been rebuilt successfully, so the PR steps
+        # never ran and a ten-minute rebuild was thrown away. The publish step
+        # below was already continue-on-error; this one was the hard stop.
+        continue-on-error: true
         # Accepts either the whole JSON in FIREBASE_SERVICE_ACCOUNT (or one of the common alternative names)
         # or the individual fields the lead stored one secret each (FIREBASE_PRIVATE_KEY, FIREBASE_PRIVATE_KEY_ID,
         # FIREBASE_CLIENT_EMAIL, FIREBASE_CLIENT_ID; the remaining fields are constants). Prints only which
