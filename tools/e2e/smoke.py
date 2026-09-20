@@ -37,6 +37,17 @@ EXTERNAL = re.compile(r"fonts\.(googleapis|gstatic)\.com|gstatic\.com|googletagm
                       r"google-analytics|cdnjs\.cloudflare\.com|jsdelivr\.net|firebasejs|"
                       r"firebaseio|googleapis\.com/identitytoolkit")
 
+# Files the PUBLISHED site serves from its own root config/ and content/,
+# which this private authoring repository does not have -- see the note in
+# js/admin-remote.js about the split. Serving ShriBuddhi directly 404s them
+# and nothing on the live site does. Counted separately so they cannot be
+# mistaken for a fault, and so a real 404 is not lost among them.
+LOCAL_ONLY = re.compile(r"/(config|content)/[^/]+\.json|"
+                        r"(home|legal|reader|menu|seo|site\.config|intellisense|"
+                        r"config-overrides|contextual-actions|chandas-features|"
+                        r"kosha-overrides|library-overrides|ashtadhyayi-layers|"
+                        r"tour|whats-new)\.json")
+
 PAGES = [
     ("/", "landing"),
     ("/index.html", "landing (explicit)"),
@@ -73,7 +84,13 @@ def main(argv=None) -> int:
         for path, label in PAGES:
             p = ctx.new_page()
             own4xx, console = [], []
-            p.on("response", lambda r: own4xx.append("%d %s" % (r.status, r.url.split("/")[-1][:34]))
+            local = []
+            blocked_external = []
+            p.on("requestfailed", lambda r: blocked_external.append(r.url[:60])
+                 if EXTERNAL.search(r.url) else None)
+            p.on("response", lambda r: (
+                local if LOCAL_ONLY.search(r.url) else own4xx
+            ).append("%d %s" % (r.status, r.url.split("/")[-1][:34]))
                  if r.status >= 400 and not EXTERNAL.search(r.url) else None)
             p.on("console", lambda m: console.append(m.text[:80])
                  if m.type == "error" and not EXTERNAL.search(m.text) else None)
@@ -84,12 +101,29 @@ def main(argv=None) -> int:
                 bad += 1
                 p.close()
                 continue
-            p.wait_for_timeout(args.wait)
+            # Wait for the page to SETTLE, not for a stopwatch. Harikatha-
+            # mrtasara is a 5.1 MB data.json and takes well over seven
+            # seconds to paint; a fixed wait reported it at 562 characters
+            # and "broken" when it renders 6,480 and is fine.
+            prev = -1
+            for _ in range(int(args.wait / 1000) + 18):
+                p.wait_for_timeout(1000)
+                now = len(p.evaluate("document.body.innerText"))
+                if now > 200 and now == prev:
+                    break
+                prev = now
             text = p.evaluate("document.body.innerText").strip()
             moved = "" if path.split("?")[0] in p.url or path == "/" else "-> " + p.url.split("/")[-1][:24]
-            broken = ("could not load" in text.lower() or "not found" in text.lower()
-                      or "error code" in text.lower())
-            ok = len(text) > 120 and not broken
+            broken = ("could not load its text" in text.lower()
+                      or "error code:" in text.lower())
+            # "index load failed" on the kavya page is jsDelivr being blocked
+            # by this sandbox's proxy, not the page. Only a failure with no
+            # external cause counts against it.
+            if "index load failed" in text.lower() and not blocked_external:
+                broken = True
+            # A short page is not a broken one. kosha2.html opens on a search
+            # prompt and is 108 characters of perfectly correct page.
+            ok = len(text) > 60 and not broken
             note = []
             if moved:
                 note.append(moved)
@@ -97,8 +131,10 @@ def main(argv=None) -> int:
                 note.append("PAGE REPORTS AN ERROR")
             if own4xx:
                 note.append("|".join(sorted(set(own4xx))[:2]))
+            if local:
+                note.append("(%d local-only 404)" % len(set(local)))
             if console:
-                note.append("console: " + console[0][:40])
+                note.append("console: " + console[0][:36])
             print("%-30s %-8s %-7d %s" % (label, "%d ch" % len(text), len(set(own4xx)),
                                           "  ".join(note)[:52]))
             if not ok:
