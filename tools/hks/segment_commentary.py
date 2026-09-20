@@ -140,6 +140,23 @@ SUBHEAD = re.compile(
     r"^\s*([0-9೦-೯]{1,2})\s*[.।]\s*([\u0C80-\u0CFF][\u0C80-\u0CFF\s]{3,44}?)\s*[:：\-]*\s*$")
 
 
+# The same six commentaries announced INLINE rather than on their own line:
+#
+#     (೧) ಶ್ರೀ ಸಂಕರ್ಷಣ ಒಡೆಯರ ವ್ಯಾಖ್ಯಾನ :  ...
+#     (೬) "ಗುರುಹೃದಯಪ್ರಕಾಶಿಕೆ" ವ್ಯಾಖ್ಯಾನ :- ...
+#     (೩) "ಭಾವದರ್ಪಣ ಟೀಕಾ" ವ್ಯಾಖ್ಯಾನ : ...
+#
+# Volumes 2-9 set them this way -- number in parentheses, name usually in
+# quotes, then ವ್ಯಾಖ್ಯಾನ and a colon, all mid-paragraph. The line-anchored
+# pattern above finds none of them, so those eight sandhis came out as one
+# undivided blob: 239 padyas of 259, against 124 of 666 elsewhere. The text
+# was there the whole time; only the shape differed.
+SUBHEAD_INLINE = re.compile(
+    r"[\(\[]?\s*[0-9೦-೯]{1,2}\s*[\)\]]\s*"
+    r"[\"\u201c\u201d']?\s*([\u0C80-\u0CFF][\u0C80-\u0CFF\s]{3,34}?)\s*"
+    r"[\"\u201c\u201d']?[\s,\-–]*ವ್ಯಾಖ್ಯಾನ\s*[:：]")
+
+
 def commentary_key(title: str):
     """Which of the six, or None. Longest name first so that ಭಾವಪ್ರಕಾಶಿಕೆ is
     not claimed by ಭಾವಪ್ರಕಾಶ, which is a prefix of it."""
@@ -173,6 +190,22 @@ def split_block(lines: list[str]) -> dict:
             named.setdefault(cur, [])
             continue
         (named[cur] if cur else lead).append(line)
+
+    # Nothing matched the line form. Try the inline one over the same text
+    # before giving up and calling the whole thing one blob.
+    if not named:
+        body = "\n".join(rest_lines)
+        marks = list(SUBHEAD_INLINE.finditer(body))
+        if marks:
+            lead = body[:marks[0].start()].split("\n")
+            for i, m in enumerate(marks):
+                key = commentary_key(m.group(1))
+                if not key:
+                    continue
+                end = marks[i + 1].start() if i + 1 < len(marks) else len(body)
+                chunk = body[m.end():end].strip()
+                if chunk:
+                    named.setdefault(key, []).extend(chunk.split("\n"))
 
     lead_text = "\n".join(lead).strip()
     parts = PRATIPADARTHA.split(lead_text, 1)
