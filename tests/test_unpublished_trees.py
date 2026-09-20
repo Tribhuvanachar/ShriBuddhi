@@ -5,7 +5,9 @@ Anandamakaranda does not publish from where it sits, and the only way it goes
 public is by moving into data/Tattvavada/. If someone later deletes the
 exclusion or teaches a generator to ignore it, these fail.
 """
+import json
 import os
+import re
 import subprocess
 import sys
 
@@ -19,10 +21,16 @@ from unpublished_trees import (PRIVATE_TREES, UNDECIDED_TREES,   # noqa: E402
 import promote_to_tattvavada as promote                          # noqa: E402
 
 
-def test_the_two_trees_the_lead_named_are_the_ones_excluded():
+def test_the_three_source_named_trees_are_the_private_ones():
+    """Started as two. RamanujaMeghamala was held back while the rule was
+    "does not publish at all", because excluding it would have retired 175
+    live URLs nobody asked to retire. Under ids nothing is retired -- the
+    text stays published and searchable and only the shelf changes -- so the
+    reason to hold it back went away with the exclusion."""
     assert set(PRIVATE_TREES) == {
         "data/darshana/vedanta/dvaita/DvaitaVedantaIn",
         "data/darshana/vedanta/dvaita/Anandamakaranda",
+        "data/darshana/vedanta/vishishtadvaita/RamanujaMeghamala",
     }
 
 
@@ -37,7 +45,6 @@ def test_inside_a_private_tree(path):
 
 @pytest.mark.parametrize("path", [
     "data/Tattvavada/SarvaMula/sutra_prasthana/x/data.json",
-    "data/darshana/vedanta/vishishtadvaita/RamanujaMeghamala/x/data.json",
     # A longer name that merely STARTS with an excluded one is a different
     # work. Substring matching would swallow it; segment matching must not.
     "data/darshana/vedanta/dvaita/DvaitaVedantaInternational/x/data.json",
@@ -54,12 +61,10 @@ def test_slug_form_agrees_with_path_form():
         assert excludes_slug(t[len("data/"):])
 
 
-def test_undecided_trees_still_publish():
-    """UNDECIDED_TREES is a list to report, not a second exclusion. Anything
-    in it publishes exactly as it does today until the lead moves it up."""
-    for t in UNDECIDED_TREES:
-        assert not is_unpublished(t), (
-            "%s is being excluded without having been classified" % t)
+def test_nothing_is_left_undecided():
+    """The list existed to surface a tree named after a source website that
+    nobody had ruled on. There are none left."""
+    assert UNDECIDED_TREES == ()
 
 
 def test_sitemap_omits_every_private_tree():
@@ -142,3 +147,86 @@ def test_tattvavada_keeps_its_readable_path():
     """Our own structure names nobody, so it is not hidden behind an id."""
     assert not opaque_ids.needs_id("data/Tattvavada/Itara/Kavya/raghavendra_vijaya")
     assert not opaque_ids.needs_id_slug("Tattvavada/SarvaMula/sutra_prasthana")
+
+
+# --- the publish-time rewrite ------------------------------------------------
+
+import publish_opaque_rewrite as R                              # noqa: E402
+
+
+def test_the_two_registries_are_one_list():
+    """unpublished_trees used to keep its own copy. Two lists that must agree
+    are one list and a bug waiting for a quiet afternoon."""
+    assert tuple(PRIVATE_TREES) == tuple(opaque_ids.STRUCTURE_PRIVATE)
+
+
+def test_longest_slug_is_rewritten_first():
+    """A work and the shelf above it are both in the map. Replace the shelf
+    first and the work's tail dangles behind the id -- `id:xxx/mula`, which
+    still shows a shelf."""
+    keys = list(R.build_map(ROOT))
+    assert keys == sorted(keys, key=lambda k: -len(k))
+
+
+def test_a_private_slug_becomes_an_id():
+    m = R.build_map(ROOT)
+    slug = "darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas/karma_nirnaya/mula"
+    out, n = R.rewrite_text('{"g": "%s"}' % slug, m)
+    assert n >= 1 and "DvaitaVedantaIn" not in out and R.ID_PREFIX in out
+
+
+def test_the_flattened_form_is_rewritten_too():
+    """Shard filenames and sidecar keys spell a slug with `__`. Missing that
+    form leaves the manifest pointing at files rename_shards has moved."""
+    m = R.build_map(ROOT)
+    slug = "darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas/karma_nirnaya/mula"
+    out, n = R.rewrite_text("units/%s.json" % slug.replace("/", "__"), m)
+    assert n >= 1 and "DvaitaVedantaIn" not in out
+
+
+def test_a_public_slug_is_left_alone():
+    m = R.build_map(ROOT)
+    out, n = R.rewrite_text('{"g": "Tattvavada/Itara/Kavya/raghavendra_vijaya"}', m)
+    assert n == 0 and "Tattvavada/Itara/Kavya/raghavendra_vijaya" in out
+
+
+def test_taxonomy_pruning_removes_the_whole_subtree(tmp_path):
+    """Replacing the KEY would leave every level beneath it standing, and
+    those levels are the shelf."""
+    p = tmp_path / "taxonomy.json"
+    p.write_text(json.dumps({"darshana": {"vedanta": {"dvaita": {
+        "DvaitaVedantaIn": {"dasha_prakarana_granthas": {"karma_nirnaya": {}}},
+        "SarvaMula": {"sutra_prasthana": {}}}}}}), encoding="utf-8")
+    assert R.prune_taxonomy(str(p)) == 1
+    text = p.read_text(encoding="utf-8")
+    assert "DvaitaVedantaIn" not in text
+    assert "dasha_prakarana_granthas" not in text
+    assert "SarvaMula" in text
+
+
+def test_private_names_js_never_publishes():
+    import publish_clean_repo
+    import fnmatch
+    assert any(fnmatch.fnmatch("private-names.js", g)
+               for g in publish_clean_repo.EXCLUDE_GLOBS)
+
+
+def test_no_published_js_names_a_private_tree():
+    """js/ ships. Two files used to carry these names inline -- a breadcrumb
+    label map and a folder-name lint allowlist -- neither of which a public
+    page can use."""
+    import publish_clean_repo as P
+    names = [t.rsplit("/", 1)[-1] for t in PRIVATE_TREES]
+    bad = []
+    for full, rel in P.walk(ROOT):
+        if not rel.startswith("js/") or not rel.endswith(".js"):
+            continue
+        text = open(full, encoding="utf-8", errors="replace").read()
+        # A full slug is rewritten at publish time; a BARE name is not.
+        for n in names:
+            for hit in re.finditer(re.escape(n), text):
+                before = text[max(0, hit.start() - 40):hit.start()]
+                if "darshana/" not in before and "vishishtadvaita/" not in before:
+                    bad.append((rel, n))
+                    break
+    assert bad == [], "bare private names in published js: %s" % bad[:5]

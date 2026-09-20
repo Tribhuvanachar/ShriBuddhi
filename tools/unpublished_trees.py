@@ -49,25 +49,26 @@ these directories that is safe to serve.
 from __future__ import annotations
 
 import os
+import sys
 
-# Decided by the lead, 19 Sep 2026. Paths are relative to the repository
-# root, with forward slashes, and cover the directory and everything under it.
-PRIVATE_TREES = (
-    "data/darshana/vedanta/dvaita/DvaitaVedantaIn",
-    "data/darshana/vedanta/dvaita/Anandamakaranda",
-)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-# Named like a source website but NOT yet classified by the lead, so nothing
-# here is excluded -- these publish exactly as they do today. The checker
-# reports them so the decision gets made on purpose rather than by an
-# oversight. Move a name up into PRIVATE_TREES to stop it publishing; delete
-# it from here once the lead has decided it may stay.
-UNDECIDED_TREES = (
-    # ramanujameghamala.org. 175 live sitemap URLs as of this writing, so
-    # excluding it silently would retire 175 public links the lead never
-    # asked to retire. Reported, not acted on.
-    "data/darshana/vedanta/vishishtadvaita/RamanujaMeghamala",
-)
+# ONE list, and it lives in opaque_ids.py because that is where the ids are
+# minted. Two lists that must agree is one list and a bug waiting.
+#
+# 20 Sep 2026: these trees changed meaning. They were "does not publish at
+# all". They are now "publishes its TEXT, never its PATH" -- the lead's
+# actual requirement, which an earlier pass here read too broadly. The files
+# still do not ship, because a path is what a file needs to be fetched by and
+# these works have no public path. What ships is the text, inside the search
+# index and the attestation indexes, addressed by an opaque id.
+from opaque_ids import STRUCTURE_PRIVATE as PRIVATE_TREES   # noqa: E402
+
+# Nothing is undecided any more: RamanujaMeghamala was the open question and
+# the ids answered it. Under an exclusion it would have meant retiring 175
+# live URLs; under ids those works stay published and searchable and only
+# their shelf changes.
+UNDECIDED_TREES = ()
 
 
 def _norm(rel_path: str) -> str:

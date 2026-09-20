@@ -176,6 +176,17 @@
   }
   window.dgeShowBrahmaBuddhiTokenPrompt = showTokenPrompt;
 
+  // A plain read of one file from the private repository, for callers that
+  // need a config the public site does not carry. js/opaque-resolve.js uses
+  // it for the id-to-path map, which is the whole reason an admin can click
+  // through a search hit that has no public path. Rejects rather than
+  // prompting: the caller decides whether a missing token is worth
+  // interrupting a reader for.
+  window.dgeBrahmaBuddhiFetch = function (path) {
+    if (!token()) return Promise.reject(new Error('no admin token'));
+    return fetchFromBrahma(path);
+  };
+
   function tier() {
     var admin = false, superadmin = false;
     try {

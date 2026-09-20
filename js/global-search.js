@@ -1009,6 +1009,16 @@
   // matching that same convention -- the row itself is already the click
   // target to open it (see renderRows()'s own row.onclick).
   function taxonomyCrumbsHtml(grantha, title) {
+    // An opaque id is not a path and must not be split into one. Walking it
+    // would produce a single crumb reading "id:q7m4k2px", and linking that
+    // crumb would send a reader to a library path that does not exist. What
+    // is shown instead comes from data/display.json -- the work's own title
+    // and OUR shelf above it, never anything from below.
+    if (typeof window.dgeIsOpaqueId === 'function' && window.dgeIsOpaqueId(grantha)) {
+      return '<div class="dge-gs-crumbs dge-gs-crumbs-opaque" data-opaque="' +
+        esc(grantha) + '"><span class="dge-gs-crumb-current">' +
+        esc(title || '') + '</span></div>';
+    }
     var segs = String(grantha || '').split('/').filter(Boolean);
     if (!segs.length) return '';
     var base = readerBase();
@@ -1452,7 +1462,26 @@
         // A result the reader actually opened is a search worth remembering.
         var inpEl = document.getElementById('dge-gs-input');
         if (inpEl) gsPushHistory(inpEl.value);
-        go(row.getAttribute('data-slug'), row.getAttribute('data-unit'), lastQueryDeva || q);
+        var slug = row.getAttribute('data-slug');
+        var unit = row.getAttribute('data-unit');
+        if (typeof window.dgeIsOpaqueId === 'function' && window.dgeIsOpaqueId(slug)) {
+          // No public page exists for this work, so for a reader the row is
+          // the end of the road and saying so is better than a dead click.
+          // An admin's token turns the id back into a path.
+          if (!window.dgeOpaqueIsAdmin()) {
+            if (typeof window.showToast === 'function') {
+              window.showToast('This text is in the reference collection and has no public page.');
+            }
+            return;
+          }
+          window.dgeOpaqueReaderUrl(slug, unit).then(function (url) {
+            window.location.href = url;
+          }).catch(function (e) {
+            if (typeof window.showToast === 'function') window.showToast(e.message);
+          });
+          return;
+        }
+        go(slug, unit, lastQueryDeva || q);
       };
     });
     // Sutra numbers appearing in a snippet get the same tappable popover
@@ -1463,6 +1492,12 @@
     // header comment and in render.js's equivalent pairing.
     if (typeof window.dgeScanForEntities === 'function') {
       try { window.dgeScanForEntities(box); } catch (e) {}
+    }
+    // The index's idea of a title for these is the last path segment, which
+    // is `mula` for most of them. display.json has the real one; this swaps
+    // it in once that fetch lands.
+    if (typeof window.dgeOpaqueDecorate === 'function') {
+      try { window.dgeOpaqueDecorate(box); } catch (e) {}
     }
     if (typeof window.dgeScanForSutras === 'function') {
       // Per-row, not once over the whole results box: intellisense.js's own
@@ -1695,7 +1730,21 @@
   // one place that reliably holds regardless of what the index contains.
   // Not real access control -- same caveat as admin-gate.js: this hides the
   // hit from the UI, it does not restrict the underlying static JSON file.
-  var ADMIN_ONLY_GRANTHA_PREFIXES = ['darshana/vedanta/dvaita/DvaitaVedantaIn', 'dvaitavedanta'];
+  // 20 Sep 2026: this used to be a list of path prefixes, and it stopped
+  // meaning anything the moment those paths became opaque ids -- `indexOf(p)
+  // === 0` against `id:q7m4k2px` is false for every prefix that was in it,
+  // so the filter silently passed everything it had been written to catch.
+  //
+  // It is also no longer what the lead wants. Hiding the HIT hid the text,
+  // which was never the problem; the problem is the breadcrumb. So an
+  // id-addressed hit is now shown to everyone, with its text and its title,
+  // and what an admin gets that a reader does not is the ability to open it.
+  // Kept for anything still carrying a real private path -- a stale index
+  // built before the rewrite, most likely -- which must still be held back.
+  var ADMIN_ONLY_GRANTHA_PREFIXES = ['darshana/vedanta/dvaita/DvaitaVedantaIn',
+                                     'darshana/vedanta/dvaita/Anandamakaranda',
+                                     'darshana/vedanta/vishishtadvaita/RamanujaMeghamala',
+                                     'dvaitavedanta'];
   function dgeSearchIsAdmin() {
     try {
       return localStorage.getItem('acharyaAuthorized') === 'true' ||

@@ -57,7 +57,11 @@ EXCLUDE_FILES = ("CLAUDE.md", "PENDING.md", "HANDOFF.md", ".gitattributes",
 # any of them -- they reference each other and nothing else does -- so they are
 # tooling that happens to sit in js/ rather than in tools/. A few comments in
 # js/ will name files that are no longer beside them; comments, not code.
-EXCLUDE_GLOBS = ("*.test.js", "test-*.js")
+# private-names.js holds the shelf names that exist only in ShriBuddhi. Its
+# readers all treat "not loaded" as "no private names", which is the right
+# answer publicly: those trees have no public path, so nothing out there can
+# need to label or lint one.
+EXCLUDE_GLOBS = ("*.test.js", "test-*.js", "private-names.js")
 
 # Words that name the private side of the project. A hit is not automatically
 # a leak -- parabuddhi matches a line of the Narada Purana, and bhumandala is

@@ -56,16 +56,16 @@ const DGE_PATH_LABELS = {
   // second Sarvamula edition. PascalCase matches the actual folder names
   // on disk post-rename -- confirmed directly, not assumed.
   SarvaMula: 'सर्वमूलग्रन्थाः',
-  // 11 Sep 2026: the on-disk folder became Anandamakaranda (after the site
-  // that feeds it) so the name SarvaMula could be reused for the library's
-  // own top-level grouping. Both keys resolve to the same label while the
-  // restructure settles; neither is a rename of the other.
-  Anandamakaranda: 'सर्वमूलग्रन्थाः',
   // The V1 restructure's own segments (11 Sep 2026). Without these the
   // breadcrumb reads "Itara > Kavya" in Latin beside Devanagari on
   // either side of it.
   Itara: 'इतराणि', Kavya: 'काव्यम्', Stotra: 'स्तोत्राणि', DasaSahitya: 'दाससाहित्यम्',
-  DvaitaVedantaIn: 'द्वैतसाहित्यम्',
+  // 20 Sep 2026: the shelves named after their source websites are NOT
+  // listed here any more. Labelling them publicly meant shipping the names
+  // in a file every page loads, to label a breadcrumb no public page shows
+  // -- those works have no public path and reach a reader only through an
+  // opaque id. js/private-names.js supplies the labels in the private
+  // checkout, where an admin does browse the real paths; it does not publish.
   Tattvavada: 'तत्त्ववादः', SetuTila: 'सेतुतिला',
   sarvadarshana_sangraha: 'सर्वदर्शनसङ्ग्रहः',
 
@@ -140,7 +140,6 @@ const DGE_PATH_LABELS = {
   taittiriya_aranyaka: 'तैत्तिरीयारण्यकम्',
   // Sri Ramanuja Meghamala import groups (2 Sep 2026)
   // (the three *_prasthana keys it shares are already defined below)
-  RamanujaMeghamala: 'श्रीरामानुजमेघमाला',
   rahasya_granthas: 'रहस्यग्रन्थाः',
   guruparampara: 'गुरुपरम्परा',
   divya_prabandham: 'दिव्यप्रबन्धम्',
@@ -718,7 +717,7 @@ function dgeOverlayManagerDraft(committedUpdatedAt) {
 // 23 Aug 2026: per-grantha "hidden" flag written directly onto a
 // library.json entry (distinct from dgeLibOverrides.hidden above, which is
 // an admin-curated path-prefix list read from library-overrides.json) --
-// admin-only content like darshana/vedanta/dvaita/DvaitaVedantaIn/*, gated
+// admin-only content -- the shelves reached only by an opaque id -- gated
 // the same way admin-gate.js gates a standalone page. Not real access
 // control -- see that file's own caveat -- but keeps it out of the reader
 // nav and quick-jump for anyone who isn't signed in as admin.

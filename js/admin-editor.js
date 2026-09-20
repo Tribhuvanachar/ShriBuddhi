@@ -814,13 +814,17 @@ async function dgeAdminValidateGranthaFileEntries(fileEntries) {
   // 14 Sep 2026: 'DvaitaVedanta' became 'Tattvavada' when the top-level shelf
   // was renamed, so the exemption moves with it -- left as the old name this
   // list would stop matching anything and every load would nag about a folder
-  // the lead chose on purpose. 'DvaitaVedantaIn' (the admin-only tree under
-  // darshana/vedanta/dvaita/, a DIFFERENT shelf that was NOT renamed) is
-  // listed too: it is equally intentional and was missing here all along.
+  // the lead chose on purpose.
+  //
+  // 20 Sep 2026: the shelves named after their source websites came OUT of
+  // this list. They were shipping in plain sight in a file render.html loads
+  // publicly, to exempt folders that cannot be edited publicly in the first
+  // place. They now live in js/private-names.js, which does not publish; out
+  // there the global is undefined and the list is simply shorter.
   const DGE_INTENTIONAL_PASCAL_CASE = new Set([
-    'SarvaMula', 'Tattvavada', 'DvaitaVedantaIn', 'SetuTila', 'PrahladaKrutaNarasimha',
-    'Anandamakaranda'
-  ]);
+    'SarvaMula', 'Tattvavada', 'SetuTila', 'PrahladaKrutaNarasimha',
+    'Itara', 'Kavya', 'Stotra', 'DasaSahitya'
+  ].concat((typeof window !== 'undefined' && window.DGE_PRIVATE_PASCAL_CASE) || []));
   const badSegs = new Set();
   parsed.forEach(({ path }) => {
     path.replace(/^data\//, '').split('/').slice(0, -1).forEach(seg => {

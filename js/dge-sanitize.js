@@ -2,7 +2,8 @@
 // Body text reaches the page through innerHTML, and it has always reached it
 // unescaped. That is deliberate: importers put markup in there -- 17,086 tags
 // across the corpus, and a scan says they are exactly five, span/div/br/b/em,
-// carrying the Anandamakaranda pramana citations and the Boray Gita layout.
+// carrying the pramana citations from an id-addressed shelf and the Boray
+// Gita layout.
 // Escaping the lot would destroy real styling.
 //
 // The exposure is anything else that starts with '<' followed by a letter.

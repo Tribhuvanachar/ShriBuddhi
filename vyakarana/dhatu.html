@@ -102,6 +102,11 @@
 <script src="../js/dge-search.js?v=4.70.0"></script>
 <!-- role-access.js before global-search.js: search hands it the go-live shelf. -->
 <script src="../js/role-access.js?v=1.3.0"></script>
+<!-- Reads the published display layer so an id-addressed hit shows a
+     title instead of a bare id, and turns the id back into a path for
+     an admin. See js/opaque-resolve.js. -->
+<script src="../js/private-names.js?v=1"></script>
+<script src="../js/opaque-resolve.js?v=1"></script>
 <script src="../js/global-search.js?v=4.82.0"></script>
 <!-- DGE UI Contract retrofit (28 Aug 2026): modals.js + reader-state.js +
      contextual-actions.js, load order matches render.html/
