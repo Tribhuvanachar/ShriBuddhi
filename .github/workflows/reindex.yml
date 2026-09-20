@@ -124,7 +124,11 @@ jobs:
           ARGS=(--data data --out search_index)
           [ -d _kavya ] && ARGS+=(--extra-data _kavya)
           [ "${{ inputs.commentaries }}" = "true" ] && ARGS+=(--commentaries)
-          python build_search_index.py "${ARGS[@]}"
+          # tools/, not the repo root -- and PYTHONPATH because the script
+          # imports search_toolkit_pkg, which sits at the root rather than
+          # beside it. Neither had ever been reached: every run so far died
+          # at the Kavya fetch above.
+          PYTHONPATH="$PWD" python3 tools/build_search_index.py "${ARGS[@]}"
 
       - name: Put the Kavya checkout back
         if: ${{ always() }}
@@ -211,9 +215,18 @@ jobs:
               print("private_key does not look like a PEM key (should start with -----BEGIN PRIVATE KEY-----)"); sys.exit(1)
           os.makedirs(os.path.expanduser("~/.sa"), exist_ok=True)
           with open(os.path.expanduser("~/.sa/key.json"), "w") as fh:
+              json.dump(sa, fh)
+          print("service-account key assembled from:", ", ".join(found))
+          PY
 
       - name: Publish the index to Cloud Storage
         id: publish
+        # The build takes ~25 minutes and everything after this step is small,
+        # cheap and useful on its own -- backlinks, library-status, the PR. A
+        # missing bucket secret must not throw all of that away. Same rule as
+        # MISTAKES #17: a step that persists expensive work is never gated on
+        # an earlier one going well.
+        continue-on-error: true
         if: steps.gate.outputs.run == 'true'
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /home/runner/.sa/key.json
