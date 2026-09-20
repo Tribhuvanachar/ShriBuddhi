@@ -119,7 +119,7 @@
       f.n.toLocaleString() + '×' + (sn ? '<sup>~' + sn.toLocaleString() + '</sup>' : '') + '</span>';
   }
   function readerLink(slug, unit, word) {
-    let u = '../index.html?path=' + encodeURIComponent(slug);
+    let u = '../render.html?path=' + encodeURIComponent(slug);
     const m = String(unit || '').match(/(?:^|#)(\d+)$/);
     if (m) u += '&jumpShloka=' + m[1]; else if (unit) u += '&jumpVedicId=' + encodeURIComponent(unit);
     if (word) u += '&hl=' + encodeURIComponent(word);

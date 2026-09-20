@@ -98,7 +98,7 @@
       .then(function (b) { S.byVrutta = b; return b; });
   }
   function readerLink(slug, unit) {
-    var u = ROOT + 'index.html?path=' + encodeURIComponent(slug);
+    var u = ROOT + 'render.html?path=' + encodeURIComponent(slug);
     var m = String(unit || '').match(/(?:^|#)(\d+)$/);
     if (m) u += '&jumpShloka=' + m[1];
     else if (unit) u += '&jumpVedicId=' + encodeURIComponent(unit);
@@ -196,7 +196,7 @@
       act.innerHTML = '';
       if (allowed('regenerate')) act.innerHTML += '<button type="button" class="btn ai" id="cr-regen">' + (rep ? '↻ Regenerate' : '▶ Generate now') + '</button> ';
       if (rep && allowed('downloadJson')) act.innerHTML += '<button type="button" class="btn" id="cr-dl">⬇ JSON</button> ';
-      act.innerHTML += '<a class="btn" href="' + ROOT + 'index.html?path=' + encodeURIComponent(slug) + '">📖 Open in reader</a>';
+      act.innerHTML += '<a class="btn" href="' + ROOT + 'render.html?path=' + encodeURIComponent(slug) + '">📖 Open in reader</a>';
       if (rep) out.innerHTML = reportHtml(rep, source);
       else out.innerHTML = '<div class="muted">No report exists yet for <b class="deva">' + esc(rec.title) + '</b>.' +
         (allowed('regenerate') ? ' Generate it now — it runs here in your browser.' : ' Ask an admin to generate it.') + '</div>';

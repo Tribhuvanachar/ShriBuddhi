@@ -100,7 +100,7 @@
       '<button class="dge-si-x" data-bl-close aria-label="Close">✕</button></div>' +
       '<div class="dge-si-row"><b>व्याख्यातारः</b></div>' +
       rows.map(function (r) {
-        return '<a class="dge-bl-item" href="index.html?path=' + encodeURIComponent(r.slug) +
+        return '<a class="dge-bl-item" href="render.html?path=' + encodeURIComponent(r.slug) +
                '&jumpVedicId=' + encodeURIComponent(r.unit) + '">' +
                '<span class="dge-bl-name">' + esc(tr(label(r.slug))) + '</span>' +
                (r.note && r.note !== 'comments_on'

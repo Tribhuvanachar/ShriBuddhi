@@ -28,7 +28,7 @@ const DGEFootnotes = (function () {
 
   function targetHref(ref) {
     if (!ref.target_slug) return null;
-    var href = 'index.html?path=' + encodeURIComponent(ref.target_slug);
+    var href = 'render.html?path=' + encodeURIComponent(ref.target_slug);
     if (ref.target_unit_id) href += '&jumpVedicId=' + encodeURIComponent(ref.target_unit_id);
     return href;
   }

@@ -786,7 +786,7 @@
       }
       var r=e.target.closest(".pry-row"); if(!r) return;
       var unit=(r.dataset.unit||"").split("#")[0];
-      location.href="index.html?path="+encodeURIComponent(r.dataset.slug)
+      location.href="render.html?path="+encodeURIComponent(r.dataset.slug)
         +(unit?("&jumpVedicId="+encodeURIComponent(unit)):"");
     });
     // Jump box. It used to accept an exact "1.1.1" and nothing else, and to

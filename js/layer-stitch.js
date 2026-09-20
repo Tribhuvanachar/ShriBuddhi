@@ -312,7 +312,7 @@ window.dgeRenderStitchChrome = function() {
     }
     // Standalone commentary layer: the way back to the stitched grantha.
     parts.push(`<span class="lineage-note">${t('अयं ग्रन्थभागः')} — </span>` +
-      `<a class="lineage-link" href="index.html?path=${encodeURIComponent(dgeStitch.mulaSlug)}">` +
+      `<a class="lineage-link" href="render.html?path=${encodeURIComponent(dgeStitch.mulaSlug)}">` +
       `${t(dgeStitch.granthaTitle || 'सम्पूर्णग्रन्थः')}</a>` +
       `<span class="lineage-note"> ${t('इत्यस्य')} ${t(dgeStitch.layerLabel || '')} </span>`);
   } else {
@@ -322,7 +322,7 @@ window.dgeRenderStitchChrome = function() {
     if (chain && chain.length) {
       chain.forEach(link => {
         parts.push(link.slug
-          ? `<a class="lineage-link" href="index.html?path=${encodeURIComponent(link.slug)}">${t(link.label)}</a>`
+          ? `<a class="lineage-link" href="render.html?path=${encodeURIComponent(link.slug)}">${t(link.label)}</a>`
           : `<span class="lineage-node">${t(link.label)}</span>`);
       });
       const ownTitle = (window.stotraData && window.stotraData.metadata && window.stotraData.metadata.title) || '';
@@ -510,7 +510,7 @@ const DGE_VOLUME_WORDS = ['sarga', 'kanda', 'amsha', 'adhyaya', 'parva', 'ullasa
 const DGE_VOLUME_RE = new RegExp('^(' + DGE_VOLUME_WORDS.join('|') + ')_(\\d+)$', 'i');
 
 window.dgeGoToVolume = function(slug) {
-  if (slug) window.location.href = 'index.html?path=' + encodeURIComponent(slug);
+  if (slug) window.location.href = 'render.html?path=' + encodeURIComponent(slug);
 };
 
 window.dgeInitVolumeNav = async function() {

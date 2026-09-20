@@ -586,7 +586,7 @@ function dgeBuildBhagavataRefLink(bhagavataRef, references) {
   const ref = Array.isArray(references) ? references.find(r => r && r.target && r.unit_id) : null;
   if (!ref) return null;
   const jumpVedicId = ref.unit_id + '#' + bhagavataRef.verse;
-  const url = 'index.html?path=' + ref.target + '&jumpVedicId=' + encodeURIComponent(jumpVedicId);
+  const url = 'render.html?path=' + ref.target + '&jumpVedicId=' + encodeURIComponent(jumpVedicId);
   return { url, label: `भा. ${bhagavataRef.skandha}.${bhagavataRef.adhyaya}.${bhagavataRef.verse}` };
 }
 
