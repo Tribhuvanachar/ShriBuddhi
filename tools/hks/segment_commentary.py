@@ -133,8 +133,28 @@ COMMENTARIES = {
     "vyasadasa_siddhanta_kaumudi": [
         "ಶ್ರೀವ್ಯಾಸದಾಸಸಿದ್ಧಾಂತಕೌಮುದೀ", "ಶ್ರೀವ್ಯಾಸದಾಸಸಿದ್ಧಾಂತಕೌಮುದಿ",
         "ವ್ಯಾಸದಾಸಸಿದ್ಧಾಂತಕೌಮುದೀ", "ವ್ಯಾಸದಾಸಸಿದ್ಧಾಂತಕೌಮುದಿ"],
+    # The edition's OWN digest of the six, and the layer the volumes are
+    # named after -- the series title page reads
+    # "ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ ಸರ್ವವ್ಯಾಖ್ಯಾನಸಾರ ಸಂಗ್ರಹ". It was missed for as long as this
+    # file existed, because it is announced by NAME ALONE on its own line,
+    # with no number ahead of it and, 90% of the time, no colon after it --
+    # neither SUBHEAD nor SUBHEAD_INLINE can see it. 978 of them, about one
+    # per padya, were being swallowed into whichever block ran before.
+    # Found by rendering a scan page and reading it against the OCR.
+    "sarvavyakhyana_sara_sangraha": [
+        "ಸರ್ವವ್ಯಾಖ್ಯಾನಸಾರಸಂಗ್ರಹ", "ಸರ್ವವ್ಯಾಖ್ಯಾನಸಾರಸಂಗ್ರಹದ"],
 }
 _BY_NAME = {v.replace(" ", ""): k for k, vs in COMMENTARIES.items() for v in vs}
+
+# A known commentary name ALONE on its line, with an optional colon. The
+# numbered forms below cover the six that the volumes print in a numbered
+# list; the edition's own digest is not in that list and is introduced by
+# name only, so it needs its own pattern. Matched against the name with
+# spaces removed, like the rest, and only against names already in
+# COMMENTARIES -- so this cannot invent a layer out of an arbitrary line.
+SUBHEAD_BARE = re.compile(
+    r"^[\s\u201c\u201d\"\']*([\u0C80-\u0CFF][\u0C80-\u0CFF\s]{6,40}?)"
+    r"[\s\u201c\u201d\"\']*[:：]?\s*[-–]?\s*$")
 
 SUBHEAD = re.compile(
     r"^\s*([0-9೦-೯]{1,2})\s*[.।]\s*([\u0C80-\u0CFF][\u0C80-\u0CFF\s]{3,44}?)\s*[:：\-]*\s*$")
@@ -185,6 +205,9 @@ def split_block(lines: list[str]) -> dict:
     for line in rest_lines:
         h = SUBHEAD.match(line.strip())
         key = commentary_key(h.group(2)) if h else None
+        if not key:
+            b = SUBHEAD_BARE.match(line.strip())
+            key = commentary_key(b.group(1)) if b else None
         if key:
             cur = key
             named.setdefault(cur, [])

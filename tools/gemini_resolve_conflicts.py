@@ -267,7 +267,13 @@ def main(argv=None) -> int:
                          "multi-page reply and loses pages without saying so")
     ap.add_argument("--max-ratio", type=float, default=0.92,
                     help="only pages BELOW this similarity (the conflicts)")
-    ap.add_argument("--already", action="append", default=[], metavar="GLOB",
+    # nargs="+" as well as append, because the caller is a shell that globs:
+    # `--already priv/data/ocr_staging/_gemini/resolved_*.json` arrives as
+    # eight separate words, and an append-only flag took the first and called
+    # the other seven unrecognised arguments. The run died at argparse having
+    # sent nothing -- free, but it looked like a Gemini failure.
+    ap.add_argument("--already", action="append", nargs="+", default=[],
+                    metavar="GLOB",
                     help="resolved-*.json from earlier runs: treated as done, "
                          "never re-sent, never copied into --out")
     ap.add_argument("--dry-run", action="store_true",
@@ -297,7 +303,7 @@ def main(argv=None) -> int:
     # conflict in the works it names. Re-running twelve HKS volumes to pick up
     # 27 stragglers would have cost about Rs11 instead of Rs1.
     already = 0
-    for pat in args.already or []:
+    for pat in [g for group in (args.already or []) for g in group]:
         for f in sorted(glob.glob(pat)):
             try:
                 prev = json.load(open(f))
