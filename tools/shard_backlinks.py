@@ -34,6 +34,17 @@ SRC = os.path.join(INDEX, 'backlinks.json')
 OUT = os.path.join(INDEX, 'backlinks')
 
 
+def _granthas_present():
+    """Slugs that actually have a data.json under data/. A backlink target
+    is only useful if the reader can open it."""
+    data = os.path.join(REPO, 'data')
+    held = set()
+    for root, dirs, files in os.walk(data):
+        if 'data.json' in files:
+            held.add(os.path.relpath(root, data).replace(os.sep, '/'))
+    return held
+
+
 def main():
     if not os.path.exists(SRC):
         print(f'no backlinks at {SRC}', file=sys.stderr)
@@ -74,6 +85,8 @@ def main():
     # written out in full under "odd", so the compression never loses a case.
     shards = collections.defaultdict(lambda: {'sources': [], 'units': {}, 'odd': {}})
     pointers = 0
+    held = _granthas_present()
+    dropped = collections.Counter()
     for key, entries in backlinks.items():
         cited, _, unit = key.partition('#')
         if not cited or not unit:
@@ -84,6 +97,18 @@ def main():
         for e in entries:
             frm, _, funit = (e.get('from') or '').partition('#')
             if not frm:
+                continue
+            # A pointer to a grantha this library does not hold is a dead
+            # link, and the reader has no way to know before tapping it.
+            # The corpus states that the Mahābhāṣya and the Siddhānta-
+            # kaumudī discuss the sūtrapāṭha, which is TRUE and is why the
+            # targets are there; but neither has a data.json here, so
+            # offering them put "Data Not Found" one tap from 3,945 of the
+            # 3,962 sūtras. Dropped at build time rather than guarded in
+            # the reader, because the reader cannot cheaply know what
+            # exists and a shard is rebuilt whenever the corpus changes.
+            if frm not in held:
+                dropped[frm] += 1
                 continue
             pointers += 1
             if frm not in srcs:
@@ -101,6 +126,31 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     for old in os.listdir(OUT):
         os.remove(os.path.join(OUT, old))
+
+    if dropped:
+        print('  dropped %d pointer(s) to granthas not held here:'
+              % sum(dropped.values()))
+        for slug, n in dropped.most_common():
+            print('    %-60s %d' % (slug, n))
+
+    # A shard whose every pointer was dropped must not be written at all --
+    # an empty shard makes the reader fetch a file to learn nothing.
+    for slug in [s for s, sh in shards.items() if not sh['units'] and not sh['odd']]:
+        del shards[slug]
+
+    # The CITED side can go stale too, and more quietly: a shelf rename moves
+    # the grantha, backlinks.json keeps the old slug, and the reader -- which
+    # asks by the CURRENT slug -- simply never finds the shard. Nothing
+    # errors; the marks just stop appearing. Reported loudly here because the
+    # only real fix is upstream, in build_search_index.py.
+    stale = sorted(s for s in shards if s not in held)
+    if stale:
+        print('  %d cited grantha(s) in backlinks.json are not on disk -- their'
+              % len(stale))
+        print('  backlinks are LOST until build_search_index.py is rerun:')
+        for slug in stale:
+            print('    %s' % slug)
+            del shards[slug]
 
     index = {}
     total = 0

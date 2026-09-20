@@ -2,18 +2,29 @@
  "_readme": "Which granthas have a backlinks shard, and the titles of the granthas that cite them. Built by tools/shard_backlinks.py from search_index/backlinks.json. \"cited\" maps a grantha slug to how many of its units are cited; a slug absent here has no shard and the reader fetches nothing.",
  "v": 1,
  "cited": {
-  "darshana/vedanta/dvaita/Anandamakaranda/sutra_prasthana/anuvyakhyana": 160,
+  "purana/maha_purana/bhagavata_purana_madhva/skandha_01": 13,
+  "purana/maha_purana/bhagavata_purana_madhva/skandha_02": 6,
+  "purana/maha_purana/bhagavata_purana_madhva/skandha_03": 12,
+  "purana/maha_purana/bhagavata_purana_madhva/skandha_04": 12,
+  "purana/maha_purana/bhagavata_purana_madhva/skandha_05": 10,
+  "purana/maha_purana/bhagavata_purana_madhva/skandha_06": 7,
+  "purana/maha_purana/bhagavata_purana_madhva/skandha_07": 7,
+  "purana/maha_purana/bhagavata_purana_madhva/skandha_08": 5,
+  "purana/maha_purana/bhagavata_purana_madhva/skandha_09": 2,
+  "purana/maha_purana/bhagavata_purana_madhva/skandha_10": 23,
+  "purana/maha_purana/bhagavata_purana_madhva/skandha_11": 12,
+  "purana/maha_purana/bhagavata_purana_madhva/skandha_12": 4,
   "vedanga/vyakarana/ashtadhyayi/kashika": 3831,
   "vedanga/vyakarana/ashtadhyayi/sutrapatha": 3962
  },
  "titles": {
-  "darshana/vedanta/dvaita/Anandamakaranda/sutra_prasthana/anuvyakhyana/tika_jayatirtha": "Tika Jayatirtha",
+  "Tattvavada/Itara/Bhagavata_Saroddhara/mula": "भागवतसारोद्धारः — मूलम् (श्लोकाः)",
   "vedanga/vyakarana/ashtadhyayi/balamanorama": "बालमनोरमा",
   "vedanga/vyakarana/ashtadhyayi/kashika": "काशिकावृत्तिः",
+  "vedanga/vyakarana/ashtadhyayi/mahabhashya_patanjali": "महाभाष्यम्",
   "vedanga/vyakarana/ashtadhyayi/nyasa": "न्यासः",
+  "vedanga/vyakarana/ashtadhyayi/siddhanta_kaumudi": "सिद्धान्तकौमुदी",
   "vedanga/vyakarana/ashtadhyayi/tattvabodhini": "तत्त्वबोधिनी",
-  "vedanga/vyakarana/ashtadhyayi/vasu": "Vasu (English)",
-  "vedanga/vyakarana/paniniya_vyakarana/mahabhashya_patanjali": "महाभाष्यम्",
-  "vedanga/vyakarana/paniniya_vyakarana/siddhanta_kaumudi": "सिद्धान्तकौमुदी"
+  "vedanga/vyakarana/ashtadhyayi/vasu": "Vasu (English)"
  }
 }
