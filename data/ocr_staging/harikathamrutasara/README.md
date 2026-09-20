@@ -11,49 +11,60 @@ from the printed mula and is complete.
 `mula_segmented.json` is the segmenter's own output, kept because it records
 which page each padya came from and which engine read it.
 
-## The commentary is segmented but NOT attached
+## The commentary is attached
 
-`commentary_segmented.json` — 634 blocks from 22 volumes, **575 of them
-keyed to a padya the mula has (57% of the work)**.
+**643 of 1,010 padyas carry commentary - 86% of everything that was scanned.**
+664 blocks were cut from 22 volumes; 643 attached and 21 were refused.
 
-The edition is the ಸರ್ವವ್ಯಾಖ್ಯಾನಸಾರಸಂಗ್ರಹ and lives up to the name: six
-separate commentaries run under each padya, announced by numbered headings.
-83% of blocks carry at least one.
-
-| commentary | blocks |
+| layer | padyas |
 |---|---|
-| ಭಾವಪ್ರಕಾಶಿಕೆ | 416 |
-| ಶ್ರೀಸಂಕರ್ಷಣ ಒಡೆಯರ ವ್ಯಾಖ್ಯಾನ | 412 |
-| ಶ್ರೀಗುರುಹೃದಯಪ್ರಕಾಶಿಕೆ | 296 |
-| ಶ್ರೀವ್ಯಾಸದಾಸ ಸಿದ್ಧಾಂತ ಕೌಮುದೀ | 259 |
-| ಭಾವದರ್ಪಣ | 169 |
-| ಭಾವದರ್ಶನ | 160 |
+| ವ್ಯಾಖ್ಯಾನ (the edition's own) | 625 |
+| ಪ್ರತಿಪದಾರ್ಥ | 545 |
+| ಭಾವಪ್ರಕಾಶಿಕೆ | 421 |
+| ಶ್ರೀಸಂಕರ್ಷಣ ಒಡೆಯರ ವ್ಯಾಖ್ಯಾನ | 415 |
+| ಶ್ರೀಗುರುಹೃದಯಪ್ರಕಾಶಿಕೆ | 302 |
+| ಶ್ರೀವ್ಯಾಸದಾಸ ಸಿದ್ಧಾಂತ ಕೌಮುದೀ | 255 |
+| ಭಾವದರ್ಪಣ | 174 |
+| ಭಾವದರ್ಶನ | 154 |
 
-**It is not attached to the mula, and that is deliberate.** 67 blocks are
-keyed to padyas the mula does not have — sandhi 12 has commentary on padyas
-81 and 83 where the mula has 45 padyas in all. Until that is understood,
-attaching would hang commentary on the wrong verse, which is worse than
-having none: it reads as authoritative and nothing on the page says
-otherwise.
+Attached by **the verse each block quotes**, never by the number it prints.
+Both printed numbers are unreliable:
 
-## Two gaps, of different kinds
+* The padya number is misread. Sandhi 12's commentary prints ಪದ್ಯ ೮೧ and
+  ಪದ್ಯ ೮೩ over verses that are padya 41 and 43 - ೪ read as ೮, one stroke.
+  56 blocks printed a padya number the verse underneath contradicts.
+* The sandhi number is worse, because **the two editions order the sandhis
+  differently**. The commentary set makes the eighteenth ಸರ್ವಸ್ವಾತಂತ್ರ್ಯ and
+  the nineteenth ಕರ್ಮವಿಮೋಚನ; the mula's own contents page makes the
+  eighteenth ಕ್ರೀಡಾವಿಲಾಸ and puts ಕರ್ಮವಿಮೋಚನ twenty-first. No offset
+  corrects it - the twentieth is ಗುಣತಾರತಮ್ಯ in both. Several volumes number
+  themselves ಸಂಪುಟ, a volume in a series, which never had to agree with a
+  sandhi at all. **249 blocks sat under a sandhi number their own verse
+  disagreed with.**
 
-**Sandhis 2–9 have no commentary volume at all.** Not a segmentation
-failure — those eight volumes were never scanned. Nothing in this repository
-can fix that; the PDFs have to be found and OCR'd.
+Scoring is the total of the matching runs over the shorter string, not
+similarity. This library's sandhi 17 padya 1 carries the avataranika and the
+pallavi ahead of the verse, so it runs 243 characters where the commentary
+quotes 155 - the same verse, one with a preamble. Ratio similarity scores
+that correct pair at 0.20; containment reads it above 0.9.
 
-**Sandhis 26 and 27 come out at 0%** because they share a volume with
-sandhi 25 and nothing inside it marks where one ends and the next begins.
-Sandhi 30 had the same problem and is now fixed: those volumes write the
-heading with the number AFTER the title (`ದೈತ್ಯತಾರತಮ್ಯ ಸಂಧಿ (ಸಂಧಿ-30)`) and
-run it as a page header through the section, which states on every page
-which sandhi the page belongs to. 26 and 27 are 12 padyas between them and
-are still open.
+Two blocks claiming one padya are both refused: one of them is wrong and
+nothing here knows which. Every attachment keeps `commentary_source`, the
+page and the padya number the book printed, so a reader checking against the
+printed edition has both.
 
-The printed number is read but not trusted. The cover of `hks__29_30_hks`
-prints "ಅಣುತಾರತಮ್ಯ ಸಂಧಿ (ಸಂಧಿ-30)" while the book's own contents page makes
-Anutaratamya the twenty-ninth. Where they disagree the title decides,
-because a title cannot be off by one.
+## What is still missing, and why
+
+**Sandhis 2-9: 264 padyas, no commentary.** Those eight volumes were never
+scanned. Nothing in this repository can fix it; the PDFs have to be found.
+This is the single biggest remaining gap in the work.
+
+**Sandhis 26 and 27: 12 padyas, no commentary.** Not a matching failure.
+Each of those padyas' best match across all 664 blocks scores between 0.38
+and 0.65 and lands on an unrelated sandhi - the signature of nothing being
+there. The volume named for 25-27 does not in fact carry them.
+
+**Sandhi 32 is at 79%**, the only scanned sandhi below 80%.
 
 ## The appended works
 
