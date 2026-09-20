@@ -30,12 +30,34 @@ from 30 volumes; 925 attached, 10 refused.
 Sandhis 2-9 were at zero until 20 Sep 2026, when their eight volumes were
 uploaded and OCR'd - 2,969 pages through Vision. They now run 94-100% each.
 
-Those eight have ONE engine behind them where the other 23 have two. Sarvam
-has not been run on them, so there is no second reading to compare against
-and nothing for the conflict detector to find; their text is Vision's
-unchecked. Everything else in this work has been through Sarvam vs Vision
-and, where they disagreed, Gemini. Worth knowing before trusting a reading
-in 2-9 as closely as one in 10-33.
+Those eight have ONE engine behind them where the other 23 have two. That
+was taken to mean they are the weak part of the work, and a second Sarvam
+pass over all 2,969 of their pages was about to be paid for. Measured
+(`tools/hks/ocr_quality.py`), the assumption is backwards:
+
+| | sandhis 2-9 | the other 23 volumes |
+|---|---|---|
+| quoted-verse fidelity vs the canonical mula | **0.957** | 0.953 |
+| blocks whose quoted verse scores under 0.90 | **1.6%** | 4.8% |
+| Vision mean per-word confidence | **0.873** | 0.843 |
+| pages under 0.80 confidence | **5.8%** | 18.9% |
+
+**These are the cleanest scans in the book.** The volumes that genuinely
+read badly -- 21, 22, 25_26_27, 29_30 and the unnumbered one, at 30-57%
+weak pages -- are all in the two-engine set, and have already had Sarvam
+and Gemini spent on them. A second engine over 2-9 would be buying a second
+opinion on the pages that need it least.
+
+What is weak in 2-9 is 173 pages, and two thirds of those are tables --
+tattva charts and ಭಗವದ್ರೂಪ name-grids where the letters are legible and
+only the grid is lost. That is a layout problem, and the tool for it is a
+layout-preserving engine, not a language model. 112 prose pages across
+eight volumes, 3.8% of them, read poorly enough to want a second reading.
+
+One thing 2-9 do NOT get is a single-engine model pass. With two readings
+and a disagreement, a model adjudicates between two witnesses. With one
+reading it has nothing to adjudicate and generates instead, and invented
+Kannada in a Dvaita commentary reads as authoritative when it is not.
 
 Attached by **the verse each block quotes**, never by the number it prints.
 Both printed numbers are unreliable: 57 blocks printed a padya number the
