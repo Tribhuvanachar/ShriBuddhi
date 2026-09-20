@@ -64,9 +64,14 @@ def test_a_grantha_with_no_curated_lineage_still_gets_a_strip():
 
 
 def test_every_ancestor_links_into_the_library_at_its_own_depth():
+    # 20 Sep 2026: these pointed at index.html, which is the LANDING page.
+    # ?libraryPath= is read by js/core.js, and render.html is the only page
+    # that loads core.js -- so every one of these links went somewhere that
+    # ignored it. What this test is actually about is the DEPTHS below; the
+    # page they point at was simply wrong.
     r = render("darshana/vedanta/dvaita/Anandamakaranda/achara_and_ancillary_granthas/jayanti_nirnaya/mula")
     import re
-    hrefs = re.findall(r'href="index\.html\?libraryPath=([^"]+)"', r["html"])
+    hrefs = re.findall(r'href="render\.html\?libraryPath=([^"]+)"', r["html"])
     from urllib.parse import unquote
     assert [unquote(h) for h in hrefs] == [
         "darshana", "darshana/vedanta", "darshana/vedanta/dvaita",
