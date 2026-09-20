@@ -15,7 +15,7 @@
 //      No manifest entry -> this module does nothing for that grantha.
 //   2. Opening a mula spine advertises every joinable sibling layer in
 //      metadata.availableCommentaries — WITHOUT fetching any of them
-//      (nyaya_sudha's layers total ~42 MB; the spine alone is 2.6 MB).
+//      (anuvyakhyana_sudha's layers total ~42 MB; the spine alone is 2.6 MB).
 //   3. A layer's data.json is fetched only when the reader actually turns
 //      that commentary on, then merged into shlokas[n].commentaries by id
 //      (exact id first, then the importer's -N collision suffix stripped).
@@ -45,20 +45,17 @@ window.dgeLayerManifestPromise = fetch('data/layer_manifest.json?t=' + Date.now(
 // Keys and targets are grantha-dir slugs relative to data/. Each chain is
 // rendered oldest-first above the title, ending at the current grantha.
 const DGE_GRANTHA_LINEAGE = {
-  'darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/nyaya_sudha': [
-    { label: 'ब्रह्मसूत्राणि', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya/mula' },
-    { label: 'अनुव्याख्यानम्', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana/mula' }
-  ],
   'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana': [
     { label: 'ब्रह्मसूत्राणि', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya/mula' }
   ],
-  // The grantha_layer_v2 consolidation of later_acharyas/nyaya_sudha (see
-  // tools/compile_anuvyakhyana_v2.py): identical two-hop lineage to the
-  // legacy entry above. Its own mula IS the Anuvyakhyana verses too (with
-  // Nyayasudha and the upa-tikas stitched onto them) -- the second hop
-  // here links to the OTHER copy, sutra_prasthana/anuvyakhyana/mula, which
-  // is just the bare verses with no commentary, a genuinely different
-  // reading (plain text vs. annotated), not a self-reference.
+  // grantha_layer_v2 consolidation (see tools/compile_anuvyakhyana_v2.py) of
+  // what used to be the separate later_acharyas/nyaya_sudha folder, retired
+  // 20 Sep 2026 once this tree carried everything it had. Its own mula IS
+  // the Anuvyakhyana verses too (with Nyayasudha and the upa-tikas stitched
+  // onto them) -- the second hop here links to the OTHER copy,
+  // sutra_prasthana/anuvyakhyana/mula, which is just the bare verses with
+  // no commentary, a genuinely different reading (plain text vs.
+  // annotated), not a self-reference.
   'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana_sudha': [
     { label: 'ब्रह्मसूत्राणि', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/brahma_sutra_bhashya/mula' },
     { label: 'अनुव्याख्यानम्', slug: 'darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/anuvyakhyana/mula' }
