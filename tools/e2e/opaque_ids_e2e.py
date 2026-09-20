@@ -42,6 +42,13 @@ try {
 // at the top of global-search.js says exactly this is what the variable is
 // for, and the staged copy has to be what is tested -- the CDN index was
 // built before the rewrite and still carries real paths.
+// Two mechanisms, because the pages differ. Pages that load js/config.js get
+// their index base from it, and config.js prefers this localStorage override
+// (that is what it is for). Pages that do NOT load config.js -- the vyakarana
+// ones -- read window.DGE_SEARCH_INDEX directly. Setting only one leaves half
+// the site pointed at the 330 MB CDN index, which was built before the
+// rewrite and still carries real paths.
+try { localStorage.setItem('search_index_base_override', '/search_index'); } catch (e) {}
 window.DGE_SEARCH_INDEX = '/search_index';
 """
 
@@ -144,6 +151,42 @@ with sync_playwright() as pw:
     check("clicking an id-addressed hit refuses instead of navigating",
           page.url == before and bool(toast), str(toast))
     page.screenshot(path=SHOTS + "/2-reader-click-refused.png")
+
+    # --- a PUBLIC hit must open the work, from any depth of page ----------
+    #
+    # Regression guard. readerBase() used to rewrite the CURRENT page's last
+    # segment to index.html, which was wrong twice over: from
+    # /vyakarana/dhatu.html it produced /vyakarana/index.html, which does not
+    # exist -- a flat 404 on every search result -- and from the root it
+    # produced the LANDING page, which forwards only short-form URLs and so
+    # never opened the work either.
+    PUBLIC_WORD = "विजयते"
+    PUBLIC_MARK = "विजयते"
+    for start in ("/vyakarana/dhatu.html",
+                  "/render.html?path=Tattvavada/Itara/Bhagavata_Saroddhara/mula"):
+        pg = ctx.new_page()
+        pg.goto(PUB + start, wait_until="load")
+        pg.wait_for_timeout(4000)
+        pg.evaluate("window.DGEGlobalSearch.open(%s)" % json.dumps(PUBLIC_WORD))
+        pg.wait_for_timeout(9000)
+        slug = pg.evaluate("""() => { const r = Array.from(document.querySelectorAll('.dge-gs-row'))
+            .find(r => (r.getAttribute('data-slug')||'').indexOf('id:') !== 0);
+            return r ? r.getAttribute('data-slug') : null; }""")
+        if not slug:
+            check("a public hit opens its work from %s" % start.split("?")[0], False,
+                  "no public rows to click")
+            pg.close()
+            continue
+        pg.evaluate("""() => { const r = Array.from(document.querySelectorAll('.dge-gs-row'))
+            .find(r => (r.getAttribute('data-slug')||'').indexOf('id:') !== 0); r.click(); }""")
+        pg.wait_for_timeout(7000)
+        body = pg.evaluate("document.body.innerText")
+        check("a public hit opens its work from %s" % start.split("?")[0],
+              "render.html" in pg.url and PUBLIC_MARK in body,
+              pg.url.split("8911")[-1][:60])
+        if start.startswith("/vyakarana"):
+            pg.screenshot(path=SHOTS + "/5-public-hit-opens.png")
+        pg.close()
 
     net_leak = [u for u in seen_urls if any(n.lower() in u.lower() for n in PRIVATE_NAMES)]
     check("no request URL contains a private shelf name", not net_leak, str(net_leak[:3]))

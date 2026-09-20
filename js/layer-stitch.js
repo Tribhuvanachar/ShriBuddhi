@@ -307,7 +307,7 @@ window.dgeRenderStitchChrome = function() {
       let cum = '';
       segs.forEach(seg => {
         cum = cum ? cum + '/' + seg : seg;
-        parts.push(`<a class="lineage-link" href="index.html?libraryPath=${encodeURIComponent(cum)}">${window.dgeSegLabel(seg, cum)}</a>`);
+        parts.push(`<a class="lineage-link" href="render.html?libraryPath=${encodeURIComponent(cum)}">${window.dgeSegLabel(seg, cum)}</a>`);
       });
     }
     // Standalone commentary layer: the way back to the stitched grantha.
@@ -340,7 +340,7 @@ window.dgeRenderStitchChrome = function() {
       let cum = '';
       segs.forEach(seg => {
         cum = cum ? cum + '/' + seg : seg;
-        parts.push(`<a class="lineage-link" href="index.html?libraryPath=${encodeURIComponent(cum)}">${window.dgeSegLabel(seg, cum)}</a>`);
+        parts.push(`<a class="lineage-link" href="render.html?libraryPath=${encodeURIComponent(cum)}">${window.dgeSegLabel(seg, cum)}</a>`);
       });
       // The label table first, metadata.title only as a fallback: this node is
       // the GRANTHA folder, whereas metadata.title describes the layer being

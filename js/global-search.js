@@ -972,12 +972,25 @@
   // since the corpus-usage button, or any other page that loads this file)
   // — page-relative navigation would otherwise produce e.g.
   // ashtadhyayi.html?path=..., which that page ignores.
+  /* The reader is render.html -- it is the only page that loads js/core.js,
+   * which is what reads ?path= and ?libraryPath=.
+   *
+   * This used to rewrite the CURRENT page's last segment to index.html, and
+   * that was wrong in both directions, proven in a browser on 20 Sep 2026:
+   *
+   *   - from /vyakarana/dhatu.html it produced /vyakarana/index.html, which
+   *     does not exist. Clicking any search result there was a flat 404.
+   *   - from the site root it produced /index.html, which is the LANDING
+   *     page. index.html forwards only short-form URLs (?SMV=1.1, the regex
+   *     at the top of it); a full ?path= is not forwarded, so the reader saw
+   *     the landing page and never the work they clicked.
+   *
+   * Resolved from GS_ROOT rather than the current page, because the pages
+   * that carry search sit at different depths and the reader is at the root
+   * for all of them. */
   function readerBase() {
-    var path = window.location.pathname;
-    if (!/\/(index\.html)?$/.test(path)) {
-      path = path.replace(/[^/]*$/, 'index.html');
-    }
-    return path;
+    try { return new URL('render.html', GS_ROOT).href; }
+    catch (e) { return 'render.html'; }
   }
 
   function go(slug, unit, hl) {
