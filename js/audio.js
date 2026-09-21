@@ -64,8 +64,22 @@ function dgeAudioFileId(id) {
   return width ? String(id).padStart(width, '0') : String(id);
 }
 
+// Not every grantha has recorded audio. Without this check the three
+// filename parts below are each undefined and the URL comes out as the
+// literal "undefinedundefined31undefined", which is then fetched twice —
+// once as the primary and once with the zero-width-space variant — and
+// 404s both times. Maṇimañjarī was the first grantha to reach this code
+// with no audio configured, on 21 Sep 2026; every earlier one happened to
+// carry an archiveBaseUrl, which is the only reason this never fired.
+function dgeHasAudioConfig() {
+  const m = (typeof stotraData !== 'undefined' && stotraData && stotraData.metadata) || null;
+  return !!(m && m.archiveBaseUrl && m.filePrefix && m.fileExtension);
+}
+window.dgeHasAudioConfig = dgeHasAudioConfig;
+
 async function resolveAudioSrc(id) {
   if (!stotraData || !stotraData.metadata) return "";
+  if (!dgeHasAudioConfig()) return "";
 
   const base = dgeEffectiveArchiveBase();
   const fid = dgeAudioFileId(id);

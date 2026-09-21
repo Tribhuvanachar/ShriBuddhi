@@ -105,6 +105,13 @@ function dgeGetAudioContext() {
 // requests hit the cache instead of re-discovering which variant works.
 async function dgeFetchAudioBlob(id) {
     if (!stotraData || !stotraData.metadata) throw new Error('No stotra data loaded');
+    // Refuse before building a URL out of undefined parts — see
+    // dgeHasAudioConfig in js/audio.js. Every caller of this function
+    // already catches and degrades, so throwing here costs nothing and
+    // saves two doomed requests.
+    if (typeof dgeHasAudioConfig === 'function' && !dgeHasAudioConfig()) {
+        throw new Error('This grantha has no recorded audio');
+    }
     const fid = typeof dgeAudioFileId === 'function' ? dgeAudioFileId(id) : id;
     const primary = `${stotraData.metadata.archiveBaseUrl}${stotraData.metadata.filePrefix}${fid}${stotraData.metadata.fileExtension}`;
     const alt = `${stotraData.metadata.archiveBaseUrl}${stotraData.metadata.filePrefix}${fid}%E2%80%8B${stotraData.metadata.fileExtension}`;
