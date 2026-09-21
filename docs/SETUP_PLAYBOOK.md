@@ -1,0 +1,364 @@
+# Setup playbook
+
+Five jobs, each one a list of steps with the exact page to open, the exact
+button to press, and the exact place the value goes. Written 21 Sep 2026
+against the code as it stands in ShriBuddhi.
+
+Where a value must be kept secret, the instruction says which of the **three
+different stores** it belongs in. They are not interchangeable, and putting a
+value in the wrong one is the most common way these setups fail:
+
+| store | what it is for | where |
+|---|---|---|
+| **GitHub Actions secrets** | things a *workflow* needs | `https://github.com/Tribhuvanachar/ShriBuddhi/settings/secrets/actions` |
+| **Firebase Functions secrets** | things the *server* needs at runtime | the `firebase functions:secrets:set` command |
+| **Function config strings** | non-secret settings (a public key id, a mode) | `firebase/functions/.env` or `functions:config` |
+
+A sentence that says "paste it here" always means one of those three.
+
+---
+
+## A · Get the search index off the repository and onto Cloud Storage
+
+**Why.** `search_index/` is **2,027 MB across 179,514 files** inside the git
+repository, and it is *derived* — `tools/build_search_index.py` regenerates
+all of it from `data/`. It is the single largest thing you own and none of it
+needs to be in git. The workflow that publishes it to Cloud Storage already
+exists and has **never once run**, because the secrets below were never set.
+
+### A1 · Make a Cloud Storage bucket
+
+1. Open **<https://console.cloud.google.com/storage/browser>**
+2. Top of the page, check the **project selector** shows the project your
+   Firebase app uses. If not, click it and pick that project.
+3. Click **CREATE** (or **CREATE BUCKET**).
+4. **Name**: something you will recognise, e.g. `sarvamula-search-index`.
+   Bucket names are globally unique — if it is taken, add a suffix.
+5. **Location type**: `Region`, and choose `asia-south1 (Mumbai)`.
+6. **Storage class**: `Standard`.
+7. **Access control**: choose **Uniform**.
+8. Untick **Enforce public access prevention on this bucket** — the site
+   fetches these files from the browser, so they must be publicly readable.
+9. Click **CREATE**.
+10. On the bucket's **PERMISSIONS** tab, click **GRANT ACCESS**.
+    - *New principals*: `allUsers`
+    - *Role*: `Storage Object Viewer`
+    - **SAVE**, then confirm **ALLOW PUBLIC ACCESS**.
+
+**Copy the bucket name.** That is the value of `SEARCH_INDEX_BUCKET`.
+
+### A2 · Make a service account so the workflow may write to it
+
+1. Open **<https://console.cloud.google.com/iam-admin/serviceaccounts>**
+2. **CREATE SERVICE ACCOUNT**.
+   - *Name*: `github-search-index`
+   - **CREATE AND CONTINUE**
+3. *Grant this service account access*: role **Storage Admin**. **CONTINUE**,
+   then **DONE**.
+4. Click the account you just made → **KEYS** tab → **ADD KEY** → **Create
+   new key** → **JSON** → **CREATE**. A `.json` file downloads. **This file
+   is shown once and never again.**
+
+### A3 · Put the two values into GitHub
+
+1. Open **<https://github.com/Tribhuvanachar/ShriBuddhi/settings/secrets/actions>**
+2. **New repository secret**:
+   - *Name*: `SEARCH_INDEX_BUCKET`
+   - *Secret*: the bucket name from A1 (just the name — no `gs://`, no slash)
+   - **Add secret**
+3. **New repository secret** again:
+   - *Name*: `FIREBASE_SERVICE_ACCOUNT`
+   - *Secret*: open the downloaded `.json` in a text editor, select all,
+     copy, paste the **whole file including the braces**
+   - **Add secret**
+4. **New repository secret** a third time:
+   - *Name*: `FIREBASE_PROJECT_ID`
+   - *Secret*: the `project_id` value from inside that same JSON file
+   - **Add secret**
+
+> The workflow accepts the key under any of `FIREBASE_SERVICE_ACCOUNT`,
+> `FIREBASE_SERVICE_ACCOUNT_KEY`, `FIREBASE_ADMIN_SDK`, or
+> `GOOGLE_APPLICATION_CREDENTIALS_JSON`. One of them is enough.
+
+### A4 · Run it
+
+1. Open **<https://github.com/Tribhuvanachar/ShriBuddhi/actions>**
+2. Left sidebar → the **re-index** workflow → **Run workflow**.
+3. Watch the step **"Publish the index to Cloud Storage"**. It should now
+   upload rather than skip.
+
+The index lands at `gs://<bucket>/search_index/<data-sha>/`, cached for a
+year, and each build gets its own immutable prefix — so a new build never
+disturbs the one the live site is reading.
+
+---
+
+## B · Shrink the repositories
+
+**Today: 8.2 GB.** Where it is:
+
+| | size | tracked in git? | derived? |
+|---|---|---|---|
+| `search_index/` | 2,027 MB, 179,514 files | yes | **yes** — rebuilt from `data/` |
+| `data/` | 1,866 MB | yes | no — this is the library itself |
+| `tools/dcs/vendor/` | 388 MB | yes | **yes** — a vendored third-party corpus |
+| `.git/` | 3,200 MB | — | history of all the above |
+
+### B1 · Stop tracking the index (do A first)
+
+Once A4 has published successfully — **not before**:
+
+```bash
+cd ShriBuddhi
+git rm -r --cached search_index
+printf 'search_index/\n' >> .gitignore
+git commit -m "The search index is published to Cloud Storage, not carried in git"
+git push
+```
+
+The files stay on your disk; git stops carrying them. **This removes 2 GB
+from every future clone but not from history** — `.git` stays 3.2 GB until
+B3.
+
+### B2 · Stop tracking the vendored corpus
+
+`tools/dcs/vendor/` is third-party data, not our source:
+
+```bash
+git rm -r --cached tools/dcs/vendor
+printf 'tools/dcs/vendor/\n' >> .gitignore
+git commit -m "DCS vendor data is a download, not source"
+git push
+```
+
+Write a one-line fetch script beside it so a fresh checkout can get it back.
+
+### B3 · Actually shrink `.git` (destructive — read twice)
+
+Only B3 reclaims the 3.2 GB, and it **rewrites history**: every commit hash
+changes, and everyone with a clone must re-clone. Do it once, deliberately,
+when nobody has unpushed work.
+
+1. Install the tool: **<https://github.com/newren/git-filter-repo>**
+   (`pip install git-filter-repo`)
+2. **Make a backup clone first**: `git clone --mirror <url> backup.git`
+3. ```bash
+   git filter-repo --path search_index --path tools/dcs/vendor --invert-paths
+   git push --force --all
+   git push --force --tags
+   ```
+4. Tell everyone with a clone to delete it and clone again.
+
+**Expected after all three: about 2.1 GB**, nearly all of it `data/`, which
+is the library and should stay.
+
+> If you would rather not rewrite history, do B1 and B2 only and tell people
+> to clone with `--depth 1`. That gives them a ~2 GB checkout without
+> touching anyone's existing clone.
+
+---
+
+## C · Firebase and Firestore
+
+### C1 · Create the project
+
+1. **<https://console.firebase.google.com/>** → **Add project**.
+2. Name it, accept or decline Analytics, **Create project**.
+
+### C2 · Turn on the pieces the site uses
+
+- **Authentication** → **Get started** → enable **Google** and **Phone**.
+  <https://console.firebase.google.com/project/_/authentication/providers>
+- **Firestore Database** → **Create database** → **Production mode** →
+  location `asia-south1`.
+  <https://console.firebase.google.com/project/_/firestore>
+- **Hosting** → **Get started**.
+  <https://console.firebase.google.com/project/_/hosting>
+
+> Until Firestore exists, sign-in still works but every user gets the default
+> role — `js/user-auth.js` handles that case deliberately and says so.
+
+### C3 · The web config that goes in the site
+
+1. **Project settings** (gear, top left) → **General** → scroll to **Your
+   apps** → **Web** (`</>`) → register the app.
+2. Copy the `firebaseConfig` object it shows you.
+3. Paste it into the site's auth config where `AUTH_CONFIG` is read.
+
+**These values are not secret.** `apiKey` here is a public project
+identifier, not a password — it is meant to ship in the browser. What
+protects your data is `firebase/firestore.rules`, which is already written
+and enforces roles server-side.
+
+### C4 · Deploy the rules and the functions
+
+```bash
+npm install -g firebase-tools
+firebase login
+cd ShriBuddhi/firebase
+firebase use --add            # pick the project, give it the alias "default"
+firebase deploy --only firestore:rules
+firebase deploy --only functions
+```
+
+### C5 · Where each key actually goes
+
+| value | store | why |
+|---|---|---|
+| `firebaseConfig` (apiKey, appId…) | the site's source | public by design |
+| service-account JSON | **GitHub secret** (§A3) | a workflow uses it |
+| `RAZORPAY_KEY_SECRET` | **Functions secret** (§D) | server only, never the browser |
+| `RAZORPAY_KEY_ID` | Functions **config string** | public, shown to the payer |
+| `WHATSAPP_TOKEN` | **Functions secret** (§E) | server only |
+
+**Never commit a service-account JSON or any `*_SECRET` to git.**
+
+---
+
+## D · Razorpay
+
+The code is already written — `firebase/functions/lib/payment-providers.js`
+implements order creation and webhook verification, and there are tests in
+`firebase/tests/payment-providers.test.js`. What follows switches it on.
+
+### D1 · Get the keys
+
+1. **<https://dashboard.razorpay.com/app/website-app-settings/api-keys>**
+2. Start in **Test mode** (the toggle is at the top of the dashboard).
+3. **Generate Test Key**.
+4. You get **Key Id** (`rzp_test_…`) and **Key Secret**. **The secret is
+   shown once.** Copy both now.
+
+### D2 · Give them to the functions
+
+```bash
+cd ShriBuddhi/firebase
+firebase functions:secrets:set RAZORPAY_KEY_SECRET      # paste the secret
+firebase functions:secrets:set RAZORPAY_WEBHOOK_SECRET  # set in D3, come back
+```
+
+The **Key Id** is not a secret. Put it in `firebase/functions/.env`:
+
+```
+RAZORPAY_KEY_ID=rzp_test_xxxxxxxxxxxx
+PAYMENT_GATEWAY=razorpay
+PAYMENT_GATEWAYS_ENABLED=razorpay
+```
+
+### D3 · The webhook
+
+1. **<https://dashboard.razorpay.com/app/webhooks>** → **Add New Webhook**.
+2. **Webhook URL**:
+   `https://asia-south1-<your-project-id>.cloudfunctions.net/paymentWebhook`
+   (after `firebase deploy --only functions`, the console prints the exact
+   URL — use that.)
+3. **Secret**: type a long random string. Keep it.
+4. **Active Events**: tick `payment.captured`, `payment.failed`,
+   `order.paid`.
+5. **Create Webhook**.
+6. Back in a terminal:
+   `firebase functions:secrets:set RAZORPAY_WEBHOOK_SECRET` and paste the
+   string from step 3.
+7. `firebase deploy --only functions` so the new secrets are picked up.
+
+### D4 · Test before going live
+
+Use a Razorpay test card: **4111 1111 1111 1111**, any future expiry, any
+CVV. Confirm a `donations` document appears in Firestore.
+
+**Going live**: flip the dashboard to Live mode, generate live keys
+(`rzp_live_…`), repeat D2 and D3 with those, and complete Razorpay's KYC.
+Signature verification is already implemented, including `x-razorpay-event-id`
+de-duplication, so a replayed webhook cannot double-count a donation.
+
+---
+
+## E · WhatsApp Business API
+
+`firebase/functions/lib/whatsapp.js` is written; `sendOtp`, `verifyOtp`,
+`whatsappWebhook` and `runWhatsAppBroadcast` are already exported.
+
+### E1 · Meta app and WhatsApp product
+
+1. **<https://developers.facebook.com/apps/>** → **Create App** → type
+   **Business** → name it → **Create app**.
+2. On the app dashboard, find **WhatsApp** → **Set up**.
+3. It gives you a **test number** and a **Phone number ID**. Note the ID.
+4. **API Setup** → **Temporary access token** (valid 24 hours) — fine for
+   testing, replaced in E3 for production.
+
+### E2 · A message template (required for OTP)
+
+WhatsApp does **not** allow free-form messages to someone who has not
+messaged you first. An OTP must go through an approved template.
+
+1. **<https://business.facebook.com/wa/manage/message-templates/>**
+2. **Create template** → Category **Authentication** → Name: `dge_otp`
+   (this must match `OTP_TEMPLATE_NAME`, whose default is `dge_otp`)
+3. Language **English**. Add the one-time-password body with its `{{1}}`
+   variable and submit.
+4. Approval usually takes minutes to a few hours.
+
+### E3 · A permanent token
+
+A 24-hour token is no good for a live site.
+
+1. **<https://business.facebook.com/settings/system-users>**
+2. **Add** → name it `dge-whatsapp` → role **Admin** → **Create**.
+3. **Add Assets** → your app → **Full control** → **Save**.
+4. **Generate New Token** → pick the app → tick **whatsapp_business_messaging**
+   and **whatsapp_business_management** → **Generate**.
+5. **Copy it now — it is shown once.**
+
+### E4 · Give them to the functions
+
+```bash
+cd ShriBuddhi/firebase
+firebase functions:secrets:set WHATSAPP_TOKEN            # E3
+firebase functions:secrets:set WHATSAPP_PHONE_NUMBER_ID  # E1 step 3
+firebase functions:secrets:set WHATSAPP_VERIFY_TOKEN     # invent a random string, keep it
+firebase functions:secrets:set WHATSAPP_APP_SECRET       # App settings > Basic > App Secret
+firebase functions:secrets:set OTP_PEPPER                # invent a long random string
+firebase deploy --only functions
+```
+
+### E5 · Point the webhook at us
+
+1. Meta app dashboard → **WhatsApp** → **Configuration** → **Edit** webhook.
+2. **Callback URL**:
+   `https://asia-south1-<your-project-id>.cloudfunctions.net/whatsappWebhook`
+3. **Verify token**: exactly the `WHATSAPP_VERIFY_TOKEN` string from E4.
+4. **Verify and save** — Meta calls the URL immediately and it must answer.
+   If it fails, the functions are not deployed yet.
+5. **Manage** → subscribe to the **messages** field.
+
+### E6 · Production number
+
+The test number cannot message arbitrary people. To use your own:
+**<https://business.facebook.com/wa/manage/phone-numbers/>** → **Add phone
+number** → verify by SMS or call. The number must not be active on the normal
+WhatsApp or WhatsApp Business app — if it is, delete that account first.
+
+**Consent.** `whatsappOptIn` starts `false` on every profile and
+`firestore.rules` rejects a create that tries to set it true. Signing in is
+not consent to be messaged. Do not work around this.
+
+---
+
+## The order to do things in
+
+1. **C** — Firebase, because D and E both deploy functions into it.
+2. **A** — the index, because it is the biggest immediate win and unblocks B.
+3. **B1/B2** — stop tracking the derived files. **B3 only when ready.**
+4. **D** and **E** — independent of each other; do whichever is more urgent.
+
+## When something does not work
+
+- *`FIREBASE_PROJECT_ID secret is not set`* — §A3 step 4 was skipped. The
+  re-index no longer dies here; it skips the upload and carries on.
+- *Razorpay webhook shows 401* — `RAZORPAY_WEBHOOK_SECRET` does not match the
+  dashboard, or the functions were not redeployed after setting it.
+- *WhatsApp webhook verification fails* — the functions are not deployed, or
+  `WHATSAPP_VERIFY_TOKEN` differs by a character.
+- *Template message not delivered* — the template is not approved yet, or
+  `OTP_TEMPLATE_NAME` does not match its name exactly.
