@@ -125,23 +125,86 @@ largest of the ten books. Aitareya is not underserved.
 What the three staged volumes actually add, measured as 20-character shingles
 sampled every 101 characters against every existing Aitareya layer:
 
-| staged volume | Devanāgarī chars | already on the shelf | new |
+| staged volume | Devanāgarī chars | new, whole volume | new, commentary only |
 |---|---|---|---|
-| `bhagavantaraya` | 980,202 | 58.7% | **41.3%** |
-| `ratnamala` | 740,307 | 18.5% | **81.5%** |
-| `visvesvara_tirtha` | 431,585 | 29.4% | **70.6%** |
+| `bhagavantaraya` | 980,202 | 41.3% | **16.6%** |
+| `ratnamala` | 740,307 | 81.5% | **69.5%** |
+| `visvesvara_tirtha` | 431,585 | 70.6% | not yet segmentable |
 
-`bhagavantaraya` matches the existing `tika_bhavapradipa` at 37.0% — far above
-its match to any other layer — so it is the same Bhāvapradīpa in a fuller
-edition, not a new commentary. The other two match the mūla and bhāṣya they
-reprint and little else; they are genuinely new text.
+**Read the last column, not the third.** The whole-volume figure counts the
+mūla and bhāṣya these editions reprint alongside their commentary — text the
+shelf already holds — as though it were new. Segmenting the commentary out
+(see below) drops `bhagavantaraya` from 41.3% to 16.6%: it is the Bhāvapradīpa
+already on the shelf, in a cleaner edition, and it matches the existing
+`tika_bhavapradipa` at 37.0%, far above its match to any other layer. Worth
+landing for quality, not for content.
 
-**The real blocker is segmentation, not an attach target.** These are
-page-level Sarvam HTML — 994, 596 and 320 pages of continuous prose. The target
-uses `items` with hierarchical `reference` strings, not numbered verses, so
-`merge_staged_commentary.py` does not apply. `tools/upanishad_tippani/build_verify.py`
-does exactly this job for eight other upaniṣads; its `BOOKS` map has no
-`aitareya` entry. Extending it is the path.
+`ratnamala` is the volume that carries real new material.
+
+**The blocker was segmentation, and it is now largely solved** —
+`tools/aitareya/segment.py`, with `tests/test_aitareya_segment.py`. Output is
+staged to `data/ocr_staging/aitareya/`, not written into the corpus.
+
+`tools/upanishad_tippani/build_verify.py` could *not* be extended to cover
+these, which is what an earlier draft assumed. It keys off a label convention
+— `वे.श्रुत्यर्थः-`, `अ.सं.-` at line start — used by the multi-commentary
+Viśvamadhva Mahāpariṣat volumes. Measured against these three: **one matching
+line in 15,662**. They are single-commentary PPVP editions and carry no such
+labels. Each needed its own rule.
+
+**`bhagavantaraya` — two interleaved streams.** The scan interleaves two
+separately-paginated texts, and the split is exact: of the pages whose running
+head OCR'd, **all 370 carrying `श्रीमन्महैतरेयोपनिषद्भाष्यम्` are odd PDF pages
+and all 359 carrying an `आ-२, अ-१, खं-१` coordinate are even ones**, with no
+exceptions either way. That coordinate is āraṇyaka/adhyāya/khaṇḍa — *precisely
+the address the target uses*. It yields **38 khaṇḍa spans, and the shelf's
+`tika_bhashya` has exactly 38 distinct addresses**. They correspond one to one.
+
+But the honest figure is worse than the one recorded above. Once the ṭippaṇī
+stream is isolated from the bhāṣya stream printed alongside it, this volume is
+only **16.6% new**, not 41.3%. The earlier number counted the bhāṣya pages —
+text the shelf already holds — as though they were part of the commentary. This
+volume is the Bhāvapradīpa the shelf already has, in a cleaner edition; it is
+worth landing for quality, not for new content.
+
+**`ratnamala` — section labels, and it is the valuable one.** One stream,
+divided by standalone label lines ending in a dash: `टिप्पणी-` (269),
+`भाष्यम्-` (260), `उपनिषत्-` (110), `खण्डार्थः-` (26). Those are the shelf's own
+layer names, and two of them — the Bhāṣyārtha Ratnamālā ṭippaṇī and the
+Khaṇḍārtha — the shelf lacks for Aitareya entirely. **665 blocks, 696,404
+characters, 69.5% new.**
+
+Its blocks are addressed by matching its own `भाष्यम्` runs against the shelf's
+`tika_bhashya`, which states the address; the address then travels forward to
+the ṭippaṇī that comments on it. **640 of 665 blocks addressed (96%)** from 75
+confident matches, the remaining 25 being front matter before the first match.
+
+The evidence that the addressing is *correct* and not merely populated is that
+the 31 resulting spans come out **in the volume's own order, with zero
+out-of-order transitions in 30**. Nothing in the matcher constrains that — each
+block is matched independently against all 38 candidates — so monotonicity is a
+result, not a construction. Dropping the 0.30 match floor to 0.02 destroys it,
+which is what the test asserts.
+
+**`visvesvara_tirtha` — still not segmentable.** Neither rule applies: no
+coordinate running head, no section labels. Its running head is prose
+(`द्वितीयप्रघट्टके तृतीयोऽध्यायः`). 320 pages, 228 pratīkas. It needs a third
+rule — most likely parsing that prose head for the adhyāya, then splitting on
+pratīkas — and is the one piece of this left undone.
+
+### What remains before any of it can be attached
+
+Segmenting is not merging. None of this is in the corpus, and it should not go
+in unreviewed: it is raw Sarvam OCR, and the Maṇimañjarī case showed what that
+can hide. Still to do:
+
+1. **Review the staged blocks** in `admin/ocr-review.html`.
+2. **A third rule for `visvesvara_tirtha`.**
+3. **Sub-khaṇḍa addressing.** Blocks are addressed to a khaṇḍa, which matches
+   the granularity `tika_bhashya` and `tika_bhavapradipa` already use, but the
+   pratīkas would allow finer placement.
+4. **The writer.** Nothing yet emits `items` with `reference`, `breadcrumb`,
+   `section` and `unit_title` into the shelf. That is the next tool.
 
 ### Empty layer directories — 20 of them
 
