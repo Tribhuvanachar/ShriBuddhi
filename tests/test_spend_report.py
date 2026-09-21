@@ -14,19 +14,38 @@ import sys
 import pytest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-REPORT = os.path.join(ROOT, "admin", "config", "spend_report.json")
 
 
 @pytest.fixture(scope="module")
-def report():
-    # Rebuild rather than trust the committed copy: a stale report would pass
-    # a test about a ledger it no longer describes.
-    out = os.path.join(ROOT, "admin", "config", "spend_report.json")
+def report(tmp_path_factory):
+    """Rebuild the report, into a temp file, and read that.
+
+    Rebuilt rather than read from the committed copy, because a stale report
+    would pass a test about a ledger it no longer describes.
+
+    Into a TEMP file because the first version of this wrote over
+    admin/config/spend_report.json, whose generated_at timestamp changes on
+    every run -- so running the suite left the working tree dirty, every
+    time, for everyone. A test that reports on the repository must not edit
+    it.
+    """
+    out = tmp_path_factory.mktemp("spend") / "spend_report.json"
     subprocess.run([sys.executable, os.path.join(ROOT, "tools", "spend_report.py"),
-                    "--root", ROOT, "--out", "admin/config/spend_report.json"],
+                    "--root", ROOT, "--out", str(out)],
                    cwd=ROOT, capture_output=True, check=True)
     with open(out, encoding="utf-8") as fh:
         return json.load(fh)
+
+
+def test_the_committed_report_is_not_rewritten_by_running_tests():
+    """Guards the defect above: the suite must leave this file alone."""
+    committed = os.path.join(ROOT, "admin", "config", "spend_report.json")
+    before = os.path.getmtime(committed)
+    subprocess.run([sys.executable, os.path.join(ROOT, "tools", "spend_report.py"),
+                    "--root", ROOT, "--out", os.devnull],
+                   cwd=ROOT, capture_output=True)
+    assert os.path.getmtime(committed) == before, (
+        "running the spend report touched the committed copy")
 
 
 def test_every_staged_page_has_a_ledger_row(report):
