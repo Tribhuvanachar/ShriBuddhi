@@ -18,6 +18,42 @@ window.DGE_VERSIONS['onboarding.js'] = 'v1.0';
   var NAME_KEY = 'dge_user_name';
   var LANG_KEY = 'dge_lang_pref';
 
+  // 21 Sep 2026, the lead: once per LOGIN for a signed-in reader, once per
+  // BROWSER for a guest.
+  //
+  // A guest has nowhere to be remembered but this browser, so localStorage
+  // is the whole answer for them. A signed-in reader does have somewhere --
+  // their own profile -- and remembering it there is what makes the promise
+  // true: answer once, and a new phone or a borrowed laptop does not ask
+  // again. Storing it per-browser-per-uid would have asked a second time on
+  // the second device, which is the thing being complained about.
+  //
+  // preferences is already in firestore.rules' selfEditableOnly list, so
+  // this needs no rules change and no new document.
+  function signedIn() {
+    return !!(window.dgeCurrentUser && window.dgeCurrentUser.uid);
+  }
+
+  function profileSaysDone() {
+    var p = window.dgeCurrentUserProfile;
+    return !!(p && p.preferences && p.preferences.onboardedAt);
+  }
+
+  // Never throws: a reader whose profile cannot be written still gets to
+  // use the site, and the worst case is being asked again next time.
+  function rememberOnProfile(patch) {
+    try {
+      if (!signedIn() || typeof dgeDb === 'undefined' || !dgeDb) return;
+      var prefs = Object.assign({}, (window.dgeCurrentUserProfile || {}).preferences || {}, patch,
+                                { onboardedAt: new Date().toISOString() });
+      window.dgeCurrentUserProfile = Object.assign({}, window.dgeCurrentUserProfile || {},
+                                                   { preferences: prefs });
+      dgeDb.collection('users').doc(window.dgeCurrentUser.uid)
+           .update({ preferences: prefs })
+           .catch(function (e) { console.warn('[Onboarding] preference not saved:', e && e.message); });
+    } catch (e) { /* offline, or no Firestore: the local key still stands */ }
+  }
+
   // Language preference -> default display script. Sanskrit/English both
   // already have a natural script (devanagari/iast); a Kannada speaker who
   // may not read Devanagari benefits most from the script switching too.
@@ -54,6 +90,7 @@ window.DGE_VERSIONS['onboarding.js'] = 'v1.0';
       if (name) localStorage.setItem(NAME_KEY, name);
       localStorage.setItem(LANG_KEY, lang);
       localStorage.setItem(ONBOARDED_KEY, '1');
+      rememberOnProfile({ lang: lang, displayName: name || '' });
     } catch (e) {}
     if (typeof window.setScript === 'function') {
       window.setScript(LANG_TO_SCRIPT[lang] || 'devanagari');
@@ -63,15 +100,46 @@ window.DGE_VERSIONS['onboarding.js'] = 'v1.0';
 
   window.dgeSkipOnboarding = function () {
     try { localStorage.setItem(ONBOARDED_KEY, '1'); } catch (e) {}
+    // Skipping is an answer too. Asking a signed-in reader again on their
+    // next device, because they declined once, is the same nuisance.
+    rememberOnProfile({});
     if (typeof window.closeModal === 'function') window.closeModal('onboardingModal');
   };
 
+  function localDone() {
+    try { return !!localStorage.getItem(ONBOARDED_KEY); } catch (e) { return true; }
+  }
+
+  function decide() {
+    if (signedIn()) {
+      // Their account is the record. A browser that has answered before but
+      // is new to THIS account still asks, which is right -- it is the
+      // account's first time, and the answer then follows the account.
+      if (profileSaysDone()) return;
+    } else if (localDone()) {
+      return;
+    }
+    if (typeof window.openModal === 'function') window.openModal('onboardingModal');
+  }
+
+  var decided = false;
+  function decideOnce() {
+    if (decided) return;
+    decided = true;
+    decide();
+  }
+
   function boot() {
     wire();
-    var already;
-    try { already = localStorage.getItem(ONBOARDED_KEY); } catch (e) { already = '1'; }
-    if (already) return;
-    if (typeof window.openModal === 'function') window.openModal('onboardingModal');
+    // Sign-in is restored asynchronously. Deciding at DOMContentLoaded would
+    // read every returning reader as a guest and ask them again on a browser
+    // that had answered -- so wait for auth to settle when auth exists at
+    // all, and fall back on a timer so a Firebase that never loads cannot
+    // leave the panel permanently unasked.
+    var authy = !!(window.AUTH_CONFIG && window.AUTH_CONFIG.enabled);
+    if (!authy || window.dgeAuthSettled) { decideOnce(); return; }
+    document.addEventListener('dge:auth-settled', decideOnce, { once: true });
+    setTimeout(decideOnce, 4000);
   }
 
   if (document.readyState === 'loading') {

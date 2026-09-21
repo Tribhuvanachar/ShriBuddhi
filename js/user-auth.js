@@ -449,6 +449,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     dgeBridgeRoleToAdminTools(window.dgeCurrentUserRole);
     dgeUpdateAccountUI();
+    // Auth has settled -- signed in with a profile loaded, or definitely a
+    // guest. Anything whose behaviour differs between the two has to wait
+    // for this rather than read window.dgeCurrentUser at DOMContentLoaded,
+    // when Firebase has not yet restored the session and EVERY returning
+    // user looks like a guest. js/onboarding.js is the first such listener.
+    window.dgeAuthSettled = true;
+    try {
+      document.dispatchEvent(new CustomEvent('dge:auth-settled', {
+        detail: { user: user || null, profile: window.dgeCurrentUserProfile || null }
+      }));
+    } catch (e) { /* no CustomEvent: listeners fall back to their timeout */ }
   });
 });
 
