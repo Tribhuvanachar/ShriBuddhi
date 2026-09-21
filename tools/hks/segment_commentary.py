@@ -167,8 +167,16 @@ SUBHEAD_BARE = re.compile(
     r"^[\s\u201c\u201d\"\']*([\u0C80-\u0CFF][\u0C80-\u0CFF\s]{6,40}?)"
     r"[\s\u201c\u201d\"\']*[:：]?\s*[-–]?\s*$")
 
+# The separator after the number is a full stop or a danda in most volumes,
+# but a hyphen or a close-paren in some -- "೪- ವ್ಯಾಸದಾಸ ಸಿದ್ಧಾಂತ ಕೌಮುದೀ :-",
+# "೧) ಶ್ರೀ ಸಂಕರ್ಷಣ ಒಡೆಯರ ವ್ಯಾಖ್ಯಾನ :-". Allowing only [.।] meant those lines
+# were not boundaries at all, so the commentary they announce was appended to
+# whichever layer was open: hks-32-29 served the Guruhrdayaprakashika under
+# the Vyasadasa Siddhanta Kaumudi's name, under a heading the reader could
+# see. Widening the separator is safe because the NAME must still resolve
+# through commentary_key before the line is treated as a heading.
 SUBHEAD = re.compile(
-    r"^\s*([0-9೦-೯]{1,2})\s*[.।]\s*([\u0C80-\u0CFF][\u0C80-\u0CFF\s]{3,44}?)\s*[:：\-]*\s*$")
+    r"^\s*([0-9೦-೯]{1,2})\s*[.।)\-–]\s*([\u0C80-\u0CFF][\u0C80-\u0CFF\s]{3,44}?)\s*[:：\-]*\s*$")
 
 
 # The same six commentaries announced INLINE rather than on their own line:
