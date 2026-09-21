@@ -1,0 +1,107 @@
+{
+  "_readme": [
+    "The guided walkthrough — dge/js/tour.js.",
+    "",
+    "A new reader has no way to discover that double-tapping a word explains it, or",
+    "that the number at the end of a verse lists its commentators. This is the",
+    "manual: it dims the page, lights up one thing at a time, says what it is, and",
+    "moves on when you press Next.",
+    "",
+    "  autoStart      offer it on a reader's first visit. Once dismissed or",
+    "                 finished, it does not ask again — reopen it from About.",
+    "  steps[]        in order. Each has:",
+    "",
+    "      target     a CSS selector for the thing to light up. null dims the",
+    "                 whole page and centres the card — right for an opening or a",
+    "                 closing note.",
+    "      title      the heading.",
+    "      body       one short paragraph. This is a signpost, not documentation.",
+    "      placement  'top' or 'bottom', where the card sits relative to the",
+    "                 target. Omitted, it picks whichever side has room.",
+    "",
+    "A step whose target is not on the page is SKIPPED, not shown pointing at",
+    "nothing. That matters because admin/config/menu.json can hide a menu item and",
+    "admin controls do not exist for an ordinary reader — the tour adapts to what",
+    "that person can actually see.",
+    "",
+    "Reword any of this in place: unlock super admin, press Edit text, tap a line."
+  ],
+  "autoStart": true,
+  "steps": [
+    {
+      "target": null,
+      "title": "स्वागतम् · Welcome",
+      "body": "This is the Sarvamūla Digital Library — mūla texts with their commentaries, dictionaries, and the grammar behind them. Two minutes here and you will know where everything is. You can leave at any point and start again later from About."
+    },
+    {
+      "target": ".top-bar-title",
+      "title": "The Library",
+      "body": "Everything begins here. The whole corpus is arranged as a tree — Veda, Vedāṅga, Darśana, Itihāsa, Purāṇa and the rest — so you can see where a text sits, not just that it exists. Tap to open it."
+    },
+    {
+      "target": "#searchInput",
+      "title": "Search this text",
+      "body": "Searches the text you are reading, in any script: type in Devanagari, in English letters, or in Kannada — it finds the same verse either way.",
+      "placement": "bottom"
+    },
+    {
+      "target": "#searchScopeBtn",
+      "title": "…or narrow it",
+      "body": "Restrict the search to the mūla alone, to a particular commentary, or to your own notes.",
+      "placement": "bottom"
+    },
+    {
+      "target": "[data-topbar=\"commentary\"]",
+      "title": "Commentaries",
+      "body": "Choose which commentaries sit under each verse — one, several, or none for the mūla alone."
+    },
+    {
+      "target": "[data-topbar=\"display\"]",
+      "title": "Script, size and theme",
+      "body": "Read the same text in Devanagari, IAST, Kannada, Telugu, Tamil or Malayalam. Set the type size, choose one verse at a time or the whole list, and pick a theme."
+    },
+    {
+      "target": "[data-topbar=\"explore\"]",
+      "title": "Beyond the texts",
+      "body": "Guru Paramparā, Tīrtha Prabandha, the Aṣṭādhyāyī, the Dhātupāṭha and Dāsa Sāhitya each have a section of their own."
+    },
+    {
+      "target": "#shlokaList .shloka-card",
+      "title": "A verse",
+      "body": "Tap a verse to open it. Where other texts comment on it, a small count appears at the end of the line — tap that to see who, and go straight to them.",
+      "placement": "bottom"
+    },
+    {
+      "target": "#shlokaList .shloka-card",
+      "title": "Any word, explained",
+      "body": "Double-tap a Sanskrit word — on a phone, tap it twice. It tells you the stem or root it comes from and what case, number, person or tense it stands in, then offers the dictionaries and everywhere else in the library that word appears.",
+      "placement": "bottom"
+    },
+    {
+      "target": "#kosha-fab",
+      "title": "कोश · the dictionaries",
+      "body": "Look up any word across Monier-Williams, Apte, Amarakośa, Śabdakalpadruma, Vācaspatyam and the Kannada kośas at once."
+    },
+    {
+      "target": "#searchInput",
+      "title": "Half-remembered a sūtra?",
+      "body": "Type a rule's name here — even roughly, even in English letters — and the Aṣṭādhyāyī sūtra it belongs to is offered beneath the box. \"namah svasti svaha\" finds 2.3.16.",
+      "placement": "bottom"
+    },
+    {
+      "target": ".char-palette-toggle",
+      "title": "Special characters",
+      "body": "ā, ī, ū, ṛ, ḥ, ṃ and the rest, for typing transliterated Sanskrit without a special keyboard."
+    },
+    {
+      "target": "#accessKeyBtn",
+      "title": "For contributors",
+      "body": "If you help maintain the library, unlock your access here. Everything you have seen so far is open to every reader."
+    },
+    {
+      "target": null,
+      "title": "That is the tour",
+      "body": "Start from the Library and read. This walkthrough can be reopened any time from About, and there is more in each section than a tour can hold — the Aṣṭādhyāyī, for instance, will derive any verb form step by step and name the rule behind every step."
+    }
+  ]
+}

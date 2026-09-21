@@ -1,0 +1,62 @@
+{
+ "_readme": [
+  "Which Ashtadhyayi commentary/translation layers, and which per-sutra",
+  "enrichment fields, are even OFFERED to readers at all -- a site-wide,",
+  "admin-level gate, distinct from a reader's own personal toggle of which",
+  "of the offered layers THEY want to see (that one is per-browser, in",
+  "dge/js/ashtadhyayi.js's state.enabled/localStorage).",
+  "",
+  "Read live by dge/js/ashtadhyayi.js on every load (fetch, no-cache) --",
+  "publishing a change here takes effect for every visitor immediately, no",
+  "code deploy needed. A layer/field with visible:false here never appears",
+  "in the reader's own toggle list at all, and its data.json is never",
+  "fetched -- this is a content-moderation gate, not just a UI hide.",
+  "",
+  "Edited from admin/ashtadhyayi.html (the eye-icon toggle next to each",
+  "layer), which writes back to this exact file via a direct GitHub",
+  "Contents API commit -- same mechanism dge/js/content-inline.js uses for",
+  "prose fields, applied here to a boolean instead of a string.",
+  "",
+  "'fields' covers per-sutra enrichment keys that are not a separate",
+  "layer/data.json (currently just the removed 'english' gloss -- see the",
+  "note on it below and dge/PENDING.md's 23 Aug entry). The underlying",
+  "data for a visible:false layer/field is NOT necessarily still published",
+  "-- for 'english' specifically the field was stripped from",
+  "dge/data/vedanga/vyakarana/ashtadhyayi/sutrapatha/data.json entirely,",
+  "since a public GitHub Pages repo serves that JSON as a static file",
+  "regardless of what this config or the UI does. Flipping visible back to",
+  "true for 'english' does nothing until the data is re-imported."
+ ],
+ "layers": {
+  "kashika": {
+   "visible": true
+  },
+  "siddhanta_kaumudi": {
+   "visible": true
+  },
+  "mahabhashya": {
+   "visible": true
+  },
+  "balamanorama": {
+   "visible": true
+  },
+  "tattvabodhini": {
+   "visible": true
+  },
+  "nyasa": {
+   "visible": true
+  },
+  "vasu": {
+   "visible": true
+  },
+  "vasu_kaumudi": {
+   "visible": true
+  }
+ },
+ "fields": {
+  "english": {
+   "visible": false,
+   "note": "Disabled 23 Aug 2026. Verbatim ashtadhyayi.com sutrartha_english.txt text (3,941 of 3,962 sutras), shown to readers with zero attribution, held only under an informal curator e-mail permission -- the source repo (github.com/ashtadhyayi-com/data) has no formal LICENSE. Data has been removed from sutrapatha/data.json, not just hidden here. Re-enable only once real licensing is resolved with ashtadhyayi.com; see dge/PENDING.md for the full writeup and admin/ashtadhyayi.html's licence-review tracker."
+  }
+ }
+}

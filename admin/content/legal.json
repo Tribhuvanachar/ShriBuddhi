@@ -1,0 +1,49 @@
+{
+ "_readme": "Editable About/Credits/License/Terms text for the DGE project. Edit inline at admin/legal.html (super-admin → Edit text → publish), or edit this file directly. The reader footer modals (Credits/License/Terms) and the admin/legal.html page both read from here — one source of truth. HTML is allowed in the *_html fields; keep it simple (p, ul, li, a, strong, em).",
+ "version": "1.0",
+ "updated": "2026-09-04",
+ "credits": {
+  "title": "Credits",
+  "intro_html": "<p>The Sarvamūla Digitisation &amp; Educational Project stands on the labour of many digitisation efforts, editors, and scholars. The original Sanskrit texts are, in general, public-domain works of their traditional authors; the <em>digitised, structured, transliterated</em> editions we build on are credited below, and each individual text also records its own specific source and licence on its own page. Descriptive prose we write ourselves — guru biographies, place notes — is composed freshly from multiple accounts: facts are facts, but the wording is our own. We are grateful to all of the following.</p>",
+  "groups": [
+   {"heading": "Dvaita / Mādhva corpus", "items": [
+     "dvaitavedanta.in — Madhva's Sarvamūla granthas, Jayatīrtha's and later ṭīkās (largest single source)",
+     "setutila.in — the Setu Tila edition of the Brahmasūtra-bhāṣya (structural headings &amp; pāṭhāntara notes)",
+     "anandamakaranda.in — Dvādaśastotra and allied devotional texts",
+     "tirthaprabandha.wordpress.com — verse-by-verse Devanāgarī of Vādirāja's Tīrthaprabandha mūla",
+     "madhwafestivals.com — kṣetra / tīrtha identifications for the Tīrtha holy-places database"
+   ]},
+   {"heading": "Viśiṣṭādvaita &amp; Advaita", "items": [
+     "srivaishnavan.com — Rāmānuja corpus, Divya Prabandham, later ācāryas",
+     "advaitasharada.sringeri.net (Śṛṅgeri) — Śaṅkara bhāṣyas and Advaita works"
+   ]},
+   {"heading": "Vedic &amp; pan-Sanskrit corpora", "items": [
+     "Digital Corpus of Sanskrit (DCS) — Oliver Hellwig, 2010–2024 (CC-BY 4.0)",
+     "GRETIL, Göttingen — assorted mūla texts",
+     "github.com/vishvasa/vedAH — Vājasaneya / Mādhyandina / Śatapatha Brāhmaṇa",
+     "sanskritdocuments.org &amp; VedaKosh (Virendra Agarwal); Taittirīya transcription (Muralidhara B. A.)",
+     "Vedic Reserve, Maharishi University; sa.wikisource.org"
+   ]},
+   {"heading": "Vyākaraṇa, Kośa &amp; tools", "items": [
+     "ashtadhyayi.com / ashtadhyayi-com/data — Aṣṭādhyāyī sūtras &amp; bhāṣya",
+     "Dhaval Patel's TEI Siddhānta-Kaumudī; ambuda-org/vidyut (MIT); hrishikeshrt/chanda",
+     "StarDict dictionaries — Bālamanoramā, Kāśikā, Nyāsa, Tattvabodhinī (verified against indic-dict)",
+     "S. C. Vasu, The Aṣṭādhyāyī of Pāṇini (1891, public domain); South Asia Institute OER, UT Austin"
+   ]},
+   {"heading": "Guru Paramparā", "items": [
+     "The community-compiled Madhva Guru Paramparā genealogical table (supplied by the project lead)",
+     "sumadhwaseva.com, uttaradimath.org, vyasarajamatha.org, kashimath.org, partagalimath.org, madhwayati.blogspot.com, madhwasakha.com, shivallibrahmins.com",
+     "B. N. K. Sharma, History of the Dvaita School of Vedānta and Its Literature; Nārāyaṇa Paṇḍitācārya, Sumadhva Vijaya; and Wikipedia for cross-checking dates"
+   ]}
+  ],
+  "outro_html": "<p><strong>AI assistance.</strong> Some optional word-glosses and enrichment are generated with AI on a bring-your-own-key basis; AI output is clearly marked and never replaces the source text.</p><p><strong>Images.</strong> Photographs link to Wikimedia Commons (licence-checked); no images are copied from the sites above.</p><p><em>If you are a rights-holder and see something that needs different credit or removal, please contact us — we'll fix it promptly.</em></p>"
+ },
+ "license": {
+  "title": "License",
+  "html": "<p>The software running this site is open source, under the <a href=\"https://github.com/Tribhuvanachar/bhumandala/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\"><strong>Apache License 2.0</strong></a>.</p><p>The texts themselves come from many different sources — public-domain editions, individually credited open-licence digitisation projects, and original work by this project's own scholars and volunteers. Each text's specific source and licence, where applicable, is recorded with that text rather than repeated here, since it differs work to work. See the <strong>Credits</strong> for the digitisation projects we build upon.</p>"
+ },
+ "terms": {
+  "title": "Terms & Conditions",
+  "html": "<p style=\"color:var(--muted-text);font-style:italic;\">A free, ad-free educational and devotional resource. Version 1 · 4 September 2026.</p><p><strong>1. Purpose.</strong> This site is a non-commercial digital library of Sanskrit philosophical and devotional texts in the Mādhva (Dvaita Vedānta) and allied Vedāntic traditions, offered freely for personal study, teaching, and devotion. There are no ads, no accounts, and nothing is for sale.</p><p><strong>2. Accuracy &amp; “as-is”.</strong> Content is prepared with scholarly care but is provided <strong>as-is, without warranty</strong> of accuracy or completeness. Readings differ across editions and errors can occur; nothing here substitutes for a qualified teacher (guru) or an authoritative printed edition. Please report mistakes — corrections are welcome and applied promptly.</p><p><strong>3. Content &amp; copyright.</strong> The original Sanskrit texts are, in general, public-domain works of their traditional authors. Digitised editions we build upon are credited on the Credits page and on each text's own page, under their respective licences. The software is open source under the Apache License 2.0. Please respect the licences of the underlying sources when you reuse material, and keep attribution intact.</p><p><strong>4. Acceptable use.</strong> You may read, quote, teach from, and share this material for personal, educational, and devotional purposes. The public-domain source texts belong to everyone — reuse them freely, ideally with the same attribution we give. What we ask is narrow and practical: please <strong>(a)</strong> do not place undue automated load on the site (heavy scraping degrades it for readers — ask us if you need a bulk copy, we're glad to help); <strong>(b)</strong> keep source attribution intact; and <strong>(c)</strong> do not present our own original writing (guru biographies, curation, notes) as your own, or use the material to misrepresent the tradition.</p><p><strong>5. AI features.</strong> Optional study tools may use AI on a bring-your-own-key basis. AI-generated glosses and explanations are aids only, may be wrong, and are not authoritative statements of doctrine. Your API key stays in your own browser and is never sent to us.</p><p><strong>6. Privacy.</strong> We do not require accounts and do not sell data. Your notes, bookmarks, settings, and any API key are stored <strong>locally in your browser</strong>, not on our servers.</p><p><strong>7. Names &amp; affiliation.</strong> Names of maṭhas, ācāryas, and institutions are used for identification and scholarship only. This project is an independent volunteer effort and does not claim official endorsement by any maṭha or institution unless explicitly stated.</p><p><strong>8. Changes &amp; contact.</strong> These terms may be updated as the project grows; the current version always governs. Questions, corrections, or takedown requests: use the <strong>Contact Us</strong> link.</p><p style=\"margin-top:10px;\"><em>Offered in the spirit of jñāna-dāna (the gift of knowledge) and seva. ॥ हरिः सर्वोत्तमः · वायुः जीवोत्तमः ॥</em></p>"
+ }
+}

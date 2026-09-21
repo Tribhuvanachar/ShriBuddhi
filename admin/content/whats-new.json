@@ -1,0 +1,89 @@
+{
+  "_readme": [
+    "What's New and Coming Soon, as the reader sees them.",
+    "",
+    "Read by dge/js/modals.js each time the panel is opened, with no caching — so",
+    "publishing an update is an edit to this file, not a code change, and a visitor",
+    "who already has the site open sees it the next time they look.",
+    "",
+    "  enabled       false hides the panel entirely.",
+    "  updates[]     { date: \"YYYY-MM-DD\", title, description }. Sorted newest",
+    "                first by the reader; the order here does not matter.",
+    "  comingSoon[]  { title, description }. Shown in the order given, since a",
+    "                roadmap has no dates to sort by.",
+    "",
+    "Keep descriptions to a sentence or two — this is a panel, not a changelog."
+  ],
+  "enabled": true,
+  "updates": [
+    {
+      "date": "2026-08-09",
+      "title": "Vishnu Smriti added",
+      "description": "विष्णुस्मृतिः — 97 adhyayas, 2,363 verses, newly live."
+    },
+    {
+      "date": "2026-08-09",
+      "title": "Ramayana, Mahabharata, Bhagavata Purana added",
+      "description": "Valmiki Ramayana (7 kandas), Mahabharata (18 parvas), Srimad Bhagavata Purana (12 skandhas) — all now live, native Devanagari."
+    },
+    {
+      "date": "2026-08-09",
+      "title": "4 smritis + 4 kavyas added",
+      "description": "Manu, Parashara, Yajnavalkya, Narada Smriti; Raghuvamsha, Kumarasambhava, Kiratarjuniya, Shishupalavadha."
+    },
+    {
+      "date": "2026-08-08",
+      "title": "Guru Parampara launched",
+      "description": "210 figures across 19 Madhva/Dvaita lineages — 2D tree, 3D showcase, data-completeness tracker. Find it under the 🧭 Explore menu."
+    },
+    {
+      "date": "2026-08-08",
+      "title": "Tirtha Prabandha launched",
+      "description": "95 holy places from Sri Vadiraja Tirtha's pilgrimage compendium, searchable and verse-referenced."
+    },
+    {
+      "date": "2026-08-08",
+      "title": "Ashtadhyayi launched",
+      "description": "Panini's 3,962 sutras with 4 commentary layers (Kashika, Nyasa, Balamanorama, Tattvabodhini) and a BYOK AI tutor."
+    },
+    {
+      "date": "2026-08-08",
+      "title": "Kosha (dictionary lookup) launched",
+      "description": "Multilingual Sanskrit dictionary search — floating कोश button, sample of 10 dictionaries live."
+    }
+  ],
+  "comingSoon": [
+    {
+      "title": "Harivamsha",
+      "description": "Blocked on a GRETIL page-format fix — its source page structure doesn't match the current parser yet."
+    },
+    {
+      "title": "Full Kosha dataset",
+      "description": "Growing from the current ~63 MB sample toward the full ~436 MB / 503,000-headword set."
+    },
+    {
+      "title": "Missing Ashtadhyayi commentary layers",
+      "description": "Siddhanta-Kaumudi, Mahabhashya (Patanjali), and Vasu's English translation — UI slots are already there, waiting on the content."
+    },
+    {
+      "title": "Pada-cheda and anvaya for Ashtadhyayi",
+      "description": "Word-splitting and prose-order display for each sutra."
+    },
+    {
+      "title": "Images for holy places",
+      "description": "Brindavana photos (Guru Parampara) and tirtha-kshetra photos (Tirtha Prabandha)."
+    },
+    {
+      "title": "Dasa Parampara lineage",
+      "description": "A 20th lineage to add alongside the 19 already tracked in Guru Parampara."
+    },
+    {
+      "title": "Nearest holy place finder",
+      "description": "Location-based lookup across both Tirtha Prabandha and Guru Parampara brindavanas."
+    },
+    {
+      "title": "Global corpus search",
+      "description": "Sandhi/spelling-tolerant search across everything in the library, re-indexed to include recent additions."
+    }
+  ]
+}

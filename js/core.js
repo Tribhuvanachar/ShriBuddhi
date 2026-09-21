@@ -282,6 +282,20 @@ const DGE_LEGACY_SLUGS = {
   'vedanga/jyotisha':                 'vedanga/jyotisha/mula'
 };
 
+// Upgrading must be IDEMPOTENT: upgrade(upgrade(x)) === upgrade(x).
+//
+// Two of these rules rename a folder into a leaf BELOW itself --
+// 'vedanga/nirukta' -> 'vedanga/nirukta/mula'. The prefix test then matched
+// the upgraded slug all over again, because 'vedanga/nirukta/mula' does
+// start with 'vedanga/nirukta/', and the leaf was appended a second time.
+// Every link to the Nirukta and the Jyotisha asked the server for
+// data/vedanga/nirukta/mula/mula/data.json, got a 404, and showed the reader
+// "Data Not Found" -- two of the six Vedangas unreachable, behind a rule
+// whose whole purpose was to make them reachable. Found by the render sweep
+// of all 1,306 granthas, 21 Sep 2026.
+//
+// A slug already sitting at or under its own destination is already
+// upgraded, and is returned untouched.
 window.dgeUpgradeLegacySlug = function (slug) {
   if (!slug) return slug;
   let best = null;
@@ -291,7 +305,9 @@ window.dgeUpgradeLegacySlug = function (slug) {
     }
   });
   if (!best) return slug;
-  return DGE_LEGACY_SLUGS[best] + slug.slice(best.length);
+  const dest = DGE_LEGACY_SLUGS[best];
+  if (slug === dest || slug.indexOf(dest + '/') === 0) return slug;
+  return dest + slug.slice(best.length);
 };
 const dgeUpgradeLegacySlug = window.dgeUpgradeLegacySlug;
 
