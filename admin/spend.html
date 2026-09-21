@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script src="../js/vandana-guard.js?v=2"></script>
+<script src="../js/admin-gate.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What the OCR cost · DGE</title>
+<!--
+  Every rupee this project has spent on an OCR or LLM engine, per book, with
+  the failures named and priced.
+
+  Reads admin/config/spend_report.json, written by tools/spend_report.py from
+  three sources it keeps separate: the cost ledger (money), the harvested
+  staging receipts (what the engines actually did), and the missing-pages
+  file. Nothing here is typed in by hand.
+
+  Layered on purpose. The top answers "what have we spent and what did we
+  lose"; an engine opens its books; a book opens its batches, its failures
+  and its source scan. Page furniture like tokens and job ids lives at the
+  deepest level, where someone chasing a specific charge will look for it.
+
+  Design tokens are lifted from admin/corpus-status.html so this sits in the
+  same visual system. Colour is status-only -- good / caution / bad -- and
+  every status carries a word as well as a colour. The magnitude bars are a
+  single hue: they encode size, and the engine's NAME carries its identity,
+  so no categorical palette is introduced and none needs validating.
+-->
+<style>
+  :root{--bg:#f5efe4;--panel:#fffdf8;--panel2:#fbf4e7;--ink:#2b2117;--muted:#8b7c66;--line:#e6dac6;
+    --accent:#9a3b1b;--accent2:#1f6f5c;--gold:#b6862c;
+    --ok:#2f9e6f;--part:#c98a2b;--pend:#b9ab90;--bad:#b3402c;
+    --bar:#9a3b1b;--barbg:#efe4d2;
+    --shadow:0 2px 16px rgba(90,60,20,.10);--radius:14px}
+  body.dark{--bg:#14161c;--panel:#1b1f27;--panel2:#20242f;--ink:#e9e3d5;--muted:#98a0b2;--line:#2b3140;
+    --accent:#e0794b;--accent2:#5bb894;--gold:#e0b25a;
+    --ok:#5bb894;--part:#e0b25a;--pend:#5a5f6b;--bad:#ef8a72;
+    --bar:#e0794b;--barbg:#2b3140;--shadow:0 6px 26px rgba(0,0,0,.4)}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.5;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif;transition:.3s}
+  header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);
+    backdrop-filter:blur(9px);border-bottom:1px solid var(--line)}
+  .bar{max-width:1180px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .brand{font-weight:700}.brand small{color:var(--muted);font-weight:400}.spacer{flex:1}
+  .btn{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:7px 12px;
+    cursor:pointer;color:var(--ink);font:inherit;font-size:13px}
+  .btn[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+  main{max-width:1180px;margin:0 auto;padding:16px 14px 90px}
+  h2{font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);
+    font-weight:600;margin:30px 0 10px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .tile{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px 16px;box-shadow:var(--shadow)}
+  .tile .k{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+  .tile .v{font-size:27px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+  .tile .s{font-size:12.5px;color:var(--muted);margin-top:3px}
+  .v.good{color:var(--ok)}.v.warn{color:var(--part)}.v.bad{color:var(--bad)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600;
+    cursor:pointer;user-select:none;white-space:nowrap}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  tr.work{cursor:pointer}
+  tr.work:hover{background:var(--panel2)}
+  .meter{height:7px;background:var(--barbg);border-radius:4px;overflow:hidden;min-width:70px}
+  .meter>i{display:block;height:100%;background:var(--bar);border-radius:4px}
+  .pill{display:inline-block;font-size:11.5px;padding:1px 8px;border-radius:999px;
+    border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+  .pill.ok{color:var(--ok);border-color:color-mix(in srgb,var(--ok) 40%,var(--line))}
+  .pill.warn{color:var(--part);border-color:color-mix(in srgb,var(--part) 40%,var(--line))}
+  .pill.bad{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 40%,var(--line))}
+  .detail{background:var(--panel2)}
+  .detail td{padding:12px 14px}
+  .sub{font-size:12.5px;color:var(--muted)}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-size:13px;margin:6px 0 12px}
+  .kv dt{color:var(--muted)}
+  .kv dd{margin:0;font-variant-numeric:tabular-nums;word-break:break-all}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;
+    background:var(--barbg);padding:1px 5px;border-radius:5px}
+  .gaps li{margin-bottom:7px;font-size:13.5px}
+  a{color:var(--accent)}
+  .empty{color:var(--muted);font-style:italic;padding:12px 0}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <div class="brand">What the OCR cost <small id="asof"></small></div>
+  <div class="spacer"></div>
+  <button class="btn" id="theme" type="button">◑ Theme</button>
+</div></header>
+
+<main>
+  <h2>Everything, at a glance</h2>
+  <div class="tiles" id="hero"></div>
+
+  <h2>By engine</h2>
+  <div class="card"><table id="engines"><thead><tr>
+    <th>Engine</th><th class="n">Spent</th><th>Share</th><th class="n">Pages billed</th>
+    <th class="n">Per page</th><th class="n">Batches</th><th class="n">Refused</th><th class="n">Server error</th>
+  </tr></thead><tbody></tbody></table></div>
+
+  <h2>By book <span class="sub" id="filterNote"></span></h2>
+  <div class="bar" style="padding:0 0 10px 0">
+    <button class="btn" data-eng="" aria-pressed="true" type="button">All engines</button>
+    <button class="btn" data-eng="sarvam" type="button">Sarvam</button>
+    <button class="btn" data-eng="vision" type="button">Vision</button>
+    <button class="btn" data-eng="gemini" type="button">Gemini</button>
+    <div class="spacer"></div>
+    <span class="sub">Click any row for its batches, failures and scan.</span>
+  </div>
+  <div class="card"><table id="works"><thead><tr>
+    <th data-k="group">Book</th><th class="n" data-k="inr">Spent</th>
+    <th class="n" data-k="pages_billed">Pages</th><th class="n" data-k="pages_failed">Failed</th>
+    <th class="n" data-k="staged_files">Volumes</th><th class="n" data-k="span_minutes">Span</th>
+    <th>State</th>
+  </tr></thead><tbody></tbody></table></div>
+  <div class="sub" style="margin:-6px 0 0 2px">Span is first staged file to last, idle time included —
+    not processing time. Nothing run before 21&nbsp;Sep&nbsp;2026 recorded a real duration.</div>
+
+  <h2>Does the ledger account for everything?</h2>
+  <div class="card" id="recon"></div>
+
+  <h2>What these numbers cannot tell you</h2>
+  <div class="card"><ul class="gaps" id="gaps"></ul></div>
+</main>
+
+<script>
+const F = new Intl.NumberFormat('en-IN');
+const inr = v => '₹' + (v||0).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let REP=null, ENG='', SORT={k:'inr',dir:-1};
+
+function mins(m){
+  if(m==null) return '—';
+  if(m<60) return m.toFixed(0)+' min';
+  const h=Math.floor(m/60), r=Math.round(m%60);
+  return h+'h'+(r?' '+r+'m':'');
+}
+
+function hero(){
+  const g=REP.grand, e=REP.engines;
+  const tiles=[
+    ['Total spent', inr(g.inr), F.format(g.pages_billed)+' pages across '+g.works+' books',''],
+    ['Confirmed lost', inr(g.confirmed_lost_inr), 'nothing was paid for and not delivered','good'],
+    ['At risk', inr(g.at_risk_inr), F.format(g.pages_server_error)+' pages lost to a server error — only Sarvam can say if these metered', g.at_risk_inr>0?'warn':''],
+    ['Costs to finish', inr(g.recoverable_by_rerun_inr), F.format(g.pages_refused)+' pages refused when the balance ran dry — never billed, still to do',''],
+  ];
+  document.getElementById('hero').innerHTML = tiles.map(([k,v,s,c])=>
+    `<div class="tile"><div class="k">${esc(k)}</div><div class="v ${c}">${esc(v)}</div><div class="s">${esc(s)}</div></div>`).join('');
+}
+
+function engines(){
+  const e=REP.engines, max=Math.max(...Object.values(e).map(t=>t.inr),1);
+  document.querySelector('#engines tbody').innerHTML = Object.entries(e)
+    .sort((a,b)=>b[1].inr-a[1].inr).map(([k,t])=>`<tr>
+      <td><strong>${esc(k)}</strong></td>
+      <td class="n">${inr(t.inr)}</td>
+      <td><div class="meter" title="${esc(inr(t.inr))}"><i style="width:${(100*t.inr/max).toFixed(1)}%"></i></div></td>
+      <td class="n">${F.format(t.pages_billed)}</td>
+      <td class="n">${t.inr_per_page!=null?'₹'+t.inr_per_page.toFixed(3):'—'}</td>
+      <td class="n">${F.format(t.batches)}</td>
+      <td class="n">${t.pages_refused?`<span class="pill">${F.format(t.pages_refused)} not billed</span>`:'—'}</td>
+      <td class="n">${t.pages_server_error?`<span class="pill warn">${F.format(t.pages_server_error)} unconfirmed</span>`:'—'}</td>
+    </tr>`).join('');
+}
+
+function rows(){
+  const byWork = Object.fromEntries(REP.works.map(w=>[w.work,w]));
+  let gs = REP.groups.slice();
+  if(ENG) gs = gs.filter(g=>g.works.some(n=>{
+    const w=byWork[n]; if(!w) return false;
+    return Object.keys(w.engines).some(k=>k.includes(ENG)) || w.failures.some(f=>f.engine.includes(ENG));
+  }));
+  const k=SORT.k;
+  gs.sort((a,b)=>{
+    let x=a[k], y=b[k];
+    if(x==null)x=-1; if(y==null)y=-1;
+    return (typeof x==='string'?x.localeCompare(y):x-y)*SORT.dir;
+  });
+  document.getElementById('filterNote').textContent = ENG?('— '+ENG+' only, '+gs.length+' books'):('— '+gs.length+' books');
+  document.querySelector('#works tbody').innerHTML = gs.map((g,i)=>{
+    const st = g.pages_server_error ? '<span class="pill warn">billing unconfirmed</span>'
+             : g.pages_refused ? '<span class="pill">pages still to run</span>'
+             : '<span class="pill ok">complete</span>';
+    const vols = g.works.map(n=>byWork[n]).filter(Boolean);
+    const inner = vols.length>1 || vols[0]?.work!==g.group
+      ? `<div class="sub" style="margin-bottom:6px"><strong>${vols.length} staging branch(es)</strong></div>`+
+        vols.sort((a,b)=>b.inr-a.inr).map((w,j)=>
+          `<details><summary style="cursor:pointer;padding:4px 0">
+             <code>${esc(w.work)}</code> — ${w.inr?inr(w.inr):'nothing billed'} ·
+             ${F.format(w.pages_billed)} pages${w.pages_failed?` · <span class="pill warn">${F.format(w.pages_failed)} failed</span>`:''}
+           </summary><div style="padding:6px 0 14px 10px">${detail(w)}</div></details>`).join('')
+      : detail(vols[0]);
+    return `<tr class="work" data-i="${i}">
+      <td>${esc(g.group)}</td>
+      <td class="n">${g.inr?inr(g.inr):'—'}</td>
+      <td class="n">${F.format(g.pages_billed)}</td>
+      <td class="n">${g.pages_failed?F.format(g.pages_failed):'—'}</td>
+      <td class="n">${F.format(g.works.length)}</td>
+      <td class="n sub">${mins(g.span_minutes)}</td>
+      <td>${st}</td>
+    </tr><tr class="detail" id="d${i}" hidden><td colspan="7">${inner}</td></tr>`;
+  }).join('') || '<tr><td colspan="7" class="empty">Nothing recorded for this engine.</td></tr>';
+}
+
+function recon(){
+  const r=REP.reconciliation; if(!r) return;
+  const clean = !r.pages_unledgered && !r.pages_overledgered;
+  let h = `<div class="tiles" style="margin-bottom:${clean?0:12}px">
+    <div class="tile"><div class="k">Pages in the staging branches</div>
+      <div class="v">${F.format(r.staged_pages)}</div></div>
+    <div class="tile"><div class="k">Pages the ledger charges for</div>
+      <div class="v">${F.format(r.ledger_pages)}</div></div>
+    <div class="tile"><div class="k">Unaccounted</div>
+      <div class="v ${clean?'good':'bad'}">${F.format(r.pages_unledgered+r.pages_overledgered)}</div>
+      <div class="s">${clean?'every staged page has a ledger row':'pages staged with no ledger row, or charged with no staged file'}</div></div>
+  </div>`;
+  if(!clean){
+    const rowsOf = (list,label) => list.length ? `<div class="sub" style="margin:10px 0 4px"><strong>${label}</strong></div>
+      <table><thead><tr><th>Book</th><th>Engine</th><th class="n">Pages</th></tr></thead><tbody>`+
+      list.slice(0,40).map(x=>`<tr><td class="sub"><code>${esc(x.work)}</code></td><td>${esc(x.engine)}</td><td class="n">${F.format(x.pages)}</td></tr>`).join('')+
+      `</tbody></table>` : '';
+    h += rowsOf(r.staged_not_in_ledger,'Staged but never charged for')
+       + rowsOf(r.in_ledger_not_staged,'Charged for but not in staging');
+  }
+  document.getElementById('recon').innerHTML=h;
+}
+
+function detail(w){
+  const src = w.source_pdf ? `<a href="${esc(w.source_pdf)}" rel="noopener">the scan</a>` : '<span class="sub">not recorded</span>';
+  let h = `<dl class="kv">
+    <dt>Source scan</dt><dd>${src}${w.pdf_pages?` · ${F.format(w.pdf_pages)} pages`:''}</dd>
+    <dt>Staged files</dt><dd>${F.format(w.staged_files)}</dd>
+    <dt>First → last</dt><dd>${esc(w.first_seen||'—')} → ${esc(w.last_seen||'—')} <span class="sub">(span ${mins(w.span_minutes)}, idle time included)</span></dd>
+    <dt>Processing time</dt><dd>${w.processing_seconds!=null?mins(w.processing_seconds/60):'<span class="sub">not recorded — no per-job timings before 21 Sep 2026</span>'}</dd>
+    ${w.tokens_in||w.tokens_out?`<dt>Tokens</dt><dd>${F.format(w.tokens_in)} in · ${F.format(w.tokens_out)} out</dd>`:''}
+  </dl>`;
+
+  if(w.batches.length){
+    h += `<div class="sub" style="margin-bottom:4px"><strong>Batches billed</strong></div><table><thead><tr>
+      <th>When</th><th>Engine</th><th class="n">Pages</th><th class="n">Cost</th><th>Model</th><th>Note</th>
+      </tr></thead><tbody>` + w.batches.map(b=>`<tr>
+      <td>${esc((b.at||'').replace('T',' ').replace('Z',''))}</td><td>${esc(b.engine)}</td>
+      <td class="n">${F.format(b.pages)}</td><td class="n">${inr(b.inr)}</td>
+      <td class="sub">${esc(b.model||'—')}</td>
+      <td class="sub">${b.run_url?`<a href="${esc(b.run_url)}" rel="noopener">run</a> · `:''}${esc((b.note||'').slice(0,90))}</td>
+      </tr>`).join('') + `</tbody></table>`;
+  }
+
+  if(w.failures.length){
+    h += `<div class="sub" style="margin:12px 0 4px"><strong>Failures</strong></div><table><thead><tr>
+      <th>File</th><th class="n">Pages</th><th>What the engine said</th><th>What it means for the money</th>
+      </tr></thead><tbody>` + w.failures.map(f=>`<tr>
+      <td class="sub"><code>${esc(f.file)}</code></td><td class="n">${F.format(f.pages)}</td>
+      <td class="sub">${esc(f.error)}</td>
+      <td>${f.kind==='server_error'?'<span class="pill warn">':'<span class="pill">'}${esc(f.meaning)}</span></td>
+      </tr>`).join('') + `</tbody></table>`;
+  }
+
+  const jr = w.job_receipts||[];
+  if(jr.length){
+    h += `<div class="sub" style="margin:12px 0 4px"><strong>Job receipts</strong> — quotable back to the vendor</div><table><thead><tr>
+      <th>Job id</th><th>Pages</th><th>Status</th><th class="n">Seconds</th><th>When</th>
+      </tr></thead><tbody>` + jr.map(r=>`<tr>
+      <td><code>${esc(r.job_id||'—')}</code></td><td class="n">${esc((r.pages||[]).join('–'))}</td>
+      <td>${esc(r.status)}</td><td class="n">${esc(r.seconds)}</td>
+      <td class="sub">${esc((r.at||'').replace('T',' ').replace('Z',''))}</td>
+      </tr>`).join('') + `</tbody></table>`;
+  } else {
+    h += `<div class="sub" style="margin-top:12px">No job receipts. Sarvam's job id was logged and
+      discarded for everything run before 21 Sep 2026, so no charge here can be named back to them.</div>`;
+  }
+  return h;
+}
+
+document.addEventListener('click', ev=>{
+  const tr = ev.target.closest && ev.target.closest('tr.work');
+  if(tr){ const d=document.getElementById('d'+tr.dataset.i); if(d) d.hidden=!d.hidden; return; }
+  const b = ev.target.closest && ev.target.closest('[data-eng]');
+  if(b){ ENG=b.dataset.eng;
+    document.querySelectorAll('[data-eng]').forEach(x=>x.setAttribute('aria-pressed', x===b?'true':'false'));
+    rows(); }
+});
+document.querySelector('#works thead').addEventListener('click', ev=>{
+  const th=ev.target.closest('th[data-k]'); if(!th) return;
+  const k=th.dataset.k;
+  SORT = {k, dir: SORT.k===k ? -SORT.dir : (k==='work'?1:-1)};
+  rows();
+});
+document.getElementById('theme').onclick=()=>{
+  document.body.classList.toggle('dark');
+  try{localStorage.setItem('dge_admin_theme',document.body.classList.contains('dark')?'dark':'light');}catch(e){}
+};
+try{ if(localStorage.getItem('dge_admin_theme')==='dark') document.body.classList.add('dark'); }catch(e){}
+
+fetch('config/spend_report.json?v='+Date.now()).then(r=>r.json()).then(j=>{
+  REP=j;
+  document.getElementById('asof').textContent='· as of '+(j.generated_at||'').replace('T',' ').replace('Z','');
+  document.getElementById('gaps').innerHTML=(j.gaps||[]).map(g=>`<li>${esc(g)}</li>`).join('');
+  hero(); engines(); rows(); recon();
+}).catch(e=>{
+  document.getElementById('hero').innerHTML='<div class="tile"><div class="k">Not loaded</div><div class="v bad">—</div><div class="s">Run <code>python3 tools/spend_report.py</code> first.</div></div>';
+});
+</script>
+</body>
+</html>

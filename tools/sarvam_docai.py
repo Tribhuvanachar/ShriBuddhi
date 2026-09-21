@@ -175,7 +175,23 @@ def multipart(fields: dict, file_field: str, path: str) -> tuple[bytes, str]:
     return body.getvalue(), f"multipart/form-data; boundary={boundary}"
 
 
-def digitise(pdf_slice: str, language: str, fmt: str, key: str, poll=6, max_wait=900) -> tuple[dict, bytes]:
+class SarvamJobError(RuntimeError):
+    """A failure that still knows which job it was, so the receipt can name it."""
+
+    def __init__(self, message, job_id=""):
+        super().__init__(message)
+        self.job_id = job_id
+
+
+def digitise(pdf_slice: str, language: str, fmt: str, key: str, poll=6, max_wait=900) -> tuple[dict, bytes, str]:
+    """Returns (status, payload, job_id).
+
+    The job id is Sarvam's own handle on the work, and the only thing we
+    could quote back to them: to ask what became of a chunk, whether a job
+    that ended in a 500 was metered, or to claim pages billed and never
+    delivered. It was written to the log and then dropped, so not one of the
+    20,452 pages billed in September can be named to them today.
+    """
     data, ctype = multipart({"language": language, "output_format": fmt}, "file", pdf_slice)
     _, body = http("POST", f"{API}/digitise", key, data=data, headers={"Content-Type": ctype})
     job = json.loads(body)
@@ -195,7 +211,7 @@ def digitise(pdf_slice: str, language: str, fmt: str, key: str, poll=6, max_wait
             break
     st = str(status.get("status", "")).lower()
     if st in ("failed", "rejected"):
-        raise RuntimeError(f"job {jid} {st}: {json.dumps(status)[:300]}")
+        raise SarvamJobError(f"job {jid} {st}: {json.dumps(status)[:300]}", jid)
     _, db = http("GET", f"{API}/{jid}/download-url", key)
     d = json.loads(db)
     url = d.get("download_url") or d.get("url")
@@ -203,7 +219,7 @@ def digitise(pdf_slice: str, language: str, fmt: str, key: str, poll=6, max_wait
         raise RuntimeError(f"no download url: {db[:200]!r}")
     with urllib.request.urlopen(url, timeout=300) as r:
         payload = r.read()
-    return status, payload
+    return status, payload, jid
 
 
 #: Sarvam's own layout vocabulary, mapped onto the block tags the studio and
@@ -380,6 +396,11 @@ def main() -> int:
         "engine": "sarvam-docai", "language": args.language, "format": args.format,
         "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "usage": {"pages_total": 0, "pages_succeeded": 0, "pages_failed": 0, "jobs": 0},
+        # One row per job: what we asked for, what Sarvam called it, how long
+        # it took and how it ended. This is the receipt, and the only record
+        # that can be quoted back to Sarvam about one specific chunk.
+        "receipts": [],
+        "started_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "pages": [],
     }
     for i, sl in enumerate(slices, 1):
@@ -387,9 +408,19 @@ def main() -> int:
         part = os.path.join(tmpdir, f"slice_{first}-{last}.pdf")
         slice_pdf(pdf, first, last, part)
         log(f"[{i}/{len(slices)}] pages {first}-{last}")
+        t0 = time.time()
         try:
-            status, payload = digitise(part, args.language, args.format, key)
+            status, payload, jid = digitise(part, args.language, args.format, key)
             u = status.get("usage") or {}
+            result["receipts"].append({
+                "job_id": jid, "pages": [first, last], "page_count": len(sl),
+                "status": str(status.get("status") or "completed"),
+                "seconds": round(time.time() - t0, 1),
+                "at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                "pages_succeeded": int(u.get("pages_succeeded") or len(sl)),
+                "pages_failed": int(u.get("pages_failed") or 0),
+                "error": "",
+            })
             result["usage"]["pages_total"] += int(u.get("pages_total") or len(sl))
             result["usage"]["pages_succeeded"] += int(u.get("pages_succeeded") or len(sl))
             result["usage"]["pages_failed"] += int(u.get("pages_failed") or 0)
@@ -397,6 +428,14 @@ def main() -> int:
             result["pages"].extend(unpack(payload, args.format, sl))
         except Exception as exc:  # noqa: BLE001
             log(f"  failed: {exc}")
+            result["receipts"].append({
+                "job_id": getattr(exc, "job_id", ""), "pages": [first, last],
+                "page_count": len(sl), "status": "failed",
+                "seconds": round(time.time() - t0, 1),
+                "at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                "pages_succeeded": 0, "pages_failed": len(sl),
+                "error": str(exc)[:200],
+            })
             result["usage"]["pages_failed"] += len(sl)
             result["pages"].extend({"page": p, "ok": False, "error": str(exc)[:200]} for p in sl)
             # A 402 is the prepaid balance being empty. It will not come back

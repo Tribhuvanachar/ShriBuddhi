@@ -1,0 +1,7224 @@
+{
+ "_readme": [
+  "Every staged OCR file this project holds, read off the ocr-staging branches",
+  "themselves on 21 Sep 2026 by tools/harvest_ocr_receipts.py -- not from",
+  "workflow exit codes, which reported success over 5,342 pages that were",
+  "refused. One row per staged file: which engine, which source PDF, when it",
+  "was written, what its own usage block claims, and every page-level error.",
+  "",
+  "'receipts' is empty for every row here and will not be empty again. Sarvam",
+  "returns a job_id for each chunk and sarvam_docai.py logged it and dropped",
+  "it, so none of the 20,452 pages billed in September can be named back to",
+  "Sarvam. From 21 Sep the job id, its duration and its outcome are written",
+  "into the staged file."
+ ],
+ "harvested_on": "2026-09-21",
+ "works": {
+  "108_upanishad_sarvas__narasimha_1_ttd_kannada": [
+   {
+    "file": "sarvam_pages208-407.json",
+    "bytes": 1166654,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/108-upanishad-sarvasva-ed.-bharagava-narasimha-volume-1-ttd-kannada/108%20Upanishad%20Sarvasva%20Ed.%20Bharagava%20Narasimha%20Volume%201%20%20TTD%20%28Kannada%29.pdf",
+    "pdf_pages": 606,
+    "generated_at": "2026-09-18T14:48:14Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages408-606.json",
+    "bytes": 1127346,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/108-upanishad-sarvasva-ed.-bharagava-narasimha-volume-1-ttd-kannada/108%20Upanishad%20Sarvasva%20Ed.%20Bharagava%20Narasimha%20Volume%201%20%20TTD%20%28Kannada%29.pdf",
+    "pdf_pages": 606,
+    "generated_at": "2026-09-18T14:48:32Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 199,
+     "pages_succeeded": 199,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 199,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages8-207.json",
+    "bytes": 1158273,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/108-upanishad-sarvasva-ed.-bharagava-narasimha-volume-1-ttd-kannada/108%20Upanishad%20Sarvasva%20Ed.%20Bharagava%20Narasimha%20Volume%201%20%20TTD%20%28Kannada%29.pdf",
+    "pdf_pages": 606,
+    "generated_at": "2026-09-18T11:17:45Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-606.json",
+    "bytes": 12192358,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 606,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "aitereya_upanisad_bh__ommentary_bhagavantaraya": [
+   {
+    "file": "sarvam_pages10-209.json",
+    "bytes": 749617,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/aitereya-upanisad-bhashaya-of-madhvacharya-with-bhavapradipa-commentary-of-bhagavantaraya/SRIMANMAHAITAREYOPANISHADBHASHYAM-%20BHAVAPRADIPA%20TIPPANI-PPVP.pdf",
+    "pdf_pages": 1003,
+    "generated_at": "2026-09-18T11:14:32Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages210-409.json",
+    "bytes": 769831,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/aitereya-upanisad-bhashaya-of-madhvacharya-with-bhavapradipa-commentary-of-bhagavantaraya/SRIMANMAHAITAREYOPANISHADBHASHYAM-%20BHAVAPRADIPA%20TIPPANI-PPVP.pdf",
+    "pdf_pages": 1003,
+    "generated_at": "2026-09-18T14:44:11Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 190,
+     "pages_succeeded": 190,
+     "pages_failed": 10,
+     "jobs": 19
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 500: Internal Server Error": 10
+    }
+   },
+   {
+    "file": "sarvam_pages410-609.json",
+    "bytes": 794602,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/aitereya-upanisad-bhashaya-of-madhvacharya-with-bhavapradipa-commentary-of-bhagavantaraya/SRIMANMAHAITAREYOPANISHADBHASHYAM-%20BHAVAPRADIPA%20TIPPANI-PPVP.pdf",
+    "pdf_pages": 1003,
+    "generated_at": "2026-09-18T14:46:38Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages610-809.json",
+    "bytes": 782297,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/aitereya-upanisad-bhashaya-of-madhvacharya-with-bhavapradipa-commentary-of-bhagavantaraya/SRIMANMAHAITAREYOPANISHADBHASHYAM-%20BHAVAPRADIPA%20TIPPANI-PPVP.pdf",
+    "pdf_pages": 1003,
+    "generated_at": "2026-09-18T14:46:42Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages810-1003.json",
+    "bytes": 918671,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/aitereya-upanisad-bhashaya-of-madhvacharya-with-bhavapradipa-commentary-of-bhagavantaraya/SRIMANMAHAITAREYOPANISHADBHASHYAM-%20BHAVAPRADIPA%20TIPPANI-PPVP.pdf",
+    "pdf_pages": 1003,
+    "generated_at": "2026-09-18T14:46:42Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 194,
+     "pages_succeeded": 194,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 194,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-1003.json",
+    "bytes": 12109073,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 1003,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "aitereya_upanisad_bh__taries_visvesvara_tirtha": [
+   {
+    "file": "sarvam_pages206-325.json",
+    "bytes": 588892,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/aitereya-upanisad-bhashaya-of-madhvacharya-with-commentaries-of-visvesvara-tirtha/Aitereya%20Upanisad%20Bhashays%20of%20Madhva%2C%20Visvesvara%20Tirtha%2C%20Mantra%20Artha%20Sangra%20of%20Raghavendra%20Tirtha%20Ed.%20Vyasanakere%20Prabhanjanacharya.pdf",
+    "pdf_pages": 325,
+    "generated_at": "2026-09-18T14:46:42Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 120,
+     "pages_succeeded": 120,
+     "pages_failed": 0,
+     "jobs": 12
+    },
+    "receipts": [],
+    "page_entries": 120,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages6-205.json",
+    "bytes": 973898,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/aitereya-upanisad-bhashaya-of-madhvacharya-with-commentaries-of-visvesvara-tirtha/Aitereya%20Upanisad%20Bhashays%20of%20Madhva%2C%20Visvesvara%20Tirtha%2C%20Mantra%20Artha%20Sangra%20of%20Raghavendra%20Tirtha%20Ed.%20Vyasanakere%20Prabhanjanacharya.pdf",
+    "pdf_pages": 325,
+    "generated_at": "2026-09-18T11:15:35Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-325.json",
+    "bytes": 5344823,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 325,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "aitereya_upanisad_bh__tha_ratnamala_commentary": [
+   {
+    "file": "sarvam_pages206-405.json",
+    "bytes": 920921,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/aitereya-upanisad-bhashaya-of-madhvacharya-with-bhashyartha-ratnamala-commentary/SRIMAHAITAREYOPANISHAD%20BHASHYAM-BHASHYARTHA%20RATNAMALA%20TIPPANI-PPVP.pdf",
+    "pdf_pages": 601,
+    "generated_at": "2026-09-18T14:46:52Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages406-601.json",
+    "bytes": 892615,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/aitereya-upanisad-bhashaya-of-madhvacharya-with-bhashyartha-ratnamala-commentary/SRIMAHAITAREYOPANISHAD%20BHASHYAM-BHASHYARTHA%20RATNAMALA%20TIPPANI-PPVP.pdf",
+    "pdf_pages": 601,
+    "generated_at": "2026-09-18T14:46:51Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 196,
+     "pages_succeeded": 196,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 196,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages6-205.json",
+    "bytes": 863178,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/aitereya-upanisad-bhashaya-of-madhvacharya-with-bhashyartha-ratnamala-commentary/SRIMAHAITAREYOPANISHAD%20BHASHYAM-BHASHYARTHA%20RATNAMALA%20TIPPANI-PPVP.pdf",
+    "pdf_pages": 601,
+    "generated_at": "2026-09-18T11:15:46Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-601.json",
+    "bytes": 8601035,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 601,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "bhagavata_purnana_sk__guru_murthy_acharya_k_r": [
+   {
+    "file": "sarvam_pages204-403.json",
+    "bytes": 759038,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/bhagavata-purnana-skanda-11-vyakhya-of-yadavendra-yati-ed.-guru-murthy-acharya-k.-r./Bhagavata%20Purnana%20Skanda%2011%20Vyakhya%20of%20Yadavendra%20Yati%20Ed.%20Guru%20Murthy%20Acharya%20K.R..pdf",
+    "pdf_pages": 522,
+    "generated_at": "2026-09-18T14:46:54Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages4-203.json",
+    "bytes": 779730,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/bhagavata-purnana-skanda-11-vyakhya-of-yadavendra-yati-ed.-guru-murthy-acharya-k.-r./Bhagavata%20Purnana%20Skanda%2011%20Vyakhya%20of%20Yadavendra%20Yati%20Ed.%20Guru%20Murthy%20Acharya%20K.R..pdf",
+    "pdf_pages": 522,
+    "generated_at": "2026-09-18T11:16:18Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages404-522.json",
+    "bytes": 410687,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/bhagavata-purnana-skanda-11-vyakhya-of-yadavendra-yati-ed.-guru-murthy-acharya-k.-r./Bhagavata%20Purnana%20Skanda%2011%20Vyakhya%20of%20Yadavendra%20Yati%20Ed.%20Guru%20Murthy%20Acharya%20K.R..pdf",
+    "pdf_pages": 522,
+    "generated_at": "2026-09-18T14:46:57Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 109,
+     "pages_succeeded": 109,
+     "pages_failed": 10,
+     "jobs": 11
+    },
+    "receipts": [],
+    "page_entries": 119,
+    "errors": {
+     "HTTP Error 500: Internal Server Error": 10
+    }
+   },
+   {
+    "file": "vision_pages_1-522.json",
+    "bytes": 6260989,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 522,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "bhagavata_saroddhara": [
+   {
+    "file": "sarvam_pages1-96.json",
+    "bytes": 9662,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/bhagavatasarodharawithcommentary_-_Sri_Vishnutirtha_madanoorBalagaruRuchiracharya/Bhagavata%20Sarodhara%20with%20commentary%20-%20Sri%20Vishnu%20Tirtha%20%28Madanoor%29.pdf",
+    "pdf_pages": 459,
+    "generated_at": "2026-09-18T15:41:52Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 96,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 96,
+    "errors": {
+     "HTTP Error 402: Payment Required": 96
+    }
+   },
+   {
+    "file": "sarvam_pages279-459.json",
+    "bytes": 18033,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/bhagavatasarodharawithcommentary_-_Sri_Vishnutirtha_madanoorBalagaruRuchiracharya/Bhagavata%20Sarodhara%20with%20commentary%20-%20Sri%20Vishnu%20Tirtha%20%28Madanoor%29.pdf",
+    "pdf_pages": 459,
+    "generated_at": "2026-09-18T15:42:15Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 181,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 181,
+    "errors": {
+     "HTTP Error 402: Payment Required": 181
+    }
+   },
+   {
+    "file": "sarvam_pages97-278.json",
+    "bytes": 18123,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/bhagavatasarodharawithcommentary_-_Sri_Vishnutirtha_madanoorBalagaruRuchiracharya/Bhagavata%20Sarodhara%20with%20commentary%20-%20Sri%20Vishnu%20Tirtha%20%28Madanoor%29.pdf",
+    "pdf_pages": 459,
+    "generated_at": "2026-09-18T15:42:05Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 182,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 182,
+    "errors": {
+     "HTTP Error 402: Payment Required": 182
+    }
+   },
+   {
+    "file": "vision_pages_1-459.json",
+    "bytes": 6549271,
+    "engine": "google-vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 459,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "brahma_sutra_dipika_jagannatha_tirtha_panchamukhi": [
+   {
+    "file": "sarvam_pages225-238.json",
+    "bytes": 30677,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1_tY2-eCjIXrO_J2oa4BAO5dUAq7RpYZj",
+    "pdf_pages": 238,
+    "generated_at": "2026-09-18T15:06:21Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 4,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 14,
+    "errors": {
+     "HTTP Error 402: Payment Required": 4
+    }
+   },
+   {
+    "file": "sarvam_pages25-224.json",
+    "bytes": 116626,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1_tY2-eCjIXrO_J2oa4BAO5dUAq7RpYZj",
+    "pdf_pages": 238,
+    "generated_at": "2026-09-18T15:05:50Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 30,
+     "pages_succeeded": 30,
+     "pages_failed": 170,
+     "jobs": 3
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 402: Payment Required": 170
+    }
+   },
+   {
+    "file": "vision_pages_1-238.json",
+    "bytes": 3327047,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 238,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "brhatisahasram_tattvasara_raghunatha_tirtha": [
+   {
+    "file": "sarvam_pages12-211.json",
+    "bytes": 1025650,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/brhatisahasram-with-tattvasara-of-sri-raghunatha-tirtha./BRUHATISAHASRA-RAGHUNATHA%20VIRACHITA%20TATVASARA%20VYAKHYANA.pdf",
+    "pdf_pages": 580,
+    "generated_at": "2026-09-18T11:13:10Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages212-411.json",
+    "bytes": 988359,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/brhatisahasram-with-tattvasara-of-sri-raghunatha-tirtha./BRUHATISAHASRA-RAGHUNATHA%20VIRACHITA%20TATVASARA%20VYAKHYANA.pdf",
+    "pdf_pages": 580,
+    "generated_at": "2026-09-18T14:38:32Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages412-580.json",
+    "bytes": 838584,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/brhatisahasram-with-tattvasara-of-sri-raghunatha-tirtha./BRUHATISAHASRA-RAGHUNATHA%20VIRACHITA%20TATVASARA%20VYAKHYANA.pdf",
+    "pdf_pages": 580,
+    "generated_at": "2026-09-18T11:33:00Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 169,
+     "pages_succeeded": 169,
+     "pages_failed": 0,
+     "jobs": 17
+    },
+    "receipts": [],
+    "page_entries": 169,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-580.json",
+    "bytes": 9845485,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 580,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "chandogya_upanishad__artha_raghavendra_tirtha": [
+   {
+    "file": "sarvam_pages206-360.json",
+    "bytes": 632967,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/chandogya-upanishad-with-khandartha-of-raghavendra-tirtha/CHANDOGYOPANISHAT%20SRIRAGHAVENDRATEERTHA%20VIRACHITA%20KHANDARTHA%20SAHITA-PPVP.pdf",
+    "pdf_pages": 360,
+    "generated_at": "2026-09-18T14:38:39Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 155,
+     "pages_succeeded": 155,
+     "pages_failed": 0,
+     "jobs": 16
+    },
+    "receipts": [],
+    "page_entries": 155,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages6-205.json",
+    "bytes": 777800,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/chandogya-upanishad-with-khandartha-of-raghavendra-tirtha/CHANDOGYOPANISHAT%20SRIRAGHAVENDRATEERTHA%20VIRACHITA%20KHANDARTHA%20SAHITA-PPVP.pdf",
+    "pdf_pages": 360,
+    "generated_at": "2026-09-18T11:13:48Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-360.json",
+    "bytes": 4630515,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 360,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "chandogya_upanishad__commentary_vedesatirtha": [
+   {
+    "file": "sarvam_pages38-237.json",
+    "bytes": 815102,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/chandogya-upanishad-bhashaya-of-madhvacharya-with-padartha-koumudi-commentary-of-sri-vedesatirtha/CHANDOGYOPANISHADBHASHYA-PPVP.pdf",
+    "pdf_pages": 937,
+    "generated_at": "2026-09-18T11:13:55Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages438-637.json",
+    "bytes": 784455,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/chandogya-upanishad-bhashaya-of-madhvacharya-with-padartha-koumudi-commentary-of-sri-vedesatirtha/CHANDOGYOPANISHADBHASHYA-PPVP.pdf",
+    "pdf_pages": 937,
+    "generated_at": "2026-09-18T14:39:13Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages638-837.json",
+    "bytes": 770790,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/chandogya-upanishad-bhashaya-of-madhvacharya-with-padartha-koumudi-commentary-of-sri-vedesatirtha/CHANDOGYOPANISHADBHASHYA-PPVP.pdf",
+    "pdf_pages": 937,
+    "generated_at": "2026-09-18T14:39:13Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages838-937.json",
+    "bytes": 432395,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/chandogya-upanishad-bhashaya-of-madhvacharya-with-padartha-koumudi-commentary-of-sri-vedesatirtha/CHANDOGYOPANISHADBHASHYA-PPVP.pdf",
+    "pdf_pages": 937,
+    "generated_at": "2026-09-18T11:36:36Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 100,
+     "pages_succeeded": 100,
+     "pages_failed": 0,
+     "jobs": 10
+    },
+    "receipts": [],
+    "page_entries": 100,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-937.json",
+    "bytes": 12088729,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 937,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "chandogyopanishadbha__dogya_upanishad_bhashaya": [
+   {
+    "file": "sarvam_pages11-210.json",
+    "bytes": 762711,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/chandogyopanishadbhashyam-vyasateerthara-tippani-umchandogya-upanishad-bhashaya-/CHANDOGYOPANISHADBHASHYAM-%20VYASATEERTHARA%20TIPPANI-UM.pdf",
+    "pdf_pages": 609,
+    "generated_at": "2026-09-18T11:13:21Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages211-410.json",
+    "bytes": 826794,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/chandogyopanishadbhashyam-vyasateerthara-tippani-umchandogya-upanishad-bhashaya-/CHANDOGYOPANISHADBHASHYAM-%20VYASATEERTHARA%20TIPPANI-UM.pdf",
+    "pdf_pages": 609,
+    "generated_at": "2026-09-18T14:39:24Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages411-609.json",
+    "bytes": 814591,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/chandogyopanishadbhashyam-vyasateerthara-tippani-umchandogya-upanishad-bhashaya-/CHANDOGYOPANISHADBHASHYAM-%20VYASATEERTHARA%20TIPPANI-UM.pdf",
+    "pdf_pages": 609,
+    "generated_at": "2026-09-18T11:34:28Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 199,
+     "pages_succeeded": 199,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 199,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-609.json",
+    "bytes": 7511582,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 609,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "giia_vyakhyana_sangr__ntaries_on_bhagavad_gita_v1": [
+   {
+    "file": "sarvam_pages204-403.json",
+    "bytes": 1259188,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-1.pdf",
+    "pdf_pages": 775,
+    "generated_at": "2026-09-18T14:37:26Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages4-203.json",
+    "bytes": 1128110,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-1.pdf",
+    "pdf_pages": 775,
+    "generated_at": "2026-09-18T11:11:37Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages404-603.json",
+    "bytes": 1151769,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-1.pdf",
+    "pdf_pages": 775,
+    "generated_at": "2026-09-18T14:37:43Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 190,
+     "pages_succeeded": 190,
+     "pages_failed": 10,
+     "jobs": 19
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 500: Internal Server Error": 10
+    }
+   },
+   {
+    "file": "sarvam_pages604-775.json",
+    "bytes": 1115687,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-1.pdf",
+    "pdf_pages": 775,
+    "generated_at": "2026-09-18T11:31:16Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 172,
+     "pages_succeeded": 172,
+     "pages_failed": 0,
+     "jobs": 18
+    },
+    "receipts": [],
+    "page_entries": 172,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-775.json",
+    "bytes": 16089987,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 775,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "giia_vyakhyana_sangr__ntaries_on_bhagavad_gita_v2": [
+   {
+    "file": "sarvam_pages204-403.json",
+    "bytes": 1234946,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-2.pdf",
+    "pdf_pages": 937,
+    "generated_at": "2026-09-18T14:37:39Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages4-203.json",
+    "bytes": 1226956,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-2.pdf",
+    "pdf_pages": 937,
+    "generated_at": "2026-09-18T11:11:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages404-603.json",
+    "bytes": 1211863,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-2.pdf",
+    "pdf_pages": 937,
+    "generated_at": "2026-09-18T14:37:47Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages604-803.json",
+    "bytes": 1170249,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-2.pdf",
+    "pdf_pages": 937,
+    "generated_at": "2026-09-18T14:38:07Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages804-937.json",
+    "bytes": 807778,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-2.pdf",
+    "pdf_pages": 937,
+    "generated_at": "2026-09-18T11:31:39Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 134,
+     "pages_succeeded": 134,
+     "pages_failed": 0,
+     "jobs": 14
+    },
+    "receipts": [],
+    "page_entries": 134,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-937.json",
+    "bytes": 19992015,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 937,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "giia_vyakhyana_sangr__ntaries_on_bhagavad_gita_v3": [
+   {
+    "file": "sarvam_pages205-404.json",
+    "bytes": 1318994,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-3.pdf",
+    "pdf_pages": 473,
+    "generated_at": "2026-09-18T14:38:12Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 190,
+     "pages_succeeded": 190,
+     "pages_failed": 10,
+     "jobs": 19
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 500: Internal Server Error": 10
+    }
+   },
+   {
+    "file": "sarvam_pages405-473.json",
+    "bytes": 540551,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-3.pdf",
+    "pdf_pages": 473,
+    "generated_at": "2026-09-18T11:35:03Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 69,
+     "pages_succeeded": 69,
+     "pages_failed": 0,
+     "jobs": 7
+    },
+    "receipts": [],
+    "page_entries": 69,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages5-204.json",
+    "bytes": 1235341,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-3.pdf",
+    "pdf_pages": 473,
+    "generated_at": "2026-09-18T11:12:25Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-473.json",
+    "bytes": 9647110,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 473,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "giia_vyakhyana_sangr__ntaries_on_bhagavad_gita_v4": [
+   {
+    "file": "sarvam_pages204-403.json",
+    "bytes": 1323719,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-4.pdf",
+    "pdf_pages": 638,
+    "generated_at": "2026-09-18T14:38:07Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages4-203.json",
+    "bytes": 1303446,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-4.pdf",
+    "pdf_pages": 638,
+    "generated_at": "2026-09-18T11:12:53Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages404-603.json",
+    "bytes": 1267450,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-4.pdf",
+    "pdf_pages": 638,
+    "generated_at": "2026-09-18T14:38:27Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages604-638.json",
+    "bytes": 208154,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-4.pdf",
+    "pdf_pages": 638,
+    "generated_at": "2026-09-18T14:38:23Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 35,
+     "pages_succeeded": 35,
+     "pages_failed": 0,
+     "jobs": 4
+    },
+    "receipts": [],
+    "page_entries": 35,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-638.json",
+    "bytes": 12832179,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 638,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__10_hks": [
+   {
+    "file": "sarvam_pages2-198.json",
+    "bytes": 760804,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1TWk8VaI4nZdMtFXM7HYZlifQ3VO6Ae7n",
+    "pdf_pages": 198,
+    "generated_at": "2026-09-18T11:17:19Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 197,
+     "pages_succeeded": 197,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 197,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-198.json",
+    "bytes": 2447971,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 198,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__11_hks": [
+   {
+    "file": "sarvam_pages1-200.json",
+    "bytes": 628420,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1g-MhNPIE3GXC8I5TlNNd5_FENHdBEr37",
+    "pdf_pages": 294,
+    "generated_at": "2026-09-18T11:19:20Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 190,
+     "pages_succeeded": 190,
+     "pages_failed": 10,
+     "jobs": 19
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 500: Internal Server Error": 10
+    }
+   },
+   {
+    "file": "sarvam_pages201-294.json",
+    "bytes": 308719,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1g-MhNPIE3GXC8I5TlNNd5_FENHdBEr37",
+    "pdf_pages": 294,
+    "generated_at": "2026-09-18T14:49:18Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 94,
+     "pages_succeeded": 94,
+     "pages_failed": 0,
+     "jobs": 10
+    },
+    "receipts": [],
+    "page_entries": 94,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-294.json",
+    "bytes": 3253724,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 294,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__12_hks": [
+   {
+    "file": "sarvam_pages203-317.json",
+    "bytes": 426595,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=17QatIPxIAUmFp-GrAAIf9q7x6c9jAvkV",
+    "pdf_pages": 317,
+    "generated_at": "2026-09-18T14:49:00Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 115,
+     "pages_succeeded": 115,
+     "pages_failed": 0,
+     "jobs": 12
+    },
+    "receipts": [],
+    "page_entries": 115,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages3-202.json",
+    "bytes": 691917,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=17QatIPxIAUmFp-GrAAIf9q7x6c9jAvkV",
+    "pdf_pages": 317,
+    "generated_at": "2026-09-18T11:20:07Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 190,
+     "pages_succeeded": 190,
+     "pages_failed": 10,
+     "jobs": 19
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 500: Internal Server Error": 10
+    }
+   },
+   {
+    "file": "vision_pages_1-317.json",
+    "bytes": 3762130,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 317,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__13_hks": [
+   {
+    "file": "sarvam_pages203-254.json",
+    "bytes": 197527,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1T-mxYyvXJF71FE12Uf98xwMZa3u6Vtrx",
+    "pdf_pages": 254,
+    "generated_at": "2026-09-18T14:49:03Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 52,
+     "pages_succeeded": 52,
+     "pages_failed": 0,
+     "jobs": 6
+    },
+    "receipts": [],
+    "page_entries": 52,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages3-202.json",
+    "bytes": 747666,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1T-mxYyvXJF71FE12Uf98xwMZa3u6Vtrx",
+    "pdf_pages": 254,
+    "generated_at": "2026-09-18T11:20:44Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-254.json",
+    "bytes": 3101189,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 254,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__14_hks": [
+   {
+    "file": "sarvam_pages2-201.json",
+    "bytes": 724734,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1lb23riBNeXUTS_kcyAych3rt43GxoU-J",
+    "pdf_pages": 216,
+    "generated_at": "2026-09-18T11:20:24Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages202-216.json",
+    "bytes": 51940,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1lb23riBNeXUTS_kcyAych3rt43GxoU-J",
+    "pdf_pages": 216,
+    "generated_at": "2026-09-18T14:49:22Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 15,
+     "pages_succeeded": 15,
+     "pages_failed": 0,
+     "jobs": 2
+    },
+    "receipts": [],
+    "page_entries": 15,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-216.json",
+    "bytes": 2549767,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 216,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__15_hks": [
+   {
+    "file": "sarvam_pages2-175.json",
+    "bytes": 617923,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=165Zra350JXdIO1xq0qImRhUJr9JfsOej",
+    "pdf_pages": 175,
+    "generated_at": "2026-09-18T11:22:01Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 174,
+     "pages_succeeded": 174,
+     "pages_failed": 0,
+     "jobs": 18
+    },
+    "receipts": [],
+    "page_entries": 174,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-175.json",
+    "bytes": 1984860,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 175,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__16_hks": [
+   {
+    "file": "sarvam_pages2-201.json",
+    "bytes": 701865,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1nE19WzEDGuhgggBf0CJGAeFhNjFVYSx0",
+    "pdf_pages": 285,
+    "generated_at": "2026-09-18T11:21:07Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages202-285.json",
+    "bytes": 277181,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1nE19WzEDGuhgggBf0CJGAeFhNjFVYSx0",
+    "pdf_pages": 285,
+    "generated_at": "2026-09-18T14:49:50Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 84,
+     "pages_succeeded": 84,
+     "pages_failed": 0,
+     "jobs": 9
+    },
+    "receipts": [],
+    "page_entries": 84,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-285.json",
+    "bytes": 3238355,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 285,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__17_hks": [
+   {
+    "file": "sarvam_pages3-116.json",
+    "bytes": 392176,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=15cffj0esYbSCU3Ywo_JAh1H2V1Vk0QF9",
+    "pdf_pages": 116,
+    "generated_at": "2026-09-18T11:23:27Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 114,
+     "pages_succeeded": 114,
+     "pages_failed": 0,
+     "jobs": 12
+    },
+    "receipts": [],
+    "page_entries": 114,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-116.json",
+    "bytes": 1305559,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 116,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__18_hks": [
+   {
+    "file": "sarvam_pages203-272.json",
+    "bytes": 225327,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1CbdEQIWzCBWbwh34wu1seE73LYglbir0",
+    "pdf_pages": 272,
+    "generated_at": "2026-09-18T14:51:40Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 70,
+     "pages_succeeded": 70,
+     "pages_failed": 0,
+     "jobs": 7
+    },
+    "receipts": [],
+    "page_entries": 70,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages3-202.json",
+    "bytes": 646450,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1CbdEQIWzCBWbwh34wu1seE73LYglbir0",
+    "pdf_pages": 272,
+    "generated_at": "2026-09-18T11:23:11Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-272.json",
+    "bytes": 2865839,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 272,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__19_hks": [
+   {
+    "file": "sarvam_pages2-201.json",
+    "bytes": 709106,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1-u5tML4npFUYnrhrJ6KPeI8Bnukd_t4m",
+    "pdf_pages": 236,
+    "generated_at": "2026-09-18T11:23:49Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages202-236.json",
+    "bytes": 140579,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1-u5tML4npFUYnrhrJ6KPeI8Bnukd_t4m",
+    "pdf_pages": 236,
+    "generated_at": "2026-09-18T14:54:02Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 35,
+     "pages_succeeded": 35,
+     "pages_failed": 0,
+     "jobs": 4
+    },
+    "receipts": [],
+    "page_entries": 35,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-236.json",
+    "bytes": 2762092,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 236,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__1_hks": [
+   {
+    "file": "sarvam_pages6-156.json",
+    "bytes": 540721,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1aaR0djuV8hO8hcCC6qFP2ykeAwoW9BBE",
+    "pdf_pages": 156,
+    "generated_at": "2026-09-18T11:17:09Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 141,
+     "pages_succeeded": 141,
+     "pages_failed": 10,
+     "jobs": 15
+    },
+    "receipts": [],
+    "page_entries": 151,
+    "errors": {
+     "HTTP Error 500: Internal Server Error": 10
+    }
+   },
+   {
+    "file": "vision_pages_1-156.json",
+    "bytes": 2026081,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 156,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__20_hks": [
+   {
+    "file": "sarvam_pages2-201.json",
+    "bytes": 669255,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1trBn_VSQXdzgrrkFqa6imOR6R2Utgk6d",
+    "pdf_pages": 276,
+    "generated_at": "2026-09-18T11:23:53Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages202-276.json",
+    "bytes": 242763,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1trBn_VSQXdzgrrkFqa6imOR6R2Utgk6d",
+    "pdf_pages": 276,
+    "generated_at": "2026-09-18T14:54:35Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 75,
+     "pages_succeeded": 75,
+     "pages_failed": 0,
+     "jobs": 8
+    },
+    "receipts": [],
+    "page_entries": 75,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-276.json",
+    "bytes": 3020801,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 276,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__21_hks": [
+   {
+    "file": "sarvam_pages204-403.json",
+    "bytes": 657090,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1h3fftXlaFK1EjtAf7aQQvJm19M_zE2eN",
+    "pdf_pages": 536,
+    "generated_at": "2026-09-18T14:55:06Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages4-203.json",
+    "bytes": 701548,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1h3fftXlaFK1EjtAf7aQQvJm19M_zE2eN",
+    "pdf_pages": 536,
+    "generated_at": "2026-09-18T11:25:37Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages404-536.json",
+    "bytes": 424652,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1h3fftXlaFK1EjtAf7aQQvJm19M_zE2eN",
+    "pdf_pages": 536,
+    "generated_at": "2026-09-18T14:54:59Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 133,
+     "pages_succeeded": 133,
+     "pages_failed": 0,
+     "jobs": 14
+    },
+    "receipts": [],
+    "page_entries": 133,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-536.json",
+    "bytes": 5996309,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 536,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__22_hks": [
+   {
+    "file": "sarvam_pages204-244.json",
+    "bytes": 139607,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=15AK-A__6Av8-5SRhqAfbcnnbATM0sDez",
+    "pdf_pages": 244,
+    "generated_at": "2026-09-18T14:55:11Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 41,
+     "pages_succeeded": 41,
+     "pages_failed": 0,
+     "jobs": 5
+    },
+    "receipts": [],
+    "page_entries": 41,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages4-203.json",
+    "bytes": 684932,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=15AK-A__6Av8-5SRhqAfbcnnbATM0sDez",
+    "pdf_pages": 244,
+    "generated_at": "2026-09-18T11:24:58Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-244.json",
+    "bytes": 2685288,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 244,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__23_hks": [
+   {
+    "file": "sarvam_pages203-402.json",
+    "bytes": 687884,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1kojk6fV0wweE8PMFUke8b3HGjwc0WmOG",
+    "pdf_pages": 427,
+    "generated_at": "2026-09-18T14:55:37Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages3-202.json",
+    "bytes": 673944,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1kojk6fV0wweE8PMFUke8b3HGjwc0WmOG",
+    "pdf_pages": 427,
+    "generated_at": "2026-09-18T11:26:40Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages403-427.json",
+    "bytes": 85053,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1kojk6fV0wweE8PMFUke8b3HGjwc0WmOG",
+    "pdf_pages": 427,
+    "generated_at": "2026-09-18T14:55:43Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 25,
+     "pages_succeeded": 25,
+     "pages_failed": 0,
+     "jobs": 3
+    },
+    "receipts": [],
+    "page_entries": 25,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-427.json",
+    "bytes": 4679337,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 427,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__24_hks": [
+   {
+    "file": "sarvam_pages4-200.json",
+    "bytes": 643337,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1ojg_aFZgTNJhv-IcXbpHMSTPFZTZJEUw",
+    "pdf_pages": 200,
+    "generated_at": "2026-09-18T11:27:46Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 197,
+     "pages_succeeded": 197,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 197,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-200.json",
+    "bytes": 2111244,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__25_26_27_hks": [
+   {
+    "file": "sarvam_pages203-209.json",
+    "bytes": 25993,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1EkIJaeglitDt8o0OocaCjazhuKpaX1Hs",
+    "pdf_pages": 209,
+    "generated_at": "2026-09-18T14:55:48Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 7,
+     "pages_succeeded": 7,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 7,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages3-202.json",
+    "bytes": 697260,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1EkIJaeglitDt8o0OocaCjazhuKpaX1Hs",
+    "pdf_pages": 209,
+    "generated_at": "2026-09-18T11:27:44Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-209.json",
+    "bytes": 2326846,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 209,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__28_hks": [
+   {
+    "file": "sarvam_pages4-131.json",
+    "bytes": 429227,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1XYfartG5a59uxlaGnZgDOyuBX4R2q0uT",
+    "pdf_pages": 131,
+    "generated_at": "2026-09-18T11:29:11Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 128,
+     "pages_succeeded": 128,
+     "pages_failed": 0,
+     "jobs": 13
+    },
+    "receipts": [],
+    "page_entries": 128,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-131.json",
+    "bytes": 1433821,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 131,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__29_30_hks": [
+   {
+    "file": "sarvam_pages203-277.json",
+    "bytes": 239530,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1nXpankZEFeG90H2mV-JUZyz0QkrQzjpB",
+    "pdf_pages": 277,
+    "generated_at": "2026-09-18T14:56:04Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 75,
+     "pages_succeeded": 75,
+     "pages_failed": 0,
+     "jobs": 8
+    },
+    "receipts": [],
+    "page_entries": 75,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages3-202.json",
+    "bytes": 655795,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1nXpankZEFeG90H2mV-JUZyz0QkrQzjpB",
+    "pdf_pages": 277,
+    "generated_at": "2026-09-18T11:30:04Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-277.json",
+    "bytes": 2833101,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 277,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__2_hks": [
+   {
+    "file": "sarvam_pages37-377.json",
+    "bytes": 50096,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1EzNHMOyW8IeehYqVlvu0v3G65tK5lYU5",
+    "pdf_pages": 384,
+    "generated_at": "2026-09-20T14:22:53Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 14,
+     "pages_succeeded": 14,
+     "pages_failed": 0,
+     "jobs": 14
+    },
+    "receipts": [],
+    "page_entries": 14,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-384.json",
+    "bytes": 4845190,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 384,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__31_hks": [
+   {
+    "file": "sarvam_pages9-156.json",
+    "bytes": 492148,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1fXG3jr29fwMcdu-sQ7GaVQnFFdGrutlL",
+    "pdf_pages": 156,
+    "generated_at": "2026-09-18T11:31:56Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 148,
+     "pages_succeeded": 148,
+     "pages_failed": 0,
+     "jobs": 15
+    },
+    "receipts": [],
+    "page_entries": 148,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-156.json",
+    "bytes": 1596602,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 156,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__32_hks": [
+   {
+    "file": "sarvam_pages209-315.json",
+    "bytes": 343064,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1GSEgtsKvD2rBGcMmBxrBXITDyJtJ3ijZ",
+    "pdf_pages": 315,
+    "generated_at": "2026-09-18T14:55:56Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 107,
+     "pages_succeeded": 107,
+     "pages_failed": 0,
+     "jobs": 11
+    },
+    "receipts": [],
+    "page_entries": 107,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages9-208.json",
+    "bytes": 660234,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1GSEgtsKvD2rBGcMmBxrBXITDyJtJ3ijZ",
+    "pdf_pages": 315,
+    "generated_at": "2026-09-18T11:31:31Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-315.json",
+    "bytes": 3264481,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 315,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__33_hks": [
+   {
+    "file": "sarvam_pages8-168.json",
+    "bytes": 505691,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1Ref59FmAXa1CmFTUyOE4MM-Xhpc4DMFL",
+    "pdf_pages": 168,
+    "generated_at": "2026-09-18T11:31:54Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 161,
+     "pages_succeeded": 161,
+     "pages_failed": 0,
+     "jobs": 17
+    },
+    "receipts": [],
+    "page_entries": 161,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-168.json",
+    "bytes": 1667733,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 168,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__3_hks": [
+   {
+    "file": "sarvam_pages36-246.json",
+    "bytes": 46600,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1S1lfJYeFwUNGkOHmRX3fuQZjXLsKrYeP",
+    "pdf_pages": 322,
+    "generated_at": "2026-09-20T14:22:57Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 9,
+     "pages_succeeded": 9,
+     "pages_failed": 0,
+     "jobs": 9
+    },
+    "receipts": [],
+    "page_entries": 9,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-322.json",
+    "bytes": 4006328,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 322,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__4_hks": [
+   {
+    "file": "sarvam_pages11-323.json",
+    "bytes": 120897,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=13mQ8JmagkSQY2RIcHu07p2LWFItzpAst",
+    "pdf_pages": 323,
+    "generated_at": "2026-09-20T14:22:58Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 35,
+     "pages_succeeded": 35,
+     "pages_failed": 0,
+     "jobs": 23
+    },
+    "receipts": [],
+    "page_entries": 35,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-323.json",
+    "bytes": 3587358,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 323,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__5_hks": [
+   {
+    "file": "sarvam_pages31-382.json",
+    "bytes": 88316,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1Gn73N7wyokJdgmVCQZ1jY0xZOfoyYY29",
+    "pdf_pages": 382,
+    "generated_at": "2026-09-20T14:23:17Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 22,
+     "pages_succeeded": 22,
+     "pages_failed": 0,
+     "jobs": 18
+    },
+    "receipts": [],
+    "page_entries": 22,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-382.json",
+    "bytes": 4509838,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 382,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__6_hks": [
+   {
+    "file": "sarvam_pages26-388.json",
+    "bytes": 174736,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1Avfea5Eil5XTpb4mqteP2lx33zFhEYEr",
+    "pdf_pages": 464,
+    "generated_at": "2026-09-20T14:23:19Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 44,
+     "pages_succeeded": 44,
+     "pages_failed": 0,
+     "jobs": 29
+    },
+    "receipts": [],
+    "page_entries": 44,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-464.json",
+    "bytes": 5243422,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 464,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__7_hks": [
+   {
+    "file": "sarvam_pages20-404.json",
+    "bytes": 48293,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1L-8Dbr3Q2Mb2NDovmXZely0QwHqT92Lz",
+    "pdf_pages": 411,
+    "generated_at": "2026-09-20T14:23:31Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 17,
+     "pages_succeeded": 17,
+     "pages_failed": 0,
+     "jobs": 14
+    },
+    "receipts": [],
+    "page_entries": 17,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-411.json",
+    "bytes": 4885890,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 411,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__8_hks": [
+   {
+    "file": "sarvam_pages13-276.json",
+    "bytes": 50136,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1bb22akEx5yJHLmYznV5h5RUagb23GZb7",
+    "pdf_pages": 307,
+    "generated_at": "2026-09-20T14:23:02Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 16,
+     "pages_succeeded": 16,
+     "pages_failed": 0,
+     "jobs": 15
+    },
+    "receipts": [],
+    "page_entries": 16,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-307.json",
+    "bytes": 3448695,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 307,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__9_hks": [
+   {
+    "file": "sarvam_pages17-376.json",
+    "bytes": 44852,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1wSXjyIBaV5G94TdATAaTqzlffmxKIinO",
+    "pdf_pages": 376,
+    "generated_at": "2026-09-20T14:23:24Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 16,
+     "pages_succeeded": 16,
+     "pages_failed": 0,
+     "jobs": 15
+    },
+    "receipts": [],
+    "page_entries": 16,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-376.json",
+    "bytes": 4368763,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 376,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "hks__hks": [
+   {
+    "file": "sarvam_pages6-127.json",
+    "bytes": 595877,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1CkT_y2jwjhcQpqCnHtlRdp03BsUYyatz",
+    "pdf_pages": 127,
+    "generated_at": "2026-09-18T11:31:44Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 122,
+     "pages_succeeded": 122,
+     "pages_failed": 0,
+     "jobs": 13
+    },
+    "receipts": [],
+    "page_entries": 122,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-127.json",
+    "bytes": 1991673,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 127,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "isha_upanishad_bhashya_tippani": [
+   {
+    "file": "sarvam_pages1-146.json",
+    "bytes": 14376,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/ishavasya-upanishad-with-13-commentaries/ISHAVASYOPANISHADBHASHYAM-%2013%20VYAKHYANA-UM.pdf",
+    "pdf_pages": 292,
+    "generated_at": "2026-09-18T15:42:16Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 146,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 146,
+    "errors": {
+     "HTTP Error 402: Payment Required": 146
+    }
+   },
+   {
+    "file": "sarvam_pages147-292.json",
+    "bytes": 14592,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/ishavasya-upanishad-with-13-commentaries/ISHAVASYOPANISHADBHASHYAM-%2013%20VYAKHYANA-UM.pdf",
+    "pdf_pages": 292,
+    "generated_at": "2026-09-18T15:42:19Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 146,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 146,
+    "errors": {
+     "HTTP Error 402: Payment Required": 146
+    }
+   },
+   {
+    "file": "vision_pages_1-292.json",
+    "bytes": 5080377,
+    "engine": "google-vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 292,
+    "errors": {}
+   }
+  ],
+  "katha_upanishad_bhashya_tippani": [
+   {
+    "file": "sarvam_pages1-12.json",
+    "bytes": 1693,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/katha-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/KATHAKOPANISHAT%206%20TIPPANI-%20UM.pdf",
+    "pdf_pages": 438,
+    "generated_at": "2026-09-18T15:42:20Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 12,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 12,
+    "errors": {
+     "HTTP Error 402: Payment Required": 12
+    }
+   },
+   {
+    "file": "sarvam_pages13-171.json",
+    "bytes": 15674,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/katha-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/KATHAKOPANISHAT%206%20TIPPANI-%20UM.pdf",
+    "pdf_pages": 438,
+    "generated_at": "2026-09-18T15:42:27Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 159,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 159,
+    "errors": {
+     "HTTP Error 402: Payment Required": 159
+    }
+   },
+   {
+    "file": "sarvam_pages172-329.json",
+    "bytes": 15752,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/katha-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/KATHAKOPANISHAT%206%20TIPPANI-%20UM.pdf",
+    "pdf_pages": 438,
+    "generated_at": "2026-09-18T15:42:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 158,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 158,
+    "errors": {
+     "HTTP Error 402: Payment Required": 158
+    }
+   },
+   {
+    "file": "sarvam_pages330-418.json",
+    "bytes": 9127,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/katha-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/KATHAKOPANISHAT%206%20TIPPANI-%20UM.pdf",
+    "pdf_pages": 438,
+    "generated_at": "2026-09-18T15:42:39Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 89,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 89,
+    "errors": {
+     "HTTP Error 402: Payment Required": 89
+    }
+   },
+   {
+    "file": "sarvam_pages419-438.json",
+    "bytes": 2503,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/katha-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/KATHAKOPANISHAT%206%20TIPPANI-%20UM.pdf",
+    "pdf_pages": 438,
+    "generated_at": "2026-09-18T15:42:52Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 20,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 20,
+    "errors": {
+     "HTTP Error 402: Payment Required": 20
+    }
+   },
+   {
+    "file": "vision_pages_1-438.json",
+    "bytes": 6569111,
+    "engine": "google-vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 438,
+    "errors": {}
+   }
+  ],
+  "kena_upanishad_bhashya_tippani": [
+   {
+    "file": "sarvam_pages1-29.json",
+    "bytes": 3303,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/talavakara-kena-upanishad-madhvacharya-bhashya-with-8-sub-commentaries/TALAVAKAROPANISHAT-8%20TIPPANI-%20UM.pdf",
+    "pdf_pages": 122,
+    "generated_at": "2026-09-18T15:42:57Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 29,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 29,
+    "errors": {
+     "HTTP Error 402: Payment Required": 29
+    }
+   },
+   {
+    "file": "sarvam_pages30-122.json",
+    "bytes": 9383,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/talavakara-kena-upanishad-madhvacharya-bhashya-with-8-sub-commentaries/TALAVAKAROPANISHAT-8%20TIPPANI-%20UM.pdf",
+    "pdf_pages": 122,
+    "generated_at": "2026-09-18T15:42:54Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 93,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 93,
+    "errors": {
+     "HTTP Error 402: Payment Required": 93
+    }
+   },
+   {
+    "file": "vision_pages_1-122.json",
+    "bytes": 1956368,
+    "engine": "google-vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 122,
+    "errors": {}
+   }
+  ],
+  "krishnamrut_maharnava": [
+   {
+    "file": "sarvam_pages207-375.json",
+    "bytes": 894347,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/krishnamrut-maharnava/krishnamrut%20maharnava.pdf",
+    "pdf_pages": 375,
+    "generated_at": "2026-09-18T11:27:45Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 169,
+     "pages_succeeded": 169,
+     "pages_failed": 0,
+     "jobs": 17
+    },
+    "receipts": [],
+    "page_entries": 169,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages7-206.json",
+    "bytes": 1018053,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/krishnamrut-maharnava/krishnamrut%20maharnava.pdf",
+    "pdf_pages": 375,
+    "generated_at": "2026-09-18T11:10:58Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-375.json",
+    "bytes": 6021929,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 375,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "mahabharata_virata_p__amahabharata_virata_parv": [
+   {
+    "file": "sarvam_pages13-212.json",
+    "bytes": 777244,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/mahabharata-virata-parva-ed.-vyasanakere-prabhanjanacaryamahabharata-virata-parv/Mahabharata%20Virata%20Parva%20Ed.%20Vyasanakere%20Prabhanjanacarya.pdf",
+    "pdf_pages": 702,
+    "generated_at": "2026-09-18T11:16:44Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages213-412.json",
+    "bytes": 741964,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/mahabharata-virata-parva-ed.-vyasanakere-prabhanjanacaryamahabharata-virata-parv/Mahabharata%20Virata%20Parva%20Ed.%20Vyasanakere%20Prabhanjanacarya.pdf",
+    "pdf_pages": 702,
+    "generated_at": "2026-09-18T14:46:58Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages413-612.json",
+    "bytes": 765398,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/mahabharata-virata-parva-ed.-vyasanakere-prabhanjanacaryamahabharata-virata-parv/Mahabharata%20Virata%20Parva%20Ed.%20Vyasanakere%20Prabhanjanacarya.pdf",
+    "pdf_pages": 702,
+    "generated_at": "2026-09-18T14:47:17Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages613-702.json",
+    "bytes": 586896,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/mahabharata-virata-parva-ed.-vyasanakere-prabhanjanacaryamahabharata-virata-parv/Mahabharata%20Virata%20Parva%20Ed.%20Vyasanakere%20Prabhanjanacarya.pdf",
+    "pdf_pages": 702,
+    "generated_at": "2026-09-18T14:47:34Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 70,
+     "pages_succeeded": 70,
+     "pages_failed": 20,
+     "jobs": 7
+    },
+    "receipts": [],
+    "page_entries": 90,
+    "errors": {
+     "HTTP Error 500: Internal Server Error": 20
+    }
+   },
+   {
+    "file": "vision_pages_1-702.json",
+    "bytes": 9566255,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 702,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "mandukya_upanishad_bhashya_tippani": [
+   {
+    "file": "sarvam_pages1-109.json",
+    "bytes": 10841,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/mandukya-upanishad-madhvacharya-bhashya-with-7-sub-commentaries/MANDUKOPANISHADBHASHYAM-%207VYAKHYANA-UM.pdf",
+    "pdf_pages": 218,
+    "generated_at": "2026-09-18T15:43:03Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 109,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 109,
+    "errors": {
+     "HTTP Error 402: Payment Required": 109
+    }
+   },
+   {
+    "file": "sarvam_pages110-218.json",
+    "bytes": 11057,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/mandukya-upanishad-madhvacharya-bhashya-with-7-sub-commentaries/MANDUKOPANISHADBHASHYAM-%207VYAKHYANA-UM.pdf",
+    "pdf_pages": 218,
+    "generated_at": "2026-09-18T15:43:05Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 109,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 109,
+    "errors": {
+     "HTTP Error 402: Payment Required": 109
+    }
+   },
+   {
+    "file": "vision_pages_1-218.json",
+    "bytes": 3509892,
+    "engine": "google-vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 218,
+    "errors": {}
+   }
+  ],
+  "manimanjari": [
+   {
+    "file": "sarvam_pages122-312.json",
+    "bytes": 905431,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1XXITQlSQFSnMu9lnbKmUnAVYQ5SuHPbr",
+    "pdf_pages": 472,
+    "generated_at": "2026-09-15T16:54:52Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 191,
+     "pages_succeeded": 191,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 191,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_122-312.json",
+    "bytes": 3404246,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 191,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "mundaka_upanishad_bhashya_tippani": [
+   {
+    "file": "sarvam_pages1-139.json",
+    "bytes": 13704,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/atharvana-upanishad-with-13-commentaries/ATHARVANOPANISHADBHASHYAM-%2012%20VYAKHYANA-UM.pdf",
+    "pdf_pages": 417,
+    "generated_at": "2026-09-18T15:43:08Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 139,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 139,
+    "errors": {
+     "HTTP Error 402: Payment Required": 139
+    }
+   },
+   {
+    "file": "sarvam_pages140-278.json",
+    "bytes": 13920,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/atharvana-upanishad-with-13-commentaries/ATHARVANOPANISHADBHASHYAM-%2012%20VYAKHYANA-UM.pdf",
+    "pdf_pages": 417,
+    "generated_at": "2026-09-18T15:43:13Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 139,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 139,
+    "errors": {
+     "HTTP Error 402: Payment Required": 139
+    }
+   },
+   {
+    "file": "sarvam_pages279-417.json",
+    "bytes": 13920,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/atharvana-upanishad-with-13-commentaries/ATHARVANOPANISHADBHASHYAM-%2012%20VYAKHYANA-UM.pdf",
+    "pdf_pages": 417,
+    "generated_at": "2026-09-18T15:43:21Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 139,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 139,
+    "errors": {
+     "HTTP Error 402: Payment Required": 139
+    }
+   },
+   {
+    "file": "vision_pages_1-417.json",
+    "bytes": 7087991,
+    "engine": "google-vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 417,
+    "errors": {}
+   }
+  ],
+  "pasandakhandanam_vad__mentary_surottama_tirtha": [
+   {
+    "file": "sarvam_pages4-53.json",
+    "bytes": 218488,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/pasandakhandanam-of-vadiraja-tirtha-with-the-commentary-of-surottama-tirtha/PAASHANDAKHANANAM-VADIRAJARU%28%20SUROTTAMATEERTHARA%20VYAKHYANA%20SAMETA%29.pdf",
+    "pdf_pages": 53,
+    "generated_at": "2026-09-18T11:02:04Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 50,
+     "pages_succeeded": 50,
+     "pages_failed": 0,
+     "jobs": 5
+    },
+    "receipts": [],
+    "page_entries": 50,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-53.json",
+    "bytes": 702625,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 53,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "prashna_upanishad_bhashya_tippani": [
+   {
+    "file": "sarvam_pages1-144.json",
+    "bytes": 14200,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/prashna-upanishad-madhvacharya-bhasya-with-13-sub-commentaries/SHATPRASHNOPANISHAT%2013%20TIPPANI-%20UM.pdf",
+    "pdf_pages": 287,
+    "generated_at": "2026-09-18T15:43:30Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 144,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 144,
+    "errors": {
+     "HTTP Error 402: Payment Required": 144
+    }
+   },
+   {
+    "file": "sarvam_pages145-287.json",
+    "bytes": 14320,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/prashna-upanishad-madhvacharya-bhasya-with-13-sub-commentaries/SHATPRASHNOPANISHAT%2013%20TIPPANI-%20UM.pdf",
+    "pdf_pages": 287,
+    "generated_at": "2026-09-18T15:43:51Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 143,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 143,
+    "errors": {
+     "HTTP Error 402: Payment Required": 143
+    }
+   },
+   {
+    "file": "vision_pages_1-287.json",
+    "bytes": 4923867,
+    "engine": "google-vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 287,
+    "errors": {}
+   }
+  ],
+  "raghavendra_vijaya": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154795,
+    "engine": "google-vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "rukminisha_vijaya": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages19-192.json",
+    "bytes": 17161,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/sri-rugminisha-vijaya-of-vadiraja-tirtha-with-the-commentary-gurubhavaprakashika/RUGMINISHAVIJAYA-%20GURUBHAVA%20PRAKASHIKA%20TIKA.pdf",
+    "pdf_pages": 725,
+    "generated_at": "2026-09-18T15:43:37Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 174,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 174,
+    "errors": {
+     "HTTP Error 402: Payment Required": 174
+    }
+   },
+   {
+    "file": "sarvam_pages193-366.json",
+    "bytes": 17323,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/sri-rugminisha-vijaya-of-vadiraja-tirtha-with-the-commentary-gurubhavaprakashika/RUGMINISHAVIJAYA-%20GURUBHAVA%20PRAKASHIKA%20TIKA.pdf",
+    "pdf_pages": 725,
+    "generated_at": "2026-09-18T15:45:09Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 174,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 174,
+    "errors": {
+     "HTTP Error 402: Payment Required": 174
+    }
+   },
+   {
+    "file": "sarvam_pages367-540.json",
+    "bytes": 17323,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/sri-rugminisha-vijaya-of-vadiraja-tirtha-with-the-commentary-gurubhavaprakashika/RUGMINISHAVIJAYA-%20GURUBHAVA%20PRAKASHIKA%20TIKA.pdf",
+    "pdf_pages": 725,
+    "generated_at": "2026-09-18T15:45:50Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 174,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 174,
+    "errors": {
+     "HTTP Error 402: Payment Required": 174
+    }
+   },
+   {
+    "file": "sarvam_pages541-712.json",
+    "bytes": 17131,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/sri-rugminisha-vijaya-of-vadiraja-tirtha-with-the-commentary-gurubhavaprakashika/RUGMINISHAVIJAYA-%20GURUBHAVA%20PRAKASHIKA%20TIKA.pdf",
+    "pdf_pages": 725,
+    "generated_at": "2026-09-18T15:45:53Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 172,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 172,
+    "errors": {
+     "HTTP Error 402: Payment Required": 172
+    }
+   },
+   {
+    "file": "vision_pages_19-648.json",
+    "bytes": 9220764,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 630,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_649-712.json",
+    "bytes": 884262,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 64,
+    "errors": {}
+   }
+  ],
+  "ruksamhita__ruksamhita_9_vyakhyanagalu_bhaga_1": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages204-403.json",
+    "bytes": 1136191,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1Uygk9lMhyq5Kdt22idYePZVL9MG0YrYR",
+    "pdf_pages": 649,
+    "generated_at": "2026-09-18T14:56:01Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages4-203.json",
+    "bytes": 1158952,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1Uygk9lMhyq5Kdt22idYePZVL9MG0YrYR",
+    "pdf_pages": 649,
+    "generated_at": "2026-09-18T11:31:31Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages404-603.json",
+    "bytes": 1121408,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1Uygk9lMhyq5Kdt22idYePZVL9MG0YrYR",
+    "pdf_pages": 649,
+    "generated_at": "2026-09-18T14:56:09Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages604-649.json",
+    "bytes": 255339,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1Uygk9lMhyq5Kdt22idYePZVL9MG0YrYR",
+    "pdf_pages": 649,
+    "generated_at": "2026-09-18T14:56:26Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 46,
+     "pages_succeeded": 46,
+     "pages_failed": 0,
+     "jobs": 5
+    },
+    "receipts": [],
+    "page_entries": 46,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-649.json",
+    "bytes": 13767824,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 649,
+    "errors": {}
+   }
+  ],
+  "ruksamhita__ruksamhita_9_vyakhyanagalu_bhaga_2": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages204-403.json",
+    "bytes": 1028258,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1MjRvomgvHK82nza4pyZfx3DfgDHU-_qs",
+    "pdf_pages": 502,
+    "generated_at": "2026-09-18T14:56:41Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 190,
+     "pages_succeeded": 190,
+     "pages_failed": 10,
+     "jobs": 19
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 500: Internal Server Error": 10
+    }
+   },
+   {
+    "file": "sarvam_pages4-203.json",
+    "bytes": 1089375,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1MjRvomgvHK82nza4pyZfx3DfgDHU-_qs",
+    "pdf_pages": 502,
+    "generated_at": "2026-09-18T11:35:06Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages404-502.json",
+    "bytes": 571173,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1MjRvomgvHK82nza4pyZfx3DfgDHU-_qs",
+    "pdf_pages": 502,
+    "generated_at": "2026-09-18T14:56:55Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 99,
+     "pages_succeeded": 99,
+     "pages_failed": 0,
+     "jobs": 10
+    },
+    "receipts": [],
+    "page_entries": 99,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-502.json",
+    "bytes": 10391901,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 502,
+    "errors": {}
+   }
+  ],
+  "ruksamhita__ruksamhita_9_vyakhyanagalu_bhaga_3": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages204-403.json",
+    "bytes": 1119270,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1vrIBsHdKY9xmXrsgaDVUYOoaF_BVH_xA",
+    "pdf_pages": 419,
+    "generated_at": "2026-09-18T14:57:12Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages4-203.json",
+    "bytes": 1152159,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1vrIBsHdKY9xmXrsgaDVUYOoaF_BVH_xA",
+    "pdf_pages": 419,
+    "generated_at": "2026-09-18T11:36:14Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages404-419.json",
+    "bytes": 82873,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1vrIBsHdKY9xmXrsgaDVUYOoaF_BVH_xA",
+    "pdf_pages": 419,
+    "generated_at": "2026-09-18T14:58:53Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 16,
+     "pages_succeeded": 16,
+     "pages_failed": 0,
+     "jobs": 2
+    },
+    "receipts": [],
+    "page_entries": 16,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-419.json",
+    "bytes": 8904153,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 419,
+    "errors": {}
+   }
+  ],
+  "ruksamhita__ruksamhita_9_vyakhyanagalu_bhaga_4": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages204-403.json",
+    "bytes": 1180922,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1TGVfmj1bl1nxFzNMREaGnaumKnW5-CYG",
+    "pdf_pages": 603,
+    "generated_at": "2026-09-18T14:59:18Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages4-203.json",
+    "bytes": 1103171,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1TGVfmj1bl1nxFzNMREaGnaumKnW5-CYG",
+    "pdf_pages": 603,
+    "generated_at": "2026-09-18T14:59:07Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 190,
+     "pages_succeeded": 190,
+     "pages_failed": 10,
+     "jobs": 19
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 500: Internal Server Error": 10
+    }
+   },
+   {
+    "file": "sarvam_pages404-603.json",
+    "bytes": 1169476,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1TGVfmj1bl1nxFzNMREaGnaumKnW5-CYG",
+    "pdf_pages": 603,
+    "generated_at": "2026-09-18T15:00:03Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-603.json",
+    "bytes": 13481967,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 603,
+    "errors": {}
+   }
+  ],
+  "ruksamhita__ruksamhita_9_vyakhyanagalu_bhaga_5": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages204-403.json",
+    "bytes": 1124470,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1RDuWVhbFG_3Gw6qmLNu8sdFIkDlrvy50",
+    "pdf_pages": 658,
+    "generated_at": "2026-09-18T15:00:30Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages4-203.json",
+    "bytes": 1067922,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1RDuWVhbFG_3Gw6qmLNu8sdFIkDlrvy50",
+    "pdf_pages": 658,
+    "generated_at": "2026-09-18T11:26:08Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 190,
+     "pages_succeeded": 190,
+     "pages_failed": 10,
+     "jobs": 19
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 500: Internal Server Error": 10
+    }
+   },
+   {
+    "file": "sarvam_pages404-603.json",
+    "bytes": 1142662,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1RDuWVhbFG_3Gw6qmLNu8sdFIkDlrvy50",
+    "pdf_pages": 658,
+    "generated_at": "2026-09-18T15:00:37Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages604-658.json",
+    "bytes": 312828,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1RDuWVhbFG_3Gw6qmLNu8sdFIkDlrvy50",
+    "pdf_pages": 658,
+    "generated_at": "2026-09-18T15:00:43Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 55,
+     "pages_succeeded": 55,
+     "pages_failed": 0,
+     "jobs": 6
+    },
+    "receipts": [],
+    "page_entries": 55,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-658.json",
+    "bytes": 13913473,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 658,
+    "errors": {}
+   }
+  ],
+  "sangraha_ramayanam_n__mentaries_bhavartha_dipi_v1": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages205-404.json",
+    "bytes": 1098390,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/sangraha-ramayanam-by-sri-narayana-panditacarya-with-commentaries-bhavartha-dipi/SANGRAHA-RAMAYANA-Vol1.pdf",
+    "pdf_pages": 825,
+    "generated_at": "2026-09-18T14:36:37Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages405-604.json",
+    "bytes": 1118786,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/sangraha-ramayanam-by-sri-narayana-panditacarya-with-commentaries-bhavartha-dipi/SANGRAHA-RAMAYANA-Vol1.pdf",
+    "pdf_pages": 825,
+    "generated_at": "2026-09-18T14:36:46Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages5-204.json",
+    "bytes": 1097872,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/sangraha-ramayanam-by-sri-narayana-panditacarya-with-commentaries-bhavartha-dipi/SANGRAHA-RAMAYANA-Vol1.pdf",
+    "pdf_pages": 825,
+    "generated_at": "2026-09-18T11:10:16Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages605-804.json",
+    "bytes": 1049525,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/sangraha-ramayanam-by-sri-narayana-panditacarya-with-commentaries-bhavartha-dipi/SANGRAHA-RAMAYANA-Vol1.pdf",
+    "pdf_pages": 825,
+    "generated_at": "2026-09-18T14:36:55Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages805-825.json",
+    "bytes": 114840,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/sangraha-ramayanam-by-sri-narayana-panditacarya-with-commentaries-bhavartha-dipi/SANGRAHA-RAMAYANA-Vol1.pdf",
+    "pdf_pages": 825,
+    "generated_at": "2026-09-18T11:26:13Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 21,
+     "pages_succeeded": 21,
+     "pages_failed": 0,
+     "jobs": 3
+    },
+    "receipts": [],
+    "page_entries": 21,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-825.json",
+    "bytes": 15971406,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 825,
+    "errors": {}
+   }
+  ],
+  "sangraha_ramayanam_n__mentaries_bhavartha_dipi_v2": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages205-404.json",
+    "bytes": 1077632,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/sangraha-ramayanam-by-sri-narayana-panditacarya-with-commentaries-bhavartha-dipi/SANGRAHA-RAMAYANAVol2.pdf",
+    "pdf_pages": 708,
+    "generated_at": "2026-09-18T14:37:06Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages405-604.json",
+    "bytes": 1171349,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/sangraha-ramayanam-by-sri-narayana-panditacarya-with-commentaries-bhavartha-dipi/SANGRAHA-RAMAYANAVol2.pdf",
+    "pdf_pages": 708,
+    "generated_at": "2026-09-18T14:37:09Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages5-204.json",
+    "bytes": 974125,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/sangraha-ramayanam-by-sri-narayana-panditacarya-with-commentaries-bhavartha-dipi/SANGRAHA-RAMAYANAVol2.pdf",
+    "pdf_pages": 708,
+    "generated_at": "2026-09-18T11:10:15Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 180,
+     "pages_succeeded": 180,
+     "pages_failed": 20,
+     "jobs": 18
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 500: Internal Server Error": 20
+    }
+   },
+   {
+    "file": "sarvam_pages605-708.json",
+    "bytes": 1181888,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/sangraha-ramayanam-by-sri-narayana-panditacarya-with-commentaries-bhavartha-dipi/SANGRAHA-RAMAYANAVol2.pdf",
+    "pdf_pages": 708,
+    "generated_at": "2026-09-18T11:24:08Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 104,
+     "pages_succeeded": 104,
+     "pages_failed": 0,
+     "jobs": 11
+    },
+    "receipts": [],
+    "page_entries": 104,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-708.json",
+    "bytes": 15116703,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 708,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v1": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-538.json",
+    "bytes": 13317042,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 538,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v10": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-506.json",
+    "bytes": 11988589,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 506,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v11": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-540.json",
+    "bytes": 12312751,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 540,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v12": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-456.json",
+    "bytes": 9848233,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 456,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v13": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-533.json",
+    "bytes": 12020063,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 533,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v14": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-525.json",
+    "bytes": 11985647,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 525,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v15": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-427.json",
+    "bytes": 10154010,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 427,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v16": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-600.json",
+    "bytes": 12663241,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 600,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v17": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-514.json",
+    "bytes": 10304195,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 514,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v18": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-478.json",
+    "bytes": 9926920,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 478,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v19": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-528.json",
+    "bytes": 8959196,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 528,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v2": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-384.json",
+    "bytes": 8394544,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 384,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_20-29.json",
+    "bytes": 262711,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v20": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-530.json",
+    "bytes": 10473057,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 530,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v21": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-507.json",
+    "bytes": 10086305,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 507,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v22": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-608.json",
+    "bytes": 12444913,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 608,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v3": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-512.json",
+    "bytes": 11752835,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 512,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v4": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-499.json",
+    "bytes": 10948339,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 499,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v5": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-462.json",
+    "bytes": 9308136,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 462,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v6": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-496.json",
+    "bytes": 10546426,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 496,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v7": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-511.json",
+    "bytes": 10680609,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 511,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v8": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-500.json",
+    "bytes": 12928047,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 500,
+    "errors": {}
+   }
+  ],
+  "sudha_25_tippani_v9": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-524.json",
+    "bytes": 13138870,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 524,
+    "errors": {}
+   }
+  ],
+  "taittiriya_upanishad_bhashya_tippani": [
+   {
+    "file": "sarvam_pages1-182.json",
+    "bytes": 17845,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/taittariya-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/TAITTARIYOPANISHAT%206%20TIPPANI-UM.pdf",
+    "pdf_pages": 546,
+    "generated_at": "2026-09-18T15:46:03Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 182,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 182,
+    "errors": {
+     "HTTP Error 402: Payment Required": 182
+    }
+   },
+   {
+    "file": "sarvam_pages183-364.json",
+    "bytes": 18061,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/taittariya-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/TAITTARIYOPANISHAT%206%20TIPPANI-UM.pdf",
+    "pdf_pages": 546,
+    "generated_at": "2026-09-18T15:46:19Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 182,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 182,
+    "errors": {
+     "HTTP Error 402: Payment Required": 182
+    }
+   },
+   {
+    "file": "sarvam_pages365-546.json",
+    "bytes": 18061,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/taittariya-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/TAITTARIYOPANISHAT%206%20TIPPANI-UM.pdf",
+    "pdf_pages": 546,
+    "generated_at": "2026-09-18T15:46:29Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 182,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 182,
+    "errors": {
+     "HTTP Error 402: Payment Required": 182
+    }
+   },
+   {
+    "file": "vision_pages_1-546.json",
+    "bytes": 8195678,
+    "engine": "google-vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 546,
+    "errors": {}
+   }
+  ],
+  "tantrasara_sangraha_tippani_a": [
+   {
+    "file": "sarvam_pages1-189.json",
+    "bytes": 18579,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/tantrasarasangraha-of-sri-anandatirtha-with-the-commentaries-of-tantrasararthasa/TANTRASARA%20SANGRAHA%20-%202017%20EDITION-%20PRALHADACHARYA%20JOSHI-4%20TIPPANI.pdf",
+    "pdf_pages": 1133,
+    "generated_at": "2026-09-18T15:46:49Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 189,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 189,
+    "errors": {
+     "HTTP Error 402: Payment Required": 189
+    }
+   },
+   {
+    "file": "sarvam_pages190-378.json",
+    "bytes": 18795,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/tantrasarasangraha-of-sri-anandatirtha-with-the-commentaries-of-tantrasararthasa/TANTRASARA%20SANGRAHA%20-%202017%20EDITION-%20PRALHADACHARYA%20JOSHI-4%20TIPPANI.pdf",
+    "pdf_pages": 1133,
+    "generated_at": "2026-09-18T15:46:50Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 189,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 189,
+    "errors": {
+     "HTTP Error 402: Payment Required": 189
+    }
+   },
+   {
+    "file": "sarvam_pages379-566.json",
+    "bytes": 18699,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/tantrasarasangraha-of-sri-anandatirtha-with-the-commentaries-of-tantrasararthasa/TANTRASARA%20SANGRAHA%20-%202017%20EDITION-%20PRALHADACHARYA%20JOSHI-4%20TIPPANI.pdf",
+    "pdf_pages": 1133,
+    "generated_at": "2026-09-18T15:46:50Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 188,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 188,
+    "errors": {
+     "HTTP Error 402: Payment Required": 188
+    }
+   },
+   {
+    "file": "vision_pages_1-566.json",
+    "bytes": 8847166,
+    "engine": "google-vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 566,
+    "errors": {}
+   }
+  ],
+  "tantrasara_sangraha_tippani_b": [
+   {
+    "file": "sarvam_pages567-755.json",
+    "bytes": 18795,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/tantrasarasangraha-of-sri-anandatirtha-with-the-commentaries-of-tantrasararthasa/TANTRASARA%20SANGRAHA%20-%202017%20EDITION-%20PRALHADACHARYA%20JOSHI-4%20TIPPANI.pdf",
+    "pdf_pages": 1133,
+    "generated_at": "2026-09-18T15:46:56Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 189,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 189,
+    "errors": {
+     "HTTP Error 402: Payment Required": 189
+    }
+   },
+   {
+    "file": "sarvam_pages756-944.json",
+    "bytes": 18795,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/tantrasarasangraha-of-sri-anandatirtha-with-the-commentaries-of-tantrasararthasa/TANTRASARA%20SANGRAHA%20-%202017%20EDITION-%20PRALHADACHARYA%20JOSHI-4%20TIPPANI.pdf",
+    "pdf_pages": 1133,
+    "generated_at": "2026-09-18T15:47:10Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 189,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 189,
+    "errors": {
+     "HTTP Error 402: Payment Required": 189
+    }
+   },
+   {
+    "file": "sarvam_pages945-1133.json",
+    "bytes": 19063,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/tantrasarasangraha-of-sri-anandatirtha-with-the-commentaries-of-tantrasararthasa/TANTRASARA%20SANGRAHA%20-%202017%20EDITION-%20PRALHADACHARYA%20JOSHI-4%20TIPPANI.pdf",
+    "pdf_pages": 1133,
+    "generated_at": "2026-09-18T15:46:58Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 189,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 189,
+    "errors": {
+     "HTTP Error 402: Payment Required": 189
+    }
+   },
+   {
+    "file": "vision_pages_567-1133.json",
+    "bytes": 9261237,
+    "engine": "google-vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 567,
+    "errors": {}
+   }
+  ],
+  "usha_harna_trivikram__irtha_vadirajacharya_l_s": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages206-405.json",
+    "bytes": 801914,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/usha-harna-of-trivikrama-bhatta-with-rasika-ranjini-of-sumatindra-tirtha-ed.-vadirajacharya-l.-s./Usha%20Harna%20of%20Trivikrama%20Bhatta%20with%20Rasika%20Ranjini%20of%20Sumatindra%20Tirtha%20Ed.%20Vadirajacharya%20L.S..pdf",
+    "pdf_pages": 539,
+    "generated_at": "2026-09-18T14:36:30Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages406-539.json",
+    "bytes": 570666,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/usha-harna-of-trivikrama-bhatta-with-rasika-ranjini-of-sumatindra-tirtha-ed.-vadirajacharya-l.-s./Usha%20Harna%20of%20Trivikrama%20Bhatta%20with%20Rasika%20Ranjini%20of%20Sumatindra%20Tirtha%20Ed.%20Vadirajacharya%20L.S..pdf",
+    "pdf_pages": 539,
+    "generated_at": "2026-09-18T11:23:27Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 134,
+     "pages_succeeded": 134,
+     "pages_failed": 0,
+     "jobs": 14
+    },
+    "receipts": [],
+    "page_entries": 134,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages6-205.json",
+    "bytes": 833365,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/usha-harna-of-trivikrama-bhatta-with-rasika-ranjini-of-sumatindra-tirtha-ed.-vadirajacharya-l.-s./Usha%20Harna%20of%20Trivikrama%20Bhatta%20with%20Rasika%20Ranjini%20of%20Sumatindra%20Tirtha%20Ed.%20Vadirajacharya%20L.S..pdf",
+    "pdf_pages": 539,
+    "generated_at": "2026-09-18T11:09:17Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_1-539.json",
+    "bytes": 7442166,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 539,
+    "errors": {}
+   }
+  ],
+  "vaidika_svara_prakaranam_prabhakara_adiga_kadri": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages5-112.json",
+    "bytes": 10704,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=11pQh5q3yxC53XjoDIH6_4lZQUOAysAYG",
+    "pdf_pages": 112,
+    "generated_at": "2026-09-18T15:06:40Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 0,
+     "pages_succeeded": 0,
+     "pages_failed": 108,
+     "jobs": 0
+    },
+    "receipts": [],
+    "page_entries": 108,
+    "errors": {
+     "HTTP Error 402: Payment Required": 108
+    }
+   },
+   {
+    "file": "vision_pages_1-112.json",
+    "bytes": 1174858,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 112,
+    "errors": {}
+   }
+  ],
+  "venkatesha__venkatesha_mahatmya_moola": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages203-248.json",
+    "bytes": 138309,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1pc1i4tmluV10jH43I8K5OaY9PdTv84wD",
+    "pdf_pages": 248,
+    "generated_at": "2026-09-18T15:01:10Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 46,
+     "pages_succeeded": 46,
+     "pages_failed": 0,
+     "jobs": 5
+    },
+    "receipts": [],
+    "page_entries": 46,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages3-202.json",
+    "bytes": 635313,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1pc1i4tmluV10jH43I8K5OaY9PdTv84wD",
+    "pdf_pages": 248,
+    "generated_at": "2026-09-18T15:01:11Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 190,
+     "pages_succeeded": 190,
+     "pages_failed": 10,
+     "jobs": 19
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 402: Payment Required": 10
+    }
+   },
+   {
+    "file": "vision_pages_1-248.json",
+    "bytes": 2223106,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 248,
+    "errors": {}
+   }
+  ],
+  "venkatesha__venkatesha_mahatmya_vyakyana_sahita": [
+   {
+    "file": "sarvam_pages44-53.json",
+    "bytes": 49491,
+    "engine": "sarvam-docai",
+    "source_pdf": "raghavendra_vijaya.pdf",
+    "pdf_pages": 611,
+    "generated_at": "2026-09-13T14:12:33Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "vision_pages_44-53.json",
+    "bytes": 154815,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages203-402.json",
+    "bytes": 763187,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1gMdXtQZNxVyevdwLCaCOY91S9bJ4UxFg",
+    "pdf_pages": 856,
+    "generated_at": "2026-09-18T15:02:15Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 160,
+     "pages_succeeded": 160,
+     "pages_failed": 40,
+     "jobs": 16
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 402: Payment Required": 40
+    }
+   },
+   {
+    "file": "sarvam_pages3-202.json",
+    "bytes": 802014,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1gMdXtQZNxVyevdwLCaCOY91S9bJ4UxFg",
+    "pdf_pages": 856,
+    "generated_at": "2026-09-18T15:02:01Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 160,
+     "pages_succeeded": 160,
+     "pages_failed": 40,
+     "jobs": 16
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 402: Payment Required": 40
+    }
+   },
+   {
+    "file": "sarvam_pages403-602.json",
+    "bytes": 603134,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1gMdXtQZNxVyevdwLCaCOY91S9bJ4UxFg",
+    "pdf_pages": 856,
+    "generated_at": "2026-09-18T15:02:54Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 130,
+     "pages_succeeded": 130,
+     "pages_failed": 70,
+     "jobs": 13
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 402: Payment Required": 70
+    }
+   },
+   {
+    "file": "sarvam_pages603-802.json",
+    "bytes": 253522,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1gMdXtQZNxVyevdwLCaCOY91S9bJ4UxFg",
+    "pdf_pages": 856,
+    "generated_at": "2026-09-18T15:05:13Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 50,
+     "pages_succeeded": 50,
+     "pages_failed": 150,
+     "jobs": 5
+    },
+    "receipts": [],
+    "page_entries": 200,
+    "errors": {
+     "HTTP Error 402: Payment Required": 150
+    }
+   },
+   {
+    "file": "sarvam_pages803-856.json",
+    "bytes": 247130,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1gMdXtQZNxVyevdwLCaCOY91S9bJ4UxFg",
+    "pdf_pages": 856,
+    "generated_at": "2026-09-18T15:05:26Z",
+    "started_at": null,
+    "usage": {
+     "pages_total": 50,
+     "pages_succeeded": 50,
+     "pages_failed": 4,
+     "jobs": 5
+    },
+    "receipts": [],
+    "page_entries": 54,
+    "errors": {
+     "HTTP Error 402: Payment Required": 4
+    }
+   },
+   {
+    "file": "vision_pages_1-856.json",
+    "bytes": 13452719,
+    "engine": "vision",
+    "source_pdf": null,
+    "pdf_pages": null,
+    "generated_at": null,
+    "started_at": null,
+    "usage": {},
+    "receipts": [],
+    "page_entries": 856,
+    "errors": {}
+   }
+  ]
+ }
+}
