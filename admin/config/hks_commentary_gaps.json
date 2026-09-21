@@ -6,11 +6,11 @@
   "some layers, which is usually what the printed book does too."
  ],
  "total_padyas": 1010,
- "padyas_with_any_commentary": 935,
- "padyas_with_no_commentary": 75,
+ "padyas_with_any_commentary": 933,
+ "padyas_with_no_commentary": 77,
  "sandhis_with_no_commentary_at_all": [],
  "layer_coverage": {
-  "vyakhyana": 888,
+  "vyakhyana": 878,
   "sarvavyakhyana_sara_sangraha": 839,
   "pratipadartha": 751,
   "sankarshana_odeyara_vyakhyana": 595,
@@ -45,6 +45,16 @@
    "id": "hks-4-22",
    "sandhi": 4,
    "sandhi_title": "೪. ಶ್ರೀ ಭೋಜನ ಸಂಧಿ"
+  },
+  {
+   "id": "hks-5-36",
+   "sandhi": 5,
+   "sandhi_title": "೫. ಶ್ರೀ ವಿಭೂತಿ ಸಂಧಿ"
+  },
+  {
+   "id": "hks-7-31",
+   "sandhi": 7,
+   "sandhi_title": "೮. ಶ್ರೀ ಮಾತೃಕಾ ಸಂಧಿ"
   },
   {
    "id": "hks-8-1",
@@ -438,8 +448,10 @@
    "sandhi_number": 5,
    "sandhi_title": "೫. ಶ್ರೀ ವಿಭೂತಿ ಸಂಧಿ",
    "padyas": 40,
-   "with_any": 40,
-   "bare": []
+   "with_any": 39,
+   "bare": [
+    "hks-5-36"
+   ]
   },
   {
    "sandhi_number": 6,
@@ -452,8 +464,10 @@
    "sandhi_number": 7,
    "sandhi_title": "೮. ಶ್ರೀ ಮಾತೃಕಾ ಸಂಧಿ",
    "padyas": 32,
-   "with_any": 32,
-   "bare": []
+   "with_any": 31,
+   "bare": [
+    "hks-7-31"
+   ]
   },
   {
    "sandhi_number": 8,

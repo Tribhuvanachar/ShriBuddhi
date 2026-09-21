@@ -30,6 +30,7 @@ from __future__ import annotations
 
 import argparse
 import collections
+import difflib
 import glob
 import html
 import json
@@ -250,10 +251,81 @@ def split_block(lines: list[str]) -> dict:
     return out
 
 
+# Page furniture: what the press prints at the top of every page rather than
+# what the commentator wrote. This edition runs the book's title on one side
+# and the sandhi's name on the other, and the page number above both.
+#
+# Matching the title by pattern does not work. The scan spells it at least
+# fifteen ways -- ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರ, ಶ್ರೀಮದ್ದ ರಿಕಥಾಮೃತಸಾರ, ಶ್ರೀಮದ್ಭರಥಾಮೃತಸಾರ,
+# ಹರಿಕಥಾಮೃತಸಾರ -- and any similarity threshold loose enough to catch
+# ಶ್ರೀಮದ್ಭರಥಾಮೃತಸಾರ also catches ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರದಲ್ಲಿ, which is a
+# commentator writing "in the Harikathamrtasara" and is his own sentence.
+#
+# So this does not ask what a running head says. It asks what repeats: a line
+# standing at the top of five or more pages of one volume is the press, and a
+# line of commentary never repeats verbatim across five pages. That calibrates
+# itself per volume and needs no list of spellings.
+#
+# Anything the block parser downstream needs is exempt, so a commentary name
+# or a padya header standing at the head of a page is never mistaken for
+# furniture.
+def running_heads(pages: dict, min_pages: int = 5, near: float = 0.80) -> set:
+    top = collections.Counter()
+    for text in pages.values():
+        lines = [l.strip() for l in str(text).split("\n") if l.strip()]
+        for l in lines[:2]:
+            top[l] += 1
+
+    def usable(line):
+        # Exempt only what the block parser will actually act on. Testing
+        # SUBHEAD_BARE by SHAPE exempts everything: it matches any bare
+        # Kannada line, so `ಹರಿಕಥಾಮೃತಸಾರ` standing at the head of 78 pages of
+        # volume 10 and `ಸರ್ವಪ್ರತೀಕಸಂಧಿ` at the head of 80 looked like
+        # commentary subheadings and no furniture was found at all. What
+        # matters is whether the name RESOLVES, exactly as split_block asks.
+        if len(line) > 60 or PADYA_HEAD.match(line):
+            return False
+        h = SUBHEAD.match(line)
+        if h and commentary_key(h.group(2)):
+            return False
+        b = SUBHEAD_BARE.match(line)
+        if b and commentary_key(b.group(1)):
+            return False
+        return True
+
+    # What repeats verbatim is furniture beyond argument.
+    anchors = {l for l, n in top.items() if n >= min_pages and usable(l)}
+
+    # The same head spelt differently. The scan gives the title fifteen ways
+    # and the sandhi's name nearly as many, so most variants appear once or
+    # twice and never reach min_pages on their own. Each is measured against
+    # the heads repetition already proved, never against a title typed in
+    # here, and must be close in LENGTH as well as in characters -- that is
+    # what keeps "ಶ್ರೀಮದ್ಧರಿಕಥಾಮೃತಸಾರದಲ್ಲಿ", a commentator writing "in the
+    # Harikathamrtasara", from being read as the running head it resembles.
+    out = set(anchors)
+    for line in top:
+        if line in out or not usable(line):
+            continue
+        for a in anchors:
+            if abs(len(line) - len(a)) > max(3, len(a) // 4):
+                continue
+            if difflib.SequenceMatcher(None, line, a).ratio() >= near:
+                out.add(line)
+                break
+    return out
+
+
+# A line holding nothing but a number is the page number. Verse numbers reach
+# us inside dandas -- ॥೫೨॥ -- so they do not match this.
+PAGE_NUMBER_ONLY = re.compile(r"^\s*[\[(]?\s*[0-9೦-೯]{1,4}\s*[\])]?\s*$")
+
+
 def segment(work_dir: str, name: str, gemini_dir: str = GEMINI_DIR) -> dict:
     sandhis = volume_sandhis(name)
     cur_sandhi = sandhis[0] if sandhis else None
     pages = read_pages(work_dir, load_resolved(gemini_dir, name))
+    furniture = running_heads(pages)
     blocks, notes = [], []
     open_block, buf = None, []
     seen_a_padya = False
@@ -318,6 +390,10 @@ def segment(work_dir: str, name: str, gemini_dir: str = GEMINI_DIR) -> dict:
                     open_block, buf = None, []
                     cur_sandhi = n
                     continue
+            # Past the sandhi checks, so the first printing of a heading has
+            # already moved the pointer and only its repeats land here.
+            if line in furniture or PAGE_NUMBER_ONLY.match(line):
+                continue
             pm = PADYA_HEAD.match(line)
             if pm:
                 close(pno)

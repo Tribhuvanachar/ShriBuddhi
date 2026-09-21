@@ -69,3 +69,42 @@ Two small things in that verse, for whoever lands this work:
   the pāda needs eleven syllables and the OCR reading gives ten.
 * staged `तस्य`, printed `तंस्य`. Here the OCR is right and the anusvāra is the
   page's own slip.
+
+## 5 · The Sarvam pages that "never came back" — settled
+
+They were never done, so there is nothing to reclaim. Of the 5,342:
+
+| recorded reason | chunks | pages |
+|---|---|---|
+| `HTTP Error 402: Payment Required` | 41 | **5,202** |
+| `HTTP Error 500: Internal Server Error` | 12 | 140 |
+
+A 402 is Sarvam refusing the job because the prepaid balance was empty. It is
+returned **before** any page is read, so those 5,202 pages were never
+processed and never billed. The cost ledger agrees: the eleven works that are
+nothing but 402s -- rukminisha_vijaya, both tantrasara ṭippaṇīs, taittiriya,
+katha, mundaka, isha, prashna, mandukya, kena, bhagavata_saroddhara,
+vaidika_svara -- carry **₹0.00** between them. The works that DO carry a
+charge are the ones that succeeded and lost only a 10-page chunk to a 500.
+
+So no money went missing. What went missing was the truth: on 18 Sep every
+slice of all 32 chunks kept calling after the first 402, 4,606 pages came back
+refused, **and the runs reported success**. We believed we held OCR we did not
+hold. `sarvam_docai.py` now aborts the chunk on the first 402 and exits 1 on
+any failed page, so that particular lie cannot be told again.
+
+### What to do
+
+1. **Re-dispatch the 5,342.** At the rate the ledger actually shows --
+   ₹8,998.88 for 20,452 pages, ₹0.44 a page -- that is about **₹2,350**.
+2. **Check the balance before dispatching, not after.** The batch knows its
+   own page count; refusing to start when the balance will not cover it turns
+   a silent 402 storm into one line of output.
+3. **The 140 pages lost to 500s are worth one email, not a claim.** Ask Sarvam
+   whether a job that ends in a 500 is metered. At ₹0.44 a page the answer is
+   worth about ₹62, so ask for the policy rather than the refund -- the value
+   is knowing, for the next 20,000 pages, whether a server error costs us.
+4. **Reconcile the ledger against a real invoice.** Every row says so itself:
+   "per-page rate is the published list price, confirm against the invoice."
+   ₹8,998.88 is our arithmetic, not Sarvam's. Until one invoice is checked
+   against one month of rows, the ledger is an estimate.
