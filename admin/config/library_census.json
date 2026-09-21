@@ -1,0 +1,42 @@
+{
+ "_readme": [
+  "1,306 is POPULATED ENTRIES, not works: an entry is one data.json,",
+  "which is usually one layer. 'works' below counts a mula and its",
+  "tikas once. 'ocr' counts what we scanned ourselves; everything",
+  "else arrived as text and has no PDF to be checked against."
+ ],
+ "entries_populated": 1306,
+ "works": 974,
+ "works_multi_layer": 89,
+ "units_total": 643283,
+ "unit_schemas": {
+  "items": 1270,
+  "shlokas[dict]": 27,
+  "grantha_layer_v2_index": 8
+ },
+ "entries_without_units": [
+  {
+   "slug": "vedanga/chandas",
+   "why": "no units; keys=schema,note,counts,sama_vrutta,ardhasama_vrutta"
+  }
+ ],
+ "by_shelf": {
+  "darshana": 620,
+  "Tattvavada": 251,
+  "vedas": 119,
+  "itihasa": 83,
+  "vedanga": 58,
+  "purana": 50,
+  "upaveda": 44,
+  "agama": 34,
+  "shastra": 31,
+  "smriti_dharma": 11,
+  "kavya_alankara": 4,
+  "Vyasaraja_Pratishta_Hanuma": 1
+ },
+ "ocr": {
+  "staging_branches": 94,
+  "branches_with_a_source_pdf": 42,
+  "harikathamrtasara_branches": 31
+ }
+}
