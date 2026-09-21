@@ -63,6 +63,29 @@ splitter cannot miss what OCR never produced, and nothing downstream noticed a
 caught it. Every bilingual work staged the same way should be counted layer
 against layer before it is landed.
 
+**Verified live, not just in the JSON.** Sampled first, last and two random
+verses in every sarga — 32 pages — served locally and driven in a real browser:
+each one carries its mūla and *both* ṭīkās. Verse 4.30 renders in place with
+the numbering running 26→39 unbroken, and sarga 3 now reads "26–31 of 31".
+
+Two failures in that sweep were the harness, not the site, and are worth
+recording so the next person does not repeat them. Aborting the external CDN
+requests — an attempt to stop a hanging request from holding up `networkidle`
+— stopped the app booting at all and took down 29 of 32 pages. And `js/offline.js`
+registers a service worker, so after the first navigation every later one goes
+through it; in a sandbox with no external network it stalls them, which is why
+exactly the first page of each run loaded. Block service workers in the test
+context and wait on `window.stotraData` rather than on network quiet. Pages
+that appeared to time out at 25s load in about 600ms when retried alone.
+
+The sweep did surface one real defect, since fixed (b6534113e4): a grantha with
+no recorded audio asked the server for `undefinedundefined30undefined`.
+
+Maṇimañjarī 404s on four optional per-grantha side-indexes other works have —
+`_padaccheda`, `_references`, `_commentary_sandhi` and
+`vedanga/vyakarana/dhatu_prayoga/by_grantha`. The reader is fine without them;
+the enrichment is simply absent until they are built.
+
 ### Maṇimañjarī — 152 pages of the same PDF were never OCRed
 
 The source scan is 472 pages and its title page reads "Pages : 96 + 188 + 152".
