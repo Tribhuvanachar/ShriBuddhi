@@ -30,6 +30,13 @@
   // (user-auth.js dgeVandanaAfterSignIn), so respects are paid at each login.
   var PASS_KEY = 'dge_vandana_passed';
   var DAY_KEY = 'dge_vandana_day';
+  // 21 Sep 2026, the lead: once a day is too much. The vandana is a greeting
+  // at the door, not an attendance register -- asked every morning it stops
+  // being a courtesy and becomes a toll. EVER_KEY is set the first time
+  // respects are paid in this browser and never expires, so a returning
+  // reader goes straight in. DAY_KEY is still honoured so nobody who paid
+  // respects earlier today is asked again by this change itself.
+  var EVER_KEY = 'dge_vandana_ever';
   function today() {
     var d = new Date(), m = d.getMonth() + 1, day = d.getDate();
     return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day;
@@ -50,7 +57,9 @@
 
   if (store.getItem(PASS_KEY)) return;
   try {
-    if (window.localStorage && window.localStorage.getItem(DAY_KEY) === today()) {
+    if (window.localStorage &&
+        (window.localStorage.getItem(EVER_KEY) ||
+         window.localStorage.getItem(DAY_KEY) === today())) {
       store.setItem(PASS_KEY, String(Date.now()));
       return;
     }

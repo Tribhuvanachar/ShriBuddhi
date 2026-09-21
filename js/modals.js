@@ -158,17 +158,15 @@ window.openAboutModal = function() {
   localStorage.setItem('has_seen_welcome', 'true');
 };
 
-// First-visit welcome — shows the same About modal automatically once,
-// after the app has finished loading its data (so the title/content
-// behind it isn't jarring). Never shows again after that unless the
-// person clears site data.
-document.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('has_seen_welcome') !== 'true') {
-    setTimeout(() => {
-      if (typeof stotraData !== 'undefined' && stotraData) window.openAboutModal();
-    }, 900);
-  }
-});
+// The About panel does not open itself. It used to, 900ms after the reader
+// finished loading, on any browser that had not seen it -- so a first-time
+// visitor met three panels in a row: the vandana, the language preference,
+// and this, stacked over a text they had not yet read a line of. Removed
+// permanently on 21 Sep 2026 at the lead's instruction. About stays exactly
+// where someone looking for it would go: the ☰ menu.
+//
+// The language preference (js/onboarding.js) still shows itself once per
+// browser, and is the only panel that does.
 
 // Reader redesign, section 13 ("remove wasted space" at the top of the
 // page): the "💝 Support This Project" button used to sit inline in the

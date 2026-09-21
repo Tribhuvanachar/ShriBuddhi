@@ -726,9 +726,14 @@ let SITE_CONFIG = null;
 
   function markPassed() {
     try { sessionStorage.setItem(cfg.passKey, String(Date.now())); } catch (e) {}
-    // Once a day per device (js/vandana-guard.js reads this), cleared again by a sign-in.
+    // Once per browser (js/vandana-guard.js reads this), cleared again by a
+    // sign-in. It was once a day, which the lead called too much on 21 Sep
+    // 2026: a greeting asked every morning stops being a courtesy. The day
+    // key is still written so a browser that has only the old guard cached
+    // behaves as it did until the new one loads.
     try {
       const d = new Date(), m = d.getMonth() + 1, day = d.getDate();
+      localStorage.setItem('dge_vandana_ever', '1');
       localStorage.setItem('dge_vandana_day', d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day);
     } catch (e) {}
   }

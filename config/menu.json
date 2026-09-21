@@ -1,0 +1,203 @@
+{
+ "_readme": [
+  "Which menu items the library shows, and in what order.",
+  "",
+  "Read by js/menu.js at boot. If this file is missing or malformed, the menus",
+  "stay exactly as written in render.html — nothing disappears because a config",
+  "file broke.",
+  "",
+  "Set enabled:false to hide an item. Reorder the arrays to reorder the menu. Items",
+  "listed here but absent from the page are ignored; items on the page but absent",
+  "from these arrays are left alone in place, so adding a new button to the markup",
+  "does not require touching this file first.",
+  "",
+  "  requires   who sees an item. 'all' (default), 'admin' (either tier), or",
+  "             'superadmin'. This is a tidiness gate, not access control — see",
+  "             keys.json for what that means.",
+  "  feature    only show when this is switched on. Currently only 'auth', which",
+  "             follows AUTH_CONFIG.enabled in js/config.js.",
+  "  action     a function on window, called on click.",
+  "  href       a URL, navigated to on click. Relative to .",
+  "",
+  "NOT HERE, ON PURPOSE — one source of truth each:",
+  "  reading scripts      SCRIPT_OPTIONS in js/config.js",
+  "  feature switches     FEATURE_FLAGS in js/config.js",
+  "  passkeys             config/keys.json in the working repository now (see below)",
+  "  the landing page     config/home.json",
+  "  everything else      config/config-overrides.json",
+  "",
+  "The 'commentary' topBar entry was removed 10 Sep 2026 with the button itself: the commentary bar above the verses (render.js dgeRenderCommentaryBar) carries every name and switch, so the global 💬 icon was the same control in a worse place. #commentaryPopup still exists for a verse card's '+N 💬' overflow tab.",
+  "",
+  "12 Sep 2026: every admin item that used to 'href' straight to an admin/*.html",
+  "page (Library Manager, Kosha Manager, Repo & Workflows, OCR Review/Studio, ...)",
+  "was removed from this array — those pages now live in the private the working repository",
+  "repo, physically absent from this one, and are reachable only through",
+  "js/admin-the working repository.js's own PAT-gated menu (admin/config/admin-menu.json",
+  "in the working repository, fetched live, never bundled here). The 'adminBrahmaBuddhiItem'",
+  "below is the only trace of that mechanism in this repo, and it names no",
+  "individual page. adminKeysItem/adminFilesItem/adminConfigItem/adminUserRolesItem",
+  "stayed: they open a LOCAL js/ modal (admin-editor.js, config-editor.js, ...),",
+  "not a page, and were never part of what moved."
+ ],
+ "topBar": [
+  {
+   "id": "display",
+   "enabled": true
+  },
+  {
+   "id": "admin",
+   "enabled": true
+  },
+  {
+   "id": "explore",
+   "enabled": true
+  },
+  {
+   "id": "about",
+   "enabled": true
+  },
+  {
+   "id": "account",
+   "enabled": true
+  },
+  {
+   "id": "access",
+   "enabled": true
+  }
+ ],
+ "explore": {
+  "label": "Explore",
+  "items": [
+   {
+    "id": "ourStory",
+    "icon": "📖",
+    "label": "Our Story",
+    "action": "dgeOpenOurStory",
+    "enabled": true
+   },
+   {
+    "id": "guruParampara",
+    "icon": "🪷",
+    "label": "Guru Parampara",
+    "href": "guru-parampara/index.html",
+    "enabled": true
+   },
+   {
+    "id": "tirtha",
+    "icon": "🛕",
+    "label": "Tirtha Prabandha",
+    "href": "tirtha/index.html",
+    "enabled": true
+   },
+   {
+    "id": "ashtadhyayi",
+    "icon": "📖",
+    "label": "Aṣṭādhyāyī",
+    "href": "vyakarana/ashtadhyayi/index.html",
+    "enabled": true
+   },
+   {
+    "id": "dhatupatha",
+    "icon": "📚",
+    "label": "Dhātupāṭha",
+    "href": "vyakarana/dhatu/index.html",
+    "enabled": true
+   },
+   {
+    "id": "shabda",
+    "icon": "🔤",
+    "label": "Śabdapāṭha",
+    "href": "vyakarana/shabda/index.html",
+    "enabled": true
+   },
+   {
+    "id": "kavya",
+    "icon": "🪶",
+    "label": "Kāvyāni",
+    "href": "kavya/index.html",
+    "enabled": true
+   },
+   {
+    "id": "dasaSahitya",
+    "icon": "🎶",
+    "label": "Dasa Sahitya",
+    "href": "dasa-sahitya/views/index.html",
+    "enabled": true
+   }
+  ]
+ },
+ "admin": {
+  "label": "Admin",
+  "items": [
+   {
+    "id": "adminKeysItem",
+    "icon": "⚙️",
+    "label": "AI Keys & Features",
+    "action": "openKeyModal",
+    "requires": "admin",
+    "className": "advanced-feature",
+    "enabled": true
+   },
+   {
+    "id": "adminFilesItem",
+    "icon": "🗂️",
+    "label": "Repo Files",
+    "action": "openAdminEditor",
+    "requires": "superadmin",
+    "enabled": true
+   },
+   {
+    "id": "adminConfigItem",
+    "icon": "🛠️",
+    "label": "Site Settings",
+    "action": "openConfigEditor",
+    "requires": "superadmin",
+    "enabled": true
+   },
+   {
+    "id": "adminBrahmaBuddhiItem",
+    "icon": "🔒",
+    "label": "Management Tools",
+    "action": "dgeOpenBrahmaBuddhiGate",
+    "requires": "superadmin",
+    "enabled": true
+   },
+   {
+    "id": "adminUserRolesItem",
+    "icon": "👥",
+    "label": "Manage Users",
+    "action": "openUserRolesModal",
+    "requires": "superadmin",
+    "feature": "auth",
+    "enabled": true
+   }
+  ]
+ },
+ "themes": [
+  {
+   "id": "vandana",
+   "label": "Vandana",
+   "enabled": true
+  },
+  {
+   "id": "traditional",
+   "label": "Traditional",
+   "enabled": true
+  },
+  {
+   "id": "minimal",
+   "label": "Minimal",
+   "enabled": true
+  },
+  {
+   "id": "vibrant",
+   "label": "Vibrant",
+   "enabled": true
+  },
+  {
+   "id": "darkglass",
+   "label": "Dark Glass",
+   "enabled": true
+  }
+ ]
+}

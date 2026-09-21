@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces a bookmark or deep link back to the gate at
+     the site root. Must stay the first script here. -->
+<script src="js/vandana-guard.js?v=3"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Library — Sarvamūla Digital Library</title>
+<meta name="description" content="Every shelf of the Sarvamūla Digital Library, and what is on it.">
+<!--
+  Where the vandana lets you out.
+
+  Until 21 Sep 2026 the gate opened straight into render.html, so the first
+  thing a visitor met was one particular text, chosen for them. This is the
+  room instead: every shelf, what is on it, and a way in. Nobody is dropped
+  into a grantha they did not ask for.
+
+  Built from what the library already knows -- data/library.json for the
+  shelves and their granthas, config/menu.json for the Explore destinations
+  -- so a new grantha appears here the moment it is populated, with no
+  second list to remember to update.
+-->
+<style>
+  :root{--bg:#0B0907;--panel:#15110d;--panel2:#1d1711;--ink:#f0e6d6;--muted:#a3927a;
+    --line:#2e251b;--accent:#e0794b;--gold:#d9ab5f;--radius:14px}
+  @media (prefers-color-scheme: light){
+    :root{--bg:#f5efe4;--panel:#fffdf8;--panel2:#fbf4e7;--ink:#2b2117;--muted:#8b7c66;
+      --line:#e6dac6;--accent:#9a3b1b;--gold:#b6862c}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.55;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif}
+  header{border-bottom:1px solid var(--line);background:var(--panel)}
+  .bar{max-width:1100px;margin:0 auto;padding:18px 16px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  h1{font-size:21px;margin:0;font-weight:700;letter-spacing:.01em}
+  .sub{color:var(--muted);font-size:13.5px}
+  main{max-width:1100px;margin:0 auto;padding:18px 16px 90px}
+  h2{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+    font-weight:600;margin:30px 0 12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+  .shelf{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    padding:14px 16px;cursor:pointer;text-align:left;color:inherit;font:inherit;width:100%}
+  .shelf:hover,.shelf:focus{border-color:var(--accent);outline:none}
+  .shelf .n{font-size:16px;font-weight:700}
+  .shelf .c{color:var(--muted);font-size:12.5px;margin-top:3px}
+  .list{margin-top:12px;background:var(--panel2);border:1px solid var(--line);
+    border-radius:var(--radius);padding:10px 14px}
+  .list a{display:block;padding:6px 4px;color:var(--ink);text-decoration:none;
+    border-bottom:1px solid var(--line);font-size:14px}
+  .list a:last-child{border-bottom:0}
+  .list a:hover,.list a:focus{color:var(--accent)}
+  .explore a{display:flex;gap:9px;align-items:center;background:var(--panel);
+    border:1px solid var(--line);border-radius:var(--radius);padding:13px 15px;
+    color:var(--ink);text-decoration:none}
+  .explore a:hover,.explore a:focus{border-color:var(--accent);color:var(--accent)}
+  .empty{color:var(--muted);padding:14px 2px}
+  footer{max-width:1100px;margin:0 auto;padding:0 16px 40px;color:var(--muted);font-size:12.5px}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <h1>The Library</h1>
+  <div class="sub" id="count"></div>
+</div></header>
+<main>
+  <h2>Shelves</h2>
+  <div class="grid" id="shelves"></div>
+  <div id="open"></div>
+
+  <h2>Elsewhere in the library</h2>
+  <div class="grid explore" id="explore"></div>
+</main>
+<footer>Choose a shelf to see what is on it. Every title opens the text itself.</footer>
+
+<script>
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// A shelf directory name as a reader would say it.
+const SHELF_NAMES = {
+  'darshana':'Darśana — philosophy', 'Tattvavada':'Tattvavāda — Madhva’s works',
+  'vedas':'Vedas', 'itihasa':'Itihāsa', 'vedanga':'Vedāṅga', 'purana':'Purāṇa',
+  'upaveda':'Upaveda', 'agama':'Āgama', 'shastra':'Śāstra',
+  'smriti_dharma':'Smṛti & Dharma', 'kavya_alankara':'Kāvya & Alaṅkāra',
+  'Vyasaraja_Pratishta_Hanuma':'Vyāsarāja Pratiṣṭhā Hanumān'
+};
+let SHELVES={}, OPEN=null;
+
+// data/library.json holds "data/<shelf>/.../data.json"; render.html wants the
+// path between those two, which is what every verified link on this site uses.
+function pathOf(p){ return p.replace(/^data\//,'').replace(/\/data\.json$/,''); }
+
+function draw(){
+  const keys = Object.keys(SHELVES).sort((a,b)=>SHELVES[b].length-SHELVES[a].length);
+  document.getElementById('shelves').innerHTML = keys.map(k=>
+    `<button class="shelf" type="button" data-shelf="${esc(k)}" aria-expanded="${OPEN===k}">
+       <div class="n">${esc(SHELF_NAMES[k]||k)}</div>
+       <div class="c">${SHELVES[k].length} text${SHELVES[k].length===1?'':'s'}</div>
+     </button>`).join('');
+  const box=document.getElementById('open');
+  if(!OPEN){ box.innerHTML=''; return; }
+  const items=SHELVES[OPEN].slice().sort((a,b)=>(a.title||'').localeCompare(b.title||''));
+  box.innerHTML = `<div class="list">`+
+    (items.length? items.map(g=>
+      `<a href="render.html?path=${encodeURIComponent(pathOf(g.path))}">${esc(g.title||pathOf(g.path))}</a>`).join('')
+      : '<div class="empty">Nothing populated on this shelf yet.</div>')+`</div>`;
+  box.scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+
+document.addEventListener('click',ev=>{
+  const b=ev.target.closest('[data-shelf]'); if(!b) return;
+  OPEN = OPEN===b.dataset.shelf ? null : b.dataset.shelf;
+  draw();
+});
+
+fetch('data/library.json').then(r=>r.json()).then(j=>{
+  (j.granthas||[]).filter(g=>g.populated).forEach(g=>{
+    const shelf=(g.path||'').split('/')[1]; if(!shelf) return;
+    (SHELVES[shelf]=SHELVES[shelf]||[]).push(g);
+  });
+  const n=Object.values(SHELVES).reduce((a,b)=>a+b.length,0);
+  document.getElementById('count').textContent =
+    n.toLocaleString('en-IN')+' texts across '+Object.keys(SHELVES).length+' shelves';
+  draw();
+}).catch(()=>{ document.getElementById('shelves').innerHTML =
+  '<div class="empty">The shelf list could not be loaded.</div>'; });
+
+fetch('config/menu.json').then(r=>r.json()).then(j=>{
+  const items=((j.explore||{}).items||[]).filter(i=>i.enabled && i.href);
+  document.getElementById('explore').innerHTML = items.map(i=>
+    `<a href="${esc(i.href)}"><span aria-hidden="true">${esc(i.icon||'')}</span><span>${esc(i.label)}</span></a>`
+  ).join('') || '<div class="empty">No other sections listed.</div>';
+}).catch(()=>{});
+</script>
+</body>
+</html>
