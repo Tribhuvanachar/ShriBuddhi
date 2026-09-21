@@ -425,6 +425,14 @@ function playPrevFiltered() {
 
 async function cacheAllAudio(btn) {
   if (!stotraData || btn.dataset.cached === "true") return;
+  // Preloading a grantha that has no audio would queue one doomed fetch
+  // per verse -- 306 of them for Manimanjari -- each for an "undefined"
+  // URL. Say so instead.
+  if (!dgeHasAudioConfig()) {
+    btn.innerText = "No audio";
+    btn.disabled = true;
+    return;
+  }
   if (!('caches' in window)) { 
     alert('This browser does not support offline caching.'); 
     return; 
@@ -502,6 +510,15 @@ if (currentAudio) {
 
   currentAudio.addEventListener('error', () => {
     if (!activeId || !stotraData) return;
+    // A grantha with no recorded audio makes resolveAudioSrc return "",
+    // which itself fires this error event. Without this check the retry
+    // below builds its fallback URL out of the same undefined parts and
+    // asks the server for "undefinedundefined7<ZWSP>undefined".
+    if (!dgeHasAudioConfig()) {
+      const td = document.getElementById('timeDisplay');
+      if (td) td.innerText = "No audio for this text";
+      return;
+    }
     const timeDisplay = document.getElementById('timeDisplay');
     
     if (audioRetryDone) {
