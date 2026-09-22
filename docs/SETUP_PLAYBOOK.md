@@ -331,47 +331,147 @@ implements order creation and webhook verification, and there are tests in
 4. You get **Key Id** (`rzp_test_…`) and **Key Secret**. **The secret is
    shown once.** Copy both now.
 
-### D2 · Give them to the functions
+### D2 · Give the SECRET to the functions — through GitHub, not a terminal
 
-```bash
-cd ShriBuddhi/firebase
-firebase functions:secrets:set RAZORPAY_KEY_SECRET      # paste the secret
-firebase functions:secrets:set RAZORPAY_WEBHOOK_SECRET  # set in D3, come back
-```
+**The old text here told you to run `firebase functions:secrets:set` in a
+local checkout. Ignore that.** It needs the Firebase CLI installed and logged
+in as someone with rights on `sarvamula-org`, and this project already has a
+workflow that does the same job with no terminal at all. The secret value goes
+straight from GitHub into Google Secret Manager and is never printed.
 
-The **Key Id** is not a secret. Put it in `firebase/functions/.env`:
+**Step 1 — decide the webhook secret now**, before touching Razorpay. It is
+just a long random string that you choose; Razorpay does not generate it. Any
+of these will do:
 
-```
-RAZORPAY_KEY_ID=rzp_test_xxxxxxxxxxxx
-PAYMENT_GATEWAY=razorpay
-PAYMENT_GATEWAYS_ENABLED=razorpay
-```
+    openssl rand -hex 32
+
+Keep it somewhere you can paste it twice: once into GitHub below, once into
+Razorpay in D3. They must match exactly.
+
+**Step 2 — add two repository secrets** at
+<https://github.com/Tribhuvanachar/ShriBuddhi/settings/secrets/actions>
+→ **New repository secret**:
+
+| Name | Value |
+|---|---|
+| `RAZORPAY_KEY_SECRET` | the **Key Secret** from D1 |
+| `RAZORPAY_WEBHOOK_SECRET` | the random string from step 1 |
+
+The **Key Id** (`rzp_test_…`) does **not** go here. It is not a secret — the
+browser receives it to open Razorpay checkout — and it is given at deploy time
+in D4 instead. *Never* paste the Key Secret into a workflow input: inputs are
+recorded in the run's parameters in clear text.
+
+**Step 3 — check the other ten secrets exist too.** This is the step that
+actually bites. `firebase-tools` resolves **every** `defineSecret()` in
+`functions/index.js` while it loads the code, so a Functions deploy **fails
+outright** if even one of them has no version in Secret Manager — `--only` or
+not. All twelve must exist:
+
+    CASHFREE_CLIENT_ID      CASHFREE_CLIENT_SECRET   GITHUB_DISPATCH_TOKEN
+    MSG91_AUTHKEY           OTP_PEPPER               PAYMENT_WEBHOOK_SECRET
+    RAZORPAY_KEY_SECRET     RAZORPAY_WEBHOOK_SECRET  WHATSAPP_APP_SECRET
+    WHATSAPP_PHONE_NUMBER_ID WHATSAPP_TOKEN          WHATSAPP_VERIFY_TOKEN
+
+For anything not in use yet, a placeholder string is fine and always will be —
+`PAYMENT_WEBHOOK_SECRET` in particular never needs a real value, because the
+`mock` gateway it belongs to refuses to run outside an emulator. Set each one
+as a GitHub repository secret with the **same name** (the one exception:
+GitHub refuses any name starting with `GITHUB_`, so `GITHUB_DISPATCH_TOKEN` is
+stored on GitHub as **`GH_DISPATCH_TOKEN`** and the workflow renames it on the
+way in).
+
+**Step 4 — run the push workflow.** Actions →
+**"Push Firebase Functions secrets"** → *Run workflow* → leave
+`rotate_otp_pepper` **off** → *Run*.
+
+It prints two lines, `Pushed:` and `Skipped:`, naming only which secrets moved
+— never a value. **Read them.** Anything in `Skipped: … (no GitHub secret set)`
+has no version in Secret Manager and will fail your deploy in D4.
+
+> `OTP_PEPPER` is deliberately skipped once it already has a version. Phone
+> account IDs are derived from it, so rotating it orphans every existing phone
+> account. Leave that tickbox alone.
 
 ### D3 · The webhook
 
-1. **<https://dashboard.razorpay.com/app/webhooks>** → **Add New Webhook**.
-2. **Webhook URL**:
-   `https://asia-south1-<your-project-id>.cloudfunctions.net/paymentWebhook`
-   (after `firebase deploy --only functions`, the console prints the exact
-   URL — use that.)
-3. **Secret**: type a long random string. Keep it.
-4. **Active Events**: tick `payment.captured`, `payment.failed`,
-   `order.paid`.
+The URL is already known — `paymentWebhook` is deployed and answers today
+(a `GET` returns 405, which is the function refusing a non-POST, i.e. it is
+live). There is no need to deploy first to find out what it is:
+
+    https://asia-south1-sarvamula-org.cloudfunctions.net/paymentWebhook
+
+1. <https://dashboard.razorpay.com/app/webhooks> → **Add New Webhook**.
+2. **Webhook URL**: the URL above, exactly.
+3. **Secret**: paste the *same* random string you put in
+   `RAZORPAY_WEBHOOK_SECRET` in D2. A mismatch here is the single most common
+   failure — the function verifies the signature and rejects every event, so
+   payments succeed at Razorpay and no `donations` document is ever updated.
+4. **Active Events**: tick `payment.captured`, `payment.failed`, `order.paid`.
 5. **Create Webhook**.
-6. Back in a terminal:
-   `firebase functions:secrets:set RAZORPAY_WEBHOOK_SECRET` and paste the
-   string from step 3.
-7. `firebase deploy --only functions` so the new secrets are picked up.
 
-### D4 · Test before going live
+Nothing else to do here. The signature check, including `x-razorpay-event-id`
+de-duplication, is already implemented and tested
+(`firebase/tests/payment-providers.test.js`).
 
-Use a Razorpay test card: **4111 1111 1111 1111**, any future expiry, any
-CVV. Confirm a `donations` document appears in Firestore.
+### D4 · Turn it on, then test
+
+Until 22 Sep 2026 **this step was impossible**, and it is worth knowing why
+before running it: `deploy-firebase-functions.yml` hardcoded
+`PAYMENT_GATEWAY=mock`, `PAYMENT_GATEWAYS_ENABLED=mock` and an empty
+`RAZORPAY_KEY_ID` into the deploy's `.env`, with no input to change them. You
+could do all of D1–D3 perfectly and the deployed `createDonation` would still
+refuse every donation — `mock` is emulator-only by design
+(`payment-providers.js` `assertGatewayAllowed`). Those three are now workflow
+inputs.
+
+Actions → **"Deploy — Firebase Functions"** → *Run workflow*:
+
+| input | value |
+|---|---|
+| `payment_gateway` | `razorpay` |
+| `payment_gateways_enabled` | `razorpay` |
+| `razorpay_key_id` | `rzp_test_…` from D1 |
+| everything else | leave as-is |
+
+The workflow refuses to proceed if the gateway is not in the enabled list, if
+`razorpay` is enabled with a blank key id, or if what you typed does not look
+like a Key Id — that last check exists so a Key *Secret* pasted into the wrong
+box is caught before it is written into the run's parameters in clear text.
+(If that ever happens, rotate the key at Razorpay immediately.)
+
+**Then test.** Open the donation flow, use Razorpay's test card
+**4111 1111 1111 1111**, any future expiry, any CVV, and confirm:
+
+1. Razorpay's dashboard shows the payment **captured**;
+2. a document appears in the **`donations`** collection in Firestore
+   (<https://console.firebase.google.com/project/sarvamula-org/firestore>)
+   and reaches a paid state — that second part is what proves the *webhook*
+   arrived, not just the checkout.
+
+If (1) happens and (2) does not, the webhook secret does not match. Redo D3
+step 3 and D2 step 2 with the same string.
 
 **Going live**: flip the dashboard to Live mode, generate live keys
-(`rzp_live_…`), repeat D2 and D3 with those, and complete Razorpay's KYC.
-Signature verification is already implemented, including `x-razorpay-event-id`
-de-duplication, so a replayed webhook cannot double-count a donation.
+(`rzp_live_…`), repeat D2 (new `RAZORPAY_KEY_SECRET`, push workflow) and D3
+(new webhook on the live dashboard), redeploy with the `rzp_live_…` key id,
+and complete Razorpay's KYC.
+
+### Are you ready for D2–D4? — state as of 22 Sep 2026
+
+| | |
+|---|---|
+| Razorpay code written and tested | yes — `lib/payment-providers.js`, `tests/payment-providers.test.js` |
+| `paymentWebhook` deployed and reachable | **yes** — 405 to a GET |
+| `FIREBASE_PROJECT_ID` + `FIREBASE_SERVICE_ACCOUNT` set | yes — `deploy-firestore.yml` succeeded 22 Sep on them |
+| A way to set the gateway at deploy time | **now yes** — added 22 Sep; before that, D4 could not work |
+| All twelve `defineSecret()` names have versions | **unknown — check this first** (D2 step 3/4) |
+| `deploy-firebase-functions.yml` ever run successfully | **no, not once.** Expect to debug the first run. |
+
+The last two lines are the honest risk. The deploy has never been run, and the
+most likely first failure is a missing Secret Manager version, which fails the
+whole deploy with `--only` set or not. Run the push workflow first and read its
+`Skipped:` line.
 
 ---
 

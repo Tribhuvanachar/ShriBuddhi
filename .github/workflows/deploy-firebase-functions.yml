@@ -47,6 +47,34 @@ on:
         required: false
         default: false
         type: boolean
+      # Until 22 Sep 2026 the three values below were HARDCODED into the .env
+      # step as mock/mock/blank, with no way to change them. That made the
+      # payments half of SETUP_PLAYBOOK.md §D impossible to finish: you could
+      # get Razorpay keys, push RAZORPAY_KEY_SECRET into Secret Manager and
+      # create the webhook, and the deployed createDonation would still be on
+      # the mock gateway with no key id -- and `mock` is emulator-only
+      # (payment-providers.js assertGatewayAllowed), so every donation threw
+      # "Donations are not accepting payments on this deployment yet."
+      payment_gateway:
+        description: 'Default payment gateway for this deployment. mock is EMULATOR-ONLY — a deployed mock refuses every donation by design.'
+        required: false
+        type: choice
+        options: [mock, razorpay, cashfree]
+        default: mock
+      payment_gateways_enabled:
+        description: 'Comma list a client may ask for, e.g. "razorpay" or "razorpay,cashfree". Must contain payment_gateway. Anything else the client asks for falls back to the default.'
+        required: false
+        default: "mock"
+      razorpay_key_id:
+        description: 'Razorpay Key Id (rzp_test_… or rzp_live_…). NOT a secret — it is sent to the browser. Required when razorpay is enabled. The paired Key SECRET is a GitHub secret pushed by push-firebase-function-secrets.yml, never typed here.'
+        required: false
+        default: ""
+      cashfree_env:
+        description: 'Cashfree only: sandbox or production.'
+        required: false
+        type: choice
+        options: [sandbox, production]
+        default: sandbox
 
 permissions:
   contents: read
@@ -148,7 +176,38 @@ jobs:
           CORPUS_BUCKET: ${{ inputs.corpus_bucket }}
           CORPUS_PREFIX: ${{ inputs.corpus_prefix }}
           CORPUS_CONFIG_URL: ${{ inputs.corpus_config_url }}
+          PAYMENT_GATEWAY: ${{ inputs.payment_gateway }}
+          PAYMENT_GATEWAYS_ENABLED: ${{ inputs.payment_gateways_enabled }}
+          RAZORPAY_KEY_ID: ${{ inputs.razorpay_key_id }}
+          CASHFREE_ENV: ${{ inputs.cashfree_env }}
         run: |
+          set -euo pipefail
+          GATEWAY="${PAYMENT_GATEWAY:-mock}"
+          ENABLED="${PAYMENT_GATEWAYS_ENABLED:-mock}"
+
+          # Catch the three ways this is easy to get half-right, here, rather
+          # than at the first live donation.
+          case ",$ENABLED," in
+            *",$GATEWAY,"*) ;;
+            *) echo "::error::payment_gateway is \"$GATEWAY\" but payment_gateways_enabled is \"$ENABLED\", which does not contain it. createDonation would fall back to a gateway this deployment does not accept."; exit 1 ;;
+          esac
+          case ",$ENABLED," in
+            *",razorpay,"*)
+              if [ -z "${RAZORPAY_KEY_ID}" ]; then
+                echo "::error::razorpay is enabled but razorpay_key_id is blank. The Key Id is the public half of the pair (dashboard.razorpay.com -> Settings -> API Keys) and the browser needs it to open checkout. The Key SECRET is not set here -- it belongs in the GitHub secret RAZORPAY_KEY_SECRET, pushed by push-firebase-function-secrets.yml."
+                exit 1
+              fi
+              case "$RAZORPAY_KEY_ID" in
+                rzp_test_*|rzp_live_*) ;;
+                *) echo "::error::razorpay_key_id should start with rzp_test_ or rzp_live_. Got something else -- this is probably the Key Secret, which must never be typed into a workflow input (it would be recorded in the run's parameters in clear text). If you pasted a secret here, rotate it at dashboard.razorpay.com now."; exit 1 ;;
+              esac
+              # Printing it is fine: the Key Id is public by design -- the
+              # browser receives it to open Razorpay checkout.
+              echo "::notice::Razorpay enabled with key id $RAZORPAY_KEY_ID" ;;
+          esac
+          if [ "$GATEWAY" = "mock" ]; then
+            echo "::warning::PAYMENT_GATEWAY=mock. mock is emulator-only (payment-providers.js assertGatewayAllowed), so every deployed donation will be refused with \"Donations are not accepting payments on this deployment yet.\" That is the safe default, not a fault -- set payment_gateway when you mean to take money."
+          fi
           {
             echo "CORPUS_BUCKET=${CORPUS_BUCKET}"
             echo "CORPUS_PREFIX=${CORPUS_PREFIX:-corpus/}"
@@ -159,11 +218,11 @@ jobs:
             echo "OTP_DEFAULT_COUNTRY=91"
             echo "MSG91_TEMPLATE_ID="
             echo "GITHUB_REPO=Tribhuvanachar/shribuddhi"
-            echo "PAYMENT_GATEWAY=mock"
-            echo "PAYMENT_GATEWAYS_ENABLED=mock"
-            echo "CASHFREE_ENV=sandbox"
+            echo "PAYMENT_GATEWAY=${GATEWAY}"
+            echo "PAYMENT_GATEWAYS_ENABLED=${ENABLED}"
+            echo "CASHFREE_ENV=${CASHFREE_ENV:-sandbox}"
             echo "CASHFREE_API_VERSION=2023-08-01"
-            echo "RAZORPAY_KEY_ID="
+            echo "RAZORPAY_KEY_ID=${RAZORPAY_KEY_ID}"
             echo "EMAIL_PROVIDER=console"
           } > firebase/functions/.env
           cat firebase/functions/.env
