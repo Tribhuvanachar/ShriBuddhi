@@ -227,8 +227,12 @@ landed as 305, and nothing downstream noticed.
 
 So the remaining order is:
 
-1. **Gemini-proofread the two staged volumes.** Blocked: no `GEMINI_API_KEY`
-   in this environment (nor `SARVAM_API_KEY`, nor `VISION_API_KEY`).
+1. **Gemini-proofread the two staged volumes** — ₹82 at the ledger's measured
+   rate. *Not* blocked on credentials: see `docs/CREDENTIALS.md`. The keys are
+   GitHub Actions repository secrets and the paid engines run in workflows, so
+   a container with no keys still dispatches them over the REST API. An earlier
+   note here said this was blocked because the environment had no
+   `GEMINI_API_KEY`. That was looking in the wrong place.
 2. Run the writer, render, screenshot, merge to main.
 3. **A third rule for `visvesvara_tirtha`** — still unsegmented.
 4. **Sub-khaṇḍa addressing**, optional: blocks sit at khaṇḍa level, which

@@ -4,6 +4,11 @@ One procedure for every paid OCR batch. Read it once; after that `tools/ocr_batc
 enforces it, because a procedure that depends on someone remembering to follow it is
 not a procedure.
 
+**Where the keys are:** `docs/CREDENTIALS.md`. Short version — there are
+none in the container by design; every paid engine runs in a GitHub Actions
+workflow with the key as a repository secret, dispatched over the REST API.
+
+
 **Why this file is not the safeguard.** On 13 Sep 2026 a commit step lost OCR that had
 already been paid for. Someone wrote the cause into a comment above that very step. On
 18 Sep 2026 I read that comment and dispatched 130 jobs anyway; the same class of
