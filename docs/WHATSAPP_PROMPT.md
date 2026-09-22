@@ -59,17 +59,20 @@ Its contract, from the source:
 `WHATSAPP_APP_SECRET` — all four have versions, confirmed by an automated
 audit today.
 
-**But their values are unknown to me.** They were set by hand months ago and
-are not recorded anywhere. Secret Manager will not display them to me in a
-form I can compare against Meta. In particular the **Verify token field in the
-Meta app dashboard is currently empty**, which means whatever
-`WHATSAPP_VERIFY_TOKEN` holds has never been entered on Meta's side — so the
-handshake has certainly never succeeded.
+**I have kept my own copies of `WHATSAPP_TOKEN`, `WHATSAPP_VERIFY_TOKEN` and
+`OTP_PEPPER`**, so those three do not need regenerating — I can enter the
+verify token straight into Meta's field and it will match what the deployed
+function checks against. `WHATSAPP_APP_SECRET` I can always re-read from the
+app's Settings → Basic page.
 
-I can overwrite any of these four with a new value through a GitHub Actions
-workflow in about two minutes. **Assume I will set fresh values for all of
-them** rather than trying to recover the old ones. Tell me if that is the
-wrong call.
+The **Verify token field in the Meta dashboard is currently empty**, so the
+handshake has certainly never been attempted — but that is a field I have not
+filled in yet, not a value I have lost.
+
+I can also overwrite any of the four through a GitHub Actions workflow in about
+two minutes if you think rotating is wiser. One exception: **`OTP_PEPPER` must
+never be rotated** — phone-account IDs are derived from it, so changing it
+orphans every existing phone account.
 
 ### Nothing in the website calls WhatsApp yet
 
@@ -251,11 +254,11 @@ name, and a domain (`sarvamula.org`) I own.
 
 ## 5. What I will do with your answer
 
-I will set fresh values for all four secrets, enter the callback URL
-`https://asia-south1-sarvamula-org.cloudfunctions.net/whatsappWebhook` and a
-matching verify token in the Meta dashboard, redeploy the functions, and then
-flip the site's `enablePhoneAuth` to `true` with
-`phoneOtpProvider: 'whatsapp'`.
+I will enter the callback URL
+`https://asia-south1-sarvamula-org.cloudfunctions.net/whatsappWebhook` in the
+Meta dashboard together with my existing verify token, register the phone
+number, get the template approved, and then flip the site's `enablePhoneAuth`
+to `true` with `phoneOtpProvider: 'whatsapp'`.
 
 **Please give me the Meta-side steps as a numbered checklist I can follow
 click by click**, flagging at each step whether it can be done now or is
