@@ -217,32 +217,46 @@ Consumer). Four runs, in the order §D4 recommends:
 | `reindex.yml` probe — 35736560446 | **success.** `Activated service account credentials for: [firebase-adminsdk-fbsvc@…]`, wrote the probe object, `anonymous GET of the published URL returned HTTP 200` → Storage Admin works, bucket still world-readable |
 | secrets `audit_only` — 35736563122 | **success.** Full twelve-row table → Secret Manager Admin works |
 | `deploy-firestore.yml` — 35736565787 | **success.** `deployed indexes … successfully`, `released rules firestore.rules` → Datastore Index Admin + Firebase Rules Admin work |
-| `deploy-firebase-functions.yml` — 35738354693 | **reached the last gate.** cloudfunctions, cloudbuild and artifactregistry all reported enabled, firebaseextensions auto-enabled, the codebase analyzed — **no permission error anywhere** |
+| `deploy-firebase-functions.yml` — **35740197469** | **success — the first one ever.** `✔ functions[corpusFile(asia-south1)] Successful create operation.` `✔ Deploy complete!` |
 
 So the account switch is confirmed and the search-index, Firestore and Secret
 Manager halves are all working under one identity. That is the "there must be
 just one" end state, verified rather than asserted.
 
-**Still unproved:** the parts of the deploy that come *after* the secret gate —
-Cloud Build actually building, Cloud Run creating the service, and Service
-Account User being exercised when the function is bound to its runtime
-account. The deploy has not reached them yet, so those four roles remain
-documented-but-unwatched. Correct this paragraph from the first run that gets
-past the gate.
+**Every role in the table above is now proved**, not documented. The
+successful deploy enabled and used cloudfunctions, cloudbuild,
+artifactregistry, cloudscheduler, run, eventarc, pubsub, storage and
+secretmanager, generated the Pub/Sub and Eventarc service identities, uploaded
+the source, and created the Cloud Run service — which exercises Cloud Build,
+Cloud Run and Service Account User in turn. Nothing in this section is now
+taken from a documentation page.
 
-### The one thing left
+`corpusFile` answered **404 before the deploy and 503 after it** — 503 being
+its own designed "CORPUS_BUCKET is not set, the switch is off" response, so the
+function is not merely present but executing.
 
-    Error: In non-interactive mode but have no value for the secret
-           GITHUB_DISPATCH_TOKEN: GITHUB_DISPATCH_TOKEN
+### What it took to get there — three failures, none of them IAM
 
-Exactly the failure the audit predicted, and the only one left. It is not an
-IAM problem — `GITHUB_DISPATCH_TOKEN` simply has no version in Secret Manager,
-and firebase-tools resolves every declared secret before it will deploy
-anything. Add a fine-grained PAT as the GitHub repository secret
-**`GH_DISPATCH_TOKEN`** on ShriBuddhi (Actions: Read and write; see
-`SETUP_PLAYBOOK.md` §D4 blocker 1 for why that spelling and that scope), re-run
-`push-firebase-function-secrets.yml`, and the deploy has nothing left to trip
-on.
+Worth keeping, because each looked like something it was not:
+
+1. **`Cannot find module '@google-cloud/firestore/build/src/path'`**, reported
+   by firebase-tools as *"Functions codebase could not be analyzed
+   successfully. It may have a syntax or runtime error"*. Neither a syntax
+   error nor in our code: `npm install --omit=optional`, there to skip
+   puppeteer's Chrome download, also removed `@google-cloud/firestore` and
+   `@google-cloud/storage`, which `firebase-admin` 13 declares optional and
+   then requires. Fixed with `PUPPETEER_SKIP_DOWNLOAD=true`.
+2. **`unexpected EOF while looking for matching '"'`** — an unterminated
+   string in the workflow edit itself. Valid YAML, invalid shell. Hence
+   `tools/check_workflow_shell.py`.
+3. **`Max instances must be set to 20 or fewer to set the requested total
+   CPU`** — a Cloud Run regional CPU cap, not a permission. `corpusFile` asked
+   for 40 instances against a global default of 10.
+
+The pattern across all three: the error text named a cause that was not the
+cause. Reproducing locally — the same `npm install` plus
+`node -e "require('./index.js')"` — found the first in a minute after two
+failed deploy cycles had not.
 
 ### Non-IAM access grants
 

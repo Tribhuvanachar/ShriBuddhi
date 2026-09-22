@@ -587,19 +587,26 @@ Do not delete either account.
 | `deploy-firestore.yml` | Datastore Index Admin + Firebase Rules Admin |
 | `deploy-firebase-functions.yml` | the eleven Functions roles |
 
-**All four were run on 22 Sep 2026 and the switch is confirmed** — see
-`RESOURCES.md` §2b for the run IDs and what each proved. The functions deploy
-now gets all the way to the secret gate with no permission error of any kind,
-and stops on the one thing blocker 1 is about:
+**All four were run on 22 Sep 2026 and all four pass** — see `RESOURCES.md`
+§2b for the run IDs. `deploy-firebase-functions.yml` succeeded for the first
+time ever (run 35740197469): `✔ Deploy complete!`, and `corpusFile` went from
+404 to its designed 503.
 
-    Error: In non-interactive mode but have no value for the secret
-           GITHUB_DISPATCH_TOKEN
+**Both blockers are cleared. D1–D3 are done. D4 is now a single workflow
+dispatch:**
 
-Blocker 2 is done. Blocker 1 is the only thing left.
+Actions → **"Deploy — Firebase Functions"** → *Run workflow* →
+`payment_gateway` = `razorpay`, `payment_gateways_enabled` = `razorpay`,
+`razorpay_key_id` = your `rzp_test_…`, leave `only` blank so every function
+deploys → *Run*. Then test with card 4111 1111 1111 1111 and check both halves
+described above: Razorpay shows *captured*, **and** the `donations` document
+reaches a paid state.
 
 ---
 
 The two blockers in short:
+
+*(Both now done — kept for whoever sets this up again.)*
 
 1. **`GITHUB_DISPATCH_TOKEN` has no version**, and the deploy resolves every
    declared secret while loading the code, so it fails on this one no matter
