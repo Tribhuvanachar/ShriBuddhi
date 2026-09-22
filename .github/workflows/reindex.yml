@@ -277,6 +277,12 @@ jobs:
             --cache-control="public, max-age=31536000, immutable" \
             search_index "gs://$BUCKET/$PREFIX"; then
             echo "::error::rsync to gs://$BUCKET/$PREFIX failed — nothing was published"
+            # A 404 from GCS is deliberately ambiguous: it is returned both
+            # when a bucket does not exist AND when the caller may not see
+            # it, so that a stranger cannot probe which names are taken.
+            # Saying so here saves an hour of looking in the wrong place --
+            # on 22 Sep a valid name 404'd and either cause was possible.
+            echo "::error::A 404 here means one of two things, and GCS will not say which: the bucket does not exist in this project, OR the service account in FIREBASE_SERVICE_ACCOUNT cannot see it. Check both: the bucket at https://console.cloud.google.com/storage/browser , and that its PERMISSIONS tab grants that service account Storage Admin (or at least Storage Object Admin)."
             echo "PUBLISH FAILED: rsync to the bucket did not complete" >> "$GITHUB_STEP_SUMMARY"
             exit 1
           fi
