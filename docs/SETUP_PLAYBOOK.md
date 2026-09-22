@@ -587,6 +587,16 @@ Do not delete either account.
 | `deploy-firestore.yml` | Datastore Index Admin + Firebase Rules Admin |
 | `deploy-firebase-functions.yml` | the eleven Functions roles |
 
+**All four were run on 22 Sep 2026 and the switch is confirmed** — see
+`RESOURCES.md` §2b for the run IDs and what each proved. The functions deploy
+now gets all the way to the secret gate with no permission error of any kind,
+and stops on the one thing blocker 1 is about:
+
+    Error: In non-interactive mode but have no value for the secret
+           GITHUB_DISPATCH_TOKEN
+
+Blocker 2 is done. Blocker 1 is the only thing left.
+
 ---
 
 The two blockers in short:

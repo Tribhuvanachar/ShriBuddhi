@@ -206,10 +206,43 @@ Rules Admin and Service Usage Consumer. §2 explains why granting three roles to
 `firebase-adminsdk-fbsvc` is the short way there rather than eleven to
 `github-search-index`.
 
-This list is still not *proved* — `deploy-firebase-functions.yml` has never
-succeeded, so nothing here has been watched working end to end. But it is
-evidence from this project's own history rather than a documentation page, and
-it should be corrected from the first run that does succeed.
+### Verified 22 Sep 2026, after the switch
+
+`FIREBASE_SERVICE_ACCOUNT` now holds the **firebase-adminsdk-fbsvc** key (three
+roles added to it: Storage Admin, Cloud Datastore Index Admin, Service Usage
+Consumer). Four runs, in the order §D4 recommends:
+
+| run | result |
+|---|---|
+| `reindex.yml` probe — 35736560446 | **success.** `Activated service account credentials for: [firebase-adminsdk-fbsvc@…]`, wrote the probe object, `anonymous GET of the published URL returned HTTP 200` → Storage Admin works, bucket still world-readable |
+| secrets `audit_only` — 35736563122 | **success.** Full twelve-row table → Secret Manager Admin works |
+| `deploy-firestore.yml` — 35736565787 | **success.** `deployed indexes … successfully`, `released rules firestore.rules` → Datastore Index Admin + Firebase Rules Admin work |
+| `deploy-firebase-functions.yml` — 35738354693 | **reached the last gate.** cloudfunctions, cloudbuild and artifactregistry all reported enabled, firebaseextensions auto-enabled, the codebase analyzed — **no permission error anywhere** |
+
+So the account switch is confirmed and the search-index, Firestore and Secret
+Manager halves are all working under one identity. That is the "there must be
+just one" end state, verified rather than asserted.
+
+**Still unproved:** the parts of the deploy that come *after* the secret gate —
+Cloud Build actually building, Cloud Run creating the service, and Service
+Account User being exercised when the function is bound to its runtime
+account. The deploy has not reached them yet, so those four roles remain
+documented-but-unwatched. Correct this paragraph from the first run that gets
+past the gate.
+
+### The one thing left
+
+    Error: In non-interactive mode but have no value for the secret
+           GITHUB_DISPATCH_TOKEN: GITHUB_DISPATCH_TOKEN
+
+Exactly the failure the audit predicted, and the only one left. It is not an
+IAM problem — `GITHUB_DISPATCH_TOKEN` simply has no version in Secret Manager,
+and firebase-tools resolves every declared secret before it will deploy
+anything. Add a fine-grained PAT as the GitHub repository secret
+**`GH_DISPATCH_TOKEN`** on ShriBuddhi (Actions: Read and write; see
+`SETUP_PLAYBOOK.md` §D4 blocker 1 for why that spelling and that scope), re-run
+`push-firebase-function-secrets.yml`, and the deploy has nothing left to trip
+on.
 
 ### Non-IAM access grants
 
