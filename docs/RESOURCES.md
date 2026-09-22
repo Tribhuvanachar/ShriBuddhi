@@ -104,6 +104,74 @@ version to one, and cannot deploy Cloud Functions (the deploy resolves every
 
 ---
 
+## 2b. IAM roles — every grant, why it exists, and what proved it was needed
+
+**This is the running record. Add a row here the same day a role is granted.**
+Every entry below was established by a run that failed without it, not by
+guesswork — which is the only reason it can be trusted.
+
+All of these are on **`github-search-index@sarvamula-org.iam.gserviceaccount.com`**,
+granted at
+<https://console.cloud.google.com/iam-admin/iam?project=sarvamula-org>.
+
+| role | granted | what needs it | what it looked like when missing |
+|---|---|---|---|
+| **Storage Admin** | 22 Sep 2026 | `reindex.yml` publishing 215,933 files to `gs://sarvamula-search-index` | `gcloud storage rsync` → 404, which GCS returns for *both* "no such bucket" and "not yours" |
+| **Cloud Datastore Index Admin** | earlier | `deploy-firestore.yml` deploying the composite indexes | index deploy refused |
+| **Firebase Rules Admin** | earlier | `deploy-firestore.yml` releasing `firestore.rules` | rules release refused |
+| **Service Usage Consumer** | earlier | any call that checks whether an API is enabled | 20 Sep 2026: the Firestore deploy failed on Service Usage, which read as a Firestore problem |
+| **Secret Manager Admin** | **22 Sep 2026** | reading which function secrets exist; adding a version; a Functions deploy resolving every `defineSecret()` | run 35718541325: `Permission 'secretmanager.secrets.list' denied`, `reason: IAM_PERMISSION_DENIED`. The audit's first version reported all twelve secrets MISSING — they were all present; it simply could not see them. |
+
+### Still missing — Cloud Functions
+
+`deploy-firebase-functions.yml` has never run, and this account **cannot even
+list functions**. Proved by run 35723735140:
+
+    ✔ Created a new secret version .../RAZORPAY_KEY_SECRET/versions/2
+    Error: Failed to list functions for <project>
+
+Deploying Firebase Functions (2nd gen, which run on Cloud Run and are built by
+Cloud Build) normally needs this set, in addition to Secret Manager Admin:
+
+| role | why |
+|---|---|
+| `roles/cloudfunctions.admin` | create and update the functions, and list them |
+| `roles/run.admin` | 2nd-gen functions are Cloud Run services |
+| `roles/artifactregistry.admin` | the container image the build produces |
+| `roles/cloudbuild.builds.editor` | the build itself |
+| `roles/iam.serviceAccountUser` | permission to *act as* the functions' runtime service account |
+| `roles/firebase.admin` | firebase-tools' own project calls |
+
+**Not yet verified** — the deploy has never succeeded, so this list is the
+documented requirement rather than something this project has confirmed. Grant
+them to the existing account, run `deploy-firebase-functions.yml`, and correct
+this table from whatever it actually says.
+
+### Non-IAM access grants
+
+| grant | where | why |
+|---|---|---|
+| `allUsers` → **Storage Object Viewer** | bucket `sarvamula-search-index` | the browser fetches index shards straight from `storage.googleapis.com`; without it the index publishes and is unreadable. This is also what makes search public — see `SEARCH_INDEX.md` §7. |
+| `roles/secretmanager.secretAccessor` on each function secret | held by the **functions' runtime** service account, bound per secret | how a deployed function reads a `defineSecret()` value at call time. `firebase functions:secrets:set` adds this binding automatically; `gcloud secrets versions add` does **not**, so `push-firebase-function-secrets.yml` copies the accessors off an existing secret whenever it has to create a new one. Adding a *version* needs nothing — the binding is on the secret. |
+
+### Secret Manager state, measured 22 Sep 2026 (run 35724185990)
+
+| secret | version? | set from a GitHub secret? |
+|---|---|---|
+| `CASHFREE_CLIENT_ID`, `CASHFREE_CLIENT_SECRET` | yes | no — pre-existing |
+| `MSG91_AUTHKEY`, `OTP_PEPPER`, `PAYMENT_WEBHOOK_SECRET` | yes | no — pre-existing |
+| `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID`, `WHATSAPP_VERIFY_TOKEN`, `WHATSAPP_APP_SECRET` | yes | no — pre-existing |
+| `RAZORPAY_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET` | yes | **yes — pushed 22 Sep from ShriBuddhi** |
+| `GITHUB_DISPATCH_TOKEN` | **no** | no — needs `GH_DISPATCH_TOKEN` on GitHub |
+
+Ten of the twelve exist in Secret Manager with **no corresponding GitHub
+secret**, which is worth knowing: they were set up by hand at some point, the
+values are not recoverable from anywhere in this project, and
+`push-firebase-function-secrets.yml` leaves them alone precisely because a
+GitHub secret that is unset is skipped rather than pushed as empty.
+
+---
+
 ## 3. GitHub secrets — which repo holds what, and where each value comes from
 
 `gh` is not installed in the session container and `/actions/secrets` is
@@ -268,6 +336,10 @@ sensitive belongs behind it.
 2. **Grant, do not create.** If a new repo's workflow cannot reach something,
    add the missing IAM role to the existing service account, or add the
    existing secret to that repo. Do not mint a parallel identity.
+   **Then write the grant into §2b the same day**, with the error that made it
+   necessary. Four of the five roles listed there had to be rediscovered by
+   watching a workflow fail, because nobody recorded them when they were
+   granted.
 3. **One name per secret.** Use the canonical names in §3. Do not add a new
    alias to a fallback chain; delete the chain instead.
 4. **A key belongs in the repo whose workflow needs it,** and the same value

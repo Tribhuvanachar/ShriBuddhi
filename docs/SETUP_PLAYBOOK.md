@@ -333,16 +333,14 @@ implements order creation and webhook verification, and there are tests in
 
 ### D2 · Give the SECRET to the functions — through GitHub, not a terminal
 
-> **Do this one first, or nothing below works.** The CI service account
-> `github-search-index@sarvamula-org.iam.gserviceaccount.com` has **no Secret
-> Manager role**. Confirmed 22 Sep 2026 — `gcloud secrets list` came back
-> `IAM_PERMISSION_DENIED` on `secretmanager.secrets.list`. It therefore cannot
-> read which secrets exist, cannot add a version to one, and cannot deploy
-> Cloud Functions at all.
+> **Done, 22 Sep 2026.** Secret Manager Admin is granted to
+> `github-search-index@sarvamula-org.iam.gserviceaccount.com`, and both
+> Razorpay secrets are in Secret Manager (run 35724185990). Eleven of the
+> twelve declared secrets now have a version; only `GITHUB_DISPATCH_TOKEN`
+> does not. See `RESOURCES.md` §2b for the full role record.
 >
-> <https://console.cloud.google.com/iam-admin/iam?project=sarvamula-org> →
-> find that account → pencil icon → **Add another role** → **Secret Manager
-> Admin** → Save. Grant it to that account; do not create a new one.
+> The steps below are kept as the procedure for the next secret, and for
+> whoever sets this up again.
 
 **The old text here told you to run `firebase functions:secrets:set` in a
 local checkout. Ignore that.** It needs the Firebase CLI installed and logged
@@ -493,13 +491,26 @@ and complete Razorpay's KYC.
 | `paymentWebhook` deployed and reachable | **yes** — 405 to a GET |
 | `FIREBASE_PROJECT_ID` + `FIREBASE_SERVICE_ACCOUNT` set | yes — `deploy-firestore.yml` succeeded 22 Sep on them |
 | A way to set the gateway at deploy time | **now yes** — added 22 Sep; before that, D4 could not work |
-| All twelve `defineSecret()` names have versions | **unknown — check this first** (D2 step 3/4) |
-| `deploy-firebase-functions.yml` ever run successfully | **no, not once.** Expect to debug the first run. |
+| Secret Manager Admin on the CI account | **yes** — granted 22 Sep |
+| Razorpay secrets in Secret Manager | **yes** — run 35724185990 |
+| All twelve `defineSecret()` names have versions | **11 of 12** — `GITHUB_DISPATCH_TOKEN` has none |
+| The CI account can deploy Cloud Functions | **no** — it cannot even list them |
+| `deploy-firebase-functions.yml` ever run successfully | **no, not once** |
 
-The last two lines are the honest risk. The deploy has never been run, and the
-most likely first failure is a missing Secret Manager version, which fails the
-whole deploy with `--only` set or not. Run the push workflow first and read its
-`Skipped:` line.
+**Two things still stand between you and D4**, and neither is Razorpay's:
+
+1. **`GITHUB_DISPATCH_TOKEN` has no version**, and the deploy resolves every
+   declared secret while loading the code, so it fails on this one no matter
+   what `--only` says. Add a fine-grained GitHub PAT as the repository secret
+   **`GH_DISPATCH_TOKEN`** on ShriBuddhi (Actions: Read and write, this repo
+   only) and run the push workflow again — it is renamed to
+   `GITHUB_DISPATCH_TOKEN` on the way into Secret Manager, because GitHub
+   refuses to store a secret whose name starts with `GITHUB_`. A placeholder
+   would unblock the deploy, but `admin/workflows.html` calls it as soon as
+   the functions exist, so a real token is better.
+2. **The CI service account cannot deploy functions.** Run 35723735140 ended
+   `Error: Failed to list functions`. The roles it still needs are listed in
+   `RESOURCES.md` §2b — grant them to that same account, never a new one.
 
 ---
 
