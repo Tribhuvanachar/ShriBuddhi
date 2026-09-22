@@ -229,14 +229,42 @@ What it would write today:
 
 **It refuses to run.** The staged files record no Gemini proofread pass, and
 the tool will not put raw OCR on the shelf without `--allow-unproofread`.
+
+> **22 Sep 2026 — 825 of 1,406 blocks are now proofread**, so the refusal is
+> partial rather than total:
+>
+> | volume | blocks | proofread |
+> |---|---|---|
+> | bhagavantaraya | 443 | 373 |
+> | ratnamala | 665 | 452 |
+> | visvesvara_tirtha | 298 | **0 — the run died before reaching it** |
+>
+> JagatTest run 35687670866 hit the 240-minute job ceiling because that repo
+> was still running the pre-concurrency `proofread.py` (one call at a time,
+> ~17 s a block); its push back to this repo was then rejected because
+> `SHRIBUDDHI_TOKEN` can read ShriBuddhi but not write to it. The paid work
+> survived in the run's artifact and was merged here by
+> `tools/aitareya/land_proofread.py` — every one of the 825 matched on both
+> its address and its raw text, nothing was refused.
+>
+> **Before rerunning, one setting must change** (either is enough):
+> give `SHRIBUDDHI_TOKEN` Contents: Read **and write**, or — now that
+> ShriBuddhi is public and its Actions minutes are free — add
+> `GEMINI_API_KEY` here and run the workflow in the same checkout as the
+> data. The workflow now refuses to start without a provable push, rather
+> than spending first and finding out last. See `docs/RESOURCES.md` §4.
+>
+> Remaining: 581 blocks, roughly ₹30. A rerun skips anything already
+> carrying `text_proofread`.
 Three of those five layers replace text a reader can see today. Maṇimañjarī is
 the argument: Sarvam read one Devanāgarī line as Kannada, a 306-verse work
 landed as 305, and nothing downstream noticed.
 
 So the remaining order is:
 
-1. **Gemini-proofread the two staged volumes** — ₹82 at the ledger's measured
-   rate. *Not* blocked on credentials: see `docs/CREDENTIALS.md`. The keys are
+1. **Gemini-proofread what is left** — 581 blocks, about ₹30 (825 of 1,406
+   are already done; see the note above). At the ledger's measured rate the
+   three volumes together were ₹85. *Not* blocked on credentials: see `docs/CREDENTIALS.md`. The keys are
    GitHub Actions repository secrets and the paid engines run in workflows, so
    a container with no keys still dispatches them over the REST API. An earlier
    note here said this was blocked because the environment had no
