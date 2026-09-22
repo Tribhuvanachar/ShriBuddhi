@@ -36,6 +36,60 @@ MISSING = ROOT / "admin/config/ocr_sarvam_missing.json"
 REPO = "Tribhuvanachar/ShriBuddhi"
 WORKFLOW_ID = 356671665          # ocr-sarvam.yml
 RATE = 0.44                      # Rs/page, admin/config/spend_report.json
+# tools/sarvam_docai.py refuses more than this in one run ("--max-pages",
+# default 200). Two of the first 18 dispatches -- prashna at 287 pages and
+# mandukya at 218 -- died on it AFTER downloading the PDF but BEFORE sending
+# anything, so the guard cost nothing and caught exactly what it is for. Rather
+# than raise the cap, oversized works are split here. The workflow's
+# concurrency group already includes the page range, so chunks of one book do
+# not cancel each other.
+MAX_PAGES_PER_RUN = 200
+
+
+def parse_ranges(text: str) -> list[int]:
+    out: list[int] = []
+    for part in (text or "").split(","):
+        part = part.strip()
+        if not part:
+            continue
+        if "-" in part:
+            a, b = part.split("-", 1)
+            out.extend(range(int(a), int(b) + 1))
+        else:
+            out.append(int(part))
+    return sorted(set(out))
+
+
+def to_ranges(pages: list[int]) -> str:
+    """Back to the compact "1-10,15,20-24" form the workflow input takes."""
+    if not pages:
+        return ""
+    spans, start, prev = [], pages[0], pages[0]
+    for p in pages[1:]:
+        if p == prev + 1:
+            prev = p
+            continue
+        spans.append((start, prev))
+        start = prev = p
+    spans.append((start, prev))
+    return ",".join(str(a) if a == b else f"{a}-{b}" for a, b in spans)
+
+
+def chunk(row: dict) -> list[dict]:
+    """One row per run, none exceeding the engine's own page cap."""
+    pages = parse_ranges(row["ranges"])
+    if len(pages) <= MAX_PAGES_PER_RUN:
+        return [row]
+    out = []
+    for i in range(0, len(pages), MAX_PAGES_PER_RUN):
+        part = pages[i:i + MAX_PAGES_PER_RUN]
+        r = dict(row)
+        r["ranges"] = to_ranges(part)
+        r["pages"] = len(part)
+        r["cost"] = len(part) * RATE
+        r["part"] = f"{i // MAX_PAGES_PER_RUN + 1}/{(len(pages) + MAX_PAGES_PER_RUN - 1) // MAX_PAGES_PER_RUN}"
+        out.append(r)
+    return out
 
 
 def plan() -> list[dict]:
@@ -53,8 +107,12 @@ def plan() -> list[dict]:
         rows.append({"work": work, "pages": pages, "ranges": ",".join(ranges),
                      "url": url, "language": lang, "cost": pages * RATE})
     # smallest first: a fixed budget then finishes whole works instead of
-    # starting a big one it cannot pay for.
-    return sorted(rows, key=lambda r: r["pages"])
+    # starting a big one it cannot pay for. Splitting happens after the sort
+    # so a big book's chunks stay together and in page order.
+    split: list[dict] = []
+    for r in sorted(rows, key=lambda r: r["pages"]):
+        split.extend(chunk(r))
+    return split
 
 
 def dispatch(row: dict, token: str, mode: str) -> tuple[bool, str]:
@@ -79,9 +137,19 @@ def main() -> int:
                     help="actually dispatch, in real-run mode; without it "
                          "nothing is sent and nothing is spent")
     ap.add_argument("--sleep", type=float, default=2.0)
+    ap.add_argument("--only", default="",
+                    help="comma-separated work slugs (substring match) to "
+                         "dispatch, ignoring the rest -- for re-sending a run "
+                         "that failed without spending")
     args = ap.parse_args()
 
     rows = plan()
+    if args.only:
+        want = [w.strip() for w in args.only.split(",") if w.strip()]
+        rows = [r for r in rows if any(w in r["work"] for w in want)]
+        if not rows:
+            print(f"nothing matched --only {args.only}", file=sys.stderr)
+            return 1
     total = sum(r["cost"] for r in rows)
     print(f"backlog: {len(rows)} works, {sum(r['pages'] for r in rows)} pages, Rs{total:.2f}")
     print(f"budget : Rs{args.budget:.2f}\n")
@@ -97,7 +165,8 @@ def main() -> int:
             skipped.append(r)
             continue
         mark = "DISPATCH" if args.real else "would send"
-        print(f"  {mark} {r['work'][:44]:<44} {r['pages']:>4} pp  "
+        label = r["work"][:40] + (f" [{r['part']}]" if r.get("part") else "")
+        print(f"  {mark} {label:<46} {r['pages']:>4} pp  "
               f"Rs{r['cost']:>7.2f}  cum Rs{spent + r['cost']:>7.2f}")
         if args.real:
             ok, code = dispatch(r, token, "real-run")
