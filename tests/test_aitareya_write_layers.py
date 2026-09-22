@@ -139,3 +139,49 @@ def test_dry_run_writes_nothing(tmp_path, monkeypatch):
     wl.main()
     after = {p: p.stat().st_mtime_ns for p in real.glob("*/data.json")}
     assert after == before, "a dry run touched the shelf"
+
+
+def test_it_shelves_the_proofread_text_not_the_raw_ocr():
+    """The whole point of the Gemini pass is that its output reaches the
+    shelf. An earlier version read b["text"] unconditionally, so a paid
+    pass over 1,406 blocks would have been written to disk and then
+    ignored -- and nothing would have looked wrong, because the output is
+    well-formed either way. Money spent, no trace.
+    """
+    addr = a_real_address()
+    block = {"layer": "tika_khandartha", "page": 1,
+             "text": "कच्चा पाठः",                    # what OCR read
+             "text_proofread": "संस्कृतः पाठः",        # what Gemini returned
+             "aranyaka_name": addr[0], "adhyaya_name": addr[1],
+             "khanda_name": addr[2]}
+    files, stats = wl.build("ratnamala", [block], SHELF)
+    item = files["tika_khandartha"]["items"][0]
+    assert item["sanskrit_text"] == "संस्कृतः पाठः", "shelved the raw OCR"
+    assert stats["proofread_text"] == 1 and stats["raw_text"] == 0
+    assert item["provenance"]["text"] == "Gemini-proofread"
+
+
+def test_a_block_with_no_proofread_falls_back_and_says_so():
+    """Falling back is right -- a block Gemini could not reach should still
+    be placed -- but it must not claim to be proofread."""
+    addr = a_real_address()
+    block = {"layer": "tika_khandartha", "page": 1, "text": "कच्चा पाठः",
+             "aranyaka_name": addr[0], "adhyaya_name": addr[1],
+             "khanda_name": addr[2]}
+    files, stats = wl.build("ratnamala", [block], SHELF)
+    item = files["tika_khandartha"]["items"][0]
+    assert item["sanskrit_text"] == "कच्चा पाठः"
+    assert stats["raw_text"] == 1 and stats["proofread_text"] == 0
+    assert "NOT proofread" in item["provenance"]["text"]
+
+
+def test_an_empty_proofread_does_not_blank_the_text():
+    """Gemini returning "" must not wipe a block. The raw reading is worse
+    than the proofread one and better than nothing."""
+    addr = a_real_address()
+    block = {"layer": "tika_khandartha", "page": 1, "text": "कच्चा पाठः",
+             "text_proofread": "   ",
+             "aranyaka_name": addr[0], "adhyaya_name": addr[1],
+             "khanda_name": addr[2]}
+    files, _ = wl.build("ratnamala", [block], SHELF)
+    assert files["tika_khandartha"]["items"][0]["sanskrit_text"] == "कच्चा पाठः"

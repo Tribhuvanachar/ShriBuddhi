@@ -105,9 +105,18 @@ def address_of(block: dict) -> tuple | None:
 
 def build(volume: str, blocks: list[dict], shelf: dict) -> tuple[dict, dict]:
     by_layer: dict[str, dict[tuple, list]] = defaultdict(lambda: defaultdict(list))
-    stats = {"placed": 0, "no_address": 0, "address_not_on_shelf": 0, "empty": 0}
+    stats = {"placed": 0, "no_address": 0, "address_not_on_shelf": 0, "empty": 0,
+             "proofread_text": 0, "raw_text": 0}
+    srcs: dict[tuple, list] = {}
     for b in blocks:
-        text = (b.get("text") or "").strip()
+        # The proofread text is the point of proofreading. An earlier version
+        # of this read b["text"] unconditionally, which would have paid for a
+        # Gemini pass over 1,406 blocks, written the result to disk, and then
+        # shelved the raw OCR anyway -- a failure that costs money and leaves
+        # no trace, since the output would look perfectly well-formed.
+        proofed = (b.get("text_proofread") or "").strip()
+        text = proofed or (b.get("text") or "").strip()
+        stats["proofread_text" if proofed else "raw_text"] += 1
         if not text:
             stats["empty"] += 1
             continue
@@ -119,6 +128,7 @@ def build(volume: str, blocks: list[dict], shelf: dict) -> tuple[dict, dict]:
             stats["address_not_on_shelf"] += 1
             continue
         by_layer[b["layer"]][addr].append((b.get("page") or 0, text))
+        srcs.setdefault(addr, []).append(bool(proofed))
         stats["placed"] += 1
 
     files: dict[str, dict] = {}
@@ -149,6 +159,8 @@ def build(volume: str, blocks: list[dict], shelf: dict) -> tuple[dict, dict]:
                     "from": f"data/ocr_staging/aitareya/{volume}_segmented.json",
                     "how": "OCR, segmented by tools/aitareya/segment.py, "
                            "addressed against this shelf's tika_bhashya",
+                    "text": ("Gemini-proofread" if all(
+                        srcs[addr]) else "raw OCR, NOT proofread"),
                 }),
             ]))
         files[layer] = {"schema": SCHEMA, "default_author": author, "items": items}
