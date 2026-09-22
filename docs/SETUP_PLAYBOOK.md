@@ -533,35 +533,59 @@ JagatTest will not work, whatever its name.
 8. Re-run **"Push Firebase Functions secrets"** with `audit_only` **off**. The
    audit at the end should then show twelve of twelve.
 
-#### Blocker 2 · Cloud Functions roles on the CI service account
+#### Blocker 2 · the deploy authenticates as the wrong service account
 
-<https://console.cloud.google.com/iam-admin/iam?project=sarvamula-org> → find
-**`github-search-index@sarvamula-org.iam.gserviceaccount.com`** → the **pencil
-(Edit principal)** on its row → **ADD ANOTHER ROLE** once per role below →
-**SAVE**. Type the name into the role filter box to find each:
+**This is not a missing-roles problem. The roles already exist — on the other
+account.** `firebase-adminsdk-fbsvc@sarvamula-org.iam.gserviceaccount.com`
+carries fourteen roles, granted one at a time across several failed Functions
+deploys. `FIREBASE_SERVICE_ACCOUNT` holds the key for
+`github-search-index@…`, which has five and cannot deploy functions at all. So
+the deploy runs as the account that cannot do it while the account that can
+sits unused.
 
-| type this | it is |
+Two ways out; the second is three console actions instead of eleven.
+
+**Option A — grant eleven roles to `github-search-index`.** Artifact Registry
+Administrator, Cloud Build Editor, Cloud Functions Admin, Cloud Run Admin,
+Cloud Scheduler Admin, Eventarc Admin, Firebase Admin, Firebase Authentication
+Admin, Pub/Sub Admin, Service Account Token Creator, Service Account User.
+(Not *Firebase Admin SDK Administrator Service Agent* — that belongs only to
+the account Firebase made it for.) Nothing else changes.
+
+**Option B — make `firebase-adminsdk-fbsvc` the single CI account.**
+Recommended.
+
+1. <https://console.cloud.google.com/iam-admin/iam?project=sarvamula-org> →
+   the **`firebase-adminsdk-fbsvc@…`** row → **pencil** → **ADD ANOTHER ROLE**
+   three times → **Storage Admin**, **Cloud Datastore Index Admin**,
+   **Service Usage Consumer** → **SAVE**.
+2. <https://console.cloud.google.com/iam-admin/serviceaccounts?project=sarvamula-org>
+   → click **`firebase-adminsdk-fbsvc@…`** → **KEYS** tab → **ADD KEY** →
+   *Create new key* → **JSON** → **CREATE**. A `.json` file downloads.
+3. <https://github.com/Tribhuvanachar/ShriBuddhi/settings/secrets/actions> →
+   **`FIREBASE_SERVICE_ACCOUNT`** → **Update** → paste the **entire contents**
+   of that file, `{` to `}` → **Update secret**.
+4. Optional, for legibility: IAM → Service Accounts → that account → **EDIT**
+   → change the *display name* to something like "CI — deploys and publishes".
+   The email address stays the same, so nothing that refers to it breaks.
+
+After that one account does everything, which is the "there must be just one"
+end state.
+
+**Rollback** if a workflow breaks: generate a fresh key for
+`github-search-index` the same way and paste it back into
+`FIREBASE_SERVICE_ACCOUNT`. A key's value can never be read back from the
+console, so there is nothing to save first — a new one is always issuable.
+Do not delete either account.
+
+**Verify, in this order** — each is cheap and each proves a different half:
+
+| run | proves |
 |---|---|
-| `Cloud Functions Admin` | `roles/cloudfunctions.admin` |
-| `Cloud Run Admin` | `roles/run.admin` |
-| `Artifact Registry Administrator` | `roles/artifactregistry.admin` |
-| `Cloud Build Editor` | `roles/cloudbuild.builds.editor` |
-| `Service Account User` | `roles/iam.serviceAccountUser` |
-| `Firebase Admin` | `roles/firebase.admin` |
-
-Grant them on **this existing account**. Do not create a new one, and do not
-make a second project.
-
-`Service Account User` is the one that reads oddly: deploying a function means
-*acting as* the account the function will run as, which for this project is the
-default compute account `1005094356690-compute@developer.gserviceaccount.com`
-unless a function's page in the console says otherwise. Granting the role at
-project level as above covers it.
-
-This list is what Google documents for a 2nd-gen Functions deploy. **It has
-never been verified here** — `deploy-firebase-functions.yml` has not once
-succeeded. Run it after granting, and correct `RESOURCES.md` §2b from whatever
-the run actually says rather than leaving this paragraph as the record.
+| `reindex.yml` with **probe** ticked | Storage Admin — bucket write + public read, ~1 min |
+| `push-firebase-function-secrets.yml` with **audit_only** ticked | Secret Manager Admin |
+| `deploy-firestore.yml` | Datastore Index Admin + Firebase Rules Admin |
+| `deploy-firebase-functions.yml` | the eleven Functions roles |
 
 ---
 
@@ -576,9 +600,11 @@ The two blockers in short:
    refuses to store a secret whose name starts with `GITHUB_`. A placeholder
    would unblock the deploy, but `admin/workflows.html` calls it as soon as
    the functions exist, so a real token is better.
-2. **The CI service account cannot deploy functions.** Run 35723735140 ended
-   `Error: Failed to list functions`. The roles it still needs are listed in
-   `RESOURCES.md` §2b — grant them to that same account, never a new one.
+2. **The deploy authenticates as the account that cannot deploy.** Run
+   35723735140 ended `Error: Failed to list functions`. The roles are not
+   missing from the project — they are on `firebase-adminsdk-fbsvc`, which has
+   no key in any secret. Option B above switches to it in three console
+   actions.
 
 ---
 

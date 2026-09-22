@@ -59,48 +59,82 @@ Do not create a second one for storage, for functions, or for the search index.
 
 ---
 
-## 2. Service accounts — there are two, and only one is used
+## 2. Service accounts — there are two, and each does a different half
 
-Both live in `sarvamula-org`
-(https://console.cloud.google.com/iam-admin/serviceaccounts?project=sarvamula-org):
+> **Corrected 22 Sep 2026, same day it was written.** The first version of
+> this section said `firebase-adminsdk-fbsvc@` was "created automatically by
+> Firebase", "used by nothing in this project's CI", and should be left alone.
+> That was wrong, and confidently wrong. The IAM page shows it carrying
+> **fourteen roles** — Artifact Registry Administrator, Cloud Build Editor,
+> Cloud Functions Admin, Cloud Run Admin, Cloud Scheduler Admin, Eventarc
+> Admin, Firebase Admin, Firebase Admin SDK Administrator Service Agent,
+> Firebase Authentication Admin, Firebase Rules Admin, Pub/Sub Admin, Secret
+> Manager Admin, Service Account Token Creator, Service Account User. Nothing
+> accumulates fourteen roles by accident. They were granted one at a time,
+> over several failed deploy attempts, specifically to make a **Cloud
+> Functions deploy** work. The reasoning error was inferring a purpose from a
+> name instead of looking at the grants.
 
-| service account | who created it | used by | keep? |
+Every service account in `sarvamula-org`
+(<https://console.cloud.google.com/iam-admin/serviceaccounts?project=sarvamula-org>):
+
+| principal | display name | roles | what it is for |
 |---|---|---|---|
-| `github-search-index@sarvamula-org.iam.gserviceaccount.com` | created by hand for CI | **every workflow** — reindex publish, Firestore deploy, hosting, functions | **yes — this is the one** |
-| `firebase-adminsdk-…@sarvamula-org.iam.gserviceaccount.com` | created automatically by Firebase when the project was made | nothing in this project's CI | leave it alone |
+| `github-search-index@sarvamula-org.iam.gserviceaccount.com` | github-search-index | 5 — Cloud Datastore Index Admin, Firebase Rules Admin, Secret Manager Admin, Service Usage Consumer, Storage Admin | **the CI account the workflows use today.** Its key is the one in `FIREBASE_SERVICE_ACCOUNT`. Covers the search-index publish, Firestore rules + indexes, and Secret Manager. |
+| `firebase-adminsdk-fbsvc@sarvamula-org.iam.gserviceaccount.com` | firebase-adminsdk | 14 — see the correction above | **the deploy account**, built up by hand through repeated failed Functions deploys. Everything a 2nd-gen Functions deploy needs. No GitHub secret holds its key. |
+| `1005094356690-compute@developer.gserviceaccount.com` | Default compute service account | Editor | what 2nd-gen functions **run as**. This is the identity that must be able to *read* a function secret at call time. |
+| `sarvamula-org@appspot.gserviceaccount.com` | App Engine default service account | Editor | legacy 1st-gen runtime. Not used by anything current. |
+| `jagadgurumadhvacharyaadmin@gmail.com` | JagadGuru Madhvacharya | **Owner** | the human account. |
 
-This is the "two service accounts, there must be just one" question, answered
-from the run log rather than from memory. Reindex run `35705512268` printed:
+### Neither account can do the whole job
 
-    service-account key assembled from: SA_JSON_1
-    Activated service account credentials for: [github-search-index@***.iam.gserviceaccount.com]
+That is the real finding, and it is why the Functions deploy kept failing while
+everything else worked:
 
-So `github-search-index` is the single identity doing all the work, and the
-secret it came out of is `FIREBASE_SERVICE_ACCOUNT` (see §3).
+| | github-search-index | firebase-adminsdk-fbsvc |
+|---|---|---|
+| publish the search index to GCS | **yes** (Storage Admin) | no |
+| Firestore composite indexes | **yes** | no |
+| Firestore rules | yes | yes |
+| Secret Manager | yes | yes |
+| deploy Cloud Functions | **no** | **yes** (11 roles' worth) |
 
-**The `firebase-adminsdk` account is not a duplicate you made and should not be
-deleted.** Firebase creates it for every project and uses it internally for
-Admin SDK operations and parts of the console. No secret in any repository
-holds its key, and no workflow authenticates as it. Deleting it risks breaking
-Firebase features for no gain. *Two accounts exist; one credential is in use.
-That is already the "just one" you asked for.*
+`FIREBASE_SERVICE_ACCOUNT` holds the **github-search-index** key, so
+`deploy-firebase-functions.yml` authenticates as the account that cannot deploy
+functions — while the account that can sits unused with no key in any secret.
 
-Roles currently granted to `github-search-index`: Cloud Datastore Index Admin,
-Firebase Rules Admin, Service Usage Consumer, Storage Admin. **Grant new
-permissions to this account. Never make a new account to hold them.**
+### What to do about it — consolidate onto `firebase-adminsdk-fbsvc`
 
-**Missing, and blocking playbook §D entirely: Secret Manager Admin**
-(`roles/secretmanager.admin`). Confirmed 22 Sep 2026 by run 35718541325:
+Not because that name is a good one for a CI account (it is not), but because
+of the arithmetic:
 
-    ERROR: (gcloud.secrets.list) [github-search-index@…] does not have
-    permission … Permission 'secretmanager.secrets.list' denied
-    reason: IAM_PERMISSION_DENIED
+* Bringing **github-search-index** up to parity means granting **eleven** roles
+  — Artifact Registry Administrator, Cloud Build Editor, Cloud Functions Admin,
+  Cloud Run Admin, Cloud Scheduler Admin, Eventarc Admin, Firebase Admin,
+  Firebase Authentication Admin, Pub/Sub Admin, Service Account Token Creator,
+  Service Account User. (Not the twelfth, *Firebase Admin SDK Administrator
+  Service Agent* — a service-agent role that belongs only to the account
+  Firebase created it for.)
+* Bringing **firebase-adminsdk-fbsvc** up to parity means granting **three**:
+  Storage Admin, Cloud Datastore Index Admin, Service Usage Consumer.
 
-Without it this account cannot read which function secrets exist, cannot add a
-version to one, and cannot deploy Cloud Functions (the deploy resolves every
-`defineSecret()` while loading the code). Grant it at
-<https://console.cloud.google.com/iam-admin/iam?project=sarvamula-org> —
-**to this existing account**, not to a new one.
+Three grants against eleven, and the eleven would be re-deriving by hand a set
+that already exists and was already paid for in failed runs. Then put that
+account's key in `FIREBASE_SERVICE_ACCOUNT` and there is genuinely **one CI
+identity** — which is what was asked for.
+
+Its display name can be changed to something honest (IAM → Service Accounts →
+the account → Edit → e.g. "CI — deploys and publishes") without changing the
+email address anything refers to.
+
+**Rollback**, if a workflow breaks after the switch: generate a fresh key for
+`github-search-index` and paste it back into `FIREBASE_SERVICE_ACCOUNT`. A
+service-account key's value cannot be read back from the console, so there is
+nothing to save beforehand — a new key is always issuable.
+
+**Do not delete either account.** `firebase-adminsdk-fbsvc` is referenced by
+Firebase itself; `github-search-index` is the rollback path and, until the
+switch is verified, the working one.
 
 ---
 
@@ -122,30 +156,46 @@ granted at
 | **Service Usage Consumer** | earlier | any call that checks whether an API is enabled | 20 Sep 2026: the Firestore deploy failed on Service Usage, which read as a Firestore problem |
 | **Secret Manager Admin** | **22 Sep 2026** | reading which function secrets exist; adding a version; a Functions deploy resolving every `defineSecret()` | run 35718541325: `Permission 'secretmanager.secrets.list' denied`, `reason: IAM_PERMISSION_DENIED`. The audit's first version reported all twelve secrets MISSING — they were all present; it simply could not see them. |
 
-### Still missing — Cloud Functions
+### The Cloud Functions roles — an empirical list, not a guess
 
-`deploy-firebase-functions.yml` has never run, and this account **cannot even
-list functions**. Proved by run 35723735140:
+`deploy-firebase-functions.yml` authenticates as **github-search-index**, which
+cannot even list functions. Proved by run 35723735140:
 
     ✔ Created a new secret version .../RAZORPAY_KEY_SECRET/versions/2
     Error: Failed to list functions for <project>
 
-Deploying Firebase Functions (2nd gen, which run on Cloud Run and are built by
-Cloud Build) normally needs this set, in addition to Secret Manager Admin:
+An earlier version of this section listed six roles from Google's
+documentation, marked unverified. **Delete that instinct — the real list was
+already in the project**, on `firebase-adminsdk-fbsvc`, arrived at by granting
+one role at a time across several failed deploys. It is longer than the
+documented six, and the five it adds are exactly the ones a docs page would not
+have told you:
 
-| role | why |
+| role on `firebase-adminsdk-fbsvc` | why a Functions deploy needs it |
 |---|---|
-| `roles/cloudfunctions.admin` | create and update the functions, and list them |
-| `roles/run.admin` | 2nd-gen functions are Cloud Run services |
-| `roles/artifactregistry.admin` | the container image the build produces |
-| `roles/cloudbuild.builds.editor` | the build itself |
-| `roles/iam.serviceAccountUser` | permission to *act as* the functions' runtime service account |
-| `roles/firebase.admin` | firebase-tools' own project calls |
+| Cloud Functions Admin | create, update and list the functions |
+| Cloud Run Admin | 2nd-gen functions **are** Cloud Run services |
+| Artifact Registry Administrator | the container image the build produces |
+| Cloud Build Editor | the build itself |
+| Service Account User | permission to *act as* the runtime account (`1005094356690-compute@…`) |
+| Firebase Admin | firebase-tools' own project calls |
+| **Cloud Scheduler Admin** | a scheduled function creates a Cloud Scheduler job |
+| **Eventarc Admin** | every 2nd-gen background trigger is an Eventarc trigger |
+| **Pub/Sub Admin** | Eventarc delivers through Pub/Sub topics |
+| **Service Account Token Creator** | minting tokens for the invoker identity |
+| **Firebase Authentication Admin** | the Auth-triggered and user-management paths |
+| *Firebase Admin SDK Administrator Service Agent* | **do not copy this one.** A service-agent role, meaningful only on the account Firebase created it for. |
 
-**Not yet verified** — the deploy has never succeeded, so this list is the
-documented requirement rather than something this project has confirmed. Grant
-them to the existing account, run `deploy-firebase-functions.yml`, and correct
-this table from whatever it actually says.
+Whichever account ends up being the single CI identity needs the eleven above
+plus Secret Manager Admin, Storage Admin, Cloud Datastore Index Admin, Firebase
+Rules Admin and Service Usage Consumer. §2 explains why granting three roles to
+`firebase-adminsdk-fbsvc` is the short way there rather than eleven to
+`github-search-index`.
+
+This list is still not *proved* — `deploy-firebase-functions.yml` has never
+succeeded, so nothing here has been watched working end to end. But it is
+evidence from this project's own history rather than a documentation page, and
+it should be corrected from the first run that does succeed.
 
 ### Non-IAM access grants
 
