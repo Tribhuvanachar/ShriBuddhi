@@ -61,6 +61,10 @@ on:
         description: "Rebuild even if data has not changed since the last publish"
         type: boolean
         default: true
+      probe:
+        description: "Check the bucket with ONE tiny file and stop. Builds nothing, publishes nothing, takes seconds."
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -86,12 +90,16 @@ jobs:
         id: gate
         env:
           FORCE: ${{ github.event_name == 'workflow_dispatch' && inputs.force }}
+          PROBE: ${{ github.event_name == 'workflow_dispatch' && inputs.probe }}
         run: |
           set -euo pipefail
           DATA_SHA=$(git log -1 --format=%H -- data)
           LAST=$(python3 -c "import json,os;p='admin/config/search-index.state.json';print(json.load(open(p)).get('data_sha','') if os.path.exists(p) else '')")
           echo "data_sha=$DATA_SHA" >> "$GITHUB_OUTPUT"
-          if [ "$FORCE" = "true" ] || [ "$DATA_SHA" != "$LAST" ]; then
+          if [ "$PROBE" = "true" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "probe mode: nothing is built and nothing is published." >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$FORCE" = "true" ] || [ "$DATA_SHA" != "$LAST" ]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           else
             echo "run=false" >> "$GITHUB_OUTPUT"
@@ -228,6 +236,63 @@ jobs:
               json.dump(sa, fh)
           print("service-account key assembled from:", ", ".join(found))
           PY
+
+      # WHY THIS EXISTS. The first successful publish, on 22 Sep 2026, spent
+      # 13 minutes building and 22 minutes uploading 215,933 files in order to
+      # establish four things: that SEARCH_INDEX_BUCKET holds a valid bucket
+      # name, that the service-account key activates, that the account may
+      # write to the bucket, and that allUsers may read an object back. Every
+      # one of those is answered by a single twelve-byte file in about five
+      # seconds. Running the whole job to find out was the project lead's
+      # criticism and it was correct.
+      #
+      # Run with probe = true after ANY change to the bucket, its permissions,
+      # the secret, or the service account -- before committing half an hour
+      # of runner time to a real publish.
+      - name: Probe the bucket — no build, no publish
+        if: github.event_name == 'workflow_dispatch' && inputs.probe
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: /home/runner/.sa/key.json
+          BUCKET: ${{ secrets.SEARCH_INDEX_BUCKET }}
+        run: |
+          set -euo pipefail
+          test -n "$BUCKET" || { echo "::error::SEARCH_INDEX_BUCKET secret is not set"; exit 1; }
+          # Same normalisation as the publish step, for the same reason: the
+          # secret is a NAME and has held a gs:// URL before now.
+          BUCKET="${BUCKET#gs://}"
+          BUCKET="${BUCKET%%/*}"
+          if ! printf '%s' "$BUCKET" | grep -Eq '^[a-z0-9][a-z0-9._-]{1,61}[a-z0-9]$'; then
+            echo "::error::SEARCH_INDEX_BUCKET is not a valid bucket name: it must be 3-63 chars, lowercase, starting and ending alphanumeric — the NAME only."
+            echo "PROBE FAILED: bad bucket name" >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+          OBJ="search_index/_probe/$GITHUB_RUN_ID.txt"
+          gcloud auth activate-service-account --key-file="$GOOGLE_APPLICATION_CREDENTIALS"
+          gcloud auth list --filter=status:ACTIVE --format="value(account)"
+
+          if ! printf 'probe %s\n' "$GITHUB_RUN_ID" | \
+               gcloud storage cp - "gs://$BUCKET/$OBJ" --cache-control="no-store"; then
+            echo "::error::Could not WRITE to gs://$BUCKET. A 404 here is ambiguous by design — the bucket may not exist, or this service account may not be allowed to see it. Check both: https://console.cloud.google.com/storage/browser , and that the bucket's PERMISSIONS tab grants Storage Admin to the account printed above."
+            echo "PROBE FAILED: write" >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+          URL="https://storage.googleapis.com/$BUCKET/$OBJ"
+          CODE=$(curl -s -o /dev/null -w '%{http_code}' "$URL")
+          gcloud storage rm "gs://$BUCKET/$OBJ" >/dev/null 2>&1 || true
+
+          if [ "$CODE" != "200" ]; then
+            echo "::error::Wrote the object but an anonymous read of $URL returned HTTP $CODE. The bucket is not publicly readable: grant allUsers the Storage Object Viewer role on it. Readers fetch the index straight from this URL, so without that the search index is written and unreadable."
+            echo "PROBE FAILED: public read returned $CODE" >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+          {
+            echo "probe OK — \`gs://$BUCKET\` is writable by the workflow and publicly readable."
+            echo ""
+            echo "Nothing was built and nothing was published. Re-run with probe unticked to publish for real."
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Publish the index to Cloud Storage
         id: publish

@@ -4,6 +4,13 @@ Written 22 Sep 2026, after a session was wasted concluding the paid
 pipelines were "blocked on credentials". They were not. Nothing about this
 needs asking again — it is all here.
 
+> **Superseded in two places, 22 Sep 2026.** `docs/RESOURCES.md` is now the
+> full inventory — accounts, service accounts, buckets, URLs, every secret and
+> where each value is re-issued. Two claims below were wrong when written:
+> ShriBuddhi is **public**, not private, and `bhumandala` is **not a separate
+> repository** — it was renamed to JagatTest. Both corrections are worked
+> through in RESOURCES.md §0 and §4; the rest of this file still stands.
+
 ## The short answer
 
 **There are no API keys in the working container, and there should not be.**
@@ -21,12 +28,13 @@ secrets are **split across two repositories**, deliberately:
 
 | engine | secret | repo that holds it | verified |
 |---|---|---|---|
-| Sarvam Document AI | `SARVAM_API_KEY` | **ShriBuddhi** (private) | run log shows `SARVAM_API_KEY: ***` |
+| Sarvam Document AI | `SARVAM_API_KEY` | **ShriBuddhi** | run log shows `SARVAM_API_KEY: ***` |
 | Google Cloud Vision | `VISION_API_KEY` | **ShriBuddhi** | — |
 | Gemini, all uses | `GEMINI_API_KEY` | **JagatTest** (public) | JagatTest run 35518574290 shows `***`; a ShriBuddhi run on 22 Sep showed it **empty** |
 | writing back to the private repo | `SHRIBUDDHI_TOKEN` | **JagatTest** | used by `gemini-resolve-conflicts.yml` |
 
-**Gemini work runs from the public repo on purpose.** JagatTest's
+**Gemini work runs from JagatTest because the key is there — but the reason
+it was put there has expired.** JagatTest's
 `gemini-resolve-conflicts.yml` states the reason in its own header: *"Actions
 is free and unlimited on a public repository and capped at 2,000 minutes a
 month on a private one. Nothing sensitive is committed here: the text arrives
@@ -37,6 +45,14 @@ So a Gemini workflow belongs on **JagatTest**, clones ShriBuddhi with
 workflows and **not one of them has ever run** — they cannot, the key is not
 there. Do not add a Gemini workflow to ShriBuddhi expecting it to work; that
 mistake cost a failed run on 22 Sep.
+
+That rationale no longer holds: ShriBuddhi is public too, so its Actions
+minutes are free and unlimited as well. Adding `GEMINI_API_KEY` to ShriBuddhi
+would let the Gemini workflows run in the same checkout as the data and drop
+the cross-repo push entirely — which matters, because that push is broken.
+`SHRIBUDDHI_TOKEN` has read but not write access, so run 35687670866 spent
+money on 825 proofread blocks and then failed to push them home. See
+RESOURCES.md §4.
 
 Sarvam and Vision run on ShriBuddhi, where their keys are.
 
