@@ -146,7 +146,7 @@ function hero(){
     ['Total spent', inr(g.inr), F.format(g.pages_billed)+' pages across '+g.works+' books',''],
     ['Confirmed lost', inr(g.confirmed_lost_inr), 'nothing was paid for and not delivered','good'],
     ['At risk', inr(g.at_risk_inr), F.format(g.pages_server_error)+' pages lost to a server error — only Sarvam can say if these metered', g.at_risk_inr>0?'warn':''],
-    ['Costs to finish', inr(g.recoverable_by_rerun_inr), F.format(g.pages_refused)+' pages refused when the balance ran dry — never billed, still to do',''],
+    ['Costs to finish', inr(g.recoverable_by_rerun_inr), F.format(g.pages_outstanding ?? g.pages_refused)+' pages still without OCR — never billed, still to do. '+F.format(g.pages_refused)+' were refused at some point; the difference has since been re-fetched.',''],
   ];
   document.getElementById('hero').innerHTML = tiles.map(([k,v,s,c])=>
     `<div class="tile"><div class="k">${esc(k)}</div><div class="v ${c}">${esc(v)}</div><div class="s">${esc(s)}</div></div>`).join('');
@@ -183,7 +183,7 @@ function rows(){
   document.getElementById('filterNote').textContent = ENG?('— '+ENG+' only, '+gs.length+' books'):('— '+gs.length+' books');
   document.querySelector('#works tbody').innerHTML = gs.map((g,i)=>{
     const st = g.pages_server_error ? '<span class="pill warn">billing unconfirmed</span>'
-             : g.pages_refused ? '<span class="pill">pages still to run</span>'
+             : (g.pages_outstanding ?? g.pages_refused) ? '<span class="pill">pages still to run</span>'
              : '<span class="pill ok">complete</span>';
     const vols = g.works.map(n=>byWork[n]).filter(Boolean);
     const inner = vols.length>1 || vols[0]?.work!==g.group

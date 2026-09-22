@@ -1,18 +1,18 @@
 {
  "_readme": [
-  "Every staged OCR file this project holds, read off the ocr-staging branches",
-  "themselves on 21 Sep 2026 by tools/harvest_ocr_receipts.py -- not from",
-  "workflow exit codes, which reported success over 5,342 pages that were",
-  "refused. One row per staged file: which engine, which source PDF, when it",
-  "was written, what its own usage block claims, and every page-level error.",
+  "Every staged OCR file this project holds, read off the ocr-staging",
+  "branches themselves by tools/harvest_ocr_receipts.py -- not from workflow",
+  "exit codes, which reported success over 5,342 pages that were refused.",
+  "One row per staged file: which engine, which source PDF, when it was",
+  "written, what its own usage block claims, and every page-level error.",
   "",
-  "'receipts' is empty for every row here and will not be empty again. Sarvam",
-  "returns a job_id for each chunk and sarvam_docai.py logged it and dropped",
-  "it, so none of the 20,452 pages billed in September can be named back to",
-  "Sarvam. From 21 Sep the job id, its duration and its outcome are written",
-  "into the staged file."
+  "'receipts' is empty for every row harvested before 21 Sep 2026 and will",
+  "not be empty again. Sarvam returns a job_id per chunk; sarvam_docai.py",
+  "logged it and dropped it, so none of the 20,452 pages billed in September",
+  "can be named back to Sarvam. It is now written into the staged file along",
+  "with each job's duration and outcome."
  ],
- "harvested_on": "2026-09-21",
+ "harvested_on": "2026-09-22",
  "works": {
   "108_upanishad_sarvas__narasimha_1_ttd_kannada": [
    {
@@ -152,6 +152,39 @@
     "errors": {
      "HTTP Error 500: Internal Server Error": 10
     }
+   },
+   {
+    "file": "sarvam_pages300-309.json",
+    "bytes": 37890,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/aitereya-upanisad-bhashaya-of-madhvacharya-with-bhavapradipa-commentary-of-bhagavantaraya/SRIMANMAHAITAREYOPANISHADBHASHYAM-%20BHAVAPRADIPA%20TIPPANI-PPVP.pdf",
+    "pdf_pages": 1003,
+    "generated_at": "2026-09-22T04:23:48Z",
+    "started_at": "2026-09-22T04:23:48Z",
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75b-14fa-77db-ad78-e4f1b97058d7",
+      "pages": [
+       300,
+       309
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.9,
+      "at": "2026-09-22T04:23:58Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 10,
+    "errors": {}
    },
    {
     "file": "sarvam_pages410-609.json",
@@ -472,6 +505,39 @@
     "errors": {}
    },
    {
+    "file": "sarvam_pages404-413.json",
+    "bytes": 39771,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/bhagavata-purnana-skanda-11-vyakhya-of-yadavendra-yati-ed.-guru-murthy-acharya-k.-r./Bhagavata%20Purnana%20Skanda%2011%20Vyakhya%20of%20Yadavendra%20Yati%20Ed.%20Guru%20Murthy%20Acharya%20K.R..pdf",
+    "pdf_pages": 522,
+    "generated_at": "2026-09-22T04:23:47Z",
+    "started_at": "2026-09-22T04:23:47Z",
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75b-10c0-7901-ad95-41a53aab208f",
+      "pages": [
+       404,
+       413
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.6,
+      "at": "2026-09-22T04:23:57Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
     "file": "sarvam_pages404-522.json",
     "bytes": 410687,
     "engine": "sarvam-docai",
@@ -664,6 +730,277 @@
     "errors": {
      "HTTP Error 402: Payment Required": 170
     }
+   },
+   {
+    "file": "sarvam_pages55-238.json",
+    "bytes": 561476,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1_tY2-eCjIXrO_J2oa4BAO5dUAq7RpYZj",
+    "pdf_pages": 238,
+    "generated_at": "2026-09-22T04:23:49Z",
+    "started_at": "2026-09-22T04:23:49Z",
+    "usage": {
+     "pages_total": 174,
+     "pages_succeeded": 174,
+     "pages_failed": 0,
+     "jobs": 18
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75b-18eb-7487-a7c1-a9471a2f6a58",
+      "pages": [
+       55,
+       64
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:23:59Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75b-5a68-7a75-a09f-221e56ce1333",
+      "pages": [
+       65,
+       74
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.8,
+      "at": "2026-09-22T04:24:16Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75b-9d19-74db-ba34-6da64a95e219",
+      "pages": [
+       75,
+       84
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.9,
+      "at": "2026-09-22T04:24:33Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75b-de61-78cb-ae06-8172f608aea7",
+      "pages": [
+       85,
+       94
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.8,
+      "at": "2026-09-22T04:24:50Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75c-21a5-7965-ac22-5fe352f22c36",
+      "pages": [
+       95,
+       104
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.4,
+      "at": "2026-09-22T04:25:07Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75c-6560-7ef5-8f97-da52374946e2",
+      "pages": [
+       105,
+       114
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.3,
+      "at": "2026-09-22T04:25:25Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75c-a89a-7118-89e1-1fee52499b52",
+      "pages": [
+       115,
+       124
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.9,
+      "at": "2026-09-22T04:25:41Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75c-ea78-7d9a-81cd-193cc861cc2e",
+      "pages": [
+       125,
+       134
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.8,
+      "at": "2026-09-22T04:25:58Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75d-2d26-7ac1-8f86-f393d6af5bad",
+      "pages": [
+       135,
+       144
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.4,
+      "at": "2026-09-22T04:26:16Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75d-7060-7ae6-adc5-2acd357b9775",
+      "pages": [
+       145,
+       154
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:26:33Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75d-b41a-747f-94e8-6a3d49660d90",
+      "pages": [
+       155,
+       164
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.6,
+      "at": "2026-09-22T04:26:50Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75d-f817-7e29-9e03-cdaf06b7353b",
+      "pages": [
+       165,
+       174
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.9,
+      "at": "2026-09-22T04:27:07Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75e-3a79-7c3c-8702-4e611ec525f1",
+      "pages": [
+       175,
+       184
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.2,
+      "at": "2026-09-22T04:27:25Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75e-7ce8-7192-8846-6acc1fc72859",
+      "pages": [
+       185,
+       194
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.8,
+      "at": "2026-09-22T04:27:42Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75e-c050-7ef1-a3dc-5f0a39eef82d",
+      "pages": [
+       195,
+       204
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.0,
+      "at": "2026-09-22T04:27:59Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75f-01b1-76f0-9480-e5c334fd1360",
+      "pages": [
+       205,
+       214
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:28:16Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75f-4610-7099-946f-aa7f3bc85f5a",
+      "pages": [
+       215,
+       224
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:28:33Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75f-8696-7b33-9621-48a808ec548e",
+      "pages": [
+       235,
+       238
+      ],
+      "page_count": 4,
+      "status": "completed",
+      "seconds": 9.3,
+      "at": "2026-09-22T04:28:49Z",
+      "pages_succeeded": 4,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 174,
+    "errors": {}
    },
    {
     "file": "vision_pages_1-238.json",
@@ -1168,6 +1505,39 @@
     }
    },
    {
+    "file": "sarvam_pages554-563.json",
+    "bytes": 68119,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-1.pdf",
+    "pdf_pages": 775,
+    "generated_at": "2026-09-22T04:23:50Z",
+    "started_at": "2026-09-22T04:23:50Z",
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75b-1d63-7d32-ad58-fdf44f7026d8",
+      "pages": [
+       554,
+       563
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.5,
+      "at": "2026-09-22T04:24:01Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
     "file": "sarvam_pages604-775.json",
     "bytes": 1115687,
     "engine": "sarvam-docai",
@@ -1386,6 +1756,39 @@
     "errors": {
      "HTTP Error 500: Internal Server Error": 10
     }
+   },
+   {
+    "file": "sarvam_pages325-334.json",
+    "bytes": 63347,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/giia-vyakhyana-sangraha-a-collection-of-fifteen-commentaries-on-srimad-bhagavad-gita/GEETA%20VYAKHYANA%20SANGRAHA-3.pdf",
+    "pdf_pages": 473,
+    "generated_at": "2026-09-22T04:24:04Z",
+    "started_at": "2026-09-22T04:24:04Z",
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75b-557d-702f-a627-8f92ac3133f4",
+      "pages": [
+       325,
+       334
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 18.1,
+      "at": "2026-09-22T04:24:22Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 10,
+    "errors": {}
    },
    {
     "file": "sarvam_pages405-473.json",
@@ -1672,6 +2075,39 @@
     }
    },
    {
+    "file": "sarvam_pages181-190.json",
+    "bytes": 36150,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1g-MhNPIE3GXC8I5TlNNd5_FENHdBEr37",
+    "pdf_pages": 294,
+    "generated_at": "2026-09-22T04:24:20Z",
+    "started_at": "2026-09-22T04:24:20Z",
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75b-928c-7ad1-b1f1-ab0ddde14f50",
+      "pages": [
+       181,
+       190
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.7,
+      "at": "2026-09-22T04:24:31Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
     "file": "sarvam_pages201-294.json",
     "bytes": 308719,
     "engine": "sarvam-docai",
@@ -1751,6 +2187,39 @@
     },
     "receipts": [],
     "page_entries": 115,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages23-32.json",
+    "bytes": 37996,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=17QatIPxIAUmFp-GrAAIf9q7x6c9jAvkV",
+    "pdf_pages": 317,
+    "generated_at": "2026-09-22T04:23:49Z",
+    "started_at": "2026-09-22T04:23:49Z",
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75b-1b57-79c5-bd55-07cb86838bd4",
+      "pages": [
+       23,
+       32
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.6,
+      "at": "2026-09-22T04:24:00Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 10,
     "errors": {}
    },
    {
@@ -2357,6 +2826,39 @@
    }
   ],
   "hks__1_hks": [
+   {
+    "file": "sarvam_pages116-125.json",
+    "bytes": 38524,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1aaR0djuV8hO8hcCC6qFP2ykeAwoW9BBE",
+    "pdf_pages": 156,
+    "generated_at": "2026-09-22T04:23:44Z",
+    "started_at": "2026-09-22T04:23:44Z",
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75b-07ff-7266-b1d6-0768788434bd",
+      "pages": [
+       116,
+       125
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 11.0,
+      "at": "2026-09-22T04:23:55Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 10,
+    "errors": {}
+   },
    {
     "file": "sarvam_pages6-156.json",
     "bytes": 540721,
@@ -4036,6 +4538,207 @@
   ],
   "kena_upanishad_bhashya_tippani": [
    {
+    "file": "sarvam_pages1-122.json",
+    "bytes": 602799,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/talavakara-kena-upanishad-madhvacharya-bhashya-with-8-sub-commentaries/TALAVAKAROPANISHAT-8%20TIPPANI-%20UM.pdf",
+    "pdf_pages": 122,
+    "generated_at": "2026-09-22T04:23:48Z",
+    "started_at": "2026-09-22T04:23:48Z",
+    "usage": {
+     "pages_total": 122,
+     "pages_succeeded": 122,
+     "pages_failed": 0,
+     "jobs": 13
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75b-1906-7340-9d72-48095bf0bb3c",
+      "pages": [
+       1,
+       10
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 12.0,
+      "at": "2026-09-22T04:24:00Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75b-612b-7bdf-9b43-81bbb8fca26a",
+      "pages": [
+       11,
+       20
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.4,
+      "at": "2026-09-22T04:24:18Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75b-a408-7aed-ab5e-cdf61f0bad59",
+      "pages": [
+       21,
+       30
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.9,
+      "at": "2026-09-22T04:24:35Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75b-e66c-775a-9385-963f36f40530",
+      "pages": [
+       31,
+       40
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.2,
+      "at": "2026-09-22T04:24:52Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75c-28b6-713e-97a7-e3fbf3e46a01",
+      "pages": [
+       41,
+       50
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.7,
+      "at": "2026-09-22T04:25:09Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75c-6ade-7bac-8384-84e4dc67f952",
+      "pages": [
+       51,
+       60
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.9,
+      "at": "2026-09-22T04:25:26Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75c-ac24-71d7-ae5c-c989fbb6569f",
+      "pages": [
+       61,
+       70
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.8,
+      "at": "2026-09-22T04:25:43Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75c-eed4-7ebb-8956-aebee036ed3a",
+      "pages": [
+       71,
+       80
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.9,
+      "at": "2026-09-22T04:25:59Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75d-30f6-785e-88d0-18f2b972bce6",
+      "pages": [
+       81,
+       90
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.9,
+      "at": "2026-09-22T04:26:16Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75d-74a2-7803-9b9e-8cdf81d34b5d",
+      "pages": [
+       91,
+       100
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.3,
+      "at": "2026-09-22T04:26:34Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75d-b772-77ab-854c-051ae33be465",
+      "pages": [
+       101,
+       110
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:26:51Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75d-f8b2-79b1-a72b-6a846bb9aede",
+      "pages": [
+       111,
+       120
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.7,
+      "at": "2026-09-22T04:27:08Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75e-3c5f-73b0-9584-241c73baacf2",
+      "pages": [
+       121,
+       122
+      ],
+      "page_count": 2,
+      "status": "completed",
+      "seconds": 11.2,
+      "at": "2026-09-22T04:27:26Z",
+      "pages_succeeded": 2,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 122,
+    "errors": {}
+   },
+   {
     "file": "sarvam_pages1-29.json",
     "bytes": 3303,
     "engine": "sarvam-docai",
@@ -4247,6 +4950,53 @@
     }
    },
    {
+    "file": "sarvam_pages643-692.json",
+    "bytes": 171669,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/mahabharata-virata-parva-ed.-vyasanakere-prabhanjanacaryamahabharata-virata-parv/Mahabharata%20Virata%20Parva%20Ed.%20Vyasanakere%20Prabhanjanacarya.pdf",
+    "pdf_pages": 702,
+    "generated_at": "2026-09-22T04:23:42Z",
+    "started_at": "2026-09-22T04:23:42Z",
+    "usage": {
+     "pages_total": 20,
+     "pages_succeeded": 20,
+     "pages_failed": 0,
+     "jobs": 2
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75a-fe68-7d92-8b61-01ba567bf541",
+      "pages": [
+       643,
+       652
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 17.6,
+      "at": "2026-09-22T04:24:00Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75b-60c4-7599-a3dd-1a5134fde6e5",
+      "pages": [
+       683,
+       692
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 11.4,
+      "at": "2026-09-22T04:24:18Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 20,
+    "errors": {}
+   },
+   {
     "file": "vision_pages_1-702.json",
     "bytes": 9566255,
     "engine": "vision",
@@ -4313,6 +5063,305 @@
     }
    },
    {
+    "file": "sarvam_pages1-200.json",
+    "bytes": 1050853,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/mandukya-upanishad-madhvacharya-bhashya-with-7-sub-commentaries/MANDUKOPANISHADBHASHYAM-%207VYAKHYANA-UM.pdf",
+    "pdf_pages": 218,
+    "generated_at": "2026-09-22T04:29:31Z",
+    "started_at": "2026-09-22T04:29:31Z",
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c760-512e-7a8d-ab9c-f30164ac9f4c",
+      "pages": [
+       1,
+       10
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 11.0,
+      "at": "2026-09-22T04:29:42Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c760-96d3-7d49-abe8-6b2f9c26e312",
+      "pages": [
+       11,
+       20
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.4,
+      "at": "2026-09-22T04:30:00Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c760-dac3-7ea0-8fc5-c2df10bf501c",
+      "pages": [
+       21,
+       30
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.3,
+      "at": "2026-09-22T04:30:17Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c761-1e94-7c1a-b1f3-7de87df93a4c",
+      "pages": [
+       31,
+       40
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.2,
+      "at": "2026-09-22T04:30:34Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c761-6210-77c9-8324-fedeff684e34",
+      "pages": [
+       41,
+       50
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.3,
+      "at": "2026-09-22T04:30:52Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c761-a6a6-79c0-875b-25098e726b69",
+      "pages": [
+       51,
+       60
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.5,
+      "at": "2026-09-22T04:31:09Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c761-ea58-7f20-a5fa-33fba224359b",
+      "pages": [
+       61,
+       70
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.3,
+      "at": "2026-09-22T04:31:26Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c762-2e18-78fa-b410-3a91ef65cd09",
+      "pages": [
+       71,
+       80
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.3,
+      "at": "2026-09-22T04:31:44Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c762-71b7-7c91-be15-c9b427367674",
+      "pages": [
+       81,
+       90
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.3,
+      "at": "2026-09-22T04:32:01Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c762-b674-7032-8d94-de2c31181669",
+      "pages": [
+       91,
+       100
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.5,
+      "at": "2026-09-22T04:32:19Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c762-fb00-7dea-9524-a22fba6da414",
+      "pages": [
+       101,
+       110
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.6,
+      "at": "2026-09-22T04:32:36Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c763-404a-7beb-abdf-d774548911c3",
+      "pages": [
+       111,
+       120
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.7,
+      "at": "2026-09-22T04:32:54Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c763-8586-7c81-bc0d-bf0c54a306fb",
+      "pages": [
+       121,
+       130
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.7,
+      "at": "2026-09-22T04:33:12Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c763-ca5e-7146-8d69-27e1f7fe896c",
+      "pages": [
+       131,
+       140
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.6,
+      "at": "2026-09-22T04:33:29Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c764-0fcd-7ef1-9962-2c5262cfdc3c",
+      "pages": [
+       141,
+       150
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.9,
+      "at": "2026-09-22T04:33:47Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c764-54de-73e5-8935-4e3dd774ff30",
+      "pages": [
+       151,
+       160
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.6,
+      "at": "2026-09-22T04:34:05Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c764-9a0f-75d3-9366-762929385c09",
+      "pages": [
+       161,
+       170
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.7,
+      "at": "2026-09-22T04:34:22Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c764-dde3-7d78-a09d-266649e0f808",
+      "pages": [
+       171,
+       180
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.3,
+      "at": "2026-09-22T04:34:40Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c765-224c-7d17-bbb6-a3c6c0da5a81",
+      "pages": [
+       181,
+       190
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.5,
+      "at": "2026-09-22T04:34:57Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c765-65fc-7108-94a0-3cf99c76904e",
+      "pages": [
+       191,
+       200
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.5,
+      "at": "2026-09-22T04:35:15Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
     "file": "sarvam_pages110-218.json",
     "bytes": 11057,
     "engine": "sarvam-docai",
@@ -4331,6 +5380,53 @@
     "errors": {
      "HTTP Error 402: Payment Required": 109
     }
+   },
+   {
+    "file": "sarvam_pages201-218.json",
+    "bytes": 89419,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/mandukya-upanishad-madhvacharya-bhashya-with-7-sub-commentaries/MANDUKOPANISHADBHASHYAM-%207VYAKHYANA-UM.pdf",
+    "pdf_pages": 218,
+    "generated_at": "2026-09-22T04:29:24Z",
+    "started_at": "2026-09-22T04:29:24Z",
+    "usage": {
+     "pages_total": 18,
+     "pages_succeeded": 18,
+     "pages_failed": 0,
+     "jobs": 2
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c760-34bf-7f3c-b588-ff86ed32333b",
+      "pages": [
+       201,
+       210
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.4,
+      "at": "2026-09-22T04:29:34Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c760-7ad0-7261-ab5f-213e13f0602d",
+      "pages": [
+       211,
+       218
+      ],
+      "page_count": 8,
+      "status": "completed",
+      "seconds": 10.8,
+      "at": "2026-09-22T04:29:52Z",
+      "pages_succeeded": 8,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 18,
+    "errors": {}
    },
    {
     "file": "vision_pages_1-218.json",
@@ -4571,6 +5667,305 @@
     }
    },
    {
+    "file": "sarvam_pages1-200.json",
+    "bytes": 1049106,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/prashna-upanishad-madhvacharya-bhasya-with-13-sub-commentaries/SHATPRASHNOPANISHAT%2013%20TIPPANI-%20UM.pdf",
+    "pdf_pages": 287,
+    "generated_at": "2026-09-22T04:29:24Z",
+    "started_at": "2026-09-22T04:29:24Z",
+    "usage": {
+     "pages_total": 200,
+     "pages_succeeded": 200,
+     "pages_failed": 0,
+     "jobs": 20
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c760-36e1-7776-a110-65c0f64a47ab",
+      "pages": [
+       1,
+       10
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.3,
+      "at": "2026-09-22T04:29:35Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c760-79b0-7ed4-8d9b-a12bab6765a4",
+      "pages": [
+       11,
+       20
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.3,
+      "at": "2026-09-22T04:29:52Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c760-be14-7691-9c75-75ab31e4601f",
+      "pages": [
+       21,
+       30
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.3,
+      "at": "2026-09-22T04:30:09Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c761-010d-7b67-9f68-d804484f9104",
+      "pages": [
+       31,
+       40
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.2,
+      "at": "2026-09-22T04:30:27Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c761-443a-7065-ad9b-e54a4344ee95",
+      "pages": [
+       41,
+       50
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:30:44Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c761-8702-757b-badb-b7e36dd5e31e",
+      "pages": [
+       51,
+       60
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:31:01Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c761-c9f7-7072-8a4f-2388094cc271",
+      "pages": [
+       61,
+       70
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:31:18Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c762-0d1d-7d9f-843e-b7c40cde0c52",
+      "pages": [
+       71,
+       80
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:31:35Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c762-500e-7282-afe8-b7d1024f8ca1",
+      "pages": [
+       81,
+       90
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:31:52Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c762-952f-75ff-8c62-4745619aac23",
+      "pages": [
+       91,
+       100
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.8,
+      "at": "2026-09-22T04:32:10Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c762-d9a9-708c-9331-d09fd4acccd4",
+      "pages": [
+       101,
+       110
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.6,
+      "at": "2026-09-22T04:32:28Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c763-1d9a-75d8-b24c-6d6198835164",
+      "pages": [
+       111,
+       120
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.2,
+      "at": "2026-09-22T04:32:45Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c763-60b0-7981-8b47-ddc130d09037",
+      "pages": [
+       121,
+       130
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:33:02Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c763-a3d5-7274-9a94-0a1c426b2e1b",
+      "pages": [
+       131,
+       140
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:33:19Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c763-e78d-7037-8ff1-662e5e0a6ff5",
+      "pages": [
+       141,
+       150
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.3,
+      "at": "2026-09-22T04:33:37Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c764-2b79-7ce5-a146-f0d3ca0e6d2d",
+      "pages": [
+       151,
+       160
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.4,
+      "at": "2026-09-22T04:33:54Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c764-6f8f-78b0-81ed-ab2f5b0dff4c",
+      "pages": [
+       161,
+       170
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.4,
+      "at": "2026-09-22T04:34:12Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c764-b3cc-74df-ba39-a1ecfacb5df9",
+      "pages": [
+       171,
+       180
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.4,
+      "at": "2026-09-22T04:34:29Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c764-f732-7f06-8efc-0fa78fe2e444",
+      "pages": [
+       181,
+       190
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:34:46Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c765-39e9-7c16-bdac-1eb7c1e49b94",
+      "pages": [
+       191,
+       200
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:35:03Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 200,
+    "errors": {}
+   },
+   {
     "file": "sarvam_pages145-287.json",
     "bytes": 14320,
     "engine": "sarvam-docai",
@@ -4589,6 +5984,151 @@
     "errors": {
      "HTTP Error 402: Payment Required": 143
     }
+   },
+   {
+    "file": "sarvam_pages201-287.json",
+    "bytes": 481599,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/prashna-upanishad-madhvacharya-bhasya-with-13-sub-commentaries/SHATPRASHNOPANISHAT%2013%20TIPPANI-%20UM.pdf",
+    "pdf_pages": 287,
+    "generated_at": "2026-09-22T04:29:35Z",
+    "started_at": "2026-09-22T04:29:35Z",
+    "usage": {
+     "pages_total": 87,
+     "pages_succeeded": 87,
+     "pages_failed": 0,
+     "jobs": 9
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c760-6016-78aa-bd4c-f43cb97d9fe1",
+      "pages": [
+       201,
+       210
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.2,
+      "at": "2026-09-22T04:29:45Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c760-a465-7276-be8e-8e042c816076",
+      "pages": [
+       211,
+       220
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.4,
+      "at": "2026-09-22T04:30:03Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c760-e773-7275-8624-8057b729a2f9",
+      "pages": [
+       221,
+       230
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.2,
+      "at": "2026-09-22T04:30:20Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c761-2bc5-7b9b-8006-575dbfb7d077",
+      "pages": [
+       231,
+       240
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.4,
+      "at": "2026-09-22T04:30:37Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c761-6fc4-78f9-b755-ebf1a945f198",
+      "pages": [
+       241,
+       250
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.5,
+      "at": "2026-09-22T04:30:55Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c761-b353-731a-8d2f-b60ee6702a21",
+      "pages": [
+       251,
+       260
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.1,
+      "at": "2026-09-22T04:31:12Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c761-f733-7637-9be1-ed0142a6ec8f",
+      "pages": [
+       261,
+       270
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.4,
+      "at": "2026-09-22T04:31:30Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c762-3a98-742f-8541-8c8a8de8243d",
+      "pages": [
+       271,
+       280
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.2,
+      "at": "2026-09-22T04:31:47Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c762-7d52-7d09-a571-c5f8794d1e29",
+      "pages": [
+       281,
+       287
+      ],
+      "page_count": 7,
+      "status": "completed",
+      "seconds": 9.7,
+      "at": "2026-09-22T04:32:04Z",
+      "pages_succeeded": 7,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 87,
+    "errors": {}
    },
    {
     "file": "vision_pages_1-287.json",
@@ -4947,6 +6487,39 @@
     }
    },
    {
+    "file": "sarvam_pages274-283.json",
+    "bytes": 55653,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1MjRvomgvHK82nza4pyZfx3DfgDHU-_qs",
+    "pdf_pages": 502,
+    "generated_at": "2026-09-22T04:23:46Z",
+    "started_at": "2026-09-22T04:23:46Z",
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75b-0d25-7910-941c-b749a285ea53",
+      "pages": [
+       274,
+       283
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.3,
+      "at": "2026-09-22T04:23:57Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
     "file": "sarvam_pages4-203.json",
     "bytes": 1089375,
     "engine": "sarvam-docai",
@@ -5129,6 +6702,39 @@
     "errors": {}
    },
    {
+    "file": "sarvam_pages154-163.json",
+    "bytes": 61046,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1TGVfmj1bl1nxFzNMREaGnaumKnW5-CYG",
+    "pdf_pages": 603,
+    "generated_at": "2026-09-22T04:23:45Z",
+    "started_at": "2026-09-22T04:23:45Z",
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75b-0943-799c-9ec3-8ad58947b46c",
+      "pages": [
+       154,
+       163
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.9,
+      "at": "2026-09-22T04:23:56Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
     "file": "sarvam_pages204-403.json",
     "bytes": 1180922,
     "engine": "sarvam-docai",
@@ -5227,6 +6833,39 @@
     "started_at": null,
     "usage": {},
     "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages114-123.json",
+    "bytes": 58584,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1RDuWVhbFG_3Gw6qmLNu8sdFIkDlrvy50",
+    "pdf_pages": 658,
+    "generated_at": "2026-09-22T04:23:52Z",
+    "started_at": "2026-09-22T04:23:52Z",
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75b-24ba-7450-8456-a26737722195",
+      "pages": [
+       114,
+       123
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.5,
+      "at": "2026-09-22T04:24:03Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
     "page_entries": 10,
     "errors": {}
    },
@@ -5502,6 +7141,53 @@
     },
     "receipts": [],
     "page_entries": 200,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages35-74.json",
+    "bytes": 109930,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://archive.org/download/sangraha-ramayanam-by-sri-narayana-panditacarya-with-commentaries-bhavartha-dipi/SANGRAHA-RAMAYANAVol2.pdf",
+    "pdf_pages": 708,
+    "generated_at": "2026-09-22T04:23:49Z",
+    "started_at": "2026-09-22T04:23:49Z",
+    "usage": {
+     "pages_total": 20,
+     "pages_succeeded": 20,
+     "pages_failed": 0,
+     "jobs": 2
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75b-1754-75fd-9aad-a5a15e3c012f",
+      "pages": [
+       35,
+       44
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 9.8,
+      "at": "2026-09-22T04:23:59Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75b-5949-74fe-a0d7-21d1de5024ea",
+      "pages": [
+       65,
+       74
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.3,
+      "at": "2026-09-22T04:24:16Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
+    "page_entries": 20,
     "errors": {}
    },
    {
@@ -6958,23 +8644,176 @@
    },
    {
     "file": "sarvam_pages5-112.json",
-    "bytes": 10704,
+    "bytes": 363263,
     "engine": "sarvam-docai",
     "source_pdf": "https://drive.google.com/uc?export=download&id=11pQh5q3yxC53XjoDIH6_4lZQUOAysAYG",
     "pdf_pages": 112,
-    "generated_at": "2026-09-18T15:06:40Z",
-    "started_at": null,
+    "generated_at": "2026-09-22T04:24:11Z",
+    "started_at": "2026-09-22T04:24:11Z",
     "usage": {
-     "pages_total": 0,
-     "pages_succeeded": 0,
-     "pages_failed": 108,
-     "jobs": 0
+     "pages_total": 108,
+     "pages_succeeded": 108,
+     "pages_failed": 0,
+     "jobs": 11
     },
-    "receipts": [],
+    "receipts": [
+     {
+      "job_id": "01a0c75b-7123-7758-9a16-ef4283bdc782",
+      "pages": [
+       5,
+       14
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.9,
+      "at": "2026-09-22T04:24:22Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75b-b62d-7dce-94e8-8b2dd5ec19db",
+      "pages": [
+       15,
+       24
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.6,
+      "at": "2026-09-22T04:24:40Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75b-fa0b-7b76-afac-f49be4c91be2",
+      "pages": [
+       25,
+       34
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 24.1,
+      "at": "2026-09-22T04:25:11Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75c-75ab-733b-8f92-9a2b11b35aa0",
+      "pages": [
+       35,
+       44
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 11.0,
+      "at": "2026-09-22T04:25:29Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75c-bb0a-7902-94d3-9919317675b4",
+      "pages": [
+       45,
+       54
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.8,
+      "at": "2026-09-22T04:25:47Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75c-ffb8-7304-8da7-a1c30ea791d6",
+      "pages": [
+       55,
+       64
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.5,
+      "at": "2026-09-22T04:26:04Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75d-46ce-71de-8ae2-c3ae9da3a5fa",
+      "pages": [
+       65,
+       74
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 11.2,
+      "at": "2026-09-22T04:26:23Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75d-8b1a-779d-ae57-d8f314389d8a",
+      "pages": [
+       75,
+       84
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.5,
+      "at": "2026-09-22T04:26:40Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75d-d094-730b-a563-d89e90425c21",
+      "pages": [
+       85,
+       94
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.7,
+      "at": "2026-09-22T04:26:58Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75e-16de-702f-a42c-ff17647cf1c0",
+      "pages": [
+       95,
+       104
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.9,
+      "at": "2026-09-22T04:27:16Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     },
+     {
+      "job_id": "01a0c75e-5e9f-7441-9c25-5e2c5fb22979",
+      "pages": [
+       105,
+       112
+      ],
+      "page_count": 8,
+      "status": "completed",
+      "seconds": 12.0,
+      "at": "2026-09-22T04:27:35Z",
+      "pages_succeeded": 8,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
     "page_entries": 108,
-    "errors": {
-     "HTTP Error 402: Payment Required": 108
-    }
+    "errors": {}
    },
    {
     "file": "vision_pages_1-112.json",
@@ -7019,6 +8858,39 @@
     "started_at": null,
     "usage": {},
     "receipts": [],
+    "page_entries": 10,
+    "errors": {}
+   },
+   {
+    "file": "sarvam_pages193-202.json",
+    "bytes": 33954,
+    "engine": "sarvam-docai",
+    "source_pdf": "https://drive.google.com/uc?export=download&id=1pc1i4tmluV10jH43I8K5OaY9PdTv84wD",
+    "pdf_pages": 248,
+    "generated_at": "2026-09-22T04:23:58Z",
+    "started_at": "2026-09-22T04:23:58Z",
+    "usage": {
+     "pages_total": 10,
+     "pages_succeeded": 10,
+     "pages_failed": 0,
+     "jobs": 1
+    },
+    "receipts": [
+     {
+      "job_id": "01a0c75b-395b-73c0-b893-024b85a0bac7",
+      "pages": [
+       193,
+       202
+      ],
+      "page_count": 10,
+      "status": "completed",
+      "seconds": 10.0,
+      "at": "2026-09-22T04:24:08Z",
+      "pages_succeeded": 10,
+      "pages_failed": 0,
+      "error": ""
+     }
+    ],
     "page_entries": 10,
     "errors": {}
    },
