@@ -1206,7 +1206,19 @@ async function corpusCallerRole(req) {
   return { uid: decoded.uid, role: (snap.exists && snap.data().role) || 'basic' };
 }
 
-exports.corpusFile = onRequest({ cors: true, maxInstances: 40 }, async (req, res) => {
+// maxInstances 20, not the 40 this asked for until 22 Sep 2026. Cloud Run
+// caps total CPU per region, and the deploy refused outright:
+//
+//   Could not create Cloud Run service corpusfile.
+//   spec.template.metadata.annotations[autoscaling.knative.dev/maxScale]:
+//   Max instances must be set to 20 or fewer to set the requested total CPU.
+//
+// 20 is still double the global default set above, and at 2nd-gen's default
+// request concurrency that is a great deal of simultaneous traffic. If it ever
+// genuinely needs more, the fix is a Cloud Run CPU quota increase for
+// asia-south1 -- not raising this number again, which only reproduces the
+// same failed deploy.
+exports.corpusFile = onRequest({ cors: true, maxInstances: 20 }, async (req, res) => {
   if (req.method === 'OPTIONS') { res.status(204).send(''); return; }
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     res.status(405).json({ error: 'method' });
