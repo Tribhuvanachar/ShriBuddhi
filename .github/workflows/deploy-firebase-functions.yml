@@ -274,7 +274,7 @@ jobs:
             echo "::error::functions/index.js does not load -- see the stack above. firebase-tools would report this only as 'Functions codebase could not be analyzed successfully'. A missing module here usually means a dependency was pruned by an npm flag, not a bug in index.js."
             exit 1
           }
-          echo "functions/index.js loads cleanly
+          echo "functions/index.js loads cleanly"
       - name: Deploy Cloud Functions
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /home/runner/.sa/key.json
