@@ -85,10 +85,22 @@ holds its key, and no workflow authenticates as it. Deleting it risks breaking
 Firebase features for no gain. *Two accounts exist; one credential is in use.
 That is already the "just one" you asked for.*
 
-Roles currently granted to `github-search-index` (confirmed from the IAM
-screenshot): Cloud Datastore Index Admin, Firebase Rules Admin, Service Usage
-Consumer, Storage Admin. **Grant new permissions to this account. Never make a
-new account to hold them.**
+Roles currently granted to `github-search-index`: Cloud Datastore Index Admin,
+Firebase Rules Admin, Service Usage Consumer, Storage Admin. **Grant new
+permissions to this account. Never make a new account to hold them.**
+
+**Missing, and blocking playbook §D entirely: Secret Manager Admin**
+(`roles/secretmanager.admin`). Confirmed 22 Sep 2026 by run 35718541325:
+
+    ERROR: (gcloud.secrets.list) [github-search-index@…] does not have
+    permission … Permission 'secretmanager.secrets.list' denied
+    reason: IAM_PERMISSION_DENIED
+
+Without it this account cannot read which function secrets exist, cannot add a
+version to one, and cannot deploy Cloud Functions (the deploy resolves every
+`defineSecret()` while loading the code). Grant it at
+<https://console.cloud.google.com/iam-admin/iam?project=sarvamula-org> —
+**to this existing account**, not to a new one.
 
 ---
 

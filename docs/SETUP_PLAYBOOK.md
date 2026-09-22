@@ -333,6 +333,17 @@ implements order creation and webhook verification, and there are tests in
 
 ### D2 · Give the SECRET to the functions — through GitHub, not a terminal
 
+> **Do this one first, or nothing below works.** The CI service account
+> `github-search-index@sarvamula-org.iam.gserviceaccount.com` has **no Secret
+> Manager role**. Confirmed 22 Sep 2026 — `gcloud secrets list` came back
+> `IAM_PERMISSION_DENIED` on `secretmanager.secrets.list`. It therefore cannot
+> read which secrets exist, cannot add a version to one, and cannot deploy
+> Cloud Functions at all.
+>
+> <https://console.cloud.google.com/iam-admin/iam?project=sarvamula-org> →
+> find that account → pencil icon → **Add another role** → **Secret Manager
+> Admin** → Save. Grant it to that account; do not create a new one.
+
 **The old text here told you to run `firebase functions:secrets:set` in a
 local checkout. Ignore that.** It needs the Firebase CLI installed and logged
 in as someone with rights on `sarvamula-org`, and this project already has a
