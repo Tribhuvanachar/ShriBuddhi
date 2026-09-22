@@ -218,6 +218,7 @@ Consumer). Four runs, in the order §D4 recommends:
 | secrets `audit_only` — 35736563122 | **success.** Full twelve-row table → Secret Manager Admin works |
 | `deploy-firestore.yml` — 35736565787 | **success.** `deployed indexes … successfully`, `released rules firestore.rules` → Datastore Index Admin + Firebase Rules Admin work |
 | `deploy-firebase-functions.yml` — **35740197469** | **success — the first one ever.** `✔ functions[corpusFile(asia-south1)] Successful create operation.` `✔ Deploy complete!` |
+| `deploy-firebase-functions.yml` — **35748527407** | **all eleven functions, Razorpay live.** sendOtp, verifyOtp, whatsappWebhook, runWhatsAppBroadcast, listWorkflows, runWorkflow, createDonation, getDonationStatus, paymentWebhook, corpusFile updated; renderBook created |
 
 So the account switch is confirmed and the search-index, Firestore and Secret
 Manager halves are all working under one identity. That is the "there must be

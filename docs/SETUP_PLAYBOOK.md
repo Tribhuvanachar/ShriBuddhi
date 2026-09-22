@@ -592,8 +592,20 @@ Do not delete either account.
 time ever (run 35740197469): `✔ Deploy complete!`, and `corpusFile` went from
 404 to its designed 503.
 
-**Both blockers are cleared. D1–D3 are done. D4 is now a single workflow
-dispatch:**
+**D4 is DONE, 22 Sep 2026 — run 35748527407.** All eleven functions deployed
+with `PAYMENT_GATEWAY=razorpay`, `PAYMENT_GATEWAYS_ENABLED=razorpay`,
+`RAZORPAY_KEY_ID=rzp_test_Tezs0znt2yOCK4` (a test key; the live one replaces it
+at go-live). `renderBook` created; the other ten updated. `✔ Deploy complete!`
+
+**What is left is your test, not a deployment:** open the donation flow, pay
+with `4111 1111 1111 1111`, any future expiry, any CVV, and confirm **both** —
+Razorpay's dashboard shows the payment *captured*, **and** a document in the
+`donations` collection reaches a paid state. The second is the one that proves
+the webhook secret matches; if the first happens and the second does not, redo
+D2 step 2 and D3 step 3 with the same string.
+
+The original instructions, for the live-key switch and for whoever does this
+again:
 
 Actions → **"Deploy — Firebase Functions"** → *Run workflow* →
 `payment_gateway` = `razorpay`, `payment_gateways_enabled` = `razorpay`,
