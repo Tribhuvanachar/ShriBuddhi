@@ -213,10 +213,35 @@ Not the CLI. **Three workflows already exist for this**, and the old §C4's
 | `deploy-firebase-functions.yml` | **never run** | Cloud Functions (needed for §D and §E) |
 | `deploy-firebase-hosting.yml` | **never run** | the static site to Firebase Hosting |
 
-The one failure was *`Input required and not supplied: token`* — the
-service-account secret was absent from **ShriBuddhi** on 16 Sep. It is
-present now: the re-index run on 22 Sep passed its "Assemble the
-service-account key" step for the first time. So a re-run should get further.
+**`deploy-firestore.yml` is blocked on one missing secret, and it is not the
+Firebase one.** Re-run on 22 Sep: it failed at *"Checkout bhumandala (the site
+actually being deployed)"* with `Input required and not supplied: token`.
+
+That step wants **`BUDDHI_TOKEN`**, a GitHub token with read access to
+`Tribhuvanachar/bhumandala`, and ShriBuddhi does not have it. The Firebase
+credential is fine — the re-index run the same day passed its
+"Assemble the service-account key" step for the first time.
+
+**Why a Firestore deploy checks out another repository at all**: the workflow
+moved here from bhumandala on 12 Sep and says in its own header that the
+rules and indexes "have to come from THERE, not from" this repo. It runs
+`firebase deploy` inside `bhumandala/firebase`, so bhumandala's copy is what
+reaches the project. (As of 22 Sep the two copies are byte-identical — 334
+lines, both bootstrap lists empty — but bhumandala's is the authoritative
+one, and if they ever drift, deploying this repo's would be wrong.)
+
+**To unblock it:**
+
+1. Make a token that can read bhumandala —
+   <https://github.com/settings/personal-access-tokens> → **Fine-grained
+   token** → Repository access: `Tribhuvanachar/bhumandala` → Permissions:
+   **Contents: Read-only** → **Generate**.
+2. <https://github.com/Tribhuvanachar/ShriBuddhi/settings/secrets/actions> →
+   **New repository secret** → Name `BUDDHI_TOKEN` → paste → **Add secret**.
+3. Re-run the workflow.
+
+Note the secret stores are per-repository. JagatTest having a token of a
+similar name does nothing for a workflow running in ShriBuddhi.
 
 **Until `deploy-firestore.yml` succeeds, `firebase/firestore.rules` has never
 been published.** Whatever is enforcing roles in your Firestore today is
