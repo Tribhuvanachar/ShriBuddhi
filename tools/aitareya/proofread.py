@@ -22,8 +22,17 @@ commentary prose.
 
 RESUMABLE BY DESIGN. A block that already carries `text_proofread` is
 skipped, so an interrupted run costs nothing to resume and a second run
-over a finished file spends zero. At ~1,100 blocks across the two volumes
-that matters: without it, one timeout means paying twice.
+over a finished file spends zero. At ~1,400 blocks across the three
+volumes that matters: without it, one timeout means paying twice.
+
+CONCURRENT. The first version called Gemini one block at a time. On 22 Sep
+that took over two hours for 1,406 blocks and the implied rate got worse
+as it went -- 2.3 s/block, then 3.6, then 4.9 -- because gemini_client's
+HTTP timeout is 60 s with no retry, so every slow call stalls the whole
+queue behind it. This project already had the answer: tools/gemini_bench.py
+exists to sweep --concurrency and pick a safe production value from
+evidence. --concurrency defaults to 6, which keeps the wall clock sane
+without inviting the quota errors that sweep is for.
 
 BUDGET. --budget is in rupees, enforced before each call against the
 ledger's measured rate, and --real is the only thing that spends.
@@ -48,6 +57,8 @@ import argparse
 import json
 import os
 import sys
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -60,6 +71,10 @@ RATE_PER_PAGE = 0.0517
 # estimated by characters instead, calibrated on this corpus: the three
 # volumes are 2.15M Devanagari characters over 1,910 pages -> ~1,127/page.
 CHARS_PER_PAGE = 1127
+
+# Substituted by main() on the first real run, and by tests.
+call_gemini = None
+GeminiError = Exception
 
 SYSTEM = ("You are proofreading raw OCR of a printed Sanskrit commentary "
           "(Devanagari). You correct scanning errors and nothing else.")
@@ -102,6 +117,9 @@ def main() -> int:
     ap.add_argument("--volumes", default="bhagavantaraya,ratnamala")
     ap.add_argument("--budget", type=float, default=200.0, help="rupees")
     ap.add_argument("--real", action="store_true")
+    ap.add_argument("--concurrency", type=int, default=6,
+                    help="parallel Gemini calls. 1 restores the old "
+                         "one-at-a-time behaviour")
     ap.add_argument("--model", default=None)
     ap.add_argument("--staged-dir", default=None,
                     help="where the *_segmented.json files are. Defaults to "
@@ -141,36 +159,66 @@ def main() -> int:
               file=sys.stderr)
         return 1
 
-    from gemini_client import call_gemini, GeminiError  # noqa: E402
+    # Bound onto the module so a test can substitute it. Imported here
+    # rather than at the top so --plan works without gemini_client present.
+    global call_gemini, GeminiError
+    if call_gemini is None:
+        from gemini_client import call_gemini as _cg, GeminiError as _ge  # noqa: E402
+        call_gemini, GeminiError = _cg, _ge
 
     spent, done, usage = 0.0, 0, {}
-    for path, doc, todo in files:
-        for b in todo:
-            text = (b.get("text") or "").strip()
-            if not text:
-                continue
-            c = est_cost(len(text))
-            if spent + c > args.budget:
-                print(f"budget reached at Rs{spent:.2f} -- stopping cleanly; "
-                      f"rerun to continue where this left off")
-                break
-            try:
-                out = call_gemini(SYSTEM, PROMPT + text, SCHEMA, key,
-                                  **({"model": args.model} if args.model else {}),
-                                  max_output_tokens=8192, usage_totals=usage)
-            except GeminiError as e:
-                print(f"  block p{b.get('page')} failed: {e} -- leaving it "
-                      f"unproofread and carrying on")
-                continue
-            b["text_proofread"] = out.get("text") or text
-            b["classification"] = out.get("classification", "unresolved")
-            if out.get("note"):
-                b["note"] = out["note"]
+    lock = threading.Lock()
+    budget = args.budget
+    model = args.model
+
+    def one(b):
+        """One block. Returns its cost, or 0 if nothing was billed.
+
+        The budget is checked inside the lock before the call, so N workers
+        cannot each decide there is room for the same last rupee.
+        """
+        nonlocal spent, done
+        text = (b.get("text") or "").strip()
+        if not text:
+            return 0.0
+        c = est_cost(len(text))
+        with lock:
+            if spent + c > budget:
+                return None          # signals: stop, budget reached
             spent += c
+        try:
+            out = call_gemini(SYSTEM, PROMPT + text, SCHEMA, key,
+                              **({"model": model} if model else {}),
+                              max_output_tokens=8192, usage_totals=usage)
+        except GeminiError as e:
+            with lock:
+                spent -= c           # not billed, do not charge the budget
+            print(f"  block p{b.get('page')} failed: {e} -- leaving it "
+                  f"unproofread and carrying on")
+            return 0.0
+        b["text_proofread"] = out.get("text") or text
+        b["classification"] = out.get("classification", "unresolved")
+        if out.get("note"):
+            b["note"] = out["note"]
+        with lock:
             done += 1
             if done % 25 == 0:
-                path.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n")
                 print(f"  {done} blocks, Rs{spent:.2f}")
+        return c
+
+    for path, doc, todo in files:
+        stop = False
+        with ThreadPoolExecutor(max_workers=max(1, args.concurrency)) as pool:
+            futures = {pool.submit(one, b): b for b in todo}
+            for f in as_completed(futures):
+                if f.result() is None and not stop:
+                    stop = True
+                    print(f"budget reached at Rs{spent:.2f} -- letting the "
+                          f"calls already in flight finish, then stopping; "
+                          f"rerun to continue where this left off")
+        # Written once per volume rather than every 25 blocks: with workers
+        # mutating `doc` concurrently, a mid-flight dump could serialise a
+        # half-updated structure. The pool is drained by the time we get here.
         # A file is only marked proofread when nothing is left undone in it.
         if all(x.get("text_proofread") for x in doc["blocks"] if (x.get("text") or "").strip()):
             doc["proofread"] = True
