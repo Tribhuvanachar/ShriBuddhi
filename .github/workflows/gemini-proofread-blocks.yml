@@ -1,0 +1,98 @@
+name: Gemini — proofread staged OCR blocks
+
+# Proofreads segmented OCR blocks in data/ocr_staging/, in place, and
+# commits the result back to this branch.
+#
+# Why a new workflow rather than reusing one: nothing here proofreads
+# STAGED BLOCKS. gemini-enrich / gemini-summarize-kavya /
+# gemini-deep-analysis-kavya all operate on corpus text that is already
+# clean, and ocr-sanskrit-commentary.yml re-OCRs a PDF through Vision
+# before proofreading, keyed to numbered shlokas -- which cannot address a
+# target that uses hierarchical `items`, and which would throw away the
+# Sarvam layout reading we already paid for.
+#
+# tools/aitareya/write_layers.py REFUSES to write a staged file that has
+# no proofread pass, because three of the five Aitareya layers it would
+# write replace text a reader can see today. This is what clears that.
+#
+# COSTS MONEY, but little: Gemini is Rs0.0517/page on this corpus
+# (admin/config/spend_report.json), and both Aitareya volumes together are
+# about Rs64. The run is resumable -- a block that already carries
+# text_proofread is skipped -- so an interrupted run costs nothing to
+# resume and a rerun over a finished file spends zero.
+
+on:
+  workflow_dispatch:
+    inputs:
+      volumes:
+        description: "Comma-separated staged volumes, e.g. bhagavantaraya,ratnamala"
+        required: true
+        default: "bhagavantaraya,ratnamala"
+      budget:
+        description: "Hard cap in rupees. The run stops cleanly when reached; rerun to continue."
+        required: true
+        default: "200"
+      model:
+        description: "Gemini model (blank = the client's default)"
+        required: false
+        default: ""
+      mode:
+        description: "plan counts blocks and spends nothing. real-run calls Gemini."
+        type: choice
+        options: [plan, real-run]
+        default: plan
+
+permissions:
+  contents: write
+
+concurrency:
+  # One volume set at a time: two runs over the same staged file would both
+  # read it, both write it, and the second would silently drop the first's work.
+  group: gemini-proofread-${{ inputs.volumes }}
+  cancel-in-progress: false
+
+jobs:
+  proofread:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      # No pip install: tools/gemini_client.py is standard library only.
+
+      - name: Proofread
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          VOLUMES: ${{ inputs.volumes }}
+          BUDGET: ${{ inputs.budget }}
+          MODEL: ${{ inputs.model }}
+          MODE: ${{ inputs.mode }}
+        run: |
+          if [ "$MODE" = "real-run" ] && [ -z "$GEMINI_API_KEY" ]; then
+            echo "::error::GEMINI_API_KEY repository secret is not set. Add it under" \
+                 "Settings -> Secrets and variables -> Actions before running this workflow."
+            exit 1
+          fi
+          ARGS=(--volumes "$VOLUMES" --budget "$BUDGET")
+          [ -n "$MODEL" ] && ARGS+=(--model "$MODEL")
+          [ "$MODE" = "real-run" ] && ARGS+=(--real)
+          python3 tools/aitareya/proofread.py "${ARGS[@]}"
+
+      - name: Commit the proofread blocks
+        if: inputs.mode == 'real-run'
+        run: |
+          git config user.name  "shribuddhi-bot"
+          git config user.email "noreply@anthropic.com"
+          git add data/ocr_staging/
+          if git diff --cached --quiet; then
+            echo "nothing changed -- every block was already proofread"
+            exit 0
+          fi
+          git commit -m "Gemini proofread: ${{ inputs.volumes }}
+
+          Ran tools/aitareya/proofread.py under a Rs${{ inputs.budget }} cap.
+          Blocks already carrying text_proofread were skipped, so this is
+          resumable and a rerun over a finished file spends nothing."
+          git push
