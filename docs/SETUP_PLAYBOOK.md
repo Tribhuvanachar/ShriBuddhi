@@ -83,9 +83,25 @@ exists and has **never once run**, because the secrets below were never set.
 ### A4 · Run it
 
 1. Open **<https://github.com/Tribhuvanachar/ShriBuddhi/actions>**
-2. Left sidebar → the **re-index** workflow → **Run workflow**.
-3. Watch the step **"Publish the index to Cloud Storage"**. It should now
-   upload rather than skip.
+2. Left sidebar → **"DGE re-index (search + library status)"** — that is the
+   name it appears under; "the re-index workflow" is not findable. →
+   **Run workflow**.
+3. Watch the step **"Publish the index to Cloud Storage"**.
+
+**Read that step carefully, because it can lie.** It is `continue-on-error`,
+so a failed upload still shows a green tick and the job still says success.
+It also prints `uploading NNN files to gs://…` **before** the transfer, so a
+glance at the log looks like it worked whether or not it did. On 22 Sep it
+printed exactly that and then died on `HTTPError 400: Invalid bucket name`.
+
+Since 22 Sep the step says so itself: a failure now writes **`PUBLISH
+FAILED`** into the run summary, and a bucket name it cannot use is rejected
+*before* the transfer with a message saying what the value should look like.
+It also strips a leading `gs://`, a trailing slash and any path, so those
+shapes no longer matter.
+
+**It worked if** the summary says `published to gs://…` and does **not** say
+`PUBLISH FAILED`.
 
 The index lands at `gs://<bucket>/search_index/<data-sha>/`, cached for a
 year, and each build gets its own immutable prefix — so a new build never
@@ -160,58 +176,79 @@ is the library and should stay.
 
 ## C · Firebase and Firestore
 
-### C1 · Create the project
+**Do not create a new project.** An earlier version of this section read as
+if you were starting from zero. You are not, and following it literally would
+have duplicated a working project.
 
-1. **<https://console.firebase.google.com/>** → **Add project**.
-2. Name it, accept or decline Analytics, **Create project**.
+### What already exists — checked, not assumed
 
-### C2 · Turn on the pieces the site uses
+| thing | state | evidence |
+|---|---|---|
+| Firebase project | **`sarvamula-org`** exists | Firebase console; `js/config.js` line 760 |
+| Web config in the site | **done**, pasted 6 Sep 2026 | `FIREBASE_CONFIG` in `js/config.js` |
+| Google sign-in | **on** | `AUTH_CONFIG.enableGoogleSignIn: true` |
+| Firestore + roles | **exists** | your own check; `firebase/firestore.rules` reads `users/<uid>.role` |
+| Blaze plan | **active since 8 Sep 2026** | header of `deploy-firebase-functions.yml` |
 
-- **Authentication** → **Get started** → enable **Google** and **Phone**.
-  <https://console.firebase.google.com/project/_/authentication/providers>
-- **Firestore Database** → **Create database** → **Production mode** →
-  location `asia-south1`.
-  <https://console.firebase.google.com/project/_/firestore>
-- **Hosting** → **Get started**.
-  <https://console.firebase.google.com/project/_/hosting>
+So **C1, C2 and C3 as previously written are already done.** Nothing to redo.
 
-> Until Firestore exists, sign-in still works but every user gets the default
-> role — `js/user-auth.js` handles that case deliberately and says so.
+### One correction to the old text
 
-### C3 · The web config that goes in the site
+It told you to enable **Phone** auth. Do not, unless you mean to pay for it.
+`AUTH_CONFIG.enablePhoneAuth` is deliberately **`false`**, and the comment
+beside it says why: phone OTP needs Blaze and costs roughly ₹0.85 per
+verification through Firebase's own SMS, against about ₹0.145 through the
+WhatsApp path (§E). The code supports all three channels. Turning the console
+provider on without choosing a channel here changes nothing and can start
+costing money.
 
-1. **Project settings** (gear, top left) → **General** → scroll to **Your
-   apps** → **Web** (`</>`) → register the app.
-2. Copy the `firebaseConfig` object it shows you.
-3. Paste it into the site's auth config where `AUTH_CONFIG` is read.
+### What is actually left: deploying rules and functions
 
-**These values are not secret.** `apiKey` here is a public project
-identifier, not a password — it is meant to ship in the browser. What
-protects your data is `firebase/firestore.rules`, which is already written
-and enforces roles server-side.
+Not the CLI. **Three workflows already exist for this**, and the old §C4's
+`firebase deploy` instructions were wrong to send you to a terminal:
 
-### C4 · Deploy the rules and the functions
+| workflow | runs so far | what it does |
+|---|---|---|
+| `deploy-firestore.yml` | **1, failed 16 Sep** | publishes `firestore.rules` + indexes |
+| `deploy-firebase-functions.yml` | **never run** | Cloud Functions (needed for §D and §E) |
+| `deploy-firebase-hosting.yml` | **never run** | the static site to Firebase Hosting |
 
-```bash
-npm install -g firebase-tools
-firebase login
-cd ShriBuddhi/firebase
-firebase use --add            # pick the project, give it the alias "default"
-firebase deploy --only firestore:rules
-firebase deploy --only functions
-```
+The one failure was *`Input required and not supplied: token`* — the
+service-account secret was absent from **ShriBuddhi** on 16 Sep. It is
+present now: the re-index run on 22 Sep passed its "Assemble the
+service-account key" step for the first time. So a re-run should get further.
 
-### C5 · Where each key actually goes
+**Until `deploy-firestore.yml` succeeds, `firebase/firestore.rules` has never
+been published.** Whatever is enforcing roles in your Firestore today is
+whatever was set in the console, not the file in this repo. That is the single
+most important thing in section C, and it is the one thing that was never
+framed as urgent.
+
+Run them from
+<https://github.com/Tribhuvanachar/ShriBuddhi/actions>, in this order:
+`deploy-firestore.yml`, then `deploy-firebase-functions.yml`. Hosting stays
+optional — GitHub Pages is still the live origin.
+
+### Where each value goes — unchanged, and still the part that trips people
 
 | value | store | why |
 |---|---|---|
-| `firebaseConfig` (apiKey, appId…) | the site's source | public by design |
-| service-account JSON | **GitHub secret** (§A3) | a workflow uses it |
+| `firebaseConfig` (apiKey, appId…) | **the site's source** | public by design; already in `js/config.js` |
+| service-account JSON | **GitHub secret** | workflows use it |
 | `RAZORPAY_KEY_SECRET` | **Functions secret** (§D) | server only, never the browser |
 | `RAZORPAY_KEY_ID` | Functions **config string** | public, shown to the payer |
 | `WHATSAPP_TOKEN` | **Functions secret** (§E) | server only |
 
+`apiKey` is a public project identifier, not a password — it is meant to ship
+in the browser. What protects the data is `firebase/firestore.rules`, which is
+written and tested but, per the table above, **not yet deployed**.
+
 **Never commit a service-account JSON or any `*_SECRET` to git.**
+
+> Five files (`firebase/functions/index.js`, `firebase/tests/rules.spec.js`,
+> `firebase/tests/README.md`, `firebase/functions/lib/providers.js`,
+> `admin/README.md`) point at a `FIREBASE_SETUP.md` that **does not exist in
+> this repository**. Treat this section as its replacement.
 
 ---
 
@@ -356,6 +393,15 @@ not consent to be messaged. Do not work around this.
 
 - *`FIREBASE_PROJECT_ID secret is not set`* — §A3 step 4 was skipped. The
   re-index no longer dies here; it skips the upload and carries on.
+- *Re-index says success but nothing reached the bucket* — see §A4. The
+  publish step is `continue-on-error`; check the run summary for
+  `PUBLISH FAILED`.
+- *`Invalid bucket name`* — `SEARCH_INDEX_BUCKET` holds something that is not
+  a bucket name. It wants `sarvamula-search`, not a `gs://` or `https://`
+  URL, and not uppercase.
+- *`Input required and not supplied: token`* in a deploy-firebase workflow —
+  the service-account secret is missing from **ShriBuddhi**. Having it on
+  JagatTest does not help; they are separate secret stores.
 - *Razorpay webhook shows 401* — `RAZORPAY_WEBHOOK_SECRET` does not match the
   dashboard, or the functions were not redeployed after setting it.
 - *WhatsApp webhook verification fails* — the functions are not deployed, or
