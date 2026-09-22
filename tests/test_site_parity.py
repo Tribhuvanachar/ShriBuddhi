@@ -82,3 +82,52 @@ def test_repopulate_library_itself_rejects_an_empty_layer(tmp_path):
     assert got["data/full/data.json"] is True
     assert got["data/empty/data.json"] is False, "an empty layer was advertised as populated"
     assert got["data/gone/data.json"] is False
+
+
+def test_library_json_is_not_frozen_downstream():
+    """PER_REPO must not hold data/library.json.
+
+    Protecting it looked right -- its `populated` flags are repo-specific --
+    and froze every downstream catalogue instead. A grantha added here
+    never appeared there at all: BrahmaBuddhi sat at 1,696 entries against
+    this repo's 1,716, so Manimanjari's eight sargas were invisible in the
+    repo where review is supposed to happen.
+
+    The right order is copy THEN repopulate. sync() copies, main() calls
+    repopulate_library() straight after, and that is what makes the file
+    repo-specific. Excluding it from the copy skipped the first half.
+    """
+    assert "data/library.json" not in sp.PER_REPO
+    assert "sitemap.xml" in sp.PER_REPO, "sitemap.xml IS per-repo and must stay protected"
+
+
+def test_sync_copies_the_catalogue_then_repopulates_it(tmp_path, monkeypatch):
+    """Drives the real pair: a target whose catalogue is missing a grantha
+    ends up with it listed, and flagged by what the target actually holds."""
+    src, dst = tmp_path / "src", tmp_path / "dst"
+    for r in (src, dst):
+        (r / "data").mkdir(parents=True)
+        (r / ".git").mkdir()
+    (src / "data/library.json").write_text(json.dumps({"granthas": [
+        {"path": "data/old/data.json", "populated": True, "title": "old"},
+        {"path": "data/new/data.json", "populated": True, "title": "new upstream"},
+    ]}))
+    (dst / "data/library.json").write_text(json.dumps({"granthas": [
+        {"path": "data/old/data.json", "populated": True, "title": "old"},
+    ]}))
+    # the target holds `old` but not `new`
+    (dst / "data/old").mkdir()
+    (dst / "data/old/data.json").write_text(json.dumps({"items": [{"id": 1}]}))
+
+    monkeypatch.setattr(sp, "ROOT", src)
+    rel = [Path("data/library.json")]
+    report = sp.classify(dst, rel)
+    sp.sync(dst, rel, report, overwrite=True)
+    on, off = sp.repopulate_library(dst)
+
+    got = json.loads((dst / "data/library.json").read_text())["granthas"]
+    paths = {g["path"]: g["populated"] for g in got}
+    assert len(got) == 2, "the upstream catalogue did not come down"
+    assert paths["data/old/data.json"] is True
+    assert paths["data/new/data.json"] is False, "flagged populated without the file"
+    assert (on, off) == (1, 1)

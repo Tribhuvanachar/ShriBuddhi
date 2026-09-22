@@ -115,8 +115,15 @@ DATA_INDEX_GLOB = "data/*.json"
 #                      than this repo's (4,979 lines against 3,012) because
 #                      it is generated for the live URL set; overwriting it
 #                      would shrink the public sitemap.
-#   data/library.json  rewritten per target by repopulate_library(), so its
-#                      `populated` flags describe that repo's own disk.
+#
+# data/library.json is deliberately NOT here. Protecting it looked right and
+# was wrong: it froze the target's catalogue, so a grantha added upstream --
+# Manimanjari's eight sargas among them -- never appeared downstream at all.
+# BrahmaBuddhi sat at 1,696 entries against this repo's 1,716. The right
+# order is copy THEN repopulate: the file comes down whole, and
+# repopulate_library() immediately rewrites its `populated` flags against the
+# target's own disk, which is what makes it repo-specific. Excluding it from
+# the copy skipped the first half.
 #   admin/js/keys.js   and the four admin pages beside it: BrahmaBuddhi
 #   admin/*.html       rewrote them on 12 Sep for its BYOK loader, which
 #                      renders admin pages through an iframe srcdoc where
@@ -124,7 +131,6 @@ DATA_INDEX_GLOB = "data/*.json"
 #                      copies would break every admin tool there.
 PER_REPO = {
     "sitemap.xml",
-    "data/library.json",
     "admin/js/keys.js",
     "admin/js/ocr-studio-core.js",
     "admin/library.html",
