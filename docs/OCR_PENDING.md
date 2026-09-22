@@ -186,11 +186,19 @@ block is matched independently against all 38 candidates — so monotonicity is 
 result, not a construction. Dropping the 0.30 match floor to 0.02 destroys it,
 which is what the test asserts.
 
-**`visvesvara_tirtha` — still not segmentable.** Neither rule applies: no
-coordinate running head, no section labels. Its running head is prose
-(`द्वितीयप्रघट्टके तृतीयोऽध्यायः`). 320 pages, 228 pratīkas. It needs a third
-rule — most likely parsing that prose head for the adhyāya, then splitting on
-pratīkas — and is the one piece of this left undone.
+**`visvesvara_tirtha` — segmented, but coarsely.** A third rule, added 22 Sep.
+Its recto running head reads `द्वितीयप्रघट्टके प्रथमोऽध्यायः`: this edition
+divides by **prāghaṭṭaka** rather than āraṇyaka, and prāghaṭṭaka 2 and 3 are
+āraṇyaka 2 and 3, which is exactly the span the volume covers. 128 of its 320
+pages carry that head — the rectos — giving eight transitions that come out in
+the volume's own order. **298 blocks, 408,112 characters, 56.6% new.**
+
+Two limits, both real and both recorded rather than papered over. The head
+gives an **adhyāya, not a khaṇḍa**, so these blocks cannot be addressed as
+finely as the shelf keys its units; they land on the first khaṇḍa of their
+adhyāya and carry `coarse: True`. And the sequence jumps from adhyāya 4 to
+adhyāya 6 — either adhyāya 5's head never OCR'd or it is very short — so pages
+between them forward-fill to 4 and some may belong to 5.
 
 ### What remains before any of it can be attached
 

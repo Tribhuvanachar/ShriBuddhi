@@ -134,3 +134,37 @@ def test_unmatched_blocks_are_left_unaddressed_not_guessed():
     stats = seg.address_by_bhashya(blocks)
     assert blocks[0].get("adhyaya_name") is None
     assert stats.get("unaddressed") == 1
+
+
+@needs_staging
+def test_visvesvara_praghattaka_head_is_monotonic_and_coarse():
+    """The third rule reads a running head that gives an ADHYAYA and no
+    khaṇḍa, so its blocks are necessarily coarser than the shelf's own
+    keying. Two things must hold: the addresses run in the volume's order
+    (nothing constrains that, so it is evidence the head is being read
+    correctly), and every block says out loud that it is coarse -- a block
+    silently claiming khaṇḍa-level precision it does not have is the
+    failure this guards."""
+    pages = seg.load_pages("visvesvara_tirtha")
+    blocks, stats = seg.segment_praghattaka(pages, seg.VOLUMES["visvesvara_tirtha"])
+    assert stats["addressed"] > 100, f"running head stopped parsing: {stats}"
+    assert blocks and all(b.get("coarse") is True for b in blocks)
+
+    seen = []
+    for b in blocks:
+        a = (b["aranyaka"], b["adhyaya"])
+        if not seen or seen[-1] != a:
+            seen.append(a)
+    assert len(seen) >= 6, f"only {len(seen)} distinct addresses"
+    assert seen == sorted(seen), f"addresses do not run in volume order: {seen}"
+    # praghattaka 2 and 3 are aranyaka 2 and 3 -- the span this volume covers
+    assert {a[0] for a in seen} <= {2, 3}
+
+
+def test_praghattaka_regex_tolerates_the_avagraha_ocr_drops():
+    m = seg.PRAGHATTAKA.search("द्वितीयप्रघट्टके प्रथमोऽध्यायः १७")
+    assert m and (seg.ORDINALS[m.group(1)], seg.ORDINALS[m.group(2)]) == (2, 1)
+    # OCR frequently loses the ऽ; the rule must still read it
+    m2 = seg.PRAGHATTAKA.search("तृतीयप्रघट्टके प्रथमोध्यायः २०५")
+    assert m2 and (seg.ORDINALS[m2.group(1)], seg.ORDINALS[m2.group(2)]) == (3, 1)
+    assert seg.PRAGHATTAKA.search("ऐतरेयोपनिषत् (भाष्यटीकासमेता)") is None

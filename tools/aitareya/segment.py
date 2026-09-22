@@ -42,9 +42,20 @@ rule is something measured in the file rather than assumed:
       Those names are the shelf's own layer names.
 
   visvesvara_tirtha (320 pp)
-      Neither convention: no coordinates, no section labels. Its running
-      head is prose ("द्वितीयप्रघट्टके तृतीयोऽध्यायः"). Reported, not
-      segmented -- see the note this prints.
+      A third convention, and a coarser one. Its recto running head reads
+      "द्वितीयप्रघट्टके प्रथमोऽध्यायः" -- this edition divides by
+      PRAGHATTAKA rather than aranyaka, and praghattaka 2 and 3 are
+      aranyaka 2 and 3, which is the whole span the staged volume covers.
+      128 of its 320 pages carry that head (the rectos), yielding eight
+      monotonic transitions.
+
+      Two limits, both real. It gives an ADHYAYA, not a khanda, so its
+      blocks cannot be addressed as finely as the shelf keys its units --
+      they land on the first khanda of their adhyaya and are marked
+      `coarse: True`. And the sequence jumps from adhyaya 4 to adhyaya 6:
+      either adhyaya 5's head never OCR'd or it is very short, so pages
+      between them forward-fill to 4 and some may belong to 5. Both are
+      reported rather than papered over.
 
 Output is staged, never written into the corpus: this produces a file
 under data/ocr_staging/ for review in admin/ocr-review.html, matching how
@@ -87,7 +98,7 @@ VOLUMES = {
     "visvesvara_tirtha": {
         "branch": "origin/ocr-staging/aitereya_upanisad_bh__taries_visvesvara_tirtha",
         "files": ["sarvam_pages6-205.json", "sarvam_pages206-325.json"],
-        "rule": "unstructured",
+        "rule": "praghattaka",
         "layer": "tika_visvesvara_tirtha",
         "title": "विश्वेश्वरतीर्थव्याख्या",
     },
@@ -108,6 +119,14 @@ ADHYAYA = ["प्रथमोऽध्यायः", "द्वितीयो�
 KHANDA = ["प्रथम: खण्ड:", "द्वितीय: खण्ड:", "तृतीय: खण्ड:", "चतुर्थ: खण्ड:",
           "पञ्चम: खण्ड:", "षष्ट: खण्ड:", "सप्तम: खण्ड:", "अष्टम: खण्ड:"]
 ARANYAKA = {2: "द्वितीयारण्यके", 3: "तृतीयारण्यके"}
+
+ORDINALS = {"प्रथम": 1, "द्वितीय": 2, "तृतीय": 3, "चतुर्थ": 4,
+            "पञ्चम": 5, "षष्ठ": 6, "षष्ट": 6, "सप्तम": 7, "अष्टम": 8}
+_ORD = "|".join(ORDINALS)
+# "द्वितीयप्रघट्टके प्रथमोऽध्यायः" -- the recto running head of the
+# Visvesvara Tirtha edition. The ऽ is optional because OCR drops it.
+PRAGHATTAKA = re.compile(
+    rf"({_ORD})प्रघट्टके\s+({_ORD})(?:ो|ः)?ऽ?ध्यायः")
 
 
 def num(s: str) -> int:
@@ -206,17 +225,30 @@ def segment_section_labels(pages: list[dict], cfg: dict) -> tuple[list[dict], di
     return blocks, dict(stats)
 
 
-def analyse_unstructured(pages: list[dict], cfg: dict) -> tuple[list[dict], dict]:
-    stats = Counter()
+def segment_praghattaka(pages: list[dict], cfg: dict) -> tuple[list[dict], dict]:
+    """visvesvara_tirtha. Addresses to an adhyaya, which is as fine as this
+    edition's running head goes -- see the module docstring."""
+    blocks, stats = [], Counter()
+    current = None
     for p in pages:
-        head = " ".join(p["text"].split())[:120]
-        stats["pages"] += 1
-        if COORD.search(head):
-            stats["coord"] += 1
-        if any(SECTION.match(l.strip()) and l.strip().rstrip("-–— ").strip() in KNOWN_SECTIONS
-               for l in p["text"].split("\n")):
-            stats["section_label"] += 1
-    return [], dict(stats)
+        head = " ".join(p["text"].split())[:110]
+        body = p["text"].strip()
+        if len(dev_only(body)) < 30:
+            stats["blank"] += 1
+            continue
+        m = PRAGHATTAKA.search(head)
+        if m:
+            current = (ORDINALS[m.group(1)], ORDINALS[m.group(2)])
+            stats["addressed"] += 1
+        else:
+            stats["carried_forward"] += 1
+        if current is None:
+            stats["before_first_address"] += 1
+            continue
+        blocks.append({"aranyaka": current[0], "adhyaya": current[1],
+                       "khanda": 1, "coarse": True, "page": p["page"],
+                       "layer": cfg["layer"], "text": body})
+    return blocks, dict(stats)
 
 
 def address_by_bhashya(blocks: list[dict]) -> dict:
@@ -275,7 +307,7 @@ def address_by_bhashya(blocks: list[dict]) -> dict:
 
 RULES = {"two_stream": segment_two_stream,
          "section_labels": segment_section_labels,
-         "unstructured": analyse_unstructured}
+         "praghattaka": segment_praghattaka}
 
 
 def target_coverage() -> dict:
@@ -336,9 +368,9 @@ def main() -> int:
                     if b.get("adhyaya_name"):
                         named[b["layer"]] += 1
                 print(f"   addressed/layer : {named}")
-        if cfg["rule"] == "unstructured":
-            print("   NOT SEGMENTED — no coordinate running head and no section\n"
-                  "   labels. Needs a third rule before it can be addressed.")
+        if cfg["rule"] == "praghattaka":
+            print("   NOTE: addressed to an ADHYAYA, not a khaṇḍa — this edition's\n"
+                  "   running head goes no finer. Blocks carry coarse: True.")
         print()
 
         if args.write and blocks:
