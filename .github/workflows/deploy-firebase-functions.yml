@@ -241,9 +241,40 @@ jobs:
             # runtime with "Could not find Chrome", which reads like a code bug.
             ls -la .puppeteer-cache 2>/dev/null || { echo "puppeteer did not populate .puppeteer-cache — see .puppeteerrc.cjs"; exit 1; }
           else
-            npm install --omit=optional
-            echo "::notice::renderBook will answer 503 (puppeteer not installed). The book builder's Prepare → print route is unaffected."
+            # NOT `--omit=optional`. That flag was here to skip puppeteer's
+            # ~170 MB Chrome download, and it did -- along with
+            # @google-cloud/firestore and @google-cloud/storage, which
+            # firebase-admin 13 declares as OPTIONAL dependencies and then
+            # requires unconditionally:
+            #
+            #   firebase-admin/lib/firestore/index.js:24
+            #     require("@google-cloud/firestore/build/src/path")
+            #
+            # So every deploy died in codebase analysis with
+            # "Cannot find module '@google-cloud/firestore/build/src/path'"
+            # and the unhelpful "Functions codebase could not be analyzed
+            # successfully. It may have a syntax or runtime error" -- which is
+            # not a syntax error and not in our code. Run 35737083852, 22 Sep
+            # 2026; reproduced exactly by running the same npm command and
+            # `node -e "require('./index.js')"` locally.
+            #
+            # PUPPETEER_SKIP_DOWNLOAD skips only the browser binary, which is
+            # the 170 MB anyone cared about. The package itself is 12 MB and
+            # renderBook still answers 503 without a browser.
+            PUPPETEER_SKIP_DOWNLOAD=true npm install
+            test ! -d .puppeteer-cache || echo "::warning::a browser was downloaded despite PUPPETEER_SKIP_DOWNLOAD"
+            echo "::notice::renderBook will answer 503 (no browser downloaded). The book builder's Prepare → print route is unaffected."
           fi
+
+          # firebase-tools reports a failure to load the codebase as "It may
+          # have a syntax or runtime error", with no stack and no module name.
+          # Loading it here first turns that into the actual error, before the
+          # deploy has spent anything.
+          node -e "require('./index.js')" || {
+            echo "::error::functions/index.js does not load -- see the stack above. firebase-tools would report this only as 'Functions codebase could not be analyzed successfully'. A missing module here usually means a dependency was pruned by an npm flag, not a bug in index.js."
+            exit 1
+          }
+          echo "functions/index.js loads cleanly
       - name: Deploy Cloud Functions
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /home/runner/.sa/key.json
