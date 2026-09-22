@@ -14,14 +14,31 @@ finds nothing, and that is the design working, not a fault.
 
 To spend money you do not need the key. You dispatch the workflow.
 
-## Which secret each engine uses
+## Which secret lives in WHICH repo
 
-| engine | workflow | secret |
-|---|---|---|
-| Sarvam Document AI | `.github/workflows/ocr-sarvam.yml` | `SARVAM_API_KEY` |
-| Google Cloud Vision | `.github/workflows/ocr-vision-pages.yml` | `VISION_API_KEY` |
-| Gemini (proofread) | `.github/workflows/ocr-sanskrit-commentary.yml` | `GEMINI_API_KEY` + `VISION_API_KEY` |
-| Gemini (enrichment) | `.github/workflows/gemini-enrich.yml` | `GEMINI_API_KEY` |
+This is the part that matters and the part that is easy to get wrong. The
+secrets are **split across two repositories**, deliberately:
+
+| engine | secret | repo that holds it | verified |
+|---|---|---|---|
+| Sarvam Document AI | `SARVAM_API_KEY` | **ShriBuddhi** (private) | run log shows `SARVAM_API_KEY: ***` |
+| Google Cloud Vision | `VISION_API_KEY` | **ShriBuddhi** | — |
+| Gemini, all uses | `GEMINI_API_KEY` | **JagatTest** (public) | JagatTest run 35518574290 shows `***`; a ShriBuddhi run on 22 Sep showed it **empty** |
+| writing back to the private repo | `SHRIBUDDHI_TOKEN` | **JagatTest** | used by `gemini-resolve-conflicts.yml` |
+
+**Gemini work runs from the public repo on purpose.** JagatTest's
+`gemini-resolve-conflicts.yml` states the reason in its own header: *"Actions
+is free and unlimited on a public repository and capped at 2,000 minutes a
+month on a private one. Nothing sensitive is committed here: the text arrives
+from the private repo and leaves for it."*
+
+So a Gemini workflow belongs on **JagatTest**, clones ShriBuddhi with
+`SHRIBUDDHI_TOKEN`, and pushes the result back. ShriBuddhi has six `gemini-*`
+workflows and **not one of them has ever run** — they cannot, the key is not
+there. Do not add a Gemini workflow to ShriBuddhi expecting it to work; that
+mistake cost a failed run on 22 Sep.
+
+Sarvam and Vision run on ShriBuddhi, where their keys are.
 
 `admin/js/ocr-studio-core.js` states the same mapping in its `ENGINES`
 table — each entry carries `runsIn: 'workflow'` and a `where:` naming the
@@ -49,7 +66,7 @@ returns `204`).
       https://api.github.com/repos/Tribhuvanachar/ShriBuddhi/actions/workflows/<ID>/dispatches \
       --data-binary @body.json
 
-`ocr-sarvam.yml` is workflow id **356671665**. Its body:
+`ocr-sarvam.yml` is workflow id **356671665** on ShriBuddhi. Its body:
 
     {"ref":"main","inputs":{
       "pdf_url":"…","pages":"300-309","work_slug":"…",

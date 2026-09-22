@@ -30,6 +30,17 @@ ledger's measured rate, and --real is the only thing that spends.
 
   python3 tools/aitareya/proofread.py                      # plan
   python3 tools/aitareya/proofread.py --real --budget 200
+  python3 tools/aitareya/proofread.py --staged-dir <clone>/data/ocr_staging/aitareya
+
+WHERE THIS ACTUALLY RUNS. GEMINI_API_KEY is a secret on the PUBLIC repo
+(JagatTest), not on this one -- verified 22 Sep: a run here reported the
+secret empty, while JagatTest's gemini-resolve-conflicts.yml shows it set.
+That is deliberate and its own workflow says why: "Actions is free and
+unlimited on a public repository and capped at 2,000 minutes a month on a
+private one. Nothing sensitive is committed here: the text arrives from
+the private repo and leaves for it." So the workflow that calls this lives
+there, clones this repo's staging branch, and pushes the result back --
+hence --staged-dir.
 """
 from __future__ import annotations
 
@@ -92,13 +103,20 @@ def main() -> int:
     ap.add_argument("--budget", type=float, default=200.0, help="rupees")
     ap.add_argument("--real", action="store_true")
     ap.add_argument("--model", default=None)
+    ap.add_argument("--staged-dir", default=None,
+                    help="where the *_segmented.json files are. Defaults to "
+                         "this repo's data/ocr_staging/aitareya. The workflow "
+                         "that actually runs this lives in the PUBLIC repo "
+                         "(free Actions minutes) and points it at a clone of "
+                         "the private one, so the path must be settable.")
     args = ap.parse_args()
 
+    staged = Path(args.staged_dir) if args.staged_dir else STAGED
     files = []
     for vol in args.volumes.split(","):
-        p = STAGED / f"{vol}_segmented.json"
+        p = staged / f"{vol}_segmented.json"
         if not p.exists():
-            print(f"{vol}: no staged file -- run segment.py --write first")
+            print(f"{vol}: no staged file at {p} -- run segment.py --write first")
             continue
         doc = json.loads(p.read_text())
         todo = [b for b in doc["blocks"] if not b.get("text_proofread")]
@@ -158,7 +176,11 @@ def main() -> int:
             doc["proofread"] = True
             doc["proofread_usage"] = usage
         path.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n")
-        print(f"wrote {path.relative_to(ROOT)}  proofread={doc.get('proofread', False)}")
+        try:
+            shown = path.relative_to(ROOT)
+        except ValueError:
+            shown = path          # a clone outside this repo
+        print(f"wrote {shown}  proofread={doc.get('proofread', False)}")
 
     print(f"\n{done} blocks proofread, about Rs{spent:.2f}")
     return 0
