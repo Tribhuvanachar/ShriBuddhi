@@ -370,7 +370,7 @@ jobs:
         if: steps.gate.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.bump_pin)
         uses: actions/checkout@v4
         with:
-          repository: Tribhuvanachar/bhumandala
+          repository: Tribhuvanachar/JagatTest
           token: ${{ secrets.BUDDHI_TOKEN }}
           path: buddhi-pin
 

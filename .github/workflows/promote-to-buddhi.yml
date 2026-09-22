@@ -27,7 +27,7 @@ jobs:
       - name: Checkout Buddhi
         uses: actions/checkout@v4
         with:
-          repository: Tribhuvanachar/Buddhi
+          repository: Tribhuvanachar/JagatTest
           token: ${{ secrets.BUDDHI_TOKEN }}
           path: buddhi
 

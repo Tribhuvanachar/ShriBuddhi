@@ -18,11 +18,21 @@ repo contains).
 
 ## 0. Two corrections that invalidate older notes
 
-**`bhumandala` and `JagatTest` are the same repository.** `bhumandala` was
-renamed to `JagatTest`; `https://github.com/Tribhuvanachar/bhumandala` answers
-`301 → JagatTest`. Earlier documents and this session's own earlier notes
-described them as two repos with two roles. They are one repo. A local clone
-directory named `bhumandala` is a second clone of `JagatTest`, usually stale.
+**`bhumandala`, `Buddhi` and `JagatTest` are all the same repository.** Both
+old names answer `301 → JagatTest`:
+
+    https://github.com/Tribhuvanachar/bhumandala  ->  .../JagatTest
+    https://github.com/Tribhuvanachar/Buddhi      ->  .../JagatTest
+
+Earlier documents described them as separate repos with separate roles. They
+are one repo with three names, which also means **`BUDDHI_TOKEN` is the
+JagatTest token** — that is what `promote-to-buddhi.yml` and `reindex.yml`'s
+pin-bump step have always been pushing to. A local clone directory named
+`bhumandala` or `buddhi` is another clone of `JagatTest`, usually stale.
+
+Workflow `repository:` fields now spell it `Tribhuvanachar/JagatTest` (fixed
+22 Sep 2026 in `reindex.yml` and `promote-to-buddhi.yml`), so they no longer
+depend on a redirect that a new repo of either old name would break.
 
 This matters beyond tidiness: **every jsDelivr URL in the site still says
 `gh/Tribhuvanachar/bhumandala@…` and works only because GitHub keeps the
@@ -307,7 +317,7 @@ that issued it*, which is the last column.
 | `SARVAM_API_KEY` | Sarvam Document AI | https://dashboard.sarvam.ai |
 | `VISION_API_KEY` | Google Cloud Vision API key | GCP → APIs & Services → Credentials |
 | `BRAHMABUDDHI_TOKEN` | PAT that can push to BrahmaBuddhi | GitHub → Settings → Developer settings → PATs |
-| `BUDDHI_TOKEN` | PAT used by the deploy/promote workflows | same |
+| `BUDDHI_TOKEN` | PAT for **JagatTest** — "Buddhi" is one of its former names. Used by `promote-to-buddhi.yml`, `reindex.yml`'s pin bump and `sync-firebase-to-jagattest.yml` | same |
 | `ANTHROPIC_API_KEY`, `CLAUDE_CODE_OAUTH_TOKEN` | Claude Code action | console.anthropic.com |
 | `HF_TOKEN` | Hugging Face | huggingface.co/settings/tokens |
 | Internet Archive, WhatsApp, MSG91, Razorpay, Cashfree, OTP | see §5 | — |

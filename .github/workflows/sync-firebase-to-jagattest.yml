@@ -1,0 +1,119 @@
+# Keep JagatTest's copy of firebase/ identical to this one.
+#
+# WHY IT EXISTS. JagatTest carries a full duplicate of firebase/ -- functions,
+# lib, tests, rules, indexes. Nothing deploys from it: deploy-firebase-*.yml
+# and deploy-firestore.yml all run HERE and read THIS checkout. It is a mirror
+# for reading, and on 22 Sep 2026 it was found one commit behind after a change
+# to functions/index.js, which is exactly how a mirror stops being one.
+#
+# deploy-firebase-functions.yml's own header used to claim "there is no longer
+# a second copy of functions/index.js anywhere for the two to drift apart".
+# There is. This workflow makes that claim true instead of deleting the copy.
+#
+# DIRECTION IS ONE-WAY: ShriBuddhi -> JagatTest, always. An edit made to
+# JagatTest's firebase/ is overwritten without warning the moment anything
+# changes here. Edit firebase/ in ShriBuddhi and let this carry it over.
+#
+# WHAT IT COPIES: every file `git ls-files firebase/` reports, which is the
+# tracked set and therefore excludes .firebaserc (gitignored, written per-run
+# by each deploy workflow), functions/.env (written at deploy time) and
+# functions/node_modules/. Files that exist only on JagatTest under firebase/
+# are DELETED, or the mirror would accumulate ghosts.
+name: Sync — firebase/ to JagatTest
+
+on:
+  push:
+    branches: [main]
+    paths: ["firebase/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-firebase-to-jagattest
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: source
+
+      # Tribhuvanachar/JagatTest, spelled out. It answers to "bhumandala" and
+      # to "Buddhi" as well -- both are former names of this same repository
+      # and both still resolve only because GitHub keeps the rename redirects
+      # alive. Other workflows here still use the old spellings; this one does
+      # not, so it keeps working on the day someone creates a repo by one of
+      # those names. See docs/RESOURCES.md section 0.
+      - name: Check out JagatTest
+        uses: actions/checkout@v4
+        with:
+          repository: Tribhuvanachar/JagatTest
+          token: ${{ secrets.BUDDHI_TOKEN }}
+          path: target
+
+      # Prove the write BEFORE doing the work. A token that can clone but not
+      # push is not hypothetical here -- SHRIBUDDHI_TOKEN is exactly that, and
+      # it cost a paid Gemini run to find out at the last step rather than the
+      # first. --dry-run authenticates and asks the server for permission while
+      # transferring and changing nothing.
+      - name: Prove BUDDHI_TOKEN can push to JagatTest
+        env:
+          T: ${{ secrets.BUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$T" || { echo "::error::BUDDHI_TOKEN is not set on this repository."; exit 1; }
+          cd target
+          if ! git push --dry-run origin HEAD:refs/heads/__push_permission_probe 2>err.txt; then
+            sed 's/^/  /' err.txt
+            echo "::error::BUDDHI_TOKEN can read JagatTest but cannot push to it. Give the token behind BUDDHI_TOKEN 'Contents: Read and write' on Tribhuvanachar/JagatTest (GitHub -> Settings -> Developer settings -> Fine-grained tokens), then update the secret on ShriBuddhi. Nothing was changed."
+            exit 1
+          fi
+          echo "BUDDHI_TOKEN can push to JagatTest"
+
+      - name: Copy the tracked firebase/ tree over
+        run: |
+          set -euo pipefail
+          # The tracked set, so gitignored build output and per-run config
+          # (.firebaserc, functions/.env, node_modules) never travel.
+          ( cd source && git ls-files firebase/ ) > /tmp/tracked.txt
+          echo "$(wc -l < /tmp/tracked.txt) tracked file(s) under firebase/"
+
+          rm -rf target/firebase
+          while IFS= read -r f; do
+            mkdir -p "target/$(dirname "$f")"
+            cp "source/$f" "target/$f"
+          done < /tmp/tracked.txt
+
+      - name: Commit and push, or say nothing changed
+        env:
+          SRC_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          cd target
+          git config user.name  "shribuddhi-bot"
+          git config user.email "noreply@anthropic.com"
+          git add -A firebase
+          if git diff --cached --quiet; then
+            echo "JagatTest's firebase/ already matches ShriBuddhi's — nothing to do."
+            echo "already in sync" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git diff --cached --stat | tail -40
+          git commit -q -m "Mirror firebase/ from ShriBuddhi ${SRC_SHA:0:12}
+
+          Copied by ShriBuddhi's sync-firebase-to-jagattest.yml. This tree is a
+          MIRROR: every deploy reads ShriBuddhi's copy, never this one, and an
+          edit made here is overwritten the next time firebase/ changes there.
+          Change it in ShriBuddhi."
+          for a in 1 2 3; do
+            git push -q origin HEAD:main && { echo "pushed"; exit 0; }
+            echo "push failed (attempt $a); rebasing and retrying"
+            git fetch -q --no-tags origin main && git rebase -q FETCH_HEAD || true
+            sleep $((a*5))
+          done
+          echo "::error::Could not push the mirrored firebase/ to JagatTest after three attempts."
+          exit 1
