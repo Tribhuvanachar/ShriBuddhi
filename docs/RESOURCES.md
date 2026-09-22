@@ -127,6 +127,20 @@ Its display name can be changed to something honest (IAM → Service Accounts �
 the account → Edit → e.g. "CI — deploys and publishes") without changing the
 email address anything refers to.
 
+**How to tell which account a key file is for**, before pasting it anywhere:
+open the downloaded `.json` and read its `"client_email"`. That line *is* the
+identity — a key for the right account says
+
+    "client_email": "firebase-adminsdk-fbsvc@sarvamula-org.iam.gserviceaccount.com"
+
+Nothing else in the file needs to be looked at, and nothing else in it should
+ever be pasted anywhere but the GitHub secret box — `private_key` is the whole
+credential. After the switch, every run prints the account it authenticated as:
+
+    Activated service account credentials for: [firebase-adminsdk-fbsvc@***.iam.gserviceaccount.com]
+
+which is the confirmation that the secret was updated, not just saved.
+
 **Rollback**, if a workflow breaks after the switch: generate a fresh key for
 `github-search-index` and paste it back into `FIREBASE_SERVICE_ACCOUNT`. A
 service-account key's value cannot be read back from the console, so there is
