@@ -207,11 +207,22 @@ costing money.
 Not the CLI. **Three workflows already exist for this**, and the old §C4's
 `firebase deploy` instructions were wrong to send you to a terminal:
 
-| workflow | runs so far | what it does |
+| workflow | state | what it does |
 |---|---|---|
-| `deploy-firestore.yml` | **1, failed 16 Sep** | publishes `firestore.rules` + indexes |
+| `deploy-firestore.yml` | **succeeded 22 Sep** | publishes `firestore.rules` + indexes |
 | `deploy-firebase-functions.yml` | **never run** | Cloud Functions (needed for §D and §E) |
 | `deploy-firebase-hosting.yml` | **never run** | the static site to Firebase Hosting |
+
+**What the first success actually did**, since the distinction matters: it
+released the rules and **deployed the indexes**, but reported *"latest version
+of firestore.rules already up to date, skipping upload"*. So the rules content
+was already live on the project before this — presumably published by hand, or
+by this workflow back when it lived in bhumandala. The indexes in
+`firestore.indexes.json` are the part that genuinely landed for the first time.
+
+An earlier draft here said the rules had "never been published". That was
+inferred from the workflow's run history and was wrong about the rules
+themselves; only the *workflow* had never succeeded.
 
 **`deploy-firestore.yml` is blocked on one missing secret, and it is not the
 Firebase one.** Re-run on 22 Sep: it failed at *"Checkout bhumandala (the site
