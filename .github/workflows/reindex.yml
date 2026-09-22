@@ -80,7 +80,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          # Full history, because the change gate below asks git when data was
+          # last touched. Probe mode does not build and does not consult the
+          # gate, and a full clone of this 2.6 GB repository is 2.9 of the
+          # probe run's 3.3 minutes -- so in probe mode take one commit.
+          fetch-depth: ${{ github.event_name == 'workflow_dispatch' && inputs.probe && 1 || 0 }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -278,8 +282,10 @@ jobs:
             exit 1
           fi
 
+          echo "wrote gs://$BUCKET/$OBJ"
           URL="https://storage.googleapis.com/$BUCKET/$OBJ"
           CODE=$(curl -s -o /dev/null -w '%{http_code}' "$URL")
+          echo "anonymous GET of the published URL returned HTTP $CODE"
           gcloud storage rm "gs://$BUCKET/$OBJ" >/dev/null 2>&1 || true
 
           if [ "$CODE" != "200" ]; then
