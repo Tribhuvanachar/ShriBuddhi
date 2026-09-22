@@ -497,7 +497,75 @@ and complete Razorpay's KYC.
 | The CI account can deploy Cloud Functions | **no** — it cannot even list them |
 | `deploy-firebase-functions.yml` ever run successfully | **no, not once** |
 
-**Two things still stand between you and D4**, and neither is Razorpay's:
+**Two things still stand between you and D4**, and neither is Razorpay's.
+Both are done once and never again.
+
+#### Blocker 1 · `GH_DISPATCH_TOKEN` on ShriBuddhi
+
+A GitHub repository secret is readable only by workflows **in that
+repository**. JagatTest having `GH_DISPATCH_TOKEN` does nothing for
+`push-firebase-function-secrets.yml`, which runs on ShriBuddhi. The *token
+itself* can be the same one — that is reuse, not duplication — but GitHub never
+shows a secret's value again, so unless it was saved somewhere it has to be
+regenerated.
+
+What the token must be able to do: the `runWorkflow` function dispatches
+workflows in `GITHUB_REPO`, which `functions/index.js` defaults to
+`Tribhuvanachar/shribuddhi` and the deploy writes into `.env` as exactly that.
+So it needs **Actions: Read and write on ShriBuddhi**. A token scoped only to
+JagatTest will not work, whatever its name.
+
+1. <https://github.com/settings/personal-access-tokens> → find the existing
+   token, or **Generate new token** → *Fine-grained*.
+2. **Resource owner**: `Tribhuvanachar`.
+3. **Repository access**: *Only select repositories* → **ShriBuddhi**.
+   (Add JagatTest too if you want one token for both.)
+4. **Permissions → Repository permissions → Actions: Read and write.**
+   Nothing else. Never a classic repo-scoped PAT.
+5. **Generate** — copy the value now, it is shown once.
+6. <https://github.com/Tribhuvanachar/ShriBuddhi/settings/secrets/actions> →
+   **New repository secret** → name **`GH_DISPATCH_TOKEN`** → paste → Save.
+   (That spelling on GitHub; it is renamed to `GITHUB_DISPATCH_TOKEN` on the
+   way into Secret Manager, because GitHub refuses any secret name beginning
+   `GITHUB_`.)
+7. If you regenerated an existing token, update JagatTest's copy too or
+   whatever used it there will start failing.
+8. Re-run **"Push Firebase Functions secrets"** with `audit_only` **off**. The
+   audit at the end should then show twelve of twelve.
+
+#### Blocker 2 · Cloud Functions roles on the CI service account
+
+<https://console.cloud.google.com/iam-admin/iam?project=sarvamula-org> → find
+**`github-search-index@sarvamula-org.iam.gserviceaccount.com`** → the **pencil
+(Edit principal)** on its row → **ADD ANOTHER ROLE** once per role below →
+**SAVE**. Type the name into the role filter box to find each:
+
+| type this | it is |
+|---|---|
+| `Cloud Functions Admin` | `roles/cloudfunctions.admin` |
+| `Cloud Run Admin` | `roles/run.admin` |
+| `Artifact Registry Administrator` | `roles/artifactregistry.admin` |
+| `Cloud Build Editor` | `roles/cloudbuild.builds.editor` |
+| `Service Account User` | `roles/iam.serviceAccountUser` |
+| `Firebase Admin` | `roles/firebase.admin` |
+
+Grant them on **this existing account**. Do not create a new one, and do not
+make a second project.
+
+`Service Account User` is the one that reads oddly: deploying a function means
+*acting as* the account the function will run as, which for this project is the
+default compute account `1005094356690-compute@developer.gserviceaccount.com`
+unless a function's page in the console says otherwise. Granting the role at
+project level as above covers it.
+
+This list is what Google documents for a 2nd-gen Functions deploy. **It has
+never been verified here** — `deploy-firebase-functions.yml` has not once
+succeeded. Run it after granting, and correct `RESOURCES.md` §2b from whatever
+the run actually says rather than leaving this paragraph as the record.
+
+---
+
+The two blockers in short:
 
 1. **`GITHUB_DISPATCH_TOKEN` has no version**, and the deploy resolves every
    declared secret while loading the code, so it fails on this one no matter
