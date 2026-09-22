@@ -254,6 +254,35 @@ Run them from
 `deploy-firestore.yml`, then `deploy-firebase-functions.yml`. Hosting stays
 optional — GitHub Pages is still the live origin.
 
+### The roles the deploy service account needs
+
+`deploy-firestore.yml` on 22 Sep got past the checkout and the credential and
+then failed on IAM:
+
+```
+Error: Request to serviceusage.googleapis.com/v1/projects/<id>/services/
+firestore.googleapis.com had HTTP Error: 403,
+Permission denied to get service [firestore.googleapis.com]
+```
+
+That is not a Firestore permission. Before deploying anything, the Firebase
+CLI asks the **Service Usage API** whether `firestore.googleapis.com` is
+enabled on the project, and the service account may not ask.
+
+Grant these on the **project**, at
+<https://console.cloud.google.com/iam-admin/iam> (project selector must read
+**Sarvamula**), to the `client_email` from the `FIREBASE_SERVICE_ACCOUNT`
+JSON:
+
+| role | why |
+|---|---|
+| **Service Usage Consumer** | the check above — `serviceusage.services.get` |
+| **Firebase Rules Admin** | publishing `firestore.rules` |
+| **Cloud Datastore Index Admin** | publishing `firestore.indexes.json` |
+
+`Editor` covers all three, and is the blunt option if the console makes the
+individual roles hard to find. Prefer the three.
+
 ### Where each value goes — unchanged, and still the part that trips people
 
 | value | store | why |
