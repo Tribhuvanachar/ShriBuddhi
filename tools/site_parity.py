@@ -165,12 +165,42 @@ def classify(target: Path, paths: list[Path]) -> dict[str, list[Path]]:
     return {"missing": missing, "differs": differs, "same": same}
 
 
+def has_units(path: Path) -> bool:
+    """Does this data file actually carry text a reader could open?
+
+    The three shapes in the corpus: `items` (a list), `shlokas` (a dict
+    keyed by verse number), and a bare list. Any of them empty means the
+    file exists and holds nothing.
+    """
+    if not path.is_file():
+        return False
+    try:
+        doc = json.loads(path.read_text())
+    except (OSError, ValueError):
+        return False
+    if isinstance(doc, list):
+        return bool(doc)
+    for key in ("items", "shlokas", "units"):
+        v = doc.get(key)
+        if isinstance(v, (list, dict)):
+            return bool(v)
+    return False
+
+
 def repopulate_library(target: Path) -> tuple[int, int]:
-    """Set each grantha's `populated` from what the TARGET holds.
+    """Set each grantha's `populated` from what the TARGET actually holds.
 
     Without this a synced library.json carries this repo's answer, and the
     target's library claims texts it does not have -- every one of them a
     dead link that looks live.
+
+    "Holds" means units, not a file. The first version of this tested
+    `is_file()` and so marked 328 entries populated in each downstream repo
+    that open to nothing: the Anandamakaranda shelf carries an empty
+    tika_jayatirtha and an empty tippani beside every one of its ten
+    upanisad books, and there are more elsewhere. A file with "items": []
+    is exactly the dead link this function exists to prevent, so it has to
+    be opened and counted.
     """
     lib = target / "data/library.json"
     if not lib.exists():
@@ -181,7 +211,7 @@ def repopulate_library(target: Path) -> tuple[int, int]:
         p = g.get("path")
         if not p:
             continue
-        have = (target / p).is_file()
+        have = has_units(target / p)
         g["populated"] = have
         on += have
         off += not have
