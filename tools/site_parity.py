@@ -26,8 +26,9 @@ something scraped out of the HTML: the pages load almost everything
 dynamically (parsing the root HTML for src/href finds 26 static
 references, which is nowhere near the truth), so a scraped manifest would
 be confidently wrong. The list below is the set of directories the site
-is built from, and `--verify` is what actually proves a target works --
-it serves the target and drives a browser at it.
+is built from. What actually proves a target works is not this tool at
+all: serve the target and drive a browser at it, which is how both
+downstream repos were checked before their syncs were committed.
 
 admin/config is excluded on purpose: 120 MB of OCR receipts, cost ledgers
 and spend reports. It is an audit trail of this repo's own spending, not
