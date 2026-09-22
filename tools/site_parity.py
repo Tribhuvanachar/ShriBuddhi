@@ -2,17 +2,24 @@
 """
 site_parity.py -- make a downstream repo able to actually serve the site.
 
-Work flows ShriBuddhi -> BrahmaBuddhi -> Jagat, but only the *data* has
-been flowing. The front end never did. Measured 22 Sep 2026:
+Work flows ShriBuddhi -> BrahmaBuddhi -> Jagat, and the downstream repos
+drift behind. This measures the gap and closes it.
 
-    shribuddhi    8 root .html, js/ css/ config/ content/ images/, 1,716 granthas
-    jagattest     7 root .html (no sitemap.html), 4 js/ files short
-    brahmabuddhi  NO root .html at all, no js/, no css/, no config/,
-                  no content/, no images/, and no data/library.json --
-                  644 granthas on disk and nothing able to list them
+Measured 22 Sep 2026 against each repo's origin/main:
 
-So BrahmaBuddhi cannot serve a page, which makes the review step that is
-supposed to happen there impossible. This fixes that.
+    jagattest     99 files missing, 94 behind -- among them js/audio.js
+                  with no dgeHasAudioConfig and js/core.js with no
+                  legacy-slug guard
+    brahmabuddhi  99 missing, 94 behind, much the same set
+
+A correction worth recording, because it nearly went into the corpus as
+fact: an earlier version of this file said BrahmaBuddhi had no root
+.html, no js/, no css/ and no data/library.json, and so "could not serve
+a single page". That was false. It described a stale local clone --
+checked out at a 13 Sep commit and 83 commits behind origin, with no
+merge base -- not the repository. BrahmaBuddhi's origin/main has had the
+full front end all along. Always fetch before concluding a repo is
+missing something.
 
 What a running site needs is deliberately a curated list rather than
 something scraped out of the HTML: the pages load almost everything
@@ -36,7 +43,8 @@ recomputed against what the target actually holds on disk, so a repo with
 
   python3 tools/site_parity.py --check   ../brahmabuddhi
   python3 tools/site_parity.py --sync    ../brahmabuddhi
-  python3 tools/site_parity.py --verify  ../brahmabuddhi     # serves + browser
+  (verification is by serving the target and driving a browser at it —
+   see the commit that added this file)
 """
 from __future__ import annotations
 
