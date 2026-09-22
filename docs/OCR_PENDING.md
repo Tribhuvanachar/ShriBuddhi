@@ -194,17 +194,45 @@ pratīkas — and is the one piece of this left undone.
 
 ### What remains before any of it can be attached
 
-Segmenting is not merging. None of this is in the corpus, and it should not go
-in unreviewed: it is raw Sarvam OCR, and the Maṇimañjarī case showed what that
-can hide. Still to do:
+**The pipeline, corrected.** An earlier draft here said review in
+`admin/ocr-review.html` should precede merging. That is not the order. It is:
 
-1. **Review the staged blocks** in `admin/ocr-review.html`.
-2. **A third rule for `visvesvara_tirtha`.**
-3. **Sub-khaṇḍa addressing.** Blocks are addressed to a khaṇḍa, which matches
-   the granularity `tika_bhashya` and `tika_bhavapradipa` already use, but the
-   pratīkas would allow finer placement.
-4. **The writer.** Nothing yet emits `items` with `reference`, `breadcrumb`,
-   `section` and `unit_title` into the shelf. That is the next tool.
+> staging holds OCR'd **and Gemini-proofread** text → placed in the library →
+> tested and screenshotted → merged to main → **review happens in BrahmaBuddhi**
+
+`admin/ocr-review.html` is a tool, not a gate.
+
+**The writer now exists** — `tools/aitareya/write_layers.py`, with
+`tests/test_aitareya_write_layers.py`. It turns segmented blocks into the
+shelf's `items` shape, borrowing each unit's `unit_title` from the shelf's own
+`tika_bhashya` at the same address so new layers stack with the units already
+there. A block addressed to a khaṇḍa the shelf lacks is skipped and counted,
+never given an invented heading.
+
+What it would write today:
+
+| volume | layer | items | chars | |
+|---|---|---|---|---|
+| bhagavantaraya | `tika_bhavapradipa` | 36 | 583,338 | replaces existing |
+| ratnamala | `tika_bhashyartha_ratnamala` | 31 | 451,383 | **new** |
+| ratnamala | `tika_khandartha` | 17 | 104,207 | **new** |
+| ratnamala | `tika_bhashya` | 31 | 165,685 | replaces existing |
+| ratnamala | `tika_upanishat` | 31 | 44,132 | replaces existing |
+
+**It refuses to run.** The staged files record no Gemini proofread pass, and
+the tool will not put raw OCR on the shelf without `--allow-unproofread`.
+Three of those five layers replace text a reader can see today. Maṇimañjarī is
+the argument: Sarvam read one Devanāgarī line as Kannada, a 306-verse work
+landed as 305, and nothing downstream noticed.
+
+So the remaining order is:
+
+1. **Gemini-proofread the two staged volumes.** Blocked: no `GEMINI_API_KEY`
+   in this environment (nor `SARVAM_API_KEY`, nor `VISION_API_KEY`).
+2. Run the writer, render, screenshot, merge to main.
+3. **A third rule for `visvesvara_tirtha`** — still unsegmented.
+4. **Sub-khaṇḍa addressing**, optional: blocks sit at khaṇḍa level, which
+   matches the shelf, but the pratīkas would allow finer placement.
 
 ### Empty layer directories — 20 of them
 
