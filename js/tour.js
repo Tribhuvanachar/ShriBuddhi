@@ -192,11 +192,16 @@
   // Offered once, and only after the page has settled — starting a tour over a
   // half-rendered page would spotlight things that are about to move.
   //
-  // It also has to wait its turn. The About panel opens itself on a first
-  // visit, which is exactly when the tour wants to run, and a single delayed
-  // check meant whichever won the race silenced the other for good. So this
-  // waits for a clear screen, and gives up quietly rather than interrupting
-  // someone who is evidently already reading something.
+  // Dormant since 22 Sep 2026: admin/content/tour.json sets autoStart false,
+  // because the project lead asked that only the site-preference panel open
+  // itself. Everything below still works and runs the moment that flag is
+  // turned back on, so it is kept rather than deleted.
+  //
+  // It also has to wait its turn. The About panel used to open itself on a
+  // first visit -- exactly when the tour wanted to run -- and a single delayed
+  // check meant whichever won the race silenced the other for good. About's
+  // auto-open is gone now, but the wait is still right: it gives up quietly
+  // rather than interrupting someone who is evidently already reading.
   function maybeAutoStart() {
     if (window.dgeTourSeen()) return;
     fetch(contentUrl() + '?t=' + Date.now(), { cache: 'no-store' })
