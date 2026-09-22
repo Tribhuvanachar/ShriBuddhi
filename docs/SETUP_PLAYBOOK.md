@@ -362,8 +362,18 @@ browser receives it to open Razorpay checkout — and it is given at deploy time
 in D4 instead. *Never* paste the Key Secret into a workflow input: inputs are
 recorded in the run's parameters in clear text.
 
-**Step 3 — check the other ten secrets exist too.** This is the step that
-actually bites. `firebase-tools` resolves **every** `defineSecret()` in
+**Step 3 — find out which secrets are actually missing.** Do not guess, and
+do not read it off GitHub's settings page — that page lists the secrets held
+*in the repository*, which is a different set from the versions held in
+*Secret Manager*, and it is the second set that the deploy needs.
+
+Actions → **"Push Firebase Functions secrets"** → *Run workflow* → tick
+**`audit_only`** → *Run*. It changes nothing and prints nothing sensitive: it
+reads the names straight out of `functions/index.js` and reports, as a table
+in the run summary, which of them have a version. Anything marked **NO** will
+fail your deploy.
+
+This is the step that actually bites. `firebase-tools` resolves **every** `defineSecret()` in
 `functions/index.js` while it loads the code, so a Functions deploy **fails
 outright** if even one of them has no version in Secret Manager — `--only` or
 not. All twelve must exist:
@@ -381,9 +391,8 @@ GitHub refuses any name starting with `GITHUB_`, so `GITHUB_DISPATCH_TOKEN` is
 stored on GitHub as **`GH_DISPATCH_TOKEN`** and the workflow renames it on the
 way in).
 
-**Step 4 — run the push workflow.** Actions →
-**"Push Firebase Functions secrets"** → *Run workflow* → leave
-`rotate_otp_pepper` **off** → *Run*.
+**Step 4 — add what is missing, then run the push workflow for real.** Same
+workflow, `audit_only` **off**, `rotate_otp_pepper` **off**.
 
 It prints two lines, `Pushed:` and `Skipped:`, naming only which secrets moved
 — never a value. **Read them.** Anything in `Skipped: … (no GitHub secret set)`
@@ -392,6 +401,14 @@ has no version in Secret Manager and will fail your deploy in D4.
 > `OTP_PEPPER` is deliberately skipped once it already has a version. Phone
 > account IDs are derived from it, so rotating it orphans every existing phone
 > account. Leave that tickbox alone.
+
+> **Do not add a GitHub secret you are not sure of.** The push writes a new
+> Secret Manager version from whatever GitHub holds, and `whatsappWebhook` is
+> deployed and live — a stale placeholder would quietly become the value the
+> running OTP flow uses. A secret left unset in GitHub is *skipped*, and its
+> existing version is untouched. So: add the two Razorpay ones, add real
+> values for anything you genuinely have, and leave the rest alone until the
+> audit says they are missing.
 
 ### D3 · The webhook
 
