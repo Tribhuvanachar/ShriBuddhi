@@ -167,6 +167,16 @@ def build(volume: str, blocks: list[dict], shelf: dict) -> tuple[dict, dict]:
     return files, stats
 
 
+def _canonical(payload: dict) -> str | None:
+    """format_data_json's serialisation, or None if it declines this shape."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "format_data_json", Path(__file__).resolve().parents[1] / "format_data_json.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.canonical(payload)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
@@ -177,6 +187,7 @@ def main() -> int:
     shelf = shelf_units()
     print(f"shelf addresses available: {len(shelf)}\n")
     pending_write = []
+    stats_of: dict[str, dict] = {}
 
     for vol in args.volumes.split(","):
         src = STAGED / f"{vol}_segmented.json"
@@ -184,8 +195,16 @@ def main() -> int:
             print(f"== {vol}: no staged file at {src.relative_to(ROOT)} -- run segment.py --write first\n")
             continue
         doc = json.loads(src.read_text())
-        proofread = bool(doc.get("proofread"))
         files, stats = build(vol, doc["blocks"], shelf)
+        # DERIVED, not declared. This used to read doc["proofread"], a
+        # file-level flag that nothing in the pipeline ever writes -- not
+        # proofread.py, not land_proofread.py -- so the gate read False for
+        # three volumes that were 100% proofread and would have read True for
+        # a file where somebody had simply set the key. build() already
+        # counts, per block, whether the text it took came from
+        # text_proofread or fell back to raw OCR. That count is the thing the
+        # gate is actually about.
+        proofread = stats["raw_text"] == 0 and stats["proofread_text"] > 0
         print(f"== {vol}   proofread: {proofread}")
         print(f"   blocks    : {stats}")
         for layer, payload in sorted(files.items()):
@@ -194,6 +213,7 @@ def main() -> int:
             flag = "  [REPLACES an existing layer]" if layer in EXISTING else "  [new layer]"
             print(f"   {layer:<30} {n:>3} items  {chars:>8,} chars{flag}")
         print()
+        stats_of[vol] = stats
         pending_write.append((vol, proofread, files))
 
     if not args.write:
@@ -203,8 +223,8 @@ def main() -> int:
     wrote = 0
     for vol, proofread, files in pending_write:
         if not proofread and not args.allow_unproofread:
-            print(f"refusing to write {vol}: the staged file records no Gemini "
-                  f"proofread pass.\nThe pipeline is OCR -> proofread -> place -> "
+            print(f"refusing to write {vol}: {stats_of[vol]['raw_text']} block(s) "
+                  f"would land as raw OCR.\nThe pipeline is OCR -> proofread -> place -> "
                   f"test -> merge, and raw OCR hides exactly the kind of fault "
                   f"that cost\nManimanjari a verse. Pass --allow-unproofread to "
                   f"override deliberately.")
@@ -212,7 +232,15 @@ def main() -> int:
         for layer, payload in files.items():
             d = TARGET / layer
             d.mkdir(parents=True, exist_ok=True)
-            (d / "data.json").write_text(json.dumps(payload, ensure_ascii=False, indent=1) + "\n")
+            # CANONICAL SHAPE, not json.dumps'. The corpus has one agreed
+            # serialisation and tests/test_content_editing_tools.py asserts
+            # every data.json is in it. Writing indent=1 by hand put all six
+            # Aitareya layers out of shape the moment they landed, exactly as
+            # the Manimanjari splice had done five days earlier. Formatting
+            # the corpus is format_data_json's job; do not reimplement it.
+            text = _canonical(payload) or (
+                json.dumps(payload, ensure_ascii=False, indent=1) + "\n")
+            (d / "data.json").write_text(text, encoding="utf-8")
             wrote += 1
         print(f"wrote {len(files)} layers for {vol}")
     return 0 if wrote or not args.write else 1

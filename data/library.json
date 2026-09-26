@@ -16146,6 +16146,39 @@
       "path": "data/Tattvavada/Itara/Kavya/manimanjari/sarga_8/data.json",
       "populated": true,
       "title": "Maṇimañjarī सर्गः 8"
+    },
+    {
+      "path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/aitareyopanishad_bhashya/tika_bhashyartha_ratnamala/data.json",
+      "populated": true,
+      "title": "ऐतरेयोपनिषद्भाष्यम् — भाष्यार्थरत्नमाला",
+      "facets": {
+        "default_author": "भाष्यार्थरत्नमालाकारः"
+      },
+      "source": {
+        "source": "Sarvam Document AI over the staged scan, Gemini-proofread; segmented by tools/aitareya/segment.py"
+      }
+    },
+    {
+      "path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/aitareyopanishad_bhashya/tika_khandartha/data.json",
+      "populated": true,
+      "title": "ऐतरेयोपनिषद्भाष्यम् — खण्डार्थः",
+      "facets": {
+        "default_author": "खण्डार्थकारः"
+      },
+      "source": {
+        "source": "Sarvam Document AI over the staged scan, Gemini-proofread; segmented by tools/aitareya/segment.py"
+      }
+    },
+    {
+      "path": "data/darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/aitareyopanishad_bhashya/tika_visvesvara_tirtha/data.json",
+      "populated": true,
+      "title": "ऐतरेयोपनिषद्भाष्यम् — विश्वेश्वरतीर्थव्याख्या",
+      "facets": {
+        "default_author": "श्रीविश्वेश्वरतीर्थः"
+      },
+      "source": {
+        "source": "Sarvam Document AI over the staged scan, Gemini-proofread; segmented by tools/aitareya/segment.py"
+      }
     }
   ]
 }
