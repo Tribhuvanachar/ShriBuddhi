@@ -59,7 +59,7 @@ repo is world-readable, including anything added while it was believed private.
 | Google Cloud / Firebase project | **`sarvamula-org`** (display name "Sarvamula"), project number `1005094356690` | https://console.cloud.google.com/home/dashboard?project=sarvamula-org |
 | Firebase console, same project | `sarvamula-org` | https://console.firebase.google.com/project/sarvamula-org |
 | **The site people actually read** | `https://tribhuvanachar.github.io/JagatTest/` and `https://tribhuvanachar.github.io/ShriBuddhi/` — both 200, 41,853 bytes, `<title>Sarvamūla Digital Library</title>` | GitHub Pages, not Firebase Hosting — `firebase/firebase.json` says so in its own header |
-| `sarvamula.org` | **a placeholder.** `301 → www.sarvamula.org`, which serves the twelve bytes `coming soon` | served by GitHub Pages (`server: GitHub.com`) from a repo this session cannot see. Neither ShriBuddhi nor JagatTest has a `CNAME`, so the domain is attached elsewhere — `Sarvamula` or `Madhvacharya` are the candidates. |
+| `sarvamula.org` | **a placeholder.** `301 → www.sarvamula.org`, which serves the twelve bytes `coming soon` | **`Tribhuvanachar/sarvamula`** holds the domain — found 26 Sep 2026. Its `CNAME` reads `www.sarvamula.org`. The whole repository is five things: that `CNAME`, a 12-byte `index.html` saying `coming soon`, an empty `Payment.html` (1 byte, reachable and blank at `/Payment.html`), a two-line `README.md`, and `images/`. One commit, "Add files via upload". |
 
 > **Corrected 26 Sep 2026.** This row used to read *"Live site ·
 > `https://sarvamula.org/` (200)"*. The 200 was real and the conclusion was
@@ -71,6 +71,25 @@ repo is world-readable, including anything added while it was believed private.
 > **The Pages path is case-sensitive.** `…github.io/JagatTest/` serves the
 > site; `…github.io/jagattest/` is a 404. The repository is `JagatTest`, with
 > both capitals.
+
+**To make the domain serve the library**, the custom domain moves from
+`Tribhuvanachar/sarvamula` to the repo that has the site. The DNS does not
+change — it already points at GitHub Pages — only which repository answers for
+it:
+
+1. Delete `CNAME` from `Tribhuvanachar/sarvamula` and clear the custom domain
+   in that repo's Pages settings, or the two repos fight over the name.
+2. Add a `CNAME` file containing `www.sarvamula.org` to **JagatTest**, and set
+   the same custom domain in its Settings → Pages.
+3. Re-tick *Enforce HTTPS* once the certificate reissues (minutes to an hour).
+
+There is a gap in between where the domain serves nothing, so it is a
+deliberate change, not a drive-by. The cheap alternative, if the domain is not
+wanted yet: leave it alone and use
+`https://tribhuvanachar.github.io/JagatTest/` wherever a public URL is needed —
+including in the WhatsApp business profile, which currently points at a
+mistyped domain that would land a Meta reviewer on `coming soon` even once
+corrected.
 | Sarvam Document AI | prepaid balance | https://dashboard.sarvam.ai |
 | Google AI Studio (Gemini key) | same Google account | https://aistudio.google.com/apikey |
 | Hugging Face space | `sarvamulaorg-kamadhenu` | https://sarvamulaorg-kamadhenu.hf.space |
