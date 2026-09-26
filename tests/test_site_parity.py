@@ -131,3 +131,55 @@ def test_sync_copies_the_catalogue_then_repopulates_it(tmp_path, monkeypatch):
     assert paths["data/old/data.json"] is True
     assert paths["data/new/data.json"] is False, "flagged populated without the file"
     assert (on, off) == (1, 1)
+
+
+# --- the split-layer shape ------------------------------------------------
+# A layer too large for one file is an index -- {units_total, parts} -- with
+# the text in sibling part-NNN.json files keyed `units`. Nyaya Sudha's 8
+# layers hold 27,413 units that way and were every one marked populated:false,
+# so the reader answered "This text hasn't been added to the library" for the
+# whole grantha. has_units looked for items/shlokas/units and the index has
+# none of them.
+
+def idx(tmp_path, **kw):
+    return w(tmp_path, "data.json", {"schema": "grantha_tika_text", "work": "w",
+                                     "layer": "l", **kw})
+
+
+def test_a_populated_split_layer_counts_as_populated(tmp_path):
+    assert sp.has_units(idx(tmp_path, units_total=7826,
+                            parts=["part-001.json", "part-002.json"])) is True
+
+
+def test_a_split_layer_declaring_zero_units_does_not(tmp_path):
+    assert sp.has_units(idx(tmp_path, units_total=0, parts=["part-001.json"])) is False
+
+
+def test_an_index_with_no_parts_does_not(tmp_path):
+    assert sp.has_units(idx(tmp_path, units_total=10, parts=[])) is False
+
+
+def test_with_no_declared_total_it_reads_a_part(tmp_path):
+    w(tmp_path, "part-001.json", {"units": [{"id": "1"}, {"id": "2"}]})
+    assert sp.has_units(idx(tmp_path, parts=["part-001.json"])) is True
+
+
+def test_with_no_declared_total_and_empty_parts_it_is_not_populated(tmp_path):
+    w(tmp_path, "part-001.json", {"units": []})
+    assert sp.has_units(idx(tmp_path, parts=["part-001.json"])) is False
+
+
+def test_a_missing_part_file_is_not_treated_as_content(tmp_path):
+    assert sp.has_units(idx(tmp_path, parts=["part-nope.json"])) is False
+
+
+def test_the_real_nyaya_sudha_layers_are_populated():
+    base = (ROOT / "data/darshana/vedanta/dvaita/DvaitaVedantaIn"
+                   "/sutra_prasthana/anuvyakhyana_sudha")
+    if not base.is_dir():
+        import pytest
+        pytest.skip("Nyaya Sudha not present")
+    layers = [d for d in sorted(base.iterdir()) if d.is_dir()]
+    assert layers
+    for d in layers:
+        assert sp.has_units(d / "data.json") is True, d.name

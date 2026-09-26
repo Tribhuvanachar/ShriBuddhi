@@ -190,6 +190,33 @@ def has_units(path: Path) -> bool:
         v = doc.get(key)
         if isinstance(v, (list, dict)):
             return bool(v)
+    # THE SPLIT SHAPE. A layer too big for one file is written as an index --
+    # {schema, work, layer, units_total, parts} -- with the text itself in
+    # sibling part-NNN.json files keyed `units`. It carries none of the three
+    # keys above, so this returned False for every one of them.
+    #
+    # Found 26 Sep 2026 on Nyaya Sudha, whose 8 layers hold 27,413 units
+    # between them and were all marked populated:false in library.json. The
+    # reader then answered "This text hasn't been added to the library". I had
+    # made the identical misreading by hand an hour earlier, counting those
+    # same layers as 0 units, which is a fair sign the shape needs handling
+    # rather than remembering.
+    if isinstance(doc.get("parts"), (list, dict)) and doc.get("parts"):
+        total = doc.get("units_total")
+        if isinstance(total, int):
+            return total > 0
+        # No declared total: trust the parts only if one really carries units.
+        for part in (doc["parts"] if isinstance(doc["parts"], list) else doc["parts"].values()):
+            name = part if isinstance(part, str) else (part or {}).get("file")
+            if not name:
+                continue
+            try:
+                sub = json.loads((path.parent / name).read_text())
+            except (OSError, ValueError):
+                continue
+            if sub.get("units"):
+                return True
+        return False
     return False
 
 
