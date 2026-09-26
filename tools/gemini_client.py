@@ -124,7 +124,35 @@ def _post(model: str, body: dict, api_key: str, usage_totals: dict | None = None
         text = payload["candidates"][0]["content"]["parts"][0]["text"]
         result = json.loads(text)
     except (KeyError, IndexError, json.JSONDecodeError) as e:
-        raise GeminiError("bad_response", f"could not parse Gemini response: {e}")
+        # SAY WHY, or the caller logs 246 identical "Unterminated string"
+        # lines and nobody can tell a truncated answer from a refused one.
+        # That is exactly what happened on 26 Sep 2026: run 36261738151 lost
+        # 246 of 581 Aitareya blocks to this message and the log carried
+        # nothing to diagnose it with -- not the finishReason, not the token
+        # counts, not even how much text did arrive.
+        #
+        # finishReason is the discriminator. MAX_TOKENS with a near-empty
+        # `text` means the budget went on something other than the answer:
+        # this module's own note above records that gemini-flash-latest
+        # resolves to a thinking model which bills thoughtsTokenCount, and
+        # those thoughts are drawn from the SAME maxOutputTokens. SAFETY or
+        # RECITATION mean the model declined, which no budget will fix.
+        cand = (payload.get("candidates") or [{}])[0]
+        usage = payload.get("usageMetadata") or {}
+        got = ""
+        try:
+            got = cand["content"]["parts"][0]["text"]
+        except (KeyError, IndexError, TypeError):
+            pass
+        raise GeminiError("bad_response", (
+            f"could not parse Gemini response: {e}"
+            f" [finishReason={cand.get('finishReason')!r}"
+            f" visible_chars={len(got)}"
+            f" thoughts={usage.get('thoughtsTokenCount')}"
+            f" candidate={usage.get('candidatesTokenCount')}"
+            f" prompt={usage.get('promptTokenCount')}"
+            f" model={payload.get('modelVersion')!r}]"
+        ))
     if usage_totals is not None:
         _accumulate_usage(usage_totals, payload.get("usageMetadata") or {}, payload.get("modelVersion"))
     return result

@@ -189,7 +189,7 @@ def main() -> int:
         try:
             out = call_gemini(SYSTEM, PROMPT + text, SCHEMA, key,
                               **({"model": model} if model else {}),
-                              max_output_tokens=8192, usage_totals=usage)
+                              max_output_tokens=32768, usage_totals=usage)
         except GeminiError as e:
             with lock:
                 spent -= c           # not billed, do not charge the budget
