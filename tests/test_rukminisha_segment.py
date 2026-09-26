@@ -72,8 +72,71 @@ def test_commentary_is_not_mistaken_for_a_verse():
 def test_gaps_are_reported_per_sarga():
     pages = {1: page(("header", "प्रथमः सर्गः"),
                      ("paragraph", "अ ॥ १ ॥"), ("paragraph", "आ ॥ ३ ॥"))}
-    s = rv.segment(pages)["sargas"][0]
+    s = rv.segment(pages, recover=False)["sargas"][0]
     assert s["missing"] == [2] and s["highest"] == 3
+
+
+def test_a_number_closed_by_one_danda_still_counts():
+    """...शरणं विरिञ्चम् ॥ ११  -- 17 verses close that way."""
+    pages = {1: page(("header", "प्रथमः सर्गः"), ("paragraph", "अ आ इ ॥ ११"))}
+    assert rv.segment(pages)["verses_found"] == 1
+
+
+def test_a_number_mid_block_is_not_a_verse_marker():
+    """VERSE_NUM_END is anchored to the block end so a quoted number is not
+    mistaken for the verse's own."""
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", "यथा ॥ ९ ॥ इत्युक्तम् अतः"))}
+    # the strict ॥N॥ form still matches here; what must NOT happen is the
+    # trailing "अतः" being read as closing verse 9's block.
+    r = rv.segment(pages)
+    assert [v["verse"] for v in r["verses"].values()] == [9]
+
+
+def test_an_unnumbered_block_between_neighbours_is_placed():
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", "अ ॥ १ ॥"),
+                     ("paragraph", "व्या : gloss on 1"),
+                     ("paragraph", "the lost verse"),
+                     ("paragraph", "व्या : gloss on 2"),
+                     ("paragraph", "इ ॥ ३ ॥"))}
+    r = rv.segment(pages)
+    assert r["verses_missing"] == 0
+    assert r["verses"][(1, 2)]["text"] == "the lost verse"
+    assert r["verses"][(1, 2)]["how"] == "position"
+    assert r["verses_by_position"] == 1
+
+
+def test_it_refuses_when_two_blocks_compete_for_one_slot():
+    """20 of the real gaps look like this. It could be a verse split across a
+    page break, or a verse plus a stray line -- and a wrong address is worse
+    than a visible hole."""
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", "अ ॥ १ ॥"),
+                     ("paragraph", "candidate one"),
+                     ("paragraph", "candidate two"),
+                     ("paragraph", "इ ॥ ३ ॥"))}
+    r = rv.segment(pages)
+    assert r["verses_missing"] == 1 and r["verses_by_position"] == 0
+
+
+def test_two_missing_against_two_blocks_maps_in_order():
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", "अ ॥ １ ॥".replace("１", "१")),
+                     ("paragraph", "verse two"),
+                     ("paragraph", "verse three"),
+                     ("paragraph", "ई ॥ ४ ॥"))}
+    r = rv.segment(pages)
+    assert r["verses"][(1, 2)]["text"] == "verse two"
+    assert r["verses"][(1, 3)]["text"] == "verse three"
+
+
+def test_recovery_never_crosses_a_sarga_boundary():
+    pages = {1: page(("header", "प्रथमः सर्गः"), ("paragraph", "अ ॥ ६६ ॥"),
+                     ("paragraph", "orphan")),
+             2: page(("header", "द्वितीयः सर्गः"), ("paragraph", "आ ॥ २ ॥"))}
+    r = rv.segment(pages)
+    assert r["verses_by_position"] == 0
 
 
 def test_a_page_delivered_twice_is_not_counted_twice(tmp_path):
@@ -112,5 +175,7 @@ def test_the_real_staged_book_is_complete_in_pages_and_short_in_verses():
     r = rv.segment(rv.load_pages(str(d)))
     assert r["pages"] == 694 and r["page_gaps"] == []
     assert len(r["sargas"]) == 19
-    assert r["verses_found"] == 1143
-    assert r["verses_missing"] == 97
+    assert r["verses_by_marker"] == 1160
+    assert r["verses_by_position"] == 35
+    assert r["verses_found"] == 1195
+    assert r["verses_missing"] == 46

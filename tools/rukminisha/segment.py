@@ -52,6 +52,11 @@ ORDINALS = {
 }
 DEV_DIGITS = str.maketrans("०१२३४५६७८९", "0123456789")
 VERSE_NUM = re.compile(r"॥\s*([0-9०-९]+)\s*॥")
+# The number sometimes ends the block with only ONE danda, or none after it:
+#   ...शरणं विरिञ्चम् ॥ ११
+# 17 verses across the book close that way. Anchored to the end of the block
+# so a number quoted mid-sentence is never taken for a verse marker.
+VERSE_NUM_END = re.compile(r"॥\s*([0-9०-९]+)\s*[॥।]?\s*$")
 BLOCK = re.compile(r'<(\w+)[^>]*data-layout="([^"]+)"[^>]*>(.*?)</\1>', re.S)
 TEXT_BLOCKS = ("paragraph", "section-title", "headline")
 
@@ -88,13 +93,16 @@ def sarga_of(text: str) -> int | None:
     return ORDINALS.get(text.split()[0])
 
 
-def segment(pages: dict[int, str]) -> dict:
-    """Walk the pages in order, carrying the sarga forward from the headers."""
-    current = None
-    verses: dict[tuple[int, int], dict] = {}
-    commentary = 0
-    unknown_headers: collections.Counter = collections.Counter()
+def read_blocks(pages: dict[int, str]) -> list[dict]:
+    """The book as one ordered stream of text blocks, each carrying its sarga.
 
+    The sarga comes from the running header and carries forward to pages that
+    have none. Commentary is marked but kept, because it is what separates one
+    verse from the next and so is what makes positional recovery possible.
+    """
+    current = None
+    stream: list[dict] = []
+    unknown: collections.Counter = collections.Counter()
     for page in sorted(pages):
         for m in BLOCK.finditer(pages[page]):
             kind, body = m.group(2), untag(m.group(3))
@@ -103,41 +111,99 @@ def segment(pages: dict[int, str]) -> dict:
                 if s:
                     current = s
                 elif "सर्ग" in body:
-                    unknown_headers[body] += 1
+                    unknown[body] += 1
                 continue
             if kind not in TEXT_BLOCKS or not body:
                 continue
-            if body.startswith("व्या"):
-                commentary += 1
-                continue
-            if current is None:
-                continue
-            for raw in VERSE_NUM.findall(body):
-                n = int(raw.translate(DEV_DIGITS))
-                verses.setdefault((current, n), {"sarga": current, "verse": n,
-                                                 "page": page, "text": body})
+            nums = [int(r.translate(DEV_DIGITS)) for r in VERSE_NUM.findall(body)]
+            tail = VERSE_NUM_END.search(body)
+            if tail:
+                n = int(tail.group(1).translate(DEV_DIGITS))
+                if n not in nums:
+                    nums.append(n)
+            stream.append({"page": page, "sarga": current, "text": body,
+                           "commentary": body.startswith("व्या"), "nums": nums})
+    return stream, unknown
+
+
+def recover_by_position(stream: list[dict], verses: dict) -> int:
+    """Place a verse whose marker the OCR lost entirely.
+
+    A verse block sits between the commentary on the verse before it and the
+    commentary on the one after. So an UNNUMBERED, non-commentary block lying
+    between numbered verse N-1 and numbered verse N+1, with no other candidate
+    competing for the slot, is verse N.
+
+    Deliberately conservative: it refuses when more than one unnumbered block
+    occupies the gap, because then it cannot tell which is the verse and which
+    is a stray line, a heading or a page artefact. Guessing there would put
+    invented addressing on the shelf, which is the one outcome worse than a
+    gap.
+    """
+    placed = 0
+    numbered = [(i, b) for i, b in enumerate(stream)
+                if b["nums"] and not b["commentary"] and b["sarga"]]
+    for pos, (i, b) in enumerate(numbered[:-1]):
+        j, nxt = numbered[pos + 1]
+        if b["sarga"] != nxt["sarga"]:
+            continue
+        lo, hi = max(b["nums"]), min(nxt["nums"])
+        want = [v for v in range(lo + 1, hi) if (b["sarga"], v) not in verses]
+        if not want:
+            continue
+        gap = [g for g in stream[i + 1:j] if not g["commentary"] and not g["nums"]]
+        # ONE BLOCK PER MISSING VERSE, or not at all. When the counts match the
+        # mapping is forced and there is nothing to guess. When they do not --
+        # 20 of the remaining gaps are one missing verse against two blocks,
+        # which is what a verse printed across a page break looks like, but is
+        # equally what a verse plus a stray heading looks like -- it declines.
+        # Inventing addressing is worse than leaving a hole, because a hole is
+        # visible and a wrong address is not.
+        if len(gap) != len(want):
+            continue
+        for v, g in zip(want, gap):
+            verses[(b["sarga"], v)] = {"sarga": b["sarga"], "verse": v,
+                                       "page": g["page"], "text": g["text"],
+                                       "how": "position"}
+            placed += 1
+    return placed
+
+
+def segment(pages: dict[int, str], recover: bool = True) -> dict:
+    stream, unknown_headers = read_blocks(pages)
+    verses: dict[tuple[int, int], dict] = {}
+    for b in stream:
+        if b["commentary"] or not b["sarga"]:
+            continue
+        for n in b["nums"]:
+            verses.setdefault((b["sarga"], n),
+                              {"sarga": b["sarga"], "verse": n, "page": b["page"],
+                               "text": b["text"], "how": "marker"})
+    by_marker = len(verses)
+    recovered = recover_by_position(stream, verses) if recover else 0
 
     per = collections.defaultdict(list)
     for (s, n) in verses:
         per[s].append(n)
-
     sargas = []
     for s in sorted(per):
         got = sorted(per[s])
         high = max(got)
-        missing = [i for i in range(1, high + 1) if i not in set(got)]
         sargas.append({"sarga": s, "found": len(got), "highest": high,
-                       "missing": missing})
+                       "missing": [i for i in range(1, high + 1) if i not in set(got)]})
     return {
         "pages": len(pages),
         "page_range": [min(pages), max(pages)] if pages else [],
         "page_gaps": [n for n in range(min(pages), max(pages) + 1)
                       if n not in pages] if pages else [],
-        "commentary_blocks": commentary,
+        "commentary_blocks": sum(1 for b in stream if b["commentary"]),
         "unknown_sarga_headers": dict(unknown_headers),
         "sargas": sargas,
+        "verses_by_marker": by_marker,
+        "verses_by_position": recovered,
         "verses_found": sum(s["found"] for s in sargas),
         "verses_missing": sum(len(s["missing"]) for s in sargas),
+        "verses": verses,
     }
 
 
@@ -162,10 +228,15 @@ def main(argv: list[str] | None = None) -> int:
     for s in rep["sargas"]:
         flag = "" if not s["missing"] else f"  MISSING {len(s['missing'])}: {s['missing'][:8]}"
         print(f"  sarga {s['sarga']:<3} {s['found']:>4} verses, highest {s['highest']:>3}{flag}")
-    print(f"\n{rep['verses_found']} verses addressed, {rep['verses_missing']} missing")
+    print(f"\n{rep['verses_found']} verses addressed "
+          f"({rep['verses_by_marker']} by marker, {rep['verses_by_position']} by position), "
+          f"{rep['verses_missing']} missing")
     if args.json:
+        out = dict(rep)
+        out["verses"] = [{k: v for k, v in b.items()}
+                         for _, b in sorted(rep["verses"].items())]
         with open(args.json, "w", encoding="utf-8") as fh:
-            json.dump(rep, fh, ensure_ascii=False, indent=1)
+            json.dump(out, fh, ensure_ascii=False, indent=1)
         print("report written to", args.json)
 
     # Non-zero while anything is missing: this is the gate that keeps an
