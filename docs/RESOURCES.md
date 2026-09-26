@@ -58,7 +58,19 @@ repo is world-readable, including anything added while it was believed private.
 | GitHub account | `Tribhuvanachar` | https://github.com/Tribhuvanachar |
 | Google Cloud / Firebase project | **`sarvamula-org`** (display name "Sarvamula"), project number `1005094356690` | https://console.cloud.google.com/home/dashboard?project=sarvamula-org |
 | Firebase console, same project | `sarvamula-org` | https://console.firebase.google.com/project/sarvamula-org |
-| Live site | `https://sarvamula.org/` (200) | GitHub Pages, not Firebase Hosting — `firebase/firebase.json` says so in its own header |
+| **The site people actually read** | `https://tribhuvanachar.github.io/JagatTest/` and `https://tribhuvanachar.github.io/ShriBuddhi/` — both 200, 41,853 bytes, `<title>Sarvamūla Digital Library</title>` | GitHub Pages, not Firebase Hosting — `firebase/firebase.json` says so in its own header |
+| `sarvamula.org` | **a placeholder.** `301 → www.sarvamula.org`, which serves the twelve bytes `coming soon` | served by GitHub Pages (`server: GitHub.com`) from a repo this session cannot see. Neither ShriBuddhi nor JagatTest has a `CNAME`, so the domain is attached elsewhere — `Sarvamula` or `Madhvacharya` are the candidates. |
+
+> **Corrected 26 Sep 2026.** This row used to read *"Live site ·
+> `https://sarvamula.org/` (200)"*. The 200 was real and the conclusion was
+> wrong: the body is `coming soon`. Checking a status code and not the
+> response is the same mistake as reading an `echo` as an upload result, and
+> as reading an ambiguous 404 as "absent" — three times now, always by
+> trusting a signal that was never about the thing being claimed.
+>
+> **The Pages path is case-sensitive.** `…github.io/JagatTest/` serves the
+> site; `…github.io/jagattest/` is a 404. The repository is `JagatTest`, with
+> both capitals.
 | Sarvam Document AI | prepaid balance | https://dashboard.sarvam.ai |
 | Google AI Studio (Gemini key) | same Google account | https://aistudio.google.com/apikey |
 | Hugging Face space | `sarvamulaorg-kamadhenu` | https://sarvamulaorg-kamadhenu.hf.space |
