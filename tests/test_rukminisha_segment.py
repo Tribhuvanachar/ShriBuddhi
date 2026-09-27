@@ -83,28 +83,113 @@ def test_a_number_closed_by_one_danda_still_counts():
 
 
 def test_a_number_mid_block_is_not_a_verse_marker():
-    """VERSE_NUM_END is anchored to the block end so a quoted number is not
-    mistaken for the verse's own."""
+    """A verse's marker CLOSES its block. A number quoted mid-sentence, with
+    prose running on after it, addresses nothing.
+
+    This is stricter than it used to be, deliberately. The old version read
+    every number anywhere in a block, so this block became verse 9 with
+    "इत्युक्तम् अतः" as part of the verse."""
     pages = {1: page(("header", "प्रथमः सर्गः"),
                      ("paragraph", "यथा ॥ ९ ॥ इत्युक्तम् अतः"))}
-    # the strict ॥N॥ form still matches here; what must NOT happen is the
-    # trailing "अतः" being read as closing verse 9's block.
-    r = rv.segment(pages)
-    assert [v["verse"] for v in r["verses"].values()] == [9]
+    assert rv.segment(pages)["verses_found"] == 0
 
 
 def test_an_unnumbered_block_between_neighbours_is_placed():
+    """Positional recovery, with no commentary in the way."""
     pages = {1: page(("header", "प्रथमः सर्गः"),
                      ("paragraph", "अ ॥ १ ॥"),
-                     ("paragraph", "व्या : gloss on 1"),
                      ("paragraph", "the lost verse"),
-                     ("paragraph", "व्या : gloss on 2"),
                      ("paragraph", "इ ॥ ३ ॥"))}
     r = rv.segment(pages)
     assert r["verses_missing"] == 0
     assert r["verses"][(1, 2)]["text"] == "the lost verse"
     assert r["verses"][(1, 2)]["how"] == "position"
     assert r["verses_by_position"] == 1
+
+
+# --- commentary is a REGION, not a property of one block ------------------
+# The gloss on one verse runs over many blocks and across page breaks, and only
+# the first says व्या. An earlier version tested each block in isolation, so
+# every continuation block was eligible to be a verse. Landed, that produced
+# 287 verses that were nothing but a verse number and prose in the mūla slot,
+# at 71% plausible -- which the counts did not show and a screenshot did.
+
+def test_a_gloss_continuation_block_is_not_a_verse():
+    """The second block of the gloss carries the closing ॥ २ ॥. It is still
+    gloss, so verse 2 must not be that block."""
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", "मूलम् एकम् ॥ १ ॥"),
+                     ("paragraph", "व्या : एकमिति । gloss begins here"),
+                     ("paragraph", "gloss runs on and closes ॥ १ ॥"),
+                     ("paragraph", "मूलम् द्वितीयम् ॥ २ ॥"),
+                     ("paragraph", "व्या : द्वितीयमिति । second gloss"),
+                     ("paragraph", "still the second gloss ॥ २ ॥"))}
+    r = rv.segment(pages)
+    assert r["verses_found"] == 2
+    assert r["verses"][(1, 1)]["text"] == "मूलम् एकम् ॥ १ ॥"
+    assert r["verses"][(1, 2)]["text"] == "मूलम् द्वितीयम् ॥ २ ॥"
+
+
+def test_a_bare_marker_numbers_the_block_above_it():
+    """341 blocks in the real book hold nothing but ॥ N ॥, 340 of them directly
+    after an unnumbered text block. Reading one as a verse in its own right is
+    what produced the empty verses."""
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", "the verse itself, long enough to be one"),
+                     ("paragraph", "॥ ७ ॥"))}
+    r = rv.segment(pages)
+    assert r["verses_found"] == 1
+    assert r["verses"][(1, 7)]["text"] == "the verse itself, long enough to be one"
+
+
+def test_a_verse_printed_one_pada_per_block_is_joined():
+    """Four blocks of a quarter-verse each, then the marker. Keeping only the
+    numbered block leaves a quarter of a verse -- the 62 "fragments"."""
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", "पादः प्रथमः"),
+                     ("paragraph", "पादो द्वितीयः"),
+                     ("paragraph", "पादस्तृतीयः"),
+                     ("paragraph", "पादश्चतुर्थः"),
+                     ("paragraph", "॥ ५ ॥"))}
+    r = rv.segment(pages)
+    assert r["verses"][(1, 5)]["text"] == (
+        "पादः प्रथमः\nपादो द्वितीयः\nपादस्तृतीयः\nपादश्चतुर्थः")
+
+
+def test_a_gloss_closing_number_addresses_a_verse_whose_marker_was_lost():
+    """The gloss on verse N ends with ॥ N ॥ and sits directly beneath the verse.
+    So the edition names the address even when the verse's own marker is gone."""
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", "अ ॥ १ ॥"),
+                     ("paragraph", "व्या : gloss on one ॥ १ ॥"),
+                     ("paragraph", "the verse whose own marker the OCR dropped"),
+                     ("paragraph", "व्या : gloss on two ॥ २ ॥"))}
+    r = rv.segment(pages)
+    assert r["verses"][(1, 2)]["text"] == "the verse whose own marker the OCR dropped"
+    assert r["verses"][(1, 2)]["how"] == "gloss-close"
+
+
+def test_a_gloss_without_va_still_opens_a_region():
+    """9 blocks in the book open '<pratika>ति ।' with the व्या lost by the OCR,
+    and all 9 are gloss. Without this, छत्रमिति । stood as mūla verse 13.1."""
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", "छत्रमिति । the gloss, with no व्या at all ॥ १ ॥"))}
+    assert rv.segment(pages)["verses_found"] == 0
+
+
+# --- the closing colophon -------------------------------------------------
+
+def test_a_colophon_is_not_a_verse_and_names_the_sarga_that_ended():
+    """॥ इति ... चतुर्दशः सर्गः ॥ १४ ॥ closes sarga 14. Its trailing number is
+    the SARGA number; read as a verse it invents one."""
+    col = "॥ इति श्रीमद्वादिराजतीर्थविरचिते महाकाव्ये चतुर्दशः सर्गः ॥ १४ ॥"
+    assert rv.colophon_sarga(col) == 14
+    assert rv.colophon_sarga("प्रथमः सर्गः") is None
+    pages = {1: page(("header", "चतुर्दशः सर्गः"),
+                     ("paragraph", "the last verse of the sarga ॥ ६९ ॥"),
+                     ("paragraph", col))}
+    r = rv.segment(pages)
+    assert [v["verse"] for v in r["verses"].values()] == [69]
 
 
 def test_it_refuses_when_two_blocks_compete_for_one_slot():
@@ -165,23 +250,74 @@ def test_br_becomes_a_line_break_not_a_join():
     assert rv.untag("अ<br>आ") == "अ\nआ"
 
 
-def test_the_real_staged_book_is_complete_in_pages_and_short_in_verses():
-    """The state this tool was written to establish, asserted so a later run
-    that changes it is noticed. 694 pages, no gaps; 1,143 verses, 97 short."""
+def _real_book():
     d = Path(__file__).resolve().parents[1] / "data/ocr_staging/rukminisha_vijaya"
     if not d.is_dir():
         import pytest
         pytest.skip("Rukminisha Vijaya staging not present")
-    r = rv.segment(rv.load_pages(str(d)))
-    # 725 since the front matter (1-18) and back matter (713-725) were
-    # fetched -- 31 pages no run had ever asked for.
+    return rv.segment(rv.load_pages(str(d)))
+
+
+def test_the_real_staged_book_is_complete_in_pages_and_short_in_verses():
+    """The measured state of the book, asserted so a later run that changes it
+    is noticed. 725 pages, no gaps: the front matter (1-18) and back matter
+    (713-725) were fetched, 31 pages no run had ever asked for."""
+    r = _real_book()
     assert r["pages"] == 725 and r["page_gaps"] == []
     assert len(r["sargas"]) == 19
-    assert r["verses_by_marker"] == 1159
-    assert r["verses_by_position"] == 35
-    assert r["verses_by_pratika"] == 17
-    assert r["verses_found"] == 1211
-    assert r["verses_missing"] == 29
+    assert r["verses_by_marker"] == 1066
+    assert r["verses_by_gloss_close"] == 88
+    assert r["verses_by_position"] == 11
+    assert r["verses_by_pratika"] == 1
+    assert r["verses_found"] == 1166
+    assert r["verses_missing"] == 74
+
+
+def test_the_addressed_verses_are_actually_verse_SHAPED():
+    """THE TEST THAT WAS MISSING, and the reason this file needed rewriting.
+
+    The previous segmenter reported 1,211 verses and 29 gaps -- better-looking
+    numbers than the 1,166 and 74 above -- and was landed on that basis. The
+    screenshot then showed what the counts could not:
+
+        857  plausible verse length (40-600 chars)     71%
+        287  EMPTY -- only the verse number survived   24%
+         52  under 40 characters, fragments
+         15  over 600 characters, prose not verse
+
+    A count of addresses says nothing about what stands under them. So the
+    shape of the text is asserted here, and a regression that trades quality
+    for coverage fails even though its totals look better.
+    """
+    r = _real_book()
+    vs = r["verses"]
+    lengths = [len(v["text"]) for v in vs.values()]
+
+    assert min(lengths) >= 30, "an empty or near-empty verse is back"
+    assert sum(1 for n in lengths if n < 40) <= 3, "fragments are back"
+    assert sum(1 for n in lengths if n > 600) <= 1, "prose in the mūla slot"
+    plausible = sum(1 for n in lengths if 40 <= n <= 600)
+    assert plausible / len(vs) >= 0.98, f"only {plausible}/{len(vs)} verse-shaped"
+
+    # Nothing that is recognisably commentary may stand as mūla.
+    assert not [v for v in vs.values() if v["text"].lstrip().startswith("व्या")]
+    assert not [v for v in vs.values()
+                if rv.GLOSS_OPEN_BARE.match(v["text"].replace("\n", " "))]
+    assert not [v for v in vs.values() if rv.colophon_sarga(v["text"])]
+
+    # And no verse's text may stand under a second address. 13 pages of this
+    # scan are printed twice, two leaves apart, so this is a live risk rather
+    # than a theoretical one: two addresses holding the same verse means one of
+    # them is wrong and nothing downstream can tell which.
+    assert len({v["text"] for v in vs.values()}) == len(vs)
+
+
+def test_no_verse_number_exceeds_its_sarga_by_a_wide_margin():
+    """A sarga's highest number should sit just above the verses found in it.
+    When the colophon of sarga 14 was read as a sarga-15 page, its closing gloss
+    ॥ ७० ॥ landed as verse 15.70 in a sarga whose real highest is 62."""
+    for s in _real_book()["sargas"]:
+        assert s["highest"] - s["found"] <= 14, s
 
 
 # --- the pratika rule -----------------------------------------------------
