@@ -29,10 +29,11 @@ comfort.
 | `sudha_25_tippani_v1..v22` | `…/anuvyakhyana_sudha` — mūla 2,524 + Nyāya Sudhā 7,826 + six ṭippaṇīs = **27,413 units** |
 | `aitereya_upanisad_bh__tha_ratnamala_commentary`, `…taries_visvesvara_tirtha` | `…/aitareyopanishad_bhashya/tika_bhashyartha_ratnamala`, `…/tika_visvesvara_tirtha` |
 | `hks__1..31` | `Tattvavada/Itara/DasaSahitya/harikathamrutasara` |
+| `vaidika_svara_prakaranam_prabhakara_adiga_kadri` | `vedanga/shiksha/pratishakhya/vaidika_svara_prakarana` — **99 sūtras in four sections plus 7 prose passages**, 77 with the ಅರ್ಥ gloss, 86 with a topic from the book's own contents page, 0 lacunae |
 
 ### Still not landed
 
-Ten works, eighteen branches. Each was checked against every spelling of its
+Nine works, seventeen branches. Each was checked against every spelling of its
 name that occurs in `data/`, not by substring.
 
 | staging branch | what it holds | blocked on |
@@ -46,7 +47,6 @@ name that occurs in `data/`, not by substring.
 | `usha_harna_trivikram__irtha_vadirajacharya_l_s` | Uṣāharaṇa of Trivikrama / Vādirāja | segmentation |
 | `108_upanishad_sarvas__narasimha_1_ttd_kannada` | 108 Upaniṣad Sarvasva, Narasiṃha vol 1, TTD, Kannada | segmentation; Kannada script |
 | `aitereya_upanisad_bh__ommentary_bhagavantaraya` | Bhāvapradīpa ṭippaṇī of Bhagavantarāya, 994 pp | segmentation |
-| `vaidika_svara_prakaranam_prabhakara_adiga_kadri` | Vaidika Svara Prakaraṇam, 108 pp, Kannada | segmentation. The "Sarvam refused all 108" note below was stale — the re-dispatch took all 108 on 22 Sep |
 
 Every one of these is blocked on the same thing: a segmenter. The OCR exists.
 What does not exist is the reading of how that particular edition prints its
@@ -145,43 +145,33 @@ pp ~313–472 a separate Sanskrit work, whose running head at p331 reads
 unstaged content in a PDF already in hand, and it is not in the 5,342 figure
 below, which counts only pages Sarvam refused.
 
-### Vaidika Svara Prakaraṇam — both claims here were wrong
+### Vaidika Svara Prakaraṇam — landed 27 Sep
 
-This section said two things and neither survived a check (27 Sep).
+This section used to say two things and neither survived a check.
 
-**"Sarvam refused all 108 pages."** It did, on 20 Sep, with HTTP 402 Payment
-Required — which is not a refusal of the content but an empty prepaid balance,
-returned before any page is read and never billed. **The re-dispatch then ran
-on 22 Sep at 09:54 IST and took all 108: 11 jobs, `pages_succeeded: 108,
-pages_failed: 0`.** The staged file has been sitting on the branch since. This
-file was written on the 20th and nobody came back to it, which is the same way
-the note at the top of CLAUDE.md went stale — a claim about a state expires the
-moment the state changes.
+**"Sarvam refused all 108 pages."** It did on 20 Sep, with HTTP 402 Payment
+Required — an empty prepaid balance, returned before any page is read and never
+billed, not a refusal of the content. The re-dispatch then ran on 22 Sep at
+09:54 IST and took all 108: `pages_succeeded: 108, pages_failed: 0`. This file
+was written on the 20th and nobody came back to it.
 
 **"Vision alone is not a sound basis... its own first page reads ನೈನಿಕ ಸ್ವರ
-ಪ್ರಕರಣಮ್ for *Vaidika* and ಪಱಮಾರು for Palimāru."** Both misreadings are real
-and both are on **page 1, which is the decorative cover**. The actual title
-page is p3 and Vision reads it correctly there — `॥ ವೈದಿಕ ಸ್ವರ ಪ್ರಕರಣಮ್ ॥` and
-`ಶ್ರೀ ಪಲಿಮಾರು ಮಠ` — as does the imprint on p4. The evidence for distrusting the
-engine was three pages away from its own correction. Sampling the worst page
-and generalising is the same error as sampling one page's layout tag.
+ಪ್ರಕರಣಮ್ for *Vaidika* and ಪಱಮಾರು for Palimāru."** Both misreadings are real and
+both are on **page 1, the decorative cover**. The title page is p3, where the
+same Vision pass reads `॥ ವೈದಿಕ ಸ್ವರ ಪ್ರಕರಣಮ್ ॥` and `ಶ್ರೀ ಪಲಿಮಾರು ಮಠ` correctly,
+as does the imprint on p4. The evidence for distrusting the engine was three
+pages from its own correction.
 
-So there is nothing to re-run and nothing to pay. Both engines now cover the
-body, and they agree closely — measured over the 106 pages both delivered,
-comparing Kannada characters only and order-sensitively:
+Both engines cover the body and agree closely — 106 pages, Kannada characters
+only, order-sensitive: median 0.976, mean 0.964, worst page 0.834.
 
-    median 0.976, mean 0.964, worst page 0.834
-    42 pages ≥ 0.98 · 36 at 0.95-0.98 · 23 at 0.90-0.95 · 5 at 0.80-0.90
-
-**What it actually is.** ವೈದಿಕ ಸ್ವರ ಪ್ರಕರಣಮ್ { ಶೌನಕೀಯಂ, ಪಾಣಿನೀಯಂ ಚ }, edited and
-translated by Vidvān Kadri Prabhākara Aḍiga, published by Śrī Tattvasaṃśodhana
-Saṃsat, Śrī Palimāru Maṭha, Udupi, 2011, ISBN 978-81-909776-6-1. It is a
-**Kannada** treatise — 80,617 Kannada characters against 597 Devanāgarī — on
-Vedic accent, in numbered sūtras under ಅಧ್ಯಾಯ and ಭಾಗ divisions, in two parts
-(Śaunakīya Ṛgvedic and Pāṇinīya). Sarvam was called with `language: sa-IN` on
-a Kannada book and handled it anyway.
-
-**Blocked on: a segmenter**, like the other nine. Not on OCR, not on money.
+Now at `data/vedanga/shiksha/pratishakhya/vaidika_svara_prakarana/`, beside
+rigveda_pratishakhya and shaunakiya_chaturadhyayika, because that is what the
+book says it is. **99 sūtras in four sections, 0 lacunae**, plus the seven prose
+passages between them; 77 carry the ಅರ್ಥ gloss as a commentary and 86 carry
+their own topic from ಅಥ ವಿಷಯಾನುಕ್ರಮಣಿಕಾ. 98% of the body's Kannada is under an
+address. The first Kannada work on the shelf. See the commit message for the
+four structural facts it cost.
 
 ### Aitareya — the earlier claim here was wrong
 
