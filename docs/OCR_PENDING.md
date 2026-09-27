@@ -44,8 +44,38 @@ spelling of its name that occurs in `data/`, not by substring.
 
 | staging branch | what it holds | blocked on |
 |---|---|---|
-| `giia_vyakhyana_sangr__…_v1` … `_v4` | Gītā Vyākhyāna Saṅgraha, commentaries on the Bhagavad Gītā, 4 volumes | segmentation |
+| `giia_vyakhyana_sangr__…_v1` … `_v4` | गीता-व्याख्यान-सङ्ग्रहः, the Gītā with **fifteen** vyākhyānas; 4 volumes, the complete Gītā (adhyāyas 1-2, 3-8, 9-12, 13-18) | segmentation — but see below: **ten of the fifteen are already landed** |
 | `sangraha_ramayanam_n__…_dipi_v1`, `_v2` | Saṅgraha Rāmāyaṇam with the Bhāvārtha Dīpikā | segmentation |
+
+#### Gītā Vyākhyāna Saṅgraha — checked 27 Sep, ten of the fifteen already here
+
+Matched by **author**, not by title. The Gītābhāṣya division (Madhva,
+Padmanābha, Narahari, Jayatīrtha, Rāghavendra, Sumatīndra) is all six under
+`…/DvaitaVedantaIn/gita_prasthana/gita_bhashya/`, and the Gītātātparya
+division (Madhva, Padmanābha, Jayatīrtha, Rāghavendra) all four under
+`…/gita_tatparya_nirnaya/`. The mūla Gītā itself is at
+`itihasa/bhagavad_gita/adhyaya_01..18`, already carrying 21 commentators in a
+`bhashya[]` array.
+
+**What is genuinely absent is the मूलगीताविभागः — the five on the mūla Gītā:**
+
+| | commentary | author | marker on the page |
+|---|---|---|---|
+| 1 | गीताविवृतिः | श्रीविद्याधिराजतीर्थाः | `वि०वि०—` |
+| 2 | गीतालक्षालङ्कारः | श्रीवादिराजतीर्थाः | `वा०ल०—` |
+| 3 | गीतासारसङ्ग्रहः | श्रीराघवेन्द्रतीर्थाः | `सा०सं०—` |
+| 4 | गीताअन्वयप्रकाशिका | श्रीराघवेन्द्रयतिः | `अ०प्र०—` |
+| 5 | त्रिविधार्थविवृतिः | पांगरी श्रीनिवासाचार्यः | `त्रि०वि०—` |
+
+Every apparent hit for those five was a catalogue entry
+(`dvaita_grantha_anukramani.json`, `seo_urls.json`, `_highlight/`). The one
+that looked real — `गीताविवृति` in adhyāya 18 — is inside **Śrīdhara Svāmī's**
+own colophon for a different work, the Subodhinī.
+
+Each commentary is introduced by the abbreviation the book's own contents page
+assigns it. Volume 1 (adhyāyas 1-2) carries 114, 50, 124, 125 and 59 of the
+five. One trap already found: `भा०र०` (Bhāvaratnakośa) is misread as `भा०२०`
+on 93 blocks, so a marker needs both spellings.
 
 Every one of these is blocked on the same thing: a segmenter. The OCR exists.
 What does not exist is the reading of how that particular edition prints its
