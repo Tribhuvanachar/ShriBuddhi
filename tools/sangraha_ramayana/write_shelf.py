@@ -9,12 +9,11 @@ Bhāvārthadīpikā and Bannañje Govindācārya's Saṅgrahacandrikā.
 Beside the Sumadhva Vijaya and the Maṇimañjarī, which are the same hand.
 One file per sarga, 64 of them across the seven kāṇḍas.
 
-THE SAṄGRAHACANDRIKĀ IS GATED. It is Bannañje Govindācārya's own
-commentary, first published in this 2015 edition, so it is modern and in
-copyright in a way the mūla and the Bhāvārthadīpikā are not. It is written
-under a key the reader gates to an admin, the same mechanism the Kannada
-layer already uses, rather than left out -- holding it back is reversible,
-publishing it is not.
+THE SAṄGRAHACANDRIKĀ IS MODERN, AND THAT IS SAID RATHER THAN ACTED ON. It
+is Bannañje Govindācārya's own, first published in this 2015 edition, so
+it is in copyright in a way the mūla and the Bhāvārthadīpikā are not. It
+lands and goes live in ShriBuddhi like the rest; whether it reaches a
+reader is recorded in js/core.js and is the lead's decision.
 
 VERSES ARE KEYED BY POSITION, and the number the page printed is kept
 beside each. See the segmenter: read straight off the page those numbers
@@ -52,9 +51,13 @@ COMMENTARIES = {
     "sangrahacandrika": "सङ्ग्रहचन्द्रिका — बन्नञ्जे गोविन्दाचार्यः",
 }
 
-#: Held back from readers until someone decides otherwise (js/core.js
-#: DGE_COPYRIGHT_GATED_COMMENTARY_KEYS).
-GATED = {"sangrahacandrika"}
+#: Nothing. The Saṅgrahacandrikā is modern -- Bannañje Govindācārya's own,
+#: first published in this 2015 edition -- and this file gated it on that
+#: reasoning. That was the wrong call to make here: what reaches a reader
+#: is recorded in js/core.js DGE_COPYRIGHT_GATED_COMMENTARY_KEYS and is the
+#: lead's decision, not an importer's. The work lands, it goes live in
+#: ShriBuddhi, and the copyright question is raised rather than settled.
+GATED: set[str] = set()
 
 SOURCE = {
     "edition": "सङ्ग्रहरामायणम् — with the Bhāvārthadīpikā of Śrī Viśvapati "

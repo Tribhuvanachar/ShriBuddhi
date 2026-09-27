@@ -111,6 +111,29 @@ the proxy can fail or return empty; a run log proving one exists outranks it.
 * Before running anything that calls the Gemini API, give a cost estimate
   and wait for the go-ahead.
 
+## Anandamakaranda is closed
+
+Nothing new goes into `data/darshana/vedanta/dvaita/Anandamakaranda/`
+(27 Sep 2026, the lead). Only selected pieces of it will ever be pushed on
+to Jagat, and the lead picks those; a new layer landed there is a layer
+nobody asked for in a tree nobody is publishing from.
+
+New Dvaita material goes to `DvaitaVedantaIn/` instead, and what is
+already in Anandamakaranda and duplicated there — the Ṛgbhāṣya, the Gītā
+prasthāna — belongs in `DvaitaVedantaIn/` too.
+`tests/test_anandamakaranda_closed.py` holds the count so a new file
+cannot arrive unnoticed.
+
+## What reaches a reader is not an importer's decision
+
+The go-live shelf (`admin/config/library-overrides.json`) and
+`DGE_COPYRIGHT_GATED_COMMENTARY_KEYS` (`js/core.js`) are where publishing
+decisions are recorded, and they are the lead's to make. Land the text,
+make it live in ShriBuddhi, say what it is and what is questionable about
+it — and leave the choice of what goes to Jagat, and what a reader sees,
+to the lead. An import that gates its own material, however defensibly, has
+made that call for them.
+
 ## Editing data files
 
 Never `json.load` then `json.dump` a `data/*.json`. Use raw string

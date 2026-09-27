@@ -142,12 +142,20 @@ def test_both_commentaries_reach_most_of_the_work(units):
 
 # ---------------------------------------------------------------- the shelf
 
-def test_the_modern_commentary_is_gated_not_published():
-    """Bannañje Govindācārya's own, first published in this 2015 edition.
-    Holding it back is reversible; publishing it is not."""
-    assert "sangrahacandrika" in ws.GATED
+def test_the_import_does_not_gate_its_own_material():
+    """It did, and that was the wrong call to make here.
+
+    The Saṅgrahacandrikā is Bannañje Govindācārya's own, first published in
+    the 2015 edition, so it is modern in a way the mūla and Viśvapati
+    Tīrtha's Bhāvārthadīpikā are not — and this import gated it on that
+    reasoning. But what reaches a reader is a publishing decision and the
+    lead's to make: the work lands, it goes live in ShriBuddhi, and what
+    is questionable about it gets said out loud. The list in core.js is
+    where such a decision is recorded, not somewhere an importer adds to.
+    """
     core = (REPO / "js/core.js").read_text(encoding="utf-8")
-    assert "sangrahacandrika: true" in core
+    assert "sangrahacandrika: true" not in core
+    assert "sangrahacandrika" not in ws.GATED
 
 
 def test_the_gate_actually_runs_on_the_shape_this_work_uses():

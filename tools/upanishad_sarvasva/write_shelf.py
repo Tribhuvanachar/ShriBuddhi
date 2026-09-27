@@ -61,7 +61,11 @@ STAGED = "data/ocr_staging/108_upanishad_sarvas__narasimha_1_ttd_kannada"
 
 WORK = "೧೦೮ ಉಪನಿಷತ್ ಸರ್ವಸ್ವ"
 AUTHOR = "Bhargava Narasimha (ಭಾರ್ಗವ ನರಸಿಂಹ)"
-COMMENTARY_KEY = "kannada"
+# Its own key, not the bare ``kannada`` it first used. That key already
+# belongs to the Mahābhārata's Kannada translation, which the reader gates
+# to an admin (DGE_COPYRIGHT_GATED_COMMENTARY_KEYS), so sharing it quietly
+# hid all 1,273 of these tātparyas behind a gate meant for another work.
+COMMENTARY_KEY = "tatparya_kannada"
 COMMENTARY_TITLE = "ತಾತ್ಪರ್ಯ — ಕನ್ನಡ"
 
 EDITION = ("೧೦೮ ಉಪನಿಷತ್ ಸರ್ವಸ್ವ, ಪ್ರಥಮ ಸಂಪುಟ — the Upaniṣads with the "

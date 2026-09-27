@@ -571,12 +571,12 @@ function dgeSanitizeVedicAccents(text) {
 // grantha's data is (re)fetched), not instantly on an already-open page,
 // which is an acceptable cost for what should be a rare, deliberate
 // research toggle rather than a startup-time architecture change.
-// sangrahacandrika, 20 Sep 2026: Bannanje Govindacharya's own commentary on
-// the Sangraha Ramayanam, first published in the 2015 Pejavara Matha edition
-// -- modern, and in copyright in a way the mula and Visvapati Tirtha's
-// Bhavarthadipika beside it are not. Held back rather than left out of the
-// import: holding it back is reversible, publishing it is not.
-const DGE_COPYRIGHT_GATED_COMMENTARY_KEYS = { kannada: true, sangrahacandrika: true };
+// What reaches a reader is a publishing decision, and this list is where it
+// is recorded -- not somewhere an importer gets to add to on its own. The
+// Sangraha Ramayanam's modern Sangrahacandrika was gated here by the import
+// that landed it and has been taken back out: the call belongs to whoever
+// decides what is published, not to the tool that read the pages.
+const DGE_COPYRIGHT_GATED_COMMENTARY_KEYS = { kannada: true };
 
 // 20 Sep 2026, the lead: a gated commentary "will only be shown to a user who
 // has access to the GitHub token -- that is super admin."
@@ -715,6 +715,11 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
     // by Śrī Agrahāra Nārāyaṇa Tantri. A Kannada gloss, not a translation,
     // so it gets its own key/label (cf. narayana_vyakhya above).
     kannada_anvaya: 'ಅನ್ವಯಾರ್ಥ — Kannada anvaya (Agrahāra Nārāyaṇa Tantri)',
+    // The 108 Upaniṣat Sarvasva's Kannada tātparya. Its own key rather than
+    // the bare `kannada` above, which belongs to the Mahābhārata's Kannada
+    // translation and is gated -- sharing it hid 1,273 tātparyas behind a
+    // gate meant for a different work.
+    tatparya_kannada: 'ತಾತ್ಪರ್ಯ — Kannada (Bhārgava Narasiṃha)',
     // OCR'd from a published book (tools/link_english_commentary.py), not
     // hand-typed -- attributed to its actual translator like griffith/wilson
     // above, not a generic "English Translation" label.
