@@ -81,3 +81,9 @@ def test_pasandakhandana_is_on_the_shelf():
     Yukti Mallikā."""
     allow = shelf().get("allow") or []
     assert any(a.endswith("Itara/pasandakhandana") for a in allow), allow
+
+
+def test_ushaharana_is_on_the_shelf():
+    """726 verses in nine sargas with the Rasikarañjanī."""
+    allow = shelf().get("allow") or []
+    assert any(a.endswith("Kavya/ushaharana") for a in allow), allow
