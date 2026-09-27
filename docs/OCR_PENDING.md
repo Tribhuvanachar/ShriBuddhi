@@ -5,19 +5,67 @@ a batch; this says what is left to run.
 
 ## 1 · Works staged but never landed in `data/`
 
-**94** staging branches exist under `origin/ocr-staging/` (the "63" in an
-earlier draft was stale), holding **96** distinct staged works plus three
-scaffolding directories (`_gemini`, `_recovered`, `upanishad_tippani`). The
-great majority resolve to a grantha the site already serves. These five do
-not:
+Re-measured 27 Sep 2026 against `data/library.json`. **104** staging branches
+now exist under `origin/ocr-staging/` (94 of them `ocr-staging/*`, plus 10
+`buddhi-archive/*`), of which 31 are the `hks__*` parts of one work and 22 the
+`sudha_25_tippani_v*` volumes of another.
+
+**The earlier "these five do not resolve" was wrong**, and wrong in both
+directions. It came from matching a branch name against library paths by
+substring, which reports a hit whenever any path happens to contain the
+letters: `usha` matches `nyaya_bhushana`, `dipika` matches
+`hathayogapradipika`, and `sudha` matches nine unrelated works. Checked
+properly, three of those five have landed and ten works it never mentioned
+have not. A loose match is worse than no inventory, because it reports
+comfort.
+
+### Landed since that draft
+
+| staging branches | where it now lives |
+|---|---|
+| `manimanjari` | `Tattvavada/Itara/Kavya/manimanjari` — 306 verses, 8 sargas, both ṭīkās |
+| `rukminisha_vijaya` | `Tattvavada/Itara/Kavya/rukminisha_vijaya` — **1,171 verses, 19 sargas**, 1,092 with the Gurubhāvaprakāśikā, 68 declared lacunae |
+| `venkatesha__venkatesha_mahatmya_vyakyana_sahita` | `purana/maha_purana/bhavishya_purana/uttara_parva/venkatesha_mahatmya` — **1,523 verses, 11 adhyāyas**, 801 with a commentary and 407 with both, 64 declared lacunae |
+| `sudha_25_tippani_v1..v22` | `…/anuvyakhyana_sudha` — mūla 2,524 + Nyāya Sudhā 7,826 + six ṭippaṇīs = **27,413 units** |
+| `aitereya_upanisad_bh__tha_ratnamala_commentary`, `…taries_visvesvara_tirtha` | `…/aitareyopanishad_bhashya/tika_bhashyartha_ratnamala`, `…/tika_visvesvara_tirtha` |
+| `hks__1..31` | `Tattvavada/Itara/DasaSahitya/harikathamrutasara` |
+
+### Still not landed
+
+Ten works, eighteen branches. Each was checked against every spelling of its
+name that occurs in `data/`, not by substring.
 
 | staging branch | what it holds | blocked on |
 |---|---|---|
-| ~~`manimanjari`~~ | **landed 21 Sep** — 306 verses, 8 sargas, both ṭīkās | — |
+| `ruksamhita__…_bhaga_1` … `_bhaga_5` | Ṛksaṃhitā, 9 vyākhyānas, 5 volumes | segmentation; no counterpart anywhere under `data/vedas/rigveda` |
+| `giia_vyakhyana_sangr__…_v1` … `_v4` | Gītā Vyākhyāna Saṅgraha, commentaries on the Bhagavad Gītā, 4 volumes | segmentation |
+| `sangraha_ramayanam_n__…_dipi_v1`, `_v2` | Saṅgraha Rāmāyaṇam with the Bhāvārtha Dīpikā | segmentation |
+| `brhatisahasram_tattvasara_raghunatha_tirtha` | Bṛhatīsahasram / Tattvasāra of Raghunātha Tīrtha | segmentation |
+| `pasandakhandanam_vad__mentary_surottama_tirtha` | Pāṣaṇḍakhaṇḍanam with Surottama Tīrtha's commentary | segmentation |
+| `brahma_sutra_dipika_jagannatha_tirtha_panchamukhi` | Brahma Sūtra Dīpikā of Jagannātha Tīrtha | segmentation |
+| `usha_harna_trivikram__irtha_vadirajacharya_l_s` | Uṣāharaṇa of Trivikrama / Vādirāja | segmentation |
+| `108_upanishad_sarvas__narasimha_1_ttd_kannada` | 108 Upaniṣad Sarvasva, Narasiṃha vol 1, TTD, Kannada | segmentation; Kannada script |
 | `aitereya_upanisad_bh__ommentary_bhagavantaraya` | Bhāvapradīpa ṭippaṇī of Bhagavantarāya, 994 pp | segmentation |
-| `aitereya_upanisad_bh__tha_ratnamala_commentary` | Bhāṣyārtha Ratnamālā ṭippaṇī, 596 pp | segmentation |
-| `aitereya_upanisad_bh__taries_visvesvara_tirtha` | Viśveśvara Tīrtha, with Rāghavendra Tīrtha's Mantrārthasaṅgraha, 320 pp | segmentation |
 | `vaidika_svara_prakaranam_prabhakara_adiga_kadri` | Vaidika Svara Prakaraṇam, 108 pp | Sarvam refused all 108 — see below |
+
+Every one of these is blocked on the same thing: a segmenter. The OCR exists.
+What does not exist is the reading of how that particular edition prints its
+divisions, and the two landed this week are a fair measure of what that costs —
+each needed four or five structural facts that were invisible from any single
+page and silent when got wrong. See the commit messages for
+`tools/rukminisha/segment.py` and `tools/venkatesha/segment.py`.
+
+### Two things worth carrying to the next one
+
+**Check both danda forms.** The Veṅkaṭeśa Māhātmya closes 1,280 verses with
+॥ N ॥ (U+0965) and 584 with ।। N ।। — two U+0964 single dandas. Reading only
+the first lost 31% of the markers and did not look like loss: one adhyāya
+simply appeared to carry little commentary.
+
+**Count it across the book before believing it.** `data-layout="section-title"`
+means the commentary heading in the Veṅkaṭeśa Māhātmya and means nothing at all
+in Rukmiṇīśa Vijaya, where there are 78 of them against ~2,480 verse markers.
+Sampling one page and generalising would have produced a 37-verse mahākāvya.
 
 ### Maṇimañjarī — landed 21 Sep
 
