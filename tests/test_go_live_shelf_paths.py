@@ -67,3 +67,10 @@ def test_venkatesa_mahatmya_is_on_the_shelf():
     """1,523 verses across 11 adhyāyas, with two commentaries."""
     allow = shelf().get("allow") or []
     assert any(a.endswith("uttara_parva/venkatesha_mahatmya") for a in allow), allow
+
+
+def test_vaidika_svara_prakarana_is_on_the_shelf():
+    """99 sūtras in four sections plus the prose between them. A Kannada work,
+    the first on this shelf."""
+    allow = shelf().get("allow") or []
+    assert any(a.endswith("pratishakhya/vaidika_svara_prakarana") for a in allow), allow
