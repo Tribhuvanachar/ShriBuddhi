@@ -74,3 +74,10 @@ def test_vaidika_svara_prakarana_is_on_the_shelf():
     the first on this shelf."""
     allow = shelf().get("allow") or []
     assert any(a.endswith("pratishakhya/vaidika_svara_prakarana") for a in allow), allow
+
+
+def test_pasandakhandana_is_on_the_shelf():
+    """129 verses with Surottama Tīrtha's vyākhyā, beside Vādirāja's own
+    Yukti Mallikā."""
+    allow = shelf().get("allow") or []
+    assert any(a.endswith("Itara/pasandakhandana") for a in allow), allow
