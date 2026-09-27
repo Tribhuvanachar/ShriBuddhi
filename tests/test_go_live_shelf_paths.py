@@ -93,3 +93,10 @@ def test_brhatisahasra_is_on_the_shelf():
     """986 of the work's 1000 verses, with the Tattvasāra."""
     allow = shelf().get("allow") or []
     assert any(a.endswith("Itara/brhatisahasra") for a in allow), allow
+
+
+def test_upanishad_sarvasva_is_on_the_shelf():
+    """25 Upaniṣads, 1,308 mantras with the Kannada tātparya. One allow entry
+    covers all 25 folders, since dgeMatchShelf matches by prefix."""
+    allow = shelf().get("allow") or []
+    assert any(a.endswith("vedas/upanishad_sarvasva_kannada") for a in allow), allow

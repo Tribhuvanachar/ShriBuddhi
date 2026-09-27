@@ -30,22 +30,22 @@ comfort.
 | all three `aitereya_upanisad_bh__*` branches | `…/aitareyopanishad_bhashya/` — **all 1,406 blocks placed**, seven layers totalling 2,100,535 characters. The Bhagavantarāya ṭippaṇī is `tika_bhavapradipa`, 38 items and 555,029 characters; I listed it as pending twice after landing it |
 | `hks__1..31` | `Tattvavada/Itara/DasaSahitya/harikathamrutasara` |
 | `vaidika_svara_prakaranam_prabhakara_adiga_kadri` | `vedanga/shiksha/pratishakhya/vaidika_svara_prakarana` — **99 sūtras in four sections plus 7 prose passages**, 77 with the ಅರ್ಥ gloss, 86 with a topic from the book's own contents page, 0 lacunae |
+| `pasandakhandanam_vad__mentary_surottama_tirtha` | `Tattvavada/Itara/pasandakhandana` — **129 verses**, all with Surottama Tīrtha's vyākhyā, 0 lacunae |
+| `brahma_sutra_dipika_jagannatha_tirtha_panchamukhi` | `…/DvaitaVedantaIn/sutra_prasthana/brahmasutra_dipika` — **500 sūtras across 15 pādas**, 29 declared lacunae |
+| `usha_harna_trivikram__irtha_vadirajacharya_l_s` | `Tattvavada/Itara/Kavya/ushaharana` — **726 verses in nine sargas** with the Rasikarañjanī, 18 declared lacunae |
+| `brhatisahasram_tattvasara_raghunatha_tirtha` | `Tattvavada/Itara/brhatisahasra` — **986 verses** with the Tattvasāra; the work's own numbering reaches 1000, 14 declared lacunae |
+| `108_upanishad_sarvas__narasimha_1_ttd_kannada` | `vedas/upanishad_sarvasva_kannada` — **25 Upaniṣads, 1,308 mantras**, 1,273 with the Kannada tātparya. Bhārgava Narasiṃha's compilation; boundaries confirmed against the volume's own contents page |
 
 ### Still not landed
 
-Eight works, sixteen branches. Each was checked against every spelling of its
-name that occurs in `data/`, not by substring.
+Three works, eleven branches — all of them multi-volume. Each was checked
+against every spelling of its name that occurs in `data/`, not by substring.
 
 | staging branch | what it holds | blocked on |
 |---|---|---|
 | `ruksamhita__…_bhaga_1` … `_bhaga_5` | Ṛksaṃhitā, 9 vyākhyānas, 5 volumes | segmentation; no counterpart anywhere under `data/vedas/rigveda` |
 | `giia_vyakhyana_sangr__…_v1` … `_v4` | Gītā Vyākhyāna Saṅgraha, commentaries on the Bhagavad Gītā, 4 volumes | segmentation |
 | `sangraha_ramayanam_n__…_dipi_v1`, `_v2` | Saṅgraha Rāmāyaṇam with the Bhāvārtha Dīpikā | segmentation |
-| `brhatisahasram_tattvasara_raghunatha_tirtha` | Bṛhatīsahasram / Tattvasāra of Raghunātha Tīrtha | segmentation |
-| `pasandakhandanam_vad__mentary_surottama_tirtha` | Pāṣaṇḍakhaṇḍanam with Surottama Tīrtha's commentary | segmentation |
-| `brahma_sutra_dipika_jagannatha_tirtha_panchamukhi` | Brahma Sūtra Dīpikā of Jagannātha Tīrtha | segmentation |
-| `usha_harna_trivikram__irtha_vadirajacharya_l_s` | Uṣāharaṇa of Trivikrama / Vādirāja | segmentation |
-| `108_upanishad_sarvas__narasimha_1_ttd_kannada` | 108 Upaniṣad Sarvasva, Narasiṃha vol 1, TTD, Kannada | segmentation; Kannada script |
 
 Every one of these is blocked on the same thing: a segmenter. The OCR exists.
 What does not exist is the reading of how that particular edition prints its
@@ -54,7 +54,7 @@ each needed four or five structural facts that were invisible from any single
 page and silent when got wrong. See the commit messages for
 `tools/rukminisha/segment.py` and `tools/venkatesha/segment.py`.
 
-### Two things worth carrying to the next one
+### Three things worth carrying to the next one
 
 **Check both danda forms.** The Veṅkaṭeśa Māhātmya closes 1,280 verses with
 ॥ N ॥ (U+0965) and 584 with ।। N ।। — two U+0964 single dandas. Reading only
@@ -65,6 +65,15 @@ simply appeared to carry little commentary.
 means the commentary heading in the Veṅkaṭeśa Māhātmya and means nothing at all
 in Rukmiṇīśa Vijaya, where there are 78 of them against ~2,480 verse markers.
 Sampling one page and generalising would have produced a 37-verse mahākāvya.
+
+**Never search for a Sanskrit word by its citation form.** Three works running,
+the same trap: the word is joined to what precedes it and its first vowel is
+gone. `अधिकरणम्` had to be matched as `धिकरणम्`, `ಸೂತ್ರಾರ್ಥ` needed its own
+alternative beside `ಅರ್ಥ`, and in the 108 Upaniṣad Sarvasva searching for
+`ಉಪನಿಷ` found **not one** of the twenty-five colophons, because every name ends
+in a vowel that swallows the उ — ಮಾಂಡೂಕ್ಯ + ಉಪನಿಷತ್ is written ಮಾಂಡೂಕ್ಯೋಪನಿಷತ್.
+Match from inside the word. The failure is silent and total: a regex that
+matches nothing reports the same "0 found" as a book that genuinely has none.
 
 ### Maṇimañjarī — landed 21 Sep
 
