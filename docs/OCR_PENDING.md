@@ -27,13 +27,13 @@ comfort.
 | `rukminisha_vijaya` | `Tattvavada/Itara/Kavya/rukminisha_vijaya` — **1,171 verses, 19 sargas**, 1,092 with the Gurubhāvaprakāśikā, 68 declared lacunae |
 | `venkatesha__venkatesha_mahatmya_vyakyana_sahita` | `purana/maha_purana/bhavishya_purana/uttara_parva/venkatesha_mahatmya` — **1,523 verses, 11 adhyāyas**, 801 with a commentary and 407 with both, 64 declared lacunae |
 | `sudha_25_tippani_v1..v22` | `…/anuvyakhyana_sudha` — mūla 2,524 + Nyāya Sudhā 7,826 + six ṭippaṇīs = **27,413 units** |
-| `aitereya_upanisad_bh__tha_ratnamala_commentary`, `…taries_visvesvara_tirtha` | `…/aitareyopanishad_bhashya/tika_bhashyartha_ratnamala`, `…/tika_visvesvara_tirtha` |
+| all three `aitereya_upanisad_bh__*` branches | `…/aitareyopanishad_bhashya/` — **all 1,406 blocks placed**, seven layers totalling 2,100,535 characters. The Bhagavantarāya ṭippaṇī is `tika_bhavapradipa`, 38 items and 555,029 characters; I listed it as pending twice after landing it |
 | `hks__1..31` | `Tattvavada/Itara/DasaSahitya/harikathamrutasara` |
 | `vaidika_svara_prakaranam_prabhakara_adiga_kadri` | `vedanga/shiksha/pratishakhya/vaidika_svara_prakarana` — **99 sūtras in four sections plus 7 prose passages**, 77 with the ಅರ್ಥ gloss, 86 with a topic from the book's own contents page, 0 lacunae |
 
 ### Still not landed
 
-Nine works, seventeen branches. Each was checked against every spelling of its
+Eight works, sixteen branches. Each was checked against every spelling of its
 name that occurs in `data/`, not by substring.
 
 | staging branch | what it holds | blocked on |
@@ -46,7 +46,6 @@ name that occurs in `data/`, not by substring.
 | `brahma_sutra_dipika_jagannatha_tirtha_panchamukhi` | Brahma Sūtra Dīpikā of Jagannātha Tīrtha | segmentation |
 | `usha_harna_trivikram__irtha_vadirajacharya_l_s` | Uṣāharaṇa of Trivikrama / Vādirāja | segmentation |
 | `108_upanishad_sarvas__narasimha_1_ttd_kannada` | 108 Upaniṣad Sarvasva, Narasiṃha vol 1, TTD, Kannada | segmentation; Kannada script |
-| `aitereya_upanisad_bh__ommentary_bhagavantaraya` | Bhāvapradīpa ṭippaṇī of Bhagavantarāya, 994 pp | segmentation |
 
 Every one of these is blocked on the same thing: a segmenter. The OCR exists.
 What does not exist is the reading of how that particular edition prints its
