@@ -38,6 +38,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from collections import OrderedDict, defaultdict
 from pathlib import Path
 
@@ -45,7 +46,7 @@ ROOT = Path(__file__).resolve().parents[2]
 STAGED = ROOT / "data/ocr_staging/aitareya"
 TARGET = ROOT / ("data/darshana/vedanta/dvaita/DvaitaVedantaIn/"
                  "upanishad_prasthana/aitareyopanishad_bhashya")
-REF_LAYER = TARGET / "tika_bhashya/data.json"
+REF_LAYER = TARGET / "mula/data.json"
 
 SCHEMA = "grantha_tika_text"
 
@@ -65,22 +66,49 @@ EXISTING = {"mula", "tika_bhashya", "tika_upanishat", "tika_bhavapradipa"}
 ADHYAYA_NUM = {"प्रथमोऽध्यायः": 1, "द्वितीयोऽध्यायः": 2, "तृतीयोऽध्यायः": 3,
                "चतुर्थोऽध्यायः": 4, "पञ्चमोऽध्यायः": 5, "षष्ठोऽध्यायः": 6,
                "सप्तमोऽध्यायः": 7, "अष्टमोऽध्यायः": 8}
+# Both spellings of each khaṇḍa occur and they are the SAME khaṇḍa. The shelf
+# writes the seventh as सप्त: खण्ड: and the ṭippaṇī's running head as
+# सप्तम: खण्ड:; matching on the string dropped 23 blocks that had a home all
+# along. Addresses are therefore compared as NUMBERS, never as names -- see
+# shelf_units() and address_of() -- so a further spelling costs one line here
+# instead of silently losing a khaṇḍa.
 KHANDA_NUM = {"प्रथम: खण्ड:": 1, "द्वितीय: खण्ड:": 2, "तृतीय: खण्ड:": 3,
-              "चतुर्थ: खण्ड:": 4, "पञ्चम: खण्ड:": 5, "षष्ट: खण्ड:": 6,
-              "सप्तम: खण्ड:": 7, "अष्टम: खण्ड:": 8}
+              "चतुर्थ: खण्ड:": 4, "पञ्चम: खण्ड:": 5,
+              "षष्ट: खण्ड:": 6, "षष्ठ: खण्ड:": 6,
+              "सप्त: खण्ड:": 7, "सप्तम: खण्ड:": 7,
+              "अष्टम: खण्ड:": 8}
+ARANYAKA_NUM = {"द्वितीयारण्यके": 2, "तृतीयारण्यके": 3}
 ARANYAKA_NAME = {2: "द्वितीयारण्यके", 3: "तृतीयारण्यके"}
 
 
 def shelf_units() -> dict[tuple, dict]:
-    """(āraṇyaka, adhyāya, khaṇḍa) -> the shelf's own unit for it."""
+    """(āraṇyaka, adhyāya, khaṇḍa) AS NUMBERS -> the shelf's own unit for it.
+
+    Keyed numerically so a difference of spelling between the shelf and a
+    ṭippaṇī's running head cannot hide a khaṇḍa, and the names the shelf uses
+    travel in the value so the emitted breadcrumb still reads as the shelf
+    writes it.
+
+    THE REFERENCE LAYER IS THE MŪLA. It used to be tika_bhashya, which is a
+    commentary and carries 31 of the mūla's 38 khaṇḍas -- so seven khaṇḍas that
+    exist in the text had no address, and every block addressed to one was
+    counted "not on shelf" and dropped. That silently cost 153 blocks, among
+    them the WHOLE of Viśveśvara Tīrtha's ṭīkā (298 blocks, 453,151 characters),
+    which looked like a deliberate hold rather than a bug. The mūla is what
+    defines where a commentary can attach; a commentary is not.
+    """
     out: dict[tuple, dict] = {}
     for x in json.loads(REF_LAYER.read_text())["items"]:
         parts = x["reference"].split(" > ")
         if len(parts) < 7:
             continue
-        addr = tuple(parts[3:6])
+        names = tuple(parts[3:6])
+        addr = (ARANYAKA_NUM.get(names[0]), ADHYAYA_NUM.get(names[1]),
+                KHANDA_NUM.get(names[2]))
+        if None in addr:
+            continue
         out.setdefault(addr, {"unit_title": x.get("unit_title") or parts[6],
-                              "breadcrumb_head": parts[:3]})
+                              "breadcrumb_head": parts[:3], "names": names})
     return out
 
 
@@ -93,21 +121,96 @@ def address_of(block: dict) -> tuple | None:
     usable: the running head states the same address the shelf uses.
     """
     if block.get("adhyaya_name"):
-        return (block["aranyaka_name"], block["adhyaya_name"], block["khanda_name"])
+        addr = (ARANYAKA_NUM.get(block["aranyaka_name"]),
+                ADHYAYA_NUM.get(block["adhyaya_name"]),
+                KHANDA_NUM.get(block["khanda_name"]))
+        return None if None in addr else addr
     a, ad, kh = block.get("aranyaka"), block.get("adhyaya"), block.get("khanda")
     if not (a and ad and kh):
         return None
-    ar = ARANYAKA_NAME.get(a)
-    adn = next((k for k, v in ADHYAYA_NUM.items() if v == ad), None)
-    khn = next((k for k, v in KHANDA_NUM.items() if v == kh), None)
-    return (ar, adn, khn) if ar and adn and khn else None
+    # The NUMBERS must be ones the edition actually uses. Returning a triple
+    # for adhyāya 99 would hand a nonsense address to the shelf lookup, which
+    # would then count it "not on shelf" -- indistinguishable from a khaṇḍa
+    # the volume genuinely does not cover.
+    if a not in ARANYAKA_NAME or ad not in ADHYAYA_NUM.values() \
+            or kh not in KHANDA_NUM.values():
+        return None
+    return (a, ad, kh)
+
+
+FRONT_MATTER = (0, 0, 0)
+
+
+def FRONT_MATTER_UNIT(shelf: dict) -> dict:
+    """The volume's own opening -- maṅgalācaraṇam and the history of the
+    Upaniṣad -- which belongs to the work rather than to any khaṇḍa. It borrows
+    the shelf's breadcrumb head so it reads as part of the same text."""
+    head = next(iter(shelf.values()))["breadcrumb_head"] if shelf else []
+    return {"unit_title": "मङ्गलाचरणम् — उपनिषद इतिहासश्च",
+            "breadcrumb_head": head,
+            "names": ("ग्रन्थारम्भः", "", "")}
+
+
+def _devanagari(s: str) -> str:
+    return re.sub(r"[^\u0900-\u097F]", "", s or "")
+
+
+def anchor_unaddressed(blocks: list[dict], shelf: dict) -> dict:
+    """Give an address to the blocks that open a volume, before its running
+    head starts printing one.
+
+    ratnamala's first 25 blocks carry no coordinate at all: they are the first
+    seventeen pages, printed before the section labels its segmenter reads
+    begin. They are not a decision about what belongs on the shelf -- they are
+    the commentary on Āraṇyaka 2.1.1 and 2.1.2, plus the volume's own front
+    matter.
+
+    Placed the way the rest of this pipeline places things: on an anchor the
+    EDITION supplies, not on a guess. Three of the blocks quote a shelf unit's
+    opening words, and a gloss runs from the block that quotes until the next
+    one does, so each anchor carries its continuation blocks with it. The
+    result is checked for the two things that would make it wrong -- the
+    anchors must appear in shelf order and each run must be contiguous -- and
+    the whole pass is abandoned if either fails, because a wrong address is
+    worse than none: a hole is visible and a wrong address is not.
+
+    Blocks before the FIRST anchor are the volume's front matter -- the
+    maṅgalācaraṇam and the history of the Upaniṣad -- which belong to the work
+    and not to any khaṇḍa. They get FRONT_MATTER, which sorts before khaṇḍa 1.
+    """
+    titles = [(a, _devanagari(u["unit_title"])) for a, u in shelf.items()]
+    out: dict[int, tuple] = {}
+    current = None
+    anchors: list[tuple] = []
+    for i, b in enumerate(blocks):
+        text = _devanagari(b.get("text_proofread") or b.get("text") or "")
+        hits = sorted({a for a, t in titles if len(t) >= 12 and t[:12] in text})
+        if len(hits) == 1 and hits[0] != current:
+            current = hits[0]
+            anchors.append(current)
+        out[i] = current or FRONT_MATTER
+    if anchors != sorted(anchors):
+        return {}                       # anchors out of order: do not guess
+    seen: list[tuple] = []
+    for i in sorted(out):               # each address must be one unbroken run
+        if not seen or seen[-1] != out[i]:
+            if out[i] in seen:
+                return {}
+            seen.append(out[i])
+    return out
 
 
 def build(volume: str, blocks: list[dict], shelf: dict) -> tuple[dict, dict]:
     by_layer: dict[str, dict[tuple, list]] = defaultdict(lambda: defaultdict(list))
     stats = {"placed": 0, "no_address": 0, "address_not_on_shelf": 0, "empty": 0,
-             "proofread_text": 0, "raw_text": 0}
+             "anchored": 0, "front_matter": 0, "proofread_text": 0, "raw_text": 0}
     srcs: dict[tuple, list] = {}
+    # Blocks the running head never gave a coordinate to, anchored on the mūla
+    # the edition itself quotes. Empty when that could not be done safely.
+    unaddressed = [b for b in blocks if address_of(b) is None]
+    anchored = anchor_unaddressed(unaddressed, shelf) if unaddressed else {}
+    anchored_by_id = {id(b): anchored[i] for i, b in enumerate(unaddressed)
+                      if i in anchored}
     for b in blocks:
         # The proofread text is the point of proofreading. An earlier version
         # of this read b["text"] unconditionally, which would have paid for a
@@ -122,9 +225,12 @@ def build(volume: str, blocks: list[dict], shelf: dict) -> tuple[dict, dict]:
             continue
         addr = address_of(b)
         if addr is None:
-            stats["no_address"] += 1
-            continue
-        if addr not in shelf:
+            addr = anchored_by_id.get(id(b))
+            if addr is None:
+                stats["no_address"] += 1
+                continue
+            stats["front_matter" if addr == FRONT_MATTER else "anchored"] += 1
+        if addr not in shelf and addr != FRONT_MATTER:
             stats["address_not_on_shelf"] += 1
             continue
         by_layer[b["layer"]][addr].append((b.get("page") or 0, text))
@@ -135,19 +241,19 @@ def build(volume: str, blocks: list[dict], shelf: dict) -> tuple[dict, dict]:
     for layer, addrs in by_layer.items():
         name, author = LAYER_META.get(layer, (layer, ""))
         items = []
-        ordered = sorted(addrs, key=lambda a: (ARANYAKA_NAME and
-                                               [k for k, v in ARANYAKA_NAME.items() if v == a[0]][0],
-                                               ADHYAYA_NUM.get(a[1], 99),
-                                               KHANDA_NUM.get(a[2], 99)))
+        ordered = sorted(addrs)          # addresses are numeric triples
         for n, addr in enumerate(ordered, 1):
-            unit = shelf[addr]
+            unit = shelf.get(addr) or FRONT_MATTER_UNIT(shelf)
             title = unit["unit_title"]
             body = "\n".join(t for _, t in sorted(addrs[addr]))
-            crumb = unit["breadcrumb_head"] + [addr[0], addr[1], addr[2], title]
+            # The SHELF's own spelling of the address, not the ṭippaṇī's, so a
+            # commentary's breadcrumb reads exactly as the mūla's does beside it.
+            names = [x for x in unit["names"] if x]
+            crumb = unit["breadcrumb_head"] + names + [title]
             items.append(OrderedDict([
                 ("id", f"AIT_{layer}_{n:04d}"),
                 ("reference", " > ".join(crumb)),
-                ("section", addr[2]),
+                ("section", names[2] if len(names) > 2 else names[0]),
                 ("unit_title", title),
                 ("sanskrit_text", body),
                 ("artha", ""), ("notes", ""), ("tags", []),
