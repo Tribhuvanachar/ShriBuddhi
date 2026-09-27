@@ -61,3 +61,9 @@ def test_every_registered_kavya_leaf_is_populated():
            if "/Kavya/" in g["path"] and not g.get("populated")
            and (REPO / g["path"]).is_file()]
     assert bad == [], bad
+
+
+def test_venkatesa_mahatmya_is_on_the_shelf():
+    """1,523 verses across 11 adhyāyas, with two commentaries."""
+    allow = shelf().get("allow") or []
+    assert any(a.endswith("uttara_parva/venkatesha_mahatmya") for a in allow), allow
