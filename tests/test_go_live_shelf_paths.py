@@ -39,3 +39,25 @@ def test_manimanjari_is_on_the_shelf():
     """The specific regression: 306 verses landed and invisible."""
     allow = shelf().get("allow") or []
     assert any(a.endswith("Kavya/manimanjari") for a in allow), allow
+
+
+def test_rukminisha_vijaya_is_on_the_shelf():
+    """1,171 verses across 19 sargas. Same exposure as maṇimañjarī: the data can
+    be complete, library.json can list every sarga as populated, and the reader
+    still answers "not part of the published library yet" if this one line is
+    missing."""
+    allow = shelf().get("allow") or []
+    assert any(a.endswith("Kavya/rukminisha_vijaya") for a in allow), allow
+
+
+def test_every_registered_kavya_leaf_is_populated():
+    """A leaf registered populated=false renders as "Not Available Yet", which
+    looks exactly like a deliberate hold, so nothing downstream flags it.
+    register_layers.py's item_count() counted 0 for the whole Kavya shelf shape
+    -- {metadata, shlokas: {...}} -- because it had drifted from the canonical
+    one in audit_library.py despite a comment in each promising otherwise."""
+    lib = json.loads((REPO / "data/library.json").read_text(encoding="utf-8"))
+    bad = [g["path"] for g in lib["granthas"]
+           if "/Kavya/" in g["path"] and not g.get("populated")
+           and (REPO / g["path"]).is_file()]
+    assert bad == [], bad

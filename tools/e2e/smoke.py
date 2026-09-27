@@ -53,6 +53,14 @@ PAGES = [
     ("/index.html", "landing (explicit)"),
     ("/render.html?path=Tattvavada/Itara/DasaSahitya/harikathamrutasara", "reader: HKS"),
     ("/render.html?path=Tattvavada/Itara/Kavya/raghavendra_vijaya/sarga_1", "reader: RV sarga 1"),
+    # Rukmiṇīśa Vijaya landed once before at 71% quality -- 287 of its verses
+    # were nothing but a verse number -- and only a screenshot showed it. Two
+    # sargas are walked: the first, and sarga 13, whose opening verse was the
+    # one the OCR ran into a single block with verse 2.
+    ("/render.html?path=Tattvavada/Itara/Kavya/rukminisha_vijaya/sarga_1",
+     "reader: Rukminisha sarga 1"),
+    ("/render.html?path=Tattvavada/Itara/Kavya/rukminisha_vijaya/sarga_13",
+     "reader: Rukminisha sarga 13"),
     ("/kosha2.html", "kosha"),
     ("/vyakarana/dhatu.html", "dhatupatha"),
     ("/vyakarana/ashtadhyayi.html", "ashtadhyayi"),

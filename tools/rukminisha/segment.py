@@ -187,7 +187,62 @@ def read_blocks(pages: dict[int, str]) -> list[dict]:
                 "close": int(close.group(1).translate(DEV_DIGITS)) if close else None,
             })
     mark_regions(stream)
+    split = split_multi_verse_blocks(stream)
+    if len(split) != len(stream):
+        # Splitting can expose a gloss opener that was buried mid-block: at p580
+        # the tail after ॥ ६१ ॥ is 'व्या : नित्यमिति ।', which otherwise
+        # accumulated into verse 62 and made it 637 characters of commentary. So
+        # the regions are marked again over the split stream. Only the first
+        # pass decides what to split, so this settles in two passes.
+        for b in split:
+            b["commentary"] = False
+        mark_regions(split)
+        stream = split
     return stream, unknown
+
+
+def split_multi_verse_blocks(stream: list[dict]) -> list[dict]:
+    """Split a block that holds more than one verse at its internal ॥ N ॥.
+
+    The OCR occasionally runs two verses into one block: p474 holds sarga 13's
+    first TWO verses as `A ॥ १ ॥ B ॥ २ ॥`, and only verse 2 could be addressed
+    because only the last marker closes the block. There are 4 such blocks in
+    the book and all 4 split into pieces that are themselves verse-shaped, so
+    the split is a measurement rather than a guess.
+
+    It runs AFTER mark_regions and touches only blocks outside a gloss. A gloss
+    quotes numbers in passing, and splitting one would end its region early --
+    which is the failure this whole rewrite exists to undo.
+    """
+    out: list[dict] = []
+    for b in stream:
+        pieces = None
+        if not b["commentary"] and b["bare"] is None:
+            cuts = list(VERSE_NUM.finditer(b["text"]))
+            if len(cuts) >= 2 or (len(cuts) == 1
+                                  and cuts[0].end() < len(b["text"].rstrip()) - 2):
+                spans, prev = [], 0
+                for m in cuts:
+                    spans.append(b["text"][prev:m.end()])
+                    prev = m.end()
+                tail = b["text"][prev:].strip()
+                if tail:
+                    spans.append(tail)
+                if all(40 <= len(s.strip()) <= 600 for s in spans[:len(cuts)]):
+                    pieces = [s.strip() for s in spans if s.strip()]
+        if not pieces:
+            out.append(b)
+            continue
+        for text in pieces:
+            close = CLOSE_NUM.search(text.rstrip())
+            out.append({**b, "text": text,
+                        "opens": text.startswith("व्या")
+                                 or bool(GLOSS_OPEN_BARE.match(text.replace("\n", " "))),
+                        "close": int(close.group(1).translate(DEV_DIGITS))
+                                 if close else None,
+                        "nums": [int(r.translate(DEV_DIGITS))
+                                 for r in VERSE_NUM.findall(text)]})
+    return out
 
 
 def mark_regions(stream: list[dict]) -> dict:
@@ -209,9 +264,17 @@ def mark_regions(stream: list[dict]) -> dict:
         simply ends there.
     """
     stats = {"opened": 0, "closed_by_marker": 0, "closed_by_bare": 0,
-             "closed_by_reopen": 0, "unclosed_at_end": 0}
+             "closed_by_reopen": 0, "closed_by_sarga": 0, "unclosed_at_end": 0}
     open_at = None
     for i, b in enumerate(stream):
+        # A gloss cannot run from one sarga into the next. When a region is
+        # still open at the boundary its closing ॥ N ॥ was lost, and leaving it
+        # open swallows the first verse of the new sarga: 13.1, 14.1 and 5.1
+        # were all missing for exactly this reason, their mūla sitting in the
+        # scan marked as commentary.
+        if open_at is not None and b["sarga"] != stream[open_at]["sarga"]:
+            open_at = None
+            stats["closed_by_sarga"] += 1
         if open_at is None:
             if b["opens"]:
                 open_at, stats["opened"] = i, stats["opened"] + 1

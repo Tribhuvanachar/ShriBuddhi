@@ -40,23 +40,30 @@ ORDINAL_NAMES = {
     15: "पञ्चदशः", 16: "षोडशः", 17: "सप्तदशः", 18: "अष्टादशः",
     19: "एकोनविंशः",
 }
+# Bibliographic only, and shaped like maṇimañjarī's on the same shelf. The scan
+# URL that was here is an origin breadcrumb: credits belong in the site footer,
+# given once and on the whole, not stamped on every record.
 SOURCE = {
     "edition": "श्रीरुग्मिणीशविजयः — Rugmiṇīśa Vijaya of Śrī Vādirāja Tīrtha, "
                "with the Gurubhāvaprakāśikā ṭīkā of Śrī Nārāyaṇa Bhaṭṭa; "
                "edited by Vidwan Sandeshacharya",
-    "scan": "https://archive.org/details/sri-rugminisha-vijaya-of-vadiraja-tirtha-"
-            "with-the-commentary-gurubhavaprakashika",
     "ocr": "Sarvam Document AI, 725 pages; segmented by tools/rukminisha/segment.py",
 }
 
 
 def commentary_index(stream: list[dict]) -> dict:
-    """Commentary blocks keyed by the (sarga, verse) they gloss."""
+    """The whole gloss on each verse, keyed by the (sarga, verse) it glosses.
+
+    Assembled from the gloss REGIONS, not from blocks carrying a number. The
+    gloss on one verse runs over several blocks and across page breaks, and the
+    ॥ N ॥ that closes it is on the last block only, so keying on the numbers a
+    block happens to contain both split one gloss across several verses and
+    attached it to whatever verses it quoted in passing.
+    """
     out = collections.defaultdict(list)
-    for b in stream:
-        if b["commentary"] and b["sarga"]:
-            for n in b["nums"]:
-                out[(b["sarga"], n)].append(b)
+    for opened, closed, n, sarga in seg.gloss_regions(stream):
+        if sarga and n >= 1:
+            out[(sarga, n)].extend(stream[opened:closed + 1])
     return out
 
 
@@ -89,9 +96,14 @@ def build(pages: dict[int, str]) -> tuple[dict, dict]:
                 entry["provenance"] = {
                     "addressed_by": rec["how"],
                     "note": ("verse number not legible in the scan; placed by "
-                             + ("position between its numbered neighbours"
-                                if rec["how"] == "position"
-                                else "the pratīka the commentary quotes")),
+                             + {"gloss-close":
+                                "the number its commentary closes with, the "
+                                "commentary being printed directly beneath it",
+                                "position":
+                                "position between its numbered neighbours",
+                                "pratika":
+                                "the pratīka the commentary quotes",
+                                }.get(rec["how"], rec["how"])),
                     "page": rec.get("page"),
                 }
                 stats["inferred"] += 1

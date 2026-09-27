@@ -8,7 +8,7 @@ section, or darshana/vedanta/advaita/shankara_bhashya/**) therefore stays invisi
 here. This tool scans the data tree and appends any data.json that is missing,
 with populated = (it has content). Safe to run repeatedly; run AFTER an importer.
 """
-import json, os, glob, datetime
+import argparse, json, os, glob, datetime
 
 # Probe for the nested layout by the nested path itself. The old test asked
 # whether 'data' existed, which is true exactly when the data is NOT under
@@ -32,15 +32,47 @@ NOT_A_GRANTHA = {
 
 
 def item_count(data):
+    """How many units a leaf holds. MUST agree with audit_library.py's
+    item_count(), which is the canonical one.
+
+    It did not. This version looked only at 'items', so every leaf on the
+    Kavya shelf -- {metadata, shlokas: {"1": ..., "2": ...}} -- counted 0 and
+    was registered populated=false. A leaf registered that way renders as
+    "Not Available Yet", which is indistinguishable from a deliberate hold, so
+    nothing downstream ever flags it: Rukminisha Vijaya's 1,171 verses and
+    Nyaya Sudha's 27,413 units were both invisible for exactly this reason.
+    The two comments promising these functions were kept in sync outlasted the
+    fact by months, which is why this one names the failure instead.
+    """
+    if not isinstance(data, dict):
+        return 0
     # A layer split into scholar-sized parts (tools/split_grantha_layer.py)
-    # has no 'items'/'units' of its own at this path -- see audit_library.py's
-    # item_count() for the same check.
+    # has no units of its own at this path, but declares the true total.
     if data.get('schema') == 'grantha_layer_v2_index':
         return data.get('units_total', 0)
-    items = data.get('items', [])
-    if items and isinstance(items[0], dict) and isinstance(items[0].get('shlokas'), list):
+    items = data.get('items')
+    if isinstance(items, list) and items and isinstance(items[0], dict) \
+            and isinstance(items[0].get('shlokas'), list):
         return sum(len(it.get('shlokas', [])) for it in items)
-    return len(items)
+    for key in ('items', 'shlokas', 'compositions', 'entries', 'units'):
+        value = data.get(key)
+        if isinstance(value, (list, dict)):
+            return len(value)
+    return 0
+
+
+def title_of(data):
+    """The leaf's own title, so a new entry is not left with title: null.
+
+    core.js falls back to the path when the title is null, which shows the
+    reader a folder name like 'sarga_11' where the shelf beside it reads
+    'Maṇimañjarī सर्गः 11'."""
+    for holder in (data.get('metadata'), data):
+        if isinstance(holder, dict):
+            t = holder.get('title')
+            if isinstance(t, str) and t.strip():
+                return t.strip()
+    return None
 
 
 # View-By facet metadata (see PENDING.md's 25 Aug Pancharatra pass) --
@@ -68,7 +100,20 @@ def source_of(data):
     return source or None
 
 
-def main():
+def main(argv=None):
+    ap = argparse.ArgumentParser(description=__doc__)
+    # Registering EVERYTHING the tree happens to contain is not always right.
+    # data/.../brahma_sutra/ holds 13 unregistered layers that look like hidden
+    # content and are actually a second copy of brahma_sutra_bhashya/, which is
+    # registered already; sweeping them in would put the Brahma Sutra in the
+    # library twice. So a run that means to land one work can say so.
+    ap.add_argument('--only', action='append', default=None, metavar='SUBSTRING',
+                    help='register only catalog paths containing this '
+                         '(repeatable); default registers everything missing')
+    ap.add_argument('--dry-run', action='store_true',
+                    help='report what would be added and write nothing')
+    args = ap.parse_args(argv)
+
     lib = json.load(open(LIB, encoding='utf-8'))
     granthas = lib.setdefault('granthas', [])
     known = {g['path'] for g in granthas}
@@ -88,16 +133,21 @@ def main():
         catalog = f"data/{rel}"
         if catalog in known or catalog in NOT_A_GRANTHA:
             continue
+        if args.only and not any(frag in catalog for frag in args.only):
+            continue
         try:
             data = json.load(open(fp, encoding='utf-8'))
             n = item_count(data)
             facets = facets_of(data)
             source = source_of(data)
         except Exception:
+            data = None
             n = 0
             facets = None
             source = None
-        entry = {"path": catalog, "populated": n > 0, "title": None, "addedAt": today}
+        entry = {"path": catalog, "populated": n > 0,
+                 "title": title_of(data) if isinstance(data, dict) else None,
+                 "addedAt": today}
         if facets:
             entry["facets"] = facets
         if source:
@@ -106,6 +156,9 @@ def main():
         known.add(catalog)
         added += 1
         print(f"  + {catalog} (populated={n > 0})")
+    if added and args.dry_run:
+        print(f"register_layers: {added} would be added (dry run, nothing written)")
+        return
     if added:
         # library.json's own convention is 2-space indent -- writing with
         # anything else (the original indent=1 here) reformats every line

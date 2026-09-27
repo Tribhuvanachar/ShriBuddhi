@@ -177,6 +177,45 @@ def test_a_gloss_without_va_still_opens_a_region():
     assert rv.segment(pages)["verses_found"] == 0
 
 
+def test_a_block_holding_two_verses_is_split_at_the_inner_marker():
+    """p474 holds sarga 13's first TWO verses as `A ॥ १ ॥ B ॥ २ ॥`, so only
+    verse 2 could be addressed -- only the last marker closes a block."""
+    a = "प्रथमश्लोकस्य पाठः अत्र वर्तते सुदीर्घः"
+    b = "द्वितीयश्लोकस्य पाठोऽत्र वर्तते सुदीर्घतरः"
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", f"{a} ॥ १ ॥ {b} ॥ २ ॥"))}
+    r = rv.segment(pages)
+    assert r["verses_found"] == 2
+    assert r["verses"][(1, 1)]["text"].startswith("प्रथम")
+    assert r["verses"][(1, 2)]["text"].startswith("द्वितीय")
+
+
+def test_a_gloss_opener_exposed_by_the_split_is_not_a_verse():
+    """At p580 the tail after ॥ ६१ ॥ is 'व्या : नित्यमिति ।'. Left as verse
+    material it made verse 62 into 637 characters of commentary, so the regions
+    are marked again over the split stream."""
+    v = "एतच्छ्लोकस्य पाठोऽत्र विद्यते पर्याप्तदीर्घः"
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", f"{v} ॥ ६१ ॥ व्या : नित्यमिति । the gloss"),
+                     ("paragraph", "the gloss runs on and closes ॥ ६१ ॥"),
+                     ("paragraph", "मूलं द्वितीयम् अत्र वर्तते सुदीर्घम् ॥ ६२ ॥"))}
+    r = rv.segment(pages)
+    assert r["verses"][(1, 61)]["text"] == f"{v} ॥ ६१ ॥"
+    assert not r["verses"][(1, 62)]["text"].lstrip().startswith("व्या")
+    assert "नित्यमिति" not in r["verses"][(1, 62)]["text"]
+
+
+def test_a_gloss_may_not_run_across_a_sarga_boundary():
+    """An unclosed region at the boundary swallowed the first verse of the next
+    sarga -- 13.1, 14.1 and 5.1 were all missing for that reason."""
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", "व्या : a gloss whose closing marker is lost")),
+             2: page(("header", "द्वितीयः सर्गः"),
+                     ("paragraph", "the first verse of the second sarga ॥ १ ॥"))}
+    r = rv.segment(pages)
+    assert r["verses"][(2, 1)]["text"] == "the first verse of the second sarga ॥ १ ॥"
+
+
 # --- the closing colophon -------------------------------------------------
 
 def test_a_colophon_is_not_a_verse_and_names_the_sarga_that_ended():
@@ -265,12 +304,12 @@ def test_the_real_staged_book_is_complete_in_pages_and_short_in_verses():
     r = _real_book()
     assert r["pages"] == 725 and r["page_gaps"] == []
     assert len(r["sargas"]) == 19
-    assert r["verses_by_marker"] == 1066
-    assert r["verses_by_gloss_close"] == 88
-    assert r["verses_by_position"] == 11
+    assert r["verses_by_marker"] == 1071
+    assert r["verses_by_gloss_close"] == 89
+    assert r["verses_by_position"] == 10
     assert r["verses_by_pratika"] == 1
-    assert r["verses_found"] == 1166
-    assert r["verses_missing"] == 74
+    assert r["verses_found"] == 1171
+    assert r["verses_missing"] == 68
 
 
 def test_the_addressed_verses_are_actually_verse_SHAPED():
@@ -295,9 +334,9 @@ def test_the_addressed_verses_are_actually_verse_SHAPED():
 
     assert min(lengths) >= 30, "an empty or near-empty verse is back"
     assert sum(1 for n in lengths if n < 40) <= 3, "fragments are back"
-    assert sum(1 for n in lengths if n > 600) <= 1, "prose in the mūla slot"
+    assert max(lengths) <= 450, "prose in the mūla slot"
     plausible = sum(1 for n in lengths if 40 <= n <= 600)
-    assert plausible / len(vs) >= 0.98, f"only {plausible}/{len(vs)} verse-shaped"
+    assert plausible / len(vs) >= 0.99, f"only {plausible}/{len(vs)} verse-shaped"
 
     # Nothing that is recognisably commentary may stand as mūla.
     assert not [v for v in vs.values() if v["text"].lstrip().startswith("व्या")]
@@ -317,7 +356,7 @@ def test_no_verse_number_exceeds_its_sarga_by_a_wide_margin():
     When the colophon of sarga 14 was read as a sarga-15 page, its closing gloss
     ॥ ७० ॥ landed as verse 15.70 in a sarga whose real highest is 62."""
     for s in _real_book()["sargas"]:
-        assert s["highest"] - s["found"] <= 14, s
+        assert s["highest"] - s["found"] <= 7, s
 
 
 # --- the pratika rule -----------------------------------------------------
