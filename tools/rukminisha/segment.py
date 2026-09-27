@@ -121,6 +121,13 @@ def read_blocks(pages: dict[int, str]) -> list[dict]:
                 n = int(tail.group(1).translate(DEV_DIGITS))
                 if n not in nums:
                     nums.append(n)
+            # There is no verse 0. Sarga 10 carries one -- the OCR read some
+            # mark as ॥ ० ॥ -- and it counted as a verse while every consumer
+            # that iterates 1..highest silently skipped it, so the segmenter
+            # reported 1212 verses and the writer emitted 1211. An off-by-one
+            # between two counts of the same text is exactly how Manimanjari
+            # lost a verse, so it is refused here rather than reconciled later.
+            nums = [n for n in nums if n >= 1]
             stream.append({"page": page, "sarga": current, "text": body,
                            "commentary": body.startswith("व्या"), "nums": nums})
     return stream, unknown

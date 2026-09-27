@@ -173,12 +173,14 @@ def test_the_real_staged_book_is_complete_in_pages_and_short_in_verses():
         import pytest
         pytest.skip("Rukminisha Vijaya staging not present")
     r = rv.segment(rv.load_pages(str(d)))
-    assert r["pages"] == 694 and r["page_gaps"] == []
+    # 725 since the front matter (1-18) and back matter (713-725) were
+    # fetched -- 31 pages no run had ever asked for.
+    assert r["pages"] == 725 and r["page_gaps"] == []
     assert len(r["sargas"]) == 19
-    assert r["verses_by_marker"] == 1160
+    assert r["verses_by_marker"] == 1159
     assert r["verses_by_position"] == 35
     assert r["verses_by_pratika"] == 17
-    assert r["verses_found"] == 1212
+    assert r["verses_found"] == 1211
     assert r["verses_missing"] == 29
 
 
@@ -227,3 +229,15 @@ def test_a_commentary_with_no_quoted_first_word_yields_nothing():
     pages = {1: page(("header", "प्रथमः सर्गः"), ("paragraph", "व्या : उक्तोऽर्थः"))}
     stream, _ = rv.read_blocks(pages)
     assert rv.pratika_for(stream, 1, 2) is None
+
+
+def test_there_is_no_verse_zero():
+    """Sarga 10 carries a ॥ ० ॥ the OCR invented. It counted as a verse while
+    every consumer iterating 1..highest skipped it, so the segmenter said 1212
+    and the writer emitted 1211. An off-by-one between two counts of the same
+    text is how Manimanjari lost a verse."""
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", "spurious mark ॥ ० ॥"),
+                     ("paragraph", "अ ॥ १ ॥"))}
+    r = rv.segment(pages)
+    assert [v["verse"] for v in r["verses"].values()] == [1]
