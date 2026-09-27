@@ -571,7 +571,12 @@ function dgeSanitizeVedicAccents(text) {
 // grantha's data is (re)fetched), not instantly on an already-open page,
 // which is an acceptable cost for what should be a rare, deliberate
 // research toggle rather than a startup-time architecture change.
-const DGE_COPYRIGHT_GATED_COMMENTARY_KEYS = { kannada: true };
+// sangrahacandrika, 20 Sep 2026: Bannanje Govindacharya's own commentary on
+// the Sangraha Ramayanam, first published in the 2015 Pejavara Matha edition
+// -- modern, and in copyright in a way the mula and Visvapati Tirtha's
+// Bhavarthadipika beside it are not. Held back rather than left out of the
+// import: holding it back is reversible, publishing it is not.
+const DGE_COPYRIGHT_GATED_COMMENTARY_KEYS = { kannada: true, sangrahacandrika: true };
 
 // 20 Sep 2026, the lead: a gated commentary "will only be shown to a user who
 // has access to the GitHub token -- that is super admin."
@@ -636,7 +641,38 @@ function dgeBuildBhagavataRefLink(bhagavataRef, references) {
 
 function dgeNormalizeGranthaData(data, granthaTitle) {
   if (!data) return data;
-  if (data.shlokas) return data; // already the expected shape (e.g. PNS) -- nothing to do
+  // Already the expected shape (e.g. PNS) -- but NOT nothing to do. This
+  // branch returned the file untouched, which meant the copyright gate
+  // never ran on it: DGE_COPYRIGHT_GATED_COMMENTARY_KEYS is applied in the
+  // flat-items branch and defensively in the nested-shlokas branch, and
+  // this one, the shape every kavya on the shelf uses, walked straight
+  // past it. Found when the Sangraha Ramayanam's modern Sangrahacandrika
+  // was gated and rendered to a reader anyway, pill and all.
+  if (data.shlokas) {
+    if (dgeGatedCommentaryViewer()) return data;
+    const gated = Object.keys(DGE_COPYRIGHT_GATED_COMMENTARY_KEYS)
+      .filter(k => DGE_COPYRIGHT_GATED_COMMENTARY_KEYS[k]);
+    if (!gated.length) return data;
+    const shlokas = {};
+    Object.keys(data.shlokas).forEach(n => {
+      const v = data.shlokas[n];
+      if (!v || !v.commentaries) { shlokas[n] = v; return; }
+      shlokas[n] = Object.assign({}, v, {
+        commentaries: dgeVisibleCommentaries(v.commentaries)
+      });
+    });
+    const meta = Object.assign({}, data.metadata || {});
+    if (meta.availableCommentaries) {
+      const av = {};
+      Object.keys(meta.availableCommentaries).forEach(k => {
+        if (!DGE_COPYRIGHT_GATED_COMMENTARY_KEYS[k]) {
+          av[k] = meta.availableCommentaries[k];
+        }
+      });
+      meta.availableCommentaries = av;
+    }
+    return Object.assign({}, data, { metadata: meta, shlokas });
+  }
 
   // Display labels for known translation/commentary source keys -- falls
   // back to a capitalized version of the key itself for anything not

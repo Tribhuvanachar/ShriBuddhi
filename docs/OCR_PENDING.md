@@ -37,15 +37,15 @@ comfort.
 | `108_upanishad_sarvas__narasimha_1_ttd_kannada` | `vedas/upanishad_sarvasva_kannada` — **25 Upaniṣads, 1,308 mantras**, 1,273 with the Kannada tātparya. Bhārgava Narasiṃha's compilation; boundaries confirmed against the volume's own contents page |
 | `ruksamhita__…_bhaga_1` … `_bhaga_5` | maṇḍala 1 of `vedas/rigveda/shakala_shakha/samhita` — **eight vyākhyānas on 1,186 mantras, 6,082 glosses**, merged in beside the Sāyaṇa already there. Not a grantha of its own: the saṃhitā, its padapāṭha and Sāyaṇa were already in the corpus |
 | `giia_vyakhyana_sangr__…_v1` … `_v4` | `itihasa/bhagavad_gita/adhyaya_01..18` — **the five मूलगीता vyākhyānas on 674 of the 700 verses, 2,290 glosses**, appended to the `bhashya` arrays already there. The other ten of the edition's fifteen were already in the library, matched by author |
+| `sangraha_ramayanam_n__…_dipi_v1`, `_v2` | `Tattvavada/Itara/Kavya/sangraha_ramayana` — **3,513 verses in 64 sargas across all seven kāṇḍas**, 3,254 with Viśvapati Tīrtha's Bhāvārthadīpikā and 2,184 with Bannañje Govindācārya's Saṅgrahacandrikā. A grantha of its own: neither the mūla nor either commentary existed anywhere in the library. The Saṅgrahacandrikā is gated — it is modern, first published in this 2015 edition |
 
 ### Still not landed
 
-One work, two branches. Checked against every spelling of its name that
-occurs in `data/`, not by substring.
+**Nothing.** Every work this section listed has landed. The table is kept
+empty rather than deleted, because the next batch goes here.
 
 | staging branch | what it holds | blocked on |
 |---|---|---|
-| `sangraha_ramayanam_n__…_dipi_v1`, `_v2` | Saṅgraha Rāmāyaṇam with the Bhāvārtha Dīpikā | segmentation |
 
 #### Gītā Vyākhyāna Saṅgraha — landed 27 Sep, five of the fifteen
 
