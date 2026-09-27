@@ -113,6 +113,16 @@ def build(root: Path, lib_titles: dict) -> dict:
         # narrows what counts as a genuine match.
         mula_bases = {b for b in (base_id(it.get("id", "")) for it in mula_items)
                       if b and not NUMERIC_ID_RE.match(b)}
+        # A spine may ALSO carry traditional verse addresses per unit
+        # (`verse_refs`, e.g. ["2.40", "2.41"] -- see
+        # tools/gita_verse_addressing/). A layer that came from outside this
+        # grantha's own crawl has no `SM26:*`-style id to join on and instead
+        # names the verse in its own `ref`; counting those here is what lets
+        # such a layer earn a manifest entry at all. Same rule as the ids: the
+        # overlap is measured, never assumed, so a layer whose refs match
+        # nothing is still reported unjoinable.
+        spine_refs = {r for it in mula_items for r in (it.get("verse_refs") or [])
+                      if isinstance(r, str) and r}
 
         layers = []
         any_matched = False
@@ -120,7 +130,9 @@ def build(root: Path, lib_titles: dict) -> dict:
             tdata, titems = load_items(tdir / "data.json")
             if not titems:
                 continue
-            matched = sum(1 for it in titems if base_id(it.get("id", "")) in mula_bases)
+            matched = sum(1 for it in titems
+                          if base_id(it.get("id", "")) in mula_bases
+                          or (it.get("ref") or "") in spine_refs)
             author = (tdata.get("default_author") or "").strip()
             layers.append({
                 "folder": tdir.name,

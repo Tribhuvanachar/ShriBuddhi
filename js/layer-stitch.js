@@ -138,11 +138,28 @@ window.dgeApplyLayerStitching = async function(slug) {
   // keyed SM13:1 still lands on a spine item stored as SM13:1-2.
   const idMap = {};
   Object.keys(window.stotraData.shlokas).forEach(n => {
-    const uid = window.stotraData.shlokas[n].unitId;
-    if (!uid) return;
-    if (idMap[uid] === undefined) idMap[uid] = n;
-    const base = dgeStitchBaseId(uid);
-    if (idMap[base] === undefined) idMap[base] = n;
+    const sh = window.stotraData.shlokas[n];
+    const uid = sh.unitId;
+    if (uid) {
+      if (idMap[uid] === undefined) idMap[uid] = n;
+      const base = dgeStitchBaseId(uid);
+      if (idMap[base] === undefined) idMap[base] = n;
+    }
+    // A unit's traditional address ("2.47"), where the spine carries one, is
+    // registered ALONGSIDE its id -- never instead of it. This is what lets a
+    // layer from outside the grantha's own crawl join at all: the Gita
+    // Supersite bhashyas and the Gita Vyakhyana Sangraha vyakhyanas are
+    // addressed adhyaya.shloka and share nothing with the DvaitaVedanta
+    // importer's SM26:* counter (measured: 0 of 700 joined by id).
+    //
+    // Deliberately LAST, and still behind the undefined guard, so no verse ref
+    // can ever shadow an id some layer already joins on -- id schemes in this
+    // corpus are not all dot-free (a grantha_layer_v2 unit's id is
+    // `<ref>.p<n>`), so "cannot collide" would be a guess. Worst case a spine
+    // unit forfeits its verse address; it never loses a working join.
+    (sh.verseRefs || []).forEach(ref => {
+      if (ref && idMap[ref] === undefined) idMap[ref] = n;
+    });
   });
 
   dgeStitch = { role: 'mula', granthaRel: parent, granthaTitle: entry.title || '',

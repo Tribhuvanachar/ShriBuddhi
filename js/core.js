@@ -1019,6 +1019,14 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
         // units by this id, while vedicId above is the human-facing
         // reference string when one exists.
         unitId: item.id || '',
+        // Traditional adhyaya.shloka address(es) for this unit, ADDITIONAL to
+        // the id above and never a replacement for it: layer-stitch.js indexes
+        // both, so a Gita spine whose tikas are keyed to an importer's own
+        // counter keeps joining them while also accepting a layer that knows
+        // only the verse ("2.47"). A list because an edition groups verses its
+        // commentary treats together into one unit, and a layer keyed to
+        // EITHER of them must land here (tools/gita_verse_addressing/).
+        verseRefs: Array.isArray(item.verse_refs) ? item.verse_refs : null,
         // Traditional Ashtaka.Adhyaya.Varga.Rik reference — present only for
         // Rigveda Samhita data so far (see ashtaka_ref in the source data.json).
         ashtakaId: item.ashtaka_ref || '',
