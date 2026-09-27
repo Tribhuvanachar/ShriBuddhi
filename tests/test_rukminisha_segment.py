@@ -177,5 +177,53 @@ def test_the_real_staged_book_is_complete_in_pages_and_short_in_verses():
     assert len(r["sargas"]) == 19
     assert r["verses_by_marker"] == 1160
     assert r["verses_by_position"] == 35
-    assert r["verses_found"] == 1195
-    assert r["verses_missing"] == 46
+    assert r["verses_by_pratika"] == 17
+    assert r["verses_found"] == 1212
+    assert r["verses_missing"] == 29
+
+
+# --- the pratika rule -----------------------------------------------------
+# The commentary opens by quoting the verse's first word with इति attached,
+# and the इति is SANDHI'd into that word: नेमुस्ताम् + इति prints नेमुस्तामिति,
+# with no literal इति anywhere in the string, and काचित् + इति prints
+# काचिदिति, voicing the त्. So the quoted form cannot be reversed reliably --
+# but it does not have to be. A three-character shared prefix is enough to
+# tell two candidate blocks apart, which is what position alone could not do.
+
+def test_the_sandhi_d_iti_is_stripped_to_a_usable_stem():
+    assert rv.pratika_stem("नेमुस्तामिति") == "नेमुस्ताम"
+    assert rv.pratika_stem("रोम्णामिति") == "रोम्णाम"
+    assert rv.pratika_stem("काचिदिति") == "काचिद"
+
+
+def test_there_is_no_literal_iti_to_split_on():
+    """The reason a naive r'(.+?)इति' pattern finds nothing."""
+    assert "इति" not in "नेमुस्तामिति"
+
+
+def test_a_pratika_picks_the_right_block_of_two():
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", "अ ॥ १ ॥"),
+                     ("paragraph", "व्या : काचिदिति । gloss ॥ २ ॥"),
+                     ("paragraph", "wrong candidate"),
+                     ("paragraph", "काचिच्च दष्टमृदुलोष्ठपुटी"),
+                     ("paragraph", "इ ॥ ३ ॥"))}
+    r = rv.segment(pages)
+    assert r["verses"][(1, 2)]["text"].startswith("काचिच्च")
+    assert r["verses"][(1, 2)]["how"] == "pratika"
+
+
+def test_it_declines_when_the_pratika_matches_both_candidates():
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", "अ ॥ १ ॥"),
+                     ("paragraph", "व्या : काचिदिति । gloss ॥ २ ॥"),
+                     ("paragraph", "काचिच्च one"),
+                     ("paragraph", "काचिच्च two"),
+                     ("paragraph", "इ ॥ ३ ॥"))}
+    assert rv.segment(pages)["verses_missing"] == 1
+
+
+def test_a_commentary_with_no_quoted_first_word_yields_nothing():
+    pages = {1: page(("header", "प्रथमः सर्गः"), ("paragraph", "व्या : उक्तोऽर्थः"))}
+    stream, _ = rv.read_blocks(pages)
+    assert rv.pratika_for(stream, 1, 2) is None

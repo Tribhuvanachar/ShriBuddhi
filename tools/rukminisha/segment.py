@@ -126,6 +126,32 @@ def read_blocks(pages: dict[int, str]) -> list[dict]:
     return stream, unknown
 
 
+# व्या : <pratika>ति ।  -- the commentary opens by quoting the verse's first
+# word with इति attached. The इति is SANDHI'd into the preceding syllable, so
+# there is no literal इति to split on: नेमुस्ताम् + इति prints नेमुस्तामिति,
+# and काचित् + इति prints काचिदिति, voicing the त्. Reversing that reliably is
+# not possible, but it does not need to be -- the shared prefix is enough to
+# tell two candidate blocks apart.
+PRATIKA_OPEN = re.compile(r"^व्या\s*[:：]\s*([^\s।]+ति)\s*।")
+I_MATRA = "\u093F"
+
+
+def pratika_stem(word: str) -> str:
+    """The quoted word with its sandhi'd इति removed, as far as is safe."""
+    w = word[:-2] if word.endswith("ति") else word
+    return w[:-1] if w.endswith(I_MATRA) else w
+
+
+def pratika_for(stream: list[dict], sarga: int, verse: int) -> str | None:
+    """The stem the commentary on this verse quotes, if it named one."""
+    for b in stream:
+        if b["commentary"] and b["sarga"] == sarga and verse in b["nums"]:
+            m = PRATIKA_OPEN.match(b["text"].replace("\n", " "))
+            if m:
+                return pratika_stem(m.group(1))
+    return None
+
+
 def recover_by_position(stream: list[dict], verses: dict) -> int:
     """Place a verse whose marker the OCR lost entirely.
 
@@ -160,12 +186,65 @@ def recover_by_position(stream: list[dict], verses: dict) -> int:
         # Inventing addressing is worse than leaving a hole, because a hole is
         # visible and a wrong address is not.
         if len(gap) != len(want):
+            # The counts disagree, so position alone cannot say which block is
+            # which. The commentary can: it opens by quoting the verse's first
+            # word. Where exactly one candidate starts with that stem, the
+            # ambiguity is resolved by the edition itself rather than guessed.
+            if len(want) == 1:
+                stem = pratika_for(stream, b["sarga"], want[0])
+                if stem and len(stem) >= 3:
+                    hits = [g for g in gap
+                            if g["text"].replace("\n", " ").lstrip().startswith(stem[:3])]
+                    if len(hits) == 1:
+                        verses[(b["sarga"], want[0])] = {
+                            "sarga": b["sarga"], "verse": want[0],
+                            "page": hits[0]["page"], "text": hits[0]["text"],
+                            "how": "pratika"}
+                        placed += 1
             continue
         for v, g in zip(want, gap):
             verses[(b["sarga"], v)] = {"sarga": b["sarga"], "verse": v,
                                        "page": g["page"], "text": g["text"],
                                        "how": "position"}
             placed += 1
+    return placed
+
+
+def recover_by_pratika_sargawide(stream: list[dict], verses: dict) -> int:
+    """Last pass: the commentary named a first word, but the verse did not sit
+    in the window between its numbered neighbours.
+
+    That happens when the neighbours are themselves unplaced, or when the
+    block order on the page does not follow the verse order. Searching the
+    whole sarga is looser than the windowed pass, so it still demands a UNIQUE
+    hit on a prefix of at least three Devanagari characters and refuses a
+    block already claimed by another verse.
+    """
+    placed = 0
+    claimed = {id(v.get("text")) for v in verses.values()}
+    per_sarga: dict[int, list] = collections.defaultdict(list)
+    for b in stream:
+        if b["sarga"] and not b["commentary"] and not b["nums"]:
+            per_sarga[b["sarga"]].append(b)
+
+    wanted = collections.defaultdict(list)
+    for (sg, n) in verses:
+        wanted[sg].append(n)
+    for sg, got in wanted.items():
+        for v in range(1, max(got) + 1):
+            if (sg, v) in verses:
+                continue
+            stem = pratika_for(stream, sg, v)
+            if not stem or len(stem) < 3:
+                continue
+            hits = [b for b in per_sarga[sg]
+                    if b["text"].replace("\n", " ").lstrip().startswith(stem[:3])
+                    and b["text"] not in
+                    {x["text"] for x in verses.values() if x["sarga"] == sg}]
+            if len(hits) == 1:
+                verses[(sg, v)] = {"sarga": sg, "verse": v, "page": hits[0]["page"],
+                                   "text": hits[0]["text"], "how": "pratika"}
+                placed += 1
     return placed
 
 
@@ -180,7 +259,9 @@ def segment(pages: dict[int, str], recover: bool = True) -> dict:
                               {"sarga": b["sarga"], "verse": n, "page": b["page"],
                                "text": b["text"], "how": "marker"})
     by_marker = len(verses)
-    recovered = recover_by_position(stream, verses) if recover else 0
+    if recover:
+        recover_by_position(stream, verses)
+        recover_by_pratika_sargawide(stream, verses)
 
     per = collections.defaultdict(list)
     for (s, n) in verses:
@@ -200,7 +281,8 @@ def segment(pages: dict[int, str], recover: bool = True) -> dict:
         "unknown_sarga_headers": dict(unknown_headers),
         "sargas": sargas,
         "verses_by_marker": by_marker,
-        "verses_by_position": recovered,
+        "verses_by_position": sum(1 for v in verses.values() if v.get("how") == "position"),
+        "verses_by_pratika": sum(1 for v in verses.values() if v.get("how") == "pratika"),
         "verses_found": sum(s["found"] for s in sargas),
         "verses_missing": sum(len(s["missing"]) for s in sargas),
         "verses": verses,
@@ -229,7 +311,8 @@ def main(argv: list[str] | None = None) -> int:
         flag = "" if not s["missing"] else f"  MISSING {len(s['missing'])}: {s['missing'][:8]}"
         print(f"  sarga {s['sarga']:<3} {s['found']:>4} verses, highest {s['highest']:>3}{flag}")
     print(f"\n{rep['verses_found']} verses addressed "
-          f"({rep['verses_by_marker']} by marker, {rep['verses_by_position']} by position), "
+          f"({rep['verses_by_marker']} by marker, {rep['verses_by_position']} by position, "
+          f"{rep['verses_by_pratika']} by pratika), "
           f"{rep['verses_missing']} missing")
     if args.json:
         out = dict(rep)
