@@ -3,17 +3,30 @@
 Every test here stands for a measurement that came back wrong the first
 time, not for a rule that looked sensible in the abstract.
 """
-import pathlib
 import sys
 
 import pytest
 
-REPO = pathlib.Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(REPO / "tools" / "upanishad_sarvasva"))
-sys.path.insert(0, str(REPO / "tools" / "ocr_common"))
+import importlib.util
+import pathlib
 
-import segment as seg          # noqa: E402
-import write_shelf as shelf    # noqa: E402
+REPO = pathlib.Path(__file__).resolve().parents[1]
+
+
+def _load(name, rel):
+    """Under a name of its own: every segmenter here is ``segment.py``, so a
+    plain import resolves to whichever one reached sys.modules first. The
+    two files landed the same week, and the second one's import silently
+    handed the first one's tests the wrong module -- 21 failures in a file
+    nothing had touched."""
+    spec = importlib.util.spec_from_file_location(name, REPO / rel)
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+sys.path.insert(0, str(REPO / "tools" / "ocr_common"))
+seg = _load("us_segment", "tools/upanishad_sarvasva/segment.py")
+shelf = _load("us_write_shelf", "tools/upanishad_sarvasva/write_shelf.py")
 
 STAGED = REPO / "data/ocr_staging/108_upanishad_sarvas__narasimha_1_ttd_kannada"
 

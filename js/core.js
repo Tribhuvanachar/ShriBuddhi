@@ -658,6 +658,20 @@ function dgeNormalizeGranthaData(data, granthaTitle) {
     // that glosses no single mantra. It rides on the sukta's first mantra
     // under its own key so that mantra's commentary stays its own.
     sayana_sukta: 'सायणभाष्यम् — Sāyaṇa (introduction to the sūkta)',
+    // The other eight vyakhyanas of the Vidyadhisha edition of the
+    // Rksamhita (tools/ruksamhita/), which prints nine in parallel. Sayana
+    // above is the ninth and was already here, so only these eight were
+    // imported -- a second Sayana would have been a duplicate, not a layer.
+    // Madhva's Rgbhashya and the two Dvaita tikas on it stop partway through
+    // mandala 1, which is why their counts are smaller than the rest.
+    rgbhashya: 'ऋग्भाष्यम् — श्रीमदानन्दतीर्थः (Madhva)',
+    rgbhashya_tika: 'ऋग्भाष्यटीका — श्रीजयतीर्थः',
+    mantrarthamanjari: 'मन्त्रार्थमञ्जरी — श्रीराघवेन्द्रतीर्थः',
+    skandasvamin: 'भाष्यम् — श्रीस्कन्दस्वामी',
+    venkatamadhava: 'भाष्यम् — वेङ्कटमाधवाचार्यः',
+    mudgala: 'भाष्यम् — मुद्गलः',
+    siddhanjana: 'सिद्धाञ्जनम् — कपालिशास्त्री',
+    nitimanjari: 'नीतिमञ्जरी — श्रीद्यादेवः',
     wilson: 'Wilson (English Translation, after Sāyaṇa)',
     artha: 'Translation',
     // Word-by-word Kannada anvaya-artha printed under each verse in the

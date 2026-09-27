@@ -35,15 +35,15 @@ comfort.
 | `usha_harna_trivikram__irtha_vadirajacharya_l_s` | `Tattvavada/Itara/Kavya/ushaharana` — **726 verses in nine sargas** with the Rasikarañjanī, 18 declared lacunae |
 | `brhatisahasram_tattvasara_raghunatha_tirtha` | `Tattvavada/Itara/brhatisahasra` — **986 verses** with the Tattvasāra; the work's own numbering reaches 1000, 14 declared lacunae |
 | `108_upanishad_sarvas__narasimha_1_ttd_kannada` | `vedas/upanishad_sarvasva_kannada` — **25 Upaniṣads, 1,308 mantras**, 1,273 with the Kannada tātparya. Bhārgava Narasiṃha's compilation; boundaries confirmed against the volume's own contents page |
+| `ruksamhita__…_bhaga_1` … `_bhaga_5` | maṇḍala 1 of `vedas/rigveda/shakala_shakha/samhita` — **eight vyākhyānas on 1,186 mantras, 6,082 glosses**, merged in beside the Sāyaṇa already there. Not a grantha of its own: the saṃhitā, its padapāṭha and Sāyaṇa were already in the corpus |
 
 ### Still not landed
 
-Three works, eleven branches — all of them multi-volume. Each was checked
-against every spelling of its name that occurs in `data/`, not by substring.
+Two works, six branches — both multi-volume. Each was checked against every
+spelling of its name that occurs in `data/`, not by substring.
 
 | staging branch | what it holds | blocked on |
 |---|---|---|
-| `ruksamhita__…_bhaga_1` … `_bhaga_5` | Ṛksaṃhitā, 9 vyākhyānas, 5 volumes | segmentation; no counterpart anywhere under `data/vedas/rigveda` |
 | `giia_vyakhyana_sangr__…_v1` … `_v4` | Gītā Vyākhyāna Saṅgraha, commentaries on the Bhagavad Gītā, 4 volumes | segmentation |
 | `sangraha_ramayanam_n__…_dipi_v1`, `_v2` | Saṅgraha Rāmāyaṇam with the Bhāvārtha Dīpikā | segmentation |
 
@@ -54,7 +54,7 @@ each needed four or five structural facts that were invisible from any single
 page and silent when got wrong. See the commit messages for
 `tools/rukminisha/segment.py` and `tools/venkatesha/segment.py`.
 
-### Three things worth carrying to the next one
+### Four things worth carrying to the next one
 
 **Check both danda forms.** The Veṅkaṭeśa Māhātmya closes 1,280 verses with
 ॥ N ॥ (U+0965) and 584 with ।। N ।। — two U+0964 single dandas. Reading only
@@ -74,6 +74,18 @@ alternative beside `ಅರ್ಥ`, and in the 108 Upaniṣad Sarvasva searching 
 in a vowel that swallows the उ — ಮಾಂಡೂಕ್ಯ + ಉಪನಿಷತ್ is written ಮಾಂಡೂಕ್ಯೋಪನಿಷತ್.
 Match from inside the word. The failure is silent and total: a regex that
 matches nothing reports the same "0 found" as a book that genuinely has none.
+
+**Check what is already on the shelf before segmenting a single page.** The
+Ṛksaṃhitā was listed here as having "no counterpart anywhere under
+`data/vedas/rigveda`". That was wrong in the way that costs most: the saṃhitā
+was already there complete with its padapāṭha and svara, and **Sāyaṇa — one of
+the edition's own nine vyākhyānas — was already on 1,337 of the 1,370 mantras
+it covers**. Nine vyākhyānas to import were really seven, and the text they
+attach to did not need importing at all. Checked properly, that meant the work
+could be merged into the maṇḍala as further commentary keys rather than landed
+as a second copy of the Ṛgveda. Grepping for a work's *name* only ever answers
+whether the name is there; what matters is whether the content is, under
+whatever name someone else gave it.
 
 ### Maṇimañjarī — landed 21 Sep
 

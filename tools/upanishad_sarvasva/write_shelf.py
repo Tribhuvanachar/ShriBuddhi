@@ -31,13 +31,30 @@ that has one, rather than left for someone to notice.
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import pathlib
 import sys
 
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "ocr_common"))
-import segment as seg          # noqa: E402
+HERE = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE.parent / "ocr_common"))
 import shelf_writer as W       # noqa: E402
+
+
+def _load(name: str, path: pathlib.Path):
+    """Load a module under a name of its own.
+
+    Every segmenter in this tree is called ``segment.py``, so a plain
+    ``import segment`` resolves to whichever one reached sys.modules first.
+    Under pytest that is a different file in a different directory, and the
+    whole suite fails somewhere else entirely.
+    """
+    spec = importlib.util.spec_from_file_location(name, path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+seg = _load("upanishad_sarvasva_segment", HERE / "segment.py")
 
 TARGET = pathlib.Path("data/vedas/upanishad_sarvasva_kannada")
 STAGED = "data/ocr_staging/108_upanishad_sarvas__narasimha_1_ttd_kannada"
