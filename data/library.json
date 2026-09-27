@@ -1628,14 +1628,6 @@
       }
     },
     {
-      "path": "data/Tattvavada/Itara/YuktiMallika/data.json",
-      "populated": true,
-      "title": "Yuktimallika",
-      "facets": {
-        "default_author": "Sri Vadiraja Tirtha"
-      }
-    },
-    {
       "path": "data/Tattvavada/Itara/Kavya/krishnacharitra_manjari/mula/data.json",
       "populated": true,
       "title": "श्रीकृष्णचरित्रमञ्जरी",
@@ -1657,7 +1649,7 @@
     {
       "path": "data/Tattvavada/Itara/yukti_mallika/mula/data.json",
       "populated": true,
-      "title": "Mula",
+      "title": "युक्तिमल्लिका",
       "facets": {
         "default_author": "श्रीमद्वादिराजतीर्थः"
       }
@@ -1665,7 +1657,7 @@
     {
       "path": "data/Tattvavada/Itara/yukti_mallika/tika_satyapramoda/data.json",
       "populated": true,
-      "title": "Tika Satyapramoda",
+      "title": "सत्यप्रमोदटीका",
       "facets": {
         "default_author": "श्रीसत्यप्रमोदतीर्थः"
       }
@@ -1673,9 +1665,49 @@
     {
       "path": "data/Tattvavada/Itara/yukti_mallika/tika_surottama/data.json",
       "populated": true,
-      "title": "Tika Surottama",
+      "title": "सुरोत्तमटीका",
       "facets": {
         "default_author": "श्रीसुरोत्तमतीर्थः"
+      }
+    },
+    {
+      "path": "data/Tattvavada/Itara/yukti_mallika/tika_anuvada/data.json",
+      "populated": true,
+      "title": "अनुवादः",
+      "facets": {
+        "default_author": "श्रीमद्वादिराजतीर्थः"
+      }
+    },
+    {
+      "path": "data/Tattvavada/Itara/yukti_mallika/tika_artha/data.json",
+      "populated": true,
+      "title": "अर्थः",
+      "facets": {
+        "default_author": "श्रीमद्वादिराजतीर्थः"
+      }
+    },
+    {
+      "path": "data/Tattvavada/Itara/yukti_mallika/tika_bhavavilasini/data.json",
+      "populated": true,
+      "title": "भावविलासिनी",
+      "facets": {
+        "default_author": "श्रीसुरोत्तमतीर्थः"
+      }
+    },
+    {
+      "path": "data/Tattvavada/Itara/yukti_mallika/tika_mulantara/data.json",
+      "populated": true,
+      "title": "मूलम् (पाठान्तरम्)",
+      "facets": {
+        "default_author": "श्रीमद्वादिराजतीर्थः"
+      }
+    },
+    {
+      "path": "data/Tattvavada/Itara/yukti_mallika/tika_vivarane/data.json",
+      "populated": true,
+      "title": "विवरणम्",
+      "facets": {
+        "default_author": "श्रीमद्वादिराजतीर्थः"
       }
     },
     {
