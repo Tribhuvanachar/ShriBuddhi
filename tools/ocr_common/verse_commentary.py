@@ -42,7 +42,7 @@ import staged as S  # noqa: E402
 
 
 def segment(pages: dict[int, str],
-            section_of: Callable[[str, str], int | None],
+            section_of: Callable[[str, str], int | None] | None = None,
             *,
             max_verse: int = 200,
             min_verse: int = 25,
@@ -68,12 +68,15 @@ def segment(pages: dict[int, str],
     stats: collections.Counter = collections.Counter()
     slots: dict[tuple[int, int], list[dict]] = collections.defaultdict(list)
     loose: dict[tuple[int, int], list[dict]] = collections.defaultdict(list)
-    section = None
+    # A work whose numbering runs straight through has one section, and
+    # section_of is left out: the Bṛhatīsahasram numbers 1 to 1139 across
+    # प्राग्भागः, three तृचाशीति sections and उत्तरभागः without restarting.
+    section = None if section_of else 1
     running_max = 0
     pending: list[dict] = []
 
     for b in stream:
-        s = section_of(b["kind"], b["text"])
+        s = section_of(b["kind"], b["text"]) if section_of else None
         if s is not None:
             if s != section:
                 section, running_max, pending = s, 0, []

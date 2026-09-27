@@ -87,3 +87,9 @@ def test_ushaharana_is_on_the_shelf():
     """726 verses in nine sargas with the Rasikarañjanī."""
     allow = shelf().get("allow") or []
     assert any(a.endswith("Kavya/ushaharana") for a in allow), allow
+
+
+def test_brhatisahasra_is_on_the_shelf():
+    """986 of the work's 1000 verses, with the Tattvasāra."""
+    allow = shelf().get("allow") or []
+    assert any(a.endswith("Itara/brhatisahasra") for a in allow), allow
