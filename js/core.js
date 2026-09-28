@@ -398,14 +398,33 @@ window.dgeConfigOverridesPromise = Promise.all([
     return ov;
   });
 
-// Fetched once, shared with library.js so the browser modal doesn't need
-// a second network round trip for the same file. Cache-busted with both
-// cache:'no-store' AND a timestamp query param — without this, a browser
-// (or GitHub Pages' CDN) can keep serving library.json from BEFORE your
-// most recent content update indefinitely, making newly-added/newly-
-// populated granthas silently invisible even though the real files are
-// correctly on GitHub.
-window.dgeLibraryCatalogPromise = fetch('data/library.json?t=' + Date.now(), { cache: 'no-store' })
+// The content stamp for the big catalogue files (tools/stamp_catalog_version.py).
+// ~150 bytes, fetched uncached; everything it names is then fetched at
+// `?v=<hash>` and cached normally.
+//
+// This used to be `?t=' + Date.now()` with cache:'no-store' on library.json
+// itself, which meant re-downloading 521 KB on EVERY page view, for every
+// reader, forever -- the reason the library drawer sat on "loading" and got
+// slower as the corpus grew. The cache-busting was guarding a real failure
+// (a CDN serving a catalogue from before the last content push hides a new
+// grantha completely), so it could not simply be deleted; a content hash
+// keeps that guarantee and pays 150 bytes for it instead of 521 KB.
+// Created by whichever of core.js / layer-stitch.js the page loads first --
+// render.html loads layer-stitch.js BEFORE core.js, so neither can assume it
+// owns this, and both must reuse an existing promise rather than firing a
+// second request for the same 150 bytes.
+window.dgeCatalogVersionPromise = window.dgeCatalogVersionPromise ||
+  fetch('data/catalog-version.json?t=' + Date.now(), { cache: 'no-store' })
+    .then(res => res.ok ? res.json() : null)
+    .catch(() => null);
+
+// Shared with library.js so the browser modal needs no second round trip.
+// Falls back to the old always-fresh fetch if the stamp is missing, so a
+// deployment that has not run the stamper yet is slow, never wrong.
+window.dgeLibraryCatalogPromise = window.dgeCatalogVersionPromise
+  .then(v => (v && v.library)
+    ? fetch('data/library.json?v=' + v.library)
+    : fetch('data/library.json?t=' + Date.now(), { cache: 'no-store' }))
   .then(res => res.ok ? res.json() : null)
   .catch(() => null);
 

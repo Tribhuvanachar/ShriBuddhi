@@ -34,7 +34,20 @@ window.DGE_VERSIONS['layer-stitch.js'] = 'v1.3 (volume navigator: a grantha the 
 // dgeLibraryCatalogPromise (core.js): GitHub Pages' CDN happily serves a
 // stale manifest forever otherwise. Small file (~150 KB), only granthas
 // with at least one joinable layer are in it.
-window.dgeLayerManifestPromise = fetch('data/layer_manifest.json?t=' + Date.now(), { cache: 'no-store' })
+// Same treatment as library.json (see core.js's dgeLibraryCatalogPromise):
+// keyed on the file's own content hash, so it is cached between page views
+// instead of re-fetched every time, and still never served stale.
+// See core.js's comment on this promise: created here when layer-stitch.js
+// loads first, which in render.html it does.
+window.dgeCatalogVersionPromise = window.dgeCatalogVersionPromise ||
+  fetch('data/catalog-version.json?t=' + Date.now(), { cache: 'no-store' })
+    .then(res => res.ok ? res.json() : null)
+    .catch(() => null);
+
+window.dgeLayerManifestPromise = window.dgeCatalogVersionPromise
+  .then(v => (v && v.manifest)
+    ? fetch('data/layer_manifest.json?v=' + v.manifest)
+    : fetch('data/layer_manifest.json?t=' + Date.now(), { cache: 'no-store' }))
   .then(res => res.ok ? res.json() : null)
   .catch(() => null);
 

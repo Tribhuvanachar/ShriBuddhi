@@ -233,10 +233,17 @@ document.addEventListener('click', ev => {
   hd.querySelector('.tw').textContent = hide ? '▸' : '▾';
 });
 
-Promise.all([
-  fetch('data/library.json').then(r=>r.json()),
-  fetch('admin/config/library-overrides.json').then(r=>r.ok?r.json():null).catch(()=>null)
-]).then(([lib, ov]) => {
+// library.json is 521 KB. Ask the ~150-byte stamp for its content hash first,
+// then request it at a URL that only changes when the file does, so a reader
+// who opens this page twice downloads it once (tools/stamp_catalog_version.py).
+// No stamp -> fall back to the plain path, which is slow but never stale.
+fetch('data/catalog-version.json?t=' + Date.now(), { cache: 'no-store' })
+  .then(r => r.ok ? r.json() : null).catch(() => null)
+  .then(v => Promise.all([
+    fetch(v && v.library ? 'data/library.json?v=' + v.library : 'data/library.json').then(r=>r.json()),
+    fetch('admin/config/library-overrides.json').then(r=>r.ok?r.json():null).catch(()=>null)
+  ]))
+  .then(([lib, ov]) => {
   ov = ov || {};
   CUSTOM = ov.labels || {};
   onShelf = makeShelfTest(ov.shelf);
@@ -251,7 +258,7 @@ Promise.all([
   });
   $('count').textContent = n.toLocaleString('en-IN') + ' texts';
   drawTree('');
-}).catch(() => { $('tree').innerHTML = '<div class="empty">The library could not be loaded.</div>'; });
+  }).catch(() => { $('tree').innerHTML = '<div class="empty">The library could not be loaded.</div>'; });
 
 $('find').addEventListener('input', e => { if (TREE) drawTree(e.target.value.trim().toLowerCase()); });
 
