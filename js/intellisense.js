@@ -576,7 +576,7 @@
     // there either, the fetch 404s, this resolves to null, and the popover
     // simply has no अर्थः section, with the analysis and the related words
     // unaffected.
-    const CDN = 'https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@66c7895fa7b1f30150ebbf74ea67abc28909e550/_wordnet';
+    const CDN = 'https://cdn.jsdelivr.net/gh/Tribhuvanachar/Sarvamula@3c4d0d8e5c3fd03788bebe14a2da24c704fa5a12/_wordnet';
     const set = window.WORDNET_DATA_BASE;
     const cdn = (set === undefined ? CDN : (set || '')).replace(/\/+$/, '');
     let url;

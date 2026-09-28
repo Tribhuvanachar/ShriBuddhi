@@ -57,12 +57,12 @@ const appConfig = {
   // limit left. GitHub Pages serves only main, so a branch is enough to keep
   // it off the site while jsDelivr still serves it. Set this to '' to read a
   // local build from data/_wordnet/ instead.
-  wordnetDataBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@66c7895fa7b1f30150ebbf74ea67abc28909e550/_wordnet",
+  wordnetDataBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/Sarvamula@3c4d0d8e5c3fd03788bebe14a2da24c704fa5a12/_wordnet",
   // The Kavya corpus js/kavya.js reads -- 24 works, 49 layers, 67,169
   // entries, 50 MB -- on this repo's "kavya-dist" branch for the same
   // reason. kavya.html carries the same URL as its own default, since it
   // does not load this file.
-  kavyaDataBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@75ef2103bc07770ccb861497c32636d706c09fa4",
+  kavyaDataBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/Sarvamula@3c4d0d8e5c3fd03788bebe14a2da24c704fa5a12",
   // The corpus-search index js/dge-search.js reads -- 983 granthas, 104,870
   // units. Rebuilding it with the extract_text fix (the one that made
   // every shloka-based grantha index its verses rather than nothing) took the
@@ -89,7 +89,7 @@ const appConfig = {
   // (cdn.jsdelivr.net fetches from the headless browser were dropped by the
   // dev proxy, curl to the same URL was fine) -- worth a quick real-browser
   // check next time this file is touched.
-  searchIndexBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@838335f8152654c37ee1c256c36b6ff6aab3927f",
+  searchIndexBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/Sarvamula@3c4d0d8e5c3fd03788bebe14a2da24c704fa5a12",
   // THE CORPUS SWITCH. Empty (the default, and what is live today) means
   // the reader fetches data/<path>/data.json as a public static file,
   // exactly as it always has. Set it to the corpusFile function's base URL
