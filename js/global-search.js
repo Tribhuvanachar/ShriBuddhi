@@ -564,7 +564,19 @@
             return fb === u ? null : attempt(fb);
           });
         };
-    gsFetchJson(gsOvUrl)
+    // Exposed so a direct grantha render (core.js's own go-live-shelf check,
+    // further down this same page's script list) can AWAIT the shelf
+    // actually being set instead of racing this fetch. That race was real
+    // even before the fallback above existed -- core.js's shelf check has
+    // always run synchronously inside its own unrelated promise chain,
+    // trusting dgeSetShelfConfig to have already been called by sheer
+    // timing luck -- but a same-origin fetch that always 404s once before
+    // retrying (which it now does on every clean-published page load,
+    // never just occasionally) made that luck run out close to every time:
+    // measured directly, a rebuild that should have been identical to one
+    // that correctly blocked an off-shelf text instead let it straight
+    // through.
+    window.dgeShelfConfigPromise = gsFetchJson(gsOvUrl)
       .then(function (ov) {
         gsSearchHidden = (ov && Array.isArray(ov.searchHidden)) ? ov.searchHidden : [];
         gsMoves = (ov && ov.moves && typeof ov.moves === 'object') ? ov.moves : {};
@@ -572,8 +584,9 @@
         // already handed it the config, but ashtadhyayi.html/dhatu.html load
         // neither, so this hands it over there. Idempotent either way.
         if (typeof window.dgeSetShelfConfig === 'function') window.dgeSetShelfConfig(ov && ov.shelf);
+        return ov && ov.shelf;
       })
-      .catch(function () { gsSearchHidden = []; });
+      .catch(function () { gsSearchHidden = []; return null; });
   } catch (e) { gsSearchHidden = []; }
 
   // Mirrors dgeEffectiveDisplayPath() in library.js: longest matching source

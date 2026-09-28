@@ -1310,7 +1310,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. RESOLVE VIA THE LIBRARY CATALOG, THEN FETCH THE GRANTHA DATASET
   // Wait on the config overrides too, so any customised text is already
   // in place before the first render rather than racing it.
-  Promise.all([window.dgeLibraryCatalogPromise, window.dgeConfigOverridesPromise])
+  //
+  // Also waits on the go-live shelf (global-search.js's
+  // dgeShelfConfigPromise, set as a side effect of that promise's own
+  // .then -- its RESOLVED VALUE is never read here, only its completion).
+  // Without this the shelf check just below raced dgeSetShelfConfig on
+  // sheer timing luck, always had, and on a cleanly published site -- where
+  // the shelf's primary admin/config/ fetch now 404s before falling back to
+  // config/ EVERY time, not occasionally -- that luck ran out close to
+  // every time: measured directly, an off-shelf text that this exact code
+  // correctly blocked in one build came straight through in the next,
+  // same content, same server, no change but the network timing of a
+  // fetch this code was never actually waiting for.
+  Promise.all([window.dgeLibraryCatalogPromise, window.dgeConfigOverridesPromise,
+              window.dgeShelfConfigPromise || Promise.resolve(null)])
     .then(([library]) => {
     let entry = null;
     if (library && Array.isArray(library.granthas)) {
