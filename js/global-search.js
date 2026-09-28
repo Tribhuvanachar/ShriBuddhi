@@ -544,8 +544,27 @@
   // go-live shelf pointless.
   var gsMoves = {};
   try {
-    fetch(new URL('admin/config/library-overrides.json', GS_ROOT).href, { cache: 'no-store' })
-      .then(function (r) { return r.ok ? r.json() : null; })
+    var gsOvUrl = new URL('admin/config/library-overrides.json', GS_ROOT).href;
+    // Falls back to the repo-root config/ mirror when admin/config/ 404s --
+    // the shape a cleanly published site is in (see core.js's
+    // dgeFetchPublicJson, which this reuses when it's already been loaded,
+    // and otherwise duplicates inline since this file also runs standalone
+    // on pages that never load core.js, e.g. vyakarana/dhatu.html). Without
+    // it, search on a real publish returned every off-shelf hit too -- the
+    // one leak that makes the whole go-live shelf pointless.
+    var gsFetchJson = (typeof window.dgeFetchPublicJson === 'function')
+      ? window.dgeFetchPublicJson
+      : function (u) {
+          var attempt = function (uu) {
+            return fetch(uu, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+          };
+          return attempt(u).then(function (v) {
+            if (v !== null) return v;
+            var fb = u.replace('/admin/config/', '/config/').replace('/admin/content/', '/content/');
+            return fb === u ? null : attempt(fb);
+          });
+        };
+    gsFetchJson(gsOvUrl)
       .then(function (ov) {
         gsSearchHidden = (ov && Array.isArray(ov.searchHidden)) ? ov.searchHidden : [];
         gsMoves = (ov && ov.moves && typeof ov.moves === 'object') ? ov.moves : {};

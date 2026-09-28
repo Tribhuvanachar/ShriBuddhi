@@ -237,11 +237,23 @@ document.addEventListener('click', ev => {
 // then request it at a URL that only changes when the file does, so a reader
 // who opens this page twice downloads it once (tools/stamp_catalog_version.py).
 // No stamp -> fall back to the plain path, which is slow but never stale.
+// Falls back to the repo-root config/library-overrides.json when
+// admin/config/library-overrides.json 404s -- the shape a cleanly published
+// site is in (admin/ is excluded from publish on purpose). This page loads
+// no other script that already solves this, so the fallback is local.
+function fetchOverridesJson(url) {
+  const attempt = (u) => fetch(u, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
+  return attempt(url).then(v => {
+    if (v !== null) return v;
+    const fb = url.replace('/admin/config/', '/config/').replace('admin/config/', 'config/');
+    return fb === url ? null : attempt(fb);
+  });
+}
 fetch('data/catalog-version.json?t=' + Date.now(), { cache: 'no-store' })
   .then(r => r.ok ? r.json() : null).catch(() => null)
   .then(v => Promise.all([
     fetch(v && v.library ? 'data/library.json?v=' + v.library : 'data/library.json').then(r=>r.json()),
-    fetch('admin/config/library-overrides.json').then(r=>r.ok?r.json():null).catch(()=>null)
+    fetchOverridesJson('admin/config/library-overrides.json')
   ]))
   .then(([lib, ov]) => {
   ov = ov || {};

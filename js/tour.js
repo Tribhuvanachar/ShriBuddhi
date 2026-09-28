@@ -32,6 +32,20 @@
     catch (e) { return '../admin/content/tour.json'; }
   }
 
+  // Falls back to the repo-root content/tour.json when admin/content/tour.json
+  // 404s -- the shape a cleanly published site is in (admin/ is excluded on
+  // purpose). Only ever runs on render.html, where core.js loads first, but
+  // guarded the same defensive way the rest of this codebase already is.
+  function fetchTourJson(url) {
+    if (typeof window.dgeFetchPublicJson === 'function') return window.dgeFetchPublicJson(url);
+    const attempt = (u) => fetch(u, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    return attempt(url).then((v) => {
+      if (v !== null) return v;
+      const fb = url.replace('/admin/content/', '/content/');
+      return fb === url ? null : attempt(fb);
+    });
+  }
+
   const esc = (s) => String(s == null ? '' : s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;')
     .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -165,8 +179,7 @@
   window.dgeStartTour = function () {
     if (el) return;
     const load = cfg ? Promise.resolve(cfg)
-      : fetch(contentUrl() + '?t=' + Date.now(), { cache: 'no-store' })
-          .then(r => (r.ok ? r.json() : null));
+      : fetchTourJson(contentUrl() + '?t=' + Date.now());
     return load.then(function (doc) {
       if (!doc || !Array.isArray(doc.steps) || !doc.steps.length) {
         if (typeof window.showToast === 'function') {
@@ -204,8 +217,7 @@
   // rather than interrupting someone who is evidently already reading.
   function maybeAutoStart() {
     if (window.dgeTourSeen()) return;
-    fetch(contentUrl() + '?t=' + Date.now(), { cache: 'no-store' })
-      .then(r => (r.ok ? r.json() : null))
+    fetchTourJson(contentUrl() + '?t=' + Date.now())
       .then(function (doc) {
         if (!doc || doc.autoStart === false) return;
         cfg = doc;

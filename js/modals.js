@@ -190,9 +190,21 @@ function dgeAboutEsc(s) {
 let dgeHomeContentPromise = null;
 function dgeFetchHomeContent() {
   if (!dgeHomeContentPromise) {
-    dgeHomeContentPromise = fetch('../admin/content/home.json?t=' + Date.now(), { cache: 'no-store' })
-      .then(r => (r.ok ? r.json() : null))
-      .catch(() => null);
+    const url = '../admin/content/home.json?t=' + Date.now();
+    // Falls back to the repo-root content/home.json when admin/content/
+    // 404s -- the shape a cleanly published site is in (admin/ is excluded
+    // from publish on purpose). Uses core.js's dgeFetchPublicJson when this
+    // page has it (render.html does); this file also runs on many pages
+    // that never load core.js (dasa-sahitya/, vyakarana/*), so it falls
+    // back to a local copy of the same two-step fetch rather than assuming.
+    dgeHomeContentPromise = (typeof window.dgeFetchPublicJson === 'function')
+      ? window.dgeFetchPublicJson(url)
+      : fetch(url, { cache: 'no-store' }).then(r => (r.ok ? r.json() : null)).catch(() => null)
+          .then(v => {
+            if (v !== null) return v;
+            const fb = url.replace('/admin/content/', '/content/');
+            return fb === url ? null : fetch(fb, { cache: 'no-store' }).then(r => (r.ok ? r.json() : null)).catch(() => null);
+          });
   }
   return dgeHomeContentPromise;
 }

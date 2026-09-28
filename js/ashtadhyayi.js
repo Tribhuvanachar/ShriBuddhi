@@ -72,7 +72,14 @@
   // the thing that has to succeed for the reader to see anything.
   var siteVisibleFields = {};
   function loadLayerVisibility(){
-    return fetchJSON("../admin/content/ashtadhyayi-layers.json?t=" + Date.now()).then(function(cfg){
+    var url = "../admin/content/ashtadhyayi-layers.json?t=" + Date.now();
+    // Falls back to the repo-root content/ashtadhyayi-layers.json when
+    // admin/content/... 404s (fetchJSON throws rather than resolving null,
+    // so the fallback is a second attempt in the .catch, not a .then check).
+    return fetchJSON(url).catch(function(){
+      var fb = url.replace('/admin/content/', '/content/');
+      return fb === url ? Promise.reject() : fetchJSON(fb);
+    }).then(function(cfg){
       var layers = (cfg && cfg.layers) || {};
       ORDER = ORDER.filter(function(k){ return !(layers[k] && layers[k].visible === false); });
       siteVisibleFields = (cfg && cfg.fields) || {};

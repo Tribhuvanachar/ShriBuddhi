@@ -140,9 +140,18 @@
     ? new Promise(r => document.addEventListener('DOMContentLoaded', r))
     : Promise.resolve();
 
+  // Falls back to the repo-root config/menu.json when admin/config/menu.json
+  // 404s -- the shape a cleanly published site is in (admin/ is excluded on
+  // purpose). Without this the whole top-bar menu silently rendered empty
+  // the first time this was actually published. Only ever used on
+  // render.html, where core.js (dgeFetchPublicJson) loads first, but guarded
+  // the same defensive way the rest of this codebase already is.
+  const menuFetch = typeof window.dgeFetchPublicJson === 'function'
+    ? window.dgeFetchPublicJson(url)
+    : fetch(url, { cache: 'no-store' }).then(r => (r.ok ? r.json() : null)).catch(() => null);
   window.dgeMenuReady = Promise.all([
     ready,
-    fetch(url, { cache: 'no-store' }).then(r => (r.ok ? r.json() : null)).catch(() => null)
+    menuFetch
   ]).then(function (results) {
     const cfg = results[1];
     if (!cfg || typeof cfg !== 'object') return null;

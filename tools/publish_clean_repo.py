@@ -63,6 +63,30 @@ EXCLUDE_FILES = ("CLAUDE.md", "PENDING.md", "HANDOFF.md", ".gitattributes",
 # need to label or lint one.
 EXCLUDE_GLOBS = ("*.test.js", "test-*.js", "private-names.js")
 
+# js/admin-remote.js's own LEGACY_PUBLIC_CONFIG / LEGACY_PUBLIC_CONTENT lists
+# -- kept here too because that file is JS, read by nothing at build time,
+# and this needs the same two lists without parsing it. These are the config
+# and content files a public visitor reads at runtime that used to sit under
+# admin/, "found... to be read live by every visitor... rather than by the
+# admin tools alone" (that file's own words) and were moved to root-level
+# config/ and content/ for exactly that reason -- but the CODE reading them
+# (dgeAdminConfigUrl, dgeContentUrl, and half a dozen files with their own
+# hand-rolled equivalent) was never fully switched over, so it still asks for
+# admin/config/<name> or admin/content/<name> FIRST, falling back to the
+# root-level copy only when that 404s (js/core.js's dgeFetchPublicJson).
+# EXCLUDE_DIRS drops admin/ from every publish, which is correct -- the admin
+# TOOLS are not content -- but it means the *live* source of these ten-plus
+# files goes with it, leaving only whatever the root-level copy happened to
+# hold. Measured 28 Sep 2026, building the first real clean release: 5 of 10
+# config/ files and all 6 content/ files had drifted from their admin/
+# source, silently, because nothing kept them in step. This is that keeping.
+PUBLIC_CONFIG_MIRROR = ("chandas-features.json", "config-overrides.json",
+                        "contextual-actions.json", "home.json", "intellisense.json",
+                        "kosha-overrides.json", "library-overrides.json", "menu.json",
+                        "seo.json", "site.config.json")
+PUBLIC_CONTENT_MIRROR = ("ashtadhyayi-layers.json", "home.json", "legal.json",
+                         "reader.json", "tour.json", "whats-new.json")
+
 # Words that name the private side of the project. A hit is not automatically
 # a leak -- parabuddhi matches a line of the Narada Purana, and bhumandala is
 # an ordinary Sanskrit word -- so this reports and never edits.
@@ -189,6 +213,36 @@ def dangling_private_refs_in(root: str) -> list[tuple[str, str, str]]:
     return hits
 
 
+def refresh_public_mirrors(source: str, out: str) -> list[str]:
+    """Overwrite the staged config/ and content/ with the live admin/ copy.
+
+    Runs AFTER stage() has already copied config/<name> and content/<name>
+    (their hand-maintained, sometimes-stale committed copies) -- this
+    replaces each one with admin/config/<name> or admin/content/<name>, the
+    file curators actually edit, so what ships is never behind what the
+    workshop shows. See PUBLIC_CONFIG_MIRROR's own comment for why this
+    exists. A source file that is simply absent (not every deployment's
+    admin/ carries every name) is skipped, not an error -- stage()'s own
+    copy of the root-level file, if any, is left as the only version.
+    """
+    refreshed = []
+    for name in PUBLIC_CONFIG_MIRROR:
+        src = os.path.join(source, "admin", "config", name)
+        dst = os.path.join(out, "config", name)
+        if os.path.isfile(src):
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copy2(src, dst)
+            refreshed.append("config/" + name)
+    for name in PUBLIC_CONTENT_MIRROR:
+        src = os.path.join(source, "admin", "content", name)
+        dst = os.path.join(out, "content", name)
+        if os.path.isfile(src):
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copy2(src, dst)
+            refreshed.append("content/" + name)
+    return refreshed
+
+
 def stage(source: str, out: str) -> int:
     """Copy the publishable tree to a clean directory with no .git."""
     if os.path.exists(out):
@@ -199,6 +253,10 @@ def stage(source: str, out: str) -> int:
         os.makedirs(os.path.dirname(target), exist_ok=True)
         shutil.copy2(full, target)
         count += 1
+    refreshed = refresh_public_mirrors(source, out)
+    print(f"refreshed {len(refreshed)} public config/content mirror file(s) "
+          f"from admin/ (config/library-overrides.json among them -- the "
+          f"go-live shelf)")
     return count
 
 

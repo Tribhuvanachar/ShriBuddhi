@@ -103,9 +103,20 @@ window.DGE_VERSIONS['contextual-actions.js'] = 'v1.0 (contextual action registry
 
   function fetchConfig() {
     if (configPromise) return configPromise;
-    configPromise = fetch(CONFIG_URL + '?t=' + Date.now(), { cache: 'no-store' })
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .catch(function () { return null; })
+    var primaryUrl = CONFIG_URL + '?t=' + Date.now();
+    var attempt = function (u) {
+      return fetch(u, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+    };
+    // Falls back to the repo-root config/contextual-actions.json when
+    // admin/config/... 404s -- the shape a cleanly published site is in.
+    // FALLBACK_CONFIG (a baked-in default) still covers the case where
+    // NEITHER is reachable, exactly as before.
+    configPromise = attempt(primaryUrl)
+      .then(function (v) {
+        if (v !== null) return v;
+        var fb = primaryUrl.replace('/admin/config/', '/config/');
+        return fb === primaryUrl ? null : attempt(fb);
+      })
       .then(function (json) {
         config = (json && json.base) ? json : FALLBACK_CONFIG;
         return config;

@@ -349,6 +349,42 @@ window.dgeAdminConfigUrl = window.dgeAdminConfigUrl || function (name) {
   catch (e) { return '../admin/config/' + name; }   // fail soft, never throw
 };
 
+// Every "public runtime config/content" fetch in this app follows the same
+// shape: try admin/config/<name> (or admin/content/<name>), null on 404 or
+// network failure. That is correct in the workshop repositories, which ship
+// admin/, and where admin/config/... IS the live truth.
+// A CLEANLY PUBLISHED site has no admin/ at all (tools/publish_clean_repo.py
+// excludes it on purpose, since it is tooling, not content), so every one of
+// these silently 404s. Proven 28 Sep 2026, testing the first real clean
+// build before it shipped: the go-live shelf, the site menu, SEO tags,
+// footer contact info, legal text, the onboarding tour and more all came
+// back empty -- none of them threw, they just rendered as if unconfigured.
+//
+// The public mirror for exactly this case already existed at the repo root
+// (config/<name>, content/<name> -- see js/admin-remote.js's own
+// LEGACY_PUBLIC_CONFIG/LEGACY_PUBLIC_CONTENT lists, which name this same
+// set of files) -- it was simply never wired in as a FALLBACK anywhere.
+// tools/publish_clean_repo.py now refreshes config/ and content/ from
+// admin/config/ and admin/content/ at build time, so this fallback is never
+// stale on a fresh publish; this is the other half, the reader actually
+// trying it.
+//
+// Takes the URL that was ALREADY BUILT for the primary attempt (by
+// dgeAdminConfigUrl, dgeContentUrl, or a file's own equivalent) rather than
+// a bare filename, so it needs no opinion on how any given caller resolves
+// its own relative path -- it only ever substitutes the one directory name
+// that changes.
+window.dgeFetchPublicJson = window.dgeFetchPublicJson || function (url) {
+  const attempt = (u) => fetch(u, { cache: 'no-store' })
+    .then((r) => (r.ok ? r.json() : null))
+    .catch(() => null);
+  return attempt(url).then((v) => {
+    if (v !== null) return v;
+    const fallback = url.replace('/admin/config/', '/config/').replace('/admin/content/', '/content/');
+    return fallback === url ? null : attempt(fallback);
+  });
+};
+
 /* What's New and Coming Soon are content, not settings — admin/content/, not
    admin/config/. Loaded here so the Site Settings editor can fill its form
    from the same source the reader sees; modals.js re-fetches on open so a
@@ -360,10 +396,7 @@ window.dgeContentUrl = window.dgeContentUrl || function (name) {
   catch (e) { return '../admin/content/' + name; }
 };
 
-window.dgeWhatsNewPromise = fetch(window.dgeContentUrl('whats-new.json') + '?t=' + Date.now(),
-                                  { cache: 'no-store' })
-  .then(res => (res.ok ? res.json() : null))
-  .catch(() => null)
+window.dgeWhatsNewPromise = window.dgeFetchPublicJson(window.dgeContentUrl('whats-new.json') + '?t=' + Date.now())
   .then(wn => {
     // _readme is left in place: the Site Settings editor writes this file
     // back and preserves it from here, and nothing renders it — the panel
@@ -376,10 +409,7 @@ window.dgeWhatsNewPromise = fetch(window.dgeContentUrl('whats-new.json') + '?t='
    are content, so they come from admin/content/reader.json. Everything that
    reads window.SPONSOR_CONFIG and friends is unchanged — the globals are set
    here instead of there, before the first render. */
-window.dgeReaderContentPromise = fetch(window.dgeContentUrl('reader.json') + '?t=' + Date.now(),
-                                       { cache: 'no-store' })
-  .then(res => (res.ok ? res.json() : null))
-  .catch(() => null)
+window.dgeReaderContentPromise = window.dgeFetchPublicJson(window.dgeContentUrl('reader.json') + '?t=' + Date.now())
   .then(rc => {
     if (!rc) {
       // Empty shapes rather than undefined: every reader of these does
@@ -406,9 +436,7 @@ window.dgeReaderContentPromise = fetch(window.dgeContentUrl('reader.json') + '?t
 
 window.dgeConfigOverridesPromise = Promise.all([
     window.dgeReaderContentPromise,
-    fetch(window.dgeAdminConfigUrl('config-overrides.json') + '?t=' + Date.now(), { cache: 'no-store' })
-      .then(res => res.ok ? res.json() : null)
-      .catch(() => null)
+    window.dgeFetchPublicJson(window.dgeAdminConfigUrl('config-overrides.json') + '?t=' + Date.now())
   ])
   // Sequenced deliberately: reader.json REPLACES these globals, so an override
   // merged before it arrived would be thrown away with the object it landed on.
@@ -1607,7 +1635,7 @@ window.dgeHighlightQueryOnLoad = dgeHighlightQueryOnLoad;
 // search engines index the crawlable copy and treat every reader URL as a view of it.
 window.dgeApplySeoCanonical = async function (slug) {
   try {
-    const cfg = await fetch('../admin/config/seo.json', { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
+    const cfg = await window.dgeFetchPublicJson('../admin/config/seo.json');
     if (!cfg || !cfg.canonicalLive) return;
     const map = await fetch('data/seo_urls.json').then(r => r.ok ? r.json() : null).catch(() => null);
     const hit = map && map.granthas && map.granthas[slug];

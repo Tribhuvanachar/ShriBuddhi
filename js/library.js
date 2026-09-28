@@ -106,7 +106,17 @@ async function dgeLoadLibraryOverrides() {
   try {
     const url = window.dgeAdminConfigUrl ? window.dgeAdminConfigUrl('library-overrides.json')
                                         : '../admin/config/library-overrides.json';
-    const ov = await fetch(url, { cache: 'no-store' }).then(r => r.ok ? r.json() : null);
+    // dgeFetchPublicJson (core.js) falls back to the repo-root config/ mirror
+    // when admin/config/ 404s -- which it always does on a cleanly published
+    // site (admin/ is excluded on purpose). Without this, the go-live shelf
+    // never applied on a real publish: everything read as on-shelf, because
+    // an absent shelf config is the "nothing is restricted" default. Guarded
+    // because this file, unlike library.js's other consumers, can run before
+    // core.js on some pages -- same defensive style legal-content.js already
+    // uses for window.dgeContentUrl.
+    const ov = typeof window.dgeFetchPublicJson === 'function'
+      ? await window.dgeFetchPublicJson(url)
+      : await fetch(url, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
     if (ov) {
       dgeLibOverrides = dgeNormalizeOverrides(ov);
       // role-access.js owns the shelf CHECK (it needs the effective role and

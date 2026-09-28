@@ -46,7 +46,25 @@
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]; }); }
   function $(s, r) { return (r || document).querySelector(s); }
   function toast(msg) { var t = $('#k2Toast'); t.textContent = msg; t.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(function () { t.hidden = true; }, 2100); }
-  function fetchJson(url) { return fetch(url).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); }
+  // Falls back to the repo-root config/ or content/ mirror when an
+  // admin/config/... or admin/content/... fetch 404s -- the shape a cleanly
+  // published site is in (admin/ is excluded from publish on purpose). A
+  // no-op substitution for this function's many OTHER callers (kosha data,
+  // ashtadhyayi/dhatupatha/unadi files), none of which live under admin/, so
+  // one shared helper is safe to use everywhere fetchJson already was.
+  function fetchJson(url) {
+    // Original default-cache behaviour preserved for every caller: the
+    // kosha/ashtadhyayi/dhatupatha/unadi data fetches this same function
+    // serves are large static files worth letting the browser HTTP-cache
+    // across page loads. no-store is used only on the fallback attempt
+    // below, which activates only for admin/config|content paths.
+    return fetch(url).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+      .then(function (v) {
+        if (v !== null) return v;
+        var fb = url.replace('/admin/config/', '/config/').replace('/admin/content/', '/content/');
+        return fb === url ? null : fetch(fb, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+      });
+  }
 
   // ---- display script (deva | iast | knda) -------------------------------
   // Input already folds every script; this is the OUTPUT side: after each

@@ -800,7 +800,14 @@
     const url = (typeof window.dgeAdminConfigUrl === 'function')
       ? window.dgeAdminConfigUrl('intellisense.json') : null;
     if (!url) return Promise.resolve(null);
-    return fetch(url, { cache: 'no-store' }).then(r => (r.ok ? r.json() : null)).catch(() => null);
+    // dgeAdminConfigUrl only exists where core.js has already loaded, so
+    // dgeFetchPublicJson (defined right beside it) is guaranteed present too
+    // -- this falls back to the repo-root config/intellisense.json when
+    // admin/config/intellisense.json 404s, the shape a cleanly published
+    // site is in.
+    return (typeof window.dgeFetchPublicJson === 'function')
+      ? window.dgeFetchPublicJson(url)
+      : fetch(url, { cache: 'no-store' }).then(r => (r.ok ? r.json() : null)).catch(() => null);
   }
 
   window.dgeIntellisenseReady = overrides().then(function (ov) {

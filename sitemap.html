@@ -112,8 +112,44 @@ document.addEventListener('click',ev=>{
   draw();
 });
 
-fetch('data/library.json').then(r=>r.json()).then(j=>{
-  (j.granthas||[]).filter(g=>g.populated).forEach(g=>{
+// The go-live shelf, applied here too. `populated` alone used to be the
+// only filter, so this page listed every populated grantha -- 1,226 of them,
+// 885 pointing at paths the shelf closes. Tapping one of those downloaded a
+// data.json and then rendered "This text is not part of the published
+// library yet", which is why opening Tattvavada returned a wall of links
+// that mostly went nowhere. Same allow list the reader itself uses, read
+// straight from the config rather than through role-access.js, which this
+// page does not load: a public index should show what the public can open,
+// so an admin sees the public list here too.
+//
+// Descendant-only, deliberately. dgeIsOffShelf() also treats an ANCESTOR of
+// an allowed path as on-shelf so the library drawer has categories to open;
+// this page lists leaves, and counting ancestors would put the wall back.
+let SHELF_ALLOW = null;   // null = shelf off or unreadable: show everything
+const onShelf = g => {
+  if (!SHELF_ALLOW) return true;
+  const slug = (g.path||'').replace(/^data\//,'').replace(/\/data\.json$/,'');
+  return SHELF_ALLOW.some(a => slug === a || slug.indexOf(a + '/') === 0);
+};
+
+// Falls back to the repo-root config/library-overrides.json when
+// admin/config/library-overrides.json 404s -- the shape a cleanly published
+// site is in (admin/ is excluded from publish on purpose).
+function fetchOverridesJson(url) {
+  const attempt = (u) => fetch(u, { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null);
+  return attempt(url).then(v => {
+    if (v !== null) return v;
+    const fb = url.replace('/admin/config/', '/config/').replace('admin/config/', 'config/');
+    return fb === url ? null : attempt(fb);
+  });
+}
+fetchOverridesJson('admin/config/library-overrides.json')
+  .then(o => {
+    const shelf = (o && o.shelf) || {};
+    if (shelf.enabled && Array.isArray(shelf.allow)) SHELF_ALLOW = shelf.allow;
+  })
+  .then(() => fetch('data/library.json')).then(r=>r.json()).then(j=>{
+  (j.granthas||[]).filter(g=>g.populated && onShelf(g)).forEach(g=>{
     const shelf=(g.path||'').split('/')[1]; if(!shelf) return;
     (SHELVES[shelf]=SHELVES[shelf]||[]).push(g);
   });

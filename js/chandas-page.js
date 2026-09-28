@@ -68,7 +68,14 @@
     if (adm) adm.hidden = tier() !== 'super';
   }
   function loadFeatures() {
-    return fetch(FEATURES_URL).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; })
+    return fetch(FEATURES_URL).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+      .then(function (v) {
+        // Falls back to the repo-root config/chandas-features.json when
+        // admin/config/... 404s -- the shape a cleanly published site is in.
+        if (v !== null) return v;
+        return fetch(FEATURES_URL.replace('/admin/config/', '/config/'))
+          .then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; });
+      })
       .then(function (j) {
         S.features = (j && j.features) || {};
         S.featuresRepo = JSON.parse(JSON.stringify(S.features));

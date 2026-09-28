@@ -67,8 +67,25 @@
   }
 
   function boot() {
-    fetch(contentUrl(), { cache: 'no-store' })
-      .then(function (r) { return r.ok ? r.json() : null; })
+    var url = contentUrl();
+    // Same fallback core.js's dgeFetchPublicJson provides (repo-root
+    // content/legal.json when admin/content/legal.json 404s, which it does
+    // on a cleanly published site) -- called through it when present,
+    // duplicated locally otherwise, matching this file's own existing
+    // defensive style for window.dgeContentUrl just above.
+    var fetchJson = (typeof window.dgeFetchPublicJson === 'function')
+      ? window.dgeFetchPublicJson
+      : function (u) {
+          var attempt = function (uu) {
+            return fetch(uu, { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+          };
+          return attempt(u).then(function (v) {
+            if (v !== null) return v;
+            var fb = u.replace('/admin/content/', '/content/');
+            return fb === u ? null : attempt(fb);
+          });
+        };
+    fetchJson(url)
       .then(apply)
       .catch(function () { /* static fallbacks stay */ });
   }
