@@ -198,7 +198,7 @@ function drawTree(filter){
     single = shelves.length === 1 ? el : null;
   });
   if (!shown) { host.innerHTML = '<div class="empty">Nothing matches that.</div>'; return; }
-  // A library with ONE shelf on it (JagatTest today) would otherwise render as
+  // A library with ONE shelf on it would otherwise render as
   // a single tall card in column one, leaving a wide screen empty -- the column
   // rule cannot split a .shelf because break-inside keeps a section whole. When
   // there is only one, promote its SECTIONS to be the column blocks instead, so
