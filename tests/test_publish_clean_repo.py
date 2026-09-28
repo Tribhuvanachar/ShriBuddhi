@@ -135,55 +135,35 @@ class TheCommitHasNoParent(Fixture):
         self.assertFalse(os.path.exists(os.path.join(self.out, "stray.txt")))
 
 
-class PublicMirrorsAreRefreshed(Fixture):
-    """config/<name> and content/<name> are the ONLY copy of ten-plus
-    runtime-config files that ships once admin/ is excluded -- js/core.js's
-    dgeFetchPublicJson falls back to them when admin/config/... 404s, which
-    it always does on a clean publish. Measured 28 Sep 2026: 5 of 10 config/
-    files and all 6 content/ files had drifted from their admin/ source,
-    silently, because nothing kept them in step. stage() must overwrite the
-    committed (possibly stale) config/content copy with the live admin/
-    source on every build, or this class of drift comes straight back.
+class TheRootConfigAndContentMirrorsPublishAsCommitted(Fixture):
+    """config/<name> and content/<name> are the fallback js/core.js's
+    dgeFetchPublicJson reaches for when admin/config/<name> 404s, which it
+    always does on a clean publish (admin/ is excluded). A prior version of
+    stage() overwrote them with admin/'s copy on every build, reasoning that
+    admin/ is what curators actually edit. That is true for some of these
+    files, but config/menu.json's root copy deliberately differs from
+    admin/config/menu.json (a reduced public nav vs. the admin tools
+    popup's own item list) and config/library-overrides.json's root copy is
+    the reviewed, approved-to-publish shelf state, while admin/'s can be
+    wider -- the lead's own in-progress testing, which admins bypass
+    entirely in the workshop. Both went out wrong on a real build before
+    this was caught. stage() must leave the root copy exactly as committed.
     """
     def setUp(self):
         super().setUp()
-        # A stale, hand-maintained root-level copy -- exactly the shape that
-        # was actually found, and exactly what refresh_public_mirrors must
-        # not leave standing.
-        stale = os.path.join(self.src, "config", "library-overrides.json")
-        os.makedirs(os.path.dirname(stale), exist_ok=True)
-        open(stale, "w").write('{"shelf":{"enabled":true,"allow":["stale/only"]}}')
-        # The live source a curator actually edits.
-        live = os.path.join(self.src, "admin", "config", "library-overrides.json")
-        os.makedirs(os.path.dirname(live), exist_ok=True)
-        open(live, "w").write('{"shelf":{"enabled":true,"allow":["live/current"]}}')
-        # One content/ pair too, so both mirrors are covered by one test.
-        stale_c = os.path.join(self.src, "content", "legal.json")
-        os.makedirs(os.path.dirname(stale_c), exist_ok=True)
-        open(stale_c, "w").write('{"license":{"html":"old"}}')
-        live_c = os.path.join(self.src, "admin", "content", "legal.json")
-        os.makedirs(os.path.dirname(live_c), exist_ok=True)
-        open(live_c, "w").write('{"license":{"html":"current"}}')
+        root = os.path.join(self.src, "config", "library-overrides.json")
+        os.makedirs(os.path.dirname(root), exist_ok=True)
+        open(root, "w").write('{"shelf":{"enabled":true,"allow":["approved/only"]}}')
+        # admin/'s copy is wider -- in-progress, not yet approved to publish.
+        wider = os.path.join(self.src, "admin", "config", "library-overrides.json")
+        os.makedirs(os.path.dirname(wider), exist_ok=True)
+        open(wider, "w").write('{"shelf":{"enabled":true,"allow":["approved/only","not_yet_approved"]}}')
 
-    def test_config_mirror_is_overwritten_with_the_admin_source(self):
+    def test_the_committed_root_copy_publishes_untouched(self):
         publish.stage(self.src, self.out)
         shipped = open(os.path.join(self.out, "config", "library-overrides.json")).read()
-        self.assertIn("live/current", shipped)
-        self.assertNotIn("stale/only", shipped)
-
-    def test_content_mirror_is_overwritten_with_the_admin_source(self):
-        publish.stage(self.src, self.out)
-        shipped = open(os.path.join(self.out, "content", "legal.json")).read()
-        self.assertIn("current", shipped)
-        self.assertNotIn("old", shipped)
-
-    def test_a_name_with_no_admin_source_is_left_alone(self):
-        # menu.json exists only at the root in this fixture -- stage() must
-        # not delete it just because admin/config/menu.json is absent.
-        only_root = os.path.join(self.src, "config", "menu.json")
-        open(only_root, "w").write('{"items":[]}')
-        publish.stage(self.src, self.out)
-        self.assertTrue(os.path.exists(os.path.join(self.out, "config", "menu.json")))
+        self.assertIn("approved/only", shipped)
+        self.assertNotIn("not_yet_approved", shipped)
 
     def test_admin_itself_still_does_not_publish(self):
         publish.stage(self.src, self.out)

@@ -676,7 +676,7 @@ function dgeGatedCommentaryViewer() {
   try {
     // The private-repo token. Its presence is the strongest signal available
     // in the browser that this is the lead and not a reader.
-    if (window.localStorage && window.localStorage.getItem('brahmabuddhi_pat')) return true;
+    if (window.localStorage && window.localStorage.getItem('dge_admin_pat')) return true;
   } catch (e) { /* private mode: fall through to the gate below */ }
   try {
     return !!(window.DGEAdminGate && window.DGEAdminGate.isSuperAdmin());

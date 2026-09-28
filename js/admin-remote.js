@@ -53,7 +53,7 @@
   var BH_REPO = 'Jagat';
   var BH_BRANCH = 'main';
   var GH_API = 'https://api.github.com';
-  var TOKEN_KEY = 'brahmabuddhi_pat';
+  var TOKEN_KEY = 'dge_admin_pat';
 
   // Config/content that used to sit under buddhi's admin/ and, when this
   // moved, turned out to be read live by every visitor (the whole site
@@ -142,7 +142,7 @@
   // ------------------------------------------------------------------
   // Token prompt + admin menu
   // ------------------------------------------------------------------
-  window.dgeOpenBrahmaBuddhiGate = function () {
+  window.dgeOpenWorkshopGate = function () {
     if (!token()) { showTokenPrompt(); return; }
     loadMenu();
   };
@@ -248,7 +248,7 @@
           row.textContent = (item.icon ? item.icon + ' ' : '') + item.label;
           row.onclick = function () {
             if (typeof window.togglePopup === 'function') window.togglePopup('adminToolsPopup');
-            window.dgeOpenBrahmaBuddhiPage(item.path);
+            window.dgeOpenWorkshopPage(item.path);
           };
           popup.appendChild(row);
           injectedRowIds.push(row.id);
@@ -274,7 +274,7 @@
   // themselves, which mean nothing without a valid the working repository token to
   // resolve them. `querySuffix`, if given, is appended to the resolved
   // path (e.g. deep-linking to a specific Library Manager section).
-  window.dgeOpenBrahmaBuddhiPage = function (dest, querySuffix) {
+  window.dgeOpenWorkshopPage = function (dest, querySuffix) {
     if (!token()) { showTokenPrompt(); return; }
     var resolved = dest.indexOf('/') !== -1
       ? Promise.resolve(dest)
@@ -376,7 +376,7 @@
       if (!resolved) return whole;
       var target = repoFor(resolved.path);
       if (target.repo !== 'brahma') return whole;
-      var call = 'window.parent.dgeOpenBrahmaBuddhiPage &amp;&amp; window.parent.dgeOpenBrahmaBuddhiPage(' +
+      var call = 'window.parent.dgeOpenWorkshopPage &amp;&amp; window.parent.dgeOpenWorkshopPage(' +
         JSON.stringify(target.path + (resolved.query || '')).replace(/"/g, '&quot;') + ')';
       return '<a' + pre + ' href="javascript:void(0)" onclick="' + call + '"' + post + '>';
     });

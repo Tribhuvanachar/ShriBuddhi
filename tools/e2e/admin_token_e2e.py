@@ -47,7 +47,7 @@ window.DGE_SEARCH_INDEX = '/search_index';
 """
 AS_ADMIN = """
 try {
-  localStorage.setItem('brahmabuddhi_pat', %s);
+  localStorage.setItem('dge_admin_pat', %s);
   localStorage.setItem('is_superadmin','true');
   localStorage.setItem('acharyaAuthorized','true');
 } catch(e){}

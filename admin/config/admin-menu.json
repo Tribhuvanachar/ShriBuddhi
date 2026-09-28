@@ -12,7 +12,7 @@
   "  icon     leading emoji.",
   "  label    visible text once unlocked.",
   "  path     this repo's path to the HTML file, fetched and rendered via the",
-  "           loader's srcdoc iframe (see dgeOpenBrahmaBuddhiPage).",
+  "           loader's srcdoc iframe (see dgeOpenWorkshopPage).",
   "  requires 'admin' or 'superadmin' -- matches the SAME localStorage tier",
   "           flags bhumandala's own menu.js reads (acharyaAuthorized /",
   "           is_superadmin). Purely a tidiness gate on top of the PAT gate,",

@@ -82,7 +82,7 @@
     try {
       return w.localStorage.getItem('acharyaAuthorized') === 'true' ||
              w.localStorage.getItem('is_superadmin') === 'true' ||
-             !!w.localStorage.getItem('brahmabuddhi_pat');
+             !!w.localStorage.getItem('dge_admin_pat');
     } catch (e) { return false; }
   }
 
