@@ -12,24 +12,44 @@ Rules (admin/config/seo.json): the top-level folder is renamed by rootMap; segme
 the Śākala śākhā, so `shakala_shakha` adds nothing); mandala_01 → mandala-1; underscores → hyphens; lowercase.
 The build refuses to run if two internal paths map to one public URL.
 
-Labels come from the same tables the Library drawer uses (DGE_PATH_LABELS / DGE_NUMBERED_PREFIXES in js/library.js,
-read from the file so there is one source of truth) plus admin/config/library-overrides.json's custom labels.
+Labels come from the same tables the Library drawer uses -- DGE_PATH_LABELS,
+which moved to js/path-labels.js on 28 Sep 2026 so library.html could share it,
+and DGE_NUMBERED_PREFIXES, still in js/library.js -- read from the files so
+there is one source of truth, plus admin/config/library-overrides.json's custom
+labels. Both files are searched for either table, so moving one again does not
+silently empty it here: an empty LABELS shows up as every folder falling back
+to its English slug ("Rigveda" for ऋग्वेदः), which is what
+tests/test_seo_build.py::test_labels_and_transliteration catches.
 """
 import json, re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 CFG = json.load(open(ROOT / "admin/config/seo.json", encoding="utf-8"))
-_LIBJS = (ROOT / "js/library.js").read_text(encoding="utf-8")
+_JS_SOURCES = [(ROOT / "js/path-labels.js"), (ROOT / "js/library.js")]
 
 
 def _js_object(name):
-    i = _LIBJS.find("const " + name + " = {")
-    if i < 0:
-        return {}
-    j = _LIBJS.find("\n};", i)
-    body = _LIBJS[i:j]
-    return {k: v for k, v in re.findall(r"([A-Za-z0-9_]+):\s*'([^']*)'", body)}
+    """The named JS object literal, from whichever file declares it.
+
+    Accepts both `const NAME = {` and `window.NAME = {`, because these tables
+    move between a module-local const and a window global as pages come to
+    share them.
+    """
+    for path in _JS_SOURCES:
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8")
+        for opener in ("const " + name + " = {", "window." + name + " = {"):
+            i = text.find(opener)
+            if i < 0:
+                continue
+            j = text.find("\n};", i)
+            body = text[i:j]
+            found = {k: v for k, v in re.findall(r"([A-Za-z0-9_]+):\s*'([^']*)'", body)}
+            if found:
+                return found
+    return {}
 
 
 LABELS = _js_object("DGE_PATH_LABELS")

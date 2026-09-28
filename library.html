@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces a bookmark or deep link back to the gate at
+     the site root. Must stay the first script here. -->
+<script src="js/vandana-guard.js?v=3"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>The Library — Sarvamūla Digital Library</title>
+<meta name="description" content="Every shelf of the Sarvamūla Digital Library, its sections, and the index of Dvaita works by author.">
+<!--
+  THE ROOM THE VANDANA OPENS INTO.
+
+  sitemap.html got here first and showed one flat list per shelf: to find a
+  text you had to already know which of thirteen shelves it sat on, and a
+  shelf with 600 leaves under it dumped all 600. This shows the taxonomy the
+  way the corpus is actually organised -- shelf, then section, then work --
+  laid out in columns so a desktop screen carries several branches at once.
+
+  Two views, one page:
+    ग्रन्थाः    the library tree, every populated text the shelf allows
+    अनुक्रमणी  the 2,456-row Dvaita Grantha Anukramaṇikā by author, with the
+               works we hold linked and the rest listed plainly, because a
+               catalogue of what exists is worth having even where we have
+               nothing to open yet.
+
+  Everything is read from what the library already knows -- library.json for
+  the tree, library-overrides.json for names, hiding and the go-live shelf,
+  path-labels.js for a folder's Devanagari name (the SAME table the reader's
+  own drawer uses; see that file's header), anukramani_links.json for the
+  catalogue bridge. There is no second list here to keep in step.
+-->
+<script src="js/path-labels.js?v=1"></script>
+<style>
+  :root{--bg:#0B0907;--panel:#15110d;--panel2:#1d1711;--ink:#f0e6d6;--muted:#a3927a;
+    --line:#2e251b;--accent:#e0794b;--gold:#d9ab5f;--radius:14px}
+  @media (prefers-color-scheme: light){
+    :root{--bg:#f5efe4;--panel:#fffdf8;--panel2:#fbf4e7;--ink:#2b2117;--muted:#8b7c66;
+      --line:#e6dac6;--accent:#9a3b1b;--gold:#b6862c}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);line-height:1.55;
+    font-family:"Iowan Old Style","Palatino Linotype",Georgia,serif}
+  header{border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:5}
+  .bar{max-width:1500px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  h1{font-size:20px;margin:0;font-weight:700}
+  .sub{color:var(--muted);font-size:13px}
+  .spacer{flex:1}
+  .seg{display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .seg button{background:transparent;border:0;color:var(--muted);font:inherit;font-size:13.5px;
+    padding:7px 16px;cursor:pointer}
+  .seg button.on{background:var(--accent);color:#fff}
+  .find{background:var(--panel2);border:1px solid var(--line);border-radius:999px;
+    padding:7px 14px;color:var(--ink);font:inherit;font-size:13.5px;min-width:210px}
+  main{max-width:1500px;margin:0 auto;padding:18px 18px 90px}
+  /* Columns, not rows: a wide screen should carry several branches at once.
+     break-inside keeps a section and its children from splitting across a
+     column boundary, which is what makes a masonry column layout readable. */
+  .cols{columns:3 330px;column-gap:20px}
+  @media (max-width:760px){.cols{columns:1}}
+  .shelf{break-inside:avoid;page-break-inside:avoid;background:var(--panel);
+    border:1px solid var(--line);border-radius:var(--radius);padding:13px 15px;margin:0 0 18px}
+  .shelf>h2{font-size:15.5px;margin:0 0 4px;font-weight:700;color:var(--gold)}
+  .shelf .cnt{color:var(--muted);font-size:12px;margin-bottom:8px}
+  .sec{margin:9px 0 0}
+  .sec>.hd{font-size:13px;color:var(--muted);letter-spacing:.02em;font-weight:600;
+    cursor:pointer;display:flex;gap:6px;align-items:baseline;user-select:none}
+  .sec>.hd:hover{color:var(--accent)}
+  .sec>.hd .tw{font-size:10px;opacity:.7;width:9px;display:inline-block}
+  .kids{margin:3px 0 0 11px;border-left:1px solid var(--line);padding-left:10px}
+  a.leaf{display:block;padding:3px 2px;color:var(--ink);text-decoration:none;font-size:13.5px}
+  a.leaf:hover,a.leaf:focus{color:var(--accent)}
+  .empty{color:var(--muted);padding:26px 2px}
+  /* --- anukramani view --- */
+  .anu{max-width:1000px}
+  .anu .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+  select{background:var(--panel2);border:1px solid var(--line);border-radius:10px;
+    padding:9px 12px;color:var(--ink);font:inherit;font-size:14px;min-width:300px;max-width:100%}
+  .works{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:6px 16px}
+  .work{display:flex;gap:10px;align-items:baseline;padding:8px 2px;border-bottom:1px solid var(--line)}
+  .work:last-child{border-bottom:0}
+  .work .t{flex:1}
+  .work a{color:var(--accent);text-decoration:none;font-weight:600}
+  .work a:hover{text-decoration:underline}
+  .work .no{color:var(--muted);font-size:12px;white-space:nowrap}
+  .work .meta{color:var(--muted);font-size:12px}
+  footer{max-width:1500px;margin:0 auto;padding:0 18px 40px;color:var(--muted);font-size:12.5px}
+</style>
+</head>
+<body>
+<header><div class="bar">
+  <h1>The Library</h1>
+  <div class="sub" id="count"></div>
+  <div class="spacer"></div>
+  <input class="find" id="find" type="search" placeholder="Filter by name…" autocomplete="off">
+  <div class="seg" role="group" aria-label="View">
+    <button id="tabTree" class="on">ग्रन्थाः</button><button id="tabAnu">अनुक्रमणी</button>
+  </div>
+</div></header>
+<main>
+  <div id="tree" class="cols"></div>
+  <div id="anu" class="anu" hidden>
+    <div class="row">
+      <select id="author"><option value="">— कर्ता चीयताम् · choose an author —</option></select>
+      <span class="sub" id="anuCount"></span>
+    </div>
+    <div class="works" id="works"><div class="empty">Choose an author to see their works.</div></div>
+  </div>
+</main>
+<footer id="foot">Every title opens the text itself.</footer>
+<script>
+'use strict';
+const LABELS = window.DGE_PATH_LABELS || {};
+const $ = id => document.getElementById(id);
+
+// A folder name the label table does not cover: "dasha_prakarana_granthas"
+// -> "Dasha Prakarana Granthas". Same shape as the drawer's own fallback, so
+// an unlabelled folder reads the same in both places.
+function autoLabel(seg){
+  return String(seg||'').replace(/[_-]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
+}
+function labelFor(seg, fullPath, custom){
+  if (custom && custom[fullPath]) return custom[fullPath];
+  return LABELS[seg] || autoLabel(seg);
+}
+
+// The go-live shelf, exactly as js/role-access.js applies it: a path is on the
+// shelf if it is an allowed prefix, a DESCENDANT of one, or an ANCESTOR of one.
+// Ancestors count because a shelf that hid them would hide the branches the
+// allowed leaves hang from, leaving an allowed text with no way to reach it.
+function makeShelfTest(shelf){
+  if (!shelf || !shelf.enabled || !Array.isArray(shelf.allow) || !shelf.allow.length) return () => true;
+  const allow = shelf.allow;
+  return p => allow.some(a => p === a || p.indexOf(a + '/') === 0 || a.indexOf(p + '/') === 0);
+}
+function makeHiddenTest(hidden){
+  const set = new Set(hidden || []);
+  return p => { const parts = p.split('/');
+    for (let i=1;i<=parts.length;i++) if (set.has(parts.slice(0,i).join('/'))) return true;
+    return false; };
+}
+
+let TREE = null, CUSTOM = {}, onShelf = () => true, isHidden = () => false;
+
+function insert(root, slug, entry){
+  const parts = slug.split('/');
+  let node = root;
+  for (let i=0;i<parts.length;i++){
+    const last = i === parts.length - 1;
+    const path = parts.slice(0, i+1).join('/');
+    node.kids = node.kids || {};
+    node.kids[parts[i]] = node.kids[parts[i]] || { seg: parts[i], path, kids: null, entry: null, n: 0 };
+    node = node.kids[parts[i]];
+    if (last) node.entry = entry;
+    node.n++;
+  }
+}
+function renderNode(node, depth){
+  const kids = node.kids ? Object.values(node.kids) : [];
+  kids.sort((a,b) => (a.entry?1:0)-(b.entry?1:0) || a.seg.localeCompare(b.seg));
+  const name = labelFor(node.seg, node.path, CUSTOM);
+  // A node that is BOTH a text and a parent (a mula with sibling layers) still
+  // opens as a text; its children hang below it.
+  const link = node.entry
+    ? `<a class="leaf" href="render.html?path=${encodeURIComponent(node.path)}">${esc(name)}</a>` : '';
+  if (!kids.length) return link;
+  const inner = kids.map(k => renderNode(k, depth+1)).join('');
+  if (!inner) return link;
+  const open = depth < 1 ? '' : '';
+  return `<div class="sec"><div class="hd" data-toggle="1"><span class="tw">▾</span>`
+       + `<span>${esc(name)}</span><span class="sub">· ${node.n}</span></div>`
+       + `<div class="kids">${link}${inner}</div></div>`;
+}
+function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function drawTree(filter){
+  const host = $('tree'); host.innerHTML = '';
+  const shelves = Object.values(TREE.kids || {});
+  let single = null;
+  shelves.sort((a,b) => b.n - a.n || a.seg.localeCompare(b.seg));
+  let shown = 0;
+  shelves.forEach(sh => {
+    let html = renderNode(sh, 0);
+    if (filter){
+      // Filter without rebuilding the tree: drop any shelf whose rendered
+      // names do not contain the term, then let the browser show the rest.
+      if (html.toLowerCase().indexOf(filter) < 0) return;
+    }
+    const kids = sh.kids ? Object.values(sh.kids) : [];
+    const body = kids.map(k => renderNode(k, 1)).join('');
+    const own = sh.entry ? `<a class="leaf" href="render.html?path=${encodeURIComponent(sh.path)}">${esc(labelFor(sh.seg, sh.path, CUSTOM))}</a>` : '';
+    shown++;
+    const el = document.createElement('div');
+    el.className = 'shelf';
+    el.innerHTML = `<h2>${esc(labelFor(sh.seg, sh.path, CUSTOM))}</h2>`
+                 + `<div class="cnt">${sh.n} ${sh.n===1?'text':'texts'}</div>${own}${body}`;
+    host.appendChild(el);
+    single = shelves.length === 1 ? el : null;
+  });
+  if (!shown) { host.innerHTML = '<div class="empty">Nothing matches that.</div>'; return; }
+  // A library with ONE shelf on it (JagatTest today) would otherwise render as
+  // a single tall card in column one, leaving a wide screen empty -- the column
+  // rule cannot split a .shelf because break-inside keeps a section whole. When
+  // there is only one, promote its SECTIONS to be the column blocks instead, so
+  // the page fills the same way a many-shelf library does.
+  if (single) {
+    const secs = Array.from(single.querySelectorAll(':scope > .sec'));
+    if (secs.length === 1) {
+      const inner = Array.from(secs[0].querySelectorAll(':scope > .kids > .sec'));
+      if (inner.length > 1) { secs.length = 0; secs.push.apply(secs, inner); }
+    }
+    if (secs.length > 1) {
+      const head = single.querySelector('h2').outerHTML + single.querySelector('.cnt').outerHTML;
+      host.innerHTML = '';
+      const hd = document.createElement('div');
+      hd.style.cssText = 'column-span:all;margin:0 0 6px';
+      hd.innerHTML = head;
+      host.appendChild(hd);
+      secs.forEach(s => { const w = document.createElement('div');
+        w.className = 'shelf'; w.appendChild(s); host.appendChild(w); });
+    }
+  }
+}
+
+// Collapse/expand a section. Delegated, so it keeps working after a redraw.
+document.addEventListener('click', ev => {
+  const hd = ev.target.closest('.hd[data-toggle]');
+  if (!hd) return;
+  const kids = hd.parentElement.querySelector('.kids');
+  if (!kids) return;
+  const hide = kids.style.display !== 'none';
+  kids.style.display = hide ? 'none' : '';
+  hd.querySelector('.tw').textContent = hide ? '▸' : '▾';
+});
+
+Promise.all([
+  fetch('data/library.json').then(r=>r.json()),
+  fetch('admin/config/library-overrides.json').then(r=>r.ok?r.json():null).catch(()=>null)
+]).then(([lib, ov]) => {
+  ov = ov || {};
+  CUSTOM = ov.labels || {};
+  onShelf = makeShelfTest(ov.shelf);
+  isHidden = makeHiddenTest(ov.hidden);
+  TREE = { seg:'', path:'', kids:null, n:0 };
+  let n = 0;
+  (lib.granthas||[]).forEach(g => {
+    if (!g.populated || g.hidden) return;
+    const slug = String(g.path||'').replace(/^data\//,'').replace(/\/data\.json$/,'');
+    if (!slug || isHidden(slug) || !onShelf(slug)) return;
+    insert(TREE, slug, g); n++;
+  });
+  $('count').textContent = n.toLocaleString('en-IN') + ' texts';
+  drawTree('');
+}).catch(() => { $('tree').innerHTML = '<div class="empty">The library could not be loaded.</div>'; });
+
+$('find').addEventListener('input', e => { if (TREE) drawTree(e.target.value.trim().toLowerCase()); });
+
+// ---- अनुक्रमणी: every catalogued Dvaita work, by author ----
+let ANU = null, LINKS = {};
+function loadAnu(){
+  if (ANU) return Promise.resolve();
+  return Promise.all([
+    fetch('data/catalogs/dvaita_grantha_anukramani.json').then(r=>r.json()),
+    fetch('data/catalogs/anukramani_links.json').then(r=>r.ok?r.json():null).catch(()=>null)
+  ]).then(([cat, links]) => {
+    ANU = cat; LINKS = (links && links.links) || {};
+    const byAuthor = new Map();
+    (cat.items||[]).forEach(it => {
+      const k = (it.karta||'').trim() || '—';
+      if (!byAuthor.has(k)) byAuthor.set(k, []);
+      byAuthor.get(k).push(it);
+    });
+    ANU.byAuthor = byAuthor;
+    const names = Array.from(byAuthor.keys()).sort((a,b) => byAuthor.get(b).length - byAuthor.get(a).length || a.localeCompare(b));
+    const sel = $('author');
+    names.forEach(nm => {
+      const o = document.createElement('option');
+      o.value = nm; o.textContent = `${nm} (${byAuthor.get(nm).length})`;
+      sel.appendChild(o);
+    });
+    const linked = Object.keys(LINKS).length;
+    $('anuCount').textContent = `${(cat.items||[]).length.toLocaleString('en-IN')} works · ${names.length} authors · ${linked} held here`;
+  });
+}
+$('author').addEventListener('change', e => {
+  const rows = (ANU && ANU.byAuthor.get(e.target.value)) || [];
+  const host = $('works');
+  if (!rows.length){ host.innerHTML = '<div class="empty">Choose an author to see their works.</div>'; return; }
+  host.innerHTML = rows.map(it => {
+    const link = LINKS[it.id];
+    const title = esc(it.grantha || '—');
+    // A work we hold opens; one we do not is still listed, because the
+    // catalogue's value is telling you the work EXISTS.
+    const left = link
+      ? `<a href="render.html?path=${encodeURIComponent(link.slug)}">${title}</a>`
+      : title;
+    const tags = [it.prasthana, it.vibhaga, it.vishayaVibhaga].filter(Boolean).join(' · ');
+    return `<div class="work"><div class="t">${left}`
+         + (tags ? `<div class="meta">${esc(tags)}</div>` : '')
+         + `</div>${link ? '' : '<span class="no">not in the library yet</span>'}</div>`;
+  }).join('');
+});
+function setTab(anu){
+  $('tabTree').classList.toggle('on', !anu);
+  $('tabAnu').classList.toggle('on', anu);
+  $('tree').hidden = anu; $('anu').hidden = !anu;
+  $('find').style.display = anu ? 'none' : '';
+  $('foot').textContent = anu
+    ? 'Every known Dvaita work catalogued so far. The ones this library holds are links.'
+    : 'Every title opens the text itself.';
+  if (anu) loadAnu();
+}
+$('tabTree').addEventListener('click', () => setTab(false));
+$('tabAnu').addEventListener('click', () => setTab(true));
+if (location.hash === '#anukramani') setTab(true);
+</script>
+</body>
+</html>
