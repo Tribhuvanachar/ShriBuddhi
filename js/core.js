@@ -107,10 +107,39 @@ const DGE_LEGACY_SLUGS = {
   'ancillary/pratishakhya': 'vedanga/shiksha/pratishakhya',
   'ancillary/vyakarana':    'vedanga/vyakarana',
   'ancillary/chandas':      'vedanga/chandas',
-  'ancillary/nirukta':      'vedanga/nirukta',
-  'ancillary/jyotisha':     'vedanga/jyotisha',
+  // Straight to the text, not to the folder above it: resolution is a
+  // SINGLE pass, so a destination that itself needs upgrading stops half
+  // way -- the rule this block already states, which these two broke.
+  'ancillary/nirukta':      'vedanga/nirukta/mula',
+  'ancillary/jyotisha':     'vedanga/jyotisha/mula',
   'sutras/kalpa_sutras':    'vedanga/kalpa',
   'vyakarana':              'vedanga/vyakarana',
+  // 28 Sep 2026. These two used to read `'stotras': 'stotra'` and
+  // `'koshas': 'kosha'` -- redirects onto roots that exist in NEITHER repo,
+  // so following one produced "Data Not Found ... please ensure
+  // data/stotra/pns/data.json is available", which reads like a lost file
+  // and is really a redirect pointing at nothing. A redirect that resolves
+  // to nothing is worse than none: without it the old link 404s honestly,
+  // with it the app insists a file is missing from the repository.
+  //
+  // Stotras did not move as a block -- they are spread across
+  // Tattvavada/Itara/Stotra, Tattvavada/SarvaMula/stotra_granthas and three
+  // sampradaya trees -- so there is no single root to point at and each
+  // known old link is named individually. `pns` is the pre-23-Aug folder
+  // name for the Prahlada stotra (see STOTRA_CODE_CONTINUITY below, which
+  // keeps that reader's saved progress findable under the old key).
+  'stotra/pns':                          'Tattvavada/Itara/Stotra/prahlada_kruta_narasimha',
+  'stotras/pns':                         'Tattvavada/Itara/Stotra/prahlada_kruta_narasimha',
+  'stotra/prahlada_kruta_narasimha':     'Tattvavada/Itara/Stotra/prahlada_kruta_narasimha',
+  'stotras/prahlada_kruta_narasimha':    'Tattvavada/Itara/Stotra/prahlada_kruta_narasimha',
+  'stotra/vishnu_sahasranama':           'Tattvavada/Itara/Stotra/vishnu_sahasranama',
+  'stotras/vishnu_sahasranama':          'Tattvavada/Itara/Stotra/vishnu_sahasranama',
+  'stotra/dvadasha_stotra':              'Tattvavada/SarvaMula/stotra_granthas/dvadasha_stotra',
+  'stotras/dvadasha_stotra':             'Tattvavada/SarvaMula/stotra_granthas/dvadasha_stotra',
+  // 'koshas' is deliberately absent. The corpus has no kosha root: the only
+  // kosha here is shastra/bauddha_sahitya/shastra/abhidharma_kosha, and
+  // guessing that every old koshas/<x> link meant that one would invent a
+  // redirect rather than fix one.
   // Resolution is a single pass, not a chain (see dgeUpgradeLegacySlug
   // below) -- every entry here must point straight at the CURRENT
   // location, never at an older name that itself needed upgrading.
@@ -143,11 +172,13 @@ const DGE_LEGACY_SLUGS = {
   'smritis':                'smriti_dharma/smriti',
   'dharmashastra':          'smriti_dharma/dharmashastra',
   'kavya':                  'kavya_alankara',
-  'koshas':                 'kosha',
-  'stotras':                'stotra',
   'pancharatra_agama':      'agama/vaishnava_agama/pancharatra',
-  'dasakuta':               'Tattvavada/Itara/DasaSahitya/dasakuta',
-  'vyasakuta':              'Tattvavada/Itara/DasaSahitya/vyasakuta',
+  // The kuta split is gone from the tree: all 151 singers sit together under
+  // composers/, so an old dasakuta/<singer> link keeps its singer and only
+  // its shelf changes. Pointing these at .../dasakuta, a folder that does not
+  // exist, made every such link report a missing file instead.
+  'dasakuta':               'Tattvavada/Itara/DasaSahitya/composers',
+  'vyasakuta':              'Tattvavada/Itara/DasaSahitya/composers',
   // 25 Aug 2026 Agama restructure. pancharatra/pashupata/shaiva_siddhanta
   // moved intact under new parents, so their sub-paths resolve exactly.
   // pratyabhijna/natha_sampradaya/shakta_agama were split across several
