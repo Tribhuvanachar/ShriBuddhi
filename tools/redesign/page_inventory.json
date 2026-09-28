@@ -1,5 +1,5 @@
 {
- "page_count": 66,
+ "page_count": 69,
  "pages": [
   {
    "path": "index.html",
@@ -239,6 +239,17 @@
    "title": "कोश — DGE Dictionary Reader (v2 preview)"
   },
   {
+   "path": "library.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "The Library — Sarvamūla Digital Library"
+  },
+  {
    "path": "reader.html",
    "gated": true,
    "first_head_script": "vandana-guard.js",
@@ -265,6 +276,17 @@
     "css/tour.css"
    ],
    "title": "Sarvamoola Digital Library"
+  },
+  {
+   "path": "sitemap.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "The Library — Sarvamūla Digital Library"
   },
   {
    "path": "tirtha/index.html",
@@ -833,6 +855,17 @@
     "css/repo-map.css"
    ],
    "title": "Repository &amp; Workflows · DGE (super-admin)"
+  },
+  {
+   "path": "admin/spend.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [],
+   "title": "What the OCR cost · DGE"
   },
   {
    "path": "admin/workflows.html",

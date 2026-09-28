@@ -77,6 +77,43 @@
   function $all(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
   function esc(s) { var d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
 
+  // Which catalogued works this library actually holds, and where.
+  // tools/anukramani/build_links.py, keyed by catalogue row id. The catalogue
+  // is the map of every known Dvaita work, most of them digitised nowhere; a
+  // row we CAN open should say so and open, which is the whole reason a
+  // reader comes here from the library rather than the other way round.
+  // Absent file -> every row simply stays plain text, as before.
+  var LINKS = {};
+  fetch('../data/catalogs/anukramani_links.json')
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      LINKS = (d && d.links) || {};
+      // The grid may already be on screen; repaint it so the links appear.
+      try { if (typeof renderTree === 'function' && state.view === 'tree') renderTree(true);
+            else if (typeof render === 'function') render(); } catch (e) {}
+    })
+    .catch(function () {});
+
+  // The tree's node title already opens this row's detail panel on click, so
+  // the way into the LIBRARY is a small separate badge beside it rather than
+  // turning the title itself into a navigation away from the page.
+  function heldBadge(it) {
+    var link = LINKS[it.id];
+    if (!link || !link.slug) return '';
+    return ' <a class="dvc-held dvc-held-badge" href="../render.html?path=' +
+           encodeURIComponent(link.slug) + '" title="Read it in the library">पठ्यताम् ↗</a>';
+  }
+
+  // The grantha cell: a link when we hold the text, plain when we do not.
+  // render.html lives one level up from dvaita-grantha-anukramani/.
+  function granthaCell(it) {
+    var label = esc(show(it, 'grantha') || '(अनाम)');
+    var link = LINKS[it.id];
+    if (!link || !link.slug) return '<span data-open="' + it.id + '">' + label + '</span>';
+    return '<a class="dvc-held" href="../render.html?path=' + encodeURIComponent(link.slug) +
+           '" title="Read it in the library">' + label + '</a>';
+  }
+
   /* ---------------- overrides: the editable layer ---------------- */
   function emptyOverrides() {
     return {
@@ -378,6 +415,7 @@
     var html = '<div class="dvc-node' + edited + '" data-id="' + id + '" style="padding-left:' + (depth * 20) + 'px">' +
       caret +
       '<span class="dvc-node-title" data-open="' + id + '">' + esc(show(it, 'grantha') || '(अनाम)') + '</span>' +
+      heldBadge(it) +
       (cat ? '<span class="dvc-chip-cat">' + esc(catM && state.script === 'iast' ? catM.iast : cat) + '</span>' : '') +
       (eff(it, 'karta') ? '<span class="dvc-node-karta">' + esc(show(it, 'karta')) + '</span>' : '') +
       lbl + flags +
@@ -422,7 +460,7 @@
     var edited = (state.ov.rows[id] || state.ov.parents[id]) ? ' class="dvc-edited"' : '';
     return '<tr' + edited + ' data-id="' + id + '">' +
       '<td class="dvc-num">' + it.row + '</td>' +
-      '<td class="dvc-grantha" title="' + esc(it.breadcrumb) + '"><span data-open="' + id + '">' + esc(show(it, 'grantha') || '(अनाम)') + '</span></td>' +
+      '<td class="dvc-grantha" title="' + esc(it.breadcrumb) + '">' + granthaCell(it) + '</td>' +
       '<td>' + esc(show(it, 'karta')) + '</td>' +
       TAG_FIELDS.map(function (f) { return '<td>' + esc(show(it, f) || '—') + '</td>'; }).join('') +
       '<td class="dvc-muted">' + esc(eff(it, 'availability')) + '</td>' +

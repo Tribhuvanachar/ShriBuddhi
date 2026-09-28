@@ -178,3 +178,11 @@ table.dvc-minitable td,table.dvc-minitable th{padding:4px 8px;border-bottom:1px 
   border-radius:6px;min-width:26px;padding:2px 5px;font-size:.8rem;cursor:pointer;line-height:1.4}
 .dvc-alphabtn:hover{border-color:var(--accent)}
 .dvc-alphabtn.on{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+
+/* A catalogued work this library actually holds. Everything else in the
+   grid is a record of a work that exists somewhere; these are the ones a
+   reader can open, so they are the only coloured thing in the column. */
+.dvc-held { color: var(--accent, #c0562a); text-decoration: none; font-weight: 600; }
+.dvc-held:hover, .dvc-held:focus { text-decoration: underline; }
+.dvc-held-badge { font-size: 11px; font-weight: 600; margin-left: 6px;
+  padding: 1px 6px; border: 1px solid currentColor; border-radius: 999px; }
