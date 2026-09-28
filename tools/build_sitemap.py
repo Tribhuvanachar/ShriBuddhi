@@ -128,6 +128,41 @@ def load_hidden_prefixes(path=OVERRIDES_JSON):
     return data.get("hidden", [])
 
 
+def load_shelf_allow(path=OVERRIDES_JSON):
+    """The go-live shelf's allow list, or None when the shelf is off.
+
+    The shelf (library-overrides.json's `shelf`) arrived after this script
+    did, and nobody came back to it: it closes EVERYTHING except a named
+    handful of prefixes, and 885 of the 1,245 URLs in the generated sitemap
+    pointed at paths it closes. Every one of those was a search result, and a
+    tap from the site's own sitemap page, that loads a multi-megabyte
+    data.json and then renders "This text is not part of the published
+    library yet" -- which is exactly the one rule this file's docstring says
+    it exists to keep. The `hidden` list it already honoured is empty, so it
+    was filtering nothing.
+    """
+    if not path.exists():
+        return None
+    shelf = (json.loads(path.read_text(encoding="utf-8")) or {}).get("shelf") or {}
+    if not shelf.get("enabled"):
+        return None
+    allow = shelf.get("allow")
+    return allow if isinstance(allow, list) else None
+
+
+def is_off_shelf(slug, allow):
+    """Descendant-only, unlike js/role-access.js's dgeIsOffShelf().
+
+    That function also counts an ANCESTOR of an allowed path as on-shelf, so
+    the library drawer has category nodes to open. A sitemap lists leaves, and
+    a category is not a readable page, so counting ancestors here would put
+    back the very URLs this filter removes.
+    """
+    if allow is None:
+        return False
+    return not any(slug == a or slug.startswith(a + "/") for a in allow)
+
+
 def load_populated_granthas():
     """Every library.json entry a reader can actually reach: populated,
     not per-entry `hidden` (js/library.js's dgeIsAdminOnlyGrantha()),
@@ -135,12 +170,15 @@ def load_populated_granthas():
     (dgeIsHiddenPath())."""
     lib = json.loads(LIBRARY_JSON.read_text(encoding="utf-8"))
     hidden_prefixes = load_hidden_prefixes()
+    shelf_allow = load_shelf_allow()
     out = []
     for g in lib["granthas"]:
         if not g.get("populated") or g.get("hidden"):
             continue
         slug = grantha_slug(g["path"])
         if is_hidden_path(slug, hidden_prefixes):
+            continue
+        if is_off_shelf(slug, shelf_allow):
             continue
         # Trees that do not publish at all (tools/unpublished_trees.py). This
         # is NOT the same test as is_hidden_path above: hidden is curation and
