@@ -174,7 +174,7 @@
       loadMenu();
     };
   }
-  window.dgeShowBrahmaBuddhiTokenPrompt = showTokenPrompt;
+  window.dgeShowWorkshopTokenPrompt = showTokenPrompt;
 
   // A plain read of one file from the private repository, for callers that
   // need a config the public site does not carry. js/opaque-resolve.js uses
@@ -182,7 +182,7 @@
   // through a search hit that has no public path. Rejects rather than
   // prompting: the caller decides whether a missing token is worth
   // interrupting a reader for.
-  window.dgeBrahmaBuddhiFetch = function (path) {
+  window.dgeWorkshopFetch = function (path) {
     if (!token()) return Promise.reject(new Error('no admin token'));
     return fetchFromBrahma(path);
   };

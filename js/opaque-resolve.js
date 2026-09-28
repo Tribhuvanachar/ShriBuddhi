@@ -101,8 +101,8 @@
         throw new Error('not local');
       })
       .catch(function () {
-        if (typeof w.dgeBrahmaBuddhiFetch === 'function') {
-          return w.dgeBrahmaBuddhiFetch(MAP_PATH).then(function (r) { return r.json(); });
+        if (typeof w.dgeWorkshopFetch === 'function') {
+          return w.dgeWorkshopFetch(MAP_PATH).then(function (r) { return r.json(); });
         }
         throw new Error('the id map needs the private checkout or an admin token');
       });
