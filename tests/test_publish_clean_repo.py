@@ -106,6 +106,59 @@ class WhatGetsPublished(Fixture):
         self.assertIn("BrahmaBuddhi", open(os.path.join(self.src, "js/app.js")).read())
 
 
+class PathScopedExclusionsDoNotMatchByBareName(Fixture):
+    """EXCLUDE_RELATIVE_DIRS/FILES exist because EXCLUDE_DIRS's bare-name
+    matching is wrong for some names: "kamadhenu" is both an internal
+    audit project at the repo root and data/kamadhenu, a nested nested
+    reference-audio dump that also needs excluding, while a same-named
+    directory anywhere else must still publish -- the bug a bare-name
+    exclude would have caused.
+    """
+    def setUp(self):
+        super().setUp()
+        for rel, text in (
+            ("kamadhenu/README.md", "internal audit project"),
+            ("data/kamadhenu/refs.json", '{"speaker":"internal"}'),
+            ("vyakarana/kamadhenu/note.json", '{"sa":"unrelated, must still publish"}'),
+            ("scans/book.pdf", "not really a pdf"),
+            ("tests/test_x.py", "assert True"),
+            ("search_index/backlinks/x.json", '{"n":1}'),
+            ("search_index/postings/a.json", '{"big":"index"}'),
+            ("search_index/manifest.json", '{"big":"manifest"}'),
+            ("search_index/backlinks.json", '{"build":"intermediate"}'),
+        ):
+            full = os.path.join(self.src, rel)
+            os.makedirs(os.path.dirname(full), exist_ok=True)
+            open(full, "w").write(text)
+
+    def test_top_level_kamadhenu_does_not_publish(self):
+        published = {rel for _, rel in publish.walk(self.src)}
+        self.assertNotIn("kamadhenu/README.md", published)
+
+    def test_nested_data_kamadhenu_does_not_publish(self):
+        published = {rel for _, rel in publish.walk(self.src)}
+        self.assertNotIn("data/kamadhenu/refs.json", published)
+
+    def test_an_unrelated_directory_named_kamadhenu_still_publishes(self):
+        published = {rel for _, rel in publish.walk(self.src)}
+        self.assertIn("vyakarana/kamadhenu/note.json", published)
+
+    def test_scans_and_tests_do_not_publish(self):
+        published = {rel for _, rel in publish.walk(self.src)}
+        self.assertNotIn("scans/book.pdf", published)
+        self.assertNotIn("tests/test_x.py", published)
+
+    def test_search_index_backlinks_folder_publishes(self):
+        published = {rel for _, rel in publish.walk(self.src)}
+        self.assertIn("search_index/backlinks/x.json", published)
+
+    def test_search_index_bulk_files_and_dirs_do_not_publish(self):
+        published = {rel for _, rel in publish.walk(self.src)}
+        self.assertNotIn("search_index/postings/a.json", published)
+        self.assertNotIn("search_index/manifest.json", published)
+        self.assertNotIn("search_index/backlinks.json", published)
+
+
 class TheCommitHasNoParent(Fixture):
     def build(self):
         publish.stage(self.src, self.out)

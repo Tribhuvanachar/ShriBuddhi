@@ -50,6 +50,40 @@ from unpublished_trees import PRIVATE_TREES, UNDECIDED_TREES, is_unpublished
 # copies it into the checkout at deploy time.
 EXCLUDE_DIRS = (".git", ".github", ".claude", "docs", "admin", "tools", "firebase",
                 "node_modules", ".pytest_cache", "__pycache__")
+
+# Paths that must NOT be pruned by bare name anywhere in the tree (unlike
+# EXCLUDE_DIRS) because the same name is also a real, published path
+# elsewhere -- "kamadhenu" is both this internal audit/TTS project at the
+# repo root AND data/kamadhenu (a reference-audio dump nested under actual
+# corpus data). Matched against the exact repo-relative path, POSIX-style.
+#
+# Found 28-29 Sep 2026, the first time ShriBuddhi itself was scanned and
+# built as a publish source rather than a hand-curated stripped-down
+# checkout that never contained any of this to begin with: every prior
+# build this session used that checkout, so none of this was ever
+# exercised, and a straight `du` of the real source tree is what surfaced
+# it. None of these are content -- an internal TTS/audio-dataset audit
+# project (two directories: the project itself and its raw dataset), a
+# raw scanned-PDF input directory whose own README incorrectly claims
+# "nothing here is served" (it wasn't excluded), the pytest suite, a
+# labelled prototype/experiment writeup, and Python import tooling.
+EXCLUDE_RELATIVE_DIRS = ("scans", "kamadhenu_dataset", "kamadhenu", "tests",
+                         "rag_prototype", "importers", "veda_toolkit",
+                         "search_toolkit_pkg", "kosha_toolkit",
+                         "data/kamadhenu",
+                         # The full corpus search index (~2.7 GB) lives on
+                         # the "search-dist" CDN branch (js/config.js's
+                         # searchIndexBase), not main -- a clean build is
+                         # meant to fit GitHub Pages' 1 GB limit, and this
+                         # alone is nearly three times over it.
+                         # search_index/backlinks/ is the one part that
+                         # does stay on main (0.1 MB, js/backlinks.js reads
+                         # it directly); everything else here is the bulk
+                         # index or a build intermediate superseded by it.
+                         "search_index/postings", "search_index/units",
+                         "search_index/vocab", "search_index/words")
+EXCLUDE_RELATIVE_FILES = ("search_index/manifest.json", "search_index/backlinks.json")
+
 EXCLUDE_FILES = ("CLAUDE.md", "PENDING.md", "HANDOFF.md", ".gitattributes",
                  "firebase-hosting.json",
                  # Internal engineering records, not reader content -- a repo
@@ -60,7 +94,11 @@ EXCLUDE_FILES = ("CLAUDE.md", "PENDING.md", "HANDOFF.md", ".gitattributes",
                  # former name, which a reword would have to preserve to stay
                  # accurate as a historical record, so exclusion is the right
                  # fix, not a rewrite.
-                 "BRANCH_MIGRATION.md", "KAMADHENU_AUDIT.md", "GEMINI_CHANDAS_TASK.md")
+                 "BRANCH_MIGRATION.md", "KAMADHENU_AUDIT.md", "GEMINI_CHANDAS_TASK.md",
+                 # convert/'s own developer README, naming BrahmaBuddhi as
+                 # where the tool used to live -- history for whoever
+                 # maintains convert/, not for a reader of it.
+                 "WHY_IT_IS_HERE.md")
 
 # In-browser test harnesses that live beside the code they test. No page loads
 # any of them -- they reference each other and nothing else does -- so they are
@@ -106,13 +144,19 @@ def walk(source: str):
         # basename anywhere in the tree -- which would be wrong for these.
         dirs[:] = [d for d in dirs
                    if not is_unpublished(os.path.relpath(os.path.join(root, d), source))]
+        dirs[:] = [d for d in dirs
+                   if os.path.relpath(os.path.join(root, d), source).replace(os.sep, "/")
+                   not in EXCLUDE_RELATIVE_DIRS]
         for name in files:
             if name in EXCLUDE_FILES:
                 continue
             if any(fnmatch.fnmatch(name, g) for g in EXCLUDE_GLOBS):
                 continue
             full = os.path.join(root, name)
-            yield full, os.path.relpath(full, source)
+            rel = os.path.relpath(full, source)
+            if rel.replace(os.sep, "/") in EXCLUDE_RELATIVE_FILES:
+                continue
+            yield full, rel
 
 
 def scan(source: str) -> list[tuple[str, str, str]]:
@@ -256,7 +300,8 @@ def main(argv=None) -> int:
 
     files = list(walk(args.source))
     print("%d file(s) would be published from %s" % (len(files), args.source))
-    print("excluded: %s" % ", ".join(EXCLUDE_DIRS + EXCLUDE_FILES + EXCLUDE_GLOBS))
+    print("excluded: %s" % ", ".join(EXCLUDE_DIRS + EXCLUDE_FILES + EXCLUDE_GLOBS
+                                     + EXCLUDE_RELATIVE_DIRS + EXCLUDE_RELATIVE_FILES))
     print()
 
     hits = scan(args.source)
