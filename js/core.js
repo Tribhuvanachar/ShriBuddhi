@@ -364,10 +364,14 @@ window.dgeAdminConfigUrl = window.dgeAdminConfigUrl || function (name) {
 // (config/<name>, content/<name> -- see js/admin-remote.js's own
 // LEGACY_PUBLIC_CONFIG/LEGACY_PUBLIC_CONTENT lists, which name this same
 // set of files) -- it was simply never wired in as a FALLBACK anywhere.
-// tools/publish_clean_repo.py now refreshes config/ and content/ from
-// admin/config/ and admin/content/ at build time, so this fallback is never
-// stale on a fresh publish; this is the other half, the reader actually
-// trying it.
+// This is that fallback, the reader actually trying it.
+//
+// A later pass (tools/publish_direct_fetch_rewrite.py, 29 Sep 2026) points
+// every one of these callers' PRIMARY url straight at the root mirror in
+// the staged copy of a clean build, so this fallback branch never fires
+// there -- the round trip through a 404 it always used to make is gone.
+// It still runs unmodified in the workshop repositories, where
+// admin/config/... IS the live truth and this IS the primary attempt.
 //
 // Takes the URL that was ALREADY BUILT for the primary attempt (by
 // dgeAdminConfigUrl, dgeContentUrl, or a file's own equivalent) rather than

@@ -360,6 +360,21 @@ def main(argv=None) -> int:
     print()
     n = stage(args.source, args.out)
 
+    # Same staged-copy-only reasoning as the opaque rewrite below: the
+    # source keeps trying admin/config|content/ first on purpose (it IS the
+    # live truth there), so only the STAGED copy gets its primary fetch
+    # pointed straight at the root-level mirror.
+    rc = subprocess.run([sys.executable,
+                         os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                      "publish_direct_fetch_rewrite.py"),
+                         "--staged", args.out],
+                        text=True).returncode
+    if rc != 0:
+        print("\nRefusing to build: publish_direct_fetch_rewrite.py could not find"
+              "\none of its expected strings. The source moved; update its"
+              "\nREWRITES list to match. Nothing has been committed.", file=sys.stderr)
+        return 6
+
     # The order matters and is the whole reason this is here rather than in
     # the generators: stage the real tree, rewrite the staged COPY, then
     # check the copy. Checking the source instead would refuse every build
