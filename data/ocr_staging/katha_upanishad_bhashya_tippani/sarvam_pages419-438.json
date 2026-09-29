@@ -1,0 +1,141 @@
+{
+ "_readme": "Layout-preserving OCR from Sarvam Document AI (tools/sarvam_docai.py). Review in admin/ocr-review.html; nothing here reaches the library until approved.",
+ "source": {
+  "pdf": "https://archive.org/download/katha-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/KATHAKOPANISHAT%206%20TIPPANI-%20UM.pdf",
+  "pages": [
+   419,
+   420,
+   421,
+   422,
+   423,
+   424,
+   425,
+   426,
+   427,
+   428,
+   429,
+   430,
+   431,
+   432,
+   433,
+   434,
+   435,
+   436,
+   437,
+   438
+  ],
+  "pdf_pages": 438
+ },
+ "engine": "sarvam-docai",
+ "language": "sa-IN",
+ "format": "html",
+ "generated_at": "2026-09-18T15:42:52Z",
+ "usage": {
+  "pages_total": 0,
+  "pages_succeeded": 0,
+  "pages_failed": 20,
+  "jobs": 0
+ },
+ "pages": [
+  {
+   "page": 419,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 420,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 421,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 422,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 423,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 424,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 425,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 426,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 427,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 428,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 429,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 430,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 431,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 432,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 433,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 434,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 435,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 436,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 437,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 438,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  }
+ ]
+}

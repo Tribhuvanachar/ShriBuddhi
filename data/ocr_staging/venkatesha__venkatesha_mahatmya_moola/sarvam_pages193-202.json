@@ -1,0 +1,148 @@
+{
+ "_readme": "Layout-preserving OCR from Sarvam Document AI (tools/sarvam_docai.py). Review in admin/ocr-review.html; nothing here reaches the library until approved.",
+ "source": {
+  "pdf": "https://drive.google.com/uc?export=download&id=1pc1i4tmluV10jH43I8K5OaY9PdTv84wD",
+  "pages": [
+   193,
+   194,
+   195,
+   196,
+   197,
+   198,
+   199,
+   200,
+   201,
+   202
+  ],
+  "pdf_pages": 248
+ },
+ "engine": "sarvam-docai",
+ "language": "sa-IN",
+ "format": "html",
+ "generated_at": "2026-09-22T04:23:58Z",
+ "usage": {
+  "pages_total": 10,
+  "pages_succeeded": 10,
+  "pages_failed": 0,
+  "jobs": 1
+ },
+ "receipts": [
+  {
+   "job_id": "01a0c75b-395b-73c0-b893-024b85a0bac7",
+   "pages": [
+    193,
+    202
+   ],
+   "page_count": 10,
+   "status": "completed",
+   "seconds": 10.0,
+   "at": "2026-09-22T04:24:08Z",
+   "pages_succeeded": 10,
+   "pages_failed": 0,
+   "error": ""
+  }
+ ],
+ "started_at": "2026-09-22T04:23:58Z",
+ "pages": [
+  {
+   "page": 193,
+   "ok": true,
+   "blocks_count": 5,
+   "html": "<h4 data-layout=\"header\" data-confidence=\"0.81\">एकादशोऽध्यायः</h4>\n<div data-layout=\"page-number\" data-confidence=\"0.79\">185</div>\n<p data-layout=\"paragraph\" data-confidence=\"0.76\">धरण्या सह राजेन्द्रः कन्यादानपरायणः ।</p>\n<p data-layout=\"table\" data-confidence=\"0.27\">&lt;table&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;पूजयित्वा जगन्नाथं गन्धवस्त्रानुलेपनैः ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;प्रहृष्टहृदयः प्राह श्रीनिवासं परात्परम्&lt;/td&gt;<br>      &lt;td&gt;।। ३५५ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td colspan=\"2\"&gt;आकाशराज उवाच-&lt;br/&gt;१कन्यादानं मया दत्तं गृहाण पुरुषोत्तम&lt;/td&gt;<br>      &lt;td&gt;।। ३५६ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;इत्युक्त्वा प्राक्षिपद् राजा धरण्या स्रावितां तदा ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;मन्त्रपूतां स्वामितीर्थधारां सकनकां करे&lt;/td&gt;<br>      &lt;td&gt;।। ३५७ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;दक्षिणे श्रीनिवासस्य ददौ पद्मावतीं ततः ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;विधानं च ततश्चक्रे राजेन्द्रः सपुरोहितः ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;मुनीनामञ्जलिपुटे राजा रत्नाक्षतान् ददौ&lt;/td&gt;<br>      &lt;td&gt;।। ३५८ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ते वेदमन्त्रैर्जगदीशमूर्धनि&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;मुक्ताक्षतान् वेदविदः प्रसुस्रुवुः।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;तदाऽभवत् तत्र महोत्सवो नृप&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;आकाशराजालयवासिनां च&lt;/td&gt;<br>      &lt;td&gt;।। ३५९ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;पूजयित्वा जगन्नाथं गन्धवस्त्रानुलेपनैः ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;कङ्कं बन्धयामास वासुदेवकराम्बुजे ।।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;बृहस्पतिः कराब्जेन पद्मावत्याः कराम्बुजे&lt;/td&gt;<br>      &lt;td&gt;।। ३६० ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;स्वीयं तु मिलितं राजा माङ्गल्यं सूत्रमुत्तमम् ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;श्रीनिवासेन देवेन कृतवान् स पुरोहितः ।।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;बबन्ध सूत्रं गोविन्दः कण्ठे मन्त्रनिमन्त्रितम्&lt;/td&gt;<br>      &lt;td&gt;।। ३६१ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>\n<blockquote data-layout=\"footnote\" data-confidence=\"0.53\">१. पा-कन्यामिमां प्रदास्यामि</blockquote>",
+   "image_size": [
+    1654,
+    2540
+   ]
+  },
+  {
+   "page": 194,
+   "ok": true,
+   "blocks_count": 11,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.75\">186</div>\n<h4 data-layout=\"header\" data-confidence=\"0.77\">वेङ्कटेशमाहात्म्यम्</h4>\n<p data-layout=\"paragraph\" data-confidence=\"0.38\">सुवासिन्य ऊचु:-<br>सावित्री भव कल्याणी बहुपुत्रवती भव ।<br>सर्वलोकस्य जननी भव मङ्गलदायिनी ॥ ३६२ ॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.39\">इत्थं सुमङ्गलीस्त्रीषु गायन्तीषु शुभाशिषः ।<br>ब्राह्मणानां करस्पर्शाद् राज्ञश्चापि महात्मनः ॥ ३६३ ॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.42\">बबन्ध पूतं माङ्गल्यसूत्रं मन्त्राभिमन्त्रितम् ।<br>कण्ठे पद्मावतीदेव्याः श्रीनिवासो जगत्पतिः ।। ३६४ ।।</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.36\">माङ्गल्यतन्तुनाऽनेन जगज्जीवनहेतुना ।<br>कण्ठे बध्नामि सुभगे चिरञ्जीव मया सह ।।<br>मन्त्रेणानेन गोविन्दः कण्ठे तस्या बबन्ध च ।। ३६५ ।।</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.37\">वैवाहिकं समाप्याथ जग्मतुर्होममण्टपम् ।<br>वसिष्ठः कारयामास पद्मायाः त्र्यञ्जलार्पितम् ।। ३६६ ।।</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.33\">मुनिभिर्वेदविद्वद्भिर्लाजाहोमं पुरोहितः ।<br>यजुःशाखोक्तमार्गेण जुहावाग्नौ महामतिः ॥ ३६७ ॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.61\">सर्वं वैवाहिकविधिं वसिष्ठोऽथ समापयत् ॥ ३६८ ॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.46\">ततः पुरोहितो राज्ञः स्वस्तिवाचनपूर्वकम् ।<br>मुनीनामञ्जलिपुटे नवरत्नाक्षतान् ददौ ॥ ३६९ ॥</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.31\">ते वेदमन्त्रैर्जगदीशमूर्ध्नि<br>रत्नाक्षतान् वेदविदः प्रचिक्षिपुः ।</p>",
+   "image_size": [
+    1654,
+    2540
+   ]
+  },
+  {
+   "page": 195,
+   "ok": true,
+   "blocks_count": 3,
+   "html": "<h4 data-layout=\"header\" data-confidence=\"0.69\">एकादशोऽध्यायः</h4>\n<div data-layout=\"page-number\" data-confidence=\"0.77\">187</div>\n<p data-layout=\"paragraph\" data-confidence=\"0.61\">तदा नृणां तत्र महोत्सवोऽभूत्<br>आकाशराजस्य पुरीनिवासिनाम् ।। ३७० ।।<br><br>तस्मिन् काले महाराजो दक्षिणां ब्रह्मवादिनाम् ।<br>दापयामास संहृष्टो विप्रैस्ताम्बूलपूर्वकम् ।<br>गवां कोटिसहस्राणि चाश्वानामयुतं तथा ।। ३७१ ।।<br><br>वस्त्राणां निचयं राजन् विप्रेभ्यो दत्तवान् पृथक् ।<br>एवं महोत्सवस्तत्र समभूद्दशमीदिने ।। ३७२ ।।<br><br>वधूवरौ प्रतिष्ठाप्य भोजनार्थं नरेश्वरः ।<br>अन्नं बहुविधं सूपरसभक्ष्यसमन्वितम् ।। ३७३ ।।<br><br>पुरोहितेन सहितो पुत्रपौत्रादिभिर्वृतः ।<br>भोजनं कृतवान् कृष्णः पद्मावत्या समन्वितः ।। ३७४ ।।<br><br>आकाशराजो 'राजेन्द्र भुक्तवान् कृष्णसन्निधौ ।<br>लक्ष्मीसमेता धरणी तथा बकुलमालया ।। ३७५ ।।<br><br>भुक्त्वाऽन्नं रससंयुक्तं सुप्तो भार्यासमन्वितः ।। ३७६ ।।<br><br>ततः प्रभाते राजेन्द्र सुवासिन्यः सुरेश्वरम् ।<br>मज्जनं कारयामासुः गन्धतैलैः सुनिर्मलैः ।। ३७७ ।।<br><br>अन्योन्यं पूजनं तत्र अन्योन्यपरिरम्भणम् ।<br>स राजा विप्रमुख्यानां सुराणां बहुभोजनम् ।। ३७८ ।।<br>१. पा-धर्मात्मा</p>",
+   "image_size": [
+    1654,
+    2540
+   ]
+  },
+  {
+   "page": 196,
+   "ok": true,
+   "blocks_count": 3,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.74\">188</div>\n<h4 data-layout=\"header\" data-confidence=\"0.80\">वेङ्कटेशमाहात्म्यम्</h4>\n<p data-layout=\"table\" data-confidence=\"0.85\">&lt;table&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;स्त्रीणां च पुरुषाणां च बहुमानक्रमेण सः ।&lt;br/&gt;देवानां च ऋषीणां च नृपाणां मानुषात्मनाम् ।। ३७९ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;यथेष्टं दापयामास हृष्ट आकाशभूमिप ।&lt;br/&gt;अपूपान् विविधान् दिव्यान् सूपशाकादिकांस्तथा ।।३८०।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;घृतकुल्यं क्षीरकुल्यं दधिकुल्यमतःपरम् ।&lt;br/&gt;तत उद्धृत्य निक्षिप्तं बहिर्भुक्तवतां नृणाम् ।। ३८१ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;उच्छिष्टपत्रजालं च पुष्कलान्नादि संयुतम् ।&lt;br/&gt;सारमेयगणाकीर्णं राक्षसानां गणैस्तथा ।। ३८२ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;एवं कोलाहलं चक्रे दिनानि चतुरस्तथा ।&lt;br/&gt;आसीत् तत्र विनोदश्च नित्यमङ्गलमेव च ।। ३८३ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;दिवसे पञ्चमे प्राप्ते कृत्वा नाकबलिं नृप ।। ३८४ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;कलशांश्चतुरो न्यस्य दीपज्वालाविराजितान् ।&lt;br/&gt;वधूवरौ प्रतिष्ठाप्य रत्नसिंहासने शुभे ।। ३८५ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;पूजयामास गोविन्दं जामातारमनामयम् ।&lt;br/&gt;आकाशराजो धर्मात्मा क्षीरपात्रं करे दधौ ।। ३८६ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;मातरं वासुदेवस्य राजन् बकुलमालिकाम् ।&lt;br/&gt;पूजयित्वा विधानेन वस्त्रालङ्कारभूषणैः ।। ३८७ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;नाभिं क्षीरेण संमृज्य पुत्रीं पद्मावतीं तदा ।&lt;br/&gt;अर्पयामास दुःखेन ब्रह्मणस्तु महीपते ।। ३८८ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "image_size": [
+    1654,
+    2540
+   ]
+  },
+  {
+   "page": 197,
+   "ok": true,
+   "blocks_count": 3,
+   "html": "<h4 data-layout=\"header\" data-confidence=\"0.78\">एकादशोऽध्यायः</h4>\n<div data-layout=\"page-number\" data-confidence=\"0.78\">189</div>\n<p data-layout=\"paragraph\" data-confidence=\"0.49\">महालक्ष्म्या नाभिमूलं सघृतं क्षीरसेचनम् ।<br>अर्पयामास पुत्रीं स्वां रुदन् गद्गदकण्ठवान् ।। ३८९ ।।<br>श्रीनिवासस्य कृष्णस्य शेषाचलनिवासिनः ।<br>राजभार्या महाभागा रुदन्ती कुररी यथा ।। ३९० ।।<br>पुत्रीहस्तं स्वहस्तेन धृत्वा राजकुलाङ्गना ।<br>क्षीरं संयोज्य कृष्णस्य नाभिमूलेऽतिदुःखिता ।<br>भृशं रुदन्ती मन्त्रेण दुःखसन्दिग्धलोचना ।। ३९१ ।।<br>अर्पयामास कृच्छ्रेण पुत्रीं पद्मावतीं ततः ।<br>प्रोवाच च श्रीनिवासं रुदन्ती राजवल्लभा ।। ३९२ ।।<br>धरण्युवाच-<br>पालितां लालितां पुत्रीं नवमासधृतां मया ।<br>त्वदधीनां जगन्नाथ करिष्ये मम नन्दनाम् ।। ३९३ ।।<br>इत्येवमर्पयामास श्रीनिवासकराम्बुजे ।। ३९४ ।।<br>स तस्या रोदनं दृष्ट्वा राजा दुःखपरायणः ।<br>रुरोद दीनवदनः पुत्रीमालिङ्गय भूपतिः ।। ३९५ ।।<br>राजोवाच-<br>हा पुत्रि मन्दभाग्योऽहं त्वद्वियोगेन केवलम् ।<br>जीवनं मम कल्याणि न स्थिरं च भविष्यति।। ३९६ ।।</p>",
+   "image_size": [
+    1654,
+    2540
+   ]
+  },
+  {
+   "page": 198,
+   "ok": true,
+   "blocks_count": 4,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.73\">190</div>\n<h4 data-layout=\"header\" data-confidence=\"0.77\">वेङ्कटेशमाहात्म्यम्</h4>\n<p data-layout=\"paragraph\" data-confidence=\"0.58\">१'क्रीडागृहं राजपुत्रि तव भोजनकर्म च ।<br>भ्राता तव वरारोहे कथं क्रीडां करिष्यति ।। ३९७ ।।<br>एवं रुदन्तमालोक्य भ्रातरं दीनचेतसम् ।<br>तोण्डिमानो नृपश्रेष्ठः दुःखितो वाक्यमब्रवीत् ।। ३९८ ।।<br>तोण्डिमान उवाच-<br>वयं दरिद्रा निर्भाग्याः त्वं हि भद्रे गमिष्यसि ।<br>वयं मरणमापन्ना नात्र कार्या विचारणा ।। ३९९ ।।<br>एतादृशी च कल्याणी नैव लब्धा कलौ युगे ।<br>इत्थं वयं निश्चिनुमो वियोगभृशदुःखिताः ।। ४०० ।।<br>एवं तान् रुदतो दृष्ट्वा विष्वक्सेनोऽतिदुःखितः ।<br>भगिनीं दीनवदनामालिङ्ग्य प्ररुदन् मुहुः ।। ४०१ ।।<br>वसुदान उवाच-<br>मातरं बालकं त्यक्त्वा यथालोभार्जितं धनम् ।<br>तथा मां भगिनीहीनं क्व नु गच्छसि भामिनी ।।४०२।।<br>एवं प्रसङ्गस्तत्रासीद्देवानामपि भूमिप ।<br>ऋषीणां कश्यपादीनां दुःखमत्यन्तदारुणम् ।। ४०३ ।।<br>रुदन्तं नृपतिं दृष्ट्वा श्रीनिवासः सताङ्गतिः ।<br>स्वयं रुरोद गोविन्दो भगिनीं पार्थवल्लभाम् ।<br>स्मृत्वा श्रीदेवकीपुत्रस्तद्द्भुतमिवाभवत् ।। ४०४ ।।</p>\n<p data-layout=\"paragraph\" data-confidence=\"0.32\">१. पा-क्रीडामृगश्च ते पुत्रि आहारश्च न सेवते ।।</p>",
+   "image_size": [
+    1654,
+    2540
+   ]
+  },
+  {
+   "page": 199,
+   "ok": true,
+   "blocks_count": 3,
+   "html": "<h4 data-layout=\"header\" data-confidence=\"0.73\">एकादशोऽध्यायः</h4>\n<div data-layout=\"page-number\" data-confidence=\"0.77\">191</div>\n<p data-layout=\"table\" data-confidence=\"0.25\">&lt;table&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;इत्थं लौकिककर्माणि ऐरावतमुपास्थितः&lt;/td&gt;<br>      &lt;td&gt;।। ४०५ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;पद्मावत्या तया सार्धं सर्ववाद्यसमन्वितः ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ग्रामं प्रदक्षिणीकृत्य रमानारायणावुभौ&lt;/td&gt;<br>      &lt;td&gt;।। ४०६ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;स्वनिवेशगृहं भेजे पद्मासनभवादिकैः ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;ततो हरिः श्रीनिवासः स्वस्थानं गन्तुमैहत&lt;/td&gt;<br>      &lt;td&gt;।। ४०७ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;गरुडस्कन्धमारूढः पत्नीं पद्मावतीमपि ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;आरोपयन् वरारोहामन्योन्यं परिरभ्य च&lt;/td&gt;<br>      &lt;td&gt;।। ४०८ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;गरुडस्कन्धमारूढो गन्तुं स्वस्थानमुत्सुकः ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;हरिरामन्त्रणार्थं तु श्वश्रूश्वशुरयोस्तदा&lt;/td&gt;<br>      &lt;td&gt;।। ४०९ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;पुनर्गृहं प्रवेश्याथ गमनेच्छुर्भवान् हरिः ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;श्वश्रूं च श्वशुरं चैव साष्टाङ्गं प्रणनाम च&lt;/td&gt;<br>      &lt;td&gt;।। ४१० ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;आशीर्वादं ततश्चक्रे जामातारमनामयम् ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;आकाशराजः श्वशुरः श्वश्व्रा च धरया सह&lt;/td&gt;<br>      &lt;td&gt;।। ४११ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;आकाशराज उवाच-&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;दीर्घायुर्भव गोविन्द सर्वलोकधुरन्धर ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;आशीर्भिरभिनन्द्याथ वासुदेवमभाषत&lt;/td&gt;<br>      &lt;td&gt;।। ४१२ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td colspan=\"2\"&gt;धरण्युवाच-&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td colspan=\"2\"&gt;मासान्ते गच्छ गोविन्द वध्वा सह स्वकं गृहम् ।&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "image_size": [
+    1654,
+    2540
+   ]
+  },
+  {
+   "page": 200,
+   "ok": true,
+   "blocks_count": 3,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.74\">192</div>\n<h4 data-layout=\"header\" data-confidence=\"0.77\">वेङ्कटेशमाहात्म्यम्</h4>\n<p data-layout=\"paragraph\" data-confidence=\"0.33\">स तस्या वचनं श्रुत्वा वासुदेवोऽब्रवीन्नृपम् ।। ४१४ ।।<br>श्रीनिवास उवाच-<br>नृप वाक्यं शृणु मम कार्यस्य महती त्वरा ।<br>तस्मादाज्ञां च मे देहि राजंस्ते स्यात् कृपा मयि ।।४१५।।<br>इत्युक्त्वा वासुदेवस्तु गरुडस्कन्धमारुहत् ।<br>जगाम भगवान् साक्षात् सर्वदेवसमन्वितः ।। ४१६ ।।<br>आकुलं व्याकुलं रम्यं पुरस्थजनसङ्कुलम् ।<br>प्राकारगोपुरारूढाः पश्यन्ति स्म स्वचक्षुषा ।। ४१७ ।।<br>जना ऊचुः-<br>धन्या राजकुलोत्पन्ना सखी कमललोचना ।<br>अनुगच्छति गोविन्दं 'पश्य कालविपर्ययम् ।। ४१८ ।।<br>तदा ददौ महाराजः पारिबर्हान् श्रियः पतेः ।<br>तण्डुलान् शालिसम्भूतान् वृषभाणां तथोपरि ।। ४१९ ।।<br>आरोप्य प्रेषयामास शतं खारी वियन्नृपः ।<br>मुद्रान् गोस्वामिसंरूढास्त्रिंशंतखारीर्ददौ हरेः ।। ४२० ।।<br>गुडभारं समुद्धृतं तिन्त्रिणीभारमेव च ।<br>पयोघटसहस्राणि दधिभाण्डशतानि च ।। ४२१ ।।<br>सहस्रार्धं घृताक्तानि चर्मपात्राणि सर्षपान् ।<br>मेथिकान् हिङ्गुलवणं तैलपात्राणि पञ्च च ।। ४२२ ।।<br>१. पा-पश्यतेति परस्परम्</p>",
+   "image_size": [
+    1654,
+    2540
+   ]
+  },
+  {
+   "page": 201,
+   "ok": true,
+   "blocks_count": 3,
+   "html": "<h4 data-layout=\"header\" data-confidence=\"0.78\">एकादशोऽध्यायः</h4>\n<div data-layout=\"page-number\" data-confidence=\"0.77\">193</div>\n<p data-layout=\"paragraph\" data-confidence=\"0.44\">ददौ शर्करसम्पूर्णघटानां द्विशतं तथा ।<br>वार्ताकचूतकदळीराजरम्भाफलानि च ॥ ४२३ ॥<br>कूष्माण्डं कन्दमूलानि मधुभाण्डशतानि च ।<br>रम्भाफलानि राजेन्द्र पत्राणां निचयं तथा ॥ ४२४ ॥<br>अश्वानामयुतं दत्वा गजानां च सहस्रकम् ।<br>धेनूनां पञ्चसाहस्रमाविकानां शतं तथा ॥ ४२५ ॥<br>दासीनां द्विशतं राजन् त्रिशतं राजवर्गिणाम् ।<br>वस्त्राणि विविधान्याशु पर्यङ्कं रत्नभूषितम् ॥ ४२६ ॥<br>उपबर्हसमोपेतमुपबर्हणसंयुतम् ।<br>एवमादीनि वस्तूनि गृहीत्वा नृपसत्तमः ॥ ४२७ ॥<br>पुत्रेण सहितो राजा श्रीनिवासपरायणः ।<br>आकाशराजो धर्मज्ञः श्रीनिवासस्य सन्निधिम् ॥ ४२८ ॥<br>आगतं श्वशुरं दृष्ट्वा उत्थाय जगदीश्वरः ।<br>श्रीनिवास उवाच-<br>दूराध्वानं महाराज किमर्थं 'गमनं कृतम् ॥ ४२९ ॥<br>दातव्यं किं नृपश्रेष्ठ तव पुत्रस्य मेऽनघ ।<br>कन्यां दत्वा शुभां प्राप्तं सुकृतं किं कृतं त्वया ।।४३०।।<br>सन्तोषमतुलं प्राप्तं मम तात न संशयः ।<br>किं ते मनोगतं राजन् तन्ममाचक्ष्व भूपते ॥ ४३१ ॥<br>१. पा-त्वं समागतः</p>",
+   "image_size": [
+    1654,
+    2540
+   ]
+  },
+  {
+   "page": 202,
+   "ok": true,
+   "blocks_count": 3,
+   "html": "<div data-layout=\"page-number\" data-confidence=\"0.73\">194</div>\n<h4 data-layout=\"header\" data-confidence=\"0.77\">वेङ्कटेशमाहात्म्यम्</h4>\n<p data-layout=\"table\" data-confidence=\"0.40\">&lt;table&gt;<br>  &lt;tbody&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;सन्देहं मा कुरुष्वात्र दानादाने महीपते ।&lt;/td&gt;<br>      &lt;td&gt;।। ४३२ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;वासुदेववचः श्रुत्वा वासुदेवमभाषत&lt;/td&gt;<br>      &lt;td&gt;।। ४३२ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;सर्वं सम्पूर्णमस्माकं त्वत्प्रसादेन केशव ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;नान्यं याचे जगन्नाथ तव पादसरोरुहे&lt;/td&gt;<br>      &lt;td&gt;।। ४३३ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;भक्तिं देह्यचलां कृष्ण सकुटुम्बस्य मेऽनघ ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;तच्छ्रुत्वा वचनं तस्य शूरस्य च महात्मनः&lt;/td&gt;<br>      &lt;td&gt;।। ४३४ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;दत्तवान् तस्य सायुज्यमाकाशनृपतेस्तदा ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;शालकस्य ददौ वस्त्रं स्वाङ्गस्थं मधुसूदनः&lt;/td&gt;<br>      &lt;td&gt;।। ४३५ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;स जामात्रभ्यनुज्ञातः प्रययौ ससुतः पुरीम् ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;पुत्रि गमिष्ये नगरं विहरस्व हरिप्रिये&lt;/td&gt;<br>      &lt;td&gt;।। ४३६ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;शयने श्रीनिवासस्य शयनं कुरु मङ्गले ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;सान्त्वयित्वा सुतां वीरः पुत्री कमललोचनाम्&lt;/td&gt;<br>      &lt;td&gt;।। ४३७ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;शासिता सा स्वपित्राऽऽशु शीघ्रमाप रथं नृप ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;रुदन् गद्गदकण्ठेन जगाम नगरं नृपः&lt;/td&gt;<br>      &lt;td&gt;।। ४३८ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;पद्मावत्याऽनु गोविन्दो ब्रह्मरुद्रादिकैर्युतः ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;सुवर्णमुखरीं प्राप्य तत्र वासमकल्पयत्&lt;/td&gt;<br>      &lt;td&gt;।। ४३९ ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;षण्मासावधिपर्यन्तं दीक्षितोऽहं महीपते ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;न शैलराजमारोह इति निश्चित्य देवराट् ।&lt;/td&gt;<br>      &lt;td&gt;&lt;/td&gt;<br>    &lt;/tr&gt;<br>    &lt;tr&gt;<br>      &lt;td&gt;अगस्त्यभवनं गत्वा तत्र वासमकल्पयत्&lt;/td&gt;<br>      &lt;td&gt;।। ४४० ।।&lt;/td&gt;<br>    &lt;/tr&gt;<br>  &lt;/tbody&gt;<br>&lt;/table&gt;</p>",
+   "image_size": [
+    1654,
+    2540
+   ]
+  }
+ ]
+}

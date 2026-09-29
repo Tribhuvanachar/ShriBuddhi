@@ -1,0 +1,93 @@
+{
+ "_readme": "Layout-preserving OCR from Sarvam Document AI (tools/sarvam_docai.py). Review in admin/ocr-review.html; nothing here reaches the library until approved.",
+ "source": {
+  "pdf": "https://archive.org/download/katha-upanishad-madhvacharya-bhasya-with-6-sub-commentaries/KATHAKOPANISHAT%206%20TIPPANI-%20UM.pdf",
+  "pages": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12
+  ],
+  "pdf_pages": 438
+ },
+ "engine": "sarvam-docai",
+ "language": "kn-IN",
+ "format": "html",
+ "generated_at": "2026-09-18T15:42:20Z",
+ "usage": {
+  "pages_total": 0,
+  "pages_succeeded": 0,
+  "pages_failed": 12,
+  "jobs": 0
+ },
+ "pages": [
+  {
+   "page": 1,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 2,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 3,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 4,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 5,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 6,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 7,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 8,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 9,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 10,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 11,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 12,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  }
+ ]
+}

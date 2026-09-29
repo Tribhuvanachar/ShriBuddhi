@@ -1,0 +1,597 @@
+{
+ "_readme": "Layout-preserving OCR from Sarvam Document AI (tools/sarvam_docai.py). Review in admin/ocr-review.html; nothing here reaches the library until approved.",
+ "source": {
+  "pdf": "https://archive.org/download/bhagavatasarodharawithcommentary_-_Sri_Vishnutirtha_madanoorBalagaruRuchiracharya/Bhagavata%20Sarodhara%20with%20commentary%20-%20Sri%20Vishnu%20Tirtha%20%28Madanoor%29.pdf",
+  "pages": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29,
+   30,
+   31,
+   32,
+   33,
+   34,
+   35,
+   36,
+   37,
+   38,
+   39,
+   40,
+   41,
+   42,
+   43,
+   44,
+   45,
+   46,
+   47,
+   48,
+   49,
+   50,
+   51,
+   52,
+   53,
+   54,
+   55,
+   56,
+   57,
+   58,
+   59,
+   60,
+   61,
+   62,
+   63,
+   64,
+   65,
+   66,
+   67,
+   68,
+   69,
+   70,
+   71,
+   72,
+   73,
+   74,
+   75,
+   76,
+   77,
+   78,
+   79,
+   80,
+   81,
+   82,
+   83,
+   84,
+   85,
+   86,
+   87,
+   88,
+   89,
+   90,
+   91,
+   92,
+   93,
+   94,
+   95,
+   96
+  ],
+  "pdf_pages": 459
+ },
+ "engine": "sarvam-docai",
+ "language": "kn-IN",
+ "format": "html",
+ "generated_at": "2026-09-18T15:41:52Z",
+ "usage": {
+  "pages_total": 0,
+  "pages_succeeded": 0,
+  "pages_failed": 96,
+  "jobs": 0
+ },
+ "pages": [
+  {
+   "page": 1,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 2,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 3,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 4,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 5,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 6,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 7,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 8,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 9,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 10,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 11,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 12,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 13,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 14,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 15,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 16,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 17,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 18,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 19,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 20,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 21,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 22,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 23,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 24,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 25,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 26,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 27,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 28,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 29,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 30,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 31,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 32,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 33,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 34,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 35,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 36,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 37,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 38,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 39,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 40,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 41,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 42,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 43,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 44,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 45,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 46,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 47,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 48,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 49,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 50,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 51,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 52,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 53,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 54,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 55,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 56,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 57,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 58,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 59,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 60,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 61,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 62,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 63,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 64,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 65,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 66,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 67,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 68,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 69,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 70,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 71,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 72,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 73,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 74,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 75,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 76,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 77,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 78,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 79,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 80,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 81,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 82,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 83,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 84,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 85,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 86,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 87,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 88,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 89,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 90,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 91,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 92,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 93,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 94,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 95,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  },
+  {
+   "page": 96,
+   "ok": false,
+   "error": "HTTP Error 402: Payment Required"
+  }
+ ]
+}

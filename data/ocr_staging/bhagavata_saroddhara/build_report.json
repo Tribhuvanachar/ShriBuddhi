@@ -1,0 +1,937 @@
+{
+ "built_at": "06 Sep 2026, 10:36 AM IST",
+ "verses": 364,
+ "prakaranas": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  26,
+  27,
+  28,
+  29,
+  30,
+  31
+ ],
+ "per_prakarana": {
+  "1": 14,
+  "2": 14,
+  "3": 11,
+  "4": 14,
+  "5": 45,
+  "6": 10,
+  "7": 11,
+  "8": 11,
+  "9": 5,
+  "10": 9,
+  "11": 25,
+  "12": 6,
+  "13": 7,
+  "14": 9,
+  "15": 3,
+  "16": 3,
+  "17": 9,
+  "18": 13,
+  "19": 16,
+  "20": 77,
+  "21": 9,
+  "22": 8,
+  "23": 6,
+  "24": 6,
+  "25": 3,
+  "26": 1,
+  "27": 2,
+  "28": 1,
+  "29": 11,
+  "30": 3,
+  "31": 2
+ },
+ "verification": {
+  "mula_verified": 283,
+  "mula_verified_ref_corrected": 26,
+  "recovered_by_text": 22,
+  "mismatch": 24,
+  "mula_near": 8,
+  "extra_beyond_index": 6,
+  "ref_not_in_dge": 1
+ },
+ "numbering_issues": [
+  {
+   "page": 104,
+   "printed": 7,
+   "expected": 6,
+   "why": "gap, no confirming neighbour"
+  },
+  {
+   "page": 107,
+   "printed": 10,
+   "expected": 9,
+   "why": "1 verse(s) not detected before this one"
+  },
+  {
+   "page": 110,
+   "printed": 14,
+   "used": 16,
+   "why": "next verse is numbered prev+2"
+  },
+  {
+   "page": 123,
+   "printed": 36,
+   "expected": 35,
+   "why": "1 verse(s) not detected before this one"
+  },
+  {
+   "page": 130,
+   "printed": 45,
+   "used": 46,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 130,
+   "printed": 46,
+   "used": 47,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 131,
+   "printed": 47,
+   "used": 48,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 132,
+   "printed": 48,
+   "used": 49,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 135,
+   "printed": 49,
+   "used": 50,
+   "why": "next verse is numbered prev+2"
+  },
+  {
+   "page": 137,
+   "printed": 51,
+   "used": 52,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 137,
+   "printed": 52,
+   "used": 53,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 138,
+   "printed": 53,
+   "used": 54,
+   "why": "next verse is numbered prev+2"
+  },
+  {
+   "page": 146,
+   "printed": 64,
+   "used": 65,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 149,
+   "printed": 70,
+   "expected": 69,
+   "why": "1 verse(s) not detected before this one"
+  },
+  {
+   "page": 165,
+   "printed": 98,
+   "used": 99,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 166,
+   "printed": 99,
+   "used": 100,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 167,
+   "printed": 100,
+   "used": 101,
+   "why": "next verse is numbered prev+2"
+  },
+  {
+   "page": 170,
+   "prakarana_end": 5,
+   "counter": 102,
+   "index_says": 101,
+   "why": "verse count of the previous prakaraṇa disagrees with the printed index"
+  },
+  {
+   "page": 183,
+   "printed": 120,
+   "used": 121,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 184,
+   "printed": 121,
+   "used": 122,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 186,
+   "prakarana_end": 7,
+   "counter": 122,
+   "index_says": 121,
+   "why": "verse count of the previous prakaraṇa disagrees with the printed index"
+  },
+  {
+   "page": 200,
+   "printed": 16,
+   "used": 137,
+   "why": "next verse is numbered prev+2"
+  },
+  {
+   "page": 224,
+   "printed": 167,
+   "expected": 166,
+   "why": "gap, no confirming neighbour"
+  },
+  {
+   "page": 225,
+   "printed": 138,
+   "used": 168,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 227,
+   "printed": 168,
+   "used": 169,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 227,
+   "printed": 169,
+   "used": 170,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 228,
+   "printed": 170,
+   "used": 171,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 228,
+   "printed": 171,
+   "used": 172,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 230,
+   "prakarana_end": 11,
+   "counter": 172,
+   "index_says": 171,
+   "why": "verse count of the previous prakaraṇa disagrees with the printed index"
+  },
+  {
+   "page": 252,
+   "printed": 209,
+   "used": 201,
+   "why": "next verse is numbered prev+2"
+  },
+  {
+   "page": 274,
+   "printed": 229,
+   "used": 230,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 277,
+   "printed": 239,
+   "used": 232,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 278,
+   "printed": 232,
+   "used": 233,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 279,
+   "printed": 233,
+   "used": 234,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 279,
+   "printed": 234,
+   "used": 235,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 280,
+   "printed": 235,
+   "used": 236,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 281,
+   "printed": 236,
+   "used": 237,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 283,
+   "prakarana_end": 19,
+   "counter": 237,
+   "index_says": 236,
+   "why": "verse count of the previous prakaraṇa disagrees with the printed index"
+  },
+  {
+   "page": 326,
+   "printed": 249,
+   "expected": 248,
+   "why": "1 verse(s) not detected before this one"
+  },
+  {
+   "page": 327,
+   "printed": 259,
+   "used": 252,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 327,
+   "printed": 252,
+   "used": 253,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 329,
+   "printed": 253,
+   "used": 254,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 330,
+   "printed": 254,
+   "used": 255,
+   "why": "next verse is numbered prev+2"
+  },
+  {
+   "page": 332,
+   "printed": 256,
+   "used": 257,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 333,
+   "printed": 257,
+   "used": 258,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 333,
+   "printed": 258,
+   "used": 259,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 334,
+   "printed": 259,
+   "used": 260,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 335,
+   "printed": 260,
+   "used": 261,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 335,
+   "printed": 261,
+   "used": 262,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 335,
+   "printed": 262,
+   "used": 263,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 335,
+   "printed": 263,
+   "used": 264,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 336,
+   "printed": 264,
+   "used": 265,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 336,
+   "printed": 265,
+   "used": 266,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 337,
+   "printed": 266,
+   "used": 267,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 344,
+   "printed": 275,
+   "expected": 274,
+   "why": "1 verse(s) not detected before this one"
+  },
+  {
+   "page": 369,
+   "printed": 297,
+   "used": 298,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 369,
+   "printed": 298,
+   "used": 299,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 369,
+   "printed": 299,
+   "used": 300,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 370,
+   "printed": 300,
+   "used": 301,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 370,
+   "printed": 301,
+   "used": 302,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 371,
+   "printed": 302,
+   "used": 303,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 371,
+   "printed": 303,
+   "used": 304,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 372,
+   "printed": 304,
+   "used": 305,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 372,
+   "printed": 305,
+   "used": 307,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 373,
+   "printed": 306,
+   "used": 308,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 374,
+   "printed": 307,
+   "used": 309,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 375,
+   "printed": 308,
+   "used": 310,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 376,
+   "printed": 309,
+   "used": 311,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 379,
+   "printed": 311,
+   "used": 313,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 380,
+   "printed": 312,
+   "used": 314,
+   "why": "printed number out of range"
+  },
+  {
+   "page": 382,
+   "prakarana_end": 20,
+   "counter": 315,
+   "index_says": 313,
+   "why": "verse count of the previous prakaraṇa disagrees with the printed index"
+  },
+  {
+   "page": 385,
+   "printed": 318,
+   "expected": 317,
+   "why": "1 verse(s) not detected before this one"
+  },
+  {
+   "page": 387,
+   "printed": 322,
+   "used": 321,
+   "why": "next verse is numbered prev+2"
+  },
+  {
+   "page": 431,
+   "printed": 159,
+   "used": 359,
+   "why": "next verse is numbered prev+2"
+  },
+  {
+   "page": 438,
+   "printed": 366,
+   "expected": 365,
+   "why": "1 verse(s) not detected before this one"
+  }
+ ],
+ "commentary_items": 344,
+ "footnote_items": 104,
+ "summaries": 30,
+ "front_matter": 4,
+ "appendix_blocks": 36,
+ "review_queue": 1103,
+ "queue_by_kind": {
+  "verse": 245,
+  "commentary_line": 674,
+  "footnote_attachment": 175,
+  "missing_verse": 9
+ },
+ "index_check": {
+  "1": {
+   "expected": [
+    1,
+    16
+   ],
+   "got": [
+    1,
+    16
+   ],
+   "count": 14,
+   "expected_count": 16
+  },
+  "2": {
+   "expected": [
+    17,
+    30
+   ],
+   "got": [
+    17,
+    30
+   ],
+   "count": 14,
+   "expected_count": 14
+  },
+  "3": {
+   "expected": [
+    31,
+    42
+   ],
+   "got": [
+    31,
+    42
+   ],
+   "count": 11,
+   "expected_count": 12
+  },
+  "4": {
+   "expected": [
+    43,
+    56
+   ],
+   "got": [
+    43,
+    56
+   ],
+   "count": 14,
+   "expected_count": 14
+  },
+  "5": {
+   "expected": [
+    57,
+    101
+   ],
+   "got": [
+    57,
+    102
+   ],
+   "count": 45,
+   "expected_count": 45
+  },
+  "6": {
+   "expected": [
+    102,
+    111
+   ],
+   "got": [
+    102,
+    111
+   ],
+   "count": 10,
+   "expected_count": 10
+  },
+  "7": {
+   "expected": [
+    112,
+    121
+   ],
+   "got": [
+    112,
+    122
+   ],
+   "count": 11,
+   "expected_count": 10
+  },
+  "8": {
+   "expected": [
+    122,
+    132
+   ],
+   "got": [
+    122,
+    132
+   ],
+   "count": 11,
+   "expected_count": 11
+  },
+  "9": {
+   "expected": [
+    133,
+    137
+   ],
+   "got": [
+    133,
+    137
+   ],
+   "count": 5,
+   "expected_count": 5
+  },
+  "10": {
+   "expected": [
+    138,
+    146
+   ],
+   "got": [
+    138,
+    146
+   ],
+   "count": 9,
+   "expected_count": 9
+  },
+  "11": {
+   "expected": [
+    147,
+    171
+   ],
+   "got": [
+    147,
+    172
+   ],
+   "count": 25,
+   "expected_count": 25
+  },
+  "12": {
+   "expected": [
+    172,
+    177
+   ],
+   "got": [
+    172,
+    177
+   ],
+   "count": 6,
+   "expected_count": 6
+  },
+  "13": {
+   "expected": [
+    178,
+    184
+   ],
+   "got": [
+    178,
+    184
+   ],
+   "count": 7,
+   "expected_count": 7
+  },
+  "14": {
+   "expected": [
+    185,
+    193
+   ],
+   "got": [
+    185,
+    193
+   ],
+   "count": 9,
+   "expected_count": 9
+  },
+  "15": {
+   "expected": [
+    194,
+    196
+   ],
+   "got": [
+    194,
+    196
+   ],
+   "count": 3,
+   "expected_count": 3
+  },
+  "16": {
+   "expected": [
+    197,
+    199
+   ],
+   "got": [
+    197,
+    199
+   ],
+   "count": 3,
+   "expected_count": 3
+  },
+  "17": {
+   "expected": [
+    200,
+    208
+   ],
+   "got": [
+    200,
+    208
+   ],
+   "count": 9,
+   "expected_count": 9
+  },
+  "18": {
+   "expected": [
+    209,
+    221
+   ],
+   "got": [
+    209,
+    221
+   ],
+   "count": 13,
+   "expected_count": 13
+  },
+  "19": {
+   "expected": [
+    222,
+    236
+   ],
+   "got": [
+    222,
+    237
+   ],
+   "count": 16,
+   "expected_count": 15
+  },
+  "20": {
+   "expected": [
+    237,
+    313
+   ],
+   "got": [
+    237,
+    315
+   ],
+   "count": 77,
+   "expected_count": 77
+  },
+  "21": {
+   "expected": [
+    314,
+    323
+   ],
+   "got": [
+    314,
+    323
+   ],
+   "count": 9,
+   "expected_count": 10
+  },
+  "22": {
+   "expected": [
+    324,
+    331
+   ],
+   "got": [
+    324,
+    331
+   ],
+   "count": 8,
+   "expected_count": 8
+  },
+  "23": {
+   "expected": [
+    332,
+    337
+   ],
+   "got": [
+    332,
+    337
+   ],
+   "count": 6,
+   "expected_count": 6
+  },
+  "24": {
+   "expected": [
+    338,
+    343
+   ],
+   "got": [
+    338,
+    343
+   ],
+   "count": 6,
+   "expected_count": 6
+  },
+  "25": {
+   "expected": [
+    344,
+    346
+   ],
+   "got": [
+    344,
+    346
+   ],
+   "count": 3,
+   "expected_count": 3
+  },
+  "26": {
+   "expected": [
+    347,
+    347
+   ],
+   "got": [
+    347,
+    347
+   ],
+   "count": 1,
+   "expected_count": 1
+  },
+  "27": {
+   "expected": [
+    348,
+    349
+   ],
+   "got": [
+    348,
+    349
+   ],
+   "count": 2,
+   "expected_count": 2
+  },
+  "28": {
+   "expected": [
+    350,
+    350
+   ],
+   "got": [
+    350,
+    350
+   ],
+   "count": 1,
+   "expected_count": 1
+  },
+  "29": {
+   "expected": [
+    351,
+    361
+   ],
+   "got": [
+    351,
+    361
+   ],
+   "count": 11,
+   "expected_count": 11
+  },
+  "30": {
+   "expected": [
+    362,
+    364
+   ],
+   "got": [
+    362,
+    364
+   ],
+   "count": 3,
+   "expected_count": 3
+  },
+  "31": {
+   "expected": [
+    365,
+    367
+   ],
+   "got": [
+    366,
+    367
+   ],
+   "count": 2,
+   "expected_count": 3
+  }
+ },
+ "missing_verse_numbers": [
+  6,
+  9,
+  35,
+  69,
+  166,
+  248,
+  274,
+  317,
+  365
+ ],
+ "detected_by": {
+  "tag": 342,
+  "recovered": 22
+ }
+}
