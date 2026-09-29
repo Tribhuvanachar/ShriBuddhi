@@ -114,6 +114,13 @@ REWRITES = (
     ("js/modals.js",
      "    ? window.dgeContentUrl('whats-new.json') : 'admin/content/whats-new.json';",
      "    ? window.dgeContentUrl('whats-new.json') : 'content/whats-new.json';"),
+    ("js/modals.js",
+     "    const url = '../admin/content/home.json?t=' + Date.now();",
+     "    const url = '../content/home.json?t=' + Date.now();"),
+
+    ("js/core.js",
+     "    const cfg = await window.dgeFetchPublicJson('../admin/config/seo.json');",
+     "    const cfg = await window.dgeFetchPublicJson('../config/seo.json');"),
 
     ("library.html",
      "fetchOverridesJson('admin/config/library-overrides.json')",
