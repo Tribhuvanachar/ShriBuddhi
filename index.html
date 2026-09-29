@@ -83,22 +83,9 @@
     <div class="halo-ring" aria-hidden="true"></div>
     <div class="frame">
       <img id="photo" src="" alt="">
-      <!-- Namaskāra's blessing video (see showPranamGif() below) — plays
-           right in the same frame as the photo, not a separate popup, so
-           the portrait itself appears to "come alive" on click. Sits
-           invisibly over the photo (.frame.video-active crossfades it in)
-           until then. Preloaded from page load so playback starts the
-           instant "Offer Namaskāra" is tapped, with sound, rather than a
-           beat of buffering — no poster needed, since the photo beneath
-           it already fills that role. -->
-      <video id="pranamGifVideo" preload="auto" playsinline webkit-playsinline="true"
-             aria-label="Namaskāra — a devotee's salutations at the Guru's feet">
-        <source src="images/guru/pranam-blessing.mp4" type="video/mp4">
-      </video>
     </div>
     <div class="offer-zone" id="offerZone" role="button" tabindex="0"
          aria-label="Offer flowers to the Guru"></div>
-    <div class="pranam-row" id="pranamRow" aria-hidden="true"></div>
   </div>
 
   <div class="guru-block">
@@ -118,9 +105,6 @@
     <div class="act-row">
       <button class="btn btn-obeisance" id="offerBtn" aria-label="Offer flowers to the Guru">
         <span id="offerIcon" aria-hidden="true"></span><span id="offerLabel" data-edit="labels.offerButton"></span>
-      </button>
-      <button class="btn btn-obeisance" id="pranamBtn" aria-label="Offer salutations to the Guru">
-        <span id="pranamIcon" aria-hidden="true"></span><span id="pranamLabel" data-edit="labels.pranamButton"></span>
       </button>
     </div>
     <div class="act-row">
@@ -196,20 +180,6 @@ let SITE_CONFIG = null;
     lamp:   '<path d="M3.8 14.2h16.4c0 3.4-3.7 5.7-8.2 5.7s-8.2-2.3-8.2-5.7Z"/><path d="M12 13.8c-1.7-1.9-2.5-3.4-2.5-4.8 0-1.7 1-3 2.5-4.2 1.5 1.2 2.5 2.5 2.5 4.2 0 1.4-.8 2.9-2.5 4.8Z"/>',
     seed:   '<path d="M12 21c0-4.6 1.4-7.6 4.2-9 .4 4.8-.9 7.8-4.2 9Z"/><path d="M12 21c0-4.6-1.4-7.6-4.2-9-.4 4.8.9 7.8 4.2 9Z"/><path d="M12 21v-4"/><path d="M12 12.6c0-3.4.9-6 2.6-7.8"/>'
   };
-  /* Śāṣṭāṅga namaskāra — the full prostration, eight limbs to the ground,
-     arms reaching past the head with the palms joined. Its own function
-     because it is a wide figure, not a 24x24 glyph like the rest. */
-  function sashtanga(height) {
-    const w = Math.round(height * (120 / 46));
-    return '<svg viewBox="0 0 120 46" width="' + w + '" height="' + height + '" fill="none" ' +
-           'stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" ' +
-           'aria-hidden="true">' +
-           '<path d="M6 36h108"/><path d="M14 32c4-1.6 7.6-1.2 10.8.6"/><path d="M24.8 32.6 40 33"/>' +
-           '<circle cx="48" cy="29.5" r="5"/><path d="M53 31c7 1 13 1.6 20 1.6"/>' +
-           '<path d="M53 27.4c8-2.4 15-2.6 22 1"/><path d="M75 33c8 0 14-1 20-3.4"/>' +
-           '<path d="M95 29.6c5-1.8 9-2 14 .4"/><path d="M109 30v6"/></svg>';
-  }
-
   function icon(name, size) {
     const d = ICONS[name];
     if (!d) return '';
@@ -276,8 +246,6 @@ let SITE_CONFIG = null;
     $('hint').textContent        = cfg.labels.hint;
     $('offerIcon').innerHTML     = flowerSvg(15);
     $('offerLabel').textContent  = cfg.labels.offerButton;
-    $('pranamIcon').innerHTML     = sashtanga(15);
-    $('pranamLabel').textContent  = cfg.labels.pranamButton;
     $('enterLabel').textContent  = cfg.labels.enterLocked;
     $('cueLabel').textContent    = cfg.labels.sectionsCue;
 
@@ -589,55 +557,6 @@ let SITE_CONFIG = null;
     if (cfg.requireOffering && offerings >= cfg.minOfferings) unlock();
   }
 
-  // Namaskāra's blessing video, played right in the portrait frame (not a
-  // popup) so the photo itself appears to come alive. Preloaded from page
-  // load (see the markup comment above), so this just rewinds and plays —
-  // no fetch, no buffering wait. Sound plays too: this call only ever
-  // runs from the pranamBtn click handler, and a real click is the user
-  // gesture browsers require before they'll allow unmuted playback.
-  // Reverts to the static photo on the video's own 'ended' event (wired
-  // in bind()) rather than a hand-tuned timer, so it always tracks the
-  // real clip length; the fallback timer here only guards a
-  // stalled/broken load.
-  let pranamVideoFallbackTimer = null;
-  function showPranamGif() {
-    const frame = document.querySelector('.frame'), video = $('pranamGifVideo');
-    if (pranamVideoFallbackTimer) clearTimeout(pranamVideoFallbackTimer);
-    frame.classList.add('video-active');
-    video.currentTime = 0;
-    const playPromise = video.play();
-    if (playPromise && playPromise.catch) playPromise.catch(function () {});
-    pranamVideoFallbackTimer = setTimeout(hidePranamGif, 12000);
-  }
-  function hidePranamGif() {
-    if (pranamVideoFallbackTimer) { clearTimeout(pranamVideoFallbackTimer); pranamVideoFallbackTimer = null; }
-    const frame = document.querySelector('.frame'), video = $('pranamGifVideo');
-    frame.classList.remove('video-active');
-    video.pause();
-    video.currentTime = 0; // stays preloaded — next tap replays from frame one instantly
-  }
-
-  function pranam() {
-    offerings++;
-    ripple();
-    showPranamGif();
-    if (!reduced) {
-      const n = cfg.pranam.count;
-      const row = $('pranamRow');
-      const arch = document.querySelector('.frame').getBoundingClientRect().width;
-      const base = Math.max(13, Math.min(22, Math.round(arch / 11)));
-      for (let i = 0; i < n; i++) {
-        const g = document.createElement('div');
-        g.className = 'pranam-mark';
-        g.innerHTML = sashtanga(base + (i === 1 ? 2 : 0));
-        g.style.animationDelay = (i * 140) + 'ms';
-        row.appendChild(g);
-        setTimeout(() => g.remove(), 3200 + i * 140);
-      }
-    }
-    if (cfg.requireOffering && offerings >= cfg.minOfferings) unlock();
-  }
-
   function rainFlower(origin, target, i, n, padaW) {
     const size = 11 + Math.random() * 10;
 
@@ -740,7 +659,6 @@ let SITE_CONFIG = null;
 
   function enter() {
     if (cfg.requireOffering && offerings < cfg.minOfferings) return;
-    hidePranamGif();
     markPassed();
     document.body.classList.add('leaving');
     const target = destination();
@@ -750,7 +668,6 @@ let SITE_CONFIG = null;
   /* ------------------------------------------------------------ bind ---- */
   function bind() {
     $('offerBtn').addEventListener('click', offer);
-    $('pranamBtn').addEventListener('click', pranam);
     $('offerZone').addEventListener('click', offer);
     // "Tap the portrait" means the whole portrait, not only the small offer zone above it (7 Sep 2026 report).
     document.querySelector('.frame').addEventListener('click', function () {
@@ -770,13 +687,9 @@ let SITE_CONFIG = null;
     $('sheetWrap').addEventListener('click', function (ev) {
       if (ev.target === $('sheetWrap') || ev.target.closest('[data-close]')) closePanel();
     });
-    $('pranamGifVideo').addEventListener('ended', hidePranamGif);
     document.addEventListener('keydown', function (ev) {
       if (ev.key !== 'Escape') return;
       if ($('sheetWrap').classList.contains('open')) closePanel();
-      // Lets a visitor skip the blessing video early and return to the
-      // static photo, the same way Escape already closed the old popup.
-      if (document.querySelector('.frame').classList.contains('video-active')) hidePranamGif();
     });
   }
 
@@ -829,7 +742,7 @@ let SITE_CONFIG = null;
       // Named so a missing one is reported as itself rather than as a
       // TypeError halfway through render().
       const need = ['brand', 'guru', 'vandana', 'labels', 'sections', 'panels', 'footer',
-                    'enterUrl', 'photo', 'flowers', 'pranam'];
+                    'enterUrl', 'photo', 'flowers'];
       const absent = need.filter(function (k) { return cfg[k] == null; });
       if (absent.length) throw new Error('missing: ' + absent.join(', '));
 

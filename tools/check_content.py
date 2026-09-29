@@ -32,7 +32,7 @@ PAGES = {
                     ['brand', 'guru', 'vandana', 'labels', 'sections', 'panels', 'footer']),
         'config': ('admin/config/home.json',
                    ['enterUrl', 'requireOffering', 'minOfferings', 'passKey',
-                    'photo', 'flowers', 'pranam']),
+                    'photo', 'flowers']),
     },
 }
 
@@ -43,14 +43,13 @@ NESTED = {
         'brand': ['latin', 'tagline'],
         'guru': ['nameSanskrit', 'nameLatin', 'title', 'moreLabel'],
         'vandana': ['sanskrit', 'transliteration'],
-        'labels': ['hint', 'offerButton', 'pranamButton', 'enterLocked',
+        'labels': ['hint', 'offerButton', 'enterLocked',
                    'enterReady', 'sectionsCue', 'readMore', 'readLess'],
         'footer': ['lines'],
     },
     'admin/config/home.json': {
         'photo': ['src', 'frameRatio'],
         'flowers': ['maxSettled'],
-        'pranam': ['count'],
     },
 }
 

@@ -209,29 +209,6 @@ body.leaving #veil { opacity: 1; }
   from { transform: scale(1)     translateY(0); }
   to   { transform: scale(1.055) translateY(-1.4%); }
 }
-/* Namaskāra's blessing video — sits in the exact same box as the photo
-   (not a popup) so a tap on "Offer Namaskāra" makes the portrait itself
-   appear to come alive. object-fit: cover crops it to the frame's own
-   2:3 shape the same way the photo is cropped; the clip's real ratio
-   (400x736) is taller/narrower than that, so a little is trimmed off the
-   top and bottom — the accepted tradeoff of matching the photo's frame
-   rather than showing the clip uncropped in a bigger box of its own.
-   z-index above the photo is deliberate, not decorative: Chromium
-   composites <video> on its own layer, which in practice can paint above
-   a plain sibling regardless of DOM order — being explicit here keeps
-   the crossfade direction correct rather than relying on that quirk by
-   accident. */
-.frame video {
-  position: absolute; inset: 0; z-index: 1;
-  width: 100%; height: 100%; display: block;
-  object-fit: cover; object-position: center 50%;
-  -webkit-mask-image: linear-gradient(180deg, #000 88%, rgba(0,0,0,.86) 96%, transparent 100%);
-          mask-image: linear-gradient(180deg, #000 88%, rgba(0,0,0,.86) 96%, transparent 100%);
-  background: #120B04;
-  opacity: 0; pointer-events: none;
-  transition: opacity .6s var(--ease-soft);
-}
-.frame.video-active video { opacity: 1; pointer-events: auto; }
 .frame::after {
   content: ''; position: absolute; inset: 0; pointer-events: none;
   background:
@@ -262,27 +239,6 @@ body.leaving #veil { opacity: 1; }
 @keyframes ripple-out {
   from { transform: scale(.4);  opacity: .9; }
   to   { transform: scale(6.5); opacity: 0; }
-}
-
-/* Namaskāra. Several figures come down at the base of the portrait — where
-   one would actually prostrate — rather than rising past his head. They bow
-   in, rest a moment, and fade. */
-.pranam-row {
-  position: absolute; left: 50%; bottom: 2px;
-  transform: translateX(-50%);
-  display: flex; align-items: flex-end; justify-content: center; gap: 8px;
-  pointer-events: none; z-index: 4; min-height: 30px;
-}
-.pranam-mark {
-  color: var(--gold); line-height: 0; opacity: 0;
-  filter: drop-shadow(0 0 14px rgba(255,196,120,.65));
-  animation: pranam-bow 2.6s var(--ease) forwards;
-}
-@keyframes pranam-bow {
-  0%   { opacity: 0; transform: translateY(-14px) scaleY(.4); }
-  22%  { opacity: 1; transform: translateY(0) scaleY(1); }
-  70%  { opacity: 1; transform: translateY(0) scaleY(1); }
-  100% { opacity: 0; transform: translateY(3px) scaleY(.96); }
 }
 
 /* --- his name and the verse --- */
@@ -674,7 +630,7 @@ body.leaving #veil { opacity: 1; }
   html { scroll-behavior: auto; }
   .mandala, .smoke, .om, .halo, .halo-ring, .frame img,
   .btn-enter.ready, .cue span { animation: none !important; }
-  .petal, .ripple, .pranam-mark { display: none !important; }
+  .petal, .ripple { display: none !important; }
   .btn, .sheet, .sheet-wrap, .cue-pop, #veil, .frame video { transition-duration: .01ms !important; }
 }
 
