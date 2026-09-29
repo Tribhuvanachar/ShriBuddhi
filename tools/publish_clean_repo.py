@@ -51,7 +51,16 @@ from unpublished_trees import PRIVATE_TREES, UNDECIDED_TREES, is_unpublished
 EXCLUDE_DIRS = (".git", ".github", ".claude", "docs", "admin", "tools", "firebase",
                 "node_modules", ".pytest_cache", "__pycache__")
 EXCLUDE_FILES = ("CLAUDE.md", "PENDING.md", "HANDOFF.md", ".gitattributes",
-                 "firebase-hosting.json")
+                 "firebase-hosting.json",
+                 # Internal engineering records, not reader content -- a repo
+                 # migration log, an internal audit of the Kamadhenu tooling,
+                 # and a machine-brief for feeding Gemini. Found only when
+                 # ShriBuddhi itself was first scanned directly as a publish
+                 # source (28 Sep 2026): each names the old repository by its
+                 # former name, which a reword would have to preserve to stay
+                 # accurate as a historical record, so exclusion is the right
+                 # fix, not a rewrite.
+                 "BRANCH_MIGRATION.md", "KAMADHENU_AUDIT.md", "GEMINI_CHANDAS_TASK.md")
 
 # In-browser test harnesses that live beside the code they test. No page loads
 # any of them -- they reference each other and nothing else does -- so they are
