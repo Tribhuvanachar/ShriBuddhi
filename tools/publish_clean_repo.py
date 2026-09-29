@@ -71,6 +71,15 @@ EXCLUDE_RELATIVE_DIRS = ("scans", "kamadhenu_dataset", "kamadhenu", "tests",
                          "rag_prototype", "importers", "veda_toolkit",
                          "search_toolkit_pkg", "kosha_toolkit",
                          "data/kamadhenu",
+                         # Draft, unreviewed segmented OCR -- every file under
+                         # here says so itself ("NOT merged into the corpus --
+                         # review in admin/ocr-review.html first"). Nothing
+                         # reader-facing ever fetches it (admin/ocr-review.html
+                         # is the only consumer, and admin/ already doesn't
+                         # publish); it belongs only in the workshop where
+                         # review happens. The lead's own direction, 29 Sep
+                         # 2026, after finding it live in the published repo.
+                         "data/ocr_staging",
                          # The full corpus search index (~2.7 GB) lives on
                          # the "search-dist" CDN branch (js/config.js's
                          # searchIndexBase), not main -- a clean build is

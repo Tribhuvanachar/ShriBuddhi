@@ -122,6 +122,8 @@ class PathScopedExclusionsDoNotMatchByBareName(Fixture):
             ("vyakarana/kamadhenu/note.json", '{"sa":"unrelated, must still publish"}'),
             ("scans/book.pdf", "not really a pdf"),
             ("tests/test_x.py", "assert True"),
+            ("data/ocr_staging/aitareya/draft_segmented.json", '{"work":"draft, not reviewed"}'),
+            ("data/itihasa/bhagavad_gita/adhyaya_01/data.json", '{"sa":"published, must still publish"}'),
             ("search_index/backlinks/x.json", '{"n":1}'),
             ("search_index/postings/a.json", '{"big":"index"}'),
             ("search_index/manifest.json", '{"big":"manifest"}'),
@@ -147,6 +149,14 @@ class PathScopedExclusionsDoNotMatchByBareName(Fixture):
         published = {rel for _, rel in publish.walk(self.src)}
         self.assertNotIn("scans/book.pdf", published)
         self.assertNotIn("tests/test_x.py", published)
+
+    def test_ocr_staging_does_not_publish(self):
+        published = {rel for _, rel in publish.walk(self.src)}
+        self.assertNotIn("data/ocr_staging/aitareya/draft_segmented.json", published)
+
+    def test_other_data_still_publishes(self):
+        published = {rel for _, rel in publish.walk(self.src)}
+        self.assertIn("data/itihasa/bhagavad_gita/adhyaya_01/data.json", published)
 
     def test_search_index_backlinks_folder_publishes(self):
         published = {rel for _, rel in publish.walk(self.src)}
