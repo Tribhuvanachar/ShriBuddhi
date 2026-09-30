@@ -1233,6 +1233,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const explicitPath = urlParams.get('path') || abbrevPath; // new general addressing, e.g. "vedas/rigveda/mandala_01"
   const explicitCode = urlParams.get('code'); // legacy addressing — always resolves under stotras/, unchanged behaviour
 
+  // Cross-page taxonomy-breadcrumb deep link (?libraryPath=<path>, see
+  // library.js's dgeOpenLibraryToPath): opens the Library browser already
+  // drilled to that node. Fired here, right after parsing, rather than
+  // after the grantha below has loaded -- it used to sit after initApp(),
+  // which meant every early return between here and there (grantha not yet
+  // in the library, admin-only/hidden, or off the go-live shelf) silently
+  // skipped it. Found 30 Sep 2026: a taxonomy breadcrumb's ancestor link
+  // (e.g. a Kavya work's "काव्यम्" segment) opens with no ?path= at all, so
+  // it always falls through to the no-param default grantha -- and that
+  // default (Prahlada-krta-Narasimha) is not itself on the current public
+  // shelf, so every such click hit the off-shelf return and the modal never
+  // opened. dgeOpenLibraryToPath awaits its own catalog fetch
+  // (window.openLibraryModal) and needs nothing else from this function, so
+  // there is no ordering reason to wait.
+  if (urlParams.get('libraryPath') && typeof window.dgeOpenLibraryToPath === 'function') {
+    window.dgeOpenLibraryToPath(urlParams.get('libraryPath'));
+  }
+
   // Quick Search jump target (see dgeQuickJump in library.js) — resolved
   // against this grantha's actual shlokas object once it's loaded and
   // normalized, at the end of initApp() below.
@@ -1285,11 +1303,25 @@ document.addEventListener('DOMContentLoaded', () => {
   // Single named default rather than a bare 'pns' literal repeated at every
   // call site -- the one thing every no-param page load actually needs a
   // hardcoded answer for, kept in exactly one place.
-  const DGE_DEFAULT_STOTRA_SLUG = 'PrahladaKrutaNarasimha';
+  //
+  // 30 Sep 2026: this used to be the bare code 'PrahladaKrutaNarasimha',
+  // built into 'stotra/PrahladaKrutaNarasimha' below and relying on
+  // dgeUpgradeLegacySlug to redirect it to the real, current location. It
+  // never did: DGE_LEGACY_SLUGS only has lowercase keys ('stotra/pns',
+  // 'stotra/prahlada_kruta_narasimha'), and dgeUpgradeLegacySlug matches by
+  // strict equality -- so every no-param page load (including a taxonomy
+  // breadcrumb's ?libraryPath= links, which intentionally load the default
+  // reader underneath while they open the Library modal to a category, see
+  // the ?libraryPath= handling above) 404'd with "Please ensure data/stotra/
+  // PrahladaKrutaNarasimha/data.json is available", naming a file that has
+  // not existed since the 23 Aug 2026 restructure. Now the real, current
+  // slug directly -- no legacy-table dependency for the one path every
+  // page load can take.
+  const DGE_DEFAULT_STOTRA_SLUG = 'Tattvavada/Itara/Stotra/prahlada_kruta_narasimha';
 
   const slug = dgeUpgradeLegacySlug(explicitPath
     ? explicitPath.replace(/^\/+|\/+$/g, '')
-    : `stotra/${explicitCode || DGE_DEFAULT_STOTRA_SLUG}`);
+    : (explicitCode ? `stotra/${explicitCode}` : DGE_DEFAULT_STOTRA_SLUG));
   window.dgeCurrentSlug = slug;
   if (typeof window.dgeApplySeoCanonical === 'function') window.dgeApplySeoCanonical(slug);
 
@@ -1463,15 +1495,10 @@ document.addEventListener('DOMContentLoaded', () => {
           await dgeApplyLayerStitching(slug);
         }
         initApp();
-        // Cross-page taxonomy-breadcrumb deep link (?libraryPath=<path>,
-        // see library.js's dgeOpenLibraryToPath): opens the Library browser
-        // already drilled to that node. Independent of whatever grantha
-        // ?path=/the no-param default resolved above -- the reader
-        // underneath loads exactly as it would if the reader had opened the
-        // Library manually while already reading something.
-        if (urlParams.get('libraryPath') && typeof window.dgeOpenLibraryToPath === 'function') {
-          window.dgeOpenLibraryToPath(urlParams.get('libraryPath'));
-        }
+        // ?libraryPath= is handled once, right after URL parsing near the
+        // top of this function (see that comment) -- moved there 30 Sep
+        // 2026 so an early return above (grantha not yet in the library,
+        // admin-only, or off the go-live shelf) can no longer skip it.
         // The stitcher may have auto-selected the grantha's primary layer
         // (भाष्यम्/सुधा — see layer-stitch.js) so the page opens with real
         // text; the fetch+merge+re-render for it starts here, after the
