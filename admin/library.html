@@ -36,6 +36,7 @@
     <button class="btn" id="tierBtn" title="Set a grantha's per-layer (commentary/tika/tippani/...) visibility tier">🎚 Visibility Tiers</button>
     <button class="btn" id="reset" title="Discard all local curation edits">⟲ Reset edits</button>
     <button class="btn" id="reload">↻ Refresh</button>
+    <button class="btn" id="shelfBtn" title="Go-live shelf: which folders the public site (Jagat) shows">🌐 Go-live shelf <span id="shelfCount"></span></button>
     <button class="btn pri" id="export">⬇ Export overrides</button>
   </div>
 </header>
@@ -51,6 +52,36 @@
   <div class="tree" id="tree"></div>
   <p class="muted" style="margin-top:14px">Loaded = a <code>data.json</code> with items; Pending = empty/absent. Reordering &amp; pinning affect how entries appear in the app's Library browser; moves and renames are display-only and never rewrite <code>library.json</code>/<code>taxonomy.json</code>.</p>
 </main>
+
+<!-- go-live shelf: which folders the PUBLIC site shows -->
+<div class="ov" id="shelfOv">
+  <div class="ovbox">
+    <div class="ovhd">🌐 Go-live shelf<span class="spacer" style="flex:1"></span><button class="ctl" id="shelfClose">✕</button></div>
+    <div class="ovbody">
+      <div class="helpbox" style="margin-bottom:10px">
+        Tick the <b>🌐</b> button on a folder row to put it (and everything under it) on the
+        public shelf. Folders not on the shelf are hidden from the public Library and search;
+        admins always see everything. Ticking a folder covers its whole subtree.
+        <br><br>
+        <b>Where it publishes:</b> this edits the <b>root</b> <code>config/library-overrides.json</code>
+        — the copy the public site reads (<code>admin/</code> is never published).
+        Nothing goes live from this page: <b>⬇ Export shelf config</b> downloads the file,
+        you commit it to <code>config/library-overrides.json</code> in ShriBuddhi, and it
+        reaches Jagat with the next promote&nbsp;→&nbsp;publish.
+      </div>
+      <label style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+        <input type="checkbox" id="shelfEnabled"> <b>Shelf enabled</b>
+        <span class="muted">(off = the whole library is public, no restriction)</span>
+      </label>
+      <div id="shelfState" class="muted" style="margin-bottom:8px"></div>
+      <div id="shelfList" style="max-height:40vh;overflow:auto;font-family:monospace;font-size:12px"></div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn pri" id="shelfExport">⬇ Export shelf config</button>
+        <button class="btn" id="shelfReset">↺ Reload from committed</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- move-to-folder picker -->
 <div class="ov" id="moveOv">
@@ -285,6 +316,71 @@
     var no={}; Object.keys(OV.order).forEach(function(k){ var nk=(k===from||k.indexOf(from+"/")===0)? to+k.slice(from.length): k; no[nk]=OV.order[k]; }); OV.order=no;
   }
 
+  // ---- go-live shelf (the PUBLIC site's allow-list) ----
+  // Lives in the ROOT config/library-overrides.json, the only copy Jagat reads
+  // (admin/ is excluded from publishing and publish_clean_repo.py never copies
+  // admin/config over config/). Kept apart from the curation draft above: it
+  // is a different file with a different audience, and mixing them is how a
+  // wide admin test list reached the public fallback once.
+  var SHELF_LS="dge.libshelf", SHELF_ROOT=null, SHELF=null;
+  var ADMIN_SHELF=null; // admin/config copy's shelf, carried through exportOV untouched
+  function shelfClone(x){ return JSON.parse(JSON.stringify(x)); }
+  function loadShelf(){
+    var d=null;
+    try{ d=JSON.parse(localStorage.getItem(SHELF_LS)||"null"); }catch(e){}
+    if(d && Array.isArray(d.allow)){ SHELF=d; }
+    else { var src=(SHELF_ROOT&&SHELF_ROOT.shelf)||{}; SHELF=shelfClone(src); }
+    if(!Array.isArray(SHELF.allow)) SHELF.allow=[];
+    if(typeof SHELF.enabled!=="boolean") SHELF.enabled=true;
+    if(!Array.isArray(SHELF.openToRoles)) SHELF.openToRoles=[];
+  }
+  function saveShelf(){ try{ localStorage.setItem(SHELF_LS, JSON.stringify(SHELF)); }catch(e){} updateShelfUi(); }
+  // "own" = listed itself, "in" = under a listed ancestor, "part" = an ancestor of a listed path
+  function shelfStatus(path){
+    var a=SHELF.allow;
+    if(a.indexOf(path)>=0) return "own";
+    for(var i=0;i<a.length;i++){ if(path.indexOf(a[i]+"/")===0) return "in"; }
+    for(var j=0;j<a.length;j++){ if(a[j].indexOf(path+"/")===0) return "part"; }
+    return "off";
+  }
+  function toggleShelf(path){
+    var st=shelfStatus(path);
+    if(st==="in"){ alert('"'+path+'" is already on the shelf because a folder above it is.\nUntick that parent (or list this folder\'s siblings individually) to change it.'); return; }
+    if(st==="own") SHELF.allow.splice(SHELF.allow.indexOf(path),1);
+    else {
+      // listing a folder covers its subtree, so drop descendants it makes redundant
+      SHELF.allow=SHELF.allow.filter(function(x){ return x.indexOf(path+"/")!==0; });
+      SHELF.allow.push(path);
+    }
+    saveShelf(); render();
+  }
+  function shelfDirty(){
+    var base=(SHELF_ROOT&&SHELF_ROOT.shelf)||{};
+    return JSON.stringify({e:base.enabled!==false, a:(base.allow||[]).slice().sort()})
+        !==JSON.stringify({e:SHELF.enabled, a:SHELF.allow.slice().sort()});
+  }
+  function updateShelfUi(){
+    var c=$("#shelfCount"); if(c) c.textContent="("+(SHELF.enabled?SHELF.allow.length:"off")+")"+(shelfDirty()?" ●":"");
+    var e=$("#shelfEnabled"); if(e) e.checked=SHELF.enabled;
+    var st=$("#shelfState");
+    if(st) st.textContent=shelfDirty()?"● differs from the committed root config — export & commit to publish":"✓ same as the committed root config";
+    var l=$("#shelfList");
+    if(l) l.innerHTML=SHELF.allow.length? SHELF.allow.slice().sort().map(function(x){ return "<div>🌐 "+esc(x)+"</div>"; }).join("") : '<div class="muted">No folders on the shelf'+(SHELF.enabled?" — with the shelf enabled and empty, nothing restricts the library (js/library.js treats an empty allow-list as open).":".")+'</div>';
+  }
+  function exportShelf(){
+    // Start from the committed ROOT file so every other key survives; replace only `shelf`.
+    var base=SHELF_ROOT? shelfClone(SHELF_ROOT) : {version:1};
+    var sh=shelfClone(base.shelf||{});
+    sh.enabled=SHELF.enabled;
+    sh.allow=SHELF.allow.slice();
+    sh.openToRoles=SHELF.openToRoles.slice();
+    base.shelf=sh;
+    base.updatedAt=Date.now();
+    var blob=new Blob([JSON.stringify(base,null,1)+"\n"],{type:"application/json"});
+    var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="library-overrides.json"; a.click();
+    alert("Downloaded. Commit it to  config/library-overrides.json  (the ROOT config/, not admin/config/) in ShriBuddhi.\nIt reaches Jagat with the next promote and publish.");
+  }
+
   function start(){
     if(sessionStorage.getItem("dge.admin.ok")!=="1" && localStorage.getItem("is_superadmin")!=="true") return;
     $("#gate").style.display="none"; $("#hdr").style.display=""; $("#app").style.display="";
@@ -292,6 +388,12 @@
     $("#theme").onclick=function(){ document.body.classList.toggle("dark"); localStorage.setItem("dge.libadmin.dark", document.body.classList.contains("dark")?"1":"0"); };
     $("#reload").onclick=function(){ location.reload(); };
     $("#export").onclick=exportOV;
+    $("#shelfBtn").onclick=function(){ updateShelfUi(); $("#shelfOv").classList.add("show"); };
+    $("#shelfClose").onclick=function(){ $("#shelfOv").classList.remove("show"); };
+    $("#shelfOv").addEventListener("click",function(e){ if(e.target===$("#shelfOv")) $("#shelfOv").classList.remove("show"); });
+    $("#shelfEnabled").onchange=function(){ SHELF.enabled=this.checked; saveShelf(); render(); };
+    $("#shelfExport").onclick=exportShelf;
+    $("#shelfReset").onclick=function(){ if(!confirm("Discard this browser's shelf edits and reload the committed root config?")) return; localStorage.removeItem(SHELF_LS); loadShelf(); updateShelfUi(); render(); };
     $("#loadCommitted").onclick=function(){
       if(!confirm("Replace this browser's draft with the COMMITTED library-overrides.json (what readers currently see)? Unexported draft edits are discarded.")) return;
       localStorage.removeItem(LS); loadOV(); render();
@@ -504,8 +606,11 @@
       fetch("config/library-status.json").then(function(r){return r.json();}),
       // the committed overrides -- the reader's live curation; absent file
       // (first ever run) is fine and seeds a blank slate
-      fetch("config/library-overrides.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
+      fetch("config/library-overrides.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;}),
+      // the ROOT copy: the only one the public site reads (see go-live shelf above)
+      fetch("../config/library-overrides.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).catch(function(){return null;})
     ]).then(function(a){
+      SHELF_ROOT=a[3]; ADMIN_SHELF=(a[2]&&a[2].shelf)||null; loadShelf(); updateShelfUi();
       TAX=a[0]; ST=a[1]; COMMITTED=normOV(a[2]);
       // normOV strips unknown keys — carry the commit stamp separately
       COMMITTED_AT=(a[2]&&Number(a[2].updatedAt))||0;
@@ -735,11 +840,20 @@
       tw+dot+pinMark+movedMark+srchMark+
       '<span class="nm"><span class="actual">'+nameShown+'</span>'+(custom?' <span class="disp">✎</span>':'')+' <span class="path">'+esc(n.path)+'</span>'+(moved?' <span class="disp">from '+esc(n.opath)+'</span>':'')+'</span>'+
       cnt+badge+src+
+      shelfBtnHtml(n)+
       '<button class="ctl" data-act="up" title="move up">▲</button>'+
       '<button class="ctl" data-act="down" title="move down">▼</button>'+
       '<button class="ctl'+(anyEdit?" on":"")+'" data-act="more" title="pin / rename / move / hide">⋮</button>'+
       '</div>';
     return '<div class="'+cls+'" data-node="'+esc(n.path)+'">'+row+(n.leaf?"":'<div class="kids">'+kidsHtml+"</div>")+"</div>";
+  }
+
+  function shelfBtnHtml(n){
+    if(n.virtual) return "";
+    var st=shelfStatus(n.path);
+    var t={own:"On the public shelf (click to remove)",in:"On the public shelf via a parent folder",part:"Visible publicly only as a parent of a shelved folder (click to shelf this whole folder)",off:"Not on the public shelf (click to add this folder and everything under it)"}[st];
+    var cls="ctl"+(st==="own"?" on":(st==="in"||st==="part")?" off":"");
+    return '<button class="'+cls+'" data-act="live" title="'+t+'">🌐</button>';
   }
 
   var DISPLAY_ROOTS=[];
@@ -795,7 +909,8 @@
         ev.stopPropagation();
         var row=b.closest(".row"); var path=row.dataset.path, parent=row.dataset.parent, name=row.dataset.name, op=row.dataset.op;
         var act=b.dataset.act;
-        if(act==="up"){ reorder(parent, name, -1); }
+        if(act==="live"){ toggleShelf(path); }
+        else if(act==="up"){ reorder(parent, name, -1); }
         else if(act==="down"){ reorder(parent, name, 1); }
         else if(act==="more"){ window.dgeOpenRowActions({path:path, parent:parent, name:name, op:op, leaf:row.dataset.leaf==="1", virtual:row.dataset.virtual==="1"}); }
       };
@@ -1031,6 +1146,9 @@
       adds:(OV.adds||[]).slice().sort(),
       searchHidden:(OV.searchHidden||[]).slice().sort()
     };
+    // The manager has no editor for the admin copy's shelf, but dropping the key
+    // reads as "no restriction" -- carry it through exactly as committed.
+    if(ADMIN_SHELF) out.shelf=ADMIN_SHELF;
     var blob=new Blob([JSON.stringify(out,null,1)],{type:"application/json"});
     var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="library-overrides.json"; a.click();
   }
