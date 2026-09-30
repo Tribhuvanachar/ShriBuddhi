@@ -53,25 +53,10 @@ jobs:
             echo "Full table: [KAVYA_TRACKER.md](../blob/main/KAVYA_TRACKER.md)"
           } >> "$GITHUB_STEP_SUMMARY"
 
-      # This job's own checkout (this repo, ShriBuddhi) rebuilds the tracker;
-      # the final publish targets BrahmaBuddhi as a staging repo instead of
-      # committing straight to ShriBuddhi's own main or to bhumandala -- see
-      # .github/workflows/push-to-brahmabuddhi.yml.
-      - name: Checkout BrahmaBuddhi
-        uses: actions/checkout@v4
-        with:
-          repository: Tribhuvanachar/BrahmaBuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
-          path: brahmabuddhi
-
-      - name: Commit it if it moved, to BrahmaBuddhi
+      - name: Commit it if it moved, to ShriBuddhi's main
         run: |
           set -euo pipefail
           if [ -n "$(git status --porcelain KAVYA_TRACKER.md admin/config/kavya-status.json)" ]; then
-            cp -a KAVYA_TRACKER.md brahmabuddhi/KAVYA_TRACKER.md
-            mkdir -p brahmabuddhi/admin/config
-            cp -a admin/config/kavya-status.json brahmabuddhi/admin/config/kavya-status.json
-            cd brahmabuddhi
             git config user.name  "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add KAVYA_TRACKER.md admin/config/kavya-status.json

@@ -89,30 +89,8 @@ jobs:
       - name: Show what changed
         run: git status --porcelain data/vedanga/vyakarana/dhatu_lexicon
 
-      # This job's own checkout (this repo, ShriBuddhi) does the generation
-      # above; the final publish targets BrahmaBuddhi as a staging repo
-      # instead of committing/PR-ing straight into ShriBuddhi or bhumandala --
-      # see .github/workflows/push-to-brahmabuddhi.yml.
-      - name: Checkout BrahmaBuddhi
-        uses: actions/checkout@v4
-        with:
-          repository: Tribhuvanachar/BrahmaBuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
-          path: brahmabuddhi
-
-      - name: Mirror changed output into the BrahmaBuddhi checkout
-        run: |
-          set -euo pipefail
-          # A run that DELETES a file used to die here: `awk '{print $2}'`
-          # reads a deleted path as something to copy and `cp` answers
-          # "cannot stat". The same awk took the wrong field for a rename and
-          # split any path with a space in it.
-          git status --porcelain -z -- data/vedanga/vyakarana/dhatu_lexicon > "$RUNNER_TEMP/changed.z"
-          python3 tools/mirror_changed_paths.py "$RUNNER_TEMP/changed.z" brahmabuddhi
-
-      - name: Push directly to BrahmaBuddhi's main
+      - name: Push directly to ShriBuddhi's main
         if: ${{ fromJSON(inputs.direct_push) }}
-        working-directory: brahmabuddhi
         env:
           GIT_AUTHOR_NAME: github-actions[bot]
           GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
@@ -120,20 +98,18 @@ jobs:
           GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
         run: |
           set -euo pipefail
-          if git diff --quiet; then
+          if [ -z "$(git status --porcelain -- data)" ]; then
             echo "No changes to push."
             exit 0
           fi
-          git add -A
+          git add -A -- data
           git commit -m "data: gemini dhatu lexicon (${{ inputs.dhatus }}) [direct-push]"
           git push origin HEAD:main
 
-      - name: Open a review PR (against BrahmaBuddhi)
+      - name: Open a review PR (against ShriBuddhi)
         if: ${{ !fromJSON(inputs.direct_push) }}
         uses: peter-evans/create-pull-request@v6
         with:
-          path: brahmabuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
           branch: gemini-dhatu-lexicon/${{ github.run_id }}
           commit-message: "data: gemini dhatu lexicon (${{ inputs.dhatus }})"
           title: "Gemini dhātu lexicon: ${{ inputs.dhatus }}"

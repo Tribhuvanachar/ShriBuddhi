@@ -35,9 +35,9 @@ Parabuddhi  →  ShriBuddhi  →  Jagat
 publishes straight to Jagat, with nothing in between. Any workflow, doc or note
 that still says "BrahmaBuddhi", "promote" or `BRAHMABUDDHI_TOKEN` is stale:
 `publish-to-jagat.yml` is the only publish path, and the token for it is
-**`JAGAT_TOKEN`** (renamed from `BUDDHI_TOKEN`). 25 older workflows still use
-BrahmaBuddhi out and will fail at that step until they are moved to commit to
-this repository instead; see `docs/HANDOFF.md`.
+**`JAGAT_TOKEN`** (renamed from `BUDDHI_TOKEN`). The pipelines that used to end in
+a BrahmaBuddhi PR now open the PR, or commit, against this repository; see
+`docs/HANDOFF.md` for the one repository setting that needs.
 
 | | holds | |
 |---|---|---|

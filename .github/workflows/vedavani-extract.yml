@@ -86,31 +86,11 @@ jobs:
           name: vedavani-audio-${{ inputs.veda }}-${{ github.run_id }}
           path: vedavani_audio_out
           retention-days: 14
-      # This job's own checkout (ShriBuddhi) does the extraction above; the PR
-      # targets BrahmaBuddhi as a staging repo instead of committing/PR-ing
-      # straight into ShriBuddhi or bhumandala -- see
-      # .github/workflows/push-to-brahmabuddhi.yml for the pattern this reuses.
-      - name: Checkout BrahmaBuddhi
-        if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
-        uses: actions/checkout@v4
-        with:
-          repository: Tribhuvanachar/BrahmaBuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
-          path: brahmabuddhi
 
-      - name: Mirror extracted audio into the BrahmaBuddhi checkout
-        if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
-        run: |
-          set -euo pipefail
-          mkdir -p brahmabuddhi/vedavani_audio_out
-          cp -a vedavani_audio_out/. brahmabuddhi/vedavani_audio_out/
-
-      - name: Open Pull Request (against BrahmaBuddhi)
+      - name: Open Pull Request (against ShriBuddhi)
         if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
         uses: peter-evans/create-pull-request@v6
         with:
-          path: brahmabuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
           branch: ingest/vedavani-${{ inputs.veda }}
           commit-message: "data: VedaVaNi ${{ inputs.veda }} audio extract"
           title: "Ingest: VedaVaNi ${{ inputs.veda }} audio"

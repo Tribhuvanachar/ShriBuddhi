@@ -117,31 +117,9 @@ jobs:
           path: data/darshana/vedanta/dvaita/DvaitaVedantaIn/_structure.json
           retention-days: 90
 
-      # This job's own checkout (this repo, ShriBuddhi) does the recovery
-      # above; the final publish targets BrahmaBuddhi as a staging repo
-      # instead of PR-ing straight into ShriBuddhi or bhumandala -- see
-      # .github/workflows/push-to-brahmabuddhi.yml. (The dv-cache-dist raw
-      # cache preservation above is unaffected -- it stays on this repo's
-      # own orphan branch, nothing reads it over a CDN.)
-      - name: Checkout BrahmaBuddhi
-        uses: actions/checkout@v4
-        with:
-          repository: Tribhuvanachar/BrahmaBuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
-          path: brahmabuddhi
-
-      - name: Mirror the recovered structure into the BrahmaBuddhi checkout
-        run: |
-          set -euo pipefail
-          mkdir -p brahmabuddhi/data/darshana/vedanta/dvaita/DvaitaVedantaIn
-          cp -a data/darshana/vedanta/dvaita/DvaitaVedantaIn/_structure.json \
-                brahmabuddhi/data/darshana/vedanta/dvaita/DvaitaVedantaIn/_structure.json
-
-      - name: Open a PR with the recovered structure (against BrahmaBuddhi)
+      - name: Open a PR with the recovered structure (against ShriBuddhi)
         uses: peter-evans/create-pull-request@v6
         with:
-          path: brahmabuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
           branch: recover/dv-structure
           title: "Dvaita: recover the navigation tree the import flattened"
           commit-message: "Recover the dvaitavedanta.in tree from the cached pages"

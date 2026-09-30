@@ -197,37 +197,22 @@ pre-go-live work.
 - 277 Itara/Muṇḍaka ids still on placeholders.
 - BrahmaBuddhi's mirror predates the recent merges; re-mirror when convenient.
 
-## OPEN (30 Sep 2026): workflows that still target the deleted BrahmaBuddhi
+## DONE (30 Sep 2026): workflows no longer target BrahmaBuddhi
 
-Each of these checks BrahmaBuddhi out (`repository: Tribhuvanachar/BrahmaBuddhi`, `BRAHMABUDDHI_TOKEN`) and
-opens a PR or commits there. That repository is gone, so they fail at the checkout step. They need the same
-change `interlink.yml` got on 30 Sep: drop the BrahmaBuddhi checkout and mirror step and commit (or open a PR)
-against this repository's `main`. All are manual (`workflow_dispatch`) except `nightly.yml`.
+BrahmaBuddhi is deleted, so the 25 workflows that ended by checking it out and
+opening a PR or pushing there were changed to do that against **this repository**
+instead: the BrahmaBuddhi checkout and mirror steps are gone, `peter-evans/create-pull-request`
+runs in the workspace, and the "push directly" options push to ShriBuddhi's `main`
+(adding only `data/`). `interlink.yml`, `nightly.yml` and `kavya-tracker.yml` commit to
+`main` directly. `publish-dasa-sahitya-local.yml` publishes its dist branch to this repo.
+None of them was run after the change, so the first real run of each is its test.
 
-- `darshanas.yml`
-- `extract-dvaitavedanta.yml`
-- `extract-setutila.yml`
-- `gemini-deep-analysis-kavya.yml`
-- `gemini-dhatu-lexicon.yml`
-- `gemini-enrich.yml`
-- `gemini-summarize-kavya.yml`
-- `import-dasa-sahitya.yml`
-- `ingest-commentaries.yml`
-- `ingest-gretil-bulk.yml`
-- `ingest-sayana-smriti.yml`
-- `ingest.yml`
-- `kavya-tracker.yml`
-- `nightly.yml`
-- `ocr-review-merge.yml`
-- `ocr-sanskrit-commentary.yml`
-- `recover-dv-structure.yml`
-- `reindex.yml`
-- `sync-advaitasharada.yml`
-- `sync-anandamakaranda.yml`
-- `sync-ashtadhyayi.yml`
-- `sync-meghamala.yml`
-- `vedavani-extract.yml`
-- `vedavani-hf-corpus.yml`
-- `publish-dasa-sahitya-local.yml`
+**One setting is needed:** these workflows now use the default `GITHUB_TOKEN`, which can
+open pull requests only if Settings -> Actions -> General -> *Allow GitHub Actions to
+create and approve pull requests* is ticked. Until it is, the PR step fails with
+"not permitted to create pull requests".
 
-Also: `sync-firebase-to-jagattest.yml` mirrors `firebase/` into **JagatTest** using `JAGAT_TOKEN`; decide whether that mirror is still wanted now that the token means Jagat.
+Still open: `sync-firebase-to-jagattest.yml`, `import-kavya.yml`, `publish-wordnet.yml`,
+`ocr-preview-pages.yml` and `deploy-firebase-hosting.yml` target `Tribhuvanachar/bhumandala`
+or `JagatTest` (former names of one repository) with `JAGAT_TOKEN`. Decide whether
+that repository still exists under that name and what `JAGAT_TOKEN` should mean for it.

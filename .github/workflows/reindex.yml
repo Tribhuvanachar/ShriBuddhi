@@ -1,7 +1,7 @@
 # The built corpus-search index goes to the Cloud Storage bucket this project
 # already has (js/config.js's storageBucket), under a prefix named for the data
 # commit it was built from. What carries real, reviewable content
-# (library-status.json, backlinks) still goes to BrahmaBuddhi as a PR, same as
+# (library-status.json, backlinks) still goes to ShriBuddhi's own main as a PR, same as
 # every other relocated content workflow.
 #
 # It used to go to a search-dist branch on the public repo behind a jsDelivr
@@ -179,7 +179,7 @@ jobs:
       - name: Assemble the service-account key from the repository secrets
         # NOT fatal. This step and the Cloud Storage publish under it are one
         # optional half of the job; the other half -- the refreshed backlinks
-        # and library-status that go to BrahmaBuddhi as a PR -- is the half
+        # and library-status that go to this repository as a PR -- is the half
         # that carries reviewable content, and it does not need a storage
         # credential to do its work. On 20 Sep 2026 this step exited 1 on
         # "FIREBASE_PROJECT_ID secret is not set", which aborted the job after
@@ -365,7 +365,6 @@ jobs:
             echo "read at https://storage.googleapis.com/$BUCKET/$PREFIX"
           } >> "$GITHUB_STEP_SUMMARY"
 
-
       - name: Checkout bhumandala for the pin bump
         if: steps.gate.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.bump_pin)
         uses: actions/checkout@v4
@@ -406,34 +405,10 @@ jobs:
           done
           echo "Pin bumped to \`$SHA\` and committed to main." >> "$GITHUB_STEP_SUMMARY"
 
-      # This job's own checkout (ShriBuddhi) does the rebuild above; the PR
-      # targets BrahmaBuddhi as a staging repo instead of committing/PR-ing
-      # straight into ShriBuddhi or bhumandala -- see
-      # .github/workflows/push-to-brahmabuddhi.yml for the pattern this reuses.
-      - name: Checkout BrahmaBuddhi
-        if: steps.gate.outputs.run == 'true' && github.event_name == 'workflow_dispatch' && !inputs.bump_pin && fromJSON(inputs.open_pr)
-        uses: actions/checkout@v4
-        with:
-          repository: Tribhuvanachar/BrahmaBuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
-          path: brahmabuddhi
-
-      - name: Mirror changed content into the BrahmaBuddhi checkout
-        if: steps.gate.outputs.run == 'true' && github.event_name == 'workflow_dispatch' && !inputs.bump_pin && fromJSON(inputs.open_pr)
-        run: |
-          set -euo pipefail
-          mkdir -p brahmabuddhi/admin/config brahmabuddhi/search_index
-          cp admin/config/library-status.json brahmabuddhi/admin/config/library-status.json
-          rm -rf brahmabuddhi/search_index/backlinks
-          cp -r search_index/backlinks brahmabuddhi/search_index/backlinks
-          cp search_index/backlinks.json brahmabuddhi/search_index/backlinks.json 2>/dev/null || true
-
-      - name: Open a PR for what does belong on main (against BrahmaBuddhi)
+      - name: Open a PR for what does belong on main (against ShriBuddhi)
         if: steps.gate.outputs.run == 'true' && github.event_name == 'workflow_dispatch' && !inputs.bump_pin && fromJSON(inputs.open_pr)
         uses: peter-evans/create-pull-request@v6
         with:
-          path: brahmabuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
           branch: reindex/status-and-backlinks
           title: "Re-index: library status and backlinks"
           commit-message: "Re-index: refresh library status and backlinks"
