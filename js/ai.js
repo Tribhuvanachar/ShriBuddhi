@@ -2066,11 +2066,23 @@ function dgeSandhiRowsHtml(splits) {
   }).join('');
 }
 function dgeSandhiFallbackHtml(word) {
-  return dgeFindSandhiSplits(word).then(function (splits) {
-    if (!splits || !splits.length) return null;
-    return '<div class="dsm-word deva">' + dgeShabdaEsc(word) + '</div>' +
-      '<div class="dsm-sub">सन्धिविच्छेदः · not in the fixed शब्दपाठः list, but the grammar engine resolves this as a sandhi join</div>' +
-      dgeSandhiRowsHtml(splits) + dgeShabdaWhereElseLink(word);
+  // Local index first, same reasoning and order as the dedicated Sandhi
+  // button (dgeOpenVidyutSandhiForSelection, below): it is committed to the
+  // repo, so it is the one that answers on a local checkout, where the
+  // CDN-hosted index used to leave this automatic fallback silently empty
+  // even when a split genuinely existed. Found and fixed 30 Sep 2026.
+  return dgeFindLocalSandhiSplits(word).then(function (local) {
+    if (local && local.length) {
+      return '<div class="dsm-word deva">' + dgeShabdaEsc(word) + '</div>' +
+        '<div class="dsm-sub">सन्धिविच्छेदः · not in the fixed शब्दपाठः list, but rule-based sandhi splitting resolves this, verified against this library’s own word lists</div>' +
+        dgeLocalSandhiRowsHtml(local) + dgeShabdaWhereElseLink(word);
+    }
+    return dgeFindSandhiSplits(word).then(function (splits) {
+      if (!splits || !splits.length) return null;
+      return '<div class="dsm-word deva">' + dgeShabdaEsc(word) + '</div>' +
+        '<div class="dsm-sub">सन्धिविच्छेदः · not in the fixed शब्दपाठः list, but the grammar engine resolves this as a sandhi join</div>' +
+        dgeSandhiRowsHtml(splits) + dgeShabdaWhereElseLink(word);
+    });
   }).catch(() => null);
 }
 

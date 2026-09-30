@@ -160,60 +160,30 @@
     ],
     "word": [
       {
-        "id": "dictionary",
-        "icon": "book",
-        "label": "Dictionary",
-        "action": "dgeCtxOpenShabda"
-      },
-      {
         "id": "morphology",
         "icon": "puzzle",
-        "label": "Morphology",
+        "label": "Dhatu",
         "action": "dgeCtxOpenDhatu"
       },
       {
-        "id": "search",
-        "icon": "search",
-        "label": "Search corpus",
-        "action": "dgeCtxSearchCorpus"
-      },
-      {
-        "id": "copy",
-        "icon": "copy",
-        "label": "Copy",
-        "action": "dgeCtxCopySelection"
-      },
-      {
-        "id": "askAcharya",
-        "icon": "acharya",
-        "label": "Ask about this word",
-        "action": "dgeCtxAskAcharyaWord"
-      },
-      {
-        "id": "studyList",
-        "icon": "add",
-        "label": "Add to study list",
-        "action": "dgeCtxAddToStudyList"
+        "id": "dictionary",
+        "icon": "book",
+        "label": "Shabda",
+        "action": "dgeCtxOpenShabda"
       }
     ],
     "phrase": [
       {
-        "id": "copy",
-        "icon": "copy",
-        "label": "Copy",
-        "action": "dgeCtxCopySelection"
+        "id": "morphology",
+        "icon": "puzzle",
+        "label": "Dhatu",
+        "action": "dgeCtxOpenDhatu"
       },
       {
-        "id": "search",
-        "icon": "search",
-        "label": "Search corpus",
-        "action": "dgeCtxSearchCorpus"
-      },
-      {
-        "id": "askAcharya",
-        "icon": "acharya",
-        "label": "Ask about this phrase",
-        "action": "dgeCtxAskAcharyaPhrase"
+        "id": "dictionary",
+        "icon": "book",
+        "label": "Shabda",
+        "action": "dgeCtxOpenShabda"
       }
     ],
     "commentary": [
