@@ -607,6 +607,18 @@
     "checked_at": "2026-09-28 16:26 IST"
    }
   },
+  "claude/shreebuddhi-library-folders-ynkyi3": {
+   "category": "unclassified",
+   "snapshot": {
+    "merged_into_main": false,
+    "ahead_of_main": 1,
+    "behind_main": 1,
+    "last_commit_date": "2026-09-30",
+    "last_commit_subject": "Public shelf: mani_manjari -> manimanjari, and test the root copy too",
+    "last_author": "Claude",
+    "checked_at": "2026-09-30 17:53 IST"
+   }
+  },
   "claude/whatsapp-integration-tob5tq": {
    "category": "unclassified",
    "snapshot": {
@@ -718,7 +730,7 @@
     "merged_into_main": true,
     "ahead_of_main": 0,
     "behind_main": 0,
-    "checked_at": "2026-09-28 16:26 IST"
+    "checked_at": "2026-09-30 17:53 IST"
    }
   },
   "migrate-purana-from-bhumandala": {
@@ -2015,13 +2027,13 @@
     "secrets": [
      "ARCHIVE_ACCESS_KEY",
      "ARCHIVE_SECRET_KEY",
-     "BUDDHI_TOKEN",
      "IAS3_ACCESS_KEY",
      "IAS3_SECRET_KEY",
      "IA_ACCESS_KEY",
      "IA_SECRET_KEY",
      "INTERNETARCHIVE_ACCESS_KEY",
-     "INTERNETARCHIVE_SECRET_KEY"
+     "INTERNETARCHIVE_SECRET_KEY",
+     "JAGAT_TOKEN"
     ],
     "cost": [],
     "scripts": [],
@@ -2386,7 +2398,6 @@
      }
     ],
     "secrets": [
-     "BUDDHI_TOKEN",
      "FIREBASE_ADMIN_SDK",
      "FIREBASE_CLIENT_EMAIL",
      "FIREBASE_CLIENT_ID",
@@ -2396,7 +2407,8 @@
      "FIREBASE_SERVICE_ACCOUNT",
      "FIREBASE_SERVICE_ACCOUNT_KEY",
      "FIREBASE_SERVICE_ACCOUNT_SARVAMULA_ORG",
-     "GOOGLE_APPLICATION_CREDENTIALS_JSON"
+     "GOOGLE_APPLICATION_CREDENTIALS_JSON",
+     "JAGAT_TOKEN"
     ],
     "cost": [],
     "scripts": [],
@@ -2423,7 +2435,6 @@
     "schedule": [],
     "inputs": [],
     "secrets": [
-     "BUDDHI_TOKEN",
      "FIREBASE_ADMIN_SDK",
      "FIREBASE_CLIENT_EMAIL",
      "FIREBASE_CLIENT_ID",
@@ -2433,7 +2444,8 @@
      "FIREBASE_SERVICE_ACCOUNT",
      "FIREBASE_SERVICE_ACCOUNT_KEY",
      "FIREBASE_SERVICE_ACCOUNT_SARVAMULA_ORG",
-     "GOOGLE_APPLICATION_CREDENTIALS_JSON"
+     "GOOGLE_APPLICATION_CREDENTIALS_JSON",
+     "JAGAT_TOKEN"
     ],
     "cost": [],
     "scripts": [],
@@ -3237,7 +3249,7 @@
      }
     ],
     "secrets": [
-     "BUDDHI_TOKEN"
+     "JAGAT_TOKEN"
     ],
     "cost": [],
     "scripts": [
@@ -3545,23 +3557,20 @@
     ],
     "schedule": [],
     "inputs": [],
-    "secrets": [
-     "BRAHMABUDDHI_TOKEN"
-    ],
+    "secrets": [],
     "cost": [],
     "scripts": [
      "tools/build_dhatu_prayoga_index.py",
      "tools/build_sutra_prayoga_index.py",
      "tools/chandas/build_chandas_reports.js",
      "tools/gen_library_status.py",
-     "tools/mirror_changed_paths.py",
      "tools/shard_backlinks.py"
     ],
     "missing_scripts": [],
     "writes": [
      "commits directly to the branch it ran on"
     ],
-    "lines": 131
+    "lines": 114
    }
   },
   "kamadhenu-diagnostics.yml": {
@@ -4025,7 +4034,7 @@
      }
     ],
     "secrets": [
-     "BUDDHI_TOKEN"
+     "JAGAT_TOKEN"
     ],
     "cost": [],
     "scripts": [
@@ -4744,33 +4753,6 @@
     "lines": 73
    }
   },
-  "promote-to-buddhi.yml": {
-   "category": "deploy",
-   "display_name": "Promote to Buddhi (proof of concept)",
-   "purpose": "The last hop of the private build chain, moving finalized staging content into the public repository. Manual by design.",
-   "notes": "Deliberately workflow_dispatch only: BrahmaBuddhi is staging and nothing there may run by itself. Running this means 'staging is finalized, move it to production'.",
-   "recommendation": "keep",
-   "reason": "The only route from staging to the public site.",
-   "keep": true,
-   "generated": {
-    "name": "Promote to Buddhi (proof of concept)",
-    "triggers": [
-     "manual"
-    ],
-    "schedule": [],
-    "inputs": [],
-    "secrets": [
-     "BUDDHI_TOKEN"
-    ],
-    "cost": [],
-    "scripts": [],
-    "missing_scripts": [],
-    "writes": [
-     "commits directly to the branch it ran on"
-    ],
-    "lines": 63
-   }
-  },
   "publish-dasa-sahitya-local.yml": {
    "category": "content-import",
    "display_name": "Dāsa Sāhitya — publish local-asset imports to a dist branch",
@@ -4805,6 +4787,46 @@
      "force-pushes a dist/staging branch"
     ],
     "lines": 119
+   }
+  },
+  "publish-to-jagat.yml": {
+   "category": "unclassified",
+   "keep": true,
+   "generated": {
+    "name": "Publish — ShriBuddhi to Jagat",
+    "triggers": [
+     "manual",
+     "push to main touching config/library-overrides.json"
+    ],
+    "schedule": [],
+    "inputs": [
+     {
+      "name": "push",
+      "label": "Actually push to Jagat main (off = build and report only, nothing changes)",
+      "type": "boolean",
+      "default": false,
+      "required": false
+     },
+     {
+      "name": "message",
+      "label": "Commit message for Jagat's single commit",
+      "type": "string",
+      "default": "Sarvamūla Digital Library",
+      "required": false
+     }
+    ],
+    "secrets": [
+     "JAGAT_TOKEN"
+    ],
+    "cost": [],
+    "scripts": [
+     "tools/publish_clean_repo.py"
+    ],
+    "missing_scripts": [],
+    "writes": [
+     "force-pushes a dist/staging branch"
+    ],
+    "lines": 140
    }
   },
   "publish-wordnet.yml": {
@@ -4845,7 +4867,7 @@
      }
     ],
     "secrets": [
-     "BUDDHI_TOKEN"
+     "JAGAT_TOKEN"
     ],
     "cost": [],
     "scripts": [
@@ -4919,34 +4941,6 @@
      "deploys to Firebase"
     ],
     "lines": 396
-   }
-  },
-  "push-to-brahmabuddhi.yml": {
-   "category": "deploy",
-   "display_name": "Push to BrahmaBuddhi (staging)",
-   "purpose": "Sends this repository's reviewed content up to the staging repository, the hop before the public site.",
-   "notes": "Staging holds no development of its own, so this is a one-way push; nothing is edited at the far end.",
-   "recommendation": "keep",
-   "reason": "The middle hop of the build chain.",
-   "keep": true,
-   "generated": {
-    "name": "Push to BrahmaBuddhi (proof of concept)",
-    "triggers": [
-     "manual",
-     "push to main"
-    ],
-    "schedule": [],
-    "inputs": [],
-    "secrets": [
-     "BRAHMABUDDHI_TOKEN"
-    ],
-    "cost": [],
-    "scripts": [],
-    "missing_scripts": [],
-    "writes": [
-     "commits directly to the branch it ran on"
-    ],
-    "lines": 64
    }
   },
   "recover-dv-structure.yml": {
@@ -5064,7 +5058,6 @@
     ],
     "secrets": [
      "BRAHMABUDDHI_TOKEN",
-     "BUDDHI_TOKEN",
      "FIREBASE_ADMIN_SDK",
      "FIREBASE_CLIENT_EMAIL",
      "FIREBASE_CLIENT_ID",
@@ -5075,6 +5068,7 @@
      "FIREBASE_SERVICE_ACCOUNT_KEY",
      "FIREBASE_SERVICE_ACCOUNT_SARVAMULA_ORG",
      "GOOGLE_APPLICATION_CREDENTIALS_JSON",
+     "JAGAT_TOKEN",
      "SEARCH_INDEX_BUCKET"
     ],
     "cost": [],
@@ -5402,7 +5396,7 @@
     "schedule": [],
     "inputs": [],
     "secrets": [
-     "BUDDHI_TOKEN"
+     "JAGAT_TOKEN"
     ],
     "cost": [],
     "scripts": [],
@@ -5693,7 +5687,7 @@
    }
   }
  },
- "generated_at": "2026-09-28 16:26 IST",
+ "generated_at": "2026-09-30 17:53 IST",
  "workflow_categories": [
   {
    "id": "source-sync",

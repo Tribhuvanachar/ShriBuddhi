@@ -1,5 +1,9 @@
 # HANDOFF — written 16 Sep 2026, ~12:40 pm IST
 
+> **30 Sep 2026 (the lead): BrahmaBuddhi is deleted.** ShriBuddhi now publishes straight to Jagat with
+> `.github/workflows/publish-to-jagat.yml`; `BUDDHI_TOKEN` is now `JAGAT_TOKEN`. Read every mention of
+> BrahmaBuddhi, "promote" or `BRAHMABUDDHI_TOKEN` below as history. Current layout: `CLAUDE.md`.
+
 This replaces the 7 Sep handoff, which is stale. One long session ends here. Everything it did is
 pushed; nothing lives only in chat. Go-live is **~28 Sep 2026** (moved from the 17th).
 
@@ -192,3 +196,38 @@ pre-go-live work.
   only Satyapramoda and Surottama ṭīkās. Neither is a duplicate.
 - 277 Itara/Muṇḍaka ids still on placeholders.
 - BrahmaBuddhi's mirror predates the recent merges; re-mirror when convenient.
+
+## OPEN (30 Sep 2026): workflows that still target the deleted BrahmaBuddhi
+
+Each of these checks BrahmaBuddhi out (`repository: Tribhuvanachar/BrahmaBuddhi`, `BRAHMABUDDHI_TOKEN`) and
+opens a PR or commits there. That repository is gone, so they fail at the checkout step. They need the same
+change `interlink.yml` got on 30 Sep: drop the BrahmaBuddhi checkout and mirror step and commit (or open a PR)
+against this repository's `main`. All are manual (`workflow_dispatch`) except `nightly.yml`.
+
+- `darshanas.yml`
+- `extract-dvaitavedanta.yml`
+- `extract-setutila.yml`
+- `gemini-deep-analysis-kavya.yml`
+- `gemini-dhatu-lexicon.yml`
+- `gemini-enrich.yml`
+- `gemini-summarize-kavya.yml`
+- `import-dasa-sahitya.yml`
+- `ingest-commentaries.yml`
+- `ingest-gretil-bulk.yml`
+- `ingest-sayana-smriti.yml`
+- `ingest.yml`
+- `kavya-tracker.yml`
+- `nightly.yml`
+- `ocr-review-merge.yml`
+- `ocr-sanskrit-commentary.yml`
+- `recover-dv-structure.yml`
+- `reindex.yml`
+- `sync-advaitasharada.yml`
+- `sync-anandamakaranda.yml`
+- `sync-ashtadhyayi.yml`
+- `sync-meghamala.yml`
+- `vedavani-extract.yml`
+- `vedavani-hf-corpus.yml`
+- `publish-dasa-sahitya-local.yml`
+
+Also: `sync-firebase-to-jagattest.yml` mirrors `firebase/` into **JagatTest** using `JAGAT_TOKEN`; decide whether that mirror is still wanted now that the token means Jagat.

@@ -1,5 +1,9 @@
 # Where the API keys are, and how to spend money
 
+> **30 Sep 2026 (the lead): BrahmaBuddhi is deleted.** ShriBuddhi now publishes straight to Jagat with
+> `.github/workflows/publish-to-jagat.yml`; `BUDDHI_TOKEN` is now `JAGAT_TOKEN`. Read every mention of
+> BrahmaBuddhi, "promote" or `BRAHMABUDDHI_TOKEN` below as history. Current layout: `CLAUDE.md`.
+
 Written 22 Sep 2026, after a session was wasted concluding the paid
 pipelines were "blocked on credentials". They were not. Nothing about this
 needs asking again — it is all here.

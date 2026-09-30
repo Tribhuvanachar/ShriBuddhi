@@ -69,38 +69,16 @@ jobs:
       - name: Rebuild vṛtta reports (chandas reports)
         run: node tools/chandas/build_chandas_reports.js
 
-      # This job's own checkout (this repo, ShriBuddhi) does the rebuild
-      # above; the final publish targets BrahmaBuddhi as a staging repo
-      # instead of committing straight to ShriBuddhi's own main or to
-      # bhumandala -- see .github/workflows/push-to-brahmabuddhi.yml.
-      - name: Checkout BrahmaBuddhi
-        uses: actions/checkout@v4
-        with:
-          repository: Tribhuvanachar/BrahmaBuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
-          path: brahmabuddhi
-
-      # A rebuild deletes index shards as well as writing them: a dhatu that
-      # lost its last prayoga has no file any more. The old `git status
-      # --porcelain | awk '{print $2}'` read a deleted path as something to
-      # copy and died on `cp: cannot stat` -- and it would have mangled a
-      # rename or any path with a space in it. The status is written NUL-
-      # separated to a file and parsed properly here, and a deletion is
-      # mirrored AS a deletion rather than dropped, so BrahmaBuddhi does not
-      # keep shards the corpus no longer has.
-      - name: Mirror changed layers into the BrahmaBuddhi checkout
-        run: |
-          set -euo pipefail
-          git status --porcelain -z -- \
-              data/vedanga/vyakarana/ashtadhyayi/prayoga_index \
-              data/vedanga/vyakarana/dhatu_prayoga \
-              data/vedanga/chandas/reports \
-              search_index/backlinks \
-              admin/config/library-status.json > "$RUNNER_TEMP/changed.z"
-          python3 tools/mirror_changed_paths.py "$RUNNER_TEMP/changed.z" brahmabuddhi
-
-      - name: Commit whatever actually changed, to BrahmaBuddhi
-        working-directory: brahmabuddhi
+      # BrahmaBuddhi was deleted on 30 Sep 2026; ShriBuddhi publishes straight to
+      # Jagat (publish-to-jagat.yml). So the rebuilt layers are committed to this
+      # repository's own main. The github-actions[bot] guard on the job above, and
+      # the fact that a GITHUB_TOKEN push starts no workflow, stop this looping.
+      #
+      # Only the paths this job rebuilds are added, so a stray file in the runner
+      # is never swept into the commit. A rebuild can DELETE shards (a dhatu that
+      # lost its last prayoga has no file any more); `git add -A -- <paths>`
+      # records those deletions too.
+      - name: Commit whatever actually changed, to ShriBuddhi main
         env:
           GIT_AUTHOR_NAME: github-actions[bot]
           GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
@@ -108,7 +86,12 @@ jobs:
           GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
         run: |
           set -euo pipefail
-          git add -A
+          git add -A -- \
+              data/vedanga/vyakarana/ashtadhyayi/prayoga_index \
+              data/vedanga/vyakarana/dhatu_prayoga \
+              data/vedanga/chandas/reports \
+              search_index/backlinks \
+              admin/config/library-status.json
           if git diff --cached --quiet; then
             echo "interlink layers already current -- nothing to commit"
           else

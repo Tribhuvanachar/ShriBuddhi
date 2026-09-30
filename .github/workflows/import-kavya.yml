@@ -148,7 +148,7 @@ jobs:
           git init -q -b kavya-dist
           git add -A
           git commit -q -m "The built Kavya corpus, rebuilt by import-kavya.yml"
-          git push -q --force "https://x-access-token:${{ secrets.BUDDHI_TOKEN }}@github.com/Tribhuvanachar/bhumandala" \
+          git push -q --force "https://x-access-token:${{ secrets.JAGAT_TOKEN }}@github.com/Tribhuvanachar/bhumandala" \
             kavya-dist:refs/heads/kavya-dist
           SHA=$(git rev-parse HEAD)
           # The reader pins a COMMIT, not this branch: jsDelivr caches a

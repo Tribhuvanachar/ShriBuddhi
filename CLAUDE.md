@@ -24,19 +24,26 @@ is a claim that expires the moment someone changes the layout, and a stale one
 costs more than no note at all, because it is believed. If you change what this
 repository contains, change this paragraph in the same commit.
 
-## The four repositories, and which way work flows
+## The three repositories, and which way work flows
 
 ```
-Parabuddhi  →  ShriBuddhi  →  BrahmaBuddhi  →  Jagat
- (private)      (private)      (private)       (public)
+Parabuddhi  →  ShriBuddhi  →  Jagat
+ (private)      (private)      (public)
 ```
+
+**BrahmaBuddhi no longer exists.** The lead deleted it on 30 Sep 2026; ShriBuddhi
+publishes straight to Jagat, with nothing in between. Any workflow, doc or note
+that still says "BrahmaBuddhi", "promote" or `BRAHMABUDDHI_TOKEN` is stale:
+`publish-to-jagat.yml` is the only publish path, and the token for it is
+**`JAGAT_TOKEN`** (renamed from `BUDDHI_TOKEN`). 25 older workflows still use
+BrahmaBuddhi out and will fail at that step until they are moved to commit to
+this repository instead; see `docs/HANDOFF.md`.
 
 | | holds | |
 |---|---|---|
 | **Parabuddhi** | raw input | the PDF, page images, each OCR engine's output kept separately, `provenance/` |
 | **ShriBuddhi** | the workshop | `tools/`, `data/`, `js/`, `admin/`, all 57 workflows. **Source of truth.** |
-| **BrahmaBuddhi** | release candidate | content with provenance stripped, plus the private admin overlay |
-| **Jagat** | the reading room | BrahmaBuddhi minus that overlay, published as ONE commit with no parent |
+| **Jagat** | the reading room | ShriBuddhi with provenance, `admin/`, `tools/` and the private shelves stripped, published as ONE commit with no parent by `publish-to-jagat.yml` |
 
 **Work flows down, never up.** If you find yourself editing at one stage what
 should have been decided at the stage above, the pipeline is wrong, not the
@@ -52,8 +59,14 @@ Where a given job belongs:
   only while it still exists.
 * **Pratīka tagging, sandhi splitting, paragraph formatting, layer splitting** —
   here. They need `tools/`, they need judgement, and they must be re-runnable.
-* **Manual edits** — here. BrahmaBuddhi is downstream; an edit made there is an
-  edit a promote will overwrite.
+* **Manual edits** — here. Jagat is downstream; an edit made there is an edit
+  the next publish will overwrite. On a desktop, `python tools/sync_local.py`
+  shows what would be pushed and `--go` pushes it.
+* **Making folders appear on Jagat** — `admin/library.html` → 🌐 Go-live shelf.
+  Tick the folders, then 🚀 Publish shelf to GitHub. That commits
+  `config/library-overrides.json`, and the commit starts the publish once the
+  repository variable `JAGAT_AUTO_PUBLISH` is `true`. Otherwise run Actions →
+  "Publish — ShriBuddhi to Jagat" by hand (tick *push*; unticked is a dry run).
 
 ## Working across repositories
 

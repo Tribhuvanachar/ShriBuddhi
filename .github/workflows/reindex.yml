@@ -371,7 +371,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: Tribhuvanachar/JagatTest
-          token: ${{ secrets.BUDDHI_TOKEN }}
+          token: ${{ secrets.JAGAT_TOKEN }}
           path: buddhi-pin
 
       - name: Copy freshly rebuilt status/backlinks into the bhumandala checkout

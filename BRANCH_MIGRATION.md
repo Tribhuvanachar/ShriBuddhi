@@ -1,5 +1,9 @@
 # Branches brought over from Tribhuvanachar/bhumandala (Buddhi) — 13 Sep 2026
 
+> **30 Sep 2026 (the lead): BrahmaBuddhi is deleted.** ShriBuddhi now publishes straight to Jagat with
+> `.github/workflows/publish-to-jagat.yml`; `BUDDHI_TOKEN` is now `JAGAT_TOKEN`. Read every mention of
+> BrahmaBuddhi, "promote" or `BRAHMABUDDHI_TOKEN` below as history. Current layout: `CLAUDE.md`.
+
 The file moves (tools, importers, workflows → here; admin pages → BrahmaBuddhi; docs,
 tasks, archive, provenance sources → ParaBuddhi) had been done by the migration sessions,
 but the old repository's **branches** had not moved anywhere, and it is about to be

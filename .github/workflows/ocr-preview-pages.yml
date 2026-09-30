@@ -86,7 +86,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           rm -rf /tmp/imgs && mkdir -p /tmp/imgs && cd /tmp/imgs
           git init -q -b "$BR"
-          if git fetch -q "https://x-access-token:${{ secrets.BUDDHI_TOKEN }}@github.com/Tribhuvanachar/bhumandala" "$BR" 2>/dev/null; then
+          if git fetch -q "https://x-access-token:${{ secrets.JAGAT_TOKEN }}@github.com/Tribhuvanachar/bhumandala" "$BR" 2>/dev/null; then
             git checkout -q FETCH_HEAD -- . 2>/dev/null || true
           fi
           cp "$GITHUB_WORKSPACE"/preview_out/page-*.png . 2>/dev/null || true
@@ -94,5 +94,5 @@ jobs:
           printf 'Page images for admin/ocr-review.html, rendered by ocr-preview-pages.yml. Read as raw.githubusercontent.com/Tribhuvanachar/bhumandala/%s/page-<N>.png\n' "$BR" > README.md
           git add -A
           git commit -q -m "ocr images: ${{ inputs.publish_work }} pages ${{ inputs.pages }}" || true
-          git push -q --force "https://x-access-token:${{ secrets.BUDDHI_TOKEN }}@github.com/Tribhuvanachar/bhumandala" "HEAD:refs/heads/$BR"
+          git push -q --force "https://x-access-token:${{ secrets.JAGAT_TOKEN }}@github.com/Tribhuvanachar/bhumandala" "HEAD:refs/heads/$BR"
           echo "Published $(ls page-*.png | wc -l) page image(s) to branch \`$BR\`." >> "$GITHUB_STEP_SUMMARY"

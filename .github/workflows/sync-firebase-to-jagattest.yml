@@ -52,7 +52,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: Tribhuvanachar/JagatTest
-          token: ${{ secrets.BUDDHI_TOKEN }}
+          token: ${{ secrets.JAGAT_TOKEN }}
           path: target
 
       # Prove the write BEFORE doing the work. A token that can clone but not
@@ -60,19 +60,19 @@ jobs:
       # it cost a paid Gemini run to find out at the last step rather than the
       # first. --dry-run authenticates and asks the server for permission while
       # transferring and changing nothing.
-      - name: Prove BUDDHI_TOKEN can push to JagatTest
+      - name: Prove JAGAT_TOKEN can push to JagatTest
         env:
-          T: ${{ secrets.BUDDHI_TOKEN }}
+          T: ${{ secrets.JAGAT_TOKEN }}
         run: |
           set -euo pipefail
-          test -n "$T" || { echo "::error::BUDDHI_TOKEN is not set on this repository."; exit 1; }
+          test -n "$T" || { echo "::error::JAGAT_TOKEN is not set on this repository."; exit 1; }
           cd target
           if ! git push --dry-run origin HEAD:refs/heads/__push_permission_probe 2>err.txt; then
             sed 's/^/  /' err.txt
-            echo "::error::BUDDHI_TOKEN can read JagatTest but cannot push to it. Give the token behind BUDDHI_TOKEN 'Contents: Read and write' on Tribhuvanachar/JagatTest (GitHub -> Settings -> Developer settings -> Fine-grained tokens), then update the secret on ShriBuddhi. Nothing was changed."
+            echo "::error::JAGAT_TOKEN can read JagatTest but cannot push to it. Give the token behind JAGAT_TOKEN 'Contents: Read and write' on Tribhuvanachar/JagatTest (GitHub -> Settings -> Developer settings -> Fine-grained tokens), then update the secret on ShriBuddhi. Nothing was changed."
             exit 1
           fi
-          echo "BUDDHI_TOKEN can push to JagatTest"
+          echo "JAGAT_TOKEN can push to JagatTest"
 
       - name: Copy the tracked firebase/ tree over
         run: |
