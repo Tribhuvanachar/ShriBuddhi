@@ -9,15 +9,14 @@
 (function () {
   "use strict";
 
-  // The corpus is 50 MB and lives on this repo's own "kavya-dist" branch,
-  // not in the site: GitHub Pages publishes main and nothing else, and the
-  // published site has about 1% of the 1 GB Pages limit left. jsDelivr
-  // serves any branch, which is what the kosa corpus and the Sanskrit
-  // WordNet already do. config.js sets window.KAVYA_DATA_BASE from
-  // appConfig for the reader; this page does not load config.js, so the
-  // same URL is the default here. Set it to "data" to read a local build.
-  var CDN = "https://cdn.jsdelivr.net/gh/Tribhuvanachar/Jagat@3c4d0d8e5c3fd03788bebe14a2da24c704fa5a12";
-  var DATA_BASE = window.KAVYA_DATA_BASE || CDN;
+  // The corpus ships with the site, in data/kavya_alankara/ (60 MB; about 9 MB
+  // gzipped). It used to sit on a pinned CDN branch because the site was tight
+  // against a size ceiling; that reason is gone. The default is resolved from THIS
+  // script's own URL (js/ -> ../data), so it is right from kavya/index.html and
+  // from any other page. window.KAVYA_DATA_BASE, if set to a URL, still wins.
+  var SELF = (document.currentScript && document.currentScript.src) || "";
+  var LOCAL = SELF ? new URL("../data", SELF).href : "../data";
+  var DATA_BASE = window.KAVYA_DATA_BASE || LOCAL;
   var INDEX_URL = DATA_BASE + "/kavya_alankara/_index.json";
   var PREF_KEY = "dge.kavya.v2";
 
@@ -345,17 +344,7 @@
       host.appendChild(card);
     });
 
-    var notes = (S.work.layers || []).filter(function (l) {
-      return l.id === mulaLayer.id || S.open[l.id];
-    }).map(function (l) {
-      var s = l.source || {};
-      return layerLabel(l) + ": " + (s.repo || s.url || "—") +
-             (l.license ? " · " + l.license.split(".")[0] : "");
-    });
-    if (notes.length) {
-      var n = el("div", "srcnote", "स्रोतांसि — " + notes.join("  |  "));
-      host.appendChild(n);
-    }
+    // No per-layer source line: credit is given once, in the site's Credits panel.
     $("#unitNow").textContent = trNum(S.unitId) + " / " +
       trNum((S.work.units || []).length);
   }

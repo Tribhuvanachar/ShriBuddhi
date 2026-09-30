@@ -64,9 +64,14 @@ def make_grantha(
             "refusing to build an ai_generated %s layer (%s/%s): attested "
             "layers must never carry generated text" % (kind, work_id, layer_id)
         )
+    # `work_id`, `source` and `license_note` are accepted (the importers pass them)
+    # but NOT written. A published layer must not name where its text came from: the
+    # project rule is no source dict and no origin id in published data, with credit
+    # given once in the site's Credits panel (content/legal.json). The work id is the
+    # folder name; where each work was fetched from is declared in config/works.json
+    # and config/sources.json, which ship with the tools and never with the data.
     return {
         "id": layer_id,
-        "work_id": work_id,
         "layer_kind": kind,
         "name_sa": name_sa,
         "name_iast": name_iast,
@@ -74,8 +79,6 @@ def make_grantha(
         "commentator": commentator,
         "language": language,
         "ai_generated": bool(ai_generated),
-        "source": source or {},
-        "license": license_note,
         "counts": {"items": 0, "shlokas": 0, "filled": 0},
     }
 
@@ -161,9 +164,12 @@ def validate_layer(layer):
     if layer.get("schema") != SCHEMA_NAME:
         errs.append("schema must be %r, got %r" % (SCHEMA_NAME, layer.get("schema")))
     g = layer.get("grantha") or {}
-    for key in ("id", "work_id", "layer_kind"):
+    for key in ("id", "layer_kind"):
         if not g.get(key):
             errs.append("grantha.%s is required" % key)
+    for key in ("work_id", "source", "license"):
+        if key in g:
+            errs.append("grantha.%s must not be published (provenance; credit goes in the footer)" % key)
     if g.get("layer_kind") not in LAYER_KINDS:
         errs.append("grantha.layer_kind %r not in %r" % (g.get("layer_kind"), LAYER_KINDS))
     if g.get("ai_generated") and g.get("layer_kind") in ATTESTED_KINDS:

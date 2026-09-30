@@ -214,8 +214,8 @@ create and approve pull requests* is ticked. Until it is, the PR step fails with
 
 Retargeted (30 Sep 2026, the lead: bhumandala/JagatTest is deleted, Jagat is never edited by hand):
 - `sync-firebase-to-jagattest.yml` is deleted; Jagat does not carry `firebase/`.
-- `import-kavya.yml`, `publish-wordnet.yml` and `ocr-preview-pages.yml` publish their branches
-  (`kavya-dist`, `wordnet-dist`, `ocr-images/<work>`) to THIS repository with the default token.
+- `import-kavya.yml` imports into `data/kavya_alankara/` and opens a PR; `publish-wordnet.yml` opens a PR;
+  `ocr-preview-pages.yml` publishes `ocr-images/<work>` branches to THIS repository with the default token.
   `admin/ocr-review.html` now reads the scans with the admin's token (the repo is private).
 - `deploy-firestore.yml` deploys `firebase/` from this checkout; `deploy-firebase-hosting.yml` deploys the
   public site by checking out **Jagat**.
@@ -235,21 +235,19 @@ Datasets (30 Sep 2026):
     manually and no workflow runs it. It does not grow by itself when the corpus grows; it grows when
     someone re-runs it. `data/_sandhi_local/` (3.7 MB, `tools/build_sandhi_split_index.py`, sanskrit_parser)
     is a second, smaller index already in the repo.
-- **Kavya corpus** (60 MB, 24 works, 69 files) stays on Jagat's `data` branch and is read from there
-  (`kavyaDataBase` in `js/config.js`, pinned commit). It was NOT moved, for two reasons that need the
-  lead's decision:
-  1. Every layer carries `grantha.work_id`, which `tools/verify_no_private_provenance.py` flags, so
-     the gate fails on all 68 files.
-  2. Every layer also carries a `source` block with the origin URL and licence text. Project rule:
-     never publish a `source` dict; credits go in the footer. But the licences carry attribution
-     duties (Wikisource CC-BY-SA, sanskritsahitya "keep visible attribution"). Stripping the blocks
-     and giving the credit once in the footer is the lead's call.
-  It also collides by path with `data/kavya_alankara/` (4 mahakavyas in an older shape; the repo's own
-  notes warn that merging appends a second copy), so it would need its own root.
-  Where it comes from (`tools/kavya/config/sources.json`): GRETIL (Göttingen, corpusTEI), the
-  sanskritsahitya-com/data repository on GitHub, ambuda.org (TEI zip) and sa.wikisource.org; 58 works
-  declared, most from GRETIL (24) and Wikisource (13). `import-kavya.yml` still writes a `kavya-dist`
-  branch in this repo; nothing reads that branch.
+- **Kavya corpus** (47 MB, 43 works on disk, 69 layer files) now lives in `data/kavya_alankara/` on
+  ShriBuddhi main and ships to Jagat with the site (lead, 30 Sep 2026: one `kavya_alankara`, one UI).
+  `js/kavya.js` reads it relative to its own script; `kavyaDataBase` in `js/config.js` is empty.
+  - The four older mahākāvyas (raghuvamsha, kumarasambhava, kiratarjuniya, shishupalavadha) were
+    REPLACED by the package edition: a different orthography edition, item keys `1` not `sarga_01`.
+    The spaced reading of the old text is kept in each work's `padaccheda` layer.
+  - Provenance is stripped: no `work_id`, `source` or `license` in the data (the generators in
+    `tools/kavya/` no longer write them and `verify_kavya.py` fails if they appear). Credit is given
+    once in the footer, `content/legal.json` ("Kāvya, Alaṅkāra & lexical resources": GRETIL,
+    sanskritsahitya-com/data, Ambuda, Wikisource CC-BY-SA 4.0, IndoWordNet, Saṃsādhanī).
+    Attribution duties were the reason this was the lead's call; the footer is where they are met.
+  - `import-kavya.yml` merges into `data/` (never shrinks a text) and opens a draft PR.
+  - Not yet decided: which Kavya folders go on the go-live shelf. Nothing here touches the shelf.
 - The old **search index** on Jagat's `data` branch is still what `searchIndexBase` points at until a
   re-index publishes to Cloud Storage and bumps the pin.
 

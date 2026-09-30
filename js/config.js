@@ -53,11 +53,10 @@ const appConfig = {
   // data/_wordnet/ (26 MB, part of the site). '' reads it from there, resolved
   // from js/intellisense.js's own URL; set a URL to read it from somewhere else.
   wordnetDataBase: "",
-  // The Kavya corpus js/kavya.js reads -- 24 works, 49 layers, 67,169
-  // entries, 50 MB -- on this repo's "kavya-dist" branch for the same
-  // reason. kavya.html carries the same URL as its own default, since it
-  // does not load this file.
-  kavyaDataBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/Jagat@3c4d0d8e5c3fd03788bebe14a2da24c704fa5a12",
+  // The Kavya corpus (24 works, 49 layers, 60 MB) is part of the site, in
+  // data/kavya_alankara/. '' reads it from there, resolved from js/kavya.js's
+  // own URL; set a URL to read it from somewhere else.
+  kavyaDataBase: "",
   // The corpus-search index js/dge-search.js reads -- 983 granthas, 104,870
   // units. Rebuilding it with the extract_text fix (the one that made
   // every shloka-based grantha index its verses rather than nothing) took the

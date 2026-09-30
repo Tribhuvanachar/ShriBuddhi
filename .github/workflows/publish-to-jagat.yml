@@ -16,15 +16,16 @@
 # branch (search-index datasets, served over jsDelivr) shares no history with
 # main and is never written here.
 #
-# WHEN IT PUSHES
-#   - Run by hand (Actions -> this workflow -> Run workflow): builds and reports.
-#     It pushes ONLY if you tick "push". With it unticked it is a dry run, and a
-#     dry run ends in a green check and a file count, not in a changed Jagat.
-#   - On a push to main that changes config/library-overrides.json (that is what
-#     the Library Manager's "Publish shelf" button commits): builds, and pushes
-#     ONLY IF the repository variable JAGAT_AUTO_PUBLISH is exactly "true".
-#     Until the lead sets that variable, a shelf change is committed and waits.
-#     Settings -> Secrets and variables -> Actions -> Variables.
+# WHEN IT PUSHES -- only when a person runs it, never on its own (the lead, 30 Sep 2026:
+# "there wouldn't be any auto publish now on"). Actions -> this workflow -> Run workflow.
+# It pushes ONLY if you tick "push"; unticked it is a dry run that builds, checks the
+# token and reports, and changes nothing. A publish sends ALL of ShriBuddhi main, not
+# one folder, and the site is live on GitHub Pages the moment Jagat main changes.
+# It also skips the push when Jagat main already has exactly this tree.
+#
+# TODO (marked, not done): run tools/verify_no_private_provenance.py here before the
+# push. It runs in CI on every pull request, but a manual publish does not wait for CI,
+# so a provenance marker merged to main would publish. Cheap (about 40 seconds).
 #
 # WHAT IT NEEDS: the repository secret JAGAT_TOKEN, a token with Contents:
 # Read and write on Tribhuvanachar/Jagat. (It was BUDDHI_TOKEN; renamed.)
@@ -44,9 +45,6 @@ on:
       message:
         description: "Commit message for Jagat's single commit"
         default: "Sarvamūla Digital Library"
-  push:
-    branches: [main]
-    paths: ["config/library-overrides.json"]
 
 permissions:
   contents: read
@@ -60,8 +58,6 @@ env:
 
 jobs:
   publish:
-    # A shelf commit only publishes once the lead has switched that on.
-    if: github.event_name == 'workflow_dispatch' || vars.JAGAT_AUTO_PUBLISH == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -75,10 +71,9 @@ jobs:
       - name: Decide whether this run pushes
         id: mode
         env:
-          EVENT: ${{ github.event_name }}
           PUSH_INPUT: ${{ inputs.push }}
         run: |
-          if [ "$EVENT" = "workflow_dispatch" ] && [ "$PUSH_INPUT" != "true" ]; then
+          if [ "$PUSH_INPUT" != "true" ]; then
             echo "push=false" >> "$GITHUB_OUTPUT"
             echo "Dry run: nothing will be pushed." >> "$GITHUB_STEP_SUMMARY"
           else

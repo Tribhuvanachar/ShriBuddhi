@@ -1,0 +1,4141 @@
+{
+ "version": 2,
+ "category": "kavya_alankara",
+ "taxonomy": {
+  "id": "kavya_alankara",
+  "name_sa": "काव्यानि",
+  "name_iast": "Kāvyāni",
+  "name_en": "Kavya and Poetics",
+  "children": [
+   {
+    "id": "shravya",
+    "name_sa": "श्रव्यकाव्यानि",
+    "name_iast": "Śravyakāvyāni",
+    "name_en": "Kavya to be heard",
+    "children": [
+     {
+      "id": "mahakavya",
+      "name_sa": "महाकाव्यम्",
+      "name_iast": "Mahākāvya",
+      "name_en": "Great poem",
+      "children": [
+       {
+        "id": "pancha_mahakavya",
+        "name_sa": "पञ्चमहाकाव्यानि",
+        "name_iast": "Pañcamahākāvyāni",
+        "name_en": "The five great poems"
+       },
+       {
+        "id": "aitihasika",
+        "name_sa": "ऐतिहासिकम्",
+        "name_iast": "Aitihāsika",
+        "name_en": "Historical"
+       },
+       {
+        "id": "charita",
+        "name_sa": "चरितम्",
+        "name_iast": "Carita",
+        "name_en": "Life-poem"
+       },
+       {
+        "id": "anya",
+        "name_sa": "अन्यानि",
+        "name_iast": "Anyāni",
+        "name_en": "Other mahakavyas"
+       }
+      ]
+     },
+     {
+      "id": "khanda",
+      "name_sa": "खण्डकाव्यम्",
+      "name_iast": "Khaṇḍakāvya",
+      "name_en": "Short poem"
+     },
+     {
+      "id": "duta",
+      "name_sa": "दूतकाव्यम्",
+      "name_iast": "Dūtakāvya",
+      "name_en": "Messenger poem"
+     },
+     {
+      "id": "shataka",
+      "name_sa": "शतकम्",
+      "name_iast": "Śataka",
+      "name_en": "Century"
+     },
+     {
+      "id": "champu",
+      "name_sa": "चम्पूः",
+      "name_iast": "Campū",
+      "name_en": "Mixed verse and prose"
+     },
+     {
+      "id": "gadya",
+      "name_sa": "गद्यकाव्यम्",
+      "name_iast": "Gadyakāvya",
+      "name_en": "Prose poem"
+     },
+     {
+      "id": "katha",
+      "name_sa": "कथा",
+      "name_iast": "Kathā",
+      "name_en": "Story literature"
+     }
+    ]
+   },
+   {
+    "id": "drishya",
+    "name_sa": "दृश्यकाव्यानि",
+    "name_iast": "Dṛśyakāvyāni",
+    "name_en": "Kavya to be seen",
+    "children": [
+     {
+      "id": "nataka",
+      "name_sa": "नाटकम्",
+      "name_iast": "Nāṭaka",
+      "name_en": "Heroic drama"
+     },
+     {
+      "id": "prakarana",
+      "name_sa": "प्रकरणम्",
+      "name_iast": "Prakaraṇa",
+      "name_en": "Invented plot, bourgeois hero"
+     },
+     {
+      "id": "bhana",
+      "name_sa": "भाणः",
+      "name_iast": "Bhāṇa",
+      "name_en": "One-actor monologue"
+     },
+     {
+      "id": "prahasana",
+      "name_sa": "प्रहसनम्",
+      "name_iast": "Prahasana",
+      "name_en": "Farce"
+     },
+     {
+      "id": "dima",
+      "name_sa": "डिमः",
+      "name_iast": "Ḍima",
+      "name_en": "Four-act supernatural"
+     },
+     {
+      "id": "vyayoga",
+      "name_sa": "व्यायोगः",
+      "name_iast": "Vyāyoga",
+      "name_en": "One-act martial"
+     },
+     {
+      "id": "samavakara",
+      "name_sa": "समवकारः",
+      "name_iast": "Samavakāra",
+      "name_en": "Three-act, gods and asuras"
+     },
+     {
+      "id": "vithi",
+      "name_sa": "वीथी",
+      "name_iast": "Vīthī",
+      "name_en": "One-act, one or two characters"
+     },
+     {
+      "id": "utsrishtikanka",
+      "name_sa": "उत्सृष्टिकाङ्कः",
+      "name_iast": "Utsṛṣṭikāṅka",
+      "name_en": "One-act pathos"
+     },
+     {
+      "id": "ihamriga",
+      "name_sa": "ईहामृगः",
+      "name_iast": "Īhāmṛga",
+      "name_en": "Pursuit of an unattainable heroine"
+     },
+     {
+      "id": "natika",
+      "name_sa": "नाटिका",
+      "name_iast": "Nāṭikā",
+      "name_en": "Light four-act, invented heroine"
+     },
+     {
+      "id": "prakarani",
+      "name_sa": "प्रकरणी",
+      "name_iast": "Prakaraṇī",
+      "name_en": "Prakarana-nataka hybrid"
+     },
+     {
+      "id": "sattaka",
+      "name_sa": "सट्टकम्",
+      "name_iast": "Saṭṭaka",
+      "name_en": "Prakrit natika without interludes"
+     }
+    ]
+   },
+   {
+    "id": "kavyashastra",
+    "name_sa": "काव्यशास्त्रम्",
+    "name_iast": "Kāvyaśāstra",
+    "name_en": "Poetics and dramaturgy"
+   }
+  ]
+ },
+ "totals": {
+  "works": 43,
+  "layers": 68,
+  "entries": 94949
+ },
+ "works": [
+  {
+   "id": "abhijnanashakuntala",
+   "name_sa": "अभिज्ञानशाकुन्तलम्",
+   "name_iast": "Abhijñānaśākuntala",
+   "name_en": "Shakuntala",
+   "author": "कालिदासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 186
+    },
+    {
+     "id": "p11801",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "p31903",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 133
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 134
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 193
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 165
+    },
+    {
+     "id": "6",
+     "name_sa": "",
+     "n": 274
+    },
+    {
+     "id": "p138167",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "7",
+     "name_sa": "",
+     "n": 196
+    },
+    {
+     "id": "p166715",
+     "name_sa": "",
+     "n": 1
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 11,
+      "shlokas": 1285,
+      "filled": 1285
+     },
+     "path": "data/kavya_alankara/abhijnanashakuntala/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "amarushataka",
+   "name_sa": "अमरुशतकम्",
+   "name_iast": "Amaruśataka",
+   "name_en": "Amaru's Century",
+   "author": "अमरुः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "shataka"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 106
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 106,
+      "filled": 106
+     },
+     "path": "data/kavya_alankara/amarushataka/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "bhattikavya",
+   "name_sa": "भट्टिकाव्यम्",
+   "name_iast": "Bhaṭṭikāvya",
+   "name_en": "Ravana-vadha",
+   "author": "भट्टिः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "anya"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "प्रथमः सर्गः",
+     "n": 28
+    },
+    {
+     "id": "2",
+     "name_sa": "द्वितीयः सर्गः",
+     "n": 55
+    },
+    {
+     "id": "3",
+     "name_sa": "तृतीयः सर्गः",
+     "n": 56
+    },
+    {
+     "id": "4",
+     "name_sa": "चतुर्थः सर्गः",
+     "n": 45
+    },
+    {
+     "id": "5",
+     "name_sa": "पञ्चमः सर्गः",
+     "n": 108
+    },
+    {
+     "id": "6",
+     "name_sa": "षष्ठः सर्गः",
+     "n": 143
+    },
+    {
+     "id": "7",
+     "name_sa": "सप्तमः सर्गः",
+     "n": 108
+    },
+    {
+     "id": "8",
+     "name_sa": "अष्टमः सर्गः",
+     "n": 131
+    },
+    {
+     "id": "9",
+     "name_sa": "नवमः सर्गः",
+     "n": 137
+    },
+    {
+     "id": "10",
+     "name_sa": "दशमः सर्गः",
+     "n": 75
+    },
+    {
+     "id": "11",
+     "name_sa": "एकादशः सर्गः",
+     "n": 47
+    },
+    {
+     "id": "12",
+     "name_sa": "द्वादशः सर्गः",
+     "n": 87
+    },
+    {
+     "id": "13",
+     "name_sa": "त्रयोदशः सर्गः",
+     "n": 50
+    },
+    {
+     "id": "14",
+     "name_sa": "चतुर्दशः सर्गः",
+     "n": 113
+    },
+    {
+     "id": "15",
+     "name_sa": "पञ्चदशः सर्गः",
+     "n": 123
+    },
+    {
+     "id": "16",
+     "name_sa": "षोडशः सर्गः",
+     "n": 42
+    },
+    {
+     "id": "17",
+     "name_sa": "सप्तदशः सर्गः",
+     "n": 112
+    },
+    {
+     "id": "18",
+     "name_sa": "अष्टादशः सर्गः",
+     "n": 42
+    },
+    {
+     "id": "19",
+     "name_sa": "एकोनविंशः सर्गः",
+     "n": 30
+    },
+    {
+     "id": "20",
+     "name_sa": "विंशः सर्गः",
+     "n": 37
+    },
+    {
+     "id": "21",
+     "name_sa": "एकविंशः सर्गः",
+     "n": 23
+    },
+    {
+     "id": "22",
+     "name_sa": "द्वाविंशः सर्गः",
+     "n": 35
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 22,
+      "shlokas": 1627,
+      "filled": 1627
+     },
+     "path": "data/kavya_alankara/bhattikavya/mula/data.json"
+    },
+    {
+     "id": "jayamangala",
+     "name_sa": "जयमङ्गला",
+     "name_iast": "Jayamaṅgalā",
+     "name_en": "",
+     "commentator": "जयमङ्गलः",
+     "layer_kind": "tika",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 22,
+      "shlokas": 1626,
+      "filled": 1626
+     },
+     "path": "data/kavya_alankara/bhattikavya/jayamangala/data.json"
+    },
+    {
+     "id": "padaccheda",
+     "name_sa": "पदच्छेदः",
+     "name_iast": "Padaccheda",
+     "name_en": "Padaccheda",
+     "commentator": "",
+     "layer_kind": "padaccheda",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 22,
+      "shlokas": 1626,
+      "filled": 1626
+     },
+     "path": "data/kavya_alankara/bhattikavya/padaccheda/data.json"
+    },
+    {
+     "id": "anvaya",
+     "name_sa": "अन्वयः",
+     "name_iast": "Anvaya",
+     "name_en": "Anvaya",
+     "commentator": "",
+     "layer_kind": "anvaya",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 22,
+      "shlokas": 1626,
+      "filled": 1626
+     },
+     "path": "data/kavya_alankara/bhattikavya/anvaya/data.json"
+    },
+    {
+     "id": "translation_en",
+     "name_sa": "आङ्ग्लानुवादः",
+     "name_iast": "Āṅglānuvāda",
+     "name_en": "English translation",
+     "commentator": "",
+     "layer_kind": "translation",
+     "language": "en",
+     "ai_generated": false,
+     "counts": {
+      "items": 22,
+      "shlokas": 1626,
+      "filled": 1626
+     },
+     "path": "data/kavya_alankara/bhattikavya/translation_en/data.json"
+    }
+   ]
+  },
+  {
+   "id": "chandomanjari",
+   "name_sa": "छन्दोमञ्जरी",
+   "name_iast": "Chandomañjarī",
+   "name_en": "Cluster of Metres",
+   "author": "गङ्गादासः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 1326
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 1326,
+      "filled": 1326
+     },
+     "path": "data/kavya_alankara/chandomanjari/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "charudatta",
+   "name_sa": "चारुदत्तम्",
+   "name_iast": "Cārudatta",
+   "name_en": "Charudatta",
+   "author": "भासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "prakarana"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 258
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 117
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 185
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 145
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 4,
+      "shlokas": 705,
+      "filled": 705
+     },
+     "path": "data/kavya_alankara/charudatta/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "dashakumaracharita",
+   "name_sa": "दशकुमारचरितम्",
+   "name_iast": "Daśakumāracarita",
+   "name_en": "Tales of Ten Princes",
+   "author": "दण्डी",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "gadya"
+   ],
+   "units": [
+    {
+     "id": "1.1",
+     "name_sa": "",
+     "n": 85
+    },
+    {
+     "id": "1.2",
+     "name_sa": "",
+     "n": 24
+    },
+    {
+     "id": "1.3",
+     "name_sa": "",
+     "n": 15
+    },
+    {
+     "id": "1.4",
+     "name_sa": "",
+     "n": 31
+    },
+    {
+     "id": "1.5",
+     "name_sa": "",
+     "n": 34
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 16
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 6,
+      "shlokas": 205,
+      "filled": 205
+     },
+     "path": "data/kavya_alankara/dashakumaracharita/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "dasharupaka",
+   "name_sa": "दशरूपकम्",
+   "name_iast": "Daśarūpaka",
+   "name_en": "The Ten Forms",
+   "author": "धनञ्जयः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 61
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 67
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 69
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 81
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 4,
+      "shlokas": 278,
+      "filled": 278
+     },
+     "path": "data/kavya_alankara/dasharupaka/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "dhvanyaloka",
+   "name_sa": "ध्वन्यालोकः",
+   "name_iast": "Dhvanyāloka",
+   "name_en": "Light on Suggestion",
+   "author": "आनन्दवर्धनः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 49
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 82
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 100
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 39
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 4,
+      "shlokas": 270,
+      "filled": 270
+     },
+     "path": "data/kavya_alankara/dhvanyaloka/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "dutavakya",
+   "name_sa": "दूतवाक्यम्",
+   "name_iast": "Dūtavākya",
+   "name_en": "The Envoy's Message",
+   "author": "भासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "vyayoga"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 174
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 174,
+      "filled": 174
+     },
+     "path": "data/kavya_alankara/dutavakya/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "gitagovinda",
+   "name_sa": "गीतगोविन्दम्",
+   "name_iast": "Gītagovinda",
+   "name_en": "Song of Govinda",
+   "author": "जयदेवः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "khanda"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 47
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 20
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 15
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 22
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 19
+    },
+    {
+     "id": "6",
+     "name_sa": "",
+     "n": 11
+    },
+    {
+     "id": "7",
+     "name_sa": "",
+     "n": 41
+    },
+    {
+     "id": "8",
+     "name_sa": "",
+     "n": 10
+    },
+    {
+     "id": "9",
+     "name_sa": "",
+     "n": 10
+    },
+    {
+     "id": "10",
+     "name_sa": "",
+     "n": 14
+    },
+    {
+     "id": "11",
+     "name_sa": "",
+     "n": 33
+    },
+    {
+     "id": "12",
+     "name_sa": "",
+     "n": 22
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 12,
+      "shlokas": 264,
+      "filled": 264
+     },
+     "path": "data/kavya_alankara/gitagovinda/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "harshacharita",
+   "name_sa": "हर्षचरितम्",
+   "name_iast": "Harṣacarita",
+   "name_en": "Life of Harsha",
+   "author": "बाणभट्टः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "gadya"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 73
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 42
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 62
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 58
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 4
+    },
+    {
+     "id": "6",
+     "name_sa": "",
+     "n": 30
+    },
+    {
+     "id": "7",
+     "name_sa": "",
+     "n": 32
+    },
+    {
+     "id": "8",
+     "name_sa": "",
+     "n": 35
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 8,
+      "shlokas": 336,
+      "filled": 336
+     },
+     "path": "data/kavya_alankara/harshacharita/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "janakiharana",
+   "name_sa": "जानकीहरणम्",
+   "name_iast": "Jānakīharaṇa",
+   "name_en": "Abduction of Janaki",
+   "author": "कुमारदासः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "anya"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 5344
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 5344,
+      "filled": 5344
+     },
+     "path": "data/kavya_alankara/janakiharana/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "kadambari",
+   "name_sa": "कादम्बरी",
+   "name_iast": "Kādambarī",
+   "name_en": "Kadambari",
+   "author": "बाणभट्टः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "gadya"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 19
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 2734
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 2,
+      "shlokas": 2753,
+      "filled": 2753
+     },
+     "path": "data/kavya_alankara/kadambari/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "kathasaritsagara",
+   "name_sa": "कथासरित्सागरः",
+   "name_iast": "Kathāsaritsāgara",
+   "name_en": "Ocean of Story",
+   "author": "सोमदेवः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "katha"
+   ],
+   "units": [
+    {
+     "id": "1.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "1.1",
+     "name_sa": "",
+     "n": 66
+    },
+    {
+     "id": "1.2",
+     "name_sa": "",
+     "n": 83
+    },
+    {
+     "id": "1.3",
+     "name_sa": "",
+     "n": 79
+    },
+    {
+     "id": "1.4",
+     "name_sa": "",
+     "n": 137
+    },
+    {
+     "id": "1.5",
+     "name_sa": "",
+     "n": 141
+    },
+    {
+     "id": "1.6",
+     "name_sa": "",
+     "n": 167
+    },
+    {
+     "id": "1.7",
+     "name_sa": "",
+     "n": 113
+    },
+    {
+     "id": "1.8",
+     "name_sa": "",
+     "n": 38
+    },
+    {
+     "id": "2.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "2.1",
+     "name_sa": "",
+     "n": 90
+    },
+    {
+     "id": "2.2",
+     "name_sa": "",
+     "n": 217
+    },
+    {
+     "id": "2.3",
+     "name_sa": "",
+     "n": 83
+    },
+    {
+     "id": "2.4",
+     "name_sa": "",
+     "n": 195
+    },
+    {
+     "id": "2.5",
+     "name_sa": "",
+     "n": 196
+    },
+    {
+     "id": "2.6",
+     "name_sa": "",
+     "n": 90
+    },
+    {
+     "id": "3.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "3.1",
+     "name_sa": "",
+     "n": 149
+    },
+    {
+     "id": "3.2",
+     "name_sa": "",
+     "n": 123
+    },
+    {
+     "id": "3.3",
+     "name_sa": "",
+     "n": 171
+    },
+    {
+     "id": "3.4",
+     "name_sa": "",
+     "n": 407
+    },
+    {
+     "id": "3.5",
+     "name_sa": "",
+     "n": 118
+    },
+    {
+     "id": "3.6",
+     "name_sa": "",
+     "n": 230
+    },
+    {
+     "id": "4.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "4.1",
+     "name_sa": "",
+     "n": 148
+    },
+    {
+     "id": "4.2",
+     "name_sa": "",
+     "n": 259
+    },
+    {
+     "id": "4.3",
+     "name_sa": "",
+     "n": 94
+    },
+    {
+     "id": "5.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "5.1",
+     "name_sa": "",
+     "n": 233
+    },
+    {
+     "id": "5.2",
+     "name_sa": "",
+     "n": 298
+    },
+    {
+     "id": "5.3",
+     "name_sa": "",
+     "n": 289
+    },
+    {
+     "id": "6.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "6.1",
+     "name_sa": "",
+     "n": 211
+    },
+    {
+     "id": "6.2",
+     "name_sa": "",
+     "n": 193
+    },
+    {
+     "id": "6.3",
+     "name_sa": "",
+     "n": 199
+    },
+    {
+     "id": "6.4",
+     "name_sa": "",
+     "n": 144
+    },
+    {
+     "id": "6.5",
+     "name_sa": "",
+     "n": 96
+    },
+    {
+     "id": "6.6",
+     "name_sa": "",
+     "n": 196
+    },
+    {
+     "id": "6.7",
+     "name_sa": "",
+     "n": 217
+    },
+    {
+     "id": "6.8",
+     "name_sa": "",
+     "n": 265
+    },
+    {
+     "id": "7.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "7.1",
+     "name_sa": "",
+     "n": 164
+    },
+    {
+     "id": "7.2",
+     "name_sa": "",
+     "n": 135
+    },
+    {
+     "id": "7.3",
+     "name_sa": "",
+     "n": 244
+    },
+    {
+     "id": "7.4",
+     "name_sa": "",
+     "n": 161
+    },
+    {
+     "id": "7.5",
+     "name_sa": "",
+     "n": 247
+    },
+    {
+     "id": "7.6",
+     "name_sa": "",
+     "n": 116
+    },
+    {
+     "id": "7.7",
+     "name_sa": "",
+     "n": 61
+    },
+    {
+     "id": "7.8",
+     "name_sa": "",
+     "n": 225
+    },
+    {
+     "id": "7.9",
+     "name_sa": "",
+     "n": 275
+    },
+    {
+     "id": "8.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "8.1",
+     "name_sa": "",
+     "n": 187
+    },
+    {
+     "id": "8.2",
+     "name_sa": "",
+     "n": 413
+    },
+    {
+     "id": "8.3",
+     "name_sa": "",
+     "n": 249
+    },
+    {
+     "id": "8.4",
+     "name_sa": "",
+     "n": 121
+    },
+    {
+     "id": "8.5",
+     "name_sa": "",
+     "n": 138
+    },
+    {
+     "id": "8.6",
+     "name_sa": "",
+     "n": 252
+    },
+    {
+     "id": "8.7",
+     "name_sa": "",
+     "n": 212
+    },
+    {
+     "id": "9.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "9.1",
+     "name_sa": "",
+     "n": 227
+    },
+    {
+     "id": "9.2",
+     "name_sa": "",
+     "n": 410
+    },
+    {
+     "id": "9.3",
+     "name_sa": "",
+     "n": 197
+    },
+    {
+     "id": "9.4",
+     "name_sa": "",
+     "n": 241
+    },
+    {
+     "id": "9.5",
+     "name_sa": "",
+     "n": 239
+    },
+    {
+     "id": "9.6",
+     "name_sa": "",
+     "n": 424
+    },
+    {
+     "id": "10.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "10.1",
+     "name_sa": "",
+     "n": 177
+    },
+    {
+     "id": "10.2",
+     "name_sa": "",
+     "n": 141
+    },
+    {
+     "id": "10.3",
+     "name_sa": "",
+     "n": 179
+    },
+    {
+     "id": "10.4",
+     "name_sa": "",
+     "n": 254
+    },
+    {
+     "id": "10.5",
+     "name_sa": "",
+     "n": 330
+    },
+    {
+     "id": "10.6",
+     "name_sa": "",
+     "n": 237
+    },
+    {
+     "id": "10.7",
+     "name_sa": "",
+     "n": 194
+    },
+    {
+     "id": "10.8",
+     "name_sa": "",
+     "n": 164
+    },
+    {
+     "id": "10.9",
+     "name_sa": "",
+     "n": 256
+    },
+    {
+     "id": "10.10",
+     "name_sa": "",
+     "n": 193
+    },
+    {
+     "id": "11.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "11.1",
+     "name_sa": "",
+     "n": 115
+    },
+    {
+     "id": "12.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "12.1",
+     "name_sa": "",
+     "n": 73
+    },
+    {
+     "id": "12.2",
+     "name_sa": "",
+     "n": 185
+    },
+    {
+     "id": "12.3",
+     "name_sa": "",
+     "n": 132
+    },
+    {
+     "id": "12.4",
+     "name_sa": "",
+     "n": 305
+    },
+    {
+     "id": "12.5",
+     "name_sa": "",
+     "n": 407
+    },
+    {
+     "id": "12.6",
+     "name_sa": "",
+     "n": 441
+    },
+    {
+     "id": "12.7",
+     "name_sa": "",
+     "n": 326
+    },
+    {
+     "id": "12.8",
+     "name_sa": "",
+     "n": 196
+    },
+    {
+     "id": "12.9",
+     "name_sa": "",
+     "n": 42
+    },
+    {
+     "id": "12.10",
+     "name_sa": "",
+     "n": 95
+    },
+    {
+     "id": "12.11",
+     "name_sa": "",
+     "n": 132
+    },
+    {
+     "id": "12.12",
+     "name_sa": "",
+     "n": 50
+    },
+    {
+     "id": "12.13",
+     "name_sa": "",
+     "n": 54
+    },
+    {
+     "id": "12.14",
+     "name_sa": "",
+     "n": 115
+    },
+    {
+     "id": "12.15",
+     "name_sa": "",
+     "n": 52
+    },
+    {
+     "id": "12.16",
+     "name_sa": "",
+     "n": 39
+    },
+    {
+     "id": "12.17",
+     "name_sa": "",
+     "n": 68
+    },
+    {
+     "id": "12.18",
+     "name_sa": "",
+     "n": 39
+    },
+    {
+     "id": "12.19",
+     "name_sa": "",
+     "n": 171
+    },
+    {
+     "id": "12.20",
+     "name_sa": "",
+     "n": 60
+    },
+    {
+     "id": "12.21",
+     "name_sa": "",
+     "n": 61
+    },
+    {
+     "id": "12.22",
+     "name_sa": "",
+     "n": 115
+    },
+    {
+     "id": "12.23",
+     "name_sa": "",
+     "n": 207
+    },
+    {
+     "id": "12.24",
+     "name_sa": "",
+     "n": 61
+    },
+    {
+     "id": "12.25",
+     "name_sa": "",
+     "n": 87
+    },
+    {
+     "id": "12.26",
+     "name_sa": "",
+     "n": 102
+    },
+    {
+     "id": "12.27",
+     "name_sa": "",
+     "n": 137
+    },
+    {
+     "id": "12.28",
+     "name_sa": "",
+     "n": 97
+    },
+    {
+     "id": "12.29",
+     "name_sa": "",
+     "n": 51
+    },
+    {
+     "id": "12.30",
+     "name_sa": "",
+     "n": 48
+    },
+    {
+     "id": "12.31",
+     "name_sa": "",
+     "n": 75
+    },
+    {
+     "id": "12.32",
+     "name_sa": "",
+     "n": 58
+    },
+    {
+     "id": "12.33",
+     "name_sa": "",
+     "n": 59
+    },
+    {
+     "id": "12.34",
+     "name_sa": "",
+     "n": 392
+    },
+    {
+     "id": "12.35",
+     "name_sa": "",
+     "n": 153
+    },
+    {
+     "id": "12.36",
+     "name_sa": "",
+     "n": 245
+    },
+    {
+     "id": "13.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "13.1",
+     "name_sa": "",
+     "n": 219
+    },
+    {
+     "id": "14.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "14.1",
+     "name_sa": "",
+     "n": 91
+    },
+    {
+     "id": "14.2",
+     "name_sa": "",
+     "n": 186
+    },
+    {
+     "id": "14.3",
+     "name_sa": "",
+     "n": 139
+    },
+    {
+     "id": "14.4",
+     "name_sa": "",
+     "n": 209
+    },
+    {
+     "id": "15.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "15.1",
+     "name_sa": "",
+     "n": 152
+    },
+    {
+     "id": "15.2",
+     "name_sa": "",
+     "n": 148
+    },
+    {
+     "id": "16.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "16.1",
+     "name_sa": "",
+     "n": 106
+    },
+    {
+     "id": "16.2",
+     "name_sa": "",
+     "n": 214
+    },
+    {
+     "id": "16.3",
+     "name_sa": "",
+     "n": 100
+    },
+    {
+     "id": "17.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "17.1",
+     "name_sa": "",
+     "n": 144
+    },
+    {
+     "id": "17.2",
+     "name_sa": "",
+     "n": 156
+    },
+    {
+     "id": "17.3",
+     "name_sa": "",
+     "n": 95
+    },
+    {
+     "id": "17.4",
+     "name_sa": "",
+     "n": 182
+    },
+    {
+     "id": "17.5",
+     "name_sa": "",
+     "n": 197
+    },
+    {
+     "id": "17.6",
+     "name_sa": "",
+     "n": 219
+    },
+    {
+     "id": "18.0",
+     "name_sa": "",
+     "n": 1
+    },
+    {
+     "id": "18.1",
+     "name_sa": "",
+     "n": 133
+    },
+    {
+     "id": "18.2",
+     "name_sa": "",
+     "n": 280
+    },
+    {
+     "id": "18.3",
+     "name_sa": "",
+     "n": 112
+    },
+    {
+     "id": "18.4",
+     "name_sa": "",
+     "n": 345
+    },
+    {
+     "id": "18.5",
+     "name_sa": "",
+     "n": 250
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 142,
+      "shlokas": 21538,
+      "filled": 21538
+     },
+     "path": "data/kavya_alankara/kathasaritsagara/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "kavyadarsha",
+   "name_sa": "काव्यादर्शः",
+   "name_iast": "Kāvyādarśa",
+   "name_en": "Mirror of Poetry",
+   "author": "दण्डी",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 105
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 368
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 2,
+      "shlokas": 473,
+      "filled": 473
+     },
+     "path": "data/kavya_alankara/kavyadarsha/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "kavyalankara",
+   "name_sa": "काव्यालङ्कारः",
+   "name_iast": "Kāvyālaṅkāra",
+   "name_en": "Ornaments of Poetry",
+   "author": "भामहः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 59
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 96
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 58
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 51
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 69
+    },
+    {
+     "id": "6",
+     "name_sa": "",
+     "n": 66
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 6,
+      "shlokas": 399,
+      "filled": 399
+     },
+     "path": "data/kavya_alankara/kavyalankara/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "kavyaprakasha",
+   "name_sa": "काव्यप्रकाशः",
+   "name_iast": "Kāvyaprakāśa",
+   "name_en": "Light of Poetry",
+   "author": "मम्मटः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 44
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 79
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 48
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 120
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 2
+    },
+    {
+     "id": "6",
+     "name_sa": "",
+     "n": 4
+    },
+    {
+     "id": "7",
+     "name_sa": "",
+     "n": 6
+    },
+    {
+     "id": "8",
+     "name_sa": "",
+     "n": 3
+    },
+    {
+     "id": "9",
+     "name_sa": "",
+     "n": 73
+    },
+    {
+     "id": "10",
+     "name_sa": "",
+     "n": 64
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 10,
+      "shlokas": 443,
+      "filled": 443
+     },
+     "path": "data/kavya_alankara/kavyaprakasha/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "kiratarjuniya",
+   "name_sa": "किरातार्जुनीयम्",
+   "name_iast": "Kirātārjunīya",
+   "name_en": "Arjuna and the Kirata",
+   "author": "भारविः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "pancha_mahakavya"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "प्रथमः सर्गः",
+     "n": 46
+    },
+    {
+     "id": "2",
+     "name_sa": "द्वितीयः सर्गः",
+     "n": 59
+    },
+    {
+     "id": "3",
+     "name_sa": "तृतीयः सर्गः",
+     "n": 60
+    },
+    {
+     "id": "4",
+     "name_sa": "चतुर्थः सर्गः",
+     "n": 38
+    },
+    {
+     "id": "5",
+     "name_sa": "पञ्चमः सर्गः",
+     "n": 52
+    },
+    {
+     "id": "6",
+     "name_sa": "षष्ठः सर्गः",
+     "n": 47
+    },
+    {
+     "id": "7",
+     "name_sa": "सप्तमः सर्गः",
+     "n": 40
+    },
+    {
+     "id": "8",
+     "name_sa": "अष्टमः सर्गः",
+     "n": 57
+    },
+    {
+     "id": "9",
+     "name_sa": "नवमः सर्गः",
+     "n": 78
+    },
+    {
+     "id": "10",
+     "name_sa": "दशमः सर्गः",
+     "n": 63
+    },
+    {
+     "id": "11",
+     "name_sa": "एकादशः सर्गः",
+     "n": 81
+    },
+    {
+     "id": "12",
+     "name_sa": "द्वादशः सर्गः",
+     "n": 54
+    },
+    {
+     "id": "13",
+     "name_sa": "त्रयोदशः सर्गः",
+     "n": 71
+    },
+    {
+     "id": "14",
+     "name_sa": "चतुर्दशः सर्गः",
+     "n": 65
+    },
+    {
+     "id": "15",
+     "name_sa": "पञ्चदशः सर्गः",
+     "n": 53
+    },
+    {
+     "id": "16",
+     "name_sa": "षोडशः सर्गः",
+     "n": 64
+    },
+    {
+     "id": "17",
+     "name_sa": "सप्तदशः सर्गः",
+     "n": 64
+    },
+    {
+     "id": "18",
+     "name_sa": "अष्टादशः सर्गः",
+     "n": 48
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 18,
+      "shlokas": 1040,
+      "filled": 1040
+     },
+     "path": "data/kavya_alankara/kiratarjuniya/mula/data.json"
+    },
+    {
+     "id": "ghantapatha",
+     "name_sa": "घण्टापथः",
+     "name_iast": "Ghaṇṭāpatha",
+     "name_en": "",
+     "commentator": "मल्लिनाथः",
+     "layer_kind": "tika",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 18,
+      "shlokas": 1040,
+      "filled": 1040
+     },
+     "path": "data/kavya_alankara/kiratarjuniya/ghantapatha/data.json"
+    },
+    {
+     "id": "padaccheda",
+     "name_sa": "पदच्छेदः",
+     "name_iast": "Padaccheda",
+     "name_en": "Padaccheda",
+     "commentator": "",
+     "layer_kind": "padaccheda",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 18,
+      "shlokas": 937,
+      "filled": 937
+     },
+     "path": "data/kavya_alankara/kiratarjuniya/padaccheda/data.json"
+    },
+    {
+     "id": "anvaya",
+     "name_sa": "अन्वयः",
+     "name_iast": "Anvaya",
+     "name_en": "Anvaya",
+     "commentator": "",
+     "layer_kind": "anvaya",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 18,
+      "shlokas": 937,
+      "filled": 937
+     },
+     "path": "data/kavya_alankara/kiratarjuniya/anvaya/data.json"
+    },
+    {
+     "id": "translation_en",
+     "name_sa": "आङ्ग्लानुवादः",
+     "name_iast": "Āṅglānuvāda",
+     "name_en": "English translation",
+     "commentator": "",
+     "layer_kind": "translation",
+     "language": "en",
+     "ai_generated": false,
+     "counts": {
+      "items": 18,
+      "shlokas": 937,
+      "filled": 937
+     },
+     "path": "data/kavya_alankara/kiratarjuniya/translation_en/data.json"
+    },
+    {
+     "id": "translation_hi",
+     "name_sa": "हिन्द्यनुवादः",
+     "name_iast": "Hindyanuvāda",
+     "name_en": "Hindi translation",
+     "commentator": "",
+     "layer_kind": "translation",
+     "language": "hi",
+     "ai_generated": false,
+     "counts": {
+      "items": 18,
+      "shlokas": 1040,
+      "filled": 1040
+     },
+     "path": "data/kavya_alankara/kiratarjuniya/translation_hi/data.json"
+    }
+   ]
+  },
+  {
+   "id": "kumarasambhava",
+   "name_sa": "कुमारसम्भवम्",
+   "name_iast": "Kumārasambhava",
+   "name_en": "The Birth of Kumara",
+   "author": "कालिदासः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "pancha_mahakavya"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "प्रथमः सर्गः",
+     "n": 60
+    },
+    {
+     "id": "2",
+     "name_sa": "द्वितीयः सर्गः",
+     "n": 64
+    },
+    {
+     "id": "3",
+     "name_sa": "तृतीयः सर्गः",
+     "n": 76
+    },
+    {
+     "id": "4",
+     "name_sa": "चतुर्थः सर्गः",
+     "n": 46
+    },
+    {
+     "id": "5",
+     "name_sa": "पञ्चमः सर्गः",
+     "n": 86
+    },
+    {
+     "id": "6",
+     "name_sa": "षष्ठः सर्गः",
+     "n": 95
+    },
+    {
+     "id": "7",
+     "name_sa": "सप्तमः सर्गः",
+     "n": 95
+    },
+    {
+     "id": "8",
+     "name_sa": "अष्टमः सर्गः",
+     "n": 91
+    },
+    {
+     "id": "9",
+     "name_sa": "नवमः सर्गः",
+     "n": 52
+    },
+    {
+     "id": "10",
+     "name_sa": "दशमः सर्गः",
+     "n": 60
+    },
+    {
+     "id": "11",
+     "name_sa": "एकादशः सर्गः",
+     "n": 50
+    },
+    {
+     "id": "12",
+     "name_sa": "द्वादशः सर्गः",
+     "n": 60
+    },
+    {
+     "id": "13",
+     "name_sa": "त्रयोदशः सर्गः",
+     "n": 51
+    },
+    {
+     "id": "14",
+     "name_sa": "चतुर्दशः सर्गः",
+     "n": 51
+    },
+    {
+     "id": "15",
+     "name_sa": "पञ्चदशः सर्गः",
+     "n": 53
+    },
+    {
+     "id": "16",
+     "name_sa": "षोडशः सर्गः",
+     "n": 51
+    },
+    {
+     "id": "17",
+     "name_sa": "सप्तदशः सर्गः",
+     "n": 55
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 17,
+      "shlokas": 1096,
+      "filled": 1096
+     },
+     "path": "data/kavya_alankara/kumarasambhava/mula/data.json"
+    },
+    {
+     "id": "sanjivini",
+     "name_sa": "सञ्जीविनी",
+     "name_iast": "Sañjīvinī",
+     "name_en": "",
+     "commentator": "मल्लिनाथः",
+     "layer_kind": "tika",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 17,
+      "shlokas": 1095,
+      "filled": 1095
+     },
+     "path": "data/kavya_alankara/kumarasambhava/sanjivini/data.json"
+    },
+    {
+     "id": "padaccheda",
+     "name_sa": "पदच्छेदः",
+     "name_iast": "Padaccheda",
+     "name_en": "Padaccheda",
+     "commentator": "",
+     "layer_kind": "padaccheda",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 17,
+      "shlokas": 1096,
+      "filled": 1096
+     },
+     "path": "data/kavya_alankara/kumarasambhava/padaccheda/data.json"
+    },
+    {
+     "id": "anvaya",
+     "name_sa": "अन्वयः",
+     "name_iast": "Anvaya",
+     "name_en": "Anvaya",
+     "commentator": "",
+     "layer_kind": "anvaya",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 17,
+      "shlokas": 1096,
+      "filled": 1096
+     },
+     "path": "data/kavya_alankara/kumarasambhava/anvaya/data.json"
+    },
+    {
+     "id": "translation_en",
+     "name_sa": "आङ्ग्लानुवादः",
+     "name_iast": "Āṅglānuvāda",
+     "name_en": "English translation",
+     "commentator": "",
+     "layer_kind": "translation",
+     "language": "en",
+     "ai_generated": false,
+     "counts": {
+      "items": 17,
+      "shlokas": 1096,
+      "filled": 1096
+     },
+     "path": "data/kavya_alankara/kumarasambhava/translation_en/data.json"
+    },
+    {
+     "id": "translation_hi",
+     "name_sa": "हिन्द्यनुवादः",
+     "name_iast": "Hindyanuvāda",
+     "name_en": "Hindi translation",
+     "commentator": "",
+     "layer_kind": "translation",
+     "language": "hi",
+     "ai_generated": false,
+     "counts": {
+      "items": 17,
+      "shlokas": 1096,
+      "filled": 1096
+     },
+     "path": "data/kavya_alankara/kumarasambhava/translation_hi/data.json"
+    }
+   ]
+  },
+  {
+   "id": "madhyamavyayoga",
+   "name_sa": "मध्यमव्यायोगः",
+   "name_iast": "Madhyamavyāyoga",
+   "name_en": "The Middle One",
+   "author": "भासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "vyayoga"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 323
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 323,
+      "filled": 323
+     },
+     "path": "data/kavya_alankara/madhyamavyayoga/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "malavikagnimitra",
+   "name_sa": "मालविकाग्निमित्रम्",
+   "name_iast": "Mālavikāgnimitra",
+   "name_en": "Malavika and Agnimitra",
+   "author": "कालिदासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 144
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 135
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 386
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 267
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 410
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 5,
+      "shlokas": 1342,
+      "filled": 1342
+     },
+     "path": "data/kavya_alankara/malavikagnimitra/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "meghaduta",
+   "name_sa": "मेघदूतम्",
+   "name_iast": "Meghadūta",
+   "name_en": "The Cloud Messenger",
+   "author": "कालिदासः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "duta"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 111
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 111,
+      "filled": 111
+     },
+     "path": "data/kavya_alankara/meghaduta/mula/data.json"
+    },
+    {
+     "id": "vallabhadeva",
+     "name_sa": "वल्लभदेवटीका",
+     "name_iast": "Vallabhadeva",
+     "name_en": "",
+     "commentator": "वल्लभदेवः",
+     "layer_kind": "tika",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 111,
+      "filled": 111
+     },
+     "path": "data/kavya_alankara/meghaduta/vallabhadeva/data.json"
+    },
+    {
+     "id": "padaccheda",
+     "name_sa": "पदच्छेदः",
+     "name_iast": "Padaccheda",
+     "name_en": "Padaccheda",
+     "commentator": "",
+     "layer_kind": "padaccheda",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 111,
+      "filled": 111
+     },
+     "path": "data/kavya_alankara/meghaduta/padaccheda/data.json"
+    },
+    {
+     "id": "anvaya",
+     "name_sa": "अन्वयः",
+     "name_iast": "Anvaya",
+     "name_en": "Anvaya",
+     "commentator": "",
+     "layer_kind": "anvaya",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 111,
+      "filled": 111
+     },
+     "path": "data/kavya_alankara/meghaduta/anvaya/data.json"
+    },
+    {
+     "id": "translation_en",
+     "name_sa": "आङ्ग्लानुवादः",
+     "name_iast": "Āṅglānuvāda",
+     "name_en": "English translation",
+     "commentator": "",
+     "layer_kind": "translation",
+     "language": "en",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 111,
+      "filled": 111
+     },
+     "path": "data/kavya_alankara/meghaduta/translation_en/data.json"
+    },
+    {
+     "id": "translation_hi",
+     "name_sa": "हिन्द्यनुवादः",
+     "name_iast": "Hindyanuvāda",
+     "name_en": "Hindi translation",
+     "commentator": "",
+     "layer_kind": "translation",
+     "language": "hi",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 111,
+      "filled": 111
+     },
+     "path": "data/kavya_alankara/meghaduta/translation_hi/data.json"
+    }
+   ]
+  },
+  {
+   "id": "mrichchhakatika",
+   "name_sa": "मृच्छकटिकम्",
+   "name_iast": "Mṛcchakaṭika",
+   "name_en": "The Little Clay Cart",
+   "author": "शूद्रकः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "prakarana"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 306
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 252
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 138
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 229
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 191
+    },
+    {
+     "id": "6",
+     "name_sa": "",
+     "n": 168
+    },
+    {
+     "id": "7",
+     "name_sa": "",
+     "n": 47
+    },
+    {
+     "id": "8",
+     "name_sa": "",
+     "n": 316
+    },
+    {
+     "id": "9",
+     "name_sa": "",
+     "n": 243
+    },
+    {
+     "id": "10",
+     "name_sa": "",
+     "n": 309
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 10,
+      "shlokas": 2199,
+      "filled": 2199
+     },
+     "path": "data/kavya_alankara/mrichchhakatika/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "mudrarakshasa",
+   "name_sa": "मुद्राराक्षसम्",
+   "name_iast": "Mudrārākṣasa",
+   "name_en": "The Signet Ring of Rakshasa",
+   "author": "विशाखदत्तः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 508
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 225
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 204
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 234
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 349
+    },
+    {
+     "id": "6",
+     "name_sa": "",
+     "n": 185
+    },
+    {
+     "id": "7",
+     "name_sa": "",
+     "n": 198
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 7,
+      "shlokas": 1903,
+      "filled": 1903
+     },
+     "path": "data/kavya_alankara/mudrarakshasa/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "nagananda",
+   "name_sa": "नागानन्दम्",
+   "name_iast": "Nāgānanda",
+   "name_en": "Joy of the Serpents",
+   "author": "श्रीहर्षः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 23
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 15
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 19
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 29
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 43
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 5,
+      "shlokas": 129,
+      "filled": 129
+     },
+     "path": "data/kavya_alankara/nagananda/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "naishadhiyacharita",
+   "name_sa": "नैषधीयचरितम्",
+   "name_iast": "Naiṣadhīyacarita",
+   "name_en": "The Story of Nala",
+   "author": "श्रीहर्षः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "pancha_mahakavya"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 2599
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 2523
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 1664
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 1505
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 683
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 5,
+      "shlokas": 8974,
+      "filled": 8974
+     },
+     "path": "data/kavya_alankara/naishadhiyacharita/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "natyashastra",
+   "name_sa": "नाट्यशास्त्रम्",
+   "name_iast": "Nāṭyaśāstra",
+   "name_en": "Treatise on Drama",
+   "author": "भरतमुनिः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 132
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 110
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 104
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 329
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 183
+    },
+    {
+     "id": "6",
+     "name_sa": "",
+     "n": 90
+    },
+    {
+     "id": "7",
+     "name_sa": "",
+     "n": 141
+    },
+    {
+     "id": "8",
+     "name_sa": "",
+     "n": 180
+    },
+    {
+     "id": "9",
+     "name_sa": "",
+     "n": 284
+    },
+    {
+     "id": "10",
+     "name_sa": "",
+     "n": 103
+    },
+    {
+     "id": "11",
+     "name_sa": "",
+     "n": 70
+    },
+    {
+     "id": "12",
+     "name_sa": "",
+     "n": 235
+    },
+    {
+     "id": "13",
+     "name_sa": "",
+     "n": 87
+    },
+    {
+     "id": "14",
+     "name_sa": "",
+     "n": 132
+    },
+    {
+     "id": "15",
+     "name_sa": "",
+     "n": 229
+    },
+    {
+     "id": "16",
+     "name_sa": "",
+     "n": 172
+    },
+    {
+     "id": "18",
+     "name_sa": "",
+     "n": 126
+    },
+    {
+     "id": "19",
+     "name_sa": "",
+     "n": 153
+    },
+    {
+     "id": "20",
+     "name_sa": "",
+     "n": 77
+    },
+    {
+     "id": "21",
+     "name_sa": "",
+     "n": 227
+    },
+    {
+     "id": "22",
+     "name_sa": "",
+     "n": 331
+    },
+    {
+     "id": "23",
+     "name_sa": "",
+     "n": 23
+    },
+    {
+     "id": "24",
+     "name_sa": "",
+     "n": 89
+    },
+    {
+     "id": "25",
+     "name_sa": "",
+     "n": 125
+    },
+    {
+     "id": "26",
+     "name_sa": "",
+     "n": 38
+    },
+    {
+     "id": "27",
+     "name_sa": "",
+     "n": 104
+    },
+    {
+     "id": "28",
+     "name_sa": "",
+     "n": 142
+    },
+    {
+     "id": "29",
+     "name_sa": "",
+     "n": 128
+    },
+    {
+     "id": "30",
+     "name_sa": "",
+     "n": 12
+    },
+    {
+     "id": "33",
+     "name_sa": "",
+     "n": 24
+    },
+    {
+     "id": "35",
+     "name_sa": "",
+     "n": 41
+    },
+    {
+     "id": "36",
+     "name_sa": "",
+     "n": 51
+    },
+    {
+     "id": "37",
+     "name_sa": "",
+     "n": 31
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 33,
+      "shlokas": 4303,
+      "filled": 4303
+     },
+     "path": "data/kavya_alankara/natyashastra/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "nitishataka",
+   "name_sa": "नीतिशतकम्",
+   "name_iast": "Nītiśataka",
+   "name_en": "Century on Conduct",
+   "author": "भर्तृहरिः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "shataka"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 109
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 109,
+      "filled": 109
+     },
+     "path": "data/kavya_alankara/nitishataka/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "panchatantra",
+   "name_sa": "पञ्चतन्त्रम्",
+   "name_iast": "Pañcatantra",
+   "name_en": "Pancatantra",
+   "author": "विष्णुशर्मा",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "katha"
+   ],
+   "units": [
+    {
+     "id": "0",
+     "name_sa": "",
+     "n": 7
+    },
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 491
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 216
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 268
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 90
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 105
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 6,
+      "shlokas": 1177,
+      "filled": 1177
+     },
+     "path": "data/kavya_alankara/panchatantra/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "pratijnayaugandharayana",
+   "name_sa": "प्रतिज्ञायौगन्धरायणम्",
+   "name_iast": "Pratijñāyaugandharāyaṇa",
+   "name_en": "The Vow of Yaugandharayana",
+   "author": "भासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 272
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 181
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 194
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 215
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 4,
+      "shlokas": 862,
+      "filled": 862
+     },
+     "path": "data/kavya_alankara/pratijnayaugandharayana/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "priyadarshika",
+   "name_sa": "प्रियदर्शिका",
+   "name_iast": "Priyadarśikā",
+   "name_en": "Priyadarshika",
+   "author": "श्रीहर्षः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "natika"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 13
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 12
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 21
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 13
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 4,
+      "shlokas": 59,
+      "filled": 59
+     },
+     "path": "data/kavya_alankara/priyadarshika/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "raghuvamsha",
+   "name_sa": "रघुवंशम्",
+   "name_iast": "Raghuvaṃśa",
+   "name_en": "The Dynasty of Raghu",
+   "author": "कालिदासः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "pancha_mahakavya"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "प्रथमः सर्गः (वसिष्ठाश्रमाभिगमनम्)",
+     "n": 95
+    },
+    {
+     "id": "2",
+     "name_sa": "द्वितीयः सर्गः (नन्दिनीवरप्रदानम्)",
+     "n": 75
+    },
+    {
+     "id": "3",
+     "name_sa": "तृतीयः सर्गः (रघुराज्याभिषेकः)",
+     "n": 70
+    },
+    {
+     "id": "4",
+     "name_sa": "चतुर्थः सर्गः (रघुदिग्विजयः)",
+     "n": 88
+    },
+    {
+     "id": "5",
+     "name_sa": "पञ्चमः सर्गः (अजस्वयंवराभिगमनम्)",
+     "n": 76
+    },
+    {
+     "id": "6",
+     "name_sa": "षष्ठः सर्गः (स्वयंवरवर्णनम्)",
+     "n": 86
+    },
+    {
+     "id": "7",
+     "name_sa": "सप्तमः सर्गः (अजपाणिग्रहणम्)",
+     "n": 71
+    },
+    {
+     "id": "8",
+     "name_sa": "अष्टमः सर्गः (अजविलापः)",
+     "n": 95
+    },
+    {
+     "id": "9",
+     "name_sa": "नवमः सर्गः (मृगयावर्णनम्)",
+     "n": 82
+    },
+    {
+     "id": "10",
+     "name_sa": "दशमः सर्गः (रामावतारः)",
+     "n": 86
+    },
+    {
+     "id": "11",
+     "name_sa": "एकादशः सर्गः (सीताविवाहवर्णनम्)",
+     "n": 93
+    },
+    {
+     "id": "12",
+     "name_sa": "द्वादशः सर्गः (रावणवधः)",
+     "n": 104
+    },
+    {
+     "id": "13",
+     "name_sa": "त्रयोदशः सर्गः (दण्डकाप्रत्यागमनम्)",
+     "n": 79
+    },
+    {
+     "id": "14",
+     "name_sa": "चतुर्दशः सर्गः (सीतापरित्यागः)",
+     "n": 87
+    },
+    {
+     "id": "15",
+     "name_sa": "पञ्चदशः सर्गः (श्रीरामस्वर्गारोहणम्)",
+     "n": 103
+    },
+    {
+     "id": "16",
+     "name_sa": "षोडशः सर्गः (कुमुद्वतीपरिणयः)",
+     "n": 88
+    },
+    {
+     "id": "17",
+     "name_sa": "सप्तदशः सर्गः (अतिथिवर्णनम्)",
+     "n": 81
+    },
+    {
+     "id": "18",
+     "name_sa": "अष्टादशः सर्गः (वंशानुक्रमः)",
+     "n": 53
+    },
+    {
+     "id": "19",
+     "name_sa": "एकोनविंशः सर्गः (अग्निवर्णशृङ्गारः)",
+     "n": 57
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 19,
+      "shlokas": 1569,
+      "filled": 1569
+     },
+     "path": "data/kavya_alankara/raghuvamsha/mula/data.json"
+    },
+    {
+     "id": "sanjivini",
+     "name_sa": "सञ्जीविनी",
+     "name_iast": "Sañjīvinī",
+     "name_en": "",
+     "commentator": "मल्लिनाथः",
+     "layer_kind": "tika",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 19,
+      "shlokas": 1569,
+      "filled": 1569
+     },
+     "path": "data/kavya_alankara/raghuvamsha/sanjivini/data.json"
+    },
+    {
+     "id": "padaccheda",
+     "name_sa": "पदच्छेदः",
+     "name_iast": "Padaccheda",
+     "name_en": "Padaccheda",
+     "commentator": "",
+     "layer_kind": "padaccheda",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 19,
+      "shlokas": 1569,
+      "filled": 1569
+     },
+     "path": "data/kavya_alankara/raghuvamsha/padaccheda/data.json"
+    },
+    {
+     "id": "anvaya",
+     "name_sa": "अन्वयः",
+     "name_iast": "Anvaya",
+     "name_en": "Anvaya",
+     "commentator": "",
+     "layer_kind": "anvaya",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 19,
+      "shlokas": 1569,
+      "filled": 1569
+     },
+     "path": "data/kavya_alankara/raghuvamsha/anvaya/data.json"
+    },
+    {
+     "id": "translation_en",
+     "name_sa": "आङ्ग्लानुवादः",
+     "name_iast": "Āṅglānuvāda",
+     "name_en": "English translation",
+     "commentator": "",
+     "layer_kind": "translation",
+     "language": "en",
+     "ai_generated": false,
+     "counts": {
+      "items": 19,
+      "shlokas": 1569,
+      "filled": 1569
+     },
+     "path": "data/kavya_alankara/raghuvamsha/translation_en/data.json"
+    },
+    {
+     "id": "translation_hi",
+     "name_sa": "हिन्द्यनुवादः",
+     "name_iast": "Hindyanuvāda",
+     "name_en": "Hindi translation",
+     "commentator": "",
+     "layer_kind": "translation",
+     "language": "hi",
+     "ai_generated": false,
+     "counts": {
+      "items": 19,
+      "shlokas": 1569,
+      "filled": 1569
+     },
+     "path": "data/kavya_alankara/raghuvamsha/translation_hi/data.json"
+    }
+   ]
+  },
+  {
+   "id": "ratnavali",
+   "name_sa": "रत्नावली",
+   "name_iast": "Ratnāvalī",
+   "name_en": "Ratnavali",
+   "author": "श्रीहर्षः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "natika"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 16
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 19
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 22
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 3,
+      "shlokas": 57,
+      "filled": 57
+     },
+     "path": "data/kavya_alankara/ratnavali/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "ritusamhara",
+   "name_sa": "ऋतुसंहारम्",
+   "name_iast": "Ṛtusaṃhāra",
+   "name_en": "The Gathering of Seasons",
+   "author": "कालिदासः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "khanda"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 28
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 29
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 28
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 19
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 16
+    },
+    {
+     "id": "6",
+     "name_sa": "",
+     "n": 38
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 6,
+      "shlokas": 158,
+      "filled": 158
+     },
+     "path": "data/kavya_alankara/ritusamhara/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "sahityadarpana",
+   "name_sa": "साहित्यदर्पणः",
+   "name_iast": "Sāhityadarpaṇa",
+   "name_en": "Mirror of Composition",
+   "author": "विश्वनाथः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 3
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 20
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 267
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 14
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 5
+    },
+    {
+     "id": "6",
+     "name_sa": "",
+     "n": 337
+    },
+    {
+     "id": "7",
+     "name_sa": "",
+     "n": 32
+    },
+    {
+     "id": "8",
+     "name_sa": "",
+     "n": 12
+    },
+    {
+     "id": "9",
+     "name_sa": "",
+     "n": 5
+    },
+    {
+     "id": "10",
+     "name_sa": "",
+     "n": 100
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 10,
+      "shlokas": 795,
+      "filled": 795
+     },
+     "path": "data/kavya_alankara/sahityadarpana/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "shishupalavadha",
+   "name_sa": "शिशुपालवधम्",
+   "name_iast": "Śiśupālavadha",
+   "name_en": "The Slaying of Shishupala",
+   "author": "माघः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "mahakavya",
+    "pancha_mahakavya"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "प्रथमः सर्गः (कृष्णनारदसम्भाषणम्)",
+     "n": 75
+    },
+    {
+     "id": "2",
+     "name_sa": "द्वितीयः सर्गः (मन्त्रवर्णनम्)",
+     "n": 118
+    },
+    {
+     "id": "3",
+     "name_sa": "तृतीयः सर्गः (पुरीप्रस्थानम्)",
+     "n": 82
+    },
+    {
+     "id": "4",
+     "name_sa": "चतुर्थः सर्गः (रैवतकवर्णनम्)",
+     "n": 68
+    },
+    {
+     "id": "5",
+     "name_sa": "पञ्चमः सर्गः (सेनानिवेशनम्)",
+     "n": 69
+    },
+    {
+     "id": "6",
+     "name_sa": "षष्ठः सर्गः (ऋतुवर्णनम्)",
+     "n": 79
+    },
+    {
+     "id": "7",
+     "name_sa": "सप्तमः सर्गः (वनविहारवर्णनम्)",
+     "n": 75
+    },
+    {
+     "id": "8",
+     "name_sa": "अष्टमः सर्गः (जलविहारवर्णनम्)",
+     "n": 71
+    },
+    {
+     "id": "9",
+     "name_sa": "नवमः सर्गः (प्रदोषवर्णनम्)",
+     "n": 87
+    },
+    {
+     "id": "10",
+     "name_sa": "दशमः सर्गः (सुरतवर्णनम्)",
+     "n": 91
+    },
+    {
+     "id": "11",
+     "name_sa": "एकादशः सर्गः (प्रत्यूषवर्णनम्)",
+     "n": 66
+    },
+    {
+     "id": "12",
+     "name_sa": "द्वादशः सर्गः (प्रयाणवर्णनम्)",
+     "n": 77
+    },
+    {
+     "id": "13",
+     "name_sa": "त्रयोदशः सर्गः (श्रीकृष्णसमागमवर्णनम्)",
+     "n": 69
+    },
+    {
+     "id": "14",
+     "name_sa": "चतुर्दशः सर्गः (श्रीकृष्णार्घदानवर्णनम्)",
+     "n": 88
+    },
+    {
+     "id": "15",
+     "name_sa": "पञ्चदशः सर्गः (शिशुपालक्रोधवर्णनम्)",
+     "n": 96
+    },
+    {
+     "id": "16",
+     "name_sa": "षोडशः सर्गः (दूतसंवादवर्णनम्)",
+     "n": 85
+    },
+    {
+     "id": "17",
+     "name_sa": "सप्तदशः सर्गः (यदुवंशक्षोभणम्)",
+     "n": 69
+    },
+    {
+     "id": "18",
+     "name_sa": "अष्टादशः सर्गः (सङ्कुलयुद्धवर्णनम्)",
+     "n": 80
+    },
+    {
+     "id": "19",
+     "name_sa": "एकोनविंशः सर्गः (युद्धवर्णनम्)",
+     "n": 120
+    },
+    {
+     "id": "20",
+     "name_sa": "विंशः सर्गः (शिशुपालवधवर्णनम्)",
+     "n": 79
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 20,
+      "shlokas": 1644,
+      "filled": 1644
+     },
+     "path": "data/kavya_alankara/shishupalavadha/mula/data.json"
+    },
+    {
+     "id": "sarvankasha",
+     "name_sa": "सर्वङ्कषा",
+     "name_iast": "Sarvāṅkaṣā",
+     "name_en": "",
+     "commentator": "मल्लिनाथः",
+     "layer_kind": "tika",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 20,
+      "shlokas": 1303,
+      "filled": 1303
+     },
+     "path": "data/kavya_alankara/shishupalavadha/sarvankasha/data.json"
+    }
+   ]
+  },
+  {
+   "id": "shringarashataka",
+   "name_sa": "शृङ्गारशतकम्",
+   "name_iast": "Śṛṅgāraśataka",
+   "name_en": "Century on Love",
+   "author": "भर्तृहरिः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "shataka"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 105
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 105,
+      "filled": 105
+     },
+     "path": "data/kavya_alankara/shringarashataka/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "svapnavasavadatta",
+   "name_sa": "स्वप्नवासवदत्तम्",
+   "name_iast": "Svapnavāsavadatta",
+   "name_en": "The Dream of Vasavadatta",
+   "author": "भासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 211
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 220
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 182
+    },
+    {
+     "id": "6",
+     "name_sa": "",
+     "n": 205
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 4,
+      "shlokas": 818,
+      "filled": 818
+     },
+     "path": "data/kavya_alankara/svapnavasavadatta/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "urubhanga",
+   "name_sa": "ऊरुभङ्गम्",
+   "name_iast": "Ūrubhaṅga",
+   "name_en": "The Shattered Thigh",
+   "author": "भासः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "utsrishtikanka"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 234
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 234,
+      "filled": 234
+     },
+     "path": "data/kavya_alankara/urubhanga/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "uttararamacharita",
+   "name_sa": "उत्तररामचरितम्",
+   "name_iast": "Uttararāmacarita",
+   "name_en": "The Later Story of Rama",
+   "author": "भवभूतिः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 111
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 47
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 92
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 54
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 97
+    },
+    {
+     "id": "6",
+     "name_sa": "",
+     "n": 119
+    },
+    {
+     "id": "7",
+     "name_sa": "",
+     "n": 103
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 7,
+      "shlokas": 623,
+      "filled": 623
+     },
+     "path": "data/kavya_alankara/uttararamacharita/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "vairagyashataka",
+   "name_sa": "वैराग्यशतकम्",
+   "name_iast": "Vairāgyaśataka",
+   "name_en": "Century on Renunciation",
+   "author": "भर्तृहरिः",
+   "genre_path": [
+    "kavyani",
+    "shravya",
+    "shataka"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 111
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 1,
+      "shlokas": 111,
+      "filled": 111
+     },
+     "path": "data/kavya_alankara/vairagyashataka/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "vakroktijivita",
+   "name_sa": "वक्रोक्तिजीवितम्",
+   "name_iast": "Vakroktijīvita",
+   "name_en": "The Life of Oblique Speech",
+   "author": "कुन्तकः",
+   "genre_path": [
+    "kavyani",
+    "kavyashastra"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 182
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 148
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 289
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 84
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 4,
+      "shlokas": 703,
+      "filled": 703
+     },
+     "path": "data/kavya_alankara/vakroktijivita/mula/data.json"
+    }
+   ]
+  },
+  {
+   "id": "venisamhara",
+   "name_sa": "वेणीसंहारम्",
+   "name_iast": "Veṇīsaṃhāra",
+   "name_en": "The Binding of the Braid",
+   "author": "भट्टनारायणः",
+   "genre_path": [
+    "kavyani",
+    "drishya",
+    "nataka"
+   ],
+   "units": [
+    {
+     "id": "1",
+     "name_sa": "",
+     "n": 53
+    },
+    {
+     "id": "2",
+     "name_sa": "",
+     "n": 55
+    },
+    {
+     "id": "3",
+     "name_sa": "",
+     "n": 93
+    },
+    {
+     "id": "4",
+     "name_sa": "",
+     "n": 28
+    },
+    {
+     "id": "5",
+     "name_sa": "",
+     "n": 81
+    },
+    {
+     "id": "6",
+     "name_sa": "",
+     "n": 92
+    }
+   ],
+   "layers": [
+    {
+     "id": "mula",
+     "name_sa": "मूलम्",
+     "name_iast": "",
+     "name_en": "Mula",
+     "commentator": "",
+     "layer_kind": "mula",
+     "language": "sa",
+     "ai_generated": false,
+     "counts": {
+      "items": 6,
+      "shlokas": 402,
+      "filled": 402
+     },
+     "path": "data/kavya_alankara/venisamhara/mula/data.json"
+    }
+   ]
+  }
+ ]
+}

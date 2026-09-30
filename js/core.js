@@ -1288,11 +1288,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // purana/..., darshana/..., etc.) use the full slug as the
   // namespace, since collision risk there is real (many granthas share a
   // generic last folder segment like "mula").
-  // The Kavya corpus is 50 MB and lives on the kavya-dist branch, not in the
-  // site, so a grantha under kavya_alankara/ is fetched from the CDN the Kavya
-  // reader already uses. Everything else is read from beside the app as before.
-  // Without this, a corpus-search hit on a kavya verse would open a reader that
-  // asks for a file the site does not have.
+  // The Kavya corpus ships with the site (data/kavya_alankara/), so a grantha under
+  // kavya_alankara/ is read from beside the app like any other. window.KAVYA_DATA_BASE,
+  // if a page sets it to a URL, still redirects kavya_alankara/ paths there.
   function dgeGranthaFetchUrl(s) {
     if (/^kavya_alankara\//.test(s) && window.KAVYA_DATA_BASE) {
       return `${String(window.KAVYA_DATA_BASE).replace(/\/+$/, '')}/${s}/data.json`;

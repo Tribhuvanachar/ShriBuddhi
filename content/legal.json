@@ -4,7 +4,7 @@
  "updated": "2026-09-15",
  "credits": {
   "title": "Credits",
-  "intro_html": "<p>The Sarvamūla Digitisation &amp; Educational Project stands on the labour of many digitisation efforts, editors, and scholars. The original Sanskrit texts are, in general, public-domain works of their traditional authors; the <em>digitised, structured, transliterated</em> editions we build on are credited below, and each individual text also records its own specific source and licence on its own page. Descriptive prose we write ourselves — guru biographies, place notes — is composed freshly from multiple accounts: facts are facts, but the wording is our own. We are grateful to all of the following.</p>",
+  "intro_html": "<p>The Sarvamūla Digitisation &amp; Educational Project stands on the labour of many digitisation efforts, editors, and scholars. The original Sanskrit texts are, in general, public-domain works of their traditional authors; the <em>digitised, structured, transliterated</em> editions we build on are credited below, and, because individual texts do not carry a per-page source line, every source we draw on is credited here, once and as a whole. Descriptive prose we write ourselves — guru biographies, place notes — is composed freshly from multiple accounts: facts are facts, but the wording is our own. We are grateful to all of the following.</p>",
   "groups": [
    {
     "heading": "Dvaita / Mādhva corpus",
@@ -36,6 +36,17 @@
     ]
    },
    {
+    "heading": "Kāvya, Alaṅkāra &amp; lexical resources",
+    "items": [
+     "<strong>GRETIL</strong> — Göttingen Register of Electronic Texts in Indian Languages (Niedersächsische Staats- und Universitätsbibliothek Göttingen): Sanskrit kāvya, itihāsa, purāṇa and śāstra texts, used with credit per the terms stated there.",
+     "<strong>sanskritsahitya.com / sanskritsahitya-com/data</strong> — Sanskrit literature texts with their anvaya, used with attribution for educational, non-commercial purposes.",
+     "<strong>Ambuda</strong> (ambuda.org) — proofread Sanskrit texts, released CC0 or CC-BY according to the individual text.",
+     "<strong>Sanskrit Wikisource</strong> (sa.wikisource.org) — community-proofread texts, under CC BY-SA 4.0.",
+     "<strong>IndoWordNet</strong> — Sanskrit WordNet, Centre for Indian Language Technology (CFILT), IIT Bombay; glosses, synonyms and examples shown on double-tap.",
+     "<strong>Saṃsādhanī</strong> — Sanskrit Computational Linguistics (SCL), University of Hyderabad (GPL); credited for its sandhi and morphological work."
+    ]
+   },
+   {
     "heading": "Guru Paramparā",
     "items": [
      "The community-compiled Madhva Guru Paramparā genealogical table (supplied by the project lead)",
@@ -48,7 +59,7 @@
  },
  "license": {
   "title": "License",
-  "html": "<p>The software running this site is open source, under the <a href=\"https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\"><strong>Apache License 2.0</strong></a>.</p><p>The texts themselves come from many different sources — public-domain editions, individually credited open-licence digitisation projects, and original work by this project's own scholars and volunteers. Each text's specific source and licence, where applicable, is recorded with that text rather than repeated here, since it differs work to work. See the <strong>Credits</strong> for the digitisation projects we build upon.</p>"
+  "html": "<p>The software running this site is open source, under the <a href=\"https://github.com/Tribhuvanachar/Jagat/blob/main/LICENSE\" target=\"_blank\" rel=\"noopener\"><strong>Apache License 2.0</strong></a>.</p><p>The texts themselves come from many different sources — public-domain editions, individually credited open-licence digitisation projects, and original work by this project's own scholars and volunteers. Sources are not repeated on each text; they are credited once, as a whole, on the <strong>Credits</strong> page, together with the licences that apply to them.</p>"
  },
  "terms": {
   "title": "Terms & Conditions",

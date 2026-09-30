@@ -233,4 +233,5 @@ class TestPrePackageShapeBridge(unittest.TestCase):
     def test_what_the_old_file_said_about_itself_survives(self):
         merged, _ = merge_into_existing(self._existing(), self._incoming())
         self.assertEqual(merged["default_author"], "Kalidasa")
-        self.assertEqual(merged["grantha"]["work_id"], "raghuvamsha")
+        # provenance is not published (lead, 30 Sep 2026): no work_id in the data
+        self.assertNotIn("work_id", merged["grantha"])

@@ -1,24 +1,16 @@
-# kavya-dist is published as a branch of THIS repository (ShriBuddhi). It used to go
-# to a public repo so jsDelivr could serve it; that repo is gone and Jagat is never
-# edited by hand. The branch is a workshop record: ShriBuddhi is private, so nothing
-# serves it over a CDN. The public site reads the Kavya data from Jagat's `data`
-# branch (see js/config.js), which this workflow does not write.
+# One Kavya corpus, in one place: data/kavya_alankara/ on ShriBuddhi main. It ships to
+# Jagat with the rest of the site; there is no kavya-dist branch and no CDN pin any more
+# (30 Sep 2026, the lead: "just one kavya_alankara sitting inside the main of both").
+# This workflow imports INTO that folder and opens a pull request. Nothing is pushed
+# to main and nothing reaches Jagat from here.
 name: Import Kavya corpus
 
 # Manual only, like the Kosha and re-index workflows: fetching from GRETIL and
 # sanskritsahitya should be a deliberate act, not something a push triggers.
 #
-# The corpus is built into _build/ and published to the "kavya-dist" branch,
-# NEVER into data on main. Two reasons, both learned the hard way on the
-# first real run:
-#   * 50 MB of text on a published site that has about 1% of the GitHub Pages
-#     1 GB limit left is the whole 1 GB problem again.
-#   * raghuvamsha, kumarasambhava, kiratarjuniya and shishupalavadha already
-#     exist on main in the pre-package shape -- items keyed sarga_01 where this
-#     writes 1, shlokas keyed by number where this keys by id. Merging into
-#     them appends a second copy of each text rather than updating it, so the
-#     import deliberately starts from an empty root and the published granthas
-#     are left alone. See PENDING.md.
+# The import merges into data/kavya_alankara with kavya.merge.merge_into_existing,
+# which refuses to shrink a text. Source and licence are not written into the data
+# (provenance stays out of the published tree); credit lives in content/legal.json.
 on:
   workflow_dispatch:
     inputs:
@@ -86,34 +78,34 @@ jobs:
           python3 -m kavya.import_kavya \
             ${{ inputs.works == 'all' && '--all' || format('--works {0}', inputs.works) }} \
             ${{ inputs.sources != '' && format('--sources {0}', inputs.sources) || '' }} \
-            --data-root _build/data \
+            --data-root data \
             --report _dump/KAVYA_IMPORT_REPORT.json
 
       - name: Validate schema
         if: ${{ !inputs.probe_only }}
         env:
           PYTHONPATH: tools
-        run: python3 -m kavya.validate_data --data-root _build/data
+        run: python3 -m kavya.validate_data --data-root data
 
       - name: Build index
         if: ${{ !inputs.probe_only }}
         env:
           PYTHONPATH: tools
-        run: python3 -m kavya.build_kavya_index --data-root _build/data
+        run: python3 -m kavya.build_kavya_index --data-root data
 
       - name: Verify
         if: ${{ !inputs.probe_only }}
         env:
           PYTHONPATH: tools
-        run: python3 -m kavya.verify_kavya --data-root _build/data
+        run: python3 -m kavya.verify_kavya --data-root data
 
       - name: Report sizes
         run: |
           echo "### Kavya import" >> $GITHUB_STEP_SUMMARY
-          du -sh _build/data/kavya_alankara 2>/dev/null >> $GITHUB_STEP_SUMMARY || true
+          du -sh data/kavya_alankara 2>/dev/null >> $GITHUB_STEP_SUMMARY || true
           python3 - <<'PY' >> $GITHUB_STEP_SUMMARY
           import json, os
-          p = "_build/data/kavya_alankara/_index.json"
+          p = "data/kavya_alankara/_index.json"
           if os.path.exists(p):
               t = json.load(open(p))["totals"]
               print("- %d works / %d layers / %d entries" %
@@ -125,36 +117,33 @@ jobs:
           name: kavya-report
           path: _dump/
 
-      - name: Publish to kavya-dist
+      - name: Normalise to the repository's canonical data format
+        if: ${{ !inputs.probe_only }}
+        run: |
+          python3 tools/format_data_json.py --fix --all >/dev/null
+          python3 tools/normalize_nfc.py --fix >/dev/null || true
+          python3 tools/register_layers.py --only kavya_alankara >/dev/null || true
+
+      - name: Open a pull request
         if: ${{ !inputs.probe_only && inputs.open_pr }}
         env:
-          GIT_AUTHOR_NAME: github-actions[bot]
-          GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
-          GIT_COMMITTER_NAME: github-actions[bot]
-          GIT_COMMITTER_EMAIL: github-actions[bot]@users.noreply.github.com
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          # A fresh history pushed over the branch: the branch is a publication,
-          # not a log, and a history of superseded 50 MB corpora would cost
-          # repository size for nothing. The reader picks the new data up as
-          # jsDelivr's cache turns over.
-          rm -rf /tmp/kavya-dist
-          mkdir -p /tmp/kavya-dist
-          cp -r _build/data/kavya_alankara /tmp/kavya-dist/
-          cp tools/kavya/kavya_dist_README.md /tmp/kavya-dist/README.md
-          cd /tmp/kavya-dist
-          git init -q -b kavya-dist
-          git add -A
-          git commit -q -m "The built Kavya corpus, rebuilt by import-kavya.yml"
-          git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" \
-            kavya-dist:refs/heads/kavya-dist
-          SHA=$(git rev-parse HEAD)
-          {
-            echo "published to \`kavya-dist\` of ${{ github.repository }} as \`$SHA\`"
-            echo ""
-            echo "This branch is in the private workshop repository, so the public site does not read it."
-            echo "Getting it to readers means updating Jagat's \`data\` branch -- not done by this workflow."
-          } >> "$GITHUB_STEP_SUMMARY"
+          if [ -z "$(git status --porcelain data)" ]; then
+            echo "Nothing changed in data/: the corpus is already current." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          BR="import-kavya/${GITHUB_RUN_ID}"
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BR"
+          git add data
+          git commit -q -m "Import Kavya corpus (import-kavya.yml run ${GITHUB_RUN_ID})"
+          git push -q origin "$BR"
+          gh pr create --draft --base "${{ github.event.repository.default_branch }}" --head "$BR" \
+            --title "Import Kavya corpus" \
+            --body "Merged into data/kavya_alankara by import-kavya.yml. Review the size summary in the run, then merge. Publishing to Jagat is a separate manual step."
 
   test:
     runs-on: ubuntu-latest
