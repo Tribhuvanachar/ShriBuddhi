@@ -70,8 +70,6 @@ def build(data_root):
                 "ai_generated": bool(g.get("ai_generated")),
                 "counts": counts,
                 "path": "data/%s/%s/%s/data.json" % (CATEGORY, wid, lid),
-                "source": g.get("source", {}),
-                "license": g.get("license", ""),
             })
             totals["entries"] += counts.get("shlokas", 0)
             if not units and lid == "mula":

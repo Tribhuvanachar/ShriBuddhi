@@ -55,11 +55,11 @@ class TestPipeline(unittest.TestCase):
         self.assertEqual(vd["grantha"]["commentator"], "वल्लभदेवः")
         self.assertTrue(vd["items"][0]["shlokas"][0]["bhashya"])
 
-        # -- provenance is recorded on every layer ------------------------
+        # -- provenance is NOT written into the published data ------------------------
         for lid in os.listdir(os.path.join(base, "meghaduta")):
             g = self._layer("meghaduta", lid)["grantha"]
-            self.assertTrue(g["source"].get("url"), lid)
-            self.assertTrue(g["license"], lid)
+            for k in ("work_id", "source", "license"):
+                self.assertNotIn(k, g, "%s carries %s: provenance must not be published" % (lid, k))
 
         # -- schema validation --------------------------------------------
         self.assertEqual(validate_data.main(["--data-root", self.data]), 0)

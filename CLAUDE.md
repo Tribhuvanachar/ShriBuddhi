@@ -39,8 +39,8 @@ that still says "BrahmaBuddhi", "promote" or `BRAHMABUDDHI_TOKEN` is stale:
 a BrahmaBuddhi PR now open the PR, or commit, against this repository; see
 `docs/HANDOFF.md` for the one repository setting that needs.
 
-**`Jagat`'s default branch is `data`, not `main`.** `data` holds the Kavya corpus
-(`kavya_alankara`, read through a pinned jsDelivr URL) and the old search-index shards;
+**`Jagat`'s default branch is `data`, not `main`.** `data` holds only the old search-index shards
+(the Kavya corpus moved into ShriBuddhi `data/kavya_alankara/` on 30 Sep 2026);
 the site tree itself is on `main`. (WordNet and sandhi used to be there too; since 30 Sep 2026
 they live in ShriBuddhi `data/_wordnet/` and `data/_sandhi/` and ship with the site.) An
 `actions/checkout` of `Tribhuvanachar/Jagat` with no `ref:` silently pulls `data`, not the site.
@@ -72,10 +72,14 @@ Where a given job belongs:
   the next publish will overwrite. On a desktop, `python tools/sync_local.py`
   shows what would be pushed and `--go` pushes it.
 * **Making folders appear on Jagat** — `admin/library.html` → 🌐 Go-live shelf.
-  Tick the folders, then 🚀 Publish shelf to GitHub. That commits
-  `config/library-overrides.json`, and the commit starts the publish once the
-  repository variable `JAGAT_AUTO_PUBLISH` is `true`. Otherwise run Actions →
-  "Publish — ShriBuddhi to Jagat" by hand (tick *push*; unticked is a dry run).
+  Tick the folders, then 🚀 Publish shelf to GitHub: that commits
+  `config/library-overrides.json` to ShriBuddhi `main` and nothing more. **Nothing
+  publishes automatically.** To send ShriBuddhi to Jagat, run Actions → "Publish —
+  ShriBuddhi to Jagat" by hand and tick *push* (unticked is a dry run). A publish sends
+  all of `main`, and the site is live the moment Jagat `main` changes.
+* **Admin never reaches Jagat.** The publish strips every admin entry point from the
+  staged copy (`tools/publish_strip_admin.py`) and refuses to build if one is left. Admin
+  work happens only in ShriBuddhi.
 
 ## Working across repositories
 

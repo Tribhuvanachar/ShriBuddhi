@@ -66,9 +66,9 @@
         <b>Where it publishes:</b> this edits the <b>root</b> <code>config/library-overrides.json</code>
         — the copy the public site reads (<code>admin/</code> is never published).
         <b>🚀 Publish shelf to GitHub</b> commits it to ShriBuddhi <code>main</code> in one click
-        (only the <code>shelf</code> key changes). That commit starts the ShriBuddhi → Jagat publish by itself
-        once the repository variable <code>JAGAT_AUTO_PUBLISH</code> is <code>true</code>; until then it waits.
-        To publish on demand (after adding folders or data): GitHub → Actions → "Publish — ShriBuddhi to Jagat" → Run workflow → tick <i>push</i>.
+        (only the <code>shelf</code> key changes). <b>That does not publish to Jagat:</b> nothing publishes
+        automatically. To send ShriBuddhi to Jagat, run GitHub → Actions → "Publish — ShriBuddhi to Jagat"
+        → Run workflow and tick <i>push</i> (unticked is a dry run). A publish sends all of <code>main</code>.
         <b>⬇ Export shelf config</b> downloads the same file if you would rather commit it yourself.
       </div>
       <label style="display:flex;gap:8px;align-items:center;margin-bottom:8px">

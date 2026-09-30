@@ -384,6 +384,19 @@ def main(argv=None) -> int:
               "\nREWRITES list to match. Nothing has been committed.", file=sys.stderr)
         return 6
 
+    # Admin lives only in ShriBuddhi (the lead, 30 Sep 2026): no admin menu,
+    # page, passkey prompt or script reaches the public site. Staged copy only.
+    rc = subprocess.run([sys.executable,
+                         os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                      "publish_strip_admin.py"),
+                         "--staged", args.out],
+                        text=True).returncode
+    if rc != 0:
+        print("\nRefusing to build: publish_strip_admin.py could not take all of admin"
+              "\nout of the staged tree (the page markup probably moved; update its"
+              "\nBLOCKS/EXACT lists to match). Nothing has been committed.", file=sys.stderr)
+        return 7
+
     # The order matters and is the whole reason this is here rather than in
     # the generators: stage the real tree, rewrite the staged COPY, then
     # check the copy. Checking the source instead would refuse every build

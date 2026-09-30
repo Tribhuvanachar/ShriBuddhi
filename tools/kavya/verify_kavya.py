@@ -109,11 +109,11 @@ def verify(data_root, strict_index=True):
                 r.fail("%s/%s: filled entries dropped %d -> %d"
                        % (wid, lid, was, counts.get("filled", 0)))
 
-            # 5 -- provenance
-            if not g.get("source"):
-                r.warn("%s/%s: no source recorded" % (wid, lid))
-            if not g.get("license"):
-                r.warn("%s/%s: no licence note" % (wid, lid))
+            # 5 -- provenance must NOT be published: no origin id, no source block,
+            # no licence note. Credit is given once, in content/legal.json.
+            for key in ("work_id", "source", "license"):
+                if key in g:
+                    r.fail("%s/%s: grantha.%s is published provenance" % (wid, lid, key))
 
     # 4 -- index freshness
     if strict_index:
