@@ -86,6 +86,7 @@ import os
 import re
 import sys
 import tarfile
+import unicodedata
 import urllib.request
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -226,6 +227,24 @@ def read_relation(path, keep):
     return rel
 
 
+def _nfc(o):
+    """NFC-normalise every string in a nested list/str structure.
+
+    The corpus and CI's normalize_nfc.py gate are NFC. IndoWordNet is not:
+    it writes ड़ as U+095C, a composition-excluded character that NFC splits
+    into ड + nukta, and stores Kannada vowel signs decomposed. A word index
+    keyed on the raw spelling would never match the NFC text a reader taps,
+    and two spellings of one word (भड़्ग written both ways) would be two keys
+    that collapse to one under NFC -- the gate refuses to merge those, so they
+    are merged here, by keying on the normalised form.
+    """
+    if isinstance(o, str):
+        return unicodedata.normalize('NFC', o)
+    if isinstance(o, list):
+        return [_nfc(x) for x in o]
+    return o
+
+
 def dedupe(words):
     out, seen = [], set()
     for w in words:
@@ -331,7 +350,7 @@ def main():
         members = words[:MAX_MEMBERS]
         head = synsets[hyper[sid]][0][0] if sid in hyper else ''
         langvals = [foreign[l].get(sid, []) for l in langs if l in foreign]
-        rec = [pos, gloss, '' if args.no_examples else example, members, head] + langvals
+        rec = _nfc([pos, gloss, '' if args.no_examples else example, members, head] + langvals)
         for word in members:
             if not DEVA.search(word):
                 continue
@@ -344,7 +363,7 @@ def main():
             if at is None:
                 at = seen[(b, sid)] = len(bucket['s'])
                 bucket['s'].append(rec)
-            for key in keys_for(word):
+            for key in keys_for(unicodedata.normalize('NFC', word)):
                 if at not in bucket['w'][key]:
                     bucket['w'][key].append(at)
 

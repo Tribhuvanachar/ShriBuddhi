@@ -565,18 +565,17 @@
     const name = two.split('').map(c => (c >= 'A' && c <= 'Z') ? c + '_'
                                        : (/[a-z0-9]/.test(c) ? c : 'x')).join('');
     if (wnCache[name]) return wnCache[name];
-    // The tree is 24 MB and lives on this repo's own "wordnet-dist" branch
-    // rather than in the site, because the site has about 1% of the GitHub
-    // Pages 1 GB limit left and Pages serves only main. jsDelivr serves any
-    // branch, so the same arrangement the koshas use costs one URL here.
-    // config.js sets window.WORDNET_DATA_BASE from appConfig; the constant
-    // below is the same value, and is what the four Vyakarana pages use,
-    // since none of them load config.js. Set the variable to '' to read a
-    // local build from data/_wordnet/ instead — and if that build is not
-    // there either, the fetch 404s, this resolves to null, and the popover
-    // simply has no अर्थः section, with the analysis and the related words
+    // The tree is 26 MB and ships with the site, in data/_wordnet/, like the rest of
+    // the corpus. It used to be served from a pinned jsDelivr branch because the
+    // site was tight against a size ceiling; it is 30 MB gzipped and the whole site
+    // is about 300 MB gzipped, so that reason is gone. The path is resolved from THIS
+    // script's own URL (js/ -> ../data/_wordnet/), so it is right on every page,
+    // including the four Vyakarana pages that sit in a subfolder and do not load
+    // config.js. window.WORDNET_DATA_BASE, if a page sets it to a URL, still wins;
+    // if the files are not there the fetch 404s, this resolves to null, and the
+    // popover simply has no अर्थः section, with the analysis and related words
     // unaffected.
-    const CDN = 'https://cdn.jsdelivr.net/gh/Tribhuvanachar/Jagat@3c4d0d8e5c3fd03788bebe14a2da24c704fa5a12/_wordnet';
+    const CDN = '';
     const set = window.WORDNET_DATA_BASE;
     const cdn = (set === undefined ? CDN : (set || '')).replace(/\/+$/, '');
     let url;
