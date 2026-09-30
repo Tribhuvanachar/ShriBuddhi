@@ -2,7 +2,67 @@
  "schema": "anukramani_links_v1",
  "note": "Derived from the catalogue and the library by tools/anukramani/build_links.py. Not hand-edited: put manual links in anukramani_links.overrides.json, which wins.",
  "catalogRows": 2456,
- "linked": 48,
+ "maxSheetRow": 1200,
+ "allowedPrefix": "Tattvavada/",
+ "linked": 58,
+ "libraryOnly": [
+  {
+   "id": "L1",
+   "grantha": "भागवतसारोद्धारः",
+   "karta": "श्रीवेदव्यासः",
+   "kartaId": "kar-0dbaa37d",
+   "slug": "Tattvavada/Itara/Bhagavata_Saroddhara/mula",
+   "folder": "Itara/Bhagavata_Saroddhara"
+  },
+  {
+   "id": "L2",
+   "grantha": "प्रह्लादकृतनृसिंहस्तोत्रम् (Prahlāda-kṛta Nṛsiṃha Stotra)",
+   "karta": "",
+   "kartaId": "",
+   "slug": "Tattvavada/Itara/Stotra/prahlada_kruta_narasimha",
+   "folder": "Itara/Stotra/prahlada_kruta_narasimha"
+  },
+  {
+   "id": "L3",
+   "grantha": "Svapna Vrindavana Akhyana",
+   "karta": "Sri Vadiraja Tirtha",
+   "kartaId": "",
+   "slug": "Tattvavada/Itara/Svapna_Vrindavana_Akhyana",
+   "folder": "Itara/Svapna_Vrindavana_Akhyana"
+  },
+  {
+   "id": "L4",
+   "grantha": "श्रीवेदव्यासगद्यम्",
+   "karta": "Yādavārya (यादवार्यः)",
+   "kartaId": "",
+   "slug": "Tattvavada/Itara/Kavya/vedavyasa_gadya/mula",
+   "folder": "Itara/Kavya/vedavyasa_gadya"
+  },
+  {
+   "id": "L5",
+   "grantha": "भागवततात्पर्यनिर्णयः",
+   "karta": "श्रीमदानन्दतीर्थः",
+   "kartaId": "kar-8d821304",
+   "slug": "Tattvavada/SarvaMula/purana_prasthana/bhagavata_tatparya_nirnaya",
+   "folder": "SarvaMula/purana_prasthana/bhagavata_tatparya_nirnaya"
+  },
+  {
+   "id": "L6",
+   "grantha": "Uṣāharaṇa",
+   "karta": "",
+   "kartaId": "",
+   "slug": "Tattvavada/Itara/Kavya/ushaharana/sarga_1",
+   "folder": "Itara/Kavya/ushaharana"
+  },
+  {
+   "id": "L7",
+   "grantha": "Brhatisahasra",
+   "karta": "",
+   "kartaId": "",
+   "slug": "Tattvavada/Itara/brhatisahasra/mula",
+   "folder": "Itara/brhatisahasra"
+  }
+ ],
  "links": {
   "r2": {
    "slug": "Tattvavada/SarvaMula/dasha_prakarana_granthas/pramana_lakshana",
@@ -23,10 +83,11 @@
    "by": "title+author"
   },
   "r41": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/dasha_prakarana_granthas/prapancha_mithyatvanumana_khandana/mula",
+   "slug": "Tattvavada/SarvaMula/dasha_prakarana_granthas/prapancha_mithyatva_anumana_khandana",
    "populated": true,
-   "authorOverlap": 16,
-   "by": "title+author"
+   "authorOverlap": 13,
+   "titleShare": 0.77,
+   "by": "title-in+author"
   },
   "r53": {
    "slug": "Tattvavada/SarvaMula/dasha_prakarana_granthas/upadhi_khandhana",
@@ -34,11 +95,44 @@
    "authorOverlap": 16,
    "by": "title+author"
   },
+  "r62": {
+   "slug": "Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvasankhyana",
+   "populated": true,
+   "authorOverlap": 13,
+   "titleScore": 0.947,
+   "by": "title~+author"
+  },
+  "r86": {
+   "slug": "Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvaviveka",
+   "populated": true,
+   "authorOverlap": 13,
+   "titleScore": 0.941,
+   "by": "title~+author"
+  },
+  "r98": {
+   "slug": "Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvodyota",
+   "populated": true,
+   "authorOverlap": 13,
+   "titleScore": 0.941,
+   "by": "title~+author"
+  },
+  "r114": {
+   "slug": "Tattvavada/SarvaMula/dasha_prakarana_granthas/vishnu_tattva_nirnaya",
+   "populated": true,
+   "authorOverlap": 13,
+   "titleScore": 0.963,
+   "by": "title~+author"
+  },
   "r131": {
    "slug": "Tattvavada/SarvaMula/dasha_prakarana_granthas/karma_nirnaya",
    "populated": true,
    "authorOverlap": 16,
    "by": "title+author"
+  },
+  "r139": {
+   "slug": "Tattvavada/SarvaMula/stotra_granthas/nakhastuti_kandukastuti_more",
+   "populated": true,
+   "by": "manual"
   },
   "r149": {
    "slug": "Tattvavada/SarvaMula/stotra_granthas/dvadasha_stotra",
@@ -58,29 +152,38 @@
    "authorOverlap": 16,
    "by": "title+author"
   },
+  "r213": {
+   "slug": "Tattvavada/SarvaMula/mula_granthas/sutra",
+   "populated": true,
+   "by": "manual"
+  },
   "r214": {
    "slug": "Tattvavada/SarvaMula/sutra_prasthana/brahmasutra_bhashya",
    "populated": true,
    "authorOverlap": 16,
    "by": "title+author"
   },
-  "r287": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/tatparya_chandrika/mula",
+  "r309": {
+   "slug": "Tattvavada/SarvaMula/sutra_prasthana/anuvyakhyana",
    "populated": true,
-   "authorOverlap": 15,
-   "by": "title+author"
+   "authorOverlap": 13,
+   "titleShare": 0.56,
+   "by": "title-in+author"
   },
-  "r299": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/candrikamandanam/mula",
+  "r357": {
+   "slug": "Tattvavada/SarvaMula/sutra_prasthana/anu_bhashya",
    "populated": true,
-   "authorOverlap": 19,
-   "by": "title+author"
+   "by": "manual"
   },
   "r374": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/sutra_prasthana/nyaya_vivarana/mula",
+   "slug": "Tattvavada/SarvaMula/sutra_prasthana/nyaya_vivarana",
    "populated": true,
-   "authorOverlap": 16,
-   "by": "title+author"
+   "by": "manual"
+  },
+  "r380": {
+   "slug": "Tattvavada/SarvaMula/mula_granthas/atharvana",
+   "populated": true,
+   "by": "manual"
   },
   "r381": {
    "slug": "Tattvavada/SarvaMula/upanishat_prasthana/atharvana_bhashya",
@@ -88,11 +191,26 @@
    "authorOverlap": 16,
    "by": "title+author"
   },
+  "r397": {
+   "slug": "Tattvavada/SarvaMula/upanishat_prasthana/aitareya_bhashya",
+   "populated": true,
+   "by": "manual"
+  },
+  "r426": {
+   "slug": "Tattvavada/SarvaMula/mula_granthas/talavakara",
+   "populated": true,
+   "by": "manual"
+  },
   "r427": {
    "slug": "Tattvavada/SarvaMula/upanishat_prasthana/talavakara_bhashya",
    "populated": true,
    "authorOverlap": 16,
    "by": "title+author"
+  },
+  "r435": {
+   "slug": "Tattvavada/SarvaMula/mula_granthas/taittiriya",
+   "populated": true,
+   "by": "manual"
   },
   "r436": {
    "slug": "Tattvavada/SarvaMula/upanishat_prasthana/taittiriya_bhashya",
@@ -100,17 +218,33 @@
    "authorOverlap": 16,
    "by": "title+author"
   },
+  "r444": {
+   "slug": "Tattvavada/SarvaMula/mula_granthas/isha",
+   "populated": true,
+   "by": "manual"
+  },
   "r445": {
    "slug": "Tattvavada/SarvaMula/upanishat_prasthana/ishavasya_bhashya",
    "populated": true,
    "authorOverlap": 16,
    "by": "title+author"
   },
-  "r464": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/mandukyopanishadbhashyam/mula",
+  "r463": {
+   "slug": "Tattvavada/SarvaMula/mula_granthas/manduka",
    "populated": true,
-   "authorOverlap": 16,
-   "by": "title+author"
+   "by": "manual"
+  },
+  "r464": {
+   "slug": "Tattvavada/SarvaMula/upanishat_prasthana/manduka_bhashya",
+   "populated": true,
+   "authorOverlap": 13,
+   "titleScore": 0.97,
+   "by": "title~+author"
+  },
+  "r475": {
+   "slug": "Tattvavada/SarvaMula/mula_granthas/prashna",
+   "populated": true,
+   "by": "manual"
   },
   "r476": {
    "slug": "Tattvavada/SarvaMula/upanishat_prasthana/shatprashna_bhashya",
@@ -119,10 +253,11 @@
    "by": "title+author"
   },
   "r493": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/upanishad_prasthana/brihadaranyakopanishadbhashyam/mula",
+   "slug": "Tattvavada/SarvaMula/upanishat_prasthana/brihad_bhashya",
    "populated": true,
-   "authorOverlap": 16,
-   "by": "title+author"
+   "authorOverlap": 13,
+   "titleScore": 0.973,
+   "by": "title~+author"
   },
   "r500": {
    "slug": "Tattvavada/SarvaMula/upanishat_prasthana/chhaandogyopnishdbhaashym",
@@ -130,35 +265,55 @@
    "authorOverlap": 16,
    "by": "title+author"
   },
+  "r508": {
+   "slug": "Tattvavada/SarvaMula/mula_granthas/kathaka",
+   "populated": true,
+   "by": "manual"
+  },
   "r509": {
    "slug": "Tattvavada/SarvaMula/upanishat_prasthana/kathaka_bhashya",
    "populated": true,
    "authorOverlap": 16,
    "by": "title+author"
   },
-  "r517": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/gita_prasthana/gita_bhashya/mula",
+  "r516": {
+   "slug": "Tattvavada/SarvaMula/mula_granthas/gita",
    "populated": true,
-   "authorOverlap": 16,
-   "by": "title+author"
+   "by": "manual"
+  },
+  "r517": {
+   "slug": "Tattvavada/SarvaMula/gita_prasthana/gita_bhashya",
+   "populated": true,
+   "authorOverlap": 13,
+   "titleShare": 0.67,
+   "by": "title-in+author"
   },
   "r556": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/gita_prasthana/gita_tatparya_nirnaya/mula",
+   "slug": "Tattvavada/SarvaMula/gita_prasthana/gita_tatparya",
    "populated": true,
-   "authorOverlap": 16,
-   "by": "title+author"
+   "authorOverlap": 13,
+   "titleShare": 0.53,
+   "by": "title-in+author"
   },
   "r571": {
    "slug": "Tattvavada/SarvaMula/achara_granthas/sadacharasmriti",
    "populated": true,
-   "authorOverlap": 16,
-   "by": "title+author"
+   "by": "manual"
+  },
+  "r572": {
+   "slug": "Tattvavada/SarvaMula/achara_granthas/sadacharasmriti",
+   "populated": true,
+   "by": "manual"
   },
   "r584": {
    "slug": "Tattvavada/SarvaMula/achara_granthas/krishnamruta_maharnava",
    "populated": true,
-   "authorOverlap": 16,
-   "by": "title+author"
+   "by": "manual"
+  },
+  "r600": {
+   "slug": "Tattvavada/SarvaMula/achara_granthas/jayanti_kalpa",
+   "populated": true,
+   "by": "manual"
   },
   "r604": {
    "slug": "Tattvavada/SarvaMula/achara_granthas/yati_pranava_kalpa",
@@ -166,17 +321,47 @@
    "authorOverlap": 16,
    "by": "title+author"
   },
-  "r904": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/vadavali/mula",
+  "r694": {
+   "slug": "Tattvavada/Itara/Kavya/manimanjari/sarga_1",
    "populated": true,
-   "authorOverlap": 12,
-   "by": "title+author"
+   "by": "manual"
   },
-  "r909": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/pramana_paddhati/mula",
+  "r707": {
+   "slug": "Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_1",
    "populated": true,
-   "authorOverlap": 12,
-   "by": "title+author"
+   "by": "manual"
+  },
+  "r715": {
+   "slug": "Tattvavada/Itara/Kavya/rukminisha_vijaya/sarga_1",
+   "populated": true,
+   "by": "manual"
+  },
+  "r717": {
+   "slug": "Tattvavada/Itara/Kavya/tirtha_prabandha/dakshina_prabandha",
+   "populated": true,
+   "by": "manual"
+  },
+  "r730": {
+   "slug": "Tattvavada/Itara/Kavya/sangraha_ramayana/aranya_kanda_sarga_01",
+   "populated": true,
+   "by": "manual"
+  },
+  "r865": {
+   "slug": "Tattvavada/Itara/Stotra/vishnu_sahasranama/mula",
+   "populated": true,
+   "by": "manual"
+  },
+  "r944": {
+   "slug": "Tattvavada/Itara/Kavya/krishnacharitra_manjari/mula",
+   "populated": true,
+   "by": "manual"
+  },
+  "r1001": {
+   "slug": "Tattvavada/SarvaMula/shruti_prasthana/rg_bhashya",
+   "populated": true,
+   "authorOverlap": 13,
+   "titleScore": 1.0,
+   "by": "title~+author"
   },
   "r1026": {
    "slug": "Tattvavada/SarvaMula/achara_granthas/nyasa_paddhati",
@@ -184,17 +369,22 @@
    "authorOverlap": 16,
    "by": "title+author"
   },
-  "r1059": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/nyayamrita/mula",
+  "r1028": {
+   "slug": "Tattvavada/SarvaMula/stotra_granthas/nakhastuti_kandukastuti_more",
    "populated": true,
-   "authorOverlap": 15,
-   "by": "title+author"
+   "by": "manual"
   },
-  "r1087": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/tarka_tandava/mula",
+  "r1033": {
+   "slug": "Tattvavada/SarvaMula/achara_granthas/tantrasara",
    "populated": true,
-   "authorOverlap": 15,
-   "by": "title+author"
+   "authorOverlap": 13,
+   "titleScore": 0.957,
+   "by": "title~+author"
+  },
+  "r1110": {
+   "slug": "Tattvavada/Itara/Kavya/raghavendra_vijaya/sarga_1",
+   "populated": true,
+   "by": "manual"
   },
   "r1128": {
    "slug": "Tattvavada/Itara/yukti_mallika/mula",
@@ -202,95 +392,10 @@
    "authorOverlap": 13,
    "by": "title+author"
   },
-  "r1246": {
-   "slug": "Tattvavada/SarvaMula/dasha_prakarana_granthas/upadhi_khandhana",
+  "r1146": {
+   "slug": "Tattvavada/Itara/pasandakhandana/mula",
    "populated": true,
-   "authorOverlap": 9,
-   "by": "title+author"
-  },
-  "r1271": {
-   "slug": "Tattvavada/SarvaMula/dasha_prakarana_granthas/katha_lakshana",
-   "populated": true,
-   "authorOverlap": 9,
-   "by": "title+author"
-  },
-  "r1293": {
-   "slug": "Tattvavada/SarvaMula/achara_granthas/krishnamruta_maharnava",
-   "populated": true,
-   "authorOverlap": 8,
-   "by": "title+author"
-  },
-  "r1348": {
-   "slug": "Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvaviveka",
-   "populated": true,
-   "authorOverlap": 9,
-   "by": "title+author"
-  },
-  "r1374": {
-   "slug": "Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvasankhyana",
-   "populated": true,
-   "authorOverlap": 9,
-   "by": "title+author"
-  },
-  "r1413": {
-   "slug": "Tattvavada/SarvaMula/dasha_prakarana_granthas/tattvodyota",
-   "populated": true,
-   "authorOverlap": 9,
-   "by": "title+author"
-  },
-  "r1593": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/nyayamrita/mula",
-   "populated": true,
-   "authorOverlap": 11,
-   "by": "title+author"
-  },
-  "r1676": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/pramana_paddhati/mula",
-   "populated": true,
-   "authorOverlap": 8,
-   "by": "title+author"
-  },
-  "r1715": {
-   "slug": "Tattvavada/SarvaMula/dasha_prakarana_granthas/pramana_lakshana",
-   "populated": true,
-   "authorOverlap": 9,
-   "by": "title+author"
-  },
-  "r1784": {
-   "slug": "Tattvavada/SarvaMula/sutra_prasthana/anu_bhashya",
-   "populated": true,
-   "authorOverlap": 9,
-   "by": "title+author"
-  },
-  "r1803": {
-   "slug": "Tattvavada/SarvaMula/sutra_prasthana/anuvyakhyana",
-   "populated": true,
-   "authorOverlap": 9,
-   "by": "title+author"
-  },
-  "r1901": {
-   "slug": "Tattvavada/SarvaMula/sutra_prasthana/brahmasutra_bhashya",
-   "populated": true,
-   "authorOverlap": 9,
-   "by": "title+author"
-  },
-  "r2061": {
-   "slug": "Tattvavada/SarvaMula/gita_prasthana/gita_bhashya",
-   "populated": true,
-   "authorOverlap": 9,
-   "by": "title+author"
-  },
-  "r2084": {
-   "slug": "Tattvavada/SarvaMula/purana_prasthana/bhagavata_tatparya_nirnaya",
-   "populated": true,
-   "authorOverlap": 9,
-   "by": "title+author"
-  },
-  "r2189": {
-   "slug": "darshana/vedanta/dvaita/DvaitaVedantaIn/later_acharyas/bhedojjivana/mula",
-   "populated": true,
-   "authorOverlap": 11,
-   "by": "title+author"
+   "by": "manual"
   }
  }
 }

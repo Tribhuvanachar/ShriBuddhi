@@ -31,6 +31,7 @@
   catalogue bridge. There is no second list here to keep in step.
 -->
 <script src="js/path-labels.js?v=1"></script>
+<script src="js/vendor/sanscript-1.3.3.min.js?v=1.3.3"></script>
 <style>
   :root{--bg:#0B0907;--panel:#15110d;--panel2:#1d1711;--ink:#f0e6d6;--muted:#a3927a;
     --line:#2e251b;--accent:#e0794b;--gold:#d9ab5f;--radius:14px}
@@ -50,6 +51,7 @@
   .seg button{background:transparent;border:0;color:var(--muted);font:inherit;font-size:13.5px;
     padding:7px 16px;cursor:pointer}
   .seg button.on{background:var(--accent);color:#fff}
+  #lang{min-width:0;padding-right:8px}
   .find{background:var(--panel2);border:1px solid var(--line);border-radius:999px;
     padding:7px 14px;color:var(--ink);font:inherit;font-size:13.5px;min-width:210px}
   main{max-width:1500px;margin:0 auto;padding:18px 18px 90px}
@@ -71,19 +73,132 @@
   a.leaf{display:block;padding:3px 2px;color:var(--ink);text-decoration:none;font-size:13.5px}
   a.leaf:hover,a.leaf:focus{color:var(--accent)}
   .empty{color:var(--muted);padding:26px 2px}
-  /* --- anukramani view --- */
-  .anu{max-width:1000px}
-  .anu .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
-  select{background:var(--panel2);border:1px solid var(--line);border-radius:10px;
-    padding:9px 12px;color:var(--ink);font:inherit;font-size:14px;min-width:300px;max-width:100%}
-  .works{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:6px 16px}
-  .work{display:flex;gap:10px;align-items:baseline;padding:8px 2px;border-bottom:1px solid var(--line)}
+  /* --- anukramani view: search + master/detail ---
+     Two panes: the left finds (search, then authors and works), the right
+     shows (author card, work card, that author's works). Colours extend the
+     library's own palette: saffron = action, teal = "we hold this",
+     indigo = people. */
+  :root{--teal:#58c4b3;--teal-bg:rgba(88,196,179,.13);--indigo:#a99bff;--indigo-bg:rgba(169,155,255,.13);
+    --shadow:0 1px 2px rgba(0,0,0,.25),0 8px 24px -12px rgba(0,0,0,.5)}
+  @media (prefers-color-scheme: light){
+    :root{--teal:#1f7a6d;--teal-bg:rgba(31,122,109,.10);--indigo:#4b3fa6;--indigo-bg:rgba(75,63,166,.09);
+      --shadow:0 1px 2px rgba(60,40,10,.06),0 10px 28px -14px rgba(60,40,10,.25)}
+  }
+  .anu{max-width:none}
+  .anu-top{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+  .searchbox{position:relative;flex:1 1 380px;min-width:240px}
+  .searchbox svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;
+    stroke:var(--muted);fill:none;stroke-width:2;pointer-events:none}
+  .searchbox input{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:999px;
+    padding:12px 42px 12px 42px;color:var(--ink);font:inherit;font-size:15.5px;box-shadow:var(--shadow);outline:none}
+  .searchbox input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--indigo-bg),var(--shadow)}
+  .searchbox .clr{position:absolute;right:10px;top:50%;transform:translateY(-50%);border:0;background:var(--panel2);
+    color:var(--muted);width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:14px;line-height:1;display:none}
+  .searchbox.has .clr{display:block}
+  .modes{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{border:1px solid var(--line);background:var(--panel);color:var(--muted);font:inherit;font-size:13px;
+    padding:6px 13px;border-radius:999px;cursor:pointer}
+  .chip.on{background:var(--indigo-bg);border-color:var(--indigo);color:var(--indigo);font-weight:600}
+  .stats{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:12.5px}
+  .stats b{color:var(--ink);font-weight:700}
+  .split{display:grid;grid-template-columns:minmax(300px,390px) 1fr;gap:20px;align-items:start}
+  .left{position:sticky;top:76px;max-height:calc(100vh - 96px);overflow:auto;background:var(--panel);
+    border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .lsec{padding:6px 0}
+  .lsec>h3{margin:0;padding:10px 16px 6px;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;
+    color:var(--muted);font-weight:700;display:flex;justify-content:space-between}
+  .li{display:flex;gap:10px;align-items:center;width:100%;text-align:left;border:0;background:transparent;
+    color:var(--ink);font:inherit;padding:9px 16px;cursor:pointer;border-left:3px solid transparent}
+  .li:hover{background:var(--panel2)}
+  .li.sel{background:var(--indigo-bg);border-left-color:var(--indigo)}
+  .li .av{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:15px;
+    font-weight:700;background:var(--indigo-bg);color:var(--indigo)}
+  .li .av.w{background:var(--teal-bg);color:var(--teal);border-radius:9px}
+  .li .tx{flex:1;min-width:0}
+  .li .nm{font-size:14.5px;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .li .sb{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .li .n{flex:none;font-size:12px;color:var(--muted);background:var(--panel2);border-radius:999px;padding:1px 9px}
+  .more{display:block;width:calc(100% - 32px);margin:6px 16px 10px;padding:8px;border:1px dashed var(--line);
+    border-radius:10px;background:transparent;color:var(--accent);font:inherit;font-size:13px;cursor:pointer}
+  mark{background:rgba(224,121,75,.28);color:inherit;border-radius:3px;padding:0 1px}
+  .right{min-width:0;display:flex;flex-direction:column;gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:20px 22px}
+  .hero{background:linear-gradient(135deg,var(--indigo-bg),var(--teal-bg)),var(--panel)}
+  .hero h2{margin:0 0 4px;font-size:24px}
+  .roman{color:var(--muted);font-size:13.5px;font-style:italic}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px 22px;margin:16px 0 0}
+  .fact dt{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+  .fact dd{margin:2px 0 0;font-size:14px}
+  .tag{display:inline-block;font-size:12px;border-radius:999px;padding:2px 10px;margin:0 6px 4px 0;
+    background:var(--indigo-bg);color:var(--indigo)}
+  .tag.held{background:var(--teal-bg);color:var(--teal);font-weight:600}
+  .tag.no{background:var(--panel2);color:var(--muted)}
+  .blurb{margin:14px 0 0;font-size:14px}
+  .nobio{margin:12px 0 0;font-size:13px;color:var(--muted)}
+  .btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel);
+    color:var(--ink);font:inherit;font-size:13.5px;padding:8px 15px;border-radius:999px;cursor:pointer;text-decoration:none}
+  .btn.pri{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+  .btn:hover{filter:brightness(1.08)}
+  .btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .crumbs{display:flex;flex-wrap:wrap;gap:4px 6px;align-items:center;font-size:14px;margin:8px 0 2px}
+  .crumbs i{color:var(--muted);font-style:normal}
+  .crumbs span{background:var(--teal-bg);color:var(--teal);border-radius:8px;padding:2px 10px}
+  code.slug{font-size:11.5px;color:var(--muted);word-break:break-all}
+  .wcard h3{margin:0;font-size:20px}
+  .wcard .by{margin:4px 0 0;font-size:14px}
+  button.plink{color:var(--indigo);background:none;border:0;padding:0;font:inherit;cursor:pointer;
+    border-bottom:1px dotted var(--indigo)}
+  .sect-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 6px}
+  .sect-h h3{margin:0;font-size:15px}
+  .work{display:flex;gap:12px;align-items:center;padding:10px 8px;border-bottom:1px solid var(--line);
+    cursor:pointer;border-radius:8px}
+  .work:hover{background:var(--panel2)}
+  .work.sel{background:var(--teal-bg)}
   .work:last-child{border-bottom:0}
-  .work .t{flex:1}
-  .work a{color:var(--accent);text-decoration:none;font-weight:600}
-  .work a:hover{text-decoration:underline}
-  .work .no{color:var(--muted);font-size:12px;white-space:nowrap}
+  .work .t{flex:1;min-width:0;font-size:15.5px}
   .work .meta{color:var(--muted);font-size:12px}
+  .work .no{color:var(--muted);font-size:12px;white-space:nowrap}
+  .work .yes{color:var(--teal);font-size:12px;font-weight:700;white-space:nowrap}
+  .ctx{color:var(--indigo)!important;white-space:normal!important}
+  .lineage{margin-top:14px;padding:12px 14px;background:var(--indigo-bg);border-radius:12px}
+  .lineage ol{list-style:none;margin:6px 0 0;padding:0}
+  .lineage li{padding:3px 0;font-size:14.5px;border-left:2px solid var(--indigo);padding-left:10px}
+  .lineage li.cur{border-left-color:var(--accent)}
+  .lineage .role{display:inline-block;font-size:11px;letter-spacing:.04em;background:var(--panel);color:var(--indigo);border-radius:999px;padding:1px 9px;margin-right:4px}
+  .preview{width:100%;height:70vh;border:1px solid var(--line);border-radius:12px;margin-top:14px;background:var(--panel2)}
+  .welcome{text-align:center;padding:38px 22px}
+  .welcome h2{margin:0 0 6px;font-size:22px}
+  .welcome p{color:var(--muted);max-width:560px;margin:8px auto}
+  .featured{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px}
+  .back{display:inline-flex;align-self:flex-start;position:sticky;top:72px;z-index:4;box-shadow:var(--shadow)}
+  @media (max-width:900px){
+    .split{grid-template-columns:1fr}
+    .left{position:static;max-height:none}
+    .anu.viewing .left{display:none}
+    .anu:not(.viewing) .right{display:none}
+    .back{display:inline-flex}
+    .card{padding:16px}
+  }
+
+  /* ---- Adishila: the project's Devanagari faces (fonts/), used for every
+     Devanagari letter. unicode-range keeps them off Latin, Kannada and the other
+     scripts, which fall back to the page's own fonts. ---- */
+  @font-face{font-family:"Adishila San";src:local("Adishila San"),url("fonts/AdishilaSan.ttf") format("truetype");
+    unicode-range:U+0900-097F,U+1CD0-1CFF,U+A8E0-A8FF,U+200C-200D;font-display:swap}
+  @font-face{font-family:"Adishila SemiBold";src:local("Adishila SemiBold"),url("fonts/AdishilaSemiBoldB.ttf") format("truetype");
+    unicode-range:U+0900-097F,U+1CD0-1CFF,U+A8E0-A8FF,U+200C-200D;font-display:swap}
+  @font-face{font-family:"Adishila Heavy";src:local("Adishila Heavy"),url("fonts/AdishilaHeavyH.ttf") format("truetype");
+    unicode-range:U+0900-097F,U+1CD0-1CFF,U+A8E0-A8FF,U+200C-200D;font-display:swap}
+  :root{--f-san:"Adishila San";--f-semi:"Adishila SemiBold";--f-heavy:"Adishila Heavy";
+    --f-latin:"Iowan Old Style","Palatino Linotype",Georgia,serif}
+  body,input,select,button,textarea{font-family:var(--f-san),var(--f-latin)}
+  h1,h2,.shelf>h2,.hero h2,.wcard h3,.welcome h2{font-family:var(--f-heavy),var(--f-latin);font-weight:400}
+  /* Sizes (the lead): Adishila Heavy headings 20px, everything else 18px. */
+  body,body *{font-size:18px!important}
+  h1,h2,.shelf>h2,.hero h2,.wcard h3,.welcome h2{font-size:20px!important}
+  .lsec>h3,.fact dt,.tag,.btn.pri,.chip.on,.role,.crumbs span,.sect-h h3,.sec>.hd,.stats b{font-family:var(--f-semi),var(--f-latin);font-weight:400}
+  .li .nm,.work .t{font-family:var(--f-san),var(--f-latin)}
   footer{max-width:1500px;margin:0 auto;padding:0 18px 40px;color:var(--muted);font-size:12.5px}
 </style>
 </head>
@@ -93,6 +208,18 @@
   <div class="sub" id="count"></div>
   <div class="spacer"></div>
   <input class="find" id="find" type="search" placeholder="Filter by name…" autocomplete="off">
+  <select class="find" id="lang" title="Script / भाषा / ಭಾಷೆ" aria-label="Display script">
+    <option value="devanagari">संस्कृतम् · Sanskrit</option>
+    <option value="hindi">हिन्दी · Hindi</option>
+    <option value="marathi">मराठी · Marathi</option>
+    <option value="iast">English · IAST</option>
+    <option value="kannada">ಕನ್ನಡ · Kannada</option>
+    <option value="telugu">తెలుగు · Telugu</option>
+    <option value="tamil">தமிழ் · Tamil</option>
+    <option value="malayalam">മലയാളം · Malayalam</option>
+    <option value="bengali">বাংলা · Bengali</option>
+    <option value="oriya">ଓଡ଼ିଆ · Odia</option>
+  </select>
   <div class="seg" role="group" aria-label="View">
     <button id="tabTree" class="on">ग्रन्थाः</button><button id="tabAnu">अनुक्रमणी</button>
   </div>
@@ -100,11 +227,25 @@
 <main>
   <div id="tree" class="cols"></div>
   <div id="anu" class="anu" hidden>
-    <div class="row">
-      <select id="author"><option value="">— कर्ता चीयताम् · choose an author —</option></select>
-      <span class="sub" id="anuCount"></span>
+    <div class="anu-top">
+      <div class="searchbox" id="sbox">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="q" type="search" autocomplete="off" spellcheck="false"
+               placeholder="ग्रन्थ / कर्ता खोजें — Devanagari, ಕನ್ನಡ or roman (e.g. sumatindra, nyayasudha)">
+        <button class="clr" id="qclr" aria-label="Clear">×</button>
+      </div>
+      <div class="modes" role="group" aria-label="Search in">
+        <button class="chip on" data-mode="all">सर्वम् · All</button>
+        <button class="chip" data-mode="works">ग्रन्थाः · Works</button>
+        <button class="chip" data-mode="authors">कर्तारः · Authors</button>
+        <button class="chip" data-mode="prasthana">प्रस्थानानि · Prasthanas</button>
+      </div>
+      <div class="stats" id="anuCount"></div>
     </div>
-    <div class="works" id="works"><div class="empty">Choose an author to see their works.</div></div>
+    <div class="split">
+      <aside class="left" id="left"></aside>
+      <section class="right" id="right"></section>
+    </div>
   </div>
 </main>
 <footer id="foot">Every title opens the text itself.</footer>
@@ -249,7 +390,7 @@ function fetchOverridesJson(url) {
     return fb === url ? null : attempt(fb);
   });
 }
-fetch('data/catalog-version.json?t=' + Date.now(), { cache: 'no-store' })
+const LIB_READY_P = fetch('data/catalog-version.json?t=' + Date.now(), { cache: 'no-store' })
   .then(r => r.ok ? r.json() : null).catch(() => null)
   .then(v => Promise.all([
     fetch(v && v.library ? 'data/library.json?v=' + v.library : 'data/library.json').then(r=>r.json()),
@@ -271,67 +412,510 @@ fetch('data/catalog-version.json?t=' + Date.now(), { cache: 'no-store' })
   $('count').textContent = n.toLocaleString('en-IN') + ' texts';
   drawTree('');
   }).catch(() => { $('tree').innerHTML = '<div class="empty">The library could not be loaded.</div>'; });
+const LIB_READY = LIB_READY_P.catch(() => null);
 
 $('find').addEventListener('input', e => { if (TREE) drawTree(e.target.value.trim().toLowerCase()); });
 
-// ---- अनुक्रमणी: every catalogued Dvaita work, by author ----
-let ANU = null, LINKS = {};
+// ---- अनुक्रमणी: every catalogued Dvaita work, by author --------------------
+// Search finds, the right pane shows. Nothing here is a second list: works and
+// authors come from the catalogue, "held here" from anukramani_links.json, and
+// the author's bio from author_profiles.json (built from guru-parampara).
+let ANU = null, LINKS = {}, PROF = {}, GURUS = {}, MATHA = {};
+const A = { q:'', mode:'all', ent:null, work:null, grp:null, showAllAuthors:false, more:{authors:40, works:60}, preview:false };
+
+// -- script handling for searching: Devanagari <-> roman <-> Kannada --
+const V={'अ':'a','आ':'ā','इ':'i','ई':'ī','उ':'u','ऊ':'ū','ऋ':'ṛ','ॠ':'ṝ','ऌ':'ḷ','ए':'e','ऐ':'ai','ओ':'o','औ':'au'};
+const M={'ा':'ā','ि':'i','ी':'ī','ु':'u','ू':'ū','ृ':'ṛ','ॄ':'ṝ','े':'e','ै':'ai','ो':'o','ौ':'au'};
+const C={'क':'k','ख':'kh','ग':'g','घ':'gh','ङ':'ṅ','च':'c','छ':'ch','ज':'j','झ':'jh','ञ':'ñ','ट':'ṭ','ठ':'ṭh',
+  'ड':'ḍ','ढ':'ḍh','ण':'ṇ','त':'t','थ':'th','द':'d','ध':'dh','न':'n','प':'p','फ':'ph','ब':'b','भ':'bh','म':'m',
+  'य':'y','र':'r','ल':'l','व':'v','ळ':'ḷ','श':'ś','ष':'ṣ','स':'s','ह':'h'};
+const SG={'ं':'ṃ','ः':'ḥ','ँ':'ṃ','ऽ':"'"};
+function toRoman(s){
+  let o='';
+  for (let i=0;i<s.length;i++){
+    const ch=s[i];
+    if (C[ch]){ o+=C[ch]; const n=s[i+1];
+      if (n==='्'){ i++; continue; }
+      if (M[n]){ o+=M[n]; i++; continue; }
+      o+='a'; continue; }
+    if (V[ch]) o+=V[ch]; else if (SG[ch]) o+=SG[ch];
+    else if (ch!=='्' && ch!=='‌' && ch!=='‍') o+=ch;
+  }
+  return o;
+}
+// Kannada block sits 0x380 above Devanagari for the Sanskrit repertoire.
+const SCHEME_OF = [[0x0980,0x09FF,'bengali'],[0x0B00,0x0B7F,'oriya'],[0x0B80,0x0BFF,'tamil'],[0x0C00,0x0C7F,'telugu'],[0x0D00,0x0D7F,'malayalam']];
+function kn2dev(s){
+  s = String(s||'').replace(/[ಀ-೿]/g, c => String.fromCharCode(c.charCodeAt(0)-0x380));
+  if (window.Sanscript) for (const [lo,hi,sch] of SCHEME_OF){
+    const hex = n => String.fromCharCode(n);
+    const re = new RegExp('['+hex(lo)+'-'+hex(hi)+']+','g');
+    s = s.replace(re, m => { try { return Sanscript.t(m, sch, 'devanagari'); } catch(e){ return m; } });
+  }
+  return s;
+}
+// Forgiving roman key: no diacritics, no h, w=v, doubled letters collapse.
+function romKey(s){
+  return String(s||'').toLowerCase().replace(/[ṃṁṅñṇ]/g,'n').normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z]/g,'').replace(/[wb]/g,'v').replace(/d/g,'t').replace(/h/g,'').replace(/(.)\1+/g,'$1');
+}
+// Devanagari key: drop visarga/anusvara/virama/joiners, spaces and punctuation.
+function devKey(s){
+  return kn2dev(s).normalize('NFC').replace(/[ःंँ्ऽ‌‍\s\-.,()\[\]'"।॥]/g,'').replace(/ळ/g,'ल');
+}
+const isDeva = s => /[ऀ-෿]/.test(s);
+function qKeys(q){ return isDeva(q) ? { dev: devKey(q), rom: romKey(toRoman(kn2dev(q))) } : { dev:'', rom: romKey(q) }; }
+function keysOf(text){ return { d: devKey(text), r: romKey(toRoman(String(text||''))) }; }
+// -1 no match, 0 match at the start, 1 match inside
+function matchPos(keys, qk){
+  let best=-1;
+  for (const k of keys){
+    const ps = [];
+    if (qk.dev) ps.push(k.d.indexOf(qk.dev));
+    if (qk.rom) ps.push(k.r.indexOf(qk.rom));
+    for (const p of ps) if (p>=0 && (best<0 || Math.min(p,1)<best)) best=Math.min(p,1);
+  }
+  return best;
+}
+function initials(name){ const t=String(name||'').replace(/^(श्रीमद्|श्रीमत्|श्री)/,'').trim(); return t ? Array.from(t)[0] : '?'; }
+
 function loadAnu(){
   if (ANU) return Promise.resolve();
   return Promise.all([
     fetch('data/catalogs/dvaita_grantha_anukramani.json').then(r=>r.json()),
-    fetch('data/catalogs/anukramani_links.json').then(r=>r.ok?r.json():null).catch(()=>null)
-  ]).then(([cat, links]) => {
-    ANU = cat; LINKS = (links && links.links) || {};
-    const byAuthor = new Map();
+    fetch('data/catalogs/anukramani_links.json').then(r=>r.ok?r.json():null).catch(()=>null),
+    fetch('data/catalogs/author_profiles.json').then(r=>r.ok?r.json():null).catch(()=>null),
+    LIB_READY,   // folder labels for the library-path breadcrumb
+    fetch('data/catalogs/dvaita_grantha_anukramani.overrides.json').then(r=>r.ok?r.json():null).catch(()=>null)
+  ]).then(([cat, links, prof, , ov]) => {
+    // Two standing rules (the lead, 30 Sep 2026). 1) Only sheet rows 1-1200 are
+    // listed for now: later rows repeat works and authors and need cleaning.
+    // 2) A work may link ONLY into the Tattvavada folder, never elsewhere.
+    // Both are also enforced in tools/anukramani/build_links.py.
+    const MAX_SHEET_ROW = 1200, ALLOWED_PREFIX = 'Tattvavada/';
+    cat.items = (cat.items || []).filter(it => it.row <= MAX_SHEET_ROW);
+    // The scholar's own decisions (dvaita-grantha-anukramani page): renamed rows,
+    // spelling canon, parent fixes and duplicates deleted. Deleted rows are not
+    // dropped silently -- they are kept aside and listed under "duplicates removed".
+    ov = ov || {};
+    const rowsOv = ov.rows || {}, canon = ov.canonical || {}, parOv = ov.parents || {}, review = ov.review || {};
+    const twinKey = it => it.exactDuplicateGroup || it.nameParentKartaGroup || '';
+    const removedRaw = cat.items.filter(it => review[it.id] === 'delete');
+    cat.items = cat.items.filter(it => review[it.id] !== 'delete');
+    cat.items.forEach(it => {
+      const r = rowsOv[it.id] || {};
+      it.grantha0 = it.grantha;
+      it.grantha = r.grantha || (canon.title || {})[it.grantha] || it.grantha;
+      it.karta = r.karta || (canon.author || {})[it.karta] || it.karta;
+      if (it.id in parOv) it.parentId = parOv[it.id] || null;
+    });
+    const keptByGroup = {};
+    cat.items.forEach(it => { const g = twinKey(it); if (g) (keptByGroup[g] = keptByGroup[g] || []).push(it); });
+    // The twin a deleted row repeats: the sheet's own duplicate group when it has
+    // one, else a kept row with the same title (spelling differences ignored).
+    const keptByTitle = {};
+    cat.items.forEach(it => { const k = devKey(it.grantha0 || it.grantha); (keptByTitle[k] = keptByTitle[k] || []).push(it); });
+    const removed = removedRaw.map(it => {
+      let tw = keptByGroup[twinKey(it)] || [];
+      if (!tw.length) tw = keptByTitle[devKey(it.grantha)] || [];
+      const sameAuthor = tw.filter(x => devKey(x.karta) === devKey(it.karta));
+      return { it, twins: (sameAuthor.length ? sameAuthor : tw).slice(0, 3) };
+    });
+    LINKS = {};
+    Object.entries((links && links.links) || {}).forEach(([id, l]) => {
+      if (l && String(l.slug || '').startsWith(ALLOWED_PREFIX)) LINKS[id] = l;
+    });
+    // Tattvavada works no sheet row describes: listed as their own entries.
+    const secLabel = folder => { const p = folder.split('/');
+      const seg = (p[0] === 'SarvaMula' || ['Kavya','Stotra'].indexOf(p[1]) >= 0) ? p[1] : p[0];
+      return labelFor(seg, seg, CUSTOM); };
+    ((links && links.libraryOnly) || []).forEach(x => {
+      if (!String(x.slug || '').startsWith(ALLOWED_PREFIX)) return;
+      cat.items.push({ id:x.id, row:0, grantha:x.grantha, karta:x.karta, kartaId:x.kartaId || '', prasthana:secLabel(x.folder),
+                       vibhaga:'', vishayaVibhaga:'', parentId:null, libOnly:true });
+      LINKS[x.id] = { slug:x.slug, populated:true, by:'library-only' };
+    });
+    PROF = (prof && prof.profiles) || {}; GURUS = (prof && prof.gurus) || {}; MATHA = (prof && prof.mathaLabels) || {};
+    const authById = {}; (cat.masters.authors||[]).forEach(a => authById[a.id]=a);
+    // One entity per PERSON: catalogue spellings that resolve to the same
+    // paramparā person (ānandatīrthaḥ / madhvācārya / श्रीमदानन्दतीर्थः ...) merge.
+    const ents = new Map(), byId = {}, kids = {};
+    const entFor = it => {
+      const aid = it.kartaId || '';
+      const p = aid && PROF[aid];
+      const key = p ? 'p:'+p.person : (aid || 'none');
+      if (!ents.has(key)){
+        const a = authById[aid] || {};
+        ents.set(key, { key, profile: p || null, works: [], authors: [],
+                        name: it.karta || 'कर्ता अज्ञातः', iast: a.iast || '' });
+      }
+      const e = ents.get(key);
+      if (aid && !e.authors.some(x => x.id===aid)) e.authors.push(authById[aid] || {id:aid, canonical:it.karta});
+      return e;
+    };
     (cat.items||[]).forEach(it => {
-      const k = (it.karta||'').trim() || '—';
-      if (!byAuthor.has(k)) byAuthor.set(k, []);
-      byAuthor.get(k).push(it);
+      const e = entFor(it);
+      const w = { it, ent:e, link: LINKS[it.id] || null, k: keysOf(it.grantha) };
+      e.works.push(w); byId[it.id] = w;
+      if (it.parentId) (kids[it.parentId] = kids[it.parentId] || []).push(w);
     });
-    ANU.byAuthor = byAuthor;
-    const names = Array.from(byAuthor.keys()).sort((a,b) => byAuthor.get(b).length - byAuthor.get(a).length || a.localeCompare(b));
-    const sel = $('author');
-    names.forEach(nm => {
-      const o = document.createElement('option');
-      o.value = nm; o.textContent = `${nm} (${byAuthor.get(nm).length})`;
-      sel.appendChild(o);
+    ents.forEach(e => {
+      if (e.authors.length){
+        const best = e.authors.slice().sort((a,b) => (b.count||0)-(a.count||0))[0];
+        e.name = best.canonical || e.name; e.iast = best.iast || e.iast;
+        e.k = e.authors.map(a => keysOf(a.canonical)).concat(e.authors.map(a => ({d:'', r:romKey(a.iast)})));
+      } else e.k = [keysOf(e.name)];
+      e.held = e.works.filter(w => w.link).length;
     });
-    const linked = Object.keys(LINKS).length;
-    $('anuCount').textContent = `${(cat.items||[]).length.toLocaleString('en-IN')} works · ${names.length} authors · ${linked} held here`;
+    ANU = { cat, ents:[...ents.values()], byKey:Object.fromEntries(ents), byId, kids, removed };
+    ANU.ents.sort((a,b) => b.works.length - a.works.length || a.name.localeCompare(b.name));
+    $('anuCount').innerHTML = `<span><b>${cat.items.length.toLocaleString('en-IN')}</b> works</span>·`
+      + `<span><b>${ANU.ents.length.toLocaleString('en-IN')}</b> authors</span>·`
+      + `<span><b>${Object.keys(LINKS).length}</b> held here</span>`;
   });
 }
-$('author').addEventListener('change', e => {
-  const rows = (ANU && ANU.byAuthor.get(e.target.value)) || [];
-  const host = $('works');
-  if (!rows.length){ host.innerHTML = '<div class="empty">Choose an author to see their works.</div>'; return; }
-  host.innerHTML = rows.map(it => {
-    const link = LINKS[it.id];
-    const title = esc(it.grantha || '—');
-    // A work we hold opens; one we do not is still listed, because the
-    // catalogue's value is telling you the work EXISTS.
-    const left = link
-      ? `<a href="render.html?path=${encodeURIComponent(link.slug)}">${title}</a>`
-      : title;
-    const tags = [it.prasthana, it.vibhaga, it.vishayaVibhaga].filter(Boolean).join(' · ');
-    return `<div class="work"><div class="t">${left}`
-         + (tags ? `<div class="meta">${esc(tags)}</div>` : '')
-         + `</div>${link ? '' : '<span class="no">not in the library yet</span>'}</div>`;
-  }).join('');
+
+// ---------------- rendering ----------------
+// Highlight only when the query is in the same script as the text (exact and safe).
+function hl(text, raw){
+  const t = String(text||''); if (!raw) return esc(t);
+  const i = t.toLowerCase().indexOf(raw.toLowerCase());
+  return i<0 ? esc(t) : esc(t.slice(0,i))+'<mark>'+esc(t.slice(i,i+raw.length))+'</mark>'+esc(t.slice(i+raw.length));
+}
+function entRow(e, raw){
+  const sel = A.ent && A.ent.key===e.key ? ' sel' : '';
+  const p = e.profile;
+  const sub = [p && p.matha && MATHA[p.matha], p && p.period && String(p.period).split(/[;(]/)[0].trim()].filter(Boolean).join(' · ') || e.iast;
+  return `<button class="li${sel}" data-ent="${esc(e.key)}"><span class="av">${esc(initials(e.name))}</span>`
+    + `<span class="tx"><div class="nm">${hl(e.name,raw)}</div><div class="sb">${esc(sub||'')}</div></span>`
+    + `<span class="n">${e.works.length}</span></button>`;
+}
+// ---- lineage: which mūla, which ṭīkā, which ṭippaṇī ----
+// The catalogue links each row to its parent (parentId), so a ṭippaṇī named only
+// "भाववर्णनम्" is shown as: प्रमाणलक्षणम् (मूलम्) › जयतीर्थीय-टीका (टीका) › भाववर्णनम् (टिप्पणी).
+const PLAIN = new Set(['', 'मूलम्', 'स्वतन्त्रग्रन्थः']);
+function chainOf(w){
+  const out = [w], seen = new Set([w.it.id]);
+  let p = w.it.parentId && ANU.byId[w.it.parentId];
+  while (p && !seen.has(p.it.id) && out.length < 8){ out.unshift(p); seen.add(p.it.id); p = p.it.parentId && ANU.byId[p.it.parentId]; }
+  return out;
+}
+function roleAt(node, i, n){
+  const r = node.it.vishayaVibhaga || '';
+  if (i === 0 && n > 1) return PLAIN.has(r) ? 'मूलम्' : r;        // the root of a chain is the base text
+  if (r && r !== 'स्वतन्त्रग्रन्थः') return r;
+  return i === n - 1 ? 'व्याख्यानम्' : 'टीका';
+}
+// One line for lists: "टिप्पणी · on प्रमाणलक्षणम् › जयतीर्थीय-टीका"
+function ctxLine(w){
+  const ch = chainOf(w); if (ch.length < 2) return '';
+  return roleAt(w, ch.length-1, ch.length) + ' · on ' + ch.slice(0, -1).map(x => x.it.grantha).join(' › ');
+}
+function lineageHtml(w){
+  const ch = chainOf(w); if (ch.length < 2) return '';
+  return `<div class="lineage"><div class="roman">ग्रन्थपरम्परा · Which work this belongs to</div><ol>`
+    + ch.map((x, i) => {
+        const cur = x === w, role = roleAt(x, i, ch.length);
+        return `<li style="margin-left:${i*18}px"${cur?' class="cur"':''}><span class="role">${esc(role)}</span> `
+          + (cur ? `<b>${esc(x.it.grantha)}</b>` : `<button class="plink" data-work="${esc(x.it.id)}">${esc(x.it.grantha)}</button>`)
+          + ` <span class="roman">— ${esc(x.ent.name)}</span></li>`;
+      }).join('') + '</ol></div>';
+}
+function workRow(w, raw){
+  const sel = A.work && A.work.it.id===w.it.id ? ' sel' : '';
+  return `<button class="li${sel}" data-work="${esc(w.it.id)}"><span class="av w">${w.link?'✓':'ग्र'}</span>`
+    + `<span class="tx"><div class="nm">${hl(w.it.grantha||'—',raw)}</div><div class="sb">${esc(w.ent.name)}</div>${ctxLine(w)?`<div class="sb ctx">${esc(ctxLine(w))}</div>`:''}</span></button>`;
+}
+// ---- prasthana (the catalogue's division) and library sections (the
+// division: the folders of Tattvavada/SarvaMula and Itara) ----
+const PRA_MERGE = { 'स्तोत्र':'स्तोत्रम्', 'स्तोत्रग्रन्थः':'स्तोत्रम्' };
+function praKey(it){ let p = (it.prasthana || '').replace(/\s+/g,''); p = PRA_MERGE[p] || p; return p || 'अन्ये'; }
+function secKey(slug){ const p = slug.split('/'); return p[1] === 'SarvaMula' ? 'SarvaMula/' + p[2]
+  : (['Kavya','Stotra'].indexOf(p[2]) >= 0 ? 'Itara/' + p[2] : 'Itara'); }
+function groups(){
+  if (ANU._g) return ANU._g;
+  const pra = new Map(), sec = new Map();
+  ANU.ents.forEach(e => e.works.forEach(w => {
+    const k = praKey(w.it); if (!pra.has(k)) pra.set(k, []); pra.get(k).push(w);
+    if (w.link){ const sk = secKey(w.link.slug); if (!sec.has(sk)) sec.set(sk, []); sec.get(sk).push(w); }
+  }));
+  const fin = m => [...m].map(([key, ws]) => ({ key, ws })).sort((a,b) => b.ws.length - a.ws.length);
+  return (ANU._g = { pra: fin(pra), sec: fin(sec) });
+}
+const secName = key => { const seg = key.split('/').pop(); return labelFor(seg, key, CUSTOM); };
+function grpRow(type, g){
+  const sel = A.grp && A.grp.type === type && A.grp.key === g.key ? ' sel' : '';
+  const held = g.ws.filter(w => w.link).length;
+  const name = type === 'pra' ? g.key : secName(g.key);
+  return `<button class="li${sel}" data-grp="${type}|${esc(g.key)}"><span class="av w">${type==='pra'?'प्र':'वि'}</span>`
+    + `<span class="tx"><div class="nm">${esc(name)}</div><div class="sb">${held} in library</div></span><span class="n">${g.ws.length}</span></button>`;
+}
+const NONE = t => `<div class="li" style="cursor:default"><span class="tx sb">${t}</span></div>`;
+function drawLeft(){
+  const raw = A.q.trim(), qk = raw ? qKeys(raw) : null;
+  const host = $('left');
+  if (A.mode === 'prasthana'){
+    const G = groups(), ok = (name) => !qk || matchPos([keysOf(name)], qk) >= 0;
+    host.innerHTML = `<div class="lsec"><h3><span>प्रस्थानानि · Prasthanas (catalogue)</span><span>${G.pra.length}</span></h3>`
+      + (G.pra.filter(g => ok(g.key)).map(g => grpRow('pra', g)).join('') || NONE('No match.')) + '</div>'
+      + `<div class="lsec"><h3><span>पुस्तकालयविभागाः · Library sections</span><span>${G.sec.length}</span></h3>`
+      + (G.sec.filter(g => ok(secName(g.key))).map(g => grpRow('sec', g)).join('') || NONE('No match.')) + '</div>';
+    return;
+  }
+  if (!qk){
+    const list = A.showAllAuthors ? ANU.ents : ANU.ents.slice(0, A.more.authors);
+    host.innerHTML = `<div class="lsec"><h3><span>कर्तारः · Authors</span><span>${ANU.ents.length}</span></h3>`
+      + list.map(e => entRow(e, '')).join('')
+      + (list.length < ANU.ents.length ? `<button class="more" data-more="authors">Show all ${ANU.ents.length} authors</button>` : '') + '</div>';
+    return;
+  }
+  let html = '';
+  if (A.mode !== 'works'){
+    const hits = ANU.ents.map(e => [matchPos(e.k, qk), e]).filter(x => x[0]>=0)
+      .sort((a,b) => a[0]-b[0] || b[1].works.length-a[1].works.length);
+    const shown = hits.slice(0, A.more.authors);
+    html += `<div class="lsec"><h3><span>कर्तारः · Authors</span><span>${hits.length}</span></h3>`
+      + (shown.map(x => entRow(x[1], raw)).join('') || NONE('No author matches.'))
+      + (hits.length>shown.length ? `<button class="more" data-more="authors">Show ${Math.min(40,hits.length-shown.length)} more</button>` : '') + '</div>';
+  }
+  if (A.mode !== 'authors'){
+    const hits = [];
+    for (const e of ANU.ents) for (const w of e.works){ const p = matchPos([w.k], qk); if (p>=0) hits.push([p,w]); }
+    hits.sort((a,b) => a[0]-b[0] || (b[1].link?1:0)-(a[1].link?1:0) || a[1].k.d.length-b[1].k.d.length);
+    const shown = hits.slice(0, A.more.works);
+    html += `<div class="lsec"><h3><span>ग्रन्थाः · Works</span><span>${hits.length}</span></h3>`
+      + (shown.map(x => workRow(x[1], raw)).join('') || NONE('No work matches.'))
+      + (hits.length>shown.length ? `<button class="more" data-more="works">Show ${Math.min(60,hits.length-shown.length)} more</button>` : '') + '</div>';
+  }
+  host.innerHTML = html;
+}
+
+function pathCrumbs(slug){
+  let acc = '';
+  return slug.split('/').map(p => { acc = acc ? acc+'/'+p : p; return `<span>${esc(labelFor(p, acc, CUSTOM))}</span>`; })
+    .join('<i>›</i>');
+}
+function authorCard(e){
+  const p = e.profile;
+  let h = `<div class="card hero"><h2>${esc(e.name)}</h2>`
+        + (e.iast ? `<div class="roman">${esc(e.iast)}</div>` : '')
+        + `<div style="margin-top:10px"><span class="tag">${e.works.length} ${e.works.length===1?'work':'works'} catalogued</span>`
+        + `<span class="tag held">${e.held} held in the library</span></div>`;
+  if (p){
+    const f = [];
+    if (p.period) f.push(['कालः · Period', p.period]);
+    if (p.matha && MATHA[p.matha]) f.push(['मठः · Matha', MATHA[p.matha]]);
+    if (p.role) f.push(['पदम् · Role', p.role]);
+    if (p.guru && GURUS[p.guru]) f.push(['गुरुः · Guru', GURUS[p.guru]]);
+    if (p.purva) f.push(['पूर्वाश्रमः · Early life', p.purva]);
+    if (p.place || p.brindavana) f.push(['वृन्दावनम् · Brindavana', [p.brindavana, p.place].filter(Boolean).join(' — ')]);
+    if (p.titles && p.titles.length) f.push(['अपरनामानि · Also known as', p.titles.join(', ')]);
+    h += `<dl class="facts">${f.map(x => `<div class="fact"><dt>${x[0]}</dt><dd>${esc(x[1])}</dd></div>`).join('')}</dl>`;
+    if (p.contrib) h += `<p class="blurb">${esc(p.contrib)}</p>`;
+    h += `<div class="btnrow"><a class="btn" href="guru-parampara/guru1.html#${encodeURIComponent(p.person)}">गुरुपरम्परा · Guru Paramparā ↗</a></div>`;
+    if (p.via === 'name') h += `<p class="nobio">Profile matched by name — check it is the same ācārya.</p>`;
+  } else {
+    h += `<p class="nobio">No life details for this author in the Guru Paramparā yet.</p>`;
+  }
+  return h + '</div>';
+}
+function workCard(w){
+  const it = w.it, par = it.parentId && ANU.byId[it.parentId], ch = ANU.kids[it.id] || [];
+  const tags = [it.prasthana, it.vibhaga, it.vishayaVibhaga].filter(Boolean).map(t => `<span class="tag">${esc(t)}</span>`).join('');
+  let h = `<div class="card wcard"><div class="sect-h"><span class="roman">ग्रन्थः · Work</span>`
+        + (w.link ? '<span class="tag held">✓ held in the library</span>' : '<span class="tag no">not in the library yet</span>') + '</div>'
+        + `<h3>${esc(it.grantha||'—')}</h3>`
+        + `<p class="by">कर्ता: <button class="plink" data-ent="${esc(w.ent.key)}">${esc(w.ent.name)}</button></p>`
+        + `<div style="margin-top:8px">${tags}</div>`;
+  if (par) h += lineageHtml(w);
+  if (ch.length) h += `<p class="by">Commentaries on this work (${ch.length}): ` + ch.slice(0,8).map(c => `<button class="plink" data-work="${esc(c.it.id)}">${esc(c.it.grantha)}</button>`).join(' · ') + (ch.length>8?' …':'') + '</p>';
+  if (w.link){
+    const url = 'render.html?path=' + encodeURIComponent(w.link.slug);
+    h += `<div style="margin-top:14px"><div class="roman">पुस्तकालय-मार्गः · Path in our library</div>`
+       + `<div class="crumbs">${pathCrumbs(w.link.slug)}</div><code class="slug">${esc(w.link.slug)}</code></div>`
+       + `<div class="btnrow"><a class="btn pri" href="${url}">पठ · Open in reader ↗</a>`
+       + `<button class="btn" id="pvtoggle">${A.preview?'Hide preview':'Preview here'}</button></div>`
+       + (A.preview ? `<iframe class="preview" src="${url}" title="${esc(it.grantha)}" loading="lazy"></iframe>` : '');
+  } else {
+    h += `<p class="nobio" style="margin-top:14px">This work is catalogued in the Dvaita Grantha Anukramaṇikā, but its text has not been digitised into the library yet.</p>`;
+  }
+  return h + '</div>';
+}
+function worksList(e){
+  const rows = e.works.slice().sort((a,b) => (b.link?1:0)-(a.link?1:0));
+  return `<div class="card"><div class="sect-h"><h3>ग्रन्थाः · Works by ${esc(e.name)} (${e.works.length})</h3></div><div>`
+    + rows.map(w => {
+        const tags = [w.it.prasthana, w.it.vibhaga, w.it.vishayaVibhaga].filter(Boolean).join(' · ');
+        return `<div class="work${A.work && A.work.it.id===w.it.id ? ' sel':''}" data-work="${esc(w.it.id)}">`
+          + `<div class="t">${esc(w.it.grantha||'—')}${ctxLine(w)?`<div class="meta ctx">${esc(ctxLine(w))}</div>`:''}${tags?`<div class="meta">${esc(tags)}</div>`:''}</div>`
+          + (w.link ? '<span class="yes">✓ in library</span>' : '<span class="no">not in the library yet</span>') + '</div>';
+      }).join('') + '</div></div>';
+}
+// works of one prasthana / library section, grouped by kind (मूलम् / भाष्यम् / टीका / टिप्पणी ...)
+function groupCard(type, key){
+  const g = groups()[type].find(x => x.key === key); if (!g) return '';
+  const name = type === 'pra' ? key : secName(key);
+  const by = new Map();
+  g.ws.forEach(w => { const r = w.it.vishayaVibhaga || 'अन्ये'; if (!by.has(r)) by.set(r, []); by.get(r).push(w); });
+  const held = g.ws.filter(w => w.link).length;
+  let h = `<div class="card hero"><span class="roman">${type==='pra'?'प्रस्थानम्':'पुस्तकालयविभागः'}</span><h2>${esc(name)}</h2>`
+        + `<div style="margin-top:10px"><span class="tag">${g.ws.length} works</span><span class="tag held">${held} held in the library</span></div>`
+        + (type === 'sec' ? `<p class="nobio">${esc(key)}</p>` : '') + '</div>';
+  [...by].sort((a,b) => b[1].length - a[1].length).forEach(([role, ws]) => {
+    ws.sort((a,b) => (b.link?1:0)-(a.link?1:0));
+    h += `<div class="card"><div class="sect-h"><h3>${esc(role)} (${ws.length})</h3></div><div>`
+      + ws.map(w => `<div class="work" data-work="${esc(w.it.id)}"><div class="t">${esc(w.it.grantha||'—')}`
+        + `<div class="meta">${esc(w.ent.name)}</div>${ctxLine(w)?`<div class="meta ctx">${esc(ctxLine(w))}</div>`:''}</div>`
+        + (w.link ? '<span class="yes">✓ in library</span>' : '<span class="no">not in the library yet</span>') + '</div>').join('')
+      + '</div></div>';
+  });
+  return h;
+}
+function drawRight(){
+  const host = $('right');
+  $('anu').classList.toggle('viewing', !!(A.ent || A.grp));
+  if (A.grp){ host.innerHTML = `<button class="btn back" id="backbtn">← मुखपृष्ठम् · Home</button>` + groupCard(A.grp.type, A.grp.key); return; }
+  if (!A.ent){
+    const feat = ANU.ents.filter(e => e.profile).slice(0,8);
+    host.innerHTML = `<div class="card welcome"><h2>द्वैतवेदान्तग्रन्थानुक्रमणी</h2>`
+      + `<p>Search a work or an author on the left. Pick an author to see who they were and everything they wrote; pick a work to see where it sits in our library and open it.</p>`
+      + `<div class="featured">${feat.map(e => `<button class="chip" data-ent="${esc(e.key)}">${esc(e.name)} · ${e.works.length}</button>`).join('')}</div></div>`;
+    return;
+  }
+  host.innerHTML = `<button class="btn back" id="backbtn">← मुखपृष्ठम् · Home</button>` + authorCard(A.ent)
+    + (A.work ? workCard(A.work) : '') + worksList(A.ent);
+}
+function syncHash(){
+  const h = A.ent ? '#anukramani/' + encodeURIComponent(A.ent.key) + (A.work ? '/' + encodeURIComponent(A.work.it.id) : '') : '#anukramani';
+  try { history.replaceState(null, '', h); } catch(e){}
+}
+function pickEnt(key){
+  const e = ANU.byKey[key]; if (!e) return;
+  A.ent = e; A.work = null; A.preview = false; A.grp = null;
+  drawLeft(); drawRight(); syncHash();
+  if (matchMedia('(max-width:900px)').matches) window.scrollTo({top:0});
+}
+function pickWork(id){
+  const w = ANU.byId[id]; if (!w) return;
+  A.ent = w.ent; A.work = w; A.preview = false; A.grp = null;
+  drawLeft(); drawRight(); syncHash();
+  if (matchMedia('(max-width:900px)').matches) window.scrollTo({top:0});
+}
+
+// ---- events ----
+let qTimer = null;
+$('q').addEventListener('input', e => {
+  A.q = e.target.value; A.more = {authors:40, works:60};
+  $('sbox').classList.toggle('has', !!A.q);
+  clearTimeout(qTimer); qTimer = setTimeout(() => { if (ANU) { $('left').scrollTop = 0; drawLeft(); } }, 90);
 });
+$('qclr').addEventListener('click', () => { $('q').value=''; $('q').dispatchEvent(new Event('input')); $('q').focus(); });
+document.querySelectorAll('.modes .chip').forEach(b => b.addEventListener('click', () => {
+  A.mode = b.dataset.mode;
+  document.querySelectorAll('.modes .chip').forEach(x => x.classList.toggle('on', x===b));
+  if (ANU) drawLeft();
+}));
+$('anu').addEventListener('click', ev => {
+  const m = ev.target.closest('[data-more]');
+  if (m){ if (!A.q.trim()) A.showAllAuthors = true; else A.more[m.dataset.more] += m.dataset.more==='authors'?40:60; drawLeft(); return; }
+  const gp = ev.target.closest('[data-grp]');
+  if (gp){ const [type, key] = gp.dataset.grp.split('|'); A.grp = { type, key }; A.ent = null; A.work = null;
+           drawLeft(); drawRight(); if (matchMedia('(max-width:900px)').matches) window.scrollTo({top:0}); return; }
+  const w = ev.target.closest('[data-work]'); if (w){ pickWork(w.dataset.work); return; }
+  const e = ev.target.closest('[data-ent]'); if (e){ pickEnt(e.dataset.ent); return; }
+  if (ev.target.id === 'pvtoggle'){ A.preview = !A.preview; drawRight(); return; }
+  if (ev.target.id === 'backbtn'){ A.ent = null; A.work = null; A.grp = null; A.q = ''; A.mode = 'all'; $('q').value = ''; $('sbox').classList.remove('has');
+    document.querySelectorAll('.modes .chip').forEach(x => x.classList.toggle('on', x.dataset.mode === 'all'));
+    $('left').scrollTop = 0; window.scrollTo({top:0}); drawLeft(); drawRight(); syncHash(); }
+});
+function openAnuFromHash(){
+  const m = location.hash.match(/^#anukramani(?:\/([^/]+))?(?:\/([^/]+))?/);
+  if (!m || !ANU) return;
+  const ek = m[1] && decodeURIComponent(m[1]), wid = m[2] && decodeURIComponent(m[2]);
+  if (wid && ANU.byId[wid]) pickWork(wid); else if (ek && ANU.byKey[ek]) pickEnt(ek);
+}
 function setTab(anu){
   $('tabTree').classList.toggle('on', !anu);
   $('tabAnu').classList.toggle('on', anu);
   $('tree').hidden = anu; $('anu').hidden = !anu;
   $('find').style.display = anu ? 'none' : '';
   $('foot').textContent = anu
-    ? 'Every known Dvaita work catalogued so far. The ones this library holds are links.'
+    ? 'Every known Dvaita work catalogued so far. The ones this library holds open in the reader.'
     : 'Every title opens the text itself.';
-  if (anu) loadAnu();
+  if (anu) loadAnu().then(() => { drawLeft(); drawRight(); openAnuFromHash(); })
+                    .catch(() => { $('left').innerHTML = '<div class="lsec"><h3>The catalogue could not be loaded.</h3></div>'; });
 }
-$('tabTree').addEventListener('click', () => setTab(false));
+$('tabTree').addEventListener('click', () => { setTab(false); try { history.replaceState(null,'',location.pathname); } catch(e){} });
 $('tabAnu').addEventListener('click', () => setTab(true));
-if (location.hash === '#anukramani') setTab(true);
+if (/^#anukramani/.test(location.hash)) setTab(true);
+
+// ---- display script: same setting the reader uses (localStorage app_script) ----
+// Converts the Devanagari the catalogue is written in, on screen only; the data
+// and the search keys never change. A few fixed interface phrases also read in
+// Kannada. This is script conversion, not translation of the titles themselves.
+const KN_UI = {
+  'not in the library yet':'ಇನ್ನೂ ಗ್ರಂಥಾಲಯದಲ್ಲಿಲ್ಲ', '✓ in library':'✓ ಗ್ರಂಥಾಲಯದಲ್ಲಿದೆ',
+  '✓ held in the library':'✓ ಗ್ರಂಥಾಲಯದಲ್ಲಿದೆ', 'Open in reader ↗':'ಓದು ↗', 'Preview here':'ಇಲ್ಲೇ ನೋಡಿ',
+  'Hide preview':'ಮುನ್ನೋಟ ಮರೆಮಾಡಿ', '← Results':'← ಫಲಿತಾಂಶಗಳು', 'No author matches.':'ಗ್ರಂಥಕರ್ತರು ಸಿಗಲಿಲ್ಲ.',
+  'No work matches.':'ಗ್ರಂಥ ಸಿಗಲಿಲ್ಲ.', 'Path in our library':'ಗ್ರಂಥಾಲಯದ ಮಾರ್ಗ', 'Work':'ಗ್ರಂಥ',
+  'Period':'ಕಾಲ', 'Matha':'ಮಠ', 'Role':'ಪದವಿ', 'Guru':'ಗುರು', 'Early life':'ಪೂರ್ವಾಶ್ರಮ',
+  'Brindavana':'ವೃಂದಾವನ', 'Also known as':'ಇತರ ಹೆಸರುಗಳು', 'Authors':'ಗ್ರಂಥಕರ್ತರು', 'Works':'ಗ್ರಂಥಗಳು', 'All':'ಎಲ್ಲವೂ',
+  'Guru Paramparā ↗':'ಗುರುಪರಂಪರೆ ↗', 'works':'ಗ್ರಂಥಗಳು', 'authors':'ಗ್ರಂಥಕರ್ತರು', 'held here':'ಇಲ್ಲಿ ಲಭ್ಯ', 'texts':'ಗ್ರಂಥಗಳು',
+  'Sanskrit':'ಸಂಸ್ಕೃತ'
+};
+let SCRIPT = 'devanagari';
+try { SCRIPT = localStorage.getItem('app_script') || 'devanagari'; } catch(e){}
+if (!Array.from($('lang').options).some(o => o.value === SCRIPT)) SCRIPT = 'devanagari';
+$('lang').value = SCRIPT;
+const DEVA_ALIAS = ['devanagari','hindi','marathi'];
+// Parasavarṇa -> anusvāra (इन्द्र -> ಇಂದ್ರ) for Indic display scripts. Mirrors
+// js/transliteration.js dgeParasavarna and tools/parasavarna.py.
+const PSV = { 'ङ':'कखगघ', 'ञ':'चछजझ',
+              'ण':'टठडढ', 'न':'तथदध', 'म':'पफबभ' };
+const PSV_RE = new RegExp('(['+Object.keys(PSV).join('')+'])्(['+Object.values(PSV).join('')+'])','g');
+const parasavarna = t => t.replace(PSV_RE, (m,n,c) => PSV[n].indexOf(c) >= 0 ? 'ं'+c : m);
+function convert(str){
+  let t = str;
+  if (SCRIPT === 'kannada'){
+    const k = t.trim();
+    if (KN_UI[k]) return t.replace(k, KN_UI[k]);
+    // "<Devanagari> · Words" style labels: translate the English half of a bilingual label
+    t = t.replace(/(^|[ ·(])([A-Za-z][A-Za-z ↗←✓]*[A-Za-z↗])(?=$|[ ·)])/g, (m,a,w) => KN_UI[w] ? a+KN_UI[w] : m);
+  }
+  if (DEVA_ALIAS.indexOf(SCRIPT) >= 0 || !window.Sanscript || !/[ऀ-ॿ]/.test(t)) return t;
+  try {
+    let d = t.replace(/[​-‍﻿]/g,'').replace(/ꣳ/g,'ं');
+    if (SCRIPT !== 'iast') d = parasavarna(d);
+    return Sanscript.t(d, 'devanagari', SCRIPT);
+  }
+  catch(e){ return t; }
+}
+function localize(root){
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode: n => n.parentNode && /^(SCRIPT|STYLE|CODE|TEXTAREA)$/.test(n.parentNode.nodeName)
+      ? NodeFilter.FILTER_REJECT : (n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT) });
+  const nodes = []; while (w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach(n => { if (n.__o === undefined) n.__o = n.nodeValue; const v = convert(n.__o); if (n.nodeValue !== v) n.nodeValue = v; });
+  root.querySelectorAll('[placeholder]').forEach(el => {
+    if (el.__ph === undefined) el.__ph = el.getAttribute('placeholder');
+    el.setAttribute('placeholder', convert(el.__ph));
+  });
+  root.querySelectorAll('option').forEach(o => { if (o.__o === undefined) o.__o = o.textContent; if (o.parentNode.id !== 'lang') o.textContent = convert(o.__o); });
+}
+// Every render goes through here, so new rows arrive already in the chosen script.
+['drawTree','drawLeft','drawRight'].forEach(name => {
+  const f = window[name]; if (typeof f !== 'function') return;
+  window[name] = function(){ const r = f.apply(this, arguments);
+    localize($(name==='drawTree' ? 'tree' : name==='drawLeft' ? 'left' : 'right')); return r; };
+});
+$('lang').addEventListener('change', e => {
+  SCRIPT = e.target.value;
+  try { localStorage.setItem('app_script', SCRIPT); } catch(err){}
+  localize(document.body);
+  const fr = document.querySelector('iframe.preview'); if (fr) fr.src = fr.src;   // the reader reads app_script on load
+});
+
+localize(document.body);
 </script>
 </body>
 </html>

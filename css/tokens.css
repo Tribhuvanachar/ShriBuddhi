@@ -1,3 +1,12 @@
+/* Adishila (the project's Devanagari faces, fonts/): first in --font-sanskrit, so every
+   page that uses that token shows Devanagari in Adishila. unicode-range keeps them
+   off Latin/Kannada text. Added 30 Sep 2026. */
+@font-face{font-family:'Adishila San';src:local('Adishila San'),url('../fonts/AdishilaSan.ttf') format('truetype');
+  unicode-range:U+0900-097F,U+1CD0-1CFF,U+A8E0-A8FF,U+200C-200D;font-display:swap}
+@font-face{font-family:'Adishila SemiBold';src:local('Adishila SemiBold'),url('../fonts/AdishilaSemiBoldB.ttf') format('truetype');
+  unicode-range:U+0900-097F,U+1CD0-1CFF,U+A8E0-A8FF,U+200C-200D;font-display:swap}
+@font-face{font-family:'Adishila Heavy';src:local('Adishila Heavy'),url('../fonts/AdishilaHeavyH.ttf') format('truetype');
+  unicode-range:U+0900-097F,U+1CD0-1CFF,U+A8E0-A8FF,U+200C-200D;font-display:swap}
 /* =========================================================================
    DGE Canonical Design Tokens
    Phase 1 of the frontend redesign (see /root/.claude/plans -- this file's
@@ -31,7 +40,7 @@
   --t-fast: 0.15s;
   --t-med: 0.25s;
   --font-multiplier: 18px;
-  --font-sanskrit: 'Tiro Devanagari Sanskrit', 'Noto Sans Devanagari', 'Noto Serif Devanagari', serif;
+  --font-sanskrit: 'Adishila San', 'Tiro Devanagari Sanskrit', 'Noto Sans Devanagari', 'Noto Serif Devanagari', serif;
   --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Vandana palette — the default, and also the pre-JS fallback so the first
