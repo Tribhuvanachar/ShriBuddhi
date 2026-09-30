@@ -241,7 +241,7 @@
   function loadVrittis(box){
     if(!box || box.dataset.loaded) return;
     var code=box.dataset.vrit; box.dataset.loaded="1";
-    box.innerHTML='<div class="mdhv-head">📜 वृत्तयः · dhātuvṛttis <span class="mdhv-lic">GPL · samsaadhanii/scl</span></div><div class="vrit-tabs"></div><div class="mdhv-text">loading…</div>';
+    box.innerHTML='<div class="mdhv-head">📜 वृत्तयः · dhātuvṛttis</div><div class="vrit-tabs"></div><div class="mdhv-text">loading…</div>';
     fetch("../data/vedanga/vyakarana/vritti/"+code+".json").then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
       _vcache[code]=d;
       var tabs=$(".vrit-tabs",box);

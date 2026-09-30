@@ -164,8 +164,7 @@
         $('#vc-credit').innerHTML = (at.source_url && at.source_name
           ? 'स्रोतः: <a href="' + esc(at.source_url) + '" target="_blank" rel="noopener">' + esc(at.source_name) + '</a>'
           : '') +
-          (at.accessed_date ? ' · accessed ' + esc(at.accessed_date) : '') +
-          (at.license_notes ? ' · ' + esc(at.license_notes) : '');
+          (at.accessed_date ? ' · accessed ' + esc(at.accessed_date) : '');
         render();
       })
       .catch(function () {

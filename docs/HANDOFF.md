@@ -253,3 +253,35 @@ Datasets (30 Sep 2026):
 
 Also still open:
 - `ask-claude.yml` is dormant; see `docs/ASK_CLAUDE.md`.
+
+## IndoWordNet watcher, Saṃsādhanī, sandhi (30 Sep 2026)
+
+- **`watch-indowordnet.yml`** (weekly, Sun 04:00 IST) runs `tools/check_indowordnet.py`: sha256 of the
+  pyiwn dump, CFILT's live Sanskrit statistics, the pyiwn release. Baseline in
+  `tools/wordnet_source.json`. A changed dump rebuilds `data/_wordnet/` and opens a PR; a change only in the
+  live statistics opens a PR that moves the baseline and says a fresh export is needed. The pyiwn dump is
+  from 2019 and CFILT's live counts may already be ahead of it (first check: live 36,625 nouns / 2,270 /
+  5,247 / 377 against 37,734 synsets built), so the real gap is getting a newer export, not running the job.
+- **Saṃsādhanī at read time**: `js/samsadhani.js` calls the University of Hyderabad CGI services directly
+  (they send `Access-Control-Allow-Origin: *`; no proxy). Serial, 600 ms apart, 60-day browser cache, gives
+  up after 3 failures. The tapped word is sent to their server; the Credits page says so. `sclLive: false` in
+  `js/config.js` turns it off; `sclBase` points at a mirror or a self-hosted copy. Failures come back as
+  HTTP 200 text, never a status code (`?` prefix = not split). Used by the word popover in
+  `js/intellisense.js`: a second opinion on a Vidyut sandhi split (tick if it agrees, its own answer shown if
+  not), the splitter when Vidyut has none, the analyser when Vidyut has no analysis.
+- **Benchmark** (`tools/bench_segmenters.py`, 500 Kavya verses against the editors' padaccheda): Vidyut
+  `cheda` mean F1 0.46, our segmenter 0.40; on 40 verses SCL's splitter 0.51 against cheda 0.51 and ours
+  0.38. No engine is good enough to write into a text's `padaccheda` field: sidecars only, labelled engine.
+- **`build-padaccheda-sandhi.yml`** builds `_padaccheda/`, `_sandhi/` and `_sandhi_wide/` for all Kavya,
+  Purāṇa and Itihāsa texts and opens a PR. `data/_padaccheda/` (19 MB, 145 files) and `data/_sandhi_wide/`
+  (5 MB, 74,903 words) were generated once locally; `_sandhi/` was NOT rebuilt (an hour of Vidyut) and does
+  not yet include the imported Kavya vocabulary.
+- **Sandhi widening**: Vidyut 0.4.0 is the newest release and has the consonant and visarga rows; the six-rule
+  limit was ours. `--wide` adds them as one guess per word (both halves kosha headwords of >= 3 letters,
+  each seen >= 5 times in the corpus). About one in four guesses is a fragment, so the reader labels them
+  possible until Saṃsādhanī confirms both halves.
+- `tools/scl_crosscheck_dhatu.py` checks a sample of our vidyut-prakriya verb forms against SCL's analyser
+  (report only). First run, 75 forms: SCL agreed on 43%, disagreed on 4, did not recognise 39; SCL's root
+  coverage is the limit there, not evidence that our forms are wrong.
+- Licences: no licence text on any reading surface. The vṛtti files, the WordNet manifest and the popover
+  no longer carry one; GPL / CC BY-SA credits live on the Credits page (`content/legal.json`).

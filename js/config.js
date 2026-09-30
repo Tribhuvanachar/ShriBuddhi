@@ -479,7 +479,12 @@ const FEATURE_FLAGS = {
   // _commentary_sandhi/<slug>.json). Built only for the granthas asked
   // for; a grantha with no file simply shows no marks.
   showCommentarySandhi: true,
-  showPadaccheda: true     // पदच्छेदः chip on a verse (render.js + _padaccheda/)
+  showPadaccheda: true,    // पदच्छेदः chip on a verse (render.js + _padaccheda/)
+  // Saṃsādhanī (Univ. of Hyderabad) analysis in the double-tap word popover
+  // (js/samsadhani.js). Sends the tapped word to their server; set false to
+  // keep every lookup on this site. sclBase can point at a mirror or a
+  // self-hosted copy.
+  sclLive: true
 };
 window.FEATURE_FLAGS = FEATURE_FLAGS;
 
