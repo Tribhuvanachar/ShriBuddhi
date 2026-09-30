@@ -1164,6 +1164,21 @@ body.dge-app-view .shloka-list { gap: 20px; }
 .dge-cbar-nudge { animation: dgeCbarNudge 1.4s ease-in-out 3; }
 @media (prefers-reduced-motion: reduce) { .dge-cbar-nudge { animation: none; box-shadow: 0 0 0 3px var(--accent-glow); } }
 
+/* 30 Sep 2026: "Compare commentaries" (js/render.js dgeOpenCommentaryCompare),
+   reached from the ☰ drawer rather than a per-word popup. Wider than the
+   420px word-tool modals (.dge-word-modal) since its whole point is fitting
+   two or more commentaries side by side -- collapses to one stacked column
+   below 700px, where side-by-side would just be two unreadably narrow slivers. */
+.dge-compare-modal { max-width: 960px; width: 96vw; }
+.dge-compare-verse { font-size: calc(var(--font-multiplier) * 1.05); line-height: 1.8; padding: 8px 10px; margin-bottom: 10px; border-bottom: 1px solid var(--card-border); }
+.dge-compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; align-items: start; }
+.dge-compare-col { border: 1px solid var(--card-border); border-radius: var(--radius-md); background: var(--card-bg); overflow: hidden; }
+.dge-compare-col-head { font-family: var(--font-ui); font-size: 12px; font-weight: 700; padding: 7px 10px; background: var(--accent-gold); color: #1a1208; }
+.dge-compare-col-body { padding: 10px 12px; font-size: calc(var(--font-multiplier) * 0.85); line-height: 1.65; max-height: 60vh; overflow-y: auto; }
+.dge-compare-more { margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--card-border); }
+.dge-compare-load-btn { margin: 4px 6px 0 0; }
+@media (max-width: 700px) { .dge-compare-grid { grid-template-columns: 1fr; } }
+
 .dge-tab-unloaded { opacity: 0.6; border-style: dashed; }
 .dge-tab-unloaded:active { opacity: 1; }
 

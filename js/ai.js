@@ -2324,11 +2324,25 @@ function dgeEnsureDhatuModal() {
 function dgeShowDhatuNotFound(body, surface) {
   body.innerHTML = '<div class="dsm-empty">No exact verb form found for "' + dgeShabdaEsc(surface) + '". ' +
     'It may still be findable in the full धातुपाठः browser — <a href="vyakarana/dhatu.html?q=' + encodeURIComponent(surface) + '" target="_blank">search धातुपाठः ↗</a>, or ' +
-    '<a href="#" id="ddmReportMissing">report this as missing</a>.</div>';
+    '<a href="#" id="ddmReportMissing">report this as missing</a>.</div>' +
+    '<div class="dsm-gen"><a class="btn-sm" href="#" id="ddmTryShabda">Search in Shabda instead →</a></div>';
   const rep = document.getElementById('ddmReportMissing');
   if (rep) rep.addEventListener('click', function (e) {
     e.preventDefault();
     if (typeof window.dgeReportMissingForm === 'function') window.dgeReportMissingForm(surface, 'dhatu-modal');
+  });
+  // 30 Sep 2026, the lead: "if Dhatu fails... want to search in Shabdas
+  // would be the option." Shabda's own fallback chain (dgeOpenShabdaForSelection)
+  // already appends the Kosha panel regardless of whether it finds a match, so
+  // this one link is also the "and if that fails too, Kosha" step -- there is
+  // nothing further to wire for Kosha specifically.
+  const tryShabda = document.getElementById('ddmTryShabda');
+  if (tryShabda) tryShabda.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (typeof closeModal === 'function') closeModal(DGE_DHATU_MODAL_ID);
+    const prev = window.dgeSelectedWordText;
+    window.dgeSelectedWordText = function () { return surface; };
+    try { window.dgeOpenShabdaForSelection(null); } finally { window.dgeSelectedWordText = prev; }
   });
 }
 

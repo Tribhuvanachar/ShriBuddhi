@@ -277,6 +277,120 @@ document.addEventListener('toggle', function (e) {
 }, true);
 window.dgeRenderCommentaryBar = dgeRenderCommentaryBar;
 
+// 30 Sep 2026, the lead: "comparing two commentaries and all must not be
+// contextual menus, but they can go into the main menu... present on the
+// right side of the screen." That is the ☰ drawer (#actionsDrawer,
+// render.html) — a "Compare" entry there, shown only when this text
+// actually carries 2+ commentaries (same entries dgeCommentaryBarEntries
+// already lists for the bar above the verses), reusing that one list so
+// the two never drift apart.
+function dgeSyncCompareButtonVisibility() {
+  const wrap = document.getElementById('compareCommentariesTopbarItem');
+  if (!wrap) return;
+  const entries = dgeCommentaryBarEntries();
+  wrap.style.display = entries.length >= 2 ? '' : 'none';
+}
+
+function dgeEnsureCommentaryCompareModal() {
+  if (document.getElementById('dgeCommentaryCompareModal')) return;
+  document.body.insertAdjacentHTML('beforeend',
+    '<div class="modal-overlay" id="dgeCommentaryCompareModal">' +
+      '<div class="modal-content dge-compare-modal">' +
+        '<div class="modal-header-sticky">' +
+          '<h3 style="margin:0; color:var(--accent-red); font-size:16px;">⇄ Compare commentaries</h3>' +
+          '<button class="btn-sm" onclick="window.closeModal(\'dgeCommentaryCompareModal\')" style="font-size:11px;">✖ Close</button>' +
+        '</div>' +
+        '<div class="modal-body" id="dgeCommentaryCompareBody"></div>' +
+      '</div>' +
+    '</div>');
+}
+
+function dgeCompareLoadMoreHtml(notLoaded) {
+  if (!notLoaded.length) return '';
+  return '<div class="dge-compare-more">' +
+    '<div class="dsm-sub">Also available for this verse — tap to load and add:</div>' +
+    notLoaded.map(e => '<button type="button" class="btn-sm dge-compare-load-btn" data-compare-load="' +
+      dgeShabdaEsc(e.key) + '">+ ' + dgeShabdaEsc(e.label) + '</button>').join(' ') +
+  '</div>';
+}
+
+function dgeWireCompareLoadMore(body, id) {
+  body.querySelectorAll('[data-compare-load]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const key = btn.dataset.compareLoad;
+      btn.disabled = true;
+      btn.textContent = 'Loading…';
+      if (typeof selectedCommentaries !== 'undefined') selectedCommentaries.add(key);
+      if (typeof window.dgeEnsureStitchedLayers === 'function') window.dgeEnsureStitchedLayers();
+      // In-file commentaries are already on stotraData with nothing to
+      // fetch; a stitched sibling genuinely fetches (megabytes, in the
+      // worst case) via the fire-and-forget loader above, which has no
+      // promise to await — so this polls for the text to land rather than
+      // assuming one tick is enough, and gives up after 6s either way.
+      let tries = 0;
+      const poll = setInterval(function () {
+        tries++;
+        const sh = stotraData && stotraData.shlokas[id];
+        if ((sh && sh.commentaries && sh.commentaries[key]) || tries >= 12) {
+          clearInterval(poll);
+          window.dgeOpenCommentaryCompare();
+        }
+      }, 500);
+    });
+  });
+}
+
+window.dgeOpenCommentaryCompare = function () {
+  const id = (typeof activeId !== 'undefined' && activeId)
+    ? activeId
+    : (typeof getFilteredIds === 'function' ? (getFilteredIds()[0] || null) : null);
+  if (!id || !stotraData || !stotraData.shlokas[id]) {
+    if (typeof showToast === 'function') showToast('Open a shloka first, then Compare.');
+    return;
+  }
+  const sh = stotraData.shlokas[id];
+  const entries = dgeCommentaryBarEntries();
+  const loaded = entries.filter(e => sh.commentaries && sh.commentaries[e.key]);
+  // "Not loaded" only for a genuinely pending stitched sibling (layer-stitch.js)
+  // -- clicking +Load actually fetches something for those. An in-file
+  // commentary can be listed in the grantha-wide metadata.availableCommentaries
+  // yet simply not cover THIS particular verse (found live: Prahlāda-kṛta
+  // Narasiṃha Stotra's tātparyam/footnotes exist for other verses but not
+  // shloka 1) -- there is nothing to load there, so a +Load button for it
+  // would spin for 6s and silently do nothing. Left out of both lists.
+  const stitchedPending = (typeof window.dgeStitchedAvailableKeys === 'function')
+    ? new Set(window.dgeStitchedAvailableKeys()) : new Set();
+  const notLoaded = entries.filter(e => !(sh.commentaries && sh.commentaries[e.key]) && stitchedPending.has(e.key));
+
+  dgeEnsureCommentaryCompareModal();
+  window.openModal('dgeCommentaryCompareModal');
+  const body = document.getElementById('dgeCommentaryCompareBody');
+  const verseText = typeof applyTransliteration === 'function' ? applyTransliteration(sh.sa || '', activeScript) : (sh.sa || '');
+  const verseHtml = '<div class="dge-compare-verse deva">' + verseText + '</div>';
+
+  if (loaded.length < 2) {
+    body.innerHTML = verseHtml +
+      '<div class="dsm-empty">' + (loaded.length === 0
+        ? 'No commentary is loaded for this verse yet.'
+        : 'Only one commentary is loaded for this verse — load a second one below to compare.') + '</div>' +
+      dgeCompareLoadMoreHtml(notLoaded);
+    dgeWireCompareLoadMore(body, id);
+    return;
+  }
+
+  body.innerHTML = verseHtml +
+    '<div class="dge-compare-grid">' +
+      loaded.map(e => (
+        '<div class="dge-compare-col">' +
+          '<div class="dge-compare-col-head">' + dgeShabdaEsc(e.label) + '</div>' +
+          '<div class="dge-compare-col-body deva">' + (sh.commentaries[e.key] || '') + '</div>' +
+        '</div>'
+      )).join('') +
+    '</div>' +
+    dgeCompareLoadMoreHtml(notLoaded);
+  dgeWireCompareLoadMore(body, id);
+};
+
 // The bar's bulk switch. setCommentaryView() does the same job but also
 // closes the 💬 popup, which is wrong when the tap came from the bar and no
 // popup is open.
@@ -873,6 +987,21 @@ function renderList() {
     const srcViewHtml = shloka.sourceHtml
       ? `<div class="dge-srcview" hidden>${shloka.sourceHtml}</div>` : '';
 
+    // 30 Sep 2026, the lead: "Top of each sloka there it can have options to
+    // get the pada cheda anvaya artha akanksha dynamically from genie ai if
+    // it is enabled." Rather than four separate buttons issuing four separate
+    // Gemini calls, this reuses the existing 'shloka' Ask Acharya query type
+    // (ACHARYA_QUERY_TYPES in config.js), which already bundles Padachheda,
+    // Anvaya, Word Meaning and Bhavartha as one configurable request — the
+    // same breakdown the ⋯ menu's "Explain this shloka" already opens, now
+    // also reachable without a detour through that menu. Gated on
+    // dgeAiFeaturesAllowed() (config.js) so an unconfigured/ordinary reader
+    // never sees a button that would just ask them to add a Gemini key —
+    // the three tools that must always work (Shabda/Dhatu/Kosha) live on the
+    // word-selection Genie menu instead and are never gated this way.
+    const genieBtnHtml = (typeof window.dgeAiFeaturesAllowed === 'function' && window.dgeAiFeaturesAllowed())
+      ? `<button class="btn-icon dge-shloka-genie-btn" title="Genie AI — Pada-cheda, Anvaya, Artha, Bhavartha for this shloka" aria-label="Ask Genie AI about shloka ${i}" onclick="event.stopPropagation(); window.askAcharyaForShloka(${i}, 'shloka')">🧞</button>` : '';
+
     // बन्नञ्जे-पाठः. Sumadhva Vijaya is read in two recensions: the one most
     // of the tradition accepts (the primary text here, from dvaitavedanta.in)
     // and Bannanje Govindacharya's critical edition, which admits fewer
@@ -915,6 +1044,7 @@ function renderList() {
         <div class="shloka-text" onclick="if(!window.dgeContentEditMode && typeof loadShloka==='function') loadShloka(${i})">${mulaHtml}</div>
         ${window.dgeContentEditMode ? `<button class="btn-icon" title="Edit this shloka's text" onclick="event.stopPropagation(); window.dgeInlineEditShloka(${i})">✏️</button>` : ''}
         ${srcBtnHtml}
+        ${genieBtnHtml}
         ${moreBtnHtml}
       </div>
       ${pathaChipHtml}
@@ -960,6 +1090,7 @@ function renderList() {
   dgeUpdateListViewNav(fIds, needsPaging);
 
   dgeRenderCommentaryBar();
+  dgeSyncCompareButtonVisibility();
 
   // धातु/कोश word marking (highlight-words.js). Deliberately AFTER the DOM is
   // in place and deliberately not awaited: the answer needs a fetch, and a
