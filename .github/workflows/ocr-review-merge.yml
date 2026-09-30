@@ -99,33 +99,9 @@ jobs:
       - name: Validate
         run: python3 tools/validate_data.py
 
-      # This job's own checkout (this repo, ShriBuddhi) fetches the staged
-      # branch and runs the merge above; the final publish targets
-      # BrahmaBuddhi as a staging repo instead of PR-ing straight into
-      # ShriBuddhi or bhumandala -- see
-      # .github/workflows/push-to-brahmabuddhi.yml.
-      - name: Checkout BrahmaBuddhi
-        uses: actions/checkout@v4
-        with:
-          repository: Tribhuvanachar/BrahmaBuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
-          path: brahmabuddhi
-
-      - name: Mirror the merged content into the BrahmaBuddhi checkout
-        run: |
-          set -euo pipefail
-          # A run that DELETES a file used to die here: `awk '{print $2}'`
-          # reads a deleted path as something to copy and `cp` answers
-          # "cannot stat". The same awk took the wrong field for a rename and
-          # split any path with a space in it.
-          git status --porcelain -z -- data > "$RUNNER_TEMP/changed.z"
-          python3 tools/mirror_changed_paths.py "$RUNNER_TEMP/changed.z" brahmabuddhi
-
-      - name: Open a pull request (against BrahmaBuddhi)
+      - name: Open a pull request (against ShriBuddhi)
         uses: peter-evans/create-pull-request@v6
         with:
-          path: brahmabuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
           branch: ocr-review/${{ github.run_id }}
           title: "OCR review: ${{ inputs.title || inputs.staged }}"
           commit-message: "OCR review merge: ${{ inputs.staged }}"

@@ -181,35 +181,10 @@ jobs:
             tools/sayana_smriti/*.log
           retention-days: 30
 
-      # This job's own checkout (this repo, ShriBuddhi) runs the importers;
-      # the final publish targets BrahmaBuddhi as a staging repo instead of
-      # PR-ing straight into ShriBuddhi or bhumandala -- see
-      # .github/workflows/push-to-brahmabuddhi.yml.
-      - name: Checkout BrahmaBuddhi
-        if: inputs.dry_run != true
-        uses: actions/checkout@v4
-        with:
-          repository: Tribhuvanachar/BrahmaBuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
-          path: brahmabuddhi
-
-      - name: Mirror changed content into the BrahmaBuddhi checkout
-        if: inputs.dry_run != true
-        run: |
-          set -euo pipefail
-          # A run that DELETES a file used to die here: `awk '{print $2}'`
-          # reads a deleted path as something to copy and `cp` answers
-          # "cannot stat". The same awk took the wrong field for a rename and
-          # split any path with a space in it.
-          git status --porcelain -z -- data js/core.js search_index > "$RUNNER_TEMP/changed.z"
-          python3 tools/mirror_changed_paths.py "$RUNNER_TEMP/changed.z" brahmabuddhi
-
-      - name: Open pull request (against BrahmaBuddhi)
+      - name: Open pull request (against ShriBuddhi)
         if: inputs.dry_run != true
         uses: peter-evans/create-pull-request@v6
         with:
-          path: brahmabuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
           branch: ingest/sayana-smriti-${{ github.run_id }}
           title: "Ingest: Sāyaṇa Bhāṣya / Smṛti commentaries (run ${{ github.run_id }})"
           body-path: tools/sayana_smriti/dump/COUNTS_sayana.json

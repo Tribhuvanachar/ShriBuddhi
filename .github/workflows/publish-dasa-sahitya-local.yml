@@ -56,12 +56,12 @@ jobs:
           fi
           du -sh data/dasa_sahitya_local
 
-      # Published to BrahmaBuddhi (a staging repo) rather than to this repo
-      # or bhumandala -- nothing here reads the branch over a CDN, it is a
-      # pending-review git publication (see the header comment), so simply
-      # retargeting the push is enough; no checkout of BrahmaBuddhi is
-      # needed since this step already builds a throwaway repo from scratch.
-      - name: Publish to dasa-sahitya-local-dist (BrahmaBuddhi)
+      # Published as a branch of this repository (BrahmaBuddhi is gone) -- nothing
+      # reads the branch over a CDN, it is a pending-review git publication (see
+      # the header comment). This step builds a throwaway repo from scratch, so no
+      # checkout is needed; it only needs contents: write, which the default
+      # GITHUB_TOKEN has when the workflow asks for it.
+      - name: Publish to dasa-sahitya-local-dist (ShriBuddhi)
         env:
           GIT_AUTHOR_NAME: github-actions[bot]
           GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
@@ -80,13 +80,13 @@ jobs:
           git init -q -b dasa-sahitya-local-dist
           git add -A
           git commit -q -m "The pending Dasa Sahitya local-asset imports, published by publish-dasa-sahitya-local.yml"
-          git push -q --force "https://x-access-token:${{ secrets.BRAHMABUDDHI_TOKEN }}@github.com/Tribhuvanachar/BrahmaBuddhi" \
+          git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" \
             dasa-sahitya-local-dist:refs/heads/dasa-sahitya-local-dist
           SHA=$(git rev-parse HEAD)
           {
-            echo "published to Tribhuvanachar/BrahmaBuddhi's dasa-sahitya-local-dist as \`$SHA\`"
+            echo "published to ${{ github.repository }}'s dasa-sahitya-local-dist as \`$SHA\`"
             echo ""
-            echo "Browse it: https://github.com/Tribhuvanachar/BrahmaBuddhi/tree/dasa-sahitya-local-dist"
+            echo "Browse it: https://github.com/${{ github.repository }}/tree/dasa-sahitya-local-dist"
             echo ""
             echo "No pin to bump yet -- nothing reads this branch over jsDelivr. Once a composer's data is ready to fold into the live corpus, that goes through tools/dasa_sahitya/merge_confirmed_composers.py, not through pointing a UI at this branch."
           } >> "$GITHUB_STEP_SUMMARY"

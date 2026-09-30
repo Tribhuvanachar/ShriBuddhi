@@ -1,5 +1,9 @@
 # HANDOFF — for the next Claude Code session (written 13 Sep 2026)
 
+> **30 Sep 2026 (the lead): BrahmaBuddhi is deleted.** ShriBuddhi now publishes straight to Jagat with
+> `.github/workflows/publish-to-jagat.yml`; `BUDDHI_TOKEN` is now `JAGAT_TOKEN`. Read every mention of
+> BrahmaBuddhi, "promote" or `BRAHMABUDDHI_TOKEN` below as history. Current layout: `CLAUDE.md`.
+
 Session `claude/workflow-library-consolidation-6hludj` on the old repository
 (Tribhuvanachar/bhumandala, renamed Buddhi, about to be deleted) ends here.
 Everything it did is either on the old repo's main (merged 9 Sep) and carried

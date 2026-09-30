@@ -51,28 +51,12 @@ jobs:
           python-version: "3.11"
       - run: pip install -q "huggingface_hub>=0.25"
 
-      # This job's own checkout (this repo, ShriBuddhi) rebuilds the manifest;
-      # the final publish targets BrahmaBuddhi as a staging repo instead of
-      # committing straight into ShriBuddhi or bhumandala -- see
-      # .github/workflows/push-to-brahmabuddhi.yml.
-      - name: Checkout BrahmaBuddhi
-        if: inputs.mode == 'rebuild-manifest'
-        uses: actions/checkout@v4
-        with:
-          repository: Tribhuvanachar/BrahmaBuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
-          path: brahmabuddhi
-
       - name: Rebuild manifest (HF tree + CSVs + DGE Rigveda corpus)
         if: inputs.mode == 'rebuild-manifest'
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           python tools/vedavani_hf/vedavani_corpus.py build-manifest
-          mkdir -p brahmabuddhi/kamadhenu_dataset/external/vedavani_hf
-          cp -a kamadhenu_dataset/external/vedavani_hf/manifest.csv.gz brahmabuddhi/kamadhenu_dataset/external/vedavani_hf/manifest.csv.gz
-          cp -a kamadhenu_dataset/external/vedavani_hf/summary.json brahmabuddhi/kamadhenu_dataset/external/vedavani_hf/summary.json
-          cd brahmabuddhi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add kamadhenu_dataset/external/vedavani_hf/manifest.csv.gz kamadhenu_dataset/external/vedavani_hf/summary.json

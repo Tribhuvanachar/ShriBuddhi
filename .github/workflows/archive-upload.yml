@@ -129,7 +129,7 @@ jobs:
         with:
           repository: ${{ inputs.source_repo }}
           ref: ${{ inputs.source_ref }}
-          token: ${{ secrets.BUDDHI_TOKEN || github.token }}
+          token: ${{ secrets.JAGAT_TOKEN || github.token }}
           path: _audio
 
       - name: Upload to archive.org

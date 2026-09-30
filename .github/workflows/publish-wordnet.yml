@@ -131,7 +131,7 @@ jobs:
           git init -q -b wordnet-dist
           git add -A
           git commit -q -m "The built Sanskrit WordNet, rebuilt by publish-wordnet.yml"
-          git push -q --force "https://x-access-token:${{ secrets.BUDDHI_TOKEN }}@github.com/Tribhuvanachar/bhumandala" \
+          git push -q --force "https://x-access-token:${{ secrets.JAGAT_TOKEN }}@github.com/Tribhuvanachar/bhumandala" \
             wordnet-dist:refs/heads/wordnet-dist
           SHA=$(git rev-parse HEAD)
           # The reader pins a COMMIT, not this branch: jsDelivr caches a

@@ -431,35 +431,10 @@ jobs:
       # is a regenerable build product and search_index is already 162 MB;
       # reindex.yml can rebuild it once the corpus has landed and been reviewed.
 
-      # This job's own checkout (this repo, ShriBuddhi, pinned to main above)
-      # does the merge/catalogue work; the final publish targets BrahmaBuddhi
-      # as a staging repo instead of PR-ing straight into ShriBuddhi or
-      # bhumandala -- see .github/workflows/push-to-brahmabuddhi.yml.
-      - name: Checkout BrahmaBuddhi
-        if: ${{ fromJSON(inputs.open_pr) }}
-        uses: actions/checkout@v4
-        with:
-          repository: Tribhuvanachar/BrahmaBuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
-          path: brahmabuddhi
-
-      - name: Mirror changed content into the BrahmaBuddhi checkout
-        if: ${{ fromJSON(inputs.open_pr) }}
-        run: |
-          set -euo pipefail
-          # A run that DELETES a file used to die here: `awk '{print $2}'`
-          # reads a deleted path as something to copy and `cp` answers
-          # "cannot stat". The same awk took the wrong field for a rename and
-          # split any path with a space in it.
-          git status --porcelain -z -- data/darshana/vedanta/dvaita/DvaitaVedantaIn data/taxonomy.json data/library.json admin/config/library-status.json > "$RUNNER_TEMP/changed.z"
-          python3 tools/mirror_changed_paths.py "$RUNNER_TEMP/changed.z" brahmabuddhi
-
-      - name: Open Pull Request (against BrahmaBuddhi)
+      - name: Open Pull Request (against ShriBuddhi)
         if: ${{ fromJSON(inputs.open_pr) }}
         uses: peter-evans/create-pull-request@v6
         with:
-          path: brahmabuddhi
-          token: ${{ secrets.BRAHMABUDDHI_TOKEN }}
           branch: ingest/dvaitavedanta-${{ inputs.scope }}
           delete-branch: true
           commit-message: "data: extract dvaitavedanta.in (${{ inputs.scope }})"

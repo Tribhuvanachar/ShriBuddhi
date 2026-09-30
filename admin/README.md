@@ -1,5 +1,9 @@
 # Admin
 
+> **30 Sep 2026 (the lead): BrahmaBuddhi is deleted.** ShriBuddhi now publishes straight to Jagat with
+> `.github/workflows/publish-to-jagat.yml`; `BUDDHI_TOKEN` is now `JAGAT_TOKEN`. Read every mention of
+> BrahmaBuddhi, "promote" or `BRAHMABUDDHI_TOKEN` below as history. Current layout: `CLAUDE.md`.
+
 **Moved here from `Tribhuvanachar/bhumandala` on 12 Sep 2026.** bhumandala is
 the *public* repo — anyone can `git clone` it — and it must contain only
 served reader content, nothing administrative. These pages are now reached

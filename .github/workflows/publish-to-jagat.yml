@@ -1,0 +1,139 @@
+# Publish ShriBuddhi straight to Jagat -- the only publish path.
+#
+# BrahmaBuddhi is gone (deleted 30 Sep 2026, the lead). The chain used to be
+# ShriBuddhi -> BrahmaBuddhi -> Jagat; it is now ShriBuddhi -> Jagat, with
+# nothing in between. This workflow is that one hop.
+#
+# WHAT IT DOES
+#   1. gate:  tools/publish_clean_repo.py --scan   (stops if anything still
+#             names the old repository/host)
+#   2. build: the same tool stages the publishable tree, drops admin/, tools/,
+#             tests/, docs/ and every other workshop-only path, rewrites the
+#             private shelves to opaque ids, and makes ONE commit with no parent
+#   3. push:  force-pushes that commit to Jagat's `main` (see below)
+#
+# WHAT IT TOUCHES IN JAGAT: its `main` branch, and only that. Jagat's `data`
+# branch (search-index datasets, served over jsDelivr) shares no history with
+# main and is never written here.
+#
+# WHEN IT PUSHES
+#   - Run by hand (Actions -> this workflow -> Run workflow): builds and reports.
+#     It pushes ONLY if you tick "push". With it unticked it is a dry run, and a
+#     dry run ends in a green check and a file count, not in a changed Jagat.
+#   - On a push to main that changes config/library-overrides.json (that is what
+#     the Library Manager's "Publish shelf" button commits): builds, and pushes
+#     ONLY IF the repository variable JAGAT_AUTO_PUBLISH is exactly "true".
+#     Until the lead sets that variable, a shelf change is committed and waits.
+#     Settings -> Secrets and variables -> Actions -> Variables.
+#
+# WHAT IT NEEDS: the repository secret JAGAT_TOKEN, a token with Contents:
+# Read and write on Tribhuvanachar/Jagat. (It was BUDDHI_TOKEN; renamed.)
+#
+# WHAT A PUSH REPLACES: Jagat main becomes exactly the tree built here, as one
+# commit with no parent. A file someone edited on Jagat directly is gone on the
+# next publish. Edit in ShriBuddhi; work flows down, never up.
+name: Publish — ShriBuddhi to Jagat
+
+on:
+  workflow_dispatch:
+    inputs:
+      push:
+        description: "Actually push to Jagat main (off = build and report only, nothing changes)"
+        type: boolean
+        default: false
+      message:
+        description: "Commit message for Jagat's single commit"
+        default: "Sarvamūla Digital Library"
+  push:
+    branches: [main]
+    paths: ["config/library-overrides.json"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-to-jagat
+  cancel-in-progress: false
+
+env:
+  JAGAT_REPO: Tribhuvanachar/Jagat
+
+jobs:
+  publish:
+    # A shelf commit only publishes once the lead has switched that on.
+    if: github.event_name == 'workflow_dispatch' || vars.JAGAT_AUTO_PUBLISH == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Decide whether this run pushes
+        id: mode
+        env:
+          EVENT: ${{ github.event_name }}
+          PUSH_INPUT: ${{ inputs.push }}
+        run: |
+          if [ "$EVENT" = "workflow_dispatch" ] && [ "$PUSH_INPUT" != "true" ]; then
+            echo "push=false" >> "$GITHUB_OUTPUT"
+            echo "Dry run: nothing will be pushed." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "push=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Gate — nothing may name the old repository or host
+        run: python3 tools/publish_clean_repo.py --source . --scan
+
+      - name: Build the publishable tree (one commit, no parent)
+        env:
+          MSG: ${{ inputs.message }}
+        run: |
+          python3 tools/publish_clean_repo.py --source . --out "$RUNNER_TEMP/jagat" \
+            --author "Sarvamula Publisher <actions@users.noreply.github.com>" \
+            --message "${MSG:-Sarvamūla Digital Library}"
+          {
+            echo "### Built tree"
+            echo "- files: $(git -C "$RUNNER_TEMP/jagat" ls-files | wc -l)"
+            echo "- commit: $(git -C "$RUNNER_TEMP/jagat" rev-parse --short HEAD)"
+            echo "- shelf: $(python3 -c "import json,sys;d=json.load(open('$RUNNER_TEMP/jagat/config/library-overrides.json'))['shelf'];print('enabled' if d.get('enabled') else 'OFF', len(d.get('allow',[])), 'folders')")"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Check the built tree has no workshop-only paths
+        run: |
+          cd "$RUNNER_TEMP/jagat"
+          for p in admin tools tests docs firebase .github; do
+            if [ -e "$p" ]; then echo "::error::$p/ is in the tree to be published"; exit 1; fi
+          done
+
+      # Prove the write BEFORE relying on it, on dry runs too: a token that can
+      # read Jagat but not push is found here, not at the last step of a release.
+      # --dry-run authenticates and asks the server for permission while
+      # transferring and changing nothing.
+      - name: Check JAGAT_TOKEN can push to Jagat
+        env:
+          JAGAT_TOKEN: ${{ secrets.JAGAT_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$JAGAT_TOKEN" || { echo "::error::JAGAT_TOKEN is not set on this repository (Settings -> Secrets and variables -> Actions)."; exit 1; }
+          cd "$RUNNER_TEMP/jagat"
+          git remote add origin "https://x-access-token:${JAGAT_TOKEN}@github.com/${JAGAT_REPO}.git"
+          if ! git push --dry-run origin HEAD:refs/heads/__push_permission_probe 2>err.txt; then
+            sed 's/^/  /' err.txt
+            echo "::error::JAGAT_TOKEN cannot push to ${JAGAT_REPO}. Give its token 'Contents: Read and write' on that repository, then update the secret. Nothing was changed."
+            exit 1
+          fi
+          echo "- JAGAT_TOKEN can push to ${JAGAT_REPO}" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Push to Jagat main
+        if: steps.mode.outputs.push == 'true'
+        env:
+          JAGAT_TOKEN: ${{ secrets.JAGAT_TOKEN }}
+        run: |
+          test -n "$JAGAT_TOKEN" || { echo "::error::JAGAT_TOKEN is not set on this repository (Settings -> Secrets and variables -> Actions)."; exit 1; }
+          cd "$RUNNER_TEMP/jagat"
+          git push --force origin HEAD:main
+          echo "Pushed to ${JAGAT_REPO} main: $(git rev-parse --short HEAD)" >> "$GITHUB_STEP_SUMMARY"

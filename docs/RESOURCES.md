@@ -1,5 +1,9 @@
 # Every account, key, URL and service this project uses
 
+> **30 Sep 2026 (the lead): BrahmaBuddhi is deleted.** ShriBuddhi now publishes straight to Jagat with
+> `.github/workflows/publish-to-jagat.yml`; `BUDDHI_TOKEN` is now `JAGAT_TOKEN`. Read every mention of
+> BrahmaBuddhi, "promote" or `BRAHMABUDDHI_TOKEN` below as history. Current layout: `CLAUDE.md`.
+
 Written 22 Sep 2026, to answer one instruction: *"There should be no
 duplication of keys. … I may ask any of this to be run from any of the
 repository. Things should not be duplicated or rerun or recreated. It must
@@ -347,8 +351,8 @@ that issued it*, which is the last column.
 | `SEARCH_INDEX_BUCKET` | a **bucket name**, not a URL: `sarvamula-search-index` | Cloud Storage console |
 | `SARVAM_API_KEY` | Sarvam Document AI | https://dashboard.sarvam.ai |
 | `VISION_API_KEY` | Google Cloud Vision API key | GCP → APIs & Services → Credentials |
-| `BRAHMABUDDHI_TOKEN` | PAT that can push to BrahmaBuddhi | GitHub → Settings → Developer settings → PATs |
-| `BUDDHI_TOKEN` | PAT for **JagatTest** — "Buddhi" is one of its former names. Used by `promote-to-buddhi.yml`, `reindex.yml`'s pin bump and `sync-firebase-to-jagattest.yml` | same |
+| `BRAHMABUDDHI_TOKEN` | **Retired 30 Sep 2026** — BrahmaBuddhi was deleted. Delete the secret. | — |
+| `JAGAT_TOKEN` | PAT with Contents: Read and write on **Jagat** (renamed from `BUDDHI_TOKEN` on 30 Sep 2026). Used by `publish-to-jagat.yml` (force-pushes Jagat `main`), `reindex.yml`'s pin bump and the firebase mirror workflow | same |
 | `ANTHROPIC_API_KEY`, `CLAUDE_CODE_OAUTH_TOKEN` | Claude Code action | console.anthropic.com |
 | `HF_TOKEN` | Hugging Face | huggingface.co/settings/tokens |
 | Internet Archive, WhatsApp, MSG91, Razorpay, Cashfree, OTP | see §5 | — |
