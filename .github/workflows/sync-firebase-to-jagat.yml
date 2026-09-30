@@ -1,6 +1,6 @@
-# Keep JagatTest's copy of firebase/ identical to this one.
+# Keep Jagat's copy of firebase/ identical to this one.
 #
-# WHY IT EXISTS. JagatTest carries a full duplicate of firebase/ -- functions,
+# WHY IT EXISTS. Jagat carries a full duplicate of firebase/ -- functions,
 # lib, tests, rules, indexes. Nothing deploys from it: deploy-firebase-*.yml
 # and deploy-firestore.yml all run HERE and read THIS checkout. It is a mirror
 # for reading, and on 22 Sep 2026 it was found one commit behind after a change
@@ -10,16 +10,27 @@
 # a second copy of functions/index.js anywhere for the two to drift apart".
 # There is. This workflow makes that claim true instead of deleting the copy.
 #
-# DIRECTION IS ONE-WAY: ShriBuddhi -> JagatTest, always. An edit made to
-# JagatTest's firebase/ is overwritten without warning the moment anything
-# changes here. Edit firebase/ in ShriBuddhi and let this carry it over.
+# DIRECTION IS ONE-WAY: ShriBuddhi -> Jagat, always. An edit made to Jagat's
+# firebase/ is overwritten without warning the moment anything changes here.
+# Edit firebase/ in ShriBuddhi and let this carry it over.
 #
 # WHAT IT COPIES: every file `git ls-files firebase/` reports, which is the
 # tracked set and therefore excludes .firebaserc (gitignored, written per-run
 # by each deploy workflow), functions/.env (written at deploy time) and
-# functions/node_modules/. Files that exist only on JagatTest under firebase/
+# functions/node_modules/. Files that exist only on Jagat under firebase/
 # are DELETED, or the mirror would accumulate ghosts.
-name: Sync — firebase/ to JagatTest
+#
+# 30 Sep 2026: this file used to target Tribhuvanachar/JagatTest, and its own
+# header claimed "JagatTest ... answers to 'bhumandala' and to 'Buddhi' as
+# well -- both are former names of this same repository and both still
+# resolve only because GitHub keeps the rename redirects alive." That was
+# true of the bhumandala -> Buddhi -> JagatTest chain, each step a rename. It
+# stopped being true the day JagatTest was DELETED (not renamed again) and a
+# brand-new repository, Jagat, was created in its place with fresh content --
+# there is no rename redirect to a deleted repository. Renamed this file and
+# repointed it rather than leave a filename and a comment both asserting a
+# continuity that no longer holds.
+name: Sync — firebase/ to Jagat
 
 on:
   push:
@@ -31,7 +42,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: sync-firebase-to-jagattest
+  group: sync-firebase-to-jagat
   cancel-in-progress: false
 
 jobs:
@@ -42,16 +53,16 @@ jobs:
         with:
           path: source
 
-      # Tribhuvanachar/JagatTest, spelled out. It answers to "bhumandala" and
-      # to "Buddhi" as well -- both are former names of this same repository
-      # and both still resolve only because GitHub keeps the rename redirects
-      # alive. Other workflows here still use the old spellings; this one does
-      # not, so it keeps working on the day someone creates a repo by one of
-      # those names. See docs/RESOURCES.md section 0.
-      - name: Check out JagatTest
+      # ref: main is not optional here -- Jagat's default branch is "data" (a
+      # separate branch holding only large CDN-served blobs: _sandhi,
+      # _wordnet, kavya_alankara, search_index shards), not the site. An
+      # unqualified checkout would silently pull that instead of the site
+      # tree this step actually needs.
+      - name: Check out Jagat
         uses: actions/checkout@v4
         with:
-          repository: Tribhuvanachar/JagatTest
+          repository: Tribhuvanachar/Jagat
+          ref: main
           token: ${{ secrets.JAGAT_TOKEN }}
           path: target
 
@@ -60,7 +71,7 @@ jobs:
       # it cost a paid Gemini run to find out at the last step rather than the
       # first. --dry-run authenticates and asks the server for permission while
       # transferring and changing nothing.
-      - name: Prove JAGAT_TOKEN can push to JagatTest
+      - name: Prove JAGAT_TOKEN can push to Jagat
         env:
           T: ${{ secrets.JAGAT_TOKEN }}
         run: |
@@ -69,10 +80,10 @@ jobs:
           cd target
           if ! git push --dry-run origin HEAD:refs/heads/__push_permission_probe 2>err.txt; then
             sed 's/^/  /' err.txt
-            echo "::error::JAGAT_TOKEN can read JagatTest but cannot push to it. Give the token behind JAGAT_TOKEN 'Contents: Read and write' on Tribhuvanachar/JagatTest (GitHub -> Settings -> Developer settings -> Fine-grained tokens), then update the secret on ShriBuddhi. Nothing was changed."
+            echo "::error::JAGAT_TOKEN can read Jagat but cannot push to it. Give the token behind JAGAT_TOKEN 'Contents: Read and write' on Tribhuvanachar/Jagat (GitHub -> Settings -> Developer settings -> Fine-grained tokens), then update the secret on ShriBuddhi. Nothing was changed."
             exit 1
           fi
-          echo "JAGAT_TOKEN can push to JagatTest"
+          echo "JAGAT_TOKEN can push to Jagat"
 
       - name: Copy the tracked firebase/ tree over
         run: |
@@ -98,14 +109,14 @@ jobs:
           git config user.email "noreply@anthropic.com"
           git add -A firebase
           if git diff --cached --quiet; then
-            echo "JagatTest's firebase/ already matches ShriBuddhi's — nothing to do."
+            echo "Jagat's firebase/ already matches ShriBuddhi's — nothing to do."
             echo "already in sync" >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
           git diff --cached --stat | tail -40
           git commit -q -m "Mirror firebase/ from ShriBuddhi ${SRC_SHA:0:12}
 
-          Copied by ShriBuddhi's sync-firebase-to-jagattest.yml. This tree is a
+          Copied by ShriBuddhi's sync-firebase-to-jagat.yml. This tree is a
           MIRROR: every deploy reads ShriBuddhi's copy, never this one, and an
           edit made here is overwritten the next time firebase/ changes there.
           Change it in ShriBuddhi."
@@ -115,5 +126,5 @@ jobs:
             git fetch -q --no-tags origin main && git rebase -q FETCH_HEAD || true
             sleep $((a*5))
           done
-          echo "::error::Could not push the mirrored firebase/ to JagatTest after three attempts."
+          echo "::error::Could not push the mirrored firebase/ to Jagat after three attempts."
           exit 1

@@ -1,8 +1,8 @@
-# wordnet-dist publishes to bhumandala (Buddhi) directly, not BrahmaBuddhi --
-# jsDelivr's GitHub CDN only serves PUBLIC repositories, and a dist branch
-# has to live on bhumandala regardless of where the build runs. Same
-# "bypasses review by design, no history in common with main" exemption the
-# dist branches already had. See BUDDHI_TOKEN below.
+# wordnet-dist publishes to Jagat directly, not the old BrahmaBuddhi (deleted
+# 30 Sep 2026) -- jsDelivr's GitHub CDN only serves PUBLIC repositories, and
+# a dist branch has to live on Jagat regardless of where the build runs.
+# Same "bypasses review by design, no history in common with main" exemption
+# the dist branches already had. See JAGAT_TOKEN below.
 name: Publish the Sanskrit WordNet
 
 # Rebuilds data/_wordnet/ from IndoWordNet and publishes it to this repo's
@@ -131,7 +131,7 @@ jobs:
           git init -q -b wordnet-dist
           git add -A
           git commit -q -m "The built Sanskrit WordNet, rebuilt by publish-wordnet.yml"
-          git push -q --force "https://x-access-token:${{ secrets.JAGAT_TOKEN }}@github.com/Tribhuvanachar/bhumandala" \
+          git push -q --force "https://x-access-token:${{ secrets.JAGAT_TOKEN }}@github.com/Tribhuvanachar/Jagat" \
             wordnet-dist:refs/heads/wordnet-dist
           SHA=$(git rev-parse HEAD)
           # The reader pins a COMMIT, not this branch: jsDelivr caches a
@@ -145,6 +145,6 @@ jobs:
             echo "**Now bump the pin** in js/config.js (appConfig.wordnetDataBase) and js/intellisense.js (CDN):"
             echo ""
             echo '```'
-            echo "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@$SHA"
+            echo "https://cdn.jsdelivr.net/gh/Tribhuvanachar/Jagat@$SHA"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
