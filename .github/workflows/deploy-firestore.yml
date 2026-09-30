@@ -39,20 +39,8 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      # 12 Sep 2026: this workflow moved here from bhumandala (Buddhi) -- the
-      # firestore.rules/indexes to deploy have to come from THERE, not from
-      # this repo's own (possibly stale) copy.
-      # 30 Sep 2026: repointed from bhumandala to Jagat. ref: main is
-      # required, not optional: Jagat's default branch is "data" (a separate
-      # branch of large CDN-served blobs only), so an unqualified checkout
-      # would silently pull the wrong tree.
-      - name: Checkout Jagat (the site actually being deployed)
-        uses: actions/checkout@v4
-        with:
-          repository: Tribhuvanachar/Jagat
-          ref: main
-          token: ${{ secrets.JAGAT_TOKEN }}
-          path: jagat
+      # firebase/ (rules, indexes, functions) lives in this repository and is never
+      # published to Jagat, so this deploys from this checkout.
       - name: Assemble the service-account key from the repository secrets
         # Same resolution as deploy-firebase-hosting.yml: accepts the whole JSON key in one of
         # several secret names, or the four separate fields. Prints only which secret NAMES were
@@ -122,12 +110,12 @@ jobs:
           echo "PID is all-lowercase: $( [[ "$PID" == "$(echo "$PID" | tr '[:upper:]' '[:lower:]')" ]] && echo yes || echo no )"
       - name: Write .firebaserc (gitignored on purpose — the repo never carries a project id)
         run: |
-          printf '{ "projects": { "default": "%s" } }\n' "${{ secrets.FIREBASE_PROJECT_ID }}" > jagat/firebase/.firebaserc
+          printf '{ "projects": { "default": "%s" } }\n' "${{ secrets.FIREBASE_PROJECT_ID }}" > firebase/.firebaserc
       - name: Deploy Firestore rules + indexes
         env:
           GOOGLE_APPLICATION_CREDENTIALS: /home/runner/.sa/key.json
           PID: ${{ secrets.FIREBASE_PROJECT_ID }}
-        working-directory: jagat/firebase
+        working-directory: firebase
         run: |
           npm install -g firebase-tools@15 >/dev/null 2>&1
           firebase deploy --only firestore:rules,firestore:indexes --project "$PID" --non-interactive
