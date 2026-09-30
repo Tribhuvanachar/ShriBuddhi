@@ -128,8 +128,34 @@ jobs:
           fi
           echo "- JAGAT_TOKEN can push to ${JAGAT_REPO}" >> "$GITHUB_STEP_SUMMARY"
 
+      # A publish replaces Jagat main with ONE new parentless commit, so an unchanged
+      # site would still get a fresh commit hash for no reason. Compare the TREE (the
+      # content hash, which ignores commit author and date) of what was just built
+      # with the tree Jagat main already has; identical means there is nothing to
+      # publish. The build is deterministic (a 30 Sep check found 16,019 of 16,055
+      # files byte-identical between a fresh build and Jagat main), so equal trees
+      # are a reliable "nothing changed". Only the commit is fetched, not file
+      # contents: --filter=blob:none.
+      - name: Is Jagat main already exactly this?
+        id: same
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/jagat"
+          git fetch -q --depth 1 --filter=blob:none origin main
+          BUILT=$(git rev-parse 'HEAD^{tree}')
+          LIVE=$(git rev-parse 'FETCH_HEAD^{tree}')
+          echo "built tree: $BUILT"
+          echo "Jagat main: $LIVE"
+          if [ "$BUILT" = "$LIVE" ]; then
+            echo "identical=true" >> "$GITHUB_OUTPUT"
+            echo "- Jagat main already has exactly this tree ($BUILT): nothing to publish, no push." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "identical=false" >> "$GITHUB_OUTPUT"
+            echo "- Jagat main differs from this build; a push would replace it." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
       - name: Push to Jagat main
-        if: steps.mode.outputs.push == 'true'
+        if: steps.mode.outputs.push == 'true' && steps.same.outputs.identical != 'true'
         env:
           JAGAT_TOKEN: ${{ secrets.JAGAT_TOKEN }}
         run: |

@@ -49,15 +49,10 @@ const appConfig = {
   // built by the same Action from tools/kosha_enrich.py; same SHA.
   koshaRenderBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/Kosha@54072a8d40d4907df588d722b3796afe06ec2568/data/koshas_r",
   // The Sanskrit WordNet lookup tree that js/intellisense.js reads for the
-  // अर्थः section of the word popover, built by tools/build_wordnet.py and
-  // published to this repo's own "wordnet-dist" branch — data only, no
-  // history in common with main. Same reasoning as the koshas above, one
-  // size down: 24 MB is small enough not to need its own repository and far
-  // too large for a published site with about 1% of the GitHub Pages 1 GB
-  // limit left. GitHub Pages serves only main, so a branch is enough to keep
-  // it off the site while jsDelivr still serves it. Set this to '' to read a
-  // local build from data/_wordnet/ instead.
-  wordnetDataBase: "https://cdn.jsdelivr.net/gh/Tribhuvanachar/Jagat@3c4d0d8e5c3fd03788bebe14a2da24c704fa5a12/_wordnet",
+  // अर्थः section of the word popover, built by tools/build_wordnet.py into
+  // data/_wordnet/ (26 MB, part of the site). '' reads it from there, resolved
+  // from js/intellisense.js's own URL; set a URL to read it from somewhere else.
+  wordnetDataBase: "",
   // The Kavya corpus js/kavya.js reads -- 24 works, 49 layers, 67,169
   // entries, 50 MB -- on this repo's "kavya-dist" branch for the same
   // reason. kavya.html carries the same URL as its own default, since it

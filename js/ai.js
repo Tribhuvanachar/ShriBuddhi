@@ -1961,7 +1961,9 @@ function dgeWithTimeout(promise, ms, fallback) {
   return Promise.race([promise, new Promise(res => setTimeout(() => res(fallback), ms))]);
 }
 
-const DGE_SANDHI_CDN = 'https://cdn.jsdelivr.net/gh/Tribhuvanachar/Jagat@3c4d0d8e5c3fd03788bebe14a2da24c704fa5a12/_sandhi';
+// data/_sandhi/ (79 MB, built by tools/build_sandhi_index.py) ships with the site; '' means
+// read it from there. window.SANDHI_DATA_BASE can still point somewhere else.
+const DGE_SANDHI_CDN = '';
 const DGE_SANDHI_BUCKET_CACHE = {};
 function dgeSandhiBucketOf(slp) {
   const two = (slp + '__').slice(0, 2);
@@ -1970,10 +1972,8 @@ function dgeSandhiBucketOf(slp) {
 }
 function dgeFetchSandhiBucket(name) {
   if (DGE_SANDHI_BUCKET_CACHE[name]) return DGE_SANDHI_BUCKET_CACHE[name];
-  // window.SANDHI_DATA_BASE overrides the CDN, same convention as
-  // WORDNET_DATA_BASE in intellisense.js -- set it to '' to read a local
-  // build from data/_sandhi/ instead (never committed to main, see
-  // tools/build_sandhi_index.py's own manifest note on repo size).
+  // window.SANDHI_DATA_BASE overrides the default (the local data/_sandhi/), same
+  // convention as WORDNET_DATA_BASE in intellisense.js.
   const set = window.SANDHI_DATA_BASE;
   const cdn = (set === undefined ? DGE_SANDHI_CDN : (set || '')).replace(/\/+$/, '');
   const url = cdn ? (cdn + '/' + name + '.json') : ('data/_sandhi/' + name + '.json');

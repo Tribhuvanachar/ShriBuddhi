@@ -223,9 +223,35 @@ Retargeted (30 Sep 2026, the lead: bhumandala/JagatTest is deleted, Jagat is nev
   (`js/config.js`, `js/global-search.js`, `admin/config/search-index.state.json`, library status and
   backlinks) now commits to ShriBuddhi `main` and reaches Jagat with the next publish.
 
-Still open:
-- The public site reads the WordNet, Kavya and sandhi data from Jagat's **`data` branch** (pinned commit
-  in `js/config.js`). `publish-wordnet.yml` and `import-kavya.yml` no longer reach it, because a private
-  repository cannot be served over jsDelivr. A new WordNet or Kavya build has to be added to Jagat's `data`
-  branch (as a new commit, never force-pushed, so old pins stay valid) and the pin bumped. Not built yet.
-- `ask-claude.yml` is bound to the deleted bhumandala (its trigger and the site's "Ask Claude" tab).
+Datasets (30 Sep 2026):
+- **WordNet** (`data/_wordnet/`, 26 MB) and **sandhi** (`data/_sandhi/`, 79 MB) now ship in ShriBuddhi
+  `data/` and reach Jagat `main` with every publish. The site reads them from its own paths
+  (`js/intellisense.js`, `js/ai.js`). Both pass NFC, canonical-shape and provenance gates.
+  Together 30 MB gzipped; the whole site is about 300 MB gzipped. Jagat's `data` branch copies are
+  now unused by these two features.
+  - WordNet is rebuilt by `publish-wordnet.yml`, which opens a PR with the new tree. The builder
+    normalises to NFC and merges spellings that collapse under it (भड़्ग was written two ways).
+  - Sandhi is built by hand: `tools/build_sandhi_index.py` (Vidyut, over the corpus vocabulary) is run
+    manually and no workflow runs it. It does not grow by itself when the corpus grows; it grows when
+    someone re-runs it. `data/_sandhi_local/` (3.7 MB, `tools/build_sandhi_split_index.py`, sanskrit_parser)
+    is a second, smaller index already in the repo.
+- **Kavya corpus** (60 MB, 24 works, 69 files) stays on Jagat's `data` branch and is read from there
+  (`kavyaDataBase` in `js/config.js`, pinned commit). It was NOT moved, for two reasons that need the
+  lead's decision:
+  1. Every layer carries `grantha.work_id`, which `tools/verify_no_private_provenance.py` flags, so
+     the gate fails on all 68 files.
+  2. Every layer also carries a `source` block with the origin URL and licence text. Project rule:
+     never publish a `source` dict; credits go in the footer. But the licences carry attribution
+     duties (Wikisource CC-BY-SA, sanskritsahitya "keep visible attribution"). Stripping the blocks
+     and giving the credit once in the footer is the lead's call.
+  It also collides by path with `data/kavya_alankara/` (4 mahakavyas in an older shape; the repo's own
+  notes warn that merging appends a second copy), so it would need its own root.
+  Where it comes from (`tools/kavya/config/sources.json`): GRETIL (Göttingen, corpusTEI), the
+  sanskritsahitya-com/data repository on GitHub, ambuda.org (TEI zip) and sa.wikisource.org; 58 works
+  declared, most from GRETIL (24) and Wikisource (13). `import-kavya.yml` still writes a `kavya-dist`
+  branch in this repo; nothing reads that branch.
+- The old **search index** on Jagat's `data` branch is still what `searchIndexBase` points at until a
+  re-index publishes to Cloud Storage and bumps the pin.
+
+Also still open:
+- `ask-claude.yml` is dormant; see `docs/ASK_CLAUDE.md`.

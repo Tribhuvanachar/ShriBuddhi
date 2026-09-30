@@ -1,21 +1,11 @@
-# TODO(migration): needs manual review before this runs from ShriBuddhi.
-# This workflow is fundamentally bound to bhumandala: it triggers on a push
-# to "this repo"'s main under tasks/inbox/*.json (written directly by the
-# live website's "Ask Claude" tab, which commits to bhumandala, not
-# ShriBuddhi), its prompt to the Claude Code action hardcodes "this
-# repository, Tribhuvanachar/bhumandala", and it reads/writes tasks/ and
-# tasks/WEEKLY_INSTRUCTIONS.md, neither of which is part of the
-# tools/tests/admin-config mirror this migration copied into ShriBuddhi.
-# Simply moving the file (as this migration's blanket rule required, since
-# it matched the tools/ grep) leaves its trigger and checkout pointed at a
-# repo/folder that will never receive the pushes it expects. Making it work
-# would mean either (a) leaving the live tab's write target and this
-# workflow's trigger on bhumandala and having this repo do nothing, which
-# defeats moving it here, or (b) wiring a genuine cross-repo trigger
-# (webhook/repository_dispatch from bhumandala into ShriBuddhi, checking out
-# both repos, writing the reply back to bhumandala with a PAT) -- a real
-# architecture change, not a path substitution, and not something to guess
-# at. Left unedited otherwise pending a decision from the project lead.
+# DORMANT since the old site was retired (30 Sep 2026). See docs/ASK_CLAUDE.md.
+# This is the listening half of a chat feature: the writing half was a page on the old
+# site ("Ask Claude" tab) that committed tasks/inbox/<id>.json to that repo, and that
+# page is not in ShriBuddhi or Jagat. There is no tasks/ folder here, so nothing
+# triggers this workflow. It now names this repository (ShriBuddhi) instead of the
+# deleted bhumandala; to bring the feature back, add an admin page in this repo that
+# writes tasks/inbox/<id>.json and restore tasks/README.md (the protocol the prompt
+# below tells Claude to read).
 name: Ask Claude — answer inbox requests
 
 # The live half of the website's "Ask Claude" tab (tasks/README.md).
@@ -152,7 +142,7 @@ jobs:
           prompt: |
             You are answering requests the project lead sent from the website's
             "Ask Claude" tab of the Sarvamūla Digital Library (this repository,
-            Tribhuvanachar/bhumandala). Read tasks/README.md first — it is the
+            Tribhuvanachar/ShriBuddhi). Read tasks/README.md first — it is the
             protocol — then CLAUDE.md and HANDOFF.md §3 for the standing rules.
 
             Requests to handle now (ids): ${{ steps.pending.outputs.ids }}
