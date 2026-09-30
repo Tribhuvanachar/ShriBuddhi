@@ -1,10 +1,8 @@
-# kavya-dist publishes to bhumandala (Buddhi) directly, not BrahmaBuddhi --
-# jsDelivr's GitHub CDN only serves PUBLIC repositories, and ShriBuddhi/
-# BrahmaBuddhi are both private, so a dist branch has to live on bhumandala
-# regardless of where the build itself runs. This is the same "no history in
-# common with main, replaced wholesale, bypasses review by design" exemption
-# the dist branches already had before this migration -- see BUDDHI_TOKEN
-# (Contents:Read-write, scoped to bhumandala only) below.
+# kavya-dist is published as a branch of THIS repository (ShriBuddhi). It used to go
+# to a public repo so jsDelivr could serve it; that repo is gone and Jagat is never
+# edited by hand. The branch is a workshop record: ShriBuddhi is private, so nothing
+# serves it over a CDN. The public site reads the Kavya data from Jagat's `data`
+# branch (see js/config.js), which this workflow does not write.
 name: Import Kavya corpus
 
 # Manual only, like the Kosha and re-index workflows: fetching from GRETIL and
@@ -148,22 +146,14 @@ jobs:
           git init -q -b kavya-dist
           git add -A
           git commit -q -m "The built Kavya corpus, rebuilt by import-kavya.yml"
-          git push -q --force "https://x-access-token:${{ secrets.JAGAT_TOKEN }}@github.com/Tribhuvanachar/bhumandala" \
+          git push -q --force "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" \
             kavya-dist:refs/heads/kavya-dist
           SHA=$(git rev-parse HEAD)
-          # The reader pins a COMMIT, not this branch: jsDelivr caches a
-          # @branch URL for 12 hours at the edge, so the first republish left
-          # readers on the superseded build with nothing to say so. A hash is
-          # immutable and served the moment it exists -- at the cost of this
-          # second step.
           {
-            echo "published to kavya-dist as \`$SHA\`"
+            echo "published to \`kavya-dist\` of ${{ github.repository }} as \`$SHA\`"
             echo ""
-            echo "**Now bump the pin** in js/config.js (appConfig.kavyaDataBase) and js/kavya.js (CDN):"
-            echo ""
-            echo '```'
-            echo "https://cdn.jsdelivr.net/gh/Tribhuvanachar/bhumandala@$SHA"
-            echo '```'
+            echo "This branch is in the private workshop repository, so the public site does not read it."
+            echo "Getting it to readers means updating Jagat's \`data\` branch -- not done by this workflow."
           } >> "$GITHUB_STEP_SUMMARY"
 
   test:

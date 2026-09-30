@@ -352,7 +352,7 @@ that issued it*, which is the last column.
 | `SARVAM_API_KEY` | Sarvam Document AI | https://dashboard.sarvam.ai |
 | `VISION_API_KEY` | Google Cloud Vision API key | GCP → APIs & Services → Credentials |
 | `BRAHMABUDDHI_TOKEN` | **Retired 30 Sep 2026** — BrahmaBuddhi was deleted. Delete the secret. | — |
-| `JAGAT_TOKEN` | PAT with Contents: Read and write on **Jagat** (renamed from `BUDDHI_TOKEN` on 30 Sep 2026). Used by `publish-to-jagat.yml` (force-pushes Jagat `main`), `reindex.yml`'s pin bump and the firebase mirror workflow | same |
+| `JAGAT_TOKEN` | PAT with Contents: Read and write on **Jagat** (renamed from `BUDDHI_TOKEN` on 30 Sep 2026). Used by `publish-to-jagat.yml` (force-pushes Jagat `main`) and to read Jagat in `deploy-firebase-hosting.yml` | same |
 | `ANTHROPIC_API_KEY`, `CLAUDE_CODE_OAUTH_TOKEN` | Claude Code action | console.anthropic.com |
 | `HF_TOKEN` | Hugging Face | huggingface.co/settings/tokens |
 | Internet Archive, WhatsApp, MSG91, Razorpay, Cashfree, OTP | see §5 | — |

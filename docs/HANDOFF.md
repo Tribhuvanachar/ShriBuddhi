@@ -212,7 +212,20 @@ open pull requests only if Settings -> Actions -> General -> *Allow GitHub Actio
 create and approve pull requests* is ticked. Until it is, the PR step fails with
 "not permitted to create pull requests".
 
-Still open: `sync-firebase-to-jagattest.yml`, `import-kavya.yml`, `publish-wordnet.yml`,
-`ocr-preview-pages.yml` and `deploy-firebase-hosting.yml` target `Tribhuvanachar/bhumandala`
-or `JagatTest` (former names of one repository) with `JAGAT_TOKEN`. Decide whether
-that repository still exists under that name and what `JAGAT_TOKEN` should mean for it.
+Retargeted (30 Sep 2026, the lead: bhumandala/JagatTest is deleted, Jagat is never edited by hand):
+- `sync-firebase-to-jagattest.yml` is deleted; Jagat does not carry `firebase/`.
+- `import-kavya.yml`, `publish-wordnet.yml` and `ocr-preview-pages.yml` publish their branches
+  (`kavya-dist`, `wordnet-dist`, `ocr-images/<work>`) to THIS repository with the default token.
+  `admin/ocr-review.html` now reads the scans with the admin's token (the repo is private).
+- `deploy-firestore.yml` deploys `firebase/` from this checkout; `deploy-firebase-hosting.yml` deploys the
+  public site by checking out **Jagat**.
+- `reindex.yml` still uploads the built search index to the Cloud Storage bucket; its pin bump
+  (`js/config.js`, `js/global-search.js`, `admin/config/search-index.state.json`, library status and
+  backlinks) now commits to ShriBuddhi `main` and reaches Jagat with the next publish.
+
+Still open:
+- The public site reads the WordNet, Kavya and sandhi data from Jagat's **`data` branch** (pinned commit
+  in `js/config.js`). `publish-wordnet.yml` and `import-kavya.yml` no longer reach it, because a private
+  repository cannot be served over jsDelivr. A new WordNet or Kavya build has to be added to Jagat's `data`
+  branch (as a new commit, never force-pushed, so old pins stay valid) and the pin bumped. Not built yet.
+- `ask-claude.yml` is bound to the deleted bhumandala (its trigger and the site's "Ask Claude" tab).

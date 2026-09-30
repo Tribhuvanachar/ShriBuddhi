@@ -110,7 +110,7 @@
 <script>
 (function(){
   'use strict';
-  var OWNER = "Tribhuvanachar", REPO = "bhumandala";
+  var OWNER = "Tribhuvanachar", REPO = "ShriBuddhi";
   var API = "https://api.github.com/repos/" + OWNER + "/" + REPO;
   var RAW = "https://raw.githubusercontent.com/" + OWNER + "/" + REPO + "/";
   var TOK_KEY = "github_admin_pat";
@@ -297,15 +297,29 @@
     showImage(); renderUnits();
   }
   function imageUrl(page){ return RAW + "ocr-images/" + WORK + "/page-" + page + ".png"; }
+  // ShriBuddhi is private, so raw.githubusercontent.com will not serve these scans to an
+  // <img> tag. They are fetched through the Contents API with the admin's token instead,
+  // and shown from an object URL. No token: the page says so rather than showing a broken image.
+  var IMG_BLOB = {};
+  function fetchScan(page){
+    if (IMG_BLOB[page]) return Promise.resolve(IMG_BLOB[page]);
+    var h = ghHeaders(); h["Accept"] = "application/vnd.github.raw";
+    return fetch(API + "/contents/page-" + page + ".png?ref=" + encodeURIComponent("ocr-images/" + WORK), { headers: h })
+      .then(function(r){ if (!r.ok) throw new Error("HTTP " + r.status); return r.blob(); })
+      .then(function(b){ return (IMG_BLOB[page] = URL.createObjectURL(b)); });
+  }
   function showImage(){
     var wrap = $("#imgWrap"); var page = PAGES[PAGE_IDX];
     if (page == null) { wrap.innerHTML = '<div class="none">This file has no page numbers.</div>'; return; }
-    var url = imageUrl(page);
     if (IMG_OK[page] === false) { wrap.innerHTML = '<div class="none">Scan not rendered yet for page ' + page + '. Press <b>Render pages</b> (free, ~2 min).</div>'; return; }
-    wrap.innerHTML = '<img src="' + esc(url) + '" style="width:' + Math.round(ZOOM * 100) + '%;max-width:none" alt="page ' + page + '">';
-    var img = $("img", wrap);
-    img.onerror = function(){ IMG_OK[page] = false; showImage(); };
-    img.onload = function(){ IMG_OK[page] = true; };
+    if (!token()) { wrap.innerHTML = '<div class="none">The repository is private: set a <b>🔑 Token</b> to see the scan for page ' + page + '.</div>'; return; }
+    wrap.innerHTML = '<div class="none">Loading scan for page ' + page + '…</div>';
+    var mine = PAGE_IDX;
+    fetchScan(page).then(function(url){
+      if (mine !== PAGE_IDX) return;   // the reader has moved on
+      IMG_OK[page] = true;
+      wrap.innerHTML = '<img src="' + esc(url) + '" style="width:' + Math.round(ZOOM * 100) + '%;max-width:none" alt="page ' + page + '">';
+    }).catch(function(){ IMG_OK[page] = false; if (mine === PAGE_IDX) showImage(); });
   }
   async function renderPages(){
     var say = $("#renderSay");

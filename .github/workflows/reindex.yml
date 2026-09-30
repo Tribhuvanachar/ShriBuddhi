@@ -365,30 +365,12 @@ jobs:
             echo "read at https://storage.googleapis.com/$BUCKET/$PREFIX"
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Checkout bhumandala for the pin bump
-        if: steps.gate.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.bump_pin)
-        uses: actions/checkout@v4
-        with:
-          repository: Tribhuvanachar/JagatTest
-          token: ${{ secrets.JAGAT_TOKEN }}
-          path: buddhi-pin
-
-      - name: Copy freshly rebuilt status/backlinks into the bhumandala checkout
-        if: steps.gate.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.bump_pin)
-        run: |
-          set -euo pipefail
-          cp admin/config/library-status.json buddhi-pin/admin/config/library-status.json
-          rm -rf buddhi-pin/search_index/backlinks
-          cp -r search_index/backlinks buddhi-pin/search_index/backlinks
-          cp search_index/backlinks.json buddhi-pin/search_index/backlinks.json 2>/dev/null || true
-
       - name: Point the site at the new prefix and commit to main
         if: steps.gate.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.bump_pin)
         env:
           BASE: ${{ steps.publish.outputs.base }}
           PREFIX: ${{ steps.publish.outputs.prefix }}
           DATA_SHA: ${{ steps.gate.outputs.data_sha }}
-        working-directory: buddhi-pin
         run: |
           set -euo pipefail
           python3 "$GITHUB_WORKSPACE/tools/point_search_index.py" \
@@ -403,7 +385,7 @@ jobs:
             git pull -q --rebase origin main || true
             sleep $((attempt * 3))
           done
-          echo "Pin bumped to \`$SHA\` and committed to main." >> "$GITHUB_STEP_SUMMARY"
+          echo "Search-index pin bumped to \`$PREFIX\` and committed to ShriBuddhi main (reaches Jagat with the next publish)." >> "$GITHUB_STEP_SUMMARY"
 
       - name: Open a PR for what does belong on main (against ShriBuddhi)
         if: steps.gate.outputs.run == 'true' && github.event_name == 'workflow_dispatch' && !inputs.bump_pin && fromJSON(inputs.open_pr)
