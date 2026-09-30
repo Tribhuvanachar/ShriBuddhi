@@ -27,6 +27,18 @@ def test_every_allowed_path_is_a_real_directory():
         "shelf allows path(s) that do not exist under data/: " + ", ".join(missing))
 
 
+def test_every_path_on_the_public_root_shelf_is_a_real_directory():
+    """The same check for config/library-overrides.json, the copy Jagat reads.
+    The test above only looked at the admin copy, so the root copy kept
+    `mani_manjari` (no such folder) after admin/ had been corrected: public
+    readers would have seen nothing for Mani Manjari."""
+    root = REPO / "config/library-overrides.json"
+    allow = (json.loads(root.read_text(encoding="utf-8")).get("shelf") or {}).get("allow") or []
+    missing = [a for a in allow if not (REPO / "data" / a).is_dir()]
+    assert missing == [], (
+        "public shelf allows path(s) that do not exist under data/: " + ", ".join(missing))
+
+
 def test_the_shelf_is_not_accidentally_empty():
     """An empty or disabled allow list switches the gate off entirely, which
     would publish everything rather than nothing -- the opposite failure."""
