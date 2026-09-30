@@ -65,18 +65,24 @@
         <br><br>
         <b>Where it publishes:</b> this edits the <b>root</b> <code>config/library-overrides.json</code>
         — the copy the public site reads (<code>admin/</code> is never published).
-        Nothing goes live from this page: <b>⬇ Export shelf config</b> downloads the file,
-        you commit it to <code>config/library-overrides.json</code> in ShriBuddhi, and it
-        reaches Jagat with the next promote&nbsp;→&nbsp;publish.
+        <b>🚀 Publish shelf to GitHub</b> commits it to ShriBuddhi <code>main</code> in one click
+        (only the <code>shelf</code> key changes). It reaches Jagat with the next publish from ShriBuddhi.
+        <b>⬇ Export shelf config</b> downloads the same file if you would rather commit it yourself.
       </div>
       <label style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
         <input type="checkbox" id="shelfEnabled"> <b>Shelf enabled</b>
         <span class="muted">(off = the whole library is public, no restriction)</span>
       </label>
       <div id="shelfState" class="muted" style="margin-bottom:8px"></div>
+      <div style="margin-bottom:10px">
+        <label class="muted" for="shelfToken">GitHub token with write access to Tribhuvanachar/ShriBuddhi — held in memory for this page only, never saved, cleared after publishing</label>
+        <input type="password" id="shelfToken" autocomplete="off" placeholder="github_pat_… / ghp_…" style="width:100%">
+      </div>
+      <div id="shelfMsg" style="margin-bottom:8px;min-height:1.2em"></div>
       <div id="shelfList" style="max-height:40vh;overflow:auto;font-family:monospace;font-size:12px"></div>
       <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn pri" id="shelfExport">⬇ Export shelf config</button>
+        <button class="btn pri" id="shelfPublish" title="Commit the shelf straight to config/library-overrides.json on ShriBuddhi main">🚀 Publish shelf to GitHub</button>
+        <button class="btn" id="shelfExport">⬇ Export shelf config</button>
         <button class="btn" id="shelfReset">↺ Reload from committed</button>
       </div>
     </div>
@@ -381,6 +387,47 @@
     alert("Downloaded. Commit it to  config/library-overrides.json  (the ROOT config/, not admin/config/) in ShriBuddhi.\nIt reaches Jagat with the next promote and publish.");
   }
 
+  // Commit the shelf straight to ShriBuddhi main through the Contents API. Reads the
+  // CURRENT file on main (not this page's copy), replaces only `shelf`, and sends
+  // the blob sha back so a concurrent edit makes GitHub refuse instead of losing it.
+  // The token is read from the field at click time and never stored anywhere.
+  var SHELF_REPO="Tribhuvanachar/ShriBuddhi", SHELF_BRANCH="main", SHELF_FILE="config/library-overrides.json";
+  function shelfMsg(t,bad){ var m=$("#shelfMsg"); if(m){ m.textContent=t; m.style.color=bad?"#c0392b":"var(--muted)"; } }
+  function b64utf8(str){ var b=new TextEncoder().encode(str), bin=""; for(var i=0;i<b.length;i++) bin+=String.fromCharCode(b[i]); return btoa(bin); }
+  function unb64utf8(b){ var bin=atob(b.replace(/\s/g,"")), by=new Uint8Array(bin.length); for(var i=0;i<bin.length;i++) by[i]=bin.charCodeAt(i); return new TextDecoder().decode(by); }
+  function publishShelf(){
+    var tokEl=$("#shelfToken"), tok=(tokEl.value||"").trim();
+    if(!tok){ shelfMsg("Paste a GitHub token first.",true); return; }
+    if(!SHELF.enabled || !SHELF.allow.length){
+      if(!confirm(SHELF.enabled? "The shelf is enabled but EMPTY, which opens the whole library to the public. Publish anyway?" : "The shelf is switched OFF, which opens the whole library to the public. Publish anyway?")) return;
+    } else if(!confirm("Commit this shelf ("+SHELF.allow.length+" folders) to "+SHELF_REPO+" main?")) return;
+    var api="https://api.github.com/repos/"+SHELF_REPO+"/contents/"+SHELF_FILE;
+    var H={"Authorization":"Bearer "+tok,"Accept":"application/vnd.github+json"};
+    shelfMsg("Reading the current file on main…");
+    fetch(api+"?ref="+SHELF_BRANCH,{headers:H,cache:"no-store"}).then(function(r){
+      if(!r.ok) throw new Error("read failed: HTTP "+r.status+(r.status===401||r.status===403||r.status===404?" (token missing, expired or without access to the repo)":""));
+      return r.json();
+    }).then(function(cur){
+      var doc=JSON.parse(unb64utf8(cur.content));
+      var sh=doc.shelf||{};
+      sh.enabled=SHELF.enabled; sh.allow=SHELF.allow.slice(); sh.openToRoles=SHELF.openToRoles.slice();
+      doc.shelf=sh; doc.updatedAt=Date.now();
+      var body={message:"Go-live shelf: "+(SHELF.enabled?SHELF.allow.length+" folder(s) on the public shelf":"shelf switched off")+" (Library Manager)",
+                content:b64utf8(JSON.stringify(doc,null,1)+"\n"), sha:cur.sha, branch:SHELF_BRANCH};
+      shelfMsg("Committing…");
+      return fetch(api,{method:"PUT",headers:Object.assign({"Content-Type":"application/json"},H),body:JSON.stringify(body)}).then(function(r){
+        if(!r.ok) return r.text().then(function(t){ throw new Error("commit failed: HTTP "+r.status+" "+t.slice(0,200)); });
+        return r.json().then(function(res){ return {res:res, doc:doc}; });
+      });
+    }).then(function(o){
+      SHELF_ROOT=o.doc;
+      try{ localStorage.removeItem(SHELF_LS); }catch(e){}
+      tokEl.value="";
+      shelfMsg("✓ Committed to "+SHELF_REPO+" main: "+((o.res.commit&&o.res.commit.html_url)||""));
+      loadShelf(); updateShelfUi(); render();
+    }).catch(function(e){ shelfMsg(String(e.message||e),true); });
+  }
+
   function start(){
     if(sessionStorage.getItem("dge.admin.ok")!=="1" && localStorage.getItem("is_superadmin")!=="true") return;
     $("#gate").style.display="none"; $("#hdr").style.display=""; $("#app").style.display="";
@@ -393,6 +440,7 @@
     $("#shelfOv").addEventListener("click",function(e){ if(e.target===$("#shelfOv")) $("#shelfOv").classList.remove("show"); });
     $("#shelfEnabled").onchange=function(){ SHELF.enabled=this.checked; saveShelf(); render(); };
     $("#shelfExport").onclick=exportShelf;
+    $("#shelfPublish").onclick=publishShelf;
     $("#shelfReset").onclick=function(){ if(!confirm("Discard this browser's shelf edits and reload the committed root config?")) return; localStorage.removeItem(SHELF_LS); loadShelf(); updateShelfUi(); render(); };
     $("#loadCommitted").onclick=function(){
       if(!confirm("Replace this browser's draft with the COMMITTED library-overrides.json (what readers currently see)? Unexported draft edits are discarded.")) return;
