@@ -47,10 +47,16 @@ jobs:
       # and the site tree IS the public repository. Functions publish server code, which
       # is not content and has no business being readable there. Content deploys from
       # the public side; code deploys from this one.
-      - name: Checkout Jagat (the public site being deployed)
+      # 30 Sep 2026: repointed from bhumandala to Jagat (see this repo's own
+      # publish-to-jagat.yml header). ref: main is required, not optional:
+      # Jagat's default branch is "data" (a separate branch of large
+      # CDN-served blobs only), so an unqualified checkout would silently
+      # pull the wrong tree.
+      - name: Checkout Jagat (the site actually being deployed)
         uses: actions/checkout@v4
         with:
           repository: Tribhuvanachar/Jagat
+          ref: main
           token: ${{ secrets.JAGAT_TOKEN }}
           path: jagat
       - name: Lay this repo's hosting config over the checkout
@@ -120,7 +126,7 @@ jobs:
           print("service account:", sa.get("client_email"), "| source:", ", ".join(found))
           PY
       - name: Deploy with the Firebase CLI
-        # Run from the bhumandala checkout's root with --config firebase-hosting.json
+        # Run from the jagat checkout's root with --config firebase-hosting.json
         # (not firebase/firebase.json) so hosting.public: "." stays within the CLI's
         # "project directory" -- see the header note above. --project is passed
         # explicitly on every command, so no .firebaserc is needed.

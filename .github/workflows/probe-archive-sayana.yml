@@ -38,7 +38,7 @@ jobs:
           import json, urllib.parse, urllib.request
 
           UA = {"User-Agent": "DGE-import/1.0 (Digital Grantha Engine; non-commercial "
-                              "educational digital library; github.com/Tribhuvanachar/bhumandala)"}
+                              "educational digital library; github.com/Tribhuvanachar/Jagat)"}
 
           def get(url):
               return urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=45).read()
@@ -70,7 +70,7 @@ jobs:
           import json, urllib.parse, urllib.request
 
           UA = {"User-Agent": "DGE-import/1.0 (Digital Grantha Engine; non-commercial "
-                              "educational digital library; github.com/Tribhuvanachar/bhumandala)"}
+                              "educational digital library; github.com/Tribhuvanachar/Jagat)"}
 
           def get(url):
               return urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=90).read()

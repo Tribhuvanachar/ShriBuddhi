@@ -39,6 +39,14 @@ that still says "BrahmaBuddhi", "promote" or `BRAHMABUDDHI_TOKEN` is stale:
 a BrahmaBuddhi PR now open the PR, or commit, against this repository; see
 `docs/HANDOFF.md` for the one repository setting that needs.
 
+**`Jagat`'s default branch is `data`, not `main`.** `data` holds only large
+CDN-served blobs (`_sandhi`, `_wordnet`, `kavya_alankara`, `search_index`
+shards) — the site tree itself is on `main`. An `actions/checkout` of
+`Tribhuvanachar/Jagat` with no `ref:` silently pulls `data`, not the site.
+Always state `ref: main` explicitly on a Jagat checkout (confirmed 30 Sep
+2026 — `publish-to-jagat.yml` itself avoids this by never checking Jagat out
+at all; it force-pushes a freshly built tree straight to `HEAD:main`).
+
 | | holds | |
 |---|---|---|
 | **Parabuddhi** | raw input | the PDF, page images, each OCR engine's output kept separately, `provenance/` |

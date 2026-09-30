@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: Probe each candidate source
         run: |
-          BOT_UA="DGE-import/1.0 (Digital Grantha Engine; non-commercial educational digital library; github.com/Tribhuvanachar/bhumandala)"
+          BOT_UA="DGE-import/1.0 (Digital Grantha Engine; non-commercial educational digital library; github.com/Tribhuvanachar/Jagat)"
 
           probe () {
             label="$1"; url="$2"

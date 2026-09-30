@@ -46,7 +46,7 @@ jobs:
           python - <<'PY'
           import json, urllib.parse, urllib.request
           UA = {"User-Agent": "DGE-import/1.0 (Digital Grantha Engine; non-commercial "
-                              "educational digital library; github.com/Tribhuvanachar/bhumandala)"}
+                              "educational digital library; github.com/Tribhuvanachar/Jagat)"}
           def api(host, **params):
               params.setdefault("format", "json")
               url = f"https://{host}/w/api.php?" + urllib.parse.urlencode(params)

@@ -39,7 +39,7 @@ jobs:
 
       - name: Is sanskritebooks.org reachable, and what does it serve?
         run: |
-          BOT_UA="DGE-import/1.0 (Digital Grantha Engine; non-commercial educational digital library; github.com/Tribhuvanachar/bhumandala)"
+          BOT_UA="DGE-import/1.0 (Digital Grantha Engine; non-commercial educational digital library; github.com/Tribhuvanachar/Jagat)"
           for u in "https://www.sanskritebooks.org/" \
                    "https://www.sanskritebooks.org/robots.txt" \
                    "https://www.sanskritebooks.org/2010/02/rigveda-sayana-bhashya-sanskrit/" \
@@ -61,7 +61,7 @@ jobs:
           import json, re, urllib.parse, urllib.request
 
           UA = {"User-Agent": "DGE-import/1.0 (Digital Grantha Engine; non-commercial "
-                              "educational digital library; github.com/Tribhuvanachar/bhumandala)"}
+                              "educational digital library; github.com/Tribhuvanachar/Jagat)"}
           def get(url, rng=None):
               req = urllib.request.Request(url, headers=dict(UA))
               if rng: req.add_header("Range", f"bytes={rng[0]}-{rng[1]}")
