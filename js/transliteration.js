@@ -24,7 +24,24 @@ function dgePrepareForScript(text, script) {
              .replace(/\u0952/g, '\u0300');    // anudatta -> combining grave
         return t.replace(/[\u1CD0-\u1CFF]/g, '');
     }
-    return t.replace(DGE_VEDIC_MARKS, '');
+    return dgeParasavarna(t.replace(DGE_VEDIC_MARKS, ''));
+}
+
+// Parasavarṇa -> anusvāra for the Indic display scripts: Devanagari इन्द्र must
+// read ಇಂದ್ರ in Kannada, not ಇನ್ದ್ರ. A nasal + virama + consonant of ITS OWN
+// class becomes anusvāra + consonant; other conjuncts (न्न, न्य, म्ह ...) stay.
+// Roman (IAST) is not routed through here. Mirrors tools/parasavarna.py and
+// library.html -- tests/test_parasavarna.py keeps the three in step.
+const DGE_PARASAVARNA_CLASSES = {
+    'ङ': 'कखगघ', 'ञ': 'चछजझ',
+    'ण': 'टठडढ', 'न': 'तथदध',
+    'म': 'पफबभ'
+};
+const DGE_PARASAVARNA_RE = new RegExp('([' + Object.keys(DGE_PARASAVARNA_CLASSES).join('') + '])्(['
+    + Object.values(DGE_PARASAVARNA_CLASSES).join('') + '])', 'g');
+function dgeParasavarna(t) {
+    return t.replace(DGE_PARASAVARNA_RE, (m, nasal, cons) =>
+        DGE_PARASAVARNA_CLASSES[nasal].indexOf(cons) >= 0 ? 'ं' + cons : m);
 }
 
 // 'hindi'/'marathi' are Devanagari-script script-picker entries (see
