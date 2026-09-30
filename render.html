@@ -41,7 +41,7 @@
 
 
 <!-- DGE Stylesheet -->
-<link rel="stylesheet" href="css/main.css?v=4.87.0">
+<link rel="stylesheet" href="css/main.css?v=4.88.0">
 <!-- The intellisense and backlink panels, shared with the Vyakarana
      pages, which use a different palette and cannot load main.css. -->
 <link rel="stylesheet" href="css/intellisense.css?v=3">
@@ -227,6 +227,16 @@
              scrollable popup — same options, one entry point. -->
         <div style="position:relative;" data-topbar="display">
           <button class="btn-top" onclick="window.togglePopup('displayPopup')" title="Display: size, script, theme, view">🅰 <span class="btn-top-label">Display</span></button>
+        </div>
+
+        <!-- 30 Sep 2026, the lead: comparing commentaries belongs in the main
+             menu, not a per-word contextual popup. Hidden by default
+             (style:none below) -- js/render.js's dgeSyncCompareButtonVisibility,
+             called every render pass, shows it only when the open text
+             actually carries 2+ commentaries (same list the commentary bar
+             above the verses already uses). -->
+        <div style="position:relative; display:none;" id="compareCommentariesTopbarItem" data-topbar="compareCommentaries">
+          <button class="btn-top" onclick="window.closeModal('actionsDrawer'); window.dgeOpenCommentaryCompare()" title="Compare commentaries on the open verse">⇄ <span class="btn-top-label">Compare</span></button>
         </div>
 
         <!-- Admin tools, hidden entirely unless authorised -->
@@ -1464,7 +1474,7 @@
 <script src="js/commentary-sandhi.js?v=1.0.0"></script>
 <script src="js/book-builder.js?v=1.0.0"></script>
 <script src="js/book-ui.js?v=1.0.0"></script>
-<script src="js/ai.js?v=4.85.0"></script>
+<script src="js/ai.js?v=4.86.0"></script>
 <script src="js/genie.js?v=1"></script>
 <script src="js/sandhi.js?v=1"></script>
 <script src="js/subanta-steps.js?v=1"></script>
@@ -1483,7 +1493,7 @@
      falls through to the previous behaviour. -->
 <script src="js/dge-sanitize.js?v=1"></script>
 <script src="js/gold-render.js?v=1"></script>
-<script src="js/render.js?v=5.2.0"></script>
+<script src="js/render.js?v=5.3.0"></script>
 <script src="js/legal-content.js?v=1.0"></script>
 <!-- Load-time stitching of sibling mula/tika_* commentary layers into the
      per-card commentary tabs, plus the lineage strip and the breadcrumb
