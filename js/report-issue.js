@@ -185,7 +185,8 @@
         if (r.screenshot) {
           var a = el('a', { href: r.screenshot, download: 'report-screenshot.jpg' }); document.body.appendChild(a); a.click(); a.remove();
         }
-        location.href = 'mailto:' + email + '?subject=' + encodeURIComponent('Report: ' + r.feature + (r.subject ? ' — ' + r.subject : '')) +
+        // The [DGE-REPORT][category] tag lets a mail filter label and sort these (docs/SETUP_CHECKLIST.md).
+        location.href = 'mailto:' + email + '?subject=' + encodeURIComponent('[DGE-REPORT][' + r.category + '] ' + r.feature + (r.subject ? ' — ' + r.subject : '')) +
                         '&body=' + encodeURIComponent(mailBody(r) + (r.screenshot ? '\n\n(Please attach the screenshot that was just saved: report-screenshot.jpg)' : ''));
       }
       card.querySelector('.dge-rp-mail').onclick = function () {

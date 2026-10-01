@@ -165,7 +165,7 @@ jobs:
       - name: Compose and send
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          SUPERADMIN_EMAILS: ${{ vars.SUPERADMIN_EMAILS }}
+          SUPERADMIN_EMAILS: ${{ vars.SUPERADMIN_EMAILS || secrets.SUPERADMIN_EMAILS }}
           SMTP_HOST: ${{ secrets.SMTP_HOST }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
           SMTP_USER: ${{ secrets.SMTP_USER }}

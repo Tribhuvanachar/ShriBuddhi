@@ -30,6 +30,7 @@
   <a href="../render.html" style="color:var(--accent);text-decoration:none">⌂ DGE</a>
   <b>Reader reports</b>
   <select id="fStatus"><option value="">all</option><option value="new" selected>new</option><option value="resolved">resolved</option></select>
+  <select id="fQueue"><option value="">every queue</option><option>content</option><option>proofreader</option><option>linguistics</option><option>admin</option></select>
   <select id="fFeature"><option value="">every feature</option></select>
   <span id="authState" style="margin-left:auto;font-size:12px;color:var(--muted)">Checking sign-in…</span>
   <button class="btn" id="signIn" style="display:none">Sign in with Google</button>
@@ -48,18 +49,19 @@
   function when(ts) { try { return new Date(ts.toDate ? ts.toDate() : ts).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' IST'; } catch (e) { return ''; } }
 
   function render() {
-    var st = $('#fStatus').value, ft = $('#fFeature').value;
+    var st = $('#fStatus').value, ft = $('#fFeature').value, fq = $('#fQueue').value;
     var feats = {}; rows.forEach(function (r) { feats[r.d.feature || ''] = 1; });
     var sel = $('#fFeature'), cur = sel.value;
     sel.innerHTML = '<option value="">every feature</option>' + Object.keys(feats).sort().map(function (f) { return '<option' + (f === cur ? ' selected' : '') + '>' + esc(f) + '</option>'; }).join('');
-    var shown = rows.filter(function (r) { return (!st || (r.d.status || 'new') === st) && (!ft || r.d.feature === ft); });
+    var shown = rows.filter(function (r) { return (!st || (r.d.status || 'new') === st) && (!ft || r.d.feature === ft) && (!fq || (r.d.queue || '') === fq); });
+    shown.sort(function (a, b) { return String(a.d.priority || 'P9').localeCompare(String(b.d.priority || 'P9')); });
     $('#list').innerHTML = shown.length ? shown.map(function (r) {
       var d = r.d;
       var ctx = [['Feature', d.feature], ['Subject', d.subject], ['Library path', d.path], ['Page', d.url], ['Selected', d.selected], ['On screen', d.extra], ['Script', d.script], ['Browser', d.ua], ['Viewport', d.viewport]]
         .filter(function (p) { return p[1]; }).map(function (p) { return '<tr><td>' + esc(p[0]) + '</td><td>' + (p[0] === 'Page' ? '<a href="' + esc(p[1]) + '" target="_blank" rel="noopener">' + esc(p[1]) + '</a>' : esc(p[1])) + '</td></tr>'; }).join('');
       return '<div class="rep' + ((d.status === 'resolved') ? ' done' : '') + '" data-id="' + esc(r.id) + '">' +
         '<h3>' + esc(d.category || '') + ' — ' + esc(d.subject || d.title || d.feature || '') + '</h3>' +
-        '<div class="meta">' + esc(when(d.createdAt)) + ' · ' + esc(d.email || d.uid) + ' · ' + esc(d.status || 'new') + '</div>' +
+        '<div class="meta">' + (d.priority ? '<b>' + esc(d.priority) + '</b> · ' + esc(d.queue || '') + ' · ' : '') + esc(when(d.createdAt)) + ' · ' + esc(d.email || d.uid) + ' · ' + esc(d.status || 'new') + '</div>' +
         '<div class="msg">' + esc(d.message) + '</div><table class="ctx">' + ctx + '</table>' +
         (d.screenshot ? '<img class="shot" src="' + d.screenshot + '" alt="screenshot">' : '') +
         '<div class="acts"><button class="btn" data-act="toggle">' + (d.status === 'resolved' ? 'Reopen' : 'Mark resolved') + '</button>' +
@@ -88,7 +90,7 @@
       render();
     } catch (e) { alert('Not allowed: ' + (e.code || e.message)); }
   });
-  $('#fStatus').onchange = $('#fFeature').onchange = render;
+  $('#fStatus').onchange = $('#fFeature').onchange = $('#fQueue').onchange = render;
   $('#signIn').onclick = function () { auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function (e) { alert(e.message); }); };
 
   (async function () {

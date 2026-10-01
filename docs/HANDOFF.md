@@ -319,3 +319,13 @@ Also still open:
   `deploy-firestore.yml` when this merges.
 - **Shelf.** `config/library-overrides.json` now allows DvaitaVedantaIn, Anandamakaranda, advaita (Advaita Śāradā),
   RamanujaMeghamala (srivaishnavan), kavya_alankara and the other admin-shelf entries; the admin and public copies agree (test).
+
+## 1 Oct 2026, later: setup checklist, report triage, Advaita Sharada hidden
+
+- **`docs/SETUP_CHECKLIST.md`** has every click: secrets/variables (incl. SMTP), Firebase authorised domains, the branch
+  clean-up groups, the Docker pilot, the report flow, the six remaining importers.
+- **Nightly `triage-reports.yml`** (11:00 pm IST): deterministic queues + priorities, one digest e-mail, switch `REPORT_TRIAGE=off`. No AI.
+- **Advaita Sharada hidden**: its seven folders under `data/darshana/vedanta/advaita/` join `STRUCTURE_PRIVATE` (text by opaque id, no path
+  published), like DvaitaVedantaIn, Anandamakaranda and RamanujaMeghamala; `opaque_ids.private_names()` makes the leak scan path-aware for
+  their generic folder names. None of the four source-site trees is on the go-live shelf. `kavya_alankara` is.
+- `build-padaccheda-sandhi.yml` also runs by itself monthly (2nd, 03:00 IST). `scl-pilot.yml` runs Saṃsādhanī in Docker on the runner.

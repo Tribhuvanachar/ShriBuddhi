@@ -81,10 +81,6 @@
    "Tattvavada/Itara/Kavya/sangraha_ramayana",
    "Tattvavada/Itara/brhatisahasra",
    "vedas/upanishad_sarvasva_kannada",
-   "darshana/vedanta/dvaita/DvaitaVedantaIn",
-   "darshana/vedanta/dvaita/Anandamakaranda",
-   "darshana/vedanta/advaita",
-   "darshana/vedanta/vishishtadvaita/RamanujaMeghamala",
    "kavya_alankara"
   ],
   "_notAllowedOnPurpose": "Mani Manjari is listed above before its data exists -- an allow entry for a path with no grantha under it costs nothing and means loading it is a data commit with no config change. The wider SarvaMula shelf, DvaitaVedanta and SetuTila are deliberately NOT here (lead's choice, 10 Sep 2026); adding 'SarvaMula' to `allow` opens the whole Sarvamula section in one edit.",

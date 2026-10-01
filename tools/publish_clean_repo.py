@@ -36,6 +36,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from unpublished_trees import PRIVATE_TREES, UNDECIDED_TREES, is_unpublished
+from opaque_ids import private_names
 
 # Paths that describe HOW the site is made rather than what it contains.
 # Nothing here is content; every one of them is tooling, configuration or a
@@ -210,7 +211,7 @@ def dangling_private_refs(source: str) -> list[tuple[str, str, str]]:
     Matched on the directory's own name, because that is the part that names
     the source and the part a URL carries.
     """
-    names = [t.rsplit("/", 1)[-1] for t in PRIVATE_TREES]
+    names = private_names(PRIVATE_TREES)
     hits = []
     for full, rel in walk(source):
         if not rel.endswith(TEXT_SUFFIXES):
@@ -233,7 +234,7 @@ def dangling_private_refs(source: str) -> list[tuple[str, str, str]]:
 def dangling_private_refs_in(root: str) -> list[tuple[str, str, str]]:
     """The same question asked of an already-staged tree, which has no
     EXCLUDE rules left to apply -- everything in it is going out."""
-    names = [t.rsplit("/", 1)[-1] for t in PRIVATE_TREES]
+    names = private_names(PRIVATE_TREES)
     hits = []
     for dirpath, _, files in os.walk(root):
         for name in files:

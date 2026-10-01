@@ -124,9 +124,12 @@ def test_the_public_and_admin_shelves_list_the_same_folders():
     assert (root.get("shelf") or root)["allow"] == (admin.get("shelf") or admin)["allow"]
 
 
-def test_the_lead_accepted_these_hidden_trees_on_1_oct_2026():
+def test_source_site_trees_are_not_on_the_shelf():
+    """The lead, 1 Oct 2026: DvaitaVedantaIn, Anandamakaranda, Advaita Sharada and srivaishnavan's
+    Meghamala stay hidden from Jagat. (The first three of those publish text only, under opaque ids;
+    see tools/opaque_ids.py.) Kavya is the opposite: public in both."""
     allow = shelf().get("allow") or []
-    for want in ("darshana/vedanta/dvaita/DvaitaVedantaIn", "darshana/vedanta/dvaita/Anandamakaranda",
-                 "darshana/vedanta/advaita", "darshana/vedanta/vishishtadvaita/RamanujaMeghamala",
-                 "kavya_alankara"):
-        assert want in allow, want
+    for hidden in ("darshana/vedanta/dvaita/DvaitaVedantaIn", "darshana/vedanta/dvaita/Anandamakaranda",
+                   "darshana/vedanta/advaita", "darshana/vedanta/vishishtadvaita/RamanujaMeghamala"):
+        assert not any(a == hidden or a.startswith(hidden + "/") for a in allow), hidden
+    assert "kavya_alankara" in allow

@@ -21,7 +21,7 @@ from unpublished_trees import (PRIVATE_TREES, UNDECIDED_TREES,   # noqa: E402
 import promote_to_tattvavada as promote                          # noqa: E402
 
 
-def test_the_three_source_named_trees_are_the_private_ones():
+def test_the_source_named_trees_are_the_private_ones():
     """Started as two. RamanujaMeghamala was held back while the rule was
     "does not publish at all", because excluding it would have retired 175
     live URLs nobody asked to retire. Under ids nothing is retired -- the
@@ -31,6 +31,14 @@ def test_the_three_source_named_trees_are_the_private_ones():
         "data/darshana/vedanta/dvaita/DvaitaVedantaIn",
         "data/darshana/vedanta/dvaita/Anandamakaranda",
         "data/darshana/vedanta/vishishtadvaita/RamanujaMeghamala",
+        # 1 Oct 2026: advaitasharada.sringeri.net's folders (the lead: Advaita Sharada stays hidden)
+        "data/darshana/vedanta/advaita/prakarana_granthas",
+        "data/darshana/vedanta/advaita/siddhi_granthas",
+        "data/darshana/vedanta/advaita/stotrani",
+        "data/darshana/vedanta/advaita/gita_prasthana_tikas",
+        "data/darshana/vedanta/advaita/sutra_prasthana_tikas",
+        "data/darshana/vedanta/advaita/upanishad_prasthana_tikas",
+        "data/darshana/vedanta/advaita/shankara_bhashya_extra",
     }
 
 
@@ -216,7 +224,8 @@ def test_no_published_js_names_a_private_tree():
     label map and a folder-name lint allowlist -- neither of which a public
     page can use."""
     import publish_clean_repo as P
-    names = [t.rsplit("/", 1)[-1] for t in PRIVATE_TREES]
+    from opaque_ids import private_names
+    names = private_names(PRIVATE_TREES)   # path-aware for the generic Advaita folder names
     bad = []
     for full, rel in P.walk(ROOT):
         if not rel.startswith("js/") or not rel.endswith(".js"):
