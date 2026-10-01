@@ -24,6 +24,7 @@ without modification):
 from __future__ import annotations
 
 from .common import make_unit_id, norm_ws
+from .translit import is_roman, to_devanagari
 
 SCHEMA_NAME = "itihasa_purana_text"
 
@@ -114,7 +115,8 @@ def set_payload(shloka, layer_kind, text, commentator="", extra=None):
     if not text:
         return shloka
     if layer_kind == "mula":
-        shloka["sanskrit_text"] = text
+        # Roman (IAST) sources are converted at the door: nothing downstream reads Roman.
+        shloka["sanskrit_text"] = to_devanagari(text) if is_roman(text) else text
     elif layer_kind in ("tika", "tippani"):
         shloka.setdefault("bhashya", []).append(
             {"commentator": commentator or "", "text": text}
