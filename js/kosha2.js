@@ -1006,6 +1006,17 @@
         b.classList.toggle('active', b.dataset.script === state.script);
         b.onclick = function () { setScript(b.dataset.script); };
       });
+      // Always-visible scope switch: Quick = 10 core dictionaries, Deep = all.
+      // The engine reads its dictionary list once at load, so a change reloads
+      // the page (the #word= hash keeps the word).
+      document.querySelectorAll('#k2Scope [data-scope]').forEach(function (b) {
+        b.classList.toggle('active', b.dataset.scope === window.KOSHA_SCOPE);
+        b.onclick = function () {
+          if (b.dataset.scope === window.KOSHA_SCOPE) return;
+          try { localStorage.setItem('kosha_scope', b.dataset.scope); } catch (e) {}
+          location.reload();
+        };
+      });
       var cfg = $('#k2Cfg'); if (cfg) cfg.onclick = function (e) { e.stopPropagation(); cfgSheet(cfg); };
       var m = location.hash.match(/word=([^&]+)/);
       var k = location.hash.match(/kosha=([^&]+)/);
