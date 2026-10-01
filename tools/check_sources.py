@@ -41,6 +41,18 @@ import urllib.request
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REGISTRY = os.path.join(REPO, "admin", "config", "sources.registry.json")
 STATE = os.path.join(REPO, "admin", "config", "sources.state.json")
+# Where the registry's relative paths (pages_from, seeds_from) are resolved. ParaBuddhi owns
+# the registry now, so the weekly watcher points this at its checkout of ParaBuddhi.
+BASE_DIR = REPO
+
+
+def _rel(path):
+    """A registry path, looked for under BASE_DIR first, then in this repository."""
+    for root in (BASE_DIR, REPO):
+        cand = os.path.join(root, path)
+        if os.path.exists(cand):
+            return cand
+    return os.path.join(BASE_DIR, path)
 UA = ("DGE-source-check/1.0 (+https://github.com/Tribhuvanachar/bhumandala; "
       "non-commercial, educational; checks for updates every 15 days)")
 
@@ -127,7 +139,7 @@ def probe_feed(p):
 def probe_mediawiki(p):
     """Revision ids of the pages we actually import, not the whole wiki."""
     pages = []
-    cfg = os.path.join(REPO, p.get("pages_from", ""))
+    cfg = _rel(p.get("pages_from", ""))
     if os.path.exists(cfg):
         works = json.load(open(cfg, encoding="utf-8")).get("works", [])
         for w in works:
@@ -160,7 +172,7 @@ def probe_crawl_seeds(p):
     Dasaprakaranas. Hashing the union over one seed per section is a cheap,
     honest answer to "has the library grown".
     """
-    cfg = json.load(open(os.path.join(REPO, p["seeds_from"]), encoding="utf-8"))
+    cfg = json.load(open(_rel(p["seeds_from"]), encoding="utf-8"))
     base = p.get("base") or cfg.get("site", {}).get("base", "")
     seeds = []
     for section in cfg.get("sections", []):
@@ -256,10 +268,19 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", default="", help="comma-separated source ids")
     ap.add_argument("--write-state", action="store_true")
+    ap.add_argument("--registry", default=REGISTRY, help="sources.registry.json (ParaBuddhi owns the real one)")
+    ap.add_argument("--state", default=STATE, help="where fingerprints are remembered")
+    ap.add_argument("--base-dir", default=REPO, help="resolve the registry's relative paths here")
+    ap.add_argument("--probe-all", action="store_true",
+                    help="probe every listed source even if the registry says it is not imported yet")
+    ap.add_argument("--json", default="", help="also write a machine-readable result here")
     args = ap.parse_args()
+    global BASE_DIR
+    BASE_DIR = args.base_dir
+    registry_path, state_path = args.registry, args.state
 
-    reg = json.load(open(REGISTRY, encoding="utf-8"))["sources"]
-    state = json.load(open(STATE, encoding="utf-8")) if os.path.exists(STATE) else {"sources": {}}
+    reg = json.load(open(registry_path, encoding="utf-8"))["sources"]
+    state = json.load(open(state_path, encoding="utf-8")) if os.path.exists(state_path) else {"sources": {}}
     old = state.get("sources", {})
     only = {s for s in args.only.split(",") if s}
 
@@ -273,7 +294,7 @@ def main():
         # A site we never imported from is normally not worth a request -- unless
         # it is marked watch_only, which means "we have not taken from it yet,
         # but tell us when it moves" (sarvamulavani.com).
-        if kind == "manual" or not (src.get("imported", False) or src.get("watch_only", False)):
+        if kind == "manual" or not (args.probe_all or src.get("imported", False) or src.get("watch_only", False)):
             skipped.append((sid, "no automatic probe" if kind == "manual" else "not imported"))
             continue
         try:
@@ -317,7 +338,15 @@ def main():
                               "no content. Delete an entry to force a first-look report.",
                    "checked_at_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                    "sources": merged},
-                  open(STATE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+                  open(state_path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    if args.json:
+        json.dump({"changed": [{"id": sid, "what": what, "detail": detail,
+                                "kind": src["probe"]["kind"], "probe": src["probe"],
+                                "importer": src.get("importer", "")}
+                               for sid, what, detail, src in changed],
+                   "unchanged": unchanged, "skipped": [s for s, _ in skipped],
+                   "failed": [{"id": s, "error": e} for s, e in failed]},
+                  open(args.json, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     # A changed source is news, not a failure: exit 0 so the workflow can keep
     # going and report it. Only an unreachable source is worth a red run, and
     # only if everything was unreachable (i.e. the runner has no network).

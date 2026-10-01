@@ -104,7 +104,7 @@ def compare(repo, old_sha, new_sha):
 
 def load_registry_repos(only):
     reg = json.load(open(REGISTRY, encoding="utf-8"))["sources"]
-    repos = [s for s in reg if s.get("checked_by") == "check-vishvasa.yml"]
+    repos = [s for s in reg if str(s.get("id", "")).startswith("vishvasa_") and s.get("github")]
     if only:
         repos = [s for s in repos if s["id"] in only]
     return repos
@@ -114,7 +114,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", default="", help="comma-separated source ids")
     ap.add_argument("--write-state", action="store_true")
+    ap.add_argument("--registry", default="", help="sources.registry.json (ParaBuddhi owns the real one)")
+    ap.add_argument("--state", default="", help="where fingerprints are remembered")
+    ap.add_argument("--json", default="", help="also write a machine-readable result here")
     args = ap.parse_args()
+    global REGISTRY, STATE
+    if args.registry:
+        REGISTRY = args.registry
+    if args.state:
+        STATE = args.state
 
     only = {s for s in args.only.split(",") if s}
     srcs = load_registry_repos(only)
@@ -202,6 +210,14 @@ def main():
             # (baseline_note from the manually-seeded first version is dropped
             # once a real run has happened -- checked_at_utc above says when.)
 
+    if args.json:
+        json.dump({"changed": [{"id": c[0], "what": c[2], "detail": c[3], "kind": "github_commit",
+                                "probe": {"kind": "github_commit", "repo": c[1],
+                                          "branch": (next((x for x in srcs if x["id"] == c[0]), {}).get("github") or {}).get("branch", "content")},
+                                "importer": ""} for c in changed],
+                   "unchanged": [u if isinstance(u, str) else u[0] for u in unchanged],
+                   "failed": [{"id": f[0], "error": f[1] if len(f) > 1 else ""} for f in failed]},
+                  open(args.json, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     return 1 if failed and not (changed or unchanged) else 0
 
 

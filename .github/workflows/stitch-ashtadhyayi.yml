@@ -1,5 +1,11 @@
-name: Sync — Aṣṭādhyāyī data (ashtadhyayi.com / github ashtadhyayi-com/data)
+name: Stitch — Aṣṭādhyāyī data (from the copy landed in ParaBuddhi)
 
+# MANUAL ONLY, and downstream of ParaBuddhi (1 Oct 2026). The weekly watcher (watch-sources.yml,
+# Sunday 02:00 IST) lands ashtadhyayi-com/data in ParaBuddhi first, untouched. This workflow is the
+# ShriBuddhi side: it takes exactly the commit ParaBuddhi holds (source/_raw/ashtadhyayi_com/LATEST.json)
+# and stitches it into data/vedanga/vyakarana/ as a pull request. It will not run against a commit
+# ParaBuddhi does not have.
+#
 # ashtadhyayi.com is built from a public GitHub repository, so "has anything
 # changed" is one commit id: the run stops at once if the repository's HEAD
 # is the commit we last imported (recorded as attribution.source_commit in
@@ -23,8 +29,6 @@ name: Sync — Aṣṭādhyāyī data (ashtadhyayi.com / github ashtadhyayi-com/
 # no LICENSE file. Attribution to ashtadhyayi.com is kept in every file.
 
 on:
-  schedule:
-    - cron: "30 0 8,23 * *"        # 06:00 IST on the 8th and 23rd
   workflow_dispatch:
     inputs:
       force:
@@ -45,7 +49,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: sync-ashtadhyayi
+  group: stitch-ashtadhyayi
   cancel-in-progress: false
 
 jobs:
@@ -58,11 +62,18 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Fetch the upstream repository
+      - name: Fetch the upstream repository at the commit ParaBuddhi holds
         id: up
+        env:
+          PARABUDDHI_TOKEN: ${{ secrets.PARABUDDHI_TOKEN }}
         run: |
           set -euo pipefail
-          git clone -q --depth 1 https://github.com/ashtadhyayi-com/data /tmp/ashtadhyayi-data
+          test -n "$PARABUDDHI_TOKEN" || { echo "::error::PARABUDDHI_TOKEN is not set: the raw copy lives in ParaBuddhi and this step reads it."; exit 2; }
+          git clone -q --depth 1 "https://x-access-token:${PARABUDDHI_TOKEN}@github.com/Tribhuvanachar/ParaBuddhi.git" /tmp/pb
+          LANDED=$(python3 -c "import json;print(json.load(open('/tmp/pb/source/_raw/ashtadhyayi_com/LATEST.json')).get('commit',''))" 2>/dev/null || true)
+          test -n "$LANDED" || { echo "::error::ParaBuddhi has no landed ashtadhyayi-com/data yet (source/_raw/ashtadhyayi_com/LATEST.json). Run watch-sources.yml first."; exit 2; }
+          git clone -q https://github.com/ashtadhyayi-com/data /tmp/ashtadhyayi-data
+          git -C /tmp/ashtadhyayi-data checkout -q "$LANDED"
           NOW=$(git -C /tmp/ashtadhyayi-data rev-parse HEAD)
           WAS=$(python3 -c "import json;print(json.load(open('data/vedanga/vyakarana/unadi/data.json')).get('attribution',{}).get('source_commit',''))")
           echo "now=$NOW" >> "$GITHUB_OUTPUT"
@@ -81,7 +92,7 @@ jobs:
         run: python3 tools/vyakarana/import_ashtadhyayi_corpora.py --src /tmp/ashtadhyayi-data
 
       - name: Refresh the sūtra enrichment, Mahābhāṣya and Vasu layers
-        if: steps.up.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.layers)
+        if: steps.up.outputs.run == 'true' && inputs.layers
         run: |
           set -euo pipefail
           python3 importers/ashtadhyayi_layers.py --local /tmp/ashtadhyayi-data
@@ -101,7 +112,7 @@ jobs:
         run: python3 tools/validate_data.py
 
       - name: Open a pull request (against ShriBuddhi)
-        if: steps.up.outputs.run == 'true' && (github.event_name == 'schedule' || inputs.open_pr)
+        if: steps.up.outputs.run == 'true' && inputs.open_pr
         uses: peter-evans/create-pull-request@v6
         with:
           branch: sync/ashtadhyayi
@@ -109,7 +120,7 @@ jobs:
           commit-message: "Sync Aṣṭādhyāyī corpora and layers from ashtadhyayi-com/data ${{ steps.up.outputs.now }}"
           body: |
             ashtadhyayi-com/data moved from `${{ steps.up.outputs.was }}` to
-            `${{ steps.up.outputs.now }}`. Refreshed by `sync-ashtadhyayi.yml`;
+            `${{ steps.up.outputs.now }}`. Refreshed by `stitch-ashtadhyayi.yml` from the copy landed in ParaBuddhi;
             the run summary lists items-before/after per file (tools/sync_guard.py).
             The Siddhānta-Kaumudī layer is deliberately untouched (re-sourced 29 Aug 2026).
           add-paths: |

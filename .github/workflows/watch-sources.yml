@@ -1,0 +1,177 @@
+# Weekly watch over every upstream source we take from. Sunday 02:00 IST (Saturday 20:30 UTC).
+#
+#   gretil · ambuda · sanskritsahitya · sa.wikisource · ashtadhyayi.com · DCS · Saṃsādhanī (SCL)
+#   dvaitavedanta.in · setutila.in · anandamakaranda.in · srivaishnavan.com · advaitasharada
+#   the vishvAsa repositories (13, as one family)
+#   and the smaller feeds the registry lists (madhwafestivals, dasasahitya.net, sarvamulavani, ...) as `others`
+# (IndoWordNet has its own workflow, watch-indowordnet.yml, because it also rebuilds.)
+#
+# WHAT IT DOES, per source, one after another (max-parallel 1, because every job pushes to ParaBuddhi):
+#   1. probe    ask the source whether it changed (tools/check_sources.py / check_vishvasa.py),
+#               against the registry and fingerprints that live in ParaBuddhi
+#   2. land     if it changed, put the raw upstream data into ParaBuddhi, untouched
+#               (tools/watch/land_raw.py): a repository tarball, or the probe evidence plus a
+#               dispatch of ParaBuddhi's own importer. THIS MUST SUCCEED: a change that cannot be
+#               landed fails the run, and nothing downstream may be built from it.
+#   3. report   one e-mail to the superadmins with everything above (tools/watch/send_report.py);
+#               if mail cannot be sent the report is filed as an issue instead and says so.
+#
+# IT NEVER TOUCHES SHRIBUDDHI'S DATA. ShriBuddhi is where the origin's tags are stripped and the
+# material is rearranged and stitched into the customised library (e.g. SarvaMula, which draws on
+# setutila, dvaitavedanta and anandamakaranda together). That is a deliberate, human-reviewed step,
+# and which upstream section goes to which ShriBuddhi path is recorded in ParaBuddhi's
+# import_config/destinations.registry.json (see docs/SOURCE_DESTINATIONS.md).
+#
+# SECRETS / VARIABLES (set once, Settings -> Secrets and variables -> Actions):
+#   PARABUDDHI_TOKEN   secret: Contents + Actions read/write on Tribhuvanachar/ParaBuddhi   (required)
+#   SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD, SMTP_FROM   secrets: any SMTP account
+#   SUPERADMIN_EMAILS  variable: comma-separated addresses (roles live in Firestore, not here)
+name: Watch sources (weekly)
+
+on:
+  schedule:
+    - cron: "30 20 * * 6"
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Run only this source group (blank = all)"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: watch-sources
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        include:
+          - { name: gretil,          ids: gretil,                  tool: sources }
+          - { name: ambuda,          ids: ambuda,                  tool: sources }
+          - { name: sanskritsahitya, ids: sanskritsahitya,         tool: sources }
+          - { name: wikisource,      ids: sa_wikisource,           tool: sources }
+          - { name: ashtadhyayi,     ids: ashtadhyayi_com,         tool: sources }
+          - { name: dcs,             ids: dcs,                     tool: sources }
+          - { name: scl,             ids: samsaadhanii_scl,        tool: sources }
+          - { name: dvaitavedanta,   ids: dvaitavedanta,           tool: sources }
+          - { name: setutila,        ids: setutila,                tool: sources }
+          - { name: anandamakaranda, ids: anandamakaranda,         tool: sources }
+          - { name: srivaishnavan,   ids: srivaishnavan_meghamala, tool: sources }
+          - { name: advaitasharada,  ids: advaitasharada,          tool: sources }
+          - { name: vishvasa,        ids: "",                      tool: vishvasa }
+          - { name: others,          ids: "madhwafestivals,dasasahitya_net,meerasubbarao,sarvamulavani,sanskritdocuments,indic_dict_stardict,utexas_gdoc_hub", tool: sources }
+    steps:
+      - name: Selected?
+        id: sel
+        env:
+          ONLY: ${{ inputs.only }}
+          NAME: ${{ matrix.name }}
+          IDS: ${{ matrix.ids }}
+        run: |
+          # `only` may name a group (setutila) or source ids (ashtadhyayi_com, gretil,ambuda): a group runs
+          # when its name or any of its ids is listed.
+          run=true
+          if [ -n "${ONLY:-}" ]; then
+            run=false
+            for t in ${ONLY//,/ } ; do
+              [ "$t" = "$NAME" ] && run=true
+              for i in ${IDS//,/ } ; do [ "$t" = "$i" ] && run=true; done
+            done
+            # the vishvasa group has no ids; any vishvasa_* id selects it
+            if [ "$NAME" = "vishvasa" ]; then case ",$ONLY," in *,vishvasa_*) run=true;; esac; fi
+          fi
+          echo "run=$run" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v4
+        if: steps.sel.outputs.run == 'true'
+      - uses: actions/setup-python@v5
+        if: steps.sel.outputs.run == 'true'
+        with:
+          python-version: "3.11"
+
+      - name: Check out ParaBuddhi (registry, fingerprints, and where raw data lands)
+        if: steps.sel.outputs.run == 'true'
+        env:
+          PARABUDDHI_TOKEN: ${{ secrets.PARABUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$PARABUDDHI_TOKEN" || { echo "::error::PARABUDDHI_TOKEN is not set. Raw upstream data must land in ParaBuddhi first, so the watcher cannot run without it."; exit 2; }
+          git clone --depth 1 "https://x-access-token:${PARABUDDHI_TOKEN}@github.com/Tribhuvanachar/ParaBuddhi.git" pb
+
+      - name: Probe
+        if: steps.sel.outputs.run == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          IDS: ${{ matrix.ids }}
+          TOOL: ${{ matrix.tool }}
+        run: |
+          set -euo pipefail
+          mkdir -p results
+          if [ "$TOOL" = "vishvasa" ]; then
+            python3 tools/check_vishvasa.py --registry pb/import_config/sources.registry.json \
+              --state pb/import_config/watch_state_vishvasa.json --write-state --json "results/result-${{ matrix.name }}.json"
+          else
+            python3 tools/check_sources.py --registry pb/import_config/sources.registry.json \
+              --state pb/import_config/watch_state.json --base-dir pb --only "$IDS" --probe-all --write-state \
+              --json "results/result-${{ matrix.name }}.json"
+          fi
+
+      - name: Land the raw data in ParaBuddhi
+        if: steps.sel.outputs.run == 'true'
+        env:
+          PARABUDDHI_TOKEN: ${{ secrets.PARABUDDHI_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          python3 tools/watch/land_raw.py --pb pb --result "results/result-${{ matrix.name }}.json" \
+            --landed "results/landed-${{ matrix.name }}.json"
+          rc=$?
+          # fingerprints are remembered in ParaBuddhi whether or not anything landed
+          cd pb
+          git config user.name "parabuddhi-watch"; git config user.email "noreply@anthropic.com"
+          git add import_config/watch_state*.json
+          if ! git diff --cached --quiet; then
+            git commit -q -m "watch: fingerprints (${{ matrix.name }})"
+            for i in 1 2 3; do git push -q origin HEAD:main && break; git pull -q --rebase origin main; done
+          fi
+          exit $rc
+
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.sel.outputs.run == 'true'
+        with:
+          name: watch-${{ matrix.name }}
+          path: results/
+          if-no-files-found: ignore
+
+  report:
+    needs: watch
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          path: results
+          pattern: watch-*
+      - name: Compose and send
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SUPERADMIN_EMAILS: ${{ vars.SUPERADMIN_EMAILS }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+        run: |
+          python3 tools/watch/compose_report.py results > report.md
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+          python3 tools/watch/send_report.py --subject "Weekly source watch — $(TZ=Asia/Kolkata date +'%d %b %Y')" --body report.md --issue
