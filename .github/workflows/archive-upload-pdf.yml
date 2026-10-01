@@ -257,7 +257,7 @@ jobs:
       # mode=upload
       # ---------------------------------------------------------------
       - name: Make a synthetic sample PDF
-        if: inputs.mode == 'upload' && inputs.sample == 'true'
+        if: inputs.mode == 'upload' && inputs.sample
         env:
           TITLE: ${{ inputs.title }}
           TAXPATH: ${{ inputs.taxonomy_path }}
@@ -308,7 +308,7 @@ jobs:
           PY
 
       - name: Fetch the real source PDF(s)
-        if: inputs.mode == 'upload' && inputs.sample != 'true'
+        if: inputs.mode == 'upload' && !inputs.sample
         uses: actions/checkout@v4
         with:
           repository: ${{ inputs.source_repo }}
@@ -317,7 +317,7 @@ jobs:
           path: _pdf_src_repo
 
       - name: Stage the real source PDF(s)
-        if: inputs.mode == 'upload' && inputs.sample != 'true'
+        if: inputs.mode == 'upload' && !inputs.sample
         env:
           SRC: ${{ inputs.source_path }}
         run: |
