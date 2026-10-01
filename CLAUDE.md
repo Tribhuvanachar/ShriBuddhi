@@ -217,3 +217,9 @@ estimate and wait for their go-ahead.
 
 You never see GitHub secrets; they are injected into workflow runs, not into
 your session. Never ask for a token to be pasted into chat.
+
+The full inventory — which secret, what it's for, which repo holds it, where
+to re-issue the value — is `docs/RESOURCES.md` §1/§3, not here. As of 1 Oct
+2026 it also covers two separate archive.org accounts/key pairs the lead set
+up (`ARCHIVE_PDF_*` and `ARCHIVE_AUDIO_*`, ShriBuddhi) — one per upload
+purpose, not aliases for the same credential.

@@ -1,0 +1,431 @@
+# Puts a source PDF (or a chapter-split set of them) on archive.org, one
+# archive.org item per grantha, organized so the hierarchy survives.
+#
+# WHY. The project holds (or will hold) source PDFs for far more works than
+# are digitized into data/*.json — and a future desktop session is expected
+# to scan local drives, match PDFs against data/catalogs/
+# dvaita_grantha_anukramani.json (the existing Anukramani/bibliography
+# catalogue, 2,456 works), and upload whatever is found. For a reader
+# browsing by author/work to land on a real PDF even for an undigitized
+# work, archive.org needs ONE predictable, derivable place per work — not a
+# pile of uploads a human has to remember the names of.
+#
+# THE CONVENTION (see docs/PDF_ARCHIVE_CONVENTION.md for the full writeup):
+#   - One archive.org ITEM per grantha/work, same granularity as the
+#     existing audio items (archive-upload.yml: rgv_audio, smv_audio).
+#   - taxonomy_path is the work's path relative to data/, e.g.
+#     "Tattvavada/Itara/Kavya/raghavendra_vijaya" -- the SAME folder names
+#     data/ already uses (or will use once the work is imported), not a
+#     separate invented scheme. This one input carries the whole
+#     parent/child hierarchy (SarvaMula vs Itara, Itara/DasaSahitya vs
+#     Itara/Kavya, etc.) the lead asked to retain.
+#   - The archive.org identifier is DERIVED from taxonomy_path, deterministically
+#     (see "Derive the identifier" below) -- dge_tattvavada_itara_kavya_
+#     raghavendra_vijaya for the example above. A future matching session
+#     can compute the same identifier from a taxonomy path without a lookup
+#     table, and can probe archive.org (ia metadata <id>, or just the
+#     details page) to see whether a work already has a PDF before
+#     uploading another.
+#   - subject metadata carries the SAME hierarchy as a set of tags, one per
+#     taxonomy level (Tattvavada, then Tattvavada/Itara, then
+#     Tattvavada/Itara/Kavya, ...) -- archive.org has no real nested-folder
+#     browsing across items, but faceted subject search over these tags is
+#     the nearest honest equivalent, and a custom dge-taxonomy-path field
+#     carries the exact string for precise machine matching.
+#   - Every successful upload is appended to data/catalogs/
+#     archive_pdf_catalog.json -- the ledger of what has been sent, so nothing
+#     downstream has to scrape archive.org to find out.
+#
+# mode=check verifies the credentials and uploads nothing.
+# mode=upload sends the file(s) and appends to the ledger.
+# mode=delete removes an item this workflow created (ia delete) and strikes
+#   its ledger entry -- for retracting a mistaken upload, including this
+#   file's own proof-of-concept run.
+#
+# sample=true (mode=upload only) generates one small synthetic placeholder
+#   PDF instead of fetching a real source -- for exercising the identifier/
+#   metadata/ledger logic end to end without needing a real source file yet.
+
+name: Archive.org — upload a PDF (or chapter set)
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "check verifies the keys and uploads nothing. upload sends the file(s). delete removes an item this workflow created."
+        type: choice
+        options: [check, upload, delete]
+        default: check
+      taxonomy_path:
+        description: 'Work path relative to data/, e.g. "Tattvavada/Itara/Kavya/raghavendra_vijaya" (same folder names data/ uses or will use)'
+        required: false
+        default: ""
+      title:
+        description: "Human-readable title for archive.org metadata, e.g. Raghavendra Vijaya"
+        required: false
+        default: ""
+      author:
+        description: "Author/creator metadata, if known"
+        required: false
+        default: ""
+      language:
+        description: "ISO 639-2 language code for archive.org metadata"
+        required: false
+        default: san
+      source_repo:
+        description: "Repo holding the real PDF(s) to upload (ignored if sample=true)"
+        required: false
+        default: Tribhuvanachar/ShriBuddhi
+      source_path:
+        description: "Path in that repo to a single PDF, or a directory of chapter PDFs (ignored if sample=true)"
+        required: false
+        default: ""
+      source_ref:
+        description: "Branch/tag in the source repo. Leave empty for its default branch."
+        required: false
+        type: string
+      sample:
+        description: "mode=upload only: generate and upload one small synthetic placeholder PDF instead of fetching a real source — for a proof-of-concept run"
+        type: boolean
+        default: false
+      identifier_override:
+        description: "Override the derived archive.org identifier (leave empty to derive from taxonomy_path). Required for mode=delete."
+        required: false
+        default: ""
+
+permissions:
+  # write, not read: unlike archive-upload.yml (audio), this workflow commits
+  # the ledger (data/catalogs/archive_pdf_catalog.json) back to ShriBuddhi's
+  # own main after every upload/delete. Found live: the first real run's
+  # ledger-commit step failed with "unable to access ... 403" on `git push`
+  # using the default GITHUB_TOKEN under contents: read (copied from
+  # archive-upload.yml without noticing it never pushes anywhere). Matches
+  # nightly.yml/kavya-tracker.yml/interlink.yml, which also self-commit.
+  contents: write
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Which archive.org secret names are set
+        # Prints NAMES only, never a value. ARCHIVE_PDF_* is the account set
+        # up specifically for PDFs (jagadgurumadhvacharyaadmin@gmail.com,
+        # see docs/RESOURCES.md §1/§3) -- checked first, same pattern
+        # archive-upload.yml uses for the audio account.
+        env:
+          A0: ${{ secrets.ARCHIVE_PDF_ACCESS_KEY }}
+          S0: ${{ secrets.ARCHIVE_PDF_SECRET_KEY }}
+          A1: ${{ secrets.IA_ACCESS_KEY }}
+          S1: ${{ secrets.IA_SECRET_KEY }}
+          A2: ${{ secrets.ARCHIVE_ACCESS_KEY }}
+          S2: ${{ secrets.ARCHIVE_SECRET_KEY }}
+          A3: ${{ secrets.IAS3_ACCESS_KEY }}
+          S3: ${{ secrets.IAS3_SECRET_KEY }}
+          A4: ${{ secrets.INTERNETARCHIVE_ACCESS_KEY }}
+          S4: ${{ secrets.INTERNETARCHIVE_SECRET_KEY }}
+        run: |
+          found=""
+          for pair in "ARCHIVE_PDF_ACCESS_KEY:$A0:ARCHIVE_PDF_SECRET_KEY:$S0" \
+                      "IA_ACCESS_KEY:$A1:IA_SECRET_KEY:$S1" \
+                      "ARCHIVE_ACCESS_KEY:$A2:ARCHIVE_SECRET_KEY:$S2" \
+                      "IAS3_ACCESS_KEY:$A3:IAS3_SECRET_KEY:$S3" \
+                      "INTERNETARCHIVE_ACCESS_KEY:$A4:INTERNETARCHIVE_SECRET_KEY:$S4"; do
+            an=$(echo "$pair" | cut -d: -f1); av=$(echo "$pair" | cut -d: -f2)
+            sn=$(echo "$pair" | cut -d: -f3); sv=$(echo "$pair" | cut -d: -f4)
+            if [ -n "$av" ] && [ -n "$sv" ]; then
+              echo "found the pair $an / $sn"
+              echo "IA_A=$av" >> "$GITHUB_ENV"
+              echo "IA_S=$sv" >> "$GITHUB_ENV"
+              found=1
+              break
+            elif [ -n "$av" ] || [ -n "$sv" ]; then
+              echo "::warning::$an / $sn — only one of the pair is set"
+            fi
+          done
+          if [ -z "$found" ]; then
+            echo "::error::No complete archive.org key pair found. Expected one of:"
+            echo "  ARCHIVE_PDF_ACCESS_KEY / ARCHIVE_PDF_SECRET_KEY  (preferred)"
+            echo "  IA_ACCESS_KEY / IA_SECRET_KEY"
+            echo "  ARCHIVE_ACCESS_KEY / ARCHIVE_SECRET_KEY"
+            echo "  IAS3_ACCESS_KEY / IAS3_SECRET_KEY"
+            echo "  INTERNETARCHIVE_ACCESS_KEY / INTERNETARCHIVE_SECRET_KEY"
+            echo "Get them at https://archive.org/account/s3.php"
+            exit 1
+          fi
+
+      - name: Do the keys actually work
+        run: |
+          CODE=$(curl -sS -o /tmp/auth.json -w "%{http_code}" \
+            "https://s3.us.archive.org/?check_auth=1" \
+            -H "Authorization: LOW ${IA_A}:${IA_S}")
+          echo "check_auth HTTP $CODE"
+          python3 - <<'PY'
+          import json
+          d = json.load(open("/tmp/auth.json"))
+          if d.get("authorized") or d.get("success"):
+              print("authenticated as:", d.get("screenname") or d.get("username"))
+          else:
+              print("::error::archive.org rejected these keys:", d.get("error") or d)
+              raise SystemExit(1)
+          PY
+
+      - name: Derive the identifier
+        # dge_<taxonomy path, lowercased, "/" and spaces -> "_">. Deterministic
+        # and reversible by convention (not stored state) -- a future session
+        # computes the same string from the same taxonomy_path, no lookup
+        # table required. "dge" namespaces every item this project uploads
+        # (same short-name convention as the dge- CSS/JS class prefix used
+        # throughout the reader) and makes "every item we uploaded" a simple
+        # identifier-prefix search on archive.org.
+        id: ident
+        env:
+          TAXPATH: ${{ inputs.taxonomy_path }}
+          OVERRIDE: ${{ inputs.identifier_override }}
+        run: |
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import os, re
+          override = os.environ.get("OVERRIDE", "").strip()
+          taxpath = os.environ.get("TAXPATH", "").strip().strip("/")
+          if override:
+              ident = override
+          else:
+              if not taxpath:
+                  raise SystemExit("::error::taxonomy_path is required (or pass identifier_override)")
+              slug = taxpath.lower()
+              slug = re.sub(r"[^a-z0-9/]+", "_", slug)
+              slug = slug.replace("/", "_")
+              slug = re.sub(r"_+", "_", slug).strip("_")
+              ident = "dge_" + slug
+          # Each taxonomy level as its own subject tag, cumulative, so
+          # archive.org's faceted subject search can browse by any level --
+          # the nearest honest equivalent to folder browsing across items.
+          levels = [p for p in taxpath.split("/") if p] if taxpath else []
+          subjects = []
+          cum = []
+          for p in levels:
+              cum.append(p)
+              subjects.append("/".join(cum))
+          print(f"identifier={ident}")
+          print(f"subjects={';'.join(subjects)}")
+          print(f"taxpath={taxpath}")
+          PY
+          echo "identifier: $(grep ^identifier= "$GITHUB_OUTPUT" | cut -d= -f2-)"
+
+      - name: Stop here if this is only a check
+        if: inputs.mode == 'check'
+        run: echo "::notice::Credentials verified. Nothing uploaded. identifier would be ${{ steps.ident.outputs.identifier }}."
+
+      # ---------------------------------------------------------------
+      # mode=delete: retract an item this workflow created (including its
+      # own proof-of-concept run), and strike it from the ledger.
+      # ---------------------------------------------------------------
+      - name: Delete the item
+        if: inputs.mode == 'delete'
+        env:
+          IDENT: ${{ steps.ident.outputs.identifier }}
+        run: |
+          test -n "$IDENT" || { echo "::error::No identifier (pass taxonomy_path or identifier_override)"; exit 1; }
+          pip install --quiet internetarchive
+          mkdir -p ~/.config/internetarchive
+          printf '[s3]\naccess = %s\nsecret = %s\n' "$IA_A" "$IA_S" > ~/.config/ia.ini
+          # Not --all: found live (1 Oct 2026) that archive.org generates and
+          # protects a few housekeeping files on every item (_meta.sqlite,
+          # _files.xml, _meta.xml -- format "Metadata" -- plus an
+          # "Archive BitTorrent" manifest) and refuses to delete them
+          # directly ("cannot overwrite or delete ... use metadata api
+          # instead", 403) -- --all tries anyway and the whole step failed
+          # without deleting the real uploaded file either. Only the real,
+          # uploaded source files need deleting; the housekeeping ones
+          # disappear on their own once an item has nothing left.
+          python3 - <<PY > /tmp/real_files.txt
+          import json, urllib.request
+          with urllib.request.urlopen("https://archive.org/metadata/$IDENT") as r:
+              d = json.load(r)
+          for f in d.get("files", []):
+              if f.get("format") not in ("Metadata", "Archive BitTorrent"):
+                  print(f["name"])
+          PY
+          N=$(wc -l < /tmp/real_files.txt)
+          if [ "$N" -eq 0 ]; then
+            echo "::notice::$IDENT has no real (non-housekeeping) files left — nothing to delete."
+          else
+            echo "deleting $N real file(s) from item $IDENT:"
+            cat /tmp/real_files.txt
+            ia --config-file ~/.config/ia.ini delete "$IDENT" $(cat /tmp/real_files.txt) --quiet
+          fi
+          echo "::notice::Deleted $IDENT's real file(s). The identifier and its housekeeping files may stay visible on archive.org for a while after this; that is archive.org's own behavior for a now-empty item, not this workflow's."
+
+      - name: Strike the deleted item from the ledger
+        if: inputs.mode == 'delete'
+        env:
+          IDENT: ${{ steps.ident.outputs.identifier }}
+        run: python3 tools/update_archive_pdf_catalog.py --strike "$IDENT"
+
+      - name: Commit the ledger (delete)
+        if: inputs.mode == 'delete'
+        run: |
+          git config user.name  "shribuddhi-bot"
+          git config user.email "noreply@anthropic.com"
+          git add data/catalogs/archive_pdf_catalog.json
+          if git diff --cached --quiet; then
+            echo "ledger already had no entry for this identifier — nothing to commit."
+            exit 0
+          fi
+          git commit -q -m "archive_pdf_catalog: strike ${{ steps.ident.outputs.identifier }} (deleted)"
+          for a in 1 2 3; do
+            git push -q origin HEAD:main && { echo "pushed"; exit 0; }
+            git fetch -q --no-tags origin main && git rebase -q FETCH_HEAD || true
+            sleep $((a*5))
+          done
+          echo "::error::Could not push the ledger update after three attempts."
+          exit 1
+
+      # ---------------------------------------------------------------
+      # mode=upload
+      # ---------------------------------------------------------------
+      - name: Make a synthetic sample PDF
+        if: inputs.mode == 'upload' && inputs.sample
+        env:
+          TITLE: ${{ inputs.title }}
+          TAXPATH: ${{ inputs.taxonomy_path }}
+        run: |
+          mkdir -p _pdf_src
+          python3 - <<'PY'
+          import os
+          title = os.environ.get("TITLE") or "(untitled)"
+          taxpath = os.environ.get("TAXPATH") or "(no taxonomy_path given)"
+          raw = f"PROOF OF CONCEPT -- safe to delete. Title: {title}  Path: {taxpath}"
+          # ASCII-safe watermark only: the real title/path are carried
+          # correctly via archive.org's own upload metadata (set separately,
+          # full Unicode, see the Upload step below) -- this string is only
+          # the visible text inside the placeholder page itself, and this
+          # minimal hand-built PDF writer has no font/encoding support for
+          # anything outside WinAnsi. A title containing an em dash or any
+          # Devanagari crashed this step with a latin-1 UnicodeEncodeError
+          # before this sanitization was added -- found by actually
+          # generating and byte-validating (qpdf --check) a sample locally
+          # before trusting this in CI.
+          text = raw.encode("ascii", "replace").decode("ascii").replace("(", "[").replace(")", "]").replace("\\", "/")
+          # A minimal, hand-built single-page PDF -- valid PDF syntax, no
+          # library needed. Just enough to be a real, openable PDF file for
+          # exercising the upload/identifier/ledger path end to end.
+          def obj(n, body):
+              return f"{n} 0 obj\n{body}\nendobj\n"
+          content_stream = f"BT /F1 14 Tf 50 750 Td ({text}) Tj ET"
+          objects = [
+              obj(1, "<< /Type /Catalog /Pages 2 0 R >>"),
+              obj(2, "<< /Type /Pages /Kids [3 0 R] /Count 1 >>"),
+              obj(3, "<< /Type /Page /Parent 2 0 R /Resources << /Font << /F1 4 0 R >> >> /MediaBox [0 0 612 792] /Contents 5 0 R >>"),
+              obj(4, "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>"),
+              obj(5, f"<< /Length {len(content_stream)} >>\nstream\n{content_stream}\nendstream"),
+          ]
+          pdf = "%PDF-1.4\n"
+          offsets = [0]
+          for o in objects:
+              offsets.append(len(pdf.encode("latin-1")))
+              pdf += o
+          xref_offset = len(pdf.encode("latin-1"))
+          pdf += f"xref\n0 {len(objects)+1}\n0000000000 65535 f \n"
+          for off in offsets[1:]:
+              pdf += f"{off:010d} 00000 n \n"
+          pdf += f"trailer\n<< /Size {len(objects)+1} /Root 1 0 R >>\nstartxref\n{xref_offset}\n%%EOF"
+          with open("_pdf_src/PROOF_OF_CONCEPT_SAFE_TO_DELETE.pdf", "wb") as f:
+              f.write(pdf.encode("latin-1"))
+          print("wrote", os.path.getsize("_pdf_src/PROOF_OF_CONCEPT_SAFE_TO_DELETE.pdf"), "bytes")
+          PY
+
+      - name: Fetch the real source PDF(s)
+        if: inputs.mode == 'upload' && !inputs.sample
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ inputs.source_repo }}
+          ref: ${{ inputs.source_ref }}
+          token: ${{ secrets.JAGAT_TOKEN || github.token }}
+          path: _pdf_src_repo
+
+      - name: Stage the real source PDF(s)
+        if: inputs.mode == 'upload' && !inputs.sample
+        env:
+          SRC: ${{ inputs.source_path }}
+        run: |
+          test -n "$SRC" || { echo "::error::source_path is required when sample is not true"; exit 1; }
+          mkdir -p _pdf_src
+          FULL="_pdf_src_repo/$SRC"
+          if [ -d "$FULL" ]; then
+            cp "$FULL"/*.pdf _pdf_src/ 2>/dev/null || { echo "::error::No .pdf files directly inside $FULL"; exit 1; }
+          elif [ -f "$FULL" ]; then
+            cp "$FULL" _pdf_src/
+          else
+            echo "::error::$FULL not found in ${{ inputs.source_repo }}"; exit 1
+          fi
+          echo "staged $(find _pdf_src -maxdepth 1 -name '*.pdf' | wc -l) file(s)"
+
+      - name: Upload to archive.org
+        if: inputs.mode == 'upload'
+        id: upload
+        env:
+          IDENT: ${{ steps.ident.outputs.identifier }}
+          SUBJECTS: ${{ steps.ident.outputs.subjects }}
+          TAXPATH: ${{ steps.ident.outputs.taxpath }}
+          TITLE: ${{ inputs.title }}
+          AUTHOR: ${{ inputs.author }}
+          LANG: ${{ inputs.language }}
+        run: |
+          test -n "$IDENT" || { echo "::error::No identifier — pass taxonomy_path or identifier_override"; exit 1; }
+          test -n "$TITLE" || { echo "::error::title is required for an upload"; exit 1; }
+          pip install --quiet internetarchive
+          mkdir -p ~/.config/internetarchive
+          printf '[s3]\naccess = %s\nsecret = %s\n' "$IA_A" "$IA_S" > ~/.config/ia.ini
+          N=$(find _pdf_src -maxdepth 1 -name '*.pdf' | wc -l)
+          test "$N" -gt 0 || { echo "::error::No PDF files staged to upload"; exit 1; }
+          echo "uploading $N file(s) to item $IDENT"
+          AUTHOR_ARG=()
+          if [ -n "$AUTHOR" ]; then AUTHOR_ARG=(--metadata="creator:$AUTHOR"); fi
+          ia --config-file ~/.config/ia.ini upload "$IDENT" _pdf_src/*.pdf \
+            --metadata="mediatype:texts" \
+            --metadata="collection:opensource" \
+            --metadata="title:$TITLE" \
+            --metadata="subject:$SUBJECTS" \
+            --metadata="language:$LANG" \
+            --metadata="dge-taxonomy-path:$TAXPATH" \
+            "${AUTHOR_ARG[@]}" \
+            --retries=5
+          echo "files=$(find _pdf_src -maxdepth 1 -name '*.pdf' -printf '%f,' | sed 's/,$//')" >> "$GITHUB_OUTPUT"
+          echo "::notice::https://archive.org/details/$IDENT"
+
+      - name: Append the ledger
+        if: inputs.mode == 'upload'
+        env:
+          IDENT: ${{ steps.ident.outputs.identifier }}
+          TAXPATH: ${{ steps.ident.outputs.taxpath }}
+          TITLE: ${{ inputs.title }}
+          AUTHOR: ${{ inputs.author }}
+          FILES: ${{ steps.upload.outputs.files }}
+          SAMPLE: ${{ inputs.sample }}
+          RUN_ID: ${{ github.run_id }}
+        run: |
+          python3 tools/update_archive_pdf_catalog.py --append \
+            --identifier "$IDENT" --taxonomy-path "$TAXPATH" --title "$TITLE" \
+            --author "$AUTHOR" --files "$FILES" --sample "$SAMPLE" --run-id "$RUN_ID"
+
+      - name: Commit the ledger (upload)
+        if: inputs.mode == 'upload'
+        run: |
+          git config user.name  "shribuddhi-bot"
+          git config user.email "noreply@anthropic.com"
+          git add data/catalogs/archive_pdf_catalog.json
+          if git diff --cached --quiet; then
+            echo "ledger unchanged — nothing to commit."
+            exit 0
+          fi
+          git commit -q -m "archive_pdf_catalog: record ${{ steps.ident.outputs.identifier }}"
+          for a in 1 2 3; do
+            git push -q origin HEAD:main && { echo "pushed"; exit 0; }
+            git fetch -q --no-tags origin main && git rebase -q FETCH_HEAD || true
+            sleep $((a*5))
+          done
+          echo "::error::Could not push the ledger update after three attempts."
+          exit 1

@@ -97,6 +97,15 @@ corrected.
 | Sarvam Document AI | prepaid balance | https://dashboard.sarvam.ai |
 | Google AI Studio (Gemini key) | same Google account | https://aistudio.google.com/apikey |
 | Hugging Face space | `sarvamulaorg-kamadhenu` | https://sarvamulaorg-kamadhenu.hf.space |
+| Internet Archive, PDFs | `jagadgurumadhvacharyaadmin@gmail.com` | https://archive.org/account/s3.php |
+| Internet Archive, Audio | `sanatanavidyagurukulam@gmail.com` | https://archive.org/account/s3.php |
+
+**1 Oct 2026 (the lead): two separate archive.org accounts, deliberately —**
+one for PDFs, one for audio, each with its own S3-style key pair (same
+`/account/s3.php` page, logged in as that account). This replaces the
+"one canonical Internet Archive pair" assumption §3 used to make: there is
+no longer a single canonical pair, there are two, chosen by what is being
+uploaded. See §3 for the secret names and which workflow reads which.
 
 **There is exactly one Google Cloud project.** `sarvamula-org` is both the
 Firebase project and the GCP project — Firebase projects *are* GCP projects.
@@ -355,7 +364,9 @@ that issued it*, which is the last column.
 | `JAGAT_TOKEN` | PAT with Contents: Read and write on **Jagat** (renamed from `BUDDHI_TOKEN` on 30 Sep 2026). Used by `publish-to-jagat.yml` (force-pushes Jagat `main`) and to read Jagat in `deploy-firebase-hosting.yml` | same |
 | `ANTHROPIC_API_KEY`, `CLAUDE_CODE_OAUTH_TOKEN` | Claude Code action | console.anthropic.com |
 | `HF_TOKEN` | Hugging Face | huggingface.co/settings/tokens |
-| Internet Archive, WhatsApp, MSG91, Razorpay, Cashfree, OTP | see §5 | — |
+| `ARCHIVE_PDF_ACCESS_KEY`, `ARCHIVE_PDF_SECRET_KEY` | Internet Archive S3 keys for the `jagadgurumadhvacharyaadmin@gmail.com` account (PDFs) — added 1 Oct 2026. `archive-upload-pdf.yml` reads these; see `docs/PDF_ARCHIVE_CONVENTION.md`. | https://archive.org/account/s3.php, logged in as that account |
+| `ARCHIVE_AUDIO_ACCESS_KEY`, `ARCHIVE_AUDIO_SECRET_KEY` | Internet Archive S3 keys for the `sanatanavidyagurukulam@gmail.com` account (audio) — added 1 Oct 2026. `archive-upload.yml` reads these. | https://archive.org/account/s3.php, logged in as that account |
+| WhatsApp, MSG91, Razorpay, Cashfree, OTP | see §5 | — |
 
 ### Set on JagatTest
 
@@ -382,11 +393,20 @@ credential, because nobody remembered which name had been used:
   "assembled from: SA_JSON_1" proves the first name matched. The other eight
   names should be deleted from the workflows, and any that were ever set
   should be deleted from the repo, so there is one name for one key.
-* Internet Archive, in `archive-upload.yml`: `IA_ACCESS_KEY` /
-  `ARCHIVE_ACCESS_KEY` / `IAS3_ACCESS_KEY` / `INTERNETARCHIVE_ACCESS_KEY`
-  (and the matching `*_SECRET_KEY`). Four names, one S3-like credential pair
-  from https://archive.org/account/s3.php. Canonical: `IA_ACCESS_KEY` /
-  `IA_SECRET_KEY`.
+* Internet Archive, in `archive-upload.yml`, used to be exactly this kind of
+  alias sprawl: `IA_ACCESS_KEY` / `ARCHIVE_ACCESS_KEY` / `IAS3_ACCESS_KEY` /
+  `INTERNETARCHIVE_ACCESS_KEY` (and the matching `*_SECRET_KEY`), four names
+  for what actually was one S3-like credential pair. **1 Oct 2026: no longer
+  a duplication to resolve down to one name.** The lead set up two SEPARATE
+  archive.org accounts on purpose, one per upload purpose — PDFs
+  (`jagadgurumadhvacharyaadmin@gmail.com`) and audio
+  (`sanatanavidyagurukulam@gmail.com`), see §1 — with their own key pairs,
+  `ARCHIVE_PDF_ACCESS_KEY`/`ARCHIVE_PDF_SECRET_KEY` and
+  `ARCHIVE_AUDIO_ACCESS_KEY`/`ARCHIVE_AUDIO_SECRET_KEY`. `archive-upload.yml`
+  (audio-only, per its own name) now recognizes the audio pair alongside the
+  four old aliases, preferring it. The old four-alias names are untouched and
+  still work if ever set, but a new archive.org credential should be named
+  `ARCHIVE_PDF_*`/`ARCHIVE_AUDIO_*`, not one of the retired aliases.
 * Dispatch token, in `push-firebase-function-secrets.yml`:
   `GH_DISPATCH_TOKEN` / `GITHUB_DISPATCH_TOKEN`. Canonical:
   `GITHUB_DISPATCH_TOKEN`, which is also the name the Cloud Function reads.
