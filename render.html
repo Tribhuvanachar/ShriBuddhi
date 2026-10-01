@@ -1250,10 +1250,31 @@
                  oninput="window.dgeQuickJumpSuggest(this.value)" onfocus="window.dgeQuickJumpSuggest(this.value)"
                  onkeydown="if(window.dgeQuickJumpKey(event)){return;} if(event.key==='Enter'){window.dgeQuickJump(this.value);}">
           <button class="btn-sm" style="flex:none;" onclick="window.dgeQuickJump(document.getElementById('quickJumpInput').value)">Go</button>
+          <button class="btn-sm" style="flex:none;" title="How search and shortcuts work · ಹುಡುಕಾಟ ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ" onclick="window.dgeOpenLibraryHelp('dge-help-search')">ⓘ</button>
         </div>
         <div id="quickJumpSuggest" class="dge-qj-suggest" role="listbox" hidden></div>
       </div>
       <div id="libraryModalList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 1 Oct 2026: answers the lead's own report that the quick-jump box and
+     the VIEW BY row aren't self-explanatory -- a reachable ⓘ next to each
+     (added in the markup above and in library.js's dgeViewByRowHtml) opens
+     this, built by library.js's dgeRenderLibraryHelp() so the shortcut
+     table stays sourced from js/shortcuts.js's own TABLE rather than a
+     second hardcoded copy that would drift. English and Kannada are shown
+     stacked, not behind a language switch, since a reader checking the
+     meaning of a facet is exactly the reader who may want both at once. -->
+<div class="modal-overlay" id="libraryHelpModal">
+  <div class="modal-content">
+    <div class="modal-header-sticky">
+      <h3 style="margin:0; color:var(--accent-red); font-size: 16px;">❓ Library Help · ಗ್ರಂಥಾಲಯ ಸಹಾಯ</h3>
+      <button class="btn-sm" onclick="window.closeModal('libraryHelpModal')" style="font-size:11px;">✖ Close</button>
+    </div>
+    <div class="modal-body">
+      <div id="libraryHelpContent"></div>
     </div>
   </div>
 </div>

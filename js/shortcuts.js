@@ -43,6 +43,11 @@
       example: 'sv1 → mantra 1 (pūrvārcika 1–650, uttarārcika 651–1875)' },
     { key: 'smv', label: 'सुमध्वविजयः', kind: 'shloka', levels: 2, path: 'Tattvavada/Itara/Kavya/sumadhva_vijaya/sarga_{1}', range: [1, 16], example: 'smv1.5 → sarga 1, śloka 5' },
     { key: 'rgv', label: 'राघवेन्द्रविजयः', kind: 'shloka', levels: 2, path: 'Tattvavada/Itara/Kavya/raghavendra_vijaya/sarga_{1}', range: [1, 20], example: 'rgv1.5' },
+    // 1 Oct 2026: 'rv' was already taken (Rigveda) and 'rgv' was already taken
+    // (Raghavendra Vijaya) when this work was found fully populated with no
+    // shortcut of its own -- the lead's own example of the ambiguity ("rv1.1
+    // means Raghavendra Vijay or Rukminish Vijay") is what surfaced the gap.
+    { key: 'rmv', label: 'रुक्मिणीशविजयः', kind: 'shloka', levels: 2, path: 'Tattvavada/Itara/Kavya/rukminisha_vijaya/sarga_{1}', range: [1, 19], example: 'rmv1.5' },
     { key: 'pns', label: 'प्रह्लादकृतनृसिंहस्तोत्रम्', kind: 'shloka', levels: 1, path: 'Tattvavada/Itara/Stotra/prahlada_kruta_narasimha', example: 'pns5 → śloka 5' },
     { key: 'bhp', label: 'श्रीमद्भागवतम्', kind: 'unit', levels: 3, path: 'purana/maha_purana/bhagavata_purana/skandha_{1:2}', unit: 'adhyaya_{2:2}', range: [1, 12],
       example: 'bhp10.14.8 → skandha 10, adhyāya 14, śloka 8' },

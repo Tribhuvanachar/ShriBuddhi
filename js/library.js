@@ -920,8 +920,136 @@ function dgeViewByRowHtml(node) {
       <span class="dge-viewby-label">VIEW BY</span>
       ${btn('hierarchy', 'Hierarchy')}
       ${facetKeys.map(fk => btn(fk, DGE_VIEW_BY_FACETS[fk].label)).join('')}
+      <button type="button" class="dge-viewby-btn" style="margin-left:auto;"
+        title="What each of these means · ಇವುಗಳ ಅರ್ಥವೇನು" onclick="window.dgeOpenLibraryHelp('dge-help-viewby')">ⓘ</button>
     </div>`;
 }
+
+// ---------------------------------------------------------------------
+// Library Help (1 Oct 2026, the lead's own report: the quick-jump box and
+// the VIEW BY row aren't self-explanatory). One modal, reached by the ⓘ
+// next to each, covering: which of the app's three search boxes to use
+// for what, the rv1.1.3-style shortcut grammar (read live from
+// window.DGEShortcuts.table so this can't drift from the actual table),
+// and what each VIEW BY facet means. English and Kannada are both shown,
+// stacked rather than behind a toggle -- a reader checking what a facet
+// means is exactly the reader who may want to read it in either.
+// ---------------------------------------------------------------------
+const DGE_VIEW_BY_HELP = {
+  guna_classification: {
+    en: "Groups texts (mainly Purāṇas) by the traditional sāttvika / rājasa / tāmasa classification — the scheme the Dvaita tradition itself uses to judge which Purāṇas carry fuller authority. “Not specified” holds every text this hasn't been tagged for yet.",
+    kn: "ಗ್ರಂಥಗಳನ್ನು (ಮುಖ್ಯವಾಗಿ ಪುರಾಣಗಳನ್ನು) ಸಾಂಪ್ರದಾಯಿಕ ಸಾತ್ತ್ವಿಕ / ರಾಜಸ / ತಾಮಸ ವರ್ಗೀಕರಣದ ಪ್ರಕಾರ ಗುಂಪು ಮಾಡುತ್ತದೆ — ಯಾವ ಪುರಾಣಗಳಿಗೆ ಹೆಚ್ಚಿನ ಪ್ರಾಮಾಣ್ಯವಿದೆ ಎಂದು ನಿರ್ಣಯಿಸಲು ದ್ವೈತ ಸಂಪ್ರದಾಯವೇ ಬಳಸುವ ವಿಧಾನ. “ಅನಿರ್ದಿಷ್ಟಂ” ಎಂದರೆ ಇನ್ನೂ ಟ್ಯಾಗ್ ಮಾಡದ ಗ್ರಂಥಗಳು."
+  },
+  madhvacharya_relevance: {
+    en: "Groups texts by how directly they connect to Madhvācārya's own works — texts he directly quotes, texts prominently cited in the tradition, texts treated as general scriptural authority, and others.",
+    kn: "ಗ್ರಂಥಗಳನ್ನು ಅವು ಮಧ್ವಾಚಾರ್ಯರ ಸ್ವಂತ ಕೃತಿಗಳೊಂದಿಗೆ ಎಷ್ಟು ನೇರ ಸಂಬಂಧ ಹೊಂದಿವೆ ಎಂಬುದರ ಪ್ರಕಾರ ಗುಂಪು ಮಾಡುತ್ತದೆ — ಅವರು ನೇರವಾಗಿ ಉದ್ಧರಿಸಿದ ಗ್ರಂಥಗಳು, ಸಂಪ್ರದಾಯದಲ್ಲಿ ಪ್ರಮುಖವಾಗಿ ಉಲ್ಲೇಖಿಸಲ್ಪಟ್ಟವು, ಸಾಮಾನ್ಯ ಶಾಸ್ತ್ರಪ್ರಾಮಾಣ್ಯವೆಂದು ಪರಿಗಣಿಸಲ್ಪಟ್ಟವು, ಮತ್ತು ಇತರವು."
+  },
+  text_status: {
+    en: "Groups texts by how much of them actually survives: 🟢 fully available, 🟡 partially available, 🟠 known only through quotations elsewhere (the original itself is lost), 🔴 lost and unlocated, and texts not yet digitized on this site.",
+    kn: "ಗ್ರಂಥಗಳನ್ನು ಎಷ್ಟು ಭಾಗ ನಿಜವಾಗಿ ಉಳಿದಿದೆ ಎಂಬುದರ ಪ್ರಕಾರ ಗುಂಪು ಮಾಡುತ್ತದೆ: 🟢 ಸಂಪೂರ್ಣ ಲಭ್ಯ, 🟡 ಭಾಗಶಃ ಲಭ್ಯ, 🟠 ಬೇರೆಡೆ ಉದ್ಧರಣೆಗಳ ಮೂಲಕ ಮಾತ್ರ ತಿಳಿದಿದೆ (ಮೂಲ ಗ್ರಂಥ ಲಭ್ಯವಿಲ್ಲ), 🔴 ಕಳೆದುಹೋಗಿದೆ, ಮತ್ತು ಈ ತಾಣದಲ್ಲಿ ಇನ್ನೂ ಡಿಜಿಟಲೀಕರಿಸದ ಗ್ರಂಥಗಳು."
+  },
+  genre: {
+    en: "Groups texts by literary genre/type (kāvya, stotra, bhāṣya, and so on). This is a free grouping, not a fixed list — it shows whatever genres happen to be tagged in the corpus right now.",
+    kn: "ಗ್ರಂಥಗಳನ್ನು ಸಾಹಿತ್ಯ ಪ್ರಕಾರದ ಪ್ರಕಾರ ಗುಂಪು ಮಾಡುತ್ತದೆ (ಕಾವ್ಯ, ಸ್ತೋತ್ರ, ಭಾಷ್ಯ ಇತ್ಯಾದಿ). ಇದು ನಿಗದಿತ ಪಟ್ಟಿಯಲ್ಲ — ಈಗ ಟ್ಯಾಗ್ ಮಾಡಿರುವ ಪ್ರಕಾರಗಳನ್ನಷ್ಟೇ ತೋರಿಸುತ್ತದೆ."
+  },
+  purana_class: {
+    en: "Purāṇa-only: groups by whether a work is one of the 18 fixed Mahāpurāṇas, an Upapurāṇa, a regional Purāṇa, or one whose Mahā/Upa status the tradition itself disputes.",
+    kn: "ಪುರಾಣಗಳಿಗೆ ಮಾತ್ರ: ಒಂದು ಗ್ರಂಥ ೧೮ ಸ್ಥಿರ ಮಹಾಪುರಾಣಗಳಲ್ಲಿ ಒಂದೇ, ಉಪಪುರಾಣವೇ, ಪ್ರಾದೇಶಿಕ ಪುರಾಣವೇ, ಅಥವಾ ಮಹಾ/ಉಪ ಸ್ಥಾನದ ಬಗ್ಗೆ ಸಂಪ್ರದಾಯದಲ್ಲೇ ವಿವಾದವಿದೆಯೇ ಎಂಬುದರ ಪ್ರಕಾರ ಗುಂಪು ಮಾಡುತ್ತದೆ."
+  },
+  default_author: {
+    en: "Groups texts by their author/composer. Known limitation: the same author's name is sometimes recorded in a different script across different texts (e.g. “Sri Madhvacharya” vs. his Sanskrit dīkṣā name), so one person can currently appear as more than one group.",
+    kn: "ಗ್ರಂಥಗಳನ್ನು ಗ್ರಂಥಕರ್ತರ ಪ್ರಕಾರ ಗುಂಪು ಮಾಡುತ್ತದೆ. ಗೊತ್ತಿರುವ ಮಿತಿ: ಒಂದೇ ಕರ್ತೃವಿನ ಹೆಸರು ಬೇರೆ ಬೇರೆ ಗ್ರಂಥಗಳಲ್ಲಿ ಬೇರೆ ಬೇರೆ ಲಿಪಿ/ರೂಪದಲ್ಲಿ ದಾಖಲಾಗಿರಬಹುದು (ಉದಾ. “ಶ್ರೀ ಮಧ್ವಾಚಾರ್ಯ” ಮತ್ತು ಅವರ ಸಂಸ್ಕೃತ ದೀಕ್ಷಾನಾಮ), ಹಾಗಾಗಿ ಒಬ್ಬರೇ ವ್ಯಕ್ತಿ ಸದ್ಯಕ್ಕೆ ಒಂದಕ್ಕಿಂತ ಹೆಚ್ಚು ಗುಂಪಿನಲ್ಲಿ ಕಾಣಿಸಬಹುದು."
+  }
+};
+const DGE_VIEW_BY_HELP_HIERARCHY = {
+  en: "The default view — browse by the library's own shelf structure (Āgama, Darśana, Itihāsa, Purāṇa, Tattvavāda, and so on), drilling down folder by folder.",
+  kn: "ಡೀಫಾಲ್ಟ್ ನೋಟ — ಗ್ರಂಥಾಲಯದ ಸ್ವಂತ ಕಪಾಟು ರಚನೆಯ ಪ್ರಕಾರ ಬ್ರೌಸ್ ಮಾಡಿ (ಆಗಮ, ದರ್ಶನ, ಇತಿಹಾಸ, ಪುರಾಣ, ತತ್ತ್ವವಾದ ಇತ್ಯಾದಿ), ಕಡತದಿಂದ ಕಡತಕ್ಕೆ ಇಳಿಯುತ್ತಾ."
+};
+
+function dgeHelpEsc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+
+function dgeRenderLibraryHelp() {
+  const shortcutRows = (window.DGEShortcuts ? window.DGEShortcuts.table : []).map(e => `
+    <tr>
+      <td style="padding:4px 10px 4px 0; font-family:monospace; font-weight:700; white-space:nowrap;">${dgeHelpEsc(e.key)}</td>
+      <td style="padding:4px 10px 4px 0;">${dgeHelpEsc(e.label)}</td>
+      <td style="padding:4px 0; color:var(--muted-text); font-size:12px;">${dgeHelpEsc(e.example)}</td>
+    </tr>`).join('');
+  const facetKeys = Object.keys(DGE_VIEW_BY_FACETS);
+  const facetRows = [['hierarchy', 'Hierarchy', DGE_VIEW_BY_HELP_HIERARCHY]]
+    .concat(facetKeys.map(fk => [fk, DGE_VIEW_BY_FACETS[fk].label, DGE_VIEW_BY_HELP[fk]]))
+    .map(([key, label, help]) => `
+      <div class="dge-help-facet" style="margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid var(--card-border);">
+        <div style="font-weight:700; margin-bottom:4px;">${dgeHelpEsc(label)}</div>
+        <div style="font-size:13px; margin-bottom:4px;">${dgeHelpEsc(help.en)}</div>
+        <div style="font-size:13px; color:var(--muted-text);">${dgeHelpEsc(help.kn)}</div>
+        <img data-help-shot="${key}" alt="" style="display:none; max-width:100%; border-radius:8px; margin-top:8px; border:1px solid var(--card-border);">
+      </div>`).join('');
+  return `
+    <div id="dge-help-search" style="margin-bottom:22px;">
+      <h4 style="color:var(--accent-red); margin:0 0 8px;">🔎 Three search boxes, three jobs · ಮೂರು ಹುಡುಕಾಟ ಪೆಟ್ಟಿಗೆಗಳು</h4>
+      <p style="font-size:13px;">This app has three different search boxes, each for a different job:</p>
+      <ol style="font-size:13px; padding-left:18px;">
+        <li><b>📚 Library → “Find a text or folder, or jump”</b> (where you are now) — type a text's name, a folder's name, or a shortcut like <code>rv1.1.3</code> to go straight there. It only matches names and shortcuts, never the text's own content.</li>
+        <li><b>🔍 the search box at the top of a text you've opened</b> — looks only inside <i>that</i> text (and its commentary layers, if any). It never reaches any other text.</li>
+        <li><b>🔎 Search the Corpus</b> (Ctrl/Cmd+K, under the 🧞 tab) — the only search that looks inside every text in the library at once. Use this when you don't know, or don't care, which text a word or phrase is in.</li>
+      </ol>
+      <p style="font-size:13px; color:var(--muted-text);">ಈ ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿ ಮೂರು ಬೇರೆ ಬೇರೆ ಹುಡುಕಾಟ ಪೆಟ್ಟಿಗೆಗಳಿವೆ, ಪ್ರತಿಯೊಂದಕ್ಕೂ ಬೇರೆ ಕೆಲಸ:</p>
+      <ol style="font-size:13px; padding-left:18px; color:var(--muted-text);">
+        <li><b>📚 ಗ್ರಂಥಾಲಯ → “ಗ್ರಂಥ ಅಥವಾ ಕಡತವನ್ನು ಹುಡುಕಿ, ಅಥವಾ ಹಾರಿ”</b> (ನೀವೀಗ ಇರುವುದು ಇಲ್ಲಿ) — ಗ್ರಂಥದ ಹೆಸರು, ಕಡತದ ಹೆಸರು, ಅಥವಾ <code>rv1.1.3</code> ನಂತಹ ಸಂಕೇತವನ್ನು ಟೈಪ್ ಮಾಡಿ ನೇರವಾಗಿ ಹೋಗಿ. ಇದು ಹೆಸರು ಮತ್ತು ಸಂಕೇತಗಳನ್ನು ಮಾತ್ರ ಹುಡುಕುತ್ತದೆ, ಗ್ರಂಥದ ಒಳಗಿನ ಪಠ್ಯವನ್ನಲ್ಲ.</li>
+        <li><b>🔍 ತೆರೆದಿರುವ ಗ್ರಂಥದ ಮೇಲ್ಭಾಗದ ಹುಡುಕಾಟ ಪೆಟ್ಟಿಗೆ</b> — ಅದು <i>ಆ</i> ಗ್ರಂಥದ ಒಳಗೆ ಮಾತ್ರ (ಮತ್ತು ಅದರ ಟೀಕಾ/ವ್ಯಾಖ್ಯಾನಗಳಲ್ಲಿ) ಹುಡುಕುತ್ತದೆ. ಬೇರೆ ಯಾವುದೇ ಗ್ರಂಥದಲ್ಲಿ ಹುಡುಕುವುದಿಲ್ಲ.</li>
+        <li><b>🔎 ಇಡೀ ಗ್ರಂಥಭಂಡಾರದಲ್ಲಿ ಹುಡುಕಿ</b> (Ctrl/Cmd+K, 🧞 ಟ್ಯಾಬ್ ಅಡಿಯಲ್ಲಿ) — ಗ್ರಂಥಾಲಯದ ಎಲ್ಲಾ ಗ್ರಂಥಗಳ ಒಳಗೂ ಏಕಕಾಲದಲ್ಲಿ ಹುಡುಕುವ ಏಕೈಕ ಹುಡುಕಾಟ. ಯಾವ ಗ್ರಂಥದಲ್ಲಿದೆ ಎಂದು ತಿಳಿಯದಿದ್ದಾಗ ಅಥವಾ ಲೆಕ್ಕಿಸದಿದ್ದಾಗ ಇದನ್ನು ಬಳಸಿ.</li>
+      </ol>
+    </div>
+    <div id="dge-help-shortcuts" style="margin-bottom:22px;">
+      <h4 style="color:var(--accent-red); margin:0 0 8px;">⌨️ Shortcut grammar · ಸಂಕ್ಷಿಪ್ತ ಸಂಕೇತಗಳು</h4>
+      <p style="font-size:13px;">Type <code>&lt;key&gt;&lt;numbers separated by dots&gt;</code> — e.g. <code>rv1.1.3</code> — in the quick-jump box to go straight to that verse from anywhere in the app. Fewer numbers lands on a bigger unit's first verse: <code>rv1.1</code> opens sūkta 1.1, <code>rv1</code> opens maṇḍala 1.</p>
+      <p style="font-size:13px; color:var(--muted-text);">ಮೇಲಿನ ಪೆಟ್ಟಿಗೆಯಲ್ಲಿ <code>&lt;ಸಂಕೇತ&gt;&lt;ಚುಕ್ಕಿಗಳಿಂದ ಬೇರ್ಪಡಿಸಿದ ಸಂಖ್ಯೆಗಳು&gt;</code> — ಉದಾ. <code>rv1.1.3</code> — ಎಂದು ಟೈಪ್ ಮಾಡಿ ನೇರವಾಗಿ ಆ ಶ್ಲೋಕಕ್ಕೆ ಹೋಗಿ. ಕಡಿಮೆ ಸಂಖ್ಯೆಗಳನ್ನು ಕೊಟ್ಟರೆ ದೊಡ್ಡ ಘಟಕದ ಮೊದಲ ಶ್ಲೋಕಕ್ಕೆ ಹೋಗುತ್ತದೆ: <code>rv1.1</code> ಸೂಕ್ತ 1.1 ತೆರೆಯುತ್ತದೆ, <code>rv1</code> ಮಂಡಲ 1 ತೆರೆಯುತ್ತದೆ.</p>
+      <table style="width:100%; border-collapse:collapse; font-size:13px;">
+        <thead><tr style="text-align:left; color:var(--muted-text); font-size:11px; text-transform:uppercase;">
+          <th style="padding-bottom:6px;">Key</th><th style="padding-bottom:6px;">Text</th><th style="padding-bottom:6px;">Example</th>
+        </tr></thead>
+        <tbody>${shortcutRows}</tbody>
+      </table>
+      <p style="font-size:11px; color:var(--muted-text); margin-top:6px;">Not every text has a shortcut yet — only ones listed here. Ask for one to be added once a text is fully populated.</p>
+    </div>
+    <div id="dge-help-viewby">
+      <h4 style="color:var(--accent-red); margin:0 0 8px;">🗂️ VIEW BY · ಹೇಗೆ ನೋಡಬೇಕು</h4>
+      <p style="font-size:13px;">VIEW BY regroups the library by something other than its shelf hierarchy. Only facets that at least one text under the current folder actually has are offered.</p>
+      <p style="font-size:13px; color:var(--muted-text);">VIEW BY ಗ್ರಂಥಾಲಯವನ್ನು ಅದರ ಕಪಾಟು ಶ್ರೇಣಿಯ ಹೊರತಾಗಿ ಬೇರೆ ರೀತಿಯಲ್ಲಿ ಮರು-ಗುಂಪು ಮಾಡುತ್ತದೆ. ಪ್ರಸ್ತುತ ಕಡತದ ಅಡಿಯಲ್ಲಿರುವ ಕನಿಷ್ಠ ಒಂದು ಗ್ರಂಥಕ್ಕಾದರೂ ಇರುವ ಅಂಶಗಳನ್ನಷ್ಟೇ ತೋರಿಸಲಾಗುತ್ತದೆ.</p>
+      ${facetRows}
+    </div>`;
+}
+
+let dgeHelpBuilt = false;
+window.dgeOpenLibraryHelp = function (sectionId) {
+  const content = document.getElementById('libraryHelpContent');
+  if (content && !dgeHelpBuilt) {
+    content.innerHTML = dgeRenderLibraryHelp();
+    dgeHelpBuilt = true;
+    if (typeof window.dgeLoadHelpScreenshots === 'function') window.dgeLoadHelpScreenshots();
+  }
+  if (typeof openModal === 'function') openModal('libraryHelpModal');
+  if (sectionId) {
+    window.setTimeout(() => {
+      const el = document.getElementById(sectionId);
+      if (el && el.scrollIntoView) el.scrollIntoView({ block: 'start' });
+    }, 30);
+  }
+};
+
+// Each VIEW BY facet card gets its own example screenshot IF one exists at
+// images/help/viewby-<key>.png -- set lazily (only once the help modal is
+// actually opened) and only shown once it actually loads, so a facet this
+// hasn't been captured for yet just shows no image rather than a broken one.
+window.dgeLoadHelpScreenshots = function () {
+  document.querySelectorAll('#libraryHelpContent img[data-help-shot]').forEach(img => {
+    const key = img.getAttribute('data-help-shot');
+    img.onload = () => { img.style.display = 'block'; };
+    img.onerror = () => { img.style.display = 'none'; };
+    img.src = `images/help/viewby-${key}.png`;
+  });
+};
 
 // Groups every leaf under `node` by one facet value and renders flat group
 // headers instead of the taxonomy tree -- same leaf row markup dgeRenderNode
