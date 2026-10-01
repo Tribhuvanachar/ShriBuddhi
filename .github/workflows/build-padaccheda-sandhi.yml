@@ -19,9 +19,7 @@
 name: Build padaccheda and sandhi
 
 on:
-  schedule:
-    # 03:00 IST on the 2nd of every month (21:30 UTC on the 1st), so the indexes follow the corpus.
-    - cron: "30 21 1 * *"
+  # Timing lives in config/schedules.json (IST) and is started by scheduler.yml: change it there, not here.
   workflow_dispatch:
     inputs:
       paths:
@@ -56,17 +54,17 @@ jobs:
         run: python3 tools/build_padaccheda.py --paths "$PATHS"
 
       - name: Install Vidyut and its data
-        if: ${{ github.event_name == 'schedule' || inputs.sandhi }}
+        if: ${{ inputs.sandhi }}
         run: |
           pip install vidyut==0.4.0
           python3 -c "import vidyut; vidyut.download_data('/tmp/vidyut_data')"
 
       - name: Sandhi index (vowel sandhi, names its sūtra)
-        if: ${{ github.event_name == 'schedule' || inputs.sandhi }}
+        if: ${{ inputs.sandhi }}
         run: python3 tools/build_sandhi_index.py --data /tmp/vidyut_data
 
       - name: Sandhi index, wide (other junctions)
-        if: ${{ github.event_name == 'schedule' || inputs.sandhi }}
+        if: ${{ inputs.sandhi }}
         run: python3 tools/build_sandhi_index.py --wide --data /tmp/vidyut_data
 
       - name: Gates the PR will face

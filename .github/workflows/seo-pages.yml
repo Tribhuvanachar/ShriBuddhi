@@ -22,8 +22,7 @@ on:
         description: "build a taxonomy prefix only (empty = everything)"
         required: false
         default: ""
-  schedule:
-    - cron: "30 21 * * 0"   # Sundays 3:00 am IST — rebuild after the week's imports (deploy only if Pages is on Actions)
+  # Timing lives in config/schedules.json (IST) and is started by scheduler.yml: change it there, not here.
 
 permissions:
   contents: read

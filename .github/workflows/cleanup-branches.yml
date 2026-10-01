@@ -42,6 +42,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
+          sparse-checkout: config/cleanup
       - name: Delete
         env:
           GROUPS_IN: ${{ inputs.groups }}
@@ -54,10 +55,11 @@ jobs:
           python3 - <<'PY'
           import json, os, subprocess, sys
           plan = json.load(open("config/cleanup/branch-plan.json"))["groups"]
-          want = [g.strip() for g in os.environ["GROUPS_IN"].split(",") if g.strip()]
+          ALIAS = {"superceded": "superseded", "supersede": "superseded", "decided": "decide", "verify": "verified"}
+          want = [ALIAS.get(g.strip().lower(), g.strip().lower()) for g in os.environ["GROUPS_IN"].split(",") if g.strip()]
           bad = [g for g in want if g not in plan or g == "keep"]
           if bad:
-              sys.exit("unknown or protected group(s): %s" % ", ".join(bad))
+              sys.exit("unknown or protected group(s): %s. The groups are: verified, superseded, decide." % ", ".join(bad))
           dry = os.environ["DRY"] == "true"
           if not dry and os.environ["CONFIRM"] != "DELETE":
               sys.exit("confirm must be DELETE to delete; run with dry_run on to preview")

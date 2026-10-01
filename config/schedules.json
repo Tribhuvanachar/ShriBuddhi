@@ -1,0 +1,61 @@
+{
+ "_readme": [
+  "When each scheduled job runs. Times are IST (Asia/Kolkata), standard 5-field cron: minute hour day-of-month month day-of-week (0 or 7 = Sunday).",
+  "Read by .github/workflows/scheduler.yml, which wakes every hour and starts whichever jobs here are due (tools/watch/scheduler.py).",
+  "So the timing is data, not workflow code: edit this file (or use admin/schedules.html, which commits it) and the next hour's scheduler obeys it.",
+  "Granularity is the hour: a job set for 02:30 starts at the first scheduler wake-up after 02:30, usually within minutes, never earlier.",
+  "enabled=false pauses a job without deleting it. `inputs` are passed to the workflow exactly as typed in its 'Run workflow' form."
+ ],
+ "jobs": [
+  {
+   "id": "watch-sources",
+   "label": "Weekly source watch (13 upstream sources, e-mail to superadmins)",
+   "workflow": "watch-sources.yml",
+   "cron": "0 2 * * 0",
+   "enabled": true,
+   "inputs": {}
+  },
+  {
+   "id": "watch-indowordnet",
+   "label": "Weekly IndoWordNet check",
+   "workflow": "watch-indowordnet.yml",
+   "cron": "0 2 * * 0",
+   "enabled": true,
+   "inputs": {}
+  },
+  {
+   "id": "triage-reports",
+   "label": "Nightly reader-report sort, digest and reporter notices",
+   "workflow": "triage-reports.yml",
+   "cron": "0 23 * * *",
+   "enabled": true,
+   "inputs": {}
+  },
+  {
+   "id": "build-padaccheda-sandhi",
+   "label": "Monthly padaccheda and sandhi rebuild (opens a pull request)",
+   "workflow": "build-padaccheda-sandhi.yml",
+   "cron": "0 3 2 * *",
+   "enabled": true,
+   "inputs": {}
+  },
+  {
+   "id": "nightly",
+   "label": "Nightly library sync (names audit, opens the library-sync pull request)",
+   "workflow": "nightly.yml",
+   "cron": "0 0 * * *",
+   "enabled": true,
+   "inputs": {}
+  },
+  {
+   "id": "seo-pages",
+   "label": "Weekly SEO pages build (deploys only if Pages is on Actions)",
+   "workflow": "seo-pages.yml",
+   "cron": "0 3 * * 0",
+   "enabled": true,
+   "inputs": {
+    "deploy": "false"
+   }
+  }
+ ]
+}

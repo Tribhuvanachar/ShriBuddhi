@@ -1,0 +1,51 @@
+# The one workflow with a cron. Wakes every hour and starts whatever config/schedules.json says is due.
+#
+# WHY: a cron inside a workflow file can only be changed by editing code. This keeps all the "when" in
+# config/schedules.json (times in IST), editable by hand or from admin/schedules.html, with no code change
+# and no pull request. See tools/watch/scheduler.py for the rules (70-minute window, never fires a job twice).
+#
+# It only STARTS workflows (through the workflow-dispatch API); each job does its own work and its own
+# reporting. Run it by hand with dry_run on to see what it would start now.
+name: Scheduler
+
+on:
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Show what is due, start nothing"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: scheduler
+  cancel-in-progress: false
+
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            config
+            tools/watch
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Start what is due
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          DRY: ${{ inputs.dry_run }}
+        run: |
+          ARGS=()
+          [ "${DRY:-false}" = "true" ] && ARGS+=(--dry-run)
+          python3 tools/watch/scheduler.py "${ARGS[@]}"
+          python3 tools/watch/scheduler.py --next 2

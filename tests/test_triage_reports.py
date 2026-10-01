@@ -44,3 +44,14 @@ def test_digest_groups_by_queue_then_priority_and_hides_p4_detail():
     assert body.index("CONTENT queue") < body.index("PROOFREADER queue")
     assert "typo" not in body.split("PROOFREADER queue")[1].split("report id")[0].replace("[P4]", "")
     assert T.digest([])[0] == "No new reader reports."
+
+
+def test_resolved_notice_carries_the_note():
+    subject, body = T.resolved_notice({"subject": "Typo in Gita 2.47", "resolution": "Fixed in the text."})
+    assert "resolved" in subject.lower() or "dealt with" in subject
+    assert "Typo in Gita 2.47" in body and "Fixed in the text." in body
+
+
+def test_resolved_notice_without_note():
+    _, body = T.resolved_notice({"title": "x"})
+    assert "What was done" not in body

@@ -54,6 +54,23 @@ jobs:
           curl -s -m 60 "http://localhost:8080/cgi-bin/scl/MT/prog/sandhi_splitter/sandhi_splitter.cgi?word=%E0%A4%B0%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%B2%E0%A4%AF%E0%A4%83&encoding=Unicode&outencoding=D&mode=word&disp_mode=json" | head -c 400 || true
           echo
 
+      # What is actually inside the container, so a failure says why. The 1 Oct 2026 first run
+      # found the front page up (HTTP 200) but the splitter URL answering with an empty body.
+      - name: Look inside the container
+        if: always()
+        run: |
+          echo "--- CGI directories"
+          docker exec scl sh -c 'ls -d /usr/lib/cgi-bin/* /var/www/*/cgi-bin* 2>&1 | head; echo; find / -name "sandhi_splitter*" -not -path "*/proc/*" 2>/dev/null | head; echo; find / -name "morph.cgi" -not -path "*/proc/*" 2>/dev/null | head; echo; ls /var/www/html 2>&1 | head -20' || true
+          echo "--- candidate URLs"
+          W='%E0%A4%B0%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%B2%E0%A4%AF%E0%A4%83'
+          for base in http://localhost:8080/cgi-bin/scl http://localhost:8080/scl/cgi-bin http://localhost:8080/cgi-bin; do
+            for tool in "MT/prog/sandhi_splitter/sandhi_splitter.cgi?word=$W&encoding=Unicode&outencoding=D&mode=word&disp_mode=json" "MT/prog/morph/morph.cgi?morfword=$W&encoding=Unicode&outencoding=DEV&mode=json"; do
+              printf '%s/%s -> ' "$base" "${tool%%\?*}"; curl -s -m 60 -o /tmp/o -w 'HTTP %{http_code}, %{size_download} bytes: ' "$base/$tool"; head -c 160 /tmp/o | tr '\n' ' '; echo
+            done
+          done
+          echo "--- container log"
+          docker logs scl 2>&1 | tail -40
+
       - name: Install Vidyut (for the comparison engines)
         run: |
           pip install vidyut==0.4.0

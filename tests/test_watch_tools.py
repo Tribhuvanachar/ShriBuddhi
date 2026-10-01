@@ -13,11 +13,11 @@ from watch import build_destinations, compose_report, dump_to_parabuddhi, land_r
 
 
 def test_both_watchers_run_sunday_2am_ist():
-    """02:00 IST on Sunday is Saturday 20:30 UTC."""
+    """The timing lives in config/schedules.json (IST) and is started by scheduler.yml."""
+    import json
+    jobs = {j["id"]: j for j in json.loads((REPO / "config/schedules.json").read_text(encoding="utf-8"))["jobs"]}
     for name in ("watch-sources", "watch-indowordnet"):
-        wf = yaml.safe_load((REPO / ".github/workflows" / f"{name}.yml").read_text(encoding="utf-8"))
-        on = wf.get("on") or wf.get(True)
-        assert [c["cron"] for c in on["schedule"]] == ["30 20 * * 6"], name
+        assert jobs[name]["cron"] == "0 2 * * 0" and jobs[name]["enabled"], name
 
 
 def test_stitch_ashtadhyayi_never_runs_by_itself():

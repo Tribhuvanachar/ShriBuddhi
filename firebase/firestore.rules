@@ -258,7 +258,8 @@ service cloud.firestore {
     // here when the reader is signed in; admin/reports.html reads them. Anyone signed in may
     // create a report as themselves, with a fixed set of fields and bounded sizes (a screenshot
     // is a JPEG data URL under ~700 KB, well inside Firestore's 1 MiB document limit); only
-    // admins may read, mark resolved or delete. Nothing else about a report can be changed.
+    // admins may read, mark resolved (with an optional note) or delete. Nothing else about a report can be changed
+    // by a client; the nightly job (service account) sets queue, priority and notified.
     match /reports/{reportId} {
       allow create: if request.auth != null
         && request.resource.data.uid == request.auth.uid
@@ -273,7 +274,7 @@ service cloud.firestore {
             || (request.resource.data.screenshot is string && request.resource.data.screenshot.size() < 700000));
       allow read, delete: if isAdmin();
       allow update: if isAdmin()
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']);
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status', 'resolution', 'resolvedAt']);
     }
 
     // Donations, payments, receipts, supporter entitlements (8 Sep 2026,

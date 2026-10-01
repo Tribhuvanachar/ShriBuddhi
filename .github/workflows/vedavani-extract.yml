@@ -41,7 +41,7 @@ on:
         default: true
         type: boolean
       open_pr:
-        description: "Open a PR with the downloaded/sliced output (ignored if dry_run is true)"
+        description: "Push the downloaded/sliced output to the Dhvani audio repository (ignored if dry_run is true)"
         required: true
         default: false
         type: boolean
@@ -87,17 +87,28 @@ jobs:
           path: vedavani_audio_out
           retention-days: 14
 
-      - name: Open Pull Request (against ShriBuddhi)
+      # Audio does not belong in ShriBuddhi (text) or ParaBuddhi (raw text/OCR). It goes to Dhvani, the audio
+      # repository, in a folder named like the archive.org item it will eventually become; the audio
+      # archive workflow (archive-upload.yml) then sends that folder to archive.org's AUDIO account.
+      - name: Push the audio to the Dhvani repository
         if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
-        uses: peter-evans/create-pull-request@v6
-        with:
-          branch: ingest/vedavani-${{ inputs.veda }}
-          commit-message: "data: VedaVaNi ${{ inputs.veda }} audio extract"
-          title: "Ingest: VedaVaNi ${{ inputs.veda }} audio"
-          body: |
-            Automated download + slice of VedaVaNi's recitation audio via GitHub Actions.
-
-            - Veda: `${{ inputs.veda }}`, patha: `${{ inputs.patha }}`, mandalas: `${{ inputs.mandalas }}`, yajurveda part: `${{ inputs.yajurveda_part }}`
-            - Script: `tools/vedavani/extract_audio.py` (URL schemes reconstructed by decompiling VedaVaNi_1.3.3.apk — see PROJECT_STATUS.md)
-            - Rigveda output is per-Sukta, not per-Rik (no real per-rik timestamp data exists anywhere in the app — see the script's module docstring). Yajurveda Samhita/Brahmanam output IS per-mantra, sliced from the bundled boundary JSON.
-            - Spot-check a few files play correctly and text/audio counts line up before merging — this is a first pass, not yet cross-checked against the running app.
+        env:
+          DHVANI_TOKEN: ${{ secrets.DHVANI_TOKEN }}
+          VEDA: ${{ inputs.veda }}
+          PATHA: ${{ inputs.patha }}
+        run: |
+          set -euo pipefail
+          test -n "$DHVANI_TOKEN" || { echo "::error::DHVANI_TOKEN is not set (a token with Contents read/write on Tribhuvanachar/Dhvani). The audio is kept as the workflow artifact above for 14 days."; exit 2; }
+          ID="vedavani_${VEDA}"
+          [ "$VEDA" = "rigveda" ] && ID="vedavani_rigveda_${PATHA}"
+          git clone --depth 1 "https://x-access-token:${DHVANI_TOKEN}@github.com/Tribhuvanachar/Dhvani.git" "$RUNNER_TEMP/dhvani"
+          mkdir -p "$RUNNER_TEMP/dhvani/$ID"
+          cp -r vedavani_audio_out/. "$RUNNER_TEMP/dhvani/$ID/"
+          cd "$RUNNER_TEMP/dhvani"
+          git config user.name "dhvani-bot"; git config user.email "noreply@anthropic.com"
+          git add -A "$ID"
+          git diff --cached --quiet && { echo "nothing new"; exit 0; }
+          git commit -q -m "audio: VedaVaNi ${VEDA} (${ID})"
+          for i in 1 2 3; do git push -q origin HEAD:main && exit 0; git pull -q --rebase origin main; done
+          echo "::error::could not push to Dhvani"; exit 1
+          # Next: archive-upload.yml with identifier=$ID, source_repo=Tribhuvanachar/Dhvani, source_dir=$ID

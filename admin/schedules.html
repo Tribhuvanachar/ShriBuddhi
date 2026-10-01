@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=1"></script>
+<!-- Passkeys come from admin/config/keys.json, not from this page. -->
+<script src="js/keys.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schedules · DGE (super-admin)</title>
+<link rel="stylesheet" href="css/library.css?v=3">
+<style>
+  body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,sans-serif}
+  main{max-width:1000px;margin:0 auto;padding:14px 16px 40px}
+  .bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--line)}
+  table{border-collapse:collapse;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+  th,td{border-top:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{color:var(--muted);font-size:12px;font-weight:600;border-top:0}
+  input[type=text],input[type=password]{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:inherit}
+  code{background:var(--panel2);padding:1px 5px;border-radius:5px}
+  .next{color:var(--muted);font-size:12px}
+  .bad{color:#c0392b}
+</style>
+</head>
+<body>
+<div class="gate" id="gate">
+  <div style="font-size:22px;font-weight:700">🔐 DGE Schedules</div>
+  <div class="muted">Super-admin only. Enter the passkey.</div>
+  <input id="gk" type="password" placeholder="passkey" autocomplete="off">
+  <button class="btn pri" id="gbtn">Enter</button>
+</div>
+<div id="app" style="display:none">
+<div class="bar"><a href="../render.html" style="color:var(--accent);text-decoration:none">⌂ DGE</a> <b>Schedules</b> <small style="color:var(--muted)">what runs automatically, and when (India time)</small></div>
+<main>
+  <p style="color:var(--muted);font-size:13px">Every automatic job is listed here. One workflow, <a href="https://github.com/Tribhuvanachar/ShriBuddhi/actions/workflows/scheduler.yml" target="_blank" rel="noopener">Scheduler</a>, wakes every hour and starts whichever job below is due, so changing a time here changes the real schedule from the next hour on — no code change, no pull request. Times are <b>IST</b>; the format is <code>minute hour day-of-month month weekday</code> (weekday 0 = Sunday). A job set for 02:00 starts at the first wake-up after 02:00, usually within a few minutes. Nothing here publishes to Jagat: that stays a manual run.</p>
+  <table id="tbl"><thead><tr><th>On</th><th>Job</th><th>When (IST cron)</th><th>In words / next runs</th><th></th></tr></thead><tbody></tbody></table>
+  <p id="msg" class="next"></p>
+  <h3>Save</h3>
+  <p class="next">Saving commits <code>config/schedules.json</code> to ShriBuddhi <code>main</code> (like the go-live shelf). Paste a GitHub token with <b>Contents: read and write</b> on ShriBuddhi; it is used once and never stored.</p>
+  <input type="password" id="tok" placeholder="GitHub token" autocomplete="off" style="width:min(420px,100%)">
+  <button class="btn pri" id="save">Save schedule to GitHub</button>
+  <button class="btn" id="reset">Discard my changes</button>
+</main>
+</div>
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s);};
+  var REPO="Tribhuvanachar/ShriBuddhi", FILE="config/schedules.json", BRANCH="main";
+  var doc=null, orig="";
+  var DAYS=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});}
+
+  // ---- the same cron rules as tools/watch/scheduler.py ----
+  function field(spec,lo,hi){var out={};spec.split(",").forEach(function(part){var step=1,a,b;
+    if(part.indexOf("/")>=0){var p=part.split("/");part=p[0];step=parseInt(p[1],10);}
+    if(part==="*"||part===""){a=lo;b=hi;}else if(part.indexOf("-")>=0){var q=part.split("-");a=+q[0];b=+q[1];}else{a=b=+part;if(spec.indexOf("/")>=0)b=hi;}
+    if(isNaN(a)||isNaN(b)||isNaN(step)||step<1||a<lo||b>hi||a>b) throw new Error("bad field '"+spec+"'");
+    for(var i=a;i<=b;i+=step) out[i]=1;});return out;}
+  function parse(expr){var f=String(expr).trim().split(/\s+/);if(f.length!==5) throw new Error("needs 5 fields");
+    var dw={};var d=field(f[4],0,7);Object.keys(d).forEach(function(k){dw[k%7]=1;});
+    return {mi:field(f[0],0,59),h:field(f[1],0,23),dom:field(f[2],1,31),mo:field(f[3],1,12),dow:dw,ds:f[2][0]==="*",ws:f[4][0]==="*"};}
+  function match(c,t){ // t: Date whose UTC fields hold IST wall-clock
+    if(!c.mi[t.getUTCMinutes()]||!c.h[t.getUTCHours()]||!c.mo[t.getUTCMonth()+1]) return false;
+    var a=!!c.dom[t.getUTCDate()], b=!!c.dow[t.getUTCDay()];
+    return (c.ds||c.ws)?(a&&b):(a||b);}
+  function nextRuns(expr,n){var c=parse(expr),t=new Date(Date.now()+19800000);t.setUTCSeconds(0,0);var out=[];
+    for(var i=0;i<400*1440&&out.length<n;i++){t=new Date(t.getTime()+60000);if(match(c,t)) out.push(new Date(t));}return out;}
+  function fmt(t){return DAYS[t.getUTCDay()].slice(0,3)+" "+t.getUTCDate()+" "+["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][t.getUTCMonth()]+" "+String(t.getUTCHours()).padStart(2,"0")+":"+String(t.getUTCMinutes()).padStart(2,"0")+" IST";}
+
+  function render(){
+    $("#tbl tbody").innerHTML=doc.jobs.map(function(j,i){
+      var nx="";try{nx=nextRuns(j.cron,3).map(fmt).join("<br>");}catch(e){nx='<span class="bad">'+esc(e.message)+'</span>';}
+      return '<tr data-i="'+i+'"><td><input type="checkbox" class="en"'+(j.enabled!==false?" checked":"")+'></td>'+
+        '<td><b>'+esc(j.label)+'</b><div class="next"><code>'+esc(j.workflow)+'</code></div></td>'+
+        '<td><input type="text" class="cr" value="'+esc(j.cron)+'" size="14"></td>'+
+        '<td class="next">'+(j.enabled===false?"paused":nx)+'</td>'+
+        '<td><a href="https://github.com/'+REPO+'/actions/workflows/'+esc(j.workflow)+'" target="_blank" rel="noopener">runs ↗</a></td></tr>';}).join("");}
+  $("#tbl").addEventListener("change",function(e){var tr=e.target.closest("tr");if(!tr)return;var j=doc.jobs[+tr.dataset.i];
+    if(e.target.classList.contains("en")) j.enabled=e.target.checked; else if(e.target.classList.contains("cr")) j.cron=e.target.value.trim(); render();});
+
+  function load(){return fetch("../"+FILE+"?t="+Date.now(),{cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.text();}).then(function(t){orig=t;doc=JSON.parse(t);render();})
+    .catch(function(e){$("#msg").textContent="Could not read "+FILE+": "+e.message;$("#msg").className="bad";});}
+  function b64(s){var b=new TextEncoder().encode(s),x="";for(var i=0;i<b.length;i++)x+=String.fromCharCode(b[i]);return btoa(x);}
+  function msg(t,bad){$("#msg").textContent=t;$("#msg").className=bad?"bad":"next";}
+  $("#reset").onclick=function(){doc=JSON.parse(orig);render();msg("Changes discarded.");};
+  $("#save").onclick=function(){
+    var tok=$("#tok").value.trim();if(!tok){msg("Paste a GitHub token first.",true);return;}
+    try{doc.jobs.forEach(function(j){parse(j.cron);});}catch(e){msg("A cron is invalid: "+e.message,true);return;}
+    var api="https://api.github.com/repos/"+REPO+"/contents/"+FILE,H={"Authorization":"Bearer "+tok,"Accept":"application/vnd.github+json"};
+    msg("Reading the current file on main…");
+    fetch(api+"?ref="+BRANCH,{headers:H,cache:"no-store"}).then(function(r){if(!r.ok)throw new Error("read failed: HTTP "+r.status);return r.json();}).then(function(cur){
+      var body={message:"Schedules: "+doc.jobs.filter(function(j){return j.enabled!==false;}).length+" job(s) on (Schedules page)",content:b64(JSON.stringify(doc,null,1)+"\n"),sha:cur.sha,branch:BRANCH};
+      return fetch(api,{method:"PUT",headers:Object.assign({"Content-Type":"application/json"},H),body:JSON.stringify(body)});
+    }).then(function(r){if(!r.ok)return r.text().then(function(t){throw new Error("commit failed: HTTP "+r.status+" "+t.slice(0,160));});$("#tok").value="";orig=JSON.stringify(doc,null,1)+"\n";msg("✓ Saved. The Scheduler obeys it from its next hourly wake-up.");})
+    .catch(function(e){msg(String(e.message||e),true);});};
+
+  function start(){$("#gate").style.display="none";$("#app").style.display="";load();}
+  if(sessionStorage.getItem("dge.admin.ok")==="1"||localStorage.getItem("is_superadmin")==="true") start();
+  else{$("#gate").style.display="flex";var tryK=function(){window.dgeCheckKey("superadmin",$("#gk").value).then(function(ok){if(ok){sessionStorage.setItem("dge.admin.ok","1");location.reload();}else{$("#gk").value="";$("#gk").placeholder="wrong — try again";}});};
+    $("#gbtn").onclick=tryK;$("#gk").addEventListener("keydown",function(e){if(e.key==="Enter")tryK();});}
+})();
+</script>
+</body>
+</html>

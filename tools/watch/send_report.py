@@ -28,11 +28,13 @@ import urllib.request
 from email.message import EmailMessage
 
 
-def send_mail(subject, body):
-    to = [e.strip() for e in os.environ.get("SUPERADMIN_EMAILS", "").replace(";", ",").split(",") if e.strip()]
+def send_mail(subject, body, recipients=None):
+    """recipients=None -> the superadmins (SUPERADMIN_EMAILS); a list -> exactly those addresses."""
+    to = list(recipients) if recipients is not None else \
+        [e.strip() for e in os.environ.get("SUPERADMIN_EMAILS", "").replace(";", ",").split(",") if e.strip()]
     host = os.environ.get("SMTP_HOST", "")
     if not to:
-        return False, "SUPERADMIN_EMAILS is not set"
+        return False, "no recipients (SUPERADMIN_EMAILS is not set)"
     if not host:
         return False, "SMTP_HOST is not set"
     msg = EmailMessage()
@@ -48,7 +50,7 @@ def send_mail(subject, body):
             s.send_message(msg)
     except Exception as exc:                                       # noqa: BLE001
         return False, "SMTP failed: %s" % str(exc)[:160]
-    return True, "sent to %d superadmin(s)" % len(to)
+    return True, "sent to %d recipient(s)" % len(to)
 
 
 def open_issue(subject, body):
