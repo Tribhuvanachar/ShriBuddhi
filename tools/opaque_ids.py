@@ -64,7 +64,36 @@ STRUCTURE_PRIVATE = (
     "data/darshana/vedanta/dvaita/DvaitaVedantaIn",
     "data/darshana/vedanta/dvaita/Anandamakaranda",
     "data/darshana/vedanta/vishishtadvaita/RamanujaMeghamala",
+    # 1 Oct 2026 (the lead): Advaita Sharada must not publish its structure either. These are the
+    # folders advaitasharada.sringeri.net was imported into (the registry's feeds list); the
+    # shankara_bhashya folders beside them come from other sources and stay as they were.
+    "data/darshana/vedanta/advaita/prakarana_granthas",
+    "data/darshana/vedanta/advaita/siddhi_granthas",
+    "data/darshana/vedanta/advaita/stotrani",
+    "data/darshana/vedanta/advaita/gita_prasthana_tikas",
+    "data/darshana/vedanta/advaita/sutra_prasthana_tikas",
+    "data/darshana/vedanta/advaita/upanishad_prasthana_tikas",
+    "data/darshana/vedanta/advaita/shankara_bhashya_extra",
 )
+
+# Folder names too generic to scan for on their own: `stotrani`, `prakarana_granthas` also occur
+# inside unrelated public paths (`dasha_prakarana_granthas`, ...). For these the leak scan and the
+# taxonomy prune use "<parent>/<leaf>" instead of the bare leaf name.
+GENERIC_LEAVES = frozenset((
+    "prakarana_granthas", "siddhi_granthas", "stotrani", "gita_prasthana_tikas",
+    "sutra_prasthana_tikas", "upanishad_prasthana_tikas", "shankara_bhashya_extra"))
+
+
+def private_names(trees=None):
+    """The strings whose presence in a published file means a private tree is named.
+
+    The bare directory name, except where that name is generic (GENERIC_LEAVES): there
+    "<parent>/<leaf>", so `advaita/stotrani` matches and `dasha_prakarana_granthas` does not."""
+    out = []
+    for t in (STRUCTURE_PRIVATE if trees is None else trees):
+        parts = t.split("/")
+        out.append("/".join(parts[-2:]) if parts[-1] in GENERIC_LEAVES else parts[-1])
+    return out
 
 
 def needs_id(rel_path: str) -> bool:

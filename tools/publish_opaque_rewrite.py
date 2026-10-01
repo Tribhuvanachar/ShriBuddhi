@@ -41,7 +41,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from opaque_ids import (MAP_PATH, STRUCTURE_PRIVATE, load as load_ids,  # noqa: E402
+from opaque_ids import (MAP_PATH, STRUCTURE_PRIVATE, private_names, load as load_ids,  # noqa: E402
                         needs_id)
 
 TEXT_SUFFIXES = (".json", ".xml", ".js", ".html", ".css", ".txt", ".md")
@@ -78,18 +78,22 @@ def prune_taxonomy(path: str) -> int:
     taxonomy whose only job is to be browsed. The subtree is removed.
     """
     doc = json.load(open(path, encoding="utf-8"))
-    names = {t.rsplit("/", 1)[-1] for t in STRUCTURE_PRIVATE}
+    # A key goes when its whole path from the root is a private tree. (Matching the bare key
+    # name removed any `stotrani` anywhere, including ones that are not Advaita Sharada's.)
+    private_slugs = {slug_of(t) for t in STRUCTURE_PRIVATE}
     removed = 0
 
-    def walk(node):
+    def walk(node, prefix=()):
         nonlocal removed
         if not isinstance(node, dict):
             return
-        for k in [k for k in node if k in names]:
-            del node[k]
-            removed += 1
-        for v in node.values():
-            walk(v)
+        for k in list(node):
+            here = "/".join(prefix + (k,))
+            if here in private_slugs or any(here.endswith("/" + ps) for ps in private_slugs):
+                del node[k]
+                removed += 1
+        for k, v in node.items():
+            walk(v, prefix + (k,))
 
     walk(doc)
     if removed:
@@ -258,7 +262,7 @@ def main(argv=None) -> int:
         return 1
 
     left = []
-    names = [t.rsplit("/", 1)[-1] for t in STRUCTURE_PRIVATE]
+    names = private_names()
     for dirpath, _, files in os.walk(args.staged):
         for name in files:
             if not name.endswith(TEXT_SUFFIXES):

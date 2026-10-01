@@ -114,16 +114,17 @@ def run_ours(items):
     return res
 
 
-SCL = "https://sanskrit.uohyd.ac.in/cgi-bin/scl/MT/prog/sandhi_splitter/sandhi_splitter.cgi"
+SCL_HOSTED = "https://sanskrit.uohyd.ac.in/cgi-bin/scl"
+SPLITTER = "/MT/prog/sandhi_splitter/sandhi_splitter.cgi"
 
 
-def run_scl(items, pause=1.0):
+def run_scl(items, pause=1.0, base=SCL_HOSTED):
     res = []
     for _, t, _ in items:
         q = urllib.parse.urlencode({"word": "+".join(clean(t).split()), "encoding": "Unicode",
                                     "outencoding": "D", "mode": "sent", "disp_mode": "json"})
         try:
-            with urllib.request.urlopen(urllib.request.Request(SCL + "?" + q, headers={"User-Agent": "sarvamula-bench"}), timeout=30) as r:
+            with urllib.request.urlopen(urllib.request.Request(base.rstrip("/") + SPLITTER + "?" + q, headers={"User-Agent": "sarvamula-bench"}), timeout=30) as r:
                 body = r.read().decode("utf-8", "replace")
             seg = json.loads(body)["segmentation"][0]
             res.append([w for w in re.split(r"[\s\-]+", seg.lstrip("?")) if w])
@@ -145,6 +146,8 @@ def main(argv=None):
     ap.add_argument("--works", default="raghuvamsha,kumarasambhava,kiratarjuniya,shishupalavadha,meghaduta,bhattikavya")
     ap.add_argument("--per-work", type=int, default=100)
     ap.add_argument("--scl", type=int, default=0, help="also score SCL on this many verses (throttled)")
+    ap.add_argument("--scl-base", default=SCL_HOSTED, help="SCL CGI base; a local container is http://localhost:8080/cgi-bin/scl")
+    ap.add_argument("--scl-pause", type=float, default=1.0, help="seconds between requests (0 is fine for your own container)")
     a = ap.parse_args(argv)
     items = []
     for w in a.works.split(","):
@@ -157,7 +160,7 @@ def main(argv=None):
         print("-- same %d verses for every engine --" % len(sub))
         score("cheda", sub, run_cheda(sub))
         score("ours", sub, run_ours(sub))
-        score("scl", sub, run_scl(sub))
+        score("scl", sub, run_scl(sub, a.scl_pause, a.scl_base))
     return 0
 
 

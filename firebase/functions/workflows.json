@@ -34,9 +34,9 @@
  "workflows": [
   {
    "id": "check-sources",
-   "file": "check-sources.yml",
-   "name": "Check sources for updates",
-   "blurb": "Looks at all 17 outside sources and reports what moved. Opens an issue if anything did. Imports nothing.",
+   "file": "watch-sources.yml",
+   "name": "Watch sources (weekly report)",
+   "blurb": "Asks every outside source whether it changed, lands the raw change in ParaBuddhi first, and e-mails the superadmins. Runs Sunday 02:00 IST on its own; this runs it now. Imports nothing into ShriBuddhi.",
    "writes": "nothing",
    "inputs": [
     {
@@ -44,44 +44,6 @@
      "type": "string",
      "label": "Only these source ids (comma-separated; blank = all)",
      "default": ""
-    },
-    {
-     "name": "remember",
-     "type": "boolean",
-     "label": "Record what was seen, so the next run reports only what is new",
-     "default": true
-    }
-   ],
-   "group": "source-sync"
-  },
-  {
-   "id": "sync-dvaitavedanta",
-   "file": "sync-dvaitavedanta.yml",
-   "writes": "admin/config/dv_sync.state.json (the remembered census)",
-   "inputs": [
-    {
-     "name": "sections",
-     "type": "string",
-     "label": "Only these section slugs (comma-separated; blank = all)",
-     "default": ""
-    },
-    {
-     "name": "drift_sample",
-     "type": "string",
-     "label": "Re-fetch N random imported pages and check the text still matches (0 = skip)",
-     "default": "40"
-    },
-    {
-     "name": "write_state",
-     "type": "boolean",
-     "label": "Record the census, so the next run reports only what is new",
-     "default": true
-    },
-    {
-     "name": "dispatch_extract",
-     "type": "boolean",
-     "label": "If granthas changed, dispatch the extractor for them right away",
-     "default": false
     }
    ],
    "group": "source-sync"
@@ -237,7 +199,7 @@
   },
   {
    "id": "sync-sarvamulavani",
-   "file": "check-sources.yml",
+   "file": "watch-sources.yml",
    "name": "Sarvamūlavāṇī — sarvamulavani.com",
    "group": "source-sync",
    "site": "sarvamulavani.com",
@@ -256,25 +218,19 @@
      "label": "Source ids to check",
      "default": "sarvamulavani",
      "fixed": true
-    },
-    {
-     "name": "remember",
-     "type": "boolean",
-     "label": "Record what was seen, so the next run reports only what is new",
-     "default": true
     }
    ]
   },
   {
    "id": "sync-setutila",
-   "file": "check-sources.yml",
+   "file": "watch-sources.yml",
    "group": "source-sync",
    "source_ids": [
     "setutila"
    ],
    "feeds": "Tattvavada/SarvaMula — 47 granthas",
    "importer": "extract-setutila",
-   "blurb": "Counts published posts and reads the newest modified date through the WordPress API. If it moved, run the SetuTila importer (delta sync).",
+   "blurb": "Counts published posts and reads the newest modified date through the WordPress API. If it moved, the raw change lands in ParaBuddhi first.",
    "writes": "nothing",
    "inputs": [
     {
@@ -283,18 +239,12 @@
      "label": "Source ids to check",
      "default": "setutila",
      "fixed": true
-    },
-    {
-     "name": "remember",
-     "type": "boolean",
-     "label": "Record what was seen, so the next run reports only what is new",
-     "default": true
     }
    ]
   },
   {
    "id": "sync-dvaitavedanta-quick",
-   "file": "check-sources.yml",
+   "file": "watch-sources.yml",
    "group": "source-sync",
    "source_ids": [
     "dvaitavedanta"
@@ -310,18 +260,12 @@
      "label": "Source ids to check",
      "default": "dvaitavedanta",
      "fixed": true
-    },
-    {
-     "name": "remember",
-     "type": "boolean",
-     "label": "Record what was seen, so the next run reports only what is new",
-     "default": true
     }
    ]
   },
   {
    "id": "sync-anandamakaranda",
-   "file": "check-sources.yml",
+   "file": "watch-sources.yml",
    "group": "source-sync",
    "source_ids": [
     "anandamakaranda"
@@ -337,18 +281,12 @@
      "label": "Source ids to check",
      "default": "anandamakaranda",
      "fixed": true
-    },
-    {
-     "name": "remember",
-     "type": "boolean",
-     "label": "Record what was seen, so the next run reports only what is new",
-     "default": true
     }
    ]
   },
   {
    "id": "sync-srivaishnavan",
-   "file": "check-sources.yml",
+   "file": "watch-sources.yml",
    "group": "source-sync",
    "source_ids": [
     "srivaishnavan_meghamala"
@@ -364,18 +302,12 @@
      "label": "Source ids to check",
      "default": "srivaishnavan_meghamala",
      "fixed": true
-    },
-    {
-     "name": "remember",
-     "type": "boolean",
-     "label": "Record what was seen, so the next run reports only what is new",
-     "default": true
     }
    ]
   },
   {
    "id": "sync-advaitasharada",
-   "file": "check-sources.yml",
+   "file": "watch-sources.yml",
    "group": "source-sync",
    "source_ids": [
     "advaitasharada"
@@ -391,18 +323,12 @@
      "label": "Source ids to check",
      "default": "advaitasharada",
      "fixed": true
-    },
-    {
-     "name": "remember",
-     "type": "boolean",
-     "label": "Record what was seen, so the next run reports only what is new",
-     "default": true
     }
    ]
   },
   {
    "id": "sync-kavya",
-   "file": "check-sources.yml",
+   "file": "watch-sources.yml",
    "name": "Kāvya sources — GRETIL · sanskritsahitya · ambuda.org · sa.wikisource",
    "group": "source-sync",
    "site": "four sites",
@@ -424,18 +350,12 @@
      "label": "Source ids to check",
      "default": "gretil,sanskritsahitya,ambuda,sa_wikisource",
      "fixed": true
-    },
-    {
-     "name": "remember",
-     "type": "boolean",
-     "label": "Record what was seen, so the next run reports only what is new",
-     "default": true
     }
    ]
   },
   {
    "id": "sync-ashtadhyayi",
-   "file": "check-sources.yml",
+   "file": "watch-sources.yml",
    "name": "Aṣṭādhyāyī data — ashtadhyayi.com",
    "group": "source-sync",
    "site": "ashtadhyayi.com",
@@ -454,18 +374,12 @@
      "label": "Source ids to check",
      "default": "ashtadhyayi_com",
      "fixed": true
-    },
-    {
-     "name": "remember",
-     "type": "boolean",
-     "label": "Record what was seen, so the next run reports only what is new",
-     "default": true
     }
    ]
   },
   {
    "id": "sync-dasa-sahitya",
-   "file": "check-sources.yml",
+   "file": "watch-sources.yml",
    "name": "Dāsa Sāhitya — madhwafestivals · dasasahitya.net · meerasubbarao",
    "group": "source-sync",
    "site": "three blogs",
@@ -486,34 +400,6 @@
      "label": "Source ids to check",
      "default": "madhwafestivals,dasasahitya_net,meerasubbarao",
      "fixed": true
-    },
-    {
-     "name": "remember",
-     "type": "boolean",
-     "label": "Record what was seen, so the next run reports only what is new",
-     "default": true
-    }
-   ]
-  },
-  {
-   "id": "extract-setutila",
-   "file": "extract-setutila.yml",
-   "name": "SetuTila — import / delta sync",
-   "group": "content-import",
-   "blurb": "Pulls new or modified SetuTila posts (all, as a delta, or the slugs you name) and opens a pull request.",
-   "writes": "corpus",
-   "inputs": [
-    {
-     "name": "slugs",
-     "type": "string",
-     "label": "Post slugs, comma-separated (blank = delta since last sync)",
-     "default": ""
-    },
-    {
-     "name": "force",
-     "type": "boolean",
-     "label": "Re-import even if unchanged",
-     "default": false
     }
    ]
   },
@@ -540,69 +426,9 @@
    ]
   },
   {
-   "id": "import-advaitasharada",
-   "file": "sync-advaitasharada.yml",
-   "name": "Advaita Śāradā — re-read the site and open a PR",
-   "group": "content-import",
-   "writes": "corpus",
-   "inputs": [
-    {
-     "name": "works",
-     "type": "string",
-     "label": "Only these work slugs, comma-separated (blank = all 51)",
-     "default": ""
-    },
-    {
-     "name": "delay",
-     "type": "string",
-     "label": "Seconds between requests",
-     "default": "1.0"
-    },
-    {
-     "name": "open_pr",
-     "type": "boolean",
-     "label": "Open a pull request (off = report only)",
-     "default": true
-    }
-   ]
-  },
-  {
-   "id": "import-meghamala",
-   "file": "sync-meghamala.yml",
-   "name": "Śrī Rāmānuja Meghamālā — fetch changed granthas and open a PR",
-   "group": "content-import",
-   "writes": "corpus",
-   "inputs": [
-    {
-     "name": "all",
-     "type": "boolean",
-     "label": "Re-fetch every grantha, not only the changed ones",
-     "default": false
-    },
-    {
-     "name": "max_granthas",
-     "type": "string",
-     "label": "Cap on granthas re-fetched in one run",
-     "default": "60"
-    },
-    {
-     "name": "delay",
-     "type": "string",
-     "label": "Seconds between requests",
-     "default": "1.0"
-    },
-    {
-     "name": "open_pr",
-     "type": "boolean",
-     "label": "Open a pull request (off = report only)",
-     "default": true
-    }
-   ]
-  },
-  {
    "id": "import-ashtadhyayi",
-   "file": "sync-ashtadhyayi.yml",
-   "name": "Aṣṭādhyāyī data — re-import from ashtadhyayi-com/data and open a PR",
+   "file": "stitch-ashtadhyayi.yml",
+   "name": "Aṣṭādhyāyī data — stitch the copy landed in ParaBuddhi and open a PR",
    "group": "content-import",
    "writes": "corpus",
    "blurb": "Stops at once if the upstream commit is the one we imported; otherwise refreshes the four ancillary corpora and the sūtra enrichment, Mahābhāṣya and Vasu layers (re-aligned), and opens a pull request.",
@@ -618,34 +444,6 @@
      "type": "boolean",
      "label": "Also refresh the sūtra enrichment / Mahābhāṣya / Vasu layers",
      "default": true
-    },
-    {
-     "name": "open_pr",
-     "type": "boolean",
-     "label": "Open a pull request (off = report only)",
-     "default": true
-    }
-   ]
-  },
-  {
-   "id": "import-anandamakaranda",
-   "file": "sync-anandamakaranda.yml",
-   "name": "Ānandamakaranda — merge changed works from the wiki and open a PR",
-   "group": "content-import",
-   "writes": "corpus",
-   "blurb": "Checks the wiki revision of all 47 works we hold; merges one-to-one layers in place, snapshots composite ones with a block-by-block diff, and opens a pull request.",
-   "inputs": [
-    {
-     "name": "titles",
-     "type": "string",
-     "label": "Only these wiki titles, comma-separated (blank = all)",
-     "default": ""
-    },
-    {
-     "name": "force",
-     "type": "boolean",
-     "label": "Re-sync even if the wiki revision is unchanged",
-     "default": false
     },
     {
      "name": "open_pr",

@@ -104,13 +104,10 @@ def test_the_site_list_matches_parabuddhis():
     }
 
 
-def test_the_importers_are_disabled_in_this_repo():
-    """Every importer of a private source must refuse to run here."""
-    import yaml
+def test_the_direct_importers_of_private_sources_are_gone_from_this_repo():
+    """Importers of rights-unresolved sources run in ParaBuddhi (import.yml), never here. They used
+    to sit here disabled behind a guard step; on 1 Oct 2026 they were deleted, replaced by the weekly
+    watcher (watch-sources.yml) that lands raw data in ParaBuddhi first. Nothing may bring one back."""
     for w in ("extract-dvaitavedanta", "extract-setutila", "sync-anandamakaranda",
-              "sync-advaitasharada", "sync-meghamala"):
-        p = REPO / ".github" / "workflows" / f"{w}.yml"
-        d = yaml.safe_load(p.read_text(encoding="utf-8"))
-        first = list(d["jobs"].values())[0]["steps"][0]
-        assert "disabled" in first["name"].lower(), f"{w} must fail before it fetches"
-        assert "exit 1" in first["run"], f"{w}'s guard must actually fail"
+              "sync-advaitasharada", "sync-meghamala", "sync-dvaitavedanta"):
+        assert not (REPO / ".github" / "workflows" / f"{w}.yml").exists(), f"{w}.yml is back"

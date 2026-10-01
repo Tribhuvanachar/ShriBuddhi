@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!-- Guru Vandana guard: bounces anyone arriving by bookmark or deep link
+     back to the vandana at the site root. Must stay the first script here. -->
+<script src="../js/vandana-guard.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reader reports · DGE (admin)</title>
+<link rel="stylesheet" href="css/library.css?v=3">
+<style>
+  body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,sans-serif}
+  main{max-width:980px;margin:0 auto;padding:14px 16px 40px}
+  .bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:10px 16px;border-bottom:1px solid var(--line)}
+  .rep{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:12px 0}
+  .rep.done{opacity:.6}
+  .rep h3{margin:0 0 4px;font-size:15px}
+  .meta{color:var(--muted);font-size:12px;margin-bottom:6px;word-break:break-word}
+  .msg{white-space:pre-wrap;margin:6px 0}
+  table.ctx{border-collapse:collapse;font-size:12px;margin:6px 0;width:100%}
+  table.ctx td{border-top:1px solid var(--line);padding:3px 6px;vertical-align:top;word-break:break-word}
+  table.ctx td:first-child{color:var(--muted);white-space:nowrap}
+  img.shot{max-width:100%;max-height:340px;border:1px solid var(--line);border-radius:8px;margin-top:6px;cursor:zoom-in}
+  .acts{display:flex;gap:8px;margin-top:8px}
+  select,input{background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 8px;font:inherit}
+</style>
+</head>
+<body>
+<div class="bar">
+  <a href="../render.html" style="color:var(--accent);text-decoration:none">⌂ DGE</a>
+  <b>Reader reports</b>
+  <select id="fStatus"><option value="">all</option><option value="new" selected>new</option><option value="resolved">resolved</option></select>
+  <select id="fQueue"><option value="">every queue</option><option>content</option><option>proofreader</option><option>linguistics</option><option>admin</option></select>
+  <select id="fFeature"><option value="">every feature</option></select>
+  <span id="authState" style="margin-left:auto;font-size:12px;color:var(--muted)">Checking sign-in…</span>
+  <button class="btn" id="signIn" style="display:none">Sign in with Google</button>
+</div>
+<main>
+  <p class="hint" style="color:var(--muted);font-size:12px">Sent from “Report a problem” on the public site (signed-in readers only; anyone else's goes to the contact e-mail). Each report carries the page, library path, verse/word, what was on screen and a screenshot. Admins only: Firestore's rules check the role, not this page.</p>
+  <div id="list"></div>
+</main>
+<script src="../js/config.js?v=1"></script>
+<script>
+(function () {
+  var $ = function (s) { return document.querySelector(s); };
+  var db, auth, rows = [];
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function load(src) { return new Promise(function (ok, no) { var s = document.createElement('script'); s.src = src; s.async = false; s.onload = ok; s.onerror = function () { no(new Error(src)); }; document.head.appendChild(s); }); }
+  function when(ts) { try { return new Date(ts.toDate ? ts.toDate() : ts).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' IST'; } catch (e) { return ''; } }
+
+  function render() {
+    var st = $('#fStatus').value, ft = $('#fFeature').value, fq = $('#fQueue').value;
+    var feats = {}; rows.forEach(function (r) { feats[r.d.feature || ''] = 1; });
+    var sel = $('#fFeature'), cur = sel.value;
+    sel.innerHTML = '<option value="">every feature</option>' + Object.keys(feats).sort().map(function (f) { return '<option' + (f === cur ? ' selected' : '') + '>' + esc(f) + '</option>'; }).join('');
+    var shown = rows.filter(function (r) { return (!st || (r.d.status || 'new') === st) && (!ft || r.d.feature === ft) && (!fq || (r.d.queue || '') === fq); });
+    shown.sort(function (a, b) { return String(a.d.priority || 'P9').localeCompare(String(b.d.priority || 'P9')); });
+    $('#list').innerHTML = shown.length ? shown.map(function (r) {
+      var d = r.d;
+      var ctx = [['Feature', d.feature], ['Subject', d.subject], ['Library path', d.path], ['Page', d.url], ['Selected', d.selected], ['On screen', d.extra], ['Script', d.script], ['Browser', d.ua], ['Viewport', d.viewport]]
+        .filter(function (p) { return p[1]; }).map(function (p) { return '<tr><td>' + esc(p[0]) + '</td><td>' + (p[0] === 'Page' ? '<a href="' + esc(p[1]) + '" target="_blank" rel="noopener">' + esc(p[1]) + '</a>' : esc(p[1])) + '</td></tr>'; }).join('');
+      return '<div class="rep' + ((d.status === 'resolved') ? ' done' : '') + '" data-id="' + esc(r.id) + '">' +
+        '<h3>' + esc(d.category || '') + ' — ' + esc(d.subject || d.title || d.feature || '') + '</h3>' +
+        '<div class="meta">' + (d.priority ? '<b>' + esc(d.priority) + '</b> · ' + esc(d.queue || '') + ' · ' : '') + esc(when(d.createdAt)) + ' · ' + esc(d.email || d.uid) + ' · ' + esc(d.status || 'new') + '</div>' +
+        '<div class="msg">' + esc(d.message) + '</div><table class="ctx">' + ctx + '</table>' +
+        (d.screenshot ? '<img class="shot" src="' + d.screenshot + '" alt="screenshot">' : '') +
+        '<div class="acts"><button class="btn" data-act="toggle">' + (d.status === 'resolved' ? 'Reopen' : 'Mark resolved') + '</button>' +
+        '<button class="btn" data-act="del">Delete</button></div></div>';
+    }).join('') : '<p class="hint">Nothing here.</p>';
+  }
+
+  async function fetchAll() {
+    try {
+      var snap = await db.collection('reports').orderBy('createdAt', 'desc').limit(150).get();
+      rows = snap.docs.map(function (x) { return { id: x.id, d: x.data() }; });
+      render();
+    } catch (e) {
+      $('#list').innerHTML = '<p class="hint">Could not read reports (' + esc(e.code || e.message) + '). You need the admin role and to be signed in.</p>';
+    }
+  }
+
+  $('#list').addEventListener('click', async function (ev) {
+    var b = ev.target.closest('[data-act]'); var img = ev.target.closest('img.shot');
+    if (img) { window.open(img.src, '_blank'); return; }
+    if (!b) return;
+    var id = b.closest('.rep').dataset.id, r = rows.find(function (x) { return x.id === id; });
+    try {
+      if (b.dataset.act === 'toggle') { var ns = r.d.status === 'resolved' ? 'new' : 'resolved'; await db.collection('reports').doc(id).update({ status: ns }); r.d.status = ns; }
+      else if (b.dataset.act === 'del' && confirm('Delete this report?')) { await db.collection('reports').doc(id).delete(); rows = rows.filter(function (x) { return x.id !== id; }); }
+      render();
+    } catch (e) { alert('Not allowed: ' + (e.code || e.message)); }
+  });
+  $('#fStatus').onchange = $('#fFeature').onchange = $('#fQueue').onchange = render;
+  $('#signIn').onclick = function () { auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function (e) { alert(e.message); }); };
+
+  (async function () {
+    if (!window.AUTH_CONFIG || !window.AUTH_CONFIG.enabled) { $('#authState').textContent = 'Accounts are not set up on this deployment.'; return; }
+    var base = window.AUTH_CONFIG.sdkBase || 'https://www.gstatic.com/firebasejs/12.17.1/';
+    await load(base + 'firebase-app-compat.js'); await load(base + 'firebase-auth-compat.js'); await load(base + 'firebase-firestore-compat.js');
+    firebase.initializeApp(window.FIREBASE_CONFIG); auth = firebase.auth(); db = firebase.firestore();
+    auth.onAuthStateChanged(function (u) {
+      if (!u) { $('#authState').textContent = 'Not signed in'; $('#signIn').style.display = ''; return; }
+      $('#authState').textContent = 'Signed in as ' + (u.email || u.uid); $('#signIn').style.display = 'none'; fetchAll();
+    });
+  })().catch(function (e) { $('#authState').textContent = 'Could not reach Firebase: ' + e.message; });
+})();
+</script>
+</body>
+</html>

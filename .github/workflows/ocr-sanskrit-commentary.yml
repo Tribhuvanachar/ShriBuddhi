@@ -172,6 +172,18 @@ jobs:
           name: staged-commentary
           path: staged.json
 
+      - name: Land the raw OCR result in ParaBuddhi first
+        env:
+          PARABUDDHI_TOKEN: ${{ secrets.PARABUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$PARABUDDHI_TOKEN" || { echo "::error::PARABUDDHI_TOKEN is not set. The OCR result must land in ParaBuddhi before it is merged into the corpus; it is kept as the staged-commentary artifact."; exit 2; }
+          git clone --depth 1 "https://x-access-token:${PARABUDDHI_TOKEN}@github.com/Tribhuvanachar/ParaBuddhi.git" "$RUNNER_TEMP/pb"
+          cp staged.json "$RUNNER_TEMP/staged_${{ inputs.work_slug }}_${{ inputs.start_page }}-${{ inputs.end_page }}.json"
+          python3 tools/watch/dump_to_parabuddhi.py --pb "$RUNNER_TEMP/pb" --id "ocr_${{ inputs.work_slug }}" \
+            --path "$RUNNER_TEMP/staged_${{ inputs.work_slug }}_${{ inputs.start_page }}-${{ inputs.end_page }}.json" \
+            --note "Gemini/Vision commentary pages ${{ inputs.start_page }}-${{ inputs.end_page }}"
+
       - name: Stage 2 -- merge into the corpus
         if: ${{ fromJSON(inputs.also_merge) }}
         run: |

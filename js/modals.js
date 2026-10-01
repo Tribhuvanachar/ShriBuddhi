@@ -502,6 +502,11 @@ function dgeRenderWhatsNew() {
 // is routed to a human-reviewed GitHub issue instead, never auto-merged).
 window.DGE_FEEDBACK_TAG = '[DGE-CONTENT-GAP]';
 window.dgeReportMissingForm = function(surface, context) {
+  // Preferred: the structured report form with page context and a screenshot (js/report-issue.js).
+  if (typeof window.dgeOpenReport === 'function') {
+    window.dgeOpenReport({ feature: String(surface || 'lookup'), subject: String(surface || ''), extra: context || '', category: 'not-resolving' });
+    return;
+  }
   const email = (typeof appConfig !== 'undefined' && appConfig.contactEmail) ? appConfig.contactEmail : 'sanatanavidyagurukulam@gmail.com';
   const subject = encodeURIComponent(`${window.DGE_FEEDBACK_TAG} missing-form — ${surface}`);
   const lines = [
@@ -520,6 +525,14 @@ window.dgeReportMissingForm = function(surface, context) {
 };
 
 window.sendTypoReport = function() {
+  if (typeof window.dgeOpenReport === 'function') {
+    const sh = (document.getElementById('reportTypoShloka') || {}).value || '';
+    const det = (document.getElementById('reportTypoDetails') || {}).value || '';
+    if (det.trim()) {
+      window.dgeOpenReport({ feature: 'verse', subject: sh ? 'Shloka ' + sh : '', message: det.trim(), category: 'wrong-text' });
+      return;
+    }
+  }
   const shlokaEl = document.getElementById('reportTypoShloka');
   const detailsEl = document.getElementById('reportTypoDetails');
   const shloka = shlokaEl && shlokaEl.value ? shlokaEl.value.trim() : '(not specified)';

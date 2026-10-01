@@ -30,6 +30,7 @@
   { "id": "bbOcrReviewItem", "icon": "🔍", "label": "OCR Review", "path": "admin/ocr-review.html", "requires": "admin" },
   { "id": "bbOcrStudioItem", "icon": "🔍", "label": "OCR Studio", "path": "admin/ocr-studio.html", "requires": "admin" },
   { "id": "bbAccessControlItem", "icon": "🛡️", "label": "Access Control", "path": "admin/access-control.html", "requires": "superadmin" },
+  { "id": "bbReportsItem", "icon": "⚑", "label": "Reader reports", "path": "admin/reports.html", "requires": "admin" },
   { "id": "bbContentProvenanceItem", "icon": "🗺️", "label": "Content Provenance Map", "path": "admin/content-provenance.html", "requires": "admin" },
   { "id": "bbLegalEditorItem", "icon": "⚖️", "label": "Legal Text Editor", "path": "admin/legal.html", "requires": "superadmin" },
   { "id": "bbGuruEditorItem", "icon": "🪷", "label": "Guru Parampara Editor", "path": "admin/guru.html", "requires": "superadmin" },

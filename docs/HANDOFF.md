@@ -285,3 +285,47 @@ Also still open:
   coverage is the limit there, not evidence that our forms are wrong.
 - Licences: no licence text on any reading surface. The vṛtti files, the WordNet manifest and the popover
   no longer carry one; GPL / CC BY-SA credits live on the Credits page (`content/legal.json`).
+
+## 1 Oct 2026: ParaBuddhi first, weekly watchers, clean-up, reports
+
+- **ParaBuddhi first.** `docs/SOURCE_DESTINATIONS.md`. Weekly watch: `watch-sources.yml` (+ `watch-indowordnet.yml`),
+  Sunday 02:00 IST, per-source probe → raw landing in ParaBuddhi (`source/_raw/<source>/`, mandatory) → one e-mail to
+  the superadmins (`tools/watch/`). Needs secrets `PARABUDDHI_TOKEN`, `SMTP_*` and variable `SUPERADMIN_EMAILS`;
+  without SMTP the report becomes an issue labelled `watch-report`. The old `check-sources`, `check-vishvasa`,
+  `sync-*` and `extract-*` workflows are deleted; `sync-ashtadhyayi` is now the manual `stitch-ashtadhyayi.yml`, reading
+  the commit ParaBuddhi holds. `ocr-sarvam`, `ocr-vision-pages`, `ocr-sanskrit-commentary` and `import-kavya` now dump
+  their raw output to ParaBuddhi first and fail if they cannot; the two page-OCR workflows write `data/ocr_staging/`
+  on main (no more `ocr-staging/<work>` branches).
+- **Still writing straight into `data/` without a ParaBuddhi dump:** `ingest-gretil-bulk`, `darshanas`, `ingest`,
+  `ingest-commentaries`, `import-dasa-sahitya`, `vedavani-extract`. Same one-step fix (`tools/watch/dump_to_parabuddhi.py`).
+- **Destination map** `import_config/destinations.registry.json` in ParaBuddhi (PR ParaBuddhi#1): 5,047 upstream sections,
+  4,022 mapped, 269 ambiguous, 756 unresolved. Settling those is a person's job; `build_destinations.py --check` says what is left.
+- **Branch clean-up** is one click: Actions → "Clean up branches" (`cleanup-branches.yml`), plan in
+  `config/cleanup/branch-plan.json` (verified / superseded / decide / keep). It defaults to a dry run. A session cannot
+  delete remote branches (the harness denies it), a workflow run can. Every file on the 94 `ocr-staging/*` branches is
+  already on main (byte-identical after NFC, or older than main's copy), checked 1 Oct 2026.
+- **Workflows removed:** kamadhenu-{diagnostics,experiment-a,hf-job-logs,pilot-transcripts,space-logs}, probe-* (5),
+  deploy-preview-shribuddhi, recover-dv-structure, gemini-bench, ocr-{lakshmi,vasu}-kaumudi, ingest-sayana-smriti, and the
+  watchers above. Kept though unsure: deploy-kamadhenu-space, gemini-{deep-analysis-kavya,dhatu-lexicon,summarize-kavya},
+  darshanas, ask-claude (stays here, dormant, by the lead's decision).
+- **Admin never reaches Jagat, completed.** `content-inline.js` (inline page-text editor, takes a GitHub token) and
+  `user-roles.js` (Manage Users) were still shipped to Jagat; both, `css/content-inline.css` and the editor mount are now stripped.
+  Granting access: Manage Users runs only here, writes `users/{uid}` in Firestore project `sarvamula-org`, which Jagat reads too:
+  effective at once, no publish. A new sign-in arrives as `basic`. Firebase console → Authentication → Authorized
+  domains must list Jagat's domain (not checkable from here).
+- **Report a problem** (`js/report-issue.js`, footer link, word popover ⚑, typo form, "report as missing"): captures page, library
+  path, verse/word, what was on screen and a screenshot; signed-in readers write a `reports/` document
+  (`firebase/firestore.rules`), others get a pre-filled e-mail. Admins read them in `admin/reports.html`. The rule deploys with
+  `deploy-firestore.yml` when this merges.
+- **Shelf.** `config/library-overrides.json` now allows DvaitaVedantaIn, Anandamakaranda, advaita (Advaita Śāradā),
+  RamanujaMeghamala (srivaishnavan), kavya_alankara and the other admin-shelf entries; the admin and public copies agree (test).
+
+## 1 Oct 2026, later: setup checklist, report triage, Advaita Sharada hidden
+
+- **`docs/SETUP_CHECKLIST.md`** has every click: secrets/variables (incl. SMTP), Firebase authorised domains, the branch
+  clean-up groups, the Docker pilot, the report flow, the six remaining importers.
+- **Nightly `triage-reports.yml`** (11:00 pm IST): deterministic queues + priorities, one digest e-mail, switch `REPORT_TRIAGE=off`. No AI.
+- **Advaita Sharada hidden**: its seven folders under `data/darshana/vedanta/advaita/` join `STRUCTURE_PRIVATE` (text by opaque id, no path
+  published), like DvaitaVedantaIn, Anandamakaranda and RamanujaMeghamala; `opaque_ids.private_names()` makes the leak scan path-aware for
+  their generic folder names. None of the four source-site trees is on the go-live shelf. `kavya_alankara` is.
+- `build-padaccheda-sandhi.yml` also runs by itself monthly (2nd, 03:00 IST). `scl-pilot.yml` runs Saṃsādhanī in Docker on the runner.

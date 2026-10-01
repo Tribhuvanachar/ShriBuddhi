@@ -1,0 +1,16 @@
+.dge-rp-overlay { position: fixed; inset: 0; z-index: 100000; background: rgba(0,0,0,.55); display: flex; align-items: center; justify-content: center; padding: 16px; }
+.dge-rp-card { background: var(--bg, #fff); color: var(--text, #222); border: 1px solid var(--border, #ccc); border-radius: 12px; width: min(560px, 100%); max-height: 92vh; overflow: auto; padding: 14px 16px 16px; font: 14px/1.45 system-ui, sans-serif; }
+.dge-rp-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 16px; }
+.dge-rp-x { border: 0; background: none; font-size: 18px; cursor: pointer; color: inherit; }
+.dge-rp-l { display: block; margin: 10px 0 0; font-weight: 600; font-size: 13px; }
+.dge-rp-card select, .dge-rp-card textarea { display: block; width: 100%; box-sizing: border-box; margin-top: 4px; padding: 8px; font: inherit; border: 1px solid var(--border, #bbb); border-radius: 8px; background: transparent; color: inherit; }
+.dge-rp-ctx { margin-top: 10px; font-size: 12px; }
+.dge-rp-ctx table { border-collapse: collapse; width: 100%; margin-top: 6px; }
+.dge-rp-ctx td { border-top: 1px solid var(--border, #ddd); padding: 3px 6px; vertical-align: top; word-break: break-word; }
+.dge-rp-ctx td:first-child { white-space: nowrap; opacity: .7; }
+.dge-rp-chk { display: block; margin-top: 10px; font-size: 13px; }
+.dge-rp-thumb { display: block; max-width: 100%; max-height: 150px; margin-top: 6px; border: 1px solid var(--border, #ccc); border-radius: 6px; }
+.dge-rp-actions { display: flex; gap: 8px; margin-top: 14px; }
+.dge-rp-actions button { padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border, #bbb); background: transparent; color: inherit; cursor: pointer; font: inherit; }
+.dge-rp-send { background: var(--accent, #9c3d10) !important; color: #fff !important; border-color: transparent !important; }
+.dge-rp-status, .dge-rp-note { font-size: 12.5px; min-height: 1.2em; margin: 8px 0 0; opacity: .85; }

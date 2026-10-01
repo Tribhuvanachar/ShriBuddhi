@@ -1,0 +1,83 @@
+# Saṃsādhanī on the runner itself: a pilot before any bulk run.
+#
+# The University of Hyderabad serves Saṃsādhanī from one small web server (1-4 seconds a call), which
+# is fine for a reader double-tapping a word and not for 95,000 Kāvya verses. The toolkit is also
+# published as a Docker image (vipranarayan14/samsaadhanii, built from github.com/samsaadhanii/scl).
+# "Docker in Actions" means: this job starts that image as a container on the GitHub runner, so
+# Saṃsādhanī answers at http://localhost:8080 with no network round trip and no load on anyone else's
+# server, then runs our scorer against it and reports.
+#
+# THIS IS A PILOT. It scores the sandhi splitter on N verses that already have a human padaccheda
+# (the same scorer as tools/bench_segmenters.py) and prints the F1 next to Vidyut's and ours, plus the
+# container's speed. Nothing is written to the corpus. The image has never been run by us: the first
+# run may only tell us it does not start, and the log says why.
+#
+# Run it: Actions -> "Saṃsādhanī pilot (Docker)" -> Run workflow.
+name: Saṃsādhanī pilot (Docker)
+
+on:
+  workflow_dispatch:
+    inputs:
+      verses:
+        description: "Verses to score (the same ones for every engine)"
+        default: "150"
+      image:
+        description: "Docker image"
+        default: "vipranarayan14/samsaadhanii"
+
+permissions:
+  contents: read
+
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Start Saṃsādhanī in Docker
+        env:
+          IMAGE: ${{ inputs.image }}
+        run: |
+          set -euo pipefail
+          docker pull "$IMAGE"
+          docker run -d --name scl -p 8080:80 "$IMAGE"
+          for i in $(seq 1 60); do
+            if curl -sf -o /dev/null http://localhost:8080/scl/; then echo "up after ~$((i*5))s"; break; fi
+            sleep 5
+          done
+          curl -s -o /dev/null -w "front page: HTTP %{http_code}\n" http://localhost:8080/scl/
+          echo "splitter probe:"
+          curl -s -m 60 "http://localhost:8080/cgi-bin/scl/MT/prog/sandhi_splitter/sandhi_splitter.cgi?word=%E0%A4%B0%E0%A4%BE%E0%A4%AE%E0%A4%BE%E0%A4%B2%E0%A4%AF%E0%A4%83&encoding=Unicode&outencoding=D&mode=word&disp_mode=json" | head -c 400 || true
+          echo
+
+      - name: Install Vidyut (for the comparison engines)
+        run: |
+          pip install vidyut==0.4.0
+          python3 -c "import vidyut; vidyut.download_data('/tmp/vidyut_data')"
+
+      - name: Score the engines on the same verses
+        env:
+          N: ${{ inputs.verses }}
+        run: |
+          set -euo pipefail
+          { echo '## Saṃsādhanī pilot'; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          start=$(date +%s)
+          python3 tools/bench_segmenters.py --per-work 40 --scl "$N" \
+            --scl-base http://localhost:8080/cgi-bin/scl --scl-pause 0 | tee bench.txt >> "$GITHUB_STEP_SUMMARY"
+          echo "elapsed: $(( $(date +%s) - start )) s for $N verses through the local container" | tee -a "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Container log (on failure)
+        if: failure()
+        run: docker logs scl 2>&1 | tail -80
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: scl-pilot
+          path: bench.txt
+          if-no-files-found: ignore

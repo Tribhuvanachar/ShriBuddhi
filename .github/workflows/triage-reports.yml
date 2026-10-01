@@ -1,0 +1,74 @@
+# Nightly sort of the reader reports into queues, with one e-mail digest.
+#
+# 11:00 pm IST every night (17:30 UTC). Reads Firestore `reports/` (what "Report a problem" on the
+# site writes), gives each new report a queue (content / proofreader / linguistics / admin) and a
+# priority (P1-P4) by the fixed rules in tools/watch/triage_reports.py, writes both back so
+# admin/reports.html can filter on them, and sends ONE digest to the reports mailbox. No AI, no
+# external service, no cost. It sends nothing on a night with no new reports.
+#
+# CONTROLS (Settings -> Secrets and variables -> Actions -> Variables):
+#   REPORT_TRIAGE   set to `off` to stop it (the job is skipped). Unset or anything else = on.
+#   REPORTS_EMAIL   who gets the digest (comma-separated). Falls back to SUPERADMIN_EMAILS.
+#   REPORTS_ADMIN_URL   optional: where admin/reports.html can be opened, printed at the foot of the e-mail.
+# Needs the Firebase service-account secret deploy-firestore.yml already uses, and SMTP_* to send mail
+# (without SMTP the digest is filed as an issue labelled watch-report instead).
+name: Triage reader reports
+
+on:
+  schedule:
+    - cron: "30 17 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Classify and print only: change nothing, send nothing"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: triage-reports
+  cancel-in-progress: false
+
+jobs:
+  triage:
+    if: ${{ vars.REPORT_TRIAGE != 'off' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install google-cloud-firestore
+
+      - name: Sort the new reports
+        id: triage
+        env:
+          SA_JSON_1: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          SA_JSON_2: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+          SA_JSON_3: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SARVAMULA_ORG }}
+          SA_JSON_4: ${{ secrets.FIREBASE_ADMIN_SDK }}
+          SA_JSON_5: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
+          REPORTS_ADMIN_URL: ${{ vars.REPORTS_ADMIN_URL }}
+          DRY: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          ARGS=(--out digest.txt)
+          [ "${DRY:-false}" = "true" ] && ARGS+=(--dry-run)
+          python3 tools/watch/triage_reports.py "${ARGS[@]}" | tee triage.log
+
+      - name: E-mail the digest
+        if: ${{ steps.triage.outputs.count != '0' && inputs.dry_run != true }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SUPERADMIN_EMAILS: ${{ vars.REPORTS_EMAIL || vars.SUPERADMIN_EMAILS || secrets.SUPERADMIN_EMAILS }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+        run: |
+          python3 tools/watch/send_report.py --subject "$(cat digest.txt.subject)" --body digest.txt --issue

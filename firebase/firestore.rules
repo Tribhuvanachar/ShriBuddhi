@@ -254,6 +254,28 @@ service cloud.firestore {
       allow write: if isSuperadmin();
     }
 
+    // Reader reports (1 Oct 2026): "Report a problem" (js/report-issue.js) writes one document
+    // here when the reader is signed in; admin/reports.html reads them. Anyone signed in may
+    // create a report as themselves, with a fixed set of fields and bounded sizes (a screenshot
+    // is a JPEG data URL under ~700 KB, well inside Firestore's 1 MiB document limit); only
+    // admins may read, mark resolved or delete. Nothing else about a report can be changed.
+    match /reports/{reportId} {
+      allow create: if request.auth != null
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.keys().hasOnly(['uid', 'email', 'feature', 'category', 'message',
+             'subject', 'url', 'path', 'title', 'selected', 'extra', 'ua', 'viewport', 'script',
+             'screenshot', 'createdAt', 'status'])
+        && request.resource.data.message is string
+        && request.resource.data.message.size() > 0
+        && request.resource.data.message.size() < 5000
+        && request.resource.data.status == 'new'
+        && (!('screenshot' in request.resource.data)
+            || (request.resource.data.screenshot is string && request.resource.data.screenshot.size() < 700000));
+      allow read, delete: if isAdmin();
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']);
+    }
+
     // Donations, payments, receipts, supporter entitlements (8 Sep 2026,
     // Phase 1 foundation — see ../../PAYMENTS_SETUP.md). Every write in
     // this whole feature goes through Cloud Functions using the Admin

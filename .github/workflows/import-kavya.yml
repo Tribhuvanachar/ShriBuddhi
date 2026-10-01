@@ -1,7 +1,8 @@
 # One Kavya corpus, in one place: data/kavya_alankara/ on ShriBuddhi main. It ships to
 # Jagat with the rest of the site; there is no kavya-dist branch and no CDN pin any more
 # (30 Sep 2026, the lead: "just one kavya_alankara sitting inside the main of both").
-# This workflow imports INTO that folder and opens a pull request. Nothing is pushed
+# This workflow first lands the raw fetch in ParaBuddhi (source/_raw/kavya/), then imports INTO that
+# folder and opens a pull request. Nothing is pushed
 # to main and nothing reaches Jagat from here.
 name: Import Kavya corpus
 
@@ -80,6 +81,17 @@ jobs:
             ${{ inputs.sources != '' && format('--sources {0}', inputs.sources) || '' }} \
             --data-root data \
             --report _dump/KAVYA_IMPORT_REPORT.json
+
+      - name: Land the raw fetch in ParaBuddhi first
+        if: ${{ !inputs.probe_only }}
+        env:
+          PARABUDDHI_TOKEN: ${{ secrets.PARABUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$PARABUDDHI_TOKEN" || { echo "::error::PARABUDDHI_TOKEN is not set. What GRETIL, sanskritsahitya, Ambuda and Wikisource returned must land in ParaBuddhi before anything is built from it."; exit 2; }
+          git clone --depth 1 "https://x-access-token:${PARABUDDHI_TOKEN}@github.com/Tribhuvanachar/ParaBuddhi.git" "$RUNNER_TEMP/pb"
+          python3 tools/watch/dump_to_parabuddhi.py --pb "$RUNNER_TEMP/pb" --id kavya --path .kavya_cache \
+            --note "works=${{ inputs.works }}" --keep 2
 
       - name: Validate schema
         if: ${{ !inputs.probe_only }}

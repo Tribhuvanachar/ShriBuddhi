@@ -11,7 +11,7 @@ one left: the "Admin Tools" button in the top-right menu, and its Access
 WHAT IT DOES, to the staged copy only. The source keeps everything, because
 that is where the admin works.
 
-  1. Deletes the admin-only scripts and every <script> tag that loads them.
+  1. Deletes the admin-only scripts (and their stylesheet) and every tag that loads them.
   2. Removes, from render.html, the Admin Tools and Access menus, the four admin
      modals (Repo Files, Site Settings, Manage Users, AI Keys & Features), the
      content-edit quick action and the admin-only library toggle.
@@ -23,9 +23,12 @@ that is where the admin works.
   4. Removes the admin and access entries from config/menu.json.
   5. Refuses to finish if any of those markers is still present.
 
-NOT touched, on purpose: js/role-access.js, js/user-roles.js and js/user-auth.js.
-They are not admin UI. role-access.js enforces the go-live shelf on every
-reader, and the other two carry the role config and sign-in it loads. The
+NOT touched, on purpose: js/role-access.js and js/user-auth.js. They are not admin UI.
+role-access.js enforces the go-live shelf and role gates on every reader, and user-auth.js
+is sign-in. (js/user-roles.js, the Manage Users code, WAS being shipped until 1 Oct 2026 and
+is now removed with the other admin scripts: it defines nothing the public pages call.
+Roles live in Firestore and are managed from ShriBuddhi; a grant takes effect on Jagat at
+once because both read the same project.) The
 admin functions the remaining public code still names are all guarded
 (`typeof ... === 'function'`, `&&`, a ternary), which is checked by
 tests/test_publish_strip_admin.py and by loading the staged pages in a browser.
@@ -42,7 +45,13 @@ import sys
 
 # Scripts that exist only to give an administrator something to click.
 ADMIN_SCRIPTS = ("admin-editor", "admin-remote", "config-editor",
-                 "content-editor", "preview-mode", "admin-gate")
+                 "content-editor", "preview-mode", "admin-gate",
+                 # added 1 Oct 2026: the inline page-text editor (it takes a GitHub token) and the
+                 # Manage Users code, whose modal was already cut but whose script still shipped.
+                 "content-inline", "user-roles")
+
+# Stylesheets that exist only for those scripts: the <link> and the file both go.
+ADMIN_STYLES = ("content-inline",)
 
 # (file, exact opening tag) of each element to cut from the staged markup. The
 # element is removed together with everything up to its matching close tag.
@@ -56,6 +65,7 @@ BLOCKS = {
         '<div class="modal-overlay" id="keyModal">',
         '<div class="pop-item" id="ciEditPopItem"',
         '<div class="range-row-flex" style="margin-bottom:10px;" data-admin-only>',
+        '<div id="contentEditorMount" class="content-editor-mount">',
     ],
 }
 
@@ -83,7 +93,7 @@ EXACT = {
 MARKERS = ("adminToolsBtn", "adminToolsPopup", "accessKeyBtn", "accessPopup",
            'data-topbar="admin"', 'data-topbar="access"',
            "userRolesModal", "configEditorModal", "adminEditorModal", "keyModal",
-           "ciEditPopItem")
+           "ciEditPopItem", "contentEditorMount", "content-inline.css")
 
 ADMIN_ONLY_TAG = re.compile(r"<([A-Za-z][A-Za-z0-9]*)\b[^>]*\bdata-admin-only\b[^>]*>")
 COMMENT = re.compile(r"<!--.*?-->", re.S)
@@ -160,6 +170,16 @@ def strip(staged: str) -> list[str]:
             removed_tags += n
         if t != s:
             open(path, "w", encoding="utf-8").write(t)
+    for path in html_files(staged):
+        t = u = open(path, encoding="utf-8").read()
+        for name in ADMIN_STYLES:
+            t = re.sub(r'[ \t]*<link\b[^>]*\bhref="[^"]*\bcss/%s\.css[^"]*"[^>]*>[ \t]*\n?' % re.escape(name), "", t, flags=re.I)
+        if t != u:
+            open(path, "w", encoding="utf-8").write(t)
+    for name in ADMIN_STYLES:
+        sp = os.path.join(staged, "css", name + ".css")
+        if os.path.exists(sp):
+            os.remove(sp)
     deleted = 0
     for name in ADMIN_SCRIPTS:
         p = os.path.join(staged, "js", name + ".js")

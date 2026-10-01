@@ -5,8 +5,9 @@ name: OCR — Sarvam Document AI (layout kept)
 # headings, paragraphs, verse breaks and footnotes matter (most commentaries).
 #
 # Output is staged, never merged: data/ocr_staging/<work>/sarvam_pages<A>-<B>.json,
-# committed to the ocr-staging/<work> branch like ocr-vision-pages.yml does,
-# and opened for scholar review in admin/ocr-review.html. Approved text
+# landed in ParaBuddhi first (unchanged base data; this must succeed), then committed to
+# data/ocr_staging/ on ShriBuddhi's main like ocr-vision-pages.yml does (there are no
+# ocr-staging/* branches any more, 1 Oct 2026), and opened for scholar review in admin/ocr-review.html. Approved text
 # becomes a layer through tools/ocr_review_merge.py (ocr-review-merge.yml).
 #
 # COSTS MONEY: Sarvam bills per page from the prepaid balance on
@@ -107,13 +108,26 @@ jobs:
           path: data/ocr_staging/${{ inputs.work_slug }}/sarvam_pages*.json
           retention-days: 30
 
-      # Same home as the Vision pages: one branch per work, so the review page
-      # finds every engine's output for a book in one place.
-      - name: Commit to the ocr-staging/<work> branch
+      - name: Land the raw engine output in ParaBuddhi first
+        if: ${{ inputs.mode == 'real-run' }}
+        env:
+          PARABUDDHI_TOKEN: ${{ secrets.PARABUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$PARABUDDHI_TOKEN" || { echo "::error::PARABUDDHI_TOKEN is not set. The OCR is BILLED but its output must land in ParaBuddhi first: it is kept as the artifact above; set the secret and re-run only the dump."; exit 2; }
+          git clone --depth 1 "https://x-access-token:${PARABUDDHI_TOKEN}@github.com/Tribhuvanachar/ParaBuddhi.git" "$RUNNER_TEMP/pb"
+          ARGS=()
+          for f in data/ocr_staging/${{ inputs.work_slug }}/sarvam_pages*.json; do ARGS+=(--path "$f"); done
+          python3 tools/watch/dump_to_parabuddhi.py --pb "$RUNNER_TEMP/pb" --id "ocr_${{ inputs.work_slug }}" "${ARGS[@]}" \
+            --note "Sarvam pages ${{ inputs.pages }}"
+
+      # The staged review copy lives in data/ocr_staging/ on main, so the review page finds every
+      # engine's output for a book in one place.
+      - name: Commit to data/ocr_staging on main
         if: ${{ inputs.mode == 'real-run' }}
         run: |
           set -euo pipefail
-          BR="ocr-staging/${{ inputs.work_slug }}"
+          BR="${{ github.event.repository.default_branch }}"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # Take the index builder out of the working tree BEFORE switching
@@ -156,4 +170,4 @@ jobs:
             echo "::error::Could not push after 5 attempts. The OCR is done and BILLED; the output is in the job's staged copy."
             exit 1
           fi
-          echo "Committed to branch \`$BR\` — open it in admin/ocr-review.html." >> "$GITHUB_STEP_SUMMARY"
+          echo "Committed to \`data/ocr_staging/${{ inputs.work_slug }}\` on \`$BR\` (raw copy in ParaBuddhi) — open it in admin/ocr-review.html." >> "$GITHUB_STEP_SUMMARY"
