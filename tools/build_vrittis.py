@@ -63,12 +63,11 @@ for it in d["items"]:
         per[key]+=1
     if not vlist: continue
     rec={"schema":"dhatu_vrittis","code":it["id"],"dhatu":it["dhatu"],
-         "sources":[v["source"] for v in vlist],"vrittis":vlist,
-         "licence":"GPL-2.0 (samsaadhanii/scl) — keep attribution"}
+         "sources":[v["source"] for v in vlist],"vrittis":vlist}
     json.dump(rec,open(os.path.join(OUTDIR,it["id"]+".json"),"w",encoding="utf-8"),ensure_ascii=False)
     avail.append(it["id"])
 
-idx={"schema":"vritti_index","source":"samsaadhanii/scl (GPL-2.0)","licence":"GPL-2.0 — keep attribution",
+idx={"schema":"vritti_index",
      "vrittis":[{"source":k,"name":n,"author":a} for k,n,a,_ in VRITTIS],
      "count":len(avail),"per_vritti":per,"available":avail}
 json.dump(idx,open(os.path.join(OUTDIR,"index.json"),"w",encoding="utf-8"),ensure_ascii=False)

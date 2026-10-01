@@ -21,3 +21,7 @@ admin/config/vocab.json
 # Cloud Functions dependencies — installed by the deploy workflow, never committed.
 # 119 MB, and firebase.json already ignores it for hosting.
 firebase/functions/node_modules/
+
+# scratch downloads (IndoWordNet dump etc.)
+.cache/
+_dump/

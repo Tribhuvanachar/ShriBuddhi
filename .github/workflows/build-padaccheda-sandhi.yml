@@ -1,0 +1,89 @@
+# Builds the padaccheda and sandhi sidecars for every Kavya, Purāṇa and Itihāsa text, and
+# proposes them as a pull request.
+#
+#   data/_padaccheda/   word divisions per verse (tools/build_padaccheda.py), labelled
+#                       "engine" -- analysis, not the text. Conservative: it offers a split
+#                       only when it is confident. ~4 minutes.
+#   data/_sandhi/       Vidyut's vowel-sandhi splits over the whole corpus vocabulary, each
+#                       naming its sūtra (tools/build_sandhi_index.py). ~30-60 minutes.
+#   data/_sandhi_wide/  the consonant/visarga/unchanged-junction splits for words the narrow
+#                       index misses: one less-certain candidate per word, shown in the reader
+#                       as "possible" until Saṃsādhanī confirms it (--wide). ~2 minutes.
+#
+# Run it after a batch of texts lands (an import, an OCR merge). Manual, like every
+# publishing step here; merging the PR lands the sidecars in ShriBuddhi and the next manual
+# publish sends them to Jagat. The benchmark that chose these engines is
+# tools/bench_segmenters.py (Vidyut cheda and our segmenter both score mean F1 0.40-0.46
+# against the editors' padacchedas; nothing is good enough to write into a text's own
+# padaccheda field, which is why everything stays in sidecars).
+name: Build padaccheda and sandhi
+
+on:
+  workflow_dispatch:
+    inputs:
+      paths:
+        description: "data/ prefixes to build padaccheda for (comma-separated)"
+        default: "kavya_alankara,purana,itihasa"
+      sandhi:
+        description: "Also rebuild the sandhi indexes (slow)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: build-padaccheda-sandhi
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Padaccheda sidecars
+        env:
+          PATHS: ${{ inputs.paths }}
+        run: python3 tools/build_padaccheda.py --paths "$PATHS"
+
+      - name: Install Vidyut and its data
+        if: ${{ inputs.sandhi }}
+        run: |
+          pip install vidyut==0.4.0
+          python3 -c "import vidyut; vidyut.download_data('/tmp/vidyut_data')"
+
+      - name: Sandhi index (vowel sandhi, names its sūtra)
+        if: ${{ inputs.sandhi }}
+        run: python3 tools/build_sandhi_index.py --data /tmp/vidyut_data
+
+      - name: Sandhi index, wide (other junctions)
+        if: ${{ inputs.sandhi }}
+        run: python3 tools/build_sandhi_index.py --wide --data /tmp/vidyut_data
+
+      - name: Gates the PR will face
+        run: |
+          python3 tools/normalize_nfc.py --check
+          python3 tools/format_data_json.py --check --all
+          python3 tools/verify_no_private_provenance.py
+
+      - name: Open a pull request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: build/padaccheda-sandhi
+          delete-branch: true
+          add-paths: |
+            data/_padaccheda
+            data/_sandhi
+            data/_sandhi_wide
+          commit-message: "data: padaccheda and sandhi sidecars"
+          title: "Padaccheda and sandhi sidecars"
+          body: |
+            Built by `build-padaccheda-sandhi.yml`. Sidecars only: nothing here edits a
+            text, and every padaccheda row is labelled `engine`. The wide sandhi index is
+            the less certain one; the reader shows its guesses as "possible".

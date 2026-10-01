@@ -1,0 +1,101 @@
+# Keeps checking IndoWordNet for new data and brings it in.
+#
+# Weekly, Sunday 04:00 IST (Saturday 22:30 UTC). It runs tools/check_indowordnet.py, which
+# compares three things against tools/wordnet_source.json:
+#   * the sha256 of the pyiwn dump tools/build_wordnet.py builds from,
+#   * CFILT's own live statistics for Sanskrit (moves when they edit the wordnet, which can
+#     be long before pyiwn re-packages it -- the pyiwn dump dates from 2019),
+#   * the latest pyiwn release on PyPI.
+#
+# Nothing changed  -> it ends quietly.
+# Dump changed     -> it rebuilds data/_wordnet/ (same builder and checks as
+#                     publish-wordnet.yml) and opens a PR with the new data.
+# Only live stats or the pyiwn version changed -> it opens a PR that updates the recorded
+#                     baseline only; the body says a fresh export from CFILT is needed,
+#                     because the dump we can download has not moved.
+# It never publishes to Jagat; merging the PR lands the data in ShriBuddhi and the next
+# manual publish sends it on.
+name: Watch IndoWordNet
+
+on:
+  schedule:
+    - cron: "30 22 * * 6"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: watch-indowordnet
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Compare upstream with what we built from
+        id: check
+        run: python3 tools/check_indowordnet.py --write --github-output "$GITHUB_OUTPUT" | tee check.log
+
+      - name: Rebuild data/_wordnet from the new dump
+        if: steps.check.outputs.dump_changed == 'true'
+        run: |
+          set -euo pipefail
+          rm -rf .cache/iwn
+          python3 tools/build_wordnet.py --download --languages kannada | tee build.log
+          python3 tools/normalize_nfc.py --check
+
+      - name: Check the rebuilt tree is readable
+        if: steps.check.outputs.dump_changed == 'true'
+        run: |
+          python - <<'PY'
+          import json, pathlib, sys
+          d = pathlib.Path("data/_wordnet")
+          man = json.loads((d / "manifest.json").read_text(encoding="utf-8"))
+          words = 0
+          for b in man["buckets"]:
+              bucket = json.loads((d / f"{b}.json").read_text(encoding="utf-8"))
+              if set(bucket) != {"s", "w"}:
+                  sys.exit(f"{b}.json is not {{s, w}}")
+              for key, ids in bucket["w"].items():
+                  words += 1
+                  for i in ids:
+                      rec = bucket["s"][i]
+                      if len(rec) < 5 or not rec[1] or not rec[3]:
+                          sys.exit(f"{b}.json: {key} points at an empty synset")
+          if words != man["words"]:
+              sys.exit(f"manifest says {man['words']} words, the buckets hold {words}")
+          print(f"{len(man['buckets'])} buckets, {words} words, all readable")
+          PY
+
+      - name: Open a pull request
+        if: steps.check.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: wordnet/upstream-changed
+          delete-branch: true
+          add-paths: |
+            data/_wordnet
+            tools/wordnet_source.json
+          commit-message: "IndoWordNet changed upstream"
+          title: "IndoWordNet changed upstream"
+          body: |
+            `watch-indowordnet.yml` found a change. Flags from `tools/check_indowordnet.py`
+            (dump = the pyiwn tarball we build from, live = CFILT's Sanskrit statistics,
+            pyiwn = latest release on PyPI):
+
+            - dump changed: ${{ steps.check.outputs.dump_changed }}
+            - live statistics changed: ${{ steps.check.outputs.live_changed }}
+            - pyiwn version changed: ${{ steps.check.outputs.pyiwn_changed }}
+
+            If *dump changed* is true, `data/_wordnet/` is rebuilt in this PR. Otherwise only
+            the recorded baseline (`tools/wordnet_source.json`) is updated: CFILT has
+            changed something that the downloadable dump does not yet carry, and a fresh
+            export from CFILT is needed before there is anything new to import.

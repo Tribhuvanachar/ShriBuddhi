@@ -2,14 +2,11 @@
  "_readme": "The Sanskrit WordNet, built by tools/build_wordnet.py from the IndoWordNet dump distributed with pyiwn. A bucket is {s: [synset, ...], w: {word: [indices into s]}} — the synsets a word belongs to, most specific first, stored once per bucket rather than once per member. A synset is [pos, gloss, example, [all its words], hypernym, [kannada]]; the word being looked up is among its own words and the caller drops it. pos is n/v/a/d. The gloss and the example are Sanskrit, which is what this source has that the koshas do not. Words are indexed both as IndoWordNet writes them (inflected: खण्डमोदकः) and as a reader arrives at them (stem: खण्डमोदक). Bucketed by the first two SLP1 characters, same rule as _morph and _synonyms.",
  "v": 1,
  "source": "IndoWordNet (CFILT, IIT Bombay), via the pyiwn data dump",
- "source_url": "https://www.dropbox.com/s/t29eqq19nt5eygs/iwn_data.tar.gz?dl=1",
- "licence": "CC BY-SA 4.0 per the pyiwn distribution; attribution required",
- "attribution": "IndoWordNet, CFILT, IIT Bombay",
  "languages": [
   "kannada"
  ],
  "synsets": 37734,
- "words": 80009,
+ "words": 80007,
  "hypernyms": 18885,
  "examples": true,
  "buckets": [

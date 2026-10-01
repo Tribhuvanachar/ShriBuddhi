@@ -658,12 +658,9 @@
            'not sandhi-joined ones. The dictionaries may still have it.</div>';
     }
     if (wn && wn.length) {
-      // The source is named in the heading because a Sanskrit definition of a
-      // Sanskrit word is unusual enough that a reader will want to know where
-      // it came from, and because IndoWordNet's licence asks for attribution
-      // wherever its data is shown.
-      h += '<div class="dge-si-row"><b>अर्थः</b>' +
-           '<span class="dge-si-src">IndoWordNet · CFILT, IIT Bombay</span></div>';
+      // No source or licence line here (lead, 30 Sep 2026): IndoWordNet is
+      // credited once, on the Credits page.
+      h += '<div class="dge-si-row"><b>अर्थः</b></div>';
       wn.slice(0, 3).forEach(function (s) {
         h += '<div class="dge-si-wn"><div class="dge-si-def">' + esc(tr(s.gloss)) + '</div>' +
              (s.example ? '<div class="dge-si-eg">' + esc(tr(s.example)) + '</div>' : '') +
@@ -720,7 +717,129 @@
         if (!pop) return;
         pop.innerHTML = wordHtml(word, r[0], r[1], r[2]);
         place(anchor);
+        enrichWord(word, r[0], anchor);
       });
+  }
+
+  /* ---------------------------------------- sandhi split and Saṃsādhanī ---
+     Two more rows, added after the popover is already showing so the first paint
+     never waits on them.
+
+       सन्धिच्छेदः   the word divided where it is two words joined. Sources, in order:
+                    data/_sandhi (Vidyut, vowel sandhi, names its sūtra) ->
+                    data/_sandhi_wide (Vidyut, other junctions, one guess) ->
+                    Saṃsādhanī's splitter, live. A wide guess is shown as
+                    "सम्भाव्यम्" until Saṃsādhanī's analyser confirms BOTH halves are
+                    words, then as "✓".
+       विश्लेषणम्    only when Vidyut has no analysis of the word: Saṃsādhanī's
+                    morphological analysis. A word Vidyut already explains costs the
+                    university's server nothing. js/samsadhani.js has the manners. */
+  const sandhiCache = {};
+  function loadSandhi(dir, slp) {
+    const two = (slp + '__').slice(0, 2);
+    const name = two.split('').map(c => (c >= 'A' && c <= 'Z') ? c + '_'
+                                       : (/[a-z0-9]/.test(c) ? c : 'x')).join('');
+    const key = dir + '/' + name;
+    if (sandhiCache[key]) return sandhiCache[key];
+    let url;
+    try { url = new URL('../data/' + dir + '/' + name + '.json', self).href; }
+    catch (e) { url = 'data/' + dir + '/' + name + '.json'; }
+    sandhiCache[key] = fetch(url, { cache: 'force-cache' })
+      .then(r => (r.ok ? r.json() : null)).catch(() => null);
+    return sandhiCache[key];
+  }
+
+  const WIDE_KIND = { v: 'विसर्गसन्धिः', c: 'व्यञ्जनसन्धिः', n: 'समासः / सन्धिविकाररहितः' };
+
+  window.dgeSandhiLocal = function (word) {
+    const clean = String(word || '').replace(/[^ऀ-ॿ]/g, '');
+    const slp = clean && toSlp(clean);
+    if (!slp) return Promise.resolve(null);
+    return loadSandhi('_sandhi', slp).then(function (b) {
+      const hit = b && b[clean];
+      if (hit && hit.length) return { wide: false, splits: hit.slice(0, 2) };
+      return loadSandhi('_sandhi_wide', slp).then(function (w) {
+        const g = w && w[clean];
+        return g ? { wide: true, splits: [{ first: g[0], second: g[1], name: WIDE_KIND[g[2]] || '' }] } : null;
+      });
+    });
+  };
+
+  function addRow(html) {
+    if (!pop) return null;
+    const d = document.createElement('div');
+    d.className = 'dge-si-scl';
+    d.innerHTML = html;
+    const foot = pop.querySelector('.dge-si-actions');
+    if (foot) pop.insertBefore(d, foot); else pop.appendChild(d);
+    return d;
+  }
+
+  function splitChips(sp) {
+    return '<span class="dge-si-lemma">' + esc(tr(sp.first)) + '</span> + ' +
+           '<span class="dge-si-lemma">' + esc(tr(sp.second)) + '</span>' +
+           (sp.name ? ' <span class="dge-si-parse">' + esc(sp.name) + '</span>' : '');
+  }
+
+  function enrichWord(word, an, anchor) {
+    const scl = (typeof window.dgeSclAvailable === 'function' && window.dgeSclAvailable());
+    window.dgeSandhiLocal(word).then(function (local) {
+      if (!pop) return null;
+      if (local && !local.wide) {
+        const row0 = addRow('<div class="dge-si-row"><b>सन्धिच्छेदः</b><span class="dge-si-src scl-state"></span></div>' +
+               '<div class="dge-si-morph">' + local.splits.map(splitChips).join('<br>') + '</div>');
+        place(anchor);
+        // A second opinion, once per word per reader (cached). Agreement earns a tick;
+        // a different answer is shown beside ours rather than silently replacing it.
+        if (scl && row0) {
+          return window.dgeSclSplit(word).then(function (parts) {
+            if (!pop || parts.length !== 2) return;
+            const agree = local.splits.some(sp => sp.first === parts[0] && sp.second === parts[1]);
+            const st = row0.querySelector('.scl-state');
+            if (agree) { if (st) st.textContent = '✓ संसाधनी'; return; }
+            row0.insertAdjacentHTML('beforeend', '<div class="dge-si-morph"><span class="dge-si-parse">Saṃsādhanī</span> ' +
+              '<span class="dge-si-lemma">' + esc(tr(parts[0])) + '</span> + <span class="dge-si-lemma">' +
+              esc(tr(parts[1])) + '</span></div>');
+            place(anchor);
+          });
+        }
+        return null;
+      }
+      if (local && local.wide) {
+        const sp = local.splits[0];
+        const row = addRow('<div class="dge-si-row"><b>सन्धिच्छेदः</b>' +
+                           '<span class="dge-si-src scl-state">सम्भाव्यम्</span></div>' +
+                           '<div class="dge-si-morph">' + splitChips(sp) + '</div>');
+        place(anchor);
+        if (scl && row) {
+          return Promise.all([window.dgeSclKnows(sp.first), window.dgeSclKnows(sp.second)])
+            .then(function (ok) {
+              const st = row.querySelector('.scl-state');
+              if (st) st.textContent = (ok[0] && ok[1]) ? '✓ पदद्वयं सम्यक्' : 'सम्भाव्यम् · अप्रमाणितम्';
+            });
+        }
+        return null;
+      }
+      if (scl) {
+        return window.dgeSclSplit(word).then(function (parts) {
+          if (!pop || !parts.length) return;
+          addRow('<div class="dge-si-row"><b>सन्धिच्छेदः</b></div><div class="dge-si-morph">' +
+                 parts.map(p => '<span class="dge-si-lemma">' + esc(tr(p)) + '</span>').join(' + ') + '</div>');
+          place(anchor);
+        });
+      }
+      return null;
+    });
+    if (scl && !an.length) {
+      window.dgeSclAnalyse(word).then(function (rs) {
+        if (!pop || !rs.length) return;
+        addRow('<div class="dge-si-row"><b>विश्लेषणम्</b></div>' + rs.slice(0, 4).map(function (r) {
+          return '<div class="dge-si-morph"><span class="dge-si-lemma">' + esc(tr(r.lemma)) + '</span>' +
+                 (r.parse ? '<span class="dge-si-parse">' + esc(tr(r.parse)) + '</span>' : '') + '</div>';
+        }).join(''));
+        place(anchor);
+      });
+    }
   }
 
   /* A word is picked out of the text by selecting it — a double-tap on a
