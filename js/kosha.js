@@ -36,8 +36,18 @@
   // slugs to hide from search WITHOUT deleting their data. We read it fresh on
   // every query so a change in the admin tab takes effect on the next search.
   function hiddenDicts() {
-    try { var a = JSON.parse(localStorage.getItem('kosha_hidden_dicts') || '[]'); return Array.isArray(a) ? a : []; }
-    catch (e) { return []; }
+    var a = [];
+    try { a = JSON.parse(localStorage.getItem('kosha_hidden_dicts') || '[]'); if (!Array.isArray(a)) a = []; }
+    catch (e) { a = []; }
+    // Quick scope (kosha2 page): every dictionary outside the core 10 is skipped,
+    // so its shards are never fetched. Deep scope / other pages: nothing extra.
+    if (window.KOSHA_SCOPE === 'quick' && window.KOSHA_CORE && manifest && manifest.dictionaries) {
+      a = a.slice();
+      Object.keys(manifest.dictionaries).forEach(function (s) {
+        if (window.KOSHA_CORE.indexOf(s) < 0 && a.indexOf(s) < 0) a.push(s);
+      });
+    }
+    return a;
   }
 
   // ---- reader-controlled preferences ---------------------------------------

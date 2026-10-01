@@ -120,6 +120,22 @@ window.appConfig = appConfig; // THIS LINE WAS MISSING — every "window.appConf
 // no async fetch involved) rather than through the async
 // data/config-overrides.json merge below -- that merge lands too late to
 // affect a value kosha.js has already captured into a local var.
+// Quick / deep scope (kosha2.html only, which sets window.KOSHA_SCOPES first).
+// The data base is always the full corpus (the Kosha repo's dist branch); the
+// scope only decides WHICH dictionaries a lookup opens. Quick (default) opens the
+// 10 core dictionaries below, so a word costs at most 10 entry shards instead of
+// one per dictionary that has it (101 in the corpus). Deep opens them all. The
+// local data/kosha is only a sample of the index, so it is not read here.
+// Every other page keeps searching all dictionaries, as before. The reader picks
+// the scope with the button on kosha2 (localStorage kosha_scope).
+window.KOSHA_CORE = ['apte-1957', 'mw-cologne', 'mw-english-sanskrit', 'macdonell', 'benfey',
+  'amarakosha', 'abhidhanachintamani', 'shabdakalpadruma', 'vachaspatyam', 'shabdArtha_kaustubha'];
+window.KOSHA_SCOPE = 'deep';
+if (window.KOSHA_SCOPES) {
+  var _scope = 'quick';
+  try { _scope = localStorage.getItem('kosha_scope') === 'deep' ? 'deep' : 'quick'; } catch (e) {}
+  window.KOSHA_SCOPE = _scope;
+}
 window.KOSHA_DATA_BASE = appConfig.koshaDataBase;
 
 // intellisense.js carries the same URL as its own default, because it also

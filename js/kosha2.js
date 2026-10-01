@@ -419,7 +419,11 @@
     var count = '<div class="k2-countline"><span>' + dicts.length + ' / ' + state.perDict.length + ' shown' +
       (state.hidden.length ? ' · ' + state.hidden.length + ' hidden by you' : '') + '</span>' +
       lensSel + '</div>';
-    main.innerHTML = hero + jumpHtml + count + dicts.map(cardHtml).join('') +
+    var deep = window.KOSHA_SCOPE === 'deep';
+    var scopeBar = '<div class="k2-scope">' + (deep
+      ? 'Deep search \u2014 all dictionaries \u00b7 <button class="k2-textbtn" id="k2ScopeQuick">Back to quick (10 core dictionaries)</button>'
+      : 'Quick search \u2014 ' + state.perDict.length + ' core dictionaries \u00b7 <button class="k2-textbtn" id="k2ScopeDeep">Search all dictionaries (deep)</button>') + '</div>';
+    main.innerHTML = hero + jumpHtml + count + scopeBar + dicts.map(cardHtml).join('') +
       (dicts.length ? '' : '<div class="k2-empty">No dictionaries match this language filter.</div>');
     bindResults();
     applyScript(main);
@@ -765,6 +769,13 @@
   function bindResults() {
     var ls = $('#k2LensSel');
     if (ls) ls.onchange = function () { state.lens = ls.value; renderResults(); };
+    ['k2ScopeDeep', 'k2ScopeQuick'].forEach(function (id) {
+      var b = document.getElementById(id);
+      if (b) b.onclick = function () {
+        try { localStorage.setItem('kosha_scope', id === 'k2ScopeDeep' ? 'deep' : 'quick'); } catch (e) {}
+        location.reload();   // the engine reads its data base once, at load; the #word= hash keeps the word
+      };
+    });
     var cm = $('#k2ConsMore');
     if (cm) cm.onclick = function () { state.consMore = !state.consMore; renderResults(); };
     $('#k2Main').querySelectorAll('[data-collapse]').forEach(function (b) {
