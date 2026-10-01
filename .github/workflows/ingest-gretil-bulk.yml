@@ -100,6 +100,21 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           python tools/audit_library.py --data data >> "$GITHUB_STEP_SUMMARY" || true
 
+      - name: Land the importer's output in ParaBuddhi first
+        if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
+        env:
+          PARABUDDHI_TOKEN: ${{ secrets.PARABUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          git status --porcelain -uall data | sed 's/^...//' > "$RUNNER_TEMP/changed.txt"
+          if [ ! -s "$RUNNER_TEMP/changed.txt" ]; then echo "the importer wrote nothing; nothing to land"; exit 0; fi
+          test -n "$PARABUDDHI_TOKEN" || { echo "::error::PARABUDDHI_TOKEN is not set. What this importer produced must land in ParaBuddhi before a pull request is opened from it."; exit 2; }
+          git clone --depth 1 "https://x-access-token:${PARABUDDHI_TOKEN}@github.com/Tribhuvanachar/ParaBuddhi.git" "$RUNNER_TEMP/pb"
+          # These importers fetch and transform in one pass, so what can be kept is their first output
+          # (before any stitching into the library), not the bytes the site sent.
+          python3 tools/watch/dump_to_parabuddhi.py --pb "$RUNNER_TEMP/pb" --id "gretil_bulk" --files-from "$RUNNER_TEMP/changed.txt" \
+            --note "GRETIL bulk importer output"
+
       - name: Open Pull Request (against ShriBuddhi)
         if: ${{ !fromJSON(inputs.dry_run) && fromJSON(inputs.open_pr) }}
         uses: peter-evans/create-pull-request@v6

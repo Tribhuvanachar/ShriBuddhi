@@ -101,3 +101,11 @@ does the same over the whole corpus in slices and opens a pull request with the 
 | `vedavani-extract` | VedaVaNi audio | audio files, PR | audio is not text; a different store (the archive.org upload path), decide |
 
 Each needs the same one-step change `import-kavya` already has (a "Land the raw fetch in ParaBuddhi first" step). Say which to convert.
+
+## Schedules (1 Oct 2026)
+
+All automatic timings live in `config/schedules.json` (IST). `scheduler.yml` is the only workflow with a cron: it wakes hourly and starts whichever job is due. Edit the file, or use `admin/schedules.html` (commits it). To check without starting anything: Actions → Scheduler → Run workflow with *dry_run* ticked. Jobs: weekly source watch and IndoWordNet (Sun 02:00), report triage (daily 23:00), padaccheda/sandhi rebuild (2nd, 03:00), nightly sync (00:00), SEO pages (Sun 03:00).
+
+## Reader reports: resolved notices
+
+An admin marking a report resolved (admin/reports.html) may type a note; the nightly triage job e-mails the reader once, if they left an address. Set the Actions variable `REPORT_NOTIFY_REPORTERS` to `off` to stop. Firestore rules must be redeployed for the new `resolution` field (run "Deploy Firestore rules").

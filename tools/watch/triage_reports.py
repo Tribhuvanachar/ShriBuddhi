@@ -115,6 +115,46 @@ def _service_account():
     return None
 
 
+def resolved_notice(report):
+    """(subject, body) of the thank-you sent to the reader once an admin marks their report resolved."""
+    note = (report.get("resolution") or "").strip()
+    subject = "Your report on the Sarvamula Digital Library has been dealt with"
+    lines = ["Namaste,", "", "Thank you for taking the trouble to tell us. The report you sent about:", "",
+             "    %s" % (report.get("subject") or report.get("title") or report.get("feature") or "the library"), "",
+             "has been looked at and marked resolved."]
+    if note:
+        lines += ["", "What was done:", "", "    " + note.replace("\n", "\n    ")]
+    lines += ["", "If something is still wrong, please use \"Report a problem\" on that page again.", "",
+              "-- Sarvamula Digital Library"]
+    return subject, "\n".join(lines)
+
+
+def notify_resolved(db, dry_run=False):
+    """E-mail each reader whose report is resolved and who gave an address, once. Off when
+    REPORT_NOTIFY_REPORTERS is 'off'. Returns how many were sent."""
+    if os.environ.get("REPORT_NOTIFY_REPORTERS", "on").strip().lower() in ("off", "no", "false", "0"):
+        print("reporter notices are off (REPORT_NOTIFY_REPORTERS=off)")
+        return 0
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import send_report
+    sent = 0
+    for d in db.collection("reports").where("status", "==", "resolved").limit(200).stream():
+        x = d.to_dict()
+        to = (x.get("email") or "").strip()
+        if x.get("notified") or "@" not in to:
+            continue
+        subject, body = resolved_notice(x)
+        if dry_run:
+            print("would notify %s: %s" % (to, x.get("subject") or d.id))
+            continue
+        ok, why = send_report.send_mail(subject, body, recipients=[to])
+        print("notify %s: %s" % (d.id, why))
+        if ok:
+            db.collection("reports").document(d.id).update({"notified": True})
+            sent += 1
+    return sent
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--dry-run", action="store_true")
@@ -160,8 +200,9 @@ def main(argv=None):
                 {"queue": i["queue"], "priority": i["priority"], "triaged": True,
                  "triagedAt": firestore.SERVER_TIMESTAMP})
         print("triaged %d report(s)" % len(items))
+    notified = notify_resolved(db, a.dry_run) if db is not None else 0
     if os.environ.get("GITHUB_OUTPUT"):
-        open(os.environ["GITHUB_OUTPUT"], "a").write("count=%d\n" % len(items))
+        open(os.environ["GITHUB_OUTPUT"], "a").write("count=%d\nnotified=%d\n" % (len(items), notified))
     return 0
 
 

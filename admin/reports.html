@@ -61,8 +61,8 @@
         .filter(function (p) { return p[1]; }).map(function (p) { return '<tr><td>' + esc(p[0]) + '</td><td>' + (p[0] === 'Page' ? '<a href="' + esc(p[1]) + '" target="_blank" rel="noopener">' + esc(p[1]) + '</a>' : esc(p[1])) + '</td></tr>'; }).join('');
       return '<div class="rep' + ((d.status === 'resolved') ? ' done' : '') + '" data-id="' + esc(r.id) + '">' +
         '<h3>' + esc(d.category || '') + ' — ' + esc(d.subject || d.title || d.feature || '') + '</h3>' +
-        '<div class="meta">' + (d.priority ? '<b>' + esc(d.priority) + '</b> · ' + esc(d.queue || '') + ' · ' : '') + esc(when(d.createdAt)) + ' · ' + esc(d.email || d.uid) + ' · ' + esc(d.status || 'new') + '</div>' +
-        '<div class="msg">' + esc(d.message) + '</div><table class="ctx">' + ctx + '</table>' +
+        '<div class="meta">' + (d.priority ? '<b>' + esc(d.priority) + '</b> · ' + esc(d.queue || '') + ' · ' : '') + esc(when(d.createdAt)) + ' · ' + esc(d.email || d.uid) + ' · ' + esc(d.status || 'new') + (d.notified ? ' · reader notified' : '') + '</div>' +
+        '<div class="msg">' + esc(d.message) + '</div>' + (d.resolution ? '<div class="msg"><b>Resolution:</b> ' + esc(d.resolution) + '</div>' : '') + '<table class="ctx">' + ctx + '</table>' +
         (d.screenshot ? '<img class="shot" src="' + d.screenshot + '" alt="screenshot">' : '') +
         '<div class="acts"><button class="btn" data-act="toggle">' + (d.status === 'resolved' ? 'Reopen' : 'Mark resolved') + '</button>' +
         '<button class="btn" data-act="del">Delete</button></div></div>';
@@ -85,7 +85,11 @@
     if (!b) return;
     var id = b.closest('.rep').dataset.id, r = rows.find(function (x) { return x.id === id; });
     try {
-      if (b.dataset.act === 'toggle') { var ns = r.d.status === 'resolved' ? 'new' : 'resolved'; await db.collection('reports').doc(id).update({ status: ns }); r.d.status = ns; }
+      if (b.dataset.act === 'toggle') {
+        var ns = r.d.status === 'resolved' ? 'new' : 'resolved', upd = { status: ns };
+        if (ns === 'resolved') { var note = prompt('What was done? (optional; e-mailed to the reader if they gave an address)', r.d.resolution || ''); if (note === null) return; upd.resolution = note; upd.resolvedAt = firebase.firestore.FieldValue.serverTimestamp(); }
+        await db.collection('reports').doc(id).update(upd); Object.assign(r.d, { status: ns }, ns === 'resolved' ? { resolution: upd.resolution } : {});
+      }
       else if (b.dataset.act === 'del' && confirm('Delete this report?')) { await db.collection('reports').doc(id).delete(); rows = rows.filter(function (x) { return x.id !== id; }); }
       render();
     } catch (e) { alert('Not allowed: ' + (e.code || e.message)); }

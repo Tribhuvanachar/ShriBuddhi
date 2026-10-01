@@ -1,5 +1,5 @@
 {
- "page_count": 70,
+ "page_count": 71,
  "pages": [
   {
    "path": "index.html",
@@ -868,6 +868,19 @@
     "css/library.css"
    ],
    "title": "Reader reports · DGE (admin)"
+  },
+  {
+   "path": "admin/schedules.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "css/library.css"
+   ],
+   "title": "Schedules · DGE (super-admin)"
   },
   {
    "path": "admin/spend.html",

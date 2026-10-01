@@ -18,8 +18,7 @@
 name: Watch IndoWordNet
 
 on:
-  schedule:
-    - cron: "30 20 * * 6"
+  # Timing lives in config/schedules.json (IST) and is started by scheduler.yml: change it there, not here.
   workflow_dispatch:
 
 permissions:

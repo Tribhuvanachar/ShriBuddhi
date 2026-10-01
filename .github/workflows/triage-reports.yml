@@ -15,8 +15,7 @@
 name: Triage reader reports
 
 on:
-  schedule:
-    - cron: "30 17 * * *"
+  # Timing lives in config/schedules.json (IST) and is started by scheduler.yml: change it there, not here.
   workflow_dispatch:
     inputs:
       dry_run:
@@ -53,6 +52,14 @@ jobs:
           SA_JSON_4: ${{ secrets.FIREBASE_ADMIN_SDK }}
           SA_JSON_5: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
           REPORTS_ADMIN_URL: ${{ vars.REPORTS_ADMIN_URL }}
+          # Resolved reports whose reader left an address get one thank-you e-mail. Set the Actions
+          # variable REPORT_NOTIFY_REPORTERS to "off" to stop that.
+          REPORT_NOTIFY_REPORTERS: ${{ vars.REPORT_NOTIFY_REPORTERS || 'on' }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
           DRY: ${{ inputs.dry_run }}
         run: |
           set -euo pipefail

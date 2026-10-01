@@ -22,8 +22,7 @@ name: Nightly — library sync and inventory
 # The names audit runs as a report into the job summary (docs/NAMING_CONVENTIONS.md).
 
 on:
-  schedule:
-    - cron: "30 18 * * *"
+  # Timing lives in config/schedules.json (IST) and is started by scheduler.yml: change it there, not here.
   workflow_dispatch:
     inputs:
       open_pr:
@@ -115,7 +114,7 @@ jobs:
       - name: Open or update the library-sync pull request (against ShriBuddhi)
         id: library_sync_pr
         continue-on-error: true
-        if: steps.fix.outputs.changed == 'true' && (github.event_name == 'schedule' || inputs.open_pr)
+        if: steps.fix.outputs.changed == 'true' && inputs.open_pr
         uses: peter-evans/create-pull-request@v6
         with:
           branch: nightly/library-sync
