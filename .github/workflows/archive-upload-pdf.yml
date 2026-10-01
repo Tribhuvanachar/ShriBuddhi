@@ -231,9 +231,32 @@ jobs:
           pip install --quiet internetarchive
           mkdir -p ~/.config/internetarchive
           printf '[s3]\naccess = %s\nsecret = %s\n' "$IA_A" "$IA_S" > ~/.config/ia.ini
-          echo "deleting every file in item $IDENT"
-          ia --config-file ~/.config/ia.ini delete "$IDENT" --all --quiet
-          echo "::notice::Deleted $IDENT. The identifier itself may stay reserved on archive.org for a while after a delete; that is archive.org's behavior, not this workflow's."
+          # Not --all: found live (1 Oct 2026) that archive.org generates and
+          # protects a few housekeeping files on every item (_meta.sqlite,
+          # _files.xml, _meta.xml -- format "Metadata" -- plus an
+          # "Archive BitTorrent" manifest) and refuses to delete them
+          # directly ("cannot overwrite or delete ... use metadata api
+          # instead", 403) -- --all tries anyway and the whole step failed
+          # without deleting the real uploaded file either. Only the real,
+          # uploaded source files need deleting; the housekeeping ones
+          # disappear on their own once an item has nothing left.
+          python3 - <<PY > /tmp/real_files.txt
+          import json, urllib.request
+          with urllib.request.urlopen("https://archive.org/metadata/$IDENT") as r:
+              d = json.load(r)
+          for f in d.get("files", []):
+              if f.get("format") not in ("Metadata", "Archive BitTorrent"):
+                  print(f["name"])
+          PY
+          N=$(wc -l < /tmp/real_files.txt)
+          if [ "$N" -eq 0 ]; then
+            echo "::notice::$IDENT has no real (non-housekeeping) files left — nothing to delete."
+          else
+            echo "deleting $N real file(s) from item $IDENT:"
+            cat /tmp/real_files.txt
+            ia --config-file ~/.config/ia.ini delete "$IDENT" $(cat /tmp/real_files.txt) --quiet
+          fi
+          echo "::notice::Deleted $IDENT's real file(s). The identifier and its housekeeping files may stay visible on archive.org for a while after this; that is archive.org's own behavior for a now-empty item, not this workflow's."
 
       - name: Strike the deleted item from the ledger
         if: inputs.mode == 'delete'
