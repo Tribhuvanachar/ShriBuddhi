@@ -1,0 +1,34 @@
+{
+  "_readme": [
+    "APPEND-ONLY ledger of every PDF/chapter-set .github/workflows/",
+    "archive-upload-pdf.yml has sent to archive.org. Written by tools/",
+    "update_archive_pdf_catalog.py -- do not hand-edit; re-run that script.",
+    "",
+    "identifier is derived from taxonomyPath by the workflow itself",
+    "(dge_<taxonomy path, lowercased, '/' and spaces -> '_'>), so this",
+    "ledger is a record of what WAS uploaded, not the source of truth for",
+    "what a path resolves to -- a future session can always recompute the",
+    "identifier from taxonomyPath without reading this file at all. What",
+    "this file is for: knowing what already exists on archive.org before",
+    "uploading it again, and a human-readable log of every upload.",
+    "",
+    "struck:true marks an entry whose archive.org item was deleted (mode=",
+    "delete) -- kept, not removed, so the ledger also records retractions."
+  ],
+  "entries": [
+    {
+      "identifier": "dge_tattvavada_itara_kavya_raghavendra_vijaya",
+      "taxonomyPath": "Tattvavada/Itara/Kavya/raghavendra_vijaya",
+      "title": "Raghavendra Vijaya",
+      "author": "Narayana Panditacharya",
+      "files": [
+        "PROOF_OF_CONCEPT_SAFE_TO_DELETE.pdf"
+      ],
+      "sample": true,
+      "uploadedAt": "2026-10-01T07:31:57Z",
+      "runId": "36830552052",
+      "detailsUrl": "https://archive.org/details/dge_tattvavada_itara_kavya_raghavendra_vijaya",
+      "struck": false
+    }
+  ]
+}
