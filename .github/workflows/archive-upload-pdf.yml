@@ -94,7 +94,14 @@ on:
         default: ""
 
 permissions:
-  contents: read
+  # write, not read: unlike archive-upload.yml (audio), this workflow commits
+  # the ledger (data/catalogs/archive_pdf_catalog.json) back to ShriBuddhi's
+  # own main after every upload/delete. Found live: the first real run's
+  # ledger-commit step failed with "unable to access ... 403" on `git push`
+  # using the default GITHUB_TOKEN under contents: read (copied from
+  # archive-upload.yml without noticing it never pushes anywhere). Matches
+  # nightly.yml/kavya-tracker.yml/interlink.yml, which also self-commit.
+  contents: write
 
 jobs:
   archive:
