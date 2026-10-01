@@ -15,7 +15,8 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, "tools"))
 import publish_strip_admin as psa  # noqa: E402
 
-SCRIPTS = ["admin-editor", "admin-remote", "config-editor", "content-editor", "preview-mode", "admin-gate"]
+SCRIPTS = ["admin-editor", "admin-remote", "config-editor", "content-editor", "preview-mode", "admin-gate",
+           "content-inline", "user-roles"]
 
 
 def stage(tmp_path):

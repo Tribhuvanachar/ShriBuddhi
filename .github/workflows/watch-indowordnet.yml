@@ -1,6 +1,6 @@
 # Keeps checking IndoWordNet for new data and brings it in.
 #
-# Weekly, Sunday 04:00 IST (Saturday 22:30 UTC). It runs tools/check_indowordnet.py, which
+# Weekly, Sunday 02:00 IST (Saturday 20:30 UTC), with the other watchers (watch-sources.yml). It runs tools/check_indowordnet.py, which
 # compares three things against tools/wordnet_source.json:
 #   * the sha256 of the pyiwn dump tools/build_wordnet.py builds from,
 #   * CFILT's own live statistics for Sanskrit (moves when they edit the wordnet, which can
@@ -19,12 +19,13 @@ name: Watch IndoWordNet
 
 on:
   schedule:
-    - cron: "30 22 * * 6"
+    - cron: "30 20 * * 6"
   workflow_dispatch:
 
 permissions:
   contents: write
   pull-requests: write
+  issues: write
 
 concurrency:
   group: watch-indowordnet
@@ -99,3 +100,24 @@ jobs:
             the recorded baseline (`tools/wordnet_source.json`) is updated: CFILT has
             changed something that the downloadable dump does not yet carry, and a fresh
             export from CFILT is needed before there is anything new to import.
+
+      - name: E-mail the superadmins
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          SUPERADMIN_EMAILS: ${{ vars.SUPERADMIN_EMAILS }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+        run: |
+          {
+            echo "# IndoWordNet watch — $(TZ=Asia/Kolkata date +'%A %d %b %Y, %I:%M %p IST')"
+            echo
+            cat check.log 2>/dev/null || echo "(the check did not run)"
+            echo
+            echo "changed: ${{ steps.check.outputs.changed }}  (dump ${{ steps.check.outputs.dump_changed }}, live statistics ${{ steps.check.outputs.live_changed }}, pyiwn ${{ steps.check.outputs.pyiwn_changed }})"
+            echo "A pull request is opened when anything changed."
+          } > report.md
+          python3 tools/watch/send_report.py --subject "IndoWordNet watch — $(TZ=Asia/Kolkata date +'%d %b %Y')" --body report.md --issue

@@ -51,7 +51,7 @@ the push when Jagat `main` already has exactly that tree.
 | | holds | |
 |---|---|---|
 | **Parabuddhi** | raw input | the PDF, page images, each OCR engine's output kept separately, `provenance/` |
-| **ShriBuddhi** | the workshop | `tools/`, `data/`, `js/`, `admin/`, all 57 workflows. **Source of truth.** |
+| **ShriBuddhi** | the workshop | `tools/`, `data/`, `js/`, `admin/`, the workflows. **Source of truth.** |
 | **Jagat** | the reading room | ShriBuddhi with provenance, `admin/`, `tools/` and the private shelves stripped, published as ONE commit with no parent by `publish-to-jagat.yml` |
 
 **Work flows down, never up.** If you find yourself editing at one stage what
@@ -80,6 +80,17 @@ Where a given job belongs:
 * **Admin never reaches Jagat.** The publish strips every admin entry point from the
   staged copy (`tools/publish_strip_admin.py`) and refuses to build if one is left. Admin
   work happens only in ShriBuddhi.
+
+## Raw data lands in ParaBuddhi first
+
+Every import, OCR run, ingest and weekly sync puts its raw result in ParaBuddhi, unchanged, before
+anything is built from it (the lead, 1 Oct 2026). ShriBuddhi is where origin tags are stripped and the
+material is rearranged and stitched (SarvaMula combines SetuTila with tīkā/ṭippaṇī from dvaitavedanta.in
+and anandamakaranda.in), so no ShriBuddhi folder equals any one upstream site. Which upstream section
+goes to which ShriBuddhi path, and which origin label became which of ours, is recorded in
+ParaBuddhi's `import_config/destinations.registry.json` (`docs/SOURCE_DESTINATIONS.md`). The weekly
+watchers (`watch-sources.yml`, `watch-indowordnet.yml`, Sunday 02:00 IST) land and e-mail; they never
+touch `data/` here. A new importer that writes straight into `data/` is the pipeline being wrong.
 
 ## Working across repositories
 

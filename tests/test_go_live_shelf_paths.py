@@ -112,3 +112,21 @@ def test_upanishad_sarvasva_is_on_the_shelf():
     covers all 25 folders, since dgeMatchShelf matches by prefix."""
     allow = shelf().get("allow") or []
     assert any(a.endswith("vedas/upanishad_sarvasva_kannada") for a in allow), allow
+
+
+def test_the_public_and_admin_shelves_list_the_same_folders():
+    """The admin copy is what an admin edits and tests against; the root copy is what Jagat
+    publishes. They had drifted (the root copy kept four entries while the admin copy had fifteen,
+    and `mani_manjari` survived in one after it was corrected in the other), so what an admin saw
+    was not what a reader got. One list, two files: they must agree."""
+    root = json.loads((REPO / "config/library-overrides.json").read_text(encoding="utf-8"))
+    admin = json.loads(OVERRIDES.read_text(encoding="utf-8"))
+    assert (root.get("shelf") or root)["allow"] == (admin.get("shelf") or admin)["allow"]
+
+
+def test_the_lead_accepted_these_hidden_trees_on_1_oct_2026():
+    allow = shelf().get("allow") or []
+    for want in ("darshana/vedanta/dvaita/DvaitaVedantaIn", "darshana/vedanta/dvaita/Anandamakaranda",
+                 "darshana/vedanta/advaita", "darshana/vedanta/vishishtadvaita/RamanujaMeghamala",
+                 "kavya_alankara"):
+        assert want in allow, want

@@ -57,9 +57,29 @@
     catch (e) { return '../index.html'; } // fail soft, never throw
   })();
 
+
+  // "Report a problem" (js/report-issue.js, loaded on first use so no page pays for it up front).
+  var REPORT_SRC = (function () {
+    var self = (document.currentScript && document.currentScript.src) || '';
+    try { return new URL('report-issue.js', self).href; } catch (e) { return 'js/report-issue.js'; }
+  })();
+  window.dgeOpenReport = window.dgeOpenReport || function (opts) {
+    opts = opts || { feature: 'page' };
+    if (window.dgeReport) { window.dgeReport(opts); return; }
+    var s = document.createElement('script');
+    s.src = REPORT_SRC;
+    s.onload = function () { if (window.dgeReport) window.dgeReport(opts); };
+    document.head.appendChild(s);
+  };
+  function addReportLink(mount) {
+    if (!mount || mount.querySelector('[data-report-link]')) return;
+    mount.insertAdjacentHTML('beforeend', '<span class="footer-sep">·</span><button class="footer-link" data-report-link onclick="window.dgeOpenReport()">Report a problem</button>');
+  }
+
   function render() {
     var mount = document.getElementById('siteFooterLinks');
-    if (!mount || mount.childElementCount) return; // no mount on this page, or already built
+    if (mount && mount.childElementCount) { addReportLink(mount); return; }
+    if (!mount) return; // no mount on this page
 
     var hasReaderModals = typeof window.openAboutModal === 'function' &&
                            typeof window.openModal === 'function';
@@ -92,6 +112,7 @@
         : '<button class="footer-link" onclick="' + l.onclick + '">' + l.label + '</button>';
       return sep + el;
     }).join('');
+    addReportLink(mount);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);

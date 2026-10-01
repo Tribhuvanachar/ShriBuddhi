@@ -410,6 +410,24 @@
       if (typeof window.dgeOpenKosha === 'function') window.dgeOpenKosha(w);
       return;
     }
+    const rep = ev.target.closest && ev.target.closest('[data-report-word]');
+    if (rep) {
+      // Everything the popover is showing goes with the report (the analysis, the split, the
+      // meaning), because "this split is wrong" is useless without the split. The popover stays
+      // open so the screenshot shows it.
+      const w = rep.getAttribute('data-report-word');
+      const shown = pop ? pop.innerText.replace(/\s*\n\s*/g, ' | ').slice(0, 900) : '';
+      const rp = { feature: 'word-popover', subject: w, extra: shown, category: 'wrong-split' };
+      if (typeof window.dgeOpenReport === 'function') window.dgeOpenReport(rp);
+      else if (window.dgeReport) window.dgeReport(rp);
+      else {                       // pages without the footer shell: load the form ourselves
+        const sc = document.createElement('script');
+        try { sc.src = new URL('report-issue.js', self).href; } catch (e) { sc.src = 'js/report-issue.js'; }
+        sc.onload = function () { if (window.dgeReport) window.dgeReport(rp); };
+        document.head.appendChild(sc);
+      }
+      return;
+    }
     const occur = ev.target.closest && ev.target.closest('[data-occur]');
     if (occur) {
       const w = occur.getAttribute('data-occur');
@@ -693,6 +711,7 @@
     h += '<div class="dge-si-actions">' +
          '<button class="dge-si-go" data-kosha="' + esc(word) + '">कोश — look it up →</button>' +
          '<button class="dge-si-go" data-occur="' + esc(word) + '">Other occurrences →</button>' +
+         '<button class="dge-si-go dge-si-report" data-report-word="' + esc(word) + '" title="Report a problem with this analysis">⚑ Report</button>' +
          '</div>';
     return h;
   }
