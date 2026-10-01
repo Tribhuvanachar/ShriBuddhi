@@ -364,7 +364,7 @@ that issued it*, which is the last column.
 | `JAGAT_TOKEN` | PAT with Contents: Read and write on **Jagat** (renamed from `BUDDHI_TOKEN` on 30 Sep 2026). Used by `publish-to-jagat.yml` (force-pushes Jagat `main`) and to read Jagat in `deploy-firebase-hosting.yml` | same |
 | `ANTHROPIC_API_KEY`, `CLAUDE_CODE_OAUTH_TOKEN` | Claude Code action | console.anthropic.com |
 | `HF_TOKEN` | Hugging Face | huggingface.co/settings/tokens |
-| `ARCHIVE_PDF_ACCESS_KEY`, `ARCHIVE_PDF_SECRET_KEY` | Internet Archive S3 keys for the `jagadgurumadhvacharyaadmin@gmail.com` account (PDFs) — added 1 Oct 2026. No workflow reads these yet; a future PDF-to-archive.org upload workflow should. | https://archive.org/account/s3.php, logged in as that account |
+| `ARCHIVE_PDF_ACCESS_KEY`, `ARCHIVE_PDF_SECRET_KEY` | Internet Archive S3 keys for the `jagadgurumadhvacharyaadmin@gmail.com` account (PDFs) — added 1 Oct 2026. `archive-upload-pdf.yml` reads these; see `docs/PDF_ARCHIVE_CONVENTION.md`. | https://archive.org/account/s3.php, logged in as that account |
 | `ARCHIVE_AUDIO_ACCESS_KEY`, `ARCHIVE_AUDIO_SECRET_KEY` | Internet Archive S3 keys for the `sanatanavidyagurukulam@gmail.com` account (audio) — added 1 Oct 2026. `archive-upload.yml` reads these. | https://archive.org/account/s3.php, logged in as that account |
 | WhatsApp, MSG91, Razorpay, Cashfree, OTP | see §5 | — |
 
