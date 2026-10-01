@@ -1,5 +1,5 @@
 {
- "page_count": 69,
+ "page_count": 70,
  "pages": [
   {
    "path": "index.html",
@@ -855,6 +855,19 @@
     "css/repo-map.css"
    ],
    "title": "Repository &amp; Workflows · DGE (super-admin)"
+  },
+  {
+   "path": "admin/reports.html",
+   "gated": true,
+   "first_head_script": "vandana-guard.js",
+   "vandana_guard_first": true,
+   "has_site_footer_js": false,
+   "has_ai_js": false,
+   "has_modals_js": false,
+   "css_links": [
+    "css/library.css"
+   ],
+   "title": "Reader reports · DGE (admin)"
   },
   {
    "path": "admin/spend.html",
