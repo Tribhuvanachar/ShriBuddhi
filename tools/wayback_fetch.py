@@ -51,15 +51,23 @@ def get(url: str, tries: int = 5) -> bytes:
     raise RuntimeError("gave up: " + url)
 
 
-def list_captures(host: str) -> list[dict]:
-    q = urllib.parse.urlencode({
-        "url": host + "/*", "output": "json", "fl": "timestamp,original,mimetype,statuscode,digest,length",
-        "filter": "statuscode:200", "collapse": "urlkey", "limit": 200000})
-    rows = json.loads(get(CDX + "?" + q) or b"[]")
+def cdx(url: str, match: str = "exact", status: str = "", limit: int = 200000, collapse: str = "urlkey") -> list[dict]:
+    q = {"url": url, "output": "json", "fl": "timestamp,original,mimetype,statuscode,digest,length",
+         "collapse": collapse, "limit": limit}
+    if match != "exact":
+        q["matchType"] = match
+    if status:
+        q["filter"] = "statuscode:" + status
+    body = get(CDX + "?" + urllib.parse.urlencode(q)).strip()
+    rows = json.loads(body) if body else []
     if not rows:
         return []
-    head, body = rows[0], rows[1:]
-    return [dict(zip(head, r)) for r in body]
+    head, rest = rows[0], rows[1:]
+    return [dict(zip(head, r)) for r in rest]
+
+
+def list_captures(host: str) -> list[dict]:
+    return cdx(host + "/*", match="prefix", status="200")
 
 
 def pattern(url: str) -> str:
@@ -79,21 +87,44 @@ def local_path(out: str, row: dict) -> str:
 
 
 def cmd_probe(a) -> int:
-    rows = list_captures(a.host)
     os.makedirs(a.out, exist_ok=True)
-    json.dump(rows, open(os.path.join(a.out, "cdx.json"), "w"), ensure_ascii=False)
-    pats = collections.Counter(pattern(r["original"]) for r in rows)
-    mimes = collections.Counter(r["mimetype"] for r in rows)
-    size = sum(int(r.get("length") or 0) for r in rows)
-    lines = ["# Wayback probe: %s" % a.host, "", "%d archived URLs (status 200, one per URL), ~%.1f MB compressed" % (len(rows), size / 1e6), "",
-             "## mime types"] + ["- %s: %d" % kv for kv in mimes.most_common()] + ["", "## path patterns (digits -> N)"] \
+    lines = ["# Wayback probe: %s" % a.host, ""]
+    # 1. how many captures does each way of asking find? (status filter and host spelling are the usual culprits)
+    variants = [("host/* any status", a.host + "/*", "prefix", ""), ("host/* status 200", a.host + "/*", "prefix", "200"),
+                ("www.host/* any status", "www." + a.host + "/*", "prefix", ""), ("host, domain match", a.host, "domain", "")]
+    best: list[dict] = []
+    lines.append("## capture counts by query")
+    for label, url, match, status in variants:
+        try:
+            rows = cdx(url, match, status, limit=50000)
+        except Exception as e:
+            lines.append("- %s: ERROR %s" % (label, e))
+            continue
+        lines.append("- %s: %d" % (label, len(rows)))
+        if len(rows) > len(best):
+            best = rows
+    # 2. what hostnames exist under the parent domain at all?
+    parent = ".".join(a.host.split(".")[-3:])
+    try:
+        hosts = collections.Counter(urllib.parse.urlparse(r["original"]).netloc.split(":")[0].lower()
+                                    for r in cdx(parent, "domain", limit=20000))
+        lines += ["", "## hostnames archived under %s (first 20000 URLs)" % parent] + ["- %s: %d" % kv for kv in hosts.most_common(40)]
+    except Exception as e:
+        lines += ["", "hostname census failed: %s" % e]
+    ok = [r for r in best if r.get("statuscode") == "200"]
+    json.dump(ok or best, open(os.path.join(a.out, "cdx.json"), "w"), ensure_ascii=False)
+    pats = collections.Counter(pattern(r["original"]) for r in best)
+    mimes = collections.Counter(r["mimetype"] for r in best)
+    codes = collections.Counter(r.get("statuscode") for r in best)
+    lines += ["", "## best query: %d URLs; status codes %s" % (len(best), dict(codes)), "", "## mime types"] \
+        + ["- %s: %d" % kv for kv in mimes.most_common()] + ["", "## path patterns (digits -> N)"] \
         + ["- `%s`: %d" % kv for kv in pats.most_common(60)] + ["", "## sample URLs"] \
-        + ["- %s %s" % (r["timestamp"], r["original"]) for r in rows[:40]]
+        + ["- %s %s %s" % (r["timestamp"], r.get("statuscode"), r["original"]) for r in best[:40]]
     text = "\n".join(lines)
     print(text)
     if a.report:
-        open(a.report, "w", encoding="utf-8").write(text + "\n")
-    return 0 if rows else 3
+        open(a.report, "a", encoding="utf-8").write(text + "\n")
+    return 0
 
 
 def cmd_fetch(a) -> int:
