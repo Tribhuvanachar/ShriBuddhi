@@ -67,7 +67,7 @@ def cdx(url: str, match: str = "exact", status: str = "", limit: int = 200000, c
 
 
 def list_captures(host: str) -> list[dict]:
-    return cdx(host + "/*", match="prefix", status="200")
+    return cdx(host + "/*", match="exact", status="200")
 
 
 def pattern(url: str) -> str:
@@ -90,8 +90,8 @@ def cmd_probe(a) -> int:
     os.makedirs(a.out, exist_ok=True)
     lines = ["# Wayback probe: %s" % a.host, ""]
     # 1. how many captures does each way of asking find? (status filter and host spelling are the usual culprits)
-    variants = [("host/* any status", a.host + "/*", "prefix", ""), ("host/* status 200", a.host + "/*", "prefix", "200"),
-                ("www.host/* any status", "www." + a.host + "/*", "prefix", ""), ("host, domain match", a.host, "domain", "")]
+    variants = [("host/* any status", a.host + "/*", "exact", ""), ("host/* status 200", a.host + "/*", "exact", "200"),
+                ("www.host/* any status", "www." + a.host + "/*", "exact", ""), ("host, domain match", a.host, "domain", "")]
     best: list[dict] = []
     lines.append("## capture counts by query")
     for label, url, match, status in variants:
