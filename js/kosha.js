@@ -379,7 +379,11 @@
   // A result group may span several headword-forms (राम, रामः, रामं) across
   // several dictionaries. Fetch each distinct (dict, fold, headword) member and
   // merge the items per dictionary.
-  function loadEntry(group) {
+  function loadEntry(group, onUpdate) {
+    // onUpdate(partialPerDict) is called each time one more shard arrives, so a page can
+    // paint dictionaries progressively instead of waiting for the slowest of them. The
+    // returned promise still resolves with the complete, merged list, exactly as before.
+    var prog = {}, progOrder = [];
     var dicts = manifest.dictionaries;
     var eLen = manifest.entry_shard_len || 3;
     var hidden = {}; hiddenDicts().forEach(function (s) { hidden[s] = 1; });
@@ -411,6 +415,13 @@
           if (!sh || !sh[m.efold]) return null;
           var items = sh[m.efold].filter(function (it) { return it.headword === m.ehw; });
           return items.length ? { slug: m.d, items: items } : null;
+        }).then(function (r) {
+          if (r && onUpdate) {
+            if (!prog[r.slug]) { prog[r.slug] = { slug: r.slug, meta: dicts[r.slug], items: [] }; progOrder.push(r.slug); }
+            prog[r.slug].items = prog[r.slug].items.concat(r.items);
+            try { onUpdate(progOrder.map(function (s) { return prog[s]; })); } catch (e) {}
+          }
+          return r;
         });
     })).then(function (a) {
       var bySlug = {}, order = [];

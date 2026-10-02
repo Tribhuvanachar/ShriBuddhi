@@ -383,6 +383,9 @@
   // Timing marks (performance.getEntriesByType('mark')) so slow lookups can be diagnosed.
   function pmark(n) { try { performance.mark(n); } catch (e) {} }
   var renderMs = 0, renderCount = 0;
+  // Many events (each shard arriving, each enriched twin) want a repaint; coalesce them.
+  var rq = null;
+  function scheduleRender() { if (rq) return; rq = setTimeout(function () { rq = null; renderResults(); }, 30); }
   window.k2Perf = function () { return { renderMs: Math.round(renderMs), renderCount: renderCount }; };
   function renderResults() {
     var t0 = performance.now();
@@ -390,6 +393,17 @@
   }
   function renderResults0() {
     var main = $('#k2Main');
+    if (state.group && state.loading && !state.perDict.length) {
+      // The index has answered (we know the word) but no dictionary shard has yet: show the
+      // headword at once with placeholders, instead of a blank "searching" line.
+      main.innerHTML = '<section class="k2-digest"><div class="k2-kicker">Word at a glance</div>' +
+        '<div class="k2-hw" lang="sa">' + esc(state.group.hw) + '</div>' +
+        (state.group.slp ? '<div class="k2-roman">' + esc(state.group.slp) + '</div>' : '') +
+        '<div class="k2-skel"></div><div class="k2-skel s2"></div></section>' +
+        '<div class="k2-skelcard"></div><div class="k2-skelcard"></div>';
+      applyScript(main);
+      return;
+    }
     if (!state.group) { main.innerHTML = '<div class="k2-empty">कोशं अन्विष्यताम् — search across the dictionaries, or open one from Browse.</div>'; return; }
     var dicts = orderedDicts();
     var langs = {};
@@ -886,19 +900,33 @@
       // Start the enriched-layout fetches NOW, in parallel with the raw entry shards,
       // instead of after the raw cards have rendered (that was a whole extra network
       // wait). enrichedFor caches by dictionary, so the later call below reuses these.
+      state.perDict = []; state.enriched = {}; state.loading = true;
+      renderResults();                                  // headword + skeleton right away
       var started = {};
       (g.members || []).forEach(function (m0) {
         if (started[m0.d] || (E.isHiddenDict && E.isHiddenDict(m0.d))) return;
         started[m0.d] = 1;
-        enrichedFor(m0.d, m0.f || m0.fold, m0.w || m0.h);
+        enrichedFor(m0.d, m0.f || m0.fold, m0.w || m0.h).then(function (rows) {
+          if (mine !== seq || !rows) return;
+          state.enriched[m0.d] = rows;
+          scheduleRender();
+        });
       });
       pushHistory(g.hw);
       history.replaceState(null, '', '#word=' + encodeURIComponent(g.hw));
-      E.loadEntry(g).then(function (perDict) {
+      var allowed = function (d) { return allowedInSearch(d.slug) || (state.superadmin && allowedAtAll(d.slug)); };
+      var firstPaint = true;
+      E.loadEntry(g, function (partial) {               // a dictionary's shard arrived: show its card now
+        if (mine !== seq) return;
+        if (firstPaint) { firstPaint = false; pmark('k2:first-card'); }
+        state.perDict = partial.filter(allowed);
+        scheduleRender();
+      }).then(function (perDict) {
         if (mine !== seq) return;
         pmark('k2:entries-done');
-        state.perDict = perDict.filter(function (d) { return allowedInSearch(d.slug) || (state.superadmin && allowedAtAll(d.slug)); });
-        state.enriched = {};
+        state.loading = false;
+        state.perDict = perDict.filter(allowed);
+        if (rq) { clearTimeout(rq); rq = null; }
         renderResults();
         // enriched twins arrive per dictionary and upgrade cards in place
         state.perDict.forEach(function (d) {
