@@ -16,6 +16,8 @@
      script setting and the धातु/कोश word marking both depend on it, so it
      must not be one CDN outage away from silently not working. -->
 <script src="js/vendor/sanscript-1.3.3.min.js?v=1.3.3"></script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <script>window.KOSHA_SCOPES = true;</script>
 <script src="js/config.js?v=4.75.11"></script>
 <script>
@@ -28,7 +30,7 @@ window.KOSHA_RENDER_BASE = window.KOSHA_RENDER_BASE ||
   ((window.KOSHA_DATA_BASE || 'data/kosha').replace(/\/koshas?$/, '') + '/koshas_r');
 </script>
 <script src="js/gemini.js"></script>
-<script src="js/kosha.js?v=2.2"></script>
+<script src="js/kosha.js?v=2.4"></script>
 </head>
 <body class="kosha2">
 <div class="k2-top"><div class="k2-app"><div class="k2-top-in">
@@ -60,6 +62,6 @@ window.KOSHA_RENDER_BASE = window.KOSHA_RENDER_BASE ||
 <div id="k2Back" class="k2-back" hidden></div>
 <div id="k2Pop" class="k2-pop" hidden></div>
 <div id="k2Toast" class="k2-toast" hidden></div>
-<script src="js/kosha2.js?v=1.4.3"></script>
+<script src="js/kosha2.js?v=1.4.5"></script>
 </body>
 </html>

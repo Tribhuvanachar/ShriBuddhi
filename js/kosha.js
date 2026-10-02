@@ -127,9 +127,32 @@
             lsJSON('dge.ash.gmodel') || lsRaw('gemini_model') || '').toString().trim();
   }
 
+  // jsDelivr answers 403 "Package size exceeded the configured limit of 50 MB" -- after
+  // stalling for ~20 s -- for any file of an oversized package that it has not already
+  // cached, and the Kosha data repo is far over that limit. One such shard used to hold
+  // up a whole lookup (found 2 Oct 2026: apte-1957/e/var.json, a 22 s search). So give the
+  // CDN a few seconds, and on a timeout / 403 / 5xx read the same pinned file from GitHub's
+  // raw host, which answers in under a second. A 404 is a real "no such shard" and is kept.
+  var CDN_WAIT_MS = 4000;
+  function rawUrl(u) {
+    var m = /^https:\/\/cdn\.jsdelivr\.net\/gh\/([^\/]+)\/([^@\/]+)@([^\/]+)\/(.+?)(\?.*)?$/.exec(u);
+    return m ? 'https://raw.githubusercontent.com/' + m[1] + '/' + m[2] + '/' + m[3] + '/' + m[4] : null;
+  }
+  function cdnFetch(url) {
+    var raw = rawUrl(url);
+    if (!raw) return fetch(url);                       // same-origin data: nothing to fall back to
+    var ctl = (typeof AbortController === 'function') ? new AbortController() : null;
+    var timer = ctl ? setTimeout(function () { ctl.abort(); }, CDN_WAIT_MS) : null;
+    return fetch(url, ctl ? { signal: ctl.signal } : undefined).then(function (r) {
+      clearTimeout(timer);
+      return (r.ok || r.status === 404) ? r : fetch(raw);
+    }, function () { clearTimeout(timer); return fetch(raw); });
+  }
+  window.dgeCdnFetch = cdnFetch;
+
   function j(path) {
     if (cache[path]) return cache[path];
-    var p = fetch(path + V).then(function (r) {
+    var p = cdnFetch(path + V).then(function (r) {
       if (r.ok) return r.json();
       // 404 = the shard genuinely doesn't exist, a cacheable answer. Any
       // OTHER failure (a jsDelivr hiccup, a proxy 4xx/5xx) must not be
@@ -1105,6 +1128,8 @@
     toSLP1list: toSLP1list,
     gkey: gkey,
     base: function () { return BASE; },
+    // lets the page skip work for dictionaries the engine will not open (quick scope, admin-hidden)
+    isHiddenDict: function (slug) { return hiddenDicts().indexOf(slug) >= 0; },
     manifest: function () {
       return manifest ? Promise.resolve(manifest)
         : j(BASE + '/_index/manifest.json').then(function (m) { manifest = m; return m; });

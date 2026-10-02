@@ -58,7 +58,7 @@
     // serves are large static files worth letting the browser HTTP-cache
     // across page loads. no-store is used only on the fallback attempt
     // below, which activates only for admin/config|content paths.
-    return fetch(url).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
+    return (window.dgeCdnFetch || fetch)(url).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; })
       .then(function (v) {
         if (v !== null) return v;
         var fb = url.replace('/admin/config/', '/config/').replace('/admin/content/', '/content/');
@@ -380,7 +380,15 @@
     if (el) el.classList.toggle('collapsed', i < 0);
   }
 
+  // Timing marks (performance.getEntriesByType('mark')) so slow lookups can be diagnosed.
+  function pmark(n) { try { performance.mark(n); } catch (e) {} }
+  var renderMs = 0, renderCount = 0;
+  window.k2Perf = function () { return { renderMs: Math.round(renderMs), renderCount: renderCount }; };
   function renderResults() {
+    var t0 = performance.now();
+    try { renderResults0(); } finally { renderMs += performance.now() - t0; renderCount++; pmark('k2:render-' + renderCount); }
+  }
+  function renderResults0() {
     var main = $('#k2Main');
     if (!state.group) { main.innerHTML = '<div class="k2-empty">कोशं अन्विष्यताम् — search across the dictionaries, or open one from Browse.</div>'; return; }
     var dicts = orderedDicts();
@@ -857,6 +865,7 @@
   var seq = 0;
   function doLookup(word, jumpSlug) {
     var mine = ++seq;
+    pmark('k2:lookup-start');
     state.query = word;
     $('#k2Input').value = word;
     $('#k2Sug').hidden = true;
@@ -869,14 +878,25 @@
     }).then(function (r) {
       if (!r) return;
       if (mine !== seq) return;
+      pmark('k2:search-done');
       if (!r.list.length) { state.group = null; $('#k2Main').innerHTML = '<div class="k2-empty">No headword found for “' + esc(word) + '”.</div>'; return; }
       if (r.degraded) toast('A part of the index did not load — results may be incomplete. Retry in a moment.');
       var g = r.list[0];
       state.group = { hw: g.hw, slp: Object.keys(g.slps || {})[0] || '', raw: g };
+      // Start the enriched-layout fetches NOW, in parallel with the raw entry shards,
+      // instead of after the raw cards have rendered (that was a whole extra network
+      // wait). enrichedFor caches by dictionary, so the later call below reuses these.
+      var started = {};
+      (g.members || []).forEach(function (m0) {
+        if (started[m0.d] || (E.isHiddenDict && E.isHiddenDict(m0.d))) return;
+        started[m0.d] = 1;
+        enrichedFor(m0.d, m0.f || m0.fold, m0.w || m0.h);
+      });
       pushHistory(g.hw);
       history.replaceState(null, '', '#word=' + encodeURIComponent(g.hw));
       E.loadEntry(g).then(function (perDict) {
         if (mine !== seq) return;
+        pmark('k2:entries-done');
         state.perDict = perDict.filter(function (d) { return allowedInSearch(d.slug) || (state.superadmin && allowedAtAll(d.slug)); });
         state.enriched = {};
         renderResults();
