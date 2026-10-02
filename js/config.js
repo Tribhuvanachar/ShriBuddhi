@@ -133,8 +133,14 @@ window.KOSHA_CORE = ['apte-1957', 'mw-cologne', 'mw-english-sanskrit', 'macdonel
 window.KOSHA_SCOPE = 'deep';
 if (window.KOSHA_SCOPES) {
   var _scope = 'quick';
-  try { _scope = localStorage.getItem('kosha_scope') === 'deep' ? 'deep' : 'quick'; } catch (e) {}
+  try {
+    var _v = localStorage.getItem('kosha_scope');
+    // "offline" = the three dictionaries saved on this device (js/kosha-offline.js); only when installed
+    _scope = _v === 'deep' ? 'deep' : (_v === 'offline' && localStorage.getItem('kosha_offline_installed') === '1' ? 'offline' : 'quick');
+  } catch (e) {}
   window.KOSHA_SCOPE = _scope;
+  // Where the offline packs are published (tools/build_kosha_offline.py output).
+  window.KOSHA_OFFLINE_BASE = 'https://tribhuvanachar.github.io/Kosha';   // GitHub Pages of the Kosha repo, branch `offline`
 }
 window.KOSHA_DATA_BASE = appConfig.koshaDataBase;
 

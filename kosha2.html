@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <script>window.KOSHA_SCOPES = true;</script>
-<script src="js/config.js?v=4.75.11"></script>
+<script src="js/config.js?v=4.75.12"></script>
 <script>
 // engine-only: kosha.js provides DGEKoshaEngine but builds no overlay UI here.
 window.DGE_KOSHA_ENGINE_ONLY = 1;
@@ -30,7 +30,8 @@ window.KOSHA_RENDER_BASE = window.KOSHA_RENDER_BASE ||
   ((window.KOSHA_DATA_BASE || 'data/kosha').replace(/\/koshas?$/, '') + '/koshas_r');
 </script>
 <script src="js/gemini.js"></script>
-<script src="js/kosha.js?v=2.7"></script>
+<script src="js/kosha-offline.js?v=1"></script>
+<script src="js/kosha.js?v=2.8"></script>
 </head>
 <body class="kosha2">
 <div class="k2-top"><div class="k2-app"><div class="k2-top-in">
@@ -54,6 +55,7 @@ window.KOSHA_RENDER_BASE = window.KOSHA_RENDER_BASE ||
        title="Quick: the 10 core dictionaries. Deep: every dictionary (slower). Your choice is remembered.">
     <button data-scope="quick">Quick</button>
     <button data-scope="deep">Deep</button>
+    <button data-scope="offline" title="Three dictionaries saved on this device">Offline</button>
   </div>
   <button class="k2-iconbtn" id="k2Cfg" title="Settings — script, history, pins" aria-label="Settings">⚙</button>
   <a class="k2-iconbtn" href="index.html" title="Back to the library" style="display:grid;place-items:center;text-decoration:none">⌂</a>
@@ -62,6 +64,6 @@ window.KOSHA_RENDER_BASE = window.KOSHA_RENDER_BASE ||
 <div id="k2Back" class="k2-back" hidden></div>
 <div id="k2Pop" class="k2-pop" hidden></div>
 <div id="k2Toast" class="k2-toast" hidden></div>
-<script src="js/kosha2.js?v=1.4.8"></script>
+<script src="js/kosha2.js?v=1.4.9"></script>
 </body>
 </html>

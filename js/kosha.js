@@ -150,8 +150,16 @@
   }
   window.dgeCdnFetch = cdnFetch;
 
+  // Offline scope: every shard comes from the device (js/kosha-offline.js), never the network.
+  // The offline manifest lists only the saved dictionaries, so nothing else is asked for.
+  var OFFLINE = window.KOSHA_SCOPE === 'offline' && !!window.DGEKoshaOffline;
+
   function j(path) {
     if (cache[path]) return cache[path];
+    if (OFFLINE) {
+      var rel = path.indexOf(BASE + '/') === 0 ? path.slice(BASE.length + 1) : path;
+      return (cache[path] = window.DGEKoshaOffline.read(rel).catch(function () { return null; }));
+    }
     var p = cdnFetch(path + V).then(function (r) {
       if (r.ok) return r.json();
       // 404 = the shard genuinely doesn't exist, a cacheable answer. Any
@@ -202,7 +210,7 @@
     var out = '';
     for (var i = 0; i < b.length; i++) {
       var ch = b[i];
-      out += /[0-9A-Za-z]/.test(ch) ? ch : (/[\^$]/.test(ch) ? ch : '%' + b.charCodeAt(i).toString(16).toUpperCase());
+      out += /[0-9A-Za-z_]/.test(ch) ? ch : '%' + b.charCodeAt(i).toString(16);
     }
     return encodeURIComponent(out || '_');
   }

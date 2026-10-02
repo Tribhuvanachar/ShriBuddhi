@@ -128,8 +128,13 @@
     var urlOf = function (n) { return RENDER_BASE + '/' + loc.category + '/' + slug + '/e/' + n + '.json'; };
     var url = urlOf(names[0]);
     // names[1] is the other file-name scheme (see kosha.js bucketNames); used when the first misses
-    var p = enrichCache[url] || (enrichCache[url] = fetchJson(url).then(function (sh) {
-      return (sh || names.length < 2) ? sh : fetchJson(urlOf(names[1]));
+    var offline = window.KOSHA_SCOPE === 'offline' && window.DGEKoshaOffline;
+    var load = function (n) {                    // from the device in offline scope, else the network
+      return offline ? window.DGEKoshaOffline.read('@r/' + loc.category + '/' + slug + '/e/' + n + '.json').catch(function () { return null; })
+                     : fetchJson(urlOf(n));
+    };
+    var p = enrichCache[url] || (enrichCache[url] = load(names[0]).then(function (sh) {
+      return (sh || names.length < 2) ? sh : load(names[1]);
     }));
     return p.then(function (sh) {
       if (!sh || !sh[efold]) return null;
@@ -444,9 +449,11 @@
     var count = '<div class="k2-countline"><span>' + dicts.length + ' / ' + state.perDict.length + ' shown' +
       (state.hidden.length ? ' · ' + state.hidden.length + ' hidden by you' : '') + '</span>' +
       lensSel + '</div>';
-    var deep = window.KOSHA_SCOPE === 'deep';
-    var scopeBar = '<div class="k2-scope">' + (deep
+    var sc = window.KOSHA_SCOPE;
+    var scopeBar = '<div class="k2-scope">' + (sc === 'deep'
       ? 'Deep search \u2014 all dictionaries \u00b7 <button class="k2-textbtn" id="k2ScopeQuick">Back to quick (10 core dictionaries)</button>'
+      : sc === 'offline'
+      ? 'Offline \u2014 ' + state.perDict.length + ' dictionaries from this device \u00b7 <button class="k2-textbtn" id="k2OffManage">Manage</button> \u00b7 <button class="k2-textbtn" id="k2ScopeQuick">Back to quick</button>'
       : 'Quick search \u2014 ' + state.perDict.length + ' core dictionaries \u00b7 <button class="k2-textbtn" id="k2ScopeDeep">Search all dictionaries (deep)</button>') + '</div>';
     main.innerHTML = hero + jumpHtml + count + scopeBar + dicts.map(cardHtml).join('') +
       (dicts.length ? '' : '<div class="k2-empty">No dictionaries match this language filter.</div>');
@@ -794,6 +801,7 @@
   function bindResults() {
     var ls = $('#k2LensSel');
     if (ls) ls.onchange = function () { state.lens = ls.value; renderResults(); };
+    var mg = document.getElementById('k2OffManage'); if (mg) mg.onclick = function () { offlineDialog(); };
     ['k2ScopeDeep', 'k2ScopeQuick'].forEach(function (id) {
       var b = document.getElementById(id);
       if (b) b.onclick = function () {
@@ -1029,6 +1037,49 @@
   }
 
   // ---- boot ---------------------------------------------------------------
+  // Offline fast mode: save three dictionaries on this device (see js/kosha-offline.js).
+  function mb(n) { return (n / 1e6).toFixed(n >= 1e7 ? 0 : 1) + ' MB'; }
+  function offlineDialog() {
+    var O = window.DGEKoshaOffline; if (!O) return;
+    var dlg = document.getElementById('k2OffDlg');
+    if (!dlg) { dlg = document.createElement('dialog'); dlg.id = 'k2OffDlg'; dlg.className = 'k2-dlg'; document.body.appendChild(dlg); }
+    var close = '<button class="k2-textbtn" id="k2OffClose">Close</button>';
+    function show(html) { dlg.innerHTML = html; var c = dlg.querySelector('#k2OffClose'); if (c) c.onclick = function () { dlg.close(); }; }
+    if (!dlg.open) dlg.showModal();
+    if (O.installed()) {
+      O.info().then(function (inf) {
+        show('<h3>Offline fast mode</h3><p>Saved on this device: <b>' + esc(((inf && inf.dicts) || []).join(', ')) + '</b>' +
+          (inf ? ' (' + mb(inf.bytes) + ' downloaded)' : '') + '. These open instantly and work without internet.</p>' +
+          '<p class="k2-dlgbtns"><button class="k2-btn" id="k2OffUse">Use offline now</button> <button class="k2-textbtn" id="k2OffDel">Remove from this device</button> ' + close + '</p>');
+        dlg.querySelector('#k2OffUse').onclick = function () { try { localStorage.setItem('kosha_scope', 'offline'); } catch (e) {} location.reload(); };
+        dlg.querySelector('#k2OffDel').onclick = function () { O.remove().then(function () { location.reload(); }); };
+      });
+      return;
+    }
+    show('<h3>Offline fast mode</h3><p>Checking what is available\u2026</p><p class="k2-dlgbtns">' + close + '</p>');
+    O.plan().then(function (meta) {
+      show('<h3>Offline fast mode</h3><p>Save <b>Shabdartha Kaustubha, Shabdakalpadruma and Vachaspatyam</b> on this device (about <b>' +
+        mb(meta.totalBytes) + '</b> to download). They then open instantly and work without internet. You can remove them any time.</p>' +
+        '<div class="k2-prog" id="k2OffProg" hidden><div class="k2-progbar" id="k2OffBar"></div></div><p id="k2OffMsg"></p>' +
+        '<p class="k2-dlgbtns"><button class="k2-btn" id="k2OffGo">Download</button> ' + close + '</p>');
+      dlg.querySelector('#k2OffGo').onclick = function () {
+        var go = this; go.disabled = true;
+        dlg.querySelector('#k2OffProg').hidden = false;
+        O.install(function (p) {
+          dlg.querySelector('#k2OffBar').style.width = Math.min(100, Math.round(100 * p.done / p.total)) + '%';
+          dlg.querySelector('#k2OffMsg').textContent = mb(p.done) + ' of ' + mb(p.total);
+        }).then(function () {
+          try { localStorage.setItem('kosha_scope', 'offline'); } catch (e) {}
+          location.reload();
+        }).catch(function (e) {
+          go.disabled = false; dlg.querySelector('#k2OffMsg').textContent = 'Could not finish: ' + (e && e.message || e);
+        });
+      };
+    }).catch(function (e) {
+      show('<h3>Offline fast mode</h3><p>' + esc(e && e.message || String(e)) + '</p><p class="k2-dlgbtns">' + close + '</p>');
+    });
+  }
+
   function boot() {
     if (E && E.warm) E.warm();     // fetch the dictionary manifest while the page is still starting up
     try { state.superadmin = localStorage.getItem('is_superadmin') === 'true' || localStorage.getItem('dge.admin.ok') === '1'; } catch (e) {}
@@ -1065,6 +1116,7 @@
         b.classList.toggle('active', b.dataset.scope === window.KOSHA_SCOPE);
         b.onclick = function () {
           if (b.dataset.scope === window.KOSHA_SCOPE) return;
+          if (b.dataset.scope === 'offline' && !(window.DGEKoshaOffline && window.DGEKoshaOffline.installed())) { offlineDialog(); return; }
           try { localStorage.setItem('kosha_scope', b.dataset.scope); } catch (e) {}
           location.reload();
         };
