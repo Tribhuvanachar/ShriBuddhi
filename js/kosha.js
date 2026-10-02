@@ -191,6 +191,37 @@
     return encodeURIComponent(out);
   }
 
+  // Shard file names come in two schemes. NEW (14 Sep 2026, Windows-safe): a capital SLP1 letter
+  // becomes lower-case + "-" (Bu -> b-u). LEGACY: the letters keep their case (Bu.json, bu.json).
+  // The published Kosha data (pinned in config.js) was built with the legacy scheme, so asking only
+  // for the new names made every lookup whose prefix has a capital letter (bhU-, kha-, ...) fail
+  // with "index shard unreachable" (found 2 Oct 2026). Try the scheme that has worked so far
+  // first, and the other one on a miss, so the app works before and after the data is rebuilt.
+  var preferLegacy = false;
+  function legacyBucket(b) {
+    var out = '';
+    for (var i = 0; i < b.length; i++) {
+      var ch = b[i];
+      out += /[0-9A-Za-z]/.test(ch) ? ch : (/[\^$]/.test(ch) ? ch : '%' + b.charCodeAt(i).toString(16).toUpperCase());
+    }
+    return encodeURIComponent(out || '_');
+  }
+  function bucketNames(b) {
+    var s = safeBucket(b), l = legacyBucket(b);
+    return s === l ? [s] : (preferLegacy ? [l, s] : [s, l]);
+  }
+  // fetch <prefix><bucket>.json under whichever naming scheme the data uses
+  function jb(prefix, bucket) {
+    var names = bucketNames(bucket);
+    return j(prefix + names[0] + '.json').then(function (r) {
+      if (r !== null || names.length < 2) return r;
+      return j(prefix + names[1] + '.json').then(function (r2) {
+        if (r2 !== null) preferLegacy = (names[1] === legacyBucket(bucket));
+        return r2;
+      });
+    });
+  }
+
   // ---- SLP1 + fold (mirrors the importer / the app's search spine) ----------
   function fold(s) {
     s = s.replace(/'/g, '');
@@ -284,7 +315,7 @@
         descList.slice(0, BROWSE_SHARDS).forEach(function (b) { buckets[b] = 1; });
         var need = Object.keys(buckets);
         if (!need.length) return { list: [], exact: false, q: query };
-        return Promise.all(need.map(function (b) { return j(BASE + '/_index/' + safeBucket(b) + '.json'); }))
+        return Promise.all(need.map(function (b) { return jb(BASE + '/_index/', b); }))
           .then(function (shards) {
             // Every needed bucket comes from the manifest, so a null here is
             // a FAILED FETCH, not an empty shard. Retry the misses once (j()
@@ -295,7 +326,7 @@
             var missing = need.filter(function (b, i) { return !shards[i]; });
             if (!missing.length) return shards;
             return Promise.all(need.map(function (b, i) {
-              return shards[i] || j(BASE + '/_index/' + safeBucket(b) + '.json');
+              return shards[i] || jb(BASE + '/_index/', b);
             }));
           })
           .then(function (shards) {
@@ -410,7 +441,7 @@
           bucket = m.efold.slice(0, bucket.length + 1);
         }
       }
-      return j(BASE + '/' + cat + '/' + m.d + '/e/' + safeBucket(bucket) + '.json')
+      return jb(BASE + '/' + cat + '/' + m.d + '/e/', bucket)
         .then(function (sh) {
           if (!sh || !sh[m.efold]) return null;
           var items = sh[m.efold].filter(function (it) { return it.headword === m.ehw; });
@@ -1106,7 +1137,7 @@
         var buckets = Object.keys(need);
         if (!buckets.length) return { hits: [], truncated: false };
         return Promise.all(buckets.map(function (b) {
-          return j(BASE + '/_gloss/' + safeBucket(b) + '.json');
+          return jb(BASE + '/_gloss/', b);
         })).then(function (shards) {
           var failed = buckets.filter(function (b, i) { return !shards[i]; });
           var hits = [], dedup = {};
@@ -1140,6 +1171,13 @@
     gkey: gkey,
     base: function () { return BASE; },
     // lets the page skip work for dictionaries the engine will not open (quick scope, admin-hidden)
+    // Start loading the manifest (260 KB) as soon as the page opens, so the first keystroke or
+    // lookup does not wait for it. Safe to call repeatedly.
+    warm: function () {
+      return manifest ? Promise.resolve(manifest)
+        : j(BASE + '/_index/manifest.json').then(function (m) { if (m) manifest = m; return m; });
+    },
+    bucketNames: bucketNames,
     isHiddenDict: function (slug) { return hiddenDicts().indexOf(slug) >= 0; },
     manifest: function () {
       return manifest ? Promise.resolve(manifest)

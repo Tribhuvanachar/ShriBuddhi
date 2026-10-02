@@ -124,10 +124,13 @@
     if (!RENDER_BASE) return Promise.resolve(null);
     var loc = E.bucketFor(slug, efold);
     if (!loc) return Promise.resolve(null);
-    var url = RENDER_BASE + '/' + loc.category + '/' + slug + '/e/' +
-              (window.dgeSafeBucket ? window.dgeSafeBucket(loc.bucket)
-                                    : encodeURIComponent(loc.bucket)) + '.json';
-    var p = enrichCache[url] || (enrichCache[url] = fetchJson(url));
+    var names = E.bucketNames ? E.bucketNames(loc.bucket) : [encodeURIComponent(loc.bucket)];
+    var urlOf = function (n) { return RENDER_BASE + '/' + loc.category + '/' + slug + '/e/' + n + '.json'; };
+    var url = urlOf(names[0]);
+    // names[1] is the other file-name scheme (see kosha.js bucketNames); used when the first misses
+    var p = enrichCache[url] || (enrichCache[url] = fetchJson(url).then(function (sh) {
+      return (sh || names.length < 2) ? sh : fetchJson(urlOf(names[1]));
+    }));
     return p.then(function (sh) {
       if (!sh || !sh[efold]) return null;
       var rows = sh[efold].filter(function (it) { return it.headword === headword; });
@@ -1027,6 +1030,7 @@
 
   // ---- boot ---------------------------------------------------------------
   function boot() {
+    if (E && E.warm) E.warm();     // fetch the dictionary manifest while the page is still starting up
     try { state.superadmin = localStorage.getItem('is_superadmin') === 'true' || localStorage.getItem('dge.admin.ok') === '1'; } catch (e) {}
     fetchJson('../admin/config/kosha-overrides.json').then(function (ov) {
       if (ov) state.overrides = Object.assign(state.overrides, ov);
