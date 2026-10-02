@@ -1,0 +1,79 @@
+# Fetches a site's archived pages from the Wayback Machine and lands them, unchanged, in ParaBuddhi.
+#
+# Why a workflow: the Claude sandbox cannot reach web.archive.org (the tunnel is reset); Actions runners can.
+# First use: the IITK Valmiki Ramayana site (valmiki.iitk.ac.in), whose six Sanskrit commentaries
+# (Govindarāja's Bhūṣaṇa, Madhavayogi's Amṛtakaṭaka, Śivasahāya's Śiromaṇi, Nāgojī Bhaṭṭa's Tilaka,
+# Maheśvara Tīrtha's Tattvadīpikā, Tryambaka Makhi's Dharmākūṭa) survive only there.
+#
+#   mode=probe  (default) lists what is archived and reports path patterns. Downloads nothing, writes nothing.
+#   mode=fetch  downloads up to `limit` pages (newest 200 capture, original bytes) and dumps them to
+#               ParaBuddhi source/_raw/<id>/. Re-run to continue; ParaBuddhi keeps the newest tarballs.
+# Nothing here touches data/. Building the ShriBuddhi layers from the raw tarball is a separate step.
+name: Wayback fetch
+
+on:
+  workflow_dispatch:
+    inputs:
+      host:
+        description: Site to fetch from the Wayback Machine
+        default: valmiki.iitk.ac.in
+      mode:
+        description: probe (list only) or fetch (download and land in ParaBuddhi)
+        type: choice
+        options: [probe, fetch]
+        default: probe
+      prefix:
+        description: fetch only URLs containing this text (empty = all)
+        default: ""
+      limit:
+        description: max pages to download this run
+        default: "300"
+      raw_id:
+        description: ParaBuddhi source/_raw/<id>
+        default: iitk-valmiki
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wayback-fetch
+  cancel-in-progress: false
+
+jobs:
+  wayback:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Can the runner reach the Wayback Machine?
+        run: |
+          curl -sS -m 60 -o /dev/null -w "web.archive.org: %{http_code}\n" "https://web.archive.org/web/2023/https://${{ inputs.host }}/" || echo "::warning::web.archive.org unreachable from this runner"
+
+      - name: List archived URLs
+        run: python3 tools/wayback_fetch.py probe --host "${{ inputs.host }}" --out .wb --report "$GITHUB_STEP_SUMMARY"
+
+      - name: Download pages
+        if: ${{ inputs.mode == 'fetch' }}
+        run: python3 tools/wayback_fetch.py fetch --host "${{ inputs.host }}" --out .wb --limit "${{ inputs.limit }}" --prefix "${{ inputs.prefix }}"
+
+      - name: Land the raw pages in ParaBuddhi first
+        if: ${{ inputs.mode == 'fetch' }}
+        env:
+          PARABUDDHI_TOKEN: ${{ secrets.PARABUDDHI_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$PARABUDDHI_TOKEN" || { echo "::error::PARABUDDHI_TOKEN is not set; raw pages must land in ParaBuddhi before anything is built from them."; exit 2; }
+          git clone --depth 1 "https://x-access-token:${PARABUDDHI_TOKEN}@github.com/Tribhuvanachar/ParaBuddhi.git" "$RUNNER_TEMP/pb"
+          python3 tools/watch/dump_to_parabuddhi.py --pb "$RUNNER_TEMP/pb" --id "${{ inputs.raw_id }}" --path .wb/raw --path .wb/cdx.json \
+            --note "wayback ${{ inputs.host }} prefix=${{ inputs.prefix }}" --keep 5
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wayback-cdx
+          path: .wb/cdx.json
+          if-no-files-found: ignore

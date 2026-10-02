@@ -4618,9 +4618,79 @@
     ],
     "lines": 177
    }
+  },
+  "wayback-fetch.yml": {
+   "category": "source-sync",
+   "display_name": "Wayback fetch — archived sites to ParaBuddhi",
+   "purpose": "Lists a site's pages in the Wayback Machine (probe) or downloads them and lands them unchanged in ParaBuddhi source/_raw/ (fetch). Built for the IITK Valmiki Ramayana commentaries. Never touches data/.",
+   "recommendation": "keep",
+   "reason": "The only route to sites that no longer answer; the sandbox cannot reach web.archive.org but Actions runners can.",
+   "trigger": "manual",
+   "keep": true,
+   "generated": {
+    "name": "Wayback fetch",
+    "triggers": [
+     "manual"
+    ],
+    "schedule": [],
+    "inputs": [
+     {
+      "name": "host",
+      "label": "Site to fetch from the Wayback Machine",
+      "type": "string",
+      "default": "valmiki.iitk.ac.in",
+      "required": false
+     },
+     {
+      "name": "mode",
+      "label": "probe (list only) or fetch (download and land in ParaBuddhi)",
+      "type": "choice",
+      "default": "probe",
+      "required": false,
+      "options": [
+       "probe",
+       "fetch"
+      ]
+     },
+     {
+      "name": "prefix",
+      "label": "fetch only URLs containing this text (empty = all)",
+      "type": "string",
+      "default": "",
+      "required": false
+     },
+     {
+      "name": "limit",
+      "label": "max pages to download this run",
+      "type": "string",
+      "default": "300",
+      "required": false
+     },
+     {
+      "name": "raw_id",
+      "label": "ParaBuddhi source/_raw/<id>",
+      "type": "string",
+      "default": "iitk-valmiki",
+      "required": false
+     }
+    ],
+    "secrets": [
+     "PARABUDDHI_TOKEN"
+    ],
+    "cost": [],
+    "scripts": [
+     "tools/watch/dump_to_parabuddhi.py",
+     "tools/wayback_fetch.py"
+    ],
+    "missing_scripts": [],
+    "writes": [
+     "uploads a run artifact"
+    ],
+    "lines": 80
+   }
   }
  },
- "generated_at": "2026-10-02 00:20 IST",
+ "generated_at": "2026-10-02 08:05 IST",
  "workflow_categories": [
   {
    "id": "source-sync",
