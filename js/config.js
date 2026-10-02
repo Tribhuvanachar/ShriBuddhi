@@ -140,7 +140,7 @@ if (window.KOSHA_SCOPES) {
   } catch (e) {}
   window.KOSHA_SCOPE = _scope;
   // Where the offline packs are published (tools/build_kosha_offline.py output).
-  window.KOSHA_OFFLINE_BASE = 'https://tribhuvanachar.github.io/Kosha';   // GitHub Pages of the Kosha repo, branch `offline`
+  window.KOSHA_OFFLINE_BASE = 'https://raw.githubusercontent.com/Tribhuvanachar/Kosha/offline';   // Kosha repo, branch `offline` (a GitHub Pages URL works too)
 }
 window.KOSHA_DATA_BASE = appConfig.koshaDataBase;
 
