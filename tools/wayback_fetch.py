@@ -86,9 +86,30 @@ def local_path(out: str, row: dict) -> str:
     return os.path.join(out, "raw", u.netloc.split(":")[0], path)
 
 
+def wayback_healthy(tries: int = 6, wait: int = 90) -> bool:
+    """CDX answers an empty 200 when Wayback is overloaded, which looks exactly like 'nothing archived'.
+    iitk.ac.in is certainly archived: if even that comes back empty, no zero below it means anything."""
+    for n in range(tries):
+        try:
+            if cdx("iitk.ac.in", limit=3):
+                return True
+        except Exception as e:
+            print("  control query failed: %r" % (e,), file=sys.stderr)
+        print("  control query empty (try %d/%d); Wayback looks degraded, waiting %ds" % (n + 1, tries, wait), file=sys.stderr)
+        time.sleep(wait)
+    return False
+
+
 def cmd_probe(a) -> int:
     os.makedirs(a.out, exist_ok=True)
     lines = ["# Wayback probe: %s" % a.host, ""]
+    if not wayback_healthy():
+        msg = "Wayback DEGRADED: the control query (iitk.ac.in, certainly archived) returned nothing after 6 tries. Any zero is NOT evidence that a site is absent. Try again later."
+        print(msg)
+        if a.report:
+            open(a.report, "a", encoding="utf-8").write("# " + msg + "\n")
+        return 4
+    lines.append("control query (iitk.ac.in) returned results: Wayback is answering properly.\n")
     # 1. how many captures does each way of asking find? (status filter and host spelling are the usual culprits)
     variants = [("host/* any status", a.host + "/*", "exact", ""), ("host/* status 200", a.host + "/*", "exact", "200"),
                 ("www.host/* any status", "www." + a.host + "/*", "exact", ""), ("host, domain match", a.host, "domain", "")]
