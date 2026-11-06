@@ -304,8 +304,10 @@ def test_the_real_staged_book_is_complete_in_pages_and_short_in_verses():
     r = _real_book()
     assert r["pages"] == 725 and r["page_gaps"] == []
     assert len(r["sargas"]) == 19
-    assert r["verses_by_marker"] == 1071
-    assert r["verses_by_gloss_close"] == 89
+    # 1071/89 before the tikakara's eight mangala verses were taken out of the
+    # mula stream; one verse (sarga 1) moved from marker to gloss-close.
+    assert r["verses_by_marker"] == 1070
+    assert r["verses_by_gloss_close"] == 90
     assert r["verses_by_position"] == 10
     assert r["verses_by_pratika"] == 1
     assert r["verses_found"] == 1171
@@ -416,3 +418,18 @@ def test_there_is_no_verse_zero():
                      ("paragraph", "अ ॥ १ ॥"))}
     r = rv.segment(pages)
     assert [v["verse"] for v in r["verses"].values()] == [1]
+
+
+def test_tikakara_mangala_is_not_read_as_mula_verses_1_to_8():
+    """Sarga 1 opens with the commentator's own eight mangala verses, numbered
+    in a numbering of their own, between mula verse 1 and its gloss. They used
+    to displace mula verses 2-8 and leave verse 1 without commentary."""
+    r = _real_book()
+    v = r["verses"]
+    assert v[(1, 1)]["text"].startswith("श्रीवेदान्तमहाचलं")
+    assert v[(1, 2)]["text"].startswith("सच्छास्त्रोदितवर्त्मना")
+    assert v[(1, 3)]["text"].startswith("श्रये हयमुखं")
+    assert "वैरोचनिं" not in "".join(x["text"] for x in v.values())
+    stream, _ = rv.read_blocks(rv.load_pages(str(
+        Path(__file__).resolve().parents[1] / "data/ocr_staging/rukminisha_vijaya")))
+    assert (1, 1) in {(sg, n) for _, _, n, sg in rv.gloss_regions(stream)}
