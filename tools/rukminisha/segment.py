@@ -75,6 +75,17 @@ BARE_NUM = re.compile(r"^\s*॥?\s*([0-9०-९]+)\s*॥?\s*$")
 CLOSE_NUM = re.compile(r"॥\s*([0-9०-९]+)\s*॥\s*$")
 BLOCK = re.compile(r'<(\w+)[^>]*data-layout="([^"]+)"[^>]*>(.*?)</\1>', re.S)
 TEXT_BLOCKS = ("paragraph", "section-title", "headline")
+# The edition prints, between mula verse 1 of sarga 1 and the gloss on it, the
+# TIKAKARA's own eight mangala verses, numbered ॥ १ ॥ .. ॥ ८ ॥ in a numbering of
+# their own. Read as mula they collided with mula verses 1-8 and displaced the
+# real ones: the site showed 'वैरोचनिं..' (the commentator's second mangala) as
+# verse 1.2, and the real 1.2 'सच्छास्त्रोदित..' was lost. They belong to the
+# commentary, so they are carried into the gloss that follows them, not read as
+# verses. See PREFACE_OPEN / PREFACE_CLOSE.
+PREFACE_OPEN = "॥ श्रीनारायणभट्टविरचिता टीका"
+PREFACE_CLOSE = "व्याख्यानम्"
+# A gloss can close with '। N ।' (single dandas) instead of '॥ N ॥': 1.1 does.
+CLOSE_SINGLE = re.compile(r"।\s*([0-9०-९]+)\s*।\s*$")
 
 
 def untag(html: str) -> str:
@@ -139,6 +150,8 @@ def read_blocks(pages: dict[int, str]) -> list[dict]:
     current = None
     stream: list[dict] = []
     unknown: collections.Counter = collections.Counter()
+    preface: list[str] | None = None       # tikakara's mangala, while inside it
+    last_close: dict = {}
     for page in sorted(pages):
         for m in BLOCK.finditer(pages[page]):
             kind, body = m.group(2), untag(m.group(3))
@@ -161,8 +174,22 @@ def read_blocks(pages: dict[int, str]) -> list[dict]:
             if titled:
                 current = titled
                 continue
-            nums = [int(r.translate(DEV_DIGITS)) for r in VERSE_NUM.findall(body)]
-            tail = VERSE_NUM_END.search(body)
+            if preface is None and body.startswith(PREFACE_OPEN):
+                preface = []
+                continue
+            if preface is not None:
+                if body.startswith(PREFACE_CLOSE):
+                    carried = "\n".join(preface)
+                    preface = None
+                    stream_text = body
+                    body = carried + "\n" + body
+                else:
+                    preface.append(body)
+                    continue
+            else:
+                stream_text = body
+            nums = [int(r.translate(DEV_DIGITS)) for r in VERSE_NUM.findall(stream_text)]
+            tail = VERSE_NUM_END.search(stream_text)
             if tail:
                 n = int(tail.group(1).translate(DEV_DIGITS))
                 if n not in nums:
@@ -174,17 +201,26 @@ def read_blocks(pages: dict[int, str]) -> list[dict]:
             # between two counts of the same text is exactly how Manimanjari
             # lost a verse, so it is refused here rather than reconciled later.
             nums = [n for n in nums if n >= 1]
-            bare = BARE_NUM.match(body)
-            close = CLOSE_NUM.search(body.rstrip())
+            bare = BARE_NUM.match(stream_text)
+            close = CLOSE_NUM.search(stream_text.rstrip())
+            close_n = int(close.group(1).translate(DEV_DIGITS)) if close else None
+            if close_n is None:
+                single = CLOSE_SINGLE.search(stream_text.rstrip())
+                if single and \
+                        int(single.group(1).translate(DEV_DIGITS)) in (last_close.get(current, 0),
+                                                              last_close.get(current, 0) + 1):
+                    close_n = int(single.group(1).translate(DEV_DIGITS))
+            if close_n is not None:
+                last_close[current] = close_n
             stream.append({
                 "page": page, "sarga": current, "text": body, "nums": nums,
                 # `opens` only says this block STARTS a gloss. Whether a block is
                 # INSIDE one is a property of the region, decided in segment().
-                "opens": body.startswith("व्या")
-                         or bool(GLOSS_OPEN_BARE.match(body.replace("\n", " "))),
+                "opens": stream_text.startswith("व्या")
+                         or bool(GLOSS_OPEN_BARE.match(stream_text.replace("\n", " "))),
                 "commentary": False,
                 "bare": int(bare.group(1).translate(DEV_DIGITS)) if bare else None,
-                "close": int(close.group(1).translate(DEV_DIGITS)) if close else None,
+                "close": close_n,
             })
     mark_regions(stream)
     split = split_multi_verse_blocks(stream)
