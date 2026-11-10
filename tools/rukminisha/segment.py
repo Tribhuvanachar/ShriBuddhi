@@ -155,6 +155,12 @@ def read_blocks(pages: dict[int, str]) -> list[dict]:
     for page in sorted(pages):
         for m in BLOCK.finditer(pages[page]):
             kind, body = m.group(2), untag(m.group(3))
+            # The OCR often prints the double danda as two single ones
+            # ('प्रसिद्धा ।। ५५ ।।'). Every marker pattern here wants ॥, so a
+            # gloss closed that way stayed OPEN and swallowed the next verse's
+            # opening lines as commentary (13.56 was one pada of five; 12.59,
+            # 6.35, 16.17, 19.9 likewise).
+            body = body.replace("।।", "॥")
             if kind == "header":
                 s = sarga_of(body)
                 if s:
@@ -331,6 +337,18 @@ def mark_regions(stream: list[dict]) -> dict:
         if b["bare"] is not None:
             # A marker alone in a block numbers a VERSE, so the gloss is over.
             # Unmark back to the block before this one: that block is the verse.
+            prev = stream[i - 1]["text"]
+            mid_dandas = prev.rstrip().rstrip("।॥ ").count("।")
+            if i - 1 > open_at and "\n" not in prev.strip() and mid_dandas >= 2:
+                # The block above is PROSE (two or more sentences, no pada
+                # breaks), so it is the tail of the gloss and this marker is the
+                # gloss's own closing number, not a verse's. 15.3 took
+                # 'मतीम् । अत एव स्वविरहायोग्याम् । तां रुग्मिणीं निन्ये' for verse.
+                for j in range(open_at, i):
+                    stream[j]["commentary"] = True
+                open_at = None
+                stats["closed_by_marker"] += 1
+                continue
             for j in range(open_at, i - 1):
                 stream[j]["commentary"] = True
             stream[i - 1]["commentary"] = False
@@ -407,6 +425,20 @@ def verse_run_above(stream: list[dict], start: int, sarga: int) -> list[dict]:
     return run
 
 
+def is_claimed(text: str, claimed) -> bool:
+    """True when `text` already stands under an address, whole OR AS PART OF a
+    longer verse. A verse whose first pada sits at the foot of a page is joined
+    to its marker block by segment(), so the lone first-pada block is no longer
+    equal to any claimed text -- yet it is claimed. Exact matching let 16.17
+    take the first pada of 16.24 for itself."""
+    t = text.strip()
+    # 'As part of' only counts against a verse that is already COMPLETE (four
+    # lines or more): a short claimed text may itself be the lost verse's
+    # neighbour with an unnumbered block absorbed, and that case belongs to the
+    # positional pass.
+    return t in claimed or any(t in c and c.count("\n") >= 3 for c in claimed)
+
+
 def recover_by_gloss_close(stream: list[dict], verses: dict) -> int:
     """Address a verse from the number its COMMENTARY closes with.
 
@@ -439,7 +471,7 @@ def recover_by_gloss_close(stream: list[dict], verses: dict) -> int:
         if not run:
             continue
         text = "\n".join(x["text"] for x in run)
-        if not 40 <= len(text) <= 600 or text in claimed:
+        if not 40 <= len(text) <= 600 or is_claimed(text, claimed):
             continue
         verses[(sg, n)] = {"sarga": sg, "verse": n, "page": run[0]["page"],
                            "text": text, "how": "gloss-close"}
@@ -482,7 +514,8 @@ def recover_by_position(stream: list[dict], verses: dict) -> int:
         # whole gap -- excluding the gap outright cost 19 verses that had a
         # perfectly good unclaimed block beside the claimed one.
         gap = [g for g in stream[i + 1:j]
-               if not g["commentary"] and not g["nums"] and g["text"] not in claimed]
+               if not g["commentary"] and not g["nums"]
+               and not is_claimed(g["text"], claimed)]
         # ONE BLOCK PER MISSING VERSE, or not at all. When the counts match the
         # mapping is forced and there is nothing to guess. When they do not --
         # 20 of the remaining gaps are one missing verse against two blocks,
@@ -500,13 +533,26 @@ def recover_by_position(stream: list[dict], verses: dict) -> int:
                 if stem and len(stem) >= 3:
                     hits = [g for g in gap
                             if g["text"].replace("\n", " ").lstrip().startswith(stem[:3])]
-                    if len(hits) == 1 and hits[0]["text"] not in claimed:
+                    if len(hits) == 1 and not is_claimed(hits[0]["text"], claimed):
                         verses[(b["sarga"], want[0])] = {
                             "sarga": b["sarga"], "verse": want[0],
                             "page": hits[0]["page"], "text": hits[0]["text"],
                             "how": "pratika"}
                         claimed.add(hits[0]["text"])
                         placed += 1
+            continue
+        # The commentary, where it quotes a first word, can veto a block the
+        # counts would otherwise place: 16.17 took the opening of 16.24 because
+        # one block stood against one missing number, though the gloss on 17
+        # quotes इहे.. and the block begins त्रिविष्टपेश...
+        vetoed = False
+        for v, g in zip(want, gap):
+            stem = pratika_for(stream, b["sarga"], v)
+            if stem and len(stem) >= 3:
+                head = g["text"].replace("\n", " ")
+                if stem[:3] not in head[:60]:
+                    vetoed = True
+        if vetoed:
             continue
         for v, g in zip(want, gap):
             verses[(b["sarga"], v)] = {"sarga": b["sarga"], "verse": v,
@@ -546,8 +592,8 @@ def recover_by_pratika_sargawide(stream: list[dict], verses: dict) -> int:
                 continue
             hits = [b for b in per_sarga[sg]
                     if b["text"].replace("\n", " ").lstrip().startswith(stem[:3])
-                    and b["text"] not in
-                    {x["text"] for x in verses.values() if x["sarga"] == sg}]
+                    and not is_claimed(b["text"], {x["text"] for x in verses.values()
+                                                   if x["sarga"] == sg})]
             if len(hits) == 1:
                 verses[(sg, v)] = {"sarga": sg, "verse": v, "page": hits[0]["page"],
                                    "text": hits[0]["text"], "how": "pratika"}
@@ -555,7 +601,150 @@ def recover_by_pratika_sargawide(stream: list[dict], verses: dict) -> int:
     return placed
 
 
-def segment(pages: dict[int, str], recover: bool = True) -> dict:
+# Addresses the segmenter fills with something that is not the mula verse of that
+# number, found by reading the page rather than by a rule. Each is a standing
+# decision: the verse is declared a lacuna instead of served wrong.
+EXCLUDE_VERSES = {
+    # p684: sarga 19 opens with a 'व्या : कामिनी कमला देवी...॥ ९ ॥' inset that
+    # explains the yantra hidden in verse 1. Its closing ॥ ९ ॥ made it look
+    # like the gloss on 19.9, and its second line like 19.9 itself.
+    (19, 9): "inset inside the gloss on 19.1 (p684), not verse 19.9",
+    # The tikakara also puts his own verses at the head of a sarga, numbered in
+    # his own numbering, and they took the mula address: 'आद्यादिसर्ग..' (4.2),
+    # 'हयग्रीवकृपादृष्टि..' (7.3), 'तुरङ्गतुण्डकरुणा..' (9.2). The gloss under
+    # these addresses is the right one (it quotes the real mula verse), so only
+    # the verse text is refused here and recovery may find the real one.
+    (4, 2): "tikakara's own verse, not mula 4.2",
+    (7, 3): "tikakara's own verse, not mula 7.3",
+    (9, 2): "tikakara's own verse, not mula 9.2",
+}
+# The subset whose GLOSS is also wrong and must not be attached.
+EXCLUDE_GLOSS = {(19, 9)}
+
+
+def _norm(line: str) -> str:
+    return re.sub(r"[^\u0900-\u097F]", "", re.sub(r"॥.*?॥", "", line))
+
+
+def dedupe_lines(text: str) -> str:
+    """Drop lines the OCR printed twice inside one verse.
+
+    Two shapes occur: a line repeated whole (6.45 carried its last two padas
+    twice, once from the verse block and once from the block holding the
+    marker), and a trailing catch-line that is only the opening of a pada
+    already given ('क्षेमङ्करत्वमुपयान्ति' after '...क्षेमङ्करत्वमुपयान्ति हि
+    शत्रवोऽपि'). Both are artefacts of the page break, not text of the kavya.
+    """
+    kept, seen = [], []
+    for line in text.split("\n"):
+        n = _norm(line)
+        if n and n in seen:
+            continue
+        kept.append(line)
+        seen.append(n)
+    while len(kept) > 2:
+        last = _norm(kept[-1].split("॥")[0])
+        if len(last) >= 8 and any(last in _norm(l) and _norm(l) != last for l in kept[:-1]):
+            kept.pop()
+        else:
+            break
+    return "\n".join(kept)
+
+
+def load_vision(staged_dir: str) -> dict[int, str]:
+    """The Google Vision pass, page -> plain text. A second, independent OCR of
+    the same scan; unlike Sarvam it carries no layout tags, so it can only
+    confirm or supply a verse, never decide the structure."""
+    pages: dict[int, str] = {}
+    for path in sorted(glob.glob(os.path.join(staged_dir, "vision_*.json"))):
+        try:
+            doc = json.loads(open(path, encoding="utf-8").read())
+        except (OSError, ValueError):
+            continue
+        for page in doc.get("pages") or []:
+            if page.get("text"):
+                pages[page["page"]] = page["text"]
+    return pages
+
+
+VISION_MARK = re.compile(r"[॥।|]{1,2}\s*([0-9०-९]+)\s*[॥।|]{1,2}\s*$")
+
+
+def recover_from_vision(stream: list[dict], verses: dict, vision: dict[int, str]) -> int:
+    """Fill a missing verse from the Vision text, when three things agree.
+
+    The commentary on the missing verse quotes its first word; Vision prints a
+    line of the same sarga starting with that word; and the block that line
+    opens closes with a ॥ N ॥ whose N is the missing address. Any one alone has
+    misled this book before (a quoted word recurs; a marker is misread). All
+    three together is the edition naming the verse, and the text is still Vision's
+    -- unproofread -- so it is recorded as such in `how`.
+
+    It refuses a block already standing under another address: 18.25's verse was
+    sitting at 18.26, and filling 18.25 with it would have written one verse
+    twice.
+    """
+    page_sarga: dict[int, int] = {}
+    for b in stream:
+        if b["sarga"]:
+            page_sarga.setdefault(b["page"], b["sarga"])
+    placed = 0
+    have = {(k[0]): [] for k in verses}
+    for (sg, n), rec in list(verses.items()):
+        have.setdefault(sg, []).append(rec["text"])
+    highest = {}
+    for (sg, n) in verses:
+        highest[sg] = max(highest.get(sg, 0), n)
+    for sg, high in highest.items():
+        for v in range(1, high + 1):
+            if (sg, v) in verses or (sg, v) in EXCLUDE_GLOSS:
+                continue
+            stem = pratika_for(stream, sg, v)
+            if not stem or len(stem) < 3:
+                continue
+            key = re.sub(r"[^\u0900-\u097F]", "", stem)[:3]
+            hits = []
+            for pg in sorted(p for p, s_ in page_sarga.items() if s_ == sg):
+                lines = vision.get(pg, "").split("\n")
+                for i, line in enumerate(lines):
+                    if line.startswith("व्या") or \
+                            re.sub(r"[^\u0900-\u097F]", "", line)[:3] != key:
+                        continue
+                    blk = []
+                    for m in lines[i:i + 7]:
+                        blk.append(m)
+                        mk = VISION_MARK.search(m)
+                        if mk:
+                            if int(mk.group(1).translate(DEV_DIGITS)) == v:
+                                hits.append((pg, blk))
+                            break
+            # 13 pages of this scan are printed twice; the same verse found on
+            # both is one hit, not two.
+            uniq = {}
+            for pg_, blk_ in hits:
+                uniq.setdefault("\n".join(blk_), (pg_, blk_))
+            hits = list(uniq.values())
+            if len(hits) != 1:
+                continue
+            pg, blk = hits[0]
+            # A quoted passage inside a gloss also opens with a word the
+            # commentary names and can end in a number (15.56 took a sentence of
+            # prose that way). Verse lines carry no quotation marks and are short.
+            if any(q in m for m in blk for q in "“”\"'‘’") or len(blk[0]) > 110:
+                continue
+            body = [m for m in blk if not re.fullmatch(r"\s*[0-9]+\s*/?\s*", m)]
+            text = "\n".join(body).replace("/ ॥", "॥").strip()
+            if any(text.split("\n")[0] in t for t in have.get(sg, [])):
+                continue
+            verses[(sg, v)] = {"sarga": sg, "verse": v, "page": pg, "text": text,
+                               "how": "vision"}
+            have.setdefault(sg, []).append(text)
+            placed += 1
+    return placed
+
+
+def segment(pages: dict[int, str], recover: bool = True,
+            vision: dict[int, str] | None = None) -> dict:
     stream, unknown_headers = read_blocks(pages)
     verses: dict[tuple[int, int], dict] = {}
     # A verse is often printed ONE PADA PER BLOCK -- four blocks of 25-32
@@ -593,11 +782,19 @@ def segment(pages: dict[int, str], recover: bool = True) -> dict:
                           {"sarga": b["sarga"], "verse": n, "page": run[0]["page"],
                            "text": "\n".join(x["text"] for x in run), "how": "marker"})
     by_marker = len(verses)
+    for addr in EXCLUDE_VERSES:
+        verses.pop(addr, None)
     if recover:
         recover_by_gloss_close(stream, verses)
         recover_by_position(stream, verses)
         recover_by_pratika_sargawide(stream, verses)
+        if vision:
+            recover_from_vision(stream, verses, vision)
 
+    for addr in EXCLUDE_VERSES:           # recovery passes must not put it back
+        verses.pop(addr, None)
+    for v in verses.values():
+        v["text"] = dedupe_lines(v["text"])
     per = collections.defaultdict(list)
     for (s, n) in verses:
         per[s].append(n)
@@ -619,6 +816,7 @@ def segment(pages: dict[int, str], recover: bool = True) -> dict:
         "verses_by_gloss_close": sum(1 for v in verses.values() if v.get("how") == "gloss-close"),
         "verses_by_position": sum(1 for v in verses.values() if v.get("how") == "position"),
         "verses_by_pratika": sum(1 for v in verses.values() if v.get("how") == "pratika"),
+        "verses_by_vision": sum(1 for v in verses.values() if v.get("how") == "vision"),
         "verses_found": sum(s["found"] for s in sargas),
         "verses_missing": sum(len(s["missing"]) for s in sargas),
         "verses": verses,

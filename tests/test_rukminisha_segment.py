@@ -304,14 +304,19 @@ def test_the_real_staged_book_is_complete_in_pages_and_short_in_verses():
     r = _real_book()
     assert r["pages"] == 725 and r["page_gaps"] == []
     assert len(r["sargas"]) == 19
-    # 1071/89 before the tikakara's eight mangala verses were taken out of the
-    # mula stream; one verse (sarga 1) moved from marker to gloss-close.
-    assert r["verses_by_marker"] == 1070
-    assert r["verses_by_gloss_close"] == 90
-    assert r["verses_by_position"] == 10
-    assert r["verses_by_pratika"] == 1
-    assert r["verses_found"] == 1171
-    assert r["verses_missing"] == 68
+    # History: 1071/89/10/1 -> 1171 found, 68 missing, before the double-danda
+    # fix ('।।' was not read as ॥, so a gloss closed that way swallowed the next
+    # verse), the tikakara's verses were taken out of the mula stream, and
+    # duplicate recoveries were refused. Sarvam alone now finds 1201.
+    assert r["verses_by_marker"] == 1100
+    assert r["verses_by_gloss_close"] == 98
+    assert r["verses_by_position"] == 7
+    assert r["verses_by_pratika"] == 0
+    assert r["verses_found"] == 1201
+    assert r["verses_missing"] == 40
+    # The highest number per sarga sums to 1,241 -- the figure the literature
+    # cites -- whatever is missing in between.
+    assert sum(s_["highest"] for s_ in r["sargas"]) == 1241
 
 
 def test_the_addressed_verses_are_actually_verse_SHAPED():
@@ -433,3 +438,44 @@ def test_tikakara_mangala_is_not_read_as_mula_verses_1_to_8():
     stream, _ = rv.read_blocks(rv.load_pages(str(
         Path(__file__).resolve().parents[1] / "data/ocr_staging/rukminisha_vijaya")))
     assert (1, 1) in {(sg, n) for _, _, n, sg in rv.gloss_regions(stream)}
+
+
+def _real_vision():
+    d = Path(__file__).resolve().parents[1] / "data/ocr_staging/rukminisha_vijaya"
+    if not d.is_dir():
+        import pytest
+        pytest.skip("Rukminisha Vijaya staging not present")
+    return rv.segment(rv.load_pages(str(d)), vision=rv.load_vision(str(d)))
+
+
+def test_vision_fills_only_where_commentary_and_marker_agree():
+    r = _real_vision()
+    assert r["verses_by_vision"] == 5
+    assert r["verses_found"] == 1206 and r["verses_missing"] == 35
+    # 15.56 once took a quoted sentence of prose as a verse.
+    assert (15, 56) not in r["verses"]
+
+
+def test_no_verse_stands_in_two_places_and_none_is_a_fragment():
+    r = _real_vision()
+    texts = {k: v["text"] for k, v in r["verses"].items()}
+    lines = {k: {l.strip() for l in t.split("\n") if l.strip()} for k, t in texts.items()}
+    for a, la in lines.items():
+        for b, lb in lines.items():
+            if a != b and a[0] == b[0] and la < lb:
+                raise AssertionError(f"{a} is part of {b}")
+    for k, t in texts.items():
+        n = len([l for l in t.split("\n") if l.strip()])
+        assert 2 <= n <= 5, (k, n)
+
+
+def test_a_double_danda_printed_as_two_single_ones_closes_the_gloss():
+    """13.56 lost four padas of five because a gloss closed with '।। ५५ ।।'
+    stayed open and ate the next verse's opening."""
+    pages = {1: page(("header", "प्रथमः सर्गः"),
+                     ("paragraph", "verse one line a\nverse one line b ॥ १ ॥"),
+                     ("paragraph", "व्या : gloss one ।। १ ।।"),
+                     ("paragraph", "verse two pada a"),
+                     ("paragraph", "verse two pada b ॥ २ ॥"))}
+    r = rv.segment(pages)
+    assert r["verses"][(1, 2)]["text"].startswith("verse two pada a")
