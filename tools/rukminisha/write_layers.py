@@ -62,14 +62,14 @@ def commentary_index(stream: list[dict]) -> dict:
     """
     out = collections.defaultdict(list)
     for opened, closed, n, sarga in seg.gloss_regions(stream):
-        if sarga and n >= 1:
+        if sarga and n >= 1 and (sarga, n) not in seg.EXCLUDE_GLOSS:
             out[(sarga, n)].extend(stream[opened:closed + 1])
     return out
 
 
-def build(pages: dict[int, str]) -> tuple[dict, dict]:
+def build(pages: dict[int, str], vision: dict[int, str] | None = None) -> tuple[dict, dict]:
     stream, _ = seg.read_blocks(pages)
-    rep = seg.segment(pages)
+    rep = seg.segment(pages, vision=vision)
     comms = commentary_index(stream)
 
     files, stats = {}, collections.Counter()
@@ -103,6 +103,11 @@ def build(pages: dict[int, str]) -> tuple[dict, dict]:
                                 "position between its numbered neighbours",
                                 "pratika":
                                 "the pratīka the commentary quotes",
+                                "vision":
+                                "the Google Vision OCR (unproofread): the "
+                                "commentary quotes its first word and Vision "
+                                "prints it closed by this verse number; the "
+                                "Sarvam pass did not yield it",
                                 }.get(rec["how"], rec["how"])),
                     "page": rec.get("page"),
                 }
@@ -148,7 +153,7 @@ def main(argv: list[str] | None = None) -> int:
     if not pages:
         print(f"no delivered pages under {args.staged_dir}", file=sys.stderr)
         return 1
-    files, stats = build(pages)
+    files, stats = build(pages, seg.load_vision(args.staged_dir))
 
     for name, payload in sorted(files.items(), key=lambda kv: int(kv[0].split("_")[1])):
         m = payload["metadata"]
